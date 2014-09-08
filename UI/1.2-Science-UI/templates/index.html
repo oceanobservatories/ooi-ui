@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en" ng-app="Dashboard">
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Map</title>
+	
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	<title>Map Test</title>
+
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+     
+     
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
+</head>
+
+<style>
+
+	#map{    
+	    height:330px;    
+		overflow: hidden;
+	}
+
+	#plotlegend{    
+	    height:330px;    
+		overflow-y: scroll;	    
+	}
+
+	#arrayList{
+		padding-left: 0px ;
+	}
+
+	#list1{
+		padding-left: 0px ;
+	}
+	.test{
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.datalist{
+		padding-left: 5px ;
+		padding-right: 5px ;
+	}
+
+	body {
+	    padding-top: 50px;
+	}	
+
+	.titletab{
+	  padding-left: 5px !important;
+	  padding-right: 5px !important;
+	}
+
+	.name{
+		padding:5px;
+	}
+
+	.datanavrow{
+	    max-height: 300px;
+	    overflow-y: scroll;	    
+	}
+
+
+	::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+	}
+
+	::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+	}
+
+	.badge-error {
+  	  background-color: #b94a48;
+	}
+	
+	.badge-warning {
+	  background-color: #f89406;
+	}
+	
+	.badge-success {
+	  background-color: #468847;
+	}
+	
+	.badge-info {
+	  background-color: #3a87ad;
+	}
+	
+	.badge-inverse {
+	  background-color: #333333;
+	}
+
+	.list-group > a:hover,
+	.list-group > a:focus {
+		color: #3a87ad;
+	}
+
+	.list-group > a.disabled {
+	  color: #999999;
+	}
+	.list-group > a.disabled:hover,
+	.list-group > a.disabled:focus {
+	  color: #b94a48;
+	  text-decoration: none;
+	  /*background-color: transparent;*/
+	  cursor: not-allowed;
+	}
+		
+
+</style>
+
+
+<body>
+   
+  <div class="container test">  
+  	<div class="row">
+  		<!--START OF ROW-->
+
+  		<div class="col-lg-4 test">
+  			<div class="panel panel-default">
+			  <div class="panel-heading">Map</div>
+			  <div id="map" class="panel-body">
+			    Map Panel
+			  </div>
+			</div>  	
+  		</div>
+
+  		<div class="col-sm-0">
+  			<button id="arrayButton"type="button" class="btn btn-primary btn-sm" style="display: none;">
+			  <span class="glyphicon glyphicon-chevron-down fa-rotate-90"></span> Arrays			  
+			</button>  			
+			<h4 style="display: none;" id="arrayHeader"style="padding-left:10px;display: inline">CE</h4>
+  		</div>
+
+  		<div id="arrayList" class="col-lg-4 datalist">
+  			<ul class="nav nav-tabs" role="tablist">
+			  	<li class="name active"><a class="titletab" href="#arrayTab" data-toggle="tooltip tab2" title="List of arrays">Arrays</a></li>			  	
+			</ul>
+
+			<div id="arraySelection" class="tab-content">
+				<div class="tab-pane active" id="arrayTab">
+					<div class="list-group datanavrow" id="array_data">
+						<!--CONTENTS GO HERE-->			
+  					</div>
+				</div>
+			</div>
+  		</div>
+
+  		<div id="list1" class="col-lg-4 datalist" style="display: none;">
+
+  			<ul class="nav nav-tabs" role="tablist">
+			  <li class=""><a class="titletab" href="#variable" data-toggle="tab" title="Data Variables">Variable 
+			  	<span id="variable_bg_num" class="badge badge-error">0</span></a></li>
+
+			  <li class="active"><a class="titletab" href="#platform" data-toggle="tab" title="Asset">Platforms 
+			  	<span id="platform_bg_num" class="badge badge-info">0</span></a></li>
+
+			  <li class=""><a class="titletab hidden" href="#mobile" data-toggle="tab" title="Mobile Assest">Mobile Assets 
+			  	<span id="mobile_bg_num" class="badge badge-info">0</span></a></li>
+			</ul>
+
+  			<!--NOW WE HAVE THE TAB TITLES LETS GET THE ACTUAL CONTENTS POPULATE FROM JSON-->
+			<div id="allTabs" class="tab-content">
+				<div class="tab-pane" id="variable">
+					<div class="list-group datanavrow" id="instrument_data">
+						<!--CONTENTS GO HERE-->						
+					</div>	
+				</div>
+
+				<div class="tab-pane active" id="platform">
+						<div class="list-group datanavrow" id="platform_data">
+						
+						<!-- TEMPLATE
+						<a href="#" class="list-group-item">
+						    platform test 1
+						    <span class="glyphicon glyphicon-chevron-right"></span>
+			      			<span class="badge">69</span>
+			      			<p class="list-group-item-text">Temperature in degrees C from a sensor</p>
+						 </a>				
+						-->
+						
+						</div>	
+				</div>
+
+
+				<div class="tab-pane" id="mobile">					
+					<div class="list-group datanavrow" id="mobile_data">						
+						<!--CONTENTS GO HERE-->						
+					</div>	
+				</div>
+
+			</div>	
+
+		</div>  			
+
+		<div id="list2" class="col-lg-4 datalist" style="display: none;">			
+			<!-- THE CONTENTS OF THE FIRST TABLE CLICK-->
+			<ul class="nav nav-tabs" role="tablist">
+			  	<li class="active"><a class="titletab" href="#secondTab" data-toggle="tooltip tab2" title="Instruments / Data Products">Variable List</a></li>			  	
+			</ul>
+
+			<div id="secondSelection" class="tab-content">
+				<div class="tab-pane active" id="secondTab">
+					<div class="list-group datanavrow" id="second_level_data">
+						<!--CONTENTS GO HERE-->			
+  					</div>
+				</div>
+			</div>
+		</div>  	
+
+		<!--START OF ROW-->
+  	</div>   
+
+  	<div class="row">
+  		<div class="col-lg-4 test">
+  			<div class="panel panel-default">
+			  <div class="panel-heading">Map</div>
+			  <div id="plotlegend" class="panel-body">
+			    	Plot Legend
+			  </div>
+			</div>  	
+  		</div>
+  	</div>   
+
+  </div> 
+
+
+  <script>	
+
+  $('#tabs').tab();
+  $(".titletab").tooltip({placement: 'bottom'});
+  $("#arraySelection").on('click','.array_item',function(e){
+  		id = ($(this).attr('array_id'))
+  		name = ($(this).attr('array_name'))
+
+  		$("#arrayHeader").text(id+ " - "+name);
+	  	toggleData();
+  });
+
+  $("#arrayButton").click(function(){
+  	toggleData();
+  	$('#platform_data').html("");
+	$('#mobile_data').html("");
+	$('#instrument_data').html("");
+	$('#second_level_data').html("");
+  });
+
+  function toggleData(){
+  	$('#arrayList').toggle();
+	$("#list1").toggle();
+	$("#list2").toggle();
+    $('#arrayButton').toggle();
+    $('#arrayHeader').toggle();
+  }
+
+  function getArrayData(){  	
+  	makeRequest('arraylist','')
+  		.done(function(result){     
+  			
+            $.each( Object.keys(result), function( key, array_val ) {		  	
+			  	if (result[array_val].length >0){
+			  	addArrays(array_val,result[array_val][0]['name'],result[array_val][0]['num'])
+			  	}else{
+			  	addArrays(array_val,result[array_val]['name'],result[array_val]['num'])	
+			  	}
+			});			  		 
+    	})
+    	.fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+		});
+  	
+  }
+
+   function addArrays(array_id,array_des,platforms){ 
+  	$('#array_data').append('<a href="#" class="list-group-item name array_item" array_id="'+array_id+'" array_name="'+array_des+'">'+array_id+						  
+						    '<span class="glyphicon glyphicon-chevron-right"></span>'+
+			      			'<span class="badge badge-info">'+platforms+'</span>'+
+			      			'<p class="list-group-item-text">'+array_des+'</p></a>');
+  	} 
+
+  function makeRequest(endpoint,inputs){
+  	reqUrl = "http://localhost:5000/"+endpoint+"/?"+inputs
+
+    //console.log(reqUrl)
+    return $.ajax({
+        type: 'GET',
+        url: reqUrl,  
+        dataType: 'jsonp',        
+        success: function(result){
+            var text = '';
+            var len = result.length;            
+        }
+    });  
+  }
+
+  //GO!
+  $(document).ready(function(){
+  		console.log('go...')
+  		getArrayData();
+
+  		
+  }); 
+
+  </script>
+</body>
+</html>
