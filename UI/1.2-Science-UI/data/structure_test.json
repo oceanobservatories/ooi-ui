@@ -1,0 +1,2769 @@
+{
+  "OO": {
+    "platforms": {
+      "_list": []
+    }, 
+    "name": "OOI"
+  }, 
+  "CI": {
+    "platforms": {
+      "_list": []
+    }, 
+    "name": "Cyber Infrastructure"
+  }, 
+  "GS": {
+    "platforms": {
+      "FLMA": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "SUMO": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Direct Covariance Flux": {
+            "instrument_description": "Measures vertical fluxes associated with eddies in the flow over the ocean", 
+            "data_products": "Direct Covariance Flux of Heat; Direct Covariance Flux of Momentum; Platform Direction and Tilt (3 axes); Turbulent Air Temperature; Wind Velocity in 3 Dimensions"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "FLMB": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "_list": [
+        "FLMA", 
+        "FLMB", 
+        "HYPM", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_04", 
+        "SUMO"
+      ], 
+      "MOAS_01": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_02": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_04": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "HYPM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Global)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on global arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ]
+    }, 
+    "name": "55 South (GS)"
+  }, 
+  "RS": {
+    "platforms": {
+      "SLBS": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Broadband Ocean Bottom Seismometer": {
+            "instrument_description": "Measures global/regional seismic events and harmonic tremors", 
+            "data_products": "Broadband Ground Acceleration; Broadband Ground Velocity "
+          }
+        }, 
+        {
+          "Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver to measure acoustic signal of wind, rain, and seismic t-phases", 
+            "data_products": "Low Frequency Acoustic pressure waves"
+          }
+        }, 
+        {
+          "Tidal Seafloor Pressure": {
+            "instrument_description": "Measures tidal pressure on the seafloor to mm scale", 
+            "data_products": "Seafloor Pressure"
+          }
+        }
+      ], 
+      "SUM1": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Broadband Ocean Bottom Seismometer": {
+            "instrument_description": "Measures global/regional seismic events and harmonic tremors", 
+            "data_products": "Broadband Ground Acceleration; Broadband Ground Velocity "
+          }
+        }, 
+        {
+          "Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver to measure acoustic signal of wind, rain, and seismic t-phases", 
+            "data_products": "Low Frequency Acoustic pressure waves"
+          }
+        }, 
+        {
+          "Short-Period Ocean Bottom Seismometer": {
+            "instrument_description": "Measures regional/local seismic activity", 
+            "data_products": "Short Period Ground Velocity"
+          }
+        }, 
+        {
+          "Tidal Seafloor Pressure": {
+            "instrument_description": "Measures tidal pressure on the seafloor to mm scale", 
+            "data_products": "Seafloor Pressure"
+          }
+        }
+      ], 
+      "_list": [
+        "ASHS", 
+        "AXBS", 
+        "AXVM", 
+        "CCAL", 
+        "ECAL", 
+        "INT1", 
+        "INT2", 
+        "SBVM", 
+        "SLBS", 
+        "SUM1", 
+        "SUM2"
+      ], 
+      "ECAL": [
+        {
+          "Bottom Pressure and Tilt": {
+            "instrument_description": "Measures seafloor inflation and deflation due to magmatic processes", 
+            "data_products": "Nano-resolution Bottom Pressure; Seafloor Uplift and Deflation; Seafloor High-Resolution Tilt "
+          }
+        }, 
+        {
+          "Broadband Ocean Bottom Seismometer": {
+            "instrument_description": "Measures global/regional seismic events and harmonic tremors", 
+            "data_products": "Broadband Ground Acceleration; Broadband Ground Velocity "
+          }
+        }, 
+        {
+          "Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver to measure acoustic signal of wind, rain, and seismic t-phases", 
+            "data_products": "Low Frequency Acoustic pressure waves"
+          }
+        }, 
+        {
+          "Short-Period Ocean Bottom Seismometer": {
+            "instrument_description": "Measures regional/local seismic activity", 
+            "data_products": "Short Period Ground Velocity"
+          }
+        }
+      ], 
+      "SBVM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range)": {
+            "instrument_description": "3-D (U,V,W) velocity profile at resolutions that are appropriate to estimate turbulence parameters", 
+            "data_products": "Echo Intensity; Turbulent Velocity Profile "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Broadband Acoustic Receiver (Hydrophone)": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver in the water column to measure acoustic signal ofmarine mammals, fish, wind, and rain", 
+            "data_products": "Broadband Acoustic pressure waves ; Broadband Frequency "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Horizontal Electric Field, Pressure and Inverted Echo Sounder": {
+            "instrument_description": "Horizontal electric field, pressure, inverted echo sounder for: water column integration of velocity, acoustic travel time, pressure, water column structure", 
+            "data_products": "Horizontal Electric Fields; Water Property Profile Time Series; Vertically Averaged Horizontal Water Velocity (VAHWV) ; Water Column Heat Content; Bottom Pressure; Roundtrip Acoustic Travel Time (RATT) "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "SUM2": [
+        {
+          "Benthic Fluid Flow": {
+            "instrument_description": "Benthic fluid flow rate sampler. Measures benthic flow rates via optical injection tracer at the sediment-water interface", 
+            "data_products": "Benthic Flow Rates"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Mass Spectrometer": {
+            "instrument_description": "Mass Spectrometer for dissolved gases in hydrothermal and seep fluids", 
+            "data_products": "Suite of Dissolved Gas Measurements (10-20 individual gases) vs. Time "
+          }
+        }, 
+        {
+          "Osmosis-Based Water Sampler": {
+            "instrument_description": "Collecting samples of diffuse flow and seep fluids for major/trace element chemistry", 
+            "data_products": "Physical Fluid Sample \u2013 Diffuse fluid chemistry"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "AXBS": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Broadband Ocean Bottom Seismometer": {
+            "instrument_description": "Measures global/regional seismic events and harmonic tremors", 
+            "data_products": "Broadband Ground Acceleration; Broadband Ground Velocity "
+          }
+        }, 
+        {
+          "Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver to measure acoustic signal of wind, rain, and seismic t-phases", 
+            "data_products": "Low Frequency Acoustic pressure waves"
+          }
+        }, 
+        {
+          "Tidal Seafloor Pressure": {
+            "instrument_description": "Measures tidal pressure on the seafloor to mm scale", 
+            "data_products": "Seafloor Pressure"
+          }
+        }
+      ], 
+      "INT1": [
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Hydrothermal Vent Fluid In-situ Chemistry": {
+            "instrument_description": "Measures hydrothermal vent fluid temperature, hydrogen, hydrogen sulfide and pH", 
+            "data_products": "Hydrogen Concentration; Hydrogen Sulfide Concentration; pH; Vent Fluid Temperature from THSPH"
+          }
+        }, 
+        {
+          "Hydrothermal Vent Fluid Interactive Sampler": {
+            "instrument_description": "Used for measuring major/trace element chemistry, temperature, H2S, pH", 
+            "data_products": "Physical Fluid Sample \u2013 Diffuse fluid chemistry; Vent Fluid Temperature from RASFL "
+          }
+        }, 
+        {
+          "Hydrothermal Vent Fluid Temperature and Resistivity": {
+            "instrument_description": "Measures hydrothermal vent fluid temperature, resistivity, and eH", 
+            "data_products": "Vent Fluid Chloride Concentration; Vent Fluid Oxidation-Reduction Potential (ORP); Resistivity R1; Resistivity R2; Resistivity R3; Vent Fluid Temperature from TRHPH; Thermocouple Temperature; ORP Volts; Thermistor Temperature"
+          }
+        }, 
+        {
+          "Mass Spectrometer": {
+            "instrument_description": "Mass Spectrometer for dissolved gases in hydrothermal and seep fluids", 
+            "data_products": "Suite of Dissolved Gas Measurements (10-20 individual gases) vs. Time "
+          }
+        }, 
+        {
+          "Particulate DNA Sampler": {
+            "instrument_description": "Used to measure microbial community", 
+            "data_products": "16s rRNA sequence of filtered physical sample"
+          }
+        }
+      ], 
+      "CCAL": [
+        {
+          "Bottom Pressure and Tilt": {
+            "instrument_description": "Measures seafloor inflation and deflation due to magmatic processes", 
+            "data_products": "Nano-resolution Bottom Pressure; Seafloor Uplift and Deflation; Seafloor High-Resolution Tilt "
+          }
+        }, 
+        {
+          "Broadband Ocean Bottom Seismometer": {
+            "instrument_description": "Measures global/regional seismic events and harmonic tremors", 
+            "data_products": "Broadband Ground Acceleration; Broadband Ground Velocity "
+          }
+        }, 
+        {
+          "Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver to measure acoustic signal of wind, rain, and seismic t-phases", 
+            "data_products": "Low Frequency Acoustic pressure waves"
+          }
+        }
+      ], 
+      "INT2": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Bottom Pressure and Tilt": {
+            "instrument_description": "Measures seafloor inflation and deflation due to magmatic processes", 
+            "data_products": "Nano-resolution Bottom Pressure; Seafloor Uplift and Deflation; Seafloor High-Resolution Tilt "
+          }
+        }, 
+        {
+          "Short-Period Ocean Bottom Seismometer": {
+            "instrument_description": "Measures regional/local seismic activity", 
+            "data_products": "Short Period Ground Velocity"
+          }
+        }
+      ], 
+      "AXVM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range)": {
+            "instrument_description": "3-D (U,V,W) velocity profile at resolutions that are appropriate to estimate turbulence parameters", 
+            "data_products": "Echo Intensity; Turbulent Velocity Profile "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Broadband Acoustic Receiver (Hydrophone)": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver in the water column to measure acoustic signal ofmarine mammals, fish, wind, and rain", 
+            "data_products": "Broadband Acoustic pressure waves ; Broadband Frequency "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Horizontal Electric Field, Pressure and Inverted Echo Sounder": {
+            "instrument_description": "Horizontal electric field, pressure, inverted echo sounder for: water column integration of velocity, acoustic travel time, pressure, water column structure", 
+            "data_products": "Horizontal Electric Fields; Water Property Profile Time Series; Vertically Averaged Horizontal Water Velocity (VAHWV) ; Water Column Heat Content; Bottom Pressure; Roundtrip Acoustic Travel Time (RATT) "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "ASHS": [
+        {
+          "Diffuse Vent Fluid 3-D Temperature Array": {
+            "instrument_description": "Measures temperatures of diffuse flow across the seafloor", 
+            "data_products": "Temperature Array in Spatial Grid"
+          }
+        }, 
+        {
+          "HD Digital Video Camera with Strobes": {
+            "instrument_description": "HD Camera with strobes, pan, and tilt for high definition video imagery of vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "HD Video "
+          }
+        }, 
+        {
+          "Osmosis-Based Water Sampler": {
+            "instrument_description": "Collecting samples of diffuse flow and seep fluids for major/trace element chemistry", 
+            "data_products": "Physical Fluid Sample \u2013 Diffuse fluid chemistry"
+          }
+        }, 
+        {
+          "Short-Period Ocean Bottom Seismometer": {
+            "instrument_description": "Measures regional/local seismic activity", 
+            "data_products": "Short Period Ground Velocity"
+          }
+        }
+      ]
+    }, 
+    "name": "Regional"
+  }, 
+  "SS": {
+    "platforms": {
+      "_list": []
+    }, 
+    "name": "Shore Side Facilities"
+  }, 
+  "GP": {
+    "platforms": {
+      "FLMA": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "FLMB": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "_list": [
+        "FLMA", 
+        "FLMB", 
+        "HYPM", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_04"
+      ], 
+      "MOAS_01": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_02": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_04": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "HYPM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Global)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on global arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ]
+    }, 
+    "name": "Station PAPA (GP)"
+  }, 
+  "CE": {
+    "platforms": {
+      "OSHY": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }
+      ], 
+      "_list": [
+        "ISSM", 
+        "ISSP", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_03", 
+        "MOAS_04", 
+        "MOAS_05", 
+        "OSBP", 
+        "OSHY", 
+        "OSPM", 
+        "OSSM", 
+        "SHBP", 
+        "SHSM", 
+        "SHSP"
+      ], 
+      "SHBP": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Broadband Acoustic Receiver (Hydrophone)": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver in the water column to measure acoustic signal ofmarine mammals, fish, wind, and rain", 
+            "data_products": "Broadband Acoustic pressure waves ; Broadband Frequency "
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "ISSM": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "MOAS_01": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "MOAS_02": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "MOAS_03": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "MOAS_04": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "MOAS_05": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range) for mobile assets": {
+            "instrument_description": "ADCPs to be mounted on gliders and AUVs", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "OSSM": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "SHSM": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Direct Covariance Flux": {
+            "instrument_description": "Measures vertical fluxes associated with eddies in the flow over the ocean", 
+            "data_products": "Direct Covariance Flux of Heat; Direct Covariance Flux of Momentum; Platform Direction and Tilt (3 axes); Turbulent Air Temperature; Wind Velocity in 3 Dimensions"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "ISSP": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }
+      ], 
+      "OSPM": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }
+      ], 
+      "SHSP": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }
+      ], 
+      "OSBP": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Broadband Acoustic Receiver (Hydrophone)": {
+            "instrument_description": "Broadband (Passive) Acoustic Receiver in the water column to measure acoustic signal ofmarine mammals, fish, wind, and rain", 
+            "data_products": "Broadband Acoustic pressure waves ; Broadband Frequency "
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Digital Still Camera with Strobes": {
+            "instrument_description": "Ethernet Camera with strobes for digital still imagery of water column biology, vents, diffuse flow, seeps, macrofauna", 
+            "data_products": "Still Image "
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ]
+    }, 
+    "name": "Endurance Array (CE)"
+  }, 
+  "GA": {
+    "platforms": {
+      "FLMA": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "SUMO": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "FLMB": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "_list": [
+        "FLMA", 
+        "FLMB", 
+        "HYPM", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_04", 
+        "SUMO"
+      ], 
+      "MOAS_01": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_02": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_04": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "HYPM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Global)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on global arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ]
+    }, 
+    "name": "Global Argentine (GA)"
+  }, 
+  "CP": {
+    "platforms": {
+      "PMCO": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "_list": [
+        "CNSM", 
+        "CNSP", 
+        "ISSM", 
+        "ISSP", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_03", 
+        "MOAS_04", 
+        "MOAS_05", 
+        "MOAS_06", 
+        "OSPM", 
+        "OSSM", 
+        "PMCI", 
+        "PMCO", 
+        "PMUI", 
+        "PMUO"
+      ], 
+      "CNSP": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }
+      ], 
+      "ISSM": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "MOAS_01": [], 
+      "MOAS_02": [], 
+      "MOAS_03": [], 
+      "MOAS_04": [], 
+      "MOAS_05": [], 
+      "MOAS_06": [], 
+      "PMUO": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "PMCI": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "OSSM": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "ISSP": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }
+      ], 
+      "OSPM": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }
+      ], 
+      "CNSM": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Absorption Spectrophotometer": {
+            "instrument_description": "Measures optical attenuation and absorption", 
+            "data_products": "Optical Absorption Coefficient; Reference Absorption; Signal Absorption; Optical Beam Attenuation Coefficient; Reference Beam Attenuation; Signal Beam Attenuation; Temperature from OPTAA "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Coastal)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on coastal arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Direct Covariance Flux": {
+            "instrument_description": "Measures vertical fluxes associated with eddies in the flow over the ocean", 
+            "data_products": "Direct Covariance Flux of Heat; Direct Covariance Flux of Momentum; Platform Direction and Tilt (3 axes); Turbulent Air Temperature; Wind Velocity in 3 Dimensions"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Nitrate": {
+            "instrument_description": "Optical Nitrate measurements (fast response and appropriate for profilers)", 
+            "data_products": "Nitrate Concentration"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "pCO2 Water": {
+            "instrument_description": "Measures partial pressure of CO2 in the water column", 
+            "data_products": "Optical Absorbance Ratio at 434nm; Optical Absorbance Ratio at 620nm; PCO2W Thermistor Temperature; Partial Pressure of CO2 in Water"
+          }
+        }, 
+        {
+          "Seafloor Pressure": {
+            "instrument_description": "Measures seafloor pressure", 
+            "data_products": "Seafloor Pressure"
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Spectral Irradiance": {
+            "instrument_description": "Measures downwelling spectral irradiance", 
+            "data_products": "Downwelling Spectral Irradiance "
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ], 
+      "PMUI": [
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Fast Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients", 
+            "data_products": "Oxygen Concentration from Fastrep DO Instrument"
+          }
+        }, 
+        {
+          "Photosynthetically Available Radiation": {
+            "instrument_description": "Measures optical attenuation and absorption at 400-700nm wavelengths", 
+            "data_products": "Photosynthetically Active Radiation (400-700 nm)"
+          }
+        }, 
+        {
+          "Velocity Profiler (short range)": {
+            "instrument_description": "ADCPs capable of measuring 300 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile; Wave Spectral Properties "
+          }
+        }
+      ]
+    }, 
+    "name": "Pioneer Array (CP)"
+  }, 
+  "GI": {
+    "platforms": {
+      "FLMA": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "SUMO": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "Bulk Meteorology Instrument Package": {
+            "instrument_description": "Measures surface meteorology and provides the data required to compute air-sea fluxes of heat, freshwater, and momentum", 
+            "data_products": "Barometric Pressure; Sea Surface Conductivity; Freshwater Flux; Net Heat Flux; Latent Heat Flux; Downwelling Longwave Irradiance; Momentum Flux (Wind Stress) ; Net Longwave Irradiance ; Net Shortwave Irradiance ; Precipitation; Rain Heat Flux; Rain rate; Relative Humidity; Sea Surface Salinity ; Sensible Heat Flux ; Downwelling Shortwave Irradiance ; Specific Humidity"
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "CTD Pumped": {
+            "instrument_description": "CTDs equiped with a bottom pump", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Direct Covariance Flux": {
+            "instrument_description": "Measures vertical fluxes associated with eddies in the flow over the ocean", 
+            "data_products": "Direct Covariance Flux of Heat; Direct Covariance Flux of Momentum; Platform Direction and Tilt (3 axes); Turbulent Air Temperature; Wind Velocity in 3 Dimensions"
+          }
+        }, 
+        {
+          "pCO2 Air-Sea": {
+            "instrument_description": "Measures partial pressure of CO2 at the air-sea interface", 
+            "data_products": "Flux of CO2 from the Ocean into the Atmosphere; Partial Pressure of CO2 in Atmosphere; Partial Pressure of CO2 in Surface Sea Water; PCO2A Gas Stream Pressure; CO2 Mole Fraction in Atmosphere; CO2 Mole Fraction in Surface Sea Water "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Single Point Velocity Meter": {
+            "instrument_description": "Measures Mean U and V single point velocity", 
+            "data_products": "Mean Point Water Velocity"
+          }
+        }, 
+        {
+          "Surface Wave Spectra": {
+            "instrument_description": "Non-directional and directional wave characteristics, SurfaceWave Spectra", 
+            "data_products": "Wave Spectral Properties"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "FLMB": [
+        {
+          "3-Wavelength Fluorometer": {
+            "instrument_description": "3-Wavelength Fluorometer for measurement of fluorescence, Chl-a, CDOM, optical backscatter", 
+            "data_products": "Fluorometric CDOM Concentration; Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Mooring (Inductive)": {
+            "instrument_description": "CTDs to be used in surface and subsurface moorings", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }, 
+        {
+          "Seawater pH": {
+            "instrument_description": "pH", 
+            "data_products": "PHSEN Thermistor Temperature; Optical Absorbance Signal Intensity at 434nm; Optical Absorbance Signal Intensity at 578nm; pH"
+          }
+        }, 
+        {
+          "Velocity Profiler (long range)": {
+            "instrument_description": "ADCPs capable of measuring 500 m or greater from the instrument", 
+            "data_products": "Echo Intensity; Velocity Profile "
+          }
+        }
+      ], 
+      "_list": [
+        "FLMA", 
+        "FLMB", 
+        "HYPM", 
+        "MOAS_01", 
+        "MOAS_02", 
+        "MOAS_04", 
+        "SUMO"
+      ], 
+      "MOAS_01": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_02": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "MOAS_04": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "CTD Glider": {
+            "instrument_description": "CTDs to be mounted on gliders", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ], 
+      "HYPM": [
+        {
+          "2-Wavelength Fluorometer": {
+            "instrument_description": "2-Wavelength Fluorometer for measurement of fluorescence, Chl-a, optical backscatter", 
+            "data_products": "Fluorometric Chlorophyll-a Concentration; Optical Backscatter (Red Wavelengths) "
+          }
+        }, 
+        {
+          "3-D Single Point Velocity Meter": {
+            "instrument_description": "3-D single point velocity, fast enough to measure fluctuating velocity in u,v,w (u\",v\",w\") or platform motion on moving profilers", 
+            "data_products": "Mean Point Water Velocity; Turbulent Point Water Velocity "
+          }
+        }, 
+        {
+          "Bio-acoustic Sonar (Global)": {
+            "instrument_description": "Measures acoustic signal of plankton and zooplankton on global arrays", 
+            "data_products": "Multi-Frequency Acoustic Backscatter"
+          }
+        }, 
+        {
+          "CTD Profiler": {
+            "instrument_description": "CTDs to be mounted on a profiler", 
+            "data_products": "Conductivity; Density; Practical Salinity; Pressure (Depth); Temperature"
+          }
+        }, 
+        {
+          "Dissolved Oxygen Stable Response": {
+            "instrument_description": "Measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings", 
+            "data_products": "Oxygen Concentration from Stable DO Instrument; Oxygen Concentration from Stable DO Instrument "
+          }
+        }
+      ]
+    }, 
+    "name": "Global Irminger Sea (GI)"
+  }
+}
