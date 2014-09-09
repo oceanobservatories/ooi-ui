@@ -48,14 +48,15 @@ def support_jsonp(func):
 
 def getMockArrayDataList():
     array_list = {}
-    array_list['CE']={'name':'Endurance Array (CE)',"num":14},
-    array_list['GP']={'name':'Station PAPA (GP)',"num":6},
-    array_list['CP']={'name':'Pioneer Array (CP)',"num":16},
-    array_list['GA']={'name':'Global Argentine (GA)','num':7},
-    array_list['RS']={'name':'RS Regional','num':11},
-    array_list['GI']={'name':'Global Irminger Sea (GI)','num':7},
-    array_list['GS']={'name':'55 South (GS)','num':7}
+    array_list['CE']={'name':'Endurance Array (CE)',"num":14,'lat':44.37,'lon':-124.95}
+    array_list['GP']={'name':'Station PAPA (GP)',"num":6,'lat':49.9795,'lon':-144.254}
+    array_list['CP']={'name':'Pioneer Array (CP)',"num":16,'lat':40.1,'lon':-70.88}
+    array_list['GA']={'name':'Global Argentine (GA)','num':7,'lat':-42.5073,'lon':-42.8905}
+    array_list['RS']={'name':'RS Regional','num':11,'lat':44.554,'lon':-125.352}
+    array_list['GI']={'name':'Global Irminger Sea (GI)','num':7,'lat':60.4582,'lon':-38.4407}
+    array_list['GS']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
     return array_list
+
 
 @app.route("/arraylist/")
 @support_jsonp
@@ -125,6 +126,8 @@ def getTsData():
         variable_name = request.args['variable']
     except Exception, e:
         raise e
+
+
 
 
 

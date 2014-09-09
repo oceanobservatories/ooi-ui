@@ -35,6 +35,10 @@
      
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.css">
+
 </head>
 
 <style>
@@ -42,11 +46,14 @@
 	#map{    
 	    height:330px;    
 		overflow: hidden;
+		border-style: solid;
+    	border-width: 1px;
 	}
 
 	#plotlegend{    
 	    height:330px;    
-		overflow-y: scroll;	    
+		overflow-y: scroll;	   
+		padding: 5px; 
 	}
 
 	#arrayList{
@@ -71,8 +78,9 @@
 	}	
 
 	.titletab{
-	  padding-left: 5px !important;
-	  padding-right: 5px !important;
+		font-weight: bold !important;
+	 	padding-left: 5px !important;
+	 	padding-right: 5px !important;
 	}
 
 	.name{
@@ -133,6 +141,30 @@
 	}
 		
 
+   #axis0 {
+    position: absolute;
+    height: 800px;
+    width: 40px;
+    left: 10px;
+  }
+  #axis1 {
+    position: absolute;
+    left: 730px;
+    height: 800px;
+    width: 40px;
+  }
+  #chart {
+    left: 50px;
+    width: 680px;
+    position: absolute;
+  }
+
+  .legend_item{
+  	padding: 5px;
+  	width: 100%;
+  	color: black;
+  }
+
 </style>
 
 
@@ -142,12 +174,8 @@
   	<div class="row">
   		<!--START OF ROW-->
 
-  		<div class="col-lg-4 test">
-  			<div class="panel panel-default">
-			  <div class="panel-heading">Map</div>
-			  <div id="map" class="panel-body">
-			    Map Panel
-			  </div>
+  		<div class="col-lg-4 test">  			
+			<div id="map">			    
 			</div>  	
   		</div>
 
@@ -238,11 +266,64 @@
   	</div>   
 
   	<div class="row">
-  		<div class="col-lg-4 test">
-  			<div class="panel panel-default">
-			  <div class="panel-heading">Map</div>
+  		<div class="col-md-2 test">
+  			<div style="height:350px" class="panel panel-default">
+			  <div class="panel-heading">Plot Legend <span class="glyphicon glyphicon-indent-left"></span></div>
 			  <div id="plotlegend" class="panel-body">
-			    	Plot Legend
+			    	<ul class="list-group">
+					  <li style="background-color: steelblue;" class="list-group-item legend_item">Temperature <span class="glyphicon glyphicon-remove"></span></li>
+					  <li style="background-color: lightblue;"class="list-group-item legend_item">Salinity <span class="glyphicon glyphicon-remove"></span></li>
+					</ul>
+			  </div>
+			</div>  	
+  		</div>
+
+  		<div class="col-md-8 plotPane">
+  			<div id="plot" style="margin-top:15px;height:350px">			 	    	
+			    	<div id="axis0"></div>
+					<div id="chart"></div>
+					<div id="axis1"></div>
+			  </div>	
+  		</div>
+
+  		<div class="col-md-2 test">
+  			<div style="height:350px" class="panel panel-default">
+			  <div class="panel-heading">Plot Tools <span class="glyphicon glyphicon-indent-left"></span></div>
+			  <div id="plottools" class="panel-body">
+
+			  	<div class="btn-group-vertical">
+  							
+
+			    	<button type="button" class="btn btn-info btn-md">
+					  <span class="glyphicon glyphicon-download-alt"></span> Download
+					</button>
+
+					<button type="button" class="btn btn-info btn-md">
+					  <span class="glyphicon glyphicon-upload"></span> View in Erddap
+					</button>
+
+					<hr></hr>
+
+					<button type="button" class="btn btn-info btn-md">
+					  <span class="glyphicon glyphicon-th"></span> View as Table
+					</button>
+
+					<button type="button" class="btn btn-info btn-md">
+					  <span class="glyphicon glyphicon-tasks"></span> Overview Plot
+					</button>
+
+					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+					    Download Plot <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+					    <li><a href="#">.png</a></li>
+					    <li><a href="#">.jpg</a></li>
+					    <li class="divider"></li>
+					    <li><a href="#">.pdf</a></li>
+					</ul>
+					  					
+				</div>
+
 			  </div>
 			</div>  	
   		</div>
@@ -282,14 +363,34 @@
   function getArrayData(){  	
   	makeRequest('arraylist','')
   		.done(function(result){     
-  			
+  			//	
+  			platform_markers = new L.FeatureGroup();
+  			//
             $.each( Object.keys(result), function( key, array_val ) {		  	
-			  	if (result[array_val].length >0){
-			  	addArrays(array_val,result[array_val][0]['name'],result[array_val][0]['num'])
-			  	}else{
+			  	
 			  	addArrays(array_val,result[array_val]['name'],result[array_val]['num'])	
-			  	}
-			});			  		 
+			  	lat = result[array_val]['lat']
+			  	lon = result[array_val]['lon']			  	
+
+			  	markerColors = ['red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpuple', 'cadetblue']  	
+			  	
+			  	var colorMarker = L.AwesomeMarkers.icon({
+			    	icon: 'eye-open',
+			    	markerColor: markerColors[key]
+			 	 });
+
+			  	isnan = isNaN(lat);				
+				try{
+					if (!isnan){						  			  			  
+						var mk = (L.marker([lat,lon], {icon: colorMarker}));
+						platform_markers.addLayer(mk);
+					}
+				}catch(e){					
+				}	
+
+			});	
+			//add the stations
+			map.addLayer(platform_markers);				  		 
     	})
     	.fail(function( jqXHR, textStatus ) {
 		  alert( "Request failed: " + textStatus );
@@ -320,12 +421,112 @@
   }
 
   //GO!
-  $(document).ready(function(){
+  //$(document).ready(function(){
   		console.log('go...')
   		getArrayData();
+  	
+  //}); 
+  
+  //MAP
+  var map = L.map('map').setView([20.505, -72.09], 1);
+  addMap();
 
-  		
-  }); 
+  function addMap(){  	
+	// add an OpenStreetMap tile layer
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
+   }	    
+
+   /*
+   should be hide the layer
+   function resetMap(){   	 
+   	 map.removeLayer(platform_markers);
+   }
+   */
+
+
+  //PLOT
+
+  var data, graph, i, max, min, point, random, scales, series, _i, _j, _k, _l, _len, _len1, _len2, _ref;
+
+	data = [[], []];
+
+	random = new Rickshaw.Fixtures.RandomData(12 * 60 * 60);
+
+	for (i = _i = 0; _i < 100; i = ++_i) {
+	  random.addData(data);
+	}
+
+	scales = [];
+
+	_ref = data[1];
+	for (_j = 0, _len = _ref.length; _j < _len; _j++) {
+	  point = _ref[_j];
+	  point.y *= point.y;
+	}
+
+	for (_k = 0, _len1 = data.length; _k < _len1; _k++) {
+	  series = data[_k];
+	  min = Number.MAX_VALUE;
+	  max = Number.MIN_VALUE;
+	  for (_l = 0, _len2 = series.length; _l < _len2; _l++) {
+	    point = series[_l];
+	    min = Math.min(min, point.y);
+	    max = Math.max(max, point.y);
+	  }
+	  if (_k === 0) {
+	    scales.push(d3.scale.linear().domain([min, max]).nice());
+	  } else {
+	    scales.push(d3.scale.pow().domain([min, max]).nice());
+	  }
+	}
+
+	graph = new Rickshaw.Graph({
+	  element: document.getElementById("chart"),
+	  renderer: 'line',
+	  series: [
+	    {
+	      color: 'steelblue',
+	      data: data[0],
+	      name: 'Temperature',
+	      scale: scales[0]
+	    }, {
+	      color: 'lightblue',
+	      data: data[1],
+	      name: 'Salinity',
+	      scale: scales[1]
+	    }
+	  ]
+	});
+
+	new Rickshaw.Graph.Axis.Y.Scaled({
+	  element: document.getElementById('axis0'),
+	  graph: graph,
+	  orientation: 'left',
+	  scale: scales[0],
+	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+	});
+
+	new Rickshaw.Graph.Axis.Y.Scaled({
+	  element: document.getElementById('axis1'),
+	  graph: graph,
+	  grid: false,
+	  orientation: 'right',
+	  scale: scales[1],
+	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+	});
+
+	new Rickshaw.Graph.Axis.Time({
+	  graph: graph
+	});
+
+	new Rickshaw.Graph.HoverDetail({
+	  graph: graph
+	});
+
+	graph.render();
 
   </script>
 </body>
