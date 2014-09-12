@@ -23,8 +23,19 @@ import json
 
 app = Flask(__name__, static_url_path='')
 
+@app.route('/js/<filename>')
+def jsFiles(filename):
+    return app.send_static_file(os.path.join('static', filename))
+    #return url_for('static', filename=filename)
+
+@app.route('/landing')
+def landing(name=None):
+    if name:
+        return render_template(name, title = name)
+    else:
+        return render_template("landing.html", title = 'Main')
+
 @app.route('/')
-@app.route('/<name>')
 def root(name=None):
     if name:
         return render_template(name, title = name)
@@ -132,4 +143,4 @@ def getTsData():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='10.90.69.31',debug=True)
