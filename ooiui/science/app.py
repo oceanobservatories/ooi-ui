@@ -23,25 +23,6 @@ import json
 
 app = Flask(__name__, static_url_path='')
 
-@app.route('/js/<filename>')
-def jsFiles(filename):
-    return app.send_static_file(os.path.join('static', filename))
-    #return url_for('static', filename=filename)
-
-@app.route('/landing')
-def landing(name=None):
-    if name:
-        return render_template(name, title = name)
-    else:
-        return render_template("landing.html", title = 'Main')
-
-@app.route('/')
-def root(name=None):
-    if name:
-        return render_template(name, title = name)
-    else:
-        return render_template("index.html", title = 'Main')
-
 def support_jsonp(func):
     """Wraps JSONified output for JSONP requests."""
     @wraps(func)
@@ -55,7 +36,43 @@ def support_jsonp(func):
         else:
             return func(*args, **kwargs)
     return decorated_function
- 
+
+def root_dir():  # pragma: no cover
+    return os.path.abspath(os.path.dirname(__file__))
+
+@app.route('/js/<path:path>')
+def jsFiles(path):
+    location = os.path.join('js', path)
+    return app.send_static_file(location)
+
+@app.route('/img/<path:path>')
+def imageFiles(path):
+    location = os.path.join('img', path)
+    return app.send_static_file(location)
+
+@app.route('/css/<path:path>')
+def cssFiles(path):
+    location = os.path.join('css', path)
+    return app.send_static_file(location)
+
+@app.route('/fonts/<path:path>')
+def fontFiles(path):
+    location = os.path.join('fonts', path)
+    return app.send_static_file(location)
+
+@app.route('/common/<filename>')
+def commonFiles(filename):
+    return app.send_static_file(os.path.join('static', filename))
+
+@app.route('/')
+def root(name=None):
+    if name:
+        return render_template(name, title = "")
+    else:
+        return render_template("index.html", title = 'Main')
+
+
+## MOCK FUNCTIONS 
 
 def getMockArrayDataList():
     array_list = {}
@@ -68,76 +85,5 @@ def getMockArrayDataList():
     array_list['GS']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
     return array_list
 
-
-@app.route("/arraylist/")
-@support_jsonp
-def getArrayList():
-    '''
-    get a list of the arrays and their bounding information
-    '''
-    try:
-        array_list = getMockArrayDataList()
-        array_list = json.dumps(array_list,indent=2)
-        resp = Response(response=array_list,
-                    status=200,
-                    mimetype="application/json")
-        return resp
-
-    except Exception, e:
-        raise e
-
-@app.route("/platformlist/")
-@support_jsonp
-def getPlatformsForArray():
-    '''
-    get a list of platforms given an array id
-    '''
-    try:
-        array_name = request.args['array']
-    except Exception, e:
-        raise e
-
-@app.route("/instrumentlist/")
-@support_jsonp
-def getInstrumentList():
-    '''
-    gets a list of instruments, given an array and platform id
-    includes the variable information
-    '''
-    try:
-        array_name = request.args['array']
-        platform_name = request.args['platform']
-    except Exception, e:
-        raise e
-
-
-@app.route("/variablelist/")
-@support_jsonp
-def getVariableList():
-    '''
-    by variable, lists the platforms available
-    '''
-    try:
-        array_name = request.args['array']
-        platform_name = request.args['platform']
-    except Exception, e:
-        raise e
-
-
-@app.route("/timeseries/")
-@support_jsonp
-def getTsData():
-    '''
-    get time series data for a given set of inputs
-    '''
-    try:
-        array_name = request.args['array']
-        platform_name = request.args['platform']
-        instrument_name = request.args['instrument']
-        variable_name = request.args['variable']
-    except Exception, e:
-        raise e
-
-
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    app.run(host='localhost',debug=True)
