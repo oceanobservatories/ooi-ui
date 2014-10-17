@@ -1,19 +1,12 @@
 <!doctype html>
-<html lang="en" ng-app="Dashboard">
-<head>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Map</title>
-	
+<html lang="en">
+<head>  	
+	<title>OOI Science Page</title>	
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	
-	<title>Map Test</title>
-
+    <meta name="description" content="Main Landing Page For status page">
+    <meta name="author" content="RPS ASA">	
 	<meta charset="UTF-8">
 
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -22,7 +15,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<!-- Latest compiled and minified CSS -->
@@ -36,498 +28,484 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.js"></script>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.4.0/holder.js"></script>	
+
+    <link rel="stylesheet" href="/css/index.css">
+		
+    <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/js/metismenu.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/css/metismenu.min.css">
+
+    <script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
+    <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.label/leaflet.label.css">
+
+    <link rel="stylesheet" href="/css/social/bootstrap-social.css">
+
+    <!--   
+	MORRIS PLOTS
+	-->
+	<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
+
+	<!--   
+	cubism plots
+	-->
+	<script src="/js/cubism/cubism.v1.js"></script>
+
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 </head>
 
 <style>
 
-	#map{    
-	    height:330px;    
-		overflow: hidden;
-		border-style: solid;
-    	border-width: 1px;
-	}
-
-	#plotlegend{    
-	    height:330px;    
-		overflow-y: scroll;	   
-		padding: 5px; 
-	}
-
-	#arrayList{
-		padding-left: 0px ;
-	}
-
-	#list1{
-		padding-left: 0px ;
-	}
-	.test{
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	.datalist{
-		padding-left: 5px ;
-		padding-right: 5px ;
-	}
-
-	body {
-	    padding-top: 50px;
-	}	
-
-	.titletab{
-		font-weight: bold !important;
-	 	padding-left: 5px !important;
-	 	padding-right: 5px !important;
-	}
-
-	.name{
-		padding:5px;
-	}
-
-	.datanavrow{
-	    max-height: 300px;
-	    overflow-y: scroll;	    
-	}
-
-
-	::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-	}
-
-	::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-	}
-
-	.badge-error {
-  	  background-color: #b94a48;
-	}
-	
-	.badge-warning {
-	  background-color: #f89406;
-	}
-	
-	.badge-success {
-	  background-color: #468847;
-	}
-	
-	.badge-info {
-	  background-color: #3a87ad;
-	}
-	
-	.badge-inverse {
-	  background-color: #333333;
-	}
-
-	.list-group > a:hover,
-	.list-group > a:focus {
-		color: #3a87ad;
-	}
-
-	.list-group > a.disabled {
-	  color: #999999;
-	}
-	.list-group > a.disabled:hover,
-	.list-group > a.disabled:focus {
-	  color: #b94a48;
-	  text-decoration: none;
-	  /*background-color: transparent;*/
-	  cursor: not-allowed;
-	}
-		
-
-   #axis0 {
-    position: absolute;
-    height: 800px;
-    width: 40px;
-    left: 10px;
-  }
-  #axis1 {
-    position: absolute;
-    left: 730px;
-    height: 800px;
-    width: 40px;
-  }
-  #chart {
-    left: 50px;
-    width: 680px;
-    position: absolute;
-  }
-
-  .legend_item{
-  	padding: 5px;
-  	width: 100%;
-  	color: black;
-  }
 
 </style>
 
 
 <body>
-   
-  <div class="container test">  
-  	<div class="row">
-  		<!--START OF ROW-->
 
-  		<div class="col-lg-4 test">  			
-			<div id="map">			    
-			</div>  	
-  		</div>
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 
-  		<div class="col-sm-0">
-  			<button id="arrayButton"type="button" class="btn btn-primary btn-sm" style="display: none;">
-			  <span class="glyphicon glyphicon-chevron-down fa-rotate-90"></span> Arrays			  
-			</button>  			
-			<h4 style="display: none;" id="arrayHeader"style="padding-left:10px;display: inline">CE</h4>
-  		</div>
-
-  		<div id="arrayList" class="col-lg-4 datalist">
-  			<ul class="nav nav-tabs" role="tablist">
-			  	<li class="name active"><a class="titletab" href="#arrayTab" data-toggle="tooltip tab2" title="List of arrays">Arrays</a></li>			  	
-			</ul>
-
-			<div id="arraySelection" class="tab-content">
-				<div class="tab-pane active" id="arrayTab">
-					<div class="list-group datanavrow" id="array_data">
-						<!--CONTENTS GO HERE-->			
-  					</div>
+    <div id="wrapper">
+    <div class="container-full">
+    	<!--/.banner -->
+    	<div class="row">    	
+			<div class="col-lg-4">
+				<img src="/img/nsf-logo.png" class="img-rounded" style="width:100px;height:100px">
+    		</div>
+    		<div class="col-lg-4">
+    			<img src="/img/OOI_BannerNew_01.png" class="img-rounded">
+    		</div>
+    		<div class="col-lg-3">
+    			<img src="/img/OceanLeadershipLogoCS2.png" class="img-rounded" style="width:150px;height:100px">    		
+			</div>
+			<div class="col-lg-1">
+    			<div>
+	    			<a class="btn btn-social-icon btn-twitter">
+					    <i class="fa fa-twitter"></i>
+					</a>
+				</div>
+				<div style="padding-top:5px;">
+					<a class="btn btn-social-icon btn-facebook">
+					    <i class="fa fa-facebook"></i>
+					</a>
 				</div>
 			</div>
-  		</div>
 
-  		<div id="list1" class="col-lg-4 datalist" style="display: none;">
+    	</div>
 
-  			<ul class="nav nav-tabs" role="tablist">
-			  <li class=""><a class="titletab" href="#variable" data-toggle="tab" title="Data Variables">Variable 
-			  	<span id="variable_bg_num" class="badge badge-error">0</span></a></li>
-
-			  <li class="active"><a class="titletab" href="#platform" data-toggle="tab" title="Asset">Platforms 
-			  	<span id="platform_bg_num" class="badge badge-info">0</span></a></li>
-
-			  <li class=""><a class="titletab hidden" href="#mobile" data-toggle="tab" title="Mobile Assest">Mobile Assets 
-			  	<span id="mobile_bg_num" class="badge badge-info">0</span></a></li>
-			</ul>
-
-  			<!--NOW WE HAVE THE TAB TITLES LETS GET THE ACTUAL CONTENTS POPULATE FROM JSON-->
-			<div id="allTabs" class="tab-content">
-				<div class="tab-pane" id="variable">
-					<div class="list-group datanavrow" id="instrument_data">
-						<!--CONTENTS GO HERE-->						
-					</div>	
+    	<!--/.Array Names -->
+    	<div class="row ">
+    		<div class="col-lg-12">
+    			<div class="panel panel-default">
+				  <div class="panel-body array-row">
+				  	<div class="text-center">
+				    <div class="btn-group btn-group">
+				    	<button type="button" class="active btn btn-info array-btn" array="all">All</button>
+				    	<button type="button" class="btn btn-default array-btn" array="ce">Endurance Array (CE)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gp">Station PAPA (GP)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="cp">Pioneer Array (CP)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="ga">Global Argentine (GA)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="rs">RS Regional (RS)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gi">Global Irminger Sea (GI)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gs">55 South (GS)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="ssf" disabled="disabled">Shore Side Facilities (SSF)</button>
+				    </div>
+				    </div>
+				  </div>
 				</div>
+    		</div>
+    	</div>
 
-				<div class="tab-pane active" id="platform">
-						<div class="list-group datanavrow" id="platform_data">
-						
-						<!-- TEMPLATE
-						<a href="#" class="list-group-item">
-						    platform test 1
-						    <span class="glyphicon glyphicon-chevron-right"></span>
-			      			<span class="badge">69</span>
-			      			<p class="list-group-item-text">Temperature in degrees C from a sensor</p>
-						 </a>				
-						-->
-						
-						</div>	
+    	<!--/.content -->
+    	<div class="row">
+    		<div class="col-lg-2">
+    			<div class="panel panel-default">
+				  <div class="panel-body">
+				    <div>
+				    	<h4 style="text-align: center;">Array Overview 
+				    		<i class="glyphicon glyphicon-info-sign info-icon"></i>
+				    	</h4>			
+				    	
+				    	<div class="timeline-text" id="timeline">
+				    	</div>
+				    	
+				    	<h4 style="padding-top:20px;text-align: center;">Array Breakdown 
+				    		<i class="glyphicon glyphicon-info-sign info-icon"></i>
+				    	</h4>
+
+				    	<div id="donut-example" style="text-align: center;">
+				    	</div>		
+				    </div>
+				  </div>
 				</div>
-
-
-				<div class="tab-pane" id="mobile">					
-					<div class="list-group datanavrow" id="mobile_data">						
-						<!--CONTENTS GO HERE-->						
-					</div>	
+    		</div>
+    		
+    		<div class="col-lg-7">
+    			<div class="panel panel-default">
+				  <div class="panel-body">
+				    <div id="map" style="width: 100%; height: 800px"></div>
+				  </div>
 				</div>
+    		</div>
 
-			</div>	
+    		<div class="col-lg-3">
+    			<div class="panel panel-default">
+				  <div class="panel-body">
+				  	<div>
+					  	<h4 style="padding-top:00px;text-align: center;">Timeseries Data 
+					    		<i class="glyphicon glyphicon-info-sign info-icon"></i>
+					    </h4>
 
-		</div>  			
+					    <div id="timeseriesdata" class='tsplot morris'>
+					    </div>
 
-		<div id="list2" class="col-lg-4 datalist" style="display: none;">			
-			<!-- THE CONTENTS OF THE FIRST TABLE CLICK-->
-			<ul class="nav nav-tabs" role="tablist">
-			  	<li class="active"><a class="titletab" href="#secondTab" data-toggle="tooltip tab2" title="Instruments / Data Products">Variable List</a></li>			  	
-			</ul>
-
-			<div id="secondSelection" class="tab-content">
-				<div class="tab-pane active" id="secondTab">
-					<div class="list-group datanavrow" id="second_level_data">
-						<!--CONTENTS GO HERE-->			
-  					</div>
+					    <div id="timeseriesdata-high" style="min-width: 110px; height: 400px; margin: 0 auto"></div>
+					</div>
+				  </div>
 				</div>
-			</div>
-		</div>  	
+    		</div>		
+    	</div>
+    </div>
+    </div>
 
-		<!--START OF ROW-->
-  	</div>   
+    <div id="tilepopovertitle" style="display: none">
+            <b>Array Overview</b>
+    </div> 
 
-  	<div class="row">
-  		<div class="col-md-2 test">
-  			<div style="height:350px" class="panel panel-default">
-			  <div class="panel-heading">Plot Legend <span class="glyphicon glyphicon-indent-left"></span></div>
-			  <div id="plotlegend" class="panel-body">
-			    	<ul class="list-group">
-					  <li style="background-color: steelblue;" class="list-group-item legend_item">Temperature <span class="glyphicon glyphicon-remove"></span></li>
-					  <li style="background-color: lightblue;"class="list-group-item legend_item">Salinity <span class="glyphicon glyphicon-remove"></span></li>
-					</ul>
-			  </div>
-			</div>  	
-  		</div>
+    <div id="tilepopovercontent" style="display: none">
+            <div class="popovertext">
+            	some content here
+            </div>
+    </div> 
 
-  		<div class="col-md-8 plotPane">
-  			<div id="plot" style="margin-top:15px;height:350px">			 	    	
-			    	<div id="axis0"></div>
-					<div id="chart"></div>
-					<div id="axis1"></div>
-			  </div>	
-  		</div>
-
-  		<div class="col-md-2 test">
-  			<div style="height:350px" class="panel panel-default">
-			  <div class="panel-heading">Plot Tools <span class="glyphicon glyphicon-indent-left"></span></div>
-			  <div id="plottools" class="panel-body">
-
-			  	<div class="btn-group-vertical">
-  							
-
-			    	<button type="button" class="btn btn-info btn-md">
-					  <span class="glyphicon glyphicon-download-alt"></span> Download
-					</button>
-
-					<button type="button" class="btn btn-info btn-md">
-					  <span class="glyphicon glyphicon-upload"></span> View in Erddap
-					</button>
-
-					<hr></hr>
-
-					<button type="button" class="btn btn-info btn-md">
-					  <span class="glyphicon glyphicon-th"></span> View as Table
-					</button>
-
-					<button type="button" class="btn btn-info btn-md">
-					  <span class="glyphicon glyphicon-tasks"></span> Overview Plot
-					</button>
-
-					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-					    Download Plot <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-					    <li><a href="#">.png</a></li>
-					    <li><a href="#">.jpg</a></li>
-					    <li class="divider"></li>
-					    <li><a href="#">.pdf</a></li>
-					</ul>
-					  					
-				</div>
-
-			  </div>
-			</div>  	
-  		</div>
-  	</div>   
-
-  </div> 
+	<script>
+	/* TEMPO ARRAY LIST*/
+	array_list = {}
+    array_list['ce']={'name':'Endurance Array (CE)',"num":14,'lat':44.37,'lon':-124.95}
+    array_list['gp']={'name':'Station PAPA (GP)',"num":6,'lat':49.9795,'lon':-144.254}
+    array_list['cp']={'name':'Pioneer Array (CP)',"num":16,'lat':40.1,'lon':-70.88}
+    array_list['ga']={'name':'Global Argentine (GA)','num':7,'lat':-42.5073,'lon':-42.8905}
+    array_list['rs']={'name':'RS Regional','num':11,'lat':44.554,'lon':-125.352}
+    array_list['gi']={'name':'Global Irminger Sea (GI)','num':7,'lat':60.4582,'lon':-38.4407}
+    array_list['gs']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
+    array_list['gs']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
 
 
-  <script>	
+	var map = L.map('map').setView([41.505, -89.09], 3);
 
-  $('#tabs').tab();
-  $(".titletab").tooltip({placement: 'bottom'});
-  $("#arraySelection").on('click','.array_item',function(e){
-  		id = ($(this).attr('array_id'))
-  		name = ($(this).attr('array_name'))
+	var test = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'examples.map-i875mjb7'
+	})
 
-  		$("#arrayHeader").text(id+ " - "+name);
-	  	toggleData();
-  });
 
-  $("#arrayButton").click(function(){
-  	toggleData();
-  	$('#platform_data').html("");
-	$('#mobile_data').html("");
-	$('#instrument_data').html("");
-	$('#second_level_data').html("");
-  });
+	var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	});
 
-  function toggleData(){
-  	$('#arrayList').toggle();
-	$("#list1").toggle();
-	$("#list2").toggle();
-    $('#arrayButton').toggle();
-    $('#arrayHeader').toggle();
-  }
+	var Stamen_TonerHybrid = L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
+		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+		subdomains: 'abcd',
+		minZoom: 0,
+		maxZoom: 20
+	});
 
-  function getArrayData(){  	
-  	makeRequest('arraylist','')
-  		.done(function(result){     
-  			//	
-  			platform_markers = new L.FeatureGroup();
-  			//
-            $.each( Object.keys(result), function( key, array_val ) {		  	
-			  	
-			  	addArrays(array_val,result[array_val]['name'],result[array_val]['num'])	
-			  	lat = result[array_val]['lat']
-			  	lon = result[array_val]['lon']			  	
+	var OpenMapSurfer_AdminBounds = L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/adminb/x={x}&y={y}&z={z}', {
+		minZoom: 0,
+		maxZoom: 19,
+		attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+	});
 
-			  	markerColors = ['red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpuple', 'cadetblue']  	
-			  	
-			  	var colorMarker = L.AwesomeMarkers.icon({
-			    	icon: 'eye-open',
-			    	markerColor: markerColors[key]
-			 	 });
+		
 
-			  	isnan = isNaN(lat);				
-				try{
-					if (!isnan){						  			  			  
-						var mk = (L.marker([lat,lon], {icon: colorMarker}));
-						platform_markers.addLayer(mk);
-					}
-				}catch(e){					
-				}	
+	//HERE_hybridDay.addTo(map);	
+	Esri_WorldImagery.addTo(map);
+	Stamen_TonerHybrid.addTo(map);
+	OpenMapSurfer_AdminBounds.addTo(map);
 
-			});	
-			//add the stations
-			map.addLayer(platform_markers);				  		 
-    	})
-    	.fail(function( jqXHR, textStatus ) {
-		  alert( "Request failed: " + textStatus );
-		});
-  	
-  }
+	pioneer = L.polygon([
+		[39.00, -69.92],
+		[39.00, -71.50],
+		[40.67, -71.50],
+		[40.67, -69.92],
+		[39.00, -69.92]
+	],
+	{
+		color: 'red',
+		weight:1,
+	}
+	).addTo(map);
 
-   function addArrays(array_id,array_des,platforms){ 
-  	$('#array_data').append('<a href="#" class="list-group-item name array_item" array_id="'+array_id+'" array_name="'+array_des+'">'+array_id+						  
-						    '<span class="glyphicon glyphicon-chevron-right"></span>'+
-			      			'<span class="badge badge-info">'+platforms+'</span>'+
-			      			'<p class="list-group-item-text">'+array_des+'</p></a>');
-  	} 
 
-  function makeRequest(endpoint,inputs){
-  	reqUrl = "http://10.90.69.31:5000/"+endpoint+"/?"+inputs
+	pioneer.on('click', function() {	
+    	map.fitBounds(pioneer.getBounds());
+    	map.zoomOut();
+	});
 
-    //console.log(reqUrl)
-    return $.ajax({
-        type: 'GET',
-        url: reqUrl,  
-        dataType: 'jsonp',        
-        success: function(result){
-            var text = '';
-            var len = result.length;            
+	var label = new L.Label();
+    label.setContent("Pioneer");
+    label.setLatLng(pioneer.getBounds().getCenter());
+    map.showLabel(label);
+
+    $('.array-btn').on('click', function (e) {
+    	
+    	var array = $( this ).attr( "array" )    	
+
+    	$(this).addClass('active').siblings().removeClass('active');
+    	if (array=="all"){    		
+    		map.panTo(new L.LatLng(41.505, -89.09));
+    		map.setZoom(3);
+    		
+    	}else{
+	    	lat = array_list[array]['lat']
+	    	lon = array_list[array]['lon']
+	    	map.setZoom(6);
+	    	map.panTo(new L.LatLng(lat, lon));
+
+    	}
+    });
+
+    $('.info-icon').popover({
+    	trigger: "hover",
+	    html:true,
+	    placement:'bottom',
+	    content: function() {
+          return $('#tilepopovercontent').html();
+        },
+        title: function() {
+          return $('#tilepopovertitle').html();
         }
-    });  
-  }
+	});
 
-  //GO!
-  //$(document).ready(function(){
-  		console.log('go...')
-  		getArrayData();
-  	
-  //}); 
-  
-  //MAP
-  var map = L.map('map').setView([20.505, -72.09], 1);
-  addMap();
+    /* DONUT PLOT*/
+    donutData = []
+    total = 0
+    arrayKeys = Object.keys(array_list)
+    for (var i = 0; i < arrayKeys.length; i++) {
+    	total+= array_list[arrayKeys[i]]['num']
+    	donutRow = {label: array_list[arrayKeys[i]]['name'], value: array_list[arrayKeys[i]]['num']}
+    	donutData.push(donutRow)
+    };
+    donutRow = {label: 'All Platforms', value: total}
+    donutData.push(donutRow)
+    
+    Morris.Donut({
+	  element: 'donut-example',
+	  data: donutData,
+	  resize: true
+	});
 
-  function addMap(){  	
-	// add an OpenStreetMap tile layer
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-
-   }	    
-
-   /*
-   should be hide the layer
-   function resetMap(){   	 
-   	 map.removeLayer(platform_markers);
-   }
-   */
-
-
-  //PLOT
-
-  var data, graph, i, max, min, point, random, scales, series, _i, _j, _k, _l, _len, _len1, _len2, _ref;
-
-	data = [[], []];
-
-	random = new Rickshaw.Fixtures.RandomData(12 * 60 * 60);
-
-	for (i = _i = 0; _i < 100; i = ++_i) {
-	  random.addData(data);
+    /* TIME LINE EXAMPLE */
+    function truncate(str, maxLength, suffix) {
+		if(str.length > maxLength) {
+			str = str.substring(0, maxLength + 1); 
+			str = str.substring(0, Math.min(str.length, str.lastIndexOf(" ")));
+			str = str + suffix;
+		}
+		return str;
 	}
 
-	scales = [];
+    var margin = {top: 20, right: 200, bottom: 0, left: 20},
+		width = 100,
+		height = 410;
 
-	_ref = data[1];
-	for (_j = 0, _len = _ref.length; _j < _len; _j++) {
-	  point = _ref[_j];
-	  point.y *= point.y;
-	}
+	var start_year = 2010,
+		end_year = 2013;
 
-	for (_k = 0, _len1 = data.length; _k < _len1; _k++) {
-	  series = data[_k];
-	  min = Number.MAX_VALUE;
-	  max = Number.MIN_VALUE;
-	  for (_l = 0, _len2 = series.length; _l < _len2; _l++) {
-	    point = series[_l];
-	    min = Math.min(min, point.y);
-	    max = Math.max(max, point.y);
-	  }
-	  if (_k === 0) {
-	    scales.push(d3.scale.linear().domain([min, max]).nice());
-	  } else {
-	    scales.push(d3.scale.pow().domain([min, max]).nice());
-	  }
-	}
+	var c = d3.scale.category20c();
 
-	graph = new Rickshaw.Graph({
-	  element: document.getElementById("chart"),
-	  renderer: 'line',
-	  series: [
-	    {
-	      color: 'steelblue',
-	      data: data[0],
-	      name: 'Temperature',
-	      scale: scales[0]
-	    }, {
-	      color: 'lightblue',
-	      data: data[1],
-	      name: 'Salinity',
-	      scale: scales[1]
-	    }
-	  ]
+	var x = d3.scale.linear()
+		.range([0, width]);
+
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("top")
+		.ticks(4);
+
+	var formatYears = d3.format("0000");
+	xAxis.tickFormat(formatYears);
+
+    var svg = d3.select("#timeline").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.style("margin-left", margin.left + "px")
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	d3.json("/js/platform_list.json", function(data) {
+		x.domain([start_year, end_year]);
+		var xScale = d3.scale.linear()
+			.domain([start_year, end_year])
+			.range([0, width]);
+
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + 0 + ")")
+			.call(xAxis);
+
+		for (var j = 0; j < data.length; j++) {
+			var g = svg.append("g").attr("class","platform");
+
+			var circles = g.selectAll("circle")
+				.data(data[j]['platforms'])
+				.enter()
+				.append("circle");
+
+			var text = g.selectAll("text")
+				.data(data[j]['platforms'])
+				.enter()
+				.append("text");
+
+			var rScale = d3.scale.linear()
+				.domain([0, d3.max(data[j]['platforms'], function(d) { return d[1]; })])
+				.range([2, 9]);
+
+			circles
+				.attr("cx", function(d, i) { return xScale(d[0]); })
+				.attr("cy", j*20+20)
+				.attr("r", function(d) { return rScale(d[1]); })
+				.style("fill", function(d) { return c(j); });
+
+			text
+				.attr("y", j*20+25)
+				.attr("x",function(d, i) { return xScale(d[0])-5; })
+				.attr("class","value")
+				.text(function(d){ return d[1]; })
+				.style("fill", function(d) { return c(j); })
+				.style("display","none");
+
+			g.append("text")
+				.attr("y", j*20+25)
+				.attr("x",width+20)
+				.attr("class","label")
+				.text(truncate(data[j]['name'],30,"..."))
+				.style("fill", function(d) { return c(j); })
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout);
+		};
+
+		function mouseover(p) {
+			var g = d3.select(this).node().parentNode;
+			d3.select(g).selectAll("circle").style("display","none");
+			d3.select(g).selectAll("text.value").style("display","block");
+		}
+
+		function mouseout(p) {
+			var g = d3.select(this).node().parentNode;
+			d3.select(g).selectAll("circle").style("display","block");
+			d3.select(g).selectAll("text.value").style("display","none");
+		}
 	});
+	
 
-	new Rickshaw.Graph.Axis.Y.Scaled({
-	  element: document.getElementById('axis0'),
-	  graph: graph,
-	  orientation: 'left',
-	  scale: scales[0],
-	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+	/*  TIME SERIES DATA MORRIS  */
+	
+	Morris.Area({
+	  element: 'timeseriesdata',
+	  data: [
+	    { y: '2006', temperature: 100 },
+	    { y: '2007', temperature: 75  },
+	    { y: '2008', temperature: 50  },
+	    { y: '2009', temperature: 75  },
+	    { y: '2010', temperature: 50  },
+	    { y: '2011', temperature: 75  },
+	    { y: '2012', temperature: 100 }
+	  ],
+	  xkey: 'y',
+	  ykeys: ['temperature'],
+	  labels: ['Temperature'],
+	  events: ['2010-01-01', '2010-08-01', '2011-03-01'],
+	  resize: true
 	});
+	
+	/*  TIME SERIES DATA HIGHCHARTS  */
+	$(function () {
+	    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=range.json&callback=?', function (data) {
 
-	new Rickshaw.Graph.Axis.Y.Scaled({
-	  element: document.getElementById('axis1'),
-	  graph: graph,
-	  grid: false,
-	  orientation: 'right',
-	  scale: scales[1],
-	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+	        $('#timeseriesdata-high').highcharts({
+
+	            chart: {
+	                type: 'arearange',
+	                zoomType: 'x'
+	            },
+
+	            title: {
+	                text: 'Temperature variation by day'
+	            },
+
+	            xAxis: {
+	                type: 'datetime'
+	            },
+
+	            yAxis: {
+	                title: {
+	                    text: null
+	                }
+	            },
+
+	            tooltip: {
+	                crosshairs: true,
+	                shared: true,
+	                valueSuffix: '°C'
+	            },
+
+	            legend: {
+	                enabled: false
+	            },
+
+	            series: [{
+	                name: 'Temperatures',
+	                data: data
+	            }]
+
+	        });
+	    });
+
 	});
+	</script>
 
-	new Rickshaw.Graph.Axis.Time({
-	  graph: graph
-	});
-
-	new Rickshaw.Graph.HoverDetail({
-	  graph: graph
-	});
-
-	graph.render();
-
-  </script>
 </body>
 </html>
