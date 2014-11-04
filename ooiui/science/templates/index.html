@@ -24,21 +24,36 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
      
-     
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.4.0/holder.js"></script>	
 
     <link rel="stylesheet" href="/css/index.css">
-		
+	<!--
+	TOC MENU 	
+    -->
     <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/js/metismenu.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/css/metismenu.min.css">
+    <link rel="stylesheet" href="/css/toc_menu.css" />
+     <script src="/js/ooi/toc_menu.js"></script>
+	
 
     <script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
     <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.label/leaflet.label.css">
 
+
+
     <link rel="stylesheet" href="/css/social/bootstrap-social.css">
+
+
+   
+    <!--   
+	marker cluster
+	-->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
     <!--   
 	MORRIS PLOTS
@@ -76,30 +91,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+
+            <li class="dropdown">            	
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Array List <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li class="dropdown-header">Pioneer</li>
+                <li><a href="#">Array Overview</a></li>               
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
+                <li class="dropdown-header">Other</li>
+                <!--
                 <li><a href="#">Separated link</a></li>
                 <li><a href="#">One more separated link</a></li>
+				-->
               </ul>
             </li>
+
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          	<!--
             <li><a href="../navbar/">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li class="active"><a href="./">Fixed top</a></li>
+        	-->
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -112,13 +132,18 @@
 			<div class="col-lg-4">
 				<img src="/img/nsf-logo.png" class="img-rounded" style="width:100px;height:100px">
     		</div>
-    		<div class="col-lg-4">
-    			<img src="/img/OOI_BannerNew_01.png" class="img-rounded">
+
+    		<div class="text-center">
+    			<div class="col-lg-4">
+    				<img src="/img/OOI_BannerNew_01.png" class="img-rounded">
+    			</div>
     		</div>
-    		<div class="col-lg-3">
+
+    		<div class="col-lg-2">
     			<img src="/img/OceanLeadershipLogoCS2.png" class="img-rounded" style="width:150px;height:100px">    		
 			</div>
-			<div class="col-lg-1">
+
+			<div class="col-sm-1">
     			<div>
 	    			<a class="btn btn-social-icon btn-twitter">
 					    <i class="fa fa-twitter"></i>
@@ -140,14 +165,14 @@
 				  <div class="array-row">  <!-- removed panel-body-->
 				  	<div class="text-center">
 				    <div class="btn-group btn-group">
-				    	<button type="button" class="active btn btn-info array-btn" array="all">All</button>
-				    	<button type="button" class="btn btn-default array-btn" array="ce">Endurance Array (CE)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="gp">Station PAPA (GP)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="cp">Pioneer Array (CP)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="ga">Global Argentine (GA)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="rs">RS Regional (RS)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="gi">Global Irminger Sea (GI)</button>
-				    	<button type="button" class="btn btn-default array-btn" array="gs">55 South (GS)</button>
+				    	<button type="button" class="btn btn-info array-btn" array="all" disabled="disabled">All</button>
+				    	<button type="button" class="btn btn-default array-btn" array="ce" disabled="disabled">Endurance Array (CE)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gp" disabled="disabled">Station PAPA (GP)</button>
+				    	<button type="button" class="active btn btn-default array-btn" array="cp">Pioneer Array (CP)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="ga" disabled="disabled">Global Argentine (GA)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="rs" disabled="disabled">RS Regional (RS)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gi" disabled="disabled">Global Irminger Sea (GI)</button>
+				    	<button type="button" class="btn btn-default array-btn" array="gs" disabled="disabled">55 South (GS)</button>
 				    	<button type="button" class="btn btn-default array-btn" array="ssf" disabled="disabled">Shore Side Facilities (SSF)</button>
 				    </div>
 				    </div>
@@ -160,19 +185,62 @@
     	<div class="row">
     		<div class="col-lg-2">
     			<div class="panel panel-default">
-				  <div class="panel-body">
-				    <div>
+				  <div class="panel-body" style="padding:1px;">
+				    <div>				    	
+
 				    	<h4 style="text-align: center;">Array Overview 
 				    		<i class="glyphicon glyphicon-info-sign info-icon"></i>
-				    	</h4>			
+				    	</h4>	
+
+				    	<form action="" class="navbar-form navbar-right">
+						   <div class="input-group">
+						       <input type="Search" placeholder="Search..." class="form-control" />
+						       <div class="input-group-btn">
+						           <button class="btn btn-info">
+						           <span class="glyphicon glyphicon-search"></span>
+						           </button>
+						       </div>
+						   </div>
+						</form>	
+
+						<div style="padding:5px">
+							Filter By...
+						</div>	
+
+						<div style="padding:5px">
+							<button class="btn btn-primary" type="button">
+							  NA <span class="badge">2</span>
+							</button>
+
+							<button class="btn btn-success" type="button">
+							  ON <span class="badge">1</span>
+							</button>
+
+							<button class="btn btn-danger" type="button">
+							  OFF <span class="badge">10</span>
+							</button>
+						</div>			    	
+
+				    	<div id="tocmenusection" >
+					    	<div class="clearfix">
+					    		<aside class="sidebar">
+	    							<nav class="sidebar-nav">
+								    	<ul id="tocmenu">							    		
+									    </ul>
+									</nav>
+								</aside> 
+							</div>
+						</div>
+								    
 				    	
+				    	<!--
 				    	<div class="timeline-text" id="timeline">
 				    	</div>
-				    	
+				    	-->
 				    	<h4 style="padding-top:20px;text-align: center;">Array Breakdown 
 				    		<i class="glyphicon glyphicon-info-sign info-icon"></i>
 				    	</h4>
-
+						
 				    	<div id="donut-example" style="text-align: center;">
 				    	</div>		
 				    </div>
@@ -183,7 +251,7 @@
     		<div class="col-lg-7">
     			<div class="panel panel-default">
 				  <div class="panel-body">
-				    <div id="map" style="width: 100%; height: 800px"></div>
+				    <div id="map" style="width: 100%; height: 600px"></div>
 				  </div>
 				</div>
     		</div>
@@ -228,8 +296,7 @@
     array_list['rs']={'name':'RS Regional','num':11,'lat':44.554,'lon':-125.352}
     array_list['gi']={'name':'Global Irminger Sea (GI)','num':7,'lat':60.4582,'lon':-38.4407}
     array_list['gs']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
-    array_list['gs']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
-
+    array_list['gs']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}    
 
 	var map = L.map('map').setView([41.505, -89.09], 3);
 
@@ -251,44 +318,48 @@ attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, 
 		subdomains: 'abcd',
 		minZoom: 0,
 		maxZoom: 20
-	});
-
-	var OpenMapSurfer_AdminBounds = L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/adminb/x={x}&y={y}&z={z}', {
-		minZoom: 0,
-		maxZoom: 19,
-		attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-	});
-
-		
+	});		
 
 	//HERE_hybridDay.addTo(map);	
 	Esri_WorldImagery.addTo(map);
 	Stamen_TonerHybrid.addTo(map);
-	OpenMapSurfer_AdminBounds.addTo(map);
 
-	pioneer = L.polygon([
-		[39.00, -69.92],
-		[39.00, -71.50],
-		[40.67, -71.50],
-		[40.67, -69.92],
-		[39.00, -69.92]
-	],
-	{
-		color: 'red',
-		weight:1,
-	}
-	).addTo(map);
+	var markers = new L.MarkerClusterGroup();
+	$.getJSON( "/json/stations.json", function( data ) {	  
+	  $.each( data, function( array, list ) {
+	  	//console.log(array,list)
+	  	if (array == "CP"){
+		  	$.each( list, function( platform, ob ) {
+		  		lat = ob['lat']
+		  		lon = ob['lon']	
+		  		if (lon > -999){
+		  			lon = -lon		  		
+			  		ports_len = ob['ports'].length	
+			  		popup = array+ "  " +platform+ " ports: "+ ports_len
 
+			  		var marker = L.marker([lat,lon]);
+			  		marker.bindPopup(popup);                
+			  		markers.addLayer(marker);
+		  		}
+		  	}); 
+	  	}
+	  });  
 
-	pioneer.on('click', function() {	
-    	map.fitBounds(pioneer.getBounds());
-    	map.zoomOut();
+	  map.addLayer(markers);
+	  buildTocMenu(data);	  
 	});
 
+	/*
 	var label = new L.Label();
     label.setContent("Pioneer");
     label.setLatLng(pioneer.getBounds().getCenter());
     map.showLabel(label);
+    */
+
+    $('.mapAction').on('click', function (e) {
+    	console.log("asdasd")
+
+    });	
 
     $('.array-btn').on('click', function (e) {
     	
@@ -301,10 +372,8 @@ attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, 
     		
     	}else{
 	    	lat = array_list[array]['lat']
-	    	lon = array_list[array]['lon']
-	    	map.setZoom(6);
-	    	map.panTo(new L.LatLng(lat, lon));
-
+	    	lon = array_list[array]['lon']	    	
+	    	map.panTo(new L.LatLng(lat, lon));	    	
     	}
     });
 
@@ -339,6 +408,7 @@ attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, 
 	});
 
     /* TIME LINE EXAMPLE */
+    /*
     function truncate(str, maxLength, suffix) {
 		if(str.length > maxLength) {
 			str = str.substring(0, maxLength + 1); 
@@ -439,7 +509,7 @@ attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, 
 			d3.select(g).selectAll("text.value").style("display","none");
 		}
 	});
-	
+	*/
 
 	/*  TIME SERIES DATA MORRIS  */
 	

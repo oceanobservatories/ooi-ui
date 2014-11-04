@@ -40,6 +40,11 @@ def support_jsonp(func):
 def root_dir():  # pragma: no cover
     return os.path.abspath(os.path.dirname(__file__))
 
+@app.route('/json/<path:path>')
+def jsonFiles(path):
+    location = os.path.join('json', path)
+    return app.send_static_file(location)
+
 @app.route('/js/<path:path>')
 def jsFiles(path):
     location = os.path.join('js', path)
