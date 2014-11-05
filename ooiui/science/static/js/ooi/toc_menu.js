@@ -1,38 +1,3 @@
-function buildTocMenu(data){
-	console.log("build it")
-
-	$.each( data, function( array, list ) {	  	
-	  	if (array== "CP"){
-	  		//addTocEntry(array)
-		  	$.each( list, function( platform, ob ) {
-		  		lat = ob['lat']
-		  		lon = ob['lon']	
-		  		if (lon > -999){
-		  			lon = -lon		  		
-			  		ports_len = ob['ports'].length	
-			  		popup = array+ "  " +platform+ " ports: "+ ports_len
-
-			  		var marker = L.marker([lat,lon]);
-			  		marker.bindPopup(popup);                
-			  		markers.addLayer(marker);	
-
-			  		instrument_list = ["inst1","instr2","instr3"]
-			  		platform_status = "off"			  		
-			  		addTocPlatform(array,
-			  						platform,
-						  			platform_status,						  									  			
-						  			instrument_list)
-		  		}
-		  	}); 
-	  	}
-	});  
-
-
-	$(function () {
-        $('#tocmenu').metisMenu();
-    });
-}
-
 function addTocPlatform(array,platform,platform_status,instrument_list){
 	platform_status_class = getPlatformStatusClass(platform_status)
 	$( "#tocmenu" ).append( getTocPlatformTemplate(array,platform,platform_status,platform_status_class,instrument_list) );
@@ -83,24 +48,17 @@ function getInstrumentClass(id){
 	
 }
 
-/*
-function addTocEntry(array){
-	$( "#tocmenu" ).append( getTocTemplate(array) );
-}
-*/
-
 function getTocPlatformTemplate(array, platform,platform_status,platform_status_class,instrument_list){
 	instrument_list_str = "<ul>"
 	for (var i = 0; i < instrument_list.length; i++) {
-		console.log(instrument_list[i])
-		instrument_list_str+= "<li>"+ '<a class="instrumentMap" href="#">'+ instrument_list[i] +		
+		instrument_list_str+= "<li>"+ '<a filtertype="instrument" filter="'+instrument_list[i]+'" class="toclink">'+ instrument_list[i] +		
 		'<span style="margin-left:5px;vertical-align:middle;" class="'+getInstrumentClass(getInstrumentStatus(instrument_list[i]))+'">'+ getInstrumentStatus(instrument_list[i]) +'</span>'+
 		'</a>'+
 		'</li>'
 	};
   	instrument_list_str += "</ul>"
 
-  str = '<li><a href="#" class="platformMap" >'+
+  str = '<li><a href="#" filtertype="platform" filter="'+platform +'"class="toclink" >'+
   			'<span arrayCode="'+array+'" platformCode="'+platform+'" class="sidebar-nav-item-icon fa fa-code-fork"></span>'+            
             platform +
             '<span style="margin-left:5px;vertical-align:middle;" class="'+platform_status_class+'">'+platform_status+'</span>'+

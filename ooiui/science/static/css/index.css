@@ -1,13 +1,30 @@
+html, body { 
+        height:100%
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
 @media(min-width:768px) {
     #wrapper {        
-        margin-top: 51px;
+        margin-top: 1px;
     }
 }
 
 .container-full {
   padding-left:10px;
   padding-right:10px;
-  padding-top:20px;
+  padding-top:10px;
   max-width:100%;
 }
 

@@ -69,6 +69,13 @@ def fontFiles(path):
 def commonFiles(filename):
     return app.send_static_file(os.path.join('static', filename))
 
+@app.route('/pioneer/')
+def pioneer(name=None):
+    if name:
+        return render_template(name, title = "")
+    else:
+        return render_template("pioneer_landing.html", title = 'Pioneer Array')
+
 @app.route('/')
 def root(name=None):
     if name:
