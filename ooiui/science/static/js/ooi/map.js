@@ -15,6 +15,11 @@ attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, 
     Stamen_TonerHybrid.addTo(map);
 }
 
+function OpenInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+
 function getStatusMarker(status,redMarker,greenMarker,naMarker){
 	if (status == "na"){
 		return naMarker;
@@ -70,9 +75,8 @@ function addMarkers(map,markers){
                 //normal assets
                 if (lat > -999 && lon > -999){
                 	$.each( instruments, function( instrument_id, instrument ) {                		                	
-	                	popup = instrument+ 
-	                			" <br> Array: "+ array+ 
-	                			"<br> Platform: " +platform+ " " +"<br> "+ "Status: "+ status
+	                	popup = getPopupContent(array,platform,instrument,status);
+
 	                    //create the marker and set the properties
 	                    var marker = new PlatformMarker([lat,lon], 
 	                    	{
@@ -83,6 +87,10 @@ function addMarkers(map,markers){
                                 riseOnHover: true
 	                    	}
 	                    );
+
+                        marker.on('popupclose', function () {
+                            disablePlotting();
+                        })
 
 	                    marker.bindPopup(popup);         
 	                    markerList.push(marker)
@@ -110,4 +118,22 @@ function addMarkers(map,markers){
       });     
     });
 	
+}
+
+function getPopupContent(array,platform,instrument, status){
+    popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
+            instrument+ 
+            "<br> Array: "+ array+ 
+            "<br> Platform: " +platform+ " " +
+            "<br> "+ "Status: "+ status + "<br>"+
+            '<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
+                '<span class="glyphicon glyphicon-stats"></span> Plot data'+
+            '</button>'+
+            '<button type="button" class="popup-map-btn-download btn btn-default btn-sm">'+                                
+                '<span class="glyphicon glyphicon-save"></span> Download data'+
+            '</button>'+
+            "</div>"
+   
+    return popstr
+
 }

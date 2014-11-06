@@ -1,0 +1,18 @@
+#axis0 {
+    position: absolute;
+    height: 300px;
+    width: 40px;
+  }
+  /*
+#axis1 {
+  position: absolute;
+  left: 550px;
+  height: 200px;
+  width: 40px;
+}
+*/
+#chart {
+  left: 50px;
+  width: 800px;
+  position: absolute;
+}
