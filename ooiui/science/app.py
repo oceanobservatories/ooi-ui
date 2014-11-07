@@ -76,6 +76,30 @@ def pioneer(name=None):
     else:
         return render_template("pioneer_landing.html", title = 'Pioneer Array')
 
+@app.route('/getdata/')
+def getData():
+    try:
+        instr = request.args['instrument']    
+        std = request.args['startdate']
+        edd = request.args['enddate']
+        param = request.args['variables']
+        r = getJsonData(instr,std,edd,param)
+    except Exception:
+        r = "{error:" + 'getting params' + "}"        
+
+    resp = Response(response=str(r), status=200, mimetype="application/json")
+    return resp
+
+def getJsonData(instrument,start_date,end_date,parameters):
+    url = "http://erddap.marine.rutgers.edu/erddap/tabledap/CP05MOAS-cp_335-20141006T1900.json?time,latitude,longitude,depth,pressure,conductivity,density,profile_id,salinity,temperature,time_uv,platform_meta,instrument_ctd&time>=2014-10-30T13:08:33Z"
+
+    try:
+        r = requests.get(url);   
+        return r.json()["table"]    
+    except Exception, e:
+        return "{error:" + 'getting data' + "}"
+    
+
 @app.route('/')
 def root(name=None):
     if name:
