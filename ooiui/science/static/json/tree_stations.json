@@ -1,0 +1,75 @@
+{ 
+    "CP": [
+	{"title": "CP01CNSP-SP001-02","type":"platform", "lat":40.14, "lon": 70.78,"site_id":"01", "status":"na", "expanded": false, "folder": true, "children": [
+		{"title": "OPTAAJ999","type":"instrument", "folder": true, "children": [
+			{"title": "optaa_d_instrument_recovered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]},
+			{"title": "optaa_d_instrument_telemetered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]}
+		]},
+		{"title": "OPTAAJ000", "type":"instrument","folder": true, "children": [
+			{"title": "optaa_d_instrument_recovered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]},
+			{"title": "optaa_d_instrument_telemetered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]}
+		]}		
+	]},
+
+	{"title": "CP01CNSP-SP002-03", "type":"platform", "lat":40.14, "lon": 70.78, "status":"na", "expanded": false, "folder": true, "children": [
+		{"title": "OPTAAJ999","type":"instrument", "folder": true, "children": [
+			{"title": "optaa_d_instrument_recovered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]},
+			{"title": "ptaa_d_instrument_telemetered", "folder": true,"children": [
+				{"title": "parameter1", "children": [					
+				]},
+				{"title": "parameter2", "children": [					
+				]},
+				{"title": "parameter3", "children": [					
+				]},
+				{"title": "parameter4", "children": [
+				]}
+			]}
+		]}	
+	]}
+]
+}

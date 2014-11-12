@@ -12,91 +12,107 @@ function updateData(array,platform,instrument){
 	enablePlotting();
 
 	$( "#plotting" ).empty();                        
-    $( "#plotting" ).append( '<div id="axis0"></div> <div id="chart"></div>' );
-    makePlot(array,platform,instrument,$( "#variable-select option:selected").text());
+    //$( "#plotting" ).append( '<div id="axis0"></div> <div id="chart"></div>' );
+    getData(array,platform,instrument,$( "#variable-select option:selected").attr("value"));
 }
 
-function makePlot(array,platform,instrument,variable){
-	console.log(array,platform,instrument,variable)
-	var data, graph, i, max, min, point, random, scales, series, _i, _j, _k, _l, _len, _len1, _len2, _ref;
+function getData(array,platform,instrument,variable){
+	//get the from date
+	from_dt = ($('#datetimepicker_from').data("DateTimePicker").getDate().toISOString());
+	to_dt   = ($('#datetimepicker_to').data("DateTimePicker").getDate().toISOString());	
 
-	data = [[], []];
+	url  = "http://localhost:5000/getdata/?"
+	url += "dataset_id="+instrument
+	url += "&startdate="+from_dt
+	url += "&enddate="+to_dt
+	url += "&variables="+variable
 
-	random = new Rickshaw.Fixtures.RandomData(12 * 60 * 60);	
-
-	for (i = _i = 0; _i < 1000; i = ++_i) {
-	  random.addData(data);
-	}
-
-	scales = [];
-
-	_ref = data[1];
-	for (_j = 0, _len = _ref.length; _j < _len; _j++) {
-	  point = _ref[_j];
-	  point.y *= point.y;
-	}
-
-	for (_k = 0, _len1 = data.length; _k < _len1; _k++) {
-	  series = data[_k];
-	  min = Number.MAX_VALUE;
-	  max = Number.MIN_VALUE;
-	  for (_l = 0, _len2 = series.length; _l < _len2; _l++) {
-	    point = series[_l];
-	    min = Math.min(min, point.y);
-	    max = Math.max(max, point.y);
-	  }
-	  if (_k === 0) {
-	    scales.push(d3.scale.linear().domain([min, max]).nice());
-	  } else {
-	    scales.push(d3.scale.pow().domain([min, max]).nice());
-	  }
-	}
-
-	graph = new Rickshaw.Graph({
-	  element: document.getElementById("chart"),
-	  renderer: 'line',
-	  series: [
-	    {
-	      color: 'steelblue',
-	      data: data[0],
-	      name: 'Series',
-	      scale: scales[0]
-	    }
-	    /*, {
-	      color: 'lightblue',
-	      data: data[1],
-	      name: 'Series B',
-	      scale: scales[1]
-	    }*/
-	  ]
-	});
-
-	new Rickshaw.Graph.Axis.Y.Scaled({
-	  element: document.getElementById('axis0'),
-	  graph: graph,
-	  orientation: 'left',
-	  scale: scales[0],
-	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
-	});
+	console.log(url)
 
 	/*
-	new Rickshaw.Graph.Axis.Y.Scaled({
-	  element: document.getElementById('axis1'),
-	  graph: graph,
-	  grid: false,
-	  orientation: 'right',
-	  scale: scales[1],
-	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT
-	});
+	data = [
+			['2001-03-14T01:03:14Z', 4],
+			['2001-04-14T02:05:14Z', 1],
+			['2001-05-14T03:06:14Z', 2],
+			['2001-06-14T04:08:14Z', 6],
+			['2001-07-14T05:09:14Z', 1]
+			]
 	*/
 
-	new Rickshaw.Graph.Axis.Time({
-	  graph: graph
-	});
+	$.ajax({
+		type: 'GET',
+        url: url,  
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8"
+    })
+    .success(function(data){
+    	makePlot(array,platform,instrument,variable,data);
+    })
+	.error(function(xhr, status, error) {
+		//var err = eval("(" + xhr.responseText + ")");
+    	console.log( "error:",error );
+    });
+}
 
-	new Rickshaw.Graph.HoverDetail({
-	  graph: graph
-	});
+function getRowData(rows){
 
-	graph.render();
+}
+
+function makePlot(array,platform,instrument,variable,data){
+
+	rowdata = data["rows"]
+
+	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+	var parseDate = d3.time.format("%d-%b-%y").parse;
+
+	var x = d3.time.scale()
+	    .range([0, width]);
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left");
+
+	var line = d3.svg.line()
+	    .x(function(d) { return x(new Date(d[0])); })
+	    .y(function(d) { return y(d[1]); });
+
+	var svg = d3.select("#plotting").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	x.domain(d3.extent(rowdata, function(d) { return new Date(d[0]);}));
+	y.domain(d3.extent(rowdata, function(d) { return d[1]; }));
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)	      
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Data");
+
+	  svg.append("path")
+	      .datum(rowdata)
+	      .attr("class", "line")
+	      .attr("d", line);
+
 }

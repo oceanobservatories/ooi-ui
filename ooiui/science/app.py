@@ -21,6 +21,8 @@ import os
 import psycopg2 
 import json
 
+OOI_ERRDAP = "http://erddap.ooi.rutgers.edu/erddap/tabledap/"
+
 app = Flask(__name__, static_url_path='')
 
 def support_jsonp(func):
@@ -79,25 +81,38 @@ def pioneer(name=None):
 @app.route('/getdata/')
 def getData():
     try:
-        instr = request.args['instrument']    
+        instr = request.args['dataset_id']    
         std = request.args['startdate']
         edd = request.args['enddate']
         param = request.args['variables']
-        r = getJsonData(instr,std,edd,param)
-    except Exception:
-        r = "{error:" + 'getting params' + "}"        
 
-    resp = Response(response=str(r), status=200, mimetype="application/json")
+        r = getJsonData(instr,std,edd,param)
+    except Exception, e:
+        r = "{error:" + 'getting params...' + str(e) +"}"        
+    
+    resp = Response(response=r, status=200, mimetype="application/json")
     return resp
 
 def getJsonData(instrument,start_date,end_date,parameters):
-    url = "http://erddap.marine.rutgers.edu/erddap/tabledap/CP05MOAS-cp_335-20141006T1900.json?time,latitude,longitude,depth,pressure,conductivity,density,profile_id,salinity,temperature,time_uv,platform_meta,instrument_ctd&time>=2014-10-30T13:08:33Z"
+    #override dataset id for now
+    instrument = "CP05MAS_GL001_03_CTDGVM0000_ctdgv_m_glider_instrument_recovered"
+    #parameters = "sci_water_pressure"
 
-    try:
-        r = requests.get(url);   
-        return r.json()["table"]    
-    except Exception, e:
-        return "{error:" + 'getting data' + "}"
+    time_param = "time"
+    parameters = ",".join([time_param,parameters])
+
+    url = "".join([OOI_ERRDAP,instrument,".json",
+                    "?",parameters,"&",time_param,">=",start_date,"&",
+                    time_param,"<=",end_date,"&orderBy(%22",time_param,"%22)"])
+
+    r = requests.get(url);     
+    if (not r.status_code == 500): 
+        r = r.json()["table"]
+        r = json.dumps(r,indent=4)
+        return r
+    else:
+        raise Exception("data request error") 
+        
     
 
 @app.route('/')
@@ -106,20 +121,6 @@ def root(name=None):
         return render_template(name, title = "")
     else:
         return render_template("index.html", title = 'Main')
-
-
-## MOCK FUNCTIONS 
-
-def getMockArrayDataList():
-    array_list = {}
-    array_list['CE']={'name':'Endurance Array (CE)',"num":14,'lat':44.37,'lon':-124.95}
-    array_list['GP']={'name':'Station PAPA (GP)',"num":6,'lat':49.9795,'lon':-144.254}
-    array_list['CP']={'name':'Pioneer Array (CP)',"num":16,'lat':40.1,'lon':-70.88}
-    array_list['GA']={'name':'Global Argentine (GA)','num':7,'lat':-42.5073,'lon':-42.8905}
-    array_list['RS']={'name':'RS Regional','num':11,'lat':44.554,'lon':-125.352}
-    array_list['GI']={'name':'Global Irminger Sea (GI)','num':7,'lat':60.4582,'lon':-38.4407}
-    array_list['GS']={'name':'55 South (GS)','num':7,'lat':-54.0814,'lon':-89.6652}
-    return array_list
 
 if __name__ == '__main__':
     app.run(host='localhost',debug=True)

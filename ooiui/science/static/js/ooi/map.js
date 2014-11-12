@@ -57,33 +57,38 @@ function addMarkers(map,markers){
 		   }
 	});
 
-	$.getJSON( "/json/stations.json", function( data ) {  
-		
-
-
+	$.getJSON( "/json/tree_stations.json", function( data ) {  
+	  
+      /* TOC Menu  */           	
+      buildtocmenu(data['CP']);
+      
 	  var markerList = [];    
-      $.each( data, function( array, list ) {
-        //console.log(array,list)
+      $.each( data, function( array, list ) {        
         if (array == "CP"){
-            $.each( list, function( platform, ob ) {
-                lat = ob['lat']
-                lon = -ob['lon'] 
-                status = ob['status']
-                instruments = ob['instruments']                               		                          
-                instruments_len = ob['instruments'].length                    
+            $.each( list, function( platform_idx, platform_ob ) {
+                
+                lat = platform_ob['lat']
+                lon = -platform_ob['lon'] 
+                status = platform_ob['status']
+                d_type = platform_ob['type']
+                platform_name = platform_ob['title']
+
+                //get the instruments
+                instruments = platform_ob['children']                             
 
                 //normal assets
                 if (lat > -999 && lon > -999){
-                	$.each( instruments, function( instrument_id, instrument ) {                		                	
-	                	popup = getPopupContent(array,platform,instrument,status);
+                	$.each( instruments, function( instrument_id, instrument ) {  
+                        instrument_name = instrument['title']              		                	
+	                	popup = getPopupContent(array,platform_name,instrument_name,status);
 
 	                    //create the marker and set the properties
 	                    var marker = new PlatformMarker([lat,lon], 
 	                    	{
 	                    		icon: getStatusMarker(status,redMarker,greenMarker,naMarker),
 	                    		status: status,
-	                    		platform: platform,
-	                    		instrument: instrument,
+	                    		platform: platform_name,
+	                    		instrument: instrument_name,
                                 riseOnHover: true
 	                    	}
 	                    );
@@ -96,26 +101,12 @@ function addMarkers(map,markers){
 	                    markerList.push(marker)
 	                    markers.addLayer(marker);
                     }); 
-                }
-                    
-		  		/* TOC Menu  */	  		
-		  		instrument_list = ob['instruments']
-		  		platform_status = ob['status']
-
-		  		addTocPlatform(array,
-		  						platform,
-					  			platform_status,						  									  			
-					  			instrument_list)
-                    
-                
+                }                    		  		                
             }); 
         }
       });  
       markers.setMarkers(markerList);
-      map.addLayer(markers);      
-      $(function () {
-        $('#tocmenu').metisMenu();
-      });     
+      map.addLayer(markers);              
     });
 	
 }
