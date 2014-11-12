@@ -4,7 +4,7 @@ function buildtocmenu(data){
 
 	// Initialize Fancytree
     $("#tocmenusection").fancytree({
-      extensions: ["glyph", "wide"],
+      extensions: ["glyph","filter", "wide"],
       checkbox: false,
       selectMode: 2,
       glyph: {
@@ -25,6 +25,9 @@ function buildtocmenu(data){
           loading: "glyphicon glyphicon-refresh"
           // loading: "icon-spinner icon-spin"
         }
+      },
+      filter: {
+        mode: "hide"
       },
       wide: {
         iconWidth: "1em",     // Adjust this if @fancy-icon-width != "16px"
