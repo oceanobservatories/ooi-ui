@@ -79,6 +79,7 @@
     <script src="js/fancytree/src/jquery.fancytree.edit.js" type="text/javascript"></script>
     <script src="js/fancytree/src/jquery.fancytree.glyph.js" type="text/javascript"></script>
     <script src="js/fancytree/src/jquery.fancytree.wide.js" type="text/javascript"></script>
+    <script src="js/fancytree/src/jquery.fancytree.filter.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/css/toc_menu.css" />
     <script src="/js/ooi/toc_menu.js"></script>
 
@@ -214,10 +215,16 @@
                                        type="search"
                                        class="form-control" 
                                        placeholder="Search" />
-                            </div>
+
+                                <button id="search-reset" type="button" class="btn btn-default btn-sm">
+                                  <span class="glyphicon glyphicon-remove-sign"></span>
+                                </button>
+                            </div>                            
+
+
                         </div>
 
-                                            
+                                    
 
                         <div style="padding:5px">
                             <div id="statusfilter" class="btn-group">
@@ -524,11 +531,17 @@
     
     $( document ).ready(function() {
         $( "#searchQuery" ).keyup(function() {
-            val = $( "#searchQuery" ).val()
-            if (val.length > 2){
-                console.log(val)
-            }
-        });     
+            match = $( "#searchQuery" ).val()
+            var tree = $("#tocmenusection").fancytree("getTree");            
+            n = tree.filterNodes(match, false);
+        }); 
+
+
+        $( "#search-reset" ).on('click',function(){
+            var tree = $("#tocmenusection").fancytree("getTree");
+            $( "#searchQuery" ).val("")
+            tree.clearFilter();
+        });    
     });
     
 
