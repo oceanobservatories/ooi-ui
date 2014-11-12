@@ -1,0 +1,63 @@
+{ 
+    "CP": {
+        "CP01CNSP-SP001-02": {
+            "status": "na", 
+            "instruments": [
+                {
+                    "OPTAAJ999":[
+                        {
+                        "streams":[                        
+                            {
+                                "name":"optaa_d_instrument_recovered",
+                                "parameters":[
+                                    "parameter1",
+                                    "parameter2",
+                                    "parameter3",
+                                    "parameter4",
+                                    "parameter5",
+                                    "parameter6",
+                                ]
+                            },
+                            {
+                                "name":"optaa_d_instrument_telemetered",
+                                "parameters":[
+                                    "parameter1",
+                                    "parameter2",
+                                    "parameter3",
+                                    "parameter4",
+                                    "parameter5",
+                                    "parameter6",
+                                ]
+                            },
+                            {
+                                "name":"optaa_d_instrument_engineering",
+                                "parameters":[
+                                    "parameter1",
+                                    "parameter2",
+                                    "parameter3",
+                                    "parameter4",
+                                    "parameter5",
+                                    "parameter6",
+                                ]
+                            },
+                            {
+                                "name":"optaa_d_instrument_raw",
+                                "parameters":[
+                                    "parameter1",
+                                    "parameter2",
+                                    "parameter3",
+                                    "parameter4",
+                                    "parameter5",
+                                    "parameter6",
+                                ]
+                            }]
+                        }
+                    ]                    
+                }
+            ], 
+            "site_id": "01", 
+            "lat": 40.14, 
+            "lon": 70.78
+        }
+    }
+}

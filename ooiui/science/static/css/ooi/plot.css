@@ -1,18 +1,16 @@
-#axis0 {
-    position: absolute;
-    height: 300px;
-    width: 40px;
-  }
-  /*
-#axis1 {
-  position: absolute;
-  left: 550px;
-  height: 200px;
-  width: 40px;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
-*/
-#chart {
-  left: 50px;
-  width: 800px;
-  position: absolute;
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }
