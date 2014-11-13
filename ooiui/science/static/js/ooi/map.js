@@ -57,7 +57,7 @@ function addMarkers(map,markers){
 		   }
 	});
 
-	$.getJSON( "http://localhost:5000/gettoc/?", function( data ) {  
+	$.getJSON( "/gettoc/?", function( data ) {  
 	  
       /* TOC Menu  */           	
       buildtocmenu(data['CP']);
