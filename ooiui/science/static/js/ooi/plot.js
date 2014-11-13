@@ -10,9 +10,11 @@ function disablePlotting(){
 
 function updateData(array,platform,instrument){
 	enablePlotting();
+	$( "#plotting" ).empty();  
 
-	$( "#plotting" ).empty();                        
-    //$( "#plotting" ).append( '<div id="axis0"></div> <div id="chart"></div>' );
+	$( '#plotting' ).hide();
+	$('#processing-icon').show();
+
     getData(array,platform,instrument,$( "#variable-select option:selected").attr("value"));
 }
 
@@ -29,23 +31,15 @@ function getData(array,platform,instrument,variable){
 
 	console.log(url)
 
-	/*
-	data = [
-			['2001-03-14T01:03:14Z', 4],
-			['2001-04-14T02:05:14Z', 1],
-			['2001-05-14T03:06:14Z', 2],
-			['2001-06-14T04:08:14Z', 6],
-			['2001-07-14T05:09:14Z', 1]
-			]
-	*/
-
-	$.ajax({
+	$.ajax({		
 		type: 'GET',
         url: url,  
         dataType: 'json',
         contentType: "application/json; charset=utf-8"
     })
     .success(function(data){
+    	$('#plotting').show();
+		$('#processing-icon').hide();
     	makePlot(array,platform,instrument,variable,data);
     })
 	.error(function(xhr, status, error) {
@@ -59,8 +53,9 @@ function getRowData(rows){
 }
 
 function makePlot(array,platform,instrument,variable,data){
-
+	console.log(data)
 	rowdata = data["rows"]
+	units = data["columnUnits"][1]
 
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
@@ -87,6 +82,7 @@ function makePlot(array,platform,instrument,variable,data){
 	    .y(function(d) { return y(d[1]); });
 
 	var svg = d3.select("#plotting").append("svg")
+	    .attr("id","plotview")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
@@ -108,7 +104,7 @@ function makePlot(array,platform,instrument,variable,data){
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Data");
+	      .text(units);
 
 	  svg.append("path")
 	      .datum(rowdata)

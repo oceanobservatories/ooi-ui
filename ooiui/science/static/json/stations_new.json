@@ -1,63 +1,248 @@
-{ 
+{
     "CP": {
-        "CP01CNSP-SP001-02": {
-            "status": "na", 
-            "instruments": [
-                {
-                    "OPTAAJ999":[
-                        {
-                        "streams":[                        
-                            {
-                                "name":"optaa_d_instrument_recovered",
-                                "parameters":[
-                                    "parameter1",
-                                    "parameter2",
-                                    "parameter3",
-                                    "parameter4",
-                                    "parameter5",
-                                    "parameter6",
-                                ]
-                            },
-                            {
-                                "name":"optaa_d_instrument_telemetered",
-                                "parameters":[
-                                    "parameter1",
-                                    "parameter2",
-                                    "parameter3",
-                                    "parameter4",
-                                    "parameter5",
-                                    "parameter6",
-                                ]
-                            },
-                            {
-                                "name":"optaa_d_instrument_engineering",
-                                "parameters":[
-                                    "parameter1",
-                                    "parameter2",
-                                    "parameter3",
-                                    "parameter4",
-                                    "parameter5",
-                                    "parameter6",
-                                ]
-                            },
-                            {
-                                "name":"optaa_d_instrument_raw",
-                                "parameters":[
-                                    "parameter1",
-                                    "parameter2",
-                                    "parameter3",
-                                    "parameter4",
-                                    "parameter5",
-                                    "parameter6",
-                                ]
-                            }]
-                        }
-                    ]                    
-                }
-            ], 
-            "site_id": "01", 
-            "lat": 40.14, 
-            "lon": 70.78
+        "CP02PMCI-RII01": {
+            "instruments": {
+                "CP02PMCI-RII01-02-ADCPTG000": {}
+            },
+            "lat": 40.22653333,
+            "lon": -70.87795,
+            "status": "na"
+        },
+        "CP02PMCI-SBS01": {
+            "instruments": {
+                "CP02PMCI-SBS01-01-MOPAK0000": {}
+            },
+            "lat": 40.22653333,
+            "lon": -70.87795,
+            "status": "na"
+        },
+        "CP02PMCI-WFP01": {
+            "instruments": {
+                "CP02PMCI-WFP01-01-VEL3DK000": {},
+                "CP02PMCI-WFP01-02-DOFSTK000": {},
+                "CP02PMCI-WFP01-03-CTDPFK000": {},
+                "CP02PMCI-WFP01-04-FLORTK000": {},
+                "CP02PMCI-WFP01-05-PARADK000": {}
+            },
+            "lat": 40.22653333,
+            "lon": -70.87795,
+            "status": "na"
+        },
+        "CP02PMCO-RII01": {
+            "instruments": {
+                "CP02PMCO-RII01-02-ADCPTG000": {}
+            },
+            "lat": 40.10123333,
+            "lon": -70.88768333,
+            "status": "na"
+        },
+        "CP02PMCO-SBS01": {
+            "instruments": {
+                "CP02PMCO-SBS01-01-MOPAK0000": {}
+            },
+            "lat": 40.10123333,
+            "lon": -70.88768333,
+            "status": "na"
+        },
+        "CP02PMCO-WFP01": {
+            "instruments": {
+                "CP02PMCO-WFP01-01-VEL3DK000": {},
+                "CP02PMCO-WFP01-02-DOFSTK000": {},
+                "CP02PMCO-WFP01-03-CTDPFK000": {},
+                "CP02PMCO-WFP01-04-FLORTK000": {},
+                "CP02PMCO-WFP01-05-PARADK000": {}
+            },
+            "lat": 40.10123333,
+            "lon": -70.88768333,
+            "status": "na"
+        },
+        "CP02PMUI-RII01": {
+            "instruments": {
+                "CP02PMUI-RII01-02-ADCPTG000": {}
+            },
+            "lat": 40.8974,
+            "lon": -70.68601167,
+            "status": "na"
+        },
+        "CP02PMUI-SBS01": {
+            "instruments": {
+                "CP02PMUI-SBS01-01-MOPAK0000": {}
+            },
+            "lat": 40.8974,
+            "lon": -70.68601167,
+            "status": "na"
+        },
+        "CP02PMUI-WFP01": {
+            "instruments": {
+                "CP02PMUI-WFP01-01-VEL3DK000": {},
+                "CP02PMUI-WFP01-02-DOFSTK000": {},
+                "CP02PMUI-WFP01-03-CTDPFK000": {},
+                "CP02PMUI-WFP01-04-FLORTK000": {},
+                "CP02PMUI-WFP01-05-PARADK000": {}
+            },
+            "lat": 40.8974,
+            "lon": -70.68601167,
+            "status": "na"
+        },
+        "CP02PMUO-RII01": {
+            "instruments": {
+                "CP02PMUO-RII01-02-ADCPSL000": {}
+            },
+            "lat": 39.94302167,
+            "lon": -70.77001333,
+            "status": "na"
+        },
+        "CP02PMUO-SBS01": {
+            "instruments": {
+                "CP02PMUO-SBS01-01-MOPAK0000": {}
+            },
+            "lat": 39.94302167,
+            "lon": -70.77001333,
+            "status": "na"
+        },
+        "CP02PMUO-WFP01": {
+            "instruments": {
+                "CP02PMUO-WFP01-01-VEL3DK000": {},
+                "CP02PMUO-WFP01-02-DOFSTK000": {},
+                "CP02PMUO-WFP01-03-CTDPFK000": {},
+                "CP02PMUO-WFP01-04-FLORTK000": {},
+                "CP02PMUO-WFP01-05-PARADK000": {}
+            },
+            "lat": 39.94302167,
+            "lon": -70.77001333,
+            "status": "na"
+        },
+        "CP04OSPM-SBS11": {
+            "instruments": {
+                "CP04OSPM-SBS11-02-MOPAK0000": {}
+            },
+            "lat": 39.93333333,
+            "lon": -70.87843333,
+            "status": "na"
+        },
+        "CP04OSPM-WFP01": {
+            "instruments": {
+                "CP04OSPM-WFP01-01-VEL3DK000": {},
+                "CP04OSPM-WFP01-02-DOFSTK000": {},
+                "CP04OSPM-WFP01-03-CTDPFK000": {},
+                "CP04OSPM-WFP01-04-FLORTK000": {},
+                "CP04OSPM-WFP01-05-PARADK000": {}
+            },
+            "lat": 39.93333333,
+            "lon": -70.87843333,
+            "status": "na"
+        },
+        "CP05MOAS-AV001": {
+            "instruments": {
+                "CP05MOAS-AV001-01-FLORTN000": {},
+                "CP05MOAS-AV001-02-DOSTAN000": {},
+                "CP05MOAS-AV001-03-CTDAVN000": {},
+                "CP05MOAS-AV001-04-NUTNRN000": {},
+                "CP05MOAS-AV001-05-ADCPAN000": {},
+                "CP05MOAS-AV001-06-PARADN000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-AV002": {
+            "instruments": {
+                "CP05MOAS-AV002-01-FLORTN000": {},
+                "CP05MOAS-AV002-02-DOSTAN000": {},
+                "CP05MOAS-AV002-03-CTDAVN000": {},
+                "CP05MOAS-AV002-04-NUTNRN000": {},
+                "CP05MOAS-AV002-05-ADCPAN000": {},
+                "CP05MOAS-AV002-06-PARADN000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-GL001": {
+            "instruments": {
+                "CP05MOAS-GL001-01-ADCPAM000": {},
+                "CP05MOAS-GL001-02-FLORTM000": {},
+                "CP05MOAS-GL001-03-CTDGVM000": {
+                    "ctdgv_m_glider_instrument_recovered": [
+                        "m_present_time",
+                        "sci_water_cond",
+                        "sci_m_present_secs_into_mission",
+                        "sci_water_temp",
+                        "preferred_timestamp",
+                        "m_present_secs_into_mission",
+                        "sci_water_pressure",
+                        "sci_m_present_time",
+                        "internal_timestamp",
+                        "sci_ctd41cp_timestamp",
+                        "driver_timestamp"
+                    ]
+                },
+                "CP05MOAS-GL001-04-DOSTAM000": {},
+                "CP05MOAS-GL001-05-PARADM000": {}
+            },
+            "lat": 20,
+            "lon": -90,
+            "status": "na"
+        },
+        "CP05MOAS-GL002": {
+            "instruments": {
+                "CP05MOAS-GL002-01-ADCPAM000": {},
+                "CP05MOAS-GL002-02-FLORTM000": {},
+                "CP05MOAS-GL002-03-CTDGVM000": {},
+                "CP05MOAS-GL002-04-DOSTAM000": {},
+                "CP05MOAS-GL002-05-PARADM000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-GL003": {
+            "instruments": {
+                "CP05MOAS-GL003-01-ADCPAM000": {},
+                "CP05MOAS-GL003-02-FLORTM000": {},
+                "CP05MOAS-GL003-03-CTDGVM000": {},
+                "CP05MOAS-GL003-04-DOSTAM000": {},
+                "CP05MOAS-GL003-05-PARADM000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-GL004": {
+            "instruments": {
+                "CP05MOAS-GL004-01-ADCPAM000": {},
+                "CP05MOAS-GL004-02-FLORTM000": {},
+                "CP05MOAS-GL004-03-CTDGVM000": {},
+                "CP05MOAS-GL004-04-DOSTAM000": {},
+                "CP05MOAS-GL004-05-PARADM000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-GL005": {
+            "instruments": {
+                "CP05MOAS-GL005-01-ADCPAM000": {},
+                "CP05MOAS-GL005-02-FLORTM000": {},
+                "CP05MOAS-GL005-03-CTDGVM000": {},
+                "CP05MOAS-GL005-04-DOSTAM000": {},
+                "CP05MOAS-GL005-05-PARADM000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
+        },
+        "CP05MOAS-GL006": {
+            "instruments": {
+                "CP05MOAS-GL006-01-ADCPAM000": {},
+                "CP05MOAS-GL006-02-FLORTM000": {},
+                "CP05MOAS-GL006-03-CTDGVM000": {},
+                "CP05MOAS-GL006-04-DOSTAM000": {},
+                "CP05MOAS-GL006-05-PARADM000": {}
+            },
+            "lat": -999,
+            "lon": -999,
+            "status": "na"
         }
     }
 }

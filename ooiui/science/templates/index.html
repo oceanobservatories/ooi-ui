@@ -108,8 +108,10 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
+            <!--
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
+            -->
 
             <li class="dropdown">               
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Array List <span class="caret"></span></a>
@@ -127,7 +129,7 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
+            <!--
             <div class="col-sm-4" style="padding-top:8px">
                 <li>
                     <a class="btn btn-social-icon btn-twitter">
@@ -142,6 +144,7 @@
                     </a>
                 </li>
             </div>
+            -->
             <!--
             <li><a href="../navbar/">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
@@ -166,12 +169,11 @@
                 </div>
             </div>
 
-            <div class="col-lg-2">
-                <img src="/img/OceanLeadershipLogoCS2.png" class="img-rounded" style="width:150px;height:100px">            
+            <div class="col-lg-4"> 
+                <div class="pull-right">
+                    <img src="/img/OceanLeadershipLogoCS2.png" class="img-rounded" style="width:150px;height:100px">            
+                </div>
             </div>
-
-            
-
         </div>
 
         <!--/.Array Names -->
@@ -199,7 +201,7 @@
 
         <!--/.content -->
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <div class="panel panel-default">
                   <div class="panel-body" style="padding:1px;">
                     <div>                       
@@ -208,24 +210,19 @@
                             <i class="glyphicon glyphicon-info-sign info-icon"></i>
                         </h4>   
 
-                        <div style="padding:5px" class="col-1" >
-                            <div class="right-inner-addon">
-                                <i class="glyphicon glyphicon-search"></i>
-                                <input id="searchQuery"
-                                       type="search"
-                                       class="form-control" 
-                                       placeholder="Search" />
-
-                                <button id="search-reset" type="button" class="btn btn-default btn-sm">
-                                  <span class="glyphicon glyphicon-remove-sign"></span>
-                                </button>
-                            </div>                            
-
-
+                        <div style="padding:5px;" class="col-1 input-group">
+                               <div class="right-inner-addon">
+                                   <input id="searchQuery" type="Search" placeholder="Search..." class="form-control" />
+                                   <i class="glyphicon glyphicon-search"></i>                               
+                                </div>
+                                   <div class="input-group-btn">
+                                       <button id="search-reset" type="button" class="btn btn-info">
+                                            <span class="glyphicon glyphicon-remove-sign"></span>
+                                       </button>
+                                   </div>
                         </div>
-
                                     
-
+                        <!--
                         <div style="padding:5px">
                             <div id="statusfilter" class="btn-group">
                                 <button filtertype="status" filter="all" class="active filterMapBtn btn btn-info btn-sm" type="button">
@@ -245,24 +242,25 @@
                                 </button>
                             </div>  
                         </div>                  
-
+                        -->
                        
                         <div id="tocmenusection" class="toc-panel">                         
                         </div>
 
-                                                                                 
+                        <!--                                                 
                         <h4 style="padding-top:20px;text-align: center;">Array Breakdown 
                             <i class="glyphicon glyphicon-info-sign info-icon"></i>
                         </h4>
                         
                         <div id="donut-example" style="text-align: center;">
-                        </div>      
+                        </div>   
+                        -->   
                     </div>
                   </div>
                 </div>
             </div>
             
-            <div class="col-lg-10 fill">
+            <div class="col-lg-9 fill">
                 <div class="panel panel-default" style="height: 100%">
                   <div class="panel-body" style="height: 100%;padding:5px;">
                     <div id="map" style="width: 100%; min-height: 400px;height:500px;"></div>
@@ -270,7 +268,7 @@
                 </div>
             </div>
 
-            <div class="bottom-div col-lg-10">
+            <div class="bottom-div col-lg-12">
                 <div class="panel panel-default" style="height: 100%">
                   <div class="panel-body" style="height: 100%;padding:5px;">
                         
@@ -290,12 +288,17 @@
                             <dl class="dl-horizontal">
                                 <dt>Intrument</dt>
                                   <dd id="currentInstrument"></dd>
-                            </dl>
+                            </dl>                           
                         </div>
 
                         <div class="col-lg-3" style="display: inline-block;">
                             <h4>Plot Controls</h4>
                             <div class="col-lg-2" style="width:100%;">
+                                <select id="stream-select"class="form-control">                                                                                                                                             
+                                </select>
+                            </div>
+
+                            <div class="col-lg-2" style="padding-top:10px;padding-bottom:10px; width:100%;">
                                 <select id="variable-select"class="form-control">                                                                                                          
                                     <option value="m_present_secs_into_mission">m_present_secs_into_mission</option>
                                     <option value="sci_water_cond">sci_water_cond</option>                            
@@ -332,11 +335,17 @@
                 </div>
             </div>
 
-            <div class="col-lg-10 bottom-div">
+            <div class="col-lg-12 bottom-div">
                 <div class="panel panel-default">
-                  <div class="panel-body" style="padding:5px;">                    
+                    <div class="panel-body" style="padding:5px;">     
 
-                    <div id="plotting" style="width: 100%; min-height: 300px;height:300px;">                       
+                    <div id="processing-icon" class="spinner">
+                      <div class="dot1"></div>
+                      <div class="dot2"></div>
+                    </div>                                       
+
+                    <div class="container-fluid" id="plotting" style="display: none;width: 100%; min-height: 300px;height:300px;">  
+                                        
                     </div>
                   </div>
                 </div>
@@ -381,8 +390,7 @@
 
     L.MarkerClusterGroup.include({ 
 
-        resetMarkers: function (filter) {
-            console.log("reset filter")
+        resetMarkers: function (filter) {            
             var new_markers = Array();                        
             for (var i = 0; i < this._marker_list.length; i++) {      
                 marker = this._marker_list[i]
@@ -408,15 +416,14 @@
         },
 
         filter: function (filter,filterType) {            
-            //f = f || function (m) { return true; }            
-            var a = this._marker_list.length;                                
-            var new_markers = Array();            
-            
+            //f = f || function (m) { return true; }                                         
+            var new_markers = Array();           
+
             for (var i = 0; i < this._filtered_marker_list.length; i++) {
                 marker = this._marker_list[i]
                 status = marker.options.status
                 platform = marker.options.platform
-                instrument = marker.options.instrument                                
+                instrument = marker.options.instrument                                                
 
                 if (filter == "all"){                    
                     this.resetMarkers();
@@ -426,10 +433,8 @@
                             new_markers.push(marker);
                     }
 
-                    }else if (filterType == "platform"){                                            
-
+                    }else if (filterType == "platform"){                                  
                         if (platform == filter){
-
                             new_markers.push(marker);
                         }
                     }else if (filterType == "instrument"){                    
@@ -447,11 +452,34 @@
 
     addMarkers(map,markers);
 
+    /*
+    USED FOR STATUS
+    */
     function getStatusFilter(){
-        return $('#statusfilter').find( '.active' ).attr( "filter" )         
+        return "all"
+        //return $('#statusfilter').find( '.active' ).attr( "filter" )         
     }
 
-    /*
+     /* DONUT PLOT
+    donutData = []
+    total = 0
+    arrayKeys = Object.keys(array_list)
+    for (var i = 0; i < arrayKeys.length; i++) {
+        total+= array_list[arrayKeys[i]]['num']
+        donutRow = {label: array_list[arrayKeys[i]]['name'], value: array_list[arrayKeys[i]]['num']}
+        donutData.push(donutRow)
+    };
+    donutRow = {label: 'All Platforms', value: total}
+    donutData.push(donutRow)
+    
+    Morris.Donut({
+      element: 'donut-example',
+      data: donutData,
+      resize: true
+    });
+    */
+
+    /* USED FOR STATUS
     $('.filterMapBtn').on('click', function (e) {
         //Filter map by options        
         $(this).addClass('active').siblings().removeClass('active');        
@@ -460,23 +488,49 @@
     */
     
 
-    /*
-    $('#tocmenu').on('click', function (e) {
+    
+    $('#tocmenusection').on('click', function (e) {
         //Filter map by TOC
-        filter = $(e.target).attr( "filter" ) 
-        filterType = $(e.target).attr( "filtertype" ) 
-        
-        //only filter when its active
-        if ($('#tocmenu > li.active').length != 0){
-            console.log("filter",filter,filterType)
-            markers.resetMarkers(getStatusFilter());
+                
+            
+        var node = $("#tocmenusection").fancytree("getActiveNode");
+        if ((typeof(node) !== 'undefined') && (node !== null)) {
+            node_name = node.title
+            //gets the node list 
+            var ll = node.getParentList(includeRoot=false, includeSelf=false)
+            /*
+            for (var i = 0; i < ll.length; i++) {
+                console.log(ll[i].title)
+            };
+            */
+
+            //allow filtering at different levels
+            request_level = node.getLevel()
+            if (request_level == 1){
+                //platform
+                filterType="platform"
+                filter = node_name
+            }else if (request_level == 2){
+                //instrument
+                filterType="instrument"
+                filter = node_name
+            }else if (request_level == 3){
+                //stream = instrument
+                filterType="instrument"
+                filter = ll[1].title
+            }else if (request_level == 4){
+                //parameter = instrument
+                filterType="instrument"
+                filter = ll[1].title
+            }
+
+            //reset the filters
+            markers.resetMarkers(getStatusFilter());    
+            //apply the marker filter                            
             markers.filter(filter,filterType);
-        }else{
-            markers.resetMarkers(getStatusFilter());
         }
-        
     });
-    */
+    
 
     $('.array-btn').on('click', function (e) {
         
@@ -509,25 +563,6 @@
           return $('#tilepopovertitle').html();
         }
     });
-
-    /* DONUT PLOT*/
-    donutData = []
-    total = 0
-    arrayKeys = Object.keys(array_list)
-    for (var i = 0; i < arrayKeys.length; i++) {
-        total+= array_list[arrayKeys[i]]['num']
-        donutRow = {label: array_list[arrayKeys[i]]['name'], value: array_list[arrayKeys[i]]['num']}
-        donutData.push(donutRow)
-    };
-    donutRow = {label: 'All Platforms', value: total}
-    donutData.push(donutRow)
-    
-    Morris.Donut({
-      element: 'donut-example',
-      data: donutData,
-      resize: true
-    });
-
     
     $( document ).ready(function() {
         $( "#searchQuery" ).keyup(function() {
@@ -541,6 +576,15 @@
             var tree = $("#tocmenusection").fancytree("getTree");
             $( "#searchQuery" ).val("")
             tree.clearFilter();
+
+            try{
+                var node = $("#tocmenusection").fancytree("getActiveNode");
+                node.setActive(false);
+            }
+            catch(err) {
+            }
+            //reset the map marker filters
+            markers.resetMarkers(getStatusFilter());   
         });    
     });
     
@@ -548,24 +592,56 @@
     /*
     when you click on the map, select a point and click plot....
     */
+    //when plot is click .... .popup-map-btn-plot
     $('#map').on('click', '.popup-map-btn-plot', function() {
+        console.log("map-click")
+
         var array = $( this ).parent().attr( "array" ) 
         var instrument = $( this ).parent().attr( "instrument" )
         var platform = $( this ).parent().attr( "platform" )
-        
+        var node = $("#tocmenusection").fancytree("getActiveNode");
+
+        if ((typeof(node) !== 'undefined') && (node !== null)) {
+            if (node.getLevel() >= 3){
+                //used for selection of stream
+                console.log(array,instrument,platform)
+                console.log(node.getLevel())
+            } 
+        }
+
+        var r_node = $("#tocmenusection").fancytree("getRootNode");        
+        var f_node = r_node.findFirst(instrument)
+
+        console.log(f_node)
+        $( "#stream-select" ).empty();
+        $( "#variable-select" ).empty();
+
+
+        if (f_node.getChildren().length>0){
+            for (var i = 0; i < f_node.getChildren().length; i++) {
+                 console.log(f_node.getChildren()[i].title);
+                 $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].title+'">'+f_node.getChildren()[i].title+'</option>')
+                if (i==0){
+                    param_list = f_node.getChildren()[i].getChildren()
+                    for (var i = 0; i < param_list.length; i++) {
+                        if (param_list[i].title.indexOf("time") == -1){
+                        $( "#variable-select" ).append('<option value="'+param_list[i].title+'">'+param_list[i].title+'</option>')
+                        }
+                    };
+                } 
+            };
+        }
+
+
         $( "#currentArray" ).text(array);
         $( "#currentPlatform" ).text(platform);
-        $( "#currentInstrument" ).text(instrument);
+        $( "#currentInstrument" ).text(instrument);      
 
         updateData(array,platform,instrument); 
     });
 
     $( "#variable-select" ).change(function() {
-        array = $( "#currentArray" ).text();
-        platform = $( "#currentPlatform" ).text();
-        instrument = $( "#currentInstrument" ).text();   
-        
-        updateData(array,platform,instrument); 
+       updateDataPlot();
     });    
 
     //DATE TIME FUNCTION
@@ -579,11 +655,22 @@
 
             $("#datetimepicker_from").on("dp.change",function (e) {
                $('#datetimepicker_to').data("DateTimePicker").setMinDate(e.date);
+               updateDataPlot();
             });
             $("#datetimepicker_to").on("dp.change",function (e) {
                $('#datetimepicker_from').data("DateTimePicker").setMaxDate(e.date);
+               updateDataPlot();
             });
     });
+
+
+    function updateDataPlot(){
+        array = $( "#currentArray" ).text();
+        platform = $( "#currentPlatform" ).text();
+        instrument = $( "#currentInstrument" ).text();   
+        
+        updateData(array,platform,instrument); 
+    }
 
     </script>
 
