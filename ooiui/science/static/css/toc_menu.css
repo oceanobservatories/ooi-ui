@@ -1,6 +1,10 @@
 #tocmenusection{
-  height: 500px;  
+  min-height: 423px; 
+  height: 423px; 
+  max-height: 423px;  
   width: 100%;
+  overflow: scroll;
+  padding: 5px;
 }
 
 .toc-menu{

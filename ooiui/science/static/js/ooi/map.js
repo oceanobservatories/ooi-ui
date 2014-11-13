@@ -57,7 +57,7 @@ function addMarkers(map,markers){
 		   }
 	});
 
-	$.getJSON( "/json/tree_stations.json", function( data ) {  
+	$.getJSON( "http://localhost:5000/gettoc/?", function( data ) {  
 	  
       /* TOC Menu  */           	
       buildtocmenu(data['CP']);
@@ -68,7 +68,8 @@ function addMarkers(map,markers){
             $.each( list, function( platform_idx, platform_ob ) {
                 
                 lat = platform_ob['lat']
-                lon = -platform_ob['lon'] 
+                //lon = -platform_ob['lon'] 
+                lon = platform_ob['lon'] 
                 status = platform_ob['status']
                 d_type = platform_ob['type']
                 platform_name = platform_ob['title']

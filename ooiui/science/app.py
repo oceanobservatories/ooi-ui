@@ -113,8 +113,56 @@ def getJsonData(instrument,start_date,end_date,parameters):
     else:
         raise Exception("data request error") 
         
-    
+@app.route('/gettoc/')
+def getTocLayout():  
+    loc = "/Users/rpsdev/Documents/code/ooi/ooi-ui/ooiui/science/static/json/stations_new.json"
+    json_data=open(loc)
+    data = json.load(json_data)
 
+
+    tree_dict = {}
+    platform_fields = ["lat","lon","status"]
+
+    for array in data:   
+        tree_dict[array]=[]
+        
+        for platform_name in data[array]:
+            plat = {"title":platform_name,"type":"platform"}
+            for f in platform_fields:
+                try:
+                    v = data[array][platform_name][f]      
+                    plat[f]=v
+                except:
+                    pass
+            
+            plat["expanded"] = False
+            plat["folder"] = True
+            plat["children"]=[]    
+            
+            for instrument_name in data[array][platform_name]["instruments"]:
+                
+                instrument_key =  instrument_name
+                instru = {"title":instrument_key,"type":"instrument","folder": True,"children":[]}                                    
+                
+                for stream_id in data[array][platform_name]["instruments"][instrument_key]:
+                    stream_name = stream_id             
+                    stream = {"title":stream_name,"type":"stream","folder": True,"children":[]}
+                    for param_id in data[array][platform_name]["instruments"][instrument_key][stream_id]:
+                        param = {"title":param_id,"type":"parameter","folder": False,"children":[]}
+                        stream["children"].append(param)
+                        
+                    instru["children"].append(stream)
+                    
+                plat["children"].append(instru)
+                
+            #print plat,"\n",platform_name,data[array][platform_name]
+            
+            tree_dict[array].append(plat)
+    #print tree_dict
+
+    r = json.dumps(tree_dict,indent=4)
+    resp = Response(response=r, status=200, mimetype="application/json")
+    return resp
 @app.route('/')
 def root(name=None):
     if name:
