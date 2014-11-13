@@ -5,7 +5,6 @@ from flask import render_template
 
 import numpy as np
 
-from shapely.geometry import Polygon,Point,LineString
 from math import cos, sin, asin, sqrt, radians
 
 from functools import wraps
@@ -18,7 +17,6 @@ import netCDF4
 from netCDF4 import num2date, date2num
 
 import os
-import psycopg2 
 import json
 
 OOI_ERRDAP = "http://erddap.ooi.rutgers.edu/erddap/tabledap/"
