@@ -115,9 +115,9 @@ def getJsonData(instrument,start_date,end_date,parameters):
         
 @app.route('/gettoc/')
 def getTocLayout():  
-    loc = "/Users/rpsdev/Documents/code/ooi/ooi-ui/ooiui/science/static/json/stations_new.json"
-    json_data=open(loc)
-    data = json.load(json_data)
+    response = requests.get('http://localhost:4000/shortcut')
+    if response.status_code == 200:
+        data = response.json()
 
 
     tree_dict = {}
