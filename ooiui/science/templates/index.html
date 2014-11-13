@@ -585,6 +585,27 @@
         });    
     });
     
+    $('#map').on('click', '.popup-map-btn-download', function() {
+        $('.popup-map-btn-plot').click();
+        var array = $( this ).parent().attr( "array" ) 
+        var instrument = $( this ).parent().attr( "instrument" )
+        var platform = $( this ).parent().attr( "platform" )
+        var node = $("#tocmenusection").fancytree("getActiveNode");
+        var stream = $('#stream-select option:selected').text();
+
+
+
+        instrument = instrument.replace(/-/g, '_');
+        console.log(instrument);
+        var url = '/erddap/tabledap/' + instrument + '_' + stream + '.nc';
+        console.log(url);
+        window.open(url, '_blank');
+        //http://erddap.ooi.rutgers.edu/erddap/tabledap/CP05MOAS_GL001_03_CTDGVM000_ctdgv_m_glider_instrument_recovered_unprocessed.nc?m_present_time,sci_water_cond,sci_m_present_secs_into_mission,sci_water_temp,preferred_timestamp,m_present_secs_into_mission,sci_water_pressure,sci_m_present_time,internal_timestamp,time,sci_ctd41cp_timestamp,driver_timestamp&time>=2014-04-10T00:00:00Z&time<=2014-04-17T17:50:39Z
+
+
+
+
+    });
 
     /*
     when you click on the map, select a point and click plot....
@@ -597,6 +618,7 @@
         var instrument = $( this ).parent().attr( "instrument" )
         var platform = $( this ).parent().attr( "platform" )
         var node = $("#tocmenusection").fancytree("getActiveNode");
+
 
         if ((typeof(node) !== 'undefined') && (node !== null)) {
             if (node.getLevel() >= 3){
