@@ -93,7 +93,7 @@ def getData():
 
 def getJsonData(instrument,start_date,end_date,parameters):
     #override dataset id for now
-    instrument = "CP05MAS_GL001_03_CTDGVM0000_ctdgv_m_glider_instrument_recovered"
+    instrument = instrument.replace('-', '_')
     #parameters = "sci_water_pressure"
 
     time_param = "time"

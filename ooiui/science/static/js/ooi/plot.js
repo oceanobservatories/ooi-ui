@@ -15,16 +15,16 @@ function updateData(array,platform,instrument){
 	$( '#plotting' ).hide();
 	$('#processing-icon').show();
 
-    getData(array,platform,instrument,$( "#variable-select option:selected").attr("value"));
+    getData(array,platform,instrument,$('#stream-select option:selected').text(), $( "#variable-select option:selected").attr("value"));
 }
 
-function getData(array,platform,instrument,variable){
+function getData(array,platform,instrument,stream,variable){
 	//get the from date
 	from_dt = ($('#datetimepicker_from').data("DateTimePicker").getDate().toISOString());
 	to_dt   = ($('#datetimepicker_to').data("DateTimePicker").getDate().toISOString());	
 
-	url  = "http://localhost:5000/getdata/?"
-	url += "dataset_id="+instrument
+	url  = "/getdata/?"
+	url += "dataset_id="+instrument + '_' + stream
 	url += "&startdate="+from_dt
 	url += "&enddate="+to_dt
 	url += "&variables="+variable
