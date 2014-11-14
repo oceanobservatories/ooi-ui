@@ -699,7 +699,7 @@
         $( "#currentPlatform" ).text(platform);
         $( "#currentInstrument" ).text(instrument);      
 
-        updateData(array,platform,instrument); 
+        getTimeCoverage(array,platform,instrument);  // Also updates the data because it sets the date picker
     });
 
     $( "#variable-select" ).change(function() {
