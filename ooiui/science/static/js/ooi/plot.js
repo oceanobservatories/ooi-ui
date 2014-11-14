@@ -15,7 +15,38 @@ function updateData(array,platform,instrument){
 	$( '#plotting' ).hide();
 	$('#processing-icon').show();
 
-    getData(array,platform,instrument,$('#stream-select option:selected').text(), $( "#variable-select option:selected").attr("value"));
+    getTimeCoverage(array, platform, instrument);
+
+}
+
+function getTimeCoverage(array,platform,instrument) {
+    var instrument = $( "#currentInstrument" ).text();      
+    var stream = $('#stream-select option:selected').text();
+    if ($('#datetimepicker_from').data()["date"] != "07/15/2014 12:00 AM")
+        return
+
+
+    instrument = instrument.replace(/-/g, '_');
+    var url = "/get_time_coverage/" + instrument + "/" + stream;
+    console.log("Attempting", url);
+
+
+
+    $.getJSON(url, function( data ) {  
+        console.log("This is the data");
+        console.log(data);
+        var start_date = data['time_coverage_start'];
+        var end_date = data['time_coverage_end'];
+
+        $('#datetimepicker_from').data("DateTimePicker").setDate(new Date(start_date))
+        $('#datetimepicker_to').data("DateTimePicker").setDate(new Date(end_date))
+        console.log(start_date);
+        console.log(end_date);
+    })
+    .done(function() {
+        getData(array,platform,instrument,$('#stream-select option:selected').text(), $( "#variable-select option:selected").attr("value"));
+    });
+
 }
 
 function getData(array,platform,instrument,stream,variable){

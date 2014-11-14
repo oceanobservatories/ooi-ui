@@ -110,6 +110,17 @@ def getJsonData(instrument,start_date,end_date,parameters):
         return r
     else:
         raise Exception("data request error") 
+
+@app.route('/get_time_coverage/<ref>/<stream>')
+def get_time_coverage(ref, stream):
+    response = requests.get('http://localhost:4000/get_time_coverage/%s/%s' % (ref,stream))
+    if response.status_code != 200:
+        data = {}
+
+    data = response.json()
+
+    resp = Response(response=json.dumps(data), status=200, mimetype="application/json")
+    return resp
         
 @app.route('/gettoc/')
 def getTocLayout():  
