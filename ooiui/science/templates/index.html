@@ -607,6 +607,47 @@
 
     });
 
+    $('#stream-select').change(function() {
+        console.log("Yo ma amigo");
+        var stream = $('#stream-select option:selected').text();
+        var array = $( "#currentArray" ).text();
+        var platform = $( "#currentPlatform" ).text();
+        var instrument = $( "#currentInstrument" ).text();      
+        var node = $("#tocmenusection").fancytree("getActiveNode");
+        console.log(instrument);
+
+
+
+        var r_node = $("#tocmenusection").fancytree("getRootNode");        
+        var f_node = r_node.findFirst(instrument)
+
+        console.log(f_node)
+        $( "#variable-select" ).empty();
+        global_f_node = f_node;
+
+
+        if (f_node.getChildren().length>0){
+            for (var i = 0; i < f_node.getChildren().length; i++) {
+                var streamSomething = f_node.getChildren()[i].title;
+                console.log("streamSomething", streamSomething);
+                console.log("stream", stream);
+                console.log("I'm out of ideas!");
+                 console.log(f_node.getChildren()[i].title);
+                if (streamSomething == stream){
+                    param_list = f_node.getChildren()[i].getChildren()
+                    for (var j = 0; j < param_list.length; j++) {
+                        if (param_list[j].title.indexOf("time") == -1){
+                          $( "#variable-select" ).append('<option value="'+param_list[j].title+'">'+param_list[j].title+'</option>')
+                        }
+                    };
+                } 
+            };
+        }
+
+
+        updateData(array,platform,instrument); 
+    });
+
     /*
     when you click on the map, select a point and click plot....
     */
@@ -634,17 +675,19 @@
         console.log(f_node)
         $( "#stream-select" ).empty();
         $( "#variable-select" ).empty();
+        global_f_node = f_node;
 
 
         if (f_node.getChildren().length>0){
             for (var i = 0; i < f_node.getChildren().length; i++) {
+                console.log("My brotha!");
                  console.log(f_node.getChildren()[i].title);
                  $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].title+'">'+f_node.getChildren()[i].title+'</option>')
                 if (i==0){
                     param_list = f_node.getChildren()[i].getChildren()
-                    for (var i = 0; i < param_list.length; i++) {
-                        if (param_list[i].title.indexOf("time") == -1){
-                        $( "#variable-select" ).append('<option value="'+param_list[i].title+'">'+param_list[i].title+'</option>')
+                    for (var j = 0; j < param_list.length; j++) {
+                        if (param_list[j].title.indexOf("time") == -1){
+                        $( "#variable-select" ).append('<option value="'+param_list[j].title+'">'+param_list[j].title+'</option>')
                         }
                     };
                 } 
@@ -668,9 +711,9 @@
             $('#datetimepicker_from').datetimepicker();
             $('#datetimepicker_to').datetimepicker();
             
-            $('#datetimepicker_from').data("DateTimePicker").setDate(new Date("january 1, 2001"))
+            $('#datetimepicker_from').data("DateTimePicker").setDate(new Date("jul 15, 2014"))
 
-            $('#datetimepicker_to').data("DateTimePicker").setDate(new Date("june 12, 2015"))
+            $('#datetimepicker_to').data("DateTimePicker").setDate(new Date("jul 20, 2014"))
 
             $("#datetimepicker_from").on("dp.change",function (e) {
                $('#datetimepicker_to').data("DateTimePicker").setMinDate(e.date);
@@ -691,6 +734,7 @@
         updateData(array,platform,instrument); 
     }
 
+    var global_f_node = null;
     </script>
 
 </body>
