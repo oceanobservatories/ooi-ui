@@ -27,7 +27,8 @@
     "bootstrap-datetimepicker": "~0.0.11",
     "morris.js": "~0.5.1",
     "fancytree": "~2.4.1",
-    "font-awesome": "~4.2.0"
+    "font-awesome": "~4.2.0",
+    "jquery-ui": "~1.11.2"
   },
   "resolutions": {
     "jquery": "~2.1.1",

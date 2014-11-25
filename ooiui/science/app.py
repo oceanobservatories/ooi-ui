@@ -135,7 +135,7 @@ def getTocLayout():
     for array in data:   
         tree_dict[array]=[]
         
-        for platform_name in data[array]:
+        for platform_name in sorted(data[array].keys()):
             plat = {"title":platform_name,"type":"platform"}
             for f in platform_fields:
                 try:
