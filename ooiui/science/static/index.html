@@ -609,7 +609,7 @@
         global_f_node = f_node;
 
 
-        if (f_node.getChildren().length>0){
+        if (f_node.getChildren()!= null && f_node.getChildren().length>0){
             for (var i = 0; i < f_node.getChildren().length; i++) {
                 var streamSomething = f_node.getChildren()[i].title;
                 console.log("streamSomething", streamSomething);
