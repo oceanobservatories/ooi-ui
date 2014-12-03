@@ -6,18 +6,15 @@ Defines the application routes
 '''
 from ooiui.science.app import app
 from flask import request, render_template, Response
-from ooiui.config import TABLEDAP
+from ooiui.config import TABLEDAP, SERVICES_URL
 
 import requests
 import os
 import json
 
 @app.route('/pioneer/')
-def pioneer(name=None):
-    if name:
-        return render_template(name, title = "")
-    else:
-        return render_template("pioneer_landing.html", title = 'Pioneer Array')
+def pioneer():
+    return app.send_static_file('pioneer_landing.html')
 
 @app.route('/getdata/')
 def getData():
@@ -56,7 +53,7 @@ def getJsonData(instrument,start_date,end_date,parameters):
 
 @app.route('/get_time_coverage/<ref>/<stream>')
 def get_time_coverage(ref, stream):
-    response = requests.get('http://localhost:4000/get_time_coverage/%s/%s' % (ref,stream))
+    response = requests.get('%s/get_time_coverage/%s/%s' % (SERVICES_URL, ref,stream))
     if response.status_code != 200:
         data = {}
 
@@ -71,7 +68,8 @@ def getTocLayout():
         with open('toc.json') as data_file:    
             tree_dict = json.load(data_file)
     else:
-        response = requests.get('http://localhost:4000/shortcut')    
+        response = requests.get('%s/shortcut' % SERVICES_URL)
+        data = response.json()
 
         if response.status_code == 200:
             data = response.json()
