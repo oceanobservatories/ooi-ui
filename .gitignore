@@ -4,3 +4,4 @@
 ooiui/science/static/components/
 **/node_modules
 **/nohup.out
+**/react/*.js
