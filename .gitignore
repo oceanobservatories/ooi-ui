@@ -2,3 +2,5 @@
 *.pyc
 *.DS_Store
 ooiui/science/static/components/
+**/node_modules
+**/nohup.out

@@ -31,6 +31,10 @@ def getData():
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
 
+@app.route('/files')
+def files():
+    return render_template('filebrowser.html')
+
 def getJsonData(instrument,start_date,end_date,parameters):
     #override dataset id for now
     instrument = instrument.replace('-', '_')
