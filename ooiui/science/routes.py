@@ -6,7 +6,7 @@ Defines the application routes
 '''
 from ooiui.science.app import app
 from flask import request, render_template, Response
-from ooiui.config import TABLEDAP, SERVICES_URL
+from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
 
 import requests
 import os
