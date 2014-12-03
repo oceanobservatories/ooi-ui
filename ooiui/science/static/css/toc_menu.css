@@ -11,6 +11,55 @@
  
 }
 
+.fancytree-expander{
+  left: -25px;
+  /* set the size of the expander*/
+  font-size: 1.2em;
+}
+
+/*
+Color for plus sign
+*/
+span.fancytree-expander.glyphicon-plus-sign{
+  color: orange;    
+}
+
+/*
+Color for minus sign
+*/
+span.fancytree-expander.glyphicon-minus-sign{
+  color: blue;    
+}
+
+span.fancytree-folder {
+  left: 25px;
+  position: relative;
+}
+
+span.fancytree-icon {
+  position: relative;
+  /*  folder icon size  */
+  font-size: 1.2em;
+  /* folder color*/
+  color: #333340;    
+}
+span.fancytree-childcounter {
+  color: #fff;
+  background: #428BCA;
+  position: absolute;
+  top: -4px;
+  left: -25px;
+  min-width: 13px;
+  height: 20px;
+  width: 20px;
+  line-height: 1;
+  vertical-align: baseline;
+  border-radius: 15px;
+  padding: 1px;
+  text-align: center;
+  font-size: 13px;
+}
+
 /*
 .badge-error {
     background-color: #b94a48;

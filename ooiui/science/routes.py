@@ -65,7 +65,9 @@ def get_time_coverage(ref, stream):
 @app.route('/gettoc/')
 def getTocLayout():  
     if DEBUG:
-        with open('toc.json') as data_file:    
+        SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+        json_url = os.path.join(SITE_ROOT, "static/json", 'toc.json')
+        with open(json_url) as data_file:    
             tree_dict = json.load(data_file)
     else:
         response = requests.get('%s/shortcut' % SERVICES_URL)

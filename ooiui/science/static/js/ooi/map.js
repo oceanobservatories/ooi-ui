@@ -20,33 +20,45 @@ function OpenInNewTab(url) {
   win.focus();
 }
 
-function getStatusMarker(status,redMarker,greenMarker,naMarker){
-	if (status == "na"){
-		return naMarker;
-	}else if (status == "on"){
-		return onMarker;
-	}else if (status == "off"){
-		return offMarker;
-	}	
+function getStatusColor(status){
+    if (status == "na"){
+        return "blue";
+    }else if (status == "on"){
+        return 'green';
+    }else if (status == "off"){
+        return 'red';
+    }   
 }
 
+function getMarkerIcon(stream_num){
+    if (stream_num > 0){
+        return "star";
+    }else{
+        return "ban";
+    }   
+}
+
+function getStatusMarker(status,stream_num){    
+    if (stream_num > 0){
+        icon_style = "star";
+        color = getStatusColor(status)
+    }else{
+        icon_style = "ban";
+        color = 'darkred'
+    }
+    
+
+    // Creates a red marker
+    var marker = L.AwesomeMarkers.icon({
+        icon: icon_style,
+        markerColor: color,
+        prefix: 'fa'
+     });
+    return marker;
+}
+
+
 function addMarkers(map,markers){
-
-	// Creates a red marker
-    var redMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'red'
-    });
-
-    var greenMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'green'
-    });
-
-    var naMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'blue'
-    });
 
     /* PLATFORM MARKER EXTENDED FROM NORMAL MARKER*/
     PlatformMarker = L.Marker.extend({
@@ -81,12 +93,14 @@ function addMarkers(map,markers){
                 if (lat > -999 && lon > -999){
                 	$.each( instruments, function( instrument_id, instrument ) {  
                         instrument_name = instrument['title']              		                	
-	                	popup = getPopupContent(array,platform_name,instrument_name,status);
+                        stream_num = instrument.children.length
+                        popup = getPopupContent(array,platform_name,instrument_name,status,stream_num);
 
+                        markerIcon = getStatusMarker(status,stream_num)
 	                    //create the marker and set the properties
 	                    var marker = new PlatformMarker([lat,lon], 
 	                    	{
-	                    		icon: getStatusMarker(status,redMarker,greenMarker,naMarker),
+	                    		icon: markerIcon,
 	                    		status: status,
 	                    		platform: platform_name,
 	                    		instrument: instrument_name,
@@ -112,12 +126,14 @@ function addMarkers(map,markers){
 	
 }
 
-function getPopupContent(array,platform,instrument, status){
+function getPopupContent(array,platform,instrument, status,stream_num){
+    if (stream_num > 0){
     popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
             instrument+ 
             "<br> Array: "+ array+ 
             "<br> Platform: " +platform+ " " +
-            "<br> "+ "Status: "+ status + "<br>"+
+            "<br> "+ "Status: "+ status + " "+
+            "<br> "+ "Stream #: "+ stream_num + "<br>"+
             '<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
                 '<span class="glyphicon glyphicon-stats"></span> Plot data'+
             '</button>'+
@@ -125,6 +141,14 @@ function getPopupContent(array,platform,instrument, status){
                 '<span class="glyphicon glyphicon-save"></span> Download data'+
             '</button>'+
             "</div>"
+    }else{
+         popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
+            instrument+ 
+            "<br> Array: "+ array+ 
+            "<br> Platform: " +platform+ " " +
+            "<br> "+ "Status: "+ status + " "+
+            "<br> "+ "Stream #: "+ stream_num + "<br>"
+    }
    
     return popstr
 
