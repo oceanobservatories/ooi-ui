@@ -63,59 +63,66 @@ def get_time_coverage(ref, stream):
     return resp
         
 @app.route('/gettoc/')
-def getTocLayout():  
+def getTocLayout():    
+    #boolean flag for original non modified json
+    if 'original' in request.args:
+        original = request.args['original']    
+    else:
+        original = False
+
     if DEBUG:
         SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
         json_url = os.path.join(SITE_ROOT, "static/json", 'toc.json')
         with open(json_url) as data_file:    
             tree_dict = json.load(data_file)
     else:
-        response = requests.get('%s/shortcut' % SERVICES_URL)
-        data = response.json()
+        response = requests.get('%s/shortcut' % SERVICES_URL)        
+        
+
+        tree_dict = {}
 
         if response.status_code == 200:
             data = response.json()
-
-
-        tree_dict = {}
-        platform_fields = ["lat","lon","status"]
-
-        for array in data:   
-            tree_dict[array]=[]
             
-            for platform_name in sorted(data[array].keys()):
-                plat = {"title":platform_name,"type":"platform"}
-                for f in platform_fields:
-                    try:
-                        v = data[array][platform_name][f]      
-                        plat[f]=v
-                    except:
-                        pass
-                
-                plat["expanded"] = False
-                plat["folder"] = True
-                plat["children"]=[]    
-                
-                for instrument_name in data[array][platform_name]["instruments"]:
+            if original:
+                tree_dict = data
+            else:    
+                platform_fields = ["lat","lon","status"]
+
+                for array in data:   
+                    tree_dict[array]=[]
                     
-                    instrument_key =  instrument_name
-                    instru = {"title":instrument_key,"type":"instrument","folder": True,"children":[]}                                    
-                    
-                    for stream_id in data[array][platform_name]["instruments"][instrument_key]:
-                        stream_name = stream_id             
-                        stream = {"title":stream_name,"type":"stream","folder": True,"children":[]}
-                        for param_id in data[array][platform_name]["instruments"][instrument_key][stream_id]:
-                            param = {"title":param_id,"type":"parameter","folder": False,"children":[]}
-                            stream["children"].append(param)
-                            
-                        instru["children"].append(stream)
+                    for platform_name in sorted(data[array].keys()):
+                        plat = {"title":platform_name,"type":"platform"}
+                        for f in platform_fields:
+                            try:
+                                v = data[array][platform_name][f]      
+                                plat[f]=v
+                            except:
+                                pass
                         
-                    plat["children"].append(instru)
-                    
-                #print plat,"\n",platform_name,data[array][platform_name]
-                
-                tree_dict[array].append(plat)
-            #print tree_dict
+                        plat["expanded"] = False
+                        plat["folder"] = True
+                        plat["children"]=[]    
+                        
+                        for instrument_name in data[array][platform_name]["instruments"]:
+                            
+                            instrument_key =  instrument_name
+                            instru = {"title":instrument_key,"type":"instrument","folder": True,"children":[]}                                    
+                            
+                            for stream_id in data[array][platform_name]["instruments"][instrument_key]:
+                                stream_name = stream_id             
+                                stream = {"title":stream_name,"type":"stream","folder": True,"children":[]}
+                                for param_id in data[array][platform_name]["instruments"][instrument_key][stream_id]:
+                                    param = {"title":param_id,"type":"parameter","folder": False,"children":[]}
+                                    stream["children"].append(param)
+                                    
+                                instru["children"].append(stream)
+                                
+                            plat["children"].append(instru)                                                
+                        
+                        tree_dict[array].append(plat)
+            
         with open('toc.json', 'w') as outfile:
             json.dump(tree_dict, outfile)
 
