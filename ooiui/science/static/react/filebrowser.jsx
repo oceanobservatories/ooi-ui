@@ -4,6 +4,17 @@
  * Defines the components that compose the File Browser
  */
 
+var OverviewHeader = React.createClass({
+  render: function() {
+      return (
+        <h4 className="overview">{this.props.title}
+          <i className="glyphicon glyphicon-info-sign info-icon"></i>
+        </h4>   
+      )
+    }
+});
+
+
 /*
  * FolderBrowser
  * Presents a tree-style layout for a folder structure and allows the user to
@@ -16,9 +27,7 @@ var FolderBrowser = React.createClass({
         <div className="panel panel-default">
           <div className="panel-body">
             <div>                       
-              <h4 className="overview">Array Overview 
-                <i className="glyphicon glyphicon-info-sign info-icon"></i>
-              </h4>   
+               <OverviewHeader title={"Array"}/>
                 <div className="col-1 input-group">
                   <div className="right-inner-addon">
                      <input id="searchQuery" type="Search" placeholder="Search..." className="form-control" />
