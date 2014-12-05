@@ -50,6 +50,8 @@
     <script src="/components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> 
 
     <script src="/js/ooi/plot.js"></script> 
+    <script src="/js/ooi/variable_list.js"></script> 
+    <script src="/js/ooi/d3.legend.js"></script> 
     <link rel="stylesheet" href="/css/ooi/plot.css">
 
     <!--
@@ -247,74 +249,11 @@
                 </div>
             </div>
 
-            <div class="bottom-div col-lg-12">
-                <div class="panel panel-default" style="height: 100%">
-                  <div class="panel-body" style="height: 100%;padding:5px;">
-                        
-                        <div class="col-lg-3" style="display: inline-block;">
-                            <h4>Station Info</h4>
+            <div class="row">
 
-                            <dl class="dl-horizontal">
-                                <dt>Array</dt>
-                                  <dd id="currentArray"></dd>
-                            </dl>
+            </div>  
 
-                            <dl class="dl-horizontal">
-                                <dt>Platform</dt>
-                                  <dd id="currentPlatform"></dd>
-                            </dl>
-
-                            <dl class="dl-horizontal">
-                                <dt>Intrument</dt>
-                                  <dd id="currentInstrument"></dd>
-                            </dl>                           
-                        </div>
-
-                        <div class="col-lg-3" style="display: inline-block;">
-                            <h4>Plot Controls</h4>
-                            <div class="col-lg-2" style="width:100%;">
-                                <select id="stream-select"class="form-control">                                                                                                                                             
-                                </select>
-                            </div>
-
-                            <div class="col-lg-2" style="padding-top:10px;padding-bottom:10px; width:100%;">
-                                <select id="variable-select"class="form-control">                                                                                                          
-                                    <option value="m_present_secs_into_mission">m_present_secs_into_mission</option>
-                                    <option value="sci_water_cond">sci_water_cond</option>                            
-                                    <option value="sci_water_temp">sci_water_temp</option>
-                                    <option value="sci_water_pressure">sci_water_pressure</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-6" style="display: inline-block;">
-                            <h4>Date Controls</h4>
-                            <div class="col-lg-8" style="width:100%;">
-                               <div class='col-md-5'>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker_from'>
-                                            <input type='text' class="form-control" />
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='col-md-5'>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker_to'>
-                                            <input type='text' class="form-control" />
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                       
-                  </div>
-                </div>
-            </div>
-
-            <div class="col-lg-12 bottom-div">
+            <div class="col-lg-6 bottom-div">
                 <div class="panel panel-default">
                     <div class="panel-body" style="padding:5px;">     
 
@@ -323,12 +262,102 @@
                       <div class="dot2"></div>
                     </div>                                       
 
-                    <div class="container-fluid" id="plotting" style="display: none;width: 100%; min-height: 300px;height:300px;">  
+                    <div class="container-fluid" id="plotting" style="display: none; min-height: 300px;height:300px;">  
                                         
                     </div>
                   </div>
                 </div>
             </div>
+
+            <div class="bottom-div col-lg-6">
+                <div class="panel panel-default" style="height: 100%">
+                  <div class="panel-body" style="height: 100%;padding:5px;">
+                        <div class="row">
+                            <div class="col-lg-3" style="display: inline-block;">
+                                <h4>Station Info</h4>
+
+                                <dl class="dl-horizontal">
+                                    <dt>Array</dt>
+                                      <dd id="currentArray"></dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt>Platform</dt>
+                                      <dd id="currentPlatform"></dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt>Intrument</dt>
+                                      <dd id="currentInstrument"></dd>
+                                </dl>                           
+                            </div>
+
+                            <div class="col-lg-3" style="display: inline-block;">
+                                <h4>Plot Controls</h4>
+                                <h5 class="text-center">Streams</h5>
+                                <div class="col-lg-2" style="width:100%;">
+                                    <select id="stream-select"class="form-control">                                                                                                                                            
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-2" style="padding-top:10px;padding-bottom:10px; width:100%;">
+
+                                    <h5 class="text-center">Variables</h5>
+                                    <div class="panel" style="max-height: 200px;overflow: auto; border-color: lightgray lightgray;border-style: solid;">
+                                        <ul id="variable-select-list" class="list-group checked-list-box">
+                                          <li class="list-group-item">Cras justo odio</li>
+                                          <li class="list-group-item" data-checked="true">Dapibus ac facilisis in</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                            </div>                                                                                 
+                        </div> 
+
+                    <div class="row">
+                        <div class="col-lg-6" style="display: inline-block;">
+                                <h4>Date Controls</h4>
+                                <div class="col-lg-8" style="width:100%;">
+                                   <div class='col-md-5'>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker_from'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-md-5'>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker_to'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="display: inline-block;">
+                            <h5>Time Interval</h5>
+                            <div class="btn-group" role="group" aria-label="...">
+                              <button type="button" disabled class="btn btn-default">Left</button>
+                              <button type="button" class="btn btn-default">Middle</button>
+                              <button type="button" class="btn btn-default">Right</button>
+                            </div>
+
+                            <button type="button" class="btn btn-primary btn">
+                              <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+                            </button>
+                        </div> 
+                    </div>                        
+                  </div>                        
+                </div>                
+            </div>
+
+            
             
         </div>
     </div>
@@ -604,7 +633,7 @@
         var f_node = r_node.findFirst(instrument)
 
         console.log(f_node)
-        $( "#variable-select" ).empty();
+        $( "#variable-select-list" ).empty();
         global_f_node = f_node;
 
 
@@ -612,21 +641,21 @@
             for (var i = 0; i < f_node.getChildren().length; i++) {
                 var streamSomething = f_node.getChildren()[i].title;
                 console.log("streamSomething", streamSomething);
-                console.log("stream", stream);
-                console.log("I'm out of ideas!");
+                //console.log("stream", stream);
+                //console.log("I'm out of ideas!");
                  console.log(f_node.getChildren()[i].title);
                 if (streamSomething == stream){
                     param_list = f_node.getChildren()[i].getChildren()
                     for (var j = 0; j < param_list.length; j++) {
                         if (param_list[j].title.indexOf("time") == -1){
-                          $( "#variable-select" ).append('<option value="'+param_list[j].title+'">'+param_list[j].title+'</option>')
+                          $( "#variable-select-list" ).append('<li value="'+param_list[j].title+'" class="list-group-item">'+param_list[j].title+'</li>')
                         }
                     };
                 } 
             };
         }
 
-
+        refreshVariableList();
         updateData(array,platform,instrument); 
     });
 
@@ -656,7 +685,7 @@
 
         console.log(f_node)
         $( "#stream-select" ).empty();
-        $( "#variable-select" ).empty();
+        $( "#variable-select-list" ).empty();
         global_f_node = f_node;
 
 
@@ -668,15 +697,17 @@
                 if (i==0){
                     param_list = f_node.getChildren()[i].getChildren()
                     for (var j = 0; j < param_list.length; j++) {
-                        if (param_list[j].title.indexOf("time") == -1){
-                        $( "#variable-select" ).append('<option value="'+param_list[j].title+'">'+param_list[j].title+'</option>')
+                        if (param_list[j].title.indexOf("time") == -1){ 
+
+                        $( "#variable-select-list" ).append('<li value="'+param_list[j].title+'" class="list-group-item">'+param_list[j].title+'</li>')
+
                         }
                     };
                 } 
             };
         }
 
-
+        refreshVariableList();
         $( "#currentArray" ).text(array);
         $( "#currentPlatform" ).text(platform);
         $( "#currentInstrument" ).text(instrument);      
@@ -684,7 +715,9 @@
         getTimeCoverage(array,platform,instrument);  // Also updates the data because it sets the date picker
     });
 
-    $( "#variable-select" ).change(function() {
+    $('#variable-select-list').on('click', function(event) {
+       
+       event.preventDefault();        
        updateDataPlot();
     });    
 
@@ -711,12 +744,12 @@
     function updateDataPlot(){
         array = $( "#currentArray" ).text();
         platform = $( "#currentPlatform" ).text();
-        instrument = $( "#currentInstrument" ).text();   
-        
+        instrument = $( "#currentInstrument" ).text();                   
         updateData(array,platform,instrument); 
     }
 
     var global_f_node = null;
+
     </script>
 
 </body>
