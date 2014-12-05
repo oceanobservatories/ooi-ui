@@ -8,6 +8,8 @@ from ooiui.science.app import app
 from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
 
+from ooiui.science.interface import tabledap
+
 import requests
 import os
 import json
