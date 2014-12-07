@@ -64,12 +64,7 @@ def get_toc():
 def tree_platforms(platform):
 
     display_name = platform['display_name']
-    plat = {"id" : platform['id'], "title":display_name,"type":"platform"}
-    for f in platform:
-        try:
-            plat[f] = platform[f]
-        except:
-            pass
+    plat = {"id" : platform['reference_designator'], "title":display_name,"type":"platform"}
     
     plat["expanded"] = False
     plat["folder"] = True
@@ -89,7 +84,7 @@ def tree_instruments(instrument):
 
     display_name = instrument["display_name"]
     instru = {
-       "id"       : instrument['id'],
+       "id"       : instrument['reference_designator'],
        "title"    : display_name,
        "type"     : "instrument",
        "folder"   : True,
@@ -105,7 +100,7 @@ def tree_instruments(instrument):
     return instru
 
 def tree_streams(stream_id, stream):
-    stream = {
+    stream_doc = {
         "id"       : stream_id,
         "title"    : stream_id,
         "type"     : "stream",
@@ -121,9 +116,9 @@ def tree_streams(stream_id, stream):
             "folder"   : False,
             "children" : []
         }
-        stream["children"].append(param)
+        stream_doc["children"].append(param)
         
-    return stream
+    return stream_doc
         
     
 
