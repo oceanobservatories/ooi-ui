@@ -1,4 +1,5 @@
 TABLEDAP: http://erddap.ooi.rutgers.edu/erddap/tabledap/
+ERDDAP_URL: http://erddap.ooi.rutgers.edu/erddap
 SERVICES_URL: http://localhost:4000
 DEBUG: False
 CACHE_ENABLED: True

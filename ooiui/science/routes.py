@@ -10,6 +10,7 @@ from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
 
 from ooiui.science.interface import tabledap as tabled
 from ooiui.science.interface.toc import get_toc as get_toc_interface
+from ooiui.science.interface.timecoverage import get_times_for_stream
 
 import requests
 import os
@@ -51,12 +52,7 @@ def files():
 
 @app.route('/get_time_coverage/<ref>/<stream>')
 def get_time_coverage(ref, stream):
-    response = requests.get('%s/get_time_coverage/%s/%s' % (SERVICES_URL, ref,stream))
-    if response.status_code != 200:
-        data = {}
-
-    data = response.json()
-
+    data = get_times_for_stream(ref, stream)
     resp = Response(response=json.dumps(data), status=200, mimetype="application/json")
     return resp
         
