@@ -90,7 +90,8 @@ def getTocLayout():
                     tree_dict[array]=[]
                     
                     for platform_name in sorted(data[array].keys()):
-                        plat = {"title":platform_name,"type":"platform"}
+                        display_name = data[array][platform_name]['display_name']
+                        plat = {"id" : platform_name, "title":display_name,"type":"platform"}
                         for f in platform_fields:
                             try:
                                 v = data[array][platform_name][f]      
@@ -104,21 +105,42 @@ def getTocLayout():
                         
                         for instrument_name in data[array][platform_name]["instruments"]:
                             
-                            instrument_key =  instrument_name
-                            instru = {"title":instrument_key,"type":"instrument","folder": True,"children":[]}                                    
+                            display_name = data[array][platform_name]["instruments"][instrument_name]["display_name"]
+                            instru = {
+                               "id"       : instrument_name,
+                               "title"    : display_name,
+                               "type"     : "instrument",
+                               "folder"   : True,
+                               "children" : []
+                            }
                             
-                            for stream_id in data[array][platform_name]["instruments"][instrument_key]:
-                                stream_name = stream_id             
-                                stream = {"title":stream_name,"type":"stream","folder": True,"children":[]}
-                                for param_id in data[array][platform_name]["instruments"][instrument_key][stream_id]:
-                                    param = {"title":param_id,"type":"parameter","folder": False,"children":[]}
+                            for stream_id in data[array][platform_name]["instruments"][instrument_name]["streams"]:
+                                stream = {
+                                    "id"       : stream_id,
+                                    "title"    : stream_id,
+                                    "type"     : "stream",
+                                    "folder"   : True,
+                                    "children" : []
+                                }
+
+                                for param_id in data[array][platform_name]["instruments"][instrument_name]["streams"][stream_id]:
+                                    param = {
+                                        "id"       : param_id,
+                                        "title"    : param_id,
+                                        "type"     : "parameter",
+                                        "folder"   : False,
+                                        "children" : []
+                                    }
                                     stream["children"].append(param)
                                     
-                                instru["children"].append(stream)
+                                if stream["children"]:
+                                    instru["children"].append(stream)
                                 
-                            plat["children"].append(instru)                                                
+                            if instru["children"]:
+                                plat["children"].append(instru)                                                
                         
-                        tree_dict[array].append(plat)
+                        if plat["children"]:
+                            tree_dict[array].append(plat)
             
         with open('toc.json', 'w') as outfile:
             json.dump(tree_dict, outfile)
