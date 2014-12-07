@@ -44,6 +44,10 @@ def getData():
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
 
+@app.route('/files')
+def files():
+    return render_template('filebrowser.html')
+
 @app.route('/get_time_coverage/<ref>/<stream>')
 def get_time_coverage(ref, stream):
     response = requests.get('%s/get_time_coverage/%s/%s' % (SERVICES_URL, ref,stream))
