@@ -84,7 +84,9 @@ function addMarkers(map,markers){
                 lon = platform_ob['lon'] 
                 status = platform_ob['status']
                 d_type = platform_ob['type']
+
                 platform_name = platform_ob['title']
+                platform_id = platform_ob['id']
 
                 //get the instruments
                 instruments = platform_ob['children']                             
@@ -92,9 +94,17 @@ function addMarkers(map,markers){
                 //normal assets
                 if (lat > -999 && lon > -999){
                 	$.each( instruments, function( instrument_id, instrument ) {  
-                        instrument_name = instrument['title']              		                	
+                        instrument_name = instrument['title'] 
+                        instrument_id = instrument['id']    
+
+                        if (instrument_name.length < 4){
+                            instrument_name = instrument_id
+                        }
+
                         stream_num = instrument.children.length
-                        popup = getPopupContent(array,platform_name,instrument_name,status,stream_num);
+                        popup = getPopupContent(array,platform_name,instrument_name,status,instrument_id,platform_id);
+
+
 
                         markerIcon = getStatusMarker(status,stream_num)
 	                    //create the marker and set the properties
@@ -103,7 +113,9 @@ function addMarkers(map,markers){
 	                    		icon: markerIcon,
 	                    		status: status,
 	                    		platform: platform_name,
+                                platform_id: platform_id,
 	                    		instrument: instrument_name,
+                                instrument_id: instrument_id,
                                 riseOnHover: true
 	                    	}
 	                    );
@@ -126,29 +138,21 @@ function addMarkers(map,markers){
 	
 }
 
-function getPopupContent(array,platform,instrument, status,stream_num){
-    if (stream_num > 0){
-    popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
-            instrument+ 
-            "<br> Array: "+ array+ 
-            "<br> Platform: " +platform+ " " +
-            "<br> "+ "Status: "+ status + " "+
-            "<br> "+ "Stream #: "+ stream_num + "<br>"+
+function getPopupContent(array,platform,instrument, status,instrument_id,platform_id){
+    
+    popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"'+' platform_id="'+platform_id+'"'+ ' instrument_id="'+instrument_id+'"' +' class="popup-map-btn">'+
+            instrument+ ":" +  instrument_id +
+            "<br> <b>Array:</b> "+ array+ 
+            "<br> <b>Platform:</b> "+ platform_id + ":"+ platform+ " " +
+            "<br> "+ "<b>Status:</b> "+ status + " "+
+            "<br> "+ "<b>Stream #:</b> "+ stream_num + "<br>"+
             '<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
                 '<span class="glyphicon glyphicon-stats"></span> Plot data'+
             '</button>'+
             '<button type="button" class="popup-map-btn-download btn btn-default btn-sm">'+                                
                 '<span class="glyphicon glyphicon-save"></span> Download data'+
             '</button>'+
-            "</div>"
-    }else{
-         popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
-            instrument+ 
-            "<br> Array: "+ array+ 
-            "<br> Platform: " +platform+ " " +
-            "<br> "+ "Status: "+ status + " "+
-            "<br> "+ "Stream #: "+ stream_num + "<br>"
-    }
+            "</div>"   
    
     return popstr
 

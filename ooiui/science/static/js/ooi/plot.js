@@ -41,12 +41,13 @@ function updateData(array,platform,instrument){
 
 }
 
-function getTimeCoverage(array,platform,instrument) {    
+function getTimeCoverage(array,platform_id,instrument_id) {    
     var instrument = $( "#currentInstrument" ).text();      
+    var instrument_id = $( "#currentInstrument" ).attr("value")
     var stream = $('#stream-select option:selected').text();
 
-    instrument = instrument.replace(/-/g, '_');
-    var url = "/get_time_coverage/" + instrument + "/" + stream;
+    instrument_id = instrument_id.replace(/-/g, '_');
+    var url = "/get_time_coverage/" + instrument_id + "/" + stream;
     console.log("Attempting", url);
 
 
