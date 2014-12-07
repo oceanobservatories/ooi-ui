@@ -97,8 +97,14 @@ function addMarkers(map,markers){
                         instrument_name = instrument['title'] 
                         instrument_id = instrument['id']    
 
+                        if (instrument_name.length < 4){
+                            instrument_name = instrument_id
+                        }
+
                         stream_num = instrument.children.length
                         popup = getPopupContent(array,platform_name,instrument_name,status,instrument_id,platform_id);
+
+
 
                         markerIcon = getStatusMarker(status,stream_num)
 	                    //create the marker and set the properties

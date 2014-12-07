@@ -586,7 +586,21 @@
 
         var r_node = $("#tocmenusection").fancytree("getRootNode");        
         var f_node = r_node.findFirst(instrument_id)
-       
+        //if we cant find the selected node in the toc using the instrument toc title look at the nodes them selves
+        if (f_node === null){
+            for (var i = 0; i <  r_node.getChildren().length; i++) {                 
+                 for (var j = 0; j < r_node.getChildren()[i].getChildren().length; j++) {
+                    console.log("platform:",r_node.getChildren()[i].data.id,"instrument:",r_node.getChildren()[i].getChildren()[j].data.id)
+
+                    if (instrument_id == r_node.getChildren()[i].getChildren()[j].data.id){
+                        f_node = r_node.getChildren()[i].getChildren()[j]
+                        console.log(f_node)
+                        break
+                    }
+                 };
+            };
+        }
+
         $( "#variable-select-list" ).empty();
         global_f_node = f_node;
 
