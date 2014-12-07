@@ -421,7 +421,7 @@
             var new_markers = Array();           
 
             for (var i = 0; i < this._filtered_marker_list.length; i++) {
-                marker = this._marker_list[i]
+                marker = this._marker_list[i]                
                 status = marker.options.status
                 platform = marker.options.platform
                 instrument = marker.options.instrument                                                
@@ -572,42 +572,34 @@
         var url = '/erddap/tabledap/' + instrument + '_' + stream + '.nc';
         console.log(url);
         window.open(url, '_blank');
-        //http://erddap.ooi.rutgers.edu/erddap/tabledap/CP05MOAS_GL001_03_CTDGVM000_ctdgv_m_glider_instrument_recovered_unprocessed.nc?m_present_time,sci_water_cond,sci_m_present_secs_into_mission,sci_water_temp,preferred_timestamp,m_present_secs_into_mission,sci_water_pressure,sci_m_present_time,internal_timestamp,time,sci_ctd41cp_timestamp,driver_timestamp&time>=2014-04-10T00:00:00Z&time<=2014-04-17T17:50:39Z
-
-
-
-
     });
 
     $('#stream-select').change(function() {        
         var stream = $('#stream-select option:selected').text();
         var array = $( "#currentArray" ).text();
-        var platform = $( "#currentPlatform" ).text();
-        var instrument = $( "#currentInstrument" ).text();      
+        var platform_id = $( "#currentPlatform" ).attr("value")
+        var instrument_id = $( "#currentInstrument" ).attr("value")    
+        var instrument = $( "#currentInstrument" ).text();   
+
         var node = $("#tocmenusection").fancytree("getActiveNode");
-        console.log(instrument);
-
-
+        console.log(instrument_id);
 
         var r_node = $("#tocmenusection").fancytree("getRootNode");        
-        var f_node = r_node.findFirst(instrument)
+        var f_node = r_node.findFirst(instrument_id)
        
         $( "#variable-select-list" ).empty();
         global_f_node = f_node;
 
-
         if (f_node.getChildren()!= null && f_node.getChildren().length>0){
             for (var i = 0; i < f_node.getChildren().length; i++) {
                 var streamSomething = f_node.getChildren()[i].title;
-                console.log("streamSomething", streamSomething);
-                //console.log("stream", stream);
-                //console.log("I'm out of ideas!");
-                 console.log(f_node.getChildren()[i].title);
+                console.log("stream: ", streamSomething);
+                console.log(f_node.getChildren()[i].title);
                 if (streamSomething == stream){
                     param_list = f_node.getChildren()[i].getChildren()
                     for (var j = 0; j < param_list.length; j++) {
                         if (param_list[j].title.indexOf("time") == -1){
-                          $( "#variable-select-list" ).append('<li value="'+param_list[j].title+'" class="list-group-item">'+param_list[j].title+'</li>')
+                          $( "#variable-select-list" ).append('<li value="'+param_list[j].id+'" class="list-group-item">'+param_list[j].title+'</li>')
                         }
                     };
                 } 
@@ -615,7 +607,7 @@
         }
 
         refreshVariableList();
-        updateData(array,platform,instrument); 
+        updateData(array,platform_id,instrument_id); 
     });
     
     
@@ -627,23 +619,42 @@
     //when plot is click .... .popup-map-btn-plot
     $('#map').on('click', '.popup-map-btn-plot', function() {
         console.log("map-click")
-
+        console.log($( this ).parent())
         var array = $( this ).parent().attr( "array" ) 
         var instrument = $( this ).parent().attr( "instrument" )
         var platform = $( this ).parent().attr( "platform" )
+
+        var instrument_id = $( this ).parent().attr( "instrument_id" )
+        var platform_id = $( this ).parent().attr( "platform_id" )
+        
         var node = $("#tocmenusection").fancytree("getActiveNode");
 
 
         if ((typeof(node) !== 'undefined') && (node !== null)) {
             if (node.getLevel() >= 3){
                 //used for selection of stream
-                console.log(array,instrument,platform)
+                console.log(array,instrument_id,platform_id)
                 console.log(node.getLevel())
             } 
         }
 
         var r_node = $("#tocmenusection").fancytree("getRootNode");        
-        var f_node = r_node.findFirst(instrument)
+        var f_node = r_node.findFirst(instrument_id)
+        //if we cant find the selected node in the toc using the instrument toc title look at the nodes them selves
+        if (f_node === null){
+            for (var i = 0; i <  r_node.getChildren().length; i++) {                 
+                 for (var j = 0; j < r_node.getChildren()[i].getChildren().length; j++) {
+                    console.log("platform:",r_node.getChildren()[i].data.id,"instrument:",r_node.getChildren()[i].getChildren()[j].data.id)
+
+                    if (instrument_id == r_node.getChildren()[i].getChildren()[j].data.id){
+                        f_node = r_node.getChildren()[i].getChildren()[j]
+                        console.log(f_node)
+                        break
+                    }
+                 };
+            };
+        }
+
 
         $( "#stream-select" ).empty();
         $( "#variable-select-list" ).empty();
@@ -653,13 +664,13 @@
         if (f_node.getChildren().length>0){
             for (var i = 0; i < f_node.getChildren().length; i++) {
                  console.log(f_node.getChildren()[i].title);
-                 $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].title+'">'+f_node.getChildren()[i].title+'</option>')
+                 $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].id+'">'+f_node.getChildren()[i].title+'</option>')
                 if (i==0){
                     param_list = f_node.getChildren()[i].getChildren()
                     for (var j = 0; j < param_list.length; j++) {
                         if (param_list[j].title.indexOf("time") == -1){ 
 
-                        $( "#variable-select-list" ).append('<li value="'+param_list[j].title+'" class="list-group-item">'+param_list[j].title+'</li>')
+                        $( "#variable-select-list" ).append('<li value="'+param_list[j].id+'" class="list-group-item">'+param_list[j].title+'</li>')
 
                         }
                     };
@@ -667,12 +678,14 @@
             };
         }
 
-        refreshVariableList();
         $( "#currentArray" ).text(array);
         $( "#currentPlatform" ).text(platform);
+        $( "#currentPlatform" ).attr("value",platform_id);
         $( "#currentInstrument" ).text(instrument);      
+        $( "#currentInstrument" ).attr("value",instrument_id);
 
-        getTimeCoverage(array,platform,instrument);  // Also updates the data because it sets the date picker
+        refreshVariableList();
+        getTimeCoverage(array,platform_id,instrument_id);  // Also updates the data because it sets the date picker
     });
 
     $('#variable-select-list').on('click', function(event) { 
@@ -710,8 +723,11 @@
     function updateDataPlot(){
         array = $( "#currentArray" ).text();
         platform = $( "#currentPlatform" ).text();
-        instrument = $( "#currentInstrument" ).text();                   
-        updateData(array,platform,instrument); 
+        instrument = $( "#currentInstrument" ).text();   
+
+        platform_id = $( "#currentPlatform" ).attr("value");
+        instrument_id = $( "#currentInstrument" ).attr("value");                   
+        updateData(array,platform_id,instrument_id); 
     }
 
     var global_f_node = null;
