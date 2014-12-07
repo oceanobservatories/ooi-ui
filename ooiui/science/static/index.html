@@ -319,9 +319,13 @@
                                       <button type="button" disabled class="btn btn-default">1 month</button>
                                     </div>
                                     
-                                    <button id="refresh-plot-button" type="button" class="btn btn-primary btn">
-                                      <span style="display: none" id="refresh-plot-icon" class="fa fa-spinner fa-spin" aria-hidden="true"></span> Refresh
-                                    </button>   
+                                    <div>
+                                        <p>
+                                            <button id="refresh-plot-button" type="button" class="btn btn-primary btn">
+                                              <span style="display: none" id="refresh-plot-icon" class="fa fa-spinner fa-spin" aria-hidden="true"></span> Plot
+                                            </button>   
+                                        </p>
+                                    </div>
                                                                     
                                 </div> 
                                 
@@ -563,16 +567,20 @@
     $('#map').on('click', '.popup-map-btn-download', function() {
         $('.popup-map-btn-plot').click();
         var array = $( this ).parent().attr( "array" ) 
-        var instrument = $( this ).parent().attr( "instrument" )
-        var platform = $( this ).parent().attr( "platform" )
+        //var instrument = $( this ).parent().attr( "instrument" )
+        //var platform = $( this ).parent().attr( "platform" )
+
+        var instrument_id = $( this ).parent().attr( "instrument_id" )
+        var platform_id = $( this ).parent().attr( "platform_id" )
+
         var node = $("#tocmenusection").fancytree("getActiveNode");
         var stream = $('#stream-select option:selected').text();
 
 
 
-        instrument = instrument.replace(/-/g, '_');
-        console.log(instrument);
-        var url = '/erddap/tabledap/' + instrument + '_' + stream + '.nc';
+        instrument_id = instrument_id.replace(/-/g, '_');
+        console.log(instrument_id);
+        var url = '/erddap/tabledap/' + instrument_id + '_' + stream + '.nc';
         console.log(url);
         window.open(url, '_blank');
     });
