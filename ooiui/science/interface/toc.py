@@ -65,6 +65,11 @@ def tree_platforms(platform):
 
     display_name = platform['display_name']
     plat = {"id" : platform['reference_designator'], "title":display_name,"type":"platform"}
+
+    for field in platform:
+        plat[field] = platform[field]
+
+    plat['id'] = platform['reference_designator']
     
     plat["expanded"] = False
     plat["folder"] = True
