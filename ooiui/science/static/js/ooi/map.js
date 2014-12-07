@@ -21,13 +21,17 @@ function OpenInNewTab(url) {
 }
 
 function getStatusColor(status){
-    if (status == "na"){
+    if (status === undefined || status =="undefined"){
+        return "blue";
+    }else if (status == "na"){
         return "blue";
     }else if (status == "on"){
         return 'green';
     }else if (status == "off"){
         return 'red';
-    }   
+    }else{
+        return 'orange';
+    } 
 }
 
 function getMarkerIcon(stream_num){

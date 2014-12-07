@@ -470,6 +470,7 @@
         var node = $("#tocmenusection").fancytree("getActiveNode");
         if ((typeof(node) !== 'undefined') && (node !== null)) {
             node_name = node.title
+            node_id = node.data.id
             //gets the node list 
             var ll = node.getParentList(includeRoot=false, includeSelf=false)
 
@@ -478,19 +479,19 @@
             if (request_level == 1){
                 //platform
                 filterType="platform"
-                filter = node_name
+                filter = node_id
             }else if (request_level == 2){
                 //instrument
                 filterType="instrument"
-                filter = node_name
+                filter = node_id
             }else if (request_level == 3){
                 //stream = instrument
                 filterType="instrument"
-                filter = ll[1].title
+                filter = ll[1].data.id
             }else if (request_level == 4){
                 //parameter = instrument
                 filterType="instrument"
-                filter = ll[1].title
+                filter = ll[1].data.id
             }
 
             //reset the filters
@@ -592,7 +593,7 @@
         if (f_node === null){
             for (var i = 0; i <  r_node.getChildren().length; i++) {                 
                  for (var j = 0; j < r_node.getChildren()[i].getChildren().length; j++) {
-                    console.log("platform:",r_node.getChildren()[i].data.id,"instrument:",r_node.getChildren()[i].getChildren()[j].data.id)
+                    //console.log("platform:",r_node.getChildren()[i].data.id,"instrument:",r_node.getChildren()[i].getChildren()[j].data.id)
 
                     if (instrument_id == r_node.getChildren()[i].getChildren()[j].data.id){
                         f_node = r_node.getChildren()[i].getChildren()[j]
@@ -644,24 +645,23 @@
         var platform_id = $( this ).parent().attr( "platform_id" )
         
         var node = $("#tocmenusection").fancytree("getActiveNode");
-
-
+        stream_id = null
         if ((typeof(node) !== 'undefined') && (node !== null)) {
-            if (node.getLevel() >= 3){
+            if (node.getLevel() >= 3){                
                 //used for selection of stream
                 console.log(array,instrument_id,platform_id)
-                console.log(node.getLevel())
+                stream_id = node.data.id
+                console.log("STREAM!",stream_id)
             } 
         }
 
         var r_node = $("#tocmenusection").fancytree("getRootNode");        
+
         var f_node = r_node.findFirst(instrument_id)
         //if we cant find the selected node in the toc using the instrument toc title look at the nodes them selves
         if (f_node === null){
             for (var i = 0; i <  r_node.getChildren().length; i++) {                 
                  for (var j = 0; j < r_node.getChildren()[i].getChildren().length; j++) {
-                    console.log("platform:",r_node.getChildren()[i].data.id,"instrument:",r_node.getChildren()[i].getChildren()[j].data.id)
-
                     if (instrument_id == r_node.getChildren()[i].getChildren()[j].data.id){
                         f_node = r_node.getChildren()[i].getChildren()[j]
                         console.log(f_node)
@@ -679,18 +679,38 @@
 
         if (f_node.getChildren().length>0){
             for (var i = 0; i < f_node.getChildren().length; i++) {
-                 console.log(f_node.getChildren()[i].title);
-                 $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].id+'">'+f_node.getChildren()[i].title+'</option>')
-                if (i==0){
-                    param_list = f_node.getChildren()[i].getChildren()
-                    for (var j = 0; j < param_list.length; j++) {
-                        if (param_list[j].title.indexOf("time") == -1){ 
+                console.log(f_node.getChildren()[i].title);
+                //if stream is selected try grabbing it and selecting it
+                if (stream_id !==null){
+                    //try and grab the stream
+                    if (f_node.getChildren()[i].title == stream_id){
+                        //grab the stream and the param list for it
+                        $( "#stream-select" ).append('<option selected value="'+f_node.getChildren()[i].id+'">'+f_node.getChildren()[i].title+'</option>')    
+                        param_list = f_node.getChildren()[i].getChildren()
+                        // add the params
+                        for (var j = 0; j < param_list.length; j++) {
+                            if (param_list[j].title.indexOf("time") == -1){ 
+                                $( "#variable-select-list" ).append('<li value="'+param_list[j].id+'" class="list-group-item">'+param_list[j].title+'</li>')
+                            }
+                        };
 
-                        $( "#variable-select-list" ).append('<li value="'+param_list[j].id+'" class="list-group-item">'+param_list[j].title+'</li>')
+                    }else{
+                        $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].id+'">'+f_node.getChildren()[i].title+'</option>')
+                    }
+                }else{
+                    $( "#stream-select" ).append('<option value="'+f_node.getChildren()[i].id+'">'+f_node.getChildren()[i].title+'</option>')
+                    if (i==0){
+                        param_list = f_node.getChildren()[i].getChildren()
+                        for (var j = 0; j < param_list.length; j++) {
+                            if (param_list[j].title.indexOf("time") == -1){ 
 
-                        }
-                    };
-                } 
+                            $( "#variable-select-list" ).append('<li value="'+param_list[j].id+'" class="list-group-item">'+param_list[j].title+'</li>')
+
+                            }
+                        };
+                    }
+                }
+                 
             };
         }
 
