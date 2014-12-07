@@ -423,8 +423,10 @@
             for (var i = 0; i < this._filtered_marker_list.length; i++) {
                 marker = this._marker_list[i]                
                 status = marker.options.status
-                platform = marker.options.platform
-                instrument = marker.options.instrument                                                
+                //platform = marker.options.platform
+                //instrument = marker.options.instrument   
+                platform_id = marker.options.platform_id
+                instrument_id = marker.options.instrument_id                                               
 
                 if (filter == "all"){                    
                     this.resetMarkers();
@@ -435,11 +437,11 @@
                     }
 
                     }else if (filterType == "platform"){                                  
-                        if (platform == filter){
+                        if (platform_id == filter){
                             new_markers.push(marker);
                         }
                     }else if (filterType == "instrument"){                    
-                        if (instrument == filter){
+                        if (instrument_id == filter){
                             new_markers.push(marker);
                         }
                     }
