@@ -8,9 +8,15 @@ from ooiui.science.app import app
 from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
 
+from ooiui.science.interface import tabledap as tabled
+
 import requests
 import os
 import json
+from datetime import datetime,timedelta
+import time
+import numpy as np
+import math
 
 @app.route('/pioneer/')
 def pioneer():
@@ -23,33 +29,20 @@ def getData():
         std = request.args['startdate']
         edd = request.args['enddate']
         param = request.args['variables']
+        tav = request.args['timeaverage']
+        tp = request.args['timeperiod']
 
-        r = getJsonData(instr,std,edd,param)
+        print tav
+        
+        if (tav=="true"):
+            r = tabled.getFormattedJsonData(instr,std,edd,param)
+        else:
+            r = tabled.getTimeSeriesJsonData(instr,std,edd,param);
     except Exception, e:
         r = "{error:" + 'getting params...' + str(e) +"}"        
     
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
-
-def getJsonData(instrument,start_date,end_date,parameters):
-    #override dataset id for now
-    instrument = instrument.replace('-', '_')
-    #parameters = "sci_water_pressure"
-
-    time_param = "time"
-    parameters = ",".join([time_param,parameters])
-
-    url = "".join([TABLEDAP,instrument,".json",
-                    "?",parameters,"&",time_param,">=",start_date,"&",
-                    time_param,"<=",end_date,"&orderBy(%22",time_param,"%22)"])
-
-    r = requests.get(url);     
-    if (r.status_code != 500): 
-        r = r.json()["table"]
-        r = json.dumps(r,indent=4)
-        return r
-    else:
-        raise Exception("data request error") 
 
 @app.route('/get_time_coverage/<ref>/<stream>')
 def get_time_coverage(ref, stream):
