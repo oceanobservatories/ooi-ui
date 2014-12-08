@@ -38,7 +38,7 @@
 </style>
 
 
-<body>
+<body data-spy="scroll" data-target="#side-nav">
   
   <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -309,13 +309,6 @@
 
 
   <script>	
-    $('.nav').on('click', 'li', function(){
-        /*
-        Filter map by options
-        */
-        $(this).addClass('active').siblings().removeClass('active');        
-        
-    });
     $('#side-nav').affix({
       offset: {
         top: 100,
