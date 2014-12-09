@@ -6,7 +6,7 @@ Defines the application routes
 '''
 from ooiui.science.app import app
 from flask import request, render_template, Response
-from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
+from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG, ERDDAP_URL
 
 from ooiui.science.interface import tabledap as tabled
 from ooiui.science.interface.toc import get_toc as get_toc_interface, flush_cache
@@ -69,5 +69,5 @@ def flush():
 
 @app.route('/')
 def root():
-    return app.send_static_file('index.html')
+    return render_template('index.html', erddap_url=ERDDAP_URL)
 
