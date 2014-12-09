@@ -66,8 +66,13 @@ def flush():
     response = Response(response='{"status":"ok"}', status=200, mimetype="application/json")
     return response
 
+@app.route('/toc')
+def toc():
+    return render_template('toc.html')
+
 
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
+
 
