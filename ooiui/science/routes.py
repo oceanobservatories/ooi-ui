@@ -9,7 +9,7 @@ from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
 
 from ooiui.science.interface import tabledap as tabled
-from ooiui.science.interface.toc import get_toc as get_toc_interface
+from ooiui.science.interface.toc import get_toc as get_toc_interface, flush_cache
 from ooiui.science.interface.timecoverage import get_times_for_stream
 
 import requests
@@ -26,22 +26,19 @@ def pioneer():
 
 @app.route('/getdata/')
 def getData():
-    try:
-        instr = request.args['dataset_id']    
-        std = request.args['startdate']
-        edd = request.args['enddate']
-        param = request.args['variables']
-        tav = request.args['timeaverage']
-        tp = request.args['timeperiod']
+    instr = request.args['dataset_id']    
+    std = request.args['startdate']
+    edd = request.args['enddate']
+    param = request.args['variables']
+    tav = request.args['timeaverage']
+    tp = request.args['timeperiod']
 
-        print tav
-        
-        if (tav=="true"):
-            r = tabled.getFormattedJsonData(instr,std,edd,param)
-        else:
-            r = tabled.getTimeSeriesJsonData(instr,std,edd,param);
-    except Exception, e:
-        r = "{error:" + 'getting params...' + str(e) +"}"        
+    print tav
+    
+    if (tav=="true"):
+        r = tabled.getFormattedJsonData(instr,std,edd,param)
+    else:
+        r = tabled.getTimeSeriesJsonData(instr,std,edd,param);
     
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
@@ -59,6 +56,12 @@ def get_time_coverage(ref, stream):
 @app.route('/gettoc/')
 def get_toc():
     return get_toc_interface()
+
+@app.route('/flush')
+def flush():
+    flush_cache()
+    response = Response(response='{"status":"ok"}', status=200, mimetype="application/json")
+    return response
 
 
 @app.route('/')

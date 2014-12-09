@@ -6,7 +6,8 @@ Defines the TOC interface
 '''
 
 from flask import request, render_template, Response
-from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG, CACHE_ENABLED
+from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
+from ooiui.science.app import cache
 import requests
 import os
 import json
@@ -14,31 +15,7 @@ import collections
 import functools
 import time
 
-def timed_cache(time_length):
-    '''
-    '''
-    def decorating_function(user_function):
-        cache = collections.OrderedDict()    # order: least recent to most recent
-
-        @functools.wraps(user_function)
-        def wrapper(*args, **kwds):
-            key = args
-            if kwds:
-                key += tuple(sorted(kwds.items()))
-            try:
-                result, time_stop = cache.pop(key)
-                if not CACHE_ENABLED or (time_stop + time_length) < time.time():
-                    raise KeyError
-            except KeyError:
-                result = user_function(*args, **kwds)
-                time_stop = time.time()
-            cache[key] = (result, time_stop)         # record recent use of this key
-            return result
-        return wrapper
-    return decorating_function
-
-
-@timed_cache(500)
+@cache.cached(timeout=500)
 def get_toc():    
     data = build_toc()
     tree_dict = {}
@@ -181,3 +158,6 @@ def build_parameters(stream_id):
 
     doc = response.json()
     return doc
+
+def flush_cache():
+    cache.clear()
