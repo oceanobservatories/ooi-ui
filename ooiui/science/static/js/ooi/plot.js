@@ -116,7 +116,7 @@ function makePlot(array,platform,instrument,variable,dataObj){
     var_list = dataObj['fields']
     data = dataObj['data']
     units = dataObj['units']
-    console.log(dataObj['data_extents']);
+
     spacing = 65
 
     var margin = {top: 20, right: 20, bottom: 30, left: (var_list.length*spacing)},
@@ -137,12 +137,7 @@ function makePlot(array,platform,instrument,variable,dataObj){
         yAxisList = []
         for (var i = 0; i < var_list.length; i++) {
             var y = d3.scale.linear().range([height, 0]);
-                extent = d3.extent(data, function(d) { 
-                if (isNaN(d[var_list[i][2]])){
-                    return null
-                }
-                    return d[var_list[i]][2]; 
-            })                        
+            extent = d3.extent(data, function(d) { return d[var_list[i]][2]; })                        
             y.domain(extent);
             var yAxis = d3.svg.axis().scale(y).orient("left");
 
@@ -201,7 +196,7 @@ function makePlot(array,platform,instrument,variable,dataObj){
         for (var i = 0; i < var_list.length; i++) {
             dataCircles.append("circle")
                 .attr("cy", function(d) {   
-                    d = d[var_list[i]];
+                    d = d[var_list[i]]             
                     return yScaleList[i](d[1])
                 })
                 .attr("cx", function(d) {                
@@ -234,11 +229,7 @@ function makePlot(array,platform,instrument,variable,dataObj){
                 variable_extents = data_extents[var_list[i]]
                 var y = d3.scale.linear().range([height, 0]);
                 //no need to do below as we have it from the server      
-                //d_extent = d3.extent(data, function(d) { return d[i]; })                                   
-                dd = dataObj(['data_extents'][var_list[i]])
-                d_extent = []
-                d_extent.push(dd['min']);
-                d_extent.push(dd['max']);
+                d_extent = d3.extent(data, function(d) { return d[i]; })                                   
                 y.domain(d_extent);
                 var yAxis = d3.svg.axis().scale(y).orient("left");
 
@@ -304,8 +295,8 @@ function makePlot(array,platform,instrument,variable,dataObj){
         
         
 
-        dataLines = svg.selectAll("line").data(data).enter();
-        dataCircles = svg.selectAll("circle").data(data).enter();
+        dataLines = svg.selectAll("line").data(data).enter()
+        dataCircles = svg.selectAll("circle").data(data).enter()    
 
         var idx_count = 0;
         for (var i = 0; i < var_list.length; i++) {            
@@ -314,7 +305,6 @@ function makePlot(array,platform,instrument,variable,dataObj){
                               
                 dataCircles.append("circle")
                     .attr("cy", function(d) {                               
-                        var i = yScaleList[idx_count];
                         return yScaleList[idx_count](d[i])
                     })
                     .attr("cx", function(d) {                            

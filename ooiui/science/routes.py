@@ -39,6 +39,9 @@ def getData():
         r = tabled.getFormattedJsonData(instr,std,edd,param)
     else:
         r = tabled.getTimeSeriesJsonData(instr,std,edd,param);
+
+    import re
+    r = re.sub(r'NaN', '"NaN"', r)
     
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp

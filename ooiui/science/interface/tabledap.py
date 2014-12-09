@@ -10,9 +10,7 @@ import json
 import requests
 from datetime import datetime,timedelta
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
-from ooiui.science.app import app
 import time
-import re
 
 def find_nearest(array,value):
     'gets the closest index to a value'
@@ -34,31 +32,32 @@ def getTableData(instrument,start_date,end_date,parameters,limit=None,transpose=
                     "?",parameters,"&",time_param,">=",start_date,"&",
                     time_param,"<=",end_date,"&orderBy(%22",time_param,"%22)"])
 
-    app.logger.error(url)
-    r = requests.get(url)
+    r = requests.get(url); 
 
-    if r.status_code != 200: 
-        raise Exception("Status Code %s: %s" % (url, r.status_code)) 
-    data = r.json()['table']
-    #verify that the length of the data is below the limit, and transpose if we want too
-    if not (limit is None):
-        if (len(data['rows']) > limit):
-            if (transpose):
-                trans_data = np.transpose(data['rows'][0:limit]) 
+    if (r.status_code != 500): 
+        data = r.json()['table']
+        #verify that the length of the data is below the limit, and transpose if we want too
+        if not (limit is None):
+            if (len(data['rows']) > limit):
+                if (transpose):
+                    trans_data = np.transpose(data['rows'][0:limit]) 
+                else:
+                    trans_data = (data['rows'][0:limit]) 
             else:
-                trans_data = (data['rows'][0:limit]) 
+                if (transpose):
+                    trans_data = np.transpose(data['rows']) 
+                else:
+                    trans_data = (data['rows']) 
         else:
             if (transpose):
                 trans_data = np.transpose(data['rows']) 
             else:
-                trans_data = (data['rows']) 
-    else:
-        if (transpose):
-            trans_data = np.transpose(data['rows']) 
-        else:
-            trans_data = data['rows']
+                trans_data = data['rows']
 
-    return data, trans_data
+        return data, trans_data
+    else:    
+        raise Exception("data request error") 
+        return None,None
 
 def getTimeSeriesJsonData(instrument,start_date,end_date,parameters):    
     '''
@@ -69,56 +68,59 @@ def getTimeSeriesJsonData(instrument,start_date,end_date,parameters):
 
     if data is not None:   
         return_json = ""                 
-        #figure out the time index, and extents
-        colIdx = -1    
-        temp_data = np.transpose(data['rows'])
-        data_extents = {} 
-        for i, col in enumerate(data['columnNames']):
-            if col == "time":
-                colIdx = i                                        
-            else: 
-                d_type = (data['columnTypes'])
+        try:    
+            #figure out the time index, and extents
+            colIdx = -1    
+            temp_data = np.transpose(data['rows'])
+            data_extents = {} 
+            for i, col in enumerate(data['columnNames']):
+                if col == "time":
+                    colIdx = i                                        
+                else: 
+                    d_type = (data['columnTypes'])
+    
+                    if d_type == "int":
+                        d_array = temp_data[i]
+                        d_array =d_array.astype(int)
+                    elif d_type =="double":
+                        d_array = temp_data[i]
+                        d_array = d_array.astype(float)
+                    elif d_type =="string":
+                        #this is bad.....
+                        d_array= []                        
+                    else:
+                        #figure it must be a value
+                        d_array = temp_data[i]
+                        d_array = d_array.astype(float)
 
-                if d_type == "int":
-                    d_array = temp_data[i]
-                    d_array =d_array.astype(int)
-                elif d_type =="double":
-                    d_array = temp_data[i]
-                    d_array = d_array.astype(float)
-                elif d_type =="string":
-                    #this is bad.....
-                    d_array= []                        
-                else:
-                    #figure it must be a value
-                    d_array = temp_data[i]
-                    d_array = d_array.astype(float)
+                    data_extents[col] = {'min':np.nanmin(d_array),
+                                         'max':np.nanmax(d_array)
+                                        }
 
-                data_extents[col] = {'min':np.nanmin(d_array),
-                                     'max':np.nanmax(d_array)
-                                    }
+            return_json = { "data_extents":data_extents,
+                            "data_start_date":trans_data[0][colIdx],
+                            "data_end_date": trans_data[-1][colIdx],
+                            "request_start_date":trans_data[0][colIdx],
+                            "request_end_date": trans_data[-1][colIdx],
+                            "data":trans_data,
+                            "timeidx":colIdx,
+                            "timezone":"UTC",
+                            "fields":data['columnNames'],
+                            "time_note":"time is point of data",
+                            "time_span":"full",
+                            "variables":data['columnNames'],
+                            "units":data['columnUnits']}
 
+            r = json.dumps(return_json,indent=4)
 
-        return_json = { "data_extents":data_extents,
-                        "data_start_date":trans_data[0][colIdx],
-                        "data_end_date": trans_data[-1][colIdx],
-                        "request_start_date":trans_data[0][colIdx],
-                        "request_end_date": trans_data[-1][colIdx],
-                        "data":trans_data,
-                        "timeidx":colIdx,
-                        "timezone":"UTC",
-                        "fields":data['columnNames'],
-                        "time_note":"time is point of data",
-                        "time_span":"full",
-                        "variables":data['columnNames'],
-                        "units":data['columnUnits']}
-
-
-
+        except Exception, e:
+            return_json = "{FAIL:"+str(e)+"}"            
         
         r = json.dumps(return_json,indent=4)
-        r = re.sub(r'NaN', '"NaN"', r)
         return r
-    raise Exception("data is None") 
+    else:
+        raise Exception("data request error") 
+        r = json.dumps("data request error",indent=4)
 
 
 def getFormattedJsonData(instrument,start_date,end_date,parameters):
@@ -232,6 +234,7 @@ def getFormattedJsonData(instrument,start_date,end_date,parameters):
             print "FAIL!",str(e)
 
         r = json.dumps(return_json,indent=4)
-        r = re.sub(r'NaN', '"NaN"', r)
         return r
-    raise Exception("Data is None") 
+    else:
+        raise Exception("data request error") 
+        r = json.dumps("data request error",indent=4)
