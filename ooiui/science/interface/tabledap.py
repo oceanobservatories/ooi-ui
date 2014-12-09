@@ -10,7 +10,9 @@ import json
 import requests
 from datetime import datetime,timedelta
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
+from ooiui.science.app import app
 import time
+import re
 
 def find_nearest(array,value):
     'gets the closest index to a value'
@@ -32,32 +34,31 @@ def getTableData(instrument,start_date,end_date,parameters,limit=None,transpose=
                     "?",parameters,"&",time_param,">=",start_date,"&",
                     time_param,"<=",end_date,"&orderBy(%22",time_param,"%22)"])
 
-    r = requests.get(url); 
+    app.logger.error(url)
+    r = requests.get(url)
 
-    if (r.status_code != 500): 
-        data = r.json()['table']
-        #verify that the length of the data is below the limit, and transpose if we want too
-        if not (limit is None):
-            if (len(data['rows']) > limit):
-                if (transpose):
-                    trans_data = np.transpose(data['rows'][0:limit]) 
-                else:
-                    trans_data = (data['rows'][0:limit]) 
+    if r.status_code != 200: 
+        raise Exception("Status Code %s: %s" % (url, r.status_code)) 
+    data = r.json()['table']
+    #verify that the length of the data is below the limit, and transpose if we want too
+    if not (limit is None):
+        if (len(data['rows']) > limit):
+            if (transpose):
+                trans_data = np.transpose(data['rows'][0:limit]) 
             else:
-                if (transpose):
-                    trans_data = np.transpose(data['rows']) 
-                else:
-                    trans_data = (data['rows']) 
+                trans_data = (data['rows'][0:limit]) 
         else:
             if (transpose):
                 trans_data = np.transpose(data['rows']) 
             else:
-                trans_data = data['rows']
+                trans_data = (data['rows']) 
+    else:
+        if (transpose):
+            trans_data = np.transpose(data['rows']) 
+        else:
+            trans_data = data['rows']
 
-        return data, trans_data
-    else:    
-        raise Exception("data request error") 
-        return None,None
+    return data, trans_data
 
 def getTimeSeriesJsonData(instrument,start_date,end_date,parameters):    
     '''
@@ -68,59 +69,56 @@ def getTimeSeriesJsonData(instrument,start_date,end_date,parameters):
 
     if data is not None:   
         return_json = ""                 
-        try:    
-            #figure out the time index, and extents
-            colIdx = -1    
-            temp_data = np.transpose(data['rows'])
-            data_extents = {} 
-            for i, col in enumerate(data['columnNames']):
-                if col == "time":
-                    colIdx = i                                        
-                else: 
-                    d_type = (data['columnTypes'])
-    
-                    if d_type == "int":
-                        d_array = temp_data[i]
-                        d_array =d_array.astype(int)
-                    elif d_type =="double":
-                        d_array = temp_data[i]
-                        d_array = d_array.astype(float)
-                    elif d_type =="string":
-                        #this is bad.....
-                        d_array= []                        
-                    else:
-                        #figure it must be a value
-                        d_array = temp_data[i]
-                        d_array = d_array.astype(float)
+        #figure out the time index, and extents
+        colIdx = -1    
+        temp_data = np.transpose(data['rows'])
+        data_extents = {} 
+        for i, col in enumerate(data['columnNames']):
+            if col == "time":
+                colIdx = i                                        
+            else: 
+                d_type = (data['columnTypes'])
 
-                    data_extents[col] = {'min':np.min(d_array),
-                                         'max':np.min(d_array)
-                                        }
+                if d_type == "int":
+                    d_array = temp_data[i]
+                    d_array =d_array.astype(int)
+                elif d_type =="double":
+                    d_array = temp_data[i]
+                    d_array = d_array.astype(float)
+                elif d_type =="string":
+                    #this is bad.....
+                    d_array= []                        
+                else:
+                    #figure it must be a value
+                    d_array = temp_data[i]
+                    d_array = d_array.astype(float)
 
-            return_json = { "data_extents":data_extents,
-                            "data_start_date":trans_data[0][colIdx],
-                            "data_end_date": trans_data[-1][colIdx],
-                            "request_start_date":trans_data[0][colIdx],
-                            "request_end_date": trans_data[-1][colIdx],
-                            "data":trans_data,
-                            "timeidx":colIdx,
-                            "timezone":"UTC",
-                            "fields":data['columnNames'],
-                            "time_note":"time is point of data",
-                            "time_span":"full",
-                            "variables":data['columnNames'],
-                            "units":data['columnUnits']}
+                data_extents[col] = {'min':np.nanmin(d_array),
+                                     'max':np.nanmax(d_array)
+                                    }
 
-            r = json.dumps(return_json,indent=4)
 
-        except Exception, e:
-            return_json = "{FAIL:"+str(e)+"}"            
+        return_json = { "data_extents":data_extents,
+                        "data_start_date":trans_data[0][colIdx],
+                        "data_end_date": trans_data[-1][colIdx],
+                        "request_start_date":trans_data[0][colIdx],
+                        "request_end_date": trans_data[-1][colIdx],
+                        "data":trans_data,
+                        "timeidx":colIdx,
+                        "timezone":"UTC",
+                        "fields":data['columnNames'],
+                        "time_note":"time is point of data",
+                        "time_span":"full",
+                        "variables":data['columnNames'],
+                        "units":data['columnUnits']}
+
+
+
         
         r = json.dumps(return_json,indent=4)
+        r = re.sub(r'NaN', '"NaN"', r)
         return r
-    else:
-        raise Exception("data request error") 
-        r = json.dumps("data request error",indent=4)
+    raise Exception("data is None") 
 
 
 def getFormattedJsonData(instrument,start_date,end_date,parameters):
@@ -201,9 +199,9 @@ def getFormattedJsonData(instrument,start_date,end_date,parameters):
                     if st_idx < ed_idx:                        
                         if not col == "time":                                                      
                             val_row = []
-                            val_min = np.min(np.array(trans_data[j][st_idx:ed_idx],np.float))
-                            val_max = np.max(np.array(trans_data[j][st_idx:ed_idx],np.float))
-                            val_mean = np.mean(np.array(trans_data[j][st_idx:ed_idx],np.float))
+                            val_min = np.nanmin(np.array(trans_data[j][st_idx:ed_idx],np.float))
+                            val_max = np.nanmax(np.array(trans_data[j][st_idx:ed_idx],np.float))
+                            val_mean = np.nanmean(np.array(trans_data[j][st_idx:ed_idx],np.float))
                             val_row.append(val_min)
                             val_row.append(val_mean)
                             val_row.append(val_max)
@@ -234,7 +232,6 @@ def getFormattedJsonData(instrument,start_date,end_date,parameters):
             print "FAIL!",str(e)
 
         r = json.dumps(return_json,indent=4)
+        r = re.sub(r'NaN', '"NaN"', r)
         return r
-    else:
-        raise Exception("data request error") 
-        r = json.dumps("data request error",indent=4)
+    raise Exception("Data is None") 
