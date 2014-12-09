@@ -1,82 +1,59 @@
-<!doctype html>
-<html lang="en">
-<head>      
-    <title>OOI Science Page</title> 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Main Landing Page For Science page">
-    <meta name="author" content="RPS ASA">  
-    <meta charset="UTF-8">
+{% extends "base.html" %}
 
-    <script src="/components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-    <script src="/components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-    
+{% block title %}
+  <title>Welcome to OOI</title>
+{% endblock %}
 
-    <link rel="stylesheet" href="/components/leaflet/dist/leaflet.css"/>
-    <script src="/components/leaflet/dist/leaflet.js"></script>
-    
+{% block head %}
+  
+  <!-- Map Stuff -->
+  <link rel="stylesheet" href="/components/leaflet/dist/leaflet.css"/>
+  <script src="/components/leaflet/dist/leaflet.js"></script>
 
-    <script src="/components/d3/d3.min.js"></script>
-    
-    <link href="/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <script src="/components/d3/d3.min.js"></script>
+  <link rel="stylesheet" href="/components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+  <script src="/components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
 
-    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css">
-    <link href="/components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap-theme.min.css">    
-    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="/js/ooi/map.js"></script>
 
-    <script src="/components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
-     
-    <link rel="stylesheet" href="/components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
-    <script src="/components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+  <!-- Marker Cluster -->
+  <script src="/components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="/components/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="/components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  <!-- Marker Cluster -->
 
-
-    <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/ooi/map.js"></script>
-
-    <!--   
-    marker cluster
-    -->
-    <script src="/components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" href="/components/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="/components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-
-    <!--
-    Date Time
-    -->    
-    <link rel="stylesheet" href="/components/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-    <script src="/components/moment/moment.js"></script> 
-    <script src="/components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> 
-
-    <script src="/js/ooi/plot.js"></script> 
-    <script src="/js/ooi/variable_list.js"></script> 
-    <script src="/js/ooi/d3.legend.js"></script> 
-    <link rel="stylesheet" href="/css/ooi/plot.css">
-
-    <!--
-    TOC MENU    
-    -->        
-    <link href="/components/fancytree/dist/skin-bootstrap/ui.fancytree.css" rel="stylesheet" type="text/css" class="skinswitcher">
-
-    <script src="/components/fancytree/dist/src/jquery.fancytree.js" type="text/javascript"></script>
-    <script src="/components/fancytree/dist/src/jquery.fancytree.edit.js" type="text/javascript"></script>
-    <script src="/components/fancytree/dist/src/jquery.fancytree.glyph.js" type="text/javascript"></script>
-    <script src="/components/fancytree/dist/src/jquery.fancytree.wide.js" type="text/javascript"></script>
-    <script src="/components/fancytree/dist/src/jquery.fancytree.filter.js" type="text/javascript"></script>
-    <script src="/components/fancytree/dist/src/jquery.fancytree.childcounter.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/css/toc_menu.css" />
-    <script src="/js/ooi/toc_menu.js"></script>
-
-</head>
-
-<style>
+  <!--
+  Date Time
+  -->    
+  <link rel="stylesheet" href="/components/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+  <script src="/components/moment/moment.js"></script> 
+  <script src="/components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> 
 
 
-</style>
+  <script src="/js/ooi/plot.js"></script> 
+  <script src="/js/ooi/variable_list.js"></script> 
+  <script src="/js/ooi/d3.legend.js"></script> 
+  <link rel="stylesheet" href="/css/ooi/plot.css">
+  
+  <!-- Everything for fancy tree -->
+  <link href="/components/fancytree/dist/skin-bootstrap/ui.fancytree.css" rel="stylesheet" type="text/css" class="skinswitcher">
 
+  <script src="/components/fancytree/dist/src/jquery.fancytree.js" type="text/javascript"></script>
+  <script src="/components/fancytree/dist/src/jquery.fancytree.edit.js" type="text/javascript"></script>
+  <script src="/components/fancytree/dist/src/jquery.fancytree.glyph.js" type="text/javascript"></script>
+  <script src="/components/fancytree/dist/src/jquery.fancytree.wide.js" type="text/javascript"></script>
+  <script src="/components/fancytree/dist/src/jquery.fancytree.filter.js" type="text/javascript"></script>
+  <script src="/components/fancytree/dist/src/jquery.fancytree.childcounter.js" type="text/javascript"></script>
+  <!-- end fancy-tree -->
 
-<body>
+  <link rel="stylesheet" href="/css/toc_menu.css" />
+  <script src="/js/ooi/toc_menu.js"></script>
+
+{% endblock %}
+
+{% block body %}
+
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -93,7 +70,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="http://erddap.ooi.rutgers.edu/erddap/info/index.html"><span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Data Catalog</a></li>            
+            <li><a href="{{ erddap_url }}/info/index.html?page=1&itemsPerPage=1000"><span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Data Catalog</a></li>            
 
             <li class="dropdown">               
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Array List <span class="caret"></span></a>
@@ -632,7 +609,7 @@
 
         instrument_id = instrument_id.replace(/-/g, '_');
         console.log(instrument_id);
-        var url = '/erddap/tabledap/' + instrument_id + '_' + stream + '.nc';
+        var url = '{{ erddap_url }}/tabledap/' + instrument_id + '_' + stream + '.nc';
         console.log(url);
         window.open(url, '_blank');
     });
@@ -830,5 +807,6 @@
 
     </script>
 
-</body>
-</html>
+
+{% endblock %}
+
