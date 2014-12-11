@@ -1,14 +1,12 @@
 /*
 __author = 'Matt Campbell'
-
 API List from ooiservices.
-
 Requires current service running from ooi-ui-service
 */
-
 /* TODO: Externalize this */
 var BASE_URL = 'http://localhost:4000/';
-function getForm(url_val, callback) {
+//Helper function to do the GET
+function _getForm(url_val, callback) {
     jQuery.ajax({
          type: "GET",
          url: url_val,
@@ -19,73 +17,89 @@ function getForm(url_val, callback) {
             callback(result);
          },
          error: function (jqXHR, status) {
-            return document.write(jqXHR.responseText);
+            console.error(url_val, status, err.toString());
          }
     });
 }
+//Helper function for building lists.
+function _buildList(json_string) {
+    var data = JSON.parse(json_string);
+    //Build a simple json dictionary of only the ids
+    var new_json = '[{';
+    for (var i=0; i<data.length; i++) {
+        new_json += '"id" : "' + data[i].id + '" ,';
+    }
+    new_json = new_json.slice(0, -1);
+    //Remove the trailing comma (,)
+    new_json = new_json.substring(0, new_json.length-1) + "}]";
+    return new_json;
+}
 function getArray (array_id) {
     var url_val = BASE_URL + "arrays/" + array_id;
-    getForm(url_val, function(result) {
+    _getForm(url_val, function(result) {
         //Default behavior: return JSON.
         return result;
     });
-
 }
 function getArrayList () {
     var url_val = BASE_URL + "arrays";
-    getForm(url_val, function(result) {
-        return result;
-    }
+    _getForm(url_val, function(result) {
+        //Return a list of id
+        return _buildList(result);
+    });
 }
 function getPlatform (platform_id) {
     var url_val = BASE_URL + "platforms/" + platform_id;
-    getForm(url_val, function(result) {
+    _getForm(url_val, function(result) {
         //Default behavior: return JSON.
         return result;
     });
 }
 function getPlatformList() {
     var url_val = BASE_URL + "platforms";
-    getForm(url_val, function(result) {
-        return result;
-    }
+    _getForm(url_val, function(result) {
+        //Return a list of id
+        return _buildList(result);
+    });
 }
 function getInstrument (instrument_id) {
     var url_val = BASE_URL + "instruments/" + instrument_id;
-    getForm(url_val, function(result) {
+    _getForm(url_val, function(result) {
         //Default behavior: return JSON.
         return result;
     });
 }
 function getInstrumentList () {
     var url_val = BASE_URL + "instruments";
-    getForm(url_val, function(result) {
-        return result;
-    }
+    _getForm(url_val, function(result) {
+        //Return a list of id
+        return _buildList(result);
+    });
 }
 function getStream (stream_id) {
     var url_val = BASE_URL + "streams/" + stream_id;
-    getForm(url_val, function(result) {
+    _getForm(url_val, function(result) {
         //Default behavior: return JSON.
         return result;
     });
 }
 function getStreamList () {
     var url_val = BASE_URL + "streams";
-    getForm(url_val, function(result) {
-        return result;
-    }
+    _getForm(url_val, function(result) {
+        //Return a list of id
+        return _buildList(result);
+    });
 }
 function getPlatformsAtArray (array_id) {
     var url_val = BASE_URL + "platforms?array_id=" + array_id;
-    getForm(url_val, function(result) {
+    _getForm(url_val, function(result) {
         //Default behavior: return JSON.
         return result;
     });
 }
 function getInstrumentsAtPlatform (platform_id) {
    var url_val = BASE_URL + "instruments?platform_id=" + platform_id;
-   getForm(url_val, function(result) {
+   _getForm(url_val, function(result) {
        //Default behavior: return JSON.
         return result;
     });
