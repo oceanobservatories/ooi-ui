@@ -24,20 +24,20 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/components/holderjs/holder.js"></script> 
-
-    <link rel="stylesheet" href="/css/docs.min.css">
-    
-
+    <style>
+        div[role="navigation"] {margin-bottom: 0;}
+        .navbar-right li a.btn-social-icon {height:50px;}
+        .navbar-right li img {margin-right:10px;}
+        #side-nav.affix-top {margin-top: 100px;}
+        #side-nav.affix {width: 15%; top: 20px;}
+        #side-nav ul li.active a {background-color: #eee; color: #23527c;}
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('#side-nav').affix({offset: {top: 100}});
+        });
+    </script>
 </head>
-
-<style>
-    div[role="navigation"] {margin-bottom: 0;}
-   .navbar-right li a.btn-social-icon {height:50px;}
-   .navbar-right li img {margin-right:10px;}
-   ul.nav.bs-docs-sidenav {width: 200px;}
-</style>
-
-
 <body data-spy="scroll" data-target="#side-nav">
   
   <!-- Fixed navbar -->
@@ -94,11 +94,11 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row ">
+        <div class="row">
                 <div class="col-md-2">
-                    <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" data-spy="affix" id="side-nav" role="complementary">
-                        <ul class="nav bs-docs-sidenav">
-                            <li class="active" >
+                    <div id="side-nav" role="complementary">
+                        <ul class="nav">
+                            <li>
                               <a href="#description">Description</a>
                             </li>
 
@@ -122,7 +122,7 @@
                 </div>
 
 
-                <div class="col-lg-10">
+                <div class="col-md-10" role="main">
                   <div class="panel-body">
                     <h1>Pioneer Array</h1>
                     <h3 id="description" class="page-header">Description</h3>
@@ -306,17 +306,5 @@
         </div>            
 
     </div>
-
-
-  <script>	
-    $('#side-nav').affix({
-      offset: {
-        top: 100,
-        bottom: function () {
-          return (this.bottom = $('.footer').outerHeight(true))
-        }
-      }
-    })
-  </script>
 </body>
 </html>
