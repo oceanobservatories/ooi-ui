@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<!-- RPS | ASA OOI project -->
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    	<title>{ % title % }</title>
+        <script type="text/javascript"
+            src="{{url_for('static', filename='js/bower_components/jquery/dist/jquery.js')}}"></script>
+        <!-- Grab react -->
+        <!--<script type="text/javascript"
+            src="{{url_for('static', filename='js/bower_components/react/react.js')}}"></script>
+        <!-- Finally, get the ooiservice API -->
+        <script type="text/javascript"
+            src="{{url_for('static', filename='js/ooiservices.js')}}"></script>
+    </head>
+    <body>
+    	<div id="204">
+        <button onclick="getPlatform('BB00BBBB-BBDDD')">Test 204!</button>
+    </div>
+    <div id="oneTwoOne">
+        <button onclick="getArrayList()">Get Array List!</button>
+        <button onclick="getArray('CP')">Get Array!</button>
+
+    </div>
+    <div>
+        <button onclick="getPlatform('GS01SUMO-SM001')">Get Platform!</button>
+        <button onclick="getPlatformList()">Get Platform List!</button>
+    </div>
+    <div>
+        <button onclick="getInstrument('GS01SUMO-SBD11-01-MOPAK0000')">Get Instrument!</button>
+        <button onclick="getInstrumentList()">Get Instrument List!</button>
+    </div>
+    <div id="search">
+       <button onclick="getPlatformListAtArray('GS')">Get platforms at array!</button>
+       <button onclick="getInstrumentListAtPlatform('GS03FLMA-RIS02')">Get instruments at platform!</button>
+    </div>
+    <div id="out">
+    </body>
+</html>
