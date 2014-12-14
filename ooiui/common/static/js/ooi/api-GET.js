@@ -5,7 +5,6 @@ Requires current service running from ooi-ui-service
 */
 /* TODO: Externalize this */
 var BASE_URL = 'http://localhost:4000/';
-var glabal_result = "";
 function _getForm(url_val, callback) {
     //Helper function to do the GET
     jQuery.ajax({
@@ -68,9 +67,11 @@ function getPlatform (platform_id) {
 function getPlatformList() {
     var url_val = BASE_URL + "platforms";
     _getForm(url_val, function(result) {
-        //Return a list of id
-        return _buildList(result);
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
+
+    return _buildList(name);
 }
 function getInstrument (instrument_id) {
     var url_val = BASE_URL + "instruments/" + instrument_id;
@@ -82,9 +83,11 @@ function getInstrument (instrument_id) {
 function getInstrumentList () {
     var url_val = BASE_URL + "instruments";
     _getForm(url_val, function(result) {
-        //Return a list of id
-        return _buildList(result);
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
+
+    return _buildList(name);
 }
 function getStream (stream_id) {
     var url_val = BASE_URL + "streams/" + stream_id;
@@ -95,29 +98,35 @@ function getStream (stream_id) {
 }
 function getStreamList () {
     var url_val = BASE_URL + "streams";
-    _getForm(url_val, function(result) {
-        //Return a list of id
-        return _buildList(result);
+   _getForm(url_val, function(result) {
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
+
+    return _buildList(name);
 }
 function getPlatformListAtArray (array_id) {
     var url_val = BASE_URL + "platforms?array_id=" + array_id;
     _getForm(url_val, function(result) {
-        //Return a list of platforms at a specified array
-        return _buildList(result);
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
-}
+
+    return _buildList(name);}
 function getInstrumentListAtPlatform (platform_id) {
    var url_val = BASE_URL + "instruments?platform_id=" + platform_id;
     _getForm(url_val, function(result) {
-        //Return a list of instruments at specified platform
-        return _buildList(result);
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
-}
+
+    return _buildList(name);}
 function getStreamListAtInstrument (stream_id) {
    var url_val = BASE_URL + "streams?instrument_id=" + stream_id;
-    _getForm(url_val, function(result) {
-        //Return a list of instruments at specified platform
-        return _buildList(result);
+     _getForm(url_val, function(result) {
+        //TODO: maybe find a better place to store this value.
+        window.name = result;
     });
+
+    return _buildList(name);
 }
