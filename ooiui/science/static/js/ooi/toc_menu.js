@@ -4,7 +4,7 @@ function buildtocmenu(data){
 
 	// Initialize Fancytree
     $("#tocmenusection").fancytree({
-      extensions: ["glyph","filter", "wide"],
+      extensions: ["glyph","filter", "wide", "childcounter"],
       checkbox: false,
       selectMode: 2,
       glyph: {
@@ -17,9 +17,7 @@ function buildtocmenu(data){
           error: "glyphicon glyphicon-warning-sign",
           expanderClosed: "glyphicon glyphicon-plus-sign",
           expanderLazy: "glyphicon glyphicon-plus-sign",
-          // expanderLazy: "glyphicon glyphicon-expand",
           expanderOpen: "glyphicon glyphicon-minus-sign",
-          // expanderOpen: "glyphicon glyphicon-collapse-down",
           folder: "glyphicon glyphicon-folder-close",
           folderOpen: "glyphicon glyphicon-folder-open",
           loading: "glyphicon glyphicon-refresh"
@@ -28,6 +26,11 @@ function buildtocmenu(data){
       },
       filter: {
         mode: "hide"
+      },
+      childcounter: {
+        deep: false,
+        hideZeros: true,
+        hideExpanded: true
       },
       wide: {
         iconWidth: "1em",     // Adjust this if @fancy-icon-width != "16px"

@@ -1,0 +1,2715 @@
+
+{
+    "CP": {
+        "CP02PMCI-RII01": {
+            "display_name": "Pioneer Central Inshore Profiler Mooring - Mooring Riser", 
+            "instruments": {
+                "CP02PMCI-RII01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMCI-RII01-02-ADCPTG000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {}
+                }
+            }, 
+            "lat": 40.22653333, 
+            "lon": -70.87795, 
+            "status": "na"
+        }, 
+        "CP02PMCI-SBS01": {
+            "display_name": "Pioneer Central Inshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP02PMCI-SBS01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMCI-SBS01-01-MOPAK0000": {
+                    "display_name": "", 
+                    "streams": {
+                        "mopak_o_dcl_accel_unprocessed": [
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "mopak_timer", 
+                            "mopak_ang_ratey", 
+                            "mopak_ang_ratex", 
+                            "mopak_ang_ratez", 
+                            "mopak_magz", 
+                            "mopak_accelz", 
+                            "mopak_magx", 
+                            "mopak_accelx", 
+                            "internal_timestamp", 
+                            "mopak_accely", 
+                            "mopak_magy"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.22653333, 
+            "lon": -70.87795, 
+            "status": "na"
+        }, 
+        "CP02PMCI-WFP01": {
+            "display_name": "Pioneer Central Inshore Profiler Mooring - Wire-Following Profiler", 
+            "instruments": {
+                "CP02PMCI-WFP01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "wfp_eng_stc_imodem_engineering_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_prof_voltage", 
+                            "wfp_timestamp", 
+                            "wfp_prof_current", 
+                            "wfp_prof_pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "wfp_eng_stc_imodem_start_time_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_sensor_start", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "wfp_profile_start"
+                        ], 
+                        "wfp_eng_stc_imodem_status_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_ramp_status", 
+                            "internal_timestamp", 
+                            "wfp_profile_status", 
+                            "wfp_sensor_stop", 
+                            "driver_timestamp", 
+                            "wfp_indicator", 
+                            "wfp_profile_stop"
+                        ]
+                    }
+                }, 
+                "CP02PMCI-WFP01-01-VEL3DK000": {
+                    "display_name": "3-D Single Point Velocity Meter", 
+                    "streams": {}
+                }, 
+                "CP02PMCI-WFP01-02-DOFSTK000": {
+                    "display_name": "Dissolved Oxygen Fast Response", 
+                    "streams": {
+                        "dofst_k_wfp_instrument_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMCI-WFP01-03-CTDPFK000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdpf_ckl_wfp_instrument_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMCI-WFP01-04-FLORTK000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_kn_stc_imodem_instrument_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ]
+                    }
+                }, 
+                "CP02PMCI-WFP01-05-PARADK000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_k__stc_imodem_instrument_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.22653333, 
+            "lon": -70.87795, 
+            "status": "na"
+        }, 
+        "CP02PMCO-RII01": {
+            "display_name": "Pioneer Central Offshore Profiler Mooring - Mooring Riser", 
+            "instruments": {
+                "CP02PMCO-RII01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMCO-RII01-02-ADCPTG000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "adcps_jln_stc_instrument_unprocessed": [
+                            "adcps_jln_temp", 
+                            "adcps_jln_vel_east", 
+                            "adcps_jln_hour", 
+                            "adcps_jln_number", 
+                            "adcps_jln_minute", 
+                            "adcps_jln_pitch", 
+                            "adcps_jln_hsec", 
+                            "adcps_jln_pressure", 
+                            "driver_timestamp", 
+                            "adcps_jln_second", 
+                            "adcps_jln_fw_rev", 
+                            "adcps_jln_bins", 
+                            "internal_timestamp", 
+                            "adcps_jln_vel_north", 
+                            "adcps_jln_vel_up", 
+                            "adcps_jln_roll", 
+                            "adcps_jln_unit_id", 
+                            "adcps_jln_vel_error", 
+                            "adcps_jln_year", 
+                            "preferred_timestamp", 
+                            "adcps_jln_day", 
+                            "adcps_jln_record", 
+                            "adcps_jln_startbin", 
+                            "adcps_jln_heading", 
+                            "adcps_jln_month", 
+                            "adcps_jln_fw_vers"
+                        ], 
+                        "adcps_jln_stc_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "adcps_jln_timestamp", 
+                            "adcps_jln_length", 
+                            "adcps_jln_id", 
+                            "adcps_jln_serial_number", 
+                            "internal_timestamp", 
+                            "adcps_jln_samples_written", 
+                            "adcps_jln_volts", 
+                            "driver_timestamp", 
+                            "adcps_jln_events", 
+                            "adcps_jln_records"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.10123333, 
+            "lon": -70.88768333, 
+            "status": "na"
+        }, 
+        "CP02PMCO-SBS01": {
+            "display_name": "Pioneer Central Offshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP02PMCO-SBS01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "cg_stc_eng_stc_unprocessed": [
+                            "cg_eng_mpic_gflt1", 
+                            "cg_eng_mpic_gflt2", 
+                            "cg_eng_mpic_gflt3", 
+                            "cg_eng_mpic_gflt4", 
+                            "cg_eng_port_dlog8_tx", 
+                            "cg_eng_mpic_press", 
+                            "cg_eng_dmgrstatus_started", 
+                            "cg_eng_dclp4_prot", 
+                            "cg_eng_mpic_wpc", 
+                            "cg_eng_dclp6_volt", 
+                            "cg_eng_port_dlog3_bb", 
+                            "cg_eng_gps_time", 
+                            "cg_eng_dclp5_prot", 
+                            "cg_eng_dclp1_eflag", 
+                            "cg_eng_port_dlog5_name", 
+                            "cg_eng_mpic_irid", 
+                            "cg_eng_dclp1_vsel", 
+                            "cg_eng_port_dlog6_state", 
+                            "cg_eng_ntp_jitter", 
+                            "cg_eng_port_dlog2_lc", 
+                            "cg_eng_port_dlog5_log", 
+                            "cg_eng_port_dlog2_ld", 
+                            "cg_eng_port_dlog2_good", 
+                            "cg_eng_dclp7_enable", 
+                            "cg_eng_dclp8_eflag", 
+                            "cg_eng_msg_cnts_c_pps", 
+                            "cg_eng_port_dlog4_good", 
+                            "cg_eng_port_dlog2_lu", 
+                            "cg_eng_dclp1_volt", 
+                            "cg_eng_port_dlog1_log", 
+                            "cg_eng_mpic_ld_ena", 
+                            "cg_eng_port_dlog8_lu", 
+                            "cg_eng_gps_msg_time", 
+                            "cg_eng_gps_lat", 
+                            "cg_eng_dmgrstatus_halted", 
+                            "cg_eng_port_dlog4_bad", 
+                            "cg_eng_loadshed_status", 
+                            "cg_eng_port_dlog8_bb", 
+                            "cg_eng_msg_cnts_d_superv", 
+                            "cg_eng_port_dlog8_ld", 
+                            "cg_eng_port_dlog8_lc", 
+                            "cg_eng_mpic_wake_cpm", 
+                            "cg_eng_dclp2_prot", 
+                            "cg_eng_port_dlog6_rx", 
+                            "cg_eng_dclp4_enable", 
+                            "cg_eng_port_dlog2_name", 
+                            "cg_eng_mpic_eflag2", 
+                            "cg_eng_mpic_wsrc", 
+                            "cg_eng_port_dlog3_rx", 
+                            "cg_eng_dclp1_clim", 
+                            "cg_eng_sbc_fb2", 
+                            "cg_eng_sbc_fb1", 
+                            "cg_eng_pps_bad_pulse", 
+                            "cg_eng_mpic_irid_e", 
+                            "cg_eng_port_dlog6_bb", 
+                            "cg_eng_port_dlog6_name", 
+                            "cg_eng_port_dlog8_bad", 
+                            "cg_eng_dcl_port_status", 
+                            "cg_eng_dclp3_volt", 
+                            "cg_eng_port_dlog2_tx", 
+                            "cg_eng_gps_date", 
+                            "cg_eng_sbc_gpio5", 
+                            "cg_eng_msg_cnts_c_ntp", 
+                            "cg_eng_dclp2_eflag", 
+                            "cg_eng_mpic_dsl", 
+                            "cg_eng_mpic_irid_v", 
+                            "cg_eng_dclp8_enable", 
+                            "cg_eng_port_dlog7_name", 
+                            "cg_eng_gps_lonstr", 
+                            "cg_eng_cpu_load15", 
+                            "cg_eng_port_dlog3_log", 
+                            "cg_eng_msg_cnts_d_pps", 
+                            "cg_eng_port_dlog2_bad", 
+                            "cg_eng_port_dlog3_tx", 
+                            "cg_eng_port_dlog6_good", 
+                            "cg_eng_dclp3_current", 
+                            "cg_eng_port_dlog5_good", 
+                            "cg_eng_mpic_ldet1", 
+                            "cg_eng_dmgrstatus_update", 
+                            "cg_eng_dclp5_enable", 
+                            "cg_eng_gps_msg_date", 
+                            "cg_eng_mpic_irid_c", 
+                            "cg_eng_port_dlog3_good", 
+                            "cg_eng_port_dlog5_bb", 
+                            "cg_eng_dclp5_eflag", 
+                            "driver_timestamp", 
+                            "cg_eng_port_dlog3_bad", 
+                            "cg_eng_dclp6_clim", 
+                            "cg_eng_dmgrstatus_date", 
+                            "cg_eng_gps_spd", 
+                            "cg_eng_gps_hdop", 
+                            "cg_eng_mpic_temp1", 
+                            "cg_eng_dclp6_enable", 
+                            "cg_eng_port_dlog4_name", 
+                            "cg_eng_ntp_refid", 
+                            "cg_eng_pps_lock", 
+                            "cg_eng_dmgrstatus_active", 
+                            "cg_eng_dclp5_volt", 
+                            "cg_eng_dmgrstatus_map", 
+                            "cg_eng_mpic_gf_ena", 
+                            "cg_eng_mpic_gps", 
+                            "cg_eng_pps_deltamax", 
+                            "cg_eng_sbc_wdt", 
+                            "cg_eng_port_dlog7_tx", 
+                            "cg_eng_port_dlog1_bad", 
+                            "cg_eng_port_dlog7_log", 
+                            "cg_eng_mpic_main_v", 
+                            "cg_eng_port_dlog6_bad", 
+                            "cg_eng_port_dlog2_bb", 
+                            "preferred_timestamp", 
+                            "cg_eng_port_dlog7_lc", 
+                            "cg_eng_port_dlog3_ld", 
+                            "cg_eng_port_dlog7_ld", 
+                            "cg_eng_dclp6_vsel", 
+                            "cg_eng_mpic_humid", 
+                            "cg_eng_port_dlog5_rx", 
+                            "cg_eng_port_dlog7_good", 
+                            "cg_eng_sbc_eth1", 
+                            "cg_eng_mpic_main_c", 
+                            "cg_eng_port_dlog5_state", 
+                            "cg_eng_sbc_eth0", 
+                            "cg_eng_sbc_bid", 
+                            "cg_eng_port_dlog7_lu", 
+                            "cg_eng_port_dlog6_log", 
+                            "cg_eng_sbc_bstr", 
+                            "cg_eng_pps_delta", 
+                            "cg_eng_mpic_hbeat_enable", 
+                            "cg_eng_port_dlog2_rx", 
+                            "cg_eng_cpu_load1", 
+                            "cg_eng_port_dlog5_tx", 
+                            "cg_eng_msg_cnts_c_gps", 
+                            "cg_eng_pps_last_update", 
+                            "cg_eng_cpu_load5", 
+                            "cg_eng_gps_fix", 
+                            "cg_eng_dclp6_eflag", 
+                            "cg_eng_port_dlog2_state", 
+                            "cg_eng_dclp8_vsel", 
+                            "cg_eng_dclp3_enable", 
+                            "cg_eng_dclp8_prot", 
+                            "cg_eng_port_dlog1_rx", 
+                            "cg_eng_port_dlog6_lu", 
+                            "cg_eng_gps_cog", 
+                            "cg_eng_cpu_uptime", 
+                            "cg_eng_mpic_esw", 
+                            "cg_eng_gps_alt", 
+                            "cg_eng_port_dlog8_state", 
+                            "cg_eng_port_dlog7_state", 
+                            "cg_eng_dclp2_current", 
+                            "cg_eng_port_dlog3_state", 
+                            "cg_eng_dclp6_current", 
+                            "cg_eng_msg_cnts_d_ntp", 
+                            "cg_eng_port_dlog6_ld", 
+                            "cg_eng_mpic_sbd", 
+                            "cg_eng_port_dlog5_bad", 
+                            "cg_eng_port_dlog6_lc", 
+                            "cg_eng_port_dlog7_rx", 
+                            "cg_eng_dclp8_volt", 
+                            "cg_eng_gps_nsat", 
+                            "cg_eng_port_dlog3_lc", 
+                            "cg_eng_port_dlog8_good", 
+                            "cg_eng_sbc_ce_led", 
+                            "cg_eng_port_dlog4_log", 
+                            "cg_eng_port_dlog5_lc", 
+                            "cg_eng_port_dlog5_ld", 
+                            "cg_eng_mpic_hbeat_threshold", 
+                            "cg_eng_sbc_gpo4", 
+                            "cg_eng_msg_cnts_d_gps", 
+                            "cg_eng_port_dlog3_lu", 
+                            "cg_eng_sbc_gpo0", 
+                            "cg_eng_sbc_gpo1", 
+                            "cg_eng_sbc_gpo2", 
+                            "cg_eng_sbc_gpo3", 
+                            "internal_timestamp", 
+                            "cg_eng_mpic_eflag", 
+                            "cg_eng_gps_latstr", 
+                            "cg_eng_port_dlog5_lu", 
+                            "cg_eng_dclp1_enable", 
+                            "cg_eng_msg_cnts_c_superv", 
+                            "cg_eng_port_dlog1_good", 
+                            "cg_eng_dclp7_current", 
+                            "cg_eng_dclp5_clim", 
+                            "cg_eng_dclp5_current", 
+                            "cg_eng_port_dlog1_name", 
+                            "cg_eng_dclp4_vsel", 
+                            "cg_eng_dclp2_vsel", 
+                            "cg_eng_port_dlog4_rx", 
+                            "cg_eng_port_dlog7_bad", 
+                            "cg_eng_port_dlog7_bb", 
+                            "cg_eng_dmgrstatus_time", 
+                            "cg_eng_port_dlog2_log", 
+                            "cg_eng_port_dlog1_lu", 
+                            "cg_eng_mpic_ldet2", 
+                            "cg_eng_dclp6_prot", 
+                            "cg_eng_memory_ram", 
+                            "cg_eng_port_dlog8_rx", 
+                            "cg_eng_dclp7_clim", 
+                            "cg_eng_sbc_gpio4", 
+                            "cg_eng_mpic_last_update", 
+                            "cg_eng_sbc_gpio2", 
+                            "cg_eng_sbc_gpio3", 
+                            "cg_eng_sbc_gpio0", 
+                            "cg_eng_sbc_gpio1", 
+                            "cg_eng_dclp7_eflag", 
+                            "cg_eng_dclp4_volt", 
+                            "cg_eng_port_dlog4_bb", 
+                            "cg_eng_port_dlog1_ld", 
+                            "cg_eng_loadshed_last_update", 
+                            "cg_eng_mpic_bat_c", 
+                            "cg_eng_port_dlog1_lc", 
+                            "cg_eng_dclp8_clim", 
+                            "cg_eng_port_dlog1_bb", 
+                            "cg_eng_memory_free", 
+                            "cg_eng_dclp3_eflag", 
+                            "cg_eng_port_dlog3_name", 
+                            "cg_eng_mpic_dcl", 
+                            "cg_eng_platform_time", 
+                            "cg_eng_mpic_bat_v", 
+                            "cg_eng_dclp3_prot", 
+                            "cg_eng_port_dlog8_log", 
+                            "cg_eng_msg_cnts_c_telem", 
+                            "cg_eng_dclp4_eflag", 
+                            "cg_eng_dclp3_clim", 
+                            "cg_eng_dclp3_vsel", 
+                            "cg_eng_dclp2_volt", 
+                            "cg_eng_msg_cnts_d_dlog_ngr", 
+                            "cg_eng_msg_cnts_c_power_sys", 
+                            "cg_eng_dclp4_current", 
+                            "cg_eng_port_dlog8_name", 
+                            "cg_eng_dclp2_enable", 
+                            "cg_eng_gps_lon", 
+                            "cg_eng_pps_deltamin", 
+                            "cg_eng_port_dlog4_state", 
+                            "cg_eng_port_dlog1_tx", 
+                            "cg_eng_dclp1_prot", 
+                            "cg_eng_dclp7_volt", 
+                            "cg_eng_pps_timestamp", 
+                            "cg_eng_nproc", 
+                            "cg_eng_mpic_temp2", 
+                            "cg_eng_port_dlog4_lu", 
+                            "cg_eng_sbc_led1", 
+                            "cg_eng_sbc_led0", 
+                            "cg_eng_sbc_led2", 
+                            "cg_eng_mpic_fw_wifi", 
+                            "cg_eng_port_dlog4_lc", 
+                            "cg_eng_port_dlog4_tx", 
+                            "cg_eng_port_dlog4_ld", 
+                            "cg_eng_mpic_pps", 
+                            "cg_eng_port_dlog6_tx", 
+                            "cg_eng_mpic_hbeat_dtime", 
+                            "cg_eng_dclp7_vsel", 
+                            "cg_eng_mpic_sbd_ce_msg", 
+                            "cg_eng_mpic_fw_wifi_v", 
+                            "cg_eng_gps_last_update", 
+                            "cg_eng_ntp_offset", 
+                            "cg_eng_port_dlog1_state", 
+                            "cg_eng_dclp2_clim", 
+                            "cg_eng_mpic_fw_wifi_c", 
+                            "cg_eng_dclp5_vsel", 
+                            "cg_eng_dclp4_clim", 
+                            "cg_eng_mpic_fw_wifi_e", 
+                            "cg_eng_dclp1_current", 
+                            "cg_eng_dclp7_prot", 
+                            "cg_eng_dmgrstatus_failed", 
+                            "cg_eng_dclp8_current", 
+                            "cg_eng_platform_utime"
+                        ]
+                    }
+                }, 
+                "CP02PMCO-SBS01-01-MOPAK0000": {
+                    "display_name": "", 
+                    "streams": {
+                        "mopak_o_dcl_accel_unprocessed": [
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "mopak_timer", 
+                            "mopak_ang_ratey", 
+                            "mopak_ang_ratex", 
+                            "mopak_ang_ratez", 
+                            "mopak_magz", 
+                            "mopak_accelz", 
+                            "mopak_magx", 
+                            "mopak_accelx", 
+                            "internal_timestamp", 
+                            "mopak_accely", 
+                            "mopak_magy"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.10123333, 
+            "lon": -70.88768333, 
+            "status": "na"
+        }, 
+        "CP02PMCO-WFP01": {
+            "display_name": "Pioneer Central Offshore Profiler Mooring - Wire-Following Profiler", 
+            "instruments": {
+                "CP02PMCO-WFP01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "wfp_eng_stc_imodem_engineering_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_prof_voltage", 
+                            "wfp_timestamp", 
+                            "wfp_prof_current", 
+                            "wfp_prof_pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "wfp_eng_stc_imodem_start_time_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_sensor_start", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "wfp_profile_start"
+                        ], 
+                        "wfp_eng_stc_imodem_status_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_ramp_status", 
+                            "internal_timestamp", 
+                            "wfp_profile_status", 
+                            "wfp_sensor_stop", 
+                            "driver_timestamp", 
+                            "wfp_indicator", 
+                            "wfp_profile_stop"
+                        ]
+                    }
+                }, 
+                "CP02PMCO-WFP01-01-VEL3DK000": {
+                    "display_name": "3-D Single Point Velocity Meter", 
+                    "streams": {}
+                }, 
+                "CP02PMCO-WFP01-02-DOFSTK000": {
+                    "display_name": "Dissolved Oxygen Fast Response", 
+                    "streams": {
+                        "dofst_k_wfp_instrument_recovered_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_instrument_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_metadata_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ], 
+                        "dofst_k_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMCO-WFP01-03-CTDPFK000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdpf_ckl_wfp_instrument_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_recovered_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMCO-WFP01-04-FLORTK000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_kn_stc_imodem_instrument_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_recovered_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ]
+                    }
+                }, 
+                "CP02PMCO-WFP01-05-PARADK000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_k__stc_imodem_instrument_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_recovered_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.10123333, 
+            "lon": -70.88768333, 
+            "status": "na"
+        }, 
+        "CP02PMUI-RII01": {
+            "display_name": "Pioneer Upstream Inshore Profiler Mooring - Mooring Riser", 
+            "instruments": {
+                "CP02PMUI-RII01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMUI-RII01-02-ADCPTG000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "adcps_jln_stc_instrument_unprocessed": [
+                            "adcps_jln_temp", 
+                            "adcps_jln_vel_east", 
+                            "adcps_jln_hour", 
+                            "adcps_jln_number", 
+                            "adcps_jln_minute", 
+                            "adcps_jln_pitch", 
+                            "adcps_jln_hsec", 
+                            "adcps_jln_pressure", 
+                            "driver_timestamp", 
+                            "adcps_jln_second", 
+                            "adcps_jln_fw_rev", 
+                            "adcps_jln_bins", 
+                            "internal_timestamp", 
+                            "adcps_jln_vel_north", 
+                            "adcps_jln_vel_up", 
+                            "adcps_jln_roll", 
+                            "adcps_jln_unit_id", 
+                            "adcps_jln_vel_error", 
+                            "adcps_jln_year", 
+                            "preferred_timestamp", 
+                            "adcps_jln_day", 
+                            "adcps_jln_record", 
+                            "adcps_jln_startbin", 
+                            "adcps_jln_heading", 
+                            "adcps_jln_month", 
+                            "adcps_jln_fw_vers"
+                        ], 
+                        "adcps_jln_stc_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "adcps_jln_timestamp", 
+                            "adcps_jln_length", 
+                            "adcps_jln_id", 
+                            "adcps_jln_serial_number", 
+                            "internal_timestamp", 
+                            "adcps_jln_samples_written", 
+                            "adcps_jln_volts", 
+                            "driver_timestamp", 
+                            "adcps_jln_events", 
+                            "adcps_jln_records"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.8974, 
+            "lon": -70.68601167, 
+            "status": "na"
+        }, 
+        "CP02PMUI-SBS01": {
+            "display_name": "Pioneer Upstream Inshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP02PMUI-SBS01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMUI-SBS01-01-MOPAK0000": {
+                    "display_name": "", 
+                    "streams": {
+                        "mopak_o_dcl_accel_unprocessed": [
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "mopak_timer", 
+                            "mopak_ang_ratey", 
+                            "mopak_ang_ratex", 
+                            "mopak_ang_ratez", 
+                            "mopak_magz", 
+                            "mopak_accelz", 
+                            "mopak_magx", 
+                            "mopak_accelx", 
+                            "internal_timestamp", 
+                            "mopak_accely", 
+                            "mopak_magy"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.8974, 
+            "lon": -70.68601167, 
+            "status": "na"
+        }, 
+        "CP02PMUI-WFP01": {
+            "display_name": "Pioneer Upstream Inshore Profiler Mooring - Wire-Following Profiler", 
+            "instruments": {
+                "CP02PMUI-WFP01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "wfp_eng_stc_imodem_engineering_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_prof_voltage", 
+                            "wfp_timestamp", 
+                            "wfp_prof_current", 
+                            "wfp_prof_pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "wfp_eng_stc_imodem_start_time_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_sensor_start", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "wfp_profile_start"
+                        ], 
+                        "wfp_eng_stc_imodem_status_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_ramp_status", 
+                            "internal_timestamp", 
+                            "wfp_profile_status", 
+                            "wfp_sensor_stop", 
+                            "driver_timestamp", 
+                            "wfp_indicator", 
+                            "wfp_profile_stop"
+                        ]
+                    }
+                }, 
+                "CP02PMUI-WFP01-01-VEL3DK000": {
+                    "display_name": "3-D Single Point Velocity Meter", 
+                    "streams": {}
+                }, 
+                "CP02PMUI-WFP01-02-DOFSTK000": {
+                    "display_name": "Dissolved Oxygen Fast Response", 
+                    "streams": {
+                        "dofst_k_wfp_instrument_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMUI-WFP01-03-CTDPFK000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdpf_ckl_wfp_instrument_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMUI-WFP01-04-FLORTK000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_kn_stc_imodem_instrument_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ]
+                    }
+                }, 
+                "CP02PMUI-WFP01-05-PARADK000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_k__stc_imodem_instrument_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.8974, 
+            "lon": -70.68601167, 
+            "status": "na"
+        }, 
+        "CP02PMUO-RII01": {
+            "display_name": "Pioneer Upstream Offshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP02PMUO-RII01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMUO-RII01-02-ADCPSL000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "adcps_jln_stc_instrument_unprocessed": [
+                            "adcps_jln_temp", 
+                            "adcps_jln_vel_east", 
+                            "adcps_jln_hour", 
+                            "adcps_jln_number", 
+                            "adcps_jln_minute", 
+                            "adcps_jln_pitch", 
+                            "adcps_jln_hsec", 
+                            "adcps_jln_pressure", 
+                            "driver_timestamp", 
+                            "adcps_jln_second", 
+                            "adcps_jln_fw_rev", 
+                            "adcps_jln_bins", 
+                            "internal_timestamp", 
+                            "adcps_jln_vel_north", 
+                            "adcps_jln_vel_up", 
+                            "adcps_jln_roll", 
+                            "adcps_jln_unit_id", 
+                            "adcps_jln_vel_error", 
+                            "adcps_jln_year", 
+                            "preferred_timestamp", 
+                            "adcps_jln_day", 
+                            "adcps_jln_record", 
+                            "adcps_jln_startbin", 
+                            "adcps_jln_heading", 
+                            "adcps_jln_month", 
+                            "adcps_jln_fw_vers"
+                        ], 
+                        "adcps_jln_stc_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "adcps_jln_timestamp", 
+                            "adcps_jln_length", 
+                            "adcps_jln_id", 
+                            "adcps_jln_serial_number", 
+                            "internal_timestamp", 
+                            "adcps_jln_samples_written", 
+                            "adcps_jln_volts", 
+                            "driver_timestamp", 
+                            "adcps_jln_events", 
+                            "adcps_jln_records"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 39.94302167, 
+            "lon": -70.77001333, 
+            "status": "na"
+        }, 
+        "CP02PMUO-SBS01": {
+            "display_name": "Pioneer Upstream Offshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP02PMUO-SBS01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP02PMUO-SBS01-01-MOPAK0000": {
+                    "display_name": "", 
+                    "streams": {
+                        "mopak_o_dcl_accel_unprocessed": [
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "mopak_timer", 
+                            "mopak_ang_ratey", 
+                            "mopak_ang_ratex", 
+                            "mopak_ang_ratez", 
+                            "mopak_magz", 
+                            "mopak_accelz", 
+                            "mopak_magx", 
+                            "mopak_accelx", 
+                            "internal_timestamp", 
+                            "mopak_accely", 
+                            "mopak_magy"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 39.94302167, 
+            "lon": -70.77001333, 
+            "status": "na"
+        }, 
+        "CP02PMUO-WFP01": {
+            "display_name": "Pioneer Upstream Offshore Profiler Mooring - Wire-Following Profiler", 
+            "instruments": {
+                "CP02PMUO-WFP01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "wfp_eng_stc_imodem_engineering_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_prof_voltage", 
+                            "wfp_timestamp", 
+                            "wfp_prof_current", 
+                            "wfp_prof_pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "wfp_eng_stc_imodem_start_time_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_sensor_start", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "wfp_profile_start"
+                        ], 
+                        "wfp_eng_stc_imodem_status_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_ramp_status", 
+                            "internal_timestamp", 
+                            "wfp_profile_status", 
+                            "wfp_sensor_stop", 
+                            "driver_timestamp", 
+                            "wfp_indicator", 
+                            "wfp_profile_stop"
+                        ]
+                    }
+                }, 
+                "CP02PMUO-WFP01-01-VEL3DK000": {
+                    "display_name": "3-D Single Point Velocity Meter", 
+                    "streams": {}
+                }, 
+                "CP02PMUO-WFP01-02-DOFSTK000": {
+                    "display_name": "Dissolved Oxygen Fast Response", 
+                    "streams": {
+                        "dofst_k_wfp_instrument_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMUO-WFP01-03-CTDPFK000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdpf_ckl_wfp_instrument_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP02PMUO-WFP01-04-FLORTK000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_kn_stc_imodem_instrument_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ]
+                    }
+                }, 
+                "CP02PMUO-WFP01-05-PARADK000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_k__stc_imodem_instrument_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 39.94302167, 
+            "lon": -70.77001333, 
+            "status": "na"
+        }, 
+        "CP04OSPM-SBS11": {
+            "display_name": "Pioneer Offshore Profiler Mooring - Surface Buoy", 
+            "instruments": {
+                "CP04OSPM-SBS11-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP04OSPM-SBS11-02-MOPAK0000": {
+                    "display_name": "", 
+                    "streams": {}
+                }
+            }, 
+            "lat": 39.93333333, 
+            "lon": -70.87843333, 
+            "status": "na"
+        }, 
+        "CP04OSPM-WFP01": {
+            "display_name": "Pioneer Offshore Profiler Mooring - Wire-Following Profiler", 
+            "instruments": {
+                "CP04OSPM-WFP01-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "wfp_eng_stc_imodem_engineering_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_prof_voltage", 
+                            "wfp_timestamp", 
+                            "wfp_prof_current", 
+                            "wfp_prof_pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "wfp_eng_stc_imodem_start_time_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_sensor_start", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "wfp_profile_start"
+                        ], 
+                        "wfp_eng_stc_imodem_status_unprocessed": [
+                            "preferred_timestamp", 
+                            "wfp_ramp_status", 
+                            "internal_timestamp", 
+                            "wfp_profile_status", 
+                            "wfp_sensor_stop", 
+                            "driver_timestamp", 
+                            "wfp_indicator", 
+                            "wfp_profile_stop"
+                        ]
+                    }
+                }, 
+                "CP04OSPM-WFP01-01-VEL3DK000": {
+                    "display_name": "3-D Single Point Velocity Meter", 
+                    "streams": {}
+                }, 
+                "CP04OSPM-WFP01-02-DOFSTK000": {
+                    "display_name": "Dissolved Oxygen Fast Response", 
+                    "streams": {
+                        "dofst_k_wfp_instrument_unprocessed": [
+                            "dofst_k_oxygen", 
+                            "preferred_timestamp", 
+                            "driver_timestamp", 
+                            "internal_timestamp"
+                        ], 
+                        "dofst_k_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP04OSPM-WFP01-03-CTDPFK000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdpf_ckl_wfp_instrument_processed": [
+                            "ctdpf_ckl_seawater_pressure", 
+                            "ctdpf_ckl_seawater_temperature", 
+                            "internal_timestamp", 
+                            "ctdpf_ckl_seawater_conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "temperature", 
+                            "pressure", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "conductivity"
+                        ], 
+                        "ctdpf_ckl_wfp_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "internal_timestamp", 
+                            "wfp_number_samples", 
+                            "driver_timestamp", 
+                            "wfp_time_off", 
+                            "wfp_time_on"
+                        ]
+                    }
+                }, 
+                "CP04OSPM-WFP01-04-FLORTK000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_kn_stc_imodem_instrument_processed": [
+                            "flort_k_total_volume_scattering_coefficient", 
+                            "internal_timestamp", 
+                            "fluorometric_chlorophyll_a", 
+                            "fluorometric_cdom"
+                        ], 
+                        "flort_kn_stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "raw_signal_beta", 
+                            "wfp_timestamp", 
+                            "raw_signal_chl", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "raw_signal_cdom"
+                        ]
+                    }
+                }, 
+                "CP04OSPM-WFP01-05-PARADK000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_k__stc_imodem_instrument_processed": [
+                            "parad_k_par", 
+                            "internal_timestamp"
+                        ], 
+                        "parad_k__stc_imodem_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "par_val_v", 
+                            "wfp_timestamp", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 39.93333333, 
+            "lon": -70.87843333, 
+            "status": "na"
+        }, 
+        "CP05MOAS-AV001": {
+            "display_name": "Pioneer Mobile AUV #1", 
+            "instruments": {
+                "CP05MOAS-AV001-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-01-FLORTN000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-02-DOSTAN000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-03-CTDAVN000": {
+                    "display_name": "", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-04-NUTNRN000": {
+                    "display_name": "Nitrate", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-05-ADCPAN000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV001-06-PARADN000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {}
+                }
+            }, 
+            "lat": -999, 
+            "lon": -999, 
+            "status": "na"
+        }, 
+        "CP05MOAS-AV002": {
+            "display_name": "Pioneer Mobile AUV #2", 
+            "instruments": {
+                "CP05MOAS-AV002-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-01-FLORTN000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-02-DOSTAN000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-03-CTDAVN000": {
+                    "display_name": "", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-04-NUTNRN000": {
+                    "display_name": "Nitrate", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-05-ADCPAN000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-AV002-06-PARADN000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {}
+                }
+            }, 
+            "lat": -999, 
+            "lon": -999, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL001": {
+            "display_name": "Pioneer Mobile Coastal Glider #1", 
+            "instruments": {
+                "CP05MOAS-GL001-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "glider_eng_metadata_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_recovered_unprocessed": [
+                            "m_tcm3_is_calibrated", 
+                            "m_mission_start_time", 
+                            "m_battroll", 
+                            "c_air_pump", 
+                            "m_altimeter_status", 
+                            "m_science_sent_some_data", 
+                            "m_tcm3_zcoverage", 
+                            "m_air_pump", 
+                            "m_hdg_ierror", 
+                            "m_pressure_voltage", 
+                            "m_pitch_energy", 
+                            "m_appear_to_be_at_surface", 
+                            "m_is_thermal_valve_moving", 
+                            "m_vy_lmc", 
+                            "m_depth_rate_running_avg", 
+                            "m_fluid_pumped_fwd_hall_voltage", 
+                            "m_surface_est_ctd", 
+                            "m_ballast_pumped", 
+                            "m_is_ballast_pump_moving", 
+                            "c_battpos", 
+                            "m_altitude_rate", 
+                            "m_iridium_redials", 
+                            "m_hdg_error", 
+                            "m_depth_rejected", 
+                            "m_chars_tossed_with_power_off", 
+                            "m_depth_subsampled", 
+                            "m_mission_avg_speed_climbing", 
+                            "m_chars_tossed_by_abend", 
+                            "m_avg_depth_rate", 
+                            "m_argos_sent_data", 
+                            "m_coulomb_amphr_total", 
+                            "preferred_timestamp", 
+                            "m_1meg_persistor", 
+                            "x_last_wpt_lat", 
+                            "m_dr_time", 
+                            "m_initial_water_vy", 
+                            "m_initial_water_vx", 
+                            "m_ballast_pumped_energy", 
+                            "m_coulomb_amphr_raw", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_raw_altitude", 
+                            "m_bpump_fault_bit", 
+                            "m_gps_utc_minute", 
+                            "m_surface_est_irid", 
+                            "m_gps_heading", 
+                            "m_dr_surf_x_lmc", 
+                            "m_dr_x_postfix_drift", 
+                            "m_argos_on", 
+                            "m_stable_comms", 
+                            "m_last_yo_time", 
+                            "m_tot_num_inflections", 
+                            "m_final_water_vy", 
+                            "m_final_water_vx", 
+                            "m_water_depth", 
+                            "m_dr_surf_y_lmc", 
+                            "m_disk_free", 
+                            "m_air_fill", 
+                            "m_gps_dist_from_dr", 
+                            "m_at_risk_depth", 
+                            "m_chars_tossed_with_cd_off", 
+                            "c_battroll", 
+                            "m_device_drivers_called_abnormally", 
+                            "m_leak", 
+                            "m_pitch_error", 
+                            "m_gps_postfix_x_lmc", 
+                            "m_is_battroll_moving", 
+                            "m_avg_yo_time", 
+                            "m_tcm3_ycoverage", 
+                            "m_gps_mag_var", 
+                            "m_depth_rate", 
+                            "m_dr_postfix_time", 
+                            "m_water_cond", 
+                            "m_gps_status", 
+                            "m_gps_speed", 
+                            "m_gps_toofar_lon", 
+                            "m_avg_dive_rate", 
+                            "m_system_clock_lags_gps", 
+                            "driver_timestamp", 
+                            "m_avg_climb_rate", 
+                            "m_cycle_number", 
+                            "m_digifin_motorstep_counter", 
+                            "m_vacuum", 
+                            "m_veh_temp", 
+                            "m_dr_x_ta_postfix_drift", 
+                            "m_certainly_at_surface", 
+                            "m_device_warning", 
+                            "m_dr_x_actual_err", 
+                            "m_argos_timestamp", 
+                            "m_gps_utc_month", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_digifin_status", 
+                            "m_heading", 
+                            "m_gps_full_status", 
+                            "m_iridium_waiting_registration", 
+                            "m_fin", 
+                            "m_water_delta_vy", 
+                            "m_water_delta_vx", 
+                            "m_min_spare_heap", 
+                            "m_digifin_cmd_done", 
+                            "m_is_fin_moving", 
+                            "m_pressure", 
+                            "m_gps_y_lmc", 
+                            "m_mission_avg_speed_diving", 
+                            "m_iridium_connected", 
+                            "m_gps_on", 
+                            "m_gps_utc_day", 
+                            "x_system_clock_adjusted", 
+                            "m_dr_y_ta_postfix_drift", 
+                            "m_avg_speed", 
+                            "m_is_battpos_moving", 
+                            "m_tcm3_poll_time", 
+                            "m_vx_lmc", 
+                            "m_gps_lat", 
+                            "m_hdg_rate", 
+                            "m_x_lmc", 
+                            "m_is_de_pump_moving", 
+                            "c_dvl_on", 
+                            "m_fin_vel", 
+                            "m_gps_postfix_y_lmc", 
+                            "m_y_lmc", 
+                            "m_gps_uncertainty", 
+                            "m_pitch", 
+                            "c_profile_on", 
+                            "m_digifin_leakdetect_reading", 
+                            "m_science_on", 
+                            "m_spare_heap", 
+                            "m_battery", 
+                            "m_gps_ignored_lon", 
+                            "m_tot_horz_dist", 
+                            "c_bsipar_on", 
+                            "m_console_on", 
+                            "m_dr_x_ini_err", 
+                            "m_lithium_battery_status", 
+                            "m_tcm3_xcoverage", 
+                            "m_speed", 
+                            "c_pitch", 
+                            "m_avg_upward_inflection_time", 
+                            "m_altimeter_voltage", 
+                            "m_is_fpitch_pump_moving", 
+                            "m_min_free_heap", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_iridium_console_on", 
+                            "m_cop_tickle", 
+                            "m_dive_tot_time", 
+                            "m_gps_num_satellites", 
+                            "m_dr_y_ini_err", 
+                            "m_gps_fix_y_lmc", 
+                            "m_hdg_derror", 
+                            "m_battery_inst", 
+                            "m_pressure_raw_voltage_sample0", 
+                            "m_veh_overheat", 
+                            "m_surface_est_total", 
+                            "m_de_pump_fault_count", 
+                            "m_console_cd", 
+                            "m_science_sync_time", 
+                            "m_vmg_to_wpt", 
+                            "m_iridium_waiting_redial_delay", 
+                            "m_surface_est_cmd", 
+                            "m_lithium_battery_relative_charge", 
+                            "m_tcm3_recv_start_time", 
+                            "m_iridium_dialed_num", 
+                            "m_lithium_battery_time_to_discharge", 
+                            "m_iridium_call_num", 
+                            "m_gps_ignored_lat", 
+                            "m_avg_downward_inflection_time", 
+                            "m_gps_x_lmc", 
+                            "m_depth_rate_running_avg_n", 
+                            "m_science_clothesline_lag", 
+                            "m_raw_altitude_rejected", 
+                            "m_dive_depth", 
+                            "m_est_time_to_surface", 
+                            "m_battpos_vel", 
+                            "m_leakdetect_voltage", 
+                            "m_free_heap", 
+                            "m_depth_rate_avg_final", 
+                            "m_water_temp", 
+                            "m_lithium_battery_time_to_charge", 
+                            "c_wpt_lon", 
+                            "m_gps_utc_year", 
+                            "m_climb_tot_time", 
+                            "m_leak_forward", 
+                            "m_dr_y_postfix_drift", 
+                            "m_de_oil_vol_pot_voltage", 
+                            "m_tcm3_stddeverr", 
+                            "m_fluid_pumped", 
+                            "m_dr_fix_time", 
+                            "m_altitude", 
+                            "m_tcm3_magbearth", 
+                            "m_fluid_pumped_aft_hall_voltage", 
+                            "m_iridium_attempt_num", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "m_num_half_yos_in_segment", 
+                            "m_surface_est_gps", 
+                            "c_heading", 
+                            "m_ballast_pumped_vel", 
+                            "m_vehicle_temp", 
+                            "m_science_ready_for_consci", 
+                            "m_roll", 
+                            "m_tcm3_recv_stop_time", 
+                            "m_iridium_signal_strength", 
+                            "m_is_speed_estimated", 
+                            "m_depth", 
+                            "m_argos_is_xmitting", 
+                            "m_present_time", 
+                            "m_pressure_raw_voltage_sample19", 
+                            "m_tot_on_time", 
+                            "x_last_wpt_lon", 
+                            "m_gps_invalid_lat", 
+                            "m_gps_fix_x_lmc", 
+                            "m_depth_state", 
+                            "m_avg_system_clock_lags_gps", 
+                            "m_tot_ballast_pumped_energy", 
+                            "c_flbbcd_on", 
+                            "m_device_oddity", 
+                            "m_disk_usage", 
+                            "m_coulomb_current_raw", 
+                            "m_battpos", 
+                            "m_digifin_resp_data", 
+                            "m_battroll_vel", 
+                            "m_gps_lon", 
+                            "m_science_unreadiness_for_consci", 
+                            "m_gps_utc_second", 
+                            "m_gps_invalid_lon", 
+                            "m_iridium_status", 
+                            "c_ballast_pumped", 
+                            "m_gps_toofar_lat", 
+                            "m_why_started", 
+                            "m_lon", 
+                            "m_coulomb_amphr", 
+                            "m_de_oil_vol", 
+                            "m_iridium_on", 
+                            "m_digifin_cmd_error", 
+                            "m_aground_water_depth", 
+                            "m_water_pressure", 
+                            "m_device_error", 
+                            "m_time_til_wpt", 
+                            "m_depth_rate_subsampled", 
+                            "m_surface_est_fw", 
+                            "m_leakdetect_voltage_forward", 
+                            "m_fluid_pumped_vel", 
+                            "m_dr_y_actual_err", 
+                            "m_gps_utc_hour", 
+                            "m_dist_to_wpt"
+                        ], 
+                        "glider_eng_sci_recovered_unprocessed": [
+                            "sci_m_disk_usage", 
+                            "sci_wants_surface", 
+                            "sci_x_sent_data_files", 
+                            "sci_bsipar_is_installed", 
+                            "sci_x_disk_files_removed", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_spare_heap", 
+                            "sci_m_min_spare_heap", 
+                            "sci_reqd_heartbeat", 
+                            "internal_timestamp", 
+                            "sci_ctd41cp_is_installed", 
+                            "sci_m_science_on", 
+                            "sci_software_ver", 
+                            "sci_flbbcd_is_installed", 
+                            "sci_m_present_time", 
+                            "sci_m_free_heap", 
+                            "sci_m_min_free_heap", 
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_wants_comms", 
+                            "sci_oxy4_is_installed"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL001-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL001-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_bb_units", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ], 
+                        "flort_m_glider_recovered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_flbbcd_bb_ref", 
+                            "sci_flbbcd_cdom_sig", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_cdom_ref", 
+                            "m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_ref", 
+                            "sci_flbbcd_chlor_sig", 
+                            "sci_flbbcd_bb_units", 
+                            "sci_flbbcd_bb_sig", 
+                            "internal_timestamp", 
+                            "sci_flbbcd_timestamp", 
+                            "sci_flbbcd_therm", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL001-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdgv_m_glider_instrument_recovered_unprocessed": [
+                            "m_present_time", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "preferred_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "sci_ctd41cp_timestamp", 
+                            "driver_timestamp"
+                        ], 
+                        "ctdgv_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL001-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {
+                        "dosta_abcdjm_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_oxygen", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp", 
+                            "sci_oxy4_saturation"
+                        ], 
+                        "dosta_abcdjm_glider_recovered_unprocessed": [
+                            "sci_water_cond", 
+                            "sci_oxy4_c2rph", 
+                            "sci_oxy4_oxygen", 
+                            "sci_oxy4_temp", 
+                            "driver_timestamp", 
+                            "sci_oxy4_c2amp", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "sci_oxy4_c1rph", 
+                            "m_present_time", 
+                            "sci_oxy4_timestamp", 
+                            "sci_water_pressure", 
+                            "sci_oxy4_calphase", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_c1amp", 
+                            "sci_oxy4_rawtemp", 
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "sci_oxy4_tcphase", 
+                            "sci_oxy4_saturation"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL001-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ], 
+                        "parad_m_glider_recovered_unprocessed": [
+                            "m_present_time", 
+                            "sci_m_present_secs_into_mission", 
+                            "preferred_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "sci_bsipar_supply_volts", 
+                            "sci_bsipar_temp", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "sci_bsipar_sensor_volts", 
+                            "internal_timestamp", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL002": {
+            "display_name": "Pioneer Mobile Coastal Glider #2", 
+            "instruments": {
+                "CP05MOAS-GL002-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL002-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL002-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_bb_units", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL002-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdgv_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL002-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {
+                        "dosta_abcdjm_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_oxygen", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp", 
+                            "sci_oxy4_saturation"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL002-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL003": {
+            "display_name": "Pioneer Mobile Coastal Glider #3", 
+            "instruments": {
+                "CP05MOAS-GL003-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL003-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL003-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_bb_units", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL003-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdgv_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL003-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {
+                        "dosta_abcdjm_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_oxygen", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp", 
+                            "sci_oxy4_saturation"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL003-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL004": {
+            "display_name": "Pioneer Mobile Coastal Glider #4", 
+            "instruments": {
+                "CP05MOAS-GL004-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL004-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL004-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_bb_units", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL004-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdgv_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL004-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {
+                        "dosta_abcdjm_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_oxygen", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp", 
+                            "sci_oxy4_saturation"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL004-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL005": {
+            "display_name": "Pioneer Mobile Coastal Glider #5", 
+            "instruments": {
+                "CP05MOAS-GL005-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL005-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {
+                        "glider_eng_metadata_unprocessed": [
+                            "preferred_timestamp", 
+                            "glider_mission_name", 
+                            "glider_eng_fileopen_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "glider_eng_filename"
+                        ], 
+                        "glider_eng_sci_telemetered_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_disk_usage", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "driver_timestamp", 
+                            "sci_m_disk_free", 
+                            "sci_m_present_secs_into_mission"
+                        ], 
+                        "glider_eng_telemetered_unprocessed": [
+                            "m_roll", 
+                            "m_battery", 
+                            "m_air_pump", 
+                            "m_altitude", 
+                            "m_water_vx", 
+                            "m_water_vy", 
+                            "driver_timestamp", 
+                            "c_heading", 
+                            "m_speed", 
+                            "m_gps_lat", 
+                            "c_battpos", 
+                            "m_ballast_pumped", 
+                            "m_coulomb_current", 
+                            "internal_timestamp", 
+                            "m_present_secs_into_mission", 
+                            "c_de_oil_vol", 
+                            "m_present_time", 
+                            "m_heading", 
+                            "m_fin", 
+                            "m_coulomb_amphr_total", 
+                            "m_depth", 
+                            "m_battpos", 
+                            "c_wpt_lat", 
+                            "m_lat", 
+                            "m_gps_lon", 
+                            "m_raw_altitude", 
+                            "m_pressure", 
+                            "m_lithium_battery_relative_charge", 
+                            "c_ballast_pumped", 
+                            "preferred_timestamp", 
+                            "m_lon", 
+                            "m_de_oil_vol", 
+                            "c_pitch", 
+                            "c_dvl_on", 
+                            "m_vacuum", 
+                            "m_water_depth", 
+                            "c_wpt_lon", 
+                            "m_pitch"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL005-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {
+                        "flort_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_flbbcd_chlor_units", 
+                            "sci_flbbcd_cdom_units", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_flbbcd_bb_units", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL005-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {
+                        "ctdgv_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_water_cond", 
+                            "sci_m_present_secs_into_mission", 
+                            "sci_water_temp", 
+                            "m_present_secs_into_mission", 
+                            "sci_water_pressure", 
+                            "sci_m_present_time", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL005-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {
+                        "dosta_abcdjm_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_oxy4_oxygen", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp", 
+                            "sci_oxy4_saturation"
+                        ]
+                    }
+                }, 
+                "CP05MOAS-GL005-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {
+                        "parad_m_glider_instrument_unprocessed": [
+                            "preferred_timestamp", 
+                            "sci_m_present_secs_into_mission", 
+                            "m_present_secs_into_mission", 
+                            "sci_m_present_time", 
+                            "sci_bsipar_par", 
+                            "internal_timestamp", 
+                            "m_present_time", 
+                            "driver_timestamp"
+                        ]
+                    }
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }, 
+        "CP05MOAS-GL006": {
+            "display_name": "Pioneer Mobile Coastal Glider #6", 
+            "instruments": {
+                "CP05MOAS-GL006-00-ENG000000": {
+                    "display_name": "Engineering Data", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-GL006-01-ADCPAM000": {
+                    "display_name": "Velocity Profiler (short range)", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-GL006-02-FLORTM000": {
+                    "display_name": "3-Wavelength Fluorometer", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-GL006-03-CTDGVM000": {
+                    "display_name": "CTD Profiler", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-GL006-04-DOSTAM000": {
+                    "display_name": "Dissolved Oxygen Stable Response", 
+                    "streams": {}
+                }, 
+                "CP05MOAS-GL006-05-PARADM000": {
+                    "display_name": "Photosynthetically Available Radiation", 
+                    "streams": {}
+                }
+            }, 
+            "lat": 40.0833, 
+            "lon": -70.25, 
+            "status": "na"
+        }
+    }
+}

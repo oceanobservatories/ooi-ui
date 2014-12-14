@@ -20,33 +20,49 @@ function OpenInNewTab(url) {
   win.focus();
 }
 
-function getStatusMarker(status,redMarker,greenMarker,naMarker){
-	if (status == "na"){
-		return naMarker;
-	}else if (status == "on"){
-		return onMarker;
-	}else if (status == "off"){
-		return offMarker;
-	}	
+function getStatusColor(status){
+    if (status === undefined || status =="undefined"){
+        return "blue";
+    }else if (status == "na"){
+        return "blue";
+    }else if (status == "on"){
+        return 'green';
+    }else if (status == "off"){
+        return 'red';
+    }else{
+        return 'orange';
+    } 
 }
 
+function getMarkerIcon(stream_num){
+    if (stream_num > 0){
+        return "star";
+    }else{
+        return "ban";
+    }   
+}
+
+function getStatusMarker(status,stream_num){    
+    if (stream_num > 0){
+        icon_style = "star";
+        color = getStatusColor(status)
+    }else{
+        icon_style = "ban";
+        color = 'darkred'
+    }
+    
+
+    // Creates a red marker
+    var marker = L.AwesomeMarkers.icon({
+        icon: icon_style,
+        markerColor: color,
+        prefix: 'fa'
+     });
+    return marker;
+}
+
+
 function addMarkers(map,markers){
-
-	// Creates a red marker
-    var redMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'red'
-    });
-
-    var greenMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'green'
-    });
-
-    var naMarker = L.AwesomeMarkers.icon({
-        icon: 'star',
-        markerColor: 'blue'
-    });
 
     /* PLATFORM MARKER EXTENDED FROM NORMAL MARKER*/
     PlatformMarker = L.Marker.extend({
@@ -72,7 +88,9 @@ function addMarkers(map,markers){
                 lon = platform_ob['lon'] 
                 status = platform_ob['status']
                 d_type = platform_ob['type']
+
                 platform_name = platform_ob['title']
+                platform_id = platform_ob['id']
 
                 //get the instruments
                 instruments = platform_ob['children']                             
@@ -80,16 +98,28 @@ function addMarkers(map,markers){
                 //normal assets
                 if (lat > -999 && lon > -999){
                 	$.each( instruments, function( instrument_id, instrument ) {  
-                        instrument_name = instrument['title']              		                	
-	                	popup = getPopupContent(array,platform_name,instrument_name,status);
+                        instrument_name = instrument['title'] 
+                        instrument_id = instrument['id']    
 
+                        if (instrument_name.length < 4){
+                            instrument_name = instrument_id
+                        }
+
+                        stream_num = instrument.children.length
+                        popup = getPopupContent(array,platform_name,instrument_name,status,instrument_id,platform_id);
+
+
+
+                        markerIcon = getStatusMarker(status,stream_num)
 	                    //create the marker and set the properties
 	                    var marker = new PlatformMarker([lat,lon], 
 	                    	{
-	                    		icon: getStatusMarker(status,redMarker,greenMarker,naMarker),
+	                    		icon: markerIcon,
 	                    		status: status,
 	                    		platform: platform_name,
+                                platform_id: platform_id,
 	                    		instrument: instrument_name,
+                                instrument_id: instrument_id,
                                 riseOnHover: true
 	                    	}
 	                    );
@@ -112,19 +142,21 @@ function addMarkers(map,markers){
 	
 }
 
-function getPopupContent(array,platform,instrument, status){
-    popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"' +' class="popup-map-btn">'+
-            instrument+ 
-            "<br> Array: "+ array+ 
-            "<br> Platform: " +platform+ " " +
-            "<br> "+ "Status: "+ status + "<br>"+
+function getPopupContent(array,platform,instrument, status,instrument_id,platform_id){
+    
+    popstr =   '<div array="'+array+'"' +' platform="'+platform+'"'+ ' instrument="'+instrument+'"'+' platform_id="'+platform_id+'"'+ ' instrument_id="'+instrument_id+'"' +' class="popup-map-btn">'+
+            instrument+ ":" +  instrument_id +
+            "<br> <b>Array:</b> "+ array+ 
+            "<br> <b>Platform:</b> "+ platform_id + ":"+ platform+ " " +
+            "<br> "+ "<b>Status:</b> "+ status + " "+
+            "<br> "+ "<b>Stream #:</b> "+ stream_num + "<br>"+
             '<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
                 '<span class="glyphicon glyphicon-stats"></span> Plot data'+
             '</button>'+
             '<button type="button" class="popup-map-btn-download btn btn-default btn-sm">'+                                
                 '<span class="glyphicon glyphicon-save"></span> Download data'+
             '</button>'+
-            "</div>"
+            "</div>"   
    
     return popstr
 
