@@ -1,0 +1,78 @@
+* {margin: 0px; padding: 0px;}
+
+#slider {
+	background: linear-gradient(#003040, #002535);	width: 100%;
+	color: white;
+	box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.5),
+		0 0 200px 1px rgba(255, 255, 255, 0.5);
+	position: absolute;
+	z-index: 3;
+	text-align: center;
+}
+#slider div {
+	float: left;
+}
+
+#slider ul h3{
+	font-size: 15px;
+	line-height: 20px;
+	padding: 0 10px;
+	cursor: pointer;
+	background: linear-gradient(#003040, #002535);
+	width: 100%;
+	padding-right: 40px;
+}
+
+#slider ul h3 a, #slider ul h4 a {
+	color: white;
+}
+
+#slider h3:hover {
+		text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
+}
+#slider ul {
+	display: block;
+}
+
+#slider li {
+	list-style-type: none;
+	z-index: 2;
+}
+
+#slider ul ul li a,#slider ul h4 a{
+	color: white;
+	text-decoration: none;
+	font-size: 11px;
+	line-height: 27px;
+	display: block;
+	padding: 0 15px;
+	/* smoother transition */
+	transition: all 0.15s;
+}
+
+#slider ul ul li a:hover, #slider ul h4 a:hover {
+	background: #003545;
+	border-left: 5px solid lightgreen;
+
+}
+
+#slider ul ul {
+	display: none;
+	position: absolute;
+	background: #004050;
+
+}
+#slider li.active ul {
+	display: block;
+}
+
+#slider.floating {
+    position: fixed;
+    top: 0px;
+}
+
+#slider .sub {
+	padding-left: 5px;
+	border-left: 5px solid orange;
+
+}

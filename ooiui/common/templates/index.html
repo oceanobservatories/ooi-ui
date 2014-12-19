@@ -13,18 +13,25 @@
         <script type="text/javascript"
             src="{{url_for('static', filename='js/ooi/api-GET.js')}}"></script>
         <script type="text/javascript"
-            src="{{url_for('static', filename='js/ooi/build-nav-menu.js')}}"></script>
+            src="{{url_for('static', filename='js/ooi/build-toc.js')}}"></script>
+        <script type="text/javascript"
+            src="{{url_for('static', filename='js/ooi/build-nav-bar.js')}}"></script>
+        <link rel="stylesheet" type="text/css"
+            href="{{url_for('static', filename='css/nav-bar.css')}}"></link>
+        <script>
+            document.onload = BuildNavBar()
+        </script>
     </head>
     <body>
+        <div id="nav-bar"></div></body>
+                <br/><br/>
         <div>
             <button onclick="BuildTOCMenu()">Build TOC!</button>
         </div>
 
         <div id="arrays"></div>
-
         <div id="platforms"></div>
-
         <div id="instruments"></div>
         <div id="stream"></div>
-    </body>
+        </body>
 </html>
