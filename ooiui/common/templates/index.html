@@ -16,26 +16,15 @@
             src="{{url_for('static', filename='js/ooi/build-nav-menu.js')}}"></script>
     </head>
     <body>
-        <div id="204">
-            <button onclick="getPlatform('BB00BBBB-BBDDD')">Test 204!</button>
-        </div>
-        <div id="oneTwoOne">
-            <button onclick="getArray('CP')">Get Array (CP)</button>
-            <button onclick="getArrayList()">Get List of Arrays</button>
-        </div>
         <div>
-            <button onclick="getPlatform('GS01SUMO-SM001')">Get Platform (GS01SUMO-SM001)</button>
-            <button onclick="getPlatformList()">Get Platform List!</button>
+            <button onclick="BuildTOCMenu()">Build TOC!</button>
         </div>
-        <div>
-            <button onclick="getInstrument('GS01SUMO-SBD11-01-MOPAK0000')">Get Instrument (GS01SUMO-SBD11-01-MOPAK0000)</button>
-            <button onclick="getInstrumentList()">Get List of Instruments!</button>
-        </div>
-        <div id="search">
-            <button onclick="getPlatformListAtArray('GS')">Get platforms at array (GS)</button>
-            <BR/>
-            <button onclick="getInstrumentListAtPlatform('GS03FLMA-RIS02')">Get instruments at platform (GS03FLMA-RIS02)</button>
-        </div>
-        <div id="out">
+
+        <div id="arrays"></div>
+
+        <div id="platforms"></div>
+
+        <div id="instruments"></div>
+        <div id="stream"></div>
     </body>
 </html>
