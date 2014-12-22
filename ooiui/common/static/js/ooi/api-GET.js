@@ -31,7 +31,7 @@ function _buildList(json_string) {
         //Build a simple json dictionary of only the ids
         var new_json = '[';
         for (var i=0; i<data.length; i++) {
-            new_json += '{ "id" : "' + data[i].ref_id + '" , "name" : "' + data[i].description + '"},';
+            new_json += '{ "id" : "' + data[i].ref_id + '" , "name" : "' + data[i].display_name + '"},';
         }
         new_json = new_json.slice(0, -1);
         //Remove the trailing comma (,)
