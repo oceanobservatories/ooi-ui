@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Jasmine v2.0 DOM Tests Spec Runner</title>
+ 
+  <link rel="shortcut icon" type="image/png" href="images/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-core/jasmine.css">
+ 
+  <script type="text/javascript" src="lib/jasmine-core/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine-core/jasmine-html.js"></script>
+  <script type="text/javascript" src="lib/jasmine-core/boot.js"></script>
+  <script type="text/javascript" src="lib/jasmine-core/jquery-1.7.2.js"></script>
+  <script type="text/javascript" src="lib/jasmine-core/jasmine-jquery.js"></script>
+   
+  <script type="text/javascript">
+   var MSG = "Hello World!";
+      
+   function hideMessage() {
+     $( "#pMsg" ).html("");
+   }
+     
+   function showMessage() {
+     $( "#pMsg" ).html(MSG); 
+   }
+      
+   function setUpHTMLFixture() {
+     setFixtures('<form id="testForm" action="">'
+                +'  <h1>Test Form</h1>'
+                +'  <br>'
+                +'  <button id="btnPioneerArray" type="button" onclick="hideMessage()">Hide Message</button>'
+                +'  <button id="btnShowMessage" type="button" onclick="showMessage()">Show Message</button>'
+                +'  <br>'
+                +'  <p id="pMsg"></p>'
+                +'</form>');
+       
+   }
+  </script>
+</head>
+<body>
+</body>
+</html>
