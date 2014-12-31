@@ -17,10 +17,24 @@ module.exports = function(grunt) {
     },
   })
 
+  jasmine: {
+      components: {
+        src: [
+        'components/*js'
+        ],
+        options: {
+          specs: 'tests/spec/*Spec.js',
+          keepRunner : true,
+          //helpers: 'test/spec/*.js'
+        }
+  }
+
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-react');
 
   // Default task(s).
   grunt.registerTask('default', ['react']);
-
+  grunt.registerTask('travis', [
+        'jshint','jasmine'
+  ]);
 };
