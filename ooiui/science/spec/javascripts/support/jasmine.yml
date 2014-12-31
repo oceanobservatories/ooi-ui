@@ -1,0 +1,6 @@
+src_files:
+  - js/ooi/*.js
+spec_files:
+  - "**/*[Ss]pec.js"
+src_dir: 'static'
+spec_dir: spec/javascripts/
