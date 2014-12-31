@@ -1,0 +1,7 @@
+*.swp
+*.pyc
+*.DS_Store
+ooiui/science/static/components/
+**/react/*.js
+**/node_modules
+**/nohup.out

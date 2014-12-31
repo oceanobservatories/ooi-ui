@@ -1,0 +1,194 @@
+{
+    "CP": [
+        {
+            "status": "na", 
+            "title": "CP01CNSP-SP001-02", 
+            "expanded": false, 
+            "lon": 70.78, 
+            "lat": 40.14, 
+            "folder": true, 
+            "type": "platform", 
+            "children": [
+                {
+                    "folder": true, 
+                    "type": "instrument", 
+                    "children": [
+                        {
+                            "folder": true, 
+                            "type": "stream", 
+                            "children": [
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter1"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter2"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter3"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter4"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter5"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter6"
+                                }
+                            ], 
+                            "title": "optaa_d_instrument_recovered"
+                        }, 
+                        {
+                            "folder": true, 
+                            "type": "stream", 
+                            "children": [
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter1"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter2"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter3"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter4"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter5"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter6"
+                                }
+                            ], 
+                            "title": "optaa_d_instrument_telemetered"
+                        }, 
+                        {
+                            "folder": true, 
+                            "type": "stream", 
+                            "children": [
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter1"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter2"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter3"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter4"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter5"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter6"
+                                }
+                            ], 
+                            "title": "optaa_d_instrument_engineering"
+                        }, 
+                        {
+                            "folder": true, 
+                            "type": "stream", 
+                            "children": [
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter1"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter2"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter3"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter4"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter5"
+                                }, 
+                                {
+                                    "folder": false, 
+                                    "type": "parameter", 
+                                    "children": [], 
+                                    "title": "parameter6"
+                                }
+                            ], 
+                            "title": "optaa_d_instrument_raw"
+                        }
+                    ], 
+                    "title": "OPTAAJ999"
+                }
+            ]
+        }
+    ]
+}

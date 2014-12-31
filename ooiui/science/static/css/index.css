@@ -1,0 +1,86 @@
+html, body { 
+        height:100%
+}
+
+.navbar-static-top{
+  margin-bottom: 0px;
+}
+
+.pull-right {
+  float: right !important;
+  padding-right: 15px;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 50px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {        
+        margin-top: 1px;
+    }
+}
+
+.container-full {
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:10px;
+  max-width:100%;
+}
+
+.array-row{
+    padding:5px;
+    width:100%;
+}
+
+
+.timeline-text{
+    font-family: Arial, sans-serif;font-size:10px;
+}
+.axis path,.axis line {
+    fill: none;stroke:#b6b6b6;shape-rendering: crispEdges;
+}
+/*.tick line{fill:none;stroke:none;}*/
+.tick text{
+    fill:#999;
+}
+
+g.platform.active{
+    cursor:pointer;
+}
+
+text.label{
+    font-size:12px;font-weight:bold;cursor:pointer;
+}
+
+text.value{
+    font-size:12px;font-weight:bold;
+}
+
+.info-icon {
+    color: steelblue;
+    /*float: right;*/
+}
+
+.info-icon:hover {
+    color: darkblue;
+}
+
+.popovertext{
+    font-size:12px;
+}
+
+
+.tsplot{
+  width: 100% !important;  
+  height: 120px;  
+}

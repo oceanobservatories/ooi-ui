@@ -1,0 +1,6 @@
+TABLEDAP: http://data-test.ooi.rutgers.edu/erddap/tabledap/
+ERDDAP_URL: http://data-test.ooi.rutgers.edu/erddap
+SERVICES_URL: http://localhost:4000
+DEBUG: False
+CACHE_TYPE: simple
+
