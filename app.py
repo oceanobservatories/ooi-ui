@@ -5,7 +5,7 @@ app.py
 import argparse
 
 def science(args):
-    from ooiui.science.app import app
+    from ooiui.core.app.science import app
     app.run(host='localhost', debug=True)
 
 
