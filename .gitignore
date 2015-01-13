@@ -1,8 +1,8 @@
 *.swp
 *.pyc
 *.DS_Store
-ooiui/science/static/components/
-**/react/*.js
 **/node_modules
 **/nohup.out
-**/bower_components/*
+**/components/*
+**/static/lib
+**/static/js/partials/compiled/

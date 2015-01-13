@@ -1,0 +1,29 @@
+@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+form {
+    padding: 40px;
+    text-align: center;
+}
+img {
+    display: inline-block;
+}
+
+h3 {
+    display: inline-block;
+}
+
+h5 {
+    display: inline-block;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
