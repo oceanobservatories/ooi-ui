@@ -20,9 +20,17 @@ import time
 import numpy as np
 import math
 
+@app.route('/signup')
+def user_signup():   
+    return render_template('common/userSignupForm.html')
+
+@app.route('/login')
+def user_login():    
+    return render_template('common/login.html')
+
 @app.route('/landing/pioneer')
 def landing_pioneer():
-    return render_template('templates/landing/pioneer.html')
+    return render_template('landing/pioneer.html')
 
 @app.route('/getdata/')
 def getData():
