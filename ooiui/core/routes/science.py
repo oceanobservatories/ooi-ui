@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 '''
-ooiui.science.routes
+ooiui.core.routes.science
 
 Defines the application routes
 '''
-from ooiui.science.app import app
+from ooiui.core.app.science import app
 from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG, ERDDAP_URL
 
-from ooiui.science.interface import tabledap as tabled
-from ooiui.science.interface.toc import get_toc as get_toc_interface, flush_cache
-from ooiui.science.interface.timecoverage import get_times_for_stream
+from ooiui.core.interface import tabledap as tabled
+from ooiui.core.interface.toc import get_toc as get_toc_interface, flush_cache
+from ooiui.core.interface.timecoverage import get_times_for_stream
 
 import requests
 import os
@@ -20,9 +20,9 @@ import time
 import numpy as np
 import math
 
-@app.route('/pioneer/')
-def pioneer():
-    return app.send_static_file('pioneer_landing.html')
+@app.route('/landing/pioneer')
+def landing_pioneer():
+    return render_template('templates/landing/pioneer.html')
 
 @app.route('/getdata/')
 def getData():
