@@ -77,5 +77,6 @@ def flush():
 
 @app.route('/')
 def root():
-    return render_template('index.html', erddap_url=ERDDAP_URL)
+    print os.getcwd()
+    return render_template('science/index.html', erddap_url=ERDDAP_URL)
 
