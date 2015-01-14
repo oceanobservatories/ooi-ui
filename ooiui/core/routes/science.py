@@ -22,7 +22,7 @@ import math
 
 @app.route('/signup')
 def user_signup():   
-    return render_template('common/userSignupForm.html')
+    return render_template('common/signup.html')
 
 @app.route('/login')
 def user_login():    
