@@ -41,7 +41,6 @@ def getData():
     tav = request.args['timeaverage']
     tp = request.args['timeperiod']
 
-    print tav
     
     if (tav=="true"):
         r = tabled.getFormattedJsonData(instr,std,edd,param)
@@ -77,5 +76,5 @@ def flush():
 
 @app.route('/')
 def root():
-    return render_template('index.html', erddap_url=ERDDAP_URL)
+    return render_template('science/index.html', erddap_url=ERDDAP_URL)
 
