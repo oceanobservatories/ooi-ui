@@ -2,12 +2,18 @@
 var SignUpModel = Backbone.Model.extend({
     defaults: {
         role: "Administrator",
-        phone: "Work"
+        organization: "ASA"
     },
     url: "/api/user/",
     
     validation: {
         username: {
+            required: true
+        },
+         first_name: {
+            required: true
+        },
+         last_name: {
             required: true
         },
         email: {
@@ -21,13 +27,13 @@ var SignUpModel = Backbone.Model.extend({
             equalTo: 'password',
             msg: 'The passwords does not match'
         },
-        phone: {
-            oneOf: ['Work', 'Home','Cell']
+        organization:{
+            required: true
         },
         role: {
             oneOf: ['Administrator']
         },
-        phonenum: {
+        primary_phone: {
             required: true,
             pattern:'digits'
         }

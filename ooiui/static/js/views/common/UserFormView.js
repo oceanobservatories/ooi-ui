@@ -26,7 +26,7 @@ var SignUpForm = Backbone.View.extend({
         'click #submitButton': function (e) {
             console.log("submit clicked");
             e.preventDefault();
-            this.signUp();
+            this.submit();
         },
         'click #resetButton': function (e){
             
@@ -40,6 +40,18 @@ var SignUpForm = Backbone.View.extend({
     bindings: {
         '[name=username]': {
             observe: 'username',
+            setOptions: {
+                validate: true
+            }
+        },
+        '[name=first_name]': {
+            observe: 'first_name',
+            setOptions: {
+                validate: true
+            }
+        },
+        '[name=last_name]': {
+            observe: 'last_name',
             setOptions: {
                 validate: true
             }
@@ -62,23 +74,24 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=phone]': {
-            observe: 'phone',
-            selectOptions: {
-                collection: function () {
-                    return ['Work', 'Home', 'Cell'];
-                }
-            },
+            '[name=primary_phone]': {
+            observe: 'primary_phone',
             setOptions: {
                 validate: true
             }
         },
-            '[name=phonenum]': {
-            observe: 'phonenum',
+         '[name=secondary_phone]': {
+            observe: 'secondary_phone',
+            setOptions: {
+                validate: false
+            }
+        },
+            '[name=organization]': {
+            observe: 'organization',
             setOptions: {
                 validate: true
             }
-        },    
+        },        
             '[name=role]': {
             observe: 'role',
             selectOptions: {
@@ -90,12 +103,7 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=terms]': {
-            observe: 'terms',
-            setOptions: {
-                validate: true
-            }
-        }
+        
     },
 
     initialize: function () {
@@ -111,12 +119,13 @@ var SignUpForm = Backbone.View.extend({
         return this;
     },
 
-    signUp: function () {
+    submit: function () {
         // Check if the model is valid before saving
         // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
         if (this.model.isValid(true)) {
             this.model.save();
             console.log(this.model.save());
+            console.log(this.model);
             alert("User Registration Submitted");
         }
     },
