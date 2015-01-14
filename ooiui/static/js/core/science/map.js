@@ -65,7 +65,7 @@ function getStatusMarker(status,stream_num){
 function addMarkers(map,markers){
 
     /* PLATFORM MARKER EXTENDED FROM NORMAL MARKER*/
-    PlatformMarker = L.Marker.extend({
+    var PlatformMarker = L.Marker.extend({
 		   options: { 
 		      status: '',
 		      platform: '',
