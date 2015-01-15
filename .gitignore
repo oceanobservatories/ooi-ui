@@ -7,3 +7,4 @@
 **/static/lib
 **/static/js/partials/compiled/
 **/js/compiled/*.js
+**/css/compiled/*.css
