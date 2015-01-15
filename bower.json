@@ -30,6 +30,7 @@
     "font-awesome": "~4.2.0",
     "jquery-ui": "~1.11.2",
     "bootstrap-switch":"~3.2.2",
+    "c3js-chart":"~0.4.8",
     "metis-menu":"git@github.com:onokumus/metisMenu.git"
   },
   "resolutions": {
