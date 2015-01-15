@@ -26,7 +26,7 @@ def user_signup():
 
 @app.route('/login')
 def user_login():    
-    return render_template('common/login.html')
+    return render_template('common/loginDemo.html')
 
 @app.route('/landing/pioneer')
 def landing_pioneer():
