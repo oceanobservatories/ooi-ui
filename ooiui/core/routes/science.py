@@ -20,6 +20,10 @@ import time
 import numpy as np
 import math
 
+@app.route('/new')
+def new_index():    
+    return render_template('science/index_new.html')
+
 @app.route('/signup')
 def user_signup():   
     return render_template('common/signup.html')
