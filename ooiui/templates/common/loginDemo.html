@@ -1,31 +1,48 @@
-{% extends "common/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OOI-Login Modal</title>
 
-{% block title %}
-  <title>Login Demo</title>
-{% endblock %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-{% block head %}
-  <link rel="stylesheet" href="/css/compiled/loginDemo.css" type="text/css" />
-  <script src="/js/partials/compiled/loginDemo.js" type="text/javascript"></script>
-{% endblock %}
+<link rel="stylesheet" href="/css/compiled/loginDemo.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/loginDemo.css" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="/js/partials/compiled/loginDemo.js" type="text/javascript"></script>
+</head>
+<body>
 
-{% block body %}
-  <div class="container">
-    <div class="row">
-      <div id="loginView">
-      </div>
+<div class="container">
+  <div class="row">
+    <div id="loginView">
     </div>
   </div>
-  <script src="/js/compiled/loginDemo.js" type="text/javascript"></script>
-  <!-- get rid of this when you're done -->
-  <!-- move this to Gruntfile.js -->
-  <script src="/js/models/common/LoginModel.js" type="text/javascript"></script>
-  <script src="/js/views/common/LoginView.js" type="text/javascript"></script>
-  <script type="text/javascript">
-$(document).ready(function() {
+</div>
+<script src="/js/compiled/loginDemo.js" type="text/javascript"></script>
+<!-- get rid of this when you're done -->
+<!-- move this to Gruntfile.js -->
+<script src="/js/models/common/LoginModel.js" type="text/javascript"></script>
+<script src="/js/views/common/LoginView.js" type="text/javascript"></script>
+<script type="text/javascript">
+console.log("What");
+  $(document).ready(function() {
+    /*
+    $('#passInput').keyup(function(){
+          if ($(this).val() == '') { //Check to see if there is any text entered
+               //If there is no text within the input then disable the button
+               $('.enableOnInput').prop('disabled', true);
+             } else {
+               //If there is text in the input, then enable the button
+               $('.enableOnInput').prop('disabled', false);
+             }
+           });
+*/
     var loginView = new LoginView({model: new LoginModel()});
-});
+    console.log("Document Rendered");
+  });
   </script>
-  
-{% endblock %}
 
+</body>
+</HTML>

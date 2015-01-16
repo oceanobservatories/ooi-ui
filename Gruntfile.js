@@ -51,7 +51,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/toc_menu.css"
           ],
           "ooiui/static/css/compiled/loginDemo.css" : [
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+            "ooiui/static/css/common/loginDemon.css"
           ]
         }
       }
