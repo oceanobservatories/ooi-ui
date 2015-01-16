@@ -140,7 +140,7 @@ var SignUpForm = Backbone.View.extend({
             else if(this.model.get('role_name')==="Science User") {
                 this.model.set("role_id", 2);
             }
-            else if(this.model.get("role_name")==="Operator") {
+            else if(this.model.get("role_name")==="Marine Operator") {
                 this.model.set("role_name", 3);
             }
             // Needs to be dynamic (update)

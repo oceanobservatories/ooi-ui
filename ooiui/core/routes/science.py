@@ -61,9 +61,9 @@ def getData():
 
 @app.route('/user_roles')
 def user_roles():
-    resp = requests.get('http://localhost:4000/user_roles', auth=('Bill','admin'))
+    resp = requests.get(SERVICES_URL + '/user_roles', auth=('Bill','admin'))
     data = json.dumps(resp.json()) 
-    return data
+    return data, resp.status_code
 
 @app.route('/files')
 def files():
