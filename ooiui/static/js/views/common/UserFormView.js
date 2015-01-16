@@ -144,7 +144,6 @@ var SignUpForm = Backbone.View.extend({
                 this.model.set("role_name", 3);
             }
             // Needs to be dynamic (update)
-            this.model.save();
             console.log(this.model.save());
             console.log(this.model);
             alert("User Registration Submitted:" + " "+this.model.get('role_name'));

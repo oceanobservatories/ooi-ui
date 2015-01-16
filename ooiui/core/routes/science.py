@@ -58,6 +58,14 @@ def getData():
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
 
+@app.route('/api/user', methods=['POST'])
+@app.route('/api/user/', methods=['POST'])
+def submit_user():
+    '''
+    Acts as a pass-thru proxy to to the services
+    '''
+    response = requests.post(SERVICES_URL + '/user', auth=('Bill', 'admin'), data=request.data)
+    return response.text, response.status_code
 
 @app.route('/user_roles')
 def user_roles():
