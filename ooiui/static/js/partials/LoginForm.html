@@ -1,1 +1,64 @@
-<h1>Form goes here</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type='text/javascript'>
+  $(function(){
+   $('#passInput').keyup(function(){
+          if ($(this).val() == '') { //Check to see if there is any text entered
+               //If there is no text within the input then disable the button
+               $('.enableOnInput').prop('disabled', true);
+             } else {
+               //If there is text in the input, then enable the button
+               $('.enableOnInput').prop('disabled', false);
+             }
+           });
+ });
+</script>
+
+  <div class="btn-launch">
+    <!--Button to Trigger Modal-->
+    <a href="#loginModal" class="btn btn-lg btn-primary" data-toggle="modal">Log In</a>
+
+
+    <!--Modal-->
+    <div class="modal fade" id="loginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!--Header-->
+          <div class="lgn-header">
+            <div>
+              <!-- <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+              <button class="close" type="button" data-dismiss="modal" aria-hidden="true">X</button>
+              <button class="close" type="button" data-dismiss="modal" aria-hidden="true">?</button>
+
+            </div>
+          </div>
+
+          <!--Body-->
+          <div class="lgn-body">
+            <div class="image"></div> 
+            <form>
+              <div class="lgn-center">
+               <input id="usrInput" type="text" name="password" size="25" placeholder="Email/Username">
+               <input id="passInput" type="password" name="username" size="25" placeholder="Password" />
+               <button class="btn btn-default btn-logIn enableOnInput" type="button" id="btnLogin" disabled="disabled">Log In</button>
+             </div>
+           </form>
+         </div>
+
+         <!--Footer-->
+         <div class="lgn-footer">
+           <div class="lgn-footerPass">
+             <a href="#" data-toggle="modal">Forgot Password</a></div>
+
+             <div class="lgn-footerNewUser">
+               <a href="#" data-toggle="modal">New User</a></div>
+             </div>
+           </div> 
+         </div>
+
+       </div>
+     </div>
