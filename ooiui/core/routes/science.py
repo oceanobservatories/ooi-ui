@@ -4,7 +4,7 @@ ooiui.core.routes.science
 
 Defines the application routes
 '''
-from ooiui.core.app.science import app
+from ooiui.core.app import app
 from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG, ERDDAP_URL
 
@@ -20,17 +20,6 @@ from datetime import datetime,timedelta
 import time
 import numpy as np
 import math
-
-
-
-
-@app.route('/signup')
-def user_signup():   
-    return render_template('common/signup.html')
-
-@app.route('/login')
-def user_login():    
-    return render_template('common/loginDemo.html')
 
 @app.route('/landing/pioneer')
 def landing_pioneer():
@@ -58,20 +47,6 @@ def getData():
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
 
-@app.route('/api/user', methods=['POST'])
-@app.route('/api/user/', methods=['POST'])
-def submit_user():
-    '''
-    Acts as a pass-thru proxy to to the services
-    '''
-    response = requests.post(SERVICES_URL + '/user', auth=('Bill', 'admin'), data=request.data)
-    return response.text, response.status_code
-
-@app.route('/user_roles')
-def user_roles():
-    resp = requests.get(SERVICES_URL + '/user_roles', auth=('Bill','admin'))
-    data = json.dumps(resp.json()) 
-    return data, resp.status_code
 
 @app.route('/files')
 def files():
