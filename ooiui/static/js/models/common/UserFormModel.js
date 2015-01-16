@@ -1,8 +1,9 @@
 // Define a model with some validation rules
 var SignUpModel = Backbone.Model.extend({
     defaults: {
-        role: "Administrator",
-        organization: "ASA"
+        role_name: "Administrator",
+        organization: "ASA",
+        role_id: 0
     },
     url: "/api/user/",
     
@@ -30,7 +31,7 @@ var SignUpModel = Backbone.Model.extend({
         organization:{
             required: true
         },
-        role: {
+        role_name: {
             oneOf: ['Administrator']
         },
         primary_phone: {
@@ -39,3 +40,27 @@ var SignUpModel = Backbone.Model.extend({
         }
     }
 });
+
+
+var Role = Backbone.Model.extend({
+  urlRoot: "",
+  sync: function(method, model, options) {
+    if (method === 'read') {
+      Backbone.sync(method, model, options);
+    } else {
+      console.error('You can not ' + method + ' the TodoItem model');
+    }
+  }
+});
+
+
+var Roles = Backbone.Collection.extend({
+    url: "user_roles",
+    model: Role,
+    parse: function(response) {
+        console.log(response.user_roles);
+        return response.user_roles;
+    }
+});
+
+
