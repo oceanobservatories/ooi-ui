@@ -5,7 +5,11 @@ app.py
 import argparse
 
 def science(args):
-    from ooiui.core.app.science import app
+    from ooiui.core.app import app
+
+    import ooiui.core.routes.common
+    import ooiui.core.routes.science
+
     app.run(host='localhost', debug=True)
 
 
