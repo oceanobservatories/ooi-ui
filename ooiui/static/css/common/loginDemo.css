@@ -1,54 +1,55 @@
- .btn-launch{
- 	margin: 20px;
- }
- .modal-dialog{
- 	width: 377px;
- }
- .lgn-center{
- 	padding: 5px;
- 	text-align: center;
- }
- .lgn-logo{
- 	padding: 15px;
- 	text-align: center;
- 	margin-top: -20px;
- }
- .lgn-header{
- 	/*background-color: #f9f9f9;*/
- 	min-height: 10px;
- 	padding: 1px;
- 	border-top-left-radius: 6px;
- 	border-top-right-radius: 6px;
- }
- .lgn-body{
- 	position: relative;
- 	padding: 32px;
- }
- .lgn-footer{
- 	min-height: 20px;
- 	padding: 1px;
- 	border-top-left-radius: 6px;
- 	border-top-right-radius: 6px;
- }
- .lgn-footerPass{
- 	padding: 0px 0px 10px 10px;
- 	/*border-top: 0px;*/
- 	font-size: 10px;
- 	float: left;
- }
- .lgn-footerNewUser{
- 	padding: 0px 10px 10px 0px;
- 	/*border-top: 0px;*/
- 	font-size: 10px;
- 	float: right;
- }
- .btn{
- 	margin-top: 5px;
- 	margin-bottom: 0px;
+/* CSS REQUIRED */
+.btn-launch{
+  margin: 20px;
+}
+.modal-dialog{
+  width: 377px;
+}
+.lgn-center{
+  padding: 5px;
+  text-align: center;
+}
+.lgn-logo{
+  padding: 15px;
+  text-align: center;
+  margin-top: -20px;
+}
+.lgn-header{
+  /*background-color: #f9f9f9;*/
+  min-height: 10px;
+  padding: 1px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.lgn-body{
+  position: relative;
+  padding: 32px;
+}
+.lgn-footer{
+  min-height: 20px;
+  padding: 1px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.lgn-footerPass{
+  padding: 0px 0px 10px 10px;
+  /*border-top: 0px;*/
+  font-size: 10px;
+  float: left;
+}
+.lgn-footerNewUser{
+  padding: 0px 10px 10px 0px;
+  /*border-top: 0px;*/
+  font-size: 10px;
+  float: right;
+}
+.btn{
+  margin-top: 5px;
+  margin-bottom: 0px;
 
- }
- .btn-logIn{
- 	background: #4fd934;
+}
+.btn-logIn{
+  background: #4fd934;
   -webkit-border-radius: 6;
   -moz-border-radius: 6;
   border-radius: 6px;
@@ -86,7 +87,7 @@
  text-decoration: none;
 }
 div.image {
- content: url(../ooi-ui/ooiui/static/img/loginModal/login_OOI_BannerNew.png)
+ content: url(/img/loginModal/login_OOI_BannerNew.png);
  margin-right: auto;
  margin-top: -20px;
  margin-bottom: -3px;
@@ -97,7 +98,7 @@ button.close{
   font-size: 14px;
 }
 input[type=text]{
-  background: url(../ooi-ui/ooiui/static/img/loginModal/aveTemp.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  background: url(/img/loginModal/aveTemp.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
@@ -115,7 +116,7 @@ input[type=text]:focus, textarea:focus {
   background: url(../img/aveTemp.png) 12px 11px no-repeat, #FFF;
 }
 input[type=password]{
-  background: url(../ooi-ui/ooiui/static/img/loginModal/key.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  background: url(/img/loginModal/key.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
