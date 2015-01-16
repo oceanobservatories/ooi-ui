@@ -34,7 +34,6 @@ module.exports = function(grunt) {
           'ooiui/static/js/compiled/loginDemo.js' : [
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js'
-            //'ooiui/static/js/views/common/LoginView.js'
           ]
         }
       },
