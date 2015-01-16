@@ -5,7 +5,7 @@
  */
 
 var LoginModel = Backbone.Model.extend({
-  url: '#', // Don't actually submit anything
+  url: '/api/login',
   defaults: {
     login: "",
     password: ""

@@ -27,3 +27,11 @@ def user_roles():
     resp = requests.get(SERVICES_URL + '/user_roles', auth=('Bill','admin'))
     data = json.dumps(resp.json()) 
     return data, resp.status_code
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    local_context = json.loads(request.data)
+    username = local_context['login']
+    password = local_context['password']
+    response = requests.get(SERVICES_URL + '/token', auth=(username, password))
+    return response.text, response.status_code

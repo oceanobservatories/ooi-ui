@@ -13,9 +13,18 @@ var LoginView = Backbone.View.extend({
   },
   login: function(e) {
     e.preventDefault();
-    this.model.set("login", $('#usrInput').val());
-    this.model.set("password", $('#passInput').val());
-    this.model.save();
+    var data = {
+      login: $('#usrInput').val(),
+      password: $('#passInput').val()
+    };
+    this.model.save(data, {
+      success: function(model, response) {
+        window.location = "/signup"
+      },
+      error: function(model, response) {
+        alert("Failed to login");
+      }
+    });
   },
   template: JST["ooiui/static/js/partials/loginForm.html"],
   render: function() {
