@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Assest Management</title>
-        <link rel="stylesheet" href="css/common/userSignUpForm.css" />
-    </head>
+{% extends "common/base.html" %}
 
-    <body>
-    <div>    
-        <img src="img/OOI_BannerNew_01.png" > 
-        <h3>User Registation</h3>
-        <img src="img/OOI_BannerNew_03.png" >
-        <img src="img/OOI_BannerNew_06.png" >    
-    </div>
-    <hr>
-    <div> 
-        <h5> Home> User Registation</h5> 
-        <h5> Search Box</h5>    
-    </div>    
+{% block title %}
+    <title>Assest Management</title>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="css/common/userSignUpForm.css" />
+    
+{% endblock %}
+
+{%block body %}    
             <hr>        
                 <form class="form-horizontal" role="form">
                 <h3>New User Registration</h3> 
@@ -109,10 +102,8 @@
                 <div class="form-group">
                     <label for="role" class="col-sm-3 control-label">Role</label>
                     <div class="col-sm-6 ">
-                        <select class="form-control" id="role" name="role">
-                          <option>Administrator</option>
-                          <option>Science User</option>
-                          <option>Operator</option>
+                        <select class="form-control" id="role_name" name="role_name">
+                         
                           
                         </select>
                         <span class="help-block hidden"></span>
@@ -146,8 +137,7 @@
             el: 'form',
             model: new SignUpModel()
         });
-        view.render();
     });
 
     </script>
-</html>
+{% endblock %}

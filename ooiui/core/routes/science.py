@@ -12,6 +12,7 @@ from ooiui.core.interface import tabledap as tabled
 from ooiui.core.interface.toc import get_toc as get_toc_interface, flush_cache
 from ooiui.core.interface.timecoverage import get_times_for_stream
 
+
 import requests
 import os
 import json
@@ -19,6 +20,9 @@ from datetime import datetime,timedelta
 import time
 import numpy as np
 import math
+
+
+
 
 @app.route('/signup')
 def user_signup():   
@@ -31,6 +35,7 @@ def user_login():
 @app.route('/landing/pioneer')
 def landing_pioneer():
     return render_template('landing/pioneer.html')
+
 
 @app.route('/getdata/')
 def getData():
@@ -52,6 +57,13 @@ def getData():
     
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
+
+
+@app.route('/user_roles')
+def user_roles():
+    resp = requests.get('http://localhost:4000/user_roles', auth=('Bill','admin'))
+    data = json.dumps(resp.json()) 
+    return data
 
 @app.route('/files')
 def files():

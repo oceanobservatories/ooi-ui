@@ -1,12 +1,17 @@
-<!doctype html>
-<html lang="en" ng-app="Dashboard">
-<head>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>Pioneer</title>
+{% endblock %}
+
+{% block head %}
+
+	<!-- <meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
 	<title>Pioneer </title>
 	
-	 <meta charset="utf-8">
+	<!--  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -17,18 +22,16 @@
     <script src="/components/d3/d3.min.js"></script>
     <link href="/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Latest compiled and minified CSS -->
+    
     <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/components/holderjs/holder.js"></script> 
 
-    <link rel="stylesheet" href="/css/docs.min.css">
-    
+    <link rel="stylesheet" href="/css/docs.min.css"> -->
+{% endblock %}    
 
-</head>
+{% block body %}
 
 <style>
     div[role="navigation"] {margin-bottom: 0;}
@@ -319,4 +322,4 @@
     })
   </script>
 </body>
-</html>
+{% endblock %}
