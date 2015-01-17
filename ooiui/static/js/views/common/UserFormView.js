@@ -130,6 +130,7 @@ var SignUpForm = Backbone.View.extend({
     },
 
     submit: function () {
+        var self = this;
         // Check if the model is valid before saving
         // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
         //  on submit check for the role then change the role_id to the correct int
@@ -144,15 +145,33 @@ var SignUpForm = Backbone.View.extend({
                 this.model.set("role_name", 3);
             }
             // Needs to be dynamic (update)
-            console.log(this.model.save());
-            console.log(this.model);
-            alert("User Registration Submitted:" + " "+this.model.get('role_name'));
+            this.model.save(null, {
+              success: function(model, response) {
+                $('#messages').html(JST['ooiui/static/js/partials/Alert.html']({
+                  type: "success",
+                  title: "Success",
+                  message: "User account successfully created"
+                }));
+                self.reset(); // clear the forms
+              },
+              error: function(model, response) {
+                $('#messages').html(JST['ooiui/static/js/partials/Alert.html']({
+                  type: "danger",
+                  title: "Error",
+                  message: JSON.parse(response.responseText).error
+                }));
+                console.error(model);
+                console.error(response.responseText);
+
+              }
+            });
         }
     },
     reset: function(){
         // resests the page. Not sure it's the correct procedure?? 
-        console.log('reset clicked');
-        window.location.reload();
+        this.$el.find("input[type=text], textarea").val("");
+        this.$el.find("input[type=password], textarea").val("");
+        this.$el.find("input[type=email], textarea").val("");
         // maybe this?? this.model.set({name: "","email":""})
     },
 

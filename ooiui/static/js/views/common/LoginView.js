@@ -6,10 +6,21 @@ var LoginView = Backbone.View.extend({
   events: {
     'click #btnLogin' : "login"
   },
-  initialize: function() {
-    console.log("Login View is initialized");
+  initialize: function(params) {
+    /* Gives us the ability to specify successful behavior after logging in */
+    /* bind this.success = params.success */
+    if(typeof params.success === "function") {
+      this.success = params.success.bind("this");
+    }
     _.bindAll(this, "render", "login", "show", "hide");
-    this.render();
+    // We want to look at the cookies for the token
+    this.model.fetch();
+    if(this.model.get('token') == "") {
+      // Need to prompt for login since we don't have a current token
+      this.render();
+    } else {
+      this.success();
+    }
   },
   login: function(e) {
     var self = this;
@@ -20,13 +31,28 @@ var LoginView = Backbone.View.extend({
     };
     this.model.save(data, {
       success: function(model, response) {
-        $.cookie("ooiusertoken:" + model.get("login"), response.token);
+        var tokenString = model.get("login") + ":" + response.token;
+        $.cookie("ooiusertoken", tokenString);
+        self.model.fetch();
         self.hide();
+        self.success();
       },
       error: function(model, response) {
-        alert("Failed to login");
+        self.hide();
+        self.failure();
       }
     });
+  },
+  /* Called when the user is successfully authenticated */
+  success: function() {
+    console.log("Success");
+  },
+  failure: function() {
+    this.$el.html(JST['ooiui/static/js/partials/Alert.html']({
+      type: "danger",
+      title: "Error",
+      message: "Invalid Username or Password"
+    }));
   },
   show: function() {
     $('#loginModal').modal('show');
