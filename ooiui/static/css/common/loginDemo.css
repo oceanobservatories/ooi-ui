@@ -1,8 +1,8 @@
 /* CSS REQUIRED */
-.btn-launch{
+.lgn .btn-launch{
   margin: 20px;
 }
-.modal-dialog{
+.lgn .modal-dialog{
   width: 377px;
 }
 .lgn-center{
@@ -43,7 +43,7 @@
   font-size: 10px;
   float: right;
 }
-.btn{
+.lgn .btn{
   margin-top: 5px;
   margin-bottom: 0px;
 
@@ -69,7 +69,7 @@
  background-image: linear-gradient(to bottom, #299943, #70d934);
  text-decoration: none;
 }
-.input{
+.lgn-input .input{
  background: #4fd934;
  background-image: -webkit-linear-gradient(top, #4fd934, #298c29);
  background-image: -moz-linear-gradient(top, #4fd934, #298c29);
@@ -97,7 +97,7 @@ button.close{
   font-family: Arial;
   font-size: 14px;
 }
-input[type=text]{
+.lgn input[type=text]{
   background: url(/img/loginModal/aveTemp.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -108,14 +108,14 @@ input[type=text]{
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
 }
-input[type=text]:focus, textarea:focus {
+.lgn input[type=text]:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
   background: url(../img/aveTemp.png) 12px 11px no-repeat, #FFF;
 }
-input[type=password]{
+.lgn input[type=password]{
   background: url(/img/loginModal/key.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -126,7 +126,7 @@ input[type=password]{
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
 }
-input[type=password]:focus, textarea:focus {
+.lgn input[type=password]:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
