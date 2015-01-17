@@ -7,7 +7,7 @@ Defines the TOC interface
 
 from flask import request, render_template, Response
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG
-from ooiui.core.app.science import cache
+from ooiui.core.app import cache
 import requests
 import os
 import json
