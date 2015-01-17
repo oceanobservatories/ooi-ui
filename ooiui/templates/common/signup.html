@@ -125,8 +125,9 @@
 <script src="/js/views/common/UserFormView.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-    console.log("hi");
-    var view = new SignUpForm({
+    var loginview = new LoginView({model: new LoginModel()});
+    loginview.show();
+    var signupview = new SignUpForm({
         el: 'form',
         model: new SignUpModel()
     });

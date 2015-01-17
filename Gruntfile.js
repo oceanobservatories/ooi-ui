@@ -31,17 +31,19 @@ module.exports = function(grunt) {
             'ooiui/static/js/core/science/toc_menu.js',
             'ooiui/static/js/core/science/variable_list.js'
           ],
+          'ooiui/static/js/compiled/loginDemo.js' : [
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js'
+          ],
           'ooiui/static/js/compiled/signup.js' : [
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/views/common/LoginView.js'
-          ],
-          'ooiui/static/js/compiled/loginDemo.js' : [
-            'ooiui/static/lib/underscore/underscore.js',
-            'ooiui/static/lib/backbone/backbone.js'
           ]
         }
       },

@@ -8,10 +8,11 @@ var LoginView = Backbone.View.extend({
   },
   initialize: function() {
     console.log("Login View is initialized");
-    _.bindAll(this, "render", "login");
+    _.bindAll(this, "render", "login", "show", "hide");
     this.render();
   },
   login: function(e) {
+    var self = this;
     e.preventDefault();
     var data = {
       login: $('#usrInput').val(),
@@ -19,12 +20,21 @@ var LoginView = Backbone.View.extend({
     };
     this.model.save(data, {
       success: function(model, response) {
-        window.location = "/signup"
+        $.cookie("ooiusertoken:" + model.get("login"), response.token);
+        self.hide();
       },
       error: function(model, response) {
         alert("Failed to login");
       }
     });
+  },
+  show: function() {
+    $('#loginModal').modal('show');
+    return this;
+  },
+  hide: function() {
+    $('#loginModal').modal('hide');
+    return this;
   },
   template: JST["ooiui/static/js/partials/loginForm.html"],
   render: function() {
@@ -37,7 +47,7 @@ var LoginView = Backbone.View.extend({
          //If there is text in the input, then enable the button
          $('.enableOnInput').prop('disabled', false);
        }
-     });
+    });
   }
 });
 
