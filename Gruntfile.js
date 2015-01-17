@@ -35,7 +35,9 @@ module.exports = function(grunt) {
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
-            'ooiui/static/lib/backbone.stickit/backbone.stickit.js'
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/views/common/LoginView.js'
           ],
           'ooiui/static/js/compiled/loginDemo.js' : [
             'ooiui/static/lib/underscore/underscore.js',
@@ -58,7 +60,7 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/css/compiled/loginDemo.css" : [
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-            "ooiui/static/css/common/loginDemon.css"
+            "ooiui/static/css/common/loginDemo.css"
           ]
         }
       }
