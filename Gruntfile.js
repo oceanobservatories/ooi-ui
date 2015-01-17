@@ -64,7 +64,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/js/views/common/TocColView.js",
             "ooiui/static/js/models/common/TocColModel.js",
-            "ooiui/static/js/views/common/MapView.js"
+            "ooiui/static/js/views/common/MapView.js",
+            "ooiui/static/lib/loremjs/lorem.js"
           ]
         }
       },
