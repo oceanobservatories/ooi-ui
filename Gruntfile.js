@@ -54,6 +54,17 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/views/common/LoginView.js'
+          ],
+          'ooiui/static/js/compiled/loginDemo.js' : [
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/leaflet/dist/leaflet.js",
+            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js",
+            "ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/js/views/common/TocColView.js",
+            "ooiui/static/js/models/common/TocColModel.js",
+            "ooiui/static/js/views/common/MapView.js"
           ]
         }
       },
@@ -72,6 +83,15 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/css/compiled/loginDemo.css" : [
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+            "ooiui/static/css/common/loginDemo.css"
+          ],
+          "ooiui/static/css/compiled/index_new.css" : [
+            "ooiui/static/lib/leaflet/dist/leaflet.css",
+            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css"
           ]
         }
