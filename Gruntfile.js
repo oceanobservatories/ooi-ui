@@ -5,7 +5,17 @@ module.exports = function(grunt) {
     jst: {
       compile: {
         files: {
-          "ooiui/static/js/partials/compiled/loginDemo.js": ["ooiui/static/js/partials/loginForm.html"]
+          "ooiui/static/js/partials/compiled/loginDemo.js": [
+            /* 
+             * This is the basic form partial that has the modal dialog
+             * prompting the user for username and password
+             */
+            "ooiui/static/js/partials/loginForm.html",
+            /*
+             * This is a generic partial for displaying an alert
+             */
+            "ooiui/static/js/partials/Alert.html"
+          ]
         }
       }
     },

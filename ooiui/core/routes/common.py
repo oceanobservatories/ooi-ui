@@ -3,6 +3,7 @@ from flask import request, render_template, Response
 from ooiui.config import SERVICES_URL
 import requests
 import json
+import urllib
 
 @app.route('/signup')
 def user_signup():   
@@ -19,14 +20,23 @@ def submit_user():
     '''
     Acts as a pass-thru proxy to to the services
     '''
-    response = requests.post(SERVICES_URL + '/user', auth=('Bill', 'admin'), data=request.data)
+    token = request.cookies.get('ooiusertoken')
+    token = urllib.unquote(token).decode('utf8')
+    if not token:
+        return '{"error":"Invalid login token"}', 401
+    login, token = token.split(':')
+    response = requests.post(SERVICES_URL + '/user', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/user_roles')
 def user_roles():
-    resp = requests.get(SERVICES_URL + '/user_roles', auth=('Bill','admin'))
-    data = json.dumps(resp.json()) 
-    return data, resp.status_code
+    token = request.cookies.get('ooiusertoken')
+    token = urllib.unquote(token).decode('utf8')
+    if not token:
+        return '{"error":"Invalid login token"}', 401
+    login, token = token.split(':')
+    resp = requests.get(SERVICES_URL + '/user_roles', auth=(token,''))
+    return resp.text, resp.status_code
 
 @app.route('/api/login', methods=['POST'])
 def login():
