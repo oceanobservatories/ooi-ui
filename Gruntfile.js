@@ -31,6 +31,12 @@ module.exports = function(grunt) {
             'ooiui/static/js/core/science/toc_menu.js',
             'ooiui/static/js/core/science/variable_list.js'
           ],
+          'ooiui/static/js/compiled/signup.js' : [
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js'
+          ],
           'ooiui/static/js/compiled/loginDemo.js' : [
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js'
@@ -63,4 +69,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jst');
 
+  grunt.registerTask('default', ['jst', 'concat']);
 };
