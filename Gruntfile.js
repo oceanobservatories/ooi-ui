@@ -78,6 +78,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/loremjs/lorem.js",
             // Models
             'ooiui/static/js/ooi/RelationalModel.js',
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
             'ooiui/static/js/models/science/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',

@@ -61,7 +61,6 @@ var TOCItemView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/TOCItem.html'],
   getSubItems: function() {
-    console.log("Getting subitems");
     if(this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany) {
       var collection = this.model[this.model.relation.key];
       var subItemView = new TOCSubItemView({
@@ -98,6 +97,8 @@ var TOCSubItemView = TOCView.extend({
     }
     if(this.level == 2) {
       this.$el.addClass('sidebar-nav-second-level');
+    } else {
+      this.$el.addClass('sidebar-nav-third-level');
     }
     var self = this;
     this.collection.fetch({success: function(collection, response, options) {
@@ -108,7 +109,7 @@ var TOCSubItemView = TOCView.extend({
     var self = this;
     this.$el.empty();
     this.collection.each(function(item) { 
-      var itemView = new TOCItemView({model: item});
+      var itemView = new TOCItemView({model: item, level: self.level});
       self.addItem(itemView);
     });
   }
