@@ -3,7 +3,11 @@
   <!--
   <i class="fa fa-share-alt fa-fw"></i>
   -->
-  <%= display_name %> 
+  <% if(_.isUndefined(data.reference_designator)) { %>
+  <%= data.array_code %>
+  <% } else { %>
+  <%= data.reference_designator %>
+  <% } %>
   <span class="fa arrow"></span>
 </a>
 <!--
