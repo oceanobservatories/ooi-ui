@@ -21,9 +21,9 @@ import time
 import numpy as np
 import math
 
-@app.route('/new')
+@app.route('/')
 def new_index():    
-    return render_template('science/index_new.html')
+    return render_template('science/index.html')
 
 @app.route('/landing/pioneer')
 def landing_pioneer():
@@ -73,9 +73,9 @@ def flush():
     return response
 
 
-@app.route('/')
+@app.route('/index_old.html')
 def root():
-    return render_template('science/index.html', erddap_url=ERDDAP_URL)
+    return render_template('science/index_old.html', erddap_url=ERDDAP_URL)
 
 @app.route('/api/array')
 def array_proxy():

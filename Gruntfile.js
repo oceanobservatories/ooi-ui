@@ -70,7 +70,7 @@ module.exports = function(grunt) {
             // Views
             'ooiui/static/js/views/common/LoginView.js'
           ],
-          'ooiui/static/js/compiled/index_new.js' : [
+          'ooiui/static/js/compiled/index.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
-          "ooiui/static/css/compiled/index_new.css" : [
+          "ooiui/static/css/compiled/index.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
