@@ -293,14 +293,12 @@
   <!-- /#wrapper -->
 
 <!-- Menu Toggle Script -->
-<script src="/js/ooi/RelationalModel.js" type="text/javascript"></script>
-<script src="/js/models/science/PlatformDeploymentModel.js" type="text/javascript"></script>
-<script src="/js/models/science/ArrayModel.js" type="text/javascript"></script>
-<script src="/js/views/common/SidebarMenuItemView.js" type="text/javascript"></script>
+<script src="/js/views/common/TOCView.js" type="text/javascript"></script>
 <script type="text/javascript">
   var arrays = new ArrayCollection();
-  var tocView = new TocColView({
-      collection: arrays
+  var tocView = new TOCView({
+      collection: arrays,
+      level: 2
   })
   $('#sidebar-wrapper').html(tocView.el);
 
