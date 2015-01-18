@@ -82,7 +82,6 @@ var TOCItemView = Backbone.View.extend({
   },
   render: function() {
     this.$el.html(this.template({data: this.model.toJSON()}));
-    console.log(this.model.toJSON());
   }
 });
 
@@ -94,7 +93,6 @@ var TOCSubItemView = TOCView.extend({
       this.level = options.level;
     } else {
       this.level = 2;
-      console.error("Shouldn't see this");
     }
     if(this.level == 2) {
       this.$el.addClass('sidebar-nav-second-level');
