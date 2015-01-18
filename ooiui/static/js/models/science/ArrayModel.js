@@ -34,9 +34,3 @@ var ArrayCollection = Backbone.Collection.extend({
   }
 });
 
-var arrays = new ArrayCollection();
-arrays.fetch({async: false});
-
-var arrayOfChoice = arrays.at(0);
-arrayOfChoice.platformDeployments.fetch({async: false});
-console.log(arrayOfChoice.platformDeployments.pluck("display_name"));

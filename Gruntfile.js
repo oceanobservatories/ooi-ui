@@ -5,7 +5,9 @@ module.exports = function(grunt) {
     jst: {
       compile: {
         files: {
-          "ooiui/static/js/partials/compiled/dropdown.js": [
+          "ooiui/static/js/partials/compiled/index.js" : [
+            "ooiui/static/js/partials/TOC.html",
+            "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html"
           ],
@@ -75,10 +77,13 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             // Models
-            "ooiui/static/js/models/common/TocColModel.js",
+            'ooiui/static/js/ooi/RelationalModel.js',
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
+            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             // Views
-            "ooiui/static/js/views/common/TocColView.js",
+            //"ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/DropdownMessagesView.js'
           ]

@@ -7,11 +7,21 @@
  * Libs
  * - ooiui/static/lib/underscore/underscore.js
  * - ooiui/static/lib/backbone/backbone.js
+ * - ooiui/static/js/ooi/RelationalModel.js
+ * - ooiui/static/js/models/science/InstrumentDeploymentModel.js
  * Usage
  */
 
-var PlatformDeploymentModel = Backbone.Model.extend({
-  urlRoot: '/api/platform_deployment'
+var PlatformDeploymentModel = OOI.RelationalModel.extend({
+  urlRoot: '/api/platform_deployment',
+  relation: {
+    type: OOI.Relation.hasMany,
+    key: 'instrumentDeployments',
+    collectionType: 'InstrumentDeploymentCollection',
+    reverseRelation: {
+      key: 'platform_deployment_id'
+    }
+  }
 });
 
 var PlatformDeploymentCollection = Backbone.Collection.extend({
