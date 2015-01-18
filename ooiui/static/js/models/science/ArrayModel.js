@@ -7,7 +7,7 @@
  * Libs
  * - ooiui/static/lib/underscore/underscore.js
  * - ooiui/static/lib/backbone/backbone.js
- * - ooiui/static/js/ooi/RelationalModel.js
+ * - ooiui/static/js/ooi.js
  * - ooiui/static/js/models/science/PlatformDeploymentModel.js
  * Usage
  */

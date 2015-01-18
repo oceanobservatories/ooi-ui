@@ -184,27 +184,6 @@
           <!-- /.dropdown-alerts -->
         </li>
         <!-- /.dropdown -->
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-user">
-            <li>
-              <a href="/signup"><i class="fa fa-user fa-fw"></i> Register</a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </li>
-          </ul>
-          <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
       </ul> <!-- nav navbar-top-links navbar-right -->
     </div><!--/.nav-collapse -->
   </div> <!-- container -->
@@ -293,6 +272,7 @@
   <!-- /#wrapper -->
 
 <!-- Menu Toggle Script -->
+<script src="/js/views/common/DropdownUserView.js" type="text/javascript"></script>
 <script src="/js/views/common/TOCView.js" type="text/javascript"></script>
 <script type="text/javascript">
   var arrays = new ArrayCollection();
@@ -323,6 +303,9 @@
     collection: new MessageCollection()
   });
   $('#navbar-right').prepend(messageView.el);
+
+  var dropdownUserView = new DropdownUserView();
+  $('#navbar-right').append(dropdownUserView.el);
 
 </script>
 {% endblock %}

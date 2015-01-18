@@ -9,7 +9,10 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
-            "ooiui/static/js/partials/DropdownMessage.html"
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/loginForm.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /* 
@@ -69,6 +72,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/index_new.js' : [
             // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/leaflet/dist/leaflet.js",
@@ -77,15 +81,17 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             // Models
-            'ooiui/static/js/ooi/RelationalModel.js',
+            'ooiui/static/js/ooi.js',
             'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
             'ooiui/static/js/models/science/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
             // Views
             //"ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
-            'ooiui/static/js/views/common/DropdownMessagesView.js'
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/LoginView.js'
           ]
         }
       },

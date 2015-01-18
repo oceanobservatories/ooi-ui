@@ -20,6 +20,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var loginView = new LoginView({model: new LoginModel()});
+    $('#loginView').html(loginView.el);
     loginView.show();
   });
   </script>
