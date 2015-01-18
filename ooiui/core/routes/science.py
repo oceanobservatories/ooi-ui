@@ -5,7 +5,7 @@ ooiui.core.routes.science
 Defines the application routes
 '''
 from ooiui.core.app import app
-from flask import request, render_template, Response
+from flask import request, render_template, Response, jsonify
 from ooiui.config import TABLEDAP, SERVICES_URL, DEBUG, ERDDAP_URL
 
 from ooiui.core.interface import tabledap as tabled
@@ -77,3 +77,17 @@ def flush():
 def root():
     return render_template('science/index.html', erddap_url=ERDDAP_URL)
 
+@app.route('/api/array')
+def array_proxy():
+    response = requests.get(SERVICES_URL + '/arrays', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/platform_deployment')
+def platform_deployment_proxy():
+    response = requests.get(SERVICES_URL + '/platform_deployments', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/instrument_deployment')
+def instrument_deployment_proxy():
+    response = requests.get(SERVICES_URL + '/instrument_deployments', params=request.args)
+    return response.text, response.status_code
