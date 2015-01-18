@@ -2,9 +2,9 @@
 
 
 var LoginView = Backbone.View.extend({
-  el: $('#loginView'),
   events: {
-    'click #btnLogin' : "login"
+    'click #btnLogin' : "login",
+    'keyup #passInput' : "keyUp"
   },
   initialize: function(params) {
     /* Gives us the ability to specify successful behavior after logging in */
@@ -62,18 +62,18 @@ var LoginView = Backbone.View.extend({
     $('#loginModal').modal('hide');
     return this;
   },
+  keyUp: function(e) {
+    if($(e.target).val() == '') {
+       //If there is no text within the input then disable the button
+       this.$el.find('.enableOnInput').prop('disabled', true);
+     } else {
+       //If there is text in the input, then enable the button
+       this.$el.find('.enableOnInput').prop('disabled', false);
+     }
+  },
   template: JST["ooiui/static/js/partials/loginForm.html"],
   render: function() {
     this.$el.html(this.template({}));
-    $('#passInput').keyup(function(){
-    if ($(this).val() == '') { //Check to see if there is any text entered
-         //If there is no text within the input then disable the button
-         $('.enableOnInput').prop('disabled', true);
-       } else {
-         //If there is text in the input, then enable the button
-         $('.enableOnInput').prop('disabled', false);
-       }
-    });
   }
 });
 

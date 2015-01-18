@@ -51,3 +51,14 @@ OOI.RelationalModel = Backbone.Model.extend({
   }
 });
 
+OOI.LoggedIn = function() {
+  if($.cookie('ooiusertoken')) {
+    return true;
+  }
+  return false;
+}
+
+OOI.LogOut = function() {
+  $.removeCookie('ooiusertoken', { path: '/' });
+}
+

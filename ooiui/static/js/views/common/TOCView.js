@@ -7,7 +7,7 @@
  * Libs
  * - ooiui/static/lib/underscore/underscore.js
  * - ooiui/static/lib/backbone/backbone.js
- * - ooiui/static/js/ooi/RelationalModel.js
+ * - ooiui/static/js/ooi.js
  * Usage
  *  var arrays = new ArrayCollection();
  *  var tocView = new TOCView({
@@ -81,8 +81,10 @@ var TOCItemView = Backbone.View.extend({
     }
   },
   render: function() {
-    this.$el.html(this.template({data: this.model.toJSON()}));
-    console.log(this.model.toJSON());
+    this.$el.html(this.template({
+      data: this.model.toJSON(),
+      arrow: this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany
+    }));
   }
 });
 
@@ -94,7 +96,6 @@ var TOCSubItemView = TOCView.extend({
       this.level = options.level;
     } else {
       this.level = 2;
-      console.error("Shouldn't see this");
     }
     if(this.level == 2) {
       this.$el.addClass('sidebar-nav-second-level');
