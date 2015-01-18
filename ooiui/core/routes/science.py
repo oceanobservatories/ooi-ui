@@ -21,6 +21,10 @@ import time
 import numpy as np
 import math
 
+@app.route('/new')
+def new_index():    
+    return render_template('science/index_new.html')
+
 @app.route('/landing/pioneer')
 def landing_pioneer():
     return render_template('landing/pioneer.html')
