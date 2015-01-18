@@ -1,3 +1,26 @@
+"use strict";
+/*
+ * ooiui/static/js/views/common/TOCView.js
+ * View definitions to build the table of contents
+ *
+ * Dependencies
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * - ooiui/static/js/ooi/RelationalModel.js
+ * Usage
+ *  var arrays = new ArrayCollection();
+ *  var tocView = new TOCView({
+ *      collection: arrays
+ *  })
+ */
+
+/*
+ * The TOCView acts as a ul tag with .nav .sidebar-nav .navbar-collapse
+ * the first child is a search box, which is currently not hooked up to event
+ * handling. The other children are the TOCItemView of each model in the
+ * collection passed in. The collection is fetched on initialization.
+ */
 var TOCView = Backbone.View.extend({
   tagName: 'ul',
   className: 'nav sidebar-nav navbar-collapse',
@@ -17,7 +40,7 @@ var TOCView = Backbone.View.extend({
     
     this.$el.html(this.template());
     this.collection.each(function(item) { 
-      var itemView = new TOCItemView({model: item});
+      var itemView = new TOCItemView({model: item, level: 1});
       self.addItem(itemView);
     });
   }
@@ -26,9 +49,14 @@ var TOCView = Backbone.View.extend({
 var TOCItemView = Backbone.View.extend({
   tagName: 'li',
   events: {
-    'click' : 'toggle'
+    'click a' : 'toggle'
   },
-  initialize: function() {
+  initialize: function(options) {
+    if(options && options.level) {
+      this.level = options.level;
+    } else { 
+      this.level = 1;
+    }
     this.render();
   },
   template: JST['ooiui/static/js/partials/TOCItem.html'],
@@ -37,19 +65,20 @@ var TOCItemView = Backbone.View.extend({
     if(this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany) {
       var collection = this.model[this.model.relation.key];
       var subItemView = new TOCSubItemView({
-        collection: collection
+        collection: collection,
+        level: (this.level + 1)
       });
       this.subItemView = subItemView;
+      this.$el.append(this.subItemView.el);
     }
   },
   toggle: function(e) {
     e.preventDefault();
-    this.$el.find('.nav').first().toggle('collapse');
-    this.$el.find('.nav').first().toggleClass('collapse');
-    console.log("Clicked");
+    e.stopImmediatePropagation();
+    this.$el.children('ul').toggle('collapse');
+    // Next level
     if(_.isUndefined(this.subItemView)) {
       this.getSubItems();
-      this.$el.append(this.subItemView.el);
     }
   },
   render: function() {
@@ -58,9 +87,18 @@ var TOCItemView = Backbone.View.extend({
 });
 
 var TOCSubItemView = TOCView.extend({
-  className: 'nav sidebar-nav-second-level',
-  initialize: function() {
+  className: 'nav',
+  initialize: function(options) {
     _.bindAll(this, "render", "addItem");
+    if(options && options.level) {
+      this.level = options.level;
+    } else {
+      this.level = 2;
+      console.error("Shouldn't see this");
+    }
+    if(this.level == 2) {
+      this.$el.addClass('sidebar-nav-second-level');
+    }
     var self = this;
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
