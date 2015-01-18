@@ -5,7 +5,9 @@ module.exports = function(grunt) {
     jst: {
       compile: {
         files: {
-          "ooiui/static/js/partials/compiled/dropdown.js": [
+          "ooiui/static/js/partials/compiled/index.js" : [
+            "ooiui/static/js/partials/TOC.html",
+            "ooiui/static/js/partials/SidebarItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html"
           ],
