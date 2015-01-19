@@ -29,7 +29,10 @@
 $(document).ready(function() {
   var navbar = new NavbarView();
   $('body').prepend(navbar.el);
-  var panel = new PanelView();
+  var panel = new PanelView({
+    heading: 'Panel Heading',
+    body: '<div class="col-sm-12">Panel Body</div>'
+  });
   $('#contentBody').html(panel.el);
 });
 </script>
