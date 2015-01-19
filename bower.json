@@ -35,7 +35,8 @@
     "backbone.stickit": "~0.8.0",
     "c3js-chart": "~0.4.8",
     "metis-menu": "https://github.com/onokumus/metisMenu.git",
-    "loremjs": "*"
+    "loremjs": "*",
+    "jquery-cookie": "~1.4.1"
   },
   "resolutions": {
     "jquery": "~2.1.1",
