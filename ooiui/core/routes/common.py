@@ -17,6 +17,10 @@ def user_login():
 def basic():
     return render_template('common/basic.html')
 
+@app.route('/chartDemo.html')
+def chart_demo():
+    return render_template('common/chartDemo.html')
+
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])
