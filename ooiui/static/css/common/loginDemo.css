@@ -88,6 +88,7 @@
 }
 div.image {
  content: url(/img/loginModal/login_OOI_BannerNew.png);
+ margin-left: auto;
  margin-right: auto;
  margin-top: -20px;
  margin-bottom: -3px;
@@ -132,4 +133,7 @@ button.close{
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
   background: url(../img/key.png) 12px 11px no-repeat, #FFF;
+}
+.lgn-message { 
+    color: #882222;
 }

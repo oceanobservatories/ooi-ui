@@ -307,5 +307,15 @@
   var dropdownUserView = new DropdownUserView();
   $('#navbar-right').append(dropdownUserView.el);
 
+  if(!OOI.LoggedIn()) {
+    var modalView = new ModalDialogView();
+    $('.container-fluid').first().append(modalView.el);
+    modalView.show({
+        message: "INSERT WARRANTY HERE",
+        ack: function() { console.log("Closed"); }
+        //type: "warning"
+    });
+  }
+
 </script>
 {% endblock %}

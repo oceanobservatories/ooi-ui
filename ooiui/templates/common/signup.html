@@ -137,6 +137,9 @@ $(document).ready(function () {
             el: 'form',
             model: new SignUpModel()
         });
+      },
+      failure: function() {
+        console.log("Failure");
       }
     });
     $('#loginView').html(loginview.el);
