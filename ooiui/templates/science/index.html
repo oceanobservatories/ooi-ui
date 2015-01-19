@@ -111,21 +111,6 @@
 
   mapView = new MapView();
 
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-    if($('#collapse-button').hasClass('fa-caret-left'))
-    {
-      $('#collapse-button').removeClass('fa-caret-left');
-      $('#collapse-button').addClass('fa-caret-right');
-    }
-    else
-    {
-      $('#collapse-button').removeClass('fa-caret-right');
-      $('#collapse-button').addClass('fa-caret-left');
-    }
-  });
-
 
 
   if(!OOI.LoggedIn()) {
