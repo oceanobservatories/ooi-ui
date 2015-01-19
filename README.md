@@ -36,7 +36,7 @@ bower install
 ### To build the production assets
 
 ```
-grunt concat
+grunt
 ```
 
 ### To run the project
