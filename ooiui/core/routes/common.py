@@ -21,6 +21,10 @@ def basic():
 def chart_demo():
     return render_template('common/chartDemo.html')
 
+@app.route('/plotsDemo.html')
+def plots_demo():
+    return render_template('common/plotsDemo.html')
+
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])
