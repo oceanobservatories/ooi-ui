@@ -30,6 +30,9 @@ var DropdownUserView = Backbone.View.extend({
       model: new LoginModel(),
       success: function() {
         self.render(); // re-render with new logged-in context
+      },
+      failure: function() {
+        loginview.hide();
       }
     });
     $('body').append(loginview.el);

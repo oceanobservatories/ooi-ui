@@ -1,16 +1,37 @@
 "use strict";
+/*
+ * ooiui/static/js/views/common/LoginView.js
+ * Model definitions for Arrays
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/LoginForm.html
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * - ooiui/static/js/ooi.js
+ * Usage
+ */
 
 
 var LoginView = Backbone.View.extend({
   events: {
     'click #btnLogin' : "login",
-    'keyup #passInput' : "keyUp"
+    'keyup #passInput' : "keyUp",
+    'hidden.bs.modal' : 'hidden'
   },
   initialize: function(params) {
+    if(!params) {
+      params = {}
+    }
     /* Gives us the ability to specify successful behavior after logging in */
     /* bind this.success = params.success */
     if(typeof params.success === "function") {
       this.success = params.success.bind("this");
+    }
+    if(typeof params.failure === "function") {
+      console.log("failure defined");
+      this.failure = params.failure.bind("this");
     }
     _.bindAll(this, "render", "login", "show", "hide");
     // We want to look at the cookies for the token
@@ -21,6 +42,8 @@ var LoginView = Backbone.View.extend({
     } else {
       this.success();
     }
+    this.attempts = 0; // Keep track of attempts
+    this.isHidden = false; // Initially keep retrying
   },
   login: function(e) {
     var self = this;
@@ -38,27 +61,33 @@ var LoginView = Backbone.View.extend({
         self.success();
       },
       error: function(model, response) {
+        self.attempts++; // Increment the attempts
         self.hide();
         self.failure();
       }
     });
+  },
+  hidden: function(e) {
+    console.log(this.isHidden);
+    if(!OOI.LoggedIn() && !this.isHidden) {
+      this.show();
+    }
   },
   /* Called when the user is successfully authenticated */
   success: function() {
     console.log("Success");
   },
   failure: function() {
-    this.$el.html(JST['ooiui/static/js/partials/Alert.html']({
-      type: "danger",
-      title: "Error",
-      message: "Invalid Username or Password"
-    }));
   },
   show: function() {
+    if(this.attempts == 1) {
+      this.$el.find('.lgn-message').html('Username or Password are incorrect');
+    }
     $('#loginModal').modal('show');
     return this;
   },
   hide: function() {
+    this.isHidden = true;
     $('#loginModal').modal('hide');
     return this;
   },
