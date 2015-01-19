@@ -13,6 +13,10 @@ def user_signup():
 def user_login():    
     return render_template('common/loginDemo.html')
 
+@app.route('/basic.html')
+def basic():
+    return render_template('common/basic.html')
+
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])

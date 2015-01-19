@@ -1,135 +1,139 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-    <title>Assest Management</title>
+    <title>Register New User</title>
 {% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href="/css/compiled/signup.css" type="text/css" />
   <!-- Partials -->
   <script src="/js/partials/compiled/signup.js" type="text/javascript"></script>
+  <script src="/js/compiled/signup.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}    
-<div class="container">
-  <div class="row">
-    <div id="loginView">
-    </div>
-    <div id="messages">
-    </div>
-    <form class="form-horizontal" role="form">
-    <h3>New User Registration</h3> 
-    <hr width="80%">
-    <div class="form-group ">
-        <label for="username" class="col-sm-3 control-label">User Name</label>
-        <div class="col-sm-6">
-        <input type="text" class="form-control" id="username" name="username" />
-        <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">Password</label>
-        <div class="col-sm-6">
-            <input type="password" class="form-control" id="password" name="password" />
-            <span class="help-block hidden"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="repeatPassword" class="col-sm-3 control-label">Re-enter Password</label>
-        <div class="col-sm-6">
-            <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" />
-            <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <hr width ="80%">
-
-    <div class="form-group">
-        <label for="firstname" class="col-sm-3 control-label">First Name</label>
-        <div class="col-sm-6">
-        <input type="text" class="form-control" id="first_name" name="first_name" />
-        <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="lastname" class="col-sm-3 control-label">Last Name</label>
-        <div class="col-sm-6">
-        <input type="text" class="form-control" id="last_name" name="last_name" />
-        <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="primary_phone" name="primary_phone" />
-            <span class="help-block hidden"></span>
-        </div> 
-
-    </div>
-    <div class="form-group">
-        <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="secondary_phone" name="secondary_phone" />
-            <span class="help-block hidden"></span>
-        </div>   
-    </div>
-
-    <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">Email</label>
-        <div class="col-sm-6">
-            <input type="email" class="form-control" id="email" name="email" />
-            <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="organization" class="col-sm-3 control-label">Organization</label>
-        <div class="col-sm-6">
-            <select class="form-control" id="organization" name="organization">
-              <option>WHOI</option>
-              <option>OSU</option>
-              <option>Rutgers</option>
-              <option>UW</option>
-              <option>Scripps</option>
-              <option>Raytheon</option>
-              <option>ASA</option>
-              <option>Ocean Leadership</option>
-              <option>NSF</option>
-              <option>Other</option>
-              
-            </select>
-            <span class="help-block hidden"></span>
-        </div>
-    </div>
-    <hr width="80%">    
-    <div class="form-group">
-        <label for="role" class="col-sm-3 control-label">Role</label>
-        <div class="col-sm-6 ">
-            <select class="form-control" id="role_name" name="role_name">
-            </select>
-            <span class="help-block hidden"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-12">
-            <button type="button" id="submitButton" class="btn btn-success">Submit</button>
-            <button type="button" id="resetButton" class="btn btn-success">Reset</button>
-
-        </div>                 
-    </div>
-    </form>
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default">
   </div>
-</div>
-<script src="/js/compiled/signup.js" type="text/javascript"></script>
-<script src="/js/models/common/UserFormModel.js" type="text/javascript"></script>
-<script src="/js/views/common/UserFormView.js" type="text/javascript"></script>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <form class="form-horizontal" role="form">
+            <h3>New User Registration</h3> 
+            <hr width="80%">
+            <div class="form-group ">
+              <label for="username" class="col-sm-3 control-label">User Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="username" name="username" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="col-sm-3 control-label">Password</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="password" name="password" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="repeatPassword" class="col-sm-3 control-label">Re-enter Password</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <hr width ="80%">
+
+            <div class="form-group">
+              <label for="firstname" class="col-sm-3 control-label">First Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="first_name" name="first_name" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastname" class="col-sm-3 control-label">Last Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="last_name" name="last_name" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="primary_phone" name="primary_phone" />
+                <span class="help-block hidden"></span>
+              </div> 
+
+            </div>
+            <div class="form-group">
+              <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="secondary_phone" name="secondary_phone" />
+                <span class="help-block hidden"></span>
+              </div>   
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="col-sm-3 control-label">Email</label>
+              <div class="col-sm-6">
+                <input type="email" class="form-control" id="email" name="email" />
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="organization" class="col-sm-3 control-label">Organization</label>
+              <div class="col-sm-6">
+                <select class="form-control" id="organization" name="organization">
+                  <option>WHOI</option>
+                  <option>OSU</option>
+                  <option>Rutgers</option>
+                  <option>UW</option>
+                  <option>Scripps</option>
+                  <option>Raytheon</option>
+                  <option>ASA</option>
+                  <option>Ocean Leadership</option>
+                  <option>NSF</option>
+                  <option>Other</option>
+
+                </select>
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+            <hr width="80%">    
+            <div class="form-group">
+              <label for="role" class="col-sm-3 control-label">Role</label>
+              <div class="col-sm-6 ">
+                <select class="form-control" id="role_name" name="role_name">
+                </select>
+                <span class="help-block hidden"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button type="button" id="submitButton" class="btn btn-success">Submit</button>
+                <button type="button" id="resetButton" class="btn btn-success">Reset</button>
+
+              </div>                 
+            </div>
+          </form>
+        </div>
+      </div> <!-- row -->
+    </div>
+  </div>
+</div> <!-- wrapper -->
 <script type="text/javascript">
 $(document).ready(function () {
     var navbar = new NavbarView();
+    navbar.sidebarToggle(); // Hide the sidebar
     $('body').prepend(navbar.el);
     var loginview = new LoginView({
       model: new LoginModel(),

@@ -32,7 +32,9 @@ var ModalDialogView = Backbone.View.extend({
     if(!options) {
       options = {};
     }
-    this.ack = options.ack.bind(this);
+    if(options && typeof options.ack == "function") {
+      this.ack = options.ack.bind(this);
+    }
     this.render(options);
     if(options.type && options.type == "danger") {
       this.$el.find('.modal-content').addClass('alert alert-danger');

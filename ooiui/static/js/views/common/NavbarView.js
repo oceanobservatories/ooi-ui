@@ -12,13 +12,30 @@
  */
 
 var NavbarView = Backbone.View.extend({
+  events: {
+    'click #menu-toggle' : "menuToggle"
+  },
+  menuToggle: function(e) { 
+    e.preventDefault(); // Prevent the #about
+    this.sidebarToggle();
+  },
   initialize: function() {
-    _.bindAll(this, "render");
+    _.bindAll(this, "render", "sidebarToggle");
     this.messageView = new DropdownMessagesView({
       collection: new MessageCollection()
     });
     this.dropdownUserView = new DropdownUserView();
     this.render();
+  },
+  sidebarToggle: function() {
+    $("#wrapper").toggleClass("toggled");
+    if($('#collapse-button').hasClass('fa-caret-left')) {
+      $('#collapse-button').removeClass('fa-caret-left');
+      $('#collapse-button').addClass('fa-caret-right');
+    } else {
+      $('#collapse-button').removeClass('fa-caret-right');
+      $('#collapse-button').addClass('fa-caret-left');
+    }
   },
   template: JST['ooiui/static/js/partials/Navbar.html'],
   render: function() {
