@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="/css/common/userSignUpForm.css" />
-  <link rel="stylesheet" href="/css/compiled/loginDemo.css" type="text/css" />
+  <link rel="stylesheet" href="/css/compiled/signup.css" type="text/css" />
   <!-- Partials -->
-  <script src="/js/partials/compiled/loginDemo.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/signup.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}    
@@ -130,6 +129,8 @@
 <script src="/js/views/common/UserFormView.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+    var navbar = new NavbarView();
+    $('body').prepend(navbar.el);
     var loginview = new LoginView({
       model: new LoginModel(),
       success: function() {
