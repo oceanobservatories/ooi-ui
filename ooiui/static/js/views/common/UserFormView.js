@@ -121,11 +121,13 @@ var SignUpForm = Backbone.View.extend({
                 self.render();
             }
         });
+        this.modalDialog = new ModalDialogView();
     },
 
     render: function () {
         this.bindings["[name=role_name]"].selectOptions.collection = this.roles.map(function(role) { return role.get("role_name"); });
         this.stickit();
+        this.$el.append(this.modalDialog.el);
         return this;
     },
 
@@ -147,22 +149,27 @@ var SignUpForm = Backbone.View.extend({
             // Needs to be dynamic (update)
             this.model.save(null, {
               success: function(model, response) {
-                $('#messages').html(JST['ooiui/static/js/partials/Alert.html']({
+                self.modalDialog.show({
+                  message: "User successfully registered",
                   type: "success",
-                  title: "Success",
-                  message: "User account successfully created"
-                }));
-                self.reset(); // clear the forms
+                  ack: function() { 
+                    window.location = "/"
+                  }
+                });
               },
               error: function(model, response) {
-                $('#messages').html(JST['ooiui/static/js/partials/Alert.html']({
+                try {
+                  var errMessage = JSON.parse(response.responseText).error;
+                } catch(err) {
+                  console.error(err);
+                  var errMessage = "Unable to submit user";
+                }
+                self.modalDialog.show({
+                  message: errMessage,
                   type: "danger",
-                  title: "Error",
-                  message: JSON.parse(response.responseText).error
-                }));
+                });
                 console.error(model);
                 console.error(response.responseText);
-
               }
             });
         }

@@ -34,7 +34,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/DropdownUserLoggedOut.html",
             "ooiui/static/js/partials/loginForm.html",
             "ooiui/static/js/partials/ModalDialog.html",
-            "ooiui/static/js/partials/Navbar.html"
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/Alert.html"
           ]
         }
       }
@@ -81,12 +82,14 @@ module.exports = function(grunt) {
             // Models
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserFormModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
-            'ooiui/static/js/views/common/ModalDialogView.js'
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/UserFormView.js'
           ],
           'ooiui/static/js/compiled/index.js' : [
             // Libs
