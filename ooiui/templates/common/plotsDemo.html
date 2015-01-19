@@ -40,14 +40,17 @@ $(document).ready(function() {
   });
   $('#panelLeft').html(leftPanel.el);
   var rightPanel = new PanelView({
-    heading: 'Other',
+    heading: 'Table goes here',
     body: '<div class="col-sm-12">Looks funkie</div>'
   });
   $('#panelRight').html(rightPanel.el);
   var chartView = new ChartView();
-  // BIND THE CHART VIEW TO THE PANEL BODY
   leftPanel.$el.find('.panel-body').html(chartView.el);
   chartView.render();
+  var fakeTableView = new FakeTableView({
+    collection: new FakeTableCollection()
+  });
+  rightPanel.$el.find('.panel-body').html(fakeTableView.el);
 });
 </script>
 
