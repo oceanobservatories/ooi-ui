@@ -36,6 +36,7 @@ var DropdownUserView = Backbone.View.extend({
       }
     });
     $('body').append(loginview.el);
+    loginview.isHidden = true; // allow the dialog to be hidden
     loginview.show();
   },
   logout: function() {
