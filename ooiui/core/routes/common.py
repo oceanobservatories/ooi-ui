@@ -6,11 +6,11 @@ import json
 import urllib
 
 @app.route('/signup')
-def user_signup():   
+def user_signup():
     return render_template('common/signup.html')
 
 @app.route('/login')
-def user_login():    
+def user_login():
     return render_template('common/loginDemo.html')
 
 @app.route('/basic.html')
@@ -30,6 +30,9 @@ def get_organization():
     response = requests.get(SERVICES_URL + '/organization', params=request.args)
     return response.text, response.status_code
 
+@app.route('/opLog.html')
+def op_log():
+    return render_template('common/opLog.html')
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])
