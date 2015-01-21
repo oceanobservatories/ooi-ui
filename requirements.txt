@@ -11,3 +11,4 @@ requests==2.4.3
 stevedore==0.15
 wsgiref==0.1.2
 Flask-Cache==0.13.1
+PyYAML==3.11
