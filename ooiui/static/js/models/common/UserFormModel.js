@@ -42,25 +42,5 @@ var SignUpModel = Backbone.Model.extend({
 });
 
 
-var Role = Backbone.Model.extend({
-  urlRoot: "",
-  sync: function(method, model, options) {
-    if (method === 'read') {
-      Backbone.sync(method, model, options);
-    } else {
-      console.error('You can not ' + method + ' the TodoItem model');
-    }
-  }
-});
-
-
-var Roles = Backbone.Collection.extend({
-    url: "user_roles",
-    model: Role,
-    parse: function(response) {
-        console.log(response.user_roles);
-        return response.user_roles;
-    }
-});
 
 
