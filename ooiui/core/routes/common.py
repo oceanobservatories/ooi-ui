@@ -25,6 +25,11 @@ def chart_demo():
 def plots_demo():
     return render_template('common/plotsDemo.html')
 
+@app.route('/api/organization', methods=['GET'])
+def get_organization():
+    response = requests.get(SERVICES_URL + '/organization', params=request.args)
+    return response.text, response.status_code
+
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])

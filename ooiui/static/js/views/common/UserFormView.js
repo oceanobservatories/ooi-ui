@@ -88,6 +88,9 @@ var SignUpForm = Backbone.View.extend({
         },
             '[name=organization]': {
             observe: 'organization',
+            selectOptions: {
+              collection: []
+            },
             setOptions: {
                 validate: true
             }
@@ -112,11 +115,11 @@ var SignUpForm = Backbone.View.extend({
         // functions defined within a function, need to be able to set attributes of "this"
         // so in order to do that, we define "self" which currently points to this, in this case the UserFormView
         var self = this;
-        var roles = new Roles();
-        roles.fetch({
+        this.roles = new Roles();
+        this.orgs = new Organizations();
+        this.roles.fetch({
             success: function(collection, response, options) {
-                self.roles = collection;
-                console.log(self.roles);
+                self.orgs.fetch({async: false}); // We're already in another thread
                 // We only render, after the data has returned from server
                 self.render();
             }
@@ -125,7 +128,8 @@ var SignUpForm = Backbone.View.extend({
     },
 
     render: function () {
-        this.bindings["[name=role_name]"].selectOptions.collection = this.roles.map(function(role) { return role.get("role_name"); });
+        this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
+        this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
         this.stickit();
         this.$el.append(this.modalDialog.el);
         return this;
@@ -137,15 +141,8 @@ var SignUpForm = Backbone.View.extend({
         // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
         //  on submit check for the role then change the role_id to the correct int
         if (this.model.isValid(true)) {
-            if(this.model.get('role_name')==='Administrator') {
-                this.model.set("role_id", 1);
-            }
-            else if(this.model.get('role_name')==="Science User") {
-                this.model.set("role_id", 2);
-            }
-            else if(this.model.get("role_name")==="Marine Operator") {
-                this.model.set("role_name", 3);
-            }
+            this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
+            this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
             // Needs to be dynamic (update)
             this.model.save(null, {
               success: function(model, response) {
