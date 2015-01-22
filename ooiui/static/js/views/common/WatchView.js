@@ -16,8 +16,11 @@ var WatchView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
-    console.log("fethching colleciton");
-    this.render();
+    this.collection.fetch({
+      success: function(collection, response, options) {
+        self.render();
+      }
+    });
   },
   template: JST['ooiui/static/js/partials/OpLog.html'],
   render: function() {
