@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
-            /* 
+            /*
              * This is the basic form partial that has the modal dialog
              * prompting the user for username and password
              */
@@ -60,6 +60,20 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html"
+          ],
+          "ooiui/static/js/partials/compiled/OpLog.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/loginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/Panel.html",
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/Chart.html",
+            "ooiui/static/js/partials/FakeTable.html",
+            "ooiui/static/js/partials/OpLog.html"
           ]
         }
       }
@@ -83,7 +97,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/fancytree/dist/jquery.fancytree-all.js',
             // App
-            'ooiui/static/js/core/science/map.js', 
+            'ooiui/static/js/core/science/map.js',
             'ooiui/static/js/core/science/plot.js',
             'ooiui/static/js/core/science/toc_menu.js',
             'ooiui/static/js/core/science/variable_list.js'
@@ -161,7 +175,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/common/PanelView.js'
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/OpLogView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -182,8 +197,34 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/OpLogView.js',
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js'
+
+          ],
+          'ooiui/static/js/compiled/opLog.js' : [
+          // Libs
+          'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+          'ooiui/static/lib/underscore/underscore.js',
+          'ooiui/static/lib/backbone/backbone.js',
+          "ooiui/static/lib/loremjs/lorem.js",
+          // App
+          'ooiui/static/js/ooi.js',
+          // Models
+          'ooiui/static/js/models/common/MessageModel.js',
+          'ooiui/static/js/models/common/LoginModel.js',
+          'ooiui/static/js/models/common/FakeTableModel.js',
+          'ooiui/static/js/models/common/WatchModel.js',
+          // Views
+          'ooiui/static/js/views/common/DropdownMessagesView.js',
+          'ooiui/static/js/views/common/DropdownUserView.js',
+          "ooiui/static/js/views/common/NavbarView.js",
+          'ooiui/static/js/views/common/LoginView.js',
+          'ooiui/static/js/views/common/ModalDialogView.js',
+          'ooiui/static/js/views/common/PanelView.js',
+          'ooiui/static/js/views/common/FakeTableView.js',
+          'ooiui/static/js/views/common/ChartView.js',
+          'ooiui/static/js/views/common/OpLogView.js'
           ]
         }
       },
@@ -228,7 +269,12 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css"
-          ]
+          ],
+          "ooiui/static/css/compiled/opLog.css" : [
+          "ooiui/static/css/common/scienceLayout.css",
+          "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+          "ooiui/static/css/common/opLog.css"
+          ],
         }
       }
     }
