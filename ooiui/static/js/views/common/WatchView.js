@@ -12,22 +12,19 @@
 * Usage
 */
 
-var OpLogView = Backbone.View.extend({
-  className: "panel",
-  initialize: function(options) {
+var WatchView = Backbone.View.extend({
+  initialize: function() {
     _.bindAll(this, "render");
-    if(options && options.heading && options.body) {
-      this.renderOptions = options;
-    } else {
-      this.renderOptions = {
-        heading: "Panel Heading",
-        body: "<i>Panel Body</i>",
-      }
-    }
+    var self = this;
+    console.log("fethching colleciton");
     this.render();
   },
   template: JST['ooiui/static/js/partials/OpLog.html'],
   render: function() {
-    this.$el.html(this.template(this.renderOptions));
+    console.log("render called");
+    // this.collection.each(function(model) {
+    //   this.$el.append("<div>" + this.model.get("title") + "</div>")
+    // }
+    this.$el.html(this.template());
   }
-})
+});

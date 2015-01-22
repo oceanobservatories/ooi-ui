@@ -40,4 +40,3 @@ var FakeTableCollection = Backbone.Collection.extend({
     return t;
   }
 });
-

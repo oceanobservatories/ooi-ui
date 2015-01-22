@@ -176,7 +176,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
-            'ooiui/static/js/views/common/OpLogView.js'
+            'ooiui/static/js/views/common/WatchView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -197,7 +197,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
-            'ooiui/static/js/views/common/OpLogView.js',
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js'
 
@@ -224,7 +223,7 @@ module.exports = function(grunt) {
           'ooiui/static/js/views/common/PanelView.js',
           'ooiui/static/js/views/common/FakeTableView.js',
           'ooiui/static/js/views/common/ChartView.js',
-          'ooiui/static/js/views/common/OpLogView.js'
+          'ooiui/static/js/views/common/WatchView.js'
           ]
         }
       },
@@ -271,10 +270,10 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css"
           ],
           "ooiui/static/css/compiled/opLog.css" : [
-          "ooiui/static/css/common/scienceLayout.css",
-          "ooiui/static/lib/metis-menu/dist/metisMenu.css",
-          "ooiui/static/css/common/opLog.css"
-          ],
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/opLog.css"
+          ]
         }
       }
     }

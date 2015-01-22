@@ -5,6 +5,14 @@ import requests
 import json
 import urllib
 
+def get_login():
+    token = request.cookies.get('ooiusertoken')
+    token = urllib.unquote(token).decode('utf8')
+    if not token:
+        return '{"error":"Invalid login token"}', 401
+    login, token = token.split(':')
+    return login, token
+
 @app.route('/signup')
 def user_signup():
     return render_template('common/signup.html')
@@ -69,53 +77,42 @@ def login():
 
 @app.route('/api/watch', methods=['GET'])
 def get_watch():
-    response = request.get(SERVICES_URL + '/watch', params=request.args)
+    response = requests.get(SERVICES_URL + '/watch', params=request.args)
     return response.text, response.status_code
 
 @app.route('/apt/watch', methods=['POST'])
 def post_watch():
-    local_context = json.loads(request.data)
-    username = local_context['login']
-    password = local_context['password']
-    response = requests.get(SERVICES_URL + '/token', auth=(username, password))
+    login, token = get_login()
+    response = requests.post(SERVICES_URL + '/watch', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
-@app.route('/api/watch/icl', methods=['GET'])
-def get_iclWatch():
-    response = request.get(SERVICES_URL + '/watch', params=request.args)
+@app.route('/api/watch/user', methods=['GET'])
+def get_watch_user():
+    login, token = get_login()
+    response = requests.get(SERVICES_URL + '/watch/user/', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/watch/icl', methods=['POST'])
-def post_icl():
-    local_context = json.loads(request.data)
-    username = local_context['login']
-    password = local_context['password']
-    response = requests.get(SERVICES_URL + '/token', auth=(username, password))
+@app.route('/api/watch/<int:id>', methods=['PUT'])
+def put_watch(id):
+    login, token = get_login()
+    response = requests.put(SERVICES_URL + '/watch/user/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/watch/user', methods=['GET'])
 def get_user():
-    token = request.cookies.get('ooiusertoken')
-    token = urllib.unquote(token).decode('utf8')
-    if not token:
-        return '{"error":"Invalid login token"}', 401
-    login, token = token.split(':')
-    resp = requests.get(SERVICES_URL + '/user', auth=(token,''))
+    login, token = get_login()
+    resp = requests.get(SERVICES_URL + '/watch/user', auth=(token,''), params=request.args)
     return resp.text, resp.status_code
 
 @app.route('/api/watch/open', methods=['GET'])
-def get_open():
-    token = request.cookies.get('ooiusertoken')
-    token = urllib.unquote(token).decode('utf8')
-    if not token:
-        return '{"error":"Invalid login token"}', 401
-    login, token = token.split(':')
-    resp = requests.get(SERVICES_URL + '/open', auth=(token,''))
+def get_watch_open():
+    login, token = get_login()
+    resp = requests.get(SERVICES_URL + '/watch/open', auth=(token,''), params=request.args)
     return resp.text, resp.status_code
 
-@app.route('/api/event', methods=['GET'])
-def get_event():
-    response = request.get(SERVICES_URL + '/event', params=request.args)
+@app.route('/api/operator_event', methods=['GET'])
+def get_operator_event():
+    response = requests.get(SERVICES_URL + '/operator_event', params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/event', methods=['POST'])

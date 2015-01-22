@@ -27,4 +27,3 @@ var Organizations = Backbone.Collection.extend({
     return response.organizations;
   }
 });
-
