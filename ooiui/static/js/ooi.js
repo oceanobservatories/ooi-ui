@@ -11,7 +11,8 @@
  */
 
 if(typeof(OOI) === "undefined") {
-  var OOI = {};
+  var OOI = function() {
+  }
 }
 OOI.Relation = {
   hasMany: 'hasMany'

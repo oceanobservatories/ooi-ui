@@ -16,7 +16,7 @@
 
 var WatchView = Backbone.View.extend({
   initialize: function() {
-    _.bindAll(this, "render");
+    _.bindAll(this, "render", "onSync");
     var self = this;
     this.collection.comparator = function(model) {
       var d = model.getEndDate();
@@ -27,11 +27,11 @@ var WatchView = Backbone.View.extend({
       }
       return -d;
     };
-    this.collection.fetch({
-      success: function(collection, response, options) {
-        self.render();
-      }
-    });
+    this.collection.on('sync', this.onSync);
+  },
+  onSync: function() {
+    console.log("On sync");
+    this.render();
   },
   template: JST['ooiui/static/js/partials/OpLog.html'],
   render: function() {

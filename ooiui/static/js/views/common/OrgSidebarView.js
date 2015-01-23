@@ -17,6 +17,13 @@
 var OrgSidebarView = Backbone.View.extend({
   tagName: 'ul',
   className: 'nav sidebar-nav navbar-collapse',
+  events: {
+    'click a' : 'onClick'
+  },
+  onClick: function(event) { 
+    var model_id = parseInt($(event.target).attr('data-id'));
+    this.trigger('org:click', model_id);
+  },
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;

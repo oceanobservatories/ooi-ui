@@ -141,21 +141,41 @@
 
 <script type="text/javascript">
 
+_.extend(OOI.prototype, Backbone.Events,  {
+  start: function() {
+    // Navbar
+    this.navbar = new NavbarView(); 
+    $('body').prepend(this.navbar.el);
+
+    // Sidebar
+    this.organizations = new Organizations();
+    this.orgSidebarView = new OrgSidebarView({
+      collection: this.organizations
+    });
+    $('#sidebar-wrapper').html(this.orgSidebarView.el);
+
+    // Event listener
+    this.listenTo(this.orgSidebarView, 'org:click', this.orgSelection);
+
+
+    // Left Panel
+    this.watches = new Watches();
+    this.watchView = new WatchView({
+      collection: this.watches
+    });
+    $('#panelWatch').html(this.watchView.el);
+  },
+  orgSelection: function(organization_id) {
+    // We have selected a new organization, so now we need to update the watch
+    this.watches.fetch({
+      data: $.param({organization_id: organization_id}),
+    });
+  }
+});
+var ooi = new OOI();
+
 $(document).ready(function() {
-  OOI.navbar = new NavbarView(); 
-  $('body').prepend(OOI.navbar.el);
-  OOI.organizations = new Organizations();
-  OOI.orgSidebarView = new OrgSidebarView({
-    collection: OOI.organizations
-  });
-  $('#sidebar-wrapper').html(OOI.orgSidebarView.el);
-  OOI.watches = new Watches();
-  OOI.watchView = new WatchView({
-    collection: OOI.watches
-  });
-  $('#panelWatch').html(OOI.watchView.el);
-
-
+    ooi.start();
 
   // var fakeTableView = new FakeTableView({
   //   collection: new FakeTableCollection()

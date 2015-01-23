@@ -6,7 +6,7 @@
 </li>
 <% collection.each(function(model) { %>
 <li>
-  <a href="#">
+  <a data-id="<%= model.get('id') %>" href="#">
     <%= model.get('organization_name') %>
   </a>
 </li>
