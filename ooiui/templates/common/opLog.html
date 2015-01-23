@@ -34,6 +34,18 @@
   width	: 100%;
   height	: 300px;
 }
+.watch-when {
+  font-size: 10px;
+  color: #333;
+}
+.li-blue {
+  background: #EDF6FA;
+}
+
+.li-green {
+  background: #EDFAF1;
+}
+
 </style>
 {% endblock %}
 
@@ -144,9 +156,10 @@
 $(document).ready(function() {
   var navbar = new NavbarView();
   $('body').prepend(navbar.el);
+  var collection = new Watches();
 
   var watchView = new WatchView({
-    collection: new Watches()
+    collection: collection
   });
   $('#panelWatch').html(watchView.el);
 

@@ -1,7 +1,16 @@
-<ul class="list-group">
-  <li class="list-group-item">Cras justo odio</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
-</ul>
+<div class="list-group">
+  <% collection.each(function(model) { %>
+  <% if(model.get("end_time") != null) { %>
+  <a class="li-blue list-group-item" href="#">
+  <% } else { %>
+  <a class="li-green list-group-item" href='#'>
+  <% } %>
+    <div class="watch-title">
+      <%= model.getName() %>
+    </div>
+    <div class="watch-when">
+      <%= model.getDates() %>
+    </div>
+  </a>
+  <% }); %>
+</div>

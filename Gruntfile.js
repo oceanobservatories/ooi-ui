@@ -206,7 +206,8 @@ module.exports = function(grunt) {
           'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
           'ooiui/static/lib/underscore/underscore.js',
           'ooiui/static/lib/backbone/backbone.js',
-          "ooiui/static/lib/loremjs/lorem.js",
+          'ooiui/static/lib/loremjs/lorem.js',
+          'ooiui/static/lib/moment/moment.js',
           // App
           'ooiui/static/js/ooi.js',
           // Models
