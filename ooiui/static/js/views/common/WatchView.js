@@ -17,7 +17,14 @@ var WatchView = Backbone.View.extend({
     _.bindAll(this, "render");
     var self = this;
     this.collection.comparator = function(model) {
-      return model.getEndDate();
+      var d = model.getEndDate();
+      if(d == null) { 
+        d = new Date(); 
+      } else {
+        d = new Date(d);
+      }
+
+      return -d;
     };
     this.collection.fetch({
       success: function(collection, response, options) {
@@ -29,12 +36,6 @@ var WatchView = Backbone.View.extend({
   render: function() {
     // Sort by the end date
     this.collection.sort();
-    this.collection.each(function(model) {
-      model.getDates();
-    });
-    // this.collection.each(function(model) {
-    //   this.$el.append("<div>" + this.model.get("title") + "</div>")
-    // }
     this.$el.html(this.template({collection: this.collection}));
   }
 });
