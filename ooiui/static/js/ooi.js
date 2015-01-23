@@ -10,6 +10,10 @@
  * Usage
  */
 
+/*
+ * OOI is the main class that we extend to form the application instance for
+ * each page.
+ */
 if(typeof(OOI) === "undefined") {
   var OOI = function() {
   }
@@ -52,6 +56,9 @@ OOI.RelationalModel = Backbone.Model.extend({
   }
 });
 
+/*
+ * Logged in returns true if we have identified that the user is logged in.
+ */
 OOI.LoggedIn = function() {
   if($.cookie('ooiusertoken')) {
     return true;

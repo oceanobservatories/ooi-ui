@@ -15,6 +15,10 @@
 
 var WatchModel = Backbone.Model.extend({
   urlRoot: "/api/watch",
+  /*
+   * getName returns either 'First Last's Watch' or General Watch if either the
+   * first name or last name are undefined.
+   */
   getName: function() {
     // Used to get the name of the watch
     var obj = this.toJSON();
@@ -23,6 +27,11 @@ var WatchModel = Backbone.Model.extend({
     } 
     return "General Watch";
   },
+  /*
+   * getDates returns a properly formatted date in the local timezone. If both
+   * start and end are defined it returns both dates together with a dash.
+   * Example: January 22nd 2015, 6:52:49 pm - January 22nd 2015, 7:21:00 pm
+   */
   getDates: function() {
     var obj = this.toJSON();
     var r = [];
@@ -37,12 +46,20 @@ var WatchModel = Backbone.Model.extend({
     }
     return r.join(' ');
   },
+  /*
+   * Returns the number of millseconds since 1970-01-01 and the start_time
+   * timestamp
+   */
   getStartDate: function() { 
     if(this.get('start_time')) {
       return Date.parse(this.get('start_time'));
     }
     return null;
   },
+  /*
+   * Returns the number of millseconds since 1970-01-01 and the end_time
+   * timestamp
+   */
   getEndDate: function() {
     if(this.get('end_time')) {
       return Date.parse(this.get('end_time'));
