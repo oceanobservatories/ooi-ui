@@ -7,8 +7,8 @@
 * Libs
 * - ooiui/static/lib/underscore/underscore.js
 * - ooiui/static/lib/backbone/backbone.js
+* - ooiui/static/lib/moment/moment.js
 * - ooiui/static/js/ooi.js
-*
 * Usage
 */
 

@@ -73,7 +73,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html",
-            "ooiui/static/js/partials/OpLog.html"
+            "ooiui/static/js/partials/OpLog.html",
+            "ooiui/static/js/partials/OrgSidebar.html"
           ]
         }
       }
@@ -215,6 +216,7 @@ module.exports = function(grunt) {
           'ooiui/static/js/models/common/LoginModel.js',
           'ooiui/static/js/models/common/FakeTableModel.js',
           'ooiui/static/js/models/common/WatchModel.js',
+          'ooiui/static/js/models/common/OrganizationModel.js',
           // Views
           'ooiui/static/js/views/common/DropdownMessagesView.js',
           'ooiui/static/js/views/common/DropdownUserView.js',
@@ -224,7 +226,8 @@ module.exports = function(grunt) {
           'ooiui/static/js/views/common/PanelView.js',
           'ooiui/static/js/views/common/FakeTableView.js',
           'ooiui/static/js/views/common/ChartView.js',
-          'ooiui/static/js/views/common/WatchView.js'
+          'ooiui/static/js/views/common/WatchView.js',
+          'ooiui/static/js/views/common/OrgSidebarView.js'
           ]
         }
       },

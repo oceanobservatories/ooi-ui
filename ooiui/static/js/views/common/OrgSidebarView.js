@@ -9,34 +9,25 @@
 * - ooiui/static/lib/backbone/backbone.js
 * - ooiui/static/js/ooi.js
 * Models
-* - ooiui/static/js/models/common/WatchModel.js
+* - ooiui/static/js/models/common/OrganizationModel.js
 *
 * Usage
 */
 
-var WatchView = Backbone.View.extend({
+var OrgSidebarView = Backbone.View.extend({
+  tagName: 'ul',
+  className: 'nav sidebar-nav navbar-collapse',
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
-    this.collection.comparator = function(model) {
-      var d = model.getEndDate();
-      if(d == null) { 
-        d = new Date(); 
-      } else {
-        d = new Date(d);
-      }
-      return -d;
-    };
     this.collection.fetch({
       success: function(collection, response, options) {
         self.render();
       }
     });
   },
-  template: JST['ooiui/static/js/partials/OpLog.html'],
+  template: JST['ooiui/static/js/partials/OrgSidebar.html'],
   render: function() {
-    // Sort by the end date
-    this.collection.sort();
     this.$el.html(this.template({collection: this.collection}));
   }
 });

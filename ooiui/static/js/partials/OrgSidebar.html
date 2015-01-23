@@ -1,0 +1,14 @@
+<li class="sidebar-search">
+  <div class="input-group custom-search-form">
+    Organizations
+  </div>
+  <!-- /input-group -->
+</li>
+<% collection.each(function(model) { %>
+<li>
+  <a href="#">
+    <%= model.get('organization_name') %>
+  </a>
+</li>
+<% }); %>
+
