@@ -22,7 +22,7 @@ var FakeTableView = Backbone.View.extend({
     console.log("Fetching collection");
     this.collection.fetch({
       success: function(collection, response, options) {
-        self.render(); 
+        self.render();
       }
     });
   },
@@ -32,4 +32,3 @@ var FakeTableView = Backbone.View.extend({
     this.$el.html(this.template({collection: this.collection}));
   }
 });
-

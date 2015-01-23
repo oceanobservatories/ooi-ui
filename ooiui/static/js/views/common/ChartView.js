@@ -81,4 +81,3 @@ var ChartView = Backbone.View.extend({
       google.setOnLoadCallback(this.drawChart);
     }
 });
-
