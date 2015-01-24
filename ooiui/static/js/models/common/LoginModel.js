@@ -41,12 +41,10 @@ var LoginModel = Backbone.Model.extend({
   fetch: function() {
     var tokenString = $.cookie('ooiusertoken');
     if(typeof tokenString !== "undefined") {
-      var login = tokenString.split(":")[0];
-      var token = tokenString.split(":")[1];
-      this.set("login", login);
-      this.set("token", token);
+      this.set("token", tokenString);
       console.log("Set token");
-    }
+    } 
+    return this;
   },
   parse: function(response) {
     var expiration = response.expiration;

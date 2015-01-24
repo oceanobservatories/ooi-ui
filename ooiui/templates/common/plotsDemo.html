@@ -31,26 +31,37 @@
 </div>
 <script type="text/javascript">
 
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  start: function() {
+    this.navbar = new NavbarView({
+      login: this.login
+    });
+    $('body').prepend(this.navbar.el);
+    this.leftPanel = new PanelView({
+      heading: 'Charts',
+      body: "empty text"
+    });
+    $('#panelLeft').html(this.leftPanel.el);
+    this.rightPanel = new PanelView({
+      heading: 'Table goes here',
+      body: '<div class="col-sm-12">Looks funkie</div>'
+    });
+    $('#panelRight').html(this.rightPanel.el);
+    this.chartView = new ChartView();
+    this.leftPanel.$el.find('.panel-body').html(this.chartView.el);
+    this.chartView.render();
+    this.fakeTableView = new FakeTableView({
+      collection: new FakeTableCollection()
+    });
+    this.rightPanel.$el.find('.panel-body').html(this.fakeTableView.el);
+  }
+});
+
+var ooi = new OOI();
+
 $(document).ready(function() {
-  var navbar = new NavbarView();
-  $('body').prepend(navbar.el);
-  var leftPanel = new PanelView({
-    heading: 'Charts',
-    body: "empty text"
-  });
-  $('#panelLeft').html(leftPanel.el);
-  var rightPanel = new PanelView({
-    heading: 'Table goes here',
-    body: '<div class="col-sm-12">Looks funkie</div>'
-  });
-  $('#panelRight').html(rightPanel.el);
-  var chartView = new ChartView();
-  leftPanel.$el.find('.panel-body').html(chartView.el);
-  chartView.render();
-  var fakeTableView = new FakeTableView({
-    collection: new FakeTableCollection()
-  });
-  rightPanel.$el.find('.panel-body').html(fakeTableView.el);
+    ooi.start();
 });
 </script>
 
