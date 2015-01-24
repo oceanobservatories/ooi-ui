@@ -131,24 +131,35 @@
   </div>
 </div> <!-- wrapper -->
 <script type="text/javascript">
-$(document).ready(function () {
-    var navbar = new NavbarView();
-    navbar.sidebarToggle(); // Hide the sidebar
-    $('body').prepend(navbar.el);
-    var loginview = new LoginView({
-      model: new LoginModel(),
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  start: function() {
+    this.navbar = new NavbarView({
+      login: this.login
+    });
+    this.navbar.sidebarToggle(); // Hide the sidebar
+    
+    $('body').prepend(this.navbar.el);
+    this.loginview = new LoginView({
+      model: this.login,
       success: function() {
-        var signupview = new SignUpForm({
+        this.signupview = new SignUpForm({
             el: 'form',
             model: new SignUpModel()
         });
-      },
-      failure: function() {
-        console.log("Failure");
       }
     });
-    $('#loginView').html(loginview.el);
-    loginview.show();
+    $('#loginView').html(this.loginview.el);
+    this.loginview.show();
+  }
+});
+
+var ooi = new OOI();
+
+$(document).ready(function () {
+    ooi.start();
+
 });
 </script>
 {% endblock %}

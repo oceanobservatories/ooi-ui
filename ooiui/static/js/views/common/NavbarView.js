@@ -19,12 +19,14 @@ var NavbarView = Backbone.View.extend({
     e.preventDefault(); // Prevent the #about
     this.sidebarToggle();
   },
-  initialize: function() {
+  initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle");
     this.messageView = new DropdownMessagesView({
       collection: new MessageCollection()
     });
-    this.dropdownUserView = new DropdownUserView();
+    this.dropdownUserView = new DropdownUserView({
+      model: options.login
+    });
     this.render();
   },
   sidebarToggle: function() {

@@ -27,24 +27,18 @@ var DropdownUserView = Backbone.View.extend({
   login: function() {
     var self = this;
     var loginview = new LoginView({
-      model: new LoginModel(),
-      success: function() {
-        self.render(); // re-render with new logged-in context
-      },
-      failure: function() {
-        loginview.hide();
-      }
+      model: self.model,
     });
     $('body').append(loginview.el);
     loginview.isHidden = true; // allow the dialog to be hidden
     loginview.show();
   },
   logout: function() {
-    OOI.LogOut();
-    this.render();
+    this.model.logOut();
   },
   initialize: function() {
     _.bindAll(this, "render", "login", "logout");
+    this.model.on('change', this.render);
     this.render();
   },
   template: {
@@ -52,10 +46,11 @@ var DropdownUserView = Backbone.View.extend({
     loggedOut: JST['ooiui/static/js/partials/DropdownUserLoggedOut.html']
   },
   render: function() {
-    if(!OOI.LoggedIn()) {
-      this.$el.html(this.template.loggedOut());
-    } else {
+    console.log("DropdownUserView render");
+    if(this.model.loggedIn()) {
       this.$el.html(this.template.loggedIn());
+    } else {
+      this.$el.html(this.template.loggedOut());
     }
   }
 });
