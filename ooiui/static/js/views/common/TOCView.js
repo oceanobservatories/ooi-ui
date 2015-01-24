@@ -74,10 +74,12 @@ var TOCItemView = Backbone.View.extend({
   toggle: function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    this.$el.children('ul').toggle('collapse');
     // Next level
     if(_.isUndefined(this.subItemView)) {
       this.getSubItems();
+      this.$el.children('ul').collapse('show');
+    } else {
+      this.$el.children('ul').collapse('toggle');
     }
   },
   render: function() {
