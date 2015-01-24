@@ -6,6 +6,14 @@
 
 {% block beforebootstrap %}
 
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/opLog.js" type="text/javascript"></script>
+<script src="/js/compiled/opLog.js" type="text/javascript"></script>
+
 <style>
 .panel-title a {
   display: block;
@@ -28,22 +36,30 @@
   font-size: 10px;
   color: #333;
 }
+
+/*trying different color combinations...
+depending on over all color theme
+>>---->also needs a clicked color and hover color<----<<
+>>---->also needs better font and font-size<----<<
+*/
 .li-blue {
-  background: #EDF6FA;
+  background: #BBD9EE;
 }
 
 .li-green {
-  background: #EDFAF1;
+  background: #E7E4D3;
+}
+/*.li-blue {
+  background: #C0C0C0;
+}
+
+.li-green {
+  background: #E7E4D3;
+}*/
+.btnStartStop {
+  float: right;
 }
 </style>
-{% endblock %}
-
-{% block head %}
-<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<!-- Partials -->
-<script src="/js/partials/compiled/opLog.js" type="text/javascript"></script>
-<script src="/js/compiled/opLog.js" type="text/javascript"></script>
-
 {% endblock %}
 
 {%block body %}
@@ -57,7 +73,18 @@
         <div  class="col-lg-4">
           <div class="panel">
             <div class="panel-heading">
-              <strong><span class="fa fa-globe"></span> Watches</strong>
+              <strong><span class="fa fa-navicon"></span> Watches</strong>
+              <div class="pull-right dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Watch stuff</a>
+                  </li>
+                </ul>
+              </div>
+
             </div>
 
             <div id="panelWatch" class="panel-body"></div>
@@ -69,7 +96,20 @@
         <div class="col-lg-8">
           <div class="panel">
             <div class="panel-heading">
-              <strong><span class="fa fa-globe"></span>Events</strong>
+              <strong><span class="fa fa-tasks"></span> Events</strong>
+              <div class="pull-right">
+                <div class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                      <a href="#">New Event</a>
+                    </li>
+                  </ul>
+                  <!-- /.dropdown-alerts -->
+                </div>
+              </div>
             </div>
 
             <div id="panelEvents" class="panel-body">
@@ -148,10 +188,11 @@
  */
 
 _.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
   start: function() {
     // Navbar
     // Instantiate the navbar view
-    this.navbar = new NavbarView(); 
+    this.navbar = new NavbarView({login: this.login});
     // Bind the element to the top of the <body>
     $('body').prepend(this.navbar.el);
 
