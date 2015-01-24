@@ -185,6 +185,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#panelWatch').html(this.watchView.el);
+    this.login = new LoginModel();
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger

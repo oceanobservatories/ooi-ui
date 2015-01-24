@@ -104,27 +104,37 @@
 
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
-  var navbar = new NavbarView();
-  $('body').prepend(navbar.el);
-  var arrays = new ArrayCollection();
-  var tocView = new TOCView({
-      collection: arrays
-  })
-  $('#sidebar-wrapper').html(tocView.el);
 
-  mapView = new MapView();
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  start: function() {
+    this.navbar = new NavbarView({
+      login: this.login
+    });
+    $('body').prepend(this.navbar.el);
 
+    this.arrays = new ArrayCollection();
+    this.tocView = new TOCView({
+      collection: this.arrays
+    });
+    $('#sidebar-wrapper').html(this.tocView.el);
 
+    mapView = new MapView();
 
-  if(!OOI.LoggedIn()) {
-    var modalView = new ModalDialogView();
-    $('.container-fluid').first().append(modalView.el);
-    modalView.show({
+    if(!this.login.loggedIn()) {
+      this.modalView = new ModalDialogView();
+      $('.container-fluid').first().append(this.modalView.el);
+      this.modalView.show({
         message: "INSERT WARRANTY HERE",
         ack: function() { console.log("Closed"); }
-        //type: "warning"
-    });
+      });
+    }
   }
+});
+var ooi = new OOI();
 
+$(document).ready(function() {
+    ooi.start();
+});
 </script>
 {% endblock %}

@@ -18,22 +18,27 @@ var LoginView = Backbone.View.extend({
   events: {
     'click #btnLogin' : "login",
     'keyup #passInput' : "keyUp",
+    'keypress #passInput' : 'keyPress',
     'hidden.bs.modal' : 'hidden'
   },
   initialize: function(params) {
+    _.bindAll(this, "render", "login", "show", "hide", "keyPress");
     if(!params) {
       params = {}
     }
     /* Gives us the ability to specify successful behavior after logging in */
     /* bind this.success = params.success */
     if(typeof params.success === "function") {
-      this.success = params.success.bind("this");
+      this.success = params.success.bind(this);
     }
     if(typeof params.failure === "function") {
       console.log("failure defined");
-      this.failure = params.failure.bind("this");
+      this.failure = params.failure.bind(this);
     }
-    _.bindAll(this, "render", "login", "show", "hide");
+    if(typeof params.hidden === "function") {
+      console.log("hidden defined");
+      this.hidden = params.hidden.bind(this);
+    }
     // We want to look at the cookies for the token
     this.model.fetch();
     if(this.model.get('token') == "") {
@@ -48,45 +53,44 @@ var LoginView = Backbone.View.extend({
   login: function(e) {
     var self = this;
     e.preventDefault();
-    var data = {
+    this.model.set({
       login: $('#usrInput').val(),
       password: $('#passInput').val()
-    };
-    this.model.save(data, {
-      success: function(model, response) {
-        var tokenString = model.get("login") + ":" + response.token;
-        $.cookie("ooiusertoken", tokenString);
-        self.model.fetch();
-        self.hide();
-        self.success();
-      },
-      error: function(model, response) {
-        self.attempts++; // Increment the attempts
-        self.hide();
-        self.failure();
-      }
     });
+
+    this.model.logIn();
+    console.log(this);
+    // If login was successful and we have a token
+    if(this.model.get('token') != '') {
+      console.log("success");
+      this.hide();
+      this.success();
+    } else {
+      console.log("no bueno amigo");
+      this.attempts++;
+      this.$el.find('.lgn-message').html('Username or Password are incorrect');
+      this.failure();
+    }
   },
   hidden: function(e) {
-    console.log(this.isHidden);
-    if(!OOI.LoggedIn() && !this.isHidden) {
-      this.show();
-    }
+    console.log("hidden");
   },
   /* Called when the user is successfully authenticated */
   success: function() {
     console.log("Success");
   },
   failure: function() {
+    console.log("this failure");
   },
   show: function() {
-    if(this.attempts == 1) {
+    if(this.attempts >= 1) {
       this.$el.find('.lgn-message').html('Username or Password are incorrect');
     }
     $('#loginModal').modal('show');
     return this;
   },
   hide: function() {
+    console.log("hide was called");
     this.isHidden = true;
     $('#loginModal').modal('hide');
     return this;
@@ -99,6 +103,12 @@ var LoginView = Backbone.View.extend({
        //If there is text in the input, then enable the button
        this.$el.find('.enableOnInput').prop('disabled', false);
      }
+  },
+  keyPress: function(e) {
+    if(e.which == 13) {
+      console.log(this);
+      this.login(e);
+    }
   },
   template: JST["ooiui/static/js/partials/loginForm.html"],
   render: function() {
