@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html",
-            "ooiui/static/js/partials/OpLog.html",
+            "ooiui/static/js/partials/Watch.html",
             "ooiui/static/js/partials/OrgSidebar.html"
           ]
         }
