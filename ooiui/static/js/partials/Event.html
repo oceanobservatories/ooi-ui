@@ -1,18 +1,20 @@
+<% var i=0; %>
 <% collection.each(function(model) { %>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel-heading" role="tab" id="heading<%= i %>">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
+          <%= model.get('event_title') %>
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapse<%= i %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        Rollup content
+        <%= model.get('event_comment') %>
       </div>
     </div>
   </div>
 </div>
+<% i+= 1; %>
 <% }); %>
