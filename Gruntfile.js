@@ -73,8 +73,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html",
-            "ooiui/static/js/partials/OpLog.html",
-            "ooiui/static/js/partials/OrgSidebar.html"
+            "ooiui/static/js/partials/Watch.html",
+            "ooiui/static/js/partials/OrgSidebar.html",
+            "ooiui/static/js/partials/Event.html"
           ]
         }
       }
@@ -217,6 +218,7 @@ module.exports = function(grunt) {
           'ooiui/static/js/models/common/FakeTableModel.js',
           'ooiui/static/js/models/common/WatchModel.js',
           'ooiui/static/js/models/common/OrganizationModel.js',
+          'ooiui/static/js/models/common/EventModel.js',
           // Views
           'ooiui/static/js/views/common/DropdownMessagesView.js',
           'ooiui/static/js/views/common/DropdownUserView.js',
@@ -227,7 +229,8 @@ module.exports = function(grunt) {
           'ooiui/static/js/views/common/FakeTableView.js',
           'ooiui/static/js/views/common/ChartView.js',
           'ooiui/static/js/views/common/WatchView.js',
-          'ooiui/static/js/views/common/OrgSidebarView.js'
+          'ooiui/static/js/views/common/OrgSidebarView.js',
+          'ooiui/static/js/views/common/EventView.js'
           ]
         }
       },
@@ -280,12 +283,27 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    watch: {
+      partials: {
+        files: ['**/partials/*.html'],
+        tasks: ['jst'],
+        options: {
+        }
+      },
+      scripts: {
+        files: ['**/views/*/*.js', '**/models/*/*.js', '**/ooi.js'],
+        tasks: ['concat'],
+        options: {
+        }
+      },
     }
   })
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jst');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['jst', 'concat']);
 };

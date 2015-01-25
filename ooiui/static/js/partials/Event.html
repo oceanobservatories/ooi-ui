@@ -1,0 +1,20 @@
+<% var i=0; %>
+<% collection.each(function(model) { %>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading<%= i %>">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
+          <%= model.get('event_title') %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse<%= i %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <%= model.get('event_comment') %>
+      </div>
+    </div>
+  </div>
+</div>
+<% i+= 1; %>
+<% }); %>
