@@ -112,63 +112,7 @@ depending on over all color theme
               </div>
             </div>
 
-            <div id="panelEvents" class="panel-body">
-
-
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Collapsible Group Item #2
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                  </div>
-                </div>
-
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                  <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Collapsible Group Item #3
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                  <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div id="panelEvents" class="panel-body"></div>
           </div>
         </div>
       </div>
@@ -189,6 +133,15 @@ depending on over all color theme
 
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
+  // Models and collections
+  collections: {
+    // Instantiate a new Organizations collection
+    organizations: new Organizations(),
+    // watches is the Watch collection, by default is un-fetched
+    watches: new Watches(),
+    //events: new Events(),
+    events: new EventsCollection()
+  },
   start: function() {
     // Navbar
     // Instantiate the navbar view
@@ -197,12 +150,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('body').prepend(this.navbar.el);
 
     // Sidebar
-    // Instantiate a new Organizations collection
-    this.organizations = new Organizations();
     // Instantiate a new OrgSidebarView and tell it to use our organizations as
     // the collection
     this.orgSidebarView = new OrgSidebarView({
-      collection: this.organizations
+      collection: this.collections.organizations
     });
     // Bind it to the element with the id of 'sidebar-wrapper'
     $('#sidebar-wrapper').html(this.orgSidebarView.el);
@@ -218,16 +169,18 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
 
     // Left Panel
-    // watches is the Watch collection, by default is un-fetched
-    this.watches = new Watches();
     // We create a watch view that will be empty at first.
     this.watchView = new WatchView({
-      collection: this.watches
+      collection: this.collections.watches
     });
     this.listenTo(this.watchView, 'watch:click', this.watchSelection);
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#panelWatch').html(this.watchView.el);
-    this.login = new LoginModel();
+
+    this.eventView = new EventView({
+      collection: this.collections.events
+    });
+    $('#panelEvents').html(this.eventView.el);
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
@@ -238,7 +191,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
   orgSelection: function(organization_id) {
     // We have selected a new organization, so now we need to update the watch
     // GET /api/watch?organization_id=<organization_id>
-    this.watches.fetch({
+    this.collections.watches.fetch({
       data: $.param({organization_id: organization_id}),
     });
     // Note: the watchview has an event listener that listens for sync events
@@ -246,7 +199,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // and the watch view will re-render with the new watches.
   },
   watchSelection: function(watch_id) {
-      console.log("Watch " + watch_id + " selected.");
+    this.collections.events.fetch({
+      data: $.param({watch_id: watch_id}),
+    });
   }
 });
 // Instantiate the application for this page

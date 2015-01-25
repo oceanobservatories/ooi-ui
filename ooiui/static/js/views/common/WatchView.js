@@ -4,6 +4,8 @@
 * View definitions for charts
 *
 * Dependencies
+* Partials
+* - ooiui/static/js/partials/Watch.html
 * Libs
 * - ooiui/static/lib/underscore/underscore.js
 * - ooiui/static/lib/backbone/backbone.js

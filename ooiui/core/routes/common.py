@@ -106,9 +106,9 @@ def get_operator_event():
     response = requests.get(SERVICES_URL + '/operator_event', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/event', methods=['POST'])
+@app.route('/api/operator_event', methods=['POST'])
 def post_event():
     token = get_login()
-    resp = requests.get(SERVICES_URL + '/event', auth=(token,''))
+    resp = requests.get(SERVICES_URL + '/operator_event', auth=(token,''))
     return resp.text, resp.status_code
 
