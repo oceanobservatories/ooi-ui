@@ -224,6 +224,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.watchView = new WatchView({
       collection: this.watches
     });
+    this.listenTo(this.watchView, 'watch:click', this.watchSelection);
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#panelWatch').html(this.watchView.el);
     this.login = new LoginModel();
@@ -243,6 +244,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // Note: the watchview has an event listener that listens for sync events
     // from this collection, so when the feth completes, the event will trigger
     // and the watch view will re-render with the new watches.
+  },
+  watchSelection: function(watch_id) {
+      console.log("Watch " + watch_id + " selected.");
   }
 });
 // Instantiate the application for this page

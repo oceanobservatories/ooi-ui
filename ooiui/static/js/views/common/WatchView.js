@@ -43,7 +43,7 @@ var WatchView = Backbone.View.extend({
     this.collection.on('sync', this.onSync);
   },
   onClick: function(e) {
-    console.log("Watch cliked");
+    this.trigger('watch:click', $(e.target).closest('.watch-item').attr('data-id'));
   },
   /*
    * onSync is called whenver the collection is fetched successfully. This
@@ -53,6 +53,7 @@ var WatchView = Backbone.View.extend({
     console.log("On sync");
     this.render();
   },
+  // comment
   template: JST['ooiui/static/js/partials/Watch.html'],
   render: function() {
     // Sort by the end date
