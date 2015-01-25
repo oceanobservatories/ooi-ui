@@ -280,12 +280,27 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    watch: {
+      partials: {
+        files: ['**/partials/*.html'],
+        tasks: ['jst'],
+        options: {
+        }
+      },
+      scripts: {
+        files: ['**/views/*/*.js', '**/models/*/*.js', '**/ooi.js'],
+        tasks: ['concat'],
+        options: {
+        }
+      },
     }
   })
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jst');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['jst', 'concat']);
 };
