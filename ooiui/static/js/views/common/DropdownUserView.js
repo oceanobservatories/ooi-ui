@@ -59,5 +59,3 @@ var DropdownUserView = Backbone.View.extend({
     }
   }
 });
-
-

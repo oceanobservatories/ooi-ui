@@ -95,21 +95,9 @@ depending on over all color theme
 
         <div class="col-lg-8">
           <div class="panel">
-            <div class="panel-heading">
+            <div id="new-event" class="panel-heading">
               <strong><span class="fa fa-tasks"></span> Events</strong>
-              <div class="pull-right">
-                <div class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-caret-down"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                      <a href="#">New Event</a>
-                    </li>
-                  </ul>
-                  <!-- /.dropdown-alerts -->
-                </div>
-              </div>
+
             </div>
 
             <div id="panelEvents" class="panel-body"></div>
@@ -181,6 +169,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
       collection: this.collections.events
     });
     $('#panelEvents').html(this.eventView.el);
+
+    this.newEventView = new NewEventView();
+    $('#new-event').append(this.newEventView.el);
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
