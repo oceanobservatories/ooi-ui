@@ -14,6 +14,10 @@
 
 var EventModel = Backbone.Model.extend({
   urlRoot: '/api/operator_event',
+  getTime: function() {
+    var d = new Date(Date.parse(this.get('event_time')));
+    return moment(d).format('YYYY-MM-DD HH:mm');
+  },
   defaults: {
     watch_id: "",
     event_time: "",

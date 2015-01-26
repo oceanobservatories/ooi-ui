@@ -6,7 +6,11 @@
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
           <%= model.get('event_title') %>
+          <div class="pull-right">
+            <%=model.getTime() %>
+          </div>
         </a>
+
       </h4>
     </div>
     <div id="collapse<%= i %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
