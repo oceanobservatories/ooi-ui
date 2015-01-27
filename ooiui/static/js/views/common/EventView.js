@@ -19,7 +19,7 @@
 var EventView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render", "onSync");
-    this.collection.comparator = function(model) { 
+    this.collection.comparator = function(model) {
       var d = new Date(Date.parse(model.get('event_time')));
       return -d;
     }
@@ -33,4 +33,3 @@ var EventView = Backbone.View.extend({
     this.$el.html(this.template({collection: this.collection}));
   }
 });
-
