@@ -292,11 +292,11 @@ module.exports = function(grunt) {
         }
       },
       scripts: {
-        files: ['**/views/*/*.js', '**/models/*/*.js', '**/ooi.js'],
+        files: ['**/views/*/*.js', '**/models/*/*.js', '**/ooi.js', '**/common/*.css'],
         tasks: ['concat'],
         options: {
         }
-      },
+      }
     }
   })
 
