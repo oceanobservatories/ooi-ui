@@ -1,0 +1,47 @@
+[
+{
+  "@class" : ".AssetRecord",
+  "metaData" : [ {
+    "metaId" : 6147,
+    "value" : "CE01ISSM",
+    "key" : "Ref Des",
+    "type" : "java.lang.String"
+  }, {
+    "metaId" : 6151,
+    "value" : "15-Apr-13",
+    "key" : "Anchor Launch Date",
+    "type" : "java.lang.String"
+  }, {
+    "metaId" : 6148,
+    "value" : "25",
+    "key" : "Water Depth",
+    "type" : "java.lang.String"
+  }, {
+    "metaId" : 6150,
+    "value" : "39Â° 54.678' N",
+    "key" : "Latitude",
+    "type" : "java.lang.String"
+  }, {
+    "metaId" : 6149,
+    "value" : "70Â° 47.214' W",
+    "key" : "Longitude",
+    "type" : "java.lang.String"
+  } ],
+  "attachments" : [ ],
+  "assetId" : 1,
+  "assetInfo" : {
+    "description" : null,
+    "name" : null,
+    "type" : "Mooring",
+    "owner" : null
+  },
+  "manufactureInfo" : {
+    "serialNumber" : "CE01ISSM-00001",
+    "modelNumber" : null,
+    "manufacturer" : null
+  },
+  "physicalInfo" : null,
+  "purchaseAndDeliveryInfo" : null,
+  "notes" : [ ]
+}
+]

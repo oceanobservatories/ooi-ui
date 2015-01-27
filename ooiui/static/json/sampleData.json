@@ -1,0 +1,1710 @@
+[ {
+	"dofst_k_oxygen" : 3218,
+	"driver_timestamp" : 3.630858208846455E9,
+	"internal_timestamp" : 3.623734802E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3227,
+	"driver_timestamp" : 3.630858208846509E9,
+	"internal_timestamp" : 3.623734803005576E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3232,
+	"driver_timestamp" : 3.6308582088465557E9,
+	"internal_timestamp" : 3.6237348040111523E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3235,
+	"driver_timestamp" : 3.630858208846601E9,
+	"internal_timestamp" : 3.6237348050167284E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3236,
+	"driver_timestamp" : 3.630858208846662E9,
+	"internal_timestamp" : 3.6237348060223045E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3238,
+	"driver_timestamp" : 3.630858208846723E9,
+	"internal_timestamp" : 3.623734807027881E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3240,
+	"driver_timestamp" : 3.630858208846767E9,
+	"internal_timestamp" : 3.6237348080334573E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3240,
+	"driver_timestamp" : 3.6308582088468103E9,
+	"internal_timestamp" : 3.6237348090390334E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3241,
+	"driver_timestamp" : 3.6308582088468523E9,
+	"internal_timestamp" : 3.6237348100446095E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3242,
+	"driver_timestamp" : 3.6308582088468943E9,
+	"internal_timestamp" : 3.623734811050186E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3243,
+	"driver_timestamp" : 3.630858208846936E9,
+	"internal_timestamp" : 3.6237348120557623E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3244,
+	"driver_timestamp" : 3.630858208846977E9,
+	"internal_timestamp" : 3.6237348130613384E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3243,
+	"driver_timestamp" : 3.6308582088470173E9,
+	"internal_timestamp" : 3.6237348140669146E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3244,
+	"driver_timestamp" : 3.6308582088470573E9,
+	"internal_timestamp" : 3.6237348150724907E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3243,
+	"driver_timestamp" : 3.6308582088470984E9,
+	"internal_timestamp" : 3.623734816078067E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3245,
+	"driver_timestamp" : 3.630858208847137E9,
+	"internal_timestamp" : 3.623734817083643E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3245,
+	"driver_timestamp" : 3.630858208847177E9,
+	"internal_timestamp" : 3.623734818089219E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3245,
+	"driver_timestamp" : 3.6308582088472157E9,
+	"internal_timestamp" : 3.623734819094795E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3249,
+	"driver_timestamp" : 3.6308582088472548E9,
+	"internal_timestamp" : 3.623734820100372E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3249,
+	"driver_timestamp" : 3.630858208847293E9,
+	"internal_timestamp" : 3.623734821105948E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3248,
+	"driver_timestamp" : 3.630858208847331E9,
+	"internal_timestamp" : 3.623734822111524E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3248,
+	"driver_timestamp" : 3.63085820884737E9,
+	"internal_timestamp" : 3.6237348231171007E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3247,
+	"driver_timestamp" : 3.6308582088474083E9,
+	"internal_timestamp" : 3.623734824122677E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3247,
+	"driver_timestamp" : 3.630858208847446E9,
+	"internal_timestamp" : 3.623734825128253E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3246,
+	"driver_timestamp" : 3.630858208847484E9,
+	"internal_timestamp" : 3.623734826133829E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3247,
+	"driver_timestamp" : 3.630858208847522E9,
+	"internal_timestamp" : 3.6237348271394053E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3246,
+	"driver_timestamp" : 3.630858208847561E9,
+	"internal_timestamp" : 3.6237348281449814E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3245,
+	"driver_timestamp" : 3.630858208847598E9,
+	"internal_timestamp" : 3.6237348291505575E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3246,
+	"driver_timestamp" : 3.630858208847664E9,
+	"internal_timestamp" : 3.6237348301561337E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3246,
+	"driver_timestamp" : 3.630858208847719E9,
+	"internal_timestamp" : 3.62373483116171E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3246,
+	"driver_timestamp" : 3.6308582088477592E9,
+	"internal_timestamp" : 3.623734832167286E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3248,
+	"driver_timestamp" : 3.6308582088477983E9,
+	"internal_timestamp" : 3.6237348331728625E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3250,
+	"driver_timestamp" : 3.630858208847836E9,
+	"internal_timestamp" : 3.6237348341784387E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.6308582088478737E9,
+	"internal_timestamp" : 3.623734835184015E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.63085820884791E9,
+	"internal_timestamp" : 3.6237348361895914E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3250,
+	"driver_timestamp" : 3.63085820884794E9,
+	"internal_timestamp" : 3.6237348371951675E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3248,
+	"driver_timestamp" : 3.630858208848051E9,
+	"internal_timestamp" : 3.6237348382007437E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3249,
+	"driver_timestamp" : 3.63085820884809E9,
+	"internal_timestamp" : 3.62373483920632E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3248,
+	"driver_timestamp" : 3.630858208848127E9,
+	"internal_timestamp" : 3.623734840211896E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3249,
+	"driver_timestamp" : 3.630858208848165E9,
+	"internal_timestamp" : 3.623734841217472E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3250,
+	"driver_timestamp" : 3.630858208848201E9,
+	"internal_timestamp" : 3.623734842223048E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.630858208848237E9,
+	"internal_timestamp" : 3.6237348432286243E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3253,
+	"driver_timestamp" : 3.6308582088482647E9,
+	"internal_timestamp" : 3.6237348442342005E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3253,
+	"driver_timestamp" : 3.630858208848322E9,
+	"internal_timestamp" : 3.6237348452397766E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3253,
+	"driver_timestamp" : 3.630858208848359E9,
+	"internal_timestamp" : 3.623734846245353E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3250,
+	"driver_timestamp" : 3.630858208848394E9,
+	"internal_timestamp" : 3.6237348472509294E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.6308582088484287E9,
+	"internal_timestamp" : 3.6237348482565055E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.630858208848464E9,
+	"internal_timestamp" : 3.623734849262082E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.6308582088484993E9,
+	"internal_timestamp" : 3.623734850267658E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3251,
+	"driver_timestamp" : 3.6308582088485327E9,
+	"internal_timestamp" : 3.6237348512732344E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3252,
+	"driver_timestamp" : 3.630858208848568E9,
+	"internal_timestamp" : 3.6237348522788105E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3254,
+	"driver_timestamp" : 3.6308582088486023E9,
+	"internal_timestamp" : 3.6237348532843866E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3255,
+	"driver_timestamp" : 3.630858208848659E9,
+	"internal_timestamp" : 3.623734854289963E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3255,
+	"driver_timestamp" : 3.63085820884871E9,
+	"internal_timestamp" : 3.623734855295539E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3255,
+	"driver_timestamp" : 3.6308582088487453E9,
+	"internal_timestamp" : 3.623734856301115E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3254,
+	"driver_timestamp" : 3.6308582088487787E9,
+	"internal_timestamp" : 3.623734857306691E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3253,
+	"driver_timestamp" : 3.630858208848812E9,
+	"internal_timestamp" : 3.6237348583122673E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3254,
+	"driver_timestamp" : 3.630858208848845E9,
+	"internal_timestamp" : 3.623734859317844E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3255,
+	"driver_timestamp" : 3.630858208848878E9,
+	"internal_timestamp" : 3.62373486032342E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3256,
+	"driver_timestamp" : 3.630858208848922E9,
+	"internal_timestamp" : 3.623734861328996E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3257,
+	"driver_timestamp" : 3.630858208848955E9,
+	"internal_timestamp" : 3.623734862334573E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3259,
+	"driver_timestamp" : 3.630858208848998E9,
+	"internal_timestamp" : 3.623734863340149E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3259,
+	"driver_timestamp" : 3.630858208849029E9,
+	"internal_timestamp" : 3.623734864345725E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3259,
+	"driver_timestamp" : 3.630858208849061E9,
+	"internal_timestamp" : 3.623734865351301E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3259,
+	"driver_timestamp" : 3.630858208849092E9,
+	"internal_timestamp" : 3.6237348663568773E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3260,
+	"driver_timestamp" : 3.630858208849123E9,
+	"internal_timestamp" : 3.6237348673624535E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.630858208849154E9,
+	"internal_timestamp" : 3.6237348683680296E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3260,
+	"driver_timestamp" : 3.630858208849184E9,
+	"internal_timestamp" : 3.6237348693736057E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3260,
+	"driver_timestamp" : 3.630858208849215E9,
+	"internal_timestamp" : 3.623734870379182E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3260,
+	"driver_timestamp" : 3.630858208849245E9,
+	"internal_timestamp" : 3.6237348713847585E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.630858208849286E9,
+	"internal_timestamp" : 3.6237348723903346E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.630858208849317E9,
+	"internal_timestamp" : 3.6237348733959107E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849348E9,
+	"internal_timestamp" : 3.623734874401487E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3263,
+	"driver_timestamp" : 3.630858208849378E9,
+	"internal_timestamp" : 3.6237348754070635E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3263,
+	"driver_timestamp" : 3.630858208849428E9,
+	"internal_timestamp" : 3.6237348764126396E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3264,
+	"driver_timestamp" : 3.630858208849468E9,
+	"internal_timestamp" : 3.6237348774182158E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849497E9,
+	"internal_timestamp" : 3.623734878423792E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849525E9,
+	"internal_timestamp" : 3.623734879429368E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.630858208849553E9,
+	"internal_timestamp" : 3.623734880434944E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.630858208849581E9,
+	"internal_timestamp" : 3.6237348814405203E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849608E9,
+	"internal_timestamp" : 3.6237348824460964E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849626E9,
+	"internal_timestamp" : 3.6237348834516726E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3263,
+	"driver_timestamp" : 3.630858208849699E9,
+	"internal_timestamp" : 3.623734884457249E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3264,
+	"driver_timestamp" : 3.6308582088497267E9,
+	"internal_timestamp" : 3.6237348854628253E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.6308582088497543E9,
+	"internal_timestamp" : 3.6237348864684014E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849781E9,
+	"internal_timestamp" : 3.623734887473978E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.6308582088498077E9,
+	"internal_timestamp" : 3.623734888479554E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3260,
+	"driver_timestamp" : 3.630858208849834E9,
+	"internal_timestamp" : 3.6237348894851303E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3261,
+	"driver_timestamp" : 3.63085820884986E9,
+	"internal_timestamp" : 3.6237348904907064E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.630858208849885E9,
+	"internal_timestamp" : 3.6237348914962826E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3262,
+	"driver_timestamp" : 3.6308582088499107E9,
+	"internal_timestamp" : 3.6237348925018587E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3265,
+	"driver_timestamp" : 3.630858208849936E9,
+	"internal_timestamp" : 3.623734893507435E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3265,
+	"driver_timestamp" : 3.6308582088499613E9,
+	"internal_timestamp" : 3.623734894513011E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3266,
+	"driver_timestamp" : 3.630858208850169E9,
+	"internal_timestamp" : 3.623734895518587E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3265,
+	"driver_timestamp" : 3.630858208850218E9,
+	"internal_timestamp" : 3.6237348965241632E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3265,
+	"driver_timestamp" : 3.630858208850263E9,
+	"internal_timestamp" : 3.62373489752974E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3268,
+	"driver_timestamp" : 3.6308582088503227E9,
+	"internal_timestamp" : 3.623734898535316E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3270,
+	"driver_timestamp" : 3.630858208850375E9,
+	"internal_timestamp" : 3.623734899540892E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3272,
+	"driver_timestamp" : 3.630858208850419E9,
+	"internal_timestamp" : 3.6237349005464687E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3272,
+	"driver_timestamp" : 3.630858208850461E9,
+	"internal_timestamp" : 3.623734901552045E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.630858208850503E9,
+	"internal_timestamp" : 3.623734902557621E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.630858208850544E9,
+	"internal_timestamp" : 3.623734903563197E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.630858208850585E9,
+	"internal_timestamp" : 3.6237349045687733E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3275,
+	"driver_timestamp" : 3.630858208850626E9,
+	"internal_timestamp" : 3.6237349055743494E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3276,
+	"driver_timestamp" : 3.630858208850659E9,
+	"internal_timestamp" : 3.6237349065799255E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3280,
+	"driver_timestamp" : 3.630858208850717E9,
+	"internal_timestamp" : 3.6237349075855017E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3278,
+	"driver_timestamp" : 3.63085820885076E9,
+	"internal_timestamp" : 3.623734908591078E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3275,
+	"driver_timestamp" : 3.630858208850802E9,
+	"internal_timestamp" : 3.623734909596654E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3275,
+	"driver_timestamp" : 3.630858208850843E9,
+	"internal_timestamp" : 3.6237349106022305E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3275,
+	"driver_timestamp" : 3.63085820885107E9,
+	"internal_timestamp" : 3.6237349116078067E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3276,
+	"driver_timestamp" : 3.630858208851122E9,
+	"internal_timestamp" : 3.623734912613383E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3274,
+	"driver_timestamp" : 3.63085820885117E9,
+	"internal_timestamp" : 3.6237349136189594E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3273,
+	"driver_timestamp" : 3.6308582088512173E9,
+	"internal_timestamp" : 3.6237349146245356E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3273,
+	"driver_timestamp" : 3.630858208851264E9,
+	"internal_timestamp" : 3.6237349156301117E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.63085820885131E9,
+	"internal_timestamp" : 3.623734916635688E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.630858208851355E9,
+	"internal_timestamp" : 3.623734917641264E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.630858208851399E9,
+	"internal_timestamp" : 3.62373491864684E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3271,
+	"driver_timestamp" : 3.6308582088514433E9,
+	"internal_timestamp" : 3.623734919652416E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3269,
+	"driver_timestamp" : 3.630858208851487E9,
+	"internal_timestamp" : 3.6237349206579924E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3272,
+	"driver_timestamp" : 3.630858208851531E9,
+	"internal_timestamp" : 3.6237349216635685E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3273,
+	"driver_timestamp" : 3.630858208851576E9,
+	"internal_timestamp" : 3.6237349226691446E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3275,
+	"driver_timestamp" : 3.6308582088516197E9,
+	"internal_timestamp" : 3.6237349236747212E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3279,
+	"driver_timestamp" : 3.63085820885166E9,
+	"internal_timestamp" : 3.6237349246802974E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3279,
+	"driver_timestamp" : 3.63085820885172E9,
+	"internal_timestamp" : 3.6237349256858735E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3279,
+	"driver_timestamp" : 3.630858208851762E9,
+	"internal_timestamp" : 3.62373492669145E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3277,
+	"driver_timestamp" : 3.630858208851802E9,
+	"internal_timestamp" : 3.6237349276970263E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3276,
+	"driver_timestamp" : 3.63085820885184E9,
+	"internal_timestamp" : 3.6237349287026024E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3274,
+	"driver_timestamp" : 3.630858208851877E9,
+	"internal_timestamp" : 3.6237349297081785E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3270,
+	"driver_timestamp" : 3.630858208851914E9,
+	"internal_timestamp" : 3.6237349307137547E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3263,
+	"driver_timestamp" : 3.6308582088519497E9,
+	"internal_timestamp" : 3.623734931719331E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3256,
+	"driver_timestamp" : 3.630858208851986E9,
+	"internal_timestamp" : 3.623734932724907E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3250,
+	"driver_timestamp" : 3.630858208852022E9,
+	"internal_timestamp" : 3.623734933730483E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3245,
+	"driver_timestamp" : 3.630858208852057E9,
+	"internal_timestamp" : 3.623734934736059E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3238,
+	"driver_timestamp" : 3.630858208852092E9,
+	"internal_timestamp" : 3.623734935741636E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3229,
+	"driver_timestamp" : 3.630858208852127E9,
+	"internal_timestamp" : 3.623734936747212E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3222,
+	"driver_timestamp" : 3.630858208852162E9,
+	"internal_timestamp" : 3.623734937752788E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3212,
+	"driver_timestamp" : 3.6308582088521957E9,
+	"internal_timestamp" : 3.623734938758364E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3205,
+	"driver_timestamp" : 3.63085820885223E9,
+	"internal_timestamp" : 3.623734939763941E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3198,
+	"driver_timestamp" : 3.630858208852264E9,
+	"internal_timestamp" : 3.623734940769517E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3191,
+	"driver_timestamp" : 3.630858208852297E9,
+	"internal_timestamp" : 3.623734941775093E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3184,
+	"driver_timestamp" : 3.630858208852331E9,
+	"internal_timestamp" : 3.623734942780669E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3178,
+	"driver_timestamp" : 3.630858208852365E9,
+	"internal_timestamp" : 3.6237349437862453E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3175,
+	"driver_timestamp" : 3.630858208852398E9,
+	"internal_timestamp" : 3.6237349447918215E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3169,
+	"driver_timestamp" : 3.6308582088524313E9,
+	"internal_timestamp" : 3.6237349457973976E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3163,
+	"driver_timestamp" : 3.6308582088524637E9,
+	"internal_timestamp" : 3.6237349468029737E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3160,
+	"driver_timestamp" : 3.630858208852496E9,
+	"internal_timestamp" : 3.62373494780855E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3153,
+	"driver_timestamp" : 3.630858208852528E9,
+	"internal_timestamp" : 3.6237349488141265E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3145,
+	"driver_timestamp" : 3.630858208852561E9,
+	"internal_timestamp" : 3.6237349498197026E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3136,
+	"driver_timestamp" : 3.630858208852593E9,
+	"internal_timestamp" : 3.6237349508252788E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3124,
+	"driver_timestamp" : 3.630858208852624E9,
+	"internal_timestamp" : 3.6237349518308554E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3112,
+	"driver_timestamp" : 3.630858208852659E9,
+	"internal_timestamp" : 3.6237349528364315E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3091,
+	"driver_timestamp" : 3.630858208852682E9,
+	"internal_timestamp" : 3.6237349538420076E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3070,
+	"driver_timestamp" : 3.630858208852745E9,
+	"internal_timestamp" : 3.623734954847584E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3051,
+	"driver_timestamp" : 3.6308582088527946E9,
+	"internal_timestamp" : 3.62373495585316E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3036,
+	"driver_timestamp" : 3.630858208852845E9,
+	"internal_timestamp" : 3.623734956858736E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3023,
+	"driver_timestamp" : 3.6308582088528767E9,
+	"internal_timestamp" : 3.623734957864312E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3011,
+	"driver_timestamp" : 3.630858208852909E9,
+	"internal_timestamp" : 3.6237349588698883E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 3000,
+	"driver_timestamp" : 3.6308582088529387E9,
+	"internal_timestamp" : 3.6237349598754644E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2992,
+	"driver_timestamp" : 3.63085820885297E9,
+	"internal_timestamp" : 3.6237349608810406E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2989,
+	"driver_timestamp" : 3.6308582088529997E9,
+	"internal_timestamp" : 3.623734961886617E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2988,
+	"driver_timestamp" : 3.6308582088530293E9,
+	"internal_timestamp" : 3.6237349628921933E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2990,
+	"driver_timestamp" : 3.630858208853059E9,
+	"internal_timestamp" : 3.6237349638977695E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2994,
+	"driver_timestamp" : 3.6308582088530893E9,
+	"internal_timestamp" : 3.623734964903346E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2995,
+	"driver_timestamp" : 3.630858208853118E9,
+	"internal_timestamp" : 3.623734965908922E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2995,
+	"driver_timestamp" : 3.630858208853147E9,
+	"internal_timestamp" : 3.6237349669144983E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2997,
+	"driver_timestamp" : 3.630858208853176E9,
+	"internal_timestamp" : 3.6237349679200745E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2997,
+	"driver_timestamp" : 3.6308582088532047E9,
+	"internal_timestamp" : 3.6237349689256506E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2999,
+	"driver_timestamp" : 3.6308582088532343E9,
+	"internal_timestamp" : 3.6237349699312267E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2999,
+	"driver_timestamp" : 3.630858208853261E9,
+	"internal_timestamp" : 3.623734970936803E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2998,
+	"driver_timestamp" : 3.63085820885329E9,
+	"internal_timestamp" : 3.623734971942379E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2995,
+	"driver_timestamp" : 3.630858208853318E9,
+	"internal_timestamp" : 3.623734972947955E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2991,
+	"driver_timestamp" : 3.630858208853345E9,
+	"internal_timestamp" : 3.6237349739535313E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2983,
+	"driver_timestamp" : 3.630858208853372E9,
+	"internal_timestamp" : 3.623734974959108E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2974,
+	"driver_timestamp" : 3.6308582088534E9,
+	"internal_timestamp" : 3.623734975964684E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2964,
+	"driver_timestamp" : 3.630858208853427E9,
+	"internal_timestamp" : 3.62373497697026E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2953,
+	"driver_timestamp" : 3.630858208853454E9,
+	"internal_timestamp" : 3.6237349779758368E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2945,
+	"driver_timestamp" : 3.6308582088534803E9,
+	"internal_timestamp" : 3.623734978981413E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2935,
+	"driver_timestamp" : 3.630858208853506E9,
+	"internal_timestamp" : 3.623734979986989E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2930,
+	"driver_timestamp" : 3.630858208853532E9,
+	"internal_timestamp" : 3.623734980992565E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2923,
+	"driver_timestamp" : 3.630858208853558E9,
+	"internal_timestamp" : 3.6237349819981413E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2916,
+	"driver_timestamp" : 3.6308582088535833E9,
+	"internal_timestamp" : 3.6237349830037174E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2911,
+	"driver_timestamp" : 3.630858208853609E9,
+	"internal_timestamp" : 3.6237349840092936E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2905,
+	"driver_timestamp" : 3.63085820885366E9,
+	"internal_timestamp" : 3.6237349850148697E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2900,
+	"driver_timestamp" : 3.630858208853702E9,
+	"internal_timestamp" : 3.623734986020446E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2895,
+	"driver_timestamp" : 3.6308582088537292E9,
+	"internal_timestamp" : 3.623734987026022E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2890,
+	"driver_timestamp" : 3.630858208853755E9,
+	"internal_timestamp" : 3.6237349880315986E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2884,
+	"driver_timestamp" : 3.6308582088539553E9,
+	"internal_timestamp" : 3.6237349890371747E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2880,
+	"driver_timestamp" : 3.630858208854004E9,
+	"internal_timestamp" : 3.623734990042751E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2876,
+	"driver_timestamp" : 3.630858208854048E9,
+	"internal_timestamp" : 3.6237349910483274E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2872,
+	"driver_timestamp" : 3.6308582088540916E9,
+	"internal_timestamp" : 3.6237349920539036E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2871,
+	"driver_timestamp" : 3.630858208854134E9,
+	"internal_timestamp" : 3.6237349930594797E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2868,
+	"driver_timestamp" : 3.630858208854175E9,
+	"internal_timestamp" : 3.623734994065056E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2865,
+	"driver_timestamp" : 3.630858208854217E9,
+	"internal_timestamp" : 3.623734995070632E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2861,
+	"driver_timestamp" : 3.630858208854258E9,
+	"internal_timestamp" : 3.623734996076208E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2858,
+	"driver_timestamp" : 3.630858208854299E9,
+	"internal_timestamp" : 3.6237349970817842E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2854,
+	"driver_timestamp" : 3.63085820885434E9,
+	"internal_timestamp" : 3.6237349980873604E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2852,
+	"driver_timestamp" : 3.6308582088543797E9,
+	"internal_timestamp" : 3.6237349990929365E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2851,
+	"driver_timestamp" : 3.6308582088544207E9,
+	"internal_timestamp" : 3.623735000098513E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2848,
+	"driver_timestamp" : 3.6308582088544607E9,
+	"internal_timestamp" : 3.6237350011040893E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2847,
+	"driver_timestamp" : 3.630858208854501E9,
+	"internal_timestamp" : 3.6237350021096654E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2846,
+	"driver_timestamp" : 3.63085820885454E9,
+	"internal_timestamp" : 3.6237350031152415E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2844,
+	"driver_timestamp" : 3.63085820885458E9,
+	"internal_timestamp" : 3.623735004120818E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2842,
+	"driver_timestamp" : 3.63085820885462E9,
+	"internal_timestamp" : 3.6237350051263943E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2838,
+	"driver_timestamp" : 3.630858208854658E9,
+	"internal_timestamp" : 3.6237350061319704E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2832,
+	"driver_timestamp" : 3.6308582088547153E9,
+	"internal_timestamp" : 3.6237350071375465E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2827,
+	"driver_timestamp" : 3.6308582088547564E9,
+	"internal_timestamp" : 3.6237350081431227E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2818,
+	"driver_timestamp" : 3.630858208854795E9,
+	"internal_timestamp" : 3.623735009148699E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2810,
+	"driver_timestamp" : 3.6308582088548326E9,
+	"internal_timestamp" : 3.623735010154275E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2803,
+	"driver_timestamp" : 3.6308582088548717E9,
+	"internal_timestamp" : 3.623735011159851E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2798,
+	"driver_timestamp" : 3.63085820885491E9,
+	"internal_timestamp" : 3.623735012165427E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2792,
+	"driver_timestamp" : 3.630858208854948E9,
+	"internal_timestamp" : 3.623735013171004E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2789,
+	"driver_timestamp" : 3.630858208854986E9,
+	"internal_timestamp" : 3.62373501417658E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2788,
+	"driver_timestamp" : 3.6308582088550243E9,
+	"internal_timestamp" : 3.623735015182156E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2784,
+	"driver_timestamp" : 3.630858208855061E9,
+	"internal_timestamp" : 3.6237350161877327E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2782,
+	"driver_timestamp" : 3.630858208855098E9,
+	"internal_timestamp" : 3.623735017193309E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2780,
+	"driver_timestamp" : 3.630858208855134E9,
+	"internal_timestamp" : 3.623735018198885E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2779,
+	"driver_timestamp" : 3.630858208855171E9,
+	"internal_timestamp" : 3.623735019204461E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2778,
+	"driver_timestamp" : 3.630858208855208E9,
+	"internal_timestamp" : 3.623735020210037E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2778,
+	"driver_timestamp" : 3.6308582088552437E9,
+	"internal_timestamp" : 3.6237350212156134E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2778,
+	"driver_timestamp" : 3.63085820885528E9,
+	"internal_timestamp" : 3.6237350222211895E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2777,
+	"driver_timestamp" : 3.630858208855316E9,
+	"internal_timestamp" : 3.6237350232267656E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2775,
+	"driver_timestamp" : 3.630858208855352E9,
+	"internal_timestamp" : 3.623735024232342E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2773,
+	"driver_timestamp" : 3.6308582088553877E9,
+	"internal_timestamp" : 3.623735025237918E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2772,
+	"driver_timestamp" : 3.630858208855423E9,
+	"internal_timestamp" : 3.6237350262434945E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2770,
+	"driver_timestamp" : 3.630858208855459E9,
+	"internal_timestamp" : 3.6237350272490706E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2769,
+	"driver_timestamp" : 3.630858208855493E9,
+	"internal_timestamp" : 3.623735028254647E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2768,
+	"driver_timestamp" : 3.630858208855528E9,
+	"internal_timestamp" : 3.6237350292602234E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2766,
+	"driver_timestamp" : 3.630858208855563E9,
+	"internal_timestamp" : 3.6237350302657995E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2766,
+	"driver_timestamp" : 3.630858208855597E9,
+	"internal_timestamp" : 3.6237350312713757E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2764,
+	"driver_timestamp" : 3.630858208855658E9,
+	"internal_timestamp" : 3.623735032276952E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2763,
+	"driver_timestamp" : 3.630858208855709E9,
+	"internal_timestamp" : 3.623735033282528E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2760,
+	"driver_timestamp" : 3.6308582088557453E9,
+	"internal_timestamp" : 3.623735034288104E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2757,
+	"driver_timestamp" : 3.6308582088557787E9,
+	"internal_timestamp" : 3.62373503529368E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2757,
+	"driver_timestamp" : 3.630858208855813E9,
+	"internal_timestamp" : 3.6237350362992563E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2756,
+	"driver_timestamp" : 3.630858208855847E9,
+	"internal_timestamp" : 3.6237350373048325E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2754,
+	"driver_timestamp" : 3.63085820885588E9,
+	"internal_timestamp" : 3.6237350383104086E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2754,
+	"driver_timestamp" : 3.630858208855913E9,
+	"internal_timestamp" : 3.623735039315985E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2752,
+	"driver_timestamp" : 3.630858208855946E9,
+	"internal_timestamp" : 3.6237350403215613E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2749,
+	"driver_timestamp" : 3.630858208855978E9,
+	"internal_timestamp" : 3.6237350413271375E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2746,
+	"driver_timestamp" : 3.630858208856011E9,
+	"internal_timestamp" : 3.623735042332714E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2745,
+	"driver_timestamp" : 3.630858208856043E9,
+	"internal_timestamp" : 3.62373504333829E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2746,
+	"driver_timestamp" : 3.6308582088560753E9,
+	"internal_timestamp" : 3.6237350443438663E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2745,
+	"driver_timestamp" : 3.6308582088561068E9,
+	"internal_timestamp" : 3.6237350453494425E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+}, {
+	"dofst_k_oxygen" : 2744,
+	"driver_timestamp" : 3.630858208856139E9,
+	"internal_timestamp" : 3.6237350463550186E9,
+	"quality_flag" : "ok",
+	"stream_name" : "dofst_k_wfp_instrument",
+	"preferred_timestamp" : "internal_timestamp"
+	}
+	]
