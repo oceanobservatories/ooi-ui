@@ -83,9 +83,18 @@ var TOCItemView = Backbone.View.extend({
     }
   },
   render: function() {
+    var data = this.model.toJSON();
+    var arrow = this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany;
+    if(data.reference_designator && data.reference_designator.length == 8) {
+      arrow = false;
+      this.$el.toggleClass('parent-platform');
+    } else if(data.display_name && data.display_name.indexOf('-')>=0) {
+      var items = data.display_name.split(' - ');
+      data.display_name = items[items.length-1];
+    } 
     this.$el.html(this.template({
-      data: this.model.toJSON(),
-      arrow: this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany
+      data: data,
+      arrow: arrow
     }));
   }
 });
