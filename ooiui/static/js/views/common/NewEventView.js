@@ -16,12 +16,14 @@ var NewEventView = Backbone.View.extend({
     this.show();
   },
   onListView: function(){  
-    this.$el.addClass('active');
+    $('#list-view').addClass('active')
     $('#timeline-view').removeClass('active')
+    $('#panelEvents').empty()
   },
   onTimelineView: function(){
-    this.$el.addClass('active');
+    $('#timeline-view').addClass('active');
     $('#list-view').removeClass('active')
+    $('#panelEvents').empty()
   },
   show: function() {
     this.$el.find('.modal').modal('show');
