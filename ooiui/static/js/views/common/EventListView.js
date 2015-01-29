@@ -1,7 +1,7 @@
 "use strict";
 /*
-* ooiui/static/js/views/common/EventView.js
-* View definitions for charts
+* ooiui/static/js/views/common/EventListView.js
+* View definitions an accordion style for event views
 *
 * Dependencies
 * Partials
@@ -16,7 +16,7 @@
 * Usage
 */
 
-var EventView = Backbone.View.extend({
+var EventListView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render", "onSync");
     this.collection.comparator = function(model) {
@@ -28,7 +28,7 @@ var EventView = Backbone.View.extend({
   onSync: function() {
     this.render();
   },
-  template: JST['ooiui/static/js/partials/Event.html'],
+  template: JST['ooiui/static/js/partials/EventList.html'],
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
   }
