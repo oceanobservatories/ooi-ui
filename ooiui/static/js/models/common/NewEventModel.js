@@ -1,12 +1,12 @@
 "use strict";
 
 /*
- * header goes here"
- */
+* header goes here"
+*/
 
-var LoginModel = Backbone.Model.extend({
-  url: '/api/login',
-  logIn: function() {
+var NewEventModel = Backbone.Model.extend({
+  url: '/api/new_event',
+  new_event: function() {
     var self = this;
     this.save(null, {
       async: false,
@@ -51,7 +51,7 @@ var LoginModel = Backbone.Model.extend({
     console.log("expiration");
     console.log(parseInt(expiration));
     return {
-      login: this.get('login'),
+      new_event: this.get('new_event'),
       token: response.token,
       expiration: parseInt(response.expiration),
       password: "",
@@ -59,7 +59,7 @@ var LoginModel = Backbone.Model.extend({
     }
   },
   defaults: {
-    login: "",
+    new_event: "",
     password: "",
     token: "",
     expiration: "",

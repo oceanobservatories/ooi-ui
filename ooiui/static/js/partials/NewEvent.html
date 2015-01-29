@@ -1,38 +1,97 @@
+<<<<<<< HEAD
+=======
+<!-- <div class="pull-right"> -->
+<div class="dropdown">
+  <a class="active btn-sm btn-default" id='list-view' href="#"><i class="fa fa-list"></i></a>
+  <a class="btn-sm btn-default" id='timeline-view' href="#"><i class="fa fa-align-center"></i></a>
+
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="fa fa-caret-down"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li>
+      <a id='new-event-link' href="#">New Event</a>
+    </li>
+  </ul>
+  <!-- /.dropdown-alerts -->
+</div>
+>>>>>>> bbec69c... watch-view_fixed css issues for newEvents modal_cleanned up code for login modal
 <!-- </div> -->
-<div class="lgn btn-launch">
+<div class="newEvent btn-launch">
+
+
+
   <!--Modal-->
-  <div class="modal fade" id="new-event-modal">
+  <div class="modal fade" id="newEventModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <!--Header-->
-        <div class="lgn-header">
+        <div class="newEvent-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
 
-        </div> <!-- lgn-header -->
+        </div> <!-- newEvent-header -->
+
+
+
 
         <!--Body-->
-        <div class="lgn-body">
-          <div class="lgn-center">
-            <div class="image"></div>
-            <div class="lgn-message"></div>
-            <br>
-            <input class="lgn-input" id="usrInput" type="text" name="password" size="25" placeholder="Email/Username">
-            <input class="lgn-input" id="passInput" type="password" name="username" size="25" placeholder="Password" />
-            <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btn-new-event">New Event</button>
-          </div> <!-- lgn-center -->
-        </div> <!-- lgn-body -->
+        <div class="newEvent-body">
+          <!--           <div class="newEvent-center">
+        -->            <div class="image"></div>
+        <div class="newEvent-message"></div>
+        <br>
+        <i class="fa fa-user"></i>&nbsp; User:<br>
+        <i class="fa fa-bullseye"></i>&nbsp; Organization:<br>
+        <i class="fa fa-clock-o"></i>&nbsp; Date/Time:<br>
+        <!-- check other modal for name mixup -->
+        <form>
+          <i class="fa fa-tasks"></i>&nbsp;
+          <input type="text" placeholder="New Event"><br>
+          <i class="fa fa-comment-o"></i>&nbsp;
+          <input type="text" placeholder="Comment">
+        </form>
 
-        <!--Footer-->
-        <div class="lgn-footer">
-          <div class="lgn-footerPass">
-            <a href="#" data-toggle="modal">Forgot Password</a>
-          </div> <!-- lgn-footerPass -->
-          <div class="lgn-footerNewUser">
-            <a href="/signup" data-toggle="modal">New User</a>
-          </div> <!-- lgn-footerNewUser -->
-        </div> <!-- lgn-footer -->
-      </div>  <!-- modal-content -->
-    </div> <!-- modal-dialog -->
-  </div> <!-- modal fade -->
-</div> <!-- lgn btn-launch -->
+        <!-- <p id="utc">Date:</p> -->
+        <!--             <i class="fa fa-clock-o"></i><input class="newEvent-input" id="newTitleInput" type="text" name="title" size="25px" placeholder="Event Title" /><br>
+        <i class="fa fa-clock-o"></i><input class="newEvent-input" id="newCommentInput" type="text" name="comment" size="25" placeholder="Comment" /><br>
+        <i class="fa fa-clock-o"></i><input class="newEvent-input" id="newTypeDD" type="text" name="type" size="25" placeholder="Type" /><br>
+      -->
+      <button class="newEvent btn btn-default btn-logIn enableOnInput" type="button" id="z">New Event</button>
+
+
+      <!--             <script>
+      function myFunction() {
+      var utcDT = new Date(Date.UTC(2012, 02, 30));
+      document.getElementById("utc").innerHTML = utcDT;
+    }
+  </script> -->
+
+
+  <!--           </div> newEvent-center
+-->        </div> <!-- newEvent-body -->
+
+
+
+
+
+
+
+
+
+
+
+<!--Footer-->
+<div class="newEvent-footer">
+  <div class="newEvent-footerPass">
+    <a href="#" data-toggle="modal">Forgot Password</a>
+  </div> <!-- newEvent-footerPass -->
+  <div class="newEvent-footerNewUser">
+    <a href="/signup" data-toggle="modal">New User</a>
+  </div> <!-- newEvent-footerNewUser -->
+</div> <!-- newEvent-footer -->
+</div>  <!-- modal-content -->
+</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+</div> <!-- newEvent btn-launch -->
