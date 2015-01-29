@@ -10,8 +10,9 @@
 
 {% block head %}
 <link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/timeline.css" type="text/css" />
 <!-- Partials -->
-<script src="/js/partials/compiled/opLog.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/OpLog.js" type="text/javascript"></script>
 <script src="/js/compiled/opLog.js" type="text/javascript"></script>
 
 <style>
@@ -161,14 +162,27 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.watchView = new WatchView({
       collection: this.collections.watches
     });
+
     this.listenTo(this.watchView, 'watch:click', this.watchSelection);
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#panelWatch').html(this.watchView.el);
 
-    this.eventView = new EventView({
-      collection: this.collections.events
-    });
-    $('#panelEvents').html(this.eventView.el);
+    //Display the contents of the events in two views
+    console.log($('#list-view').hasClass("active"))
+    if ($('#timeline-view').hasClass("active")){
+      
+      this.timelineEventView = new TimeLineEventView({
+        collection: this.collections.events
+      });
+      $('#panelEvents').html(this.timelineEventView.el);
+      
+    }else{
+
+      this.eventView = new EventView({
+        collection: this.collections.events
+      });
+      $('#panelEvents').html(this.eventView.el);
+    }    
 
     this.newEventView = new NewEventView();
     $('#new-event').append(this.newEventView.el);

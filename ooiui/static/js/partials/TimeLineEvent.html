@@ -1,0 +1,33 @@
+
+<ul class="timeline">   
+<% var i=0; %>
+<% collection.each(function(model) { %>
+
+  <li    <% if(i%2) { %>class="timeline-inverted"<% } else { %>class="" <% }%>        >
+
+  <% if(i == 0) { %>  
+    <div class="timeline-badge danger"><i class="glyphicon glyphicon-check"></i></div>
+  <% } else if(i == 1) { %>
+    <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
+  <% } else { %>
+    <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+  <% } %>
+
+  <div class="timeline-panel">
+    <div class="timeline-heading">
+      <h4 class="timeline-title"><%= model.get('event_title') %></h4>
+      <p>    
+        <small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
+        <%=model.getTime() %>
+        </small> 
+        <p>idx:<% print(i) %></p>            
+      </p>
+    </div>
+    <div class="timeline-body">
+      <p><%= model.get('event_comment') %></p>
+    </div>
+  </div>
+</li>
+<% i+= 1; %>
+<% }); %>
+</ul>

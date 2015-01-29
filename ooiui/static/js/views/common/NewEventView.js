@@ -5,6 +5,8 @@ var NewEventView = Backbone.View.extend({
   events: {
     'click #new-event-link' : 'onClick',
     'click #btn-new-event' : 'onNewEvent',
+    'click #list-view' : 'onListView',
+    'click #timeline-view' : 'onTimelineView',
   },
   initialize: function() {
     _.bindAll(this, "render");
@@ -12,6 +14,16 @@ var NewEventView = Backbone.View.extend({
   },
   onClick: function() {
     this.show();
+  },
+  onListView: function(){  
+    $('#list-view').addClass('active')
+    $('#timeline-view').removeClass('active')
+    $('#panelEvents').empty()
+  },
+  onTimelineView: function(){
+    $('#timeline-view').addClass('active');
+    $('#list-view').removeClass('active')
+    $('#panelEvents').empty()
   },
   show: function() {
     this.$el.find('.modal').modal('show');
