@@ -94,15 +94,7 @@ depending on over all color theme
         </div>
 
 
-        <div class="col-lg-8">
-          <div class="panel">
-            <div id="new-event" class="panel-heading">
-              <strong><span class="fa fa-tasks"></span> Events</strong>
-
-            </div>
-
-            <div id="panelEvents" class="panel-body"></div>
-          </div>
+        <div id="event-view" class="col-lg-8">
         </div>
       </div>
     </div>
@@ -166,25 +158,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#panelWatch').html(this.watchView.el);
 
-    this.newEventView = new NewEventView();
-    this.listenTo(this.newEventView, 'listview:click', this.showEventListView);
-    this.listenTo(this.newEventView, 'timelineview:click', this.showTimelineView);
-    $('#new-event').append(this.newEventView.el);
-    this.showEventListView();
-  },
-  showTimelineView: function() {
-    console.log("hi");
-    this.eventView = new TimeLineEventView({
-      collection: this.collections.events
-    });
-    $('#panelEvents').html(this.eventView.el);
-  },
-  showEventListView: function() {
-    this.eventView = new EventListView({
-      collection: this.collections.events
-    });
-    $('#panelEvents').html(this.eventView.el);
-  },
+    console.log("Creating new EventView");
+    this.eventView = new EventView({collection: this.collections.events});
+    $('#event-view').html(this.eventView.el);
+  },  
 
   /*
    * orgSelection is called by the event listener for org:click. The trigger

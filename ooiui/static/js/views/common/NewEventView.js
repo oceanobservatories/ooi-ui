@@ -1,31 +1,16 @@
 "use strict"
 
 var NewEventView = Backbone.View.extend({
-  className: "pull-right",
-  events: {
-    'click #new-event-link' : 'onClick',
-    'click #btn-new-event' : 'onNewEvent',
-    'click #list-view' : 'onListView',
-    'click #timeline-view' : 'onTimelineView',
-  },
   initialize: function() {
+    console.log("NewEventView initialized");
     _.bindAll(this, "render");
     this.render();
   },
   onClick: function() {
     this.show();
   },
-  onListView: function(){  
-    $('#list-view').addClass('active')
-    $('#timeline-view').removeClass('active')
-    this.trigger('listview:click');
-  },
-  onTimelineView: function(){
-    $('#timeline-view').addClass('active');
-    $('#list-view').removeClass('active')
-    this.trigger('timelineview:click');
-  },
   show: function() {
+    console.log("show");
     this.$el.find('.modal').modal('show');
   },
   hide: function() {
