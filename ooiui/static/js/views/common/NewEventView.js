@@ -2,22 +2,16 @@
 
 var NewEventView = Backbone.View.extend({
   initialize: function() {
-<<<<<<< HEAD
-    console.log("NewEventView initialized");
-    _.bindAll(this, "render");
-=======
+
     _.bindAll(this, "render", "show", "hide");
->>>>>>> bbec69c... watch-view_fixed css issues for newEvents modal_cleanned up code for login modal
     this.render();
   },
   onClick: function() {
     this.show();
   },
-<<<<<<< HEAD
-  show: function() {
-    console.log("show");
-    this.$el.find('.modal').modal('show');
-=======
+  // show: function() {
+  //   console.log("show");
+  //   this.$el.find('.modal').modal('show');
   onListView: function(){
     $('#list-view').addClass('active')
     $('#timeline-view').removeClass('active')
@@ -32,7 +26,6 @@ var NewEventView = Backbone.View.extend({
     $('#newEventModal').modal('show');
     return this;
     // this.$el.find('.modal').modal('show');
->>>>>>> bbec69c... watch-view_fixed css issues for newEvents modal_cleanned up code for login modal
   },
   hide: function() {
     console.log("hide was called");

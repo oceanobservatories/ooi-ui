@@ -161,7 +161,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     console.log("Creating new EventView");
     this.eventView = new EventView({collection: this.collections.events});
     $('#event-view').html(this.eventView.el);
-  },  
+  },
 
   /*
    * orgSelection is called by the event listener for org:click. The trigger
