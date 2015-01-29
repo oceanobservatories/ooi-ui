@@ -1,9 +1,5 @@
 var ChartViews = Backbone.View.extend({
   el: '.content',
-
-  type_template: _.template($('#type-template').html()),
-  filter_template: _.template($('#filter-template').html()),
-
   events: {
     'click button#add': 'addChart',
     'keypress #title': 'createOnEnter'
@@ -29,7 +25,7 @@ var ChartViews = Backbone.View.extend({
     // fill type select with types from collection
     _(this.collection.types).each(function(type){
       var text = type.replace(/([A-Z]+)*([A-Z][a-z])/g,"$1 $2");//readable name
-      $('#type', this.$el).append(this.type_template({
+      $('#type', this.$el).append(this.templates.type_template({
         value: type,
         text: text
       }));
@@ -38,7 +34,7 @@ var ChartViews = Backbone.View.extend({
     // do the same with the filters
     _(['AllChart'].concat(this.collection.types)).each(function(type){
       var text = type.replace(/([A-Z]+)*([A-Z][a-z])/g,"$1 $2");
-      $('.filters ul', this.$el).append(this.filter_template({
+      $('.filters ul', this.$el).append(this.templates.filter_template({
         link: type + 's',
         text: text + 's'
       }));
@@ -53,7 +49,10 @@ var ChartViews = Backbone.View.extend({
       this.appendChart(chart);
     }, this);
   },
-
+  templates: { 
+    type_template: JST['ooiui/static/js/partials/ChartTypeTemplate.html'],
+    filter_template: JST['ooiui/static/js/partials/ChartFilterTemplate.html']
+  },
   addChart: function(){
     var chart = new Chart({
       title: this.$title_input.val().trim() || null, // use default if empty

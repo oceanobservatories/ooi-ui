@@ -15,7 +15,7 @@
  */
 
 var Chart = Backbone.Model.extend({
-  url: 'api/get_data',
+  url: 'json/google_charts.json',
    
   parse: function(response, options){
     _.bindAll(this, 'initialize');
