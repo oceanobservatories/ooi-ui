@@ -1,5 +1,5 @@
 var Charts = Backbone.Collection.extend({
   model: Chart,
-  types: ['AreaChart', 'BarChart', 'ColumnChart', 'LineChart','PieChart','AnnotationChart']
+  types: ['AreaChart', 'BarChart', 'ColumnChart', 'LineChart','ScatterChart','AnnotationChart']
 });
 

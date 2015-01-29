@@ -23,7 +23,7 @@ var ChartView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/Chart.html'],
 
   events: {
-    'click span.delete': 'remove',
+    'click button.delete': 'remove',
     'click span.edit': 'edit',
     'click span.done': 'done'
   },
