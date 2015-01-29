@@ -24,6 +24,11 @@ var NewEventView = Backbone.View.extend({
   },
   show: function() {
     $('#newEventModal').modal('show');
+    this.$el.find('.newEventUser-message').html('John Doe');
+    this.$el.find('.newEventOrg-message').html('EasternOcean Platforms, Inc.');
+
+    console.log("#usrInput");
+
     return this;
     // this.$el.find('.modal').modal('show');
   },

@@ -84,7 +84,7 @@ var NewEvent = Backbone.View.extend({
   },
   show: function() {
     if(this.attempts >= 1) {
-      this.$el.find('.lgn-message').html('Username or Password are incorrect');
+      this.$el.find('.newEvent-message').html('John Doe');
     }
     $('#newEventModal').modal('show');
     return this;
