@@ -1,24 +1,25 @@
-<% var i=0; %>
-<% collection.each(function(model) { %>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading<%= i %>">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
-          <%= model.get('event_title') %>
-          <div class="pull-right">
-            <%=model.getTime() %>
-          </div>
-        </a>
-
-      </h4>
-    </div>
-    <div id="collapse<%= i %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        <%= model.get('event_comment') %>
+<!-- <div class="panel"> -->
+  <div id="new-event" class="panel-heading">
+    <strong><span class="fa fa-tasks"></span> Events</strong>
+      <div class="pull-right">
+        <div class="dropdown">  
+          <a class="btn-sm btn-default" id='list-view' href="#"><i class="fa fa-list"></i></a>
+          <a class="btn-sm btn-default" id='timeline-view' href="#"><i class="fa fa-align-center"></i></a>
+          
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-caret-down"></i>
+          </a>
+         
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+              <a id='new-event-link' href="#">New Event</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
   </div>
-</div>
-<% i+= 1; %>
-<% }); %>
+  <div id="panel-events" class="panel-body"></div>
+  <div id="new-event-modal">
+    <!-- This div is hidden until the modal is shown -->
+  </div>
+<!-- </div> -->
