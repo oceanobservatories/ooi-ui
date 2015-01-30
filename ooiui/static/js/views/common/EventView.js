@@ -23,18 +23,31 @@ var EventView = Backbone.View.extend({
     'click #timeline-view' : 'onTimelineView',
     'click #new-event-link' : 'onNewEvent'
   },
-  initialize: function() {
-    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync");
+  initialize: function(options) {
+    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange");
     this.viewSelection = 'list';
     this.collection.on('sync', this.onSync);
-    this.newEventView = new NewEventView();
-    
-   
+    this.newEventView = null;
+    if(options && options.login) {
+      this.loginModel = options.login;
+      this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
+    }
+
     this.render();
   },
   onNewEvent: function() {
     console.log("onNewEvent");
-    this.newEventView.show();
+    if(this.newEventView === null) {
+      console.error("This button should be disabled");
+    } else {
+      this.newEventView.show();
+    }
+  },
+  onLoginChange: function() {
+    if(this.loginModel.loggedIn()) {
+      this.newEventView = new NewEventView();
+      this.render();
+    }
   },
   onListView: function() {
     console.log("List View");
@@ -66,7 +79,9 @@ var EventView = Backbone.View.extend({
     this.$el.find('#panel-events').html(this.eventView.el);
 
     // NewEventView
-    this.$el.find('#new-event-modal').html(this.newEventView.el);
+    if(this.newEventView !== null) {
+      this.$el.find('#new-event-modal').html(this.newEventView.el);
+    }
   }
 });
 

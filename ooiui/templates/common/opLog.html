@@ -159,7 +159,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('#panelWatch').html(this.watchView.el);
 
     console.log("Creating new EventView");
-    this.eventView = new EventView({collection: this.collections.events});
+    this.eventView = new EventView({collection: this.collections.events, login: this.login});
     $('#event-view').html(this.eventView.el);
   },  
 
