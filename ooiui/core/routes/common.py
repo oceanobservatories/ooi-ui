@@ -1,15 +1,17 @@
 from ooiui.core.app import app
-from flask import request, render_template, Response
+from flask import request, render_template, Response, jsonify
 from ooiui.config import SERVICES_URL
+from werkzeug.exceptions import Unauthorized
 import requests
 import json
 import urllib
 
 def get_login():
     token = request.cookies.get('ooiusertoken')
-    token = urllib.unquote(token).decode('utf8')
     if not token:
-        return '{"error":"Invalid login token"}', 401
+        response = Response(status=401, mimetype='application/json', response=jsonify(error='Invalid Token'))
+        raise Unauthorized(description="Invalid token", response=response)
+    token = urllib.unquote(token).decode('utf8')
     return token
 
 @app.route('/signup')
@@ -35,6 +37,12 @@ def plots_demo():
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(SERVICES_URL + '/organization', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/user', methods=['GET'])
+def get_user():
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/user', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/user', methods=['POST'])
@@ -88,12 +96,6 @@ def put_watch(id):
     token = get_login()
     response = requests.put(SERVICES_URL + '/watch/user/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
-
-@app.route('/api/watch/user', methods=['GET'])
-def get_user():
-    token = get_login()
-    resp = requests.get(SERVICES_URL + '/watch/user', auth=(token,''), params=request.args)
-    return resp.text, resp.status_code
 
 @app.route('/api/watch/open', methods=['GET'])
 def get_watch_open():
