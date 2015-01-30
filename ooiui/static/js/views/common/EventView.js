@@ -31,6 +31,9 @@ var EventView = Backbone.View.extend({
     if(options && options.login) {
       this.loginModel = options.login;
       this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
+      if(this.loginModel.loggedIn()) {
+        this.onLoginChange();
+      }
     }
 
     this.render();
