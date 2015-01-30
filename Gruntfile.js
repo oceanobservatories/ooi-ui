@@ -222,6 +222,7 @@ module.exports = function(grunt) {
           'ooiui/static/js/models/common/WatchModel.js',
           'ooiui/static/js/models/common/OrganizationModel.js',
           'ooiui/static/js/models/common/EventModel.js',
+          'ooiui/static/js/models/common/UserModel.js',
           // Views
           'ooiui/static/js/views/common/DropdownMessagesView.js',
           'ooiui/static/js/views/common/DropdownUserView.js',

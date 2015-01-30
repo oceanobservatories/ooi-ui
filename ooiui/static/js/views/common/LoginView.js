@@ -54,8 +54,8 @@ var LoginView = Backbone.View.extend({
     var self = this;
     e.preventDefault();
     this.model.set({
-      login: $('#usrInput').val(),
-      password: $('#passInput').val()
+      login: this.$el.find('#usrInput').val(),
+      password: this.$el.find('#passInput').val()
     });
 
     this.model.logIn();
