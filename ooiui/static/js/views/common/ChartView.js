@@ -14,70 +14,97 @@
  * Usage
  */
 
+  //  className: "col-sm-12",
+    //    template: JST['ooiui/static/js/partials/Chart.html'],
+
 var ChartView = Backbone.View.extend({
-    className: "col-sm-12",
-    initialize: function() {
-      _.bindAll(this, "render", "drawChart");
-      google.load('visualization', '1', {packages: ['corechart']});
-    },
-    drawChart: function() {
-      console.log("drawChart called");
+  tagName: 'div',
+  
+  template: JST['ooiui/static/js/partials/Chart.html'],
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'Dogs');
+  events: {
+    'click button.delete': 'remove',
+    'click span.edit': 'edit',
+    'click span.done': 'done'
+  },
+  
+  initialize: function(){
+    _.bindAll(this, 'render', 'unrender', 'remove',
+              'edit', 'done', 'toggleVisible');
 
-      data.addRows([
-        [0, 0],   [1, 10],  [2, 23],
-        [3, 17],  [4, 18],  [5, 9],
-        [6, 11],  [7, 27],  [8, 33],
-        [9, 40],  [10, 32], [11, 35],
-        [12, 30], [13, 40], [14, 42],
-        [15, 47], [16, 44], [17, 48],
-        [18, 52], [19, 54], [20, 42],
-        [21, 55], [22, 56], [23, 57],
-        [24, 60], [25, 50], [26, 52],
-        [27, 51], [28, 49], [29, 53],
-        [30, 55], [31, 60], [32, 61],
-        [33, 59], [34, 62], [35, 65],
-        [36, 62], [37, 58], [38, 55],
-        [39, 61], [40, 64], [41, 65],
-        [42, 63], [43, 66], [44, 67],
-        [45, 69], [46, 69], [47, 70],
-        [48, 72], [49, 68], [50, 66],
-        [51, 65], [52, 67], [53, 70],
-        [54, 71], [55, 72], [56, 73],
-        [57, 75], [58, 70], [59, 68],
-        [60, 64], [61, 60], [62, 65],
-        [63, 67], [64, 68], [65, 69],
-        [66, 70], [67, 72], [68, 75],
-        [69, 80]
-      ]);
+    this.listenTo(this.model, 'visible', this.toggleVisible);
 
-      var options = {
-        width: "100%",
-        height: 300,
-        hAxis: {
-          title: 'Time'
-        },
-        vAxis: {
-          title: 'Popularity'
-        },
-        pointSize: 4
-      };
+    this.model.bind('change', this.render);
+    this.model.bind('remove', this.unrender);
+  },
+  
+  render: function(){
+    //render the chart template
+    this.$el.attr('class','chart').html(this.template(this.model.toJSON()));
 
-      var chart = new google.visualization.LineChart(this.el);
+    //render the chart itself using the Google Charts API
+    var type = this.model.get('type');
+    var data = this.model.get('data');
+    var chart_container = this.$el.find('.chart-contents').get(0);
+    var chart = new google.visualization[type](chart_container);
+    chart.draw(data, {width: 400, height: 254});
 
-      console.log("Before draw");
-      chart.draw(data, options);
-      console.log("After draw");
+    return this;
+  },
 
-    },
-    template: JST['ooiui/static/js/partials/Chart.html'],
-    render: function() {
-      console.log("Render called");
-      this.$el.html(this.template());
-      console.log("Render called before set on load callback");
-      google.setOnLoadCallback(this.drawChart);
+  unrender: function(){
+    this.$el.remove();
+  },
+
+  remove: function(){
+    if (confirm('Are you sure you want to remove this chart?')){
+      this.model.destroy();
     }
+  },
+
+  edit: function(){
+    //hide view area, show edit area
+    this.$('.view-chart').addClass('hidden');
+    this.$('.edit-chart').removeClass('hidden');
+
+    // build inputs for chart edition
+    var data = this.model.get('data');
+    var container = this.$('.edit-contents');
+    container.find('p').remove(); //remove previous input fields, if any
+    for(var i = 0; i < data.getNumberOfRows(); i++){
+      var p = container.append('<p>').find('p').last(); //one <p> per row
+      for(var j = 0; j < data.getNumberOfColumns(); j++){
+        p.append('<input value=' + data.getValue(i, j) + '></input>');
+      }
+    }
+
+  },
+
+  done: function(){
+    //pick up data and save it into the model
+    var data = this.model.get('data');
+    this.$('.edit-contents p').each(function(row_index){ // for each row
+      $('input', this).each(function(col_index){ // for each column
+        var value = $(this).val();
+        // first row is label, type string, remaining rows are numbers
+        if (col_index != 0) value = parseInt(value);
+        data.setCell(row_index, col_index, value);
+      });
+    });
+    // trigger 'change' event manually since data.setCell() does not trigger it
+    this.model.trigger('change');
+
+    //show view area, hide edit area
+    this.$('.view-chart').removeClass('hidden');
+    this.$('.edit-chart').addClass('hidden');
+  },
+
+  toggleVisible: function() {
+    var hidden =
+      app.filter != 'AllChart' &&
+      this.model.get('type') != app.filter;
+    this.$el.toggleClass('hidden', hidden);
+  }
+
 });
+ 
