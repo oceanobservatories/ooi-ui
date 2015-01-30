@@ -20,8 +20,9 @@
  * The WatchView will render the watches from the collection as a list-group.
  */
 var WatchView = Backbone.View.extend({
+  className: 'panel',
   events: {
-    'click a': 'onClick'
+    'click .watch-item': 'onClick'
   },
   initialize: function() {
     _.bindAll(this, "render", "onSync", "onClick");
@@ -43,6 +44,7 @@ var WatchView = Backbone.View.extend({
     };
     // Whenever this collection is fetched, call this.onSync
     this.collection.on('sync', this.onSync);
+    this.render();
   },
   onClick: function(e) {
     this.trigger('watch:click', $(e.target).closest('.watch-item').attr('data-id'));
@@ -58,6 +60,7 @@ var WatchView = Backbone.View.extend({
   // comment
   template: JST['ooiui/static/js/partials/Watch.html'],
   render: function() {
+    var orgSelected = false;
     // Sort by the end date
     this.collection.sort();
     this.$el.html(this.template({collection: this.collection}));

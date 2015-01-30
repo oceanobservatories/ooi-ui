@@ -71,26 +71,7 @@ depending on over all color theme
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div  class="col-lg-4">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong><span class="fa fa-navicon"></span> Watches</strong>
-              <div class="pull-right dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="#">Watch stuff</a>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <div id="panelWatch" class="panel-body"></div>
-
-          </div>
+        <div  id="watch-view" class="col-lg-4">
         </div>
 
 
@@ -160,9 +141,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
     this.listenTo(this.watchView, 'watch:click', this.watchSelection);
     // We bind the watch view to the middle panel with the id 'panelWatch'
-    $('#panelWatch').html(this.watchView.el);
+    $('#watch-view').html(this.watchView.el);
 
-    console.log("Creating new EventView");
     this.eventView = new EventView({
       collection: this.collections.events, 
       watchModel: this.models.watchModel,
@@ -179,8 +159,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
-    this.model.orgModel.set({id: organization_id});
-    this.model.orgModel.fetch();
+    this.models.orgModel.set({id: organization_id});
+    this.models.orgModel.fetch();
     // We have selected a new organization, so now we need to update the watch
     // GET /api/watch?organization_id=<organization_id>
     this.collections.watches.fetch({

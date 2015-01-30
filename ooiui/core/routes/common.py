@@ -39,6 +39,11 @@ def get_organization():
     response = requests.get(SERVICES_URL + '/organization', params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/organization/<int:id>', methods=['GET'])
+def get_organization_by_id(id):
+    response = requests.get(SERVICES_URL + '/organization/%s' % id, params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/user', methods=['GET'])
 def get_user():
     token = get_login()
@@ -93,8 +98,7 @@ def get_watch_user():
 
 @app.route('/api/watch/<int:id>', methods=['GET'])
 def get_watch_by_id(id):
-    token = get_login()
-    response = requests.get(SERVICES_URL + '/watch/%s' % id, auth=(token, ''))
+    response = requests.get(SERVICES_URL + '/watch/%s' % id)
     return response.text, response.status_code
 
 @app.route('/api/watch/<int:id>', methods=['PUT'])
