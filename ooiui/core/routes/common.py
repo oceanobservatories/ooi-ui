@@ -91,10 +91,16 @@ def get_watch_user():
     response = requests.get(SERVICES_URL + '/watch/user/', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/watch/<int:id>', methods=['GET'])
+def get_watch_by_id(id):
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/watch/%s' % id, auth=(token, ''))
+    return response.text, response.status_code
+
 @app.route('/api/watch/<int:id>', methods=['PUT'])
 def put_watch(id):
     token = get_login()
-    response = requests.put(SERVICES_URL + '/watch/user/%s' % id, auth=(token, ''), data=request.data)
+    response = requests.put(SERVICES_URL + '/watch/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/watch/open', methods=['GET'])

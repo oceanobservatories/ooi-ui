@@ -122,6 +122,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     //events: new Events(),
     events: new EventsCollection()
   },
+  models: {
+    watchModel: new WatchModel(),
+    orgModel: new OrganizationModel()
+  },
   start: function() {
     // Navbar
     // Instantiate the navbar view
@@ -159,7 +163,12 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('#panelWatch').html(this.watchView.el);
 
     console.log("Creating new EventView");
-    this.eventView = new EventView({collection: this.collections.events, login: this.login});
+    this.eventView = new EventView({
+      collection: this.collections.events, 
+      watchModel: this.models.watchModel,
+      orgModel: this.models.orgModel,
+      login: this.login
+    });
     $('#event-view').html(this.eventView.el);
   },  
 
@@ -170,6 +179,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
+    this.model.orgModel.set({id: organization_id});
+    this.model.orgModel.fetch();
     // We have selected a new organization, so now we need to update the watch
     // GET /api/watch?organization_id=<organization_id>
     this.collections.watches.fetch({
@@ -180,6 +191,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // and the watch view will re-render with the new watches.
   },
   watchSelection: function(watch_id) {
+    this.models.watchModel.set({id: watch_id});
+    this.models.watchModel.fetch();
     this.collections.events.fetch({
       data: $.param({watch_id: watch_id}),
     });
