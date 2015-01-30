@@ -28,8 +28,13 @@ var EventView = Backbone.View.extend({
     this.viewSelection = 'list';
     this.collection.on('sync', this.onSync);
     this.newEventView = null;
-    if(options && options.login) {
+    if(options && options.login && options.watchModel && options.orgModel) {
+      
+      // The models
       this.loginModel = options.login;
+      this.watchModel = options.watchModel;
+      this.orgModel = options.orgModel;
+
       this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
       if(this.loginModel.loggedIn()) {
         this.onLoginChange();
@@ -48,7 +53,9 @@ var EventView = Backbone.View.extend({
   },
   onLoginChange: function() {
     if(this.loginModel.loggedIn()) {
-      this.newEventView = new NewEventView();
+      this.newEventView = new NewEventView({
+        watchModel: this.watchModel
+      });
       this.render();
     }
   },
