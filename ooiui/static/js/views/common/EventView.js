@@ -54,7 +54,8 @@ var EventView = Backbone.View.extend({
   onLoginChange: function() {
     if(this.loginModel.loggedIn()) {
       this.newEventView = new NewEventView({
-        watchModel: this.watchModel
+        watchModel: this.watchModel,
+        orgModel: this.orgModel
       });
       this.render();
     }
