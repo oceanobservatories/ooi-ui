@@ -19,6 +19,9 @@
 
 var UserModel = Backbone.Model.extend({
   urlRoot: '/api/user',
+  getFullName: function() {
+    return this.get('first_name') + ' ' + this.get('last_name');
+  },
   defaults: {
     active: false,
     email: "",

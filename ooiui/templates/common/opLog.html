@@ -102,7 +102,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // watches is the Watch collection, by default is un-fetched
     watches: new Watches(),
     //events: new Events(),
-    events: new EventsCollection()
+    events: new EventsCollection(),
+    operatorEventTypes: new OperatorEventTypeCollection()
   },
   models: {
     watchModel: new WatchModel(),
@@ -110,6 +111,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     userModel: new UserModel()
   },
   start: function() {
+    this.collections.operatorEventTypes.fetch();
     // Navbar
     // Instantiate the navbar view
     this.navbar = new NavbarView({login: this.login});
@@ -158,7 +160,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
       collection: this.collections.events, 
       watchModel: this.models.watchModel,
       orgModel: this.models.orgModel,
-      login: this.login
+      login: this.login,
+      operatorEventTypes: this.collections.operatorEventTypes,
+      userModel: this.models.userModel
     });
     $('#event-view').html(this.eventView.el);
   },

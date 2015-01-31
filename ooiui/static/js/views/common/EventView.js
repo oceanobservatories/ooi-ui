@@ -28,18 +28,28 @@ var EventView = Backbone.View.extend({
     this.viewSelection = 'list';
     this.collection.on('sync', this.onSync);
     this.newEventView = null;
-    if(options && options.login && options.watchModel && options.orgModel) {
+    if(options 
+       && options.login 
+       && options.watchModel 
+       && options.orgModel 
+       && options.operatorEventTypes 
+       && options.userModel) {
       
       // The models
       this.loginModel = options.login;
       this.watchModel = options.watchModel;
       this.orgModel = options.orgModel;
+      this.userModel = options.userModel;
+      this.operatorEventTypes = options.operatorEventTypes;
 
       this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
       if(this.loginModel.loggedIn()) {
         this.onLoginChange();
       }
+    } else {
+      console.error("Failed to initialize EventView without necessary parameters");
     }
+
 
     this.render();
   },
@@ -55,7 +65,9 @@ var EventView = Backbone.View.extend({
     if(this.loginModel.loggedIn()) {
       this.newEventView = new NewEventView({
         watchModel: this.watchModel,
-        orgModel: this.orgModel
+        orgModel: this.orgModel,
+        userModel: this.userModel,
+        operatorEventTypes: this.operatorEventTypes
       });
       this.render();
     }
