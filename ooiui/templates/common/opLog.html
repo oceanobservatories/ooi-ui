@@ -136,10 +136,12 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // Left Panel
     // We create a watch view that will be empty at first.
     this.watchView = new WatchView({
-      collection: this.collections.watches
+      collection: this.collections.watches,
+      login: this.login
     });
 
-    this.listenTo(this.watchView, 'watch:click', this.watchSelection);
+    this.listenTo(this.watchView, 'watchview:click', this.watchSelection);
+    this.listenTo(this.watchView, 'watchview:newwatch', this.newWatch);
     // We bind the watch view to the middle panel with the id 'panelWatch'
     $('#watch-view').html(this.watchView.el);
 
@@ -175,6 +177,13 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.models.watchModel.fetch();
     this.collections.events.fetch({
       data: $.param({watch_id: watch_id}),
+    });
+  },
+  newWatch: function() {
+    var organization_id = this.models.orgModel.get('id');
+    console.log("new Watch in app");
+    this.collections.watches.fetch({
+      data: $.param({organization_id: organization_id}),
     });
   }
 });

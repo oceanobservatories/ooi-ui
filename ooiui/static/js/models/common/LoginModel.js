@@ -40,6 +40,7 @@ var LoginModel = Backbone.Model.extend({
     console.log("Log Out");
     $.removeCookie('ooiusertoken', { path: '/' });
     this.set(this.defaults);
+    this.trigger('login:logout');
   },
   fetch: function() {
     var tokenString = $.cookie('ooiusertoken');

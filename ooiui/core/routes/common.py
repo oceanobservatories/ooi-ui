@@ -84,7 +84,7 @@ def get_watch():
     response = requests.get(SERVICES_URL + '/watch', params=request.args)
     return response.text, response.status_code
 
-@app.route('/apt/watch', methods=['POST'])
+@app.route('/api/watch', methods=['POST'])
 def post_watch():
     token = get_login()
     response = requests.post(SERVICES_URL + '/watch', auth=(token, ''), data=request.data)
