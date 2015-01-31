@@ -1,38 +1,109 @@
-<!-- </div> -->
-<div class="lgn btn-launch">
+<div class="newEvent btn-launch">
+
   <!--Modal-->
-  <div class="modal fade" id="new-event-modal">
+  <div class="modal fade" id="newEventModal">
     <div class="modal-dialog">
       <div class="modal-content">
+
         <!--Header-->
-        <div class="lgn-header">
+        <div class="newEvent-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
-
-        </div> <!-- lgn-header -->
+        </div> <!-- newEvent-header -->
 
         <!--Body-->
-        <div class="lgn-body">
-          <div class="lgn-center">
-            <div class="image"></div>
-            <div class="lgn-message"></div>
-            <br>
-            <input class="lgn-input" id="usrInput" type="text" name="password" size="25" placeholder="Email/Username">
-            <input class="lgn-input" id="passInput" type="password" name="username" size="25" placeholder="Password" />
-            <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btn-new-event">New Event</button>
-          </div> <!-- lgn-center -->
-        </div> <!-- lgn-body -->
+        <div class="newEvent-body">
+          <div class="image"></div>
+          <div class="lgn-message"></div>
+          <br>
+          <div class="newEvent-center">
+          <div class="newEventUser-message"></div>
+          <div class="newEventOrg-message"></div>
+          <div id="dateTime"></div>
+          <input class="newEvent-input" id="newTitleInput" type="text" name="title" placeholder="&#xf022; Event Title" size="25px" />
+          <input class="newEvent-input" id="newCommentInput" type="text" name="comment" placeholder="&#xf0e5; Comment" size="25" />
+</div>
+<div class="newEvent-center">
+<select class="typeDrop">
+  <option selected disabled>
+    --Choose Type--
+  </option>
+  <option value="asa">
+    ASA
+  </option>
+  <option value="easternOceanPlat">
+    Eastern Ocean Platforms, Inc.
+  </option>
+  <option value="offshoreInt">
+    Offshore Instruments
+  </option>
+  <option value="westCostLabs">
+    West Coast Labs, Inc.
+  </option>
+  <option value="nationalScienceFnd">
+    National Science Foundation
+  </option>
+  <option value="oceanLeadership">
+    Ocean Leadership
+  </option>
+  <option value="whoi">
+    WHOI
+  </option>
+  <option value="scipps">
+    Scripps
+  </option>
+  <option value="us">
+    UW
+  </option>
+</select>
+</div>
+<div class="newEvent-center">
+
+
+          <button class="newEvent btn btn-default btn-logIn enableOnInput" id="z" type="button" >New Event</button>
+        </div><!-- newEvent-center -->
+
+        </div> <!-- newEvent-body -->
 
         <!--Footer-->
-        <div class="lgn-footer">
-          <div class="lgn-footerPass">
+        <div class="newEvent-footer">
+          <div class="newEvent-footerPass">
             <a href="#" data-toggle="modal">Forgot Password</a>
-          </div> <!-- lgn-footerPass -->
-          <div class="lgn-footerNewUser">
+          </div> <!-- newEvent-footerPass -->
+          <div class="newEvent-footerNewUser">
             <a href="/signup" data-toggle="modal">New User</a>
-          </div> <!-- lgn-footerNewUser -->
-        </div> <!-- lgn-footer -->
+          </div> <!-- newEvent-footerNewUser -->
+        </div> <!-- newEvent-footer -->
       </div>  <!-- modal-content -->
     </div> <!-- modal-dialog -->
   </div> <!-- modal fade -->
-</div> <!-- lgn btn-launch -->
+</div> <!-- newEvent btn-launch -->
+
+<!--
+<script>
+var d = new Date();
+document.getElementById("utc").innerHTML = d.toUTCString();
+</script> -->
+<script type = "text/javascript">
+tday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+tmonth = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+function GetClock(){
+  var d = new Date();
+  var nday = d.getDay(), nmonth=d.getMonth(), ndate=d.getDate(), nyear=d.getYear(), nhour=d.getHours(), nmin=d.getMinutes(), amPM;
+  if(nhour == 0){amPM = " AM"; nhour=12;}
+  else if(nhour < 12){amPM = " AM";}
+  else if(nhour == 12){amPM = " PM";}
+  else if(nhour > 12){amPM = " PM"; nhour-=12;}
+
+  if(nyear < 1000) nyear += 1900;
+  if(nmin <= 9) nmin = "0" + nmin;
+
+  document.getElementById('dateTime').innerHTML = ""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+amPM+"";
+}
+
+window.onload=function(){
+  GetClock();
+  setInterval(GetClock,1000);
+}
+</script>
