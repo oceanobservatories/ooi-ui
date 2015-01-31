@@ -295,7 +295,10 @@ module.exports = function(grunt) {
           "ooiui/static/css/compiled/opLog.css" : [
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
-            "ooiui/static/css/common/opLog.css"
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/opLog.css",
+            "ooiui/static/css/common/timeline.css",
+            "ooiui/static/css/common/orgsidebarview.css"
           ]
         }
       }

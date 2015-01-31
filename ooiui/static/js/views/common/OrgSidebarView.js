@@ -43,8 +43,13 @@ var OrgSidebarView = Backbone.View.extend({
    * During initialization of this view we fetch the collection and render when
    * it's complete.
    */
-  initialize: function() {
+  initialize: function(options) {
     _.bindAll(this, "render");
+    if(options && options.userModel) {
+      this.userModel = options.userModel;
+    } else {
+      console.error("Can not properly initialize OrgSidebarView without a user model");
+    }
     // We use self because we're calling an instance method from within a
     // callback/anonymous function
     var self = this;
@@ -58,5 +63,10 @@ var OrgSidebarView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/OrgSidebar.html'],
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
+    var organization_id = this.userModel.get('organization_id');
+    if(organization_id != '' && organization_id != null) {
+      this.$el.find("[data-id='" + organization_id + "']").parent().toggleClass('selected');
+      this.trigger('org:click', organization_id);
+    }
   }
 });
