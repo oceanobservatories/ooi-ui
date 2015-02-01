@@ -58,7 +58,6 @@ var EventView = Backbone.View.extend({
     this.render();
   },
   onSync: function() {
-    console.log("EventView: onSync");
     this.render();
   },
   template: JST['ooiui/static/js/partials/Event.html'],

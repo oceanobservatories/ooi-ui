@@ -314,7 +314,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-            "ooiui/static/css/common/newEvent.css"
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/watch.css"
           ],
         }
       }

@@ -162,7 +162,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
-    console.log("orgselection");
     this.models.orgModel.set({id: organization_id});
     this.models.orgModel.fetch();
     // We have selected a new organization, so now we need to update the watch
@@ -175,15 +174,14 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // from this collection, so when the feth completes, the event will trigger
     // and the watch view will re-render with the new watches.
   },
-  watchSelection: function(watch_id) {
-    this.models.watchModel.set({id: watch_id});
+  watchSelection: function(model) {
+    this.models.watchModel.set({id: model.get('id')});
     this.models.watchModel.fetch();
     this.collections.events.fetch({
-      data: $.param({watch_id: watch_id}),
+      data: $.param({watch_id: model.get('id')}),
     });
   },
   newWatch: function(watchModel) {
-    console.log("oplog: newWatch");
     var organization_id = this.models.orgModel.get('id');
     this.models.watchModel.set({id: watchModel.id});
     this.models.watchModel.fetch();

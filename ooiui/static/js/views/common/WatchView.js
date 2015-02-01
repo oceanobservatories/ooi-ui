@@ -29,7 +29,7 @@ var WatchView = Backbone.View.extend({
     'click #end-watch' : 'onEndWatch'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onSync", "onClick", "onNewWatchModal", "onEndWatchModal", "onStartNewWatch", "onEndWatch");
+    _.bindAll(this, "render", "onSync", "onClick", "onNewWatchModal", "onEndWatchModal", "onStartNewWatch", "onEndWatch", "selectWatch");
     var self = this;
     // We create a comparator for the collection to use as a sorting mechanism.
     // We want to sort the collection by the end_time in reverse order.
@@ -51,7 +51,15 @@ var WatchView = Backbone.View.extend({
     this.render();
   },
   onClick: function(e) {
-    ooi.trigger('watchview:click', $(e.target).closest('.watch-item').attr('data-id'));
+    var watchId = $(e.target).closest('.watch-item').attr('data-id');
+    this.render();
+    this.selectWatch(watchId);
+  },
+  selectWatch: function(watchId) {
+    watchId = parseInt(watchId);
+    var model = this.collection.findWhere({id: watchId});
+    this.$el.find("[data-id='" + watchId + "']").find('a').toggleClass('li-selected');
+    ooi.trigger('watchview:click', model);
   },
   onEndWatch: function() {
     var watchModel = this.collection.at(0);
@@ -82,11 +90,11 @@ var WatchView = Backbone.View.extend({
    */
   onSync: function() {
     this.render();
+    this.selectWatch(this.collection.at(0).get('id'));
   },
   // comment
   template: JST['ooiui/static/js/partials/Watch.html'],
   render: function() {
-    console.log("WatchView: render");
     var orgSelected = false;
     // Sort by the end date
     this.collection.sort();
