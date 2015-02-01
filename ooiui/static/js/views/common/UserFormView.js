@@ -24,7 +24,6 @@ _.extend(Backbone.Validation.callbacks, {
 var SignUpForm = Backbone.View.extend({
     events: {
         'click #submitButton': function (e) {
-            console.log("submit clicked");
             e.preventDefault();
             this.submit();
         },
@@ -114,17 +113,10 @@ var SignUpForm = Backbone.View.extend({
         _.bindAll(this, "render", "submit", "reset", "remove");
         // functions defined within a function, need to be able to set attributes of "this"
         // so in order to do that, we define "self" which currently points to this, in this case the UserFormView
-        var self = this;
-        this.roles = new Roles();
-        this.orgs = new Organizations();
-        this.roles.fetch({
-            success: function(collection, response, options) {
-                self.orgs.fetch({async: false}); // We're already in another thread
-                // We only render, after the data has returned from server
-                self.render();
-            }
-        });
+        this.roles = ooi.collections.roles;
+        this.orgs = ooi.collections.orgs;
         this.modalDialog = new ModalDialogView();
+        this.render();
     },
 
     render: function () {

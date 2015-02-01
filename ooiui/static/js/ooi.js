@@ -70,3 +70,10 @@ OOI.LogOut = function() {
   $.removeCookie('ooiusertoken', { path: '/' });
 }
 
+OOI.prototype.onLogin = function() {
+  location.reload();
+}
+OOI.prototype.onLogout = function() {
+  location.reload();
+}
+
