@@ -150,10 +150,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
   },
 
   onLogin: function() {
-    this.models.userModel.fetch();
+    location.reload();
   },
   onLogout: function() {
-    this.models.userModel.clear().set(this.models.userModel.defaults);
+    location.reload();
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
