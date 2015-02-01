@@ -14,7 +14,7 @@ var LoginModel = Backbone.Model.extend({
         var date = new Date();
         date.setTime(date.getTime() + (model.get('expiration') * 1000));
         $.cookie('ooiusertoken', model.get('token'), {expires: date});
-        self.trigger('login:success');
+        ooi.trigger('login:success');
       },
       error: function(model, response, options) {
         console.error("ERROR");
@@ -23,7 +23,7 @@ var LoginModel = Backbone.Model.extend({
           token: "",
           attempts: self.get('attempts') + 1
         });
-        self.trigger('login:failure');
+        ooi.trigger('login:failure');
       }
     });
     return this;
@@ -37,7 +37,7 @@ var LoginModel = Backbone.Model.extend({
   logOut: function() {
     $.removeCookie('ooiusertoken', { path: '/' });
     this.set(this.defaults);
-    this.trigger('login:logout');
+    ooi.trigger('login:logout');
   },
   fetch: function() {
     var tokenString = $.cookie('ooiusertoken');

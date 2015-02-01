@@ -30,13 +30,8 @@ var WatchView = Backbone.View.extend({
   },
   initialize: function(options) {
     _.bindAll(this, "render", "onSync", "onClick", "onLogin", "onLogout", "onNewWatchModal", "onEndWatchModal", "onStartNewWatch", "onEndWatch");
-    if(options && options.login) {
-      this.login = options.login
-      this.listenTo(this.login, "login:success", this.onLogin);
-      this.listenTo(this.login, "login:logout", this.onLogout);
-    } else {
-      console.error("Need login to properly initialize watch view");
-    }
+    this.listenTo(ooi, "login:success", this.onLogin);
+    this.listenTo(ooi, "login:logout", this.onLogout);
     var self = this;
     // We create a comparator for the collection to use as a sorting mechanism.
     // We want to sort the collection by the end_time in reverse order.
@@ -54,15 +49,19 @@ var WatchView = Backbone.View.extend({
       return -d;
     };
     // Whenever this collection is fetched, call this.onSync
-    this.collection.on('sync', this.onSync);
+    this.listenTo(this.collection, 'sync', this.onSync);
     this.render();
   },
   onClick: function(e) {
-    this.trigger('watchview:click', $(e.target).closest('.watch-item').attr('data-id'));
+    ooi.trigger('watchview:click', $(e.target).closest('.watch-item').attr('data-id'));
   },
   onEndWatch: function() {
     var watchModel = this.collection.at(0);
-    watchModel.save();
+    watchModel.save({
+      success: function(model, response, options) {
+        ooi.trigger('watchview:endwatch', model);
+      }
+    });
   },
   onLogin: function() {
     this.render();
@@ -81,7 +80,7 @@ var WatchView = Backbone.View.extend({
     var self = this;
     newWatch.save(null, {
       success: function(model, response, options) {
-        self.trigger('watchview:newwatch', model);
+        ooi.trigger('watchview:newwatch', model);
       }
     }); // Creates a new watch
   },
@@ -90,17 +89,17 @@ var WatchView = Backbone.View.extend({
    * allows us to re-render the view.
    */
   onSync: function() {
-    console.log("WatchView: onSync");
     this.render();
   },
   // comment
   template: JST['ooiui/static/js/partials/Watch.html'],
   render: function() {
+    console.log("WatchView: render");
     var orgSelected = false;
     // Sort by the end date
     this.collection.sort();
     this.$el.html(this.template({collection: this.collection}));
-    if(this.login.loggedIn()) {
+    if(ooi.login.loggedIn()) {
       if(this.collection.length > 0) {
         var recentModel = this.collection.at(0);
         if(recentModel.get('end_time') == null) { // open watch
@@ -110,6 +109,9 @@ var WatchView = Backbone.View.extend({
           this.$el.find('#new-watch-dropdown').toggleClass('disabled');
           this.$el.find('#end-watch-link').toggle();
         }
+      } else { // no current watches
+        this.$el.find('#new-watch-dropdown').toggleClass('disabled');
+        this.$el.find('#end-watch-link').toggle();
       }
     }
   }

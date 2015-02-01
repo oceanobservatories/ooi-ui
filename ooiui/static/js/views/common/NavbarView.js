@@ -25,7 +25,7 @@ var NavbarView = Backbone.View.extend({
       collection: new MessageCollection()
     });
     this.dropdownUserView = new DropdownUserView({
-      model: options.login
+      model: ooi.login
     });
     this.render();
   },

@@ -7,17 +7,8 @@ var NewEventView = Backbone.View.extend({
       userChange: false,
       operatorEventTypes: false
     }
-      
-    if(options && options.watchModel && options.orgModel && options.operatorEventTypes && options.userModel) {
-      this.watchModel = options.watchModel;
-      this.orgModel = options.orgModel;
-      this.operatorEventTypes = options.operatorEventTypes;
-      this.listenTo(this.operatorEventTypes, 'sync', this.onOperatorEventTypeSync);
-      this.userModel = options.userModel;
-      this.listenTo(this.userModel, 'change', this.onUserModelChange);
-    } else {
-      console.error("Can't initialize new event view without necessary parameters");
-    }
+    this.listenTo(ooi.collections.operatorEventTypes, 'sync', this.onOperatorEventTypeSync);
+    this.listenTo(ooi.models.userModel, 'change', this.onUserModelChange);
   },
   onClick: function() {
     this.show();
@@ -29,7 +20,7 @@ var NewEventView = Backbone.View.extend({
   onUserModelChange: function() {
     this.orgModel = new OrganizationModel();
     var self = this;
-    this.orgModel.set('id', this.userModel.get('organization_id'));
+    this.orgModel.set('id', ooi.models.userModel.get('organization_id'));
     this.orgModel.fetch({
       success: function(model, response, options) {
         self.conditions.userChange = true; 
@@ -55,7 +46,6 @@ var NewEventView = Backbone.View.extend({
   },
   onNewEvent: function() {
     var newEvent = new EventModel();
-
     newEvent.set({
       event_title: this.$el.find('#newTitleInput').val(),
       event_comment: this.$el.find('#newCommentInput').val(),
@@ -66,14 +56,14 @@ var NewEventView = Backbone.View.extend({
 
     newEvent.save();
     this.hide();
-    this.trigger('neweventview:newevent');
+    ooi.trigger('neweventview:newevent');
   },
   template:   JST["ooiui/static/js/partials/NewEvent.html"],
   render: function() {
     this.$el.html(this.template({
       orgModel: this.orgModel,
-      operatorEventTypes: this.operatorEventTypes,
-      userModel: this.userModel
+      operatorEventTypes: ooi.collections.operatorEventTypes,
+      userModel: ooi.models.userModel
     }));
     this.$el.find('#new-event-button').click(this.onNewEvent);
   }

@@ -28,45 +28,19 @@ var EventView = Backbone.View.extend({
     this.viewSelection = 'list';
     this.listenTo(this.collection, "sync", this.onSync);
     this.listenTo(this.collection, "reset", this.onSync);
-    this.newEventView = null;
-    if(options 
-       && options.login 
-       && options.watchModel 
-       && options.orgModel 
-       && options.operatorEventTypes 
-       && options.userModel) {
-      
-      // The models
-      this.loginModel = options.login;
-      this.watchModel = options.watchModel;
-      this.listenTo(this.watchModel, "change", this.onSync);
-      this.orgModel = options.orgModel;
-      this.userModel = options.userModel;
-      this.operatorEventTypes = options.operatorEventTypes;
-
-      this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
-      if(this.loginModel.loggedIn()) {
-        this.onLoginChange();
-      }
-      this.newEventView = new NewEventView({
-        watchModel: this.watchModel,
-        orgModel: this.orgModel,
-        userModel: this.userModel,
-        operatorEventTypes: this.operatorEventTypes
-      });
-      this.listenTo(this.newEventView, 'neweventview:newevent', this.onNewEventTrigger);
-      this.render();
-    } else {
-      console.error("Failed to initialize EventView without necessary parameters");
-    }
-
-
+    this.newEventView = new NewEventView({
+      watchModel: this.watchModel,
+      orgModel: this.orgModel,
+      userModel: this.userModel,
+      operatorEventTypes: this.operatorEventTypes
+    });
+    this.listenTo(ooi, 'login:success', this.onLoginChange);
+    this.listenTo(ooi, 'neweventview:newevent', this.onNewEventTrigger);
+    this.render();
   },
   onNewEventTrigger: function() {
-    var watch_id = this.watchModel.get('id');
-
     this.collection.fetch({
-      data: $.param({watch_id: watch_id}),
+      data: $.param({watch_id: ooi.models.watchModel.get('id')}),
     });
   },
   onNewEvent: function() {
