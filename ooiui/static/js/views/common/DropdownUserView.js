@@ -38,13 +38,7 @@ var DropdownUserView = Backbone.View.extend({
   },
   initialize: function() {
     _.bindAll(this, "render", "login", "logout");
-    this.model.on('change', this.render);
-    this.model.fetch();
-    // The model won't actually update anything if we're not logged in, so
-    // we'll have to call render manually.
-    if(this.model.get('token')=='') {
-      this.render();
-    }
+    this.render();
   },
   template: {
     loggedIn: JST['ooiui/static/js/partials/DropdownUserLoggedIn.html'],

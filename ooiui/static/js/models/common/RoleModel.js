@@ -28,7 +28,6 @@ var Roles = Backbone.Collection.extend({
     url: "user_roles",
     model: RoleModel,
     parse: function(response) {
-        console.log(response.user_roles);
         return response.user_roles;
     }
 });
