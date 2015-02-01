@@ -107,11 +107,11 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  views: {
+  },
   start: function() {
-    this.navbar = new NavbarView({
-      login: this.login
-    });
-    $('body').prepend(this.navbar.el);
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
 
     this.arrays = new ArrayCollection();
     this.tocView = new TOCView({

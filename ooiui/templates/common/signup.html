@@ -134,13 +134,12 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  views: {},
   start: function() {
-    this.navbar = new NavbarView({
-      login: this.login
-    });
-    this.navbar.sidebarToggle(); // Hide the sidebar
+    this.views.navbar = new NavbarView();
+    this.views.navbar.sidebarToggle(); // Hide the sidebar
     
-    $('body').prepend(this.navbar.el);
+    $('body').prepend(this.views.navbar.el);
     this.loginview = new LoginView({
       model: this.login,
       success: function() {

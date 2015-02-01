@@ -142,7 +142,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserFormModel.js',
             'ooiui/static/js/models/common/RoleModel.js',
             'ooiui/static/js/models/common/OrganizationModel.js',
-
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',

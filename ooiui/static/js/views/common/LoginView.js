@@ -110,7 +110,7 @@ var LoginView = Backbone.View.extend({
       this.login(e);
     }
   },
-  template: JST["ooiui/static/js/partials/loginForm.html"],
+  template: JST["ooiui/static/js/partials/LoginForm.html"],
   render: function() {
     this.$el.html(this.template({}));
   }
