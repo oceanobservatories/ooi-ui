@@ -1,38 +1,56 @@
-<!-- </div> -->
-<div class="lgn btn-launch">
+<div class="newEvent btn-launch">
+
   <!--Modal-->
-  <div class="modal fade" id="new-event-modal">
+  <div class="modal fade" id="newEventModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <!--Header-->
-        <div class="lgn-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
 
-        </div> <!-- lgn-header -->
+        <!--Header-->
+        <div class="newEvent-header">
+          <button id="bob-button" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- newEvent-header -->
 
         <!--Body-->
-        <div class="lgn-body">
-          <div class="lgn-center">
-            <div class="image"></div>
-            <div class="lgn-message"></div>
-            <br>
-            <input class="lgn-input" id="usrInput" type="text" name="password" size="25" placeholder="Email/Username">
-            <input class="lgn-input" id="passInput" type="password" name="username" size="25" placeholder="Password" />
-            <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btn-new-event">New Event</button>
-          </div> <!-- lgn-center -->
-        </div> <!-- lgn-body -->
+        <div class="newEvent-body">
+          <div class="newEvent-center">
+            <div class="newEventUser-message">
+              <%= userModel.getFullName() %>
+            </div>
+            <div class="newEventOrg-message">
+              <%= orgModel.get('organization_name') %>
+            </div>
+            <div id="dateTime"></div>
+            <input class="newEvent-input" id="newTitleInput" type="text" name="title" placeholder="&#xf022; Event Title" size="25px" />
+            <input class="newEvent-input" id="newCommentInput" type="text" name="comment" placeholder="&#xf0e5; Comment" size="25" />
+          </div>
+          <div class="newEvent-center">
+            <select id="event-type-selection" class="typeDrop">
+              <option selected disabled>
+                --Choose Type--
+              </option>
+              <% operatorEventTypes.each(function(eventType) { %>
+              <option value="<%= eventType.get('id') %>">
+                <%= eventType.get('type_name') %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="newEvent-center">
+            <button class="newEvent btn btn-default" id="new-event-button" type="button">New Event</button>
+          </div>
+          <!-- newEvent-center -->
+        </div>
+        <!-- newEvent-body -->
 
-        <!--Footer-->
-        <div class="lgn-footer">
-          <div class="lgn-footerPass">
-            <a href="#" data-toggle="modal">Forgot Password</a>
-          </div> <!-- lgn-footerPass -->
-          <div class="lgn-footerNewUser">
-            <a href="/signup" data-toggle="modal">New User</a>
-          </div> <!-- lgn-footerNewUser -->
-        </div> <!-- lgn-footer -->
-      </div>  <!-- modal-content -->
-    </div> <!-- modal-dialog -->
-  </div> <!-- modal fade -->
-</div> <!-- lgn btn-launch -->
+        <!-- newEvent-footer -->
+      </div>
+      <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+  </div>
+  <!-- modal fade -->
+</div>
+<!-- newEvent btn-launch -->
+

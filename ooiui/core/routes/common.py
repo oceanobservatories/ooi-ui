@@ -22,6 +22,10 @@ def user_signup():
 def user_login():
     return render_template('common/loginDemo.html')
 
+@app.route('/NewEvent')
+def new_event():
+    return render_template('common/newEvent.html')
+
 @app.route('/basic.html')
 def basic():
     return render_template('common/basic.html')
@@ -74,6 +78,8 @@ def login():
     response = requests.get(SERVICES_URL + '/token', auth=(username, password))
     return response.text, response.status_code
 
+
+
 #>>---->opLog<----<<##
 # @app.route('/opLog.html')
 # def op_log():
@@ -121,6 +127,11 @@ def get_operator_event():
 @app.route('/api/operator_event', methods=['POST'])
 def post_event():
     token = get_login()
-    resp = requests.get(SERVICES_URL + '/operator_event', auth=(token,''))
-    return resp.text, resp.status_code
+    print request.data
+    response = requests.post(SERVICES_URL + '/operator_event', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
 
+@app.route('/api/operator_event_type', methods=['GET'])
+def get_operator_event_type():
+    response = requests.get(SERVICES_URL + '/operator_event_type', params=request.args)
+    return response.text, response.status_code

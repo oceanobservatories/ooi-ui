@@ -102,66 +102,52 @@ _.extend(OOI.prototype, Backbone.Events,  {
     // watches is the Watch collection, by default is un-fetched
     watches: new Watches(),
     //events: new Events(),
-    events: new EventsCollection()
+    events: new EventsCollection(),
+    operatorEventTypes: new OperatorEventTypeCollection()
   },
   models: {
     watchModel: new WatchModel(),
     orgModel: new OrganizationModel(),
     userModel: new UserModel()
   },
+  views: {
+  },
   start: function() {
-    // Navbar
-    // Instantiate the navbar view
-    this.navbar = new NavbarView({login: this.login});
-    // Bind the element to the top of the <body>
-    $('body').prepend(this.navbar.el);
+    this.collections.operatorEventTypes.fetch();
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
     
     if(this.login.loggedIn()) {
       this.models.userModel.fetch();
     }
 
-    // Sidebar
-    // Instantiate a new OrgSidebarView and tell it to use our organizations as
-    // the collection
-    this.orgSidebarView = new OrgSidebarView({
+    this.views.orgSidebarView = new OrgSidebarView({
       collection: this.collections.organizations,
       userModel: this.models.userModel
     });
-    // Bind it to the element with the id of 'sidebar-wrapper'
-    $('#sidebar-wrapper').html(this.orgSidebarView.el);
+    $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
-    // Event listener
-    // This event listener allows us to capture a custom named event called
-    // 'org:click' from the view. When we hear this event, we will execute an
-    // instance method orgSelection
-    //
-    // The event will pass a model_id of the selected organization as a
-    // parameter.
-    this.listenTo(this.orgSidebarView, 'org:click', this.orgSelection);
 
-    this.listenTo(this.login, "login:success", this.onLogin);
-    this.listenTo(this.login, "login:logout", this.onLogout);
-
-    // Left Panel
-    // We create a watch view that will be empty at first.
-    this.watchView = new WatchView({
+    this.views.watchView = new WatchView({
       collection: this.collections.watches,
-      login: this.login
     });
-
-    this.listenTo(this.watchView, 'watchview:click', this.watchSelection);
-    this.listenTo(this.watchView, 'watchview:newwatch', this.newWatch);
-    // We bind the watch view to the middle panel with the id 'panelWatch'
-    $('#watch-view').html(this.watchView.el);
-
-    this.eventView = new EventView({
-      collection: this.collections.events, 
-      watchModel: this.models.watchModel,
-      orgModel: this.models.orgModel,
-      login: this.login
+    $('#watch-view').html(this.views.watchView.el);
+    
+    this.views.eventView = new EventView({
+      collection: this.collections.events
     });
-    $('#event-view').html(this.eventView.el);
-  },  
+    $('#event-view').html(this.views.eventView.el);
+
+
+    this.eventListeners();
+  },
+  eventListeners:function() {
+    this.listenTo(this, "org:click", this.orgSelection);
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, 'watchview:click', this.watchSelection);
+    this.listenTo(this, 'watchview:newwatch', this.newWatch);
+  },
 
   onLogin: function() {
     this.models.userModel.fetch();
@@ -176,6 +162,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
+    console.log("orgselection");
     this.models.orgModel.set({id: organization_id});
     this.models.orgModel.fetch();
     // We have selected a new organization, so now we need to update the watch
@@ -183,6 +170,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.collections.watches.fetch({
       data: $.param({organization_id: organization_id}),
     });
+    this.collections.events.reset();
     // Note: the watchview has an event listener that listens for sync events
     // from this collection, so when the feth completes, the event will trigger
     // and the watch view will re-render with the new watches.
@@ -194,11 +182,16 @@ _.extend(OOI.prototype, Backbone.Events,  {
       data: $.param({watch_id: watch_id}),
     });
   },
-  newWatch: function() {
+  newWatch: function(watchModel) {
+    console.log("oplog: newWatch");
     var organization_id = this.models.orgModel.get('id');
-    console.log("new Watch in app");
+    this.models.watchModel.set({id: watchModel.id});
+    this.models.watchModel.fetch();
     this.collections.watches.fetch({
       data: $.param({organization_id: organization_id}),
+    });
+    this.collections.events.fetch({
+      data: $.param({watch_id: watchModel.id}),
     });
   }
 });

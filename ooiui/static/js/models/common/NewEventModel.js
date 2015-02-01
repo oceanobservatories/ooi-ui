@@ -1,12 +1,12 @@
 "use strict";
 
 /*
- * header goes here"
- */
+* header goes here"
+*/
 
-var LoginModel = Backbone.Model.extend({
-  url: '/api/login',
-  logIn: function() {
+var NewEventModel = Backbone.Model.extend({
+  url: '/api/new_event',
+  new_event: function() {
     var self = this;
     this.save(null, {
       async: false,
@@ -14,7 +14,6 @@ var LoginModel = Backbone.Model.extend({
         var date = new Date();
         date.setTime(date.getTime() + (model.get('expiration') * 1000));
         $.cookie('ooiusertoken', model.get('token'), {expires: date});
-        ooi.trigger('login:success');
       },
       error: function(model, response, options) {
         console.error("ERROR");
@@ -23,9 +22,9 @@ var LoginModel = Backbone.Model.extend({
           token: "",
           attempts: self.get('attempts') + 1
         });
-        ooi.trigger('login:failure');
       }
     });
+    console.log("Returning");
     return this;
   },
   loggedIn: function() {
@@ -35,21 +34,24 @@ var LoginModel = Backbone.Model.extend({
     return false;
   },
   logOut: function() {
+    console.log("Log Out");
     $.removeCookie('ooiusertoken', { path: '/' });
     this.set(this.defaults);
-    ooi.trigger('login:logout');
   },
   fetch: function() {
     var tokenString = $.cookie('ooiusertoken');
     if(typeof tokenString !== "undefined") {
       this.set("token", tokenString);
+      console.log("Set token");
     }
     return this;
   },
   parse: function(response) {
     var expiration = response.expiration;
+    console.log("expiration");
+    console.log(parseInt(expiration));
     return {
-      login: this.get('login'),
+      new_event: this.get('new_event'),
       token: response.token,
       expiration: parseInt(response.expiration),
       password: "",
@@ -57,7 +59,7 @@ var LoginModel = Backbone.Model.extend({
     }
   },
   defaults: {
-    login: "",
+    new_event: "",
     password: "",
     token: "",
     expiration: "",

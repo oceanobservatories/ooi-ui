@@ -24,27 +24,26 @@ var EventView = Backbone.View.extend({
     'click #new-event-link' : 'onNewEvent'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange");
+    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange", "onNewEventTrigger");
     this.viewSelection = 'list';
-    this.collection.on('sync', this.onSync);
-    this.newEventView = null;
-    if(options && options.login && options.watchModel && options.orgModel) {
-      
-      // The models
-      this.loginModel = options.login;
-      this.watchModel = options.watchModel;
-      this.orgModel = options.orgModel;
-
-      this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
-      if(this.loginModel.loggedIn()) {
-        this.onLoginChange();
-      }
-    }
-
+    this.listenTo(this.collection, "sync", this.onSync);
+    this.listenTo(this.collection, "reset", this.onSync);
+    this.newEventView = new NewEventView({
+      watchModel: this.watchModel,
+      orgModel: this.orgModel,
+      userModel: this.userModel,
+      operatorEventTypes: this.operatorEventTypes
+    });
+    this.listenTo(ooi, 'login:success', this.onLoginChange);
+    this.listenTo(ooi, 'neweventview:newevent', this.onNewEventTrigger);
     this.render();
   },
+  onNewEventTrigger: function() {
+    this.collection.fetch({
+      data: $.param({watch_id: ooi.models.watchModel.get('id')}),
+    });
+  },
   onNewEvent: function() {
-    console.log("onNewEvent");
     if(this.newEventView === null) {
       console.error("This button should be disabled");
     } else {
@@ -53,25 +52,19 @@ var EventView = Backbone.View.extend({
   },
   onLoginChange: function() {
     if(this.loginModel.loggedIn()) {
-      this.newEventView = new NewEventView({
-        watchModel: this.watchModel,
-        orgModel: this.orgModel
-      });
-      this.render();
     }
   },
   onListView: function() {
-    console.log("List View");
     this.viewSelection = 'list';
     this.render();
   },
   onTimelineView: function() {
-    console.log("Timeline View");
     this.viewSelection = 'timeline';
     this.render();
   },
   onSync: function() {
-    console.log("EventView onSync");
+    console.log("EventView: onSync");
+    this.render();
   },
   template: JST['ooiui/static/js/partials/Event.html'],
   render: function() {
@@ -92,6 +85,7 @@ var EventView = Backbone.View.extend({
     // NewEventView
     if(this.newEventView !== null) {
       this.$el.find('#new-event-modal').html(this.newEventView.el);
+      this.newEventView.onSync();
     }
   }
 });
