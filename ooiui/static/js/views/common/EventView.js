@@ -24,7 +24,7 @@ var EventView = Backbone.View.extend({
     'click #new-event-link' : 'onNewEvent'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange", "onNewEventTrigger");
+    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onNewEventTrigger");
     this.viewSelection = 'list';
     this.listenTo(this.collection, "sync", this.onSync);
     this.listenTo(this.collection, "reset", this.onSync);
@@ -34,7 +34,6 @@ var EventView = Backbone.View.extend({
       userModel: this.userModel,
       operatorEventTypes: this.operatorEventTypes
     });
-    this.listenTo(ooi, 'login:success', this.onLoginChange);
     this.listenTo(ooi, 'neweventview:newevent', this.onNewEventTrigger);
     this.render();
   },
@@ -48,10 +47,6 @@ var EventView = Backbone.View.extend({
       console.error("This button should be disabled");
     } else {
       this.newEventView.show();
-    }
-  },
-  onLoginChange: function() {
-    if(this.loginModel.loggedIn()) {
     }
   },
   onListView: function() {

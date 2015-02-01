@@ -74,7 +74,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
             "ooiui/static/js/partials/DropdownUserLoggedOut.html",
-            "ooiui/static/js/partials/loginForm.html",
+            "ooiui/static/js/partials/LoginForm.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/Panel.html",

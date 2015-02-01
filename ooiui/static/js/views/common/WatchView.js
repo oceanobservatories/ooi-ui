@@ -29,9 +29,7 @@ var WatchView = Backbone.View.extend({
     'click #end-watch' : 'onEndWatch'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onSync", "onClick", "onLogin", "onLogout", "onNewWatchModal", "onEndWatchModal", "onStartNewWatch", "onEndWatch");
-    this.listenTo(ooi, "login:success", this.onLogin);
-    this.listenTo(ooi, "login:logout", this.onLogout);
+    _.bindAll(this, "render", "onSync", "onClick", "onNewWatchModal", "onEndWatchModal", "onStartNewWatch", "onEndWatch");
     var self = this;
     // We create a comparator for the collection to use as a sorting mechanism.
     // We want to sort the collection by the end_time in reverse order.
@@ -62,12 +60,6 @@ var WatchView = Backbone.View.extend({
         ooi.trigger('watchview:endwatch', model);
       }
     });
-  },
-  onLogin: function() {
-    this.render();
-  },
-  onLogout: function() {
-    this.render();
   },
   onNewWatchModal: function() {
     this.$el.find('#new-watch-modal').modal('show');
