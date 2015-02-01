@@ -46,6 +46,11 @@ var NewEventView = Backbone.View.extend({
   },
   onNewEvent: function() {
     var newEvent = new EventModel();
+    var event_type = this.$el.find('#event-type-selection option:selected').val();
+    if(event_type == '--Choose Type--') {
+      this.$el.find('.new-event-message').text('Please select an event type');
+      return this;
+    }
     newEvent.set({
       event_title: this.$el.find('#newTitleInput').val(),
       event_comment: this.$el.find('#newCommentInput').val(),
@@ -57,6 +62,7 @@ var NewEventView = Backbone.View.extend({
     newEvent.save();
     this.hide();
     ooi.trigger('neweventview:newevent');
+    return this;
   },
   template:   JST["ooiui/static/js/partials/NewEvent.html"],
   render: function() {

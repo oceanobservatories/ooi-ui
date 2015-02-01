@@ -25,15 +25,10 @@ var EventView = Backbone.View.extend({
   },
   initialize: function(options) {
     _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onNewEventTrigger");
-    this.viewSelection = 'list';
+    this.viewSelection = 'timeline';
     this.listenTo(this.collection, "sync", this.onSync);
     this.listenTo(this.collection, "reset", this.onSync);
-    this.newEventView = new NewEventView({
-      watchModel: this.watchModel,
-      orgModel: this.orgModel,
-      userModel: this.userModel,
-      operatorEventTypes: this.operatorEventTypes
-    });
+    this.newEventView = new NewEventView();
     this.listenTo(ooi, 'neweventview:newevent', this.onNewEventTrigger);
     this.render();
   },
