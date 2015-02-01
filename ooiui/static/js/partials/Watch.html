@@ -21,9 +21,9 @@
       <% collection.each(function(model) { %>
       <div class="watch-item" data-id="<%= model.get('id') %>">
         <% if(model.get("end_time") != null) { %>
-        <a class="li-closed list-group-item" href="#">
+        <a class="list-group-item" href="#">
         <% } else { %>
-        <a class="li-open list-group-item" href='#'>
+        <a class="list-group-item" href='#'>
         <% } %>
           <div class="watch-title">
             <%= model.getName() %>
