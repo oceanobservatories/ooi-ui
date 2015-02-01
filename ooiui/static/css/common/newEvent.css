@@ -139,3 +139,6 @@ button.close{
    border: 1px solid #DDDDDD;
    border-radius: 6px;
 }
+.new-event-message {
+  color: #fd0404;
+}
