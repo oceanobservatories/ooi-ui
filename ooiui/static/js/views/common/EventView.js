@@ -24,9 +24,10 @@ var EventView = Backbone.View.extend({
     'click #new-event-link' : 'onNewEvent'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange");
+    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange", "onNewEventTrigger");
     this.viewSelection = 'list';
-    this.collection.on('sync', this.onSync);
+    this.listenTo(this.collection, "sync", this.onSync);
+    this.listenTo(this.collection, "reset", this.onSync);
     this.newEventView = null;
     if(options 
        && options.login 
@@ -38,6 +39,7 @@ var EventView = Backbone.View.extend({
       // The models
       this.loginModel = options.login;
       this.watchModel = options.watchModel;
+      this.listenTo(this.watchModel, "change", this.onSync);
       this.orgModel = options.orgModel;
       this.userModel = options.userModel;
       this.operatorEventTypes = options.operatorEventTypes;
@@ -46,15 +48,28 @@ var EventView = Backbone.View.extend({
       if(this.loginModel.loggedIn()) {
         this.onLoginChange();
       }
+      this.newEventView = new NewEventView({
+        watchModel: this.watchModel,
+        orgModel: this.orgModel,
+        userModel: this.userModel,
+        operatorEventTypes: this.operatorEventTypes
+      });
+      this.listenTo(this.newEventView, 'neweventview:newevent', this.onNewEventTrigger);
+      this.render();
     } else {
       console.error("Failed to initialize EventView without necessary parameters");
     }
 
 
-    this.render();
+  },
+  onNewEventTrigger: function() {
+    var watch_id = this.watchModel.get('id');
+
+    this.collection.fetch({
+      data: $.param({watch_id: watch_id}),
+    });
   },
   onNewEvent: function() {
-    console.log("onNewEvent");
     if(this.newEventView === null) {
       console.error("This button should be disabled");
     } else {
@@ -63,27 +78,19 @@ var EventView = Backbone.View.extend({
   },
   onLoginChange: function() {
     if(this.loginModel.loggedIn()) {
-      this.newEventView = new NewEventView({
-        watchModel: this.watchModel,
-        orgModel: this.orgModel,
-        userModel: this.userModel,
-        operatorEventTypes: this.operatorEventTypes
-      });
-      this.render();
     }
   },
   onListView: function() {
-    console.log("List View");
     this.viewSelection = 'list';
     this.render();
   },
   onTimelineView: function() {
-    console.log("Timeline View");
     this.viewSelection = 'timeline';
     this.render();
   },
   onSync: function() {
-    console.log("EventView onSync");
+    console.log("EventView: onSync");
+    this.render();
   },
   template: JST['ooiui/static/js/partials/Event.html'],
   render: function() {
@@ -104,6 +111,7 @@ var EventView = Backbone.View.extend({
     // NewEventView
     if(this.newEventView !== null) {
       this.$el.find('#new-event-modal').html(this.newEventView.el);
+      this.newEventView.onSync();
     }
   }
 });

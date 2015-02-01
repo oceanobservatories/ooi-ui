@@ -2,7 +2,7 @@
 
 var NewEventView = Backbone.View.extend({
   initialize: function(options) {
-    _.bindAll(this, "render", "show", "hide", "onSync", "onNewEvent", "onOperatorEventTypeSync", "onUserModelChange", "onBob");
+    _.bindAll(this, "render", "show", "hide", "onSync", "onNewEvent", "onOperatorEventTypeSync", "onUserModelChange");
     this.conditions = {
       userChange: false,
       operatorEventTypes: false
@@ -18,21 +18,15 @@ var NewEventView = Backbone.View.extend({
     } else {
       console.error("Can't initialize new event view without necessary parameters");
     }
-    console.log("I really can't figure this out");
-  },
-  onBob: function() {
-    console.log("BOB");
   },
   onClick: function() {
     this.show();
   },
   onOperatorEventTypeSync: function() {
-    console.log("onOperatorEventTypeSync");
     this.conditions.operatorEventTypes = true;
     this.onSync();
   },
   onUserModelChange: function() {
-    console.log("onUserModelChange");
     this.orgModel = new OrganizationModel();
     var self = this;
     this.orgModel.set('id', this.userModel.get('organization_id'));
@@ -44,30 +38,24 @@ var NewEventView = Backbone.View.extend({
     });
   },
   onSync: function() {
-    console.log(this.conditions);
     if(this.conditions.operatorEventTypes && this.conditions.userChange) {
       this.render();
     }
   },
   show: function() {
-    console.log("SHOW");
     this.$el.find('.modal.fade').modal('show');
 
     return this;
     // this.$el.find('.modal').modal('show');
   },
   hide: function() {
-    console.log("hide was called");
 
     $('#newEventModal').modal('hide');
     return this;
-    // this.$el.find('.modal').modal('hide');
   },
   onNewEvent: function() {
-    console.log("on new event");
     var newEvent = new EventModel();
 
-    console.log(this.$el.find('#event-type-selection option:selected'));
     newEvent.set({
       event_title: this.$el.find('#newTitleInput').val(),
       event_comment: this.$el.find('#newCommentInput').val(),
@@ -76,10 +64,9 @@ var NewEventView = Backbone.View.extend({
       }
     });
 
-    console.log();
     newEvent.save();
-    console.log(newEvent.toJSON());
     this.hide();
+    this.trigger('neweventview:newevent');
   },
   template:   JST["ooiui/static/js/partials/NewEvent.html"],
   render: function() {

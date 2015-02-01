@@ -61,38 +61,36 @@ var WatchView = Backbone.View.extend({
     this.trigger('watchview:click', $(e.target).closest('.watch-item').attr('data-id'));
   },
   onEndWatch: function() {
-    console.log("End Watch");
     var watchModel = this.collection.at(0);
     watchModel.save();
-    console.log(watchModel.toJSON());
   },
   onLogin: function() {
-    console.log("WatchView:Logged In");
     this.render();
   },
   onLogout: function() {
-    console.log("WatchView:Logged Out");
     this.render();
   },
   onNewWatchModal: function() {
-    console.log("New watch");
     this.$el.find('#new-watch-modal').modal('show');
   },
   onEndWatchModal: function() {
-    console.log("New watch");
     this.$el.find('#end-watch-modal').modal('show');
   },
   onStartNewWatch: function() {
     var newWatch = new WatchModel();
-    newWatch.save(); // Creates a new watch
-    this.trigger('watchview:newwatch');
+    var self = this;
+    newWatch.save(null, {
+      success: function(model, response, options) {
+        self.trigger('watchview:newwatch', model);
+      }
+    }); // Creates a new watch
   },
   /*
    * onSync is called whenver the collection is fetched successfully. This
    * allows us to re-render the view.
    */
   onSync: function() {
-    console.log("On sync");
+    console.log("WatchView: onSync");
     this.render();
   },
   // comment
@@ -103,10 +101,7 @@ var WatchView = Backbone.View.extend({
     this.collection.sort();
     this.$el.html(this.template({collection: this.collection}));
     if(this.login.loggedIn()) {
-      console.log("Collection Length");
-      console.log(this.collection.length);
       if(this.collection.length > 0) {
-        console.log("Collection has len > 0");
         var recentModel = this.collection.at(0);
         if(recentModel.get('end_time') == null) { // open watch
           this.$el.find('#new-watch-dropdown').toggleClass('disabled');

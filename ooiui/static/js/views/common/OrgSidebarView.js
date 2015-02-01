@@ -38,6 +38,8 @@ var OrgSidebarView = Backbone.View.extend({
     var model_id = parseInt($(event.target).attr('data-id'));
     // Publish a new method org:click with the model_id
     this.trigger('org:click', model_id);
+    this.render();
+    this.selectOrg(model_id);
   },
   /*
    * During initialization of this view we fetch the collection and render when
@@ -57,16 +59,19 @@ var OrgSidebarView = Backbone.View.extend({
       success: function(collection, response, options) {
         // If the fetch was successful, then we render
         self.render();
+        var organization_id = self.userModel.get('organization_id');
+        if(organization_id && organization_id != '' && organization_id != null) {
+          self.selectOrg(organization_id)
+        }
       }
     });
+  },
+  selectOrg: function(org_id) {
+    this.$el.find("[data-id='" + org_id + "']").parent().toggleClass('selected');
+    this.trigger('org:click', org_id);
   },
   template: JST['ooiui/static/js/partials/OrgSidebar.html'],
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
-    var organization_id = this.userModel.get('organization_id');
-    if(organization_id != '' && organization_id != null) {
-      this.$el.find("[data-id='" + organization_id + "']").parent().toggleClass('selected');
-      this.trigger('org:click', organization_id);
-    }
   }
 });

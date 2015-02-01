@@ -187,6 +187,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.collections.watches.fetch({
       data: $.param({organization_id: organization_id}),
     });
+    this.collections.events.reset();
     // Note: the watchview has an event listener that listens for sync events
     // from this collection, so when the feth completes, the event will trigger
     // and the watch view will re-render with the new watches.
@@ -198,11 +199,16 @@ _.extend(OOI.prototype, Backbone.Events,  {
       data: $.param({watch_id: watch_id}),
     });
   },
-  newWatch: function() {
+  newWatch: function(watchModel) {
+    console.log("oplog: newWatch");
     var organization_id = this.models.orgModel.get('id');
-    console.log("new Watch in app");
+    this.models.watchModel.set({id: watchModel.id});
+    this.models.watchModel.fetch();
     this.collections.watches.fetch({
       data: $.param({organization_id: organization_id}),
+    });
+    this.collections.events.fetch({
+      data: $.param({watch_id: watchModel.id}),
     });
   }
 });
