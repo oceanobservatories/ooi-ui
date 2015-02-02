@@ -104,40 +104,44 @@ button.question{
   font-size: 20px;
 }
 .lgn input[type=text]{
-  background: url(/img/modal/user_gry.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  font-family: FontAwesome;
+  background: ur 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
   outline: none;
-  padding-left: 25px;
+  padding-left: 4px;
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
 }
 .lgn input[type=text]:focus, textarea:focus {
+  font-family: FontAwesome;
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
-  background: url(../img/user_gry.png) 12px 11px no-repeat, #FFF;
+  background: 12px 11px no-repeat, #FFF;
 }
 .lgn input[type=password]{
-  background: url(/img/modal/lock_gry.png) 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  font-family: FontAwesome;
+  background: 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
   outline: none;
-  padding-left: 25px;
+  padding-left: 4px;
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
 }
 .lgn input[type=password]:focus, textarea:focus {
+  font-family: FontAwesome;
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
-  background: url(../img/lock_gry.png) 12px 11px no-repeat, #FFF;
+  background: 12px 11px no-repeat, #FFF;
 }
 .lgn-message {
     color: #fd0404;
