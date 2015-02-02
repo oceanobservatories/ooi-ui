@@ -146,6 +146,7 @@ var ooi = new OOI();
 
 $(document).ready(function() {
     ooi.start();
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
 </script>
 {% endblock %}
