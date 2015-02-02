@@ -90,7 +90,9 @@ var WatchView = Backbone.View.extend({
    */
   onSync: function() {
     this.render();
-    this.selectWatch(this.collection.at(0).get('id'));
+    if(this.collection.length>0) {
+      this.selectWatch(this.collection.at(0).get('id'));
+    }
   },
   // comment
   template: JST['ooiui/static/js/partials/Watch.html'],
