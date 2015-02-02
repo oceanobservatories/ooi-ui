@@ -123,6 +123,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.tocView = new TOCView({
       collection: this.collections.arrays
     });
+
     $('#sidebar-wrapper').html(this.tocView.el);
 
     mapView = new MapView({

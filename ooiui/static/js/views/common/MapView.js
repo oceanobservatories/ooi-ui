@@ -2,10 +2,19 @@ var MapView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this,"render");
-		this.render();
+		//this.render();
+		var self = this;
+    	this.collection.fetch({success: function(collection, response, options) {
+      		self.render();
+    	}});
 	},
 	//renders a simple map view
 	render: function() {
+
+		L.Icon.Default.imagePath = 'http://api.tiles.mapbox.com/mapbox.js/v1.0.0beta0.0/images';
+
+		var markerCluster = new L.MarkerClusterGroup();
+
 		var map = L.map('map',{
 	        center: [41.505, -80.09],
 	        zoom: 3,
@@ -26,7 +35,31 @@ var MapView = Backbone.View.extend({
 	    //HERE_hybridDay.addTo(map);    
 	    Esri_WorldImagery.addTo(map);
 	    Stamen_TonerHybrid.addTo(map);
-		}
+
+	    this.collection.each(function(platform) { 	    	
+
+	    	var display_name = platform.get('display_name')
+	    	var ref_name = platform.get('reference_designator')
+	    	var array_id = platform.get('array_id')
+
+	    	platform.attributes.geo_location.properties = {'display_name':display_name,
+	    													'ref':ref_name,
+	    													'array_id':array_id
+	    												  }
+	    	
+	    	var geojsonFeature =L.geoJson(platform.attributes.geo_location, {
+				onEachFeature: function (feature, layer) {
+					var dis = '<b>'+feature.properties.display_name+'</b>'					
+					var ref = '<b>'+feature.properties.ref+'</b>'					
+					layer.bindPopup(dis+"<br>"+ref);
+				}
+			});
+	    	
+	    	markerCluster.addLayer(geojsonFeature);
+	    });
+	    map.addLayer(markerCluster);
+
+	}
 	
 	//end
 });
