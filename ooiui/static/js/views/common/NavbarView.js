@@ -21,11 +21,13 @@ var NavbarView = Backbone.View.extend({
   },
   initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle");
-    this.messageView = new DropdownMessagesView({
-      collection: new MessageCollection()
-    });
+    if(ooi.login.loggedIn()) {
+      this.messageView = new DropdownMessagesView({
+        collection: new MessageCollection()
+      });
+    }
     this.dropdownUserView = new DropdownUserView({
-      model: options.login
+      model: ooi.login
     });
     this.render();
   },
@@ -42,7 +44,9 @@ var NavbarView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/Navbar.html'],
   render: function() {
     this.$el.html(this.template());
-    this.$el.find('#navbar-right').prepend(this.messageView.el);
+    if(ooi.login.loggedIn()) {
+      this.$el.find('#navbar-right').prepend(this.messageView.el);
+    }
     this.$el.find('#navbar-right').append(this.dropdownUserView.el);
   }
 });

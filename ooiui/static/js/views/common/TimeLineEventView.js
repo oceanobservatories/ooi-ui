@@ -19,7 +19,6 @@
 var TimeLineEventView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render", "onSync");
-    console.log("hola");
     this.collection.comparator = function(model) {
       var d = new Date(Date.parse(model.get('event_time')));
       return -d;

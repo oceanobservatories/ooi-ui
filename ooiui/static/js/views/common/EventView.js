@@ -24,43 +24,36 @@ var EventView = Backbone.View.extend({
     'click #new-event-link' : 'onNewEvent'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onLoginChange");
-    this.viewSelection = 'list';
-    this.collection.on('sync', this.onSync);
-    this.newEventView = null;
-    if(options && options.login) {
-      this.loginModel = options.login;
-      this.listenTo(this.loginModel, 'login:success', this.onLoginChange);
-    }
-
+    _.bindAll(this, "render", "onListView", "onTimelineView", "onSync", "onNewEventTrigger");
+    this.viewSelection = 'timeline';
+    this.listenTo(this.collection, "sync", this.onSync);
+    this.listenTo(this.collection, "reset", this.onSync);
+    this.newEventView = new NewEventView();
+    this.listenTo(ooi, 'neweventview:newevent', this.onNewEventTrigger);
     this.render();
   },
+  onNewEventTrigger: function() {
+    this.collection.fetch({
+      data: $.param({watch_id: ooi.models.watchModel.get('id')}),
+    });
+  },
   onNewEvent: function() {
-    console.log("onNewEvent");
     if(this.newEventView === null) {
       console.error("This button should be disabled");
     } else {
       this.newEventView.show();
     }
   },
-  onLoginChange: function() {
-    if(this.loginModel.loggedIn()) {
-      this.newEventView = new NewEventView();
-      this.render();
-    }
-  },
   onListView: function() {
-    console.log("List View");
     this.viewSelection = 'list';
     this.render();
   },
   onTimelineView: function() {
-    console.log("Timeline View");
     this.viewSelection = 'timeline';
     this.render();
   },
   onSync: function() {
-    console.log("EventView onSync");
+    this.render();
   },
   template: JST['ooiui/static/js/partials/Event.html'],
   render: function() {
@@ -81,6 +74,7 @@ var EventView = Backbone.View.extend({
     // NewEventView
     if(this.newEventView !== null) {
       this.$el.find('#new-event-modal').html(this.newEventView.el);
+      this.newEventView.onSync();
     }
   }
 });

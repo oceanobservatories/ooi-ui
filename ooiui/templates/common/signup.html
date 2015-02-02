@@ -134,32 +134,49 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
-  start: function() {
-    this.navbar = new NavbarView({
-      login: this.login
+  views: {},
+  collections: {
+    roles: new Roles(),
+    orgs: new Organizations()
+  },
+  initViews: function() {
+    this.views.navbar = new NavbarView();
+    this.views.navbar.sidebarToggle(); // Hide the sidebar
+    $('body').prepend(this.views.navbar.el);
+    this.views.signupview = new SignUpForm({
+        el: 'form',
+        model: new SignUpModel()
     });
-    this.navbar.sidebarToggle(); // Hide the sidebar
-    
-    $('body').prepend(this.navbar.el);
-    this.loginview = new LoginView({
-      model: this.login,
-      success: function() {
-        this.signupview = new SignUpForm({
-            el: 'form',
-            model: new SignUpModel()
-        });
+  },
+  initEvents: function() {
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+  },
+  start: function() {
+    var self = this;
+    this.initEvents();
+    this.login.fetch({async:false});
+    var complete = _.invoke([this.collections.roles, this.collections.orgs], 'fetch');
+    $.when.apply($, complete).then(function() {
+      console.log("DONE");
+      self.initViews();
+      if(!self.login.loggedIn()) {
+        self.views.navbar.dropdownUserView.login();
+      }
+      self.trigger('ooi:sync');
+    }, function() {
+      self.initViews();
+      if(!self.login.loggedIn()) {
+        self.views.navbar.dropdownUserView.login();
       }
     });
-    $('#loginView').html(this.loginview.el);
-    this.loginview.show();
   }
 });
 
 var ooi = new OOI();
 
 $(document).ready(function () {
-    ooi.start();
-
+  ooi.start();
 });
 </script>
 {% endblock %}

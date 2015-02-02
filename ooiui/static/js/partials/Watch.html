@@ -1,18 +1,67 @@
-<div class="list-group">
-  <% collection.each(function(model) { %>
-  <div class="watch-item" data-id="<%= model.get('id') %>">
-    <% if(model.get("end_time") != null) { %>
-    <a class="li-closed list-group-item" href="#">
-    <% } else { %>
-    <a class="li-open list-group-item" href='#'>
-    <% } %>
-      <div class="watch-title">
-        <%= model.getName() %>
+<!-- <div class="panel"> -->
+  <div class="panel-heading">
+    <strong><span class="fa fa-navicon"></span> Watches</strong>
+    <div class="pull-right dropdown">
+      <a id="new-watch-dropdown" class="disabled dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a id="new-watch-link" href="#">New Watch</a>
+        </li>
+        <li>
+          <a id="end-watch-link" href="#">End Watch</a>
+        </li>
+      </ul>
+    </div> <!-- .pull-right .dropdown -->
+  </div> <!-- .panel-heading -->
+
+  <div id="panelWatch" class="panel-body">
+    <div class="list-group">
+      <% collection.each(function(model) { %>
+      <div class="watch-item" data-id="<%= model.get('id') %>">
+        <% if(model.get("end_time") != null) { %>
+        <a class="list-group-item" href="#">
+        <% } else { %>
+        <a class="list-group-item" href='#'>
+        <% } %>
+          <div class="watch-title">
+            <%= model.getName() %>
+          </div>
+          <div class="watch-when">
+            <%= model.getDates() %>
+          </div>
+        </a>
       </div>
-      <div class="watch-when">
-        <%= model.getDates() %>
-      </div>
-    </a>
-  </div>
-  <% }); %>
-</div>
+      <% }); %>
+    </div> <!-- .list-group -->
+  </div> <!-- #panelWatch -->
+  <div id='new-watch-modal' class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Begin a new watch?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id="new-watch" class="btn btn-primary" data-dismiss="modal">Start</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <div id='end-watch-modal' class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">End the current Watch?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id="end-watch" class="btn btn-primary" data-dismiss="modal">End Watch</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+<!-- </div> -->

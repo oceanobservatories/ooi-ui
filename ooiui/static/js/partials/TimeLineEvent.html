@@ -1,33 +1,35 @@
 
 <ul class="timeline">   
-<% var i=0; %>
-<% collection.each(function(model) { %>
+  <% var i=0; %>
+  <% collection.each(function(model) { %>
+  <li class="<% if(i%2) {%>timeline-inverted<%}%>">
+    <% var type_name = model.get('event_type') && model.get('event_type').type_name; %>
+    <% if(type_name == 'INFO') { %>
+    <div class="timeline-badge info"><i class="glyphicon glyphicon-info-sign"></i></div>
+    <% } else if(type_name == 'WARN') { %>
+    <div class="timeline-badge warning"><i class="glyphicon glyphicon-exclamation-sign"></i></div>
+    <% } else if(type_name == 'ERROR') { %>
+    <div class="timeline-badge danger"><i class="glyphicon glyphicon-bell"></i></div>
+    <% } else if(type_name == 'CRITICAL') { %>
+    <div class="timeline-badge danger"><i class="glyphicon glyphicon-remove-sign"></i></div>
+    <% } else { %>
+    <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+    <% } %>
 
-  <li    <% if(i%2) { %>class="timeline-inverted"<% } else { %>class="" <% }%>        >
+    <div class="timeline-panel">
+      <div class="timeline-heading">
+        <h4 class="timeline-title"><%= model.get('event_title') %></h4>
+        <p>    
+          <small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
+          <%= model.getTime() %>
+          </small> 
+      </div>
+      <div class="timeline-body">
 
-  <% if(i == 0) { %>  
-    <div class="timeline-badge danger"><i class="glyphicon glyphicon-check"></i></div>
-  <% } else if(i == 1) { %>
-    <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
-  <% } else { %>
-    <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
-  <% } %>
-
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h4 class="timeline-title"><%= model.get('event_title') %></h4>
-      <p>    
-        <small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
-        <%=model.getTime() %>
-        </small> 
-        <p>idx:<% print(i) %></p>            
-      </p>
+        <p><%= model.get('event_comment') %></p>
+      </div>
     </div>
-    <div class="timeline-body">
-      <p><%= model.get('event_comment') %></p>
-    </div>
-  </div>
-</li>
-<% i+= 1; %>
-<% }); %>
+  </li>
+  <% i+= 1; %>
+  <% }); %>
 </ul>

@@ -22,6 +22,10 @@ def user_signup():
 def user_login():
     return render_template('common/loginDemo.html')
 
+@app.route('/NewEvent')
+def new_event():
+    return render_template('common/newEvent.html')
+
 @app.route('/basic.html')
 def basic():
     return render_template('common/basic.html')
@@ -37,6 +41,11 @@ def plots_demo():
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(SERVICES_URL + '/organization', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/organization/<int:id>', methods=['GET'])
+def get_organization_by_id(id):
+    response = requests.get(SERVICES_URL + '/organization/%s' % id, params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/user', methods=['GET'])
@@ -69,6 +78,8 @@ def login():
     response = requests.get(SERVICES_URL + '/token', auth=(username, password))
     return response.text, response.status_code
 
+
+
 #>>---->opLog<----<<##
 # @app.route('/opLog.html')
 # def op_log():
@@ -79,7 +90,7 @@ def get_watch():
     response = requests.get(SERVICES_URL + '/watch', params=request.args)
     return response.text, response.status_code
 
-@app.route('/apt/watch', methods=['POST'])
+@app.route('/api/watch', methods=['POST'])
 def post_watch():
     token = get_login()
     response = requests.post(SERVICES_URL + '/watch', auth=(token, ''), data=request.data)
@@ -91,10 +102,15 @@ def get_watch_user():
     response = requests.get(SERVICES_URL + '/watch/user/', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/watch/<int:id>', methods=['GET'])
+def get_watch_by_id(id):
+    response = requests.get(SERVICES_URL + '/watch/%s' % id)
+    return response.text, response.status_code
+
 @app.route('/api/watch/<int:id>', methods=['PUT'])
 def put_watch(id):
     token = get_login()
-    response = requests.put(SERVICES_URL + '/watch/user/%s' % id, auth=(token, ''), data=request.data)
+    response = requests.put(SERVICES_URL + '/watch/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/watch/open', methods=['GET'])
@@ -111,6 +127,11 @@ def get_operator_event():
 @app.route('/api/operator_event', methods=['POST'])
 def post_event():
     token = get_login()
-    resp = requests.get(SERVICES_URL + '/operator_event', auth=(token,''))
-    return resp.text, resp.status_code
+    print request.data
+    response = requests.post(SERVICES_URL + '/operator_event', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
 
+@app.route('/api/operator_event_type', methods=['GET'])
+def get_operator_event_type():
+    response = requests.get(SERVICES_URL + '/operator_event_type', params=request.args)
+    return response.text, response.status_code

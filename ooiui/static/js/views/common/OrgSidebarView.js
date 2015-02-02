@@ -37,23 +37,30 @@ var OrgSidebarView = Backbone.View.extend({
     // Get the model id from the tag attribute data-id
     var model_id = parseInt($(event.target).attr('data-id'));
     // Publish a new method org:click with the model_id
-    this.trigger('org:click', model_id);
+    this.render();
+    this.selectOrg(model_id);
   },
   /*
    * During initialization of this view we fetch the collection and render when
    * it's complete.
    */
-  initialize: function() {
+  initialize: function(options) {
     _.bindAll(this, "render");
-    // We use self because we're calling an instance method from within a
-    // callback/anonymous function
     var self = this;
     this.collection.fetch({
       success: function(collection, response, options) {
         // If the fetch was successful, then we render
         self.render();
+        var organization_id = ooi.models.userModel.get('organization_id');
+        if(organization_id && organization_id != '' && organization_id != null) {
+          self.selectOrg(organization_id)
+        }
       }
     });
+  },
+  selectOrg: function(org_id) {
+    this.$el.find("[data-id='" + org_id + "']").parent().toggleClass('selected');
+    ooi.trigger('org:click', org_id);
   },
   template: JST['ooiui/static/js/partials/OrgSidebar.html'],
   render: function() {
