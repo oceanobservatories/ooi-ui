@@ -24,7 +24,7 @@ var WatchModel = Backbone.Model.extend({
     var obj = this.toJSON();
     if(obj.user.first_name && obj.user.last_name) {
       return obj.user.first_name + ' ' + obj.user.last_name + "'s Watch";
-    } 
+    }
     return "General Watch";
   },
   /*

@@ -9,44 +9,19 @@
   padding: 5px;
   text-align: center;
 }
-.newEvent-logo{
-  padding: 15px;
-  text-align: center;
-  margin-top: -20px;
-}
 .newEvent-header{
-  /*background-color: #f9f9f9;*/
-  min-height: 10px;
+  min-height: 35px;
   padding: 1px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 .newEvent-body{
   position: relative;
-  padding: 32px;
-}
-.newEvent-footer{
-  min-height: 20px;
-  padding: 1px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-.newEvent-footerPass{
-  padding: 0px 0px 10px 10px;
-  /*border-top: 0px;*/
-  font-size: 10px;
-  float: left;
-}
-.newEvent-footerNewUser{
-  padding: 0px 10px 10px 0px;
-  /*border-top: 0px;*/
-  font-size: 10px;
-  float: right;
+  padding: 20px 32px 25px 32px;
 }
 .newEvent .btn{
   margin-top: 5px;
   margin-bottom: 0px;
-
 }
 .btn-newEvent{
   background: #4fd934;
@@ -94,9 +69,9 @@ div.image {
   margin-bottom: -3px;
 }
 button.close{
-  padding: 4px 5px 0px 0px;
+  padding: 4px 7px 0px 0px;
   font-family: Arial;
-  font-size: 14px;
+  font-size: 25px;
 }
 .newEvent input[type=text]{
   height: 20px;
@@ -112,7 +87,6 @@ button.close{
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
   border-radius: 6px;
-
 }
 .newEvent input[type=text]:focus, textarea:focus {
   height: 20px;
@@ -127,17 +101,13 @@ button.close{
   vertical-align: middle;
   border-radius: 6px;
 }
-.newEvent-message {
-  font-family: FontAwesome;
-}
 .typeDrop {
-   -webkit-appearance: menulist-button;
-   line-height: 20px;
-   width: 212px;
-   background: linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
-
-   border: 1px solid #DDDDDD;
-   border-radius: 6px;
+  -webkit-appearance: menulist-button;
+  line-height: 20px;
+  width: 212px;
+  background: linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
 }
 .new-event-message {
   color: #fd0404;

@@ -36,4 +36,3 @@ var UserModel = Backbone.Model.extend({
     user_name: ""
   }
 });
-
