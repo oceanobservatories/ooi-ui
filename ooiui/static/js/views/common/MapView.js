@@ -10,8 +10,8 @@ var MapView = Backbone.View.extend({
 	},
 	//renders a simple map view
 	render: function() {
-
-		L.Icon.Default.imagePath = 'http://api.tiles.mapbox.com/mapbox.js/v1.0.0beta0.0/images';
+		//needs to be set
+		L.Icon.Default.imagePath = '/img';
 
 		var markerCluster = new L.MarkerClusterGroup();
 
@@ -47,7 +47,7 @@ var MapView = Backbone.View.extend({
 	    													'array_id':array_id
 	    												  }
 	    	
-	    	var geojsonFeature =L.geoJson(platform.attributes.geo_location, {
+	    	var geojsonFeature =L.geoJson(platform.attributes.geo_location, {				
 				onEachFeature: function (feature, layer) {
 					var dis = '<b>'+feature.properties.display_name+'</b>'					
 					var ref = '<b>'+feature.properties.ref+'</b>'					
