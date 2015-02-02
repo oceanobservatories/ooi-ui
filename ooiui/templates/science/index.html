@@ -107,6 +107,12 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  models: {
+  },
+  collections: {
+    arrays: new ArrayCollection(),
+    platform_deployments: new PlatformDeploymentCollection()
+  },
   views: {
   },
   start: function() {
@@ -114,13 +120,14 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.arrays = new ArrayCollection();
     this.tocView = new TOCView({
-      collection: this.arrays
+      collection: this.collections.arrays
     });
     $('#sidebar-wrapper').html(this.tocView.el);
 
-    mapView = new MapView();
+    mapView = new MapView({
+      collection: this.collections.platform_deployments
+    });
 
     if(!this.login.loggedIn()) {
       this.modalView = new ModalDialogView();
