@@ -15,32 +15,28 @@
  */
 
 var Chart = Backbone.Model.extend({
-  url: 'json/google_charts.json',
+  defaults: {
+    title: 'New Chart',
+    type:  'AreaChart',
+    data:'',
+    stream:'',
+    instrument:'' 
+  },
+
+  url: '/getdata/?',
    
   parse: function(response, options){
     _.bindAll(this, 'initialize');
     console.log(options)
     var response =options.xhr.responseText
-    console.log(response)
+    //console.log(response)
     var self = this
     self.initialize(response)
     return response
   },
 
-
-  defaults: {
-    title: 'New Chart',
-    type:  'AreaChart',
-    data:'' 
-  },
-
-
-
   initialize: function(response){
     var data = new google.visualization.DataTable(response)
-       
-      
-
     this.set({data:data});
     },
    

@@ -22,7 +22,7 @@ var ParameterCollection = Backbone.Collection.extend({
   url: '/api/parameter',
   model: ParameterModel,
   parse: function(response, options) {
-    console.log(response);
+    //console.log(response);
     return response.objects;
   }
 });

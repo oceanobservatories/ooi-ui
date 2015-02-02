@@ -32,6 +32,25 @@ def landing_pioneer():
 
 @app.route('/getdata/')
 def getData():
+    '''
+    gets data in the google chart format
+    '''
+    instr = request.args['instrument']   
+    stream = request.args['stream']    
+     
+    #std = request.args['startdate']
+    #edd = request.args['enddate']
+    #param = request.args['variables']
+    #ann = request.args['annotaton']
+    ann = "?annotation=true"
+
+    response = requests.get(SERVICES_URL + '/uframe/get_data'+"/"+instr+"/"+stream+ann, params=request.args)
+
+    return response.text, response.status_code
+
+'''
+@app.route('/getdata/')
+def getData():
     instr = request.args['dataset_id']    
     std = request.args['startdate']
     edd = request.args['enddate']
@@ -50,6 +69,7 @@ def getData():
     
     resp = Response(response=r, status=200, mimetype="application/json")
     return resp
+'''
 
 
 @app.route('/files')
