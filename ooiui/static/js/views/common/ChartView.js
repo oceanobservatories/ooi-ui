@@ -79,13 +79,13 @@ var ChartView = Backbone.View.extend({
        // console.log(i)
         if(j==0){
           var date = new Date(data.getValue(i,j))
-          console.log(date);
+          //console.log(date);
           var gdate = String(date.getFullYear()) + ','
           + String(date.getMonth())+','+ String(date.getDate())+',' 
           + String(date.getHours())+','+String(date.getMinutes())+','+ String(date.getSeconds()) 
          
           
-          console.log(gdate)  
+          //console.log(gdate)  
           p.append('<input readonly type="text" value=' + gdate + '></input>')
         }else{
           p.append('<input value=' + data.getValue(i,j) + '></input>');
@@ -101,7 +101,7 @@ var ChartView = Backbone.View.extend({
   done: function(){
     //pick up data and save it into the model
     var data = this.model.get('data');
-    console.log(data);
+    //console.log(data);
     this.$('.edit-contents p').each(function(row_index){// for each row
       //console.log(row_index);
       
@@ -113,11 +113,11 @@ var ChartView = Backbone.View.extend({
        // console.log(row_index, col_index, value);
         if(col_index == 0){
           var result = value.split(",")
-          console.log(result.length);
+          //console.log(result.length);
           //value =parseInt(result[0])+','+ parseInt(result[1])+','+ parseInt(result[2])+','+ parseInt(result[3])+','+ parseInt(result[4])+','+ parseInt(result[5]);
           value = new Date(parseInt(result[0]),parseInt(result[1]),parseInt(result[2]),parseInt(result[3]),parseInt(result[4]),parseInt(result[5]));
 
-          console.log(value);
+          //console.log(value);
         }
         else if (col_index == 1){
           value = parseInt(value)

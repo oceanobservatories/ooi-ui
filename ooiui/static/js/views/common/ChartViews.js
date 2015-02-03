@@ -58,6 +58,13 @@ var ChartViews = Backbone.View.extend({
       title: this.$title_input.val().trim() || null, // use default if empty
       type: this.$type_input.val()
     });
+
+    var instrument = $('#plotInstrument').text()
+    var stream = $('#plotStream').text()
+
+    console.log(instrument,stream)
+
+    chart.url = chart.url+"instrument="+instrument+"&stream="+stream
     chart.fetch()
     this.collection.add(chart);
 
