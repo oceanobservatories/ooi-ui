@@ -117,7 +117,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.collections.operatorEventTypes.fetch();
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
-    
+
     if(this.login.loggedIn()) {
       this.models.userModel.fetch();
     }
@@ -133,7 +133,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
       collection: this.collections.watches,
     });
     $('#watch-view').html(this.views.watchView.el);
-    
+
     this.views.eventView = new EventView({
       collection: this.collections.events
     });

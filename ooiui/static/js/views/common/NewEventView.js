@@ -23,7 +23,7 @@ var NewEventView = Backbone.View.extend({
     this.orgModel.set('id', ooi.models.userModel.get('organization_id'));
     this.orgModel.fetch({
       success: function(model, response, options) {
-        self.conditions.userChange = true; 
+        self.conditions.userChange = true;
         self.onSync();
       }
     });

@@ -62,7 +62,7 @@ var EventView = Backbone.View.extend({
     if(this.viewSelection == 'list') {
       this.$el.find('#list-view').toggleClass('active');
       this.eventView = new EventListView({collection: this.collection});
-    } 
+    }
     // Timeline Event View
     else {
       this.$el.find('#timeline-view').toggleClass('active');
@@ -78,4 +78,3 @@ var EventView = Backbone.View.extend({
     }
   }
 });
-

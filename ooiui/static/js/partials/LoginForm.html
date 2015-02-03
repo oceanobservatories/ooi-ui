@@ -2,7 +2,9 @@
 
 <div class="lgn btn-launch">
   <!--Modal-->
-  <div class="modal fade" id="loginModal">
+  <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
+  tabindex allows the escape key to be used to close the modal -->
+  <div class="modal fade" id="loginModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <!--Header-->
@@ -18,8 +20,8 @@
              <div class="image"></div>
              <div class="lgn-message"></div>
              <br>
-             <input class="lgn-input" id="usrInput" type="text" name="username" size="25" placeholder="Email/Username">
-             <input class="lgn-input" id="passInput" type="password" name="password" size="25" placeholder="Password" />
+             <input class="lgn-input" id="usrInput" type="text" name="username" size="25" placeholder="&#xf007; Email/Username">
+             <input class="lgn-input" id="passInput" type="password" name="password" size="25" placeholder="&#xf023; Password" />
              <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btnLogin" disabled="disabled">Log In</button>
           </div> <!-- lgn-center -->
         </div> <!-- lgn-body -->
