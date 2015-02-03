@@ -24,7 +24,7 @@ var EventListView = Backbone.View.extend({
       return -d;
     }
     this.collection.on('sync', this.onSync);
-    if(this.collection.length > 0) { 
+    if(this.collection.length > 0) {
       this.render();
     }
   },
