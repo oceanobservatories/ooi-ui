@@ -22,13 +22,13 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
-             * This is the basic form partial that has the modal dialog
-             * prompting the user for username and password
-             */
+            * This is the basic form partial that has the modal dialog
+            * prompting the user for username and password
+            */
             "ooiui/static/js/partials/loginForm.html",
             /*
-             * This is a generic partial for displaying an alert
-             */
+            * This is a generic partial for displaying an alert
+            */
             "ooiui/static/js/partials/Alert.html"
           ],
           "ooiui/static/js/partials/compiled/newEvent.js": [
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             'ooiui/static/js/partials/Chart.html',
-            'ooiui/static/js/partials/ChartTypeTemplate.html',  
+            'ooiui/static/js/partials/ChartTypeTemplate.html',
             'ooiui/static/js/partials/ChartFilterTemplate.html'
           ],
           "ooiui/static/js/partials/compiled/OpLog.js": [
@@ -130,7 +130,7 @@ module.exports = function(grunt) {
           banner: "'use strict';\n",
           process: function(src, filepath) {
             return '// Source: ' + filepath + '\n' +
-              src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
           },
         },
         files: {
@@ -304,7 +304,7 @@ module.exports = function(grunt) {
             //Collection
             'ooiui/static/js/collections/ChartCollection.js',
             //Views
-            // 
+            //
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
