@@ -41,9 +41,17 @@ var NavbarView = Backbone.View.extend({
       $('#collapse-button').addClass('fa-caret-left');
     }
   },
-  template: JST['ooiui/static/js/partials/Navbar.html'],
+  templates: {
+    navbar: JST['ooiui/static/js/partials/Navbar.html'],
+    sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html']
+  },
   render: function() {
-    this.$el.html(this.template());
+    this.$el.html(this.templates.navbar());
+    // Only add the sidebar collapse if the sidebar exists
+    if($('#sidebar-wrapper').length > 0) {
+      this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+    }
+    // Messages only appear to logged in users
     if(ooi.login.loggedIn()) {
       this.$el.find('#navbar-right').prepend(this.messageView.el);
     }

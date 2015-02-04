@@ -18,6 +18,10 @@ def get_login():
 def user_signup():
     return render_template('common/signup.html')
 
+@app.route('/user/edit/<int:id>')
+def user_edit(id):
+    return render_template('common/userEdit.html')
+
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html')
@@ -54,6 +58,18 @@ def get_user():
     response = requests.get(SERVICES_URL + '/user', auth=(token, ''))
     return response.text, response.status_code
 
+@app.route('/api/user/<int:id>', methods=['GET'])
+def get_user_by_id(id):
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/user/%s' % id, auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/user/<int:id>', methods=['PUT'])
+def put_user(id):
+    token = get_login()
+    response = requests.put(SERVICES_URL + '/user/%s' % id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])
 def submit_user():
@@ -62,6 +78,12 @@ def submit_user():
     '''
     token = get_login()
     response = requests.post(SERVICES_URL + '/user', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/user_scope', methods=['GET'])
+def get_user_scopes():
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/user_scopes', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/user_roles')
