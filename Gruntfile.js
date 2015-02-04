@@ -208,6 +208,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backgrid/lib/backgrid.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -379,6 +380,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/userSignUpForm.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/lib/backgrid/lib/backgrid.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
           "ooiui/static/css/compiled/basic.css" : [
