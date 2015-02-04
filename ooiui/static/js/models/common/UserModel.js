@@ -36,3 +36,14 @@ var UserModel = Backbone.Model.extend({
     user_name: ""
   }
 });
+
+var UserCollection = Backbone.Collection.extend({
+  url: '/api/user',
+  model: UserModel,
+  parse: function(response) {
+    if(response) {
+      return response.users;
+    }
+    return [];
+  }
+});
