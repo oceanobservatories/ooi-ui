@@ -1,7 +1,7 @@
 "use strict";
 /*
-* ooiui/static/js/views/common/EventListView.js
-* View definitions an accordion style for event views
+* ooiui/static/js/models/common/UserModel.js
+* Model definition for a user
 *
 * Dependencies
 * Libs

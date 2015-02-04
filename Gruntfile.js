@@ -15,7 +15,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoginForm.html",
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
-            "ooiui/static/js/partials/Navbar.html"
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
@@ -40,7 +41,20 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html"
+          ],
+          "ooiui/static/js/partials/compiled/userEdit.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/UserEditForm.html"
           ],
           "ooiui/static/js/partials/compiled/basic.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -51,6 +65,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html"
           ],
@@ -63,6 +78,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             'ooiui/static/js/partials/Chart.html',
@@ -77,6 +93,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoginForm.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/Chart.html",
@@ -149,6 +166,31 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
+          ],
+          'ooiui/static/js/compiled/userEdit.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserFormModel.js',
+            'ooiui/static/js/models/common/RoleModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/UserScopeModel.js',
+            'ooiui/static/js/models/common/OrganizationModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/UserEditFormView.js'
           ],
           'ooiui/static/js/compiled/index.js' : [
             // Libs
@@ -290,6 +332,12 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css"
           ],
           "ooiui/static/css/compiled/signup.css" : [
+            "ooiui/static/css/common/userSignUpForm.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css"
+          ],
+          "ooiui/static/css/compiled/userEdit.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
