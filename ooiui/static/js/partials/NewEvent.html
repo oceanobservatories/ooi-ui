@@ -35,18 +35,25 @@
                 --Choose Type--
               </option>
               <% operatorEventTypes.each(function(eventType) { %>
-                <option value="<%= eventType.get('id') %>">
-                  <%= eventType.get('type_name') %>
-                </option>
-                <% }); %>
-              </select>
-            </div>
-            <div class="newEvent-center">
-              <button class="newEvent btn btn-default" id="new-event-button" type="button">New Event</button>
-            </div><!-- newEvent-center -->
-          </div><!-- newEvent-body -->
-        </div><!-- modal-content -->
-      </div><!-- modal-dialog -->
-    </div><!-- modal fade -->
-  </div><!-- newEvent btn-launch -->
-  <!-- EOL -->
+              <option value="<%= eventType.get('id') %>">
+                <%= eventType.get('type_name') %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="newEvent-center">
+            <button class="newEvent btn btn-default" id="new-event-button" type="button">New Event</button>
+          </div>
+          <!-- newEvent-center -->
+        </div>
+        <!-- newEvent-body -->
+
+        <!-- newEvent-footer -->
+      </div>
+      <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+  </div>
+  <!-- modal fade -->
+</div>
+<!-- newEvent btn-launch -->
