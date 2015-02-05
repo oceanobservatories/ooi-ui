@@ -125,6 +125,8 @@
 </div>
 <script type="text/javascript">
 
+var csrf_token = "{{ csrf_token() }}";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {},
@@ -132,6 +134,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     roles: new Roles(),
     orgs: new Organizations()
   },
+  csrf_token: csrf_token,
   initViews: function() {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
@@ -152,15 +155,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     $.when.apply($, complete).then(function() {
       console.log("DONE");
       self.initViews();
-      if(!self.login.loggedIn()) {
-        self.views.navbar.dropdownUserView.login();
-      }
       self.trigger('ooi:sync');
     }, function() {
       self.initViews();
-      if(!self.login.loggedIn()) {
-        self.views.navbar.dropdownUserView.login();
-      }
     });
   }
 });
