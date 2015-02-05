@@ -33,6 +33,7 @@ var UserModel = Backbone.Model.extend({
     phone_primary: null,
     role: null,
     user_id: "",
+    scopes: [],
     user_name: ""
   }
 });

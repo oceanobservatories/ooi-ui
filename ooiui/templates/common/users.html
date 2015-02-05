@@ -22,10 +22,10 @@
         <div class="col-lg-12">
           <div class="panel">
             <div class="panel-heading">
-              Heading
+              Users
             </div>
             <div class="panel-body">
-              <div id="grid">
+              <div id="users-table-view">
               </div>
             </div>
           </div>
@@ -38,45 +38,6 @@
 
 <script type="text/javascript">
 
-var columns = [{
-    name: "id", // The key of the model attribute
-    label: "ID", // The name to display in the header
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    // Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
-    cell: Backgrid.IntegerCell.extend({
-      orderSeparator: ''
-    })
-  }, {
-    name: "user_name",
-    label: "User Name",
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-    cell: "string" // This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
-  }, {
-    name: "first_name",
-    label: "First Name",
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    cell: "string" // An integer cell is a number cell that displays humanized integers
-  }, {
-    name: "last_name",
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    label: "Last Name",
-    cell: "string" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-  }, {
-    name: "email",
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    label: "Email",
-    cell: "email"
-  }, {
-    name: "active",
-    editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-    label: "Active?",
-    cell: "boolean" // Renders the value in an HTML anchor element
-}];
-
-
-// Render the grid and attach the root to your HTML document
-
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
@@ -87,15 +48,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     users: new UserCollection(),
   },
   start: function() {
+    this.login.fetch({async: false});
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
-    console.log("OOI Ready");
-    this.grid = new Backgrid.Grid({
-        columns: columns,
-        collection: this.collections.users
-    });
-    $("#grid").append(this.grid.render().el);
+    this.views.navbar.sidebarToggle();
     this.collections.users.fetch({reset:true});
+
+    this.views.userTableView = new UserTableView({
+      collection: this.collections.users,
+      el: $('#users-table-view')
+    });
   }
 });
 

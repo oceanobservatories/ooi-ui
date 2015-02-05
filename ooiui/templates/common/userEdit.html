@@ -34,6 +34,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     userModel : new UserModel({id: userId})
   },
   start: function() {
+    this.login.fetch({async: false});
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.models.userModel.fetch();
