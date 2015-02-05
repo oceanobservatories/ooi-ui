@@ -29,6 +29,13 @@ def new_index():
 def landing_pioneer():
     return render_template('landing/pioneer.html')
 
+@app.route('/plat_list')
+def plat_index():
+    return render_template('asset_management/platform_list.html')
+
+@app.route('/instrument_list')
+def instr_index():
+    return render_template('asset_management/instrument_list.html')
 
 @app.route('/getdata/')
 def getData():
