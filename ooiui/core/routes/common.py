@@ -22,6 +22,10 @@ def user_signup():
 def user_edit(id):
     return render_template('common/userEdit.html')
 
+@app.route('/users/')
+def users():
+    return render_template('common/users.html')
+
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html')
@@ -53,9 +57,15 @@ def get_organization_by_id(id):
     return response.text, response.status_code
 
 @app.route('/api/user', methods=['GET'])
-def get_user():
+def get_users():
     token = get_login()
     response = requests.get(SERVICES_URL + '/user', auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/current_user', methods=['GET'])
+def get_current_user():
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/current_user', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/user/<int:id>', methods=['GET'])

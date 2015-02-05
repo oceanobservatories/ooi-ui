@@ -36,7 +36,8 @@
     "c3js-chart": "~0.4.8",
     "metis-menu": "https://github.com/onokumus/metisMenu.git",
     "loremjs": "*",
-    "jquery-cookie": "~1.4.1"
+    "jquery-cookie": "~1.4.1",
+    "backgrid": "git://github.com/lukecampbell/backgrid.git#ooi"
   },
   "resolutions": {
     "jquery": "~2.1.1",

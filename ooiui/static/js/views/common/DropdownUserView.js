@@ -9,11 +9,6 @@
  * Libs
  * - ooiui/static/lib/underscore/underscore.js
  * - ooiui/static/lib/backbone/backbone.js
- * Usage
- *   var messageView = new DropdownMessagesView({
- *     collection: new MessageCollection()
- *   });
- *   $('#navbar-right').prepend(messageView.el);
  */
 
 var DropdownUserView = Backbone.View.extend({
@@ -37,18 +32,31 @@ var DropdownUserView = Backbone.View.extend({
     this.model.logOut();
   },
   initialize: function() {
+    var self = this;
     _.bindAll(this, "render", "login", "logout");
-    this.render();
+    if(this.model.loggedIn()) {
+      this.userModel = new UserModel();
+      this.userModel.fetch({
+        url: '/api/current_user',
+        success: function() {
+          self.renderLoggedIn();
+        },
+        error: function() {
+          self.renderLoggedOut();
+        }
+      });
+    } else {
+      this.renderLoggedOut();
+    }
   },
   template: {
     loggedIn: JST['ooiui/static/js/partials/DropdownUserLoggedIn.html'],
     loggedOut: JST['ooiui/static/js/partials/DropdownUserLoggedOut.html']
   },
-  render: function() {
-    if(this.model.loggedIn()) {
-      this.$el.html(this.template.loggedIn());
-    } else {
+  renderLoggedIn: function() {
+    this.$el.html(this.template.loggedIn({user: this.userModel}));
+  },
+  renderLoggedOut: function() {
       this.$el.html(this.template.loggedOut());
-    }
   }
 });

@@ -33,6 +33,18 @@ var UserModel = Backbone.Model.extend({
     phone_primary: null,
     role: null,
     user_id: "",
+    scopes: [],
     user_name: ""
+  }
+});
+
+var UserCollection = Backbone.Collection.extend({
+  url: '/api/user',
+  model: UserModel,
+  parse: function(response) {
+    if(response) {
+      return response.users;
+    }
+    return [];
   }
 });
