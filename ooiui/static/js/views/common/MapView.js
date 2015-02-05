@@ -1,12 +1,11 @@
 var MapView = Backbone.View.extend({
-
 	initialize: function() {
 		_.bindAll(this,"render");
 		//this.render();
 		var self = this;
-    	this.collection.fetch({success: function(collection, response, options) {
-      		self.render();
-    	}});
+    this.collection.fetch({success: function(collection, response, options) {
+      self.render();
+    }});
 	},
 	//renders a simple map view
 	render: function() {
@@ -15,7 +14,7 @@ var MapView = Backbone.View.extend({
 
 		var markerCluster = new L.MarkerClusterGroup();
 
-		var map = L.map('map',{
+		var map = L.map(this.el,{
 	        center: [41.505, -80.09],
 	        zoom: 3,
 	        maxZoom: 10

@@ -35,7 +35,7 @@
               <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
             </div> <!-- panel-heading -->
             <div class="panel-body">
-              <div id ='map'></div>
+              <div class="map-view" id='map'></div>
             </div> <!-- panel-body -->
           </div> <!-- panel -->
         </div> <!-- col-lg-12 -->
@@ -126,8 +126,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     $('#sidebar-wrapper').html(this.tocView.el);
 
-    mapView = new MapView({
-      collection: this.collections.platform_deployments
+    this.views.mapView = new MapView({
+      collection: this.collections.platform_deployments,
+      el: $('#map')
     });
 
     if(!this.login.loggedIn()) {
