@@ -33,7 +33,7 @@ def user_edit(id):
 def users():
     return render_template('common/users.html')
 
-@app.route('/troubleticket')
+@app.route('/troubleTicket')
 def trouble_ticket():
     return render_template('common/troubleTicket.html')
 
