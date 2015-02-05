@@ -1,17 +1,32 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-    <title>Register New User</title>
+<title>Register New User</title>
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="/css/compiled/troubleTicket.css" type="text/css" />
-  <!-- <link rel="stylesheet" href="/css/compiled/signup.css" type="text/css" /> -->
-  <!-- Partials -->
-  <script src="/js/partials/compiled/troubleTicket.js" type="text/javascript"></script>
-  <!-- <script src="/js/partials/compiled/signup.js" type="text/javascript"></script> -->
-  <script src="/js/compiled/troubleTicket.js" type="text/javascript"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="/css/compiled/troubleTicket.css" type="text/css" />
+<!-- <link rel="stylesheet" href="/css/compiled/signup.css" type="text/css" /> -->
+<!-- Partials -->
+<script src="/js/partials/compiled/troubleTicket.js" type="text/javascript"></script>
+<!-- <script src="/js/partials/compiled/signup.js" type="text/javascript"></script> -->
+<script src="/js/compiled/troubleTicket.js" type="text/javascript"></script>
 <!-- <script src="/js/compiled/signup.js" type="text/javascript"></script> -->
+<style type="text/css">
+/**
+* Override feedback icon position
+* See http://formvalidation.io/examples/adjusting-feedback-icon-position/
+*/
+#eventForm .form-control-feedback {
+  top: 0;
+  right: -15px;
+}
+</style>
+
+
 {% endblock %}
 
 {%block body %}
@@ -21,118 +36,131 @@
 
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
+      <!-- header -->
+      <div class="row"><!-- row 1 -->
+        <div class="col-sm-12">
           <form class="form-horizontal" role="form">
-            <h3>New User Registration</h3>
-            <hr width="80%">
-            <div class="form-group ">
-              <label for="username" class="col-sm-3 control-label">User Name</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="username" name="username" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="password" class="col-sm-3 control-label">Password</label>
-              <div class="col-sm-6">
-                <input type="password" class="form-control" id="password" name="password" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="repeatPassword" class="col-sm-3 control-label">Re-enter Password</label>
-              <div class="col-sm-6">
-                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <hr width ="80%">
-
-            <div class="form-group">
-              <label for="firstname" class="col-sm-3 control-label">First Name</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="first_name" name="first_name" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="lastname" class="col-sm-3 control-label">Last Name</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="last_name" name="last_name" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="primary_phone" name="primary_phone" />
-                <span class="help-block hidden"></span>
-              </div>
-
-            </div>
-            <div class="form-group">
-              <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="secondary_phone" name="secondary_phone" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="email" class="col-sm-3 control-label">Email</label>
-              <div class="col-sm-6">
-                <input type="email" class="form-control" id="email" name="email" />
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="organization" class="col-sm-3 control-label">Organization</label>
-              <div class="col-sm-6">
-                <select class="form-control" id="organization" name="organization">
-                  <option>WHOI</option>
-                  <option>OSU</option>
-                  <option>Rutgers</option>
-                  <option>UW</option>
-                  <option>Scripps</option>
-                  <option>Raytheon</option>
-                  <option>ASA</option>
-                  <option>Ocean Leadership</option>
-                  <option>NSF</option>
-                  <option>Other</option>
-
-                </select>
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-            <hr width="80%">
-            <div class="form-group">
-              <label for="role" class="col-sm-3 control-label">Role</label>
-              <div class="col-sm-6 ">
-                <select class="form-control" id="role_name" name="role_name">
-                </select>
-                <span class="help-block hidden"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-12">
-                <button type="button" id="submitButton" class="btn btn-success">Submit</button>
-                <button type="button" id="resetButton" class="btn btn-success">Reset</button>
-
-              </div>
-            </div>
+            <h2>Trouble Ticket Submission</h2>
           </form>
-        </div>
-      </div> <!-- row -->
-    </div>
-  </div>
+        </div><!-- col-lg-12 -->
+      </div><!-- row 1 -->
+
+      <hr width="70%">
+      <div class="waterImg">
+        <div class="container-fluid">
+
+
+
+          <!-- upper body-->
+          <div class="row"><!-- row 2 -->
+            <div class="col-sm-3">
+              <!-- left side -->
+            </div>
+
+            <div class="col-sm-3">
+              <!-- main left-->
+              <div class="form-group">
+                <input type="text" class="form-control" id="username" name="username" size="25" placeholder="User Name"/>
+                <span class="help-block hidden"></span>
+                <br>
+                <input type="text" class="form-control" id="titleSub" name="titleSub" size="25" placeholder="Title/Subject"/>
+                <span class="help-block hidden"></span>
+                <br>
+                <input type="text" class="form-control" id="comment" name="comment" size="25" placeholder="Commment" />
+                <span class="help-block hidden"></span>
+              </div><!-- form-group -->
+            </div><!-- col-sm-3 -->
+
+            <div class="col-sm-3">
+              <!-- main right side -->
+              <div class="form-group">
+                <div class="radio" data-toggle="radio">
+                  <label><input type="radio" name="radio" value="Low">Low</label>
+                </div>
+                <br>
+                <div class="radio" data-toggle="radio">
+                  <label><input type="radio" name="radio" value="Medium">Medium</lable>
+                  </div>
+                  <br>
+                  <div class="radio" data-toggle="radio">
+                    <label><input type="radio" name="radio" value="High">High</label>
+                  </div>
+                  <br>
+                  <div class="radio" data-toggle="radio">
+                    <label><input type="radio" name="radio" value="Emergency">Emergency</label>
+                  </div>
+                  <br>
+                </div><!-- form-group -->
+              </div><!-- col-sm-3 -->
+
+              <div class="col-sm-3">
+                <!-- right side -->
+              </div>
+            </div> <!-- row 2-->
+            <br>
+            <!-- lower body-->
+            <div class="row"><!-- row 3 -->
+              <div class="col-sm-3">
+                <!-- left side -->
+              </div>
+
+              <div class="col-sm-3">
+                <!-- main left side-->
+                <div class="form-group">
+                  <!-- ****
+                  GOOD: <textarea></textarea>
+                  BAD: <textarea>
+                </textarea>
+                **** -->
+                <textarea class="form-control" rows="6" id="description" placeholder="Description"></textarea></textarea>
+              </div><!-- form-group -->
+            </div><!-- col-sm-3 -->
+
+            <div class="col-sm-3">
+              <!-- main right side -->
+              <div class="bump">
+                <div class="input-group input-append date" id="datePicker">
+                  <input type="text" class="ticketCalendar add-on" name="date" placeholder="&#xf073; Due Date" />
+                </div><!-- input-group -->
+              </div><!-- bump -->
+              <br>
+              <div class="bump">
+                <select id="event-type-selection" class="typeDrop"><!--event-type-selection-->
+                  <option selected disabled>
+                    --Assignee--
+                  </option>
+                  <!--         <% operatorEventTypes.each(function(eventType) { %>
+                  <option value="<%= ticketAssignee.get('id') %>">
+                  <%= ticketAssignee.get('assignee_name') %>
+                </option>
+                <% }); %> -->
+              </select>
+            </div><!-- bump -->
+            <br>
+            <div class="btn-group-sm">
+              <button class="btn btn-custom-reset btn-sm" type="button">
+                <span class="fa fa-circle-o-notch" aria-hidden="true"></span> Reset</button>
+              <button class="btn btn-custom-submit btn-sm" type="button">
+                <span class="fa fa-check" aria-hidden="true"></span> Submit</button>
+              </div><!-- btn-group-sm -->
+
+            </div><!-- col-sm-3  -->
+
+            <div class="col-sm-3">
+              <!-- right side -->
+            </div>
+
+          </div><!-- row 3 -->
+
+        </div><!-- container-fluid -->
+      </div><!-- waterImg -->
+
+    </div><!-- container-fluid -->
+  </div><!-- =page-content-wrapper -->
+
 </div> <!-- wrapper -->
+
+
 <script type="text/javascript">
 
 _.extend(OOI.prototype, Backbone.Events, {
@@ -147,8 +175,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar.sidebarToggle(); // Hide the sidebar
     $('body').prepend(this.views.navbar.el);
     this.views.signupview = new SignUpForm({
-        el: 'form',
-        model: new SignUpModel()
+      el: 'form',
+      /*  model: new SignUpModel()*/
     });
   },
   initEvents: function() {
@@ -180,6 +208,15 @@ var ooi = new OOI();
 
 $(document).ready(function () {
   ooi.start();
+});
+</script>
+<script>
+$(document).ready(function() {
+  $('#datePicker')
+  .datepicker({
+    format: 'mm/dd/yyyy',
+    autoclose: 'true'
+  })
 });
 </script>
 {% endblock %}
