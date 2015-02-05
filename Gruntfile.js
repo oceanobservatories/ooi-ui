@@ -202,7 +202,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
           ],
-         'ooiui/static/js/compiled/troubleTicket.js' : [
+          'ooiui/static/js/compiled/troubleTicket.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
@@ -471,9 +471,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/troubleTicket.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
-            "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-
+            "ooiui/static/css/common/loginDemo.css"
           ],
           "ooiui/static/css/compiled/userEdit.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
@@ -484,6 +482,8 @@ module.exports = function(grunt) {
           "ooiui/static/css/compiled/users.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
             "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css"
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
