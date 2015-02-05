@@ -12,3 +12,4 @@ stevedore==0.15
 wsgiref==0.1.2
 Flask-Cache==0.13.1
 PyYAML==3.11
+Flask-Environments==0.1

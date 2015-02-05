@@ -190,7 +190,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('body').prepend(this.views.navbar.el);
 
     if(this.login.loggedIn()) {
-      this.models.userModel.fetch();
+      this.models.userModel.fetch({url: '/api/current_user'});
     }
 
     this.views.orgSidebarView = new OrgSidebarView({
