@@ -126,9 +126,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     $('#sidebar-wrapper').html(this.tocView.el);
 
+
     this.views.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
+
     });
 
     if(!this.login.loggedIn()) {

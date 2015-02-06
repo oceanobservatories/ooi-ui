@@ -1,0 +1,44 @@
+
+
+<div class="lgn btn-launch">
+  <!--Modal-->
+  <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
+  tabindex allows the escape key to be used to close the modal -->
+  <div class="modal fade" id="annotationModal" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--Header-->
+        <div class="lgn-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
+
+        </div> <!-- lgn-header -->
+
+        <!--Body-->
+        <div class="lgn-body">
+          <div class="lgn-center">
+             <div class="image"></div>
+             <div class="lgn-message"></div>
+             <br>
+       
+             <p  id="otherInput" type="text" name="other" size="25">Stream: </p>
+             <p  id="dateInput" type="text" name="date" size="25">Date:<%= this.model.get('pos_x')%></p>
+             <p  id="valueInput" type="text" name="value" size="25">Value: <%= this.model.get('pos_y')%></p>
+             <input class="lgn-input" id="titleInput" type="text" name="title" size="25" placeholder="Title">
+             <textarea class="form-control" id="comment-text"  name="comment" size="45"  placeholder="Comments" ></textarea>
+             <button class="lgn btn btn-default  enableOnInput" type="button" id="btnAddAnnotation" >Add Annotation</button>
+          </div> <!-- lgn-center -->
+        </div> <!-- lgn-body -->
+
+        <!--Footer-->
+        <div class="lgn-footer">
+          <div class="lgn-footerPass">
+          </div> <!-- lgn-footerPass -->
+          <div class="lgn-footerNewUser">
+          </div> <!-- lgn-footerNewUser -->
+        </div> <!-- lgn-footer -->
+      </div>  <!-- modal-content -->
+    </div> <!-- modal-dialog -->
+  </div> <!-- modal fade -->
+</div> <!-- lgn btn-launch -->
+
