@@ -313,15 +313,14 @@ module.exports = function(grunt) {
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/wellknown/wellknown.js",
             "ooiui/static/lib/loremjs/lorem.js",
-            /*"ooiui/static/lib/backgrid/lib/backgrid.js",
+            /*tried this it errored on the page for -sontag
+            "ooiui/static/lib/backgrid/lib/backgrid.js",
             "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
             "ooiui/static/js/core/backgrid/backgrid-paginator.min.js",
             "ooiui/static/js/core/backgrid/backgrid-select-all.min.js",
-            "ooiui/static/js/core/backgrid/backgrid-filter.min.js",
-            "ooiui/static/lib/leaflet/dist/leaflet.js",
-            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js",
-            "ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",*/
+            "ooiui/static/js/core/backgrid/backgrid-filter.min.js",*/
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             // App
@@ -405,7 +404,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/backgridall.min.css"
+            "ooiui/static/css/common/backgridall.min.css",
+            "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",

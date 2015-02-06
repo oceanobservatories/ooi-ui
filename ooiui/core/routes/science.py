@@ -62,9 +62,21 @@ def platform_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/platform_deployments', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment')
+@app.route('/api/instrument_deployment', methods=['GET'])
 def instrument_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/instrument_deployments', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/instrument_deployment', methods=['PUT'])
+def instrument_deployment_put():
+    data = json.loads(request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployments', data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/instrument_deployment', methods=['POST'])
+def instrument_deployment_post():
+    data = json.loads(request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployments', data=request.data)
     return response.text, response.status_code
 
 @app.route('/opLog.html')
