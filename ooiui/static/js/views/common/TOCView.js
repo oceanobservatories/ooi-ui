@@ -34,12 +34,14 @@ var TOCView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/TOC.html'],
   addItem: function(view) {
     this.$el.append(view.el);
+    console.log(view.el)
   },
   render: function() {
     var self = this;
     
     this.$el.html(this.template());
     this.collection.each(function(item) { 
+      console.log(item)
       var itemView = new TOCItemView({model: item, level: 1});
       self.addItem(itemView);
     });
@@ -52,6 +54,9 @@ var TOCItemView = Backbone.View.extend({
     'click a' : 'toggle'
   },
   initialize: function(options) {
+    // options = models, line 45 they are passed from above
+    // when you render <li> 'GLobal Southern Ocean'</li>
+    console.log(options)
     if(options && options.level) {
       this.level = options.level;
     } else { 
@@ -84,6 +89,7 @@ var TOCItemView = Backbone.View.extend({
   },
   render: function() {
     var data = this.model.toJSON();
+    console.log(data)
     var arrow = this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany;
     if(data.reference_designator && data.reference_designator.length == 8) {
       arrow = false;

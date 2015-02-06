@@ -1,3 +1,20 @@
+"use strict";
+/*
+ * ooiui/static/js/views/common/ChartViews.js
+ * View definitions for charts
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/Chart.html
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * - ooiui/static/js/ooi.js
+ *
+ * Usage
+ */
+
+
 var ChartViews = Backbone.View.extend({
   el: '.content',
   events: {
@@ -59,12 +76,12 @@ var ChartViews = Backbone.View.extend({
       type: this.$type_input.val()
     });
 
-    var instrument = $('#plotInstrument').text()
-    var stream = $('#plotStream').text()
+   // var instrument = $('#plotInstrument').text()
+   // var stream = $('#plotStream').text()
 
-    console.log(instrument,stream)
+   // console.log(instrument,stream)
 
-    chart.url = chart.url+"instrument="+instrument+"&stream="+stream
+   // chart.url = chart.url+"instrument="+instrument+"&stream="+stream
     chart.fetch()
     this.collection.add(chart);
 

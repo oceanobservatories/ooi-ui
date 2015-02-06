@@ -62,6 +62,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoginForm.html",
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
+            'ooiui/static/js/partials/AnnotationModal.html',
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
@@ -203,12 +204,16 @@ module.exports = function(grunt) {
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+
             // App
             'ooiui/static/js/ooi.js',
             // Models
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/ChartModel.js',
+            'ooiui/static/js/models/common/AnnotationModel.js',
             //Collection
             'ooiui/static/js/collections/ChartCollection.js',
             //Views
@@ -222,6 +227,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
+            'ooiui/static/js/views/common/AddAnnotationView.js',
             'ooiui/static/js/views/common/ChartMain.js'
 
 
@@ -304,6 +310,7 @@ module.exports = function(grunt) {
           "ooiui/static/css/compiled/plotsDemo.css" : [
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/annotationModal.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
           "ooiui/static/css/compiled/opLog.css" : [

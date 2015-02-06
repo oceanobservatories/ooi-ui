@@ -52,9 +52,11 @@ var MapView = Backbone.View.extend({
 					var dis = '<b>'+feature.properties.display_name+'</b>'					
 					var ref = '<b>'+feature.properties.ref+'</b>'					
 					layer.bindPopup(dis+"<br>"+ref);
+         // console.log(dis);
 				}
+        
 			});
-	    	
+	     // console.log(platform.toJSON());
 	    	markerCluster.addLayer(geojsonFeature);
 	    });
 	    map.addLayer(markerCluster);
