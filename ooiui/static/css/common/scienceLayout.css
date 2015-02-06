@@ -370,3 +370,7 @@
 .parent-platform {
   font-weight: bold;
 }
+
+.stream-item a{
+  color: #33B7B7;
+}

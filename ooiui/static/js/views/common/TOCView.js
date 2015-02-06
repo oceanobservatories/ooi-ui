@@ -61,6 +61,8 @@ var NestedItemView = Backbone.View.extend({
       this.$el.toggleClass('sidebar-nav-second-level');
     } else if(this.level == 3) {
       this.$el.toggleClass('sidebar-nav-third-level');
+    } else if(this.level == 4) {
+      this.$el.toggleClass('sidebar-nav-third-level');
     }
     this.$el.collapse('show');
   }
@@ -184,20 +186,64 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
   events: {
     'click a' : 'onClick'
   },
+  add: function(streamModel) {
+    var subview = new StreamItemView({
+      model: streamModel
+    });
+    this.nestedView.add(subview);
+  },
   tagName: 'li',
-  initialize: function(){
-    this.nestedView = new NestedItemView();
+  initialize: function() {
+    this.nestedView = new NestedItemView({
+      level: 4
+    });
+    this.streams = new StreamCollection();
+    this.render();
+  },
+  onClick: function(e) {
+    var self = this;
+    e.stopPropagation();
+    if(this.streams.length == 0) {
+      this.streams.fetch({
+        data: $.param({reference_designator: this.model.get('reference_designator')}),
+        success: function(collection, response, options) {
+          self.renderStreams();
+        },
+        reset: true
+      });
+    }
+    ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
+  },
+  template: JST['ooiui/static/js/partials/ArrayItem.html'],
+  render: function() {
+    var self = this;
+    this.$el.html(this.template({data: this.model}));
+  },
+  renderStreams: function() {
+    var self = this;
+    this.streams.each(function(streamModel) {
+      self.add(streamModel);
+    });
+    this.$el.append(this.nestedView.el);
+  }
+});
+
+var StreamItemView = Backbone.View.extend({
+  tagName: 'li',
+  className: 'stream-item',
+  events: {
+    'click a' : 'onClick'
+  },
+  initialize: function() {
     this.render();
   },
   onClick: function(e) {
     e.stopPropagation();
-    console.log("Get me some streams");
-    ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
+    ooi.trigger('streamItemView:streamSelect', this.model);
   },
-  template: JST['ooiui/static/js/partials/ArrayItem.html'],
-  render: function(){
+  template: JST['ooiui/static/js/partials/StreamItem.html'],
+  render: function() {
     var self = this;
     this.$el.html(this.template({data: this.model}));
   }
 });
-
