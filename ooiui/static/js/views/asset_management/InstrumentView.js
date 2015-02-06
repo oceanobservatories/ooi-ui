@@ -262,14 +262,14 @@ var InstrumentView = Backbone.View.extend({
                             window.location = "/instrument_list"
                           }
                         });
-                        $('#editdep_panel').html('Saved Successfully.');
+                        $('#editdep_panel').html('Deleted Successfully.');
                       },
                       error: function(model, response) {
                         try {
                           var errMessage = JSON.parse(response.responseText).error;
                         } catch(err) {
                           console.log(err);
-                          var errMessage = "Unable to Save Deployment";
+                          var errMessage = "Unable to Delete Deployment";
                         }
                         that.modalDialog.show({
                           message: errMessage,
@@ -277,7 +277,7 @@ var InstrumentView = Backbone.View.extend({
                         });
                         console.log(model);
                         console.log(response.responseText);
-                        $('#editdep_panel').html('Save Error.');
+                        $('#editdep_panel').html('Delete Error.');
                       }
                     });
                     
