@@ -120,11 +120,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.tocView = new TOCView({
+    this.views.tocView = new TOCView({
       collection: this.collections.arrays
     });
+    this.collections.arrays.fetch({reset: true});
 
-    $('#sidebar-wrapper').html(this.tocView.el);
+    $('#sidebar-wrapper').html(this.views.tocView.el);
 
     this.views.mapView = new MapView({
       collection: this.collections.platform_deployments,
