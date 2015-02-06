@@ -63,3 +63,8 @@ def instrument_deployment_proxy():
 @app.route('/opLog.html')
 def op_log():
     return render_template("common/opLog.html")
+
+@app.route('/api/uframe/stream')
+def stream_proxy():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', params=request.args)
+    return response.text, response.status_code
