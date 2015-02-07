@@ -7,11 +7,11 @@ var InstrumentView = Backbone.View.extend({
 	//renders a simple map view
 	render: function() {
         
-        var that = this;
+        var self = this;
         var selectedInstrument = [];
         //bind
-        that.model = new InstrumentDeploymentModel();
-        that.modalDialog = new ModalDialogView();
+        self.model = new InstrumentDeploymentModel();
+        self.modalDialog = new ModalDialogView();
 
         var PageableDeployments = Backbone.PageableCollection.extend({
           model: InstrumentDeploymentModel,
@@ -181,35 +181,35 @@ var InstrumentView = Backbone.View.extend({
             var deploy_obj_ = {};
 
             if(t.target.innerText == 'NEW'){
-                that.clearform();
+                self.clearform();
                 selectedInstrument = [];
                 $('#editdep_form').show();
                 $('#editdep_panel').html('Click Save to create new Record.');
             }
             else if(t.target.innerText == 'SAVE'){
                 //save to db 
-                if (that.model.isValid(true)) {
+                if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving.');
                    // that.model.attributes = selectedInstrument;
-                    that.model.set('start_date',$( "#startdate_d" ).datepicker('getDate' ));
-                    that.model.set('end_date',$( "#enddate_d" ).datepicker('getDate' ));
-                    that.model.set('display_name', $('#name_d').val());
-                    that.model.set('depth',Number($('#depth_d').val()));
-                    that.model.set('platform_deployment_id',Number($('#platform_d').val()));
+                    self.model.set('start_date',$( "#startdate_d" ).datepicker('getDate' ));
+                    self.model.set('end_date',$( "#enddate_d" ).datepicker('getDate' ));
+                    self.model.set('display_name', $('#name_d').val());
+                    self.model.set('depth',Number($('#depth_d').val()));
+                    self.model.set('platform_deployment_id',Number($('#platform_d').val()));
                     var geoObj = {};
                     var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     geoObj['coordinates']=coord;
                     geoObj['type'] = "Point";
-                    that.model.set('geo_location',wellknown.stringify(geoObj));
+                    self.model.set('geo_location',wellknown.stringify(geoObj));
 
                     //existing?
                     if(selectedInstrument['id']){
-                        that.model.set('id',selectedInstrument['id']);                    
+                        self.model.set('id',selectedInstrument['id']);                    
                     }
                     if($('#platform_d').val() != '' && $('#name_d').val() != ''){
-                        that.model.save(null, {
+                        self.model.save(null, {
                           success: function(model, response) {
-                            that.modalDialog.show({
+                            self.modalDialog.show({
                               message: "Deployment successfully registered",
                               type: "success",
                               ack: function() { 
@@ -225,7 +225,7 @@ var InstrumentView = Backbone.View.extend({
                               console.log(err);
                               var errMessage = "Unable to Save Deployment";
                             }
-                            that.modalDialog.show({
+                            self.modalDialog.show({
                               message: errMessage,
                               type: "danger",
                             });
@@ -237,7 +237,7 @@ var InstrumentView = Backbone.View.extend({
                     
                         //reset
                         selectedInstrument = [];
-                        that.clearform();
+                        self.clearform();
                     }
                     else{
                         $('#editdep_panel').html('Platform ID and Display Name are Required.');
@@ -250,12 +250,12 @@ var InstrumentView = Backbone.View.extend({
                 if(selectedInstrument['id']){
 
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Deleting.');
-                    that.model.set('id',selectedInstrument['id']);                    
-                    that.model.set('delete',true);                    
+                    self.model.set('id',selectedInstrument['id']);                    
 
-                    that.model.save(null, {
-                      success: function(model, response) {
-                        that.modalDialog.show({
+                    self.model.destroy({
+                      success: function(model, response, options) {
+                        console.log("destroyed");
+                        self.modalDialog.show({
                           message: "Deployment successfully registered",
                           type: "success",
                           ack: function() { 
@@ -264,14 +264,14 @@ var InstrumentView = Backbone.View.extend({
                         });
                         $('#editdep_panel').html('Deleted Successfully.');
                       },
-                      error: function(model, response) {
+                      error: function(model, response, options) {
                         try {
                           var errMessage = JSON.parse(response.responseText).error;
                         } catch(err) {
                           console.log(err);
                           var errMessage = "Unable to Delete Deployment";
                         }
-                        that.modalDialog.show({
+                        self.modalDialog.show({
                           message: errMessage,
                           type: "danger",
                         });
@@ -283,7 +283,7 @@ var InstrumentView = Backbone.View.extend({
                     
                     //reset
                     selectedInstrument = [];
-                    that.clearform();
+                    self.clearform();
                 }
             }
         });

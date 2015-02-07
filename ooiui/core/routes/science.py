@@ -25,11 +25,13 @@ def new_index():
 def landing_pioneer():
     return render_template('landing/pioneer.html')
 
-@app.route('/plat_list')
+@app.route('/assets/platforms')
+@app.route('/assets/platforms/')
 def plat_index():
     return render_template('asset_management/platform_list.html')
 
-@app.route('/instrument_list')
+@app.route('/assets/instruments')
+@app.route('/assets/instruments/')
 def instr_index():
     return render_template('asset_management/instrument_list.html')
 
@@ -64,19 +66,22 @@ def platform_deployment_proxy():
 
 @app.route('/api/instrument_deployment', methods=['GET'])
 def instrument_deployment_proxy():
-    response = requests.get(app.config['SERVICES_URL'] + '/instrument_deployments', params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/instrument_deployment', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment', methods=['PUT'])
-def instrument_deployment_put():
-    data = json.loads(request.data)
-    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployments', data=request.data)
+@app.route('/api/instrument_deployment/<int:id>', methods=['PUT'])
+def instrument_deployment_put(id):
+    response = requests.put(app.config['SERVICES_URL'] + '/instrument_deployment/%s' % id, data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/instrument_deployment', methods=['POST'])
 def instrument_deployment_post():
-    data = json.loads(request.data)
-    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployments', data=request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployment', data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/instrument_deployment/<int:id>', methods=['DELETE'])
+def instrument_deployment_delete(id):
+    response = requests.delete(app.config['SERVICES_URL'] + '/instrument_deployment/%s' % id, data=request.data)
     return response.text, response.status_code
 
 @app.route('/opLog.html')

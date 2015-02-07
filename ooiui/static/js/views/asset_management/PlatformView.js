@@ -44,6 +44,11 @@ var PlatformView = Backbone.View.extend({
             editable: false,
             // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
             cell: "string" // This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
+        }, {
+            name: "reference_designator",
+            label: "Reference Designator",
+            editable: false,
+            cell: "string" 
         },  {
             name: "start_date",
             label: "Start Date",
@@ -139,6 +144,7 @@ var PlatformView = Backbone.View.extend({
             $('#enddate_d').val(model.attributes.end_date);
             $('#platform_d').val(model.attributes.array_id);
             $('#geo_d').val(model.attributes.geo_location.toString());
+            $('#reference_designator_d').val(model.attributes.reference_designator);
         });
 
         $('#deploy_edit').click(function(t) {
