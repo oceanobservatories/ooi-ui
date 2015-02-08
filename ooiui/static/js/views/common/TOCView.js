@@ -28,20 +28,21 @@ var TOCView = Backbone.View.extend({
     _.bindAll(this, "render", "addItem");
     var self = this;
     this.collection.fetch({success: function(collection, response, options) {
+      
       self.render();
     }});
   },
   template: JST['ooiui/static/js/partials/TOC.html'],
   addItem: function(view) {
     this.$el.append(view.el);
-    console.log(view.el)
+   // console.log(view.el)
   },
   render: function() {
     var self = this;
     
     this.$el.html(this.template());
     this.collection.each(function(item) { 
-      console.log(item)
+      //console.log(item)
       var itemView = new TOCItemView({model: item, level: 1});
       self.addItem(itemView);
     });
@@ -56,7 +57,7 @@ var TOCItemView = Backbone.View.extend({
   initialize: function(options) {
     // options = models, line 45 they are passed from above
     // when you render <li> 'GLobal Southern Ocean'</li>
-    console.log(options)
+   // console.log(options)
     if(options && options.level) {
       this.level = options.level;
     } else { 
@@ -77,7 +78,12 @@ var TOCItemView = Backbone.View.extend({
     }
   },
   toggle: function(e) {
+  //  console.log(e);
+    //console.log(this.model)
+    ooi.mapCollection.add(this.model)
+    //console.log(ooi.mapCollection)      
     e.preventDefault();
+
     e.stopImmediatePropagation();
     // Next level
     if(_.isUndefined(this.subItemView)) {
@@ -89,7 +95,7 @@ var TOCItemView = Backbone.View.extend({
   },
   render: function() {
     var data = this.model.toJSON();
-    console.log(data)
+    //console.log(data)
     var arrow = this.model && this.model.relation && this.model.relation.type == OOI.Relation.hasMany;
     if(data.reference_designator && data.reference_designator.length == 8) {
       arrow = false;
@@ -97,6 +103,7 @@ var TOCItemView = Backbone.View.extend({
     } else if(data.display_name && data.display_name.indexOf('-')>=0) {
       var items = data.display_name.split(' - ');
       data.display_name = items[items.length-1];
+     // console.log(data.display_name)
     } 
     this.$el.html(this.template({
       data: data,
@@ -108,6 +115,7 @@ var TOCItemView = Backbone.View.extend({
 var TOCSubItemView = TOCView.extend({
   className: 'nav',
   initialize: function(options) {
+   // console.log(options)
     _.bindAll(this, "render", "addItem");
     if(options && options.level) {
       this.level = options.level;

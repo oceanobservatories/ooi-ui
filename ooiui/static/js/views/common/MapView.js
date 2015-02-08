@@ -1,26 +1,33 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
-		_.bindAll(this,"render");
+		_.bindAll(this,"render","setMapView");
+    console.log(this.model);
+    ooi.mapCollection.on('add', this.setMapView, this)
 		//this.render();
+   
 		var self = this;
+    this.map = L.map(this.el,{
+	       // center: [41.505, -80.09],
+          center:[-54.0814, -89.6652],
+          zoom: 5,
+	        maxZoom: 10
+   	});
+
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
+      return this
     }});
 	},
-	//renders a simple map view
+ 	//renders a simple map view
 	render: function() {
 		//needs to be set
 		L.Icon.Default.imagePath = '/img';
+   
+    var map = this.map
 
 		var markerCluster = new L.MarkerClusterGroup();
 
-		var map = L.map(this.el,{
-	        center: [41.505, -80.09],
-	        zoom: 3,
-	        maxZoom: 10
-   		});
-
-		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+				var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 	    });
 
@@ -59,8 +66,18 @@ var MapView = Backbone.View.extend({
 	    	markerCluster.addLayer(geojsonFeature);
 	    });
 	    map.addLayer(markerCluster);
-
-	}
+     // this.model.set({
+       // mapCenter:[ 0, 0]
+      //})
+      console.log(this.model);
+	},
+  setMapView: function(){
+    var loc = ooi.mapCollection.models[0]
+    console.log(loc.get('id'))
+    console.log("MAP MODEL HAS CHANGE!!!!")
+    console.log(map)
+    this.map.setView([54.0814, -89.6652])
+  }
 	
 	//end
 });
