@@ -123,7 +123,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('body').prepend(this.views.navbar.el);
 
     this.views.mapModel= new MapModel()
-    // I removed view from this.view.mapModel and this.viewtocView
     // It allows me access(via ooi{}) models, collections or views inside one another  
     // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
     this.views.tocView = new TOCView({
