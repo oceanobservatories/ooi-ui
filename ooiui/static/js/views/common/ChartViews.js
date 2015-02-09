@@ -10,7 +10,6 @@ var ChartViews = Backbone.View.extend({
 
     this.$title_input = this.$('#title');
     this.$type_input = this.$('#type');
-
   
     this.collection = new Charts();
     this.collection.bind('add', this.appendChart);
@@ -18,6 +17,7 @@ var ChartViews = Backbone.View.extend({
     this.listenTo(this.collection, 'filter', this.filterAll);
 
     this.render();
+    this.addChart();
   },
 
   render: function(){
@@ -55,16 +55,20 @@ var ChartViews = Backbone.View.extend({
   },
   addChart: function(){
     var chart = new Chart({
-      title: this.$title_input.val().trim() || null, // use default if empty
-      type: this.$type_input.val()
+      title: "",
+      //title: this.$title_input.val().trim() || null, // use default if empty
+      //type: this.$type_input.val()
+      type: "AnnotationChart"
     });
 
     var instrument = $('#plotInstrument').text()
     var stream = $('#plotStream').text()
+    var field = $('#plotVariableStream').text()
 
     console.log(instrument,stream)
 
-    chart.url = chart.url+"instrument="+instrument+"&stream="+stream
+    chart.url = chart.url+"instrument="+instrument+"&stream="+stream+"&field="+field
+    console.log(chart.url)
     chart.fetch()
     this.collection.add(chart);
 
@@ -78,7 +82,7 @@ var ChartViews = Backbone.View.extend({
   appendChart: function(chart){
     var chartView = new ChartView({model: chart });
     var chart_elem = chartView.render().el;
-    $('.charts', this.$el).append(chart_elem);
+    $("#plotContent").append(chart_elem);
 
     chart_elem.scrollIntoView(false); // scroll to chart, align to bottom
     $(chart_elem).effect("highlight", {}, 1500); // nifty yellow highlight fx
