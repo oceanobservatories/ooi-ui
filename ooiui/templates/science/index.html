@@ -108,6 +108,7 @@
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
+  mapModel: new MapModel()
   },
   collections: {
     arrays: new ArrayCollection(),
@@ -134,7 +135,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
+
     });
+
+   // this.views.mapView.bind('click a',this.views.tocView.toggle) 
 
     if(!this.login.loggedIn()) {
       this.modalView = new ModalDialogView();
@@ -146,6 +150,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+
   }
 });
 var ooi = new OOI();
@@ -154,6 +159,12 @@ console.log(ooi);
 $(document).ready(function() {
     ooi.start();
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    $("body").click(function(event){
+        console.log("clicked " + event.target.outerHTML)
+     })
+
+    console.log(ooi)
+
 });
 </script>
 {% endblock %}

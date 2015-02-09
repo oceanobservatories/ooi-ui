@@ -14,7 +14,6 @@
  * Usage
  */
 
-  //  
 var ChartView = Backbone.View.extend({
   tagName: 'div',
   
@@ -38,15 +37,39 @@ var ChartView = Backbone.View.extend({
   
   render: function(){
     //render the chart template
+    //I think annotation charts will never to have predfined divs in the html. We have to limit the ammount of annotation charts
     this.$el.attr('class','chart').html(this.template(this.model.toJSON()));
-
     //render the chart itself using the Google Charts API
     var type = this.model.get('type');
     var data = this.model.get('data');
     var chart_container = this.$el.find('.chart-contents').get(0);
+    //NOTE: changing find to append messing up the dynamic loading removes the remove button and edit button
+    console.log(this.$el)
     var chart = new google.visualization[type](chart_container);
     chart.draw(data, {width: 700, height: 300});
 
+    google.visualization.events.addListener(chart, 'select', function(){
+              
+      var row = chart.getSelection()[0].row;
+      // setSelection() removes the point, after the modal, from the graph so it doesn't cause the graph to freeze
+      chart.setSelection();
+      var date =  data.getValue(row,0)
+      var utcdate = moment.utc(Date(data.getValue(row,0))).format()
+      var annotationModel = new AnnotationModel()
+      annotationModel.set({
+        pos_x: utcdate,
+        pos_y: data.getValue(row,1),
+             
+      });
+      var modalView = new AddAnnotationView({model: annotationModel });
+      console.log(modalView);
+      $("#loginView").html(modalView.el)
+      console.log('MODAL CALLED')
+      modalView.show();
+
+      console.log("after annotation is called")
+      
+    })
     return this;
   },
 
