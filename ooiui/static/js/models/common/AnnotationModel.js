@@ -17,7 +17,7 @@
 
 
 var AnnotationModel = Backbone.Model.extend({
-  url: '/api/annotation',
+  url: '/api/annotations',
   defaults: {
     title: "TITLE ",
     comment: "comments",

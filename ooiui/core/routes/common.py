@@ -120,7 +120,13 @@ def login():
     response = requests.get(app.config['SERVICES_URL'] + '/token', auth=(username, password))
     return response.text, response.status_code
 
-
+#>>---->Annotations<----<<##
+@app.route('/api/annotations', methods=['POST'])
+def post_annotation():
+    token = get_login()
+    print request.data
+    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
 
 #>>---->opLog<----<<##
 # @app.route('/opLog.html')
@@ -169,7 +175,6 @@ def get_operator_event():
 @app.route('/api/operator_event', methods=['POST'])
 def post_event():
     token = get_login()
-    print request.data
     response = requests.post(app.config['SERVICES_URL'] + '/operator_event', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 

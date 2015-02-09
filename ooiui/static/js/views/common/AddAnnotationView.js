@@ -31,9 +31,43 @@ var AddAnnotationView = Backbone.View.extend({
     e.preventDefault();
     this.model.set({
       title: this.$el.find('#titleInput').val(),
-      comment: this.$el.find('#comment-text').val()
+      comment: this.$el.find('#comment-text').val(),          
+      recorded_date: "2015-01-06T04:23:50",
+      value: "47",
+      stream_name: "flort_kn_stc_imodem_instrument",
+      instrument_name: "CP02PMUO-WFP01-04-FLORTK000",
+      pos_x : "2015-01-06T04:23:50",
+      pos_y : "47",
+      field_y: "raw_signal_cdom",
+      field_x: "internal_timestamp"
     });
-    //console.log(this.model.attributes)
+    
+    this.model.save(null, {
+      success: function(model, response) {
+        self.modalDialog.show({
+          message: "User successfully registered",
+          type: "success",
+          ack: function() { 
+            window.location = "/"
+          }
+        });
+      },
+      error: function(model, response) {
+        try {
+          var errMessage = JSON.parse(response.responseText).error;
+        } catch(err) {
+          console.error(err);
+          var errMessage = "Unable to submit user";
+        }
+        self.modalDialog.show({
+          message: errMessage,
+          type: "danger",
+        });
+        console.error(model);
+        console.error(response.responseText);
+      }
+    });
+
     this.hide();
   },
   hidden: function(e) {
