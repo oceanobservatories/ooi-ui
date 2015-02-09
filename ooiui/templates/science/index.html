@@ -121,16 +121,18 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.tocView = new TOCView({
+    this.views.tocView = new TOCView({
       model: this.models.mapModel,
       collection: this.collections.arrays
     });
+    this.collections.arrays.fetch({reset: true});
 
-    $('#sidebar-wrapper').html(this.tocView.el);
+    $('#sidebar-wrapper').html(this.views.tocView.el);
+
     //do i create the model hereand click event here?
       //  console.log(this.views.tocView.el)
     this.mapCollection = new MapCollection()
-    this.mapView = new MapView({
+    this.views.mapView = new MapView({
       //model: this.models.mapModel,
       collection: this.collections.platform_deployments,
       el: $('#map')

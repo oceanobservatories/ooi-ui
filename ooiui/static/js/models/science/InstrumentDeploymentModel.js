@@ -11,7 +11,12 @@
  */
 
 var InstrumentDeploymentModel = Backbone.Model.extend({
-  urlRoot: '/api/instrument_deployment'
+  urlRoot: '/api/instrument_deployment',
+  defaults: {
+        display_name: "Platform",
+        platform_deployment_id: 1,
+        depth: 0
+    }
 });
 
 var InstrumentDeploymentCollection = Backbone.Collection.extend({
