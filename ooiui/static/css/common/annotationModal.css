@@ -1,3 +1,4 @@
 textarea#comment-text {
     resize: vertical;
+    max-height: 200px;
 }
