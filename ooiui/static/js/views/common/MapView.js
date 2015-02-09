@@ -1,8 +1,7 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this,"render","setMapView");
-    console.log(this.model);
-    ooi.mapCollection.on('add', this.setMapView, this)
+    this.listenTo(ooi.mapModel, 'change', this.setMapView)
    
 		var self = this;
     this.map = L.map(this.el,{
@@ -28,10 +27,9 @@ var MapView = Backbone.View.extend({
 		var markerCluster = new L.MarkerClusterGroup();
 
 	
-		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-=======
-
-		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+        {	
+          attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 	    });
 
 	    var Stamen_TonerHybrid = L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
@@ -71,9 +69,9 @@ var MapView = Backbone.View.extend({
 	    map.addLayer(markerCluster);
 	},
   setMapView: function(){
-   // console.log("I HEARD YOU!!")
     var loco = ooi.mapModel.get('mapCenter')
-    loco = loco.reverse()
+    //loco = loco.reverse()
+    //apparently reverse is too slow set explicitly
     console.log('location set in Map' + ' '+ loco)
     this.map.setView(loco,5)
     // clicking too much messes up the model's location

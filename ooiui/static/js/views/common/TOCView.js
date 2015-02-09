@@ -168,8 +168,10 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     var loc = this.model.get('geo_location')
     console.log(loc.coordinates)
     loc = loc.coordinates
-    //console.log(ooi.mapModel)
-    ooi.mapModel.set({mapCenter: loc})
+    var locat= [loc[1],loc[0]]
+    console.log(locat)
+    ooi.mapModel.set({mapCenter: locat})
+    console.log(locat)
   
   },
   modifyDisplayName: function() {
