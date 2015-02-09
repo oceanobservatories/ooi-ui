@@ -71,8 +71,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.views.navbar.sidebarToggle(); // Hide the sidebar
-
-
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+  
   $('#page-content-wrapper').prepend(this.views.ticket.el);
 
 
