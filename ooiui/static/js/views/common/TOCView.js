@@ -91,6 +91,16 @@ var ArrayItemView = Backbone.View.extend({
   onClick: function(e) {
     var self = this;
     e.stopPropagation();
+    // this is the model that collects the geo_location 
+    // Map listens to the change then changes the location
+    // there are multiple models commented out. Checking for location errors
+   // console.log(this.model.get('geo_location'))
+    //var loc = this.model.get('geo_location')
+    //console.log(loc.coordinates[0][0])
+    //loc = loc.coordinates[0][0]
+    //console.log(ooi.mapModel)
+    console.log(ooi.models.mapModel)
+    //ooi.mapModel.set({mapCenter: loc})
     if(this.model.platformDeployments.length == 0) {
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
@@ -142,6 +152,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
+    console.log(this.model)
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
       this.model.instrumentDeployments.fetch({
@@ -154,6 +165,15 @@ var PlatformDeploymentItemView = Backbone.View.extend({
       this.nestedView.toggle();
     }
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
+    console.log(this.model)
+    var loc = this.model.get('geo_location')
+    console.log(loc.coordinates)
+    loc = loc.coordinates
+    var locat= [loc[1],loc[0]]
+    console.log(locat)
+    ooi.models.mapModel.set({mapCenter: locat})
+    console.log(locat)
+  
   },
   modifyDisplayName: function() {
     var display_name = this.model.get('display_name') || "";

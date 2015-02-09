@@ -79,7 +79,7 @@ var ChartViews = Backbone.View.extend({
     var instrument = $('#plotInstrument').text()
     var stream = $('#plotStream').text()
 
-   // console.log(instrument,stream)
+    console.log(instrument,stream)
 
     chart.url = chart.url+"instrument="+instrument+"&stream="+stream
     chart.fetch()

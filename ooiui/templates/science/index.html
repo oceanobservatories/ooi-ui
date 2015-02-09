@@ -115,25 +115,24 @@ _.extend(OOI.prototype, Backbone.Events, {
     platform_deployments: new PlatformDeploymentCollection()
   },
   views: {
+
   },
   start: function() {
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
+    this.views.mapModel= new MapModel()
+    // It allows me access(via ooi{}) models, collections or views inside one another  
+    // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
     this.views.tocView = new TOCView({
-      model: this.models.mapModel,
       collection: this.collections.arrays
     });
     this.collections.arrays.fetch({reset: true});
 
     $('#sidebar-wrapper').html(this.views.tocView.el);
 
-    //do i create the model hereand click event here?
-      //  console.log(this.views.tocView.el)
-    this.mapCollection = new MapCollection()
-    this.views.mapView = new MapView({
-      //model: this.models.mapModel,
+    this.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
 
@@ -155,6 +154,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   }
 });
 var ooi = new OOI();
+console.log(ooi);
 
 $(document).ready(function() {
     ooi.start();

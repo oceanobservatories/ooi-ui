@@ -23,7 +23,7 @@ var Chart = Backbone.Model.extend({
     instrument:'' 
   },
 
-  url: '/getdata/',
+  url: 'get_data/',
    
   parse: function(response, options){
     _.bindAll(this, 'initialize');

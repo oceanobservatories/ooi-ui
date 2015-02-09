@@ -23,6 +23,7 @@ var MapModel = Backbone.Model.extend({
   }
 });
 
+//var MapCollection= Backbone.Collection.extend({})
 
 var MapCollection = Backbone.Collection.extend({
   model: MapModel

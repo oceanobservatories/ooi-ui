@@ -14,7 +14,6 @@
  * Usage
  */
 
- 
 var ChartView = Backbone.View.extend({
   tagName: 'div',
   

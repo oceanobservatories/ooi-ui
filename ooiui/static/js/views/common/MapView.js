@@ -1,22 +1,21 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this,"render","setMapView");
-    console.log(this.model);
-    ooi.mapCollection.on('add', this.setMapView, this)
-		//this.render();
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
    
 		var self = this;
     this.map = L.map(this.el,{
-	       // center: [41.505, -80.09],
-          center:[-54.0814, -89.6652],
-          zoom: 5,
-	        maxZoom: 10
+	       center: [41.505, -80.09],
+	       zoom: 3,
+	       maxZoom: 10
+
    	});
 
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
       return this
     }});
+    return this
 	},
  	//renders a simple map view
 	render: function() {
@@ -27,8 +26,10 @@ var MapView = Backbone.View.extend({
 
 		var markerCluster = new L.MarkerClusterGroup();
 
-				var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	
+		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+        {	
+          attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 	    });
 
 	    var Stamen_TonerHybrid = L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
@@ -66,18 +67,14 @@ var MapView = Backbone.View.extend({
 	    	markerCluster.addLayer(geojsonFeature);
 	    });
 	    map.addLayer(markerCluster);
-     // this.model.set({
-       // mapCenter:[ 0, 0]
-      //})
-      console.log(this.model);
 	},
   setMapView: function(){
-    var loc = ooi.mapCollection.models[0]
-    console.log(loc.get('id'))
-    console.log("MAP MODEL HAS CHANGE!!!!")
-    console.log(map)
-    this.map.setView([54.0814, -89.6652])
+    var loco = ooi.models.mapModel.get('mapCenter')
+    //loco = loco.reverse()
+    //apparently reverse is too slow set explicitly
+    console.log('location set in Map' + ' '+ loco)
+    this.map.setView(loco,5)
+     
   }
-	
 	//end
 });
