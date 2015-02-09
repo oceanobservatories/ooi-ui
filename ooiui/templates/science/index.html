@@ -115,6 +115,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     platform_deployments: new PlatformDeploymentCollection()
   },
   views: {
+
   },
   start: function() {
     this.login.fetch({async: false}); // Doesn't actually make an ajax request

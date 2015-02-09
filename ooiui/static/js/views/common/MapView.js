@@ -1,7 +1,7 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this,"render","setMapView");
-    this.listenTo(ooi.mapModel, 'change', this.setMapView)
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
    
 		var self = this;
     this.map = L.map(this.el,{
@@ -69,14 +69,12 @@ var MapView = Backbone.View.extend({
 	    map.addLayer(markerCluster);
 	},
   setMapView: function(){
-    var loco = ooi.mapModel.get('mapCenter')
+    var loco = ooi.models.mapModel.get('mapCenter')
     //loco = loco.reverse()
     //apparently reverse is too slow set explicitly
     console.log('location set in Map' + ' '+ loco)
     this.map.setView(loco,5)
-    // clicking too much messes up the model's location
-    // maybe need to listenTo... 
-    //ooi.mapModel.set({mapCenter:[0,0]}, {silent: true})
+     
   }
 	//end
 });

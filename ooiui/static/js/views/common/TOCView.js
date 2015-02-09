@@ -99,6 +99,7 @@ var ArrayItemView = Backbone.View.extend({
     //console.log(loc.coordinates[0][0])
     //loc = loc.coordinates[0][0]
     //console.log(ooi.mapModel)
+    console.log(ooi.models.mapModel)
     //ooi.mapModel.set({mapCenter: loc})
     if(this.model.platformDeployments.length == 0) {
       this.model.platformDeployments.fetch({
@@ -170,7 +171,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     loc = loc.coordinates
     var locat= [loc[1],loc[0]]
     console.log(locat)
-    ooi.mapModel.set({mapCenter: locat})
+    ooi.models.mapModel.set({mapCenter: locat})
     console.log(locat)
   
   },
