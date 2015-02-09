@@ -30,7 +30,6 @@ var ArrayCollection = Backbone.Collection.extend({
   url: '/api/array',
   model: ArrayModel,
   parse: function(response, options) {
-    console.log(response)
     return response.arrays;
   }
 });
