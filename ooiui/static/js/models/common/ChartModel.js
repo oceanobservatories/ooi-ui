@@ -23,13 +23,13 @@ var Chart = Backbone.Model.extend({
     instrument:'' 
   },
 
-  url: '/getdata/?',
+  url: '/getdata/',
    
   parse: function(response, options){
     _.bindAll(this, 'initialize');
-    console.log(options)
+    //console.log(options)
     var response =options.xhr.responseText
-    //console.log(response)
+   // console.log(response)
     var self = this
     self.initialize(response)
     return response
