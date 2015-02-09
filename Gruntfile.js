@@ -55,6 +55,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/TroubleTicket.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html"
           ],
@@ -172,12 +173,6 @@ module.exports = function(grunt) {
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js'
           ],
-          // 'ooiui/static/js/compiled/troubleTicket.js' : [
-          //   // Libs
-          //   'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
-          //   'ooiui/static/lib/underscore/underscore.js',
-          //   'ooiui/static/lib/backbone/backbone.js'
-          // ],
           'ooiui/static/js/compiled/signup.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -198,6 +193,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
@@ -223,6 +219,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
@@ -250,6 +247,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserEditFormView.js'
@@ -273,6 +271,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserTableView.js'
@@ -302,6 +301,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
@@ -323,6 +323,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
@@ -352,6 +353,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
@@ -389,6 +391,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
@@ -418,6 +421,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
