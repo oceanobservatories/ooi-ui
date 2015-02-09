@@ -28,7 +28,6 @@ var PlatformDeploymentCollection = Backbone.Collection.extend({
   url: '/api/platform_deployment',
   model: PlatformDeploymentModel,
   parse: function(response, options) {
-    console.log(response)
     return response.platform_deployments;
   }
 });

@@ -72,7 +72,6 @@ var MapView = Backbone.View.extend({
     var loco = ooi.models.mapModel.get('mapCenter')
     //loco = loco.reverse()
     //apparently reverse is too slow set explicitly
-    console.log('location set in Map' + ' '+ loco)
     this.map.setView(loco,5)
      
   }

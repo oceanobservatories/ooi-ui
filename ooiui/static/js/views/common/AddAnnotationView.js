@@ -27,14 +27,13 @@ var AddAnnotationView = Backbone.View.extend({
       
   },
   addAnnotation: function(e) {
-    console.log("add annotation")
     var self = this;
     e.preventDefault();
     this.model.set({
       title: this.$el.find('#titleInput').val(),
       comment: this.$el.find('#comment-text').val()
     });
-    console.log(this.model.attributes)
+    //console.log(this.model.attributes)
     this.hide();
   },
   hidden: function(e) {

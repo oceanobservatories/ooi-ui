@@ -27,9 +27,7 @@ var Chart = Backbone.Model.extend({
    
   parse: function(response, options){
     _.bindAll(this, 'initialize');
-    //console.log(options)
     var response =options.xhr.responseText
-   // console.log(response)
     var self = this
     self.initialize(response)
     return response
