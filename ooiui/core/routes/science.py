@@ -41,16 +41,14 @@ def getData():
     gets data in the google chart format
     '''
     instr = request.args['instrument']   
-    stream = request.args['stream']    
+    stream = request.args['stream'] 
+    field = request.args['field']    
      
     #std = request.args['startdate']
     #edd = request.args['enddate']
     #param = request.args['variables']
-    #ann = request.args['annotaton']
     ann = "?annotation=true"
-
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_data'+"/"+instr+"/"+stream+ann, params=request.args)
-
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_data'+"/"+instr+"/"+stream+ann+"&field="+field, params=request.args)
     return response.text, response.status_code
 
 

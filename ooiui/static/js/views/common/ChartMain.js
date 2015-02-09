@@ -1,5 +1,6 @@
 
 google.load('visualization', '1.0', {'packages':['corechart','annotationchart']});
+/*
 google.setOnLoadCallback(init);
 
 function init(){
@@ -9,3 +10,4 @@ function init(){
 //  app.ChartsRouter = new Workspace();
 //  Backbone.history.start();
 }
+*/
