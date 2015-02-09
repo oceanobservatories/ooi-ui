@@ -108,6 +108,7 @@
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
+  mapModel: new MapModel()
   },
   collections: {
     arrays: new ArrayCollection(),
@@ -121,16 +122,24 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('body').prepend(this.views.navbar.el);
 
     this.views.tocView = new TOCView({
+      model: this.models.mapModel,
       collection: this.collections.arrays
     });
     this.collections.arrays.fetch({reset: true});
 
     $('#sidebar-wrapper').html(this.views.tocView.el);
 
+    //do i create the model hereand click event here?
+      //  console.log(this.views.tocView.el)
+    this.mapCollection = new MapCollection()
     this.views.mapView = new MapView({
+      //model: this.models.mapModel,
       collection: this.collections.platform_deployments,
       el: $('#map')
+
     });
+
+   // this.views.mapView.bind('click a',this.views.tocView.toggle) 
 
     if(!this.login.loggedIn()) {
       this.modalView = new ModalDialogView();
@@ -142,6 +151,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+
   }
 });
 var ooi = new OOI();
@@ -149,6 +159,12 @@ var ooi = new OOI();
 $(document).ready(function() {
     ooi.start();
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    $("body").click(function(event){
+        console.log("clicked " + event.target.outerHTML)
+     })
+
+    console.log(ooi)
+
 });
 </script>
 {% endblock %}
