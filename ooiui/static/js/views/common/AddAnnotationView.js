@@ -42,31 +42,7 @@ var AddAnnotationView = Backbone.View.extend({
       field_x: "internal_timestamp"
     });
     
-    this.model.save(null, {
-      success: function(model, response) {
-        self.modalDialog.show({
-          message: "User successfully registered",
-          type: "success",
-          ack: function() { 
-            window.location = "/"
-          }
-        });
-      },
-      error: function(model, response) {
-        try {
-          var errMessage = JSON.parse(response.responseText).error;
-        } catch(err) {
-          console.error(err);
-          var errMessage = "Unable to submit user";
-        }
-        self.modalDialog.show({
-          message: errMessage,
-          type: "danger",
-        });
-        console.error(model);
-        console.error(response.responseText);
-      }
-    });
+    this.model.save();
 
     this.hide();
   },
