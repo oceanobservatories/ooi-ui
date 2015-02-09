@@ -120,14 +120,18 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.views.tocView = new TOCView({
+    this.mapModel= new MapModel()
+    // I removed view from this.view.mapModel and this.viewtocView
+    // It allows me access(via ooi{}) models, collections or views inside one another  
+    // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
+    this.tocView = new TOCView({
       collection: this.collections.arrays
     });
     this.collections.arrays.fetch({reset: true});
 
-    $('#sidebar-wrapper').html(this.views.tocView.el);
+    $('#sidebar-wrapper').html(this.tocView.el);
 
-    this.views.mapView = new MapView({
+    this.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
     });
@@ -145,6 +149,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   }
 });
 var ooi = new OOI();
+console.log(ooi);
 
 $(document).ready(function() {
     ooi.start();

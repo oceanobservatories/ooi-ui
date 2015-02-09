@@ -10,3 +10,5 @@ var MapModel = Backbone.Model.extend({
     completed: false
   }
 });
+
+var MapCollection= Backbone.Collection.extend({})

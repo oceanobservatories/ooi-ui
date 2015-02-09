@@ -14,9 +14,7 @@
  * Usage
  */
 
-  //  className: "col-sm-12",
-    //    template: JST['ooiui/static/js/partials/Chart.html'],
-
+  //  
 var ChartView = Backbone.View.extend({
   tagName: 'div',
   

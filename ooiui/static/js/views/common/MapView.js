@@ -1,25 +1,29 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
-		_.bindAll(this,"render");
+		_.bindAll(this,"render","setMapView");
+    ooi.mapModel.on('change',this.setMapView, this)
 		//this.render();
 		var self = this;
+    this.map = L.map(this.el,{
+	       center: [41.505, -80.09],
+	       zoom: 3,
+	       maxZoom: 10
+   	});
+
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
     }});
+    return this
 	},
 	//renders a simple map view
 	render: function() {
 		//needs to be set
 		L.Icon.Default.imagePath = '/img';
+    var map = this.map
 
 		var markerCluster = new L.MarkerClusterGroup();
 
-		var map = L.map(this.el,{
-	        center: [41.505, -80.09],
-	        zoom: 3,
-	        maxZoom: 10
-   		});
-
+	
 		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 	    });
@@ -58,7 +62,18 @@ var MapView = Backbone.View.extend({
 	    });
 	    map.addLayer(markerCluster);
 
-	}
+	},
+  setMapView: function(){
+   // console.log("I HEARD YOU!!")
+    var loco = ooi.mapModel.get('mapCenter')
+    loco = loco.reverse()
+    console.log('location set in Map' + ' '+ loco)
+    this.map.setView(loco,5)
+    // clicking too much messes up the model's location
+    // maybe need to listenTo... 
+    //ooi.mapModel.set({mapCenter:[0,0]}, {silent: true})
+  }
+
 	
 	//end
 });

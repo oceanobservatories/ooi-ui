@@ -251,6 +251,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
