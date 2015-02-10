@@ -15,16 +15,16 @@ img {
   display: inline-block;
 }
 
-h2  {
+/* h2  {
   font-family: 'Sirin Stencil', cursive;
-  /* font-family: 'Kreon', serif; */
-  /* font-family: 'Ubuntu Condensed', sans-serif; */
-  /* font-family: 'Advent Pro', sans-serif; */
-  /* font-family: 'Galdeano', sans-serif; */
-  /* font-family: 'Oswald', sans-serif; */
-  /* font-family: 'Roboto Condensed', sans-serif; */
+  font-family: 'Kreon', serif;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-family: 'Advent Pro', sans-serif;
+  font-family: 'Galdeano', sans-serif;
+  font-family: 'Oswald', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 400;
-}
+} */
 .form-group {
   margin-bottom: 0px;
 }
