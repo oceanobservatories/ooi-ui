@@ -1,0 +1,71 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    <title>Streams</title>
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/compiled/streams.css" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/streams.js" type="text/javascript"></script>
+  <script src="/js/compiled/streams.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}    
+
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div> <!-- #sidebar-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="content-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Data Catalog</span>
+            </div>
+            <div class="panel-body">
+              <div id="view">
+                <i class="fa fa-spinner fa-spin" style="font-size: 80px;"></i>
+              </div> <!-- #view -->
+            </div> <!-- .panel-body -->
+          </div> <!-- .panel -->
+        </div> <!-- .col -->
+      </div> <!-- .row -->
+    </div> <!-- .content-fluid -->
+  </div> <!-- #page-content-wrapper -->
+</div> <!-- #wrapper -->
+
+
+<script type="text/javascript">
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  views: {
+  },
+  models: {
+  },
+  collections: {
+    streams: new StreamCollection()
+  },
+  start: function() {
+    this.login.fetch({async: false});
+    this.collections.streams.fetch({reset: true});
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+    this.views.streamTableView = new StreamTableView({
+      collection: this.collections.streams,
+      el: $('#view')
+    });
+  }
+});
+
+var ooi = new OOI();
+
+$(document).ready(function() {
+  ooi.start();
+});
+
+</script>
+
+{% endblock %}
+

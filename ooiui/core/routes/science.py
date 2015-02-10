@@ -35,6 +35,11 @@ def plat_index():
 def instr_index():
     return render_template('asset_management/instrument_list.html')
 
+@app.route('/streams')
+@app.route('/streams/')
+def streams_page():
+    return render_template('science/streams.html')
+
 @app.route('/getdata/')
 def getData():
     '''

@@ -15,10 +15,18 @@
 var StreamModel = Backbone.Model.extend({
   urlRoot: '/api/uframe/stream',
   defaults: {
+    stream_name: "",
     download: "",
     start: "",
     end: "",
     reference_designator: ""
+  },
+  parse: function(data, options) {
+    if(data && data.start && data.end) {
+      data.start = new Date(data.start * 1000);
+      data.end = new Date(data.end * 1000);
+    }
+    return data;
   }
 });
 
