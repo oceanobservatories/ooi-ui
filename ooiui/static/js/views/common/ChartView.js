@@ -48,17 +48,19 @@ var ChartView = Backbone.View.extend({
     chart.draw(data, {width: 700, height: 300});
 
     google.visualization.events.addListener(chart, 'select', function(){
-              
       var row = chart.getSelection()[0].row;
       // setSelection() removes the point, after the modal, from the graph so it doesn't cause the graph to freeze
       chart.setSelection();
       var date =  data.getValue(row,0)
-      var utcdate = moment.utc(Date(data.getValue(row,0))).format()
+      var utcdate = moment.utc(Date(data.getValue(row,0))).format("YYYY-MM-DDTHH:mm:ss")
       var annotationModel = new AnnotationModel()
       annotationModel.set({
         pos_x: utcdate,
-        pos_y: data.getValue(row,1),
-             
+        pos_y: parseInt(data.getValue(row,1)),
+        recorded_date: utcdate,
+        value: parseInt(data.getValue(row,1)),
+        field_y: data.Pf[1].label,
+        field_x: data.Pf[0].label          
       });
       var modalView = new AddAnnotationView({model: annotationModel });
       console.log(modalView);
