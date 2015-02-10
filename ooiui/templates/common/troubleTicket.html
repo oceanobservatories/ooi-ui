@@ -40,31 +40,12 @@
 
 
 <script type="text/javascript">
-
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {
-  //  navbar: new NavbarView(),
     ticket: new TroubleTicketView()
-
   },
   collections: {},
-
-//  initViews: function() {
-  //  this.views.navbar = new NavbarView();
-  //  this.views.navbar.sidebarToggle(); // Hide the sidebar
-//    $('body').prepend(this.views.navbar.el);
-//  },
-
-/*  initEvents: function() {
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
-  },*/
-
-/*  initTicket: function() {
-    this.views.ticket = new TroubleTicketView();
-    $('#page-content-wrapper').prepend(this.views.ticket.el);
-  },*/
 
   start: function() {
     this.login.fetch({async:false});
@@ -73,14 +54,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar.sidebarToggle(); // Hide the sidebar
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-  
-  $('#page-content-wrapper').prepend(this.views.ticket.el);
-
-
-  /*this.initViews();
-  this.initEvents();
-  this.initTicket();*/
-
+    $('#page-content-wrapper').prepend(this.views.ticket.el);
   }
 });
 
