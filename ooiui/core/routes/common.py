@@ -123,9 +123,8 @@ def login():
 #>>---->Annotations<----<<##
 @app.route('/api/annotations', methods=['POST'])
 def post_annotation():
-    token = get_login()
-    print request.data
-    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)
+    token = get_login()    
+    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)    
     return response.text, response.status_code
 
 #>>---->opLog<----<<##

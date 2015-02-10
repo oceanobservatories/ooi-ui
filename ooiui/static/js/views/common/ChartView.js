@@ -52,12 +52,13 @@ var ChartView = Backbone.View.extend({
       // setSelection() removes the point, after the modal, from the graph so it doesn't cause the graph to freeze
       chart.setSelection();
       var date =  data.getValue(row,0)
-      var utcdate = moment.utc(Date(data.getValue(row,0))).format("YYYY-MM-DDTHH:mm:ss")
+      var date_t = moment(date).format("YYYY-MM-DDTHH:mm:ss")
+
       var annotationModel = new AnnotationModel()
       annotationModel.set({
-        pos_x: utcdate,
+        pos_x: date_t,
         pos_y: parseInt(data.getValue(row,1)),
-        recorded_date: utcdate,
+        recorded_date: date_t,
         value: parseInt(data.getValue(row,1)),
         field_y: data.Pf[1].label,
         field_x: data.Pf[0].label          
