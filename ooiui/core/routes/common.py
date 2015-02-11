@@ -37,6 +37,10 @@ def users():
 def user_login():
     return render_template('common/loginDemo.html')
 
+@app.route('/pioneerarray')
+def pioneer_array():
+    return render_template('common/pioneerArray.html')
+
 @app.route('/NewEvent')
 def new_event():
     return render_template('common/newEvent.html')
