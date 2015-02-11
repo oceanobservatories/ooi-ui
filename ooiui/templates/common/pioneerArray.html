@@ -21,20 +21,34 @@
 
 {%block body %}
 <div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default">
+  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
   </div><!-- sidebar-wrapper -->
 
-  <div id="menu-row" class="row">
+  <div class="row">
     <div class="col-lg-12">
-      <h3 align="center">Pioneer Array</h3>
+      <h2 align="left">Pioneer Array</h2>
+    </div><!-- col-lg-12 -->
+  </div><!-- menu-row -->
+  <div class="row">
+    <div class="col-lg-5">
+      <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
+
+      Description goes here....
+      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+    </div><!-- col-lg-12 -->
+  </div><!-- menu-row -->
+  <div class="row">
+    <div class="col-lg-4">
+      <h3 align="left">Summary</h3>
+      <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
     </div><!-- col-lg-12 -->
   </div><!-- menu-row -->
 
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-5">
       <div class="container-fluid">
 
-        <em class="disclamer">Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.</em></strong>
+        <em class="disclamer"></em></strong>
       </div>
 
     </div>
@@ -141,13 +155,14 @@
           </div>
         </div>
 
-
-
       </div><!-- container-fluid -->
     </div><!-- col-sm-4 -->
+
     <div class="col-sm-8">
-      content
     </div><!-- col-sm-8 -->
+
+
+
 
   </div><!-- wrapper -->
 
@@ -194,7 +209,7 @@
       this.login.fetch({async:false});
       this.collections.operatorEventTypes.fetch();
       this.views.navbar = new NavbarView();
-      this.views.navbar.sidebarToggle();
+      //this.views.navbar.sidebarToggle();
       $('body').prepend(this.views.navbar.el);
 
       if(this.login.loggedIn()) {
