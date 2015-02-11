@@ -22,17 +22,24 @@ var ChartViews = Backbone.View.extend({
     'keypress #title': 'createOnEnter'
   },
 
-  initialize: function(){
+  initialize: function(options){
     _.bindAll(this, 'render', 'addChart', 'appendChart', 'filterAll');
 
-    this.$title_input = this.$('#title');
-    this.$type_input = this.$('#type');
+    this.$title_input = this.$el.find('#title');
+    this.$type_input = this.$el.find('#type');
 
   
     this.collection = new Charts();
     this.collection.bind('add', this.appendChart);
 
     this.listenTo(this.collection, 'filter', this.filterAll);
+    if(options && options.title && options.type) {
+      this.render();
+      this.$title_input.val(options.title);
+      this.$type_input.val(options.type);
+      this.addChart();
+      return;
+    }
 
     this.render();
   },

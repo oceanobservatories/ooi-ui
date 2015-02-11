@@ -28,15 +28,20 @@ var AddAnnotationView = Backbone.View.extend({
   addAnnotation: function(e) {
     var self = this;
     e.preventDefault();
+    e.stopPropagation();
     this.model.set({
       title: this.$el.find('#titleInput').val(),
       comment: this.$el.find('#comment-text').val(),             
       stream_name: "flort_kn_stc_imodem_instrument",
       instrument_name: "CP02PMUO-WFP01-04-FLORTK000"      
     });
-
-    this.model.save();
-    this.hide();
+    this.model.save(null, {
+      success: function() {
+        console.log("I'm calling hide");
+        self.hide();
+        ooi.trigger('AddAnnotationView:addAnnotation', self.model);
+      }
+    });
   },
   hidden: function(e) {
     console.log("hidden");
