@@ -36,3 +36,34 @@ dt:nth-of-type(6) { background: #96b4d5; }
 dd:nth-of-type(6) { background: #a2c8f0; }
 
 .curCol { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(89, 102, 242, 0.2); z-index: 1; position: relative; }
+
+#wrapper {
+  padding: 0 0 0 220px;
+  margin-top: 51px;
+
+}
+#sidebar-wrapper {
+  width: 200px;
+}
+.sidebar-nav{
+  width: 200px;
+}
+.tooltip {
+  font-family: FontAwesome;
+  display: inline;
+  position: relative;
+  opacity: inherit;
+}
+.tooltip:hover:after {
+  background: #333;
+  background: rgba(0,0,0,.8);
+  border-radius: 5px;
+  bottom: 26px;
+  color: #f41313;
+  content: attr(title);
+  left: 20%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  width: 220;
+}
