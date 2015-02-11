@@ -48,6 +48,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     streams: new StreamCollection()
   },
   start: function() {
+    var self = this;
     this.login.fetch({async: false});
     this.collections.streams.fetch({reset: true});
     this.views.navbar = new NavbarView();
@@ -55,6 +56,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.streamTableView = new StreamTableView({
       collection: this.collections.streams,
       el: $('#view')
+    });
+    this.views.streamDownloadFormView = new StreamDownloadFormView();
+    $('.panel-body').append(this.views.streamDownloadFormView.el);
+    this.listenTo(this, 'StreamTableItemView:onClick', function(model) {
+      console.log(model.attributes);
+      self.views.streamDownloadFormView.show();
     });
   }
 });

@@ -70,7 +70,7 @@ var StreamTableItemView = Backbone.View.extend({
   },
   onClick: function(event) {
     event.stopPropagation();
-    console.log(this.model.attributes);
+    ooi.trigger('StreamTableItemView:onClick', this.model);
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {

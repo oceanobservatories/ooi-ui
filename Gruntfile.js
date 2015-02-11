@@ -134,7 +134,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/StreamTable.html",
-            "ooiui/static/js/partials/StreamTableItem.html"
+            "ooiui/static/js/partials/StreamTableItem.html",
+            "ooiui/static/js/partials/StreamDownloadForm.html"
           ]
         }
       }
@@ -423,7 +424,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/WatchView.js',
-            'ooiui/static/js/views/science/StreamTableView.js'
+            'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
         }
       },

@@ -1,0 +1,37 @@
+  <!--Modal-->
+  <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
+  tabindex allows the escape key to be used to close the modal -->
+  <div class="modal fade" id="download-modal" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--Header-->
+        <div class="lgn-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
+
+        </div> <!-- lgn-header -->
+
+        <!--Body-->
+        <div class="lgn-body">
+          <div class="lgn-center">
+             <div class="image"></div>
+             <div class="lgn-message"></div>
+             <br>
+             <input id="usrInput" type="text" name="username" size="25" placeholder="&#xf007; Email/Username">
+             <input class="lgn-input" id="passInput" type="password" name="password" size="25" placeholder="&#xf023; Password" />
+             <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btnLogin" disabled="disabled">Log In</button>
+          </div> <!-- lgn-center -->
+        </div> <!-- lgn-body -->
+
+        <!--Footer-->
+        <div class="lgn-footer">
+          <div class="lgn-footerPass">
+            <a href="#" data-toggle="modal">Forgot Password</a>
+          </div> <!-- lgn-footerPass -->
+          <div class="lgn-footerNewUser">
+            <a href="/signup" data-toggle="modal">New User</a>
+          </div> <!-- lgn-footerNewUser -->
+        </div> <!-- lgn-footer -->
+      </div>  <!-- modal-content -->
+    </div> <!-- modal-dialog -->
+  </div> <!-- modal fade -->
