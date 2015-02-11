@@ -42,7 +42,9 @@ var ChartView = Backbone.View.extend({
     //render the chart itself using the Google Charts API
     var type = this.model.get('type');
     var data = this.model.get('data');
+
     var chart_container = this.$el.find('.chart-contents').get(0);
+
     //NOTE: changing find to append messing up the dynamic loading removes the remove button and edit button
     var chart = new google.visualization[type](chart_container);
     chart.draw(data, {width: 700, height: 300});
@@ -55,21 +57,38 @@ var ChartView = Backbone.View.extend({
       var date_t = moment(date).format("YYYY-MM-DDTHH:mm:ss")
 
       var annotationModel = new AnnotationModel()
-      annotationModel.set({
+        annotationModel.set({
         pos_x: date_t,
         pos_y: parseInt(data.getValue(row,1)),
         recorded_date: date_t,
         value: parseInt(data.getValue(row,1)),
         field_y: data.Pf[1].label,
-        field_x: data.Pf[0].label          
+        field_x: data.Pf[0].label,
+        title:   data.getValue(row,2),
+        comment: data.getValue(row,3)
       });
-      var modalView = new AddAnnotationView({model: annotationModel });
-      console.log(modalView);
-      $("#annotationView").html(modalView.el)
-      modalView.show();
 
-      
-    })
+      console.log(data.getValue(row,2),data.getValue(row,3))
+
+      var modalView = new AddAnnotationView({model: annotationModel });     
+      $("#annotationView").html(modalView.el)
+
+      if (data.getValue(row,2) != null){
+        $("#annotationView").find('#titleInput').val(data.getValue(row,2));
+      }
+      if (data.getValue(row,3) != null){
+        $("#annotationView").find('#comment-text').text(data.getValue(row,3));    
+        $("#annotationView").find('#btnAddAnnotation').text('Update Annotation')  
+      }
+      modalView.show();
+    });
+
+    //when the chart is ready make all things good
+    google.visualization.events.addListener(chart, 'ready', function(){      
+      $('#chartContainer').removeClass("loader")
+      //$('#chartContainer').find('.chart-contents').removeClass("hidden")
+    });
+
     return this;
   },
 

@@ -1,9 +1,14 @@
 
 <span><%= title %></span>
 <div class='view-chart'>
-  <div class='chart-contents'></div>
-  <button class='delete'>remove chart</button>
-  <span class='edit'>edit chart</span>
+  <!-- plot controls -->
+  <div class="pull-left">
+    <!--<span class='edit'>edit chart</span>-->
+    <button class='btn btn-default btn-sm delete'>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div style="padding-bottom:30px;padding-left:50px" class='chart-contents'></div>
 </div>
 
 <div class='edit-chart hidden'>

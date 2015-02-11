@@ -38,28 +38,25 @@
           
           </header>
     
-    <div class='content'>
-
+    <div id='plotContent' class="content">
+      <!--
       <div class='filters'>
-        Show:
-        <!-- <ul></ul>!-->
+         <ul></ul>!
       </div>
+      -->
 
-      <div class='charts'></div>
+      <div id='chartContainer'>
+
+      </div>
 
       <div class='new-chart'>
         <select id='type'></select>
         <input id='title' placeholder='Title'></input>
-        <button id='add'>Add another chart</button>
+        <button class="btn btn-default" id='add'>Add Chart</button>
       </div>
 
    
-      <script id='chart-template' type='text/template'>
-      </script>
-      <script id='type-template' type='text/template'>
-      </script>
-      <script id='filter-template' type='text/template'>
-      </script>
+     
       </div>  
     </div>
   </div>
@@ -90,7 +87,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('#panelLeft').html(this.leftPanel.el);
     this.rightPanel = new PanelView({
       heading: 'Table goes here',
-      body: '<div class="col-sm-12">Looks funkie</div>'
+      body: ''
     });
 
     if(!this.login.loggedIn()) {
@@ -101,6 +98,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         ack: function() { console.log("Closed"); }
       });
     }
+
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     this.listenTo(this, "AddAnnotationView:addAnnotation", function(model) {
