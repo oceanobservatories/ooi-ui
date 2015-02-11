@@ -292,7 +292,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
-
+            'ooiui/static/js/core/common/utils.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -315,7 +315,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/AddAnnotationView.js',
-            'ooiui/static/js/views/common/ChartMain.js'
           ],
           'ooiui/static/js/compiled/gridDemo.js' : [
             // Libs

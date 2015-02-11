@@ -69,6 +69,7 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  chartType: getURLParameter('chartType'),
   models: {
   },
   collections: {
@@ -102,6 +103,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, "AddAnnotationView:addAnnotation", function(model) {
+        window.location.href = '/plotsDemo.html?chartType=AnnotationChart';
+    });
 
   }//end of start
       
@@ -109,9 +113,21 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 var ooi = new OOI();
 
+google.load('visualization', '1.0', {'packages':['corechart','annotationchart']});
 
 $(document).ready(function() {
-     ooi.start();    
+   ooi.start();
+   google.setOnLoadCallback(function() {
+     if(ooi.chartType) {
+       ooi.views.chartViews = new ChartViews({
+         title: "Annotation",
+         type: ooi.chartType
+       });
+     } else {
+       ooi.views.chartViews = new ChartViews();
+     }
+   });
+
 });
 </script>
 {% endblock %}
