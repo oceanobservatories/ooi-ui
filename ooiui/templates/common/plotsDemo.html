@@ -31,6 +31,11 @@
           <div>
             <label id="plotStream">flort_kn_stc_imodem_instrument</label> 
           </div>
+          <div>
+            <label id="plotFieldStream">raw_signal_cdom</label> 
+          </div>
+
+          
           </header>
     
     <div class='content'>
@@ -64,7 +69,15 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  models: {
+  },
+  collections: {
+  },
+  views: {
+  },
   start: function() {
+    this.login.fetch({async: false});
+
     this.navbar = new NavbarView({
       login: this.login
     });
@@ -78,11 +91,19 @@ _.extend(OOI.prototype, Backbone.Events, {
       heading: 'Table goes here',
       body: '<div class="col-sm-12">Looks funkie</div>'
     });
-   
-   
 
-
+    if(!this.login.loggedIn()) {
+      this.modalView = new ModalDialogView();
+      $('.container-fluid').first().append(this.modalView.el);
+      this.modalView.show({
+        message: "not logged In",
+        ack: function() { console.log("Closed"); }
+      });
     }
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+
+  }//end of start
       
 });
 
@@ -90,14 +111,7 @@ var ooi = new OOI();
 
 
 $(document).ready(function() {
-     ooi.start();
-
-   
-      
-   
-
-        
-    
+     ooi.start();    
 });
 </script>
 {% endblock %}

@@ -78,10 +78,11 @@ var ChartViews = Backbone.View.extend({
 
     var instrument = $('#plotInstrument').text()
     var stream = $('#plotStream').text()
+    var field = $('#plotFieldStream').text()
 
     console.log(instrument,stream)
 
-    chart.url = chart.url+"instrument="+instrument+"&stream="+stream
+    chart.url = chart.url+"instrument="+instrument+"&stream="+stream + "&field=" + field
     chart.fetch()
     this.collection.add(chart);
 

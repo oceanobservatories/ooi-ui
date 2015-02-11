@@ -40,7 +40,6 @@ var NewEventView = Backbone.View.extend({
     // this.$el.find('.modal').modal('show');
   },
   hide: function() {
-
     $('#newEventModal').modal('hide');
     return this;
   },

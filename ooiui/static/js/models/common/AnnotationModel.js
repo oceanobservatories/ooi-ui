@@ -14,10 +14,8 @@
  * Usage
  */
 
-
-
 var AnnotationModel = Backbone.Model.extend({
-  url: '/api/annotation',
+  url: '/api/annotations',
   defaults: {
     title: "TITLE ",
     comment: "comments",
@@ -25,8 +23,8 @@ var AnnotationModel = Backbone.Model.extend({
     value: "9999",
     stream_name: "stream name",
     instrument_name: " instrument name",
-    pos_x : "recorded_date ",
-    pos_y : "value",
+    pos_x : "recorded_date",
+    pos_y : 0,
     field_y: "var name",
     field_x:"You shall always be known as time"
   }

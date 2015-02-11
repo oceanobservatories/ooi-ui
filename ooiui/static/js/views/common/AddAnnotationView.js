@@ -23,17 +23,19 @@ var AddAnnotationView = Backbone.View.extend({
   },
   initialize: function(params) {
     _.bindAll(this, "render", "addAnnotation", "show", "hide", "keyPress");
-    this.render()
-      
+    this.render() 
   },
   addAnnotation: function(e) {
     var self = this;
     e.preventDefault();
     this.model.set({
       title: this.$el.find('#titleInput').val(),
-      comment: this.$el.find('#comment-text').val()
+      comment: this.$el.find('#comment-text').val(),             
+      stream_name: "flort_kn_stc_imodem_instrument",
+      instrument_name: "CP02PMUO-WFP01-04-FLORTK000"      
     });
-    //console.log(this.model.attributes)
+
+    this.model.save();
     this.hide();
   },
   hidden: function(e) {
