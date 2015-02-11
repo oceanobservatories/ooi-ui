@@ -7,7 +7,13 @@
 {% block head %}
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
+  <script src='https://www.google.com/jsapi'></script>
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="/css/compiled/plotsDemo.css" type="text/css" />
+  <script src="/js/partials/compiled/plotsDemo.js" type="text/javascript"></script>
+  <script src="/js/compiled/plotsDemo.js" type="text/javascript"></script>
+
   <!-- d3 can't be concatenated easily -->
   <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
@@ -40,7 +46,23 @@
           </div> <!-- panel -->
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
-      <div class="row">
+      <div class="row">        
+        <div class="col-lg-4">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong>
+                <span class="fa fa-bar-chart"></span>
+                <span data-i18n="Data">Plot Controls</span>
+              </strong>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12" id="plotControls">
+                Plot controls go here
+              </div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-4 -->
+
         <div class="col-lg-8">
           <div class="panel">
             <div class="panel-heading">
@@ -74,25 +96,34 @@
             <div class="panel-body">
               <div class="col-sm-12">
                 Panel Body
+
+                <div>
+                  <label id="plotInstrument">CP02PMUO-WFP01-04-FLORTK000</label> 
+                </div>
+                <div>
+                  <label id="plotStream">flort_kn_stc_imodem_instrument</label> 
+                </div>
+                <div>
+                  <label id="plotFieldStream">raw_signal_cdom</label> 
+                </div>
+
+                <div id='plotContent' class="content">
+                  <div id='chartContainer'>
+                  </div>
+
+                   <div class='new-chart'>
+                    <select id='type'></select>
+                    <input id='title' placeholder='Title'></input>
+                    <button class="btn btn-default" id='add'>Add Chart</button>
+                  </div>
+                </div>
+
               </div>
             </div> <!-- panel-body -->
           </div> <!-- panel -->
         </div> <!-- col-lg-8 -->
-        <div class="col-lg-4">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-bar-chart"></span>
-                <span data-i18n="Data">Plot Controls</span>
-              </strong>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12" id="plotControls">
-                Plot controls go here
-              </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-lg-4 -->
+
+
       </div> <!-- row -->
     </div> <!-- container-fluid -->
   </div> <!-- page-content-wrapper -->
@@ -154,10 +185,22 @@ _.extend(OOI.prototype, Backbone.Events, {
 });
 var ooi = new OOI();
 
+google.load('visualization', '1.0', {'packages':['corechart','annotationchart']});
+
 $(document).ready(function() {
     ooi.start();
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
-
+    ooi.chartType = "AnnotationChart"
+    google.setOnLoadCallback(function() {
+     if(ooi.chartType) {
+       ooi.views.chartViews = new ChartViews({
+         title: "Annotation",
+         type: ooi.chartType
+       });
+     } else {
+       ooi.views.chartViews = new ChartViews();
+     }
+   });
 
 });
 </script>

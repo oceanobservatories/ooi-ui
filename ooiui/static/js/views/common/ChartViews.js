@@ -30,6 +30,7 @@ var ChartViews = Backbone.View.extend({
 
   
     this.collection = new Charts();
+    //when one is added do the append chart function
     this.collection.bind('add', this.appendChart);
 
     this.listenTo(this.collection, 'filter', this.filterAll);
@@ -69,9 +70,13 @@ var ChartViews = Backbone.View.extend({
 
 
     // render charts
+    /*
     _(this.collection.models).each(function(chart){
       this.appendChart(chart);
     }, this);
+    */
+
+
   },
   templates: { 
     type_template: JST['ooiui/static/js/partials/ChartTypeTemplate.html'],
@@ -81,8 +86,9 @@ var ChartViews = Backbone.View.extend({
     var chart = new Chart({
       title: this.$title_input.val().trim() || null, // use default if empty
       type: this.$type_input.val()
-    });
+    });        
 
+    //add the loading class    
     var instrument = $('#plotInstrument').text()
     var stream = $('#plotStream').text()
     var field = $('#plotFieldStream').text()
@@ -92,6 +98,8 @@ var ChartViews = Backbone.View.extend({
     chart.url = chart.url+"instrument="+instrument+"&stream="+stream + "&field=" + field
     chart.fetch()
     this.collection.add(chart);
+
+    //this.appendChart(chart);
 
     this.$title_input.val(''); //reset input
   },
@@ -103,7 +111,8 @@ var ChartViews = Backbone.View.extend({
   appendChart: function(chart){
     var chartView = new ChartView({model: chart });
     var chart_elem = chartView.render().el;
-    $('.charts', this.$el).append(chart_elem);
+    this.$el.find('#chartContainer').addClass("loader")    
+    this.$el.find('#chartContainer').append(chart_elem);
 
     chart_elem.scrollIntoView(false); // scroll to chart, align to bottom
     $(chart_elem).effect("highlight", {}, 1500); // nifty yellow highlight fx

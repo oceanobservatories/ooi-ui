@@ -18,7 +18,7 @@ var Chart = Backbone.Model.extend({
   defaults: {
     title: 'New Chart',
     type:  'AreaChart',
-    data:'',
+    data: '',
     stream:'',
     instrument:'' 
   },
@@ -33,10 +33,10 @@ var Chart = Backbone.Model.extend({
     return response
   },
 
-  initialize: function(response){
+  initialize: function(response){ 
     var data = new google.visualization.DataTable(response)
     this.set({data:data});
-    },
+  },
    
 });
 
