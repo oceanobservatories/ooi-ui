@@ -147,7 +147,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/StreamTable.html",
-            "ooiui/static/js/partials/StreamTableItem.html"
+            "ooiui/static/js/partials/StreamTableItem.html",
+            "ooiui/static/js/partials/StreamDownloadForm.html"
           ]
         }
       }
@@ -444,9 +445,10 @@ module.exports = function(grunt) {
           'ooiui/static/js/compiled/streams.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
-            'ooiui/static/lib/moment/moment.js',
             "ooiui/static/lib/loremjs/lorem.js",
             // App
             'ooiui/static/js/ooi.js',
@@ -463,7 +465,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/WatchView.js',
-            'ooiui/static/js/views/science/StreamTableView.js'
+            'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
         }
       },
@@ -545,10 +548,12 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/watch.css"
           ],
           "ooiui/static/css/compiled/streams.css" : [
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/newEvent.css"
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/streams.css"
           ]
         }
       }

@@ -6,6 +6,7 @@ Defines the application routes
 '''
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
+from flask import stream_with_context
 
 
 
@@ -97,3 +98,19 @@ def op_log():
 def stream_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', params=request.args)
     return response.text, response.status_code
+
+@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
+def get_csv(stream_name, reference_designator):
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s' % (stream_name, reference_designator), stream=True)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'text/csv'})
+
+@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>')
+def get_json(stream_name, reference_designator):
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s' % (stream_name, reference_designator), stream=True)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'application/json'})
+
+@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>')
+def get_netcdf(stream_name, reference_designator):
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), stream=True)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'application/x-netcdf'})
+

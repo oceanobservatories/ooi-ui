@@ -1,0 +1,21 @@
+div.banner-image {
+ content: url(/img/OOI_BannerNew_01.png);
+ max-width: 100%;
+ max-height: 100%;
+}
+
+.message {
+  padding-right: 10px;
+  line-height: 0.2;
+}
+
+
+.message h1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.message h3 {
+  margin-top: 5px;
+  font-size: 16px;
+}

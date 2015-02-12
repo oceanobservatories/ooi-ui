@@ -48,13 +48,20 @@ _.extend(OOI.prototype, Backbone.Events, {
     streams: new StreamCollection()
   },
   start: function() {
+    var self = this;
     this.login.fetch({async: false});
     this.collections.streams.fetch({reset: true});
     this.views.navbar = new NavbarView();
+    this.views.navbar.sidebarToggle();
     $('body').prepend(this.views.navbar.el);
     this.views.streamTableView = new StreamTableView({
       collection: this.collections.streams,
       el: $('#view')
+    });
+    this.views.streamDownloadFormView = new StreamDownloadFormView();
+    $('.panel-body').append(this.views.streamDownloadFormView.el);
+    this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+      self.views.streamDownloadFormView.show(options);
     });
   }
 });
