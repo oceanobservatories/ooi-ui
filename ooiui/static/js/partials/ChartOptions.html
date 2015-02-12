@@ -1,0 +1,37 @@
+<div class="panel-heading">
+  <strong>
+    <span class="fa fa-bar-chart"></span>
+    <span data-i18n="Data">Plot Controls</span>
+  </strong>
+</div> <!-- panel-heading -->
+<div class="panel-body">
+  <div class="col-sm-12" id="plotControls">
+     <div>
+        <label id="chart-selected-instrument">Instrument: <%= model.get('title') %></label>
+      </div>
+      <div>
+        <label id="chart-selected-steam">Stream: <%= model.get('title') %></label>
+      </div>  
+      <div>
+        <label id="chart-selected-variable">Variable: <%= model.get('title') %></label> 
+      </div>
+
+      <h5 class="text-center">Stream list Example</h5>
+        <div class="panel panel-info panel-heading" style="max-height: 300px;overflow: auto;">
+        <ul class="list-group checked-list-box" style="color: rgb(125, 125, 125);background-color: rgb(66, 139, 202);margin-bottom: 0px;">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item" data-checked="true">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Morbi leo risus</li>
+              <li class="list-group-item">Porta ac consectetur ac</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Morbi leo risus</li>
+              <li class="list-group-item">Porta ac consectetur ac</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+
+  </div>
+</div> <!-- panel-body -->
+

@@ -1,28 +1,29 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
+		
 		_.bindAll(this,"render","setMapView");
-    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
-   
-		var self = this;
-    this.map = L.map(this.el,{
-	       center: [41.505, -80.09],
-	       zoom: 3,
-	       maxZoom: 10
+	    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
+	   
+			var self = this;
+	    this.map = L.map(this.el,{
+		       center: [41.505, -80.09],
+		       zoom: 3,
+		       maxZoom: 10
 
-   	});
+	   	});
 
-    this.collection.fetch({success: function(collection, response, options) {
-      self.render();
-      return this
-    }});
-    return this
+	    this.collection.fetch({success: function(collection, response, options) {
+	      self.render();
+	      return this
+	    }});
+	    return this
 	},
  	//renders a simple map view
 	render: function() {
 		//needs to be set
 		L.Icon.Default.imagePath = '/img';
    
-    var map = this.map
+    	var map = this.map
 
 		var markerCluster = new L.MarkerClusterGroup();
 

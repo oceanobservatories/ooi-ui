@@ -47,20 +47,7 @@
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
       <div class="row">        
-        <div class="col-lg-4">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-bar-chart"></span>
-                <span data-i18n="Data">Plot Controls</span>
-              </strong>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12" id="plotControls">
-                Plot controls go here
-              </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
+        <div id="chart-controls"class="col-lg-4">
         </div> <!-- col-lg-4 -->
 
         <div class="col-lg-8">
@@ -139,14 +126,14 @@
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
-  mapModel: new MapModel()
+    mapModel: new MapModel(),
+    chartOptionsModel: new ChartOptionsModel()
   },
   collections: {
     arrays: new ArrayCollection(),
     platform_deployments: new PlatformDeploymentCollection()
   },
-  views: {
-
+  views: {    
   },
   start: function() {
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
@@ -166,9 +153,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
-
     });
 
+    this.views.chartOptionsModel = new ChartOptionsModel()
+    this.views.chartOptionsView = new ChartOptionsView({model:this.views.chartOptionsModel})
+    $('#chart-controls').html(this.views.chartOptionsView.el);
 
     if(!this.login.loggedIn()) {
       this.modalView = new ModalDialogView();
@@ -181,6 +170,15 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
 
+    this.listenTo(this, 'instrumentDeploymentItemView:instrumentSelect', this.updateChartOptions);
+  },
+  updateChartOptions:function(model){     
+    //update chart selection model
+    this.models.chartOptionsModel.set({instrument: model.get('reference_designator'),
+                                       stream: model.get('display_name'),
+                                       variable:'sample',
+                                      });   
+
   }
 });
 var ooi = new OOI();
@@ -191,6 +189,7 @@ $(document).ready(function() {
     ooi.start();
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     ooi.chartType = "AnnotationChart"
+    
     google.setOnLoadCallback(function() {
      if(ooi.chartType) {
        ooi.views.chartViews = new ChartViews({
@@ -200,8 +199,7 @@ $(document).ready(function() {
      } else {
        ooi.views.chartViews = new ChartViews();
      }
-   });
-
+   }); 
 });
 </script>
 {% endblock %}

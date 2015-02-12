@@ -13,14 +13,20 @@
  *
  * Usage
  */
+var ChartOptionsModel = Backbone.Model.extend({
+  defaults: {
+    title: 'some title here',
+    stream:'default stream',
+    instrument:'deafult instr',
+    variable:'default ' 
+  }
+});
+
 
 var Chart = Backbone.Model.extend({
   defaults: {
     title: 'New Chart',
     type:  'AreaChart',
-    data: '',
-    stream:'',
-    instrument:'' 
   },
 
   url: 'getdata/?',
