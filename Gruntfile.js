@@ -176,26 +176,14 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/Event.html"
           ],
-          "ooiui/static/js/partials/compiled/streams.js": [
-            "ooiui/static/js/partials/DropdownMessages.html",
-            "ooiui/static/js/partials/DropdownMessage.html",
-            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
-            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
-            "ooiui/static/js/partials/LoginForm.html",
-            "ooiui/static/js/partials/NewEvent.html",
-            "ooiui/static/js/partials/ModalDialog.html",
-            "ooiui/static/js/partials/Navbar.html",
-            "ooiui/static/js/partials/MenuToggle.html",
-            "ooiui/static/js/partials/Panel.html",
-            "ooiui/static/js/partials/Alert.html",
-            "ooiui/static/js/partials/AnnotationTable.html",
-            "ooiui/static/js/partials/AnnotationTableItem.html",
-            "ooiui/static/js/partials/SVGPlotControl.html",
-            "ooiui/static/js/partials/StreamTable.html",
-            "ooiui/static/js/partials/StreamTableItem.html",
-            "ooiui/static/js/partials/StreamDownloadForm.html",
-            "ooiui/static/js/partials/ModalForm.html",
-            "ooiui/static/js/partials/AnnotationModalForm.html"
+          "ooiui/static/css/compiled/streams.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/ModalForm.css"
           ]
         }
       }
