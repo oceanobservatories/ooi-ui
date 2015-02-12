@@ -20,9 +20,6 @@ var ChartOptionsView = Backbone.View.extend({
     _.bindAll(this, 'render');
     this.render();
   },
-  updateSelection:function(model){
-    console.log("update selected",updates);
-  },
   render: function(){
     this.$el.html(this.template({model:this.model}));
 
