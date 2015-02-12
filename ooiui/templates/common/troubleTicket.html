@@ -7,34 +7,20 @@
 {% block head %}
 <link href='http://fonts.googleapis.com/css?family=Sirin+Stencil|Kreon|Ubuntu+Condensed|Advent+Pro:400,600|Galdeano|Oswald|Roboto+Condensed' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="/css/compiled/troubleTicket.css" type="text/css" />
 <!-- Partials -->
 <script src="/js/partials/compiled/troubleTicket.js" type="text/javascript"></script>
 <script src="/js/compiled/troubleTicket.js" type="text/javascript"></script>
-<!-- <script src="/js/compiled/signup.js" type="text/javascript"></script> -->
-<style type="text/css">
-/**
-* Override feedback icon position
-* See http://formvalidation.io/examples/adjusting-feedback-icon-position/
-*/
-#eventForm .form-control-feedback {
-  top: 0;
-  right: -15px;
-}
-</style>
-
-
 {% endblock %}
 
 {%block body %}
 <div id="wrapper">
+
   <div id="sidebar-wrapper" class="navbar-default">
   </div>
 
   <div id="page-content-wrapper">
-
   </div><!-- =page-content-wrapper -->
 
 </div> <!-- wrapper -->
@@ -47,7 +33,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     ticket: new TroubleTicketView()
   },
   collections: {}, 
-
   start: function() {
     this.login.fetch({async:false});
     this.views.navbar = new NavbarView();
@@ -58,15 +43,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('#page-content-wrapper').prepend(this.views.ticket.el);
   }
 });
-
 var ooi = new OOI();
-
 $(document).ready(function () {
   console.log("start");
-
   ooi.start();
   console.log(ooi);
-
 });
 </script>
 <script>
