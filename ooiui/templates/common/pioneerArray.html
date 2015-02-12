@@ -32,7 +32,6 @@
   <div class="row">
     <div class="col-lg-5">
       <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
-
       Description goes here....
       Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
     </div><!-- col-lg-12 -->
@@ -60,8 +59,10 @@
 
   <div class="col-sm-4">
     <div class="container-fluid">
+<div id=new-array>
 
-      <div id="page-wrap">
+</div>
+      <!-- <div id="page-wrap">
         <h2>Location and Sampleing</h2>
         <div class="info-col curCol">
           <a class="location" href="">Image</a>
@@ -153,7 +154,7 @@
               </dl>
             </dd>
           </div>
-        </div>
+        </div> -->
 
       </div><!-- container-fluid -->
     </div><!-- col-sm-4 -->
@@ -221,6 +222,12 @@
         userModel: this.models.userModel
       });
       $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+
+      this.views.eventView = new PioneerArrayView({
+        collection: this.collections.events
+      });
+      $('#new-array').html(this.views.eventView.el);
+
 
       this.eventListeners();
     },
