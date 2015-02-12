@@ -1,0 +1,75 @@
+/*  .waterImg {
+background-image: url("/img/modal/water2res2.png");
+background-repeat: no-repeat;
+background-position-x: 50%;
+} */
+#wrapper {
+  margin-top: 75px;
+}
+form {
+  padding: 0px;
+  text-align: center;
+}
+img {
+  display: inline-block;
+}
+.form-group {
+  margin-bottom: 0px;
+}
+.radio {
+  padding-top: 0px;
+  position: inherit;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.typeDrop {
+  -webkit-appearance: menulist-button;
+  line-height: 20px;
+  width: 150px;
+  background: linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+}
+.ticketCalendar {
+  line-height: 17px;
+  width: 115px;
+  background: linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+  font-family: FontAwesome;
+  border-radius: 6px;
+}
+.btn-group-sm {
+  margin-top: 25px;
+}
+.btn-custom-reset {
+  background-color: #00a7ee;
+}
+.btn-custom-reset:hover {
+  background-color: #00c0fa;
+}
+.btn-custom-reset:active {
+  background-color: #00abdf;
+}
+.btn-custom-reset:focus {
+  background-color: #00abdf;
+}
+.btn-custom-submit {
+  background-color: #f07c00;
+}
+.btn-custom-submit:hover {
+  background-color: #ff7700;
+}
+.btn-custom-submit:active {
+  background-color: #f07000;
+}
+.btn-custom-submit:focus {
+  background-color: #f07000;
+}
+br {
+  display: block;
+  margin: 10px 0;
+  content: "";
+}
+.bump {
+  padding-top: 5px;
+  margin-top: 2px;
+}

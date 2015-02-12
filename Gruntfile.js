@@ -22,13 +22,13 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
-             * This is the basic form partial that has the modal dialog
-             * prompting the user for username and password
-             */
+            * This is the basic form partial that has the modal dialog
+            * prompting the user for username and password
+            */
             "ooiui/static/js/partials/loginForm.html",
             /*
-             * This is a generic partial for displaying an alert
-             */
+            * This is a generic partial for displaying an alert
+            */
             "ooiui/static/js/partials/Alert.html"
           ],
           "ooiui/static/js/partials/compiled/newEvent.js": [
@@ -43,6 +43,19 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Alert.html"
+          ],
+          "ooiui/static/js/partials/compiled/troubleTicket.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/TroubleTicket.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html"
           ],
@@ -98,7 +111,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             'ooiui/static/js/partials/Chart.html',
-            'ooiui/static/js/partials/ChartTypeTemplate.html',  
+            'ooiui/static/js/partials/ChartTypeTemplate.html',
             'ooiui/static/js/partials/ChartFilterTemplate.html'
           ],
           "ooiui/static/js/partials/compiled/OpLog.js": [
@@ -145,7 +158,7 @@ module.exports = function(grunt) {
           banner: "'use strict';\n",
           process: function(src, filepath) {
             return '// Source: ' + filepath + '\n' +
-              src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
           },
         },
         files: {
@@ -199,6 +212,32 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
           ],
+          'ooiui/static/js/compiled/troubleTicket.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/moment/moment.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/UserFormModel.js',
+            'ooiui/static/js/models/common/RoleModel.js',
+            'ooiui/static/js/models/common/OrganizationModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TroubleTicketView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/UserFormView.js'
+          ],
           'ooiui/static/js/compiled/userEdit.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -206,6 +245,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/moment/moment.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -319,7 +359,7 @@ module.exports = function(grunt) {
             //Collection
             'ooiui/static/js/collections/ChartCollection.js',
             //Views
-            // 
+            //
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
@@ -461,6 +501,12 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
+          "ooiui/static/css/compiled/troubleTicket.css" : [
+            "ooiui/static/css/common/troubleTicket.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css"
+          ],
           "ooiui/static/css/compiled/userEdit.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
             "ooiui/static/css/common/scienceLayout.css",
@@ -470,6 +516,8 @@ module.exports = function(grunt) {
           "ooiui/static/css/compiled/users.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
             "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
@@ -527,4 +575,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['jst', 'concat']);
+  // Empty Commnet
 };

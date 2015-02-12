@@ -33,6 +33,10 @@ def user_edit(id):
 def users():
     return render_template('common/users.html')
 
+@app.route('/troubleTicket')
+def create_ticket():
+    return render_template('common/troubleTicket.html')
+
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html')
@@ -110,6 +114,29 @@ def get_user_scopes():
 @app.route('/user_roles')
 def user_roles():
     resp = requests.get(app.config['SERVICES_URL'] + '/user_roles')
+    return resp.text, resp.status_code
+
+
+
+@app.route('/api/ticket', methods=['GET'])
+def get_ticket():
+    token = get_login()
+    response = requests.get(SERVICES_URL + '/ticket', auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/ticket', methods=['POST'])
+def submit_ticket():
+    '''
+    Acts as a pass-thru proxy to to the services
+    '''
+    token = get_login()
+    response = requests.post(SERVICES_URL + '/ticket', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+@app.route('/ticket_roles')
+def ticket_roles():
+    token = get_login()
+    resp = requests.get(SERVICES_URL + '/ticket_roles', auth=(token,''))
     return resp.text, resp.status_code
 
 @app.route('/api/login', methods=['POST'])
