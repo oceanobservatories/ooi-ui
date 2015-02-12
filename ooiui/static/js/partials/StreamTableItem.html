@@ -1,8 +1,8 @@
 <% _.each(columns, function(col) { %>
   <% if(col.name == "start" || col.name == "end") { %>
     <td><%= moment(model.get(col.name)).format('MMMM Do YYYY, h:mm:ss a') %></td>
-  <% } else if(col.name == "json_download") { %>
-    <td><a href="<%= model.get('json_download') %>"><span class="fa fa-cloud-download"> Download</span></a></td>
+  <% } else if(col.name == "json_download" || col.name == "netcdf_download" || col.name == "csv_download") { %>
+  <td><a class="<%= col.name %>" href="#"><span class="fa fa-cloud-download"> Download</span></a></td>
   <% } else { %>
     <td><%= model.get(col.name) %></td>
   <% } %>

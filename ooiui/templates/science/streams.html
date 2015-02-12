@@ -52,6 +52,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.login.fetch({async: false});
     this.collections.streams.fetch({reset: true});
     this.views.navbar = new NavbarView();
+    this.views.navbar.sidebarToggle();
     $('body').prepend(this.views.navbar.el);
     this.views.streamTableView = new StreamTableView({
       collection: this.collections.streams,
@@ -59,9 +60,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.views.streamDownloadFormView = new StreamDownloadFormView();
     $('.panel-body').append(this.views.streamDownloadFormView.el);
-    this.listenTo(this, 'StreamTableItemView:onClick', function(model) {
-      console.log(model.attributes);
-      self.views.streamDownloadFormView.show();
+    this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+      self.views.streamDownloadFormView.show(options);
     });
   }
 });

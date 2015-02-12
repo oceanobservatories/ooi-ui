@@ -7,31 +7,66 @@
         <!--Header-->
         <div class="lgn-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&quest;</span></button>
 
         </div> <!-- lgn-header -->
 
         <!--Body-->
         <div class="lgn-body">
-          <div class="lgn-center">
-             <div class="image"></div>
-             <div class="lgn-message"></div>
-             <br>
-             <input id="usrInput" type="text" name="username" size="25" placeholder="&#xf007; Email/Username">
-             <input class="lgn-input" id="passInput" type="password" name="password" size="25" placeholder="&#xf023; Password" />
-             <button class="lgn btn btn-default btn-logIn enableOnInput" type="button" id="btnLogin" disabled="disabled">Log In</button>
-          </div> <!-- lgn-center -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="banner-image"></div>
+            </div>
+            <div class="col-sm-8">
+              <div class="message">
+                <h1>Stream Download</h1>
+                <br>
+                <h3>Ref Def</h3>
+                <br>
+                <div class="stream-name">
+                </div>
+              </div> <!-- .message -->
+            </div> <!-- .col-sm-12 -->
+          </div> <!-- .row -->
+          <form>
+            <div class="row lgn-center">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="start-date">Start Date</label>
+                  <div class='input-group date' id='start-date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div> <!-- .input-group.date #start-date -->
+                </div> <!-- .form-group -->
+              </div> <!-- .col-sm-6 -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="end-date">End Date</label>
+                  <div class='input-group date' id='end-date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div> <!-- .input-group.date #start-date -->
+                </div> <!-- .form-group -->
+              </div> <!-- .col-sm-6 -->
+            </div> <!-- .row -->
+            <div class="row lgn-center">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="type-select">Download Format</label>
+                  <select id='type-select' class="form-control">
+                    <option value="netcdf">NetCDF-3 (.nc)</option>
+                    <option value="json">JSON (.json)</option>
+                    <option value="csv">CSV (.csv)</option>
+                  </select>
+                </div> <!-- .form-group -->
+              </div> <!-- .col-sm-12 -->
+            </div> <!-- .row -->
+            <div class="lgn-center">
+              <button class="btn btn-default" type="button" id="download-btn">Download</button>
+            </div>
+          </form>
         </div> <!-- lgn-body -->
-
-        <!--Footer-->
-        <div class="lgn-footer">
-          <div class="lgn-footerPass">
-            <a href="#" data-toggle="modal">Forgot Password</a>
-          </div> <!-- lgn-footerPass -->
-          <div class="lgn-footerNewUser">
-            <a href="/signup" data-toggle="modal">New User</a>
-          </div> <!-- lgn-footerNewUser -->
-        </div> <!-- lgn-footer -->
       </div>  <!-- modal-content -->
     </div> <!-- modal-dialog -->
   </div> <!-- modal fade -->

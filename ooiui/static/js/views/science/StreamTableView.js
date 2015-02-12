@@ -25,16 +25,24 @@ var StreamTableView = Backbone.View.extend({
         label : 'Reference Designator'
       },
       {
-        name : 'json_download',
-        label : 'Download URL'
-      },
-      {
         name : 'start',
         label : 'Start Time'
       },
       {
         name : 'end',
         label : 'End Time'
+      },
+      {
+        name : 'json_download',
+        label : 'Download JSON'
+      },
+      {
+        name : 'netcdf_download',
+        label : 'Download NetCDF'
+      },
+      {
+        name : 'csv_download',
+        label : 'Download CSV'
       }
   ],
   initialize: function() {
@@ -58,19 +66,28 @@ var StreamTableView = Backbone.View.extend({
 var StreamTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click' : 'onClick'
+    'click a.json_download' : 'onJSONDownload',
+    'click a.netcdf_download' : 'onNetCDFDownload',
+    'click a.csv_download' : 'onCSVDownload'
   },
   initialize: function(options) {
-    _.bindAll(this, "render", "onClick");
     if(options && options.columns) {
       this.columns = options.columns;
     }
     this.listenTo(this.model, 'change', this.render);
     this.render();
   },
-  onClick: function(event) {
+  onCSVDownload: function(event) {
     event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onClick', this.model);
+    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'csv'});
+  },
+  onJSONDownload: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'json'});
+  },
+  onNetCDFDownload: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'netcdf'});
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {

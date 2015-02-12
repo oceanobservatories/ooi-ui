@@ -16,15 +16,46 @@
 
 var StreamDownloadFormView = Backbone.View.extend({
   events: {
+    'click #download-btn' : 'onDownload'
   },
   initialize: function() {
     this.render();
   },
+  onDownload: function() {
+    var selection = this.$type_select.val();
+    if(selection == 'json') {
+      var url = '/api/uframe/get_json/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
+      window.location.href = url;
+    } else if(selection == 'netcdf') {
+      var url = '/api/uframe/get_netcdf/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
+      window.location.href = url;
+    } else if(selection == 'csv') { 
+      var url = '/api/uframe/get_csv/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
+      window.location.href = url;
+    }
+    this.hide();
+  },
   failure: function() {
     console.log("this failure");
   },
-  show: function() {
+  show: function(options) {
+    var model = options.model;
+    var selection = options.selection;
+    this.model = model;
+
+    console.log(model);
+    var startDate = model.get('start');
+    var endDate = model.get('end');
+    this.$start_date_picker.setDate(startDate);
+    this.$end_date_picker.setDate(endDate);
+
+    this.$el.find('.message h3').text(model.get('reference_designator'));
+    this.$el.find('#type-select').val(selection);
+
+    this.$el.find('.stream-name').text(model.get('stream_name'));
+
     this.$el.find('#download-modal').modal('show');
+
     return this;
   },
   hide: function() {
@@ -34,5 +65,12 @@ var StreamDownloadFormView = Backbone.View.extend({
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
     this.$el.html(this.template({}));
+    this.$el.find('#start-date').datetimepicker();
+    this.$el.find('#end-date').datetimepicker();
+    this.$start_date = this.$el.find('#start-date');
+    this.$end_date = this.$el.find('#end-date');
+    this.$type_select = this.$el.find('#type-select');
+    this.$start_date_picker = this.$start_date.data('DateTimePicker');
+    this.$end_date_picker = this.$end_date.data('DateTimePicker');
   }
 });
