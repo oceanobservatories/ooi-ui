@@ -24,13 +24,6 @@ var SVGView = Backbone.View.extend({
 var SVGPlotView = SVGView.extend({
   render: function() {
     var self = this;
-    _.each(this.$el.find('#axes_1').children(), function(child) {
-      if(child.id.match(/PathCollection_[0-9]+$/)) {
-        if(child.id != 'PathCollection_1') {
-          self.$el.find(child).remove();
-        }
-      }
-    });
     /*
      * Hovers
      */
@@ -41,6 +34,7 @@ var SVGPlotView = SVGView.extend({
     }).click(function(e) {
       var i = $('#PathCollection_1 > g > use').index($(e.target));
       ooi.trigger('SVGPlotView:elementClick', i);
+      console.log("I clicked the " + i + "th point");
     });
 
     this.$el.find('#PathCollection_1 > g > use').tooltip({title: "bob"});
