@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="/css/compiled/troubleTicket.css" type="text/css" />
 <script src="/js/partials/compiled/troubleTicket.js" type="text/javascript"></script>
 <script src="/js/compiled/troubleTicket.js" type="text/javascript"></script>
+<script src="/js/views/common/TroubleTicketView.js" type="text/javascript"></script>
+<script src="/js/models/common/TroubleTicketModel.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
@@ -29,7 +31,7 @@
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {
-    ticket: new TroubleTicketView()
+ticket: new TroubleTicketView({model: new TroubleTicketModel()})
   },
   collections: {}, 
   start: function() {

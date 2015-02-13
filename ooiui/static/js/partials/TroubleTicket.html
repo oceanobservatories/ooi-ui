@@ -41,19 +41,19 @@
         <!-- upper main right side -->
         <div class="form-group">
           <div class="radio" data-toggle="radio">
-            <label><input type="radio" name="radio" value="Low">Low</label>
+            <label><input type="radio" name="radio" value="1">Low</label>
           </div>
           <br>
           <div class="radio" data-toggle="radio">
-            <label><input type="radio" name="radio" value="Medium">Medium</lable>
+            <label><input type="radio" name="radio" value="2">Medium</label>
             </div>
             <br>
             <div class="radio" data-toggle="radio">
-              <label><input type="radio" name="radio" value="High">High</label>
+              <label><input type="radio" name="radio" value="3">High</label>
             </div>
             <br>
             <div class="radio" data-toggle="radio">
-              <label><input type="radio" name="radio" value="Emergency">Emergency</label>
+              <label><input type="radio" name="radio" value="4">Emergency</label>
             </div>
             <br>
           </div><!-- upper form-group -->
@@ -84,8 +84,8 @@
       <div class="col-sm-4">
         <!-- lowe main right side -->
         <div class="bump">
-          <div class="input-group input-append date" id="datePicker">
-            <input type="text" class="ticketCalendar add-on" name="date" placeholder="&#xf073; Due Date" />
+          <div class="input-group input-append date"  id="datePicker" data-date-format="yyyy-mm-dd">
+            <input type="text"  class="ticketCalendar add-on"  name="date" id="dueDate" placeholder="&#xf073; Due Date" />
           </div><!-- input-group -->
         </div><!-- bump -->
         <br>

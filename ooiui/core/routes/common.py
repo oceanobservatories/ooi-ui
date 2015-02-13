@@ -121,7 +121,7 @@ def user_roles():
 @app.route('/api/ticket', methods=['GET'])
 def get_ticket():
     token = get_login()
-    response = requests.get(SERVICES_URL + '/ticket', auth=(token, ''))
+    response = requests.get(app.config['SERVICES_URL'] + '/redmine/ticket', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/ticket', methods=['POST'])
@@ -130,13 +130,13 @@ def submit_ticket():
     Acts as a pass-thru proxy to to the services
     '''
     token = get_login()
-    response = requests.post(SERVICES_URL + '/ticket', auth=(token, ''), data=request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/redmine/ticket', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/ticket_roles')
 def ticket_roles():
     token = get_login()
-    resp = requests.get(SERVICES_URL + '/ticket_roles', auth=(token,''))
+    resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token,''))
     return resp.text, resp.status_code
 
 @app.route('/api/login', methods=['POST'])
