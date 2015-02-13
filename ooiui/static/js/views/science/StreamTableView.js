@@ -50,6 +50,17 @@ var StreamTableView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.render);
   },
   template: JST['ooiui/static/js/partials/StreamTable.html'],
+  search: function(searchTerm) {
+    var self = this;
+    this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+    _.each(this.collection.search(searchTerm), function(model) {
+      var streamTableItemView = new StreamTableItemView({
+        columns: self.columns,
+        model: model
+      });
+      self.$el.find('tbody').append(streamTableItemView.el);
+    });
+  },
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
@@ -68,7 +79,8 @@ var StreamTableItemView = Backbone.View.extend({
   events: {
     'click a.json_download' : 'onJSONDownload',
     'click a.netcdf_download' : 'onNetCDFDownload',
-    'click a.csv_download' : 'onCSVDownload'
+    'click a.csv_download' : 'onCSVDownload',
+    'click' : 'onRowClick'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -88,6 +100,14 @@ var StreamTableItemView = Backbone.View.extend({
   onNetCDFDownload: function(event) {
     event.stopPropagation();
     ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'netcdf'});
+  },
+  onRowClick: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onRowClick', this);
+  },
+  focus: function() {
+    console.log("Trying to focus");
+    this.$el.addClass('highlight').siblings().removeClass('highlight');
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {

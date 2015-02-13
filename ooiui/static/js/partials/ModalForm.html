@@ -1,0 +1,41 @@
+<!--Modal-->
+<!-- data-backdrop prevents the modal from closeing when backtorp is clicked
+tabindex allows the escape key to be used to close the modal -->
+<div class="modal fade" id="modal-form" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-form-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div> <!-- modal-form-header -->
+
+      <!--Body-->
+      <div class="modal-form-body">
+        <div class="modal-form-title">
+          <h3>Title</h3>
+        </div>
+        <form>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="input0">First Input</label>
+                <input id="input0" type="text" class="form-control modal-form-input input">
+              </div> <!-- .form-group -->
+              <div class="form-group">
+                <label for="input1">Second Input</label>
+                <input id="input1" type="text" class="form-control modal-form-input input">
+              </div> <!-- .form-group -->
+              <div class="form-group">
+                <label for="input2">Third Input</label>
+                <input id="input2" type="text" class="form-control modal-form-input input">
+              </div> <!-- .form-group -->
+            </div> <!-- .col-sm-12 -->
+          </div> <!-- .row -->
+          <div class="modal-form-center">
+            <button class="btn btn-default" type="button" id="button">Button</button>
+          </div>
+        </form>
+      </div> <!-- modal-form-body -->
+    </div>  <!-- modal-content -->
+  </div> <!-- modal-dialog -->
+</div> <!-- modal fade -->

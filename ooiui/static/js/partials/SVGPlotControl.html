@@ -1,0 +1,52 @@
+<form>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="start-date">Start Time</label>
+        <div class='input-group date' id='start-date'>
+          <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div> <!-- .input-group.date #start-date -->
+      </div> <!-- .form-group -->
+    </div> <!-- .col-sm-6 -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="end-date">End Time</label>
+        <div class='input-group date' id='end-date'>
+          <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div> <!-- .input-group.date #start-date -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="xvar-select">X-Variable</label>
+        <select id='xvar-select' class="form-control selectpicker">
+          <% _.each(model.get('variables'), function(varName) { %>
+          <% var varType = model.get('variable_types')[varName]; %>
+            <% if(varType == 'int' || varType == 'float') { %>
+            <option value="<%=varName%>"><%= varName %></option>
+            <% } %>
+          <% }); %>
+        </select>
+      </div> <!-- .form-group -->
+    </div> <!-- .col-sm-6 -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="yvar-select">Y-Variable</label>
+        <select id='yvar-select' class="form-control selectpicker">
+          <% _.each(model.get('variables'), function(varName) { %>
+          <% var varType = model.get('variable_types')[varName]; %>
+            <% if(varType == 'int' || varType == 'float') { %>
+            <option value="<%=varName%>"><%= varName %></option>
+            <% } %>
+          <% }); %>
+        </select>
+      </div> <!-- .form-group -->
+    </div> <!-- .col-sm-6 -->
+  </div> <!-- .row -->
+</form>
