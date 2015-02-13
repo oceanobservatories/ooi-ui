@@ -151,18 +151,6 @@ def login():
     response = requests.get(app.config['SERVICES_URL'] + '/token', auth=(username, password))
     return response.text, response.status_code
 
-#>>---->Annotations<----<<##
-@app.route('/api/annotations', methods=['POST'])
-def post_annotation():
-    token = get_login()    
-    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)    
-    return response.text, response.status_code
-
-#>>---->opLog<----<<##
-# @app.route('/opLog.html')
-# def op_log():
-#     return render_template('common/opLog.html')
-
 @app.route('/api/watch', methods=['GET'])
 def get_watch():
     response = requests.get(app.config['SERVICES_URL'] + '/watch', params=request.args)

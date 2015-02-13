@@ -19,9 +19,15 @@
   <div id="page-content-wrapper">
     <div class="content-fluid">
       <div class="row">
-        <div id="view">
-<!-- Created with matplotlib (http://matplotlib.org/) -->
-        </div> <!-- #view -->
+        <div class="col-sm-6">
+          <div id="view">
+  <!-- Created with matplotlib (http://matplotlib.org/) -->
+          </div> <!-- #view -->
+        </div>
+        <div class="col-sm-6">
+          <div id="annotation-table">
+          </div>
+        </div>
       </div> <!-- .row -->
     </div> <!-- .content-fluid -->
   </div> <!-- #page-content-wrapper -->
@@ -34,6 +40,9 @@ var userId = parseInt(window.location.href.split('/').pop());
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  collections: {
+    annotations: new AnnotationCollection()
+  },
   views: {
   },
   models: {
@@ -42,10 +51,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.login.fetch({async: false});
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
+    this.views.navbar.sidebarToggle();
     this.views.svgplot = new SVGPlotView({
       url: '/svg/plotdemo',
       el: $('#view')
     });
+    this.views.annotationTableView = new AnnotationTableView({
+      collection: this.collections.annotations,
+      el: $('#annotation-table')
+    });
+    this.collections.annotations.fetch({reset: true});
   }
 });
 

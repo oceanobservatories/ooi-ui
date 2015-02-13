@@ -7,7 +7,7 @@ Defines the application routes
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
-
+from ooiui.core.routes.common import get_login
 
 
 import requests
@@ -59,6 +59,16 @@ def getData():
 
     return response.text, response.status_code
 
+@app.route('/api/annotation', methods=['GET'])
+def get_annotations():
+    response = requests.get(app.config['SERVICES_URL'] + '/annotation', params=request.args)
+    return response.text, response.status_code, dict(response.headers)
+
+@app.route('/api/annotation', methods=['POST'])
+def post_annotation():
+    token = get_login()    
+    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)    
+    return response.text, response.status_code, dict(response.headers)
 
 @app.route('/api/array')
 def array_proxy():

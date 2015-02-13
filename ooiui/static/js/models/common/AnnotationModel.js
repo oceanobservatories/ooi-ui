@@ -15,7 +15,7 @@
  */
 
 var AnnotationModel = Backbone.Model.extend({
-  url: '/api/annotations',
+  url: '/api/annotation',
   defaults: {
     title: "TITLE ",
     comment: "comments",
@@ -27,5 +27,16 @@ var AnnotationModel = Backbone.Model.extend({
     pos_y : 0,
     field_y: "var name",
     field_x:"You shall always be known as time"
+  }
+});
+
+var AnnotationCollection = Backbone.Collection.extend({
+  url: '/api/annotation',
+  model: AnnotationModel,
+  parse: function(response) {
+    if(response) {
+      return response.annotations;
+    }
+    return [];
   }
 });
