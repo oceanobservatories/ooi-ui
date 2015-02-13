@@ -124,11 +124,11 @@ def get_netcdf(stream_name, reference_designator):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'application/x-netcdf'})
 
-@app.route('/svg/plotdemo')
-def get_plotdemo():
+@app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
+def get_plotdemo(instrument, stream):
     import time
     t0 = time.time()
-    req = requests.get(app.config['SERVICES_URL'] + '/plotdemo')
+    req = requests.get(app.config['SERVICES_URL'] + '/plot/%s/%s' % (instrument, stream), params=request.args)
     t1 = time.time()
     print "GUI took %s" % (t1 - t0)
     return req.content, 200, {'Content-Type':'image/svg+xml'}

@@ -8,9 +8,11 @@
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <!-- d3 can't be concatenated easily -->
   <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 
 {% endblock %}
 
@@ -41,43 +43,6 @@
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
       <div class="row">
-        <div class="col-lg-8">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-bar-chart"></span> <span data-i18n="Data">Plot Section</span>
-              </strong>
-              <div class="pull-right">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
-                    Plot Options
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                    <li>
-                      <a href="#">Action</a>
-                    </li>
-                    <li>
-                      <a href="#">Another action</a>
-                    </li>
-                    <li>
-                      <a href="#">Something else here</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#">Separated link</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12">
-                Panel Body
-              </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-lg-8 -->
         <div class="col-lg-4">
           <div class="panel">
             <div class="panel-heading">
@@ -87,12 +52,30 @@
               </strong>
             </div> <!-- panel-heading -->
             <div class="panel-body">
-              <div class="col-sm-12" id="plotControls">
-                Plot controls go here
+              <div class="col-sm-12">
+                <div id="plot-controls">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
               </div>
             </div> <!-- panel-body -->
           </div> <!-- panel -->
         </div> <!-- col-lg-4 -->
+        <div class="col-lg-8">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong>
+                <span class="fa fa-bar-chart"></span> <span data-i18n="Data">Plot Section</span>
+              </strong>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12">
+                <div id="plot-view">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
+              </div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-8 -->
       </div> <!-- row -->
     </div> <!-- container-fluid -->
   </div> <!-- page-content-wrapper -->
@@ -118,7 +101,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   },
   start: function() {
+    var self = this;
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
+
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
@@ -128,15 +116,26 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.tocView = new TOCView({
       collection: this.collections.arrays
     });
-    this.collections.arrays.fetch({reset: true});
-
     $('#sidebar-wrapper').html(this.views.tocView.el);
-
-    this.mapView = new MapView({
+    this.views.svgPlotControlView = new SVGPlotControlView({
+      el: $('#plot-controls')
+    });
+    this.views.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
-
     });
+    this.views.svgplot = new SVGPlotView({
+      height: 400,
+      width: 600,
+      el: $('#plot-view')
+    });
+    //--------------------------------------------------------------------------------
+    // Collections Fetch
+    //--------------------------------------------------------------------------------
+    
+    this.collections.arrays.fetch({reset: true});
+
+
 
 
     if(!this.login.loggedIn()) {
@@ -149,6 +148,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, "streamItemView:streamSelect", function(model) {
+      console.log("Model");
+      console.log(model.attributes);
+      self.views.svgPlotControlView.setModel(model);
+      self.views.svgplot.setModel(model);
+    });
 
   }
 });
@@ -157,8 +162,6 @@ var ooi = new OOI();
 $(document).ready(function() {
     ooi.start();
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
-
-
 });
 </script>
 {% endblock %}

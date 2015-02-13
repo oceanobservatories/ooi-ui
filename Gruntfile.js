@@ -110,7 +110,11 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/AnnotationTable.html",
-            "ooiui/static/js/partials/AnnotationTableItem.html"
+            "ooiui/static/js/partials/AnnotationTableItem.html",
+            "ooiui/static/js/partials/SVGPlotControl.html",
+            "ooiui/static/js/partials/StreamTable.html",
+            "ooiui/static/js/partials/StreamTableItem.html",
+            "ooiui/static/js/partials/StreamDownloadForm.html"
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -362,6 +366,8 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -369,6 +375,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -378,7 +385,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/WatchView.js',
             'ooiui/static/js/views/common/SVGView.js',
-            'ooiui/static/js/views/science/AnnotationTableView.js'
+            'ooiui/static/js/views/science/AnnotationTableView.js',
+            'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -533,10 +542,9 @@ module.exports = function(grunt) {
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
             "ooiui/static/css/common/scienceLayout.css",
-            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/backgridall.min.css",
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css"
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
@@ -571,6 +579,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css"
           ],
           "ooiui/static/css/compiled/svgplot.css" : [
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",

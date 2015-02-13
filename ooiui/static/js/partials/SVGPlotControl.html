@@ -1,0 +1,5 @@
+<select id='var-select' class="selectpicker">
+  <% _.each(model.get('variables'), function(varName) { %>
+  <option value="<%=varName%>"><%=varName%></option>
+  <% }); %>
+</select>

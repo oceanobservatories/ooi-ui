@@ -19,7 +19,8 @@ var StreamModel = Backbone.Model.extend({
     download: "",
     start: "",
     end: "",
-    reference_designator: ""
+    reference_designator: "",
+    variables: []
   },
   parse: function(data, options) {
     if(data && data.start && data.end) {
