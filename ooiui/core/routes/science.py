@@ -6,7 +6,7 @@ Defines the application routes
 '''
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
-from flask import stream_with_context
+from flask import stream_with_context, make_response
 
 
 
@@ -113,4 +113,13 @@ def get_json(stream_name, reference_designator):
 def get_netcdf(stream_name, reference_designator):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'application/x-netcdf'})
+
+@app.route('/svg/plotdemo')
+def get_plotdemo():
+    import time
+    t0 = time.time()
+    req = requests.get(app.config['SERVICES_URL'] + '/plotdemo')
+    t1 = time.time()
+    print "GUI took %s" % (t1 - t0)
+    return req.content, 200, {'Content-Type':'image/svg+xml'}
 

@@ -49,6 +49,10 @@ def new_event():
 def basic():
     return render_template('common/basic.html')
 
+@app.route('/svgplot.html')
+def svgplot():
+    return render_template('common/svgplot.html')
+
 @app.route('/chartDemo.html')
 def chart_demo():
     return render_template('common/chartDemo.html')
