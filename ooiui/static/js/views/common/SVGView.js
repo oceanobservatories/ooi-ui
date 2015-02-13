@@ -27,10 +27,11 @@ var SVGPlotView = SVGView.extend({
     /*
      * Hovers
      */
-    this.$el.find('#PathCollection_1 > g > use').mouseenter(function(e) {
-      self.$el.find(e.target).css('fill', '#ff0000');
-    }).mouseleave(function(e) {
+    this.$el.find('#PathCollection_1 > g > use')
+    .mouseenter(function(e) {      
       self.$el.find(e.target).css('fill', '#0000ff');
+    }).mouseleave(function(e) {
+      self.$el.find(e.target).css('fill', '#fc8d62');
     }).click(function(e) {
       var i = $('#PathCollection_1 > g > use').index($(e.target));
       ooi.trigger('SVGPlotView:elementClick', i);
