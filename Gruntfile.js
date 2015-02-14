@@ -114,7 +114,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/SVGPlotControl.html",
             "ooiui/static/js/partials/StreamTable.html",
             "ooiui/static/js/partials/StreamTableItem.html",
-            "ooiui/static/js/partials/StreamDownloadForm.html"
+            "ooiui/static/js/partials/StreamDownloadForm.html",
+            "ooiui/static/js/partials/ModalForm.html",
+            "ooiui/static/js/partials/AnnotationModalForm.html"
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -382,9 +384,11 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/ModalFormView.js',
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/WatchView.js',
             'ooiui/static/js/views/common/SVGView.js',
+            'ooiui/static/js/views/common/AnnotationModalFormView.js',
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
@@ -583,7 +587,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/newEvent.css"
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/ModalForm.css"
           ],
           "ooiui/static/css/compiled/plotsDemo.css" : [
             "ooiui/static/css/common/scienceLayout.css",
