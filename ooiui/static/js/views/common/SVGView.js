@@ -84,5 +84,13 @@ var SVGPlotControlView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({model: this.model}));
     this.$el.find('.selectpicker').selectpicker();
+    
+    this.$el.find('#start-date').datetimepicker();
+    this.$el.find('#end-date').datetimepicker();
+    this.$start_date = this.$el.find('#start-date');
+    this.$end_date = this.$el.find('#end-date');
+    this.$type_select = this.$el.find('#type-select');
+    this.$start_date_picker = this.$start_date.data('DateTimePicker');
+    this.$end_date_picker = this.$end_date.data('DateTimePicker');
   }
 });

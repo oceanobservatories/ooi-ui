@@ -68,7 +68,8 @@ var StreamTableItemView = Backbone.View.extend({
   events: {
     'click a.json_download' : 'onJSONDownload',
     'click a.netcdf_download' : 'onNetCDFDownload',
-    'click a.csv_download' : 'onCSVDownload'
+    'click a.csv_download' : 'onCSVDownload',
+    'click' : 'onRowClick'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -88,6 +89,10 @@ var StreamTableItemView = Backbone.View.extend({
   onNetCDFDownload: function(event) {
     event.stopPropagation();
     ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'netcdf'});
+  },
+  onRowClick: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onRowClick', this.model);
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {

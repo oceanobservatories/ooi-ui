@@ -80,6 +80,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   models: {
   },
   start: function() {
+    var self = this;
     this.login.fetch({async: false});
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
@@ -102,6 +103,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.collections.annotations.fetch({reset: true});
     this.collections.streams.fetch({reset:true});
+
+    this.listenTo(this, 'StreamTableItemView:onRowClick', function(model) {
+      console.log(model.attributes);
+      self.views.svgPlotControlView.setModel(model);
+      self.views.svgplot.setModel(model);
+    });
   }
 });
 
