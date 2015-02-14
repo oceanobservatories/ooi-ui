@@ -46,6 +46,8 @@ var SVGPlotView = SVGView.extend({
     }
   },
   plot: function(options) {
+    this.reference_designator = this.model.get('reference_designator')
+    this.stream_name = this.model.get('stream_name')
     if(options && options.yvar) {
       this.variable = options.yvar;
     }
@@ -75,7 +77,7 @@ var SVGPlotView = SVGView.extend({
 
 var SVGPlotControlView = Backbone.View.extend({
   events: {
-    'click #plot-button' : 'onClickPlot'
+    'change #yvar-select' : 'onClickPlot'
   },
   initialize: function() {
   },
