@@ -27,7 +27,10 @@
         <label for="xvar-select">X-Variable</label>
         <select id='xvar-select' class="form-control selectpicker">
           <% _.each(model.get('variables'), function(varName) { %>
-          <option value="<%=varName%>"><%=varName%></option>
+          <% var varType = model.get('variable_types')[varName]; %>
+            <% if(varType == 'int' || varType == 'float') { %>
+            <option value="<%=varName%>"><%= varName %></option>
+            <% } %>
           <% }); %>
         </select>
       </div> <!-- .form-group -->
@@ -37,11 +40,14 @@
         <label for="yvar-select">Y-Variable</label>
         <select id='yvar-select' class="form-control selectpicker">
           <% _.each(model.get('variables'), function(varName) { %>
-          <option value="<%=varName%>"><%=varName%></option>
+          <% var varType = model.get('variable_types')[varName]; %>
+            <% if(varType == 'int' || varType == 'float') { %>
+            <option value="<%=varName%>"><%= varName %></option>
+            <% } %>
           <% }); %>
         </select>
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-6 -->
   </div> <!-- .row -->
-  <button type="button">Plot</button>
+  <button id='plot-button' type="button">Plot</button>
 </form>

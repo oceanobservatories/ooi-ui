@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-    <title>Edit User</title>
+    <title>SVG Plot Demonstration</title>
 {% endblock %}
 
 {% block head %}
@@ -104,10 +104,22 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.collections.annotations.fetch({reset: true});
     this.collections.streams.fetch({reset:true});
 
+    /* Dispatcher Sectiion */
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(model) {
       console.log(model.attributes);
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
+      self.collections.annotations.fetch({
+        data: $.param({stream_name: model.get('stream_name')}),
+        reset: true
+      });
+    });
+    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+      self.views.svgplot.plot(options);
+    });
+
+    this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
+      console.log(self.views.svgPlotControlView.data[idx]);
     });
   }
 });

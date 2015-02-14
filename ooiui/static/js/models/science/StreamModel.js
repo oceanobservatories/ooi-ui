@@ -20,7 +20,27 @@ var StreamModel = Backbone.Model.extend({
     start: "",
     end: "",
     reference_designator: "",
-    variables: []
+    variables: [],
+    variable_types: {},
+    preferred_timestamp: ""
+  },
+  getURL: function(type) {
+    if(type == 'json') {
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator');
+    } else if(type == 'netcdf') {
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator');
+    } else if(type == 'csv') { 
+      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator');
+    }
+    return url;
+  },
+  getData: function(options) {
+    $.ajax({
+      url: this.getURL('json'),
+      dataType: 'json',
+      success: options.success,
+      error: options.error
+    });
   },
   parse: function(data, options) {
     if(data && data.start && data.end) {
