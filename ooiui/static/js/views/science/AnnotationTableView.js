@@ -4,6 +4,8 @@
  * View definitions to build a table view of streams
  *
  * Dependencies
+ * CSS: 
+ * - ooiui/static/css/common/AnnotationTableView.css
  * Partials: 
  * - ooiui/static/js/partials/AnnotationTable.html
  * - ooiui/static/js/partials/AnnotationTableItem.html
@@ -40,9 +42,11 @@ var AnnotationTableView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render");
     this.listenTo(this.collection, 'reset', this.render);
+    this.listenTo(this.collection, 'add', this.render);
   },
   template: JST['ooiui/static/js/partials/AnnotationTable.html'],
   render: function() {
+    console.log("render called");
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
     this.collection.each(function(model) {
@@ -58,9 +62,7 @@ var AnnotationTableView = Backbone.View.extend({
 var AnnotationTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click a.json_download' : 'onJSONDownload',
-    'click a.netcdf_download' : 'onNetCDFDownload',
-    'click a.csv_download' : 'onCSVDownload'
+    'click' : 'onClick'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -69,17 +71,9 @@ var AnnotationTableItemView = Backbone.View.extend({
     this.listenTo(this.model, 'change', this.render);
     this.render();
   },
-  onCSVDownload: function(event) {
+  onClick: function(event) {
     event.stopPropagation();
-    ooi.trigger('AnnotationTableItemView:onClick', {model: this.model, selection: 'csv'});
-  },
-  onJSONDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('AnnotationTableItemView:onClick', {model: this.model, selection: 'json'});
-  },
-  onNetCDFDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('AnnotationTableItemView:onClick', {model: this.model, selection: 'netcdf'});
+    ooi.trigger('AnnotationTableItemView:onClick', this.model);
   },
   template: JST['ooiui/static/js/partials/AnnotationTableItem.html'],
   render: function() {

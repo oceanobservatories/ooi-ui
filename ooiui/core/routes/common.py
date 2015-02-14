@@ -120,8 +120,6 @@ def user_roles():
     resp = requests.get(app.config['SERVICES_URL'] + '/user_roles')
     return resp.text, resp.status_code
 
-
-
 @app.route('/api/ticket', methods=['GET'])
 def get_ticket():
     token = get_login()

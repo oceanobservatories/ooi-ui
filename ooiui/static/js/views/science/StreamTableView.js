@@ -92,7 +92,11 @@ var StreamTableItemView = Backbone.View.extend({
   },
   onRowClick: function(event) {
     event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onRowClick', this.model);
+    ooi.trigger('StreamTableItemView:onRowClick', this);
+  },
+  focus: function() {
+    console.log("Trying to focus");
+    this.$el.addClass('highlight').siblings().removeClass('highlight');
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {

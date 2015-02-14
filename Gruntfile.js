@@ -370,6 +370,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -583,6 +584,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css"
           ],
           "ooiui/static/css/compiled/svgplot.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",

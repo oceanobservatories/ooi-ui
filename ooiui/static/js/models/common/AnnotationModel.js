@@ -15,10 +15,10 @@
  */
 
 var AnnotationModel = Backbone.Model.extend({
-  url: '/api/annotation',
+  urlRoot: '/api/annotation',
   defaults: {
-    title: "TITLE ",
-    comment: "comments",
+    title: "",
+    comment: "",
     recorded_date: "date from instrument",
     value: "9999",
     stream_name: "stream name",

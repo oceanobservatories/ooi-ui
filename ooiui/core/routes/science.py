@@ -67,8 +67,14 @@ def get_annotations():
 @app.route('/api/annotation', methods=['POST'])
 def post_annotation():
     token = get_login()    
-    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)    
+    response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)    
     return response.text, response.status_code, dict(response.headers)
+
+@app.route('/api/annotation/<int:id>', methods=['PUT'])
+def put_annotation(id):
+    token = get_login()
+    response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
 
 @app.route('/api/array')
 def array_proxy():
