@@ -9,8 +9,7 @@ from uuid import uuid4
 def get_login():
     token = request.cookies.get('ooiusertoken')
     if not token:
-        response = Response(status=401, mimetype='application/json', response=jsonify(error='Invalid Token'))
-        raise Unauthorized(description="Invalid token", response=response)
+        return None
     token = urllib.unquote(token).decode('utf8')
     return token
 
@@ -48,6 +47,10 @@ def new_event():
 @app.route('/basic.html')
 def basic():
     return render_template('common/basic.html')
+
+@app.route('/svgplot.html')
+def svgplot():
+    return render_template('common/svgplot.html')
 
 @app.route('/chartDemo.html')
 def chart_demo():
@@ -116,8 +119,6 @@ def user_roles():
     resp = requests.get(app.config['SERVICES_URL'] + '/user_roles')
     return resp.text, resp.status_code
 
-
-
 @app.route('/api/ticket', methods=['GET'])
 def get_ticket():
     token = get_login()
@@ -146,18 +147,6 @@ def login():
     password = local_context['password']
     response = requests.get(app.config['SERVICES_URL'] + '/token', auth=(username, password))
     return response.text, response.status_code
-
-#>>---->Annotations<----<<##
-@app.route('/api/annotations', methods=['POST'])
-def post_annotation():
-    token = get_login()    
-    response = requests.post(app.config['SERVICES_URL'] + '/annotations', auth=(token, ''), data=request.data)    
-    return response.text, response.status_code
-
-#>>---->opLog<----<<##
-# @app.route('/opLog.html')
-# def op_log():
-#     return render_template('common/opLog.html')
 
 @app.route('/api/watch', methods=['GET'])
 def get_watch():

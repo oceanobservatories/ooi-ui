@@ -40,6 +40,7 @@ var NavbarView = Backbone.View.extend({
       $('#collapse-button').removeClass('fa-caret-right');
       $('#collapse-button').addClass('fa-caret-left');
     }
+    ooi.trigger('NavbarView:sidebarToggle');
   },
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
