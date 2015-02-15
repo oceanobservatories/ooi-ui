@@ -137,5 +137,5 @@ def get_plotdemo(instrument, stream):
     req = requests.get(app.config['SERVICES_URL'] + '/plot/%s/%s' % (instrument, stream), params=request.args)
     t1 = time.time()
     print "GUI took %s" % (t1 - t0)
-    return req.content, 200, {'Content-Type':'image/svg+xml'}
+    return req.content, 200, dict(req.headers)
 

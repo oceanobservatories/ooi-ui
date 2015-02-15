@@ -50,6 +50,17 @@ var StreamTableView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.render);
   },
   template: JST['ooiui/static/js/partials/StreamTable.html'],
+  search: function(searchTerm) {
+    var self = this;
+    this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+    _.each(this.collection.search(searchTerm), function(model) {
+      var streamTableItemView = new StreamTableItemView({
+        columns: self.columns,
+        model: model
+      });
+      self.$el.find('tbody').append(streamTableItemView.el);
+    });
+  },
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));

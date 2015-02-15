@@ -51,9 +51,15 @@ var StreamModel = Backbone.Model.extend({
   }
 });
 
-var StreamCollection = Backbone.Collection.extend({
+var StreamCollection = Backbone.Collection.Lunr.extend({
   url: '/api/uframe/stream',
   model: StreamModel,
+  lunroptions: {
+    fields: [
+      { name: "stream_name" },
+      { name: "reference_designator" }
+    ]
+  },
   parse: function(response) {
     if(response) {
       return response.streams;

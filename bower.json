@@ -40,7 +40,9 @@
     "backgrid": "~0.3.5",
     "backbone-pageable": "~1.4.8",
     "wellknown": "~0.3.1",
-    "bootstrap-select": "~1.6.3"
+    "bootstrap-select": "~1.6.3",
+    "backlunr": "https://github.com/mpneuried/backlunr.git#~0.2.2",
+    "lunr.js": "~0.5.7"
   },
   "resolutions": {
     "jquery": "~2.1.1",

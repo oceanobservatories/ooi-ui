@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="/css/compiled/svgplot.css" type="text/css" />
   <!-- Partials -->
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+  <!-- lunr needs to be imported by a script tag -->
+  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 {% endblock %}
 
@@ -23,6 +25,9 @@
           <div class="panel">
             <div class="panel-heading">
               <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Data Catalog</span>
+              <div class="panel-search pull-right">
+                <input id='stream-search' type="text" placeholder="&#xf002; Search">
+              </div>
             </div>
             <div class="panel-body">
               <div id="stream-table-view">
@@ -32,7 +37,8 @@
           </div> <!-- .panel -->
         </div> <!-- .col -->
       </div> <!-- .row -->
-      <div class="row">
+      <a href='#bottom-row'></a>
+      <div id='bottom-row' class="row">
         <div class="col-sm-6">
           <div class="panel">
             <div class="panel-heading">
@@ -140,6 +146,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
+      $('#bottom-row').show();
+      jump('bottom-row');
       var model = row.model;
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
@@ -202,6 +210,15 @@ _.extend(OOI.prototype, Backbone.Events, {
         yvar: self.views.svgplot.variable
       });
     });
+
+    this.listenTo(this, 'ooi:downloadPlot', function() {
+      self.views.svgplot.download();
+    });
+
+    this.listenTo(this, 'ooi:streamSearch', function(searchTerm) {
+      self.views.streamTableView.search(searchTerm);
+      $('#stream-search').val('');
+    });
   }
 });
 
@@ -209,6 +226,7 @@ var ooi = new OOI();
 
 $(document).ready(function() {
   $('#second-plot-panel').hide();
+  $('#bottom-row').hide();
   ooi.start();
   $('#download-plot').click(function(event) {
     event.preventDefault();
@@ -218,10 +236,20 @@ $(document).ready(function() {
     event.preventDefault();
     ooi.trigger('ooi:addPlot');
   });
-    
+  $('#stream-search').keyup(function(e) {
+    if(e.keyCode == 13) {
+      ooi.trigger('ooi:streamSearch', $(e.target).val());
+    }
+  });
 
   var svgUrl = '/svg/plotdemo';
 });
+
+function jump(h){
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
 
 </script>
 

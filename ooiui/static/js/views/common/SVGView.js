@@ -56,6 +56,12 @@ var SVGPlotView = SVGView.extend({
       this.fetch();
     }
   },
+  download: function() {
+    if(this.variable != null) {
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', yvar: this.variable, height: this.height, width: this.width })
+      window.location.href = this.url;
+    }
+  },
   render: function() {
     var self = this;
     /*
@@ -107,8 +113,7 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$el.html(this.template({model: this.model}));
     this.$el.find('.selectpicker').selectpicker();
 
-    this.$el.find('#xvar-select').val( this.model.get('preferred_timestamp') );
-    this.$el.find('#xvar-select').prop('disabled', 'disabled');
+    var xvar = this.model.get('preferred_timestamp');
     
     this.$el.find('#start-date').datetimepicker();
     this.$el.find('#end-date').datetimepicker();
@@ -119,5 +124,8 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
     this.$start_date_picker.setDate( this.model.get('start'));
     this.$end_date_picker.setDate( this.model.get('end'));
+    
+    this.$el.find('#xvar-select').prop('disabled', 'disabled');
+    this.$el.find('#xvar-select').selectpicker('val', xvar);
   }
 });

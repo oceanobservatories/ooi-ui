@@ -11,6 +11,8 @@
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <!-- d3 can't be concatenated easily -->
   <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+  <!-- lunr also requires a script tag -->
+  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 
@@ -35,6 +37,9 @@
           <div class="panel">
             <div class="panel-heading">
               <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
+              <div class="pull-right">
+                <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
+              </div>
             </div> <!-- panel-heading -->
             <div class="panel-body">
               <div class="map-view" id='map'></div>
@@ -42,7 +47,7 @@
           </div> <!-- panel -->
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
-      <div class="row">
+      <div id='plot-row' class="row">
         <div class="col-lg-4">
           <div class="panel">
             <div class="panel-heading">
@@ -61,7 +66,7 @@
           </div> <!-- panel -->
         </div> <!-- col-lg-4 -->
         <div class="col-lg-8">
-          <div class="panel">
+          <div id='plot-panel' class="panel">
             <div class="panel-heading">
               <strong>
                 <span class="fa fa-bar-chart"></span> <span data-i18n="Data">Plot Section</span>
@@ -124,11 +129,14 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection: this.collections.platform_deployments,
       el: $('#map')
     });
+    var divwidth = $('#plot-panel').width();
+    console.log(divwidth);
     this.views.svgplot = new SVGPlotView({
-      height: 400,
-      width: 600,
+      height: 350,
+      width: divwidth - 20,
       el: $('#plot-view')
     });
+    this.trigger('ooi:mapExpand');
     //--------------------------------------------------------------------------------
     // Collections Fetch
     //--------------------------------------------------------------------------------
@@ -149,10 +157,19 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     this.listenTo(this, "streamItemView:streamSelect", function(model) {
-      console.log("Model");
-      console.log(model.attributes);
+      $('#map').height(328);
+      $('#plot-row').show();
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
+      self.views.mapView.render();
+      self.views.mapView.setMapView(); // recenters
+    });
+    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+      self.views.svgplot.plot(options);
+    });
+    this.listenTo(this, 'ooi:mapExpand', function() {
+      $('#plot-row').hide();
+      $('#map').height($(window).height() - 150);
     });
 
   }
@@ -160,8 +177,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 var ooi = new OOI();
 
 $(document).ready(function() {
-    ooi.start();
+    $('#map').height($(window).height() - 150);
+    $('#map-expand').click(function(event) {
+      event.preventDefault();
+      ooi.trigger('ooi:mapExpand');
+    });
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    ooi.start();
 });
 </script>
 {% endblock %}
