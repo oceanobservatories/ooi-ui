@@ -1,6 +1,5 @@
 var MapView = Backbone.View.extend({
 	initialize: function() {
-		_.bindAll(this,"render","setMapView");
     this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
    
 		var self = this;

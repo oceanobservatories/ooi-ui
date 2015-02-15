@@ -23,16 +23,8 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   onDownload: function() {
     var selection = this.$type_select.val();
-    if(selection == 'json') {
-      var url = '/api/uframe/get_json/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
-      window.location.href = url;
-    } else if(selection == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
-      window.location.href = url;
-    } else if(selection == 'csv') { 
-      var url = '/api/uframe/get_csv/' + this.model.get('stream_name') + '/' + this.model.get('reference_designator');
-      window.location.href = url;
-    }
+    var url = this.model.getURL(selection);
+    window.location.href = url;
     this.hide();
   },
   failure: function() {

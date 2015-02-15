@@ -6,8 +6,8 @@ Defines the application routes
 '''
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
-from flask import stream_with_context
-
+from flask import stream_with_context, make_response
+from ooiui.core.routes.common import get_login
 
 
 import requests
@@ -59,6 +59,22 @@ def getData():
 
     return response.text, response.status_code
 
+@app.route('/api/annotation', methods=['GET'])
+def get_annotations():
+    response = requests.get(app.config['SERVICES_URL'] + '/annotation', params=request.args)
+    return response.text, response.status_code, dict(response.headers)
+
+@app.route('/api/annotation', methods=['POST'])
+def post_annotation():
+    token = get_login()    
+    response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)    
+    return response.text, response.status_code, dict(response.headers)
+
+@app.route('/api/annotation/<int:id>', methods=['PUT'])
+def put_annotation(id):
+    token = get_login()
+    response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
 
 @app.route('/api/array')
 def array_proxy():
@@ -113,4 +129,13 @@ def get_json(stream_name, reference_designator):
 def get_netcdf(stream_name, reference_designator):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers={'Content-Type' : 'application/x-netcdf'})
+
+@app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
+def get_plotdemo(instrument, stream):
+    import time
+    t0 = time.time()
+    req = requests.get(app.config['SERVICES_URL'] + '/plot/%s/%s' % (instrument, stream), params=request.args)
+    t1 = time.time()
+    print "GUI took %s" % (t1 - t0)
+    return req.content, 200, dict(req.headers)
 
