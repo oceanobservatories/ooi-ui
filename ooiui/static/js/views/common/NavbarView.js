@@ -15,9 +15,11 @@ var NavbarView = Backbone.View.extend({
   events: {
     'click #menu-toggle' : "menuToggle"
   },
-  menuToggle: function(e) { 
+  menuToggle: function(e) {
     e.preventDefault(); // Prevent the #about
-    this.sidebarToggle();
+    if(this.$el.find('#sidebar-wrapper').children.length > 0) {
+        this.sidebarToggle();
+    }
   },
   initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle");
@@ -49,7 +51,7 @@ var NavbarView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.templates.navbar());
     // Only add the sidebar collapse if the sidebar exists
-    if($('#sidebar-wrapper').length > 0) {
+    if(this.$el.find('#sidebar-wrapper').length > 0) {
       this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     }
     // Messages only appear to logged in users
