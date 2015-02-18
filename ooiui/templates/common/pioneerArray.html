@@ -554,11 +554,11 @@
                   this.models.userModel.fetch({url: '/api/current_user'});
                 }
 
-                this.views.orgSidebarView = new OrgSidebarView({
+                this.views.pioneerArrayTOC = new PioneerArrayTOC({
                   collection: this.collections.organizations,
                   userModel: this.models.userModel
                 });
-                $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+                $('#sidebar-wrapper').html(this.views.pioneerArrayTOC.el);
 
 
 
