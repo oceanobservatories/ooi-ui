@@ -9,10 +9,7 @@ body {
   overflow: hidden;
   height: 100%;
 }
-em.disclamer {
-  text-align: center;
-  font-weight: normal;
-}
+.em.disclamer { text-align: center; font-weight: normal; }
 .info-col {
   float: left;
   height: 100%;
@@ -40,7 +37,7 @@ dd:nth-of-type(5) { background: #a2c8f0; }
 dt:nth-of-type(6) { background: #96b4d5; }
 dd:nth-of-type(6) { background: #a2c8f0; }
 
-/* .curCol { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(89, 102, 242, 0.2); z-index: 1; position: relative; } */
+.curCol { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(89, 102, 242, 0.2); z-index: 1; position: relative; }
 
 #wrapper {
   padding: 0 0 0 220px;
