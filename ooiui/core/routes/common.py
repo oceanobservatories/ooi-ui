@@ -134,6 +134,15 @@ def submit_ticket():
     response = requests.post(app.config['SERVICES_URL'] + '/redmine/ticket', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
+@app.route('/api/ticket/users', methods=['GET'])
+def get_ticket_users():
+    '''
+    Acts as a pass-thru proxy to to the services to get users
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/redmine/users', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 @app.route('/ticket_roles')
 def ticket_roles():
     token = get_login()
