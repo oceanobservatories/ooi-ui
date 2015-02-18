@@ -15,362 +15,606 @@
 <script src="/js/partials/compiled/pioneerArray.js" type="text/javascript"></script>
 <script src="/js/compiled/pioneerArray.js" type="text/javascript"></script>
 <script src="js/pioneerArrayJS.js" type="text/javascript"></script>
-
-
 {% endblock %}
 
 {%block body %}
 <div id="wrapper">
+
   <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
-  </div><!-- sidebar-wrapper -->
+  </div>  <!-- sidebar-wrapper -->
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
       <h2 align="left">Pioneer Array</h2>
-    </div><!-- col-lg-12 -->
-  </div><!-- menu-row -->
-  <div class="row">
-    <div class="col-lg-5">
-      <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
-      Description goes here....
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
-    </div><!-- col-lg-12 -->
-  </div><!-- menu-row -->
-  <div class="row">
-    <div class="col-lg-4">
-      <h3 align="left">Summary</h3>
-      <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
-    </div><!-- col-lg-12 -->
-  </div><!-- menu-row -->
+    </div>  <!-- col-md-12 -->
+  </div>  <!-- title-row -->
 
   <div class="row">
+    <div class="col-md-6">
+      <div style="float:left;">
+        <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
+        <p>Description goes here....
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+        </div>  <!-- col-md-6 -->
 
-    <div class="col-sm-5">
-      <div class="container-fluid">
-        <em class="disclamer"></em></strong>
-      </div>
-    </div>
-  </div>
+        <div style="clear:both;">
+          <h3>Summary</h3>
+          <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
+        </div>  <!-- col-md-6 -->
+      </div>  <!-- col-md-6 -->
 
-  <div class="col-sm-12">
-    <div class="container-fluid">
+      <!-- HEADER IMAGE -->
+      <div class="col-md-6">
+        <div  id="contact">
+          <img class="delayImg" delayedSrc="/img/pioneerArray/pioneerArray-header.png" style="width:446px; height:358px;" />
+        </div>  <!-- col-md-6 -->
+      </div>  <!-- Description-row -->
 
-      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <!-- Accordian -->
+      <div class="col-sm-12">
+        <div class="container-fluid">
 
-        <!-- ==========================================((((((((((())))))))))))==================================================== -->
-        <!-- ===========================================Location and Sampleing====================================================== -->
-        <!-- ==========================================((((((((((())))))))))))==================================================== -->
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Location and Sampleing
-              </a>
-            </h4>
-          </div>
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-              <dt>Location, Central Mooring</dt>
-              <dl style="list-style-type:disk">
-                <br />
-                <li>
-                  40.14°N, 70.78°W
-                </li>
-              </dl>
-              <dt>Approximate Water Depth</dt>
-              <dl style="list-style-type:disk">
-                <br />
-                <li>
-                  133 meters at center of moored array
-                </li>
-              </dl>
-              <dt>AUV sampling at center of moored array</dt>
-              <dl style="list-style-type:disk">
-                <br />
-                <li>
-                  80 x 110 km box centered on moored array
-                </li>
-              </dl>
-              <br />
-              <dl style="list-style-type:disk">
-                <li>
-                  Box Corners:
-                </li>
-                <dl style="list-style-type:circle; padding-left: 20px;">
-                  <li>SE: 39.67°N, 70.25°W</li>
-                  <li>SW: 39.67°N, 71.17°W</li>
-                  <li>NW: 40.67°N, 71.17°W</li>
-                  <li>NE: 40.67°N, 70.25°W</li>
-                </dl>
-              </dl>
-              <dt>Glider sampling area (approximate)</dt>
-              <dl style="list-style-type:disk">
-                <br />
-                <li>
-                  130 x 185 km box over outer shelf and slope sea
-                </li>
-              </dl>
-              <br />
-              <dl style="list-style-type:disk">
-                <li>
-                  Gliders will sample along five tracks off the coast of New England
-                  (click here for map) <– LINK TO CP_Glider_Tracks_2014-09-15.png
-                </li>
-              </dl>
-              <br />
-              <dl style="list-style-type:disk">
-                <li>
-                  Box Corners:
-                </li>
-                <dl style="list-style-type:circle; padding-left: 20px;">
-                  <li>SE: 39.00°N, 69.92°W</li>
-                  <li>SW: 39.00°N, 71.50°W</li>
-                  <li>NW: 40.67°N, 71.50°W</li>
-                  <li>NE: 40.67°N, 69.92°W</li>
-                </dl>
-              </dl>
-              <br />
-              <dl>
-                <p>
-                  <a href="http://oceanobservatories.org/wp-content/uploads/2011/04/Pioneer_Array_Config_SER_Feb2013_wLegend.png"
-                  target="_blank">Final Pioneer Mooring Array Configuration (plan view)</a>
-                  <br />
-                  Nominal latitude and longitude, approximate depths, and distances
-                  between mooring sites can be viewed in the plan view figure
-                  linked below.  Contours are marked in fathoms, mooring site
-                  centers are marked by a black “+” and encircled by an approximate
-                  0.5-nautical mile radius buffer zone (voluntary area to avoid).
-                  Distances between buffer zones are shown between arrows.  Red “X”
-                  symbols denote the locations of know “hangs” avoided by mobile-gear
-                  fishermen.
-                </p>
-              </dl>
-            </div>
-          </div>
-        </div><!-- panel panel-default 1-->
-        <!-- ==========================================((((((((((())))))))))))==================================================== -->
-        <!-- =======================================Description of Infrastructure====================================================== -->
-        <!-- ==========================================((((((((((())))))))))))==================================================== -->
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Description of Infrastructure                </a>
-              </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="panel-body">
-                <dl style="list-style-type:disk">
-                <br />
-                <li>Three electro-mechanical (EM) surface moorings with wind,
-                  photovoltaic and fuel cell power generation, satellite
-                  communications and meteorological sensors, and near surface
-                  instrument frame (NSIF).</li>
-                  <li>A multi-function node (MFN) at the base of each EM mooring; two MFNs supporting AUV docks</li>
-                  <li>Five wire-following profiler moorings with small surface expressions.</li>
-                  <li>Two surface-piercing profiler moorings</li>
-                  <li>Three AUVs</li>
-                  <li>Six gliders</li>
-                </dl>
+            <!-- ==========================================((((((((((())))))))))))==================================================== -->
+            <!-- ===========================================Location and Sampleing====================================================== -->
+            <!-- ==========================================((((((((((())))))))))))==================================================== -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Location and Sampleing
+                  </a>
+                </h4>
+              </div>
+
+              <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-4">
+
+                      <dt>Location, Central Mooring</dt>
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <li>
+                          40.14°N, 70.78°W
+                        </li>
+                      </dl>
+                      <dt>Approximate Water Depth</dt>
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <li>
+                          133 meters at center of moored array
+                        </li>
+                      </dl>
+                      <dt>AUV sampling at center of moored array</dt>
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <li>
+                          80 x 110 km box centered on moored array
+                        </li>
+                      </dl>
+                      <br />
+                      <dl style="list-style-type:disk">
+                        <li>
+                          Box Corners:
+                        </li>
+                        <dl style="list-style-type:circle; padding-left: 20px;">
+                          <li>SE: 39.67°N, 70.25°W</li>
+                          <li>SW: 39.67°N, 71.17°W</li>
+                          <li>NW: 40.67°N, 71.17°W</li>
+                          <li>NE: 40.67°N, 70.25°W</li>
+                        </dl>
+                      </dl>
+                      <dt>Glider sampling area (approximate)</dt>
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <li>
+                          130 x 185 km box over outer shelf and slope sea
+                        </li>
+                      </dl>
+                      <br />
+                      <dl style="list-style-type:disk">
+                        <li>
+                          Gliders will sample along five tracks off the coast of New England
+                          (click here for map) <– LINK TO CP_Glider_Tracks_2014-09-15.png
+                        </li>
+                      </dl>
+                      <br />
+                      <dl style="list-style-type:disk">
+                        <li>
+                          Box Corners:
+                        </li>
+                        <dl style="list-style-type:circle; padding-left: 20px;">
+                          <li>SE: 39.00°N, 69.92°W</li>
+                          <li>SW: 39.00°N, 71.50°W</li>
+                          <li>NW: 40.67°N, 71.50°W</li>
+                          <li>NE: 40.67°N, 69.92°W</li>
+                        </dl>
+                      </dl>
+                      <br />
+                      <dl>
+                        <p>
+                          <a href="http://oceanobservatories.org/wp-content/uploads/2011/04/Pioneer_Array_Config_SER_Feb2013_wLegend.png"
+                          target="_blank">Final Pioneer Mooring Array Configuration (plan view)</a>
+                          <br />
+                          Nominal latitude and longitude, approximate depths, and distances
+                          between mooring sites can be viewed in the plan view figure
+                          linked below.  Contours are marked in fathoms, mooring site
+                          centers are marked by a black “+” and encircled by an approximate
+                          0.5-nautical mile radius buffer zone (voluntary area to avoid).
+                          Distances between buffer zones are shown between arrows.  Red “X”
+                          symbols denote the locations of know “hangs” avoided by mobile-gear
+                          fishermen.
+                        </p>
+                      </dl>
+                    </div><!-- col-sm-4 -->
+
+                    <div class="col-sm-4">
+                      <div  id="contact" style="width:509px; float:left; margin-left: 100px; margin-top: 30px;">
+                        <img src="/img/pioneer_map.jpg" />
+                        <div id="contact" class="caption">
+                          <p>Map of approximate sampling areas of moorings (yellow box), AUVs (red box), and gliders (white box). Dominant currents are labelled, as well as locations of nearby existing monitoring sites. (Credit: Plueddemann, Sosik and Trowbridge, WHOI; Illustration by Jack Cook)</p>
+                        </div>
+                      </div>
+                    </div><!-- col-sm-4 -->
+                  </div><!-- row -->
+                </div><!-- panel-body -->
+              </div><!-- collapseOne -->
+            </div><!-- panel panel-default 1-->
+
+            <!-- ==========================================((((((((((())))))))))))==================================================== -->
+            <!-- =======================================Description of Infrastructure====================================================== -->
+            <!-- ==========================================((((((((((())))))))))))==================================================== -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Description of Infrastructure
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  <dl style="list-style-type:disk">
+                    <br />
+                    <li>Three electro-mechanical (EM) surface moorings with wind,
+                      photovoltaic and fuel cell power generation, satellite
+                      communications and meteorological sensors, and near surface
+                      instrument frame (NSIF).</li>
+                      <li>A multi-function node (MFN) at the base of each EM mooring; two MFNs supporting AUV docks</li>
+                      <li>Five wire-following profiler moorings with small surface expressions.</li>
+                      <li>Two surface-piercing profiler moorings</li>
+                      <li>Three AUVs</li>
+                      <li>Six gliders</li>
+                    </dl>
+                  </div>
                 </div>
-            </div>
-          </div><!-- panel panel-default 2-->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <!-- =============================================Station Summary====================================================== -->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-              <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Station Summary
-                </a>
-              </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div><!-- panel panel-default 3-->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <!-- =====================================Pioneer Array Deployment Schedule====================================================== -->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-              <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Pioneer Array Deployment Schedule
-                </a>
-              </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div><!-- panel panel-default 4-->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <!-- ======================================Detailed Infrastructure Tables====================================================== -->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-              <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Detailed Infrastructure Tables
-                </a>
-              </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div><!-- panel panel-default 5-->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <!-- =============================================Technical Drawings====================================================== -->
-          <!-- ==========================================((((((((((())))))))))))==================================================== -->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-              <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Technical Drawings
-                </a>
-              </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
+              </div><!-- panel panel-default 2-->
+              <!-- ==========================================((((((((((())))))))))))==================================================== -->
+              <!-- =============================================Station Summary====================================================== -->
+              <!-- ==========================================((((((((((())))))))))))==================================================== -->
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Station Summary
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                    <dl style="list-style-type:disk">
+                      <br />
+                      <p>
+                        The first phase of the Pioneer Array deployment took place
+                        in November 2013, with the installation of three moorings – a
+                        surface mooring at the central site, a profiler mooring at
+                        the upstream inshore site and a profiler mooring at the
+                        upstream offshore site. In April 2014, during the second
+                        deployment phase, five Wire-Following Profile Moorings were
+                        deployed at the Pioneer Array with three gliders. The third
+                        and final deployment phase is scheduled for Fall 2014.
+                      </p>
+                      <br />
+                      <p>
+                        The backbone of the Pioneer Array will be a frontal-scale
+                        moored array with three electro-mechanical (EM) surface
+                        moorings and seven profiler moorings. Each surface mooring
+                        will incorporate a surface buoy with multiple sources of
+                        power generation and multiple surface and subsurface
+                        communications systems. Each surface mooring will be
+                        anchored by a Multi-Function Node (MFN) on the seafloor.
+                        Two MFNs will incorporate docking stations for AUVs. All
+                        three MFNs will be capable of supporting multiple onboard
+                        (e.g., frame-mounted) sensors as well as external sensor
+                        packages connected by wet-mateable connectors. Five
+                        profiler moorings with surface expressions for data
+                        telemetry will support wire-following profiling packages
+                        with a multidisciplinary sensor suite. Two surface-piercing
+                        profiler moorings will use a buoyant instrument package
+                        capable of profiling from a few meters above the bottom
+                        up to the air-sea interface. In order to provide synoptic,
+                        multi-scale observations of the outer continental shelf,
+                        shelf break region, and continental slope, the moored array
+                        will be supplemented by nine mobile platforms – six gliders
+                        and three AUVs. The role of the gliders will be to monitor
+                        the mesoscale field of the slope sea and outer shelf,
+                        resolving rings, eddies and meanders from the Gulf Stream
+                        as they impinge on the shelf break front. The AUVs will be
+                        the primary tools for resolving cross- and along-front
+                        “eddy fluxes” due to frontal instabilities, wind forcing,
+                        and mesoscale variability.
+                      </p>
+                    </dl>
+                  </div>
+                </div>
+              </div><!-- panel panel-default 3-->
+              <!-- ==========================================((((((((((())))))))))))==================================================== -->
+              <!-- =====================================Pioneer Array Deployment Schedule====================================================== -->
+              <!-- ==========================================((((((((((())))))))))))==================================================== -->
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                  <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Pioneer Array Deployment Schedule
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                  <div class="panel-body">
+                    <dt>OOI Planned Installtion Schedual</dt>
+
+                    <dl style="list-style-type:disk">
+                      <br />
+                      <p><a href="http://oceanobservatories.org/infrastructure/planned-installation-schedule/">
+                        PDF</a></p>
+                      </dl>
+                    </div>
+                  </div>
+                </div><!-- panel panel-default 4-->
+                <!-- ==========================================((((((((((())))))))))))==================================================== -->
+                <!-- ======================================Detailed Infrastructure Tables====================================================== -->
+                <!-- ==========================================((((((((((())))))))))))==================================================== -->
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Detailed Infrastructure Tables
+                      </a>
+                    </h4>
+                  </div>
+
+                  <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="panel-body">
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <ul style="list-style:none;">
+                          <li>(A) Inshore Surface-Piercing Profiler Mooring
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/Inst_Tables_Pioneer_2013-06-14_ver_2-04_A_Inshore-SPP.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="disabled btn btn-default" href="#"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(B) Inshore Surface Mooring
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/Inst_Tables_Pioneer_2013-03-27_ver_2-03_Inshore_Surface_Mooring.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00022_CP03ISSM_PIONEER_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(C) Central Inshore Profiler Mooring (As Deployed)
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_C_Central_Inshore_Profiler.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00010_CP02PMCI_PIONEER_CENTRAL_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(D) Central Surface-Piercing Profiler Mooring
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/Inst_Tables_Pioneer_2013-06-14_ver_2-04_D_Central-SPP.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="disabled btn btn-default" href="#"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(E) Central Surface Mooring
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/Inst_Tables_Pioneer_2013-03-27_ver_2-03_Central_Surface_Mooring.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00021_CP01CNSM_PIONEER_CENTRAL_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(F) Central Offshore Profiler Mooring (As Deployed)
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_F_Central_Offshore_Profiler.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00011_CP02PMCO_PIONEER_CENTRAL_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(G) Offshore Profiler Mooring (As Deployed)
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_G_Offshore_Profiler.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00014_CP04OSPM_PIONEER_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(H) Offshore Surface Mooring
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/Inst_Tables_Pioneer_2013-03-27_ver_2-03_Offshore_Surface_Mooring.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00023_CP04OSSM_PIONEER-OFFSHORE-MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(I) Upstream Inshore Profiler Mooring (As Deployed)
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_I_Upstream_Inshore.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00012_CP02PMUI_PIONEER_UPSTREAM_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>(J) Upstream Offshore Profiler Mooring (As Deployed)
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_J_Upstream_Offshore.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00013_CP02PMUO_PIONEER_UPSTREAM_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>Mobile Assets – AUV’s
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_AUV.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="disabled btn btn-default" href="#"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                          <li>Mobile Assets – Glider’s
+                            <ul>
+                              <div class="btn-group btn-group-xs">
+                                <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_ver_3-02_Gliders.jpg"><i class="icon-upload-alt"></i> Table</a>
+                                <a class="disabled btn btn-default" href="#"><i class="icon-upload-alt"></i> Diagram</a>
+                              </div>
+                            </ul>
+                          </li>
+                        </ul>
+                      </dl>
+
+                      <dt>Infrastructure Tables</dt>
+                      <dl style="list-style-type:disk">
+                        <br />
+                        <p><a href="http://oceanobservatories.org/wp-content/uploads/Inst_Tables_Pioneer_2014-09-15_ver_3-02.pdf" target="_blank">
+                          PDF</a></p>
+                        </dl>              </div>
+                      </div>
+
+                    </div><!-- panel panel-default 5-->
+                    <!-- ==========================================((((((((((())))))))))))==================================================== -->
+                    <!-- =============================================Technical Drawings====================================================== -->
+                    <!-- ==========================================((((((((((())))))))))))==================================================== -->
+                    <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingSix">
+                        <h4 class="panel-title">
+                          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Technical Drawings
+                          </a>
+                        </h4>
+                      </div>
+
+                      <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-sm-4">
+
+                              <dl style="list-style-type:disk">
+                                <ul style="list-style:none;">
+                                  <li>(A) Inshore Surface-Piercing Profiler Mooring (COMING SOON)
+                                  </li>
+                                  <li>(B) Inshore Surface Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00022_CP03ISSM_PIONEER_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(C) Central Inshore Profiler Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00010_CP02PMCI_PIONEER_CENTRAL_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(D) Central Surface-Piercing Profiler Mooring (COMING SOON)
+                                  </li>
+                                  <li>(E) Central Surface Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00021_CP01CNSM_PIONEER_CENTRAL_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(F) Central Offshore Profiler Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00011_CP02PMCO_PIONEER_CENTRAL_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(G) Offshore Profiler Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00014_CP04OSPM_PIONEER_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(H) Offshore Surface Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00023_CP04OSSM_PIONEER-OFFSHORE-MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(I) Upstream Inshore Profiler Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00012_CP02PMUI_PIONEER_UPSTREAM_INSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                  <li>(J) Upstream Offshore Profiler Mooring
+                                    <ul>
+                                      <div class="btn-group btn-group-xs">
+                                        <a class="btn btn-info" href="http://oceanobservatories.org/wp-content/uploads/2011/04/3604-00013_CP02PMUO_PIONEER_UPSTREAM_OFFSHORE_MOORING.pdf"><i class="icon-upload-alt"></i>PDF</a>
+                                      </div>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </dl>
+                            </div><!-- col-sm-4 -->
+
+                            <div class="col-sm-4">
+                              <img src="/img/PioneerArray_structure.png" style="width:509px; float:left; margin-left: 100px; margin-top: 30px;" />
+                              <div id="contact" class="caption">
+                                <p>Map of approximate sampling areas of moorings (yellow box), AUVs (red box), and gliders (white box). Dominant currents are labelled, as well as locations of nearby existing monitoring sites. (Credit: Plueddemann, Sosik and Trowbridge, WHOI; Illustration by Jack Cook)</p>
+                              </div>
+                            </div><!-- col-sm-4 -->
+                          </div><!-- row -->
+                        </div><!-- panel body -->
+                      </div><!-- collapseSix -->
+                    </div><!-- panel panel-default -->
+
+                  </div><!-- panel-group -->
+                </div><!-- container-fluid -->
+              </div><!-- col-sm-12 -->
+            </div><!-- wrapper -->
+
+            <!-- fade in image -->
+            <script>
+            $(document).ready(function() {
+              $(".delayImg").each(function() {
+                this.onload = function() {
+                  $(this).animate({opacity: 1}, 2000);
+                };
+                this.src = this.getAttribute("delayedSrc");
+              });
+            });
+            </script>
 
 
-          <div class="col-sm-8">
-          </div><!-- col-sm-8 -->
-
-        </div><!-- panel-group -->
-      </div><!-- container-fluid -->
-    </div><!-- col-sm-12 -->
 
 
-  </div><!-- wrapper -->
+            <script type="text/javascript">
+            /*
+            * OOI is the main class that we extend from to create behavior and render pages.
+            *
+            * Here we create the application by extending OOI with Backbone.Events, this
+            * gives us the ability to listen to events from models and/or views. When we
+            * hear these events the main application can then trigger another view to
+            * render, or in this case cause a collection to be fetched as a result.
+            */
 
+            _.extend(OOI.prototype, Backbone.Events,  {
+              login: new LoginModel(),
+              // Models and collections
+              collections: {
+                // Instantiate a new Organizations collection
+                organizations: new Organizations(),
+                // watches is the Watch collection, by default is un-fetched
+                watches: new Watches(),
+                //events: new Events(),
+                events: new EventsCollection(),
+                operatorEventTypes: new OperatorEventTypeCollection()
+              },
+              models: {
+                //userModel: new UserModel()
+                orgModel: new OrganizationModel(),
 
+              },
+              views: {
+              },
+              start: function() {
+                this.login.fetch({async:false});
+                this.collections.operatorEventTypes.fetch();
+                this.views.navbar = new NavbarView();
+                //this.views.navbar.sidebarToggle();
+                $('body').prepend(this.views.navbar.el);
 
+                if(this.login.loggedIn()) {
+                  this.models.userModel.fetch({url: '/api/current_user'});
+                }
 
-
-
-
-
-
-
-
-
-
-  <script type="text/javascript">
-  /*
-  * OOI is the main class that we extend from to create behavior and render pages.
-  *
-  * Here we create the application by extending OOI with Backbone.Events, this
-  * gives us the ability to listen to events from models and/or views. When we
-  * hear these events the main application can then trigger another view to
-  * render, or in this case cause a collection to be fetched as a result.
-  */
-
-  _.extend(OOI.prototype, Backbone.Events,  {
-    login: new LoginModel(),
-    // Models and collections
-    collections: {
-      // Instantiate a new Organizations collection
-      organizations: new Organizations(),
-      // watches is the Watch collection, by default is un-fetched
-      watches: new Watches(),
-      //events: new Events(),
-      events: new EventsCollection(),
-      operatorEventTypes: new OperatorEventTypeCollection()
-    },
-    models: {
-      //userModel: new UserModel()
-      orgModel: new OrganizationModel(),
-
-    },
-    views: {
-    },
-    start: function() {
-      this.login.fetch({async:false});
-      this.collections.operatorEventTypes.fetch();
-      this.views.navbar = new NavbarView();
-      //this.views.navbar.sidebarToggle();
-      $('body').prepend(this.views.navbar.el);
-
-      if(this.login.loggedIn()) {
-        this.models.userModel.fetch({url: '/api/current_user'});
-      }
-
-      this.views.orgSidebarView = new OrgSidebarView({
-        collection: this.collections.organizations,
-        userModel: this.models.userModel
-      });
-      $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+                this.views.orgSidebarView = new OrgSidebarView({
+                  collection: this.collections.organizations,
+                  userModel: this.models.userModel
+                });
+                $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
 
 
-      this.eventListeners();
-    },
-    eventListeners:function() {
-      this.listenTo(this, "org:click", this.orgSelection);
+                this.eventListeners();
+              },
+              eventListeners:function() {
+                this.listenTo(this, "org:click", this.orgSelection);
 
-      this.listenTo(this, "login:success", this.onLogin);
-      this.listenTo(this, "login:logout", this.onLogout);
-    },
+                this.listenTo(this, "login:success", this.onLogin);
+                this.listenTo(this, "login:logout", this.onLogout);
+              },
 
-    onLogin: function() {
-      location.reload();
-    },
-    onLogout: function() {
-      location.reload();
-    },
-    orgSelection: function(organization_id) {
-      this.models.orgModel.set({id: organization_id});
-      this.models.orgModel.fetch();
-      // We have selected a new organization, so now we need to update the watch
-      // GET /api/watch?organization_id=<organization_id>
-      this.collections.watches.fetch({
-        data: $.param({organization_id: organization_id}),
-      });
-      this.collections.events.reset();
-      // Note: the watchview has an event listener that listens for sync events
-      // from this collection, so when the feth completes, the event will trigger
-      // and the watch view will re-render with the new watches.
-    },
-    watchSelection: function(model) {
-      this.models.watchModel.set({id: model.get('id')});
-      this.models.watchModel.fetch();
-      this.collections.events.fetch({
-        data: $.param({watch_id: model.get('id')}),
-      });
-    },
-    newWatch: function(watchModel) {
-      var organization_id = this.models.orgModel.get('id');
-      this.models.watchModel.set({id: watchModel.id});
-      this.models.watchModel.fetch();
-      this.collections.watches.fetch({
-        data: $.param({organization_id: organization_id}),
-      });
-      this.collections.events.fetch({
-        data: $.param({watch_id: watchModel.id}),
-      });
-    }
+              onLogin: function() {
+                location.reload();
+              },
+              onLogout: function() {
+                location.reload();
+              },
+              orgSelection: function(organization_id) {
+                this.models.orgModel.set({id: organization_id});
+                this.models.orgModel.fetch();
+                // We have selected a new organization, so now we need to update the watch
+                // GET /api/watch?organization_id=<organization_id>
+                this.collections.watches.fetch({
+                  data: $.param({organization_id: organization_id}),
+                });
+                this.collections.events.reset();
+                // Note: the watchview has an event listener that listens for sync events
+                // from this collection, so when the feth completes, the event will trigger
+                // and the watch view will re-render with the new watches.
+              },
+              watchSelection: function(model) {
+                this.models.watchModel.set({id: model.get('id')});
+                this.models.watchModel.fetch();
+                this.collections.events.fetch({
+                  data: $.param({watch_id: model.get('id')}),
+                });
+              },
+              newWatch: function(watchModel) {
+                var organization_id = this.models.orgModel.get('id');
+                this.models.watchModel.set({id: watchModel.id});
+                this.models.watchModel.fetch();
+                this.collections.watches.fetch({
+                  data: $.param({organization_id: organization_id}),
+                });
+                this.collections.events.fetch({
+                  data: $.param({watch_id: watchModel.id}),
+                });
+              }
 
-  });
-  // Instantiate the application for this page
-  var ooi = new OOI();
+            });
+            // Instantiate the application for this page
+            var ooi = new OOI();
 
-  $(document).ready(function() {
-    // Once the DOM is loaded, we start our application
-    ooi.start();
-  });
-  </script>
+            $(document).ready(function() {
+              // Once the DOM is loaded, we start our application
+              ooi.start();
+            });
+            </script>
 
-  {% endblock %}
+            {% endblock %}
