@@ -1,6 +1,10 @@
 "use strict";
 /*
+<<<<<<< HEAD
 * ooiui/static/js/views/common/PioneerArrayView.js
+=======
+* ooiui/static/js/views/common/EventListView.js
+>>>>>>> 574118cbdf51f1545b15c3840858afe268bea34e
 * View definitions an accordion style for event views
 *
 * Dependencies
