@@ -15,8 +15,11 @@ var TroubleTicketView = Backbone.View.extend({
     'click .btn-custom-reset' : 'reset'
   },
   initialize: function() {
-    console.log("binded");
-    this.render();
+    var self = this;  
+    this.listenTo(this.collection, "reset", function() {
+      self.render();
+    });
+
   },
   bindings:{
     //'#username':'name',
@@ -25,13 +28,14 @@ var TroubleTicketView = Backbone.View.extend({
     '#comment':'comment',
     '[name=radio]': 'priority_id',
     '[name=date]' : 'due_date'
-    //'#event-type-selection' : 'assigned_to_id'
+    //'[class=typeDrop]' : 'assigned_to_id'
   },
 
   template: JST['ooiui/static/js/partials/TroubleTicket.html'],
 
   render: function() {
-    this.$el.html(this.template());
+
+    this.$el.html(this.template({collection: this.collection}));
     this.$el.find('#datePicker').datepicker({
         format: "yyyy-mm-dd",
         startDate: "+1d"
@@ -44,7 +48,7 @@ var TroubleTicketView = Backbone.View.extend({
   },
 
   submit: function() {
-    console.log(this.model.attributes.project_id);
+    console.log(this.model.attributes);
     this.model.save()
   }
 });

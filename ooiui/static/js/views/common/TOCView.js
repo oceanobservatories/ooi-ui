@@ -46,8 +46,15 @@ var NestedItemView = Backbone.View.extend({
   },
   tagName: 'ul',
   className: 'nav',
-  toggle: function() {
-    this.$el.collapse('toggle');
+  toggle: function() {    
+    this.$el.collapse('toggle');    
+    if (this.$el.parent().first().find('.toc-arrow').hasClass("fa-rotate-270")){
+        this.$el.parent().first().find('.toc-arrow').removeClass("fa-rotate-270"); 
+    }
+    else{
+        this.$el.parent().first().find('.toc-arrow').addClass("fa-rotate-270");  
+    }
+
   },
   initialize: function(options) {
     if(options && options.level) {
@@ -72,16 +79,7 @@ var NestedItemView = Backbone.View.extend({
 //  ArrayItemView
 //--------------------------------------------------------------------------------
 
-var ArrayItemView = Backbone.View.extend({
-  add: function(platformModel){
-    var subview = new PlatformDeploymentItemView({
-      model: platformModel
-    });
-    this.nestedView.add(subview);
-  },
-  events: {
-    'click a' : 'onClick' 
-  },
+var ArrayItemView = Backbone.View.extend({  
   tagName: 'li',
   initialize: function() {
     this.nestedView = new NestedItemView();
@@ -90,8 +88,11 @@ var ArrayItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
+    var target = $(e.target) 
+
     e.stopPropagation();
-    if(this.model.platformDeployments.length == 0) {
+    if(this.model.platformDeployments.length == 0) {      
+      target.find('.toc-arrow').addClass("fa-rotate-270"); 
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
           self.renderPlatforms();
@@ -100,6 +101,7 @@ var ArrayItemView = Backbone.View.extend({
       });
     } else {
       this.nestedView.toggle();
+      
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
   },
@@ -110,11 +112,38 @@ var ArrayItemView = Backbone.View.extend({
   },
   renderPlatforms: function() {
     var self = this;
-    this.model.platformDeployments.each(function(platformModel){
+    
+    this.$el.find(".badge").text(this.model.platformDeployments.length)
+    //this.$el.find(".badge").toggleClass("hidden")
+
+    this.model.platformDeployments.each(function(platformModel,i,list){      
       self.add(platformModel);
     });
     this.$el.append(this.nestedView.el);
   },
+  add: function(platformModel){    
+    var subview = new PlatformDeploymentItemView({
+      model: platformModel
+    });
+    //search for ref deg, and modify the top level parent
+    var ref_deg = platformModel.attributes.reference_designator
+    if (subview.platformType == "parent-platform"){
+      var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
+        return _.any([model.attributes.reference_designator], function(v) {
+          var vv = v.indexOf(ref_deg)!= -1;;          
+          return vv
+        });                  
+      });
+      //update the badge
+      subview.$el.find(".badge").text(platformDeploymentsSubset.length-1)
+      //subview.$el.find(".badge").toggleClass("hidden")
+    }
+
+    this.nestedView.add(subview);
+  },
+  events: {
+    'click a' : 'onClick' 
+  }
 });
 
 //--------------------------------------------------------------------------------
@@ -122,7 +151,16 @@ var ArrayItemView = Backbone.View.extend({
 //--------------------------------------------------------------------------------
 
 var PlatformDeploymentItemView = Backbone.View.extend({
-  tagName:'li',
+  tagName:'li',  
+  initialize: function(){
+    var self = this;
+    _.bindAll(this, "render", "onClick");
+    this.nestedView = new NestedItemView({
+      level: 3
+    });
+    this.modifyDisplayName();
+    this.render();
+  },
   add: function(instrumentModel) {
     var subview = new InstrumentDeploymentItemView({
       model: instrumentModel
@@ -132,18 +170,25 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   events: {
     'click a' : 'onClick' 
   },
-  initialize: function(){
-    _.bindAll(this, "render", "onClick");
-    this.nestedView = new NestedItemView({
-      level: 3
-    });
-    this.modifyDisplayName();
-    this.render();
+  modifyDisplayName: function() {
+    var self = this;
+    var display_name = this.model.get('display_name') || "";
+    if(display_name.indexOf('-') >= 0) {
+      var items = display_name.split(' - ');
+      this.model.set('display_name', items[items.length - 1]);
+      self.platformType = "child";
+    } else {
+      this.$el.toggleClass('parent-platform');
+      self.platformType = "parent-platform";      
+    }
   },
   onClick: function(e) {
     var self = this;
+    var target = $(e.target)    
+
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
+      target.find('.toc-arrow').addClass("fa-rotate-270"); 
       this.model.instrumentDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
@@ -151,31 +196,26 @@ var PlatformDeploymentItemView = Backbone.View.extend({
         reset: true
       });
     } else {
-      this.nestedView.toggle();
+      this.nestedView.toggle();      
     }
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
     var loc = this.model.get('geo_location')
     loc = loc.coordinates
     var locat= [loc[1],loc[0]]
     ooi.models.mapModel.set({mapCenter: locat})
-  
-  },
-  modifyDisplayName: function() {
-    var display_name = this.model.get('display_name') || "";
-    if(display_name.indexOf('-') >= 0) {
-      var items = display_name.split(' - ');
-      this.model.set('display_name', items[items.length - 1]);
-    } else {
-      this.$el.toggleClass('parent-platform');
-    }
-  },
+  },  
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
-    this.$el.html(this.template({data: this.model}));
+    this.$el.html(this.template({data: this.model,type:self.platformType}));
   },
   renderInstruments: function() {
     var self = this;
+    if (self.platformType == "child"){
+      this.$el.find(".badge").text(this.model.instrumentDeployments.length)
+      //this.$el.find(".badge").removeClass("hidden")
+    }
+
     this.model.instrumentDeployments.each(function(instrumentModel) {
       self.add(instrumentModel);
     });
