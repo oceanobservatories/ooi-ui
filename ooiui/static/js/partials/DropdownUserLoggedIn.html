@@ -1,12 +1,9 @@
 <!-- <li class="dropdown"> -->
   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+    <i class="fa fa-user fa-fw"></i> <%= user.get('user_name') %> <i class="fa fa-caret-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-user">
-    <div style='text-align: center'>
-        <%= user.get('user_name') %>
-    </div>
-
+   
     <li>
      
       <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
