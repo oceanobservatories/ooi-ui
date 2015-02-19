@@ -90,8 +90,14 @@ var ArrayItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
+    var target = $(e.target)
+    target = target.find('a')
+
+    console.log(target) 
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {
+      
+      target.context.firstElementChild.className ='fa arrow fa-rotate-270';
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
           self.renderPlatforms();
@@ -100,6 +106,10 @@ var ArrayItemView = Backbone.View.extend({
       });
     } else {
       this.nestedView.toggle();
+
+      (target.context.firstElementChild.className =='fa arrow fa-rotate-270'
+       ? target.context.firstElementChild.className ='fa arrow'
+       : target.context.firstElementChild.className ='fa arrow fa-rotate-270');
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
   },
@@ -142,8 +152,12 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
+    console.log(e)
+    var target = $(e.target)
+    target = target.find('a')
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
+      target.context.firstElementChild.className ='fa arrow fa-rotate-270'; 
       this.model.instrumentDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
@@ -151,6 +165,9 @@ var PlatformDeploymentItemView = Backbone.View.extend({
         reset: true
       });
     } else {
+      (target.context.firstElementChild.className =='fa arrow fa-rotate-270' 
+       ? target.context.firstElementChild.className ='fa arrow' 
+       : target.context.firstElementChild.className ='fa arrow fa-rotate-270');
       this.nestedView.toggle();
     }
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
