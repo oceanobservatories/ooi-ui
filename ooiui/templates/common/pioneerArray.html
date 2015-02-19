@@ -36,7 +36,7 @@
         <em class="disclamer"></em></strong>
 
         <p>Description goes here....
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+          The Pioneer Array is a network of platforms and sensors operating on the continental shelf and slope south of New England. A moored array will be centered at the shelf break in the mid-Atlantic Bight south of Cape Cod, Massachusetts. Autonomous underwater vehicles (AUVs) will sample the frontal region in the vicinity of the moored array, and gliders will resolve mesoscale features on the outer shelf and the slope sea between the shelf break front and the Gulf Stream.</p>
         </div>  <!-- col-md-6 -->
 
         <div style="clear:both;">
@@ -56,7 +56,7 @@
       <div class="col-sm-12">
         <div class="container-fluid">
 
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div id="pioneer-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
             <!-- ==========================================((((((((((())))))))))))==================================================== -->
             <!-- ===========================================Location and Sampleing====================================================== -->
@@ -559,6 +559,11 @@
                   userModel: this.models.userModel
                 });
                 $('#sidebar-wrapper').html(this.views.pioneerArrayTOC.el);
+
+                this.views.pioneerArrayView = new PioneerArrayView({
+                  //????
+                });
+                $('#pioneer-view').html(this.views.pioneerView.el);
 
 
 

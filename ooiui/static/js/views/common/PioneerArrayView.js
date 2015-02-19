@@ -1,6 +1,6 @@
 "use strict";
 /*
-* ooiui/static/js/views/common/EventListView.js
+* ooiui/static/js/views/common/PioneerArrayView.js
 * View definitions an accordion style for event views
 *
 * Dependencies
@@ -16,7 +16,7 @@
 * Usage
 */
 
-var EventView = Backbone.View.extend({
+var PioneerArrayView = Backbone.View.extend({
 
   initialize: function(options) {
     _.bindAll(this, "render");
