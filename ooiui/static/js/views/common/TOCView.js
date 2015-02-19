@@ -93,7 +93,6 @@ var ArrayItemView = Backbone.View.extend({
     var target = $(e.target)
     target = target.find('a')
 
-    console.log(target) 
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {
       
@@ -152,7 +151,6 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    console.log(e)
     var target = $(e.target)
     target = target.find('a')
     e.stopPropagation();
