@@ -170,6 +170,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/FakeTable.html",
             "ooiui/static/js/partials/OrgSidebar.html",
             "ooiui/static/js/partials/PioneerArrayTOC.html",
+            "ooiui/static/js/partials/PioneerArray.html",
             "ooiui/static/js/partials/Watch.html",
             "ooiui/static/js/partials/EventList.html",
             "ooiui/static/js/partials/TimeLineEvent.html",
@@ -576,7 +577,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/PioneerArrayTOCView.js'
+            'ooiui/static/js/views/common/PioneerArrayTOCView.js',
+            'ooiui/static/js/views/common/PioneerArrayView.js'
           ]
         }
       },
