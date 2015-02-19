@@ -90,10 +90,12 @@
         </div><!-- bump -->
         <br>
         <div class="bump">
-          <select id="event-type-selection" class="typeDrop"><!--event-type-selection-->
-            <option selected disabled>
-              --Assignee--
+          <select id="event-type-selection" name='assigned' class="typeDrop"><!--event-type-selection-->
+            <% collection.each(function(model) { %>
+            <option value="<%= model.get('user_id') %>"> 
+              <%= model.get('user_name') %>
             </option>
+            <% }); %>
           </select>
         </div><!-- bump -->
         <br>
