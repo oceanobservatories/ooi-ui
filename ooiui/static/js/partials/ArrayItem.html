@@ -2,12 +2,12 @@
 <a data-toggle="tooltip" data-placement="top" data-delay="500" title="<%= data.get('reference_designator') %>" data-reference-designator="<%= data.get('reference_designator') %>" href='#'>
   <%= data.get('display_name') %>
   <%if(typeof type === 'undefined'){ %>
-  	<span class="badge hidden"> --- </span> <span class="pull right fa arrow"></span>
+  	<span class="badge hidden"> --- </span> <span class="toc-arrow pull right fa arrow"></span>
   <% } else { %>
 	<% if(type == "parent-platform") { %>
 		<span class="badge hidden"> --- </span> 
 	<% } else { %>
-		<span class="badge hidden"> --- </span> <span class="pull right fa arrow"></span>
+		<span class="badge hidden"> --- </span> <span class="toc-arrow pull right fa arrow"></span>
   <% } %>
   <% } %>
   

@@ -48,6 +48,13 @@ var NestedItemView = Backbone.View.extend({
   className: 'nav',
   toggle: function() {    
     this.$el.collapse('toggle');    
+    if (this.$el.parent().first().find('.toc-arrow').hasClass("fa-rotate-270")){
+        this.$el.parent().first().find('.toc-arrow').removeClass("fa-rotate-270"); 
+    }
+    else{
+        this.$el.parent().first().find('.toc-arrow').addClass("fa-rotate-270");  
+    }
+
   },
   initialize: function(options) {
     if(options && options.level) {
@@ -81,13 +88,11 @@ var ArrayItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target)
-    target = target.find('a')
+    var target = $(e.target) 
 
     e.stopPropagation();
-    if(this.model.platformDeployments.length == 0) {
-      
-      target.context.firstElementChild.className ='fa arrow fa-rotate-270';
+    if(this.model.platformDeployments.length == 0) {      
+      target.find('.toc-arrow').addClass("fa-rotate-270"); 
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
           self.renderPlatforms();
@@ -96,10 +101,7 @@ var ArrayItemView = Backbone.View.extend({
       });
     } else {
       this.nestedView.toggle();
-
-      (target.context.firstElementChild.className =='fa arrow fa-rotate-270'
-       ? target.context.firstElementChild.className ='fa arrow'
-       : target.context.firstElementChild.className ='fa arrow fa-rotate-270');
+      
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
   },
@@ -112,7 +114,7 @@ var ArrayItemView = Backbone.View.extend({
     var self = this;
     
     this.$el.find(".badge").text(this.model.platformDeployments.length)
-    this.$el.find(".badge").toggleClass("hidden")
+    //this.$el.find(".badge").toggleClass("hidden")
 
     this.model.platformDeployments.each(function(platformModel,i,list){      
       self.add(platformModel);
@@ -134,7 +136,7 @@ var ArrayItemView = Backbone.View.extend({
       });
       //update the badge
       subview.$el.find(".badge").text(platformDeploymentsSubset.length-1)
-      subview.$el.find(".badge").toggleClass("hidden")
+      //subview.$el.find(".badge").toggleClass("hidden")
     }
 
     this.nestedView.add(subview);
@@ -182,12 +184,11 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target)
-    target = target.find('a')
+    var target = $(e.target)    
 
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
-      target.context.firstElementChild.className ='fa arrow fa-rotate-270'; 
+      target.find('.toc-arrow').addClass("fa-rotate-270"); 
       this.model.instrumentDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
@@ -195,10 +196,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
         reset: true
       });
     } else {
-      (target.context.firstElementChild.className =='fa arrow fa-rotate-270' 
-       ? target.context.firstElementChild.className ='fa arrow' 
-       : target.context.firstElementChild.className ='fa arrow fa-rotate-270');
-      this.nestedView.toggle();
+      this.nestedView.toggle();      
     }
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
     var loc = this.model.get('geo_location')
@@ -215,7 +213,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     var self = this;
     if (self.platformType == "child"){
       this.$el.find(".badge").text(this.model.instrumentDeployments.length)
-      this.$el.find(".badge").removeClass("hidden")
+      //this.$el.find(".badge").removeClass("hidden")
     }
 
     this.model.instrumentDeployments.each(function(instrumentModel) {
