@@ -3,7 +3,12 @@
     <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-user">
+    <div style='text-align: center'>
+        <%= user.get('user_name') %>
+    </div>
+
     <li>
+     
       <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
     </li>
     <% if(user.get('scopes').indexOf('user_admin') !== -1) { %>
@@ -17,4 +22,3 @@
   </ul>
   <!-- /.dropdown-user -->
 <!-- </li> -->
-

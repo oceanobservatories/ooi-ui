@@ -54,6 +54,7 @@ var DropdownUserView = Backbone.View.extend({
     loggedOut: JST['ooiui/static/js/partials/DropdownUserLoggedOut.html']
   },
   renderLoggedIn: function() {
+    console.log(this.userModel)
     this.$el.html(this.template.loggedIn({user: this.userModel}));
   },
   renderLoggedOut: function() {
