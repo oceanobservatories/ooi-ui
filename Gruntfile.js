@@ -18,7 +18,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
-            "ooiui/static/js/partials/MenuToggle.html"
+            "ooiui/static/js/partials/MenuToggle.html",
+             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
@@ -29,10 +30,12 @@ module.exports = function(grunt) {
             /*
             * This is a generic partial for displaying an alert
             */
-            "ooiui/static/js/partials/Alert.html"
+            "ooiui/static/js/partials/Alert.html",
+             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/newEvent.js": [
-            "ooiui/static/js/partials/newEvent.html"
+            "ooiui/static/js/partials/newEvent.html",
+             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/signup.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -44,7 +47,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
-            "ooiui/static/js/partials/Alert.html"
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/troubleTicket.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -57,7 +61,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/TroubleTicket.html",
             "ooiui/static/js/partials/MenuToggle.html",
-            "ooiui/static/js/partials/Alert.html"
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/userEdit.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -69,7 +74,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html",
-            "ooiui/static/js/partials/UserEditForm.html"
+            "ooiui/static/js/partials/UserEditForm.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/users.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -82,7 +88,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/UserTable.html",
-            "ooiui/static/js/partials/UserTableItem.html"
+            "ooiui/static/js/partials/UserTableItem.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/basic.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -95,7 +102,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
-            "ooiui/static/js/partials/Alert.html"
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/svgplot.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -116,7 +124,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/StreamTableItem.html",
             "ooiui/static/js/partials/StreamDownloadForm.html",
             "ooiui/static/js/partials/ModalForm.html",
-            "ooiui/static/js/partials/AnnotationModalForm.html"
+            "ooiui/static/js/partials/AnnotationModalForm.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -133,7 +142,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             'ooiui/static/js/partials/Chart.html',
             'ooiui/static/js/partials/ChartTypeTemplate.html',
-            'ooiui/static/js/partials/ChartFilterTemplate.html'
+            'ooiui/static/js/partials/ChartFilterTemplate.html',
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/OpLog.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -153,7 +163,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/EventList.html",
             "ooiui/static/js/partials/TimeLineEvent.html",
             "ooiui/static/js/partials/NewEvent.html",
-            "ooiui/static/js/partials/Event.html"
+            "ooiui/static/js/partials/Event.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/streams.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -174,7 +185,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/StreamTableItem.html",
             "ooiui/static/js/partials/StreamDownloadForm.html",
             "ooiui/static/js/partials/ModalForm.html",
-            "ooiui/static/js/partials/AnnotationModalForm.html"
+            "ooiui/static/js/partials/AnnotationModalForm.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ]
         }
       }
