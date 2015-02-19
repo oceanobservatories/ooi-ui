@@ -1,14 +1,14 @@
 "use strict";
 
 
-var PioneerArrayView = Backbone.View.extend({
+var InfrastructureArrayView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
     self.render();
   },
-  template: JST['ooiui/static/js/partials/PioneerArray.html'],
+  template: JST['ooiui/static/js/partials/InfrastructureArray.html'],
   render: function() {
     this.$el.html(this.template());
   } 
