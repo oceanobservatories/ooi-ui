@@ -191,7 +191,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/EventList.html",
             "ooiui/static/js/partials/TimeLineEvent.html",
             "ooiui/static/js/partials/NewEvent.html",
-            "ooiui/static/js/partials/Event.html"
+            "ooiui/static/js/partials/Event.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/css/compiled/streams.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
