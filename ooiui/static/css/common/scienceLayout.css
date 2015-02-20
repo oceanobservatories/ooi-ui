@@ -31,7 +31,7 @@
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 350px;
+        width: 375px;
     }
 
     #page-content-wrapper {
@@ -130,7 +130,7 @@
         }
 
         #sidebar-wrapper {
-            width: 350px;
+            width: 375px;
         }
 
         #wrapper.toggled #sidebar-wrapper {
