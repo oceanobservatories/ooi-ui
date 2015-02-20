@@ -155,26 +155,35 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/Event.html"
           ],
-          "ooiui/static/js/partials/compiled/streams.js": [
+          "ooiui/static/js/partials/compiled/pioneerArray.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
             "ooiui/static/js/partials/DropdownUserLoggedOut.html",
             "ooiui/static/js/partials/LoginForm.html",
-            "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
             "ooiui/static/js/partials/Alert.html",
-            "ooiui/static/js/partials/AnnotationTable.html",
-            "ooiui/static/js/partials/AnnotationTableItem.html",
-            "ooiui/static/js/partials/SVGPlotControl.html",
-            "ooiui/static/js/partials/StreamTable.html",
-            "ooiui/static/js/partials/StreamTableItem.html",
-            "ooiui/static/js/partials/StreamDownloadForm.html",
-            "ooiui/static/js/partials/ModalForm.html",
-            "ooiui/static/js/partials/AnnotationModalForm.html"
+            "ooiui/static/js/partials/Chart.html",
+            "ooiui/static/js/partials/FakeTable.html",
+            "ooiui/static/js/partials/OrgSidebar.html",
+            "ooiui/static/js/partials/PioneerArrayTOC.html",
+            "ooiui/static/js/partials/Watch.html",
+            "ooiui/static/js/partials/EventList.html",
+            "ooiui/static/js/partials/TimeLineEvent.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/Event.html"
+          ],
+          "ooiui/static/css/compiled/streams.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/ModalForm.css"
           ]
         }
       }
@@ -539,6 +548,36 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
+          'ooiui/static/js/compiled/pioneerArray.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/loremjs/lorem.js',
+            'ooiui/static/lib/moment/moment.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/FakeTableModel.js',
+            'ooiui/static/js/models/common/WatchModel.js',
+            'ooiui/static/js/models/common/OrganizationModel.js',
+            'ooiui/static/js/models/common/EventModel.js',
+            'ooiui/static/js/models/common/OperatorEventTypeModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/FakeTableView.js',
+            'ooiui/static/js/views/common/ChartView.js',
+            'ooiui/static/js/views/common/ChartViews.js',
+            'ooiui/static/js/views/common/PioneerArrayTOCView.js'
+          ]
         }
       },
       css: {
@@ -598,7 +637,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/newEvent.css"
+            "ooiui/static/css/common/ne=wEvent.css"
           ],
           "ooiui/static/css/compiled/svgplot.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
@@ -634,6 +673,14 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
+          ],
+          "ooiui/static/css/compiled/pioneerArray.css" : [
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/timeline.css",
+            "ooiui/static/css/common/orgsidebarview.css",
+            "ooiui/static/css/common/pioneerArray.css"
           ]
         }
       }
