@@ -88,14 +88,23 @@ var ArrayItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target) 
+    var target = $(e.target);
 
+    e.preventDefault();
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {      
       target.find('.toc-arrow').addClass("fa-rotate-270"); 
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+      target.prop( "disabled", true );
+      self.tg = target;
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
-          self.renderPlatforms();
+          //save more than one request
+          //if(self.el.childElementCount == 2){
+            self.renderPlatforms(); 
+            self.tg.prop( "disabled", false );
+            self.tg.find(".s").remove();
+          //}
         },
         reset: true
       });
@@ -185,13 +194,19 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   onClick: function(e) {
     var self = this;
     var target = $(e.target)    
-
+    e.preventDefault();
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
       target.find('.toc-arrow').addClass("fa-rotate-270"); 
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+      target.prop( "disabled", true );
+      self.tg = target;
       this.model.instrumentDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
+
+          self.tg.prop( "disabled", false );
+          self.tg.find(".s").remove();
         },
         reset: true
       });
@@ -247,12 +262,20 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
+    var target = $(e.target);
+    e.preventDefault();
     e.stopPropagation();
     if(this.streams.length == 0) {
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+      target.prop( "disabled", true );
+      self.tg = target;
       this.streams.fetch({
         data: $.param({reference_designator: this.model.get('reference_designator')}),
         success: function(collection, response, options) {
           self.renderStreams();
+
+          self.tg.prop( "disabled", false );
+          self.tg.find(".s").remove();
         },
         reset: true
       });
@@ -284,6 +307,7 @@ var StreamItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     e.stopPropagation();
+    e.preventDefault();
     ooi.trigger('streamItemView:streamSelect', this.model);
   },
   template: JST['ooiui/static/js/partials/StreamItem.html'],
