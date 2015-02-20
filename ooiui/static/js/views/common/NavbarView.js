@@ -17,9 +17,7 @@ var NavbarView = Backbone.View.extend({
   },
   menuToggle: function(e) {
     e.preventDefault(); // Prevent the #about
-    if(this.$el.find('#sidebar-wrapper').children.length > 0) {
-        this.sidebarToggle();
-    }
+    this.sidebarToggle();
   },
   initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle");
@@ -34,6 +32,7 @@ var NavbarView = Backbone.View.extend({
     this.render();
   },
   sidebarToggle: function() {
+
     $("#wrapper").toggleClass("toggled");
     if($('#collapse-button').hasClass('fa-caret-left')) {
       $('#collapse-button').removeClass('fa-caret-left');
@@ -43,26 +42,26 @@ var NavbarView = Backbone.View.extend({
       $('#collapse-button').addClass('fa-caret-left');
     }
     ooi.trigger('NavbarView:sidebarToggle');
-  },
+
+    //Remove event listener on menu toggle.
+    var sidebar = $("#sidebar-wrapper").children().length;
+    if (sidebar == 0) {
+        this.undelegateEvents();
+    }
+    },
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
-    sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html']
+    sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html'],
+    logged_in_nav_items: JST['ooiui/static/js/partials/LoggedInNavItems.html']
   },
   render: function() {
     this.$el.html(this.templates.navbar());
-    // Only add the sidebar collapse if the sidebar exists
-    if(this.$el.find('#sidebar-wrapper').length > 0) {
-      this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
-    }
+    this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()) {
-      this.$el.find('#navbar-right').prepend(this.messageView.el);
+        this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
+        this.$el.find('#navbar-menus').append(this.messageView.el);
     }
-    this.$el.find('#navbar-right').append(this.dropdownUserView.el);
+    this.$el.find('#navbar-menus').append(this.dropdownUserView.el);
   }
 });
-
-
-
-
-
