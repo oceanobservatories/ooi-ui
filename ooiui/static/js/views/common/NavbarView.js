@@ -60,7 +60,7 @@ var NavbarView = Backbone.View.extend({
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()) {
         this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
-        this.$el.find('#navbar-menus').append(this.messageView.el);
+        //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus').append(this.dropdownUserView.el);
   }
