@@ -629,7 +629,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
-            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css"
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/backgridall.min.css"
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
