@@ -20,6 +20,7 @@ var StreamModel = Backbone.Model.extend({
     start: "",
     end: "",
     reference_designator: "",
+    display_name: "",
     variables: [],
     variable_types: {},
     preferred_timestamp: ""
