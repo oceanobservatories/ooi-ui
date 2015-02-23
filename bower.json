@@ -42,7 +42,8 @@
     "wellknown": "~0.3.1",
     "bootstrap-select": "~1.6.3",
     "backlunr": "https://github.com/mpneuried/backlunr.git#~0.2.2",
-    "lunr.js": "~0.5.7"
+    "lunr.js": "~0.5.7",
+    "bootstrap-switch":"~3.3.2"
   },
   "resolutions": {
     "jquery": "~2.1.1",
