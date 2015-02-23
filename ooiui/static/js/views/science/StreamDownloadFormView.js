@@ -23,7 +23,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   onDownload: function() {
     var selection = this.$type_select.val();
-    var url = this.model.get(selection);
+    var url = this.model.getURL(selection);
     window.location.href = url;
     this.hide();
   },
