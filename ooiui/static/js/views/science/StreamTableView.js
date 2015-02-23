@@ -21,8 +21,8 @@ var StreamTableView = Backbone.View.extend({
         label : 'Stream Identifier'
       },
       {
-        name : 'reference_designator',
-        label : 'Reference Designator'
+        name : 'display_name',
+        label : 'Description'
       },
       {
         name : 'start',
