@@ -134,6 +134,12 @@ def get_netcdf(stream_name, reference_designator):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
+@app.route('/api/uframe/get_profiles/<string:stream_name>/<string:reference_designator>')
+def get_profiles(stream_name, reference_designator):
+    token = get_login()
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
+
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
 def get_plotdemo(instrument, stream):
     token = get_login()
