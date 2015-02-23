@@ -1,20 +1,6 @@
 {
-  "objects" : [ 
-    {
-      "author" : "Emmanual Goldstein",
-      "date" : "2014-09-14",
-      "message" : "Nisl purus in mollis nunc sed id. Pellentesque adipiscing commodo elit at imperdiet dui."
-    },
-    {
-      "author" : "Fox Mulder",
-      "date" : "2014-09-14",
-      "message" : "The truth is out there Scully."
-    },
-    {
-      "author" : "Luke Campbell",
-      "date" : "2014-09-15",
-      "message" : "What am I doing?!"
-    }
+  "objects" : [
+
   ]
 }
 
