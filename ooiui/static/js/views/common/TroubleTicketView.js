@@ -34,12 +34,12 @@ var TroubleTicketView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/TroubleTicket.html'],
 
   render: function() {
-
     this.$el.html(this.template({collection: this.collection}));
     this.$el.find('#datePicker').datepicker({
         format: "yyyy-mm-dd",
         startDate: "+1d"
     });
+    this.$el.find('#username').val(ooi.models.userModel.get('user_name'));
     this.stickit();
     console.log(this.model.attributes);
   },
@@ -48,7 +48,12 @@ var TroubleTicketView = Backbone.View.extend({
   },
 
   submit: function() {
-    console.log(this.model.attributes);
+    var assignee = this.$el.find('#assignee-select').val();
+    var description = this.model.get('description');
+    description = 'Assignee: ' + assignee + '\n' + description;
+    description = 'Created By: ' + ooi.models.userModel.get('user_name') + '\n' + description;
+    this.model.set('description', description);
     this.model.save()
+    ooi.trigger('TroubleTicketView:submit', this.model);
   }
 });

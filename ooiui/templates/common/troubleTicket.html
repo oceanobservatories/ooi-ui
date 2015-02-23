@@ -34,6 +34,9 @@
 <script type="text/javascript">
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  models: {
+    userModel: new UserModel()
+  },
   views: {
   },
   collections: {
@@ -42,6 +45,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   start: function() {
     this.login.fetch({async:false});
+
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
     this.collections.troubleticketdropdowncollection.fetch({
       data: $.param({
         project: "ooinet-user-interface-development"
@@ -61,6 +69,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     $('#page-content-wrapper').prepend(this.views.ticket.el);
+    this.listenTo(this, "TroubleTicketView:submit", function(model) {
+      window.location.href = '/';
+    });
   }
 });
 var ooi = new OOI();
