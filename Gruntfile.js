@@ -404,6 +404,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/bootstrap-switch/dist/js/bootstrap-switch.js',
             //'ooiui/static/lib/lunr.js/lunr.js',
             'ooiui/static/lib/backlunr/backlunr.js',
             // App
@@ -666,7 +667,8 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/css/compiled/svgplot.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
-            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",            
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",

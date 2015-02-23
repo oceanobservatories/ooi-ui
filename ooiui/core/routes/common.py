@@ -57,8 +57,12 @@ def basic():
     return render_template('common/basic.html')
 
 @app.route('/svgplot.html')
-def svgplot():
+def svg_timeseries_plot():
     return render_template('common/svgplot.html')
+
+@app.route('/depthplot.html')
+def svg_depthprofile_plot():
+    return render_template('common/depthplot.html')
 
 @app.route('/chartDemo.html')
 def chart_demo():
