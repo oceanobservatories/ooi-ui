@@ -68,6 +68,11 @@ def chart_demo():
 def plots_demo():
     return render_template('common/plotsDemo.html')
 
+@app.route('/statusPage.html')
+def status():
+    return render_template('common/statusPage.html')
+
+
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(app.config['SERVICES_URL'] + '/organization', params=request.args)

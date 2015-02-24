@@ -90,6 +90,9 @@ var ArrayItemView = Backbone.View.extend({
     var self = this;
     var target = $(e.target);
 
+
+    var statusCollection = new StatusCollection()
+
     e.preventDefault();
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {      
@@ -101,6 +104,14 @@ var ArrayItemView = Backbone.View.extend({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
+            console.log(collection)
+            console.log(response) 
+            statusCollection.add(response.platform_deployments) 
+            console.log(statusCollection)
+            var statusView = new StatusView({collection: statusCollection})
+            $("#status-view").html(statusView.el)
+      
+
             self.renderPlatforms(); 
             self.tg.prop( "disabled", false );
             self.tg.find(".s").remove();
@@ -113,7 +124,8 @@ var ArrayItemView = Backbone.View.extend({
       
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
-  },
+    
+      },
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
