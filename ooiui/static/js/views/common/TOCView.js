@@ -104,12 +104,12 @@ var ArrayItemView = Backbone.View.extend({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
-            console.log(collection)
-            console.log(response) 
+          //  console.log(collection)
+          //  console.log(response) 
             statusCollection.add(response.platform_deployments) 
-            console.log(statusCollection)
-            var statusView = new StatusView({collection: statusCollection})
-            $("#status-view").html(statusView.el)
+          //  console.log(statusCollection)
+            var statusView = new StatusViews({collection: statusCollection})
+            //$("#status-view").html(statusView.el)
       
 
             self.renderPlatforms(); 
