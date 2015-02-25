@@ -172,7 +172,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
-    
+
     this.$type_select = this.$el.find('#type-select');
 
 
@@ -180,6 +180,16 @@ var SVGPlotControlView = Backbone.View.extend({
     
     //this.$el.find('#xvar-select').prop('disabled', 'disabled');
     var xvar = "time"
+    var variables = this.model.get('variable_types');
+    this.variable = null;
+    for(var key in variables) {
+      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
+        this.variable = key;
+        break;
+      }
+    }
+
     this.$el.find('#xvar-select').selectpicker('val', xvar);
+    this.$el.find('#yvar-select').selectpicker('val', this.variable);
   }
 });
