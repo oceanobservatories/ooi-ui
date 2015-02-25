@@ -14,11 +14,11 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="plotting-enable-line">Line</label>
-          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-line" disabled checked data-switch-value="mini">
+          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-line" disabled checked data-size="mini">
         </div>
         <div class="col-sm-6">
           <label for="plotting-enable-scatter">Scatter</label>
-          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-switch-value="mini">        
+          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
         </div>
       </div>
     </div>
@@ -51,12 +51,13 @@
       <div class="form-group">
         <label for="xvar-select">Dimension</label>
         <select id='xvar-select' class="form-control selectpicker">
+          <option value="time">time</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-              <% if(varName == 'pressure' || varName == 'internal_timestamp') { %>
+              <% if(varName == 'pressure') { %>
                 <option value="<%=varName%>"><%= varName %></option>
-              <% } %>
+              <% } %>                
             <% } %>
           <% }); %>
         </select>
