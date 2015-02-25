@@ -20,25 +20,23 @@ var StatusViews= Backbone.View.extend({
 
   initialize: function(){
     _.bindAll(this, "render","getTypes","createSelect","setFilter","filterByType");
-    this.render()
-    this.$el.find("#filter").append(this.createSelect());
-    //this.createSelect()
+    
     this.on("change:filterType", this.filterByType, this);
+    // need to fix createSelect
+    this.collection.on("add",this.render, this)
+    this.collection.on("add", this.createSelect, this)
     this.collection.on("reset", this.render, this)
   },
-  //template: JST['ooiui/static/js/partials/statusItem.html'],
 
 
   render :function(){
-    //var items = collection
+
+    
     this.$el.html(this.template())
-    console.log(this.$el.html(this.template()))
 
 
-    //console.log(collection)
     _(this.collection.models).each(function(model){
       var str = model.get('display_name').toLowerCase()
-    //  console.log(str)
       if(str.search('mooring') !==-1){
         model.set({type: 'mooring'})
 
@@ -48,10 +46,8 @@ var StatusViews= Backbone.View.extend({
       }else{
         model.set({type:'none'})
       }
-     // console.log(model)
       
       var statusView = new StatusView({model: model});
-      //var status_elem= statusView.render()
       $('#status-view').append(statusView.el);
     })
     
@@ -61,26 +57,19 @@ var StatusViews= Backbone.View.extend({
 
   },
   getTypes:function(){
-   // console.log(" get types called")
-   // console.log(this.collection.pluck("type"))
+    console.log(" get types called")
+    console.log(this.collection.pluck("type"))
     var unique = _.uniq(this.collection.pluck("type"))
     console.log(unique) 
     return unique
-    //return _.uniq(this.collection.pluck("type"), false, function(type){
-    //  console.log(type)
-    //  console.log(type)
-   // return _(unique).each(function(type){  
-     // console.log(type)
-      //return type.toLowerCase();
-     //});
   },
   createSelect:function(){
     console.log(' create selectcalled')
     var filter = this.$el.find("#filter"),
+    
     select = $("<select/>", {
       html: "<option value='all'>All</option>"
     });
-   // console.log('after select')
     var get = this.getTypes()
     console.log(get)
      _(get).each(function(item){
@@ -90,15 +79,14 @@ var StatusViews= Backbone.View.extend({
            text: item.toLowerCase()
        }).appendTo(select);
      });
-    // select.id ="type"
-     //console.log(select)
-    // $('#filter').append(select)
+     console.log(select)
+     //this.$el.find("#filter").html(select);
+     
+     filter.html(select);
      return select;
   },
 
   events: {
-   // "change select": "setFilter",
-   // "click #BUTTON": "setFilter",
     "change #filter select": "setFilter"
   },
 
@@ -113,7 +101,6 @@ var StatusViews= Backbone.View.extend({
     console.log('filter by type is called')
     if (this.filterType === "all"){
       this.collection.reset(this.collection);
-             // contactsRouter.navigate("filter/all");
     } 
     else{
       console.log(this.collection)
@@ -127,9 +114,13 @@ var StatusViews= Backbone.View.extend({
 
             this.collection.reset(filtered);
             console.log(filtered)
-              //contactsRouter.navigate("filter/" + filterType);
           }
+    
+   // need to fix this 
+      this.$el.find("#filter").html(this.createSelect());
      }
+
+      
 
 })
 
@@ -167,4 +158,16 @@ var StatusView= Backbone.View.extend({
 
 })
 
+var StatusFilterView = Backbone.View.extend({
+  initialize: function(){
+    _.bindAll(this, "render");
+    this.render()
+  },
+  template: JST['ooiui/static/js/partials/StatusFilter.html'],
 
+  render:function(){
+    this.$el.html(this.template())
+  }
+
+
+})

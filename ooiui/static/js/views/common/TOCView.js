@@ -91,7 +91,7 @@ var ArrayItemView = Backbone.View.extend({
     var target = $(e.target);
 
 
-    var statusCollection = new StatusCollection()
+    //var statusCollection = new StatusCollection()
 
     e.preventDefault();
     e.stopPropagation();
@@ -104,12 +104,17 @@ var ArrayItemView = Backbone.View.extend({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
-
+        
 // Move this to the main html at some point...          
-            statusCollection.add(response.platform_deployments) 
-            var statusViews = new StatusViews({collection: statusCollection})
+            console.log(collection)
+            ooi.collections.statusCollection.add(response.platform_deployments) 
+        
+            //ooi.collections.statusCollection.add(collection.models) 
+                
+        //var statusViews = new StatusViews({collection: ooi.collections.statusCollection})
+
 // Change append to hmtl or something else...
-            $(".panel-body").html(statusViews.el)
+            //$(".panel-body").html(statusViews.el)
       
 
             self.renderPlatforms(); 

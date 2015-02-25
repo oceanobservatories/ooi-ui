@@ -24,16 +24,19 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="panel">
+
             <div class="panel-heading">
             <div class="panel-body">
+             
             </div> <!-- panel-body -->
+            <div id="filtering"> WHere are you</div>
+
           </div> <!-- panel -->
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
     </div>
   </div>
 </div>
-
 
 
   <!-- /#wrapper -->
@@ -49,7 +52,8 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   collections: {
     arrays: new ArrayCollection(),
-    platform_deployments: new PlatformDeploymentCollection()
+    platform_deployments: new PlatformDeploymentCollection(),
+    statusCollection: new StatusCollection()
   },
   views: {
 
@@ -70,6 +74,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection: this.collections.arrays
     });
     $('#sidebar-wrapper').html(this.views.tocView.el);
+    
+    this.views.statusViews = new StatusViews({ collection: this.collections.statusCollection})
+    $('.panel-body').html(this.views.statusViews.el)
+
+    this.views.statusFilterView = new StatusFilterView()
+    $('#filtering').html(this.views.statusFilterView.el)
+    
     //--------------------------------------------------------------------------------
     // Collections Fetch
     //--------------------------------------------------------------------------------
@@ -107,6 +118,7 @@ var ooi = new OOI();
 $(document).ready(function() {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     ooi.start();
+    console.log(ooi)
 });
 </script>
 {% endblock %}
