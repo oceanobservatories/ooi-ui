@@ -46,7 +46,13 @@ var SVGPlotView = SVGView.extend({
       var useLine = "True"
       var useScatter = "False"
       var plotLayoutType = "timeseries"
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.variable, height: this.height, width: this.width, scatter:useScatter,lines:useLine, plotLayout:plotLayoutType })
+
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.variable, 
+                                                                                                    height: this.height, 
+                                                                                                    width: this.width, 
+                                                                                                    scatter:useScatter,
+                                                                                                    lines:useLine, 
+                                                                                                    plotLayout:plotLayoutType })
       console.log("reg url",this.url)
       this.fetch();
     }
@@ -63,14 +69,27 @@ var SVGPlotView = SVGView.extend({
       this.useLine = options.useLine.toString();
       this.useScatter = options.useScatter.toString();      
       this.plotType = options.plotType;
-      
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.yvariable , xvar: this.xvariable, height: this.height, width: this.width,scatter:this.useScatter,lines:this.useLine, plotLayout:this.plotType })
+      this.st = moment(options.start_date).toISOString()
+      this.ed = moment(options.end_date).toISOString()
+
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.yvariable , 
+                                                                                                    xvar: this.xvariable, 
+                                                                                                    height: this.height, 
+                                                                                                    width: this.width,
+                                                                                                    scatter:this.useScatter,
+                                                                                                    lines:this.useLine, 
+                                                                                                    plotLayout:this.plotType,
+                                                                                                    startdate:this.st,
+                                                                                                    enddate:this.ed})
       this.fetch();
     }
   },
   download: function() {
     if(this.variable != null) {
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', yvar: this.variable, height: this.height, width: this.width })
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', 
+                                                                                                    yvar: this.variable, 
+                                                                                                    height: this.height, 
+                                                                                                    width: this.width })
       window.location.href = this.url;
     }
   },
@@ -97,7 +116,9 @@ var SVGPlotControlView = Backbone.View.extend({
   events: {
     'change #xvar-select' : 'onClickPlot',
     'change #yvar-select' : 'onClickPlot',
-    "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot'
+    "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
+    'dp.change #start-date' : 'onClickPlot',
+    'dp.change #end-date' : 'onClickPlot'
   },
   initialize: function() { 
   },
@@ -108,8 +129,7 @@ var SVGPlotControlView = Backbone.View.extend({
     this.model.getData({
       success: function(data, textStatus, jqXHR) {
         self.data = data.data;
-        self.trigger('dataFetch', self.data);
-        console.log(data.data[100]);
+        self.trigger('dataFetch', self.data);       
       }
     });
     this.render();
@@ -121,8 +141,8 @@ var SVGPlotControlView = Backbone.View.extend({
     data.start_date = this.$start_date_picker.getDate();
     data.end_date = this.$end_date_picker.getDate();
     data.xvar = this.$el.find('#xvar-select').val();
-    data.yvar = this.$el.find('#yvar-select').val();
-    
+    data.yvar = this.$el.find('#yvar-select').val();    
+
     if (data.xvar== "pressure"){
       data.plotType = "depthprofile"
       data.yvar = "pressure"
@@ -138,23 +158,28 @@ var SVGPlotControlView = Backbone.View.extend({
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
   render: function() {
+    var self = this
     this.$el.html(this.template({model: this.model}));
     this.$el.find('.selectpicker').selectpicker();
     this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
-    var xvar = this.model.get('preferred_timestamp');
-    
-    this.$el.find('#start-date').datetimepicker();
-    this.$el.find('#end-date').datetimepicker();
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
-    this.$type_select = this.$el.find('#type-select');
+    this.$start_date.datetimepicker({defaultDate : this.model.get('start'),
+                                                maxDate: this.model.get('end')});
+    this.$end_date.datetimepicker({defaultDate : this.model.get('end'),
+                                                minDate: this.model.get('start')}); 
+
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
-    this.$start_date_picker.setDate( this.model.get('start'));
-    this.$end_date_picker.setDate( this.model.get('end'));
+    
+    this.$type_select = this.$el.find('#type-select');
+
+
+    
     
     //this.$el.find('#xvar-select').prop('disabled', 'disabled');
+    var xvar = "time"
     this.$el.find('#xvar-select').selectpicker('val', xvar);
   }
 });

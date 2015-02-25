@@ -51,12 +51,13 @@
       <div class="form-group">
         <label for="xvar-select">Dimension</label>
         <select id='xvar-select' class="form-control selectpicker">
+          <option value="time">time</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-              <% if(varName == 'pressure' || varName == 'internal_timestamp') { %>
+              <% if(varName == 'pressure') { %>
                 <option value="<%=varName%>"><%= varName %></option>
-              <% } %>
+              <% } %>                
             <% } %>
           <% }); %>
         </select>
