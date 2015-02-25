@@ -31,9 +31,6 @@ var SignUpModel = Backbone.Model.extend({
         organization:{
             required: true
         },
-        role_name: {
-            oneOf: ['Administrator']
-        },
         primary_phone: {
             required: true,
             pattern:'digits'
