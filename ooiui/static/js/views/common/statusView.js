@@ -12,23 +12,31 @@ var StatusCollection = Backbone.Collection.extend({})
 
 
 var StatusViews= Backbone.View.extend({
-  el:'.content',
 
   collection: StatusCollection,
+  
+  template: JST['ooiui/static/js/partials/StatusItems.html'],
+
 
   initialize: function(){
     _.bindAll(this, "render","getTypes","createSelect","setFilter","filterByType");
-    this.render(this.collection)
-    //this.$el.find("#filter").append(this.createSelect());
-    this.createSelect()
-    this.on("change:filterType", this.filterbyType, this);
+    this.render()
+    this.$el.find("#filter").append(this.createSelect());
+    //this.createSelect()
+    this.on("change:filterType", this.filterByType, this);
+    this.collection.on("reset", this.render, this)
   },
   //template: JST['ooiui/static/js/partials/statusItem.html'],
 
 
-  render :function(collection){
+  render :function(){
+    //var items = collection
+    this.$el.html(this.template())
+    console.log(this.$el.html(this.template()))
+
+
     //console.log(collection)
-    _(collection.models).each(function(model){
+    _(this.collection.models).each(function(model){
       var str = model.get('display_name').toLowerCase()
     //  console.log(str)
       if(str.search('mooring') !==-1){
@@ -40,16 +48,21 @@ var StatusViews= Backbone.View.extend({
       }else{
         model.set({type:'none'})
       }
-      console.log(model)
-
+     // console.log(model)
+      
       var statusView = new StatusView({model: model});
       //var status_elem= statusView.render()
       $('#status-view').append(statusView.el);
     })
+    
+  },
+  getCollection: function(collection){
+    
+
   },
   getTypes:function(){
-    console.log(" get types called")
-    console.log(this.collection.pluck("type"))
+   // console.log(" get types called")
+   // console.log(this.collection.pluck("type"))
     var unique = _.uniq(this.collection.pluck("type"))
     console.log(unique) 
     return unique
@@ -67,7 +80,7 @@ var StatusViews= Backbone.View.extend({
     select = $("<select/>", {
       html: "<option value='all'>All</option>"
     });
-    console.log('after select')
+   // console.log('after select')
     var get = this.getTypes()
     console.log(get)
      _(get).each(function(item){
@@ -77,39 +90,45 @@ var StatusViews= Backbone.View.extend({
            text: item.toLowerCase()
        }).appendTo(select);
      });
-     select.id ="type"
-     console.log(select)
-     $('#filter').append(select)
-     //return select;
+    // select.id ="type"
+     //console.log(select)
+    // $('#filter').append(select)
+     return select;
   },
 
   events: {
-    "change #type select": "setFilter",
-    "click #BUTTON": "setFilter"
+   // "change select": "setFilter",
+   // "click #BUTTON": "setFilter",
+    "change #filter select": "setFilter"
   },
 
   setFilter: function(event){
     console.log('set filter is called')
-    this.filterType = event.currentTraget.value;
+    console.log(event.currentTarget.value);
+    this.filterType = event.currentTarget.value;
     this.trigger("change:filterType")
   },
   filterByType:function(){
+    console.log(this.collection)
     console.log('filter by type is called')
-//    if (this.filterType === "all"){
-//      this.collection.reset(contacts);
+    if (this.filterType === "all"){
+      this.collection.reset(this.collection);
              // contactsRouter.navigate("filter/all");
-//    } 
-//    else{
-//      this.collection.reset(contacts, { silent: true });
-//      var filterType = this.filterType,
-//      filtered = _.filter(this.collection.models,function (item){
-//        return item.get("type").toLowerCase() === filterType;
-//                  });
+    } 
+    else{
+      console.log(this.collection)
+      this.collection.reset(this.collection.models, { silent: true });
+      console.log(this.collection.models)
+      var filterType = this.filterType,
+      filtered = _.filter(this.collection.models,function (item){
+        console.log(item.get("type"))
+        return item.get("type").toLowerCase() === filterType;
+                  });
 
-  //            this.collection.reset(filtered);
-
+            this.collection.reset(filtered);
+            console.log(filtered)
               //contactsRouter.navigate("filter/" + filterType);
-//          }
+          }
      }
 
 })
@@ -125,11 +144,11 @@ var StatusView= Backbone.View.extend({
 
   },
   events: {
-    "change #type select": "setFilter",
-    "click #BUTTON": "setFilter"
+    //"click button": "addstatus",
+    "click button": "addstatus"
   },
 
-  template: JST['ooiui/static/js/partials/statusItem.html'],
+  template: JST['ooiui/static/js/partials/StatusItem.html'],
 
   setFilter: function(){
     console.log('clicked')
@@ -143,6 +162,7 @@ var StatusView= Backbone.View.extend({
 
   addstatus:function(){
     console.log('I LISTENED')
+    
   }
 
 })

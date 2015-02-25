@@ -104,12 +104,12 @@ var ArrayItemView = Backbone.View.extend({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
-          //  console.log(collection)
-          //  console.log(response) 
+
+// Move this to the main html at some point...          
             statusCollection.add(response.platform_deployments) 
-          //  console.log(statusCollection)
-            var statusView = new StatusViews({collection: statusCollection})
-            //$("#status-view").html(statusView.el)
+            var statusViews = new StatusViews({collection: statusCollection})
+// Change append to hmtl or something else...
+            $(".panel-body").html(statusViews.el)
       
 
             self.renderPlatforms(); 
