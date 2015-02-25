@@ -152,7 +152,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         url: "/txt/eula.txt",
         type: "GET",
         success: function(response) {
-          console.log(response);
           self.termsView.show({
             message: response,
             ack: function() { console.log("Closed"); }
