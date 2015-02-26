@@ -1,12 +1,45 @@
-<div id="special">filtering here!
+<div class="form-group">
+          <label for="assetType" class="col-sm-3 control-label">Asset Type</label>
+          <div class="col-sm-6">
+            <select class="form-control" id="assetType" name="assetType">
+              <option value="glider">Glider</option>
+              <option value="all">All</option>
+              <option>Surface Buoy</option>
+              <option value="mooring">Mooring</option>
+              <option>Node</option>
+              <option>Riser</option>
+              <option>Profiler</option>
+              <option>AUV</option>
 
-
-  <select>
-    <option> None</option>
-  </select>
-  
-  <button> Apply</button> <button> Reset Filter</button>
-
-
+            </select>
+            <span class="help-block hidden"></span>
+          </div>
+          
 </div>
+        <hr width="80%">    
+        <div class="form-group">
+          <label for="assetReport" class="col-sm-3 control-label">Asset Report</label>
+          <div class="col-sm-6 ">
+           <select class="form-control" id="assetReport" name="assetReport">
+              <option>Glider</option>
+              <option>Surface Buoy</option>
+              <option>Mooring</option>
+              <option>Node</option>
+              <option>Riser</option>
+              <option>Profiler</option>
+              <option>AUV</option>
+
+            </select>
+            <span class="help-block hidden"></span>
+          </div>
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="button" id="submitButton" class="btn btn-success">Submit</button>
+            <button type="button" id="resetButton" class="btn btn-success">Reset Filter</button>
+
+          </div>                 
 

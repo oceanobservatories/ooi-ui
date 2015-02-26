@@ -78,7 +78,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.statusViews = new StatusViews({ collection: this.collections.statusCollection})
     $('.panel-body').html(this.views.statusViews.el)
 
-    this.views.statusFilterView = new StatusFilterView()
+    this.views.statusFilterView = new StatusFilterView({collection: this.collections.statusCollections})
     $('#filtering').html(this.views.statusFilterView.el)
     
     //--------------------------------------------------------------------------------
