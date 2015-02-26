@@ -106,7 +106,9 @@ var ArrayItemView = Backbone.View.extend({
           //if(self.el.childElementCount == 2){
        
             // status page collection
-            ooi.collections.statusCollection.add(response.platform_deployments) 
+            if(ooi.collections.statusCollection !== undefined){
+              ooi.collections.statusCollection.add(response.platform_deployments)
+            }
         
                 
 
