@@ -20,16 +20,18 @@ var StatusViews= Backbone.View.extend({
 
   initialize: function(){
     _.bindAll(this, "render","filterByType");
-    
+    var self = this;
+    this.collection_list =[] 
     this.on("change:filterType", this.filterByType, this);
     this.collection.on("add",this.render, this)
     this.collection.on("add", this.createSelect, this)
     this.collection.on("reset", this.render, this)
+    return this
   },
 
 
   render :function(){
-        
+    var collection_list = this.collection_list   
     this.$el.html(this.template())
 
 
@@ -44,16 +46,15 @@ var StatusViews= Backbone.View.extend({
       }else{
         model.set({type:'none'})
       }
-      
+      collection_list.push(model)
       var statusView = new StatusView({model: model});
       $('#status-view').append(statusView.el);
  
    
     })
-    
   },
- 
 
+ 
 // functions below are used to create a dynamic selection options. 
 // It will be used in conjunction with Uframe assests and events to create dynamic options
 
@@ -100,14 +101,15 @@ var StatusViews= Backbone.View.extend({
 //  },
   filterByType:function(type){
     console.log(type)
-    //console.log(this.collection)
+    console.log(this.collection_list)
+    var Array_models = this.collection_list 
     console.log('filter by type is called')
-    if (this.filterType === "all"){
-      this.collection.reset(this.collection);
+    if (type === "all"){
+      this.collection.reset(Array_models);
     } 
     else{
      // console.log(this.collection)
-      this.collection.reset(this.collection.models, { silent: true });
+      this.collection.reset(Array_models, { silent: true });
      // console.log(this.collection.models)
       var filterType = type,
         filtered = _.filter(this.collection.models,function (item){
