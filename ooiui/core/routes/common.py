@@ -42,7 +42,11 @@ def user_login():
 
 @app.route('/pioneerarray')
 def pioneer_array():
-    return render_template('common/pioneerArray.html')
+    return render_template('landing/pioneerArray.html')
+
+@app.route('/endurancearray')
+def endurance_array():
+    return render_template('landing/enduranceArray.html')
 
 @app.route('/infrastructure')
 def infrastructure():
