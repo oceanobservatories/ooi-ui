@@ -78,3 +78,27 @@ dd:nth-of-type(6) { background: #a2c8f0; }
   margin-bottom: 30px;
   margin-left: 40px;
 }
+
+/* infrastructure*/
+img.aligncenter, img.alignright, img.alignleft  {
+  border: 1px solid #DDD;
+  text-align: center;
+  background: #F3F3F3;
+  padding: 4px;
+  }
+
+  #infrastructure-sidebar {
+    width: 300px;
+  }
+  /* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
