@@ -36,7 +36,7 @@
       <div class="container-fluid">
 
 
-        <div id="location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
+        <div id="pioneer-location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
         </div><!-- panel-group -->
 
         <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
@@ -84,8 +84,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
       el: $('#pioneer-upper')
     });
 
-    this.views.locationSamplingView = new LocationSamplingView({
-      el: $('#location-sampling')
+    this.views.pioneerLocationSamplingView = new PioneerLocationSamplingView({
+      el: $('#pioneer-location-sampling')
     });
 
     this.views.infrastructureArrayView = new InfrastructureArrayView({
