@@ -41,7 +41,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
 
-    this.$el.find('.message h3').text(model.get('reference_designator'));
+    this.$el.find('.message h3').text(model.get('display_name'));
     this.$el.find('#type-select').val(selection);
 
     this.$el.find('.stream-name').text(model.get('stream_name'));
