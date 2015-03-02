@@ -170,7 +170,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Event.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
-          "ooiui/static/js/partials/compiled/pioneerArray.js": [
+          "ooiui/static/js/partials/compiled/landingPages.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
@@ -184,7 +184,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html",
             "ooiui/static/js/partials/OrgSidebar.html",
-            "ooiui/static/js/partials/PioneerArrayTOC.html",
+            "ooiui/static/js/partials/LandingPagesTOC.html",
             "ooiui/static/js/partials/PioneerArray.html",
             "ooiui/static/js/partials/InfrastructureArray.html",
             "ooiui/static/js/partials/StationSummaryArray.html",
@@ -578,7 +578,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
-          'ooiui/static/js/compiled/pioneerArray.js' : [
+          'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
@@ -606,7 +606,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/PioneerArrayTOCView.js',
+            'ooiui/static/js/views/common/LandingPagesTOCView.js',
             'ooiui/static/js/views/common/PioneerArrayView.js',
             'ooiui/static/js/views/common/InfrastructureArrayView.js',
             'ooiui/static/js/views/common/StationSummaryArrayView.js',
@@ -712,13 +712,13 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
           ],
-          "ooiui/static/css/compiled/pioneerArray.css" : [
+          "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
-            "ooiui/static/css/common/pioneerArray.css"
+            "ooiui/static/css/common/landingPages.css"
           ]
         }
       }
