@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Pioneer Array</title>
+<title>Endurance Array</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -28,128 +28,115 @@
     </div>  <!-- col-md-12 -->
   </div>  <!-- title-row -->
 
+  <div id="endurance-upper"></div>
+
   <div class="row">
-    <div class="col-md-6">
-      <div style="float:left;">
-        <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
-        <em class="disclamer"></em></strong>
+    <!--     <div class="col-md-6">
+    <div style="float:left;">
+    <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
+    <em class="disclamer"></em></strong>
 
-        <p>Description goes here....
-          The Endurance Array, located on the continental shelf and slope off Oregon and Washington, will provide a long-term network of moorings, benthic nodes, cabled and uncabled sensors, and gliders. The array will consist of two lines of moorings, one off Newport, Oregon (the Oregon Line) and the other off Grays Harbor, Washington (the Washington Line). Gliders will sample between the mooring lines. The array will focus on observing the influence of the Columbia River on the coastal ecosystem as well as sample a prototypical upwelling regime on a narrow continental shelf where anoxia events are common. Some of the Endurance Array Oregon Line infrastructure will be connected to the RSN cabled network providing enhanced power and communications for observing water column and seafloor processes.</p>
-        </div>  <!-- col-md-6 -->
+    <p>Description goes here....
+    The Endurance Array, located on the continental shelf and slope off Oregon and Washington, will provide a long-term network of moorings, benthic nodes, cabled and uncabled sensors, and gliders. The array will consist of two lines of moorings, one off Newport, Oregon (the Oregon Line) and the other off Grays Harbor, Washington (the Washington Line). Gliders will sample between the mooring lines. The array will focus on observing the influence of the Columbia River on the coastal ecosystem as well as sample a prototypical upwelling regime on a narrow continental shelf where anoxia events are common. Some of the Endurance Array Oregon Line infrastructure will be connected to the RSN cabled network providing enhanced power and communications for observing water column and seafloor processes.</p>
+  </div>  col-md-6
 
-        <div style="clear:both;">
-          <h3>Summary</h3>
-          <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
-        </div>  <!-- col-md-6 -->
-      </div>  <!-- col-md-6 -->
+  <div style="clear:both;">
+  <h3>Summary</h3>
+  <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
+</div>  col-md-6
+</div>  col-md-6
 
-      <!-- HEADER IMAGE -->
-      <div class="col-md-6">
-        <div  id="contact">
-          <img class="delayImg" delayedSrc="/img/landingPages/EnduranceArray/Endurance-Array-Map_2013_04-17_ver_0-02.jpg" style="width:411px; height:500px;" />
-        </div>  <!-- col-md-6 -->
-      </div>  <!-- Description-row -->
+HEADER IMAGE
+<div class="col-md-6">
+<div  id="contact">
+<img class="delayImg" delayedSrc="/img/landingPages/EnduranceArray/Endurance-Array-Map_2013_04-17_ver_0-02.jpg" style="width:411px; height:500px;" />
+</div>  col-md-6
+</div>  Description-row -->
 
-      <!-- Accordian -->
-      <div class="col-sm-12">
-        <div class="container-fluid">
+<!-- Accordian -->
+<div class="col-sm-12">
+  <div class="container-fluid">
 
+    <div id="location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- panel-group -->
 
-          <div id="pioneer-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- panel-group -->
+    <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- infrastructureArray-view -->
 
-          <div id="infrastructureArray-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- infrastructureArray-view -->
+    <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- stationSummaryArray-view -->
 
-          <div id="stationSummaryArray-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- stationSummaryArray-view -->
+    <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- deploymentSchedule-view -->
 
-          <div id="deploymentSchedule-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- deploymentSchedule-view -->
+    <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- infrastructureTables-view -->
 
-          <div id="infrastructureTables-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- infrastructureTables-view -->
+    <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- technicalDrawings-view -->
 
-          <div id="technicalDrawings-view" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          </div><!-- technicalDrawings-view -->
+  </div><!-- container-fluid -->
+</div><!-- col-sm-12 -->
+</div><!-- row -->
+</div><!-- wrapper -->
 
+<script type="text/javascript">
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  views: {},
+  collections: {
+    organizations: new Organizations(),
+  },
+  models: {},
 
-        </div><!-- container-fluid -->
-      </div><!-- col-sm-12 -->
-    </div><!-- row -->
-  </div><!-- wrapper -->
+  start: function() {
+    this.login.fetch({async:false});
 
-  <!-- fade in image -->
-  <script>
-  $(document).ready(function() {
-    $(".delayImg").each(function() {
-      this.onload = function() {
-        $(this).animate({opacity: 1}, 2000);
-      };
-      this.src = this.getAttribute("delayedSrc");
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+      collection: this.collections.organizations,
     });
-  });
-  </script>
+    $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
 
+    this.views.enduranceArrayView = new EnduranceArrayView({
+      el: $('#endurance-upper')
+    });
 
+    this.views.locationSamplingView = new LocationSamplingView({
+      el: $('#location-sampling')
+    });
 
+    this.views.infrastructureArrayView = new InfrastructureArrayView({
+      el: $('#infrastructureArray-view')
+    });
 
-  <script type="text/javascript">
-  _.extend(OOI.prototype, Backbone.Events,  {
-    login: new LoginModel(),
-    views: {},
-    collections: {
-      organizations: new Organizations(),
-    },
-    models: {},
+    this.views.stationSummaryArrayView = new StationSummaryArrayView({
+      el: $('#stationSummaryArray-view')
+    });
 
-    start: function() {
-      this.login.fetch({async:false});
+    this.views.deploymentScheduleView = new DeploymentScheduleView({
+      el: $('#deploymentSchedule-view')
+    });
 
-      this.views.navbar = new NavbarView();
-      $('body').prepend(this.views.navbar.el);
+    this.views.infrastructureTablesView = new InfrastructureTablesView({
+      el: $('#infrastructureTables-view')
+    });
 
-      this.views.landingPagesTOC = new LandingPagesTOC({
-        collection: this.collections.organizations,
-      });
-      $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
+    this.views.technicalDrawingsView = new TechnicalDrawingsView({
+      el: $('#technicalDrawings-view')
+    });
+  }
 
+});
+// Instantiate the application for this page
+var ooi = new OOI();
 
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+</script>
 
-      this.views.pioneerArrayView = new PioneerArrayView({
-        el: $('#pioneer-view')
-      });
-
-      this.views.infrastructureArrayView = new InfrastructureArrayView({
-        el: $('#infrastructureArray-view')
-      });
-
-      this.views.stationSummaryArrayView = new StationSummaryArrayView({
-        el: $('#stationSummaryArray-view')
-      });
-
-      this.views.deploymentScheduleView = new DeploymentScheduleView({
-        el: $('#deploymentSchedule-view')
-      });
-
-      this.views.infrastructureTablesView = new InfrastructureTablesView({
-        el: $('#infrastructureTables-view')
-      });
-
-      this.views.technicalDrawingsView = new TechnicalDrawingsView({
-        el: $('#technicalDrawings-view')
-      });
-    }
-
-  });
-  // Instantiate the application for this page
-  var ooi = new OOI();
-
-  $(document).ready(function() {
-    // Once the DOM is loaded, we start our application
-    ooi.start();
-  });
-  </script>
-
-  {% endblock %}
+{% endblock %}
