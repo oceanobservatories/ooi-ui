@@ -10,11 +10,11 @@
 
 {% block head %}
 <link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/pioneerArray.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
 <!-- Partials -->
-<script src="/js/partials/compiled/pioneerArray.js" type="text/javascript"></script>
-<script src="/js/compiled/pioneerArray.js" type="text/javascript"></script>
-<script src="js/pioneerArrayJS.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<script src="js/landingPagesJS.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
@@ -111,10 +111,10 @@
       this.views.navbar = new NavbarView();
       $('body').prepend(this.views.navbar.el);
 
-      this.views.pioneerArrayTOC = new PioneerArrayTOC({
+      this.views.landingPagesTOC = new LandingPagesTOC({
         collection: this.collections.organizations,
       });
-      $('#sidebar-wrapper').html(this.views.pioneerArrayTOC.el);
+      $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
 
 
 
