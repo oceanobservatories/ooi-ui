@@ -28,7 +28,7 @@
     </div>  <!-- col-md-12 -->
   </div>  <!-- title-row -->
 
-  <div id="endurance-upper"></div>
+  <div id="endurance-upper-view"></div>
 
   <div class="row">
     <!--     <div class="col-md-6">
@@ -57,23 +57,23 @@ HEADER IMAGE
 <div class="col-sm-12">
   <div class="container-fluid">
 
-    <div id="location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- panel-group -->
+    <div id="endurance-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- endurance-location-sampling-view -->
 
-    <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- infrastructureArray-view -->
+    <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- description-infrastructure-view -->
 
-    <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- stationSummaryArray-view -->
+    <div id="endurance-station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- endurance-station-summary-view -->
 
-    <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- deploymentSchedule-view -->
+    <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- deployment-schedule-view -->
 
-    <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- infrastructureTables-view -->
+    <div id="infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- infrastructure-tables-view -->
 
-    <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- technicalDrawings-view -->
+    <div id="endurance-technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    </div><!-- endurance-technical-drawings-view -->
 
   </div><!-- container-fluid -->
 </div><!-- col-sm-12 -->
@@ -101,33 +101,33 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
 
     this.views.enduranceArrayView = new EnduranceArrayView({
-      el: $('#endurance-upper')
+      el: $('#endurance-upper-view')
     });
 
-    this.views.pioneerLocationSamplingView = new PioneerLocationSamplingView({
-      el: $('#location-sampling')
+    this.views.enduranceLocationSamplingView = new EnduranceLocationSamplingView({
+      el: $('#endurance-location-sampling-view')
     });
 
-    this.views.infrastructureArrayView = new InfrastructureArrayView({
+    this.views.enduranceDescriptionInfrastructureArrayView = new EnduranceDescriptionInfrastructureArrayView({
+      el: $('#description-infrastructure-view')
     });
 
-    this.views.stationSummaryArrayView = new StationSummaryArrayView({
-      el: $('#stationSummaryArray-view')
+    this.views.enduranceStationSummaryView = new EnduranceStationSummaryView({
+      el: $('#endurance-station-summary-view')
     });
 
-    this.views.deploymentScheduleView = new DeploymentScheduleView({
-      el: $('#deploymentSchedule-view')
+    this.views.enduranceDeploymentScheduleView = new EnduranceDeploymentScheduleView({
+      el: $('#deployment-schedule-view')
     });
 
-    this.views.infrastructureTablesView = new InfrastructureTablesView({
-      el: $('#infrastructureTables-view')
+    this.views.enduranceInfrastructureTablesView = new EnduranceInfrastructureTablesView({
+      el: $('#infrastructure-tables-view')
     });
 
-    this.views.technicalDrawingsView = new TechnicalDrawingsView({
-      el: $('#technicalDrawings-view')
+    this.views.enduranceTechnicalDrawingsView = new EnduranceTechnicalDrawingsView({
+      el: $('#endurance-technical-drawings-view')
     });
   }
-
 });
 // Instantiate the application for this page
 var ooi = new OOI();
