@@ -1,4 +1,4 @@
-{% extends "common/base.html" %}
+``{% extends "common/base.html" %}
 
 {% block title %}
 <title>Pioneer Array</title>
@@ -88,23 +88,23 @@ _.extend(OOI.prototype, Backbone.Events,  {
       el: $('#pioneer-location-sampling')
     });
 
-    this.views.infrastructureArrayView = new InfrastructureArrayView({
+    this.views.pioneerInfrastructureArrayView = new PioneerInfrastructureArrayView({
       el: $('#infrastructureArray-view')
     });
 
-    this.views.stationSummaryArrayView = new StationSummaryArrayView({
+    this.views.pioneerStationSummaryArrayView = new PioneerStationSummaryArrayView({
       el: $('#stationSummaryArray-view')
     });
 
-    this.views.deploymentScheduleView = new DeploymentScheduleView({
+    this.views.pioneerDeploymentScheduleView = new PioneerDeploymentScheduleView({
       el: $('#deploymentSchedule-view')
     });
 
-    this.views.infrastructureTablesView = new InfrastructureTablesView({
+    this.views.pioneerInfrastructureTablesView = new PioneerInfrastructureTablesView({
       el: $('#infrastructureTables-view')
     });
 
-    this.views.technicalDrawingsView = new TechnicalDrawingsView({
+    this.views.pioneerTechnicalDrawingsView = new PioneerTechnicalDrawingsView({
       el: $('#technicalDrawings-view')
     });
   }
