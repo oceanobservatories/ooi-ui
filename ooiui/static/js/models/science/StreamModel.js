@@ -20,6 +20,7 @@ var StreamModel = Backbone.Model.extend({
     start: "",
     end: "",
     reference_designator: "",
+    display_name: "",
     variables: [],
     variable_types: {},
     preferred_timestamp: ""
@@ -27,6 +28,8 @@ var StreamModel = Backbone.Model.extend({
   getURL: function(type) {
     if(type == 'json') {
       var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator');
+    } else if(type == 'profile_json_download') {
+      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator');
     } else if(type == 'netcdf') {
       var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator');
     } else if(type == 'csv') { 
