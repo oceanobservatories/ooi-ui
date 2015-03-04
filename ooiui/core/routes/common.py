@@ -40,7 +40,7 @@ def create_ticket():
 def user_login():
     return render_template('common/loginDemo.html')
 
-@app.route('/pioneerarray')
+@app.route('/pioneer-array')
 def pioneer_array():
     return render_template('landing/pioneerArray.html')
 
