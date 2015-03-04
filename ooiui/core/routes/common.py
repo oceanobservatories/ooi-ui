@@ -44,7 +44,7 @@ def user_login():
 def pioneer_array():
     return render_template('landing/pioneerArray.html')
 
-@app.route('/endurancearray')
+@app.route('/endurance-array')
 def endurance_array():
     return render_template('landing/enduranceArray.html')
 
