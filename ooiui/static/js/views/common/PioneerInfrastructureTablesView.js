@@ -1,14 +1,14 @@
 "use strict";
 
 
-var TechnicalDrawingsView = Backbone.View.extend({
+var PioneerInfrastructureTablesView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
     self.render();
   },
-  template: JST['ooiui/static/js/partials/TechnicalDrawings.html'],
+  template: JST['ooiui/static/js/partials/PioneerInfrastructureTables.html'],
   render: function() {
     this.$el.html(this.template());
   } 
