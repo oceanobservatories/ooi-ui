@@ -170,7 +170,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Event.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
-          "ooiui/static/js/partials/compiled/pioneerArray.js": [
+          "ooiui/static/js/partials/compiled/landingPages.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
@@ -184,13 +184,21 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Chart.html",
             "ooiui/static/js/partials/FakeTable.html",
             "ooiui/static/js/partials/OrgSidebar.html",
-            "ooiui/static/js/partials/PioneerArrayTOC.html",
+            "ooiui/static/js/partials/LandingPagesTOC.html",
+            "ooiui/static/js/partials/EnduranceArray.html",
+            "ooiui/static/js/partials/EnduranceLocationSampling.html",
+            "ooiui/static/js/partials/EnduranceDescriptionInfrastructureArray.html",
+            "ooiui/static/js/partials/EnduranceStationSummary.html",
+            "ooiui/static/js/partials/EnduranceDeploymentSchedule.html",
+            "ooiui/static/js/partials/EnduranceInfrastructureTables.html",
+            "ooiui/static/js/partials/EnduranceTechnicalDrawings.html",
             "ooiui/static/js/partials/PioneerArray.html",
-            "ooiui/static/js/partials/InfrastructureArray.html",
-            "ooiui/static/js/partials/StationSummaryArray.html",
-            "ooiui/static/js/partials/DeploymentSchedule.html",
-            "ooiui/static/js/partials/InfrastructureTables.html",
-            "ooiui/static/js/partials/TechnicalDrawings.html",
+            "ooiui/static/js/partials/PioneerLocationSampling.html",
+            "ooiui/static/js/partials/PioneerInfrastructureArray.html",
+            "ooiui/static/js/partials/PioneerStationSummaryArray.html",
+            "ooiui/static/js/partials/PioneerDeploymentSchedule.html",
+            "ooiui/static/js/partials/PioneerInfrastructureTables.html",
+            "ooiui/static/js/partials/PioneerTechnicalDrawings.html",
             "ooiui/static/js/partials/Watch.html",
             "ooiui/static/js/partials/EventList.html",
             "ooiui/static/js/partials/TimeLineEvent.html",
@@ -578,7 +586,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
-          'ooiui/static/js/compiled/pioneerArray.js' : [
+          'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
@@ -606,13 +614,21 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/PioneerArrayTOCView.js',
+            'ooiui/static/js/views/common/LandingPagesTOCView.js',
+            'ooiui/static/js/views/common/EnduranceArrayView.js',
+            'ooiui/static/js/views/common/EnduranceLocationSamplingView.js',
+            'ooiui/static/js/views/common/EnduranceDescriptionInfrastructureArrayView.js',
+            'ooiui/static/js/views/common/EnduranceStationSummaryView.js',
+            'ooiui/static/js/views/common/EnduranceDeploymentScheduleView.js',
+            'ooiui/static/js/views/common/EnduranceInfrastructureTablesView.js',
+            'ooiui/static/js/views/common/EnduranceTechnicalDrawingsView.js',
+            'ooiui/static/js/views/common/PioneerLocationSamplingView.js',
             'ooiui/static/js/views/common/PioneerArrayView.js',
-            'ooiui/static/js/views/common/InfrastructureArrayView.js',
-            'ooiui/static/js/views/common/StationSummaryArrayView.js',
-            'ooiui/static/js/views/common/DeploymentScheduleView.js',
-            'ooiui/static/js/views/common/InfrastructureTablesView.js',
-            'ooiui/static/js/views/common/TechnicalDrawingsView.js',
+            'ooiui/static/js/views/common/PioneerInfrastructureArrayView.js',
+            'ooiui/static/js/views/common/PioneerStationSummaryArrayView.js',
+            'ooiui/static/js/views/common/PioneerDeploymentScheduleView.js',
+            'ooiui/static/js/views/common/PioneerInfrastructureTablesView.js',
+            'ooiui/static/js/views/common/PioneerTechnicalDrawingsView.js',
           ]
         }
       },
@@ -712,13 +728,13 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
           ],
-          "ooiui/static/css/compiled/pioneerArray.css" : [
+          "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
-            "ooiui/static/css/common/pioneerArray.css"
+            "ooiui/static/css/common/landingPages.css"
           ]
         }
       }

@@ -1,6 +1,6 @@
 "use strict";
 /*
-* ooiui/static/js/views/common/PioneerArrayTOC.js
+* ooiui/static/js/views/common/LandingPagesTOC.js
 * View definitions for charts
 *
 * Dependencies
@@ -15,12 +15,12 @@
 */
 
 /*
- * The PioneerArrayTOC should be bound to a
+ * The LandingPagesTOC should be bound to a
  * <div id="sidebar-wrapper" class="navbar-default">. This View will render
  * nav-style links for each organization in the collection passed in as an
  * option.
  */
-var PioneerArrayTOC = Backbone.View.extend({
+var LandingPagesTOC = Backbone.View.extend({
   // The el will be a <ul> tag
   tagName: 'ul',
   // <ul class="nav sidebar-nav navbar-collapse">
@@ -39,7 +39,7 @@ var PioneerArrayTOC = Backbone.View.extend({
       }
     });
   },
-  template: JST['ooiui/static/js/partials/PioneerArrayTOC.html'],
+  template: JST['ooiui/static/js/partials/LandingPagesTOC.html'],
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
   }
