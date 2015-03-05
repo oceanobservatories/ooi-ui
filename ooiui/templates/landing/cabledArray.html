@@ -32,7 +32,7 @@
 
   <div class="row">
     <!-- Accordian -->
-    <div class="col-sm-12">
+    <div class="col-md-12">
       <div class="container-fluid">
 
         <div id="location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
@@ -57,7 +57,7 @@
         </div>	<!-- cabled-array-technical-drawings-view -->
 
       </div><!-- container-fluid -->
-    </div><!-- col-sm-12 -->
+    </div><!-- col-md-12 -->
   </div><!-- row -->
 </div><!-- wrapper -->
 
@@ -108,10 +108,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.views.cabledArrayDetailedInfrastructureTablesView = new CabledArrayDetailedInfrastructureTablesView({
       el: $('#detailed-infrastructure-tables-view')
     });
-    /*
+
     this.views.cabledArrayTechnicalDrawingsView = new CabledArrayTechnicalDrawingsView({
       el: $('#technical-drawings-view')
-    }); */
+    });
   }
 });
 // Instantiate the application for this page
