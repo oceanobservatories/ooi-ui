@@ -56,6 +56,10 @@ def cabled_array():
 def station_papa():
     return render_template('landing/stationPapa.html')
 
+@app.route('/irminger-sea')
+def irminger_sea():
+    return render_template('landing/irmingerSea.html')
+
 @app.route('/infrastructure')
 def infrastructure():
     return render_template('common/infrastructure.html')
