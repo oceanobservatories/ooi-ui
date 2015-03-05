@@ -52,6 +52,10 @@ def endurance_array():
 def cabled_array():
     return render_template('landing/cabledArray.html')
 
+@app.route('/station-papa')
+def station_papa():
+    return render_template('landing/stationPapa.html')
+
 @app.route('/infrastructure')
 def infrastructure():
     return render_template('common/infrastructure.html')
