@@ -1,0 +1,127 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Cabled Array</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<script src="js/landingPagesJS.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
+  </div>  <!-- sidebar-wrapper -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2 align="left">Cabled Array</h2>
+    </div>  <!-- col-md-12 -->
+  </div>  <!-- title-row -->
+
+  <div id="upper-view"></div>
+
+<!--   <div class="row">
+  Accordian
+  <div class="col-sm-12">
+    <div class="container-fluid">
+
+      <div id="location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	cabled-array-location-sampling-view
+
+      <div id="primary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	primary-infrastructure-view
+
+      <div id="secondary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	secondary-infrastructure-view
+
+      <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	cabled-array-station-summary-view
+
+      <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	deployment-schedule-view
+
+      <div id="detailed-infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	detailed-infrastructure-tables-view
+
+      <div id="technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	cabled-array-technical-drawings-view
+
+    </div>container-fluid
+  </div>col-sm-12
+</div>row -->
+</div><!-- wrapper -->
+
+<script type="text/javascript">
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  views: {},
+  collections: {
+    organizations: new Organizations(),
+  },
+  models: {},
+
+  start: function() {
+    this.login.fetch({async:false});
+
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+      collection: this.collections.organizations,
+    });
+    $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
+
+    this.views.cabledArrayView = new CabledArrayView({
+      el: $('#upper-view')
+    });
+/*
+    this.views.cabledArrayLocationSamplingView = new CabledArrayLocationSamplingView({
+      el: $('#location-sampling-view')
+    });
+
+    this.views.cabledArrayPrimaryInfrastructureView = new CabledArrayPrimaryInfrastructureView({
+      el: $('#primary-infrastructure-view')
+    });
+
+    this.views.cabledArraySecondaryInfrastructureView = new CabledArraySecondaryInfrastructureView({
+      el: $('#primary-infrastructure-view')
+    });
+
+    this.views.cabledArrayStationSummaryView = new CabledArrayStationSummaryView({
+      el: $('#station-summary-view')
+    });
+
+    this.views.cabledArrayDeploymentSchedualView = new CabledArrayDeploymentSchedualView({
+      el: $('#deployment-schedule-view')
+    });
+
+    this.views.cabledArrayDetailedInfrastructureTablesView = new CabledArrayDetailedInfrastructureTablesView({
+      el: $('#detailed-infrastructure-tables-view')
+    });
+
+    this.views.cabledArrayTechnicalDrawingsView = new CabledArrayTechnicalDrawingsView({
+      el: $('#technical-drawings-view')
+    });
+    */
+  }
+});
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+</script>
+
+{% endblock %}

@@ -48,6 +48,10 @@ def pioneer_array():
 def endurance_array():
     return render_template('landing/enduranceArray.html')
 
+@app.route('/cabled-array')
+def cabled_array():
+    return render_template('landing/cabledArray.html')
+
 @app.route('/infrastructure')
 def infrastructure():
     return render_template('common/infrastructure.html')
