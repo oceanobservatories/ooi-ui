@@ -78,31 +78,31 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
 
-    this.views.argentineBasinView = new ArgentineBasinView({
+    this.views.argentineBasinView = new SouthernOceanView({
       el: $('#upper-view')
     });
 
-    this.views.argentineBasinLocationSamplingView = new ArgentineBasinLocationSamplingView({
+    this.views.argentineBasinLocationSamplingView = new SouthernOceanLocationSamplingView({
       el: $('#locationsampling-view')
     });
 
-    this.views.argentineBasinDescriptionInfrastructureView = new ArgentineBasinDescriptionInfrastructureView({
+    this.views.argentineBasinDescriptionInfrastructureView = new SouthernOceanDescriptionInfrastructureView({
       el: $('#description-infrastructure-view')
     });
 
-    this.views.argentineBasinStationSummaryView = new ArgentineBasinStationSummaryView({
+    this.views.argentineBasinStationSummaryView = new SouthernOceanStationSummaryView({
       el: $('#station-summary-view')
     });
 
-    this.views.argentineBasinDeploymentView = new ArgentineBasinDeploymentView({
+    this.views.argentineBasinDeploymentView = new SouthernOceanDeploymentView({
       el: $('#deployment-view')
     });
 
-    this.views.argentineBasinDetailedInfrastructureTablesView = new ArgentineBasinDetailedInfrastructureTablesView({
+    this.views.argentineBasinDetailedInfrastructureTablesView = new SouthernOceanDetailedInfrastructureTablesView({
       el: $('#detailed-infrastructure-view')
     });
 
-    this.views.argentineBasinTechnicalDrawingView = new ArgentineBasinTechnicalDrawingView({
+    this.views.argentineBasinTechnicalDrawingView = new SouthernOceanTechnicalDrawingView({
       el: $('#technical-drawing-view')
     });
   }
