@@ -41,14 +41,14 @@ OOI.RelationalModel = Backbone.Model.extend({
           options = {};
         }
         // The data parameters are defined by the relation
-        if(options && options.data) { 
+        if(options && options.data) {
           delete options.data;
         }
 
         // This is where the URL parameter is generated ?key=id
         var params = {};
         params[self.relation.reverseRelation.key] = self.get("id");
-        options.data = $.param(params); 
+        options.data = $.param(params);
         // Call the original method
         collection.prototype.fetch.call(this, options);
       }.bind(this[this.relation.key]); // override "this" and bind it to our instance
@@ -76,4 +76,3 @@ OOI.prototype.onLogin = function() {
 OOI.prototype.onLogout = function() {
   location.reload();
 }
-
