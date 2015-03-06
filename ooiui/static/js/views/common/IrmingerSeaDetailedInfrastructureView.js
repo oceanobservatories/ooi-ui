@@ -1,14 +1,14 @@
 "use strict";
 
 
-var StationPapaDetailedInfrastructureTablesView = Backbone.View.extend({
+var IrmingerSeaDetailedInfrastructureView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
     self.render();
   },
-  template: JST['ooiui/static/js/partials/StationPapaDetailedInfrastructureTables.html'],
+  template: JST['ooiui/static/js/partials/IrmingerSeaDetailedInfrastructure.html'],
   render: function() {
     this.$el.html(this.template());
   } 

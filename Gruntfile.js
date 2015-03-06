@@ -207,6 +207,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/StationPapaDetailedInfrastructureTables.html",
             "ooiui/static/js/partials/StationPapaDescriptionInfrastructure.html",
             "ooiui/static/js/partials/StationPapaDeployment.html",
+            "ooiui/static/js/partials/IrmingerSea.html",
             "ooiui/static/js/partials/IrmingerSeaLocationSampling.html",
             "ooiui/static/js/partials/IrmingerSeaDescriptionInfrastructure.html",
             "ooiui/static/js/partials/IrmingerSeaStationSummary.html",

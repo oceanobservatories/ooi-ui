@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Station Papa</title>
+<title>Irminger Sea</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2 align="left">Station Papa</h2>
+      <h2 align="left">Irminger Sea</h2>
     </div>  <!-- col-md-12 -->
   </div>  <!-- title-row -->
 
@@ -47,8 +47,8 @@
         <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
         </div>	<!-- deployment-view -->
 
-        <div id="detailed-infrastructur-evie" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- detailed-infrastructur-evie -->
+        <div id="detailed-infrastructur-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- detailed-infrastructur-view -->
 
         <div id="technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
         </div>	<!-- technical-drawings-view -->
@@ -99,7 +99,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
 
     this.views.irmingerSeaDetailedInfrastructureView = new IrmingerSeaDetailedInfrastructureView({
-      el: $('#detailed-infrastructur-evie')
+      el: $('#detailed-infrastructur-view')
     });
 
     this.views.irmingerSeaTechnicalDrawingsView = new IrmingerSeaTechnicalDrawingsView({
