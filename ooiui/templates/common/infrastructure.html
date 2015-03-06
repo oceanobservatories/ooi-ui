@@ -10,17 +10,15 @@
 
 {% block head %}
 <link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/pioneerArray.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
 <!-- Partials -->
-<script src="/js/partials/compiled/pioneerArray.js" type="text/javascript"></script>
-<script src="/js/compiled/pioneerArray.js" type="text/javascript"></script>
-<script src="js/pioneerArrayJS.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<script src="js/landingPagesJS.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-<div id="wrapper" >
-  <br />
-
+<div id="wrapper">
   <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
   </div>  <!-- sidebar-wrapper -->
 
@@ -39,8 +37,8 @@
           <li><a href="/cabled-array" title="Cabled Array">Cabled Array</a></li>
           <li><a href="/station-papa" title="Station Papa">Station Papa</a></li>
           <li><a href="/iringer-sea" title="Irminger Sea">Irminger Sea</a></li>
-          <li><a href="argentinae-basin" title="Argentine Basin">Argentine Basin</a></li>
-          <li><a href="southern-ocean" title="Southern Ocean">Southern Ocean</a></li>
+          <li><a href="/argentinae-basin" title="Argentine Basin">Argentine Basin</a></li>
+          <li><a href="/southern-ocean" title="Southern Ocean">Southern Ocean</a></li>
         </ul>
       </div>  <!-- padding-left -->
     </div>  <!-- col-md-5 -->
@@ -107,16 +105,17 @@
           organizations: new Organizations(),
         },
         models: {},
+
         start: function() {
           this.login.fetch({async:false});
 
           this.views.navbar = new NavbarView();
           $('body').prepend(this.views.navbar.el);
 
-          this.views.pioneerArrayTOC = new PioneerArrayTOC({
+          this.views.landingPagesTOC = new LandingPagesTOC({
             collection: this.collections.organizations,
           });
-          $('#sidebar-wrapper').html(this.views.pioneerArrayTOC.el);
+          $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
         }
       });
       // Instantiate the application for this page
