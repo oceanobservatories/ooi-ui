@@ -64,6 +64,10 @@ def irminger_sea():
 def argentine_basin():
     return render_template('landing/argentineBasin.html')
 
+@app.route('/southern-ocean')
+def southern_ocean():
+    return render_template('landing/southernOcean.html')
+
 @app.route('/infrastructure')
 def infrastructure():
     return render_template('common/infrastructure.html')
