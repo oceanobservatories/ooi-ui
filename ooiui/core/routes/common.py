@@ -60,6 +60,10 @@ def station_papa():
 def irminger_sea():
     return render_template('landing/irmingerSea.html')
 
+@app.route('/argentine-basin')
+def argentine_basin():
+    return render_template('landing/argentineBasin.html')
+
 @app.route('/infrastructure')
 def infrastructure():
     return render_template('common/infrastructure.html')
