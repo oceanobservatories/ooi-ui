@@ -1,4 +1,4 @@
-var InstrumentView = Backbone.View.extend({
+var AssetView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this,"render");
@@ -8,27 +8,38 @@ var InstrumentView = Backbone.View.extend({
 	render: function() {
         
         var self = this;
+        //add map
+        var map = L.map('editdep_map').setView([1.505, 1.09], 2);
+        L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            }).addTo(map);
+        // add an OpenStreetMap tile layer
+        L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
+        }).addTo(map);
+
         var selectedInstrument = [];
         //bind
-        self.model = new InstrumentDeploymentModel();
+        self.model = new AssetModel();
         self.modalDialog = new ModalDialogView();
 
         var PageableDeployments = Backbone.PageableCollection.extend({
-          model: InstrumentDeploymentModel,
-          url: '/api/instrument_deployment',
+          model: AssetModel,
+          url: '/api/asset_deployment',
           state: {
             pageSize: 7
           },
           mode: "client",
           parse: function(response, options) {
-            return response.instrument_deployments;
+            this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
+            return response.assets[0];
           } // page entirely on the client side  options: infinite, server
         });
 
         var pageabledeploy = new PageableDeployments();
-
+        self.collection = pageabledeploy;
+        
         var columns = [{
-            name: "id", // The key of the model attribute
+            name: "assetId", // The key of the model attribute
             label: "ID", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             // Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
@@ -36,31 +47,63 @@ var InstrumentView = Backbone.View.extend({
                 orderSeparator: ''
             })
         }, {
-            name: "display_name",
-            label: "Display Name",
+            name: "assetInfo",
+            label: "Name",
             editable: false,
             // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-            cell: "string" // This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
+            cell: "string",
+            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+              fromRaw: function (rawValue, model) {
+                return rawValue['name'];
+              }
+            }),
+            sortValue: function (model, colName) {
+                return model.attributes[colName]['name'];
+            } 
         },{
-            name: "platform_deployment_id",
-            label: "Platform ID",
+            name: "assetInfo",
+            label: "Owner",
             editable: false,
-            cell: "string" // An integer cell is a number cell that displays humanized integers
+            cell: "string",
+            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+              fromRaw: function (rawValue, model) {
+                return rawValue['owner'];
+              }
+            }) ,
+            sortValue: function (model, colName) {
+                return model.attributes[colName]['owner'];
+            }
         }, {
-            name: "depth",
-            label: "Depth",
+            name: "assetInfo",
+            label: "Type",
             editable: false,
-            cell: "string" 
+            cell: "string",
+            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+              fromRaw: function (rawValue, model) {
+                return rawValue['type'];
+              }
+            }),
+            sortValue: function (model, colName) {
+                return model.attributes[colName]['type'];
+            }
         }, {
-            name: "start_date",
-            label: "Start Date",
+            name: "assetInfo",
+            label: "Description",
             editable: false,
-            cell: "string"// DatetimeCell
+            cell: "string",
+            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+              fromRaw: function (rawValue, model) {
+                return rawValue['description'];
+              }
+            }),
+            sortValue: function (model, colName) {
+                return model.attributes[colName]['description'];
+            }
         }, {
-            name: "end_date",
+            name: "@class",
             editable: false,
-            label: "End Date",
-            cell: "string"// DatetimeCell
+            label: "Class",
+            cell: "string"
         }];
 
         //add click event
@@ -85,18 +128,20 @@ var InstrumentView = Backbone.View.extend({
 
         // Set up a grid to use the pageable collection
         var pageableGrid = new Backgrid.Grid({
-          columns: [{
-            // enable the select-all extension
+          columns: columns,
+          // enable the select-all extension and select row
+          /*[{
             name: "",
             cell: "select-row",
             headerCell: "select-all"
-          }].concat(columns),
+          }].concat(columns),*/
           collection: pageabledeploy,
           row: ClickableRow
         });
 
         // Render the grid and attach the root to your HTML document
         $("#datatable").append(pageableGrid.render().el);
+
         // Initialize the paginator
         var paginator = new Backgrid.Extension.Paginator({
           collection: pageabledeploy
@@ -107,15 +152,50 @@ var InstrumentView = Backbone.View.extend({
 
         // Initialize a client-side filter to filter on the client
         // mode pageable collection's cache.
-        var filter = new Backgrid.Extension.ClientSideFilter({
-          collection: pageabledeploy,
-          fields: ['display_name','platform_deployment_id']
+        //extend to match the nested object parameters 
+        var AssetFilter = Backgrid.Extension.ClientSideFilter.extend({
+          //collection: pageabledeploy,
+          //fields: ["assetId",'@class'],
+          placeholder: "Search",
+          makeMatcher: function(query){
+               var q = '';
+               if(query!=""){
+                 q = String(query).toUpperCase();
+               }
+               if(self.query_filter){
+                
+               }
+               return function (model) {
+                  if(q == ''){
+                    return true;
+                  }
+                  else if(model.attributes['assetInfo']['description']){
+                    if(String(model.attributes['assetInfo']['description']).toUpperCase().search(q)>-1){
+                        return true;
+                    }
+                  }
+                  else if(model.attributes['assetInfo']['type']){
+                    if(String(model.attributes['assetInfo']['type']).toUpperCase().search(q)>-1){
+                        return true;
+                    }
+                  }
+                  else{
+                    return false;
+                  }
+              }; 
+          }
         });
+
+        var filter = new AssetFilter({
+          collection: pageabledeploy
+        });
+        self.filter = filter;
 
         // Render the filter
         $("#datatable").before(filter.render().el);
         // Add some space to the filter and move it to the right
         $(filter.el).css({float: "right", margin: "20px"});
+        $(filter.el).find("input").attr('id', 'asset_search_box');
 
         //datepickers with min/max validation
         $( "#startdate_d" ).datepicker({
@@ -138,25 +218,53 @@ var InstrumentView = Backbone.View.extend({
         // Fetch some instruments from the url
         pageabledeploy.fetch({reset: true,
             error: (function (e) {
-                $('#editdep_panel').html('There was an error with the Deployment list.');
+                $('#asset_top_panel').html('There was an error with the Asset list.');
+                $('#editdep_panel').html('There was an error with the Asset list.');
                 alert(' Service request failure: ' + e);
             }),
             complete: (function (e) {
-                $('#editdep_panel').html('Click on an Instrument to Edit');
+                $('#number_of_assets').html(e.responseJSON['assets'][0].length+' total records');
+                $('#asset_top_panel').html('Click on an Asset to Edit');
+                $('#editdep_panel').html('Click on an Asset above to Edit');
+
+                //need to add assets to the filtrify component
+                for ( t = 0; t < e.responseJSON['assets'][0].length; t++ ) {
+                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][0][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][0][t]['@class']+"' data-Owner='"+e.responseJSON['assets'][0][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][0][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][0][t]['@class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][0][t].assetInfo['owner']+"</span></li>");
+                }
+
+                //query drop downs filters based on data
+                $.filtrify( 'container_of_data', 'asset_search_pan', {
+                  callback : function( query, match, mismatch ) {
+                      self.query_filter = query;
+                      /* complicated
+                      var this_q = query;
+                      self.collection.reset(self.collection.fullCollection.filter(
+                        function(model){
+                            if(model.attributes['@class'] == this_q['Class'][0]){
+                              return !0;
+                            }
+                            else{
+                              return !1;
+                            }
+                      }),{reindex: !1});*/
+                      self.filter.search();
+                      $('#number_of_assets').html(match.length+' total records');
+                  }
+              });
             })
         });
-        //probably for post responses submit data
-        /*data: {
-            name: 'Bob',
-            userid: '1',
-            usertype: 'new'
-        }*/
+
+        //try to call this on page change
+        pageabledeploy.on("pageabledeploy:updated", function( details ){
+            //updatePagination( details, showBicycles );
+        });
 
         //move clicked row to edit panel
         Backbone.on("deployrowclicked", function (model) {
             //$('#editdep_panel').hide();
             $('#editdep_form').show();
-
+            $('#editdep_map').show();
+            map.invalidateSize();
             selectedInstrument = model.attributes;
 
             $('#depth_d').val(model.attributes.depth);
@@ -172,6 +280,11 @@ var InstrumentView = Backbone.View.extend({
                     //[x,y]
                     $('#geo_d_lat').val(model.attributes.geo_location.coordinates[1]);
                     $('#geo_d_long').val(model.attributes.geo_location.coordinates[0]);
+
+                    // add a marker in the given location, attach some popup content to it and open the popup
+                    L.marker([model.attributes.geo_location.coordinates[1], model.attributes.geo_location.coordinates[0]]).addTo(map)
+                        .bindPopup(String(model.attributes))
+                        .openPopup();
                 }
             }
         });
@@ -210,10 +323,10 @@ var InstrumentView = Backbone.View.extend({
                         self.model.save(null, {
                           success: function(model, response) {
                             self.modalDialog.show({
-                              message: "Deployment successfully saved.",
+                              message: "Asset successfully saved.",
                               type: "success",
                               ack: function() { 
-                                window.location = "/assets/instruments/"
+                                window.location = "/assets/list/"
                               }
                             });
                             $('#editdep_panel').html('Saved Successfully.');
@@ -223,7 +336,7 @@ var InstrumentView = Backbone.View.extend({
                               var errMessage = JSON.parse(response.responseText).error;
                             } catch(err) {
                               console.log(err);
-                              var errMessage = "Unable to Save Deployment";
+                              var errMessage = "Unable to Save Asset";
                             }
                             self.modalDialog.show({
                               message: errMessage,
@@ -256,10 +369,10 @@ var InstrumentView = Backbone.View.extend({
                       success: function(model, response, options) {
                         console.log("destroyed");
                         self.modalDialog.show({
-                          message: "Deployment successfully deleted.",
+                          message: "Asset successfully deleted.",
                           type: "success",
                           ack: function() { 
-                            window.location = "/assets/instruments/"
+                            window.location = "/assets/list/"
                           }
                         });
                         $('#editdep_panel').html('Deleted Successfully.');
@@ -269,7 +382,7 @@ var InstrumentView = Backbone.View.extend({
                           var errMessage = JSON.parse(response.responseText).error;
                         } catch(err) {
                           console.log(err);
-                          var errMessage = "Unable to Delete Deployment";
+                          var errMessage = "Unable to Delete Asset";
                         }
                         self.modalDialog.show({
                           message: errMessage,
@@ -287,6 +400,12 @@ var InstrumentView = Backbone.View.extend({
                 }
             }
         });
+        
+        //change lat/long inputs
+        $("#coordinate_switcher li a").click(function(){
+          $(".btn:first-child").html($(this).text()+'  <span class="caret"> </span>');
+          $(".btn:first-child").val($(this).text());
+       });
     },
 
     clearform: function(){
@@ -297,5 +416,14 @@ var InstrumentView = Backbone.View.extend({
         $('#platform_d').val('');
         $('#geo_d_lat').val('');
         $('#geo_d_long').val('');
+    },
+
+    ConvertDDToDMS: function (dd)
+    {
+        var deg = dd | 0; // truncate dd to get degrees
+        var frac = Math.abs(dd - deg); // get fractional part
+        var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
+        var sec = frac * 3600 - min * 60;
+        return deg + "d " + min + "' " + sec + "\"";
     }
 });

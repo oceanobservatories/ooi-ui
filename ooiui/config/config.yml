@@ -4,8 +4,8 @@ COMMON: &common
   SERVICES_URL: http://localhost:4000
   DEBUG: False
   CACHE_TYPE: simple
-  UI_API_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  SECRET_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  UI_API_KEY: 'ccdf5de08ac74855bda3e7e309d871e5'
+  SECRET_KEY: 'ccdf5de08ac74855bda3e7e309d871e5'
 
 DEVELOPMENT: &development
   <<: *common

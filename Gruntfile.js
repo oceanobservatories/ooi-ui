@@ -361,8 +361,8 @@ module.exports = function(grunt) {
             // App
             'ooiui/static/js/ooi.js',
             // Models
-            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
-            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/AssetModel.js',
+            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
@@ -471,14 +471,15 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/AddAnnotationView.js',
           ],
-          'ooiui/static/js/compiled/gridDemo.js' : [
+          'ooiui/static/js/compiled/gridList.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
-            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/underscore/underscore-min.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/wellknown/wellknown.js",
             "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/leaflet/dist/leaflet.js',
             /*tried this it errored on the page for -sontag
             "ooiui/static/lib/backgrid/lib/backgrid.js",
             "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
@@ -487,11 +488,13 @@ module.exports = function(grunt) {
             "ooiui/static/js/core/backgrid/backgrid-filter.min.js",*/
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/js/core/filtrify/js/filtrify.js",
+            "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
             // App
             'ooiui/static/js/ooi.js',
             // Models
-            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
-            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/AssetModel.js',
+            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -503,8 +506,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/asset_management/InstrumentView.js',
-            'ooiui/static/js/views/asset_management/PlatformView.js'
+            'ooiui/static/js/views/asset_management/PlatformView.js',
+            'ooiui/static/js/views/asset_management/AssetView.js'
           ],
           'ooiui/static/js/compiled/opLog.js' : [
             // Libs
@@ -642,7 +645,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
-            "ooiui/static/css/common/backgridall.min.css"
+            "ooiui/static/css/common/backgridall.min.css",
+            "ooiui/static/css/filtrify/css/filtrify.css"
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
