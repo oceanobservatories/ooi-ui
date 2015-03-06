@@ -1,0 +1,119 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Argentine Basin</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<script src="js/landingPagesJS.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
+  </div>  <!-- sidebar-wrapper -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2 align="left">Argentine Basin</h2>
+    </div>  <!-- col-md-12 -->
+  </div>  <!-- title-row -->
+
+  <div id="upper-view"></div>
+
+  <div class="row">
+    <!-- Accordian -->
+    <div class="col-md-12">
+      <div class="container-fluid">
+
+        <div id="locationsampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- locationsampling-view -->
+
+        <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- description-infrastructure-view- -->
+
+        <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- station-summary-view -->
+
+        <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- deployment-view -->
+
+        <div id="detailed-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- detailed-infrastructur-view -->
+
+        <div id="technical-drawing-view" class="panel-group" role="tablist" aria-multiselectable="true">
+        </div>	<!-- technical-drawings-view -->
+
+      </div><!-- container-fluid -->
+    </div><!-- col-md-12 -->
+  </div><!-- row -->
+</div><!-- wrapper -->
+
+<script type="text/javascript">
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  views: {},
+  collections: {
+    organizations: new Organizations(),
+  },
+  models: {},
+
+  start: function() {
+    this.login.fetch({async:false});
+
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+      collection: this.collections.organizations,
+    });
+    $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
+
+    this.views.argentineBasinView = new ArgentineBasinView({
+      el: $('#upper-view')
+    });
+
+    this.views.argentineBasinLocationSamplingView = new ArgentineBasinLocationSamplingView({
+      el: $('#locationsampling-view')
+    });
+
+    this.views.argentineBasinDescriptionInfrastructureView = new ArgentineBasinDescriptionInfrastructureView({
+      el: $('#description-infrastructure-view')
+    });
+
+    this.views.argentineBasinStationSummaryView = new ArgentineBasinStationSummaryView({
+      el: $('#station-summary-view')
+    });
+
+    this.views.argentineBasinDeploymentView = new ArgentineBasinDeploymentView({
+      el: $('#deployment-view')
+    });
+
+    this.views.argentineBasinDetailedInfrastructureTablesView = new ArgentineBasinDetailedInfrastructureTablesView({
+      el: $('#detailed-infrastructure-view')
+    });
+
+    this.views.argentineBasinTechnicalDrawingView = new ArgentineBasinTechnicalDrawingView({
+      el: $('#technical-drawing-view')
+    });
+  }
+});
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+</script>
+
+{% endblock %}
