@@ -12,6 +12,9 @@
 
 
 var TOCView = Backbone.View.extend({
+  events: {   
+    'keyup #search-filter' : 'filterToc'
+  },
   add: function(arrayModel){
     var subview = new ArrayItemView({
       model: arrayModel
@@ -19,8 +22,21 @@ var TOCView = Backbone.View.extend({
     this.subviews.push(subview);
     this.$el.find('ul').append(subview.el);
   },
+  filterToc: function(){
+    var self = this
+    /*
+    this.$el.find('#search-filter').keyup(function () {
+        var rex = new RegExp($(this).val());
+        self.$el.find("li ").hide();
+        self.$el.find("li ").filter(function () {
+            console.log("search...",rex)
+            return rex.test($(this).text());
+        }).show();
+    })*/
+
+  },
   initialize: function(){
-    _.bindAll(this, "render", "add");
+    _.bindAll(this, "render", "add","filterToc");
     this.subviews = [];
     this.listenTo(this.collection, "reset", this.render);
   },

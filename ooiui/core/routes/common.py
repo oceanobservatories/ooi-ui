@@ -40,9 +40,33 @@ def create_ticket():
 def user_login():
     return render_template('common/loginDemo.html')
 
-@app.route('/pioneerarray')
+@app.route('/pioneer-array')
 def pioneer_array():
-    return render_template('common/pioneerArray.html')
+    return render_template('landing/pioneerArray.html')
+
+@app.route('/endurance-array')
+def endurance_array():
+    return render_template('landing/enduranceArray.html')
+
+@app.route('/cabled-array')
+def cabled_array():
+    return render_template('landing/cabledArray.html')
+
+@app.route('/station-papa')
+def station_papa():
+    return render_template('landing/stationPapa.html')
+
+@app.route('/irminger-sea')
+def irminger_sea():
+    return render_template('landing/irmingerSea.html')
+
+@app.route('/argentine-basin')
+def argentine_basin():
+    return render_template('landing/argentineBasin.html')
+
+@app.route('/southern-ocean')
+def southern_ocean():
+    return render_template('landing/southernOcean.html')
 
 @app.route('/infrastructure')
 def infrastructure():
@@ -57,8 +81,12 @@ def basic():
     return render_template('common/basic.html')
 
 @app.route('/svgplot.html')
-def svgplot():
+def svg_timeseries_plot():
     return render_template('common/svgplot.html')
+
+@app.route('/depthplot.html')
+def svg_depthprofile_plot():
+    return render_template('common/depthplot.html')
 
 @app.route('/chartDemo.html')
 def chart_demo():

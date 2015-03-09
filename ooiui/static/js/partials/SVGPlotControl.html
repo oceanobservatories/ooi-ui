@@ -1,4 +1,29 @@
 <form>
+  <div class="row" style="padding-bottom:8px;">
+    <!-- Profile and additional plot controls  
+    <div class="col-sm-6">    
+      <label for="plotting-enable-line">Plot Type</label>
+      <select id="plotting-select-plottype" class="selectpicker">
+        <option value="timeseries">Time Series</option>
+        <option value="depthprofile">Depth Profile</option>
+      </select>   
+    </div>
+    -->
+
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="plotting-enable-line">Line</label>
+          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-line" disabled checked data-size="mini">
+        </div>
+        <div class="col-sm-6">
+          <label for="plotting-enable-scatter">Scatter</label>
+          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
+        </div>
+      </div>
+    </div>
+  </div>  
+
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
@@ -24,12 +49,15 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="xvar-select">X-Variable</label>
+        <label for="xvar-select">Dimension</label>
         <select id='xvar-select' class="form-control selectpicker">
+          <option value="time">time</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-            <option value="<%=varName%>"><%= varName %></option>
+              <% if(varName == 'pressure') { %>
+                <option value="<%=varName%>"><%= varName %></option>
+              <% } %>                
             <% } %>
           <% }); %>
         </select>
@@ -37,7 +65,7 @@
     </div> <!-- .col-sm-6 -->
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="yvar-select">Y-Variable</label>
+        <label for="yvar-select">Field</label>
         <select id='yvar-select' class="form-control selectpicker">
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>

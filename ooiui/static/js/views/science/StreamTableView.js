@@ -21,8 +21,8 @@ var StreamTableView = Backbone.View.extend({
         label : 'Stream Identifier'
       },
       {
-        name : 'reference_designator',
-        label : 'Reference Designator'
+        name : 'display_name',
+        label : 'Description'
       },
       {
         name : 'start',
@@ -35,6 +35,10 @@ var StreamTableView = Backbone.View.extend({
       {
         name : 'json_download',
         label : 'Download JSON'
+      },
+      {
+        name : 'profile_json_download',
+        label : 'Download Profile JSON'
       },
       {
         name : 'netcdf_download',
@@ -78,6 +82,7 @@ var StreamTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
     'click a.json_download' : 'onJSONDownload',
+    'click a.profile_json_download' : 'onProfileJSONDownload',
     'click a.netcdf_download' : 'onNetCDFDownload',
     'click a.csv_download' : 'onCSVDownload',
     'click' : 'onRowClick'
@@ -96,6 +101,10 @@ var StreamTableItemView = Backbone.View.extend({
   onJSONDownload: function(event) {
     event.stopPropagation();
     ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'json'});
+  },
+  onProfileJSONDownload: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'profile_json_download'});
   },
   onNetCDFDownload: function(event) {
     event.stopPropagation();
