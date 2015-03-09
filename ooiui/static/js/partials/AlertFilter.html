@@ -1,0 +1,261 @@
+<form role="form">
+<div class="form-group">
+
+          <label for="Array" class="col-sm-3 control-label">Array</label>
+          <div class="col-sm-3">
+           <select class="form-control" id="array" name="array">
+              <option>CE</option>
+              <option>CP</option>
+              <option>GI</option>
+           </select>
+          <span class="help-block hidden"></span>
+
+          </div>
+          
+          <span class="help-block hidden"></span>
+</div>
+<span class="help-block hidden"></span>
+
+<div class="form-group">
+          <label for="Platform" class="col-sm-3 control-label">Platform</label>
+           <div class="col-sm-3">
+           <select class="form-control" id="Platform" name="Platform">
+              <option>Glider</option>
+              <option>All</option>
+              <option>Surface Buoy</option>
+              <option >Mooring</option>
+              <option>Node</option>
+              <option>Riser</option>
+              <option>Profiler</option>
+              <option>AUV</option>
+            </select>
+          <span class="help-block hidden"></span>
+
+          </div>
+          <span class="help-block hidden"></span>
+
+</div>          
+<span class="help-block hidden"></span>
+
+<div class="form-group">
+          <label for="assetReport" class="col-sm-3 control-label">Instrument</label>
+          <div class="col-sm-3">
+           <select class="form-control" id="Instrument" name="Instrument">
+              <option>Glider</option>
+              <option>Surface Buoy</option>
+              <option>Mooring</option>
+              <option>Node</option>
+              <option>Riser</option>
+              <option>Profiler</option>
+              <option>AUV</option>
+            </select>
+          <span class="help-block hidden"></span>
+
+          </div>
+
+          <span class="help-block hidden"></span>
+</div>
+
+<span class="help-block hidden"></span>
+
+
+<hr width ='80%'>
+
+<div class="row col-sm-12">
+
+
+  <div class="col-sm-3"> Conditions
+    <div class="form-group">
+    <!-- I don't know how to bind to dynamic elements.... not yet, anway. !-->
+           <select class="form-control" id="Latitude" name="Latitude">
+              <option >Latitude</option>
+             
+            </select>
+            <span class="help-block hidden"></span>
+   </div> 
+   <div class="form-group">
+           <select class="form-control" id="Longitude" name="Longitude">
+              <option>Longitude</option>
+             
+            </select>
+                     
+            <span class="help-block hidden"></span>
+   </div>
+   <div class="form-group">
+           <select class="form-control" id="ConditionsFilter" name="ConditionsFilter">
+              <option>Select a Filter</option>
+           </select>
+
+           <span class="help-block hidden"></span>
+   </div>   
+   <div class="form-group">        
+
+        <button id="conditionsReset" class="btn btn-success"> Reset Filter</button>
+
+       <span class="help-block hidden"></span>
+   </div>
+</div>
+<div class="col-sm-3">
+<div class="form-group">Float 
+    <input class="form-control " id="FloatOne" name="FloatOne"></input>
+    <span class="help-block hidden"></span>
+</div>
+<div class="form-group">
+    <input class="form-control" id="FloatTwo", name="FloatTwo"></input>
+    <span class="help-block hidden"></span>
+      
+</div>
+</div>
+<div class="col-sm-3">
+<div class="form-group"> 3
+           <select class="form-control" id="ThreeOne" name="ThreeOne">
+              <option >North</option>
+           </select>
+            <span class="help-block hidden"></span>
+</div>          
+<div class="form-group">
+           <select class="form-control" id="ThreeTwo" name="ThreeTwo">
+             <option >West</option>
+           </select>
+           <span class="help-block hidden"></span>
+</div>          
+          
+</div>
+    
+<div class="col-sm-3"> Users
+  <div class="form-group"> 
+           <select class="form-control" id="User" name="User">
+              <option value="glider">Current Logged in User</option>
+             
+           </select>
+            <span class="help-block hidden"></span>
+  </div>
+  <div class="form-group">
+           <select class="form-control" id="OtherUser" name="OtherUser">
+              <option value="glider">Some Other User</option>
+           </select>
+           <span class="help-block hidden"></span>
+  </div>
+  <div class="form-group">         
+            <select class="form-control" id="UserFilter" name="UserFilter">
+              <option>Select a Filter</option>
+              <option>Surface Buoy</option>
+              <option>Mooring</option>
+              <option>Node</option>
+              <option>Riser</option>
+              <option>Profiler</option>
+              <option>AUV</option>
+            </select>
+         <span class="help-block hidden"></span>
+     </div>
+  <div class="form-group">
+
+  <button class="btn btn-success"> Reset Filter</button>
+  <span class="help-block hidden"></span>
+  </div>
+     
+</div>
+
+
+<hr width ='80%'>
+<div>Additional Information</div>
+<div class="row col-sm-12">
+
+<div class="col-sm-12">
+<div class="form-group">
+          <label for="lastname" class="col-sm-3 control-label">Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="Name" name="Name" />
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+</div>
+
+<div class="col-sm-12">
+<div class="form-group">
+       <label for="lastname" class="col-sm-3 control-label">Priority</label>
+       <div class="col-sm-9">
+            <select class="form-control" id="Priority" name="Priority">
+              <option>Low</option>
+              <option>Normal</option>
+              <option>High</option>
+              <option>Urgent</option>
+              <option>Immediate</option>
+            </select>
+         <span class="help-block hidden"></span>
+     </div>
+  </div>
+  
+</div>
+
+<div class="col-sm-12">
+<div class="form-group">
+          <label for="lastname" class="col-sm-3 control-label">Description</label>
+          <div class="col-sm-9">
+            <textarea type="text" class="form-control" id="Description" name="Description" /></textarea>
+           <span class="help-block hidden"></span>
+</div>
+</div>
+</div>
+</div>
+
+<hr width='80%'>
+<div>Contact Information</div>
+<div class="row col-sm-12">
+
+<div class="form-group">
+ <div class="checkbox">
+    <label class="col-sm-2">
+     Check to receive notifications  
+    </label>
+  </div>
+</div>
+  
+<div class="form-group">
+ <div class="checkbox">
+    <label class="col-sm-2">
+      <input type="checkbox"id="Email" name="Email"> Email    
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
+   <div class="checkbox">
+    <label class="col-sm-2">
+      <input type="checkbox"id="Redmine" name="Redmine"> Redmine
+    </label>
+  </div>
+</div>
+<div class="form-group">
+   <div class="checkbox">
+    <label class="col-sm-2">
+      <input type="checkbox"id="PhoneCall" name="PhoneCall"> Phone Call
+    </label>
+  </div>
+</div>
+<div class="form-group">
+   <div class="checkbox">
+    <label class="col-sm-2">
+      <input type="checkbox" id="TextMessage" name"TextMessage"> Text Message
+    </label>
+  </div>
+</div>
+<div class="form-group">
+   <div class="checkbox">
+    <label class="col-sm-2">
+      <input type="checkbox" id="LogEvent" name"LogEvent"> LogEvent
+    </label>
+  </div>
+</div>
+</div>
+     
+
+
+ 
+<div class="form-group">
+  <div align="center"> 
+          <button type="button" id="saveAlert" class="btn btn-success">Save Alert</button>
+          <button type="button" id="resetButton" class="btn btn-success">Cancel</button>
+</div>
+ </div>   
+</form>

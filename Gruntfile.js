@@ -182,16 +182,16 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html"
           ],
-           "ooiui/static/js/partials/compiled/statusPage.js" : [
+           "ooiui/static/js/partials/compiled/alertPage.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
-            'ooiui/static/js/partials/StatusItem.html',
+            'ooiui/static/js/partials/AlertItem.html',
 
-            'ooiui/static/js/partials/StatusItems.html',
-            'ooiui/static/js/partials/StatusFilter.html',
+            'ooiui/static/js/partials/AlertItems.html',
+            'ooiui/static/js/partials/AlertFilter.html',
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
             "ooiui/static/js/partials/DropdownUserLoggedOut.html",
@@ -498,7 +498,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/AddAnnotationView.js',
           ],
-          'ooiui/static/js/compiled/statusPage.js' : [
+          'ooiui/static/js/compiled/alertPage.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
@@ -509,6 +509,9 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/backlunr/backlunr.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -526,6 +529,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/StatusView.js",
+            "ooiui/static/js/views/common/AlertView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
@@ -749,7 +753,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/annotationModal.css",
             "ooiui/static/css/common/loginDemo.css"
           ],
-          "ooiui/static/css/compiled/statusPage.css" : [
+          "ooiui/static/css/compiled/alertPage.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",

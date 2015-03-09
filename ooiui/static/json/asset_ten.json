@@ -1,0 +1,69 @@
+{
+  "assets": [
+    {
+      "@class": ".AssetRecord", 
+      "assetId": 10, 
+      "assetInfo": {
+        "description": null, 
+        "name": null, 
+        "owner": null, 
+        "type": "Mooring"
+      }, 
+      "attachments": [], 
+      "manufactureInfo": {
+        "manufacturer": null, 
+        "modelNumber": null, 
+        "serialNumber": "CP02PMUO-00001"
+      }, 
+      "metaData": [
+        {
+          "key": "Cruise Number", 
+          "metaId": 3113, 
+          "type": "java.lang.String", 
+          "value": "KN-214"
+        }, 
+        {
+          "key": "Longitude", 
+          "metaId": 3115, 
+          "type": "java.lang.String", 
+          "value": "70\u00b0 46.7825' W"
+        }, 
+        {
+          "key": "Anchor Launch Time", 
+          "metaId": 3117, 
+          "type": "java.lang.String", 
+          "value": "15:50"
+        }, 
+        {
+          "key": "Laditude", 
+          "metaId": 3116, 
+          "type": "java.lang.String", 
+          "value": "39\u00b0 56.4943' N"
+        }, 
+        {
+          "key": "Ref Des", 
+          "metaId": 3119, 
+          "type": "java.lang.String", 
+          "value": "CP02PMUO"
+        }, 
+        {
+          "key": "Water Depth", 
+          "metaId": 3118, 
+          "type": "java.lang.String", 
+          "value": "445 m"
+        }, 
+        {
+          "key": "Anchor Launch Date", 
+          "metaId": 3114, 
+          "type": "java.lang.String", 
+          "value": "23-Nov-13"
+        }
+      ], 
+      "notes": [
+        "Recovered after deployment due to failed WFP"
+      ], 
+      "physicalInfo": null, 
+      "purchaseAndDeliveryInfo": null
+    }
+  ]
+}

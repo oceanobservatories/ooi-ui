@@ -104,16 +104,6 @@ var ArrayItemView = Backbone.View.extend({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
-       
-            // status page collection
-            if(ooi.collections.statusCollection !== undefined){
-              ooi.collections.statusCollection.add(response.platform_deployments)
-            }
-        
-                
-
-      
-
             self.renderPlatforms(); 
             self.tg.prop( "disabled", false );
             self.tg.find(".s").remove();

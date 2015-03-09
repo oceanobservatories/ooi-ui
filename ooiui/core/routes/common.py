@@ -68,9 +68,9 @@ def chart_demo():
 def plots_demo():
     return render_template('common/plotsDemo.html')
 
-@app.route('/statusPage.html')
+@app.route('/alertPage.html')
 def status():
-    return render_template('common/statusPage.html')
+    return render_template('common/alertPage.html')
 
 
 @app.route('/api/organization', methods=['GET'])
