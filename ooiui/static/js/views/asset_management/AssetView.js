@@ -31,7 +31,7 @@ var AssetView = Backbone.View.extend({
           mode: "client",
           parse: function(response, options) {
             this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-            return response.assets[0];
+            return response.assets;
           } // page entirely on the client side  options: infinite, server
         });
 
@@ -117,6 +117,8 @@ var AssetView = Backbone.View.extend({
           onClick: function () {
             Backbone.trigger("deployrowclicked", this.model);
             this.el.style.backgroundColor = this.highlightColor;
+            var $table = $('#table-transform');
+            $table.bootstrapTable();
           },
           rowFocused: function() {
             this.el.style.backgroundColor = this.highlightColor;
@@ -162,11 +164,21 @@ var AssetView = Backbone.View.extend({
                if(query!=""){
                  q = String(query).toUpperCase();
                }
-               if(self.query_filter){
-                
-               }
                return function (model) {
-                  if(q == ''){
+                  if(self.query_filter){
+                    var queryhit = true;
+                    //iterate through the filtering to see if it matches any of the attributes
+                    for(var obj in self.query_filter){
+                      for (var j = 0; j < self.query_filter[obj].length; j++ ) {
+                        if(self.query_filter[obj][j] == model.attributes['assetInfo'][String(obj).toLowerCase()]){queryhit= true;}
+                        //else if(){}
+                        //this is so that it refreshes if there is no drop down queries
+                        else{queryhit = false;}
+                      }
+                    }
+                    return queryhit;
+                  }
+                  else if(q == ''){
                     return true;
                   }
                   else if(model.attributes['assetInfo']['description']){
@@ -223,13 +235,13 @@ var AssetView = Backbone.View.extend({
                 alert(' Service request failure: ' + e);
             }),
             complete: (function (e) {
-                $('#number_of_assets').html(e.responseJSON['assets'][0].length+' total records');
+                $('#number_of_assets').html(e.responseJSON['assets'].length+' total records');
                 $('#asset_top_panel').html('Click on an Asset to Edit');
                 $('#editdep_panel').html('Click on an Asset above to Edit');
 
                 //need to add assets to the filtrify component
-                for ( t = 0; t < e.responseJSON['assets'][0].length; t++ ) {
-                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][0][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][0][t]['@class']+"' data-Owner='"+e.responseJSON['assets'][0][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][0][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][0][t]['@class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][0][t].assetInfo['owner']+"</span></li>");
+                for ( t = 0; t < e.responseJSON['assets'].length; t++ ) {
+                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['@class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['@class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
                 }
 
                 //query drop downs filters based on data
@@ -285,6 +297,8 @@ var AssetView = Backbone.View.extend({
                     L.marker([model.attributes.geo_location.coordinates[1], model.attributes.geo_location.coordinates[0]]).addTo(map)
                         .bindPopup(String(model.attributes))
                         .openPopup();
+                    map.panTo({lat: model.attributes.geo_location.coordinates[1], lng: model.attributes.geo_location.coordinates[0]});
+                    //map.setView({lat: 50, lng: 30},8);
                 }
             }
         });
@@ -401,10 +415,34 @@ var AssetView = Backbone.View.extend({
             }
         });
         
-        //change lat/long inputs
+        //change lat/long input types
         $("#coordinate_switcher li a").click(function(){
           $(".btn:first-child").html($(this).text()+'  <span class="caret"> </span>');
           $(".btn:first-child").val($(this).text());
+          if($(this).text() == 'DD DD'){
+            $('#dd_input').show();
+            $('#ddmm_input').hide();
+            $('#ddmmss_input').hide();
+            $('#dd_inputG').show();
+            $('#ddmm_inputG').hide();
+            $('#ddmmss_inputG').hide();
+          }
+          else if($(this).text()== 'DD MM.MM'){
+            $('#dd_input').hide();
+            $('#ddmm_input').show();
+            $('#ddmmss_input').hide();
+            $('#dd_inputG').hide();
+            $('#ddmm_inputG').show();
+            $('#ddmmss_inputG').hide();
+          }
+          else if($(this).text()== 'DD MM.SS'){
+            $('#dd_input').hide();
+            $('#ddmm_input').hide();
+            $('#ddmmss_input').show();
+            $('#dd_inputG').hide();
+            $('#ddmm_inputG').hide();
+            $('#ddmmss_inputG').show();
+          }
        });
     },
 

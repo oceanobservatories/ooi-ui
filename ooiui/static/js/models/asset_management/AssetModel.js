@@ -21,6 +21,6 @@ var AssetCollection = Backbone.Collection.extend({
   url: '/api/asset_deployment',
   model: AssetModel,
   parse: function(response, options) {
-    return response.assets[0];
+    return response.assets;
   }
 });

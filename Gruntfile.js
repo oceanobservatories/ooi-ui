@@ -480,6 +480,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/wellknown/wellknown.js",
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/leaflet/dist/leaflet.js',
+            'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
             /*tried this it errored on the page for -sontag
             "ooiui/static/lib/backgrid/lib/backgrid.js",
             "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
@@ -642,6 +643,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
             "ooiui/static/css/common/scienceLayout.css",
+            'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.css',
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",

@@ -60,7 +60,7 @@
                 <div class="btn-group" id='deploy_edit' role="group" style="top: -7px;" aria-label="...">
                   <div class="btn btn-default" type="button" aria-label="..."><i class="fa fa-plus-square"></i> New</div>
                   <div class="btn btn-default" type="button" aria-label="..."><i class="fa fa-floppy-o"></i> Save</div>
-                  <div class="btn btn-default" type="button" aria-label="..."><i class="fa fa-trash-o"></i> Delete</div>
+                  <div class="btn btn-default" disabled type="button" aria-label="..."><i class="fa fa-trash-o"></i> Delete</div>
                 </div>
               </div>
             </div> <!-- panel-heading -->
@@ -71,9 +71,9 @@
               <div role="tabpanel">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Information</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Metadata</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Events</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Metadata</a></li>
+                    <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Information</a></li> -->
+                    <li role="presentation"><a href="#event_messages" aria-controls="event_messages" role="tab" data-toggle="tab">Events</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
                   </ul>
                   <!-- Tab panes -->
@@ -114,81 +114,110 @@
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="geo_d_lat">Latitude: </label>
-                              <input id="geo_d_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                              <span class="add-on"> °</span>
-                              <label style='padding-left:12px' for="geo_d_long">Longitude: </label>
-                              <input id="geo_d_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                              <span class="add-on"> °</span>
-                              <div class="btn-group dropup" id='coordinate_switcher' style='padding-left:8px;'>
-                                <button class="btn btn-default" data-toggle="dropdown">
-                                  Decimal Degrees
-                                  <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                  <li><a href="#">DD DD</a></li>
-                                  <li><a href="#">DD MM.MM</a></li>
-                                  <li><a href="#">DD MM.SS</a></li>
-                                </ul>
+                              <div id='dd_input'>
+                                <input id="geo_d_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:187px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                              </div>
+                              <div id='ddmm_input' style='display:none;'> 
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:37px' class="input-xlarge" placeholder="" type="text">
+                              </div>
+                              <div id='ddmmss_input' style='display:none;'>
+                                <input id="dms_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:37px' class="input-xlarge" placeholder="" type="text">
                               </div>
                             </div>
-                            <div class="form-group"  style="display:none;">
-                              <label class="col-sm-3 control-label" for="desc_d">Description</label>
-                              <div class="controls">                     
-                                <textarea id="desc_d" name="desc_d">Optional</textarea>
+                            <div class="form-group">
+                              <label class='col-sm-3 control-label' for="geo_d_long">Longitude: </label>
+                              <div id='dd_inputG'>
+                                <input id="geo_d_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:187px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
                               </div>
+                              <div id='ddmm_inputG' style='display:none;'>
+                                <input id="dm_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:37px' class="input-xlarge" placeholder="" type="text">
+                              </div>
+                              <div id='ddmmss_inputG' style='display:none;'>
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dms_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:37px' class="input-xlarge" placeholder="" type="text">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" for="geo_d_lat">Coordinate Type: </label>
+                            <div class="btn-group dropup" id='coordinate_switcher' style=''>
+                              <button class="btn btn-default" data-toggle="dropdown">
+                                Decimal Degrees
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">DD DD</a></li>
+                                <li><a href="#">DD MM.MM</a></li>
+                                <li><a href="#">DD MM.SS</a></li>
+                              </ul>
                             </div>
-                            <!-- <div class="form-group">
-                              <label for="desc_d" class="col-sm-3 control-label">Description</label>
-                              <div class="col-sm-6">
-                                <textarea class="form-control" id="desc_d" name="desc_d" />
-                                <span class="help-block hidden"></span>
-                              </div>
-                            </div> -->
-                            <div class="form-group" style="display:none;">
-                              <label class="control-label" for="radios">Options</label>
-                              <div class="controls">
-                                <label class="radio inline" for="radios-0">
-                                  <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
-                                  1
-                                </label>
-                                <label class="radio inline" for="radios-1">
-                                  <input type="radio" name="radios" id="radios-1" value="2">
-                                  2
-                                </label>
-                                <label class="radio inline" for="radios-2">
-                                  <input type="radio" name="radios" id="radios-2" value="3">
-                                  3
-                                </label>
-                                <label class="radio inline" for="radios-3">
-                                  <input type="radio" name="radios" id="radios-3" value="4">
-                                  4
-                                </label>
-                              </div>
+                          </div>
+                          <div class="form-group"  style="display:none;">
+                            <label class="col-sm-3 control-label" for="desc_d">Description</label>
+                            <div class="controls">                     
+                              <textarea id="desc_d" name="desc_d">Optional</textarea>
                             </div>
-                            <div class="form-group" style="display:none;">
-                              <label class="control-label" for="buttondropdown_d">Choose Option</label>
-                              <div class="controls">
-                                <div class="input-append">
-                                  <input id="buttondropdown_d" name="buttondropdown_d" class="input-xlarge" placeholder="" type="text">
-                                  <div class="btn-group">
-                                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                      Action
-                                      <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                      <li><a href="#">DD DD</a></li>
-                                      <li><a href="#">DD MM.MM</a></li>
-                                      <li><a href="#">DD MM.SS</a></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
+                          </div>
+                          <!-- <div class="form-group">
+                            <label for="desc_d" class="col-sm-3 control-label">Description</label>
+                            <div class="col-sm-6">
+                              <textarea class="form-control" id="desc_d" name="desc_d" />
+                              <span class="help-block hidden"></span>
+                            </div>
+                          </div> -->
+                          <div class="form-group" style="display:none;">
+                            <label class="control-label" for="radios">Options</label>
+                            <div class="controls">
+                              <label class="radio inline" for="radios-0">
+                                <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+                                1
+                              </label>
+                              <label class="radio inline" for="radios-1">
+                                <input type="radio" name="radios" id="radios-1" value="2">
+                                2
+                              </label>
+                              <label class="radio inline" for="radios-2">
+                                <input type="radio" name="radios" id="radios-2" value="3">
+                                3
+                              </label>
+                              <label class="radio inline" for="radios-3">
+                                <input type="radio" name="radios" id="radios-3" value="4">
+                                4
+                              </label>
+                            </div>
                           </div>
                         </fieldset>
                       </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="profile"></div>
-                    <div role="tabpanel" class="tab-pane" id="messages"></div>
+                    <!-- <div role="tabpanel" class="tab-pane" id="profile"></div> -->
+                    <div role="tabpanel" class="tab-pane" id="event_messages">
+                      <table data-toggle="table"  data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Asset ID</th>
+                                <th data-field="name">Event Name</th>
+                                <th data-field="price">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-index="0"><td style="">0</td><td style="">Event 0</td><td style="">Good</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="settings"></div>
                   </div>
                 </div>
@@ -201,7 +230,7 @@
               <strong>
                 <span class="fa fa-globe"> </span> Location<span data-i18n="Data"></span>
               </strong>
-              <div class="btn btn-default" id="asset_draw_btn" style='float: right;font-size: 11px;margin-top: -4px;' type="button" aria-label="..."><i class="fa fa-pencil"></i> Draw</div>
+              <div disabled class="btn btn-default" id="asset_draw_btn" style='float: right;font-size: 11px;margin-top: -4px;' type="button" aria-label="..."><i class="fa fa-pencil"></i> Draw</div>
             </div>
             <div class="panel-body" style='min-height:53px;'>
                <div  id="editdep_map" style="display:none;height:300px">
