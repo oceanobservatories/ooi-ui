@@ -42,6 +42,13 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$end_date_picker.setDate(endDate);
 
     this.$el.find('.message h3').text(model.get('display_name'));
+
+    // Download Link
+    var base_url = window.location.origin;
+    var raw_dl_url = base_url + this.model.getURL(selection);
+    var dl_url = '<a href=\"' + raw_dl_url + '\">Download Link\</a>';
+    this.$el.find('.download-link h4').html(dl_url);
+
     this.$el.find('#type-select').val(selection);
 
     this.$el.find('.stream-name').text(model.get('stream_name'));
