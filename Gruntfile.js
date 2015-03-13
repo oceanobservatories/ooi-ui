@@ -170,7 +170,29 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Event.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
+<<<<<<< HEAD
           "ooiui/static/js/partials/compiled/landingPages.js": [
+=======
+          "ooiui/static/js/partials/compiled/StatusUIIcon.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Panel.html",
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/Chart.html",
+            "ooiui/static/js/partials/FakeTable.html",
+            "ooiui/static/js/partials/OrgSidebar.html",
+            "ooiui/static/js/partials/StatusUIIcon.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
+          ],
+          "ooiui/static/js/partials/compiled/pioneerArray.js": [
+>>>>>>> e0d7bb4... status-icon_basic setup
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
@@ -594,6 +616,35 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/NewEventView.js',
             'ooiui/static/js/views/common/EventView.js'
           ],
+          'ooiui/static/js/compiled/statusUIIcon.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/loremjs/lorem.js',
+            'ooiui/static/lib/moment/moment.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/FakeTableModel.js',
+            'ooiui/static/js/models/common/OrganizationModel.js',
+            'ooiui/static/js/models/common/OperatorEventTypeModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/FakeTableView.js',
+            'ooiui/static/js/views/common/ChartView.js',
+            'ooiui/static/js/views/common/ChartViews.js',
+            'ooiui/static/js/views/common/OrgSidebarView.js'
+          ],
           'ooiui/static/js/compiled/streams.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -801,6 +852,14 @@ module.exports = function(grunt) {
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/watch.css"
+          ],
+          "ooiui/static/css/compiled/statusUIIcon.css" : [
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/statusUIIcon.css",
+            "ooiui/static/css/common/orgsidebarview.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
           ],
           "ooiui/static/css/compiled/streams.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",

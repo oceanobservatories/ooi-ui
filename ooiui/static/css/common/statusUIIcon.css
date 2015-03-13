@@ -1,0 +1,36 @@
+
+.blue-backgroud-gradiant {
+		background-color: #fff;
+		background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+		box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+		border: 1px solid rgba(81, 203, 238, 1);
+}
+/*
+.platform-tile:hover {
+	border-color: #41c9ff;
+}
+ */
+.red-backgroud-gradiant {
+		background-color: #fff;
+		background-image: radial-gradient(100% 100%, #fff, rgb(253, 196, 196));
+}
+
+.yellow-backgroud-gradiant {
+		background-color: #fff;
+		background-image: radial-gradient(100% 100%, #fff, rgb(253, 253, 221));
+}
+
+.status-ok {
+  background-color: #006eff;
+  color: white;
+}
+
+.status-issue {
+  background-color: #FFE944;
+  color: white;
+}
+
+.status-error {
+  background-color: #E03D2C;
+  color: white;
+}

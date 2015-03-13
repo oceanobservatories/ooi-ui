@@ -1,0 +1,222 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Operations Log</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/timeline.css" type="text/css" />
+<link rel="stylesheet" href="/css/compiled/statusUIIcon.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/StatusUIIcon.js" type="text/javascript"></script>
+<script src="/js/compiled/StatusUIIcon.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{%block body %}
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+
+
+        <div id="event-view" class="col-lg-12">
+          <!-- Page Content -->
+          <div id="page-content-wrapper">
+              <div class="container-fluid">
+                  <div id="status-filter-row" class="row">
+                    <div class="col-lg-3 col-xsm-6">
+                        <div class="status-box active-filter">
+                            <p class="text-muted">
+                              <button type="button" class="filter-btn  btn btn-primary" filter="">All Platforms</button>
+                              <span data-i18n="Growth">All Platforms
+                              <i class="badge status-badge badge-info">9</i></a>
+                              </span>
+
+                            </p>
+
+                         </div>
+                      </div>
+                      <div class="col-lg-3 col-xsm-6">
+                        <div class="status-box">
+                            <p class="text-muted">
+                              <button type="button" class="filter-btn btn btn-success" filter="ok">OK Platforms</button>
+                              <span data-i18n="Growth">OK Platforms
+                              <span class="badge status-badge badge-success">5</span></a>
+                              </span>
+                            </p>
+                         </div>
+                      </div>
+                      <div class="col-lg-3 col-xsm-6">
+                        <div class="status-box">
+                            <p class="text-muted">
+                              <button type="button" class="filter-btn  btn btn-warning" filter="issue">Issue Platforms</button>
+                              <span data-i18n="Growth">Issues Platforms
+                              <span class="badge status-badge badge-warning">2</span></a>
+                              </span>
+                            </p>
+                         </div>
+                      </div>
+                      <div class="col-lg-3 col-xsm-6">
+                        <div class="status-box">
+                          <p class="text-muted">
+                            <button type="button" class="filter-btn  btn btn-danger" filter="error">Error Platforms</button>
+                            <span data-i18n="Growth">Error Platforms
+                              <span class="badge status-badge badge-error">2</span></a>
+                              </span>
+                            </p>
+
+                         </div>
+
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="panel">
+                          <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
+
+                          <div class="panel-body">
+                            <div class="platform-tile well blue-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                                <h4 class="platform-tile-title">Pioneer</h3>
+                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+                                <span class="status-icon status-ok"></span>
+                                <p class="platform-tile-contents">Voltage 3.5v<br>
+                                Deployed 2014/4/5 10:14:01</p>
+                              </div>
+
+                              <div class="platform-tile well red-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                                <h4 class="platform-tile-title">Pioneer</h3>
+                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
+                                <span class="status-icon status-error"></span>
+                                <p class="platform-tile-contents">Voltage 3.5v<br>
+                                Deployed 2014/4/5 10:14:01</p>
+                              </div>
+
+                              <div class="platform-tile well yellow-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                                <h4 class="platform-tile-title">Pioneer</h3>
+                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+                                <span class="status-icon status-issue"></span>
+                                <p class="platform-tile-contents">Voltage 3.5v<br>
+                                Deployed 2014/4/5 10:14:01</p>
+                              </div>
+
+
+                          </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- /#page-content-wrapper -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+/*
+ * OOI is the main class that we extend from to create behavior and render pages.
+ *
+ * Here we create the application by extending OOI with Backbone.Events, this
+ * gives us the ability to listen to events from models and/or views. When we
+ * hear these events the main application can then trigger another view to
+ * render, or in this case cause a collection to be fetched as a result.
+ */
+
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  // Models and collections
+  collections: {
+    // Instantiate a new Organizations collection
+    organizations: new Organizations(),
+    // watches is the Watch collection, by default is un-fetched
+    //events: new Events(),
+    operatorEventTypes: new OperatorEventTypeCollection()
+  },
+  models: {
+    orgModel: new OrganizationModel(),
+    userModel: new UserModel()
+  },
+  views: {
+  },
+  start: function() {
+    this.login.fetch({async:false});
+    this.collections.operatorEventTypes.fetch();
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
+    this.views.orgSidebarView = new OrgSidebarView({
+      collection: this.collections.organizations,
+      userModel: this.models.userModel
+    });
+    $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+/*
+   this.views.eventView = new EventView({
+      collection: this.collections.events
+    });
+    $('#event-view').html(this.views.eventView.el);
+*/
+
+    this.eventListeners();
+  },
+  eventListeners:function() {
+    this.listenTo(this, "org:click", this.orgSelection);
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+
+    this.listenTo(this.models.userModel, 'change', function(model){
+      this.views.orgSidebarView.selectOrg(model.get('organization_id'));
+    });
+  },
+
+  onLogin: function() {
+    location.reload();
+  },
+  onLogout: function() {
+    location.reload();
+  },
+  /*
+   * orgSelection is called by the event listener for org:click. The trigger
+   * from the OrgSidebarView passes the organization_id in as a parameter. With
+   * this we can cause the WatchView to re-render with the new watches we'll
+   * fetch, using the organization_id as a query parameter.
+   */
+  orgSelection: function(organization_id) {
+    this.models.orgModel.set({id: organization_id});
+    this.models.orgModel.fetch();
+    // We have selected a new organization, so now we need to update the watch
+    // GET /api/watch?organization_id=<organization_id>
+
+    this.collections.events.reset();
+    // Note: the watchview has an event listener that listens for sync events
+    // from this collection, so when the feth completes, the event will trigger
+    // and the watch view will re-render with the new watches.
+  }
+});
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+
+
+</script>
+
+{% endblock %}
