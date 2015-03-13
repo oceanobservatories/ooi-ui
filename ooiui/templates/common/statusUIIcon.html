@@ -31,53 +31,8 @@
         <div id="event-view" class="col-lg-12">
           <!-- Page Content -->
           <div id="page-content-wrapper">
-              <div class="container-fluid">
-                  <div id="status-filter-row" class="row">
-                    <div class="col-lg-3 col-xsm-6">
-                        <div class="status-box active-filter">
-                            <p class="text-muted">
-                              <button type="button" class="filter-btn  btn btn-primary" filter="">All Platforms</button>
-                              <span data-i18n="Growth">All Platforms
-                              <i class="badge status-badge badge-info">9</i></a>
-                              </span>
+              <div class="container-fluid" id="header">
 
-                            </p>
-
-                         </div>
-                      </div>
-                      <div class="col-lg-3 col-xsm-6">
-                        <div class="status-box">
-                            <p class="text-muted">
-                              <button type="button" class="filter-btn btn btn-success" filter="ok">OK Platforms</button>
-                              <span data-i18n="Growth">OK Platforms
-                              <span class="badge status-badge badge-success">5</span></a>
-                              </span>
-                            </p>
-                         </div>
-                      </div>
-                      <div class="col-lg-3 col-xsm-6">
-                        <div class="status-box">
-                            <p class="text-muted">
-                              <button type="button" class="filter-btn  btn btn-warning" filter="issue">Issue Platforms</button>
-                              <span data-i18n="Growth">Issues Platforms
-                              <span class="badge status-badge badge-warning">2</span></a>
-                              </span>
-                            </p>
-                         </div>
-                      </div>
-                      <div class="col-lg-3 col-xsm-6">
-                        <div class="status-box">
-                          <p class="text-muted">
-                            <button type="button" class="filter-btn  btn btn-danger" filter="error">Error Platforms</button>
-                            <span data-i18n="Growth">Error Platforms
-                              <span class="badge status-badge badge-error">2</span></a>
-                              </span>
-                            </p>
-
-                         </div>
-
-                      </div>
-                  </div>
 
                   <div class="row">
                       <div class="col-lg-12">
@@ -131,15 +86,6 @@
 </div>
 
 <script type="text/javascript">
-/*
- * OOI is the main class that we extend from to create behavior and render pages.
- *
- * Here we create the application by extending OOI with Backbone.Events, this
- * gives us the ability to listen to events from models and/or views. When we
- * hear these events the main application can then trigger another view to
- * render, or in this case cause a collection to be fetched as a result.
- */
-
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   // Models and collections
@@ -171,6 +117,11 @@ _.extend(OOI.prototype, Backbone.Events,  {
       userModel: this.models.userModel
     });
     $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+
+    this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
+
+    });
+    $('#header').html(this.views.statusUIIconHeaderView.el);
 
     this.views.statusUIIconView = new StatusUIIconView({
 
