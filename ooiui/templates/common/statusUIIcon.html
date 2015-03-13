@@ -84,30 +84,36 @@
                         <div class="panel">
                           <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
 
-                          <div class="panel-body">
-                            <div class="platform-tile well blue-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
-                                <h4 class="platform-tile-title">Pioneer</h3>
-                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
-                                <span class="status-icon status-ok"></span>
-                                <p class="platform-tile-contents">Voltage 3.5v<br>
-                                Deployed 2014/4/5 10:14:01</p>
+                          <div class="panel-body" id="alerts">
+                          <!--   <div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
+                              <h4 class="platform-tile-title">Pioneer</h3>
+                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+                              <span class="status-icon status-ok"></span>
+                              <p class="platform-tile-contents">Voltage 3.5v<br>
+                              Deployed 2014/4/5 10:14:01</p>
+                            </div>
+                            <div class="collapse well" id="collapse1">
+                              <div class="well">
+                              1 goes here
                               </div>
+                            </div>
 
-                              <div class="platform-tile well red-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
-                                <h4 class="platform-tile-title">Pioneer</h3>
-                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
-                                <span class="status-icon status-error"></span>
-                                <p class="platform-tile-contents">Voltage 3.5v<br>
-                                Deployed 2014/4/5 10:14:01</p>
-                              </div>
+                            <div class="platform-tile well red-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                              <h4 class="platform-tile-title">Pioneer</h3>
+                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
+                              <span class="status-icon status-error"></span>
+                              <p class="platform-tile-contents">Voltage 3.5v<br>
+                              Deployed 2014/4/5 10:14:01</p>
+                            </div>
 
-                              <div class="platform-tile well yellow-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
-                                <h4 class="platform-tile-title">Pioneer</h3>
-                                <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
-                                <span class="status-icon status-issue"></span>
-                                <p class="platform-tile-contents">Voltage 3.5v<br>
-                                Deployed 2014/4/5 10:14:01</p>
-                              </div>
+                            <div class="platform-tile well yellow-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                              <h4 class="platform-tile-title">Pioneer</h3>
+                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+                              <span class="status-icon status-issue"></span>
+                              <p class="platform-tile-contents">Voltage 3.5v<br>
+                              Deployed 2014/4/5 10:14:01</p>
+                            </div> -->
+
 
 
                           </div>
@@ -165,6 +171,11 @@ _.extend(OOI.prototype, Backbone.Events,  {
       userModel: this.models.userModel
     });
     $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
+
+    this.views.statusUIIconView = new StatusUIIconView({
+
+    });
+    $('#alerts').html(this.views.statusUIIconView.el);
 /*
    this.views.eventView = new EventView({
       collection: this.collections.events
