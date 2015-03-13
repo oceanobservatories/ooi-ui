@@ -105,10 +105,6 @@ var ArrayItemView = Backbone.View.extend({
   onClick: function(e) {
     var self = this;
     var target = $(e.target);
-
-
-    //var statusCollection = new StatusCollection()
-
     e.preventDefault();
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {      

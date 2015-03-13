@@ -134,18 +134,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   start: function() {
     var self = this;
 
-    // Need to use  var complete for collections used in signup page
-    //this.initEvents();
-    //this.login.fetch({async:false});
-    //var complete = _.invoke([this.collections.roles, this.collections.orgs], 'fetch');
-    //$.when.apply($, complete).then(function() {
-     // console.log("DONE");
-     // self.initViews();
-     // self.trigger('ooi:sync');
-    //}, function() {
-     // self.initViews();
-    //});
- // }
 
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
 
@@ -154,10 +142,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
-    console.log(this.views.navbar);
 
-       // It allows me access(via ooi{}) models, collections or views inside one another  
-    // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
    }
 });
 var ooi = new OOI();
@@ -165,7 +150,6 @@ var ooi = new OOI();
 $(document).ready(function() {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     ooi.start();
-    console.log(ooi)
 });
 </script>
 {% endblock %}
