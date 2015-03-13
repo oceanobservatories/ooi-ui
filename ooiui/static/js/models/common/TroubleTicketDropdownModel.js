@@ -26,15 +26,15 @@ var TroubleTicketDropdownCollection = Backbone.Collection.extend({
   url: "/api/ticket/users",
   parse: function(response) {
     if (response && response){
-        console.log(response.users[0])
-      return _.map(response.users, function(u){return {user_name: u[0], user_id: u[1]};});
+        
+    return _.map(response.users, function(u){
+      var name = u[0];
+      var dictionary ={};
+      dictionary[name]= u[1];
+      dictionary['user_name']= name;
+      return dictionary;});
     }
-    return []
+    return [];
   }
 });
 
-//var troubleticketdropdowncollection = new TroubleTicketDropdownCollection({
-//    data: $.param({
-//        project: "ooi-ui-api-testing"
-//    })
-//});

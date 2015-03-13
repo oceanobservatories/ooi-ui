@@ -105,7 +105,6 @@ var ArrayItemView = Backbone.View.extend({
   onClick: function(e) {
     var self = this;
     var target = $(e.target);
-
     e.preventDefault();
     e.stopPropagation();
     if(this.model.platformDeployments.length == 0) {      
@@ -129,7 +128,8 @@ var ArrayItemView = Backbone.View.extend({
       
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
-  },
+    
+      },
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
