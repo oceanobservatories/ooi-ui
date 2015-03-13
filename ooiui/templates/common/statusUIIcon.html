@@ -31,58 +31,104 @@
         <div id="event-view" class="col-lg-12">
           <!-- Page Content -->
           <div id="page-content-wrapper">
-              <div class="container-fluid" id="header">
+            <div class="container-fluid" >
+              <div id="status-filter-row" class="row">
 
 
-                  <div class="row">
-                      <div class="col-lg-12">
-                        <div class="panel">
-                          <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
-
-                          <div class="panel-body" id="alerts">
-                          <!--   <div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
-                              <h4 class="platform-tile-title">Pioneer</h3>
-                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
-                              <span class="status-icon status-ok"></span>
-                              <p class="platform-tile-contents">Voltage 3.5v<br>
-                              Deployed 2014/4/5 10:14:01</p>
-                            </div>
-                            <div class="collapse well" id="collapse1">
-                              <div class="well">
-                              1 goes here
-                              </div>
-                            </div>
-
-                            <div class="platform-tile well red-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
-                              <h4 class="platform-tile-title">Pioneer</h3>
-                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
-                              <span class="status-icon status-error"></span>
-                              <p class="platform-tile-contents">Voltage 3.5v<br>
-                              Deployed 2014/4/5 10:14:01</p>
-                            </div>
-
-                            <div class="platform-tile well yellow-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
-                              <h4 class="platform-tile-title">Pioneer</h3>
-                              <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
-                              <span class="status-icon status-issue"></span>
-                              <p class="platform-tile-contents">Voltage 3.5v<br>
-                              Deployed 2014/4/5 10:14:01</p>
-                            </div> -->
-
-
-
-                          </div>
-                            </div>
-                          </div>
-                      </div>
+                <div class="col-lg-3 col-xsm-6">
+                  <div class="status-box active-filter">
+                    <p class="text-muted">
+                      <button type="button" class="filter-btn  btn btn-primary" filter="">All Platforms</button>
+                      <span data-i18n="Growth">All Platforms
+                        <i class="badge status-badge badge-info">9</i></a>
+                      </span>
+                    </p>
                   </div>
+                </div>
+                <div class="col-lg-3 col-xsm-6">
+                  <div class="status-box">
+                    <p class="text-muted">
+                      <button type="button" class="filter-btn btn btn-success" filter="ok">OK Platforms</button>
+                      <span data-i18n="Growth">OK Platforms
+                        <span class="badge status-badge badge-success">5</span></a>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-xsm-6">
+                  <div class="status-box">
+                    <p class="text-muted">
+                      <button type="button" class="filter-btn  btn btn-warning" filter="issue">Issue Platforms</button>
+                      <span data-i18n="Growth">Issues Platforms
+                        <span class="badge status-badge badge-warning">2</span></a>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-xsm-6">
+                  <div class="status-box">
+                    <p class="text-muted">
+                      <button type="button" class="filter-btn  btn btn-danger" filter="error">Error Platforms</button>
+                      <span data-i18n="Growth">Error Platforms
+                        <span class="badge status-badge badge-error">2</span></a>
+                      </span>
+                    </p>
+
+                  </div>
+
+                </div>
+
               </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="panel">
+                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
+
+                    <div class="panel-body" id="alerts">
+                      <!--   <div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
+                      <h4 class="platform-tile-title">Pioneer</h3>
+                      <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+                      <span class="status-icon status-ok"></span>
+                      <p class="platform-tile-contents">Voltage 3.5v<br>
+                      Deployed 2014/4/5 10:14:01</p>
+                    </div>
+                    <div class="collapse well" id="collapse1">
+                    <div class="well">
+                    1 goes here
+                  </div>
+                </div>
+
+                <div class="platform-tile well red-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+                <h4 class="platform-tile-title">Pioneer</h3>
+                <p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
+                <span class="status-icon status-error"></span>
+                <p class="platform-tile-contents">Voltage 3.5v<br>
+                Deployed 2014/4/5 10:14:01</p>
+              </div>
+
+              <div class="platform-tile well yellow-backgroud-gradiant" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+              <h4 class="platform-tile-title">Pioneer</h3>
+              <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+              <span class="status-icon status-issue"></span>
+              <p class="platform-tile-contents">Voltage 3.5v<br>
+              Deployed 2014/4/5 10:14:01</p>
+            </div> -->
+
+
+
           </div>
-          <!-- /#page-content-wrapper -->
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -118,57 +164,57 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
-    this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
 
+    this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
     });
     $('#header').html(this.views.statusUIIconHeaderView.el);
 
-    this.views.statusUIIconView = new StatusUIIconView({
 
+    this.views.statusUIIconView = new StatusUIIconView({
     });
     $('#alerts').html(this.views.statusUIIconView.el);
+    /*
+    this.views.eventView = new EventView({
+    collection: this.collections.events
+  });
+  $('#event-view').html(this.views.eventView.el);
+  */
+
+  this.eventListeners();
+},
+eventListeners:function() {
+  this.listenTo(this, "org:click", this.orgSelection);
+  this.listenTo(this, "login:success", this.onLogin);
+  this.listenTo(this, "login:logout", this.onLogout);
+
+  this.listenTo(this.models.userModel, 'change', function(model){
+    this.views.orgSidebarView.selectOrg(model.get('organization_id'));
+  });
+},
+
+onLogin: function() {
+  location.reload();
+},
+onLogout: function() {
+  location.reload();
+},
 /*
-   this.views.eventView = new EventView({
-      collection: this.collections.events
-    });
-    $('#event-view').html(this.views.eventView.el);
+* orgSelection is called by the event listener for org:click. The trigger
+* from the OrgSidebarView passes the organization_id in as a parameter. With
+* this we can cause the WatchView to re-render with the new watches we'll
+* fetch, using the organization_id as a query parameter.
 */
+orgSelection: function(organization_id) {
+  this.models.orgModel.set({id: organization_id});
+  this.models.orgModel.fetch();
+  // We have selected a new organization, so now we need to update the watch
+  // GET /api/watch?organization_id=<organization_id>
 
-    this.eventListeners();
-  },
-  eventListeners:function() {
-    this.listenTo(this, "org:click", this.orgSelection);
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
-
-    this.listenTo(this.models.userModel, 'change', function(model){
-      this.views.orgSidebarView.selectOrg(model.get('organization_id'));
-    });
-  },
-
-  onLogin: function() {
-    location.reload();
-  },
-  onLogout: function() {
-    location.reload();
-  },
-  /*
-   * orgSelection is called by the event listener for org:click. The trigger
-   * from the OrgSidebarView passes the organization_id in as a parameter. With
-   * this we can cause the WatchView to re-render with the new watches we'll
-   * fetch, using the organization_id as a query parameter.
-   */
-  orgSelection: function(organization_id) {
-    this.models.orgModel.set({id: organization_id});
-    this.models.orgModel.fetch();
-    // We have selected a new organization, so now we need to update the watch
-    // GET /api/watch?organization_id=<organization_id>
-
-    this.collections.events.reset();
-    // Note: the watchview has an event listener that listens for sync events
-    // from this collection, so when the feth completes, the event will trigger
-    // and the watch view will re-render with the new watches.
-  }
+  this.collections.events.reset();
+  // Note: the watchview has an event listener that listens for sync events
+  // from this collection, so when the feth completes, the event will trigger
+  // and the watch view will re-render with the new watches.
+}
 });
 // Instantiate the application for this page
 var ooi = new OOI();
