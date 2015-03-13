@@ -97,8 +97,16 @@ def plots_demo():
     return render_template('common/plotsDemo.html')
 
 @app.route('/alertPage.html')
-def status():
+def alerts_alarms():
     return render_template('common/alertPage.html')
+
+@app.route('/FAQ.html')
+def FAQ():
+    return render_template('common/FAQ.html')
+
+@app.route('/Glossary.html')
+def Glossary():
+    return render_template('common/Glossary.html')
 
 
 @app.route('/api/organization', methods=['GET'])

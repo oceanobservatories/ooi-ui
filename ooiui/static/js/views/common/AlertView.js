@@ -1,6 +1,22 @@
+"use strict";
+/*
+ *
+ * 
+ * ooiui/static/js/models/common/FilterViewModel.js
+ * Validation model for Alerts and Alarms Page.
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/compiled/alertPage.js
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * Usage
+ * 
+ */
 
 Backbone.Validation.configure({
-    forceUpdate: false
+    forceUpdate: true
 });
 
 // Extend the callbacks to work with Bootstrap, as used in this example
@@ -22,61 +38,7 @@ _.extend(Backbone.Validation.callbacks, {
     }
 });
 
-var AlertModel = Backbone.Model.extend({
-    defaults: {
-        array: "",
-        Instrument: "",
-        Platform: ""
-    },
-    url:" ",
-    
-    validation: {
-        array: {
-            required: false
-        },
-        Platform: {
-            required: false
-        },
-        Instrument: {
-            required: false
-        },
-        User: {
-            required: false
-        },
-        OtherUser:{
-            required: false
-        },
-        Name: {
-            required: false
-        },
-        Priority: {
-            required: false
-        },
-        Description:{
-            required: false
-        },
-        Email: {
-            required: false
-        },
-        Redmine: {
-            required: false
-        },
-        PhoneCall:{
-            required: false
-        },
-        TextMessage: {
-            required: false
-        },
-        LogEvent:{
-            required: false
-        }
-
-
-
-
-    }
-});
-
+// collections are example only
 var AlertCollection = Backbone.Collection.extend({
   url: '/api/array',
   parse: function(response, options){
@@ -91,12 +53,12 @@ var AssetTen = Backbone.Collection.extend({
   }
 });
 
-
+//Validations is turned off!!
 
 var AlertFilterView = Backbone.View.extend({
            
  
-  template: JST['ooiui/static/js/partials/AlertFilter.html'],
+ // template: JST['ooiui/static/js/partials/AlertFilter.html'],
 
  
 
@@ -106,12 +68,14 @@ var AlertFilterView = Backbone.View.extend({
             e.preventDefault();
             this.submit();
         },
-        'click #resetButton': function (e){
-            
-            this.reset();
-
+        'click #RemoveConditions':function(e) {
+          e.preventDefault();
+          this.removeConditions(e);
         },
-        'change #ConditionsFilter': 'conditionsFilter',
+        'click #RemoveUser': function(e) {
+          e.preventDefault();
+          this.removeUsers(e);
+        }
     },
 
     // Use stickit to perform binding between
@@ -125,13 +89,13 @@ var AlertFilterView = Backbone.View.extend({
             },
 
             setOptions: {
-                validate: false
+                validate: true
             }
         },
         '[name=Platform]': {
             observe: 'Platform',
             setOptions: {
-                validate: false
+                validate: true
             }
         },
         '[name=Instrument]': {
@@ -140,7 +104,7 @@ var AlertFilterView = Backbone.View.extend({
               collections: []
             },
             setOptions: {
-                validate: false
+                validate: true
             }
         },
         '[name=ConditionsFilter]': {
@@ -148,19 +112,21 @@ var AlertFilterView = Backbone.View.extend({
             selectOptions:{
               collections: [],
               valuePath:'key',
+              valueLabel:'Select To Add Filter',
+
               defaultOption:{
-                label: 'Select Filter'
+                label: 'Select To Add Filter'
               }  
             },
             onSet: function(val){
-              this.addDiv(val);
+              this.addConditions(val);
               return val;
               
               
             },
 
             setOptions: {
-                validate: false
+                validate: true
             }
         },
            '[name=ConditionsInput]':{
@@ -168,110 +134,85 @@ var AlertFilterView = Backbone.View.extend({
              events: ['keypress'],
 
          },
-            '[name=Float]': {
-            observe: 'Float',
-            setOptions: {
-                validate: false
-            }
-        },
-         '[name=FloatTwo]': {
-            observe: 'FloatTwo',
-            setOptions: {
-                validate: false
-            }
-        },
-            '[name=ThreeOne]': {
-            observe: 'ThreeOne',
-                setOptions: {
-                validate: false
-            }
-        },     
-            '[name=ThreeTwo]': {
-            observe: 'ThreeTwo',
-                        setOptions: {
-                validate: false
-            }
-        },
-             '[name=User]': {
+          '[name=User]': {
             observe: 'User',
             setOptions: {
-                validate: false
+                validate: true
             }
         },
             '[name=OtherUser]': {
             observe: 'OtherUser',
             setOptions: {
-                validate: false
+                validate: true
             }
         },
             '[name=UserFilter]': {
             observe: 'UserFiler',
             setOptions: {
-                validate: false 
+                validate: true 
             },
             selectOptions:{
-              collection: [],
+              collection: ['Administrator','Operator', 'Science User','Current User'],
               defaultOption: {
-                label: 'Select Filter'
+                label: 'Select To Add Filter'
               }
+            },
+            onSet: function(val){
+              this.addUsers(val);
+              return val;
             }
+
         },
          '[name=Name]': {
             observe: 'Name',
             setOptions: {
-                validate: false
+                validate: true
             }
         },
             '[name=Priority]': {
             observe: 'Priority',
                 setOptions: {
-                validate: false
+                validate: true
             }
         },     
             '[name=Description]': {
             observe: 'Description',
             setOptions: {
-                validate: false
+                validate: true
             }
         },
           '[name=Email]': {
             observe: 'Email',
             setOptions: {
-                validate: false
+                validate: true
             }
           },
            '[name=Redmine]': {
             observe: 'Redmine',
             setOptions: {
-                validate: false
+                validate: true
             }
           },
 
            '[name=PhoneCall]': {
             observe: 'PhoneCall',
             setOptions: {
-                validate: false
+                validate: true
             }
           },
 
            '[name=TextMessage]': {
             observe: 'TextMessage',
             setOptions: {
-                validate: false
+                validate: true
             }
           },
             '[name=LogEvent]': {
             observe: 'LogEvent',
             setOptions: {
-                validate: false
+                validate: true
             }
           },
-            //link the #id : to a function output Onset 
-            //when ConitionsFilter changes so will 
-            //# ConditionsInput. cool function
-            //but didn't use it
-            //'#ConditionsInput': 'ConditionsFilter',
-            //'#ConditionTwo': 'ConditionsFilter'
 
 
 
@@ -284,7 +225,7 @@ var AlertFilterView = Backbone.View.extend({
         // This hooks up the validation
         // See: http://thedersen.com/projects/backbone-validation/#using-form-model-validation/validation-binding
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render", "submit", "reset", "remove", "conditionsFilter", "addDiv");
+        _.bindAll(this, "render", "submit", "remove", "addConditions", "removeConditions", "addUsers", "removeUsers");
         //Cannot listen for a change, easily. All html elems are linked to the model
         //any event will be heard and then change the DOM, 
           var self = this;
@@ -303,9 +244,6 @@ var AlertFilterView = Backbone.View.extend({
              return this ; 
              }
           });
-       // this.roles = ooi.collections.roles;
-       // this.orgs = ooi.collections.orgs;
-       // this.modalDialog = new ModalDialogView();
          return this;
     },
 
@@ -314,79 +252,44 @@ var AlertFilterView = Backbone.View.extend({
         var assetTen = ooi.collections.assetTen;
         this.bindings["[name=ConditionsFilter]"].selectOptions.collection = (ooi.collections.assetTen.pluck('key'));
         this.bindings["[name=array]"].selectOptions.collection = this.collection.pluck('display_name');
-        // will be dynamic 
-        this.bindings["[name=Instrument]"].selectOptions.collection = [
-    "Mooring", 
-    "Sensor", 
-    "Sensor Part", 
-    "Coastal Glider", 
-    "Open Ocean Glider", 
-    "GWFP", 
-    "CWFP", 
-    "FBB", 
-    "ISU", 
-    "SBD", 
-    "FreeWave", 
-    "XEOS", 
-    "ACOMM", 
-    "WiFi", 
-    "GPS", 
-    "Battery Pack", 
-    "Wind Turbine", 
-    "Power", 
-    "EM Chain", 
-    "Backup Recovery Bouyancy 2", 
-    "STC", 
-    "Syntactic Sphere", 
-    "Riser Instruments", 
-    "Bouy Components", 
-    "Anchor", 
-    "Acoustic Release 1", 
-    "Instruments", 
-    "Telemetry", 
-    "RTE", 
-    "Acoustic Release 2", 
-    "MOPAK", 
-    "Flasher", 
-    "IMM", 
-    "Backup Recovery Bouyancy 1", 
-    "Riser Telemetry", 
-    "ISU SIM", 
-    "Surface Bouy (Submersible)", 
-    "Inductive Wire Rope", 
-    "Conducting Stretch Hose", 
-    "Riser", 
-    "Blipper", 
-    "Light"
-  ];
-        //this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
-        //this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
+        this.bindings["[name=Instrument]"].selectOptions.collection = [ "Mooring", "Sensor", "Sensor Part", "Coastal Glider", "Open Ocean Glider"]; 
 
         this.stickit();
         return this;
     },
-    addDiv: function(val){
+    addConditions: function(val){
       //adds a div and input under conditions on the html
       //adds bindings 
-      //need to remove white space. may use _
       var value = val.replace(/\s+/g, '_');
       
 
-      $('#Conditions').append('<div class="form-group"> <div class="form-control" name='+value+'> '+ val +' </div> <span class="help-block hidden"></span> </div>');
+     $('#Conditions').append('<div class="form-group"> <div class="form-control"  name='+value+'> '+ val +' </div> <span class="help-block hidden"></span> </div>');
 
     
-     $('#ConditionsInput').append('<div class="form-group"> <input class="form-control" id='+  value   + ' name="FloatOne"></input> <span class="help-block hidden"></span></div>');
+     $('#ConditionsInput').append('<div class="form-group"> <input class="form-control" id='+value+ '></input> <span class="help-block hidden"></span></div>');
+     
+     $('#RemoveConditions').append('<div class="form-group center"> <button class="btn btn-success" id='+  value   + '>'+ 'X' +' </button> <span class="help-block hidden"></span></div>');
+     
      this.addBinding(null, '#'+value, value);
-     console.log(this.bindings);
+    },
+    addUsers: function(val){
+      var value = val.replace(/\s+/g, '_');
+       
+      $('#Users').append('<div class="form-group"> <div class="form-control" id='+value+' > '+ val +' </div> <span class="help-block hidden"></span> </div>');
+
+      $('#RemoveUser').append('<div class="form-group center"> <button class="btn btn-success" id='+  value   + '>'+ 'X' +' </button> <span class="help-block hidden"></span></div>');
+      // It will set directly to the model
+      // clicking multiple will override User attribute
+      //this.addBinding(null,'#'+value, value);
+      this.model.set({User: val});
     },
 
     submit: function () {
         var self = this;
-        console.log(this.model);
         // Check if the model is valid before saving
         // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
         //  on submit check for the role then change the role_id to the correct int
-        if (this.model.isValid(false)) {
+        if (this.model.isValid(true)) {
             this.model.save(null, {
               success: function(model, response) {
                },
@@ -403,14 +306,29 @@ var AlertFilterView = Backbone.View.extend({
             });
         }
     },
-    reset: function(){
-        this.$el.find("input[type=text], textarea").val("");
-        //this.$el.find("input[type=password], textarea").val("");
-        //this.$el.find("input[type=email], textarea").val("");
+     conditionsFilter: function(e){
+     // I use onSet in the above binding
     },
-    conditionsFilter: function(e){
-     // not needed. I use onSet in the above binding
-     console.log('conditions filter changed'); 
+    removeConditions: function(e){
+      //need some assertions or check...
+      //clicking too fast messes everything up.
+      var remove = e.target.id;
+      var button = e.target;
+      
+      
+      button.remove();
+      $('#'+remove).remove();
+      $('[name='+remove+']').remove();
+      this.model.unset(remove);
+    
+    },
+    removeUsers: function(e){
+      //need assertions and checks in future.
+      var remove = e.target.id;
+      $('#'+remove).remove();
+      $('#'+remove).remove();
+      //not dynamic User is defined with adding a user
+      this.model.unset('User');
     },
   
     remove: function () {

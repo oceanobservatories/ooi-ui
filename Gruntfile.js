@@ -176,7 +176,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
-            'ooiui/static/js/partials/statusItem.html',
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
             "ooiui/static/js/partials/DropdownUserLoggedOut.html",
@@ -187,6 +186,25 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/MenuToggle.html"
           ],
            "ooiui/static/js/partials/compiled/alertPage.js" : [
+            "ooiui/static/js/partials/TOC.html",
+            "ooiui/static/js/partials/TOCItem.html",
+            "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/StreamItem.html",
+            "ooiui/static/js/partials/DropdownMessages.html",
+            'ooiui/static/js/partials/AlertItem.html',
+
+            'ooiui/static/js/partials/AlertItems.html',
+            'ooiui/static/js/partials/AlertFilter.html',
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html"
+          ],
+          "ooiui/static/js/partials/compiled/FAQ.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
@@ -572,22 +590,62 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
             'ooiui/static/js/models/science/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/common/AlertModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
+
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/TOCView.js",
-            "ooiui/static/js/views/common/StatusView.js",
             "ooiui/static/js/views/common/AlertView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
           ],
+          'ooiui/static/js/compiled/FAQ.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/leaflet/dist/leaflet.js",
+            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js",
+            "ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/backlunr/backlunr.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
+            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/MapModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
+
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/AlertView.js",
+            "ooiui/static/js/views/common/MapView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js'
+          ],
+
 
           'ooiui/static/js/compiled/gridDemo.js' : [
             // Libs
@@ -864,6 +922,17 @@ module.exports = function(grunt) {
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css"
           ],
+          "ooiui/static/css/compiled/FAQ.css" : [
+            "ooiui/static/lib/leaflet/dist/leaflet.css",
+            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css"
+          ],
+
 
           "ooiui/static/css/compiled/opLog.css" : [
             "ooiui/static/css/common/scienceLayout.css",

@@ -73,7 +73,7 @@
 
         <hr width ='80%'>
         <div class="row col-sm-12">
-          <div class="col-sm-3"> Conditions
+          <div class="col-sm-4"> Conditions
           <div id="Conditions">
               
           </div>
@@ -94,43 +94,26 @@
         </div>
        
         </div>
-        <div class="col-sm-3">
-        <div class="form-group">IDK IF WE NEED THIS? 
-                   <select class="form-control" id="ThreeOne" name="ThreeOne">
-                      <option>North</option>
-                      <option>South</option>
-                   </select>
-                    <span class="help-block hidden"></span>
-        </div>          
+        <div class="col-sm-1">
+          Remove 
+        <div id='RemoveConditions'> </div>          
        
         </div>
             
-        <div class="col-sm-3"> Users
-          <div class="form-group"> 
-                   <select class="form-control" id="User" name="User">
-                      <option>Current Logged in User</option>
-                     
-                      <option>Current User</option>
-                   </select>
-                    <span class="help-block hidden"></span>
-          </div>
-          <div class="form-group">
-                   <select class="form-control hide" id="OtherUser" name="OtherUser">
-                      <option value="glider">Some Other User</option>
-                      <option value="glider">Some User</option>
-
-                   </select>
-                   <span class="help-block hidden"></span>
-          </div>
+        <div class="col-sm-3">Users
+          <div id="Users"></div>
           <div class="form-group">         
                     <select class="form-control" id="UserFilter" name="UserFilter">
                     </select>
                  <span class="help-block hidden"></span>
-             </div>
+          </div>
           <div class="form-group">
           <button class="btn btn-success" id="userReset"> Reset Filter</button>
           <span class="help-block hidden"></span>
           </div>
+         </div>
+         <div class="col-sm-1"> Remove
+         <div id="RemoveUser"></div>
          </div>
 
         <hr width ='80%'>
@@ -246,14 +229,16 @@
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
-    mapModel: new MapModel()
+    mapModel: new MapModel(),
+    alertModel: new AlertModel()
   
   },
   collections: {
     arrays: new ArrayCollection(),
     platform_deployments: new PlatformDeploymentCollection(),
     alertCollection: new AlertCollection(),
-    assetTen: new AssetTen()
+    assetTen: new AssetTen(),
+    trouble: new TroubleTicketDropdownCollection() 
   },
   views: {
 
@@ -261,7 +246,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   start: function() {
     var self = this;
 
-    // Need to use  var complete for collections used in signup page
+    // Need to use  var complete for collections, used in signup page
     //this.initEvents();
     //this.login.fetch({async:false});
     //var complete = _.invoke([this.collections.roles, this.collections.orgs], 'fetch');
@@ -292,12 +277,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     
     this.views.alertFilterView = new AlertFilterView({
         el: 'form',
-        model: new AlertModel(),
+        model: this.models.alertModel,
         collection: this.collections.alertCollection
         
         
     });
-
+    
        //--------------------------------------------------------------------------------
     // Collections Fetch
     //--------------------------------------------------------------------------------
@@ -306,8 +291,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 
 
-
-    //if(!this.login.loggedIn()) {
+   // if(!this.login.loggedIn()) {
     //  this.modalView = new ModalDialogView();
     //  $('.container-fluid').first().append(this.modalView.el);
     //  this.modalView.show({
@@ -315,8 +299,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     //    ack: function() { console.log("Closed"); }
     //  });
    // }
-   // this.listenTo(this, "login:success", this.onLogin);
-   // this.listenTo(this, "login:logout", this.onLogout);
+   //this.listenTo(this, "login:success", this.onLogin);
+   //this.listenTo(this, "login:logout", this.onLogout);
     //this.listenTo(this, "streamItemView:streamSelect", function(model) {
    //   $('#map').height(328);
      // $('#plot-row').show();
