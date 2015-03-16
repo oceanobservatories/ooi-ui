@@ -247,9 +247,8 @@ def get_operator_event_type():
     response = requests.get(app.config['SERVICES_URL'] + '/operator_event_type', params=request.args)
     return response.text, response.status_code
 
-
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
 def get_glider_track():  
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_glider_track/'+request.args['id'], auth=(token, ''), data=request.args)
-    return response.text, response.status_code
+

@@ -632,6 +632,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/FakeTableModel.js',
             'ooiui/static/js/models/common/OrganizationModel.js',
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
+            'ooiui/static/js/models/common/StatusUIIconModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',

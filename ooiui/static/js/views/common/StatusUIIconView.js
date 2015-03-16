@@ -10,6 +10,6 @@ var StatusUIIconView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/StatusUIIcon.html'],
   render: function() {
-    this.$el.html(this.template());
+    // this.$el.find('#asset');
   } 
 });

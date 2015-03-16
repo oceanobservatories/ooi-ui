@@ -1,0 +1,68 @@
+{
+  "@class" : ".InstrumentAssetRecord",
+  "classCode" : "ADCPS",
+  "seriesClassification" : "J",
+  "metaData" : [ {
+    "value" : "A00182",
+    "key" : "OOI #",
+    "type" : "java.lang.String",
+    "metaId" : 3201
+  }, {
+    "value" : "115293",
+    "key" : "WHOI #",
+    "type" : "java.lang.String",
+    "metaId" : 3198
+  }, {
+    "value" : "1336-00010-00010",
+    "key" : "CGSN PN",
+    "type" : "java.lang.String",
+    "metaId" : 3196
+  }, {
+    "value" : "50.40",
+    "key" : "Firmware Version",
+    "type" : "java.lang.String",
+    "metaId" : 3200
+  }, {
+    "value" : "LOSOS 103 - Storage Area",
+    "key" : "Current\nLocation",
+    "type" : "java.lang.String",
+    "metaId" : 3199
+  }, {
+    "value" : "3305-00100-00059",
+    "key" : "Incoming Inspection",
+    "type" : "java.lang.String",
+    "metaId" : 3202
+  }, {
+    "value" : "3305-00107-00026",
+    "key" : "QCT Testing",
+    "type" : "java.lang.String",
+    "metaId" : 3197
+  }, {
+    "value" : "Storage",
+    "key" : "Status",
+    "type" : "java.lang.String",
+    "metaId" : 3195
+  } ],
+  "assetId" : 28,
+  "assetInfo" : {
+    "name" : null,
+    "type" : "Sensor",
+    "owner" : "Sheri White",
+    "description" : null
+  },
+  "manufactureInfo" : {
+    "serialNumber" : "18976",
+    "manufacturer" : "Teledyne",
+    "modelNumber" : "WHLS75-1500"
+  },
+  "physicalInfo" : null,
+  "purchaseAndDeliveryInfo" : {
+    "purchaseOrderNumber" : null,
+    "purchaseDate" : null,
+    "purchaseCost" : 0.0,
+    "deliveryOrderNumber" : "WH-SC12-10-ADCP-1004",
+    "deliveryDate" : -61755004800000
+  },
+  "attachments" : [ ],
+  "notes" : [ "To be deployed on CP04OSSM-00001" ]
+}

@@ -86,7 +86,6 @@
                     <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
 
                     <div class="panel-body" id="alerts">
-                      content
                       <!--   <div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
                       <h4 class="platform-tile-title">Pioneer</h3>
                       <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
@@ -134,59 +133,90 @@
 
 <script type="text/javascript">
 _.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
   // Models and collections
   collections: {
-    statusUIIconCollection: new StatusUIIconCollection()
+    // Instantiate a new Organizations collection
+    organizations: new Organizations(),
+    // watches is the Watch collection, by default is un-fetched
+    //events: new Events(),
+    operatorEventTypes: new OperatorEventTypeCollection()
   },
-
   models: {
+    orgModel: new OrganizationModel(),
     statusUIIconModel: new StatusUIIconModel()
-
   },
-
   views: {
     statusUIIconView: new StatusUIIconView()
-    },
- 
+  },
   start: function() {
+    this.login.fetch({async:false});
+    this.collections.operatorEventTypes.fetch();
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
 
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
 
-/**
- *
- statusUIIconCollection: new StatusUIIconCollection()
+    this.views.orgSidebarView = new OrgSidebarView({
+      collection: this.collections.organizations,
+      userModel: this.models.userModel
+    });
+    $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
- statusUIIconModel: new StatusUIIconModel()
-   this.views.statusUIIconView = new StatusUIIconView();
+    this.models.statusUIIconModel.fetch({url: '/json/statusUIIcon.json'});
 
- */
+    /*this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
+    });
+    $('#header').html(this.views.statusUIIconHeaderView.el);*/
+
+    /*
+    this.views.statusUIIconView({
+      model: new StatusUIIconeModel(),
+    });*/
     $('#alerts').html(this.views.statusUIIconView.el);
+    /*
+    this.views.eventView = new EventView({
+    collection: this.collections.events
+  });
+  $('#event-view').html(this.views.eventView.el);
+  */
 
-    /*DON'T DELETE!!!*/
-    this.collections.statusUIIconCollection.fetch();
+  this.eventListeners();
+},
+eventListeners:function() {
+  this.listenTo(this, "org:click", this.orgSelection);
+  this.listenTo(this, "login:success", this.onLogin);
+  this.listenTo(this, "login:logout", this.onLogout);
 
+  this.listenTo(this.models.userModel, 'change', function(model){
+    this.views.orgSidebarView.selectOrg(model.get('organization_id'));
+  });
+},
 
-
-
-    /*  this.models.statusUIIconModel.fetch({
-    url: '/json/statusUIIcon.json'
-  });*/
-
-
-  /*this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
-});
-$('#header').html(this.views.statusUIIconHeaderView.el);*/
+onLogin: function() {
+  location.reload();
+},
+onLogout: function() {
+  location.reload();
+},
 /*
-$('#alerts').html(this.views.statusUIIconView.el)*/
-
-
-/*
-this.views.eventView = new EventView({
-collection: this.collections.events
-});
-$('#event-view').html(this.views.eventView.el);
+* orgSelection is called by the event listener for org:click. The trigger
+* from the OrgSidebarView passes the organization_id in as a parameter. With
+* this we can cause the WatchView to re-render with the new watches we'll
+* fetch, using the organization_id as a query parameter.
 */
+orgSelection: function(organization_id) {
+  this.models.orgModel.set({id: organization_id});
+  this.models.orgModel.fetch();
+  // We have selected a new organization, so now we need to update the watch
+  // GET /api/watch?organization_id=<organization_id>
 
-
+  this.collections.events.reset();
+  // Note: the watchview has an event listener that listens for sync events
+  // from this collection, so when the feth completes, the event will trigger
+  // and the watch view will re-render with the new watches.
 }
 });
 // Instantiate the application for this page
