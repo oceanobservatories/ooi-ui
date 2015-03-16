@@ -3,14 +3,16 @@ var StatusUIIconModel = Backbone.Model.extend({
   defaults: {
     value: "",
     key: "",
-    metaId: ""
+    metaId: "",
+    type: "",
+    assetId: ""
   }
 });
-var StatusUIIconCollection = Backbone.Collection.extend({
-  model: StatusUIIconModel,
-  url: "json/statusUIIcon.json",// ooi-ui/ooiui/static/json/statusUIIcon.json
-  parse: function(response, options) {
-    console.log(response);
-    return response.objects
-  }
-});
+// var StatusUIIconCollection = Backbone.Collection.extend({
+//   model: StatusUIIconModel,
+//   url: "json/statusUIIcon.json",// ooi-ui/ooiui/static/json/statusUIIcon.json
+//   parse: function(response, options) {
+//     console.log(response);
+//     return response.objects
+//   }
+// });
