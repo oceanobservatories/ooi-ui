@@ -50,11 +50,6 @@ def event_new(new,aid,aclass):
 def streams_page():
     return render_template('science/streams.html')
 
-@app.route('/c2/arrays')
-@app.route('/c2/arrays/')
-def c2_arrays():
-    return render_template('c2/array_display.html')
-
 @app.route('/getdata/')
 def getData():
     '''

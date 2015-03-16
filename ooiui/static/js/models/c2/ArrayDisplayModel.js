@@ -11,24 +11,22 @@
  */
 
 var ArrayDisplayModel = Backbone.Model.extend({
-  urlRoot: '/api/c2/array_display/CP',
+  urlRoot: '/api/c2/array/CP/current_status_display',
   defaults: {
     display_name: "",
     operational_status: "Unknown",
     platform_deployment_id: 1
     }
-
 });
 
 var ArrayDisplayCollection = Backbone.Collection.extend({
-  //url: '/api/c2/array_display/CP',
   url: function() {
-    return this.document.url() + '/api/c2/array_display/CP';
+    return this.document.url() + '/api/c2/array/CP/current_status_display';
   },
   model: ArrayDisplayModel,
   parse: function(response) {
     if(response) {
-      return response.array_display;
+      return response.current_status_display;
     } else {
       return [];
     }
