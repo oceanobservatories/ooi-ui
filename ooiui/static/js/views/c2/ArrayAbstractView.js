@@ -1,4 +1,4 @@
-var ArrayDisplayView = Backbone.View.extend({
+var ArrayAbstractView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this,"render");
@@ -10,18 +10,18 @@ var ArrayDisplayView = Backbone.View.extend({
         var self = this;
         var selectedInstrument = [];
         //bind
-        self.model = new ArrayDisplayModel();
+        self.model = new ArrayAbstractModel();
         self.modalDialog = new ModalDialogView();
 
         var PageableDeployments = Backbone.PageableCollection.extend({
-          model: ArrayDisplayModel,
-          url: '/api/c2/array/CP/current_status_display',
+          model: ArrayAbstractModel,
+          url: '/api/c2/array/CP/abstract',
           state: {
             pageSize: 7
           },
           mode: "client",
           parse: function(response, options) {
-            return response.current_status_display;
+            return response.abstract;
           } // page entirely on the client side  options: infinite, server
         });
 
@@ -34,8 +34,8 @@ var ArrayDisplayView = Backbone.View.extend({
 
         var columns = [
           {
-            name: "platform_deployment_id", // The key of the model attribute
-            label: "PD ID", // The name to display in the header
+            name: "array_id", // The key of the model attribute
+            label: "Array ID", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             // Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
             cell: Backgrid.IntegerCell.extend({
@@ -90,14 +90,14 @@ var ArrayDisplayView = Backbone.View.extend({
         });
 
         // Render the grid and attach the root to your HTML document
-        $("#datatable").append(pageableGrid.render().el);
+        $("#abstract").append(pageableGrid.render().el);
         // Initialize the paginator
         var paginator = new Backgrid.Extension.Paginator({
           collection: pageabledeploy
         });
 
         // Render the paginator
-        $("#datatable").after(paginator.render().el);
+        $("#abstract").after(paginator.render().el);
 
         // Initialize a client-side filter to filter on the client
         // mode pageable collection's cache.
@@ -107,7 +107,7 @@ var ArrayDisplayView = Backbone.View.extend({
         });
 
         // Render the filter
-        $("#datatable").before(filter.render().el);
+        $("#abstract").before(filter.render().el);
         // Add some space to the filter and move it to the right
         $(filter.el).css({float: "right", margin: "20px"});
 
@@ -174,7 +174,7 @@ var ArrayDisplayView = Backbone.View.extend({
           if(t.target.innerText == 'COASTAL ENDURANCE'){
             pageabledeploy.fetch({
               reset: true,
-              url: '/api/c2/array/CE/current_status_display'
+              url: '/api/c2/array/CE/abstract'
             });
             //self.modalDialog.show({
             //  message: pageabledeploy.url,
@@ -184,7 +184,7 @@ var ArrayDisplayView = Backbone.View.extend({
           if(t.target.innerText == 'COASTAL PIONEER'){
             pageabledeploy.fetch({
               reset: true,
-              url: '/api/c2/array/CP/current_status_display'
+              url: '/api/c2/array/CP/abstract'
             });
             //self.modalDialog.show({
             //  message: pageabledeploy.url,

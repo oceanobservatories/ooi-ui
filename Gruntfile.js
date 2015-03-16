@@ -291,7 +291,7 @@ module.exports = function(grunt) {
           process: function(src, filepath) {
             return '// Source: ' + filepath + '\n' +
             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-          },
+          }
         },
         files: {
           'ooiui/static/js/compiled/science.js' : [
@@ -447,7 +447,6 @@ module.exports = function(grunt) {
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
-            'ooiui/static/js/views/c2/ArrayDisplayView.js',
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
@@ -812,7 +811,40 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/PioneerStationSummaryArrayView.js',
             'ooiui/static/js/views/common/PioneerDeploymentScheduleView.js',
             'ooiui/static/js/views/common/PioneerInfrastructureTablesView.js',
-            'ooiui/static/js/views/common/PioneerTechnicalDrawingsView.js',
+            'ooiui/statis/js/views/common/PioneerTechnicalDrawingsView.js'
+          ],
+          'ooiui/static/js/compiled/c2.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/wellknown/wellknown.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
+            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/c2/ArrayDisplayModel.js',
+            'ooiui/static/js/models/c2/ArrayAbstractModel.js',
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/MapView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/asset_management/InstrumentView.js',
+            'ooiui/static/js/views/asset_management/PlatformView.js',
+            'ooiui/static/js/views/c2/ArrayDisplayView.js',
+            'ooiui/static/js/views/c2/ArrayAbstractView.js'
           ]
         }
       },
@@ -961,7 +993,7 @@ module.exports = function(grunt) {
         }
       }
     }
-  })
+  });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
