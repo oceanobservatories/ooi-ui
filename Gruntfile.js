@@ -447,6 +447,7 @@ module.exports = function(grunt) {
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
+            'ooiui/static/js/views/c2/ArrayDisplayView.js',
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
@@ -544,7 +545,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/AddAnnotationView.js',
+            'ooiui/static/js/views/common/AddAnnotationView.js'
           ],
           'ooiui/static/js/compiled/FAQ.js' : [
             // Libs
