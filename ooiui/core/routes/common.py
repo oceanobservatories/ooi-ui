@@ -96,6 +96,14 @@ def chart_demo():
 def plots_demo():
     return render_template('common/plotsDemo.html')
 
+@app.route('/faq.html')
+def FAQ():
+    return render_template('common/faq.html')
+
+@app.route('/glossary.html')
+def Glossary():
+    return render_template('common/glossary.html')
+
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(app.config['SERVICES_URL'] + '/organization', params=request.args)
