@@ -40,9 +40,31 @@ var MapView = Backbone.View.extend({
       "Grayscale": grayscale,
     };
 
-    var wmsLayers = {      
-      
+    //create some simple data layers
+    var layer_link = ['http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs']
+    var layer_list = ['RAS_RIDGE_NEXRAD'] 
+    var layer_name = ['Precipitation'] 
+    var wmsLayers = {}
+    for (var i = 0; i < layer_list.length; i++) {
+      var new_layer = L.tileLayer.wms(layer_link[i], {
+        format: 'image/png',
+        transparent: true,
+        layers: layer_list[i]
+      })
+      wmsLayers[layer_name[i]] = new_layer      
     };
+    /*
+    var precipitation = L.tileLayer.wms('http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs', {
+      format: 'image/png',
+      transparent: true,
+      layers: 'RAS_RIDGE_NEXRAD'
+    })
+    
+    var wmsLayers = {      
+      "Precipitation":precipitation,
+      "Clouds":clouds
+    };
+    */    
 
     L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
