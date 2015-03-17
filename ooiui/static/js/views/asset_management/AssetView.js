@@ -9,6 +9,10 @@ var AssetView = Backbone.View.extend({
         
         var self = this;
         //add map
+        L.Icon.Default.imagePath = '/img';
+
+        var classtype = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
+
         var map = L.map('editdep_map').setView([1.505, 1.09], 2);
         L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -87,6 +91,11 @@ var AssetView = Backbone.View.extend({
                 return model.attributes[colName]['type'];
             }
         }, {
+            name: "launch_date_time",
+            label: "Launch Date",
+            editable: false,
+            cell: "string"
+        },{
             name: "assetInfo",
             label: "Description",
             editable: false,
@@ -100,7 +109,7 @@ var AssetView = Backbone.View.extend({
                 return model.attributes[colName]['description'];
             }
         }, {
-            name: "@class",
+            name: "class",
             editable: false,
             label: "Class",
             cell: "string"
@@ -171,15 +180,23 @@ var AssetView = Backbone.View.extend({
                     for(var obj in self.query_filter){
                       for (var j = 0; j < self.query_filter[obj].length; j++ ) {
                         if(self.query_filter[obj][j] == model.attributes['assetInfo'][String(obj).toLowerCase()]){queryhit= true;}
-                        //else if(){}
+                        else if(self.query_filter[obj][j] == model.attributes[String(obj).toLowerCase()]){queryhit= true;}
                         //this is so that it refreshes if there is no drop down queries
                         else{queryhit = false;}
                       }
                     }
-                    return queryhit;
+                    if(q == ''){
+                      return queryhit;
+                    }
                   }
-                  else if(q == ''){
-                    return true;
+                  //still allow upper right hand search to occur
+                  if(q == ''){
+                      return true;
+                  }
+                  else if(model.attributes['assetInfo']['class']){
+                    if(String(model.attributes['assetInfo']['class']).toUpperCase().search(q)>-1){
+                        return true;
+                    }
                   }
                   else if(model.attributes['assetInfo']['description']){
                     if(String(model.attributes['assetInfo']['description']).toUpperCase().search(q)>-1){
@@ -227,6 +244,11 @@ var AssetView = Backbone.View.extend({
           }
         });
 
+        $('#type_switcher_but').dropdown();
+        $('#type_switcher_but_val').on('click', function(e) {
+            $('#type_switcher_but').html(e.target.innerHTML);
+        })
+
         // Fetch some instruments from the url
         pageabledeploy.fetch({reset: true,
             error: (function (e) {
@@ -241,7 +263,7 @@ var AssetView = Backbone.View.extend({
 
                 //need to add assets to the filtrify component
                 for ( t = 0; t < e.responseJSON['assets'].length; t++ ) {
-                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['@class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['@class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
+                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
                 }
 
                 //query drop downs filters based on data
@@ -279,41 +301,79 @@ var AssetView = Backbone.View.extend({
             map.invalidateSize();
             selectedInstrument = model.attributes;
 
-            $('#depth_d').val(model.attributes.depth);
-            $('#name_d').val(model.attributes.display_name);
-            //$('#startdate_d').val(model.attributes.start_date);
-            //$('#enddate_d').val(model.attributes.end_date);
-            $( "#startdate_d" ).datepicker( "setDate", "10/12/2013" );
-            $( "#enddate_d" ).datepicker( "setDate", "10/12/2014" );
-            $('#platform_d').val(model.attributes.platform_deployment_id);
+            $('#name_d').val(model.attributes.assetInfo['name']);
+            $('#owner_d').val(model.attributes.assetInfo['owner']);
+            if(model.attributes.water_depth){
+              $('#depth_d').val(model.attributes.water_depth['value']);
+            }
+            else{
+               $('#depth_d').val('');
+            }
 
-            if(model.attributes.geo_location != null){
-                if(model.attributes.geo_location.type == "Point"){
+            if(model.attributes.launch_date_time){
+              var l_date = Date.parse(model.attributes.launch_date_time);
+              $("#startdate_d" ).datepicker( "setDate", l_date );
+            }
+            else{
+               $("#startdate_d" ).datepicker( "setDate", '' );
+            }
+            /*if(model.attributes.launch_date_time){
+              var l_date = Date.parse(model.attributes.launch_date_time);
+              $("#enddate_d" ).datepicker( "setDate", l_date );
+            }
+            else{
+               $("#enddate_d" ).datepicker( "setDate", '' );
+            }*/
+            
+            $("#enddate_d" ).datepicker( "setDate", "10/12/2014" );
+            $('#desc_d').val(model.attributes.assetInfo['description']);
+            $('#notes_d').val(model.attributes.notes);
+            if(model.attributes.manufactureInfo){
+              $('#manufacture_d').val(model.attributes.manufactureInfo['manufacturer']);
+            }
+            else{
+               $('#manufacture_d').val('');
+            }
+            $("#type_d").val(model.attributes.assetInfo['type']);
+            
+            $("#type_switcher_but").val(classtype[model.attributes.class].val);
+            $('#type_switcher_but').html(classtype[model.attributes.class].label+' <span class="caret"></span>');
+
+            if(model.attributes.coordinates != null){
+                //for geojson ....
+                if(model.attributes.coordinates.length>0){
+                //if(model.attributes.geo_location.type == "Point"){
                     //[x,y]
-                    $('#geo_d_lat').val(model.attributes.geo_location.coordinates[1]);
-                    $('#geo_d_long').val(model.attributes.geo_location.coordinates[0]);
+                    $('#geo_d_lat').val(model.attributes.coordinates[0]);
+                    $('#geo_d_long').val(model.attributes.coordinates[1]);
 
                     // add a marker in the given location, attach some popup content to it and open the popup
-                    L.marker([model.attributes.geo_location.coordinates[1], model.attributes.geo_location.coordinates[0]]).addTo(map)
-                        .bindPopup(String(model.attributes))
+                    var asset_mark = L.marker([model.attributes.coordinates[0], model.attributes.coordinates[1]]).addTo(map)
+                        .bindPopup(model.attributes.assetInfo['name'])
                         .openPopup();
-                    map.panTo({lat: model.attributes.geo_location.coordinates[1], lng: model.attributes.geo_location.coordinates[0]});
+                    self.asset_mark = asset_mark;
+                    map.panTo({lat: model.attributes.coordinates[0], lng: model.attributes.coordinates[1]});
                     //map.setView({lat: 50, lng: 30},8);
                 }
             }
+            else if(self.asset_mark){map.removeLayer(self.asset_mark)}
         });
 
         //on button bar click
         $('#deploy_edit').click(function(t) {
             var deploy_obj_ = {};
 
-            if(t.target.innerText == 'NEW'){
+            if(t.target.innerText.search('NEW')>-1){
                 self.clearform();
                 selectedInstrument = [];
+                $('#editdep_map').show();
+                map.invalidateSize();
                 $('#editdep_form').show();
+                //check to see if there is marker on the map and remove it
+                if(self.asset_mark){map.removeLayer(self.asset_mark)};
                 $('#editdep_panel').html('Click Save to create new Record.');
             }
-            else if(t.target.innerText == 'SAVE'){
+            else if(t.target.innerText.search('SAVE'>-1)){
                 //save to db 
                 if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving.');

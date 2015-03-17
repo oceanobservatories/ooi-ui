@@ -31,6 +31,10 @@ def landing_pioneer():
 def instr_index():
     return render_template('asset_management/list.html')
 
+@app.route('/events/list/')
+def event_index():
+    return render_template('asset_management/eventlist.html')
+
 @app.route('/streams')
 @app.route('/streams/')
 def streams_page():

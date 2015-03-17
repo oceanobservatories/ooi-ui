@@ -402,6 +402,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/backlunr/backlunr.js',
+            //'ooiui/static/lib/dateformat/dist/dateformat.min.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -525,6 +526,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/leaflet/dist/leaflet.js',
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
+            'ooiui/static/js/core/science/date.js',
             /*tried this it errored on the page for -sontag
             "ooiui/static/lib/backgrid/lib/backgrid.js",
             "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
