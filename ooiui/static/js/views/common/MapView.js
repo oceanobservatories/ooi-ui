@@ -1,14 +1,53 @@
 var MapView = Backbone.View.extend({
-	initialize: function() {
-    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
-   
+	initialize: function() {    
 		var self = this;
-    this.map = L.map(this.el,{
-	       center: [41.505, -80.09],
-	       zoom: 3,
-	       maxZoom: 10
 
+    var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+
+
+    var grayscale   = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr});    
+    
+    var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{  
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
+      maxZoom: 13
+    });
+
+    var Esri_WorldTerrain = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
+      maxZoom: 13
+    });
+
+
+    this.map = L.map(this.el,{
+	       center: [20.505, -80.09],
+	       zoom: 3,
+	       maxZoom: 10,
+         minZoom: 3,
+         layers: [Esri_OceanBasemap]
    	});
+
+    var baseLayers = {
+      "ESRI Oceans": Esri_OceanBasemap,      
+      "ESRI Terrain": Esri_WorldTerrain,
+      "World Imagery" :Esri_WorldImagery,
+      "Grayscale": grayscale,
+    };
+
+    var wmsLayers = {      
+      
+    };
+
+    L.control.layers(baseLayers,wmsLayers).addTo(this.map);
+
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
+
 
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
@@ -22,23 +61,7 @@ var MapView = Backbone.View.extend({
 		L.Icon.Default.imagePath = '/img';
    
     var map = this.map;
-		var markerCluster = new L.MarkerClusterGroup();
-
-	
-		var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{	
-      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    });
-
-    var Stamen_TonerHybrid = L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      subdomains: 'abcd',
-      minZoom: 0,
-      maxZoom: 20
-    });     
-
-    //HERE_hybridDay.addTo(map);    
-    Esri_WorldImagery.addTo(map);
-    Stamen_TonerHybrid.addTo(map);
+		var markerCluster = new L.MarkerClusterGroup();   
 
     this.collection.each(function(platform) { 	    	
       var display_name = platform.get('display_name')
