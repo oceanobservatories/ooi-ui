@@ -52,19 +52,7 @@ var MapView = Backbone.View.extend({
         layers: layer_list[i]
       })
       wmsLayers[layer_name[i]] = new_layer      
-    };
-    /*
-    var precipitation = L.tileLayer.wms('http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs', {
-      format: 'image/png',
-      transparent: true,
-      layers: 'RAS_RIDGE_NEXRAD'
-    })
-    
-    var wmsLayers = {      
-      "Precipitation":precipitation,
-      "Clouds":clouds
-    };
-    */    
+    }; 
 
     L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
