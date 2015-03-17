@@ -144,7 +144,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
   models: {
     orgModel: new OrganizationModel(),
-    userModel: new UserModel()
+    userModel: new UserModel(),
+    iconModel: new StatusUIIconModel()
   },
 
   views: {
@@ -166,18 +167,21 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
-    this.collections.statusUIIconCollection.fetch();
+
 
     this.views.statusUIIconView = new StatusUIIconView({
-      model: new StatusUIIconModel(),
-      collection: this.collections.statusUIIconCollection,
-      el: $("#alerts")
+      model: this.models.iconModel,
+      collection: this.collections.statusUIIconCollection
+
     });
+    $('#alerts').html(this.views.statusUIIconView.el);
 
 
-    
+
     /**
     *
+    console.log('Above the View');
+
     statusUIIconView: new StatusUIIconView()
 
     statusUIIconCollection: new StatusUIIconCollection()
