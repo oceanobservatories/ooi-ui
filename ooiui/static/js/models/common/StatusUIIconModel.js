@@ -1,19 +1,27 @@
 var StatusUIIconModel = Backbone.Model.extend({
-  url: "json/statusUIIcon.json",
+  url: "json/statusIcon.json",
   defaults: {
-    value: "",
-    key: "",
-    metaId: "",
     assetId: "",
-    classCode: ""
+    assetInfo: "",
+    description: "",
+    name: "",
+    owner: "",
+    type: "",
+    coordinates: "",
+    launch_date_time: "",
+    manufacturer: "",
+    notes: "",
+    ref_des: "",
+    uframe_url: "",
+    water_depth: ""
   }
 });
 var StatusUIIconCollection = Backbone.Collection.extend({
-  url: "json/statusUIIcon.json",// ooi-ui/ooiui/static/json/statusUIIcon.json
+  url: "json/statusIcon.json",// ooi-ui/ooiui/static/json/statusUIIcon.json
   // model: StatusUIIconModel,
   parse: function(response) {
     console.log('response');
     console.log(response);
-    return response;
+    return response.assets;
   }
 });

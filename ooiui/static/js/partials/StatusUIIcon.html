@@ -1,8 +1,11 @@
 <% collection.each(function(model) { %>
 
 <div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
-  <h4 class="platform-tile-title"><%= model.get('classCode') %></h4>
-    <p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+  <h4 class="platform-tile-title"><%= model.get('assetId') %></h4>
+  <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
+  
+  
+  <p class="platform-tile-contents"><br><%= model.get('coordinates') %></p>
     <span class="status-icon status-ok"></span>
     <p class="platform-tile-contents">Voltage 3.5v<br>
       Deployed 2014/4/5 10:14:01</p>

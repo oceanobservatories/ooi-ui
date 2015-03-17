@@ -1,0 +1,84 @@
+{
+  "assets": [
+    {
+      "assetId": 1,
+      "assetInfo": {
+        "description": null,
+        "name": null,
+        "owner": null,
+        "type": "Mooring"
+      },
+      "attachments": [],
+      "class": ".AssetRecord",
+      "coordinates": [
+        -40.1367833,
+        -70.7697833
+      ],
+      "launch_date_time": "21-Nov-13 18:16",
+      "manufactureInfo": {
+        "manufacturer": null,
+        "modelNumber": null,
+        "serialNumber": "CP01CNSM-00001"
+      },
+      "notes": [],
+      "ref_des": "CP01CNSM",
+      "uframe_url": "http://localhost:12573/assets/1",
+      "url": "/uframe/assets/1",
+      "water_depth": {
+        "unit": "m",
+        "value": 133.5
+      }
+    }
+  ],
+  "assets": [
+    {
+      "assets": [
+      "assetId": 2,
+      "assetInfo": {
+        "description": null,
+        "name": null,
+        "owner": null,
+        "type": "Mooring"
+      },
+      "attachments": [],
+      "class": ".AssetRecord",
+      "manufactureInfo": {
+        "manufacturer": null,
+        "modelNumber": null,
+        "serialNumber": "CP01CNSM-00002"
+      },
+      "notes": [],
+      "ref_des": "CP01CNSM",
+      "uframe_url": "http://localhost:12573/assets/2",
+      "url": "/uframe/assets/2"
+    },
+    {
+      "assetId": 3,
+      "assetInfo": {
+        "description": null,
+        "name": null,
+        "owner": null,
+        "type": "Mooring"
+      },
+      "attachments": [],
+      "class": ".AssetRecord",
+      "coordinates": [
+        -40.2268667,
+        -70.8889333
+      ],
+      "launch_date_time": "16-Apr-14 23:28",
+      "manufactureInfo": {
+        "manufacturer": null,
+        "modelNumber": null,
+        "serialNumber": "CP02PMCI-00001"
+      },
+      "notes": [],
+      "ref_des": "CP02PMCI",
+      "uframe_url": "http://localhost:12573/assets/3",
+      "url": "/uframe/assets/3",
+      "water_depth": {
+        "unit": "m",
+        "value": 127.0
+      }
+    }
+  ],
