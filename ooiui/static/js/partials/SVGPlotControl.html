@@ -22,6 +22,15 @@
         </div>
       </div>
     </div>
+
+    <div class="col-sm-6">      
+      <div class="form-group">        
+        <select id='profile-select' class="form-control selectpicker" disabled>
+          <option value="All">All</option>              
+        </select>
+      </div> <!-- .form-group -->       
+    </div>
+
   </div>  
 
   <div class="row">
@@ -66,7 +75,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="yvar-select">Field</label>
-        <select id='yvar-select' class="form-control selectpicker">
+        <select id='yvar-select' class="form-control selectpicker" multiple>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
