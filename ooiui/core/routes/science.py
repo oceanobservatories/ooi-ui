@@ -32,8 +32,13 @@ def instr_index():
     return render_template('asset_management/list.html')
 
 @app.route('/events/list/')
-def event_index():
+def event_list():
     return render_template('asset_management/eventlist.html')
+
+@app.route('/events/list/<int:id>', methods=['GET'])
+def event_index(id):
+    #?id=%s' % id
+    return render_template('asset_management/event.html',id=id)
 
 @app.route('/streams')
 @app.route('/streams/')
@@ -75,19 +80,28 @@ def put_annotation(id):
     response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
+#old
 @app.route('/api/array')
 def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
     return response.text, response.status_code
 
+#old
 @app.route('/api/platform_deployment')
 def platform_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/platform_deployments', params=request.args)
     return response.text, response.status_code
 
+
+#Assets
 @app.route('/api/asset_deployment', methods=['GET'])
 def instrument_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/asset_deployment/<int:id>', methods=['GET'])
+def instrument_deployment_get(id):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/asset_deployment/<int:id>', methods=['PUT'])
@@ -100,10 +114,32 @@ def instrument_deployment_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 
+#not working/using now
 @app.route('/api/asset_deployment/<int:id>', methods=['DELETE'])
 def instrument_deployment_delete(id):
     response = requests.delete(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
+
+#Events
+@app.route('/api/asset_events', methods=['GET'])
+def event_deployments_proxy():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events/<int:id>', methods=['GET'])
+def event_deployment_get(id):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events/<int:id>', methods=['PUT'])
+def asset_event_put(id):
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events', methods=['POST'])
+def asset_event_post():
+    response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
+
 
 @app.route('/opLog.html')
 def op_log():

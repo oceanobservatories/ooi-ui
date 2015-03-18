@@ -1,6 +1,6 @@
 "use strict";
 /*
- * ooiui/static/js/models/science/InstrumentDeploymentModel.js
+ * ooiui/static/js/models/science/AssetModel.js
  * Model definitions for Instrument Deployments
  *
  * Dependencies
@@ -13,7 +13,7 @@
 var AssetModel = Backbone.Model.extend({
   urlRoot: '/api/asset_deployment',
   defaults: {
-        assetId: 1
+       
     }
 });
 
@@ -23,4 +23,8 @@ var AssetCollection = Backbone.Collection.extend({
   parse: function(response, options) {
     return response.assets;
   }
+});
+
+var AssetEvents = Backbone.Model.extend({
+  urlRoot: '/api/asset_deployment'
 });

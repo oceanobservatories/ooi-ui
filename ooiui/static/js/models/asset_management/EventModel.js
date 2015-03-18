@@ -10,17 +10,21 @@
  * Usage
  */
 
-var AssetModel = Backbone.Model.extend({
-  urlRoot: '/api/asset_deployment',
+var EventsModel = Backbone.Model.extend({
+  urlRoot: '/api/asset_events',
   defaults: {
         assetId: 1
     }
 });
 
-var AssetCollection = Backbone.Collection.extend({
-  url: '/api/asset_deployment',
-  model: AssetModel,
+var EventsCollection = Backbone.Collection.extend({
+  url: '/api/asset_events',
+  model: EventsModel,
   parse: function(response, options) {
-    return response.assets;
+    return response.events;
   }
+});
+
+var SingleEvent = Backbone.Model.extend({
+  urlRoot: '/api/asset_events'
 });

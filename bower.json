@@ -46,7 +46,7 @@
     "bootstrap-switch":"~3.3.2",
     "bootstrap-table":"1.6.0",
     "jquery.browser":"~0.0.7",
-    "dateformat":"~0.4.1"
+    "bootstrap-editable-table":"~0.2.13"
   },
   "resolutions": {
     "jquery": "~2.1.1",

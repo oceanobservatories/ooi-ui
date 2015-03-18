@@ -527,6 +527,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/leaflet/dist/leaflet.js',
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
             'ooiui/static/js/core/science/date.js',
+            'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
             /*tried this it errored on the page for -sontag
             "ooiui/static/lib/backgrid/lib/backgrid.js",
             "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
@@ -541,7 +542,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/ooi.js',
             // Models
             'ooiui/static/js/models/asset_management/AssetModel.js',
-            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/EventModel.js',
+            //'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -738,7 +740,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
             "ooiui/static/css/common/backgridall.min.css",
-            "ooiui/static/css/filtrify/css/filtrify.css"
+            "ooiui/static/css/filtrify/css/filtrify.css",
+            'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css'
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
