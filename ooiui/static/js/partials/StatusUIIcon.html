@@ -1,18 +1,33 @@
+<% var i=0; %>
+
 <% collection.each(function(model) { %>
 
-<div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="#collapse1">
-  <h4 class="platform-tile-title"><%= model.get('assetId') %></h4>
+<div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="#collapse<%= i %>">
   <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
+  <h5 class="platform-tile-title">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
   
-  
-  <p class="platform-tile-contents"><br><%= model.get('coordinates') %></p>
-    <span class="status-icon status-ok"></span>
-    <p class="platform-tile-contents">Voltage 3.5v<br>
-      Deployed 2014/4/5 10:14:01</p>
+
+  <!--needs if statement to use correct collor for alert-->
+  <% var asset = model.get('assetId'); %>
+  <% if (asset == '2') { %>
+  <span class="status-icon status-error"></span>
+  <% } else if (asset == '3') { %>
+  <span class="status-icon status-ok"></span>
+  <% } else { %>
+  <span class="status-icon status-issue"></span>
+  <% } %>
+  <h5 class="platform-tile-title">Deployed:</h5>
+  <h6 class="platform-tile-title"><%= model.get('launch_date_time') %></h6> 
+  <h6 class="platform-tile-title">Series Classification:&nbsp;&nbsp;<%= model.get('seriesClassification') %></h6>
 </div>
-<div class="collapse well" id="collapse1">
+
+
+
+
+<div class="collapse well" id="collapse<%= i %>">
   <div class="well">
     1 goes here
   </div>
 </div>
-<% }); %>
+<% i+= 1; %>
+<% }); %> 
