@@ -163,8 +163,8 @@ var InstrumentView = Backbone.View.extend({
             $('#name_d').val(model.attributes.display_name);
             //$('#startdate_d').val(model.attributes.start_date);
             //$('#enddate_d').val(model.attributes.end_date);
-            $( "#startdate_d" ).datepicker( "setDate", "10/12/2012" );
-            $( "#enddate_d" ).datepicker( "setDate", "10/12/2012" );
+            $( "#startdate_d" ).datepicker( "setDate", "10/12/2013" );
+            $( "#enddate_d" ).datepicker( "setDate", "10/12/2014" );
             $('#platform_d').val(model.attributes.platform_deployment_id);
 
             if(model.attributes.geo_location != null){
@@ -210,10 +210,10 @@ var InstrumentView = Backbone.View.extend({
                         self.model.save(null, {
                           success: function(model, response) {
                             self.modalDialog.show({
-                              message: "Deployment successfully registered",
+                              message: "Deployment successfully saved.",
                               type: "success",
                               ack: function() { 
-                                window.location = "/instrument_list"
+                                window.location = "/assets/instruments/"
                               }
                             });
                             $('#editdep_panel').html('Saved Successfully.');
@@ -256,10 +256,10 @@ var InstrumentView = Backbone.View.extend({
                       success: function(model, response, options) {
                         console.log("destroyed");
                         self.modalDialog.show({
-                          message: "Deployment successfully registered",
+                          message: "Deployment successfully deleted.",
                           type: "success",
                           ack: function() { 
-                            window.location = "/instrument_list"
+                            window.location = "/assets/instruments/"
                           }
                         });
                         $('#editdep_panel').html('Deleted Successfully.');

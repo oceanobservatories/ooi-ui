@@ -27,15 +27,13 @@
       <div class="col-sm-4">
         <!-- upper main left-->
         <div id="form-group" class="form-group">
-          <input type="text" class="form-control" id="username" name="username" placeholder="User Name"/>
+          <input type="text" class="form-control" id="username" name="username" disabled="disabled" placeholder="You shouldn't see this"/>
           <span class="help-block hidden"></span>
           <br>
           <input type="text" class="form-control" id="titleSub" name="titleSub" placeholder="Title/Subject"/>
           <span class="help-block hidden"></span>
-          <br>
-          <input type="text" class="form-control" id="comment" name="comment" placeholder="Commment" />
-          <span class="help-block hidden"></span>
         </div><!-- upper form-group -->
+        <hr>
       </div><!-- upper col-sm-4 -->
       <div class="col-sm-4">
         <!-- upper main right side -->
@@ -90,13 +88,16 @@
         </div><!-- bump -->
         <br>
         <div class="bump">
-          <select id="event-type-selection" name='assigned' class="typeDrop"><!--event-type-selection-->
-            <% collection.each(function(model) { %>
-            <option value="<%= model.get('user_id') %>"> 
-              <%= model.get('user_name') %>
-            </option>
-            <% }); %>
-          </select>
+          <div class="form-group">
+            <select id="assignee-select" name='assigned' class="typeDrop"><!--event-type-selection-->
+              <option value="None">-- Assignee --</option>
+              <% collection.each(function(model) { %>
+              <option value="<%= model.get('user_name') %>"> 
+                <%= model.get('user_name') %>
+              </option>
+              <% }); %>
+            </select>
+          </div> <!-- .form-group -->
         </div><!-- bump -->
         <br>
         <div class="btn-group-sm">

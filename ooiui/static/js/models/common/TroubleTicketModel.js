@@ -21,7 +21,7 @@ var TroubleTicketModel = Backbone.Model.extend({
     "due_date": null,
     "description": null,
     "priority_id": null,
-    "assigned_to_id" : "null"
+    //"assigned_to_id" : "null"
     //"name":null
   }
 });
