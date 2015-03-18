@@ -250,6 +250,30 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
+          ],
+          "ooiui/static/js/partials/compiled/c2.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Panel.html",
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/Chart.html",
+            "ooiui/static/js/partials/FakeTable.html",
+            "ooiui/static/js/partials/Watch.html",
+            "ooiui/static/js/partials/OrgSidebar.html",
+            "ooiui/static/js/partials/ArraySideBar.html",
+            "ooiui/static/js/partials/EventList.html",
+            "ooiui/static/js/partials/TimeLineEvent.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/Event.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/ArraySideBar.html"
           ]
         }
       }
@@ -730,6 +754,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -741,7 +766,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/asset_management/InstrumentView.js',
             'ooiui/static/js/views/asset_management/PlatformView.js',
             'ooiui/static/js/views/c2/ArrayDisplayView.js',
-            'ooiui/static/js/views/c2/ArrayAbstractView.js'
+            'ooiui/static/js/views/c2/ArrayAbstractView.js',
+            'ooiui/static/js/views/c2/ArraySideBarView.js'
           ]
         }
       },
@@ -851,6 +877,13 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/css/common/landingPages.css"
+          ],
+          "ooiui/static/css/compiled/c2.css" : [
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/annotationModal.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/c2.css"
           ]
         }
       }

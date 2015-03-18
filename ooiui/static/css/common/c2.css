@@ -1,0 +1,6 @@
+#panels div{
+  display: none;
+}
+.org-item.selected {
+  background-color: #eee;
+}

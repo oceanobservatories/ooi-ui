@@ -21,13 +21,26 @@
  */
 
 var ArrayAbstractModel = Backbone.Model.extend({
-  urlRoot: '/api/c2/array/CP/abstract',
+  urlRoot: '/api/c2/array',
   defaults: {
     array_id: 3,
     display_name: "Coastal Pioneer",
     operational_status: "Unknown",
     reference_designator: "CP"
-    }
+    },
+  fetchCurrent: function (array_code, options) {
+            options = options || {};
+            if (options.url === undefined) {
+                options.url = this.urlRoot + "/" + array_code + "/abstract";
+            }
+
+            return Backbone.Model.prototype.fetch.call(this, options);
+        },
+
+        validate: function (attributes) {
+            // To be done
+            return null;
+        }
 });
 
 var ArrayAbstractCollection = Backbone.Collection.extend({

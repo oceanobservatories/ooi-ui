@@ -1,6 +1,6 @@
 "use strict";
 /*
-* ooiui/static/js/views/common/ChartView.js
+* ooiui/static/js/views/c2/ArraySideBarView.js
 * View definitions for charts
 *
 * Dependencies
@@ -15,12 +15,12 @@
 */
 
 /*
- * The OrgSidebarView should be bound to a 
+ * The OrgSidebarView should be bound to a
  * <div id="sidebar-wrapper" class="navbar-default">. This View will render
  * nav-style links for each organization in the collection passed in as an
  * option.
  */
-var OrgSidebarView = Backbone.View.extend({
+var ArraySidebarView = Backbone.View.extend({
   // The el will be a <ul> tag
   tagName: 'ul',
   // <ul class="nav sidebar-nav navbar-collapse">
@@ -34,13 +34,14 @@ var OrgSidebarView = Backbone.View.extend({
    * model_id as the parameter.
    */
   onClick: function(event) {
-    //prevent double request 
+    //prevent double request
     event.preventDefault();
-    // Get the model id from the tag attribute data-id
-    var model_id = parseInt($(event.target).attr('data-id'));
-    // Publish a new method org:click with the model_id
+    // Get the array id from the tag attribute data-id
+    //var array_id = parseInt($(event.target).attr('data-id'));
+    var array_id = $(event.target).attr('data-id');
+    // Publish a new method array:click with the array_id
     this.render();
-    this.selectOrg(model_id);
+    this.selectArray(array_id);
   },
   /*
    * During initialization of this view we fetch the collection and render when
@@ -53,18 +54,18 @@ var OrgSidebarView = Backbone.View.extend({
       success: function(collection, response, options) {
         // If the fetch was successful, then we render
         self.render();
-        var organization_id = ooi.models.userModel.get('organization_id');
-        if(organization_id && organization_id != '' && organization_id != null) {
-          self.selectOrg(organization_id)
+        var array_id = ooi.models.arrayModel.get('array_code');
+        if(array_id && array_id != '' && array_id != null) {
+          self.selectArray(array_id)
         }
       }
     });
   },
-  selectOrg: function(org_id) {
-    this.$el.find("[data-id='" + org_id + "']").parent().toggleClass('selected');
-    ooi.trigger('org:click', org_id);
+  selectArray: function(array_id) {
+    this.$el.find("[data-id='" + array_id + "']").parent().toggleClass('selected');
+    ooi.trigger('array:click', array_id);
   },
-  template: JST['ooiui/static/js/partials/OrgSidebar.html'],
+  template: JST['ooiui/static/js/partials/ArraySideBar.html'],
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
   }

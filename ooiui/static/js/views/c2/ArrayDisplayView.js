@@ -15,7 +15,7 @@ var ArrayDisplayView = Backbone.View.extend({
 
         var PageableDeployments = Backbone.PageableCollection.extend({
           model: ArrayDisplayModel,
-          url: '/api/c2/array/CP/current_status_display',
+          url: '/api/c2/array/'+this.model.array_id+'/current_status_display',
           state: {
             pageSize: 7
           },
@@ -170,6 +170,7 @@ var ArrayDisplayView = Backbone.View.extend({
         //    //    }
         //    //}
         //});
+
         $('#array_list').click(function(t) {
           if(t.target.innerText == 'COASTAL ENDURANCE'){
             pageabledeploy.fetch({
@@ -190,6 +191,19 @@ var ArrayDisplayView = Backbone.View.extend({
             //  message: pageabledeploy.url,
             //  type: "danger"
             //});
+          }
+          });
+          $('#sidebar-wrapper').click(function(t) {
+self.modalDialog.show({
+              message: t.target.innerText + this.model.get('array_code'),
+              type: "danger"
+            });
+          if(t.target.innerText == 'COASTAL PIONEER'){
+            pageabledeploy.fetch({
+              reset: true,
+              url: '/api/c2/array/CP/current_status_display'
+            });
+
           }
         });
         //on button bar click

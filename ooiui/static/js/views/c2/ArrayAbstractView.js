@@ -15,7 +15,7 @@ var ArrayAbstractView = Backbone.View.extend({
 
         var PageableDeployments = Backbone.PageableCollection.extend({
           model: ArrayAbstractModel,
-          url: '/api/c2/array/CP/abstract',
+          url: '/api/c2/array/' + self.model.get('reference_designator') + '/abstract',
           state: {
             pageSize: 7
           },
