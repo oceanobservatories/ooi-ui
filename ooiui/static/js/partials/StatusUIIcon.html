@@ -2,20 +2,57 @@
 
 <% collection.each(function(model) { %>
 
-<div class="platform-tile well blue-backgroud-gradiant" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="#collapse<%= i %>">
+<% var blueBackground = 'blue-background-gradiant' %>
+<% var redBackground = 'red-background-gradiant' %>
+<% var yellowBackground = 'yellow-background-gradiant' %>
+<% var unknownBackground = 'unknown-backgroud-gradiant' %>
+
+<% var blueBadge = 'status-icon status-ok' %>
+<% var redBadge =  'status-icon status-error' %>
+<% var yellowBadge = 'status-icon status-issue' %>
+<% var unknownBadge = 'status-icon status-unknown' %>
+ 
+<% var asset = model.get('assetId'); %>
+
+
+<% var backgound;%>
+
+
+
+
+
+ <% var badge %>
+
+
+ <% if (asset == '2') { %>
+ <% badge = redBadge %>
+  <% } else if (asset == '3') { %>
+ <% badge = yellowBadge %>
+
+  <% } else { %>
+ <% badge = blueBadge %>
+
+
+  <% } %>
+  
+  
+  <!--
+if (assetStatus == '1')
+	var background-gradient = 'blue-backgroud-gradiant'
+	var status-color = 'status-ok'
+-->
+	
+
+
+<div class="platform-tile well blue-background-gradiant" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="#collapse<%= i %>">
   <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
   <h5 class="platform-tile-title">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
   
 
   <!--needs if statement to use correct collor for alert-->
-  <% var asset = model.get('assetId'); %>
-  <% if (asset == '2') { %>
-  <span class="status-icon status-error"></span>
-  <% } else if (asset == '3') { %>
-  <span class="status-icon status-ok"></span>
-  <% } else { %>
-  <span class="status-icon status-issue"></span>
-  <% } %>
+ 
+  <span class="<%= badge %>"></span>
+
   <h5 class="platform-tile-title">Deployed:</h5>
   <h6 class="platform-tile-title"><%= model.get('launch_date_time') %></h6> 
   <h6 class="platform-tile-title">Series Classification:&nbsp;&nbsp;<%= model.get('seriesClassification') %></h6>
@@ -26,7 +63,7 @@
 
 <div class="collapse well" id="collapse<%= i %>">
   <div class="well">
-    1 goes here
+	  <h4 class="platform-title-title">
   </div>
 </div>
 <% i+= 1; %>
