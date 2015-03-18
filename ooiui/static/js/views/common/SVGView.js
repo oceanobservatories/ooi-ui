@@ -62,7 +62,7 @@ var SVGPlotView = SVGView.extend({
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     if(options && options.yvar && options.xvar) {      
-      if (this.plotType == 'timeseries'){
+      if (options.plotType == 'timeseries'){
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
       }else{
