@@ -2,69 +2,57 @@
 
 <% collection.each(function(model) { %>
 
-<% var blueBackground = 'blue-background-gradiant' %>
-<% var redBackground = 'red-background-gradiant' %>
-<% var yellowBackground = 'yellow-background-gradiant' %>
-<% var unknownBackground = 'unknown-backgroud-gradiant' %>
-
-<% var blueBadge = 'status-icon status-ok' %>
-<% var redBadge =  'status-icon status-error' %>
-<% var yellowBadge = 'status-icon status-issue' %>
-<% var unknownBadge = 'status-icon status-unknown' %>
- 
 <% var asset = model.get('assetId'); %>
 
+<% var backgound %>
+<% var badge %>
 
-<% var backgound;%>
+<!-- Badge and background colors -->
+<% var blueBG = 'dogTagBtn well blue-backgroud-gradiant' %>
+<% var yellowBG = 'dogTagBtn well yellow-backgroud-gradiant ' %>
+<% var redBG = 'dogTagBtn well red-backgroud-gradiant' %>
+<% var unknownBG = 'dogTagBtn well unknown-backgroud-gradiant' %>
+
+<% var blueBadge = 'badge-ok' %>
+<% var yellowBadge = 'badge-issue' %>
+<% var redBadge =  'badge-error' %>
+<% var unknownBadge = 'badge-unkown' %>
+
+<!-- If statement to set badge and background collor bassed on priority level -->
+<% if (asset == '1') { %>
+
+<% badge = blueBadge %>
+<% backgound = blueBG %>
+
+<% } else if (asset == '2') { %>
+<% badge = yellowBadge %>
+<% backgound = yellowBG %>
+
+<% } else if (asset == '3') { %>
+<% badge = redBadge %>
+<% backgound = redBG %>
+
+<% } else { %>
+<% badge = unknownBadge %>
+<% backgound = unknownBG %>
+
+<% } %>
 
 
-
-
-
- <% var badge %>
-
-
- <% if (asset == '2') { %>
- <% badge = redBadge %>
-  <% } else if (asset == '3') { %>
- <% badge = yellowBadge %>
-
-  <% } else { %>
- <% badge = blueBadge %>
-
-
-  <% } %>
-  
-  
-  <!--
-if (assetStatus == '1')
-	var background-gradient = 'blue-backgroud-gradiant'
-	var status-color = 'status-ok'
--->
-	
-
-
-<div class="platform-tile well blue-background-gradiant" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="#collapse<%= i %>">
-  <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
-  <h5 class="platform-tile-title">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
-  
-
-  <!--needs if statement to use correct collor for alert-->
- 
-  <span class="<%= badge %>"></span>
-
-  <h5 class="platform-tile-title">Deployed:</h5>
-  <h6 class="platform-tile-title"><%= model.get('launch_date_time') %></h6> 
-  <h6 class="platform-tile-title">Series Classification:&nbsp;&nbsp;<%= model.get('seriesClassification') %></h6>
+<div class="<%= backgound %>" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="#collapse<%= i %>">
+	<h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
+	<h5 class="platform-tile-title">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
+	<span class="<%= badge %>"></span>
+	<h5 class="platform-tile-title">Deployed:</h5>
+	<h6 class="platform-tile-title"><%= model.get('launch_date_time') %></h6> 
+	<h6 class="platform-tile-title">Series Classification:&nbsp;&nbsp;<%= model.get('seriesClassification') %></h6>
 </div>
 
-
-
-
+<!-- Accordian -->
 <div class="collapse well" id="collapse<%= i %>">
-  <div class="well">
-	  <h4 class="platform-title-title">
-  </div>
+	<div class="well">
+		<h4 class="platform-title-title">
+	</div>
 </div>
 <% i+= 1; %>
 <% }); %> 

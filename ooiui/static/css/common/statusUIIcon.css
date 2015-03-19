@@ -1,36 +1,195 @@
+.dogTagBtn {
+    margin: 10px;
+    padding: 0px;
+    height: 200px;
+    width: 160px;
+    vertical-align: top;
+    text-align: center;
+    display: inline-block;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
 
 .blue-backgroud-gradiant {
-	background-color: #fff;
-	background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
-	box-shadow: 0 0 10px rgba(81, 203, 238, 1);
-	border: 1px solid rgba(81, 203, 238, 1);
+    background-color: #fff;
+    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+    box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+    border:  1px solid rgba(81, 203, 238, 1);
 }
-/*
-.platform-tile:hover {
-border-color: #41c9ff;
+.blue-backgroud-gradiant:hover {
+    border:  1px solid;
+    border-color: rgba(0, 118, 253, 0.75);
+    /*Glow*/ 
+    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1)); 
+    -moz-box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
+    box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
 }
- */
+
 .red-backgroud-gradiant {
-	background-color: #fff;
-	background-image: radial-gradient(100% 100%, #fff, rgb(253, 196, 196));
+    background-color: #fff;
+    background-image: radial-gradient(100% 100%, #fff, rgb(253, 196, 196));	
+    box-shadow: 0 0 10px rgba(250, 128, 128, 1);
+    border: 1px solid rgba(252, 171, 171, 1);
+}
+.red-backgroud-gradiant:hover {
+    border:  1px solid;
+    border-color: rgb(255, 50, 50);
+    /*Glow*/ 
+    -webkit-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1); 
+    -moz-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
+    box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
 }
 
 .yellow-backgroud-gradiant {
-	background-color: #fff;
-	background-image: radial-gradient(100% 100%, #fff, rgb(253, 253, 221));
+    background-color: #fff;
+    background-image: radial-gradient(100% 100%, #fff, rgb(253, 253, 221));
+    box-shadow: 0 0 10px rgba(253, 253, 22, .95);
+    border: 1px solid rgb(231, 230, 100);
+}
+.yellow-backgroud-gradiant:hover {
+    border:  1px solid;
+    border-color: rgb(255, 255, 0);
+    /*Glow*/ 
+    -webkit-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95); 
+    -moz-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
+    box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
 }
 
-.status-ok {
-	background-color: #006eff;
-	color: white;
+.unknown-backgroud-gradiant {
+    background-color: #fff;
+    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+    box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+    box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+    238
 }
+/*
+ ***small gradient
+ .badge-ok {
+ background-image: radial-gradient( 50% 50%, rgba(0, 23, 255, 1), rgba(130, 145, 223, 0));
+ display: block;
+ float: center;
+ margin: 0 10px 0px 0;
+ width: 45px;
+ height: 45px;
+ border-radius: 50%;
+ line-height: 45px;
+ vertical-align: middle;
+ text-align: center;
+ font-size: 35px;
+ margin-left: 35%;
+ }
 
-.status-issue {
-	background-color: #FFE944;
-	color: white;
-}
 
-.status-error {
-	background-color: #E03D2C;
-	color: white;
-}
+ ***large gradient
+ .badge-ok {
+ background: -webkit-radial-gradient(rgba(142, 147, 247, 1) 5%, rgba(35, 44, 245, 0.16) 60%);
+ display: block;
+ float: center;
+ margin: 0 10px 0px 0;
+ width: 100px;
+ height: 100px;
+ border-radius: 50%;
+ line-height: 45px;
+ vertical-align: middle;
+ text-align: center;
+ font-size: 35px;
+ margin-left: 20%;
+ }
+ */
+    .badge-ok {
+        background-color: #006eff;
+      display: block;
+        float: center;
+        margin: 0 10px 0px 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        line-height: 45px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 35px;
+        margin-left: 35%;
+        border: 1px solid transparent;
+        border-color: #969696;
+    }
+    .badge-issue {
+        background-color: #FFE944;
+        display: block;
+        float: center;
+        margin: 0 10px 0px 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        line-height: 45px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 35px;
+        margin-left: 35%;
+        border: 1px solid transparent;
+        border-color: #969696;
+
+    }
+
+    .badge-error {
+        background-color: #E03D2C;
+        display: block;
+        float: center;
+        margin: 0 10px 0px 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        line-height: 45px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 35px;
+        margin-left: 35%;
+        border: 1px solid transparent;
+        border-color: #969696;
+
+    }
+
+    .badge-unkown {
+        background-color: #5e5e5e;
+        display: block;
+        float: center;
+        margin: 0 10px 0px 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        line-height: 45px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 35px;
+        margin-left: 35%;
+        border: 1px solid transparent;
+        border-color: #969696;
+    }
+
+    #ex5 { 
+        width: 700px;
+        margin: 0 auto; min-height: 300px;
+    } #ex5 img { 
+        margin: 25px; 
+        opacity: 0.8;
+        border: 10px solid #eee;
+        /*Transition*/ 
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        /*Reflection*/ 
+        -webkit-box-reflect: below 0px
+        -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1))); 
+    } 
+    #ex5 img:hover {
+        opacity: 1; 
+        /*Reflection*/
+        -webkit-box-reflect: below 0px
+        -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));
+        /*Glow*/ 
+        -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8); 
+        -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+        box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    }
