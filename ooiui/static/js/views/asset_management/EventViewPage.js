@@ -1,8 +1,8 @@
 var EventViewPage = Backbone.View.extend({
 
 	initialize: function(d) {
-    if(d.eventid){
-      this.setEventId(d.eventid);
+    if(d){
+      this.setEventId(d);
     }
     else{
       var modalDialog = new ModalDialogView();
@@ -15,10 +15,27 @@ var EventViewPage = Backbone.View.extend({
 		this.render();
 	},
 
-  setEventId:function(i){
-      if(i){
-        var self = this;
-        self.eventid= i;
+  setEventId:function(d){
+      var self = this;
+      if(d.assetid){
+        //set asset id to the model to create new event under that asset
+        self.eventid = 'new';
+        self.model= new  SingleEvent();
+        self.model.attributes.asset['@class'] = d.aclass;
+        self.model.attributes.asset['assetId'] = d.assetid;
+        $('#asset_table tbody').append("<tr id="+d.assetid+"><td style=''>"+d.assetid+"</td><td style=''>"+d.aclass+"</td><td style=''>n/a</td></tr>");
+        $('#editdep_panel').html('');
+        self.clearform();
+      }
+      else if(d.eventid){
+        self.eventid= d.eventid;
+      }
+      else{
+        var modalDialog = new ModalDialogView();
+          modalDialog.show({
+            message: 'There is no Event to View',
+            type: "danger",
+          });
       }
   },
 
@@ -28,103 +45,106 @@ var EventViewPage = Backbone.View.extend({
         self = this;
         var classtypelist = {'.ReturnToManufacturerEvent':{'val':7,'label':'ReturnToManufacturer'},'.StorageEvent':{'val':4,'label':'Storage'},'.DeploymentEvent':{'val':1,'label':'Deployment'},'.IntegrationEvent':{'val':2,'label':'Integration'},'.TestEvent':{'val':5,'label':'Test'},'.CalibrationEvent':{'val':6,'label':'Calibration'},'.RetirementEvent':{'val':3,'label':'Retirement'}};
 
-        var eventModel = new SingleEvent({id:self.eventid});
-
-        self.model = eventModel;
+        self.initializeEvent();
         self.modalDialog = new ModalDialogView();
+        if(self.eventid !='new'){
+          var eventModel = new SingleEvent({id:self.eventid});
 
-        eventModel.fetch({
-          success: function (event) {
-            self.initializeEvent();
-            $('#editdep_panel').html('');
+          self.model = eventModel;
 
-            //set asset_table to assetInfo table
-            $('#asset_table tbody').empty();
-            $('#asset_table tbody').append("<tr id="+event.attributes.asset.assetId+"><td style=''>"+event.attributes.asset.assetInfo.name+"</td><td style=''>"+event.attributes.asset.assetInfo.type+"</td><td style=''>"+event.attributes.asset.assetInfo.owner+"</td></tr>");
+          eventModel.fetch({
+            success: function (event) {
+              $('#editdep_panel').html('');
 
-            $('#name_d').val(event.attributes.eventId);
-            $('#cruise_e').val(event.attributes.cruiseNumber);
-            $('#cur_loc_d').val(event.attributes.currentLocationName);
-            
-            if(event.attributes.deploymentDepth){
-              $('#depth_e').val(event.attributes.deploymentDepth);
-            }
-            else{
-               $('#depth_e').val('');
-            }
-            if(event.attributes.startDate){
-              if(String(event.attributes.startDate).search('Z')>-1){
-                var dobj = String(event.attributes.startDate).split('Z')
-                var l_date = Date.parse(dobj[0]);
-              }
-              else if(!isNaN(event.attributes.startDate)){
-                var l_date = new Date(event.attributes.startDate*1000);
+              //set asset_table to assetInfo table
+              $('#asset_table tbody').empty();
+              $('#asset_table tbody').append("<tr id="+event.attributes.asset.assetId+"><td style=''>"+event.attributes.asset.assetInfo.name+"</td><td style=''>"+event.attributes.asset.assetInfo.type+"</td><td style=''>"+event.attributes.asset.assetInfo.owner+"</td></tr>");
+
+              $('#name_d').val(event.attributes.eventId);
+              $('#cruise_e').val(event.attributes.cruiseNumber);
+              $('#cur_loc_d').val(event.attributes.currentLocationName);
+              
+              if(event.attributes.deploymentDepth){
+                $('#depth_e').val(event.attributes.deploymentDepth);
               }
               else{
-                var l_date = Date.parse(event.attributes.startDate);
+                 $('#depth_e').val('');
               }
-              $("#startdate_d" ).datepicker( "setDate", l_date);
-            }
-            else{
-               $("#startdate_d" ).datepicker( "setDate", '' );
-            }
-
-            if(event.attributes.endDate){
-              if(String(event.attributes.endDate).search('Z')>-1){
-                var dobj2 = String(event.attributes.endDate).split('Z')
-                var l_date = Date.parse(dobj2[0]);
-              }
-              else if(!isNaN(event.attributes.endDate)){
-                var l_date = new Date(event.attributes.endDate*1000);
-              }
-              else{
-                var l_date = Date.parse(event.attributes.endDate);
-              }
-              $("#enddate_d" ).datepicker( "setDate", l_date);
-            }
-            else{
-               $("#enddate_d" ).datepicker( "setDate", '' );
-            }
-            
-            $('#desc_d').val(event.attributes.eventDescription);
-            $('#notes_d').val(event.attributes.notes[0]);
-            $('#recordedby_d').val(event.attributes.recordedBy);
-            $('#dep_name_e').val(event.attributes.deploymentName);
-            $('#dep_num_e').val(event.attributes.deploymentNumber);
-
-            /*if(event.attributes.manufactureInfo){
-              $('#manufacture_d').val(event.attributes.manufactureInfo['manufacturer']);
-            }
-            else{
-               $('#manufacture_d').val('');
-            }*/
-            $("#type_e").val(event.attributes.eventType);
-            $("#type_switcher_but").attr('data', event.attributes['class']);
-            $("#type_switcher_but").val(classtypelist[event.attributes['class']].val);
-            $('#type_switcher_but').html(classtypelist[event.attributes['class']].label+' <span class="caret"></span>');
-                        
-            if(event.attributes.deploymentLocation != null){
-                //for geojson ....
-                if(event.attributes.deploymentLocation.length>0){
-                //if(model.attributes.geo_location.type == "Point"){
-                    //[x,y]
-                    $('#geo_d_lat').val(event.attributes.deploymentLocation[0]);
-                    $('#geo_d_long').val(event.attributes.deploymentLocation[1]);
-
-                    // add a marker in the given location, attach some popup content to it and open the popup
-                    var asset_mark = L.marker([event.attributes.deploymentLocation[0], event.attributes.deploymentLocation[1]]).addTo(map)
-                        .bindPopup(event.attributes['class'])
-                        .openPopup();
-                    self.asset_mark = asset_mark;
-                    map.panTo({lat: event.attributes.deploymentLocation[0], lng: event.attributes.deploymentLocation[1]});
-                    //map.setView({lat: 50, lng: 30},8);
+              if(event.attributes.startDate){
+                if(String(event.attributes.startDate).search('Z')>-1){
+                  var dobj = String(event.attributes.startDate).split('Z')
+                  var l_date = Date.parse(dobj[0]);
                 }
+                else if(!isNaN(event.attributes.startDate)){
+                  var l_date = new Date(event.attributes.startDate*1000);
+                }
+                else{
+                  var l_date = Date.parse(event.attributes.startDate);
+                }
+                $("#startdate_d" ).datepicker( "setDate", l_date);
+              }
+              else{
+                 $("#startdate_d" ).datepicker( "setDate", '' );
+              }
+
+              if(event.attributes.endDate){
+                if(String(event.attributes.endDate).search('Z')>-1){
+                  var dobj2 = String(event.attributes.endDate).split('Z')
+                  var l_date = Date.parse(dobj2[0]);
+                }
+                else if(!isNaN(event.attributes.endDate)){
+                  var l_date = new Date(event.attributes.endDate*1000);
+                }
+                else{
+                  var l_date = Date.parse(event.attributes.endDate);
+                }
+                $("#enddate_d" ).datepicker( "setDate", l_date);
+              }
+              else{
+                 $("#enddate_d" ).datepicker( "setDate", '' );
+              }
+              
+              $('#desc_d').val(event.attributes.eventDescription);
+              $('#notes_d').val(event.attributes.notes[0]);
+              $('#recordedby_d').val(event.attributes.recordedBy);
+              $('#dep_name_e').val(event.attributes.deploymentName);
+              $('#dep_num_e').val(event.attributes.deploymentNumber);
+
+              /*if(event.attributes.manufactureInfo){
+                $('#manufacture_d').val(event.attributes.manufactureInfo['manufacturer']);
+              }
+              else{
+                 $('#manufacture_d').val('');
+              }*/
+              $("#type_e").val(event.attributes.eventType);
+              $("#type_switcher_but").attr('data', event.attributes['class']);
+              $("#type_switcher_but").val(classtypelist[event.attributes['class']].val);
+              $('#type_switcher_but').html(classtypelist[event.attributes['class']].label+' <span class="caret"></span>');
+                          
+              if(event.attributes.deploymentLocation != null){
+                  //for geojson ....
+                  if(event.attributes.deploymentLocation.length>0){
+                  //if(model.attributes.geo_location.type == "Point"){
+                      //[x,y]
+                      $('#geo_d_lat').val(event.attributes.deploymentLocation[0]);
+                      $('#geo_d_long').val(event.attributes.deploymentLocation[1]);
+
+                      // add a marker in the given location, attach some popup content to it and open the popup
+                      var asset_mark = L.marker([event.attributes.deploymentLocation[0], event.attributes.deploymentLocation[1]]).addTo(map)
+                          .bindPopup(event.attributes['class'])
+                          .openPopup();
+                      self.asset_mark = asset_mark;
+                      map.panTo({lat: event.attributes.deploymentLocation[0], lng: event.attributes.deploymentLocation[1]});
+                      //map.setView({lat: 50, lng: 30},8);
+                  }
+              }
+            },
+            error: function(er){
+              $('#editdep_panel').html('Error finding the Event');
             }
-          },
-          error: function(er){
-            $('#editdep_panel').html('Error finding the Event');
-          }
-        });
+          });
+        }
+        
 
         //add map
         L.Icon.Default.imagePath = '/img';
@@ -231,16 +251,27 @@ var EventViewPage = Backbone.View.extend({
                     if($('#dep_name_e').val() != ''){
                         Event4Post.save(null, {
                           success: function(model, response) {
-                            self.modalDialog.show({
+                            if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+                              self.modalDialog.show({
+                                message: "Unable to Save Event",
+                                type: "danger",
+                              });
+                              console.log(response.responseText);
+                              $('#editdep_panel').html('Save Event Error.');
+                            }
+                            else{
+                              self.modalDialog.show({
                               message: "Event successfully saved.",
                               type: "success",
                               ack: function() { 
-                                window.location = "/assets/list/"
+                                //window.location = "/assets/list/"
                               }
-                            });
-                            $('#editdep_panel').html('Saved Successfully.');
-                            //reload page
-                            location.reload();
+                              });
+                              $('#editdep_panel').html('Saved Successfully.');
+                              //reload page
+                              //location.reload();
+                            }
+                            
                           },
                           error: function(model, response) {
                             try {

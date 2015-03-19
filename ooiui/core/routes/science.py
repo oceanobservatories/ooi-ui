@@ -29,16 +29,21 @@ def landing_pioneer():
 @app.route('/assets/list')
 @app.route('/assets/list/')
 def instr_index():
-    return render_template('asset_management/list.html')
+    return render_template('asset_management/assetslist.html')
 
 @app.route('/events/list/')
 def event_list():
-    return render_template('asset_management/eventlist.html')
+    return render_template('asset_management/eventslist.html')
 
-@app.route('/events/list/<int:id>', methods=['GET'])
+@app.route('/event/<int:id>', methods=['GET'])
 def event_index(id):
     #?id=%s' % id
     return render_template('asset_management/event.html',id=id)
+
+@app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
+def event_new(new,aid,aclass):
+    #?id=%s' % id
+    return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
 
 @app.route('/streams')
 @app.route('/streams/')

@@ -193,8 +193,8 @@ var AssetView = Backbone.View.extend({
                   if(q == ''){
                       return true;
                   }
-                  else if(model.attributes['assetInfo']['class']){
-                    if(String(model.attributes['assetInfo']['class']).toUpperCase().search(q)>-1){
+                  else if(model.attributes['assetInfo']['name']){
+                    if(String(model.attributes['assetInfo']['name']).toUpperCase().search(q)>-1){
                         return true;
                     }
                   }
@@ -203,8 +203,8 @@ var AssetView = Backbone.View.extend({
                         return true;
                     }
                   }
-                  else if(model.attributes['assetInfo']['type']){
-                    if(String(model.attributes['assetInfo']['type']).toUpperCase().search(q)>-1){
+                  else if(model.attributes['assetInfo']['owner']){
+                    if(String(model.attributes['assetInfo']['owner']).toUpperCase().search(q)>-1){
                         return true;
                     }
                   }
@@ -303,7 +303,11 @@ var AssetView = Backbone.View.extend({
             assetInfoModel.fetch({
               success: function (events) {
                 $('#event_table tbody').empty();
+                $('#butnewevent').show();
 
+                $('#butnewevent').on('click',function(){
+                    window.open('/event/new/'+events.attributes.assetId+'/'+events.attributes.class,'_blank');
+                });
                 $('#physinfo_d').val(events.attributes.physicalInfo);
 
                 if(events.attributes.events){
@@ -318,7 +322,7 @@ var AssetView = Backbone.View.extend({
                 $('#event_table tr').click(function(row) {
                     //var eventrow = new SingleEvent({id:row.currentTarget.id});
                     if(row.currentTarget.id){
-                      window.open('/events/list/'+row.currentTarget.id,'_blank');
+                      window.open('/event/'+row.currentTarget.id,'_blank');
                   }
                 });
                 //allow to edit.
@@ -462,14 +466,23 @@ var AssetView = Backbone.View.extend({
                     if($('#name_d').val() != ''){
                         self.model.save(null, {
                           success: function(model, response) {
-                            self.modalDialog.show({
+                            if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+                              self.modalDialog.show({
+                                message: "Unable to Save Asset",
+                                type: "danger",
+                              });
+                              $('#editdep_panel').html('Save Asset Error.');
+                            }
+                            else{
+                              self.modalDialog.show({
                               message: "Asset successfully saved.",
                               type: "success",
-                              ack: function() { 
-                                window.location = "/assets/list/"
-                              }
-                            });
-                            $('#editdep_panel').html('Saved Successfully.');
+                                ack: function() { 
+                                  window.location = "/assets/list/"
+                                }
+                              });
+                              $('#editdep_panel').html('Saved Successfully.');
+                            }
                           },
                           error: function(model, response) {
                             try {
@@ -626,7 +639,10 @@ var AssetView = Backbone.View.extend({
         $('#manufacture_d').val('');
         $('#desc_d').val('');
         $('#notes_d').val('');
-        $('#physinfo_d').val('')
+        $('#physinfo_d').val('');
+        //hide events because not update here
+        $('#event_table tbody').empty();
+        $('#butnewevent').hide();
     },
 
     ConvertDDToDMS: function (dd)

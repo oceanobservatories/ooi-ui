@@ -240,7 +240,7 @@ var EventsView = Backbone.View.extend({
             }),
             complete: (function (e) {
                 $('#number_of_assets').html(e.responseJSON['events'].length+' total records');
-                $('#asset_top_panel').html('Click on an Event to View');
+                $('#asset_top_panel').html('Click on an Event to View/Edit');
 
                 //need to add assets to the filtrify component
                 for ( t = 0; t < e.responseJSON['events'].length; t++ ) {
@@ -267,7 +267,7 @@ var EventsView = Backbone.View.extend({
         Backbone.on("deployrowclicked", function (model) {
             //got to event page for that event
             if(model.attributes.eventId){
-                window.open('/events/list/'+model.attributes.eventId,'_blank');
+                window.open('/event/'+model.attributes.eventId,'_blank');
             }
         });
       }  
