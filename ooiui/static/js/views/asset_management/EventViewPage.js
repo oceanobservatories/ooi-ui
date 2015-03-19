@@ -38,64 +38,79 @@ var EventViewPage = Backbone.View.extend({
             self.initializeEvent();
             $('#editdep_panel').html('');
 
-            $('#event_table tbody').empty();
+            //set asset_table to assetInfo table
+            $('#asset_table tbody').empty();
+            $('#asset_table tbody').append("<tr id="+event.attributes.asset.assetId+"><td style=''>"+event.attributes.asset.assetInfo.name+"</td><td style=''>"+event.attributes.asset.assetInfo.type+"</td><td style=''>"+event.attributes.asset.assetInfo.owner+"</td></tr>");
 
             $('#name_d').val(event.attributes.eventId);
             $('#cruise_e').val(event.attributes.cruiseNumber);
             $('#cur_loc_d').val(event.attributes.currentLocationName);
+            
             if(event.attributes.deploymentDepth){
               $('#depth_e').val(event.attributes.deploymentDepth);
             }
             else{
                $('#depth_e').val('');
             }
-
             if(event.attributes.startDate){
-              var l_date = Date(event.attributes.startDate);
-              $("#startdate_d" ).datepicker( "setDate", l_date );
+              if(event.attributes.startDate.search('Z')>-1){
+                var dobj = event.attributes.startDate.split('Z')
+                var l_date = Date.parse(dobj[0]);
+              }
+              else{
+                var l_date = Date.parse(event.attributes.startDate);
+              }
+              $("#startdate_d" ).datepicker( "setDate", l_date);
             }
             else{
                $("#startdate_d" ).datepicker( "setDate", '' );
             }
+
             if(event.attributes.endDate){
-              var e_date = Date.parse(event.attributes.endDate);
-              $("#enddate_d" ).datepicker( "setDate", e_date );
+              if(event.attributes.endDate.search('Z')>-1){
+                var dobj2 = event.attributes.endDate.split('Z')
+                var l_date = Date.parse(dobj2[0]);
+              }
+              else{
+                var l_date = Date.parse(event.attributes.endDate);
+              }
+              $("#enddate_d" ).datepicker( "setDate", l_date);
             }
             else{
                $("#enddate_d" ).datepicker( "setDate", '' );
             }
             
             $('#desc_d').val(event.attributes.eventDescription);
-            $('#notes_d').val(event.attributes.notes);
+            $('#notes_d').val(event.attributes.notes[0]);
             $('#recordedby_d').val(event.attributes.recordedBy);
             $('#dep_name_e').val(event.attributes.deploymentName);
             $('#dep_num_e').val(event.attributes.deploymentNumber);
 
-            if(event.attributes.manufactureInfo){
+            /*if(event.attributes.manufactureInfo){
               $('#manufacture_d').val(event.attributes.manufactureInfo['manufacturer']);
             }
             else{
                $('#manufacture_d').val('');
-            }
+            }*/
             $("#type_e").val(event.attributes.eventType);
             
-            $("#type_switcher_but").val(classtypelist[event.attributes['@class']].val);
-            $('#type_switcher_but').html(classtypelist[event.attributes['@class']].label+' <span class="caret"></span>');
+            $("#type_switcher_but").val(classtypelist[event.attributes['class']].val);
+            $('#type_switcher_but').html(classtypelist[event.attributes['class']].label+' <span class="caret"></span>');
                         
-            if(event.attributes.coordinates != null){
+            if(event.attributes.deploymentLocation != null){
                 //for geojson ....
-                if(event.attributes.coordinates.length>0){
+                if(event.attributes.deploymentLocation.length>0){
                 //if(model.attributes.geo_location.type == "Point"){
                     //[x,y]
-                    $('#geo_d_lat').val(event.attributes.coordinates[0]);
-                    $('#geo_d_long').val(event.attributes.coordinates[1]);
+                    $('#geo_d_lat').val(event.attributes.deploymentLocation[0]);
+                    $('#geo_d_long').val(event.attributes.deploymentLocation[1]);
 
                     // add a marker in the given location, attach some popup content to it and open the popup
-                    var asset_mark = L.marker([event.attributes.coordinates[0], event.attributes.coordinates[1]]).addTo(map)
-                        .bindPopup(event.attributes['@class'])
+                    var asset_mark = L.marker([event.attributes.deploymentLocation[0], event.attributes.deploymentLocation[1]]).addTo(map)
+                        .bindPopup(event.attributes['class'])
                         .openPopup();
                     self.asset_mark = asset_mark;
-                    map.panTo({lat: event.attributes.coordinates[0], lng: event.attributes.coordinates[1]});
+                    map.panTo({lat: event.attributes.deploymentLocation[0], lng: event.attributes.deploymentLocation[1]});
                     //map.setView({lat: 50, lng: 30},8);
                 }
             }
@@ -143,40 +158,58 @@ var EventViewPage = Backbone.View.extend({
         //asset type switcher
         $('#type_switcher_but').dropdown();
         $('#type_switcher_but_val').on('click', function(e) {
+            $('#type_switcher_but').attr('data',e.target.attributes[0].value);
             $('#type_switcher_but').html(e.target.innerHTML);
         })
         //on button bar click
         $('#deploy_edit').click(function(t) {
             var deploy_obj_ = {};
 
+            //this is because the data model is different coming in and going out!
+            var Event4Post = new SingleEvent();
+
             if(t.target.innerText.search('NEW')>-1){
                 self.clearform();
-                self.model = new SingleEvent();
                 //check to see if there is marker on the map and remove it
+                //reset eventId
+                self.model.attributes.eventId = null;
                 $('#editdep_panel').html('Click Save to create new Event.');
             }
             else if(t.target.innerText.search('SAVE'>-1)){
                 //save to db 
                 if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
-                   // that.model.attributes = selectedInstrument;
-                    self.model.set('startDate',$( "#startdate_d" ).datepicker('getDate' ));
-                    self.model.set('endDate',$( "#enddate_d" ).datepicker('getDate' ));
-                    self.model.set('eventType',$('#type_e').val());
-                    self.model.set('cruiseNumber',$('#cruise_e').val());
-                    self.model.set('deploymentName', $('#dep_name_e').val());
-                    self.model.set('deploymentNumber',$('#dep_num_e').val());
-                    self.model.set('recordedBy',$('#recordedby_d').val());
-                    self.model.set('deploymentLocationName',$('#cur_loc_d').val());
+                   
+                    if($( "#startdate_d" ).datepicker('getDate' )){
+                        Event4Post.set('startDate',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
+                    }
+                    if($( "#enddate_d" ).datepicker('getDate' )){
+                        Event4Post.set('endDate',$( "#enddate_d" ).datepicker('getDate' ).toISOString());  
+                    }
                     
-                    self.model.set('@class', $('#type_switcher_but').text());
-                    self.model.set('deploymentDepth',Number($('#depth_d').val()));
-                    //self.model.set('coordiantes',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
-                    self.model.set('description', $('#desc_d').val());
-                    self.model.set('notes',$('#notes_d').val());
-                    var manObj = {};
+                    Event4Post.set('eventType',$('#type_e').val());
+                    Event4Post.set('cruiseNumber',$('#cruise_e').val());
+                    Event4Post.set('deploymentName', $('#dep_name_e').val());
+                    Event4Post.set('deploymentNumber',Number($('#dep_num_e').val()));
+                    Event4Post.set('recordedBy',$('#recordedby_d').val());
+                    //Event4Post.set('deploymentLocationName',$('#cur_loc_d').val());
+                    
+                    Event4Post.set('class', $('#type_switcher_but').attr('data'));
+                    Event4Post.set('deploymentDepth',Number($('#depth_e').val()));
+                    Event4Post.set('deploymentLocation',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
+                    Event4Post.set('eventDescription', $('#desc_d').val());
+                    Event4Post.set('notes',[$('#notes_d').val()]);
+
+                    //this never changes
+                    var assetObj = {}
+                    assetObj= {
+                      "@class": self.model.attributes.asset['@class'],
+                      "assetId": self.model.attributes.asset['assetId']
+                     };
+                    Event4Post.set('asset',assetObj);
+                    /*var manObj = {};
                     manObj['manufacturer']=$('#manufacture_d').val()
-                    self.model.set('manufactureInfo',manObj);
+                    self.model.set('manufactureInfo',manObj);*/
                     //var geoObj = {};
                     //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     //geoObj['coordinates']=coord;
@@ -184,13 +217,13 @@ var EventViewPage = Backbone.View.extend({
                     //self.model.set('geo_location',wellknown.stringify(geoObj));
 
                     //existing? this is to put edits
-                    if(self.model.attributes.eventId){
-                        self.model.set('id',self.model.attributes.eventId);                    
+                    if(self.model.attributes.eventId != null){
+                        Event4Post.set('id',self.model.attributes.eventId);                    
                         //If the model does not yet have an id, it is considered to be new.
                         //self.model.url = '/api/asset_deployment/'+selectedInstrument['assetId']
                     }
                     if($('#dep_name_e').val() != ''){
-                        self.model.save(null, {
+                        Event4Post.save(null, {
                           success: function(model, response) {
                             self.modalDialog.show({
                               message: "Asset successfully saved.",
@@ -200,29 +233,34 @@ var EventViewPage = Backbone.View.extend({
                               }
                             });
                             $('#editdep_panel').html('Saved Successfully.');
+                            //reload page
+                            location.reload();
                           },
                           error: function(model, response) {
                             try {
                               var errMessage = JSON.parse(response.responseText).error;
                             } catch(err) {
                               console.log(err);
-                              var errMessage = "Unable to Save Asset";
+                              var errMessage = "Unable to Save Event";
                             }
                             self.modalDialog.show({
                               message: errMessage,
                               type: "danger",
                             });
                             console.log(response.responseText);
-                            $('#editdep_panel').html('Save Error.');
+                            $('#editdep_panel').html('Save Event Error.');
                           }
                         });
                     
                         //reset
-                        selectedInstrument = [];
-                        self.clearform();
+                        //self.clearform();
                     }
                     else{
                         $('#editdep_panel').html('Deployment Name is Required.');
+                        self.modalDialog.show({
+                          message: "Please fill out Name fields",
+                          type: "danger",
+                        });
                     }
                 }
             }
@@ -265,7 +303,6 @@ var EventViewPage = Backbone.View.extend({
                     });
                     
                     //reset
-                    selectedInstrument = [];
                     self.clearform();
                 }
             }
@@ -350,7 +387,7 @@ var EventViewPage = Backbone.View.extend({
         $('#dep_num_e').val('');
         $('#geo_d_lat').val('');
         $('#geo_d_long').val('');
-        $('#manufacture_d').val('');
+        //$('#manufacture_d').val('');
         $('#desc_d').val('');
         $('#notes_d').val('');
         $('#recordedby_d').val('');

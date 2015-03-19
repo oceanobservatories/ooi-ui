@@ -407,7 +407,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/ooi.js',
             // Models
             'ooiui/static/js/models/asset_management/AssetModel.js',
-            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
+            //'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
@@ -526,7 +526,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/leaflet/dist/leaflet.js',
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
-            'ooiui/static/js/core/science/date.js',
+            //'ooiui/static/js/core/science/date.js',
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
             /*tried this it errored on the page for -sontag
             "ooiui/static/lib/backgrid/lib/backgrid.js",

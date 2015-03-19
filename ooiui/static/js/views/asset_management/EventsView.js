@@ -175,13 +175,17 @@ var EventsView = Backbone.View.extend({
                   
                   if(self.query_filter){
                     //iterate through the filtering to see if it matches any of the attributes
+                    queryhit = true;
                     for(var obj in self.query_filter){
                       for (var j = 0; j < self.query_filter[obj].length; j++ ) {
                         if(self.query_filter[obj][j] == model.attributes[filtertypelist[obj].label]){queryhit= true;}
                         //else if(self.query_filter[obj][j] == model.attributes[String(obj).toLowerCase()]){queryhit= true;}
                         //this is so that it refreshes if there is no drop down queries
-                        //else{queryhit = false;}
+                        else{queryhit = false;}
                       }
+                    }
+                    if(q==''){
+                     return queryhit;
                     }
                   }
                   //still allow upper right hand search to occur

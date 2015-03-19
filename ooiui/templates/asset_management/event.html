@@ -89,13 +89,13 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="dep_num_e">Deployment Number: </label>
                               <div class="controls">
-                                <input id="dep_num_e" name="dep_num_e" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                                <input id="dep_num_e" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="dep_num_e" style='width:450px' type="number" placeholder="" class="input-xlarge">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="depth_e">Depth Value: </label>
                               <div class="controls">
-                                <input id="depth_e" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="quantity" min="-10" max="5000" style='width:250px' type="text" placeholder="" class="input-xlarge">
+                                <input id="depth_e" value='0' type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="quantity" min="-10" max="5000" style='width:250px' type="text" placeholder="" class="input-xlarge">
                               </div>
                               <label class="col-sm-3 control-label" style="position: absolute;left: 443px;font-weight: normal;margin-top: -30px;" for="startdate_d">Meters Below Sea Level</label>
                             </div>
@@ -210,6 +210,12 @@
                       <form class="form-horizontal" id="infodep_form" style="padding-top:10px">
                         <fieldset style="width: 100%;">
                           <div class="form-group">
+                            <label class="col-sm-3 control-label" for="recordedby_d">Recorded By: </label>
+                            <div class="controls">
+                              <input id="recordedby_d" name="recordedby_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                            </div>
+                          </div>
+                          <div class="form-group">
                             <label class="col-sm-3 control-label" for="cur_loc_d">Current Location: </label>
                             <div class="controls">
                               <input id="cur_loc_d" name="cur_loc_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
@@ -228,29 +234,26 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label" for="recordedby_d">Recorded By: </label>
-                            <div class="controls">
-                              <input id="recordedby_d" name="recordedby_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                            </div>
-                          </div>
-                          <div class="form-group">
                             <label class="col-sm-3 control-label" for="geo_d_lat">Type: </label>
                             <div class="btn-group dropup" id='type_switcher' style='' >
-                              <button class="btn btn-default" id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
+                              <button class="btn btn-default" data='.DeploymentEvent' id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" id='type_switcher_but_val'>
-                                <li><a href="#">Deployment</a></li>
-                                <li><a href="#">Storage</a></li>
-                                <!-- <li><a href="#">Plaform</a></li> -->
+                                <li><a data='.DeploymentEvent' style='cursor:pointer'>Deployment</a></li>
+                                <li><a data='.IntegrationEvent' style='cursor:pointer'>Integration</a></li>
+                                <li><a data='.RetirementEvent' style='cursor:pointer'>Retirement</a></li>
+                                <li><a data='.StorageEvent' style='cursor:pointer'>Storage</a></li>
+                                <li><a data='.TestEvent' style='cursor:pointer'>Test</a></li>
+                                <li><a data='.CalibrationEvent' style='cursor:pointer'>Calibration</a></li>
                               </ul>
                             </div>
                           </div>
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                             <label class="col-sm-3 control-label" for="manufacture_d">Manufacturer: </label>
                             <div class="controls">
                               <input id="manufacture_d" disabled name="manufacture_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
                             </div>
-                          </div>
+                          </div> -->
                         </fieldset>
                       </form>
                     </div>

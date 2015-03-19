@@ -203,6 +203,18 @@
                       <form class="form-horizontal" id="infodep_form" style="padding-top:10px">
                         <fieldset style="width: 100%;">
                           <div class="form-group">
+                            <label class="col-sm-3 control-label" for="physinfo_d">Physical Information: </label>
+                            <div class="controls">
+                              <input id="physinfo_d" name="physinfo_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" for="manufacture_d">Manufacturer: </label>
+                            <div class="controls">
+                              <input id="manufacture_d" name="manufacture_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                            </div>
+                          </div>
+                          <div class="form-group">
                             <label for="desc_d" class="col-sm-3 control-label">Description:</label>
                             <div class="controls">
                               <textarea class="form-control" rows="3" style='width:450px' id="desc_d"></textarea>
@@ -215,20 +227,14 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label" for="manufacture_d">Manufacturer: </label>
-                            <div class="controls">
-                              <input id="manufacture_d" name="manufacture_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                            </div>
-                          </div>
-                          <div class="form-group">
                             <label class="col-sm-3 control-label" for="geo_d_lat">Type: </label>
                             <div class="btn-group dropup" id='type_switcher' style='' >
-                              <button class="btn btn-default" id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
+                              <button class="btn btn-default" data='.AssetRecord' id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" id='type_switcher_but_val'>
-                                <li><a href="#">Asset</a></li>
-                                <li><a href="#">Instrument</a></li>
-                                <li><a href="#">Plaform</a></li>
+                                <li><a style='cursor:pointer' data='.AssetRecord'>Asset</a></li>
+                                <li><a style='cursor:pointer' data='.InstrumentAssetRecord'>Instrument</a></li>
+                                <li><a style='cursor:pointer' data='.PlatformAssetRecord'>Plaform</a></li>
                               </ul>
                             </div>
                           </div>

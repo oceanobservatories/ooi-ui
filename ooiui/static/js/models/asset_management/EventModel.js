@@ -13,7 +13,32 @@
 var EventsModel = Backbone.Model.extend({
   urlRoot: '/api/asset_events',
   defaults: {
-        assetId: 1
+        asset: {
+          '@class': ".AssetRecord",
+          assetId: 1
+        },
+        attachments: [],
+        class: ".DeploymentEvent",
+        cruiseNumber: "",
+        deploymentDepth: 0,
+        deploymentDocUrls: [],
+        deploymentLocation: [
+        ],
+        deploymentName: null,
+        deploymentNumber: 1,
+        depthUnitString: "m",
+        endDate: null,
+        eventDescription: null,
+        eventType: "Location",
+        notes: [],
+        recordedBy: null,
+        referenceDesignator: {
+          full: false,
+          node: null,
+          sensor: null,
+          subsite: ""
+        },
+        startDate: null
     }
 });
 
@@ -26,5 +51,33 @@ var EventsCollection = Backbone.Collection.extend({
 });
 
 var SingleEvent = Backbone.Model.extend({
-  urlRoot: '/api/asset_events'
+  urlRoot: '/api/asset_events',
+  defaults: {
+        asset: {
+          '@class': ".AssetRecord",
+          assetId: 1
+        },
+        attachments: [],
+        class: ".DeploymentEvent",
+        cruiseNumber: "",
+        deploymentDepth: 0,
+        deploymentDocUrls: [],
+        deploymentLocation: [
+        ],
+        deploymentName: null,
+        deploymentNumber: 1,
+        depthUnitString: "m",
+        endDate: null,
+        eventDescription: null,
+        eventType: "Location",
+        notes: [],
+        recordedBy: null,
+        referenceDesignator: {
+          full: false,
+          node: null,
+          sensor: null,
+          subsite: ""
+        },
+        startDate: null
+    }
 });

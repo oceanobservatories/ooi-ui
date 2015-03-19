@@ -247,6 +247,7 @@ var AssetView = Backbone.View.extend({
         //asset type switcher
         $('#type_switcher_but').dropdown();
         $('#type_switcher_but_val').on('click', function(e) {
+            $('#type_switcher_but').attr('data',e.target.attributes[1].value);
             $('#type_switcher_but').html(e.target.innerHTML);
         })
 
@@ -302,6 +303,9 @@ var AssetView = Backbone.View.extend({
             assetInfoModel.fetch({
               success: function (events) {
                 $('#event_table tbody').empty();
+
+                $('#physinfo_d').val(events.attributes.physicalInfo);
+
                 if(events.attributes.events){
                   for (var j in events.attributes.events){
                     var sd = new Date(events.attributes.events[j].startDate);
@@ -339,9 +343,17 @@ var AssetView = Backbone.View.extend({
                $('#depth_d').val('');
             }
 
+            //stupid catch for the date contat
             if(model.attributes.launch_date_time){
-              var l_date = Date.parse(model.attributes.launch_date_time);
-              $("#startdate_d" ).datepicker( "setDate", l_date );
+              if(model.attributes.launch_date_time.search('Z')>-1){
+                var dobj = model.attributes.launch_date_time.split('Z')
+                var l_date = Date.parse(dobj[0]);
+              }
+              else{
+                var l_date = Date.parse(model.attributes.launch_date_time);
+              }
+              
+              $("#startdate_d" ).datepicker( "setDate", l_date);
             }
             else{
                $("#startdate_d" ).datepicker( "setDate", '' );
@@ -410,23 +422,28 @@ var AssetView = Backbone.View.extend({
                 if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
                    // that.model.attributes = selectedInstrument;
-                    self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ));
+                    self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
                     //self.model.set('end_date',$( "#enddate_d" ).datepicker('getDate' ));
                     var infoObj = {};
                     infoObj['name']= $('#name_d').val();
                     infoObj['owner']= $('#owner_d').val();
                     infoObj['type']= $('#type_d').val();
+                    infoObj['description']= $('#desc_d').val();
                     self.model.set('assetInfo',infoObj);
-                    self.model.set('@class', $('#type_switcher_but').text());
+                    self.model.set('class', $('#type_switcher_but').attr('data'));
                     var depthObj={};
+                    depthObj['unit']='m';
                     depthObj['value']=Number($('#depth_d').val());
-                    self.model.set('depth',depthObj);
-                    //self.model.set('coordiantes',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
-                    self.model.set('description', $('#desc_d').val());
-                    self.model.set('notes',$('#notes_d').val());
-                    var manObj = {};
-                    manObj['manufacturer']=$('#manufacture_d').val()
-                    self.model.set('manufactureInfo',manObj);
+                    self.model.set('water_depth',depthObj);
+                    
+                    self.model.set('notes',[$('#notes_d').val()]);
+                    //one way of updating the model
+                    self.model.attributes.manufactureInfo.manufacturer = $('#manufacture_d').val();
+                    
+                    //errors out
+                    //self.model.set('physicalInfo',[$('#physinfo_d').val()]);
+                    //--geojson connection
+                    self.model.set('coordinates',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
                     //var geoObj = {};
                     //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     //geoObj['coordinates']=coord;
@@ -474,6 +491,10 @@ var AssetView = Backbone.View.extend({
                     }
                     else{
                         $('#editdep_panel').html('Display Name are Required.');
+                        self.modalDialog.show({
+                              message: "Please fill out Display Name fields.",
+                              type: "danger"
+                            });
                     }
                 }
             }
@@ -602,6 +623,7 @@ var AssetView = Backbone.View.extend({
         $('#manufacture_d').val('');
         $('#desc_d').val('');
         $('#notes_d').val('');
+        $('#physinfo_d').val('')
     },
 
     ConvertDDToDMS: function (dd)

@@ -13,8 +13,38 @@
 var AssetModel = Backbone.Model.extend({
   urlRoot: '/api/asset_deployment',
   defaults: {
+  	assetInfo: {
+	    description: null,
+	    name: "Test",
+	    owner: null,
+	    type: "Mooring"
+		  },
+		attachments: [],
+		  class: ".AssetRecord",
+		  coordinates: [
+		    0,
+		    0
+		  ],
+		  launch_date_time: "21-Nov-13 18:16",
+		  manufactureInfo: {
+		    manufacturer: null,
+		    modelNumber: null,
+		    serialNumber: ""
+		  },
+		  notes: [""],
+		  physicalInfo: null,
+		  purchaseAndDeliveryInfo: null,
+		  water_depth: {
+		    unit: "m",
+		    value: 133.5
+		  }
+  	}
+});
+
+var AssetModelSingle = Backbone.Model.extend({ 
+	defaults : { 
        
-    }
+    } 
 });
 
 var AssetCollection = Backbone.Collection.extend({
