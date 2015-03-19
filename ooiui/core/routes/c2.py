@@ -23,7 +23,20 @@ def c2_arrays():
 def c2_platforms():
     return render_template('c2/platforms.html')
 
+@app.route('/c2/platform_status')
+@app.route('/c2/platform_status/')
+def c2_platform_status():
+    return render_template('c2/platform_status.html')
+
+@app.route('/c2')
+@app.route('/c2/')
+def c2_index():
+    return render_template('c2/landing.html')
+
 # C2 ooi-ui-services Routes
+
+# ARRAYS
+#
 # http://localhost:4000/c2/array/CP/abstract
 @app.route('/api/c2/array/<string:array_code>/abstract', methods=['GET'])
 def get_c2_array_abstract(array_code):
@@ -59,20 +72,91 @@ def get_c2_array_mission_display(array_code):
     return response.text, response.status_code
 
 
-
-
-
-# @app.route('/api/c2/platform_display/<string:reference_designator>', methods=['GET'])
-# def get_c2_platform_display(reference_designator):
-#     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform_display/%s' % (reference_designator))
-#     return response.text, response.status_code
+# PLATFORMS
 #
-# @app.route('/api/c2/instrument_display/<string:reference_designator>', methods=['GET'])
-# def get_c2_instrument_display(reference_designator):
-#     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument_display/%s' % (reference_designator))
-#     return response.text, response.status_code
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/abstract
+@app.route('/api/c2/platform/<string:platform_code>/abstract', methods=['GET'])
+def get_c2_platform_abstract(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/abstract' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/current_status_display
+@app.route('/api/c2/platform/<string:platform_code>/current_status_display', methods=['GET'])
+def get_c2_platform_current_status_display(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/current_status_display' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/history
+@app.route('/api/c2/platform/<string:platform_code>/history', methods=['GET'])
+def get_c2_platform_history(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/history' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/status_display
+@app.route('/api/c2/platform/<string:platform_code>/status_display', methods=['GET'])
+def get_c2_platform_status_display(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/status_display' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/mission_display
+@app.route('/api/c2/platform/<string:platform_code>/mission_display', methods=['GET'])
+def get_c2_platform_mission_display(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/mission_display' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# INSTRUMENTS
 #
-# @app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
-# def get_c2_instrument_fields(reference_designator, stream_name):
-#     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
-#     return response.text, response.status_code
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/abstract
+@app.route('/api/c2/instrument/<string:instrument_code>/abstract', methods=['GET'])
+def get_c2_instrument_abstract(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/abstract' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams
+@app.route('/api/c2/instrument/<string:instrument_code>/streams', methods=['GET'])
+def get_c2_instrument_streams(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/streams' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/commands
+@app.route('/api/c2/instrument/<string:instrument_code>/commands', methods=['GET'])
+def get_c2_instrument_commands(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/commands' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/history
+@app.route('/api/c2/instrument/<string:instrument_code>/history', methods=['GET'])
+def get_c2_instrument_history(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/history' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/status_display
+@app.route('/api/c2/instrument/<string:instrument_code>/status_display', methods=['GET'])
+def get_c2_instrument_status_display(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/status_display' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/mission_display
+@app.route('/api/c2/instrument/<string:instrument_code>/mission_display', methods=['GET'])
+def get_c2_instrument_mission_display(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/mission_display' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-02-DOFSTK000/dofst_k_wfp_metadata/fields
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/parad_k_stc_imodem_instrument/fields
+@app.route('/api/c2/instrument/<string:instrument_code>/<string:stream_code>/fields', methods=['GET'])
+def get_c2_instrument_stream_fields(instrument_code, stream_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (instrument_code, stream_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code

@@ -1,19 +1,18 @@
 <li class="sidebar-search">
   <div class="input-group custom-search-form">
-    Arrays
+    Platform Status
   </div>
   <!-- /input-group -->
 </li>
 <% collection.each(function(model) { %>
 <li class="array-item">
-  <a data-id="<%= model.get('array_code') %>" href="#">
+  <a data-id="<%= model.get('reference_designator') %>" href="#">
   <% if (model.get('operational_status') == 'Online') { %>
    <i class="fa fa-thumbs-up"></i>
     <% } else { %>
-    <i class="fa fa-thumbs-down"></i>
+    <i class="fa fa-thumbs-down c2-offline"></i>
     <% } %>
     <%= model.get('display_name') %>
-    <i class="fa fa-info-circle"><%= model.get('operational_status') %></i>
   </a>
 </li>
 <% }); %>
