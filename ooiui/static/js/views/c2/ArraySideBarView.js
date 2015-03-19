@@ -47,64 +47,29 @@ var ArraySidebarView = Backbone.View.extend({
    * During initialization of this view we fetch the collection and render when
    * it's complete.
    */
-  initialize: function(options) {
-    _.bindAll(this, "render", "onSync");
-
+ initialize: function(options) {
+    _.bindAll(this, "render");
     var self = this;
-    self.modalDialog = new ModalDialogView();
-    //self.modalDialog.show({
-    //  message: ooi.models.platformModel.get('reference_designator'),
-    //  type: "danger"
-    //});
-    //this.collection.fetch(ooi.models.platformModel.get('reference_designator'));
-    this.collection.fetch(ooi.models.platformModel.get('reference_designator'),
-      {
-        //reset: true
-/*      success: function(collection, response, options) {
-*//*        self.modalDialog.show({
-          message: 'success',
-          type: "danger"
-        });*//*
+    this.collection.fetch({
+      success: function(collection, response, options) {
+        console.log('success');
         // If the fetch was successful, then we render
         self.render();
-        var array_id = ooi.models.platformModel.get('reference_designator');
-        console.log('back in fetch:' + array_id);
-        if (array_id && array_id != '' && array_id != null) {
-          console.log('Just before self.selectArray:' + array_id);
-          self.selectArray(array_id)
-        } else {
-          console.log('Error:' + options.url);
+        var refdes = ooi.models.platformModel.get('reference_designator');
+        if(refdes && refdes != '' && refdes != null) {
+          self.selectArray(refdes)
         }
-      }*/
-    }
-    );
-
-    var array_id = ooi.models.platformModel.get('reference_designator');
-    console.log('back in fetch:' + array_id);
-    if (array_id && array_id != '' && array_id != null) {
-      console.log('Just before self.selectArray:' + array_id);
-      self.selectArray(array_id)
-    }
-    this.collection.on('sync', this.onSync(array_id));
-    if(this.collection.length > 0) {
-      this.render(array_id);
-    }
-    this.render(array_id);
+      }
+    });
   },
-
   selectArray: function(array_id) {
     console.log('In selectArray:' + array_id);
     this.$el.find("[data-id='" + array_id + "']").parent().toggleClass('selected');
-    ooi.trigger('array:click', array_id);
+    //ooi.trigger('array:click', array_id);
     console.log('After ooi.trigger:' + array_id);
-  },
-  onSync: function(array_id) {
-    this.render(array_id);
   },
   template: JST['ooiui/static/js/partials/ArraySideBar.html'],
   render: function(array_id) {
-    console.log('in render:' + array_id);
-    this.collection.fetch(array_id);
     this.$el.html(this.template({collection: this.collection}));
   }
 });

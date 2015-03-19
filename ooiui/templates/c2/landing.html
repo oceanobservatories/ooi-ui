@@ -152,6 +152,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
   },
   start: function() {
     this.login.fetch({async:false});
+    this.collections.platformStatus.fetch();
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
@@ -161,7 +162,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
     this.views.arraySidebarView = new ArraySidebarView({
       collection: this.collections.platformStatus,
-      platformModel: this.models.platformModel
+{#      platformModel: this.models.platformModel#}
     });
     $('#sidebar-wrapper').html(this.views.arraySidebarView.el);
 

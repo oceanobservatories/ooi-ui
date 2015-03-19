@@ -27,36 +27,36 @@ var ArrayAbstractModel = Backbone.Model.extend({
     display_name: "Coastal Pioneer",
     operational_status: "Unknown",
     reference_designator: "CP"
-    },
+  }
+  ,
   fetchCurrent: function (array_code, options) {
-            options = options || {};
-            if (options.url === undefined) {
-                options.url = this.urlRoot + "/" + array_code + "/abstract";
-            }
-
-            return Backbone.Model.prototype.fetch.call(this, options);
-        },
-
-        validate: function (attributes) {
-            // To be done
-            return null;
-        }
+    options = options || {};
+    if (options.url === undefined) {
+        options.url = this.urlRoot + "/" + array_code + "/abstract";
+    }
+    return Backbone.Model.prototype.fetch.call(this, options);
+  },
+  validate: function (attributes) {
+    // To be done
+    return null;
+  }
 });
 
 var ArrayAbstractCollection = Backbone.Collection.extend({
-  urlRoot: '/api/c2/array',
+  //urlRoot: '/api/c2/array',
 /*  url: function() {
     return this.document.url() + '/api/c2/array/CP/abstract';
   },*/
+  url: '/api/c2/array/CP/abstract',
   model: ArrayAbstractModel,
-/*  parse: function(response) {
+  parse: function(response) {
     if(response) {
       return response.abstract;
     } else {
       return [];
     }
   }
-  ,*/
+/*  ,
   fetch: function (array_code, options) {
             options = options || {};
             if (options.url === undefined) {
@@ -65,5 +65,5 @@ var ArrayAbstractCollection = Backbone.Collection.extend({
             }
         console.log('URL: ');
             return Backbone.Model.prototype.fetch.call(this, options);
-        }
+        }*/
 });
