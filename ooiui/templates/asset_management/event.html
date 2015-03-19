@@ -89,7 +89,7 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="dep_num_e">Deployment Number: </label>
                               <div class="controls">
-                                <input id="dep_num_e" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="dep_num_e" style='width:450px' type="number" placeholder="" class="input-xlarge">
+                                <input id="dep_num_e" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="dep_num_e" min='1' max='100000000000' style='width:450px' type="number" placeholder="" class="input-xlarge">
                               </div>
                             </div>
                             <div class="form-group">
@@ -236,7 +236,7 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label" for="geo_d_lat">Type: </label>
                             <div class="btn-group dropup" id='type_switcher' style='' >
-                              <button class="btn btn-default" data='.DeploymentEvent' id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
+                              <button class="btn btn-default" data='.DeploymentEvent' id='type_switcher_but' data-toggle="dropdown" >Deployment<span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" id='type_switcher_but_val'>
                                 <li><a data='.DeploymentEvent' style='cursor:pointer'>Deployment</a></li>
@@ -245,6 +245,7 @@
                                 <li><a data='.StorageEvent' style='cursor:pointer'>Storage</a></li>
                                 <li><a data='.TestEvent' style='cursor:pointer'>Test</a></li>
                                 <li><a data='.CalibrationEvent' style='cursor:pointer'>Calibration</a></li>
+                                <li><a data='.ReturnToManufacturerEvent' style='cursor:pointer'>ReturnToManufacturer</a></li>
                               </ul>
                             </div>
                           </div>
@@ -309,6 +310,9 @@ $(document).ready(function() {
     $('#menu-toggle').hide();
     $('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
+
+    //add event list link
+    $('#navbar-menus').append('<li class="active"><a href="/events/list">Events Page</a></li>');
 });
 
 function numbersonly(field, e, dec)

@@ -26,7 +26,7 @@ var EventViewPage = Backbone.View.extend({
 	render: function() {
         
         self = this;
-        var classtypelist = {'.StorageEvent':{'val':1,'label':'Storage'},'.DeploymentEvent':{'val':2,'label':'Deployment'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
+        var classtypelist = {'.ReturnToManufacturerEvent':{'val':7,'label':'ReturnToManufacturer'},'.StorageEvent':{'val':4,'label':'Storage'},'.DeploymentEvent':{'val':1,'label':'Deployment'},'.IntegrationEvent':{'val':2,'label':'Integration'},'.TestEvent':{'val':5,'label':'Test'},'.CalibrationEvent':{'val':6,'label':'Calibration'},'.RetirementEvent':{'val':3,'label':'Retirement'}};
 
         var eventModel = new SingleEvent({id:self.eventid});
 
@@ -53,9 +53,12 @@ var EventViewPage = Backbone.View.extend({
                $('#depth_e').val('');
             }
             if(event.attributes.startDate){
-              if(event.attributes.startDate.search('Z')>-1){
-                var dobj = event.attributes.startDate.split('Z')
+              if(String(event.attributes.startDate).search('Z')>-1){
+                var dobj = String(event.attributes.startDate).split('Z')
                 var l_date = Date.parse(dobj[0]);
+              }
+              else if(!isNaN(event.attributes.startDate)){
+                var l_date = new Date(event.attributes.startDate*1000);
               }
               else{
                 var l_date = Date.parse(event.attributes.startDate);
@@ -67,9 +70,12 @@ var EventViewPage = Backbone.View.extend({
             }
 
             if(event.attributes.endDate){
-              if(event.attributes.endDate.search('Z')>-1){
-                var dobj2 = event.attributes.endDate.split('Z')
+              if(String(event.attributes.endDate).search('Z')>-1){
+                var dobj2 = String(event.attributes.endDate).split('Z')
                 var l_date = Date.parse(dobj2[0]);
+              }
+              else if(!isNaN(event.attributes.endDate)){
+                var l_date = new Date(event.attributes.endDate*1000);
               }
               else{
                 var l_date = Date.parse(event.attributes.endDate);
@@ -93,7 +99,7 @@ var EventViewPage = Backbone.View.extend({
                $('#manufacture_d').val('');
             }*/
             $("#type_e").val(event.attributes.eventType);
-            
+            $("#type_switcher_but").attr('data', event.attributes['class']);
             $("#type_switcher_but").val(classtypelist[event.attributes['class']].val);
             $('#type_switcher_but').html(classtypelist[event.attributes['class']].label+' <span class="caret"></span>');
                         
@@ -226,7 +232,7 @@ var EventViewPage = Backbone.View.extend({
                         Event4Post.save(null, {
                           success: function(model, response) {
                             self.modalDialog.show({
-                              message: "Asset successfully saved.",
+                              message: "Event successfully saved.",
                               type: "success",
                               ack: function() { 
                                 window.location = "/assets/list/"
@@ -277,7 +283,7 @@ var EventViewPage = Backbone.View.extend({
                       success: function(model, response, options) {
                         console.log("destroyed");
                         self.modalDialog.show({
-                          message: "Asset successfully deleted.",
+                          message: "Event successfully deleted.",
                           type: "success",
                           ack: function() { 
                             window.location = "/assets/list/"

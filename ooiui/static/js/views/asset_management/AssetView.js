@@ -345,9 +345,12 @@ var AssetView = Backbone.View.extend({
 
             //stupid catch for the date contat
             if(model.attributes.launch_date_time){
-              if(model.attributes.launch_date_time.search('Z')>-1){
-                var dobj = model.attributes.launch_date_time.split('Z')
+              if(String(model.attributes.launch_date_time).search('Z')>-1){
+                var dobj = String(model.attributes.launch_date_time).split('Z')
                 var l_date = Date.parse(dobj[0]);
+              }
+              else if(!isNaN(model.attributes.launch_date_time)){
+                var l_date = new Date(model.attributes.launch_date_time*1000);
               }
               else{
                 var l_date = Date.parse(model.attributes.launch_date_time);
@@ -376,7 +379,7 @@ var AssetView = Backbone.View.extend({
                $('#manufacture_d').val('');
             }
             $("#type_d").val(model.attributes.assetInfo['type']);
-            
+            $("#type_switcher_but").attr('data', model.attributes.class);
             $("#type_switcher_but").val(classtypelist[model.attributes.class].val);
             $('#type_switcher_but').html(classtypelist[model.attributes.class].label+' <span class="caret"></span>');
             

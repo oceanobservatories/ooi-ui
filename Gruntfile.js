@@ -407,7 +407,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/ooi.js',
             // Models
             'ooiui/static/js/models/asset_management/AssetModel.js',
-            //'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
@@ -543,7 +543,7 @@ module.exports = function(grunt) {
             // Models
             'ooiui/static/js/models/asset_management/AssetModel.js',
             'ooiui/static/js/models/asset_management/EventModel.js',
-            //'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',

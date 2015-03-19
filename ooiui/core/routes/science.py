@@ -139,6 +139,7 @@ def asset_event_put(id):
 @app.route('/api/asset_events', methods=['POST'])
 def asset_event_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
+    return response.text, response.status_code
 
 
 @app.route('/opLog.html')
