@@ -44,15 +44,26 @@ var ArrayAbstractModel = Backbone.Model.extend({
 });
 
 var ArrayAbstractCollection = Backbone.Collection.extend({
-  url: function() {
+  urlRoot: '/api/c2/array',
+/*  url: function() {
     return this.document.url() + '/api/c2/array/CP/abstract';
-  },
+  },*/
   model: ArrayAbstractModel,
-  parse: function(response) {
+/*  parse: function(response) {
     if(response) {
       return response.abstract;
     } else {
       return [];
     }
   }
+  ,*/
+  fetch: function (array_code, options) {
+            options = options || {};
+            if (options.url === undefined) {
+              console.log('Fetching collection: ' + array_code);
+                options.url = this.urlRoot + "/" + array_code + "/abstract";
+            }
+        console.log('URL: ');
+            return Backbone.Model.prototype.fetch.call(this, options);
+        }
 });

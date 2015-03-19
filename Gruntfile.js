@@ -303,7 +303,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/Event.html",
             "ooiui/static/js/partials/LoggedInNavItems.html",
-            "ooiui/static/js/partials/ArraySideBar.html"
+            "ooiui/static/js/partials/ArraySideBar.html",
+            "ooiui/static/js/partials/PlatformStatus.html"
           ]
         }
       }
@@ -855,9 +856,11 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/PlatformDeploymentModel.js',
             'ooiui/static/js/models/c2/ArrayDisplayModel.js',
             'ooiui/static/js/models/c2/ArrayAbstractModel.js',
+            'ooiui/static/js/models/c2/PlatformStatusModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -870,7 +873,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/asset_management/PlatformView.js',
             'ooiui/static/js/views/c2/ArrayDisplayView.js',
             'ooiui/static/js/views/c2/ArrayAbstractView.js',
-            'ooiui/static/js/views/c2/ArraySideBarView.js'
+            'ooiui/static/js/views/c2/ArraySideBarView.js',
+            'ooiui/static/js/views/c2/PlatformStatusView.js'
           ]
         }
       },

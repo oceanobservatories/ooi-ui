@@ -4,3 +4,6 @@
 .org-item.selected {
   background-color: #eee;
 }
+.c2-offline {
+    color: red;
+}
