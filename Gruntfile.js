@@ -857,6 +857,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/c2/ArrayDisplayModel.js',
             'ooiui/static/js/models/c2/ArrayAbstractModel.js',
             'ooiui/static/js/models/c2/PlatformStatusModel.js',
+            'ooiui/static/js/models/c2/ArrayNavModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -874,7 +875,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/c2/ArrayDisplayView.js',
             'ooiui/static/js/views/c2/ArrayAbstractView.js',
             'ooiui/static/js/views/c2/ArraySideBarView.js',
-            'ooiui/static/js/views/c2/PlatformStatusView.js'
+            'ooiui/static/js/views/c2/PlatformStatusView.js',
+            'ooiui/static/js/views/c2/ArrayNavView.js'
           ]
         }
       },
