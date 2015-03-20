@@ -141,10 +141,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     
     this.collections.arrays.fetch({reset: true});
-
-
-
-
     if(!this.login.loggedIn()) {
       this.termsView = new TermsDialogView();
       $('.container-fluid').first().append(this.termsView.el);

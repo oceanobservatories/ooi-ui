@@ -209,7 +209,8 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target)    
+    var target = $(e.target)        
+    
     e.preventDefault();
     e.stopPropagation();
     if(this.model.instrumentDeployments.length == 0) {
@@ -220,7 +221,6 @@ var PlatformDeploymentItemView = Backbone.View.extend({
       this.model.instrumentDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
-
           self.tg.prop( "disabled", false );
           self.tg.find(".s").remove();
         },
@@ -234,6 +234,13 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     loc = loc.coordinates
     var locat= [loc[1],loc[0]]
     ooi.models.mapModel.set({mapCenter: locat})
+    //update the glider track
+    if (this.model.get('display_name').indexOf('Glider') > -1){
+      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
+    }else{
+      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
+    }
+
   },  
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
