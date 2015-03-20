@@ -10,10 +10,93 @@
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
-
+.okIssueBtn {
+    background: #006eff;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: inline-block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 25px;
+    margin-left: 0%;
+    margin-top: 15%;
+    margin-left: auto;
+    padding: 0px 0px;
+    line-height: 1;
+    color: #000000; 
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+.issueIssueBtn {
+    background: #FFE944;
+    border: 1px solid #6E6E6C;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: inline-block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 25px;
+    margin-left: 0%;
+    margin-top: 15%;
+    margin-left: auto;
+    padding: 0px 0px;
+    line-height: 1;
+    color: #000000;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+.errorIssueBtn {
+    background: #E03D2C;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: inline-block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 25px;
+    margin-left: 0%; 
+    margin-top: 15%;
+    margin-left: auto;
+    padding: 0px 0px;
+    line-height: 1;
+    color: #000000;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+.unknownIssueBtn {
+    background: #5e5e5e;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: inline-block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    margin-left: 0%;
+    margin-top: 15%;
+    margin-left: auto;
+    padding: 0px 0px;
+    line-height: 1;
+    color: #fff;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
 .blue-backgroud-gradiant {
     background-color: #fff;
-    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+    background-image: radial-gradient( 100% 100%, #fff, rgba(81, 203, 238, .28));
     box-shadow: 0 0 10px rgba(81, 203, 238, 1);
     border:  1px solid rgba(81, 203, 238, 1);
 }
@@ -25,10 +108,9 @@
     -moz-box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
     box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
 }
-
 .red-backgroud-gradiant {
     background-color: #fff;
-    background-image: radial-gradient(100% 100%, #fff, rgb(253, 196, 196));	
+    background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .30));	
     box-shadow: 0 0 10px rgba(250, 128, 128, 1);
     border: 1px solid rgba(252, 171, 171, 1);
 }
@@ -40,7 +122,6 @@
     -moz-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
     box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
 }
-
 .yellow-backgroud-gradiant {
     background-color: #fff;
     background-image: radial-gradient(100% 100%, #fff, rgb(253, 253, 221));
@@ -49,21 +130,19 @@
 }
 .yellow-backgroud-gradiant:hover {
     border:  1px solid;
-    border-color: rgb(255, 255, 0);
+    border-color: rgb(210, 209, 78);
     /*Glow*/ 
     -webkit-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95); 
     -moz-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
     box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
 }
-
 .unknown-backgroud-gradiant {
     background-color: #fff;
-    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+    /*    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
     box-shadow: 0 0 10px rgba(81, 203, 238, 1);
     border: 1px solid rgba(81, 203, 238, 1);
     box-shadow: 0 0 10px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
-    238
+    border: 1px solid rgba(81, 203, 238, 1);*/
 }
 /*
  ***small gradient
@@ -71,7 +150,7 @@
  background-image: radial-gradient( 50% 50%, rgba(0, 23, 255, 1), rgba(130, 145, 223, 0));
  display: block;
  float: center;
- margin: 0 10px 0px 0;
+ margin: 0 10px 0px 0;<D-r>
  width: 45px;
  height: 45px;
  border-radius: 50%;
@@ -100,8 +179,10 @@
  }
  */
     .badge-ok {
-        background-color: #006eff;
-      display: block;
+        background: #006eff;
+        border: 1px solid #000006;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+        display: block;
         float: center;
         margin: 0 10px 0px 0;
         width: 45px;
@@ -111,12 +192,12 @@
         vertical-align: middle;
         text-align: center;
         font-size: 35px;
-        margin-left: 35%;
-        border: 1px solid transparent;
-        border-color: #969696;
+        margin-left: 35%    
     }
     .badge-issue {
-        background-color: #FFE944;
+        background: #FFE944;
+        border: 1px solid #6E6E6C;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
         display: block;
         float: center;
         margin: 0 10px 0px 0;
@@ -128,13 +209,11 @@
         text-align: center;
         font-size: 35px;
         margin-left: 35%;
-        border: 1px solid transparent;
-        border-color: #969696;
-
     }
-
     .badge-error {
-        background-color: #E03D2C;
+        background: #E03D2C;
+        border: 1px solid #000006;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
         display: block;
         float: center;
         margin: 0 10px 0px 0;
@@ -146,13 +225,11 @@
         text-align: center;
         font-size: 35px;
         margin-left: 35%;
-        border: 1px solid transparent;
-        border-color: #969696;
-
     }
-
     .badge-unkown {
-        background-color: #5e5e5e;
+        background: #5e5e5e;
+        border: 1px solid #000006;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
         display: block;
         float: center;
         margin: 0 10px 0px 0;
@@ -164,10 +241,7 @@
         text-align: center;
         font-size: 35px;
         margin-left: 35%;
-        border: 1px solid transparent;
-        border-color: #969696;
     }
-
     #ex5 { 
         width: 700px;
         margin: 0 auto; min-height: 300px;
