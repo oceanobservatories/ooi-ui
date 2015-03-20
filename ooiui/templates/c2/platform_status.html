@@ -89,7 +89,7 @@ a:active {
 }
 
 
-/*.panel-title a {
+.panel-title a {
   display: block;
 }
 .panel-title a:hover {
@@ -109,7 +109,7 @@ a:active {
 .watch-when {
   font-size: 10px;
   color: #333;
-}*/
+}
 
 /*trying different color combinations...
 depending on over all color theme
@@ -146,13 +146,6 @@ depending on over all color theme
         <div class="row">
           <div class="pull-left col-lg-8">
             <div class="btn-group" id='array_list' role="group" style="top: -7px;" aria-label="...">
-              <div data-reference-designator="CE" class="btn btn-default btn-sm" type="button" aria-label="...">Coastal Endurance</div>
-              <div data-reference-designator="GP" class="btn btn-default btn-sm" type="button" aria-label="...">Global Station Papa</div>
-              <div data-reference-designator="CP" class="btn btn-primary btn-sm" type="button" aria-label="...">Coastal Pioneer</div>
-              <div data-reference-designator="GA" class="btn btn-default btn-sm" type="button" aria-label="...">Global Argentine Basin</div>
-              <div data-reference-designator="GI" class="btn btn-default btn-sm" type="button" aria-label="...">Global Irminger Sea</div>
-              <div data-reference-designator="GS" class="btn btn-default btn-sm" type="button" aria-label="...">Global Southern Ocean</div>
-              <div data-reference-designator="RS" class="btn btn-default btn-sm" type="button" aria-label="...">Global Regional Scale</div>
             </div>
           </div>
         </div>
@@ -178,6 +171,8 @@ depending on over all color theme
  * render, or in this case cause a collection to be fetched as a result.
  */
 
+
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   // Models and collections
@@ -186,7 +181,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
   },
   models: {
     platformStatusModel: new PlatformStatusModel(),
-    arrayModel: new ArrayModel(),
     userModel: new UserModel()
   },
   views: {
@@ -205,6 +199,13 @@ _.extend(OOI.prototype, Backbone.Events,  {
       collection: this.collections.platformStatusCollection
     });
     $('#sidebar-wrapper').html(this.views.platformStatusView.el);
+
+    this.collections.arrays = new ArrayNavCollection();
+    this.collections.arrays.fetch({reset: true});
+    this.views.arrayNavView = new ArrayNavView({
+       collection: this.collections.arrays
+    });
+    $('#array_list').html(this.views.arrayNavView.el);
 
     this.eventListeners();
   },
