@@ -210,10 +210,19 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.eventListeners();
   },
   eventListeners:function() {
+    this.listenTo(this, "arraynav:click", this.onArrayNavClick);
+    this.listenTo(this, "platformnav:click", this.onPlatformNavClick);
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
   },
-
+  onArrayNavClick: function(refdes) {
+    console.log('array clicked' + refdes);
+    this.models.platformStatusModel.set({reference_designator: refdes});
+    this.models.platformStatusModel.fetchCurrent(refdes);
+  },
+  onPlatformNavClick: function(refdes) {
+    console.log('platform clicked' + refdes);
+  },
   onLogin: function() {
     location.reload();
   },

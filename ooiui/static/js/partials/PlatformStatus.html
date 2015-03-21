@@ -8,11 +8,10 @@
 <li class="array-item">
   <a data-id="<%= model.get('reference_designator') %>" href="#">
   <% if (model.get('operational_status') == 'Online') { %>
-   <i class="fa fa-thumbs-up"></i>
+   <i class="fa fa-thumbs-up c2-online"> <%= model.get('display_name') %></i>
     <% } else { %>
-    <i class="fa fa-thumbs-down c2-offline"></i>
+    <i class="fa fa-thumbs-down c2-offline"> <%= model.get('display_name') %></i>
     <% } %>
-    <%= model.get('display_name') %>
   </a>
 </li>
 <% }); %>

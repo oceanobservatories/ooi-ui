@@ -4,6 +4,19 @@
 .org-item.selected {
   background-color: #eee;
 }
+
+.c2-online {
+    color: black;
+    font-size: 11px;
+    font-weight: normal;
+}
+
 .c2-offline {
     color: red;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.array-item {
+    font-size: 9pt;
 }
