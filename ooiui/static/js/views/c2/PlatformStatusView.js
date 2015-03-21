@@ -37,6 +37,7 @@ var PlatformStatusView = Backbone.View.extend({
     event.preventDefault();
     // Get the model id from the tag attribute data-id
     var model_id = $(event.target).attr('data-id');
+    console.log('Platform onClick: ' + model_id);
     // Publish a new method org:click with the model_id
     this.render();
     this.selectPlatform(model_id);
@@ -61,8 +62,8 @@ var PlatformStatusView = Backbone.View.extend({
     });
   },
   selectPlatform: function(refdes) {
-    this.$el.find("[data-id='" + refdes + "']").parent().toggleClass('selected');
-    //ooi.trigger('org:click', refdes);
+    //this.$el.find("[data-id='" + refdes + "']").parent().toggleClass('selected');
+    ooi.trigger('platformnav:click', refdes);
   },
   template: JST['ooiui/static/js/partials/PlatformStatus.html'],
   render: function() {
