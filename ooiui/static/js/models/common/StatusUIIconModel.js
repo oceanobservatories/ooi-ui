@@ -1,5 +1,6 @@
 var StatusUIIconModel = Backbone.Model.extend({
-  url: "json/statusIcon.json",
+  url: "json/statusIcon.json", 
+  //localhoset:4000/uframe/assets
   defaults: {
     assetId: "",
     assetInfo: "",
@@ -19,6 +20,8 @@ var StatusUIIconModel = Backbone.Model.extend({
 });
 var StatusUIIconCollection = Backbone.Collection.extend({
   url: "json/statusIcon.json",// ooi-ui/ooiui/static/json/statusUIIcon.json
+  //localhoset:4000/uframe/assets
+  
   // model: StatusUIIconModel,
   parse: function(response) {
     console.log('response');
