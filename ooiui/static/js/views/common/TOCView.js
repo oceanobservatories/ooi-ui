@@ -212,12 +212,12 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     var target = $(e.target)    
     e.preventDefault();
     e.stopPropagation();
-    if(this.model.instrumentDeployments.length == 0) {
+    if(this.model.assetDeployments.length == 0) {
       target.find('.toc-arrow').addClass("fa-rotate-270"); 
       target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
       target.prop( "disabled", true );
       self.tg = target;
-      this.model.instrumentDeployments.fetch({
+      this.model.assetDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
 
@@ -243,11 +243,11 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   renderInstruments: function() {
     var self = this;
     if (self.platformType == "child"){
-      this.$el.find(".badge").text(this.model.instrumentDeployments.length)
+      this.$el.find(".badge").text(this.model.assetDeployments.length)
       //this.$el.find(".badge").removeClass("hidden")
     }
 
-    this.model.instrumentDeployments.each(function(instrumentModel) {
+    this.model.assetDeployments.each(function(instrumentModel) {
       self.add(instrumentModel);
     });
     this.$el.append(this.nestedView.el);

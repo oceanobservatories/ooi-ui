@@ -16,8 +16,8 @@ var PlatformDeploymentModel = OOI.RelationalModel.extend({
   urlRoot: '/api/platform_deployment',
   relation: {
     type: OOI.Relation.hasMany,
-    key: 'instrumentDeployments',
-    collectionType: 'InstrumentDeploymentCollection',
+    key: 'assetDeployments',
+    collectionType: 'AssetCollection',
     reverseRelation: {
       key: 'platform_deployment_id'
     }

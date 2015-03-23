@@ -1,0 +1,27 @@
+{
+  "assetInfo": {
+    "description": null,
+    "name": "Sontag",
+    "owner": null,
+    "type": "Mooring"
+  },
+  "attachments": [],
+  "class": ".AssetRecord",
+  "coordinates": [
+    -40.1367833,
+    -70.7697833
+  ],
+  "launch_date_time": "21-Nov-13 18:16",
+  "manufactureInfo": {
+    "manufacturer": null,
+    "modelNumber": null,
+    "serialNumber": "CP01CNSM-00001"
+  },
+  "notes": ["TEST"],
+  "physicalInfo": null,
+  "purchaseAndDeliveryInfo": null,
+  "water_depth": {
+    "unit": "m",
+    "value": 133.5
+  }
+}
