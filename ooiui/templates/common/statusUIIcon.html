@@ -28,60 +28,89 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div id="event-view" class="col-lg-12">
+            <div id="event-view" class="col-md-12">
 
                 <!-- Header Alet Buttons -->
                 <div class="row">
-                    <div class="col-md-2" style="bacground-color:#00f;">
-                        <h2 align="left">Platforms</h2>
-                    </div> 
-                    <div class="col-md-10" style="bacground-color:#fff; padding-left:60px;">
-                        <div id="status-filter-row">
-
-                            <div class="col-md-3">
-                                <!-- <div class="status-box active-filter"></div>-->
-                                <button type="button" class="okIssueBtn fa fa-check" filter=""></button>
-                                <h5 data-i18n="Growth">OK Platfomrs</h5>
-                            </div>
-
-                            <div class="col-md-3">
-                                <!-- <div class="status-box active-filter"></div>-->
-                                <button type="button" class="issueIssueBtn fa fa-exclamation" filter=""></button>
-                                <h5 data-i18n="Growth">Issue Platfomrs</h5>
-                            </div>
-
-                              <div class="col-md-3">
-                                <!-- <div class="status-box active-filter"></div>-->
-                                <button type="button" class="errorIssueBtn fa fa-ban" filter=""></button>
-                                <h5 data-i18n="Growth">Error Platfomrs</h5>
-                            </div>
-
-                              <div class="col-md-3">
-                                <!-- <div class="status-box active-filter"></div>-->
-                                <button type="button" class="unknownIssueBtn fa fa-circle-o-notch" filter=""></button>
-                                <h5 data-i18n="Growth">Unknown Platfomrs</h5>
-                            </div>
-
-
-                            <!--
-                                <div class="col-md-3">
-                                <button type="button" class="issueIssueBtn" filter="">20</button>
-                                <span data-i18n="Growth">Issue</span>
-                                </div>
-
-                                <div class="col-md-3">
-                                <button type="button" class="errorIssueBtn" filter="">55</button>
-                                <span data-i18n="Growth">Error</span>
-                                </div>
-
-                                <div class="col-md-3">
-                                <button type="button" class="unknownIssueBtn" filter="">150</button>
-                                <span data-i18n="Growth">Unknown</span>
-                                </div>
-                            -->
-
-                        </div><!-- /#row -->
+                    <div class="col-md-12">
+                        <h2>Status UI</h2>  
                     </div>
+                </div>
+                <div class="row-centered">
+                    <div class="col-md-3 col-centered" id="status-filter-row">
+                        <h4> <button type="button" class="okIssueBtn"></button>
+                            OK Platforms
+                        </h4>
+                    </div>
+                     <div class="col-md-3 col-centered" id="status-filter-row">
+                        <h4> <button type="button" class="issueIssueBtn"></button>
+                            Issue Platforms
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-centered" id="status-filter-row">
+                        <h4> <button type="button" class="errorIssueBtn"></button>
+                            Error Platforms
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-centered" id="status-filter-row">
+                        <h4> <button type="button" class="unknownIssueBtn"></button>
+                            Unknown Platforms
+                        </h4>
+                    </div>
+
+                </div>
+
+                <!--   <div class="row">
+                    <div class="col-md-2">
+                    <h2 align="left">Platforms</h2>
+                    </div> 
+
+                    <div class="col-md-10" style="float:left;">
+
+                    <div class="col-md-3" id="status-filter-row">
+                    <h5 data-i18n="Growth">
+                    <button type="button" class="okIssueBtn fa fa-check" filter=""></button>
+                    OK&nbsp;Platforms</h5>
+                    </div>
+
+                    <div class="col-md-3">
+                    <h5 data-i18n="Growth">
+                    <button type="button" class="issueIssueBtn fa fa-exclamation" filter=""></button>
+                    Issue&nbsp;Platforms</h5>
+                    </div>
+
+                    <div class="col-md-3">
+                    <h5 data-i18n="Growth">
+                    <button type="button" class="errorIssueBtn fa fa-ban" filter=""></button>
+                    Error&nbsp;Platforms</h5>
+                    </div>
+
+                    <div class="col-md-3">
+                    <h5 data-i18n="Growth">
+                    <button type="button" class="unknownIssueBtn fa fa-circle-o-notch" filter=""></button>
+                    Unknown&nbsp;Platforms</h5>
+                    </div>
+                -->
+
+
+                <!--
+                    <div class="col-md-3">
+                    <button type="button" class="issueIssueBtn" filter="">20</button>
+                    <span data-i18n="Growth">Issue</span>
+                    </div>
+
+                    <div class="col-md-3">
+                    <button type="button" class="errorIssueBtn" filter="">55</button>
+                    <span data-i18n="Growth">Error</span>
+                    </div>
+
+                    <div class="col-md-3">
+                    <button type="button" class="unknownIssueBtn" filter="">150</button>
+                    <span data-i18n="Growth">Unknown</span>
+                    </div>
+                -->
+                    </div>
+
                 </div>
 
                 <!-- Platfome Issues -->
@@ -98,10 +127,12 @@
 
             </div><!-- /#container-fluid -->
         </div>
-    </div><!-- /#wrapper -->
+    </div>
+
+</div><!-- /#wrapper -->
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
 
@@ -232,6 +263,6 @@ $(document).ready(function() {
 });
 
 
-    </script>
+</script>
 
-    {% endblock %}
+{% endblock %}

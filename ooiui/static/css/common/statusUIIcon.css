@@ -1,3 +1,128 @@
+/*
+ * Badge Buttons @ Top
+ */
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.okIssueBtn {
+    background: #006eff;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 10px;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    border-radius: 50%;
+    color: #000000; 
+}
+.issueIssueBtn {
+    background: #FFE944;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 10px;
+    border: 1px solid #6E6E6C;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    border-radius: 50%;
+    color: #000000; 
+}
+.errorIssueBtn {
+    background: #E03D2C;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 10px;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    border-radius: 50%;
+    color: #000000; 
+}
+.unknownIssueBtn {
+    background: #5e5e5e;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 10px;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    border-radius: 50%;
+    color: #000000; 
+} 
+/*
+ * Badge 
+ */
+.badge-ok {
+    background: #006eff;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%    
+}
+.badge-issue {
+    background: #FFE944;
+    border: 1px solid #6E6E6C;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%;
+}
+.badge-error {
+    background: #E03D2C;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%;
+}
+.badge-unkown {
+    background: #5e5e5e;
+    border: 1px solid #000006;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%;
+}
+/*
+ * Dog Tag Button
+ */
 .dogTagBtn {
     margin: 10px;
     padding: 0px;
@@ -9,90 +134,6 @@
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-}
-.okIssueBtn {
-    background: #006eff;
-    border: 1px solid #000006;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-    display: inline-block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 25px;
-    margin-left: 0%;
-    margin-top: 15%;
-    margin-left: auto;
-    padding: 0px 0px;
-    line-height: 1;
-    color: #000000; 
-    white-space: nowrap;
-    vertical-align: baseline;
-}
-.issueIssueBtn {
-    background: #FFE944;
-    border: 1px solid #6E6E6C;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-    display: inline-block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 25px;
-    margin-left: 0%;
-    margin-top: 15%;
-    margin-left: auto;
-    padding: 0px 0px;
-    line-height: 1;
-    color: #000000;
-    white-space: nowrap;
-    vertical-align: baseline;
-}
-.errorIssueBtn {
-    background: #E03D2C;
-    border: 1px solid #000006;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-    display: inline-block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 25px;
-    margin-left: 0%; 
-    margin-top: 15%;
-    margin-left: auto;
-    padding: 0px 0px;
-    line-height: 1;
-    color: #000000;
-    white-space: nowrap;
-    vertical-align: baseline;
-}
-.unknownIssueBtn {
-    background: #5e5e5e;
-    border: 1px solid #000006;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-    display: inline-block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 18px;
-    margin-left: 0%;
-    margin-top: 15%;
-    margin-left: auto;
-    padding: 0px 0px;
-    line-height: 1;
-    color: #fff;
-    white-space: nowrap;
-    vertical-align: baseline;
 }
 .blue-backgroud-gradiant {
     background-color: #fff;
@@ -177,93 +218,70 @@
  font-size: 35px;
  margin-left: 20%;
  }
- */
-    .badge-ok {
-        background: #006eff;
-        border: 1px solid #000006;
-        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-        display: block;
-        float: center;
-        margin: 0 10px 0px 0;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        line-height: 45px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 35px;
-        margin-left: 35%    
-    }
-    .badge-issue {
-        background: #FFE944;
-        border: 1px solid #6E6E6C;
-        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-        display: block;
-        float: center;
-        margin: 0 10px 0px 0;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        line-height: 45px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 35px;
-        margin-left: 35%;
-    }
-    .badge-error {
-        background: #E03D2C;
-        border: 1px solid #000006;
-        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-        display: block;
-        float: center;
-        margin: 0 10px 0px 0;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        line-height: 45px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 35px;
-        margin-left: 35%;
-    }
-    .badge-unkown {
-        background: #5e5e5e;
-        border: 1px solid #000006;
-        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-        display: block;
-        float: center;
-        margin: 0 10px 0px 0;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        line-height: 45px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 35px;
-        margin-left: 35%;
-    }
-    #ex5 { 
-        width: 700px;
-        margin: 0 auto; min-height: 300px;
-    } #ex5 img { 
-        margin: 25px; 
-        opacity: 0.8;
-        border: 10px solid #eee;
-        /*Transition*/ 
-        -webkit-transition: all 0.5s ease;
-        -moz-transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        /*Reflection*/ 
-        -webkit-box-reflect: below 0px
-        -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1))); 
-    } 
-    #ex5 img:hover {
-        opacity: 1; 
-        /*Reflection*/
-        -webkit-box-reflect: below 0px
-        -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));
-        /*Glow*/ 
-        -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8); 
-        -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
-        box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
-    }
+
+ ***oldbadgebuttons
+ .issueIssueBtn {
+     background: #FFE944;
+     border: 1px solid #6E6E6C;
+     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+     display: inline-block;
+     float: center;
+     margin: 0 10px 0px 0;
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     text-align: center;
+     font-size: 25px;
+     margin-left: 0%;
+     margin-top: 15%;
+     margin-left: auto;
+     padding: 0px 0px;
+     line-height: 1;
+     color: #000000;
+     white-space: nowrap;
+     vertical-align: baseline;
+ }
+ .errorIssueBtn {
+     background: #E03D2C;
+     border: 1px solid #000006;
+     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+     display: inline-block;
+     float: center;
+     margin: 0 10px 0px 0;
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     text-align: center;
+     font-size: 25px;
+     margin-left: 0%; 
+     margin-top: 15%;
+     margin-left: auto;
+     padding: 0px 0px;
+     line-height: 1;
+     color: #000000;
+     white-space: nowrap;
+     vertical-align: baseline;
+ }
+ .unknownIssueBtn {
+     background: #5e5e5e;
+     border: 1px solid #000006;
+     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+     display: inline-block;
+     float: center;
+     margin: 0 10px 0px 0;
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     text-align: center;
+     font-size: 25px;
+     margin-left: 0%; 
+     margin-top: 15%;
+     margin-left: auto;
+     padding: 0px 0px;
+     line-height: 1;
+     color: #000000;
+     white-space: nowrap;
+     vertical-align: baseline;
+ } 
+
+*/
