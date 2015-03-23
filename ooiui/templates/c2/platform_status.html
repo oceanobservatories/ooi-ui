@@ -170,16 +170,15 @@ depending on over all color theme
  * hear these events the main application can then trigger another view to
  * render, or in this case cause a collection to be fetched as a result.
  */
-
-
-
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   // Models and collections
   collections: {
+    arrayNavCollection: new ArrayNavCollection(),
     platformStatusCollection: new PlatformStatusCollection()
   },
   models: {
+    arrayNavModel: new ArrayNavModel(),
     platformStatusModel: new PlatformStatusModel(),
     userModel: new UserModel()
   },
