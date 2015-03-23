@@ -1,7 +1,7 @@
 #panels div{
   display: none;
 }
-.org-item.selected {
+.array-item.selected {
   background-color: #eee;
 }
 
