@@ -24,6 +24,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   onDownload: function() {
     var selection = this.$type_select.val();
     var url = this.model.getURL(selection);
+    url += '?'+$.param({startdate:this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss'), enddate:this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')})
     window.location.href = url;
     this.hide();
   },
