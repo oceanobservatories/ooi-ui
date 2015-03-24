@@ -27,13 +27,15 @@
  */
 
 var PlatformStatusModel = Backbone.Model.extend({
-  urlRoot: '/api/c2/array',
+  urlRoot: '/api/c2/array'
+/*  ,
   defaults: {
     platform_deployment_id: 86,
     display_name: "Coastal Pioneer Central Surface Mooring",
     operational_status: "Unknown",
     reference_designator: "CP01CNSM"
-  },
+  }*/
+  ,
   fetchCurrent: function (array_code, options) {
     options = options || {};
     if (options.url === undefined) {
@@ -48,18 +50,19 @@ var PlatformStatusModel = Backbone.Model.extend({
 });
 
 var PlatformStatusCollection = Backbone.Collection.extend({
-  //urlRoot: '/api/c2/array',
-  url: '/api/c2/array/CP/current_status_display',
+  urlRoot: '/api/c2/array',
+  //url: '/api/c2/array/CP/current_status_display',
   model: PlatformStatusModel,
-  parse: function(response) {
+  parse: function(response, options) {
     if(response) {
       console.log('got to parse response');
+      console.log(response);
       return response.current_status_display;
     } else {
       return [];
     }
   }
-/*  ,
+  ,
   fetch: function (array_code, options) {
     options = options || {};
     if (options.url === undefined) {
@@ -68,5 +71,5 @@ var PlatformStatusCollection = Backbone.Collection.extend({
       console.log('URL: ' + this.urlRoot + "/" + array_code + "/current_status_display");
     }
     return Backbone.Model.prototype.fetch.call(this, options);
-  }*/
+  }
 });
