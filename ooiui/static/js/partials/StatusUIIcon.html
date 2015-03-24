@@ -35,78 +35,165 @@
 <% } else { %>
 <% badge = unknownBadge %>
 <% backgound = unknownBG %>
-
 <% } %>
 
 
-<div class="<%= backgound %> platform-tile<%= i %>" data-toggle="popover" area-describedby=">
-    <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>
-    <h5 class="platform-tile-title">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
+<!-- Button trigger modal -->
+<div class="<%= backgound %> platform-tile" data-toggle="modal" data-target="#myModal<%= i %>">
+    <h5 class="dogTagHeader"><%= model.get('ref_des') %></h5>
+    <h5 class="platform-tile-title dogTagBody"><%= model.get('assetInfo')['type'] %></h5>
+    <h5 class="platform-tile-title dogTagBody">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
     <span class="<%= badge %>"></span>
-    <h5 class="platform-tile-title">Deployed:</h5>
-    <h6 class="platform-tile-title"><%= model.get('launch_date_time') %></h6> 
-    <h6 class="platform-tile-title">Series Classification:&nbsp;&nbsp;<%= model.get('seriesClassification') %></h6>
+    <h5 class="platform-tile-title dogTagBody">Deployed:</h5>
+    <h5 class="platform-tile-title dogTagBody"><%= model.get('launch_date_time') %></h5>
 </div>
 
-<div id="tilepopovercontent<%= i %>" style="display: none">
-    <div>
-        <b>Tier 1 Items</b>
-        <div class="row">
-            <div class="col-xs-1">
-            </div>
-            <div class="col-xs-10">
-                Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
-            </div>
-        </div>
+<!--Modal-->
+<div class="modal fade" id="myModal<%= i %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">   
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-        <div class="row">
-            <div class="col-xs-1">
-                <i class="small-status-icon "></i>
-            </div>
-            <div class="col-xs-10">
-                Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-1">
-                <i class="small-status-icon "></i>
+                <!--Ref Des-->
+                <h4 class="modal-title" id="myModalLabel">
+                    <%= model.get('ref_des')%>
+                </h4>
             </div>
-            <div class="col-xs-10">
-                Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-1">
-                <i class="small-status-icon "></i>
-            </div>
-            <div class="col-xs-10">
-                <div>
-                    Telemetry:&nbsp;&nbsp;<i class="badge ">10/10</i>
+
+            <!--Type-->
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-xs-10">
+                        Type:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['type'] %></b>
+                    </div>
                 </div>
+
+                <!--Asset ID-->             
+                <div class="row">
+
+                    <div class="col-xs-10">
+                        Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
+                    </div>
+                </div>
+
+
+                <!--Date-->
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon "></i>
+                    </div>
+                    <div class="col-xs-10">
+                        Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
+                    </div>
+                </div>
+
+                <!--Coordinates-->
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon "></i>
+                    </div>
+                    <div class="col-xs-10">
+                        Coordinates:&nbsp;&nbsp;<i class="badge "><%= model.get('coordinates') %></i>
+                    </div>
+                </div>
+
+                <!--Series Classification-->
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon "></i>
+                    </div>
+                    <div class="col-xs-10">
+                        Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
+                    </div>
+                </div>
+
+                <!--Serial Number-->
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon "></i>
+                    </div>
+                    <div class="col-xs-10">
+                        <div>
+                            Serial Number:&nbsp;&nbsp;<i class="badge "><%= model.get('assetInfo')['serialNumber'] %></i>
+                        </div>
+                    </div>
+                </div>
+                <!--  <a href="#">More Info</a> -->
+            </div><!--modal-body-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-        <a>More Info</a>
     </div>
 </div>
 
-<div id="tilepopovertitle<%= i %>" style="display: none">
-    <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>  
-</div>
 
+<!--
+
+    data-toggle="popover" 
+    <div id="tilepopovercontent<%= i %>" style="display: none" rel="popover">
+    <div>
+    <b>Tier 1 Items</b>
+    <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+    Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-1">
+    <i class="small-status-icon "></i>
+    </div>
+    <div class="col-xs-10">
+    Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-1">
+    <i class="small-status-icon "></i>
+    </div>
+    <div class="col-xs-10">
+    Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-1">
+    <i class="small-status-icon "></i>
+    </div>
+    <div class="col-xs-10">
+    <div>
+    Telemetry:&nbsp;&nbsp;<i class="badge ">10/10</i>
+    </div>
+    </div>
+    </div>
+    <a href="#">More Info</a>
+    </div>
+    </div>
+
+    <div id="tilepopovertitle<%= i %>" style="display: none">
+    <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>  
+    </div>
+-->
 
 <script>
 /*
 TILE POPUP AND SELECTION
- */
 $('.platform-tile<%= i %>').on('click', function (e) {
 });
+ */
 
 $('.platform-tile<%= i %>').popover({
-    trigger: "hover",
+    trigger: "click",
+    placement: "auto",
     html:true,
-    placement:'bottom',
     content: function() {
         return $('#tilepopovercontent<%= i %>').html();
     },
