@@ -38,7 +38,7 @@ var PlatformStatusView = Backbone.View.extend({
     // Get the model id from the tag attribute data-id
     var model_id = $(event.target).attr('data-id');
     console.log('Platform onClick: ' + model_id);
-    // Publish a new method org:click with the model_id
+    // Publish a new method platformnav:click with the model_id
     this.render();
     this.selectPlatform(model_id);
   },
@@ -47,19 +47,25 @@ var PlatformStatusView = Backbone.View.extend({
    * it's complete.
    */
   initialize: function(options) {
-    _.bindAll(this, "render");
-    var self = this;
-    this.collection.fetch({
-      success: function(collection, response, options) {
-        console.log('success');
-        // If the fetch was successful, then we render
-        self.render();
-        var refdes = ooi.models.platformStatusModel.get('reference_designator');
-        if(refdes && refdes != '' && refdes != null) {
-          self.selectPlatform(refdes)
-        }
-      }
-    });
+    _.bindAll(this, "render", "onSync", "selectPlatform");
+    this.listenTo(this.collection, "sync", this.onSync);
+    //this.listenTo(this.collection, "reset", this.onSync);
+    //this.render();
+    //var self = this;
+    //this.collection.fetch('CP',{
+    //  success: function(collection, response, options) {
+    //    console.log('success');
+    //    // If the fetch was successful, then we render
+    //    self.render();
+    //    var refdes = ooi.models.platformStatusModel.get('reference_designator');
+    //    if(refdes && refdes != '' && refdes != null) {
+    //      self.selectPlatform(refdes)
+    //    }
+    //  }
+    //});
+  },
+  onSync: function() {
+    this.render();
   },
   selectPlatform: function(refdes) {
     //this.$el.find("[data-id='" + refdes + "']").parent().toggleClass('selected');
