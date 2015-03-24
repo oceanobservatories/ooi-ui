@@ -79,7 +79,7 @@ var MapView = Backbone.View.extend({
       var gliderModel = new GliderTrackModel();
       gliderModel.fetch({
           success: function(collection, response, options) {          
-            var gl = self.generate_glider_layer(response['track']);
+            var gl = self.generate_glider_layer(response);
             gl.addTo(map);
             self.gliderLayer = gl            
           },
