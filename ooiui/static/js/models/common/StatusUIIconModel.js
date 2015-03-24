@@ -18,6 +18,7 @@ var StatusUIIconModel = Backbone.Model.extend({
     notes: "",
     ref_des: "",
     uframe_url: "",
+    url: "",
     water_depth: "",
     seriesClassifiction: ""
   }
