@@ -135,10 +135,12 @@ var MapView = Backbone.View.extend({
       
       var geojsonFeature =L.geoJson(platform.attributes.geo_location, {				
       onEachFeature: function (feature, layer) {
-        var dis = '<b>'+feature.properties.display_name+'</b>'					
-        var ref = '<b>'+feature.properties.ref+'</b>'					
-        layer.bindPopup(dis+"<br>"+ref);
-       // console.log(dis);
+      var popupContent = '<p><strong>' + feature.properties.display_name + '</strong><br>' +
+          'Lat: ' + feature.coordinates[1] + '&nbsp;|&nbsp;Lon: ' + feature.coordinates[0] + '<br>' +
+          '<a href="/streams?' + feature.properties.ref + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+          '<a href="/assets/list?' + feature.properties.ref + '">Asset Management</a></p>';
+
+          layer.bindPopup(popupContent);
         }
       });
      // console.log(platform.toJSON());
