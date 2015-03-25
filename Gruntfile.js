@@ -170,9 +170,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Event.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
-<<<<<<< HEAD
-          "ooiui/static/js/partials/compiled/landingPages.js": [
-=======
           "ooiui/static/js/partials/compiled/StatusUIIcon.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
@@ -194,7 +191,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/pioneerArray.js": [
->>>>>>> e0d7bb4... status-icon_basic setup
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
             "ooiui/static/js/partials/DropdownUserLoggedIn.html",
