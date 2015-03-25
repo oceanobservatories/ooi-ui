@@ -195,91 +195,108 @@
 }
 
 
-.platform-tile{
+.platform-tile {
     margin: 10px;
     padding: 0px;
     height: 200px;
     width: 160px;
-           *display: inline;
+    display: inline;
 
-           vertical-align: top;
-           display: inline-block;
+    vertical-align: top;
+    display: inline-block;
 
-           -webkit-transition: all .2s ease-in-out;
-           -o-transition: all .2s ease-in-out;
-           transition: all .2s ease-in-out;
-       }
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
 
-       .platform-tile:hover {
-           border-color:  rgb(0, 153, 255);
-       }
+.platform-tile:hover {
+    border-color:  rgb(0, 153, 255);
+}
 
-       .platform-tile .status-icon {
-           display: block;
-           float: center;
-           margin: 0 10px 0px 0;
-           width: 45px;
-           height: 45px;
-           border-radius: 50%;
-           line-height: 45px;
-           vertical-align: middle;
-           text-align: center;
-           font-size: 35px;
-           margin-left: 35%;
-           border: 5px solid transparent;
-           border-color: #969696 ;
-       }
+.platform-tile .status-icon {
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%;
+    border: 5px solid transparent;
+    border-color: #969696 ;
+}
 
-       .small-status-icon {
-           display: block;
-           float: center;
-           margin: 0 10px 0px 0;
-           width: 15px;
-           height: 15px;
-           border-radius: 50%;
-           line-height: 15px;
-           vertical-align: middle;
-           text-align: center;
-           font-size: 15px;
-           margin-left: 0%;
-           border: 1px solid transparent;
-           border-color: #969696 ;
-       }
+.small-status-icon {
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 0%;
+    border: 1px solid transparent;
+    border-color: #969696 ;
+}
 
 
-       .status-badge {
-           padding: 10px 12px 10px;
-           font-size: 18px;
-           font-weight: bold;
-           white-space: nowrap;
-           color: #ffffff;
-           background-color: #999999;
-           -webkit-border-radius: 9px;
-           -moz-border-radius: 9px;
-           border-radius: 12px;
-       }
+.status-badge {
+    padding: 10px 12px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #ffffff;
+    background-color: #999999;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 12px;
+}
 
-       .badge-warning {
-           ackground-color: #f89406;
-       }
+.badge-warning {
+    ackground-color: #f89406;
+}
 
-       .badge-success {
-           background-color: #468847;
-       }
+.badge-success {
+    background-color: #468847;
+}
 
-       .badge-info {
-           background-color: #3a87ad;
-       }
+.badge-info {
+    background-color: #3a87ad;
+}
 
-       .badge-inverse {
-           background-color: #333333;
-       }
+.badge-inverse {
+    background-color: #333333;
+}
 
-       /*    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
-       box-shadow: 0 0 10px rgba(81, 203, 238, 1);
-       border: 1px solid rgba(81, 203, 238, 1);
-       box-shadow: 0 0 10px rgba(81, 203, 238, 1);
-       border: 1px solid rgba(81, 203, 238, 1);*/
+/*MODAL*/
+.modal-main {
+    position: relative;
+    padding: 15px;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.new-line { 
+    margin: 10px 0;
+    height: 1px;
+    border: 0;
+    background: blue;
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, rgb(157, 157, 221)));
+}
+
+/*    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
+box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+border: 1px solid rgba(81, 203, 238, 1);
+box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+border: 1px solid rgba(81, 203, 238, 1);*/
 }
 /*
  ***small gradient
@@ -317,25 +334,25 @@
 
  ***oldbadgebuttons
  .issueIssueBtn {
-     background: #FFE944;
-     border: 1px solid #6E6E6C;
-     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
-     display: inline-block;
-     float: center;
-     margin: 0 10px 0px 0;
-     width: 35px;
-     height: 35px;
-     border-radius: 50%;
-     text-align: center;
-     font-size: 25px;
-     margin-left: 0%;
-     margin-top: 15%;
-     margin-left: auto;
-     padding: 0px 0px;
-     line-height: 1;
-     color: #000000;
-     white-space: nowrap;
-     vertical-align: baseline;
+ background: #FFE944;
+ border: 1px solid #6E6E6C;
+ box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+ display: inline-block;
+ float: center;
+ margin: 0 10px 0px 0;
+ width: 35px;
+ height: 35px;
+ border-radius: 50%;
+ text-align: center;
+ font-size: 25px;
+ margin-left: 0%;
+ margin-top: 15%;
+ margin-left: auto;
+ padding: 0px 0px;
+ line-height: 1;
+ color: #000000;
+ white-space: nowrap;
+ vertical-align: baseline;
  }
  .errorIssueBtn {
      background: #E03D2C;

@@ -51,10 +51,11 @@
 <!--Modal-->
 <div class="modal fade" id="myModal<%= i %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">   
+        <div class="modal-content">
+
+            <!--MODAL HEADER-->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
 
                 <!--Ref Des-->
                 <h4 class="modal-title" id="myModalLabel">
@@ -63,167 +64,157 @@
             </div>
 
 
-            <!--Type-->
-            <div class="modal-body">
+
+            <!--MODAL BODY-->
+            <div class="modal-main">
 
                 <div class="row">
-                    <div class="col-xs-10">
-                        Type:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['type'] %></b>
-                    </div>
-                </div>
-
-                <!--Asset ID-->             
-                <div class="row">
-
-                    <div class="col-xs-10">
-                        Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
-                    </div>
-                </div>
-
-
-                <!--Date-->
-                <div class="row">
-                    <div class="col-xs-1">
-                        <i class="small-status-icon "></i>
-                    </div>
-                    <div class="col-xs-10">
-                        Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
-                    </div>
-                </div>
-
-                <!--Coordinates-->
-                <div class="row">
-                    <div class="col-xs-1">
-                        <i class="small-status-icon "></i>
-                    </div>
-                    <div class="col-xs-10">
-                        Coordinates:&nbsp;&nbsp;<i class="badge "><%= model.get('coordinates') %></i>
-                    </div>
-                </div>
-
-                <!--Series Classification-->
-                <div class="row">
-                    <div class="col-xs-1">
-                        <i class="small-status-icon "></i>
-                    </div>
-                    <div class="col-xs-10">
-                        Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
-                    </div>
-                </div>
-
-                <!--Serial Number-->
-                <div class="row">
-                    <div class="col-xs-1">
-                        <i class="small-status-icon "></i>
-                    </div>
-                    <div class="col-xs-10">
-                        <div>
-                            Serial Number:&nbsp;&nbsp;<i class="badge "><%= model.get('assetInfo')['serialNumber'] %></i>
+                    <div class="col-md-12">
+                        Asset ID:&nbsp;&nbsp;<b><%=  model.get('assetId') %></b>
+                        <div class="new-line" />
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--Uper Left-->
+                            <ul style="list-style-type:none;">
+                                <li>Asset Information</li>
+                                <ul>
+                                    <li>Type:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['type'] %></b></li>
+                                    <li>Description:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['name'] %></b></li>
+                                    <li>Name:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['owner'] %></b></li>
+                                    <li>Owner:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['description'] %></b></li>
+                                </ul>
+                            </ul>
+                            <hr class="new-line" />
+                        </div>
 
-                <!--Link-->
-                <br />
-                <div class="row">
-                    <div class="col-xs-10">
-                        <a href="<%= model.get('uframe_url') %>">
-                            More Information</a>           
+                        <div class="col-md-6">
+                            <!--Uper Right-->
+                            <ul style="list-style-type:none;">
+                                <li>Manufacturer Information</li>
+                                <ul>
+                                    <li>Serial Number:&nbsp;&nbsp;<b><%=  model.get('manufactureInfo') %></b></li>
+                                    <li>Manufacturer:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['manufacturer'] %></b></li>
+                                    <li>Model Number:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['modelNumber'] %></b></li>
+                                </ul>
+                            </ul>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--Bottom-->
+                            <ul style="list-style-type:none;">
+                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
+                                    Coordinates:&nbsp;&nbsp;<i class="badge "><%= model.get('coordinates') %></i></li> 
+                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
+                                    Deployment Date:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i></li> 
+                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
+                                    Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i></li> 
+
+                                <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
+                                            More Information</a></li>  
+                            </ul>
+                        </div>
+                    </div>
+
+                </div><!--modal-body-->
+
+
+
+
+                <!--MODAL FOOTER-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
-
-                <!--  <a href="#">More Info</a> -->
-            </div><!--modal-body-->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</div>
 
 
-<!--
+    <!--
 
-    data-toggle="popover" 
-    <div id="tilepopovercontent<%= i %>" style="display: none" rel="popover">
-    <div>
-    <b>Tier 1 Items</b>
-    <div class="row">
-    <div class="col-xs-1">
-    </div>
-    <div class="col-xs-10">
-    Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
-    </div>
-    </div>
+        data-toggle="popover" 
+        <div id="tilepopovercontent<%= i %>" style="display: none" rel="popover">
+        <div>
+        <b>Tier 1 Items</b>
+        <div class="row">
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-10">
+        Asset ID:&nbsp;&nbsp;<b><%= model.get('assetId') %></b>
+        </div>
+        </div>
 
-    <div class="row">
-    <div class="col-xs-1">
-    <i class="small-status-icon "></i>
-    </div>
-    <div class="col-xs-10">
-    Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
-    </div>
-    </div>
+        <div class="row">
+        <div class="col-xs-1">
+        <i class="small-status-icon "></i>
+        </div>
+        <div class="col-xs-10">
+        Deployed:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i>
+        </div>
+        </div>
 
-    <div class="row">
-    <div class="col-xs-1">
-    <i class="small-status-icon "></i>
-    </div>
-    <div class="col-xs-10">
-    Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
-    </div>
-    </div>
+        <div class="row">
+        <div class="col-xs-1">
+        <i class="small-status-icon "></i>
+        </div>
+        <div class="col-xs-10">
+        Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i>
+        </div>
+        </div>
 
-    <div class="row">
-    <div class="col-xs-1">
-    <i class="small-status-icon "></i>
-    </div>
-    <div class="col-xs-10">
-    <div>
-    Telemetry:&nbsp;&nbsp;<i class="badge ">10/10</i>
-    </div>
-    </div>
-    </div>
-    <a href="#">More Info</a>
-    </div>
-    </div>
+        <div class="row">
+        <div class="col-xs-1">
+        <i class="small-status-icon "></i>
+        </div>
+        <div class="col-xs-10">
+        <div>
+        Telemetry:&nbsp;&nbsp;<i class="badge ">10/10</i>
+        </div>
+        </div>
+        </div>
+        <a href="#">More Info</a>
+        </div>
+        </div>
 
-    <div id="tilepopovertitle<%= i %>" style="display: none">
-    <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>  
-    </div>
--->
+        <div id="tilepopovertitle<%= i %>" style="display: none">
+        <h4 class="platform-tile-title"><%= model.get('assetInfo')['type'] %></h4>  
+        </div>
+    -->
 
-<script>
+    <script>
 /*
 TILE POPUP AND SELECTION
 $('.platform-tile<%= i %>').on('click', function (e) {
 });
  */
 
-$('.platform-tile<%= i %>').popover({
-    trigger: "click",
-    placement: "auto",
-    html:true,
-    content: function() {
-        return $('#tilepopovercontent<%= i %>').html();
-    },
-    title: function() {
-        return $('#tilepopovertitle<%= i %>').html();
-    }
-});
-</script>
+    $('.platform-tile<%= i %>').popover({
+        trigger: "click",
+        placement: "auto",
+        html:true,
+        content: function() {
+            return $('#tilepopovercontent<%= i %>').html();
+        },
+        title: function() {
+            return $('#tilepopovertitle<%= i %>').html();
+        }
+    });
+    </script>
 
-<% i+= 1; %>
-<% }); %> 
-
-
+    <% i+= 1; %>
+    <% }); %> 
 
 
-<!-- Accordian<div class="collapse well" id="collapse<%= i %>">
-    <div class="well">
-    <h4 class="platform-title-title">
-    </div>
-    </div>
--->
+
+
+    <!-- Accordian<div class="collapse well" id="collapse<%= i %>">
+        <div class="well">
+        <h4 class="platform-title-title">
+        </div>
+        </div>
+    -->
 
