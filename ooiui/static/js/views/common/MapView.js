@@ -76,10 +76,12 @@ var MapView = Backbone.View.extend({
     console.log("CLICK!");
     map.removeLayer(self.gliderLayer)
     if (show_track){      
-      var gliderModel = new GliderTrackModel();
+      var gliderModel = new GliderTrackModel(reference_designator+'-00-ENG000000');
+      var ref = gliderModel.get('reference_designator')
       gliderModel.fetch({
+          data: $.param({id:ref}),
           success: function(collection, response, options) {          
-            var gl = self.generate_glider_layer(response['track']);
+            var gl = self.generate_glider_layer(response);
             gl.addTo(map);
             self.gliderLayer = gl            
           },
@@ -161,7 +163,10 @@ var MapView = Backbone.View.extend({
 var GliderTrackModel = Backbone.Model.extend({
   urlRoot: '/api/uframe/glider_tracks',
   defaults: {
-        reference_designator: "CP05MOAS-GL004"        
-    }
+        reference_designator: ""     
+  },
+  initialize: function(ref){
+    this.set('reference_designator',ref);
+  },
 
 });
