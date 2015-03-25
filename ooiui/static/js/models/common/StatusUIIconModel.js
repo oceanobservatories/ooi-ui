@@ -1,5 +1,7 @@
 var StatusUIIconModel = Backbone.Model.extend({
-   url: "/api/asset_deployment",
+  //url: "json/statusIcon.json", 
+  // url: "/api/asset_deployment",
+  url: "http://localhost:4000/uframe/assets",
   defaults: {
     assets: "",
     assetId: "",
@@ -15,7 +17,7 @@ var StatusUIIconModel = Backbone.Model.extend({
     manufactureInfo: "",
         manufacturer: "",
         modelNumber: "",
-        serialNumber: "0000",
+        serialNumber: "",
     notes: "",
     seriesClassifiction: "",
     ref_des: "",
@@ -27,12 +29,14 @@ var StatusUIIconModel = Backbone.Model.extend({
   }
 });
 var StatusUIIconCollection = Backbone.Collection.extend({
-  url: "/api/asset_deployment",
+  //url: "json/statusIcon.json",
+  ////url: "/api/asset_deployment, 
+  url: "http://localhost:4000/uframe/assets",
+
+  // model: StatusUIIconModel,
   parse: function(response) {
     console.log('response');
     console.log(response);
     return response.assets;
   }
 });
-
-
