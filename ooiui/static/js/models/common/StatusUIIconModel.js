@@ -6,18 +6,18 @@ var StatusUIIconModel = Backbone.Model.extend({
     assets: "",
     assetId: "",
     assetInfo: "",
-        description: "null",
-            name: "null", 
-            owner: "null", 
-            type: "null",
+        description: "",
+            name: "", 
+            owner: "", 
+            type: "",
     attachments: "",
     class: "",
-    coordinates: "N/A",
-    launch_date_time: "N/A", 
+    coordinates: "NA",
+    launch_date_time: "NA", 
     manufactureInfo: "",
         manufacturer: "",
         modelNumber: "",
-        serialNumber: "0000",
+        serialNumber: "",
     notes: "",
     seriesClassifiction: "",
     ref_des: "",
@@ -40,5 +40,3 @@ var StatusUIIconCollection = Backbone.Collection.extend({
     return response.assets;
   }
 });
-
-
