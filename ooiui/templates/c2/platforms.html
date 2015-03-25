@@ -1,0 +1,332 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>C2 Platform Status</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/timeline.css" type="text/css" />
+<link rel="stylesheet" href="/css/compiled/c2.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/c2.js" type="text/javascript"></script>
+<script src="/js/compiled/c2.js" type="text/javascript"></script>
+
+<script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+<script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
+<style>
+
+/*----- Accordion -----*/
+.accordion, .accordion * {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    text-decoration: none;
+
+}
+
+.accordion {
+    overflow:hidden;
+    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
+    border-radius:3px;
+    background:#f7f7f7;
+    text-decoration: none;
+
+}
+
+/*----- Section Titles -----*/
+.accordion-section-title {
+    width:100%;
+    padding:5px;
+    display:inline-block;
+    border-bottom:1px solid #FFFFFF;
+    background: #3289ED;
+    transition:all linear 0.15s;
+    /* Type */
+    font-size:1.200em;
+    text-shadow:0px 1px 0px #1a1a1a;
+    color:#fff;
+    text-decoration: none;
+}
+
+.accordion-section-title.active, .accordion-section-title:hover {
+    background: #73ACF9;
+    /* Type */
+    text-decoration: none;
+    link
+}
+
+.accordion-section:last-child .accordion-section-title {
+    border-bottom:none;
+    text-decoration: none;
+
+}
+
+/*----- Section Content -----*/
+.accordion-section-content {
+    padding:15px;
+    display:none;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+
+/*.panel-title a {
+  display: block;
+}
+.panel-title a:hover {
+  text-decoration: none;
+}
+.panel-title a:focus {
+  text-decoration: none;
+}
+#accordion .panel-heading {
+  color: #fff;
+  background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+}
+#opLogDiv {
+  width	: 100%;
+  height	: 300px;
+}
+.watch-when {
+  font-size: 10px;
+  color: #333;
+}*/
+
+/*trying different color combinations...
+depending on over all color theme
+>>---->also needs a clicked color and hover color<----<<
+>>---->also needs better font and font-size<----<<
+*/
+.li-blue {
+  background: #BBD9EE;
+}
+
+.li-green {
+  background: #E7E4D3;
+}
+/*.li-blue {
+  background: #C0C0C0;
+}
+
+.li-green {
+  background: #E7E4D3;
+}*/
+.btnStartStop {
+  float: right;
+}
+</style>
+{% endblock %}
+
+{%block body %}
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong><span class="fa fa-list"></span> <span data-i18n="Data">C2 Array</span></strong>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div id ="abstract"></div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-12 -->
+      </div>
+      <div class="row">
+        <div  id="watch-view" class="col-lg-4">
+        </div>
+        <div id="event-view" class="col-lg-8">
+        <div id ="abstract"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+/*
+ * OOI is the main class that we extend from to create behavior and render pages.
+ *
+ * Here we create the application by extending OOI with Backbone.Events, this
+ * gives us the ability to listen to events from models and/or views. When we
+ * hear these events the main application can then trigger another view to
+ * render, or in this case cause a collection to be fetched as a result.
+ */
+
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  // Models and collections
+  collections: {
+    // Instantiate a new Organizations collection
+{#    organizations: new Organizations(),#}
+    // watches is the Watch collection, by default is un-fetched
+{#    watches: new Watches(),#}
+    //events: new Events(),
+{#    events: new EventsCollection(),#}
+{#    operatorEventTypes: new OperatorEventTypeCollection(),#}
+    arrays: new ArrayCollection(),
+    platformStatus: new ArrayAbstractCollection()
+  },
+  models: {
+{#    watchModel: new WatchModel(),#}
+{#    orgModel: new OrganizationModel(),#}
+    userModel: new UserModel(),
+    arrayModel: new ArrayModel(),
+    platformModel: new ArrayAbstractModel()
+  },
+  views: {
+  },
+  start: function() {
+    this.login.fetch({async:false});
+{#    this.collections.operatorEventTypes.fetch();#}
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
+    this.views.arraySidebarView = new ArraySidebarView({
+      collection: this.collections.arrays,
+      arrayModel: this.models.arrayModel,
+      platformModel: this.models.platformModel
+    });
+    $('#sidebar-wrapper').html(this.views.arraySidebarView.el);
+
+    this.views.platformView = new ArrayAbstractView({
+{#        platformStatus: this.collections.platformStatus,#}
+        platformModel: this.models.platformModel
+    });
+    $('#event-view').html(this.views.platformView.el);
+{#    this.views.watchView = new WatchView({#}
+{#      collection: this.collections.watches,#}
+{#    });#}
+{#    $('#watch-view').html(this.views.watchView.el);#}
+{##}
+{#    this.views.eventView = new EventView({#}
+{#      collection: this.collections.events#}
+{#    });#}
+{#    $('#event-view').html(this.views.eventView.el);#}
+
+{#    arrayView = new ArrayAbstractView();#}
+    this.eventListeners();
+  },
+  eventListeners:function() {
+    this.listenTo(this, "array:click", this.arraySelection);
+    this.listenTo(this, "org:click", this.orgSelection);
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, 'watchview:click', this.watchSelection);
+    this.listenTo(this, 'watchview:newwatch', this.newWatch);
+    this.listenTo(this.models.platformModel, 'change', function(model){
+      this.views.arraySidebarView.selectArray(model.get('array_code'));
+    });
+  },
+
+  onLogin: function() {
+    location.reload();
+  },
+  onLogout: function() {
+    location.reload();
+  },
+  /*
+   * orgSelection is called by the event listener for org:click. The trigger
+   * from the OrgSidebarView passes the organization_id in as a parameter. With
+   * this we can cause the WatchView to re-render with the new watches we'll
+   * fetch, using the organization_id as a query parameter.
+   */
+  arraySelection: function(array_id) {
+    this.models.platformModel.set({array_code: array_id});
+{#    this.models.platformModel.fetchCurrent({url: '/api/c2/array/' + array_id + '/abstract'});#}
+    this.models.platformModel.fetchCurrent(array_id);
+{#    this.collections.platformStatus.fetch({url: '/api/c2/array/' + array_id + '/abstract'});#}
+    // We have selected a new organization, so now we need to update the watch
+    // GET /api/watch?organization_id=<organization_id>
+{#    this.collections.watches.fetch({#}
+{#      data: $.param({organization_id: organization_id})#}
+{#    });#}
+
+    this.collections.platformStatus.reset();
+
+    // Note: the watchview has an event listener that listens for sync events
+    // from this collection, so when the feth completes, the event will trigger
+    // and the watch view will re-render with the new watches.
+  },
+  /*
+   * orgSelection is called by the event listener for org:click. The trigger
+   * from the OrgSidebarView passes the organization_id in as a parameter. With
+   * this we can cause the WatchView to re-render with the new watches we'll
+   * fetch, using the organization_id as a query parameter.
+   */
+  orgSelection: function(organization_id) {
+    this.models.orgModel.set({id: organization_id});
+    this.models.orgModel.fetch();
+    // We have selected a new organization, so now we need to update the watch
+    // GET /api/watch?organization_id=<organization_id>
+    this.collections.watches.fetch({
+      data: $.param({organization_id: organization_id})
+    });
+    this.collections.events.reset();
+    // Note: the watchview has an event listener that listens for sync events
+    // from this collection, so when the feth completes, the event will trigger
+    // and the watch view will re-render with the new watches.
+  },
+  watchSelection: function(model) {
+    this.models.watchModel.set({id: model.get('id')});
+    this.models.watchModel.fetch();
+    this.collections.events.fetch({
+      data: $.param({watch_id: model.get('id')})
+    });
+  },
+  newWatch: function(watchModel) {
+    var organization_id = this.models.orgModel.get('id');
+    this.models.watchModel.set({id: watchModel.id});
+    this.models.watchModel.fetch();
+    this.collections.watches.fetch({
+      data: $.param({organization_id: organization_id})
+    });
+    this.collections.events.fetch({
+      data: $.param({watch_id: watchModel.id})
+    });
+  }
+});
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+
+
+</script>
+
+{% endblock %}

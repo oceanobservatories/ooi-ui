@@ -250,6 +250,31 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
+          ],
+          "ooiui/static/js/partials/compiled/c2.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Panel.html",
+            "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/Chart.html",
+            "ooiui/static/js/partials/FakeTable.html",
+            "ooiui/static/js/partials/Watch.html",
+            "ooiui/static/js/partials/OrgSidebar.html",
+            "ooiui/static/js/partials/ArraySideBar.html",
+            "ooiui/static/js/partials/EventList.html",
+            "ooiui/static/js/partials/TimeLineEvent.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/Event.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/ArraySideBar.html",
+            "ooiui/static/js/partials/PlatformStatus.html"
           ]
         }
       }
@@ -261,7 +286,7 @@ module.exports = function(grunt) {
           process: function(src, filepath) {
             return '// Source: ' + filepath + '\n' +
             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-          },
+          }
         },
         files: {
           'ooiui/static/js/compiled/science.js' : [
@@ -514,7 +539,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/AddAnnotationView.js',
+            'ooiui/static/js/views/common/AddAnnotationView.js'
           ],
           'ooiui/static/js/compiled/gridList.js' : [
             // Libs
@@ -708,7 +733,47 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/PioneerStationSummaryArrayView.js',
             'ooiui/static/js/views/common/PioneerDeploymentScheduleView.js',
             'ooiui/static/js/views/common/PioneerInfrastructureTablesView.js',
-            'ooiui/static/js/views/common/PioneerTechnicalDrawingsView.js',
+            'ooiui/statis/js/views/common/PioneerTechnicalDrawingsView.js'
+          ],
+          'ooiui/static/js/compiled/c2.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/wellknown/wellknown.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
+            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/c2/ArrayDisplayModel.js',
+            'ooiui/static/js/models/c2/ArrayAbstractModel.js',
+            'ooiui/static/js/models/c2/PlatformStatusModel.js',
+            'ooiui/static/js/models/c2/ArrayNavModel.js',
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/MapView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/asset_management/InstrumentView.js',
+            'ooiui/static/js/views/asset_management/PlatformView.js',
+            'ooiui/static/js/views/c2/ArrayDisplayView.js',
+            'ooiui/static/js/views/c2/ArrayAbstractView.js',
+            'ooiui/static/js/views/c2/ArraySideBarView.js',
+            'ooiui/static/js/views/c2/PlatformStatusView.js',
+            'ooiui/static/js/views/c2/ArrayNavView.js'
           ]
         }
       },
@@ -818,6 +883,13 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/css/common/landingPages.css"
+          ],
+          "ooiui/static/css/compiled/c2.css" : [
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/annotationModal.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/c2.css"
           ]
         }
       }
@@ -836,7 +908,7 @@ module.exports = function(grunt) {
         }
       }
     }
-  })
+  });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
