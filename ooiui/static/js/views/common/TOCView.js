@@ -12,7 +12,7 @@
 
 
 var TOCView = Backbone.View.extend({
-  events: {   
+  events: {
     'keyup #search-filter' : 'filterToc'
   },
   add: function(arrayModel){
@@ -62,13 +62,13 @@ var NestedItemView = Backbone.View.extend({
   },
   tagName: 'ul',
   className: 'nav',
-  toggle: function() {    
-    this.$el.collapse('toggle');    
+  toggle: function() {
+    this.$el.collapse('toggle');
     if (this.$el.parent().first().find('.toc-arrow').hasClass("fa-rotate-270")){
-        this.$el.parent().first().find('.toc-arrow').removeClass("fa-rotate-270"); 
+        this.$el.parent().first().find('.toc-arrow').removeClass("fa-rotate-270");
     }
     else{
-        this.$el.parent().first().find('.toc-arrow').addClass("fa-rotate-270");  
+        this.$el.parent().first().find('.toc-arrow').addClass("fa-rotate-270");
     }
 
   },
@@ -95,7 +95,7 @@ var NestedItemView = Backbone.View.extend({
 //  ArrayItemView
 //--------------------------------------------------------------------------------
 
-var ArrayItemView = Backbone.View.extend({  
+var ArrayItemView = Backbone.View.extend({
   tagName: 'li',
   initialize: function() {
     this.nestedView = new NestedItemView();
@@ -108,16 +108,16 @@ var ArrayItemView = Backbone.View.extend({
 
     e.preventDefault();
     e.stopPropagation();
-    if(this.model.platformDeployments.length == 0) {      
-      target.find('.toc-arrow').addClass("fa-rotate-270"); 
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+    if(this.model.platformDeployments.length == 0) {
+      target.find('.toc-arrow').addClass("fa-rotate-270");
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>");
       target.prop( "disabled", true );
       self.tg = target;
       this.model.platformDeployments.fetch({
         success: function(collection, response, options) {
           //save more than one request
           //if(self.el.childElementCount == 2){
-            self.renderPlatforms(); 
+            self.renderPlatforms();
             self.tg.prop( "disabled", false );
             self.tg.find(".s").remove();
           //}
@@ -126,7 +126,7 @@ var ArrayItemView = Backbone.View.extend({
       });
     } else {
       this.nestedView.toggle();
-      
+
     }
     ooi.trigger('arrayItemView:arraySelect', this.model);
   },
@@ -137,27 +137,27 @@ var ArrayItemView = Backbone.View.extend({
   },
   renderPlatforms: function() {
     var self = this;
-    
+
     this.$el.find(".badge").text(this.model.platformDeployments.length)
     //this.$el.find(".badge").toggleClass("hidden")
 
-    this.model.platformDeployments.each(function(platformModel,i,list){      
+    this.model.platformDeployments.each(function(platformModel,i,list){
       self.add(platformModel);
     });
     this.$el.append(this.nestedView.el);
   },
-  add: function(platformModel){    
+  add: function(platformModel){
     var subview = new PlatformDeploymentItemView({
       model: platformModel
     });
     //search for ref deg, and modify the top level parent
     var ref_deg = platformModel.attributes.reference_designator
     if (subview.platformType == "parent-platform"){
-      var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
+      var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) {
         return _.any([model.attributes.reference_designator], function(v) {
-          var vv = v.indexOf(ref_deg)!= -1;;          
+          var vv = v.indexOf(ref_deg)!= -1;;
           return vv
-        });                  
+        });
       });
       //update the badge
       subview.$el.find(".badge").text(platformDeploymentsSubset.length-1)
@@ -167,7 +167,7 @@ var ArrayItemView = Backbone.View.extend({
     this.nestedView.add(subview);
   },
   events: {
-    'click a' : 'onClick' 
+    'click a' : 'onClick'
   }
 });
 
@@ -176,7 +176,7 @@ var ArrayItemView = Backbone.View.extend({
 //--------------------------------------------------------------------------------
 
 var PlatformDeploymentItemView = Backbone.View.extend({
-  tagName:'li',  
+  tagName:'li',
   initialize: function(){
     var self = this;
     _.bindAll(this, "render", "onClick");
@@ -193,7 +193,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     this.nestedView.add(subview);
   },
   events: {
-    'click a' : 'onClick' 
+    'click a' : 'onClick'
   },
   modifyDisplayName: function() {
     var self = this;
@@ -204,18 +204,18 @@ var PlatformDeploymentItemView = Backbone.View.extend({
       self.platformType = "child";
     } else {
       this.$el.toggleClass('parent-platform');
-      self.platformType = "parent-platform";      
+      self.platformType = "parent-platform";
     }
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target)        
-    
+    var target = $(e.target)
+
     e.preventDefault();
     e.stopPropagation();
     if(this.model.assetDeployments.length == 0) {
-      target.find('.toc-arrow').addClass("fa-rotate-270"); 
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+      target.find('.toc-arrow').addClass("fa-rotate-270");
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>");
       target.prop( "disabled", true );
       self.tg = target;
       this.model.assetDeployments.fetch({
@@ -227,7 +227,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
         reset: true
       });
     } else {
-      this.nestedView.toggle();      
+      this.nestedView.toggle();
     }
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
     var loc = this.model.get('geo_location')
@@ -241,7 +241,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
       ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
     }
 
-  },  
+  },
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
@@ -255,7 +255,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     }
 
     this.model.assetDeployments.each(function(instrumentModel) {
-      self.add(instrumentModel);
+      //self.add(instrumentModel);
     });
     this.$el.append(this.nestedView.el);
   }
@@ -289,7 +289,7 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
     e.preventDefault();
     e.stopPropagation();
     if(this.streams.length == 0) {
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
+      target.prepend("<i class='fa fa-spinner fa-spin s'></i>");
       target.prop( "disabled", true );
       self.tg = target;
       this.streams.fetch({
