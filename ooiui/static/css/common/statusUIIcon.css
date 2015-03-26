@@ -179,7 +179,21 @@
 }
 .unknown-backgroud-gradiant {
     background-color: #fff;
+    background-image: radial-gradient( 100% 100%, #fff, rgba(142, 140, 140, 0.52));;
+    box-shadow: 0 0 10px rgba(181, 181, 181, 1);
+    border:  1px solid rgba(181, 181, 181, 1);
+
 }
+.unknown-backgroud-gradiant:hover {
+    border:  1px solid;
+    border-color: rgba(136, 137, 137, 0.75);
+    /*Glow*/ 
+    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1)); 
+    -moz-box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
+    box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
+}
+
+
 .dogTagHeader {
     font-size: 14px;
     font-weight: 500;
@@ -334,25 +348,25 @@ border: 1px solid rgba(81, 203, 238, 1);*/
 
  ***oldbadgebuttons
  .issueIssueBtn {
- background: #FFE944;
- border: 1px solid #6E6E6C;
- box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
- display: inline-block;
- float: center;
- margin: 0 10px 0px 0;
- width: 35px;
- height: 35px;
- border-radius: 50%;
- text-align: center;
- font-size: 25px;
- margin-left: 0%;
- margin-top: 15%;
- margin-left: auto;
- padding: 0px 0px;
- line-height: 1;
- color: #000000;
- white-space: nowrap;
- vertical-align: baseline;
+     background: #FFE944;
+     border: 1px solid #6E6E6C;
+     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+     display: inline-block;
+     float: center;
+     margin: 0 10px 0px 0;
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     text-align: center;
+     font-size: 25px;
+     margin-left: 0%;
+     margin-top: 15%;
+     margin-left: auto;
+     padding: 0px 0px;
+     line-height: 1;
+     color: #000000;
+     white-space: nowrap;
+     vertical-align: baseline;
  }
  .errorIssueBtn {
      background: #E03D2C;

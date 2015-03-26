@@ -13,7 +13,6 @@ var StatusUIIconView = Backbone.View.extend({
       console.log(this.collection);
       self.render();
     });
-
   },
     initialRender: function() {
     console.log("Plot should be a spinner");
@@ -24,7 +23,6 @@ var StatusUIIconView = Backbone.View.extend({
     this.subviews.push(subview);
     this.$el.find('#alert-container').append(subview.el);
   },
-
   template: JST['ooiui/static/js/partials/StatusUIIcon.html'],
   render: function() {
     var self = this;
@@ -35,6 +33,5 @@ var StatusUIIconView = Backbone.View.extend({
       });
       self.add(subview);
     });
-
   }
 });
