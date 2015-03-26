@@ -614,7 +614,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/NewEventView.js',
             'ooiui/static/js/views/common/EventView.js'
           ],
-          'ooiui/static/js/compiled/statusUIIcon.js' : [
+          'ooiui/static/js/compiled/StatusUIIcon.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
