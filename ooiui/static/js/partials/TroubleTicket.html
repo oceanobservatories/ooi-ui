@@ -29,30 +29,48 @@
         <div id="form-group" class="form-group">
           <input type="text" class="form-control" id="username" name="username" disabled="disabled" placeholder="You shouldn't see this"/>
           <span class="help-block hidden"></span>
+        </div>
           <br>
-          <input type="text" class="form-control" id="titleSub" name="titleSub" placeholder="Title/Subject"/>
+          <div class="form-group">
+          <input type="text" class="form-control" id="subject" name="subject" placeholder="Title/Subject"/>
           <span class="help-block hidden"></span>
         </div><!-- upper form-group -->
         <hr>
       </div><!-- upper col-sm-4 -->
       <div class="col-sm-4">
         <!-- upper main right side -->
+        
         <div class="form-group">
-          <div class="radio" data-toggle="radio">
-            <label><input type="radio" name="radio" value="1">Low</label>
+          <div class='radio' data-toggle='radio'>
+            <label class='radio control-label'>
+              <input type="radio" name="priority_id" id='low' value="1"/>Low
+            </label>
           </div>
+
           <br>
-          <div class="radio" data-toggle="radio">
-            <label><input type="radio" name="radio" value="2">Medium</label>
-            </div>
+          <div class='radio' data-toggle='radio'>
+
+            <label class='radio control-label'>
+              <input type="radio" name="priority_id" id='medium' value="2"/>Medium
+            </label>
+          </div>
             <br>
-            <div class="radio" data-toggle="radio">
-              <label><input type="radio" name="radio" value="3">High</label>
+            <div class='radio' data-toggle='radio'>
+
+              <label class='radio control-label'>
+                <input type="radio" name="priority_id" id="high"  value="3"/>High
+              </label>
             </div>
+           
             <br>
-            <div class="radio" data-toggle="radio">
-              <label><input type="radio" name="radio" value="4">Emergency</label>
+            <div class='radio' data-toggle='radio'>
+
+              <label class='radio control-label'>
+                <input type="radio" name="priority_id" id="urgent" value="4"/>Urgent
+              </label>
+              <span class='help-block hidden'></span>
             </div>
+
             <br>
           </div><!-- upper form-group -->
         </div><!-- upper col-sm-4 -->
@@ -75,35 +93,34 @@
             BAD: <textarea>
           </textarea>
           **** -->
-          <textarea class="form-control" rows="6" id="description" placeholder="Description"></textarea></textarea>
+          <textarea class="form-control" rows="6" name="description" id="description" placeholder="Description"></textarea>
+          <span class="help-block hidden"></span>
+
         </div><!-- form-group -->
       </div><!-- lower col-sm-4 -->
 
       <div class="col-sm-4">
         <!-- lowe main right side -->
-        <div class="bump">
+        <div class="form-group bump">
           <div class="input-group input-append date"  id="datePicker" data-date-format="yyyy-mm-dd">
-            <input type="text"  class="ticketCalendar add-on"  name="date" id="dueDate" placeholder="&#xf073; Due Date" />
+            <input type="text"  class="ticketCalendar add-on"  name="due_date" id="due_date" placeholder="&#xf073; Due Date" />
+            <span class="help-block hidden"></span>
           </div><!-- input-group -->
         </div><!-- bump -->
         <br>
         <div class="bump">
           <div class="form-group">
-            <select id="assignee-select" name='assigned' class="typeDrop"><!--event-type-selection-->
-              <option value="None">-- Assignee --</option>
-              <% collection.each(function(model) { %>
-              <option value="<%= model.get('user_name') %>"> 
-                <%= model.get('user_name') %>
-              </option>
-              <% }); %>
+            <select id="assigned" name="assigned" class="typeDrop"><!--event-type-selection-->
             </select>
+            <span class="help-block hidden"></span>
+
           </div> <!-- .form-group -->
         </div><!-- bump -->
         <br>
         <div class="btn-group-sm">
-          <button class="btn btn-custom-reset btn-sm" type="button">
+          <button class="btn btn-custom-reset btn-sm" id="resetTicketButton" type="button">
             <span class="fa fa-circle-o-notch" aria-hidden="true"></span> Reset</button>
-            <button class="btn btn-custom-submit btn-sm" type="button">
+            <button id='submitTicketButton' class="btn btn-custom-submit btn-sm" type="button">
               <span class="fa fa-check" aria-hidden="true"></span> Submit</button>
             </div><!-- btn-group-sm -->
           </div><!-- col-sm-4  -->
