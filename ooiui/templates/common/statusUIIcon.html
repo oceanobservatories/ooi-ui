@@ -29,108 +29,10 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div id="event-view" class="col-md-12">
-
-                <!-- Header Alet Buttons -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Status UI</h2>  
-                    </div>
-                </div>
-                <div class="row-centered">
-                    <div class="col-md-3 col-centered" id="status-filter-row">
-                        <h4> <button type="button" class="okIssueBtn"></button>
-                            OK Platforms
-                        </h4>
-                    </div>
-                     <div class="col-md-3 col-centered" id="status-filter-row">
-                        <h4> <button type="button" class="issueIssueBtn"></button>
-                            Issue Platforms
-                        </h4>
-                    </div>
-                    <div class="col-md-3 col-centered" id="status-filter-row">
-                        <h4> <button type="button" class="errorIssueBtn"></button>
-                            Error Platforms
-                        </h4>
-                    </div>
-                    <div class="col-md-3 col-centered" id="status-filter-row">
-                        <h4> <button type="button" class="unknownIssueBtn"></button>
-                            Unknown Platforms
-                        </h4>
-                    </div>
-
-                </div>
-
-                <!--   <div class="row">
-                    <div class="col-md-2">
-                    <h2 align="left">Platforms</h2>
-                    </div> 
-
-                    <div class="col-md-10" style="float:left;">
-
-                    <div class="col-md-3" id="status-filter-row">
-                    <h5 data-i18n="Growth">
-                    <button type="button" class="okIssueBtn fa fa-check" filter=""></button>
-                    OK&nbsp;Platforms</h5>
-                    </div>
-
-                    <div class="col-md-3">
-                    <h5 data-i18n="Growth">
-                    <button type="button" class="issueIssueBtn fa fa-exclamation" filter=""></button>
-                    Issue&nbsp;Platforms</h5>
-                    </div>
-
-                    <div class="col-md-3">
-                    <h5 data-i18n="Growth">
-                    <button type="button" class="errorIssueBtn fa fa-ban" filter=""></button>
-                    Error&nbsp;Platforms</h5>
-                    </div>
-
-                    <div class="col-md-3">
-                    <h5 data-i18n="Growth">
-                    <button type="button" class="unknownIssueBtn fa fa-circle-o-notch" filter=""></button>
-                    Unknown&nbsp;Platforms</h5>
-                    </div>
-                -->
-
-
-                <!--
-                    <div class="col-md-3">
-                    <button type="button" class="issueIssueBtn" filter="">20</button>
-                    <span data-i18n="Growth">Issue</span>
-                    </div>
-
-                    <div class="col-md-3">
-                    <button type="button" class="errorIssueBtn" filter="">55</button>
-                    <span data-i18n="Growth">Error</span>
-                    </div>
-
-                    <div class="col-md-3">
-                    <button type="button" class="unknownIssueBtn" filter="">150</button>
-                    <span data-i18n="Growth">Unknown</span>
-                    </div>
-                -->
-                    </div>
-
-                </div>
-
-                <!-- Platfome Issues -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel-body" id="alerts">
-                            <!--StatusUIIcon.html-->
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-            </div><!-- /#container-fluid -->
+            </div>
         </div>
-    </div>
-
-</div><!-- /#wrapper -->
-
+    </div><!-- /#container-fluid -->
+</div>
 
 <script type="text/javascript">
 _.extend(OOI.prototype, Backbone.Events,  {
@@ -175,43 +77,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
             collection: this.collections.statusUIIconCollection
 
         });
-        $('#alerts').html(this.views.statusUIIconView.el);
-
-
-
-        /**
-         *
-         console.log('Above the View');
-
-         statusUIIconView: new StatusUIIconView()
-
-         statusUIIconCollection: new StatusUIIconCollection()
-
-         statusUIIconModel: new StatusUIIconModel()
-         this.views.statusUIIconView = new StatusUIIconView();
-
-         this.views.statusUIIconView = new StatusUIIconView({
-         });
-
-         $('#alerts').html(this.views.statusUIIconView.el);
-        /*DON'T DELETE!!!
-        this.collections.statusUIIconCollection.fetch();
-
-         */
-
-
-        /*this.views.statusUIIconHeaderView = new StatusUIIconHeaderView({
-          });
-          $('#header').html(this.views.statusUIIconHeaderView.el);*/
-
-
-
-        /*
-           this.views.eventView = new EventView({
-           collection: this.collections.events
-           });
-           $('#event-view').html(this.views.eventView.el);
-         */
+        $('#event-view').html(this.views.statusUIIconView.el);
 
         this.eventListeners();
 
