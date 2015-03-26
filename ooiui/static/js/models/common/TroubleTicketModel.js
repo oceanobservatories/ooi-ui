@@ -21,7 +21,26 @@ var TroubleTicketModel = Backbone.Model.extend({
     "due_date": null,
     "description": null,
     "priority_id": null,
-    //"assigned_to_id" : "null"
-    //"name":null
+  },
+  validation: {  
+    assigned:{
+      required: true,
+      msg: 'Assignee is required'
+    },
+    description:{
+      required:true
+    },
+    due_date:{
+      required: true
+    },
+      priority_id:{
+      required: true,
+      msg: 'Priority is required'
+
+    },
+    subject:{
+      required:true
+    }
   }
+  
 });
