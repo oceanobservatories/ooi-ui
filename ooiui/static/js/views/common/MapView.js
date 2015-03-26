@@ -76,10 +76,12 @@ var MapView = Backbone.View.extend({
     console.log("CLICK!");
     map.removeLayer(self.gliderLayer)
     if (show_track){      
-      var gliderModel = new GliderTrackModel();
+      var gliderModel = new GliderTrackModel(reference_designator+'-00-ENG000000');
+      var ref = gliderModel.get('reference_designator')
       gliderModel.fetch({
+          data: $.param({id:ref}),
           success: function(collection, response, options) {          
-            var gl = self.generate_glider_layer(response['track']);
+            var gl = self.generate_glider_layer(response);
             gl.addTo(map);
             self.gliderLayer = gl            
           },
@@ -123,28 +125,16 @@ var MapView = Backbone.View.extend({
     var map = this.map;
 		var markerCluster = new L.MarkerClusterGroup();   
 
-    this.collection.each(function(platform) { 	    	
-      var display_name = platform.get('display_name')
-      var ref_name = platform.get('reference_designator')
-      var array_id = platform.get('array_id')
-
-      platform.attributes.geo_location.properties = {'display_name':display_name,
-                              'ref':ref_name,
-                              'array_id':array_id
-                              }
-      
-      var geojsonFeature =L.geoJson(platform.attributes.geo_location, {				
-      onEachFeature: function (feature, layer) {
-      var popupContent = '<p><strong>' + feature.properties.display_name + '</strong><br>' +
-          'Lat: ' + feature.coordinates[1] + '&nbsp;|&nbsp;Lon: ' + feature.coordinates[0] + '<br>' +
-          '<a href="/streams?' + feature.properties.ref + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-          '<a href="/assets/list?' + feature.properties.ref + '">Asset Management</a></p>';
-
-          layer.bindPopup(popupContent);
-        }
-      });
-     // console.log(platform.toJSON());
-      markerCluster.addLayer(geojsonFeature);
+    this.collection.each(function(platform) {
+      if (platform.attributes.coordinates) {
+        var platformFeature = L.marker([platform.attributes.coordinates[0], platform.attributes.coordinates[1]]);
+        var popupContent = '<p><strong>' + platform.attributes.ref_des + '</strong><br>' +
+            'Lat: ' + platform.attributes.coordinates[0] + '&nbsp;|&nbsp;Lon: ' + platform.attributes.coordinates[1] +
+            '<br><a href="/streams?' + platform.attributes.ref_des + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+            '<a href="/assets/list?' + platform.attributes.ref_des + '">Asset Management</a></p>';
+            platformFeature.bindPopup(popupContent);
+        markerCluster.addLayer(platformFeature);
+      }
     });
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
@@ -161,7 +151,10 @@ var MapView = Backbone.View.extend({
 var GliderTrackModel = Backbone.Model.extend({
   urlRoot: '/api/uframe/glider_tracks',
   defaults: {
-        reference_designator: "CP05MOAS-GL004"        
-    }
+        reference_designator: ""     
+  },
+  initialize: function(ref){
+    this.set('reference_designator',ref);
+  },
 
 });
