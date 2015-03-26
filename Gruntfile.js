@@ -845,17 +845,14 @@ module.exports = function(grunt) {
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
-            "ooiui/static/lib/wellknown/wellknown.js",
             "ooiui/static/lib/loremjs/lorem.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/jqtree/tree.jquery.js",
             // App
             'ooiui/static/js/ooi.js',
             // Models
-            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
-            'ooiui/static/js/models/science/PlatformDeploymentModel.js',
-            'ooiui/static/js/models/c2/ArrayDisplayModel.js',
-            'ooiui/static/js/models/c2/ArrayAbstractModel.js',
+            'ooiui/static/js/models/c2/InstrumentsModel.js',
             'ooiui/static/js/models/c2/PlatformStatusModel.js',
             'ooiui/static/js/models/c2/ArrayNavModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
@@ -866,17 +863,11 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
-            "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/asset_management/InstrumentView.js',
-            'ooiui/static/js/views/asset_management/PlatformView.js',
-            'ooiui/static/js/views/c2/ArrayDisplayView.js',
-            'ooiui/static/js/views/c2/ArrayAbstractView.js',
             'ooiui/static/js/views/c2/ArraySideBarView.js',
             'ooiui/static/js/views/c2/PlatformStatusView.js',
-            'ooiui/static/js/views/c2/ArrayNavView.js'
+            'ooiui/static/js/views/c2/InstrumentView.js'
           ]
         }
       },
@@ -1013,7 +1004,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/annotationModal.css",
             "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/c2.css"
+            "ooiui/static/css/common/c2.css",
+            "ooiui/static/lib/jqtree/jqtree.css"
           ]
         }
       }

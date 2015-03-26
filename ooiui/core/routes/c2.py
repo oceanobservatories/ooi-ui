@@ -9,25 +9,20 @@ from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 
-
 import requests
 
-# C2 Page Routes
-@app.route('/c2/arrays')
-@app.route('/c2/arrays/')
-def c2_arrays():
-    return render_template('c2/array_display.html')
-
+#probably not going to use
 @app.route('/c2/platforms')
 @app.route('/c2/platforms/')
 def c2_platforms():
     return render_template('c2/platforms.html')
 
-@app.route('/c2/platform_status')
-@app.route('/c2/platform_status/')
+@app.route('/c2/instrument')
+@app.route('/c2/instrument/')
 def c2_platform_status():
-    return render_template('c2/platform_status.html')
+    return render_template('c2/instrument.html')
 
+#arrays list
 @app.route('/c2')
 @app.route('/c2/')
 def c2_index():
@@ -37,6 +32,13 @@ def c2_index():
 
 # ARRAYS
 #
+# http://localhost:4000/c2/arrays
+@app.route('/api/c2/arrays', methods=['GET'])
+def get_c2_arrays_all():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/arrays', auth=(token, ''))
+    return response.text, response.status_code
+
 # http://localhost:4000/c2/array/CP/abstract
 @app.route('/api/c2/array/<string:array_code>/abstract', methods=['GET'])
 def get_c2_array_abstract(array_code):

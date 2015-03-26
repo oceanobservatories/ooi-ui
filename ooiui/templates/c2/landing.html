@@ -10,96 +10,17 @@
 
 {% block head %}
 <link rel="stylesheet" href="/css/compiled/index.css" type="text/css" />
-<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/timeline.css" type="text/css" />
+<!-- <link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<link rel="stylesheet" href="/css/common/timeline.css" type="text/css" /> -->
 <link rel="stylesheet" href="/css/compiled/c2.css" type="text/css" />
 <!-- Partials -->
 <script src="/js/partials/compiled/c2.js" type="text/javascript"></script>
 <script src="/js/compiled/c2.js" type="text/javascript"></script>
 
-<style>
+<link rel="stylesheet" href="/css/common/c2.css" type="text/css" />
+<script src="/js/models/c2/ArrayNavModel.js" type="text/javascript"></script>
+<script src="/js/views/c2/ArraySideBarView.js" type="text/javascript"></script>
 
-/*----- Accordion -----*/
-.accordion, .accordion * {
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
-    text-decoration: none;
-
-}
-
-.accordion {
-    overflow:hidden;
-    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
-    border-radius:3px;
-    background:#f7f7f7;
-    text-decoration: none;
-
-}
-
-/*----- Section Titles -----*/
-.accordion-section-title {
-    width:100%;
-    padding:5px;
-    display:inline-block;
-    border-bottom:1px solid #FFFFFF;
-    background: #3289ED;
-    transition:all linear 0.15s;
-    /* Type */
-    font-size:1.200em;
-    text-shadow:0px 1px 0px #1a1a1a;
-    color:#fff;
-    text-decoration: none;
-}
-
-.accordion-section-title.active, .accordion-section-title:hover {
-    background: #73ACF9;
-    /* Type */
-    text-decoration: none;
-    link
-}
-
-.accordion-section:last-child .accordion-section-title {
-    border-bottom:none;
-    text-decoration: none;
-
-}
-
-/*----- Section Content -----*/
-.accordion-section-content {
-    padding:15px;
-    display:none;
-    text-decoration: none;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
-}
-
-.li-blue {
-  background: #BBD9EE;
-}
-
-.li-green {
-  background: #E7E4D3;
-}
-
-.btnStartStop {
-  float: right;
-}
-</style>
 {% endblock %}
 
 {%block body %}
@@ -108,18 +29,154 @@ a:active {
   </div>
 
   <div id="page-content-wrapper">
+    <ol class="breadcrumb" id='c2breakcrumb'>
+      <li><a >Arrays</a></li>
+    </ol>
     <div class="container-fluid">
       <div class="row">
         <div  id="array-dashboard" class="col-lg-4">
-        ADD ARRAY DASHBOARD
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-file-o"> </i>      Array DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">History</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Ports</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div> -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
-
         <div id="platform-dashboard" class="col-lg-4">
-        ADD PLATFORM DASHBOARD
+          <div class="panel-group" id="accordionP">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseOneP"><i class="fa fa-file-o">  </i>      Platform DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOneP" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseTwoP">Ports</a>
+                    </h4>
+                </div>
+                <div id="collapseTwoP" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseThreeP">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseThreeP" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseFourP">History</a>
+                    </h4>
+                </div>
+                <div id="collapseFourP" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
-
         <div id="instrument-dashboard" class="col-lg-4">
-        ADD INSTRUMENT DASHBOARD
+          <div class="panel-group" id="accordionI">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseOneI"><i class="fa fa-file-o">  </i>    Instrument DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOneI" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseTwoI">Streams</a>
+                    </h4>
+                </div>
+                <div id="collapseTwoI" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseThreeI">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseThreeI" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseFourI">History</a>
+                    </h4>
+                </div>
+                <div id="collapseFourI" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -136,61 +193,24 @@ a:active {
  * render, or in this case cause a collection to be fetched as a result.
  */
 
-_.extend(OOI.prototype, Backbone.Events,  {
+_.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
-  // Models and collections
-  collections: {
-    arrays: new ArrayCollection(),
-    platformStatus: new ArrayAbstractCollection()
-  },
-  models: {
-    userModel: new UserModel(),
-    arrayModel: new ArrayModel(),
-    platformModel: new ArrayAbstractModel()
-  },
-  views: {
-  },
   start: function() {
-    this.login.fetch({async:false});
-    this.collections.platformStatus.fetch();
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-
-    if(this.login.loggedIn()) {
-      this.models.userModel.fetch({url: '/api/current_user'});      
-    }
-
-    this.views.arraySidebarView = new ArraySidebarView({
-      collection: this.collections.platformStatus,
-{#      platformModel: this.models.platformModel#}
+    this.navbar = new NavbarView({
+      login: this.login
     });
-    $('#sidebar-wrapper').html(this.views.arraySidebarView.el);
+    $('body').prepend(this.navbar.el);
 
-    this.eventListeners();
-  },
-  eventListeners:function() {
-    this.listenTo(this, "array:click", this.arraySelection);
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this.models.platformModel, 'change', function(model){
-    this.views.arraySidebarView.selectArray(model.get('array_code'));
+    this.arrays = new ArrayNavCollection();
+    this.arrayTOCView = new ArraySidebarView({
+      collection: this.arrays
     });
-  },
-
-  arraySelection: function(array_id) {
-    console.log('In arraySelection:' + array_id);
-    this.models.platformModel.set({array_code: array_id});
-    this.models.platformModel.fetchCurrent(array_id);
-    this.collections.platformStatus.fetch(array_id);
-  },
-
-  onLogin: function() {
-    location.reload();
-  },
-  onLogout: function() {
-    location.reload();
+    $('.navbar-brand').html('OOI Command and Control');
+    $('#sidebar-wrapper').html(this.arrayTOCView.el);
+    this.arrays.fetch({reset: true});
   }
 });
+
 // Instantiate the application for this page
 var ooi = new OOI();
 
@@ -198,7 +218,6 @@ $(document).ready(function() {
   // Once the DOM is loaded, we start our application
   ooi.start();
 });
-
 
 </script>
 
