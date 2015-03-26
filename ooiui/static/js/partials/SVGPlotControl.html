@@ -12,10 +12,10 @@
 
     <div class="col-sm-6">
       <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <label for="plotting-enable-line">Line</label>
           <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-line" disabled checked data-size="mini">
-        </div>
+        </div> -->
         <div class="col-sm-6">
           <label for="plotting-enable-scatter">Scatter</label>
           <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
@@ -58,23 +58,24 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="xvar-select">Dimension</label>
+        <label for="xvar-select">Plot Type</label>
         <select id='xvar-select' class="form-control selectpicker">
-          <option value="time">time</option>
+          <option value="time">Time Series</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
               <% if(varName == 'pressure') { %>
-                <option value="<%=varName%>"><%= varName %></option>
+                <option value="<%=varName%>">Depth Profile</option>
               <% } %>                
             <% } %>
           <% }); %>
+          <option value="ts-diagram" disabled>T-S Diagram</option>
         </select>
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-6 -->
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="yvar-select">Field</label>
+        <label for="yvar-select">Variable(s)</label>
         <select id='yvar-select' class="form-control selectpicker" multiple>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
