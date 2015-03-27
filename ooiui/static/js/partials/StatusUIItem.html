@@ -109,14 +109,6 @@
 <% owner = discOwner %>
 <% } %>
 
-<!-- type -->
-<% var discType = model.get('type') %>
-<% var type = "N/A" %>
-
-<% if (discName != null) { %>
-<% type = discType %>
-<% } %>
-
 <!-- description -->
 <% var discDescription = model.get('description') %>
 <% var description = "N/A" %>
@@ -130,7 +122,7 @@
 <!-- Dog Tag Buttons -->  
 <div class="<%= backgound %>" data-toggle="modal" data-target="#myModal<%= asset %>">
     <h5 class="dogTagHeader"><%= model.get('ref_des') %></h5>
-    <h5 class="platform-tile-title dogTagBody"><%= type %></h5>
+    <h5 class="platform-tile-title dogTagBody"><%= model.get('assetInfo')['type'] %></h5>
     <h5 class="platform-tile-title dogTagBody">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
     <span class="<%= badge %>"></span>
     <h5 class="platform-tile-title dogTagBody">Deployed:</h5>
@@ -169,7 +161,7 @@
                             <ul style="list-style-type:none;">
                                 <li>Asset Information</li>
                                 <ul>
-                                    <li>Type:&nbsp;&nbsp;<b><%= type %></b></li>
+                                    <li>Type:&nbsp;&nbsp;<b><%= model.get('assetInfo')['type'] %></b></li>
                                     <li>Description:&nbsp;&nbsp;<b><%= name %></b></li>
                                     <li>Name:&nbsp;&nbsp;<b><%= description %></b></li>
                                     <li>Owner:&nbsp;&nbsp;<b><%= owner %></b></li>
