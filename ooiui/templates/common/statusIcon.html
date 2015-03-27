@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>OOI Status Page</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Main Landing Page For status page">
+    <meta name="author" content="RPS ASA">
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.4.0/holder.js"></script>
+
+    <link rel="stylesheet" href="/css/simple-sidebar.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/js/metismenu.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.0/css/metismenu.min.css">
+
+</head>
+
+<style>
+</style>
+
+
+<body>
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+      <div class="container">
+        <div class="navbar-collapse collapse">
+           <ul class="nav navbar-top-links navbar-left">
+          	<li>
+          		<a id="menu-toggle" href="#about">
+          			<i id class="glyphicon glyphicon-th-list fa-fw"></i>  <i id="collapse-button" class="fa fa-caret-left"></i>
+          			</a>
+
+			</li>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+
+          <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">40% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 2</strong>
+                                        <span class="pull-right text-muted">20% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 3</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 4</strong>
+                                        <span class="pull-right text-muted">80% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+
+ <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class="navbar-default">
+            <ul id="menu" class="nav sidebar-nav navbar-collapse">
+            	<li class="sidebar-search">
+	                <div class="input-group custom-search-form">
+	                    <input type="text" class="form-control" placeholder="Search...">
+	                    <span class="input-group-btn">
+	                    <button class="btn btn-default" type="button">
+	                        <i class="fa fa-search"></i>
+	                    </button>
+	                </span>
+	                </div>
+	                <!-- /input-group -->
+	            </li>
+		         <li>
+		              <a href="#"><i class="fa fa-share-alt fa-fw"></i>Pioneer Array <span class="badge badge-info">9</span><span class="fa arrow"></span></a>
+
+		              <ul class="nav sidebar-nav-second-level">
+		                  <li>
+		                      <a href="#"><i class="fa fa-share-alt fa-fw"></i>Mesoscale Array  <span class="badge badge-info">5</span><span class="fa arrow"></span></a>
+		                      <ul class="nav sidebar-nav-third-level">
+		                          <li><a href="#">Glider 465</a></li>
+		                          <li><a href="#">Glider 512</a></li>
+		                          <li><a href="#">Glider 721</a></li>
+		                          <li><a href="#">Glider 465</a></li>
+		                          <li><a href="#">Glider 514</a></li>
+
+		                      </ul>
+		                  </li>
+		                  <li>
+		                      <a href="#"><i class="fa fa-share-alt fa-fw"></i>Frontal Array <span class="badge badge-info">4</span><span class="fa arrow"></span></a>
+		                      <ul class="nav sidebar-nav-third-level">
+		                          <li><a href="#">Mooring 11</a></li>
+		                          <li><a href="#">Mooring 15</a></li>
+		                          <li><a href="#">Mooring 16</a></li>
+		                          <li><a href="#">Mooring 18</a></li>
+		                      </ul>
+		                  </li>
+		              </ul>
+		          </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div id="status-filter-row" class="row">
+                	<div class="col-lg-3 col-xsm-6">
+                    	<div class="status-box active-filter">
+                        	<p class="text-muted">
+                        		<button type="button" class="filter-btn  btn btn-primary" filter="">All Platforms</button>
+                        		<span data-i18n="Growth">All Platforms
+                        		<i class="badge status-badge badge-info">9</i></a>
+                        		</span>
+
+                        	</p>
+
+                   		</div>
+                    </div>
+                    <div class="col-lg-3 col-xsm-6">
+                    	<div class="status-box">
+                        	<p class="text-muted">
+                        		<button type="button" class="filter-btn btn btn-success" filter="ok">OK Platforms</button>
+                        		<span data-i18n="Growth">OK Platforms
+                        		<span class="badge status-badge badge-success">5</span></a>
+                        		</span>
+                        	</p>
+                   		</div>
+                    </div>
+                    <div class="col-lg-3 col-xsm-6">
+                    	<div class="status-box">
+                        	<p class="text-muted">
+                        		<button type="button" class="filter-btn  btn btn-warning" filter="issue">Issue Platforms</button>
+                        		<span data-i18n="Growth">Issues Platforms
+                        		<span class="badge status-badge badge-warning">2</span></a>
+                        		</span>
+                        	</p>
+                   		</div>
+                    </div>
+                    <div class="col-lg-3 col-xsm-6">
+                    	<div class="status-box">
+                    		<p class="text-muted">
+                    			<button type="button" class="filter-btn  btn btn-danger" filter="error">Error Platforms</button>
+                    			<span data-i18n="Growth">Error Platforms
+                        		<span class="badge status-badge badge-error">2</span></a>
+                        		</span>
+                        	</p>
+
+                   		</div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                    	<div class="panel">
+                    		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Data">Platforms</span></strong></div>
+
+                    		<div class="panel-body">
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+		                        	<span class="status-icon status-ok"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 412</p>
+		                        	<span class="status-icon status-error"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 413</p>
+		                        	<span class="status-icon status-issue"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 411</p>
+		                        	<span class="status-icon status-ok"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 410</p>
+		                        	<span class="status-icon status-ok"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                         <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 321</p>
+		                        	<span class="status-icon status-error"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                         <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 513</p>
+		                        	<span class="status-icon status-ok"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                         <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 913</p>
+		                        	<span class="status-icon status-issue"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+		                        <div class="platform-tile well" data-toggle="popover" rel="popover" array="pioneer" sublocation="" platformtype="">
+		                        	<h4 class="platform-tile-title">Pioneer</h3>
+		                        	<p class="platform-tile-contents">Mesoscale Array<br>Glider 913</p>
+		                        	<span class="status-icon status-ok"></span>
+		                        	<p class="platform-tile-contents">Voltage 3.5v<br>
+		                        	Deployed 2014/4/5 10:14:01</p>
+		                        </div>
+
+
+
+		                    </div>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+    <div id="tilepopovercontent" style="display: none">
+             <div>
+             	<b>Tier 1 Items</b>
+
+             	<div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon status-ok"></i>
+                    </div>
+                    <div class="col-xs-10">
+                        Location <i class="badge status-ok">Lat: 45.12 Lon: -72.4</i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon status-error"></i>
+                    </div>
+                    <div class="col-xs-10">
+                        Power <i class="badge badge-error">3.45v</i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-1">
+                        <i class="small-status-icon status-issue"></i>
+                    </div>
+                    <div class="col-xs-10">
+                        <div>
+                        	Telemetry <i class="badge badge-warning">10/10</i>
+                        </div>
+                    </div>
+                </div>
+
+            	<a>More Info</a>
+
+             </div>
+    </div>
+
+    <div id="tilepopovertitle" style="display: none">
+             <b>Pioneer Mesolscale, Gilder 111</b>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        if($('#collapse-button').hasClass('fa-caret-left'))
+		{
+			$('#collapse-button').removeClass('fa-caret-left');
+			$('#collapse-button').addClass('fa-caret-right');
+		}
+		else
+		{
+			$('#collapse-button').removeClass('fa-caret-right');
+			$('#collapse-button').addClass('fa-caret-left');
+		}
+    });
+
+    $(".sidebar-item").click(function(e) {
+    	e.preventDefault();
+        $( this ).hide();
+    });
+
+    $(function () {
+        $('#menu').metisMenu({
+          toggle: false
+        });
+    });
+
+    /*
+    STATUS FILTERING
+    */
+    $('.filter-btn').on('click', function (e) {
+    	var filter = $( this ).attr( "filter" )
+
+    	$("#status-filter-row .status-box").removeClass("active-filter");
+
+    	$( this ).parent().parent().addClass( "active-filter" );
+
+    	if (filter==""){
+    		$(".platform-tile").show();
+    	}else{
+    		$(".platform-tile").show();
+    		$('.platform-tile').find('.status-icon').not('.status-' + filter).parent().hide();
+    	}
+    });
+
+
+
+    /*
+	TILE POPUP AND SELECTION
+    */
+    $('.platform-tile').on('click', function (e) {
+
+    });
+
+    $('.platform-tile').popover({
+    	trigger: "hover",
+	    html:true,
+	    placement:'bottom',
+	    content: function() {
+          return $('#tilepopovercontent').html();
+        },
+        title: function() {
+          return $('#tilepopovertitle').html();
+        }
+	});
+
+
+
+    </script>
+
+</body>
+</html>

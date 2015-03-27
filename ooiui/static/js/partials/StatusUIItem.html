@@ -34,8 +34,19 @@
 <% } %>
 
 
-<!-- Button trigger modal -->  
-<div class="<%= backgound %>" data-toggle="modal" data-target="#myModal<%= asset %>">
+
+
+<% var deployed = model.get('manufactureInfo') %>
+<% var assets = model.get('assets') %>
+
+<% if ("assets.has('manufactureInfo')" && "serialNumber.in('manufactureInfo')") { %>
+<!-- <% console.log(deployed.serialNumber) %> -->
+<% var date = null %>
+<% } %>
+
+
+<!-- button trigger modal -->  
+<div class="<%= backgound %>" data-toggle="modal" data-target="#mymodal<%= asset %>">
     <h5 class="dogTagHeader"><%= model.get('ref_des') %></h5>
     <h5 class="platform-tile-title dogTagBody"><%= model.get('assetInfo')['type'] %></h5>
     <h5 class="platform-tile-title dogTagBody">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
@@ -90,7 +101,9 @@
                             <ul style="list-style-type:none;">
                                 <li>Manufacturer Information</li>
                                 <ul>
-                                    <li>Serial Number:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['serialNumber'] %></b></li>
+                                    <li>Serial Number:&nbsp;&nbsp;<b><%= date
+                                            
+                                            %></b></li>
                                     <li>Manufacturer:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['manufacturer'] %></b></li>
                                     <li>Model Number:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['modelNumber'] %></b></li>
                                 </ul>

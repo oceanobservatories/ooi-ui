@@ -34,4 +34,4 @@ var StatusUIIconView = Backbone.View.extend({
       self.add(subview);
     });
   }
-});
+})
