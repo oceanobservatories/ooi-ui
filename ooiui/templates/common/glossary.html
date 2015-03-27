@@ -1,0 +1,371 @@
+
+{% extends "common/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/compiled/glossary.css" type="text/css" />
+  <!-- Partials -->
+  
+  <script src="/js/partials/compiled/glossary.js" type="text/javascript"></script>
+  <script src="/js/compiled/glossary.js" type="text/javascript"></script>
+  
+{% endblock %}
+
+{% block body %}
+
+   <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+         <div  class="col-md-3 navbar-default"> 
+           <ol style="padding-top: 2cm" class="nav nav-sidebar">
+             <div> Platforms</div>
+              <li><a href="#1" title="AUV"><strong>AUV</strong></a></li>
+              <li><a href="#2" title="Benthic Experiment Package"><strong>Benthic Experiment Package</strong></a></li>
+              <li><a href="#3" title="Glider"><strong>Glider</strong></a></li>
+              <li><a href="#4" title="Junction Box"><strong>Junction Box</strong></a></li>
+              <li><a href="#5" title="MFN Base/Anchor"><strong>MFN Base/Anchor</strong></a></li>
+              <li><a href="#6" title="Mooring Riser"><strong>Mooring Riser</strong></a></li>
+              <li><a href="#7" title="Primary Node"><strong>Primay Node</strong></a></li>
+
+              <li><a href="#8" title="Profiler"><strong>Primay Node</strong></a></li>
+              <li><a href="#9" title="Profiler Mooring"><strong>Profiler Mooring</strong></a></li>
+              <li><a href="#10" title="Subsurface Mooring"><strong>Subsurface Mooring</strong></a></li>
+              <li><a href="#11" title="Surface Buoy"><strong>Subsurface Buoy</strong></a></li>
+              <li><a href="#12" title="Surface Mooring"><strong>Surface Mooring</strong></a></li>
+              <li><a href="#13" title="Surface-Piercing Profiler"><strong>Surface-Piercing Profiler</strong></a></li>
+              <li><a href="#14" title="Surface-Piercing Profiler Mooring"><strong>Surface-Piercing Profiler Mooring</strong></a></li>
+              <li><a href="#15" title="Wire-Following Profiler"><strong>Wire-Following Profiler</strong></a></li>
+
+            <div> Instruments</div>
+              <li><a href="#16" title="pCO2 Air-Sea"><strong>pCO2 Air-Sea</strong></a></li>
+              <li><a href="#17" title="Benthic Fluid Flow"><strong>Benthic Fluid Flow</strong></a></li>
+              <li><a href="#18" title="Bio-acoustic Sonar (Coastal)"><strong>Bio-acoustic Sonar (Coastal)</strong></a></li>
+              <li><a href="#19" title="Bio-acoustic Sonar (Global)"><strong>Bio-acoustic Sonar (Global)</strong></a></li>
+              <li><a href="#20" title="CTD AUV"><strong>CTD AUV</strong></a></li>
+              <li><a href="#21" title="CTD Pumped"><strong>CTD Pumped</strong></a></li>
+              <li><a href="#22" title="CTD Glider"><strong>CTD Glider</strong></a></li>
+              <li><a href="#23" title="CTD Mooring (Inductive)"><strong>CTD Mooring (Inductive)</strong></a></li>
+              <li><a href="#24" title="CTD Profiler"><strong>CTD Profiler</strong></a></li>
+              <li><a href="#25" title="Digital Still Camera with Strobes"><strong>Digital Still Camera with Strobes</strong></a></li>
+              <li><a href="#26" title="Dissolved Oxygen Fast Response"><strong>Dissolved Oxygen Fast Response</strong></a></li>
+              <li><a href="#27" title="Dissolved Oxygen Stable Response"><strong>Dissolved Oxygen Stable Response</strong></a></li>
+              <li><a href="#28" title="Particulate DNA Sampler"><strong>Particulate DNA Sampler</strong></a></li>
+              <li><a href="#29" title="2-Wavelength Fluorometer"><strong>2-Wavelength Fluorometer</strong></a></li>
+              <li><a href="#30" title="3-Wavelength Fluorometer"><strong>3-Wavelength Fluorometer"</strong></a></li>
+              <li><a href="#31" title="HD Digital Video Camera with Strobes"><strong>HD Digital Video Camera with Strobes"</strong></a></li>
+              <li><a href="#32" title="Broadband Acoustic Receiver (Hydrophone)"><strong>Broadband Acoustic Receiver (Hydrophone)</strong></a></li>
+              <li><a href="#33" title="Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor"><strong>Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor"</strong></a></li>
+              <li><a href="#34" title="Hydrothermal Vent Fluid In-situ Chemistry"><strong>Hydrothermal Vent Fluid In-situ Chemistry</strong></a></li>
+              <li><a href="#35" title="Hydrothermal Vent Fluid Temperature and Resistivity"><strong>Hydrothermal Vent Fluid Temperature and Resistivity</strong></a></li>
+              <li><a href="#36" title="Osmosis-Based Water Sampler"><strong>Osmosis-Based Water Sampler</strong></a></li>
+              <li><a href="#37" title="Hydrothermal Vent Fluid Interactive Sampler"><strong>Hydrothermal Vent Fluid Interactive Sampler</strong></a></li>
+              <li><a href="#38" title="Diffuse Vent Fluid 3-D Temperature Array"><strong>Diffuse Vent Fluid 3-D Temperature Array</strong></a></li>
+              <li><a href="#39" title="Spectral Irradiance"><strong>Spectral Irradiance</strong></a></li>
+              <li><a href="#40" title="Mass Spectrometer"><strong>Mass Spectrometer</strong></a></li>
+              <li><a href="#41" title="Bulk Meteorology Instrument Package"><strong>Bulk Meteorology Instrument Package</strong></a></li>
+              <li><a href="#42" title="Nitrate"><strong>Nitrate</strong></a></li>
+              <li><a href="#43" title="Seawater pH"><strong>Seawater pH</strong></a></li>
+              <li><a href="#44" title="Photosynthetically Available Radiation"><strong>Photosynthetically Available Radiation</strong></a></li>
+              <li><a href="#45" title="Direct Covariance Flux"><strong>Direct Covariance Flux</strong></a></li>
+              <li><a href="#46" title="Bottom Pressure and Tilt"><strong>Bottom Pressure and Tilt</strong></a></li>
+              <li><a href="#47" title="Seafloor Pressure"><strong>Seafloor Pressure</strong></a></li>
+              <li><a href="#48" title="Tidal Seafloor Pressure"><strong>Tidal Seafloor Pressure</strong></a></li>
+              <li><a href="#49" title="pCO2 Water"><strong>pCO2 Water</strong></a></li>
+              <li><a href="#50" title="Broadband Ocean Bottom Seismometer"><strong>Broadband Ocean Bottom Seismometer</strong></a></li>
+              <li><a href="#51" title="Short-Period Ocean Bottom Seismometer"><strong>Short-Period Ocean Bottom Seismometer</strong></a></li>
+              <li><a href="#52" title="Surface Wave Spectra"><strong>Surface Wave Spectra</strong></a></li>
+              <li><a href="#53" title="Absorption Spectrophotometer"><strong>Absorption Spectrophotometer</strong></a></li>
+              <li><a href="#54" title="Horizontal Electric Field, Pressure and Inverted Echo Sounder"><strong>Horizontal Electric Field, Pressure and Inverted Echo Sounder</strong></a></li>
+              <li><a href="#55" title="5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range)"><strong>5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range)</strong></a></li>
+              <li><a href="#55" title="Velocity Profiler (short range) for mobile assets"><strong>Velocity Profiler (short range) for mobile assets</strong></a></li>
+              <li><a href="#56" title="Velocity Profiler (long range)"><strong>Velocity Profiler (long range)</strong></a></li>
+              <li><a href="#58" title="Velocity Profiler (short range)"><strong>Velocity Profiler (short range)</strong></a></li>
+              <li><a href="#59" title="3-D Single Point Velocity Meter"><strong>3-D Single Point Velocity Meter</strong></a></li>
+              <li><a href="#60" title="Single Point Velocity Meter"><strong>Single Point Velocity Meter</strong></a></li>
+              <li><a href="#61" title="3-Axis Motion Pack"><strong>3-Axis Motion Pack</strong></a></li>
+              <li><a href="#62" title="Modem acoustic"><strong>Modem acoustic</strong></a></li>
+
+
+
+
+
+
+
+
+
+
+            </ol>  
+
+
+
+
+         
+        </div>
+
+        <div class="col-md-9">
+          <div class="panel">
+            <div class="panel-heading">
+              
+            
+                           </div>
+            <div class="panel-body">
+            <div id="section-toc">  <!-- SECTION CONTENT HEADER AND LINK TO SECTION HOME -->
+            <h2>Glossary OOI </h2>
+
+<p>&nbsp;</p>
+<hr>
+<h1>Platforms</h1>
+<h2><a name="1"></a>AUV</h2>
+<p>Autonomous Underwater Vehicles (AUVs) are propellor-driven mobile assets. The underwater flight pattern of the AUV can be controlled from shore, making these robots well suited for sampling rapidly changing conditions as their flight pattern can be controlled from shore. Seafloor-mounted docking stations allow AUVs to be deployed for extended time periods.</p>
+
+<h2><a name="2"></a>Benthic Experiment Package</h2>
+<p>A Benthic Experiment Package (BEP) is a type of cabled infrastructure, specifically deployed along the shallow continental shelf. BEPs are either connected to a Junction Box to receive power as well as transmit data and communications.</p>
+
+<h2><a name="3"></a>Glider</h2>
+<p>Gliders are buoyancy-driven mobile assets. They change their buoyancy by drawing in water through their nose making their front end heavy causing them to sink through the water. To float back up to the surface, they push the water out. Their wings provide lift allowing the gliders to move forward as they change depth. Due to their efficient design, with no need for propellors or an engine, gliders can be deployed for several months at a time.</p>
+
+
+<h2><a name="4"></a>Junction Box</h2>
+
+<p>A Junction Box (JBox) rests on the seafloor and is connected to shore via a series of fiber optic cables. Several instruments can be attached to a single Jbox and Jboxes can be connected to each other. Jboxes draw energy from the cables to power instruments and to transmit data from the instruments back to shore. In this way, Jboxes act like both a power strip and a converter. The OOI employs three kinds of Jboxes: Low Voltage (LV) Node, Low-Power (LP) Jbox, and Medium Power (MP) JBox. LV Nodes convert high power from the primary node to a lower power that can then be distributed LP or MP Jboxes and cabled moorings. LV Nodes cannot directly connect to instruments. LP Jboxes directly connect to instruments and receive power from LV Nodes. LP Jboxes convert power from LV Nodes into the appropriate power for their associated instruments. The MP Jbox can draw power from either a primary node or a LV Node as well as connect directly to instruments and other Jboxes. The MP Jbox converts high power from the primary node to a lower, medium-level power that that can then be distributed to other nodes.</p>
+
+
+<h2><a name="5"></a>MFN Base/Anchor</h2>
+<p>Multi-Function Nodes (MFN) are found at the base of some surface moorings and act both as an anchor was well as a platform to affix instruments.</p>
+
+<h2><a name="6"></a>Mooring Riser</h2>
+<p>A Mooring Riser is the cable (or chain) that connects the buoy to the anchor on a mooring. Instruments can be affixed to the mooring riser at fixed depths, or a wire-following profiler can track along the mooring riser traveling up and down in the water column.</p>
+
+<h2><a name="7"></a>Primary Node</h2>
+<p>Primary Nodes are connected to the land-based shore station in Pacific City, Oregon via fiber-optic cables. These nodes convert high power from the shore station to a lower power and distribute that power and communication to junction boxes along the Juan de Fuca Plate through their science ports. Primary Nodes also receive data and communications from the junction boxes which they transmit back to shore.</p>
+
+
+<h2><a name="8"></a>Profiler</h2>
+<p>A Profiler is a structure that moves through the water column carrying instruments, allowing for them to sample parameters across a depth range. Profilers either track along the mooring riser (wire-following profilers), or are tethered to a mooring-mounted winch that pays out line allowing the profiler to rises through the water column until fixed depth (shallow profilers).</p>
+
+
+<h2><a name="9"></a>Profiler Mooring</h2>
+<p>Profiler Moorings are a type of mooring that contain instruments fixed to profilers that move up and down the water column. Profilers either track along the mooring riser (wire-following profilers), or are tethered to a mooring-mounted winch that pays out line allowing the profiler to move through the water (shallow profilers). Instruments may also be attached to the mooring riser or affixed to an underwater platform.</p>
+
+<h2><a name="10"></a>Subsurface Mooring</h2>
+<p>Subsurface Moorings are located at global sites and contain instruments fixed at specific depths along the mooring riser. The flotation buoy for subsurface moorings is located below the sea surface. As they have no surface expression, these moorings communicate and send data to shore via an acoustic link to nearby gliders.</p>
+
+
+<h2><a name="11"></a>Surface Buoy</h2>
+<p>Surface Buoy is a type of buoy that floats on the sea surface. In addition to providing buoyancy to support the mooring riser, the surface buoy provides a platform for mounting atmospheric and ocean surface instruments, as well as housing equipment for power generation and storage, data aggregation and recording, two-way telemetry and GPS location. All surface moorings contain a surface buoy.</p>
+
+<h2><a name="12"></a> Surface Mooring</h2>
+<p>A Surface Mooring is a type of mooring that contains a surface buoy floating on the sea surface and instruments located at fixed depths through the water column. The surface buoy provides a platform on which to secure surface instruments, allowing for the collection of data in the air and in the water, as well as an antenna to transmit data to shore via satellite.</p>
+
+
+<h2><a name="13"></a>Surface-Piercing Profiler</h2>
+<p>A Surface-Piercing Profiler is a type of profiler that is tethered to a mooring-mounted winch at a fixed depth in the water column. As the winch pays out cable, the surface-piercing profiler rises through the water column until the profiler pierces the sea surface. Instruments are affixed to the surface-piercing profiler, allowing for the measurement of ocean processes at the thin surface layer.</p>
+ 
+<h2><a name="14"></a>Surface-Piercing Profiler Mooring</h2>
+<p>A Surface-Piercing Profiler Mooring is a mooring that contains a surface-piercing profiler. The surface-piercing profiler allows for the sampling of near surface phenomena as the profiler travels through the water then breaches the surface. While on the surface, the profiler is able to transmit data to shore.</p>
+
+<h2><a name="15"></a>Wire-Following Profiler</h2>
+<p>A Wire-Following Profiler is a type of profiler that attaches to and moves along the mooring riser (cable) along designated depth interval. Instruments are affixed to the wire-following profiler, allowing for sampling sub-surface ocean characteristics over a specified depth interval.</p>
+
+<h1>Instruments</h1>
+<h2><a name="16"></a>pCO2 Air-Sea</h2>
+<p>Located at the sea surface, an Air-Sea Interface pCO2 Sensor measures the partial pressure of carbon dioxide (pCO2) in both the atmosphere and ocean.</p>
+
+<h2><a name="17"></a>Benthic Fluid Flow</h2>
+<p>A Benthic Fluid Flow Rate Sampler measures the speed at which fluids seep from the sediment-water interface via an optical injection tracer.</p>
+
+<h2><a name="18"></a>Bio-acoustic Sonar (Coastal)</h2>
+<p>The Bio-acoustic Sonar (Coastal) measures acoustic signals of plankton and zooplankton on coastal arrays. The sonar emits sound waves into the water column which bounce off organisms back towards the sensor in a phenomenon known as “backscatter.” The more organisms, the higher the backscatter. </p>
+
+<h2><a name="19"></a>Bio-acoustic Sonar (Global)</h2>
+<p>The Bio-acoustic Sonar (Global) measures acoustic signals of plankton and zooplankton on global arrays. The sonar emits sound waves into the water column which bounce off organisms back towards the sensor in a phenomenon known as “backscatter.” The more organisms, the higher the backscatter. </p>
+
+<h2><a name="20"></a>CTD AUV</h2>
+<p>A CTD is so named as it measures Conductivity, Temperature and Depth. These parameters can then be used to calculate salinity and density. These CTD's are located on Autonomous Underwater Vehicles (AUVs).</p>
+
+<h2><a name="21"></a>CTD Pumped</h2>
+<p>A CTD is so named as it measures Conductivity, Temperature and Depth. These parameters can then be used to calculate salinity and density. The CTD Pumped sensors are CTDs equipped with a bottom pump used to control flow through the instrument, as well as reduce biofouling. </p>
+
+<h2><a name="22"></a>CTD Glider</h2>
+<p>A CTD is so named as it measures Conductivity, Temperature and Depth. These parameters can then be used to calculate salinity and density. These CTDs are located on Gliders. </p>
+
+<h2><a name="23"></a>CTD Mooring (Inductive)</h2>
+<p>A CTD is so named as it measures Conductivity, Temperature and Depth. These parameters can then be used to calculate salinity and density. The CTD Mooring (Inductive) sensors are used in surface and subsurface moorings and have the capability of inductive communication with the surface buoy along the mooring riser.</p>
+
+<h2><a name="24"></a>CTD Profiler</h2>
+<p>A CTD is so named as it measures Conductivity, Temperature and Depth. These parameters can then be used to calculate salinity and density. These CTDs are mounted on a profiler.</p>
+
+<h2><a name="25"></a>Digital Still Camera with Strobes</h2>
+<p>Digital Still Camera with Strobes is an ethernet camera with strobe lights for capturing high-resolution still imagery of water column biology, vents, diffuse flow, seeps, macrofauna.  </p>
+
+<h2><a name="26"></a>Dissolved Oxygen Fast Response</h2>
+<p>A Dissolved Oxygen Sensor measures the concentration of microscopic bubbles of gaseous oxygen that are mixed in seawater (i.e. dissolved oxygen concentration). The Dissolved Oxygen Fast Response Sensor measures dissolved oxygen concentrations on shallow coastal profilers through rapid oxygen gradients</p>
+
+<h2><a name="27"></a>Dissolved Oxygen Stable Response</h2>
+<p>A Dissolved Oxygen Sensor measures the concentration of microscopic bubbles of gaseous oxygen that are mixed in seawater (i.e. dissolved oxygen concentration). The Dissolved Oxygen Stable Response sensor measures dissolved oxygen concentrations on mobile assets, deep profilers, and moorings</p>
+
+<h2><a name="28"></a>Particulate DNA Sampler</h2>
+<p>The Particulate DNA Sampler filters a volume of seawater and preserves the particulate matter for genetic analysis of microbial communities after the instrument is recovered.</p>
+
+<h2><a name="29"></a>2-Wavelength Fluorometer</h2>
+<p>A Fluorometer is a device used to measure patterns of fluorescence. The 2-Wavelength Fluorometer, specifically, examines chlorophyll-a fluoresence and optical backscatter (red wavelengths).</p>
+
+<h2><a name="30"></a>3-Wavelength Fluorometer</h2>
+<p>A Fluorometer is a device used to measure patterns of fluorescence. The 3-Wavelength Fluorometer, specifically, examines chlorophyll-a fluoresence, optical backscatter (red wavelengths), and Colored Dissolved Organic Matter (CDOM).</p>
+
+<h2><a name="31"></a>HD Digital Video Camera with Strobes</h2>
+<p>The HD Digital Video Camera with Strobes captures high definition (HD) video of the seafloor environment that can be used for analytical work. These video cameras feature strobe lights and functions for pan and tilt.</p>
+
+<h2><a name="32"></a>Broadband Acoustic Receiver (Hydrophone)</h2>
+<p>A Hydrophone is a passive acoustic sensor that listens for earthquakes, sea creatures, and human-generated noise in the ocean. The Broadband Acoustic Receiver measures the acoustic signal of marine mammals, fish, wind, and rain in the water column.</p>
+
+<h2><a name="33"></a>Low Frequency Broadband Acoustic Receiver (Hydrophone) on Seafloor</h2>
+<p>A Hydrophone is a passive acoustic sensor that listens for earthquakes, sea creatures, and human-generated noise in the ocean. The Low Frequency Broadband Acoustic Receiver measures acoustic signal of wind, rain, and seismic t-phases on the seafloor.</p>
+
+<h2><a name="34"></a>Hydrothermal Vent Fluid In-situ Chemistry</h2>
+<p>The Hydrothermal Vent Fluid In-situ Chemistry sensor measures the chemical composition of the mineral-rich fluid plumes that emanate from cracks on the seafloor, providing insight into the sub-surface structure and dynamics of these unique habitats. Specifically it measures hydrothermal vent fluid temperature, hydrogen, hydrogen sulfide and pH.</p>
+
+<h2><a name="35"></a>Hydrothermal Vent Fluid Temperature and Resistivity</h2>
+<p>The Hydrothermal Vent Fluid Temperature and Resistivity sensor measures the temperature, resistivity, and eH of the mineral-rich fluid plumes that emanate from cracks on the seafloor, providing insight into the sub-surface structure and dynamics of these unique habitats.</p>
+
+<h2><a name="36"></a>Osmosis-Based Water Sampler</h2>
+<p>The Osmosis-Based Water Sampler draws hydrothermal fluids into small capillary-like tubing and allows long-term sampling of diffuse and black smoker hydrothermal fluids, as well as fluids from methane seeps. Once recovered, laboratory tests examine major/trace element chemistry of the samples.</p>
+
+<h2><a name="37"></a>Hydrothermal Vent Fluid Interactive Sampler</h2>
+<p>The Hydrothermal Vent Fluid Interactive Sampler collects and preserves fluid samples from hydrothermal vents and continuously measures vent fluid temperature. The sampler is able to be interactive as its connection to the fiber optic cable allows two-way communication and power. As such, sample bottles can be triggered from shore in response to volcanic or tectonic events or set to trigger at specified intervals.</p>
+
+<h2><a name="38"></a>Diffuse Vent Fluid 3-D Temperature Array</h2>
+<p>The Diffuse Vent Fluid 3-D Temperature Array measures temperatures of diffuse flow across the seafloor. The thermister array is designed as 4 stacked triangular arrays with 24 independent temperature measurment points, providing a three-dimensional distribution of temperature.</p>
+
+<h2><a name="39"></a>Spectral Irradiance</h2>
+<p>The Spectral Irradiance sensor measures the amount of radiation (light energy) per unit area that reaches a surface. Radiation is measured and reported separately for a series of wavelength bands, each between 10-20 nm wide.</p>
+
+<h2><a name="40"></a>Mass Spectrometer</h2>
+<p>The Mass Spectrometer measures concentrations of dissolved gases such as carbon dioxide, methane, and hydrogen sulfide that are critical to understanding volcanic, chemical, and biological processes in submarine environments.</p>
+
+<h2><a name="41"></a>Bulk Meteorology Instrument Package</h2>
+<p>The Bulk Meteorology Instrument Package measures a variety of parameters that characterize weather conditions above the sea surface, including the data required to compute air-sea fluxes of heat, freshwater, and momentum</p>
+
+
+<h2><a name="42"></a>Nitrate</h2>
+<p>Nitrate Sensors optically measure the amount of nitrate (NO3-) dissolved in seawater by examining its absorption of ultraviolet (UV) light. The optical sensor provides fast response measurements, allowing for the sensor to be deployed on profilers, gliders, and AUVs.</p>
+
+
+<h2><a name="43"></a>Seawater pH</h2>
+<p>pH Sensors measure the concentration of hydrogen ions in a solution.</p>
+
+
+<h2><a name="44"></a>Photosynthetically Available Radiation</h2>
+<p>A Photosynthetically Available Radiation (PAR) Sensor is used to measure the spectral range of light that is available in the water column for use by primary producers for photosynthesis (400-700 nanometers).</p>
+
+
+<h2><a name="45"></a>Direct Covariance Flux</h2>
+<p>A Direct Covariance Flux Sensor measures vertical fluxes associated with eddies in the flow over the ocean including the exchange of heat, moisture, and momentum between the ocean and the atmosphere.</p>
+
+<h2><a name="46"></a> Bottom Pressure and Tilt</h2>
+<p>Seafloor Pressure and Tilt Sensors are designed to measure the inflation and deflation of the seafloor using a precision pressure sensor that enables detection of the seafloor's rise and fall (i.e., "breathing") as magma (molten rock) moves in and out of underlying magma chambers. A very precise tilt meter (measures in micro-radians) records the "tilting" of the seafloor as it deforms in response to melt migration.</p>
+
+<h2><a name="47"></a>Seafloor Pressure</h2>
+<p>Seafloor Pressure Sensors measure the force on the seafloor exerted by the weight of the overlying water and atmosphere. Real-time pressure measurements are of great importance because lunar tides, storms, and tsunamis strongly impact pressures at the seafloor and the flow of fluids into and out of the oceanic crust.</p>
+
+<h2><a name="48"></a>Tidal Seafloor Pressure</h2>
+<p>Tidal Seafloor Pressure Sensors measure the force of the seafloor exerted by the weight of the overlying water and atmosphere with a focus on tidal pressure changes by measuring pressure shifts down to the millimeter.</p>
+
+<h2><a name="49"></a>pCO2 Water</h2>
+<p>Seawater pCO2 Sensors measure the partial pressure of CO2 in seawater.</p>
+
+
+<h2><a name="50"></a>Broadband Ocean Bottom Seismometer</h2>
+<p>Broadband seismometers provide characterization of seismicity/earthquake activity along tectonic plate boundaries where two key phenomena can occur: large-magnitude subduction zone earthquakes and seismicity associated with migration of melt (magma) beneath the seafloor at underwater volcanoes.</p>
+
+<h2><a name="51"></a>Short-Period Ocean Bottom Seismometer</h2>
+<p>Short-period ocean-bottom seismometers (OBSSP) detect vibrations from small earthquakes ranging from 0.1 Hz to 100 Hz. These earthquakes are caused by local phenomena, such as melt movement beneath volcanoes and upward flow of hydrothermal fluids in the conduits that feed black smoker chimneys. These instruments enable imaging of the seismic energy traveling through the seafloor. </p>
+
+<h2><a name="52"></a>Surface Wave Spectra</h2>
+<p>A Surface Wave Sensor measures the frequency, height, period, and direction of waves on the ocean surface.</p>
+
+<h2><a name="53"></a>Absorption Spectrophotometer</h2>
+<p>An Absorption Spectrophotometer measures optical attenuation and absorption by characterizing the way seawater absorbs and scatters light. These combined measurements indicate sample turbidity.</p>
+
+<h2><a name="54"></a>Horizontal Electric Field, Pressure and Inverted Echo Sounder</h2>
+<p>The Horizontal Electrometer-Pressure-Inverted Echosounder (HPIES) is an instrument that utilizes a bottom pressure sensor, an inverted echosounder and a horizontal electrometer to provide insights into the vertical structure of current fields, near-bottom water currents, and water properties including temperature, salinity, and specific volume anomalies.</p>
+
+<h2><a name="55"></a>5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range)</h2>
+<p>The 5-Beam, 600 kHz Acoustic Doppler Current Profiler (= 50 m range) uses acoustics to measure 3D water-current velocity for a small volume of the water column 50 meters above or below the sensor at resolutions that are appropriate to estimate turbulence parameters. High frequency sound waves emitted by the profiler scatter off suspended particles and back to the sensor. The sensor calculates velocity by measuring changes in these sound waves (i.e., Doppler shifts). This instrument is also referred to as an Acoustic Doppler Current Profiler (ADCP).</p>
+<h2><a name="56"></a>Velocity Profiler (short range) for mobile assets</h2>
+<p>Velocity Profiler (short range) for mobile assets uses acoustics to measure 3D water-current velocity for a small volume of the water column above or below the sensor. High frequency sound waves (75- to 600-kHz) emitted by the profiler scatter off suspended particles and back to the sensor. The sensor calculates velocity by measuring changes in these sound waves (i.e., Doppler shifts). This instrument is also referred to as an Acoustic Doppler Current Profiler (ADCP).</p>
+
+<h2><a name="57"></a>Velocity Profiler (long range)</h2>
+<p>Velocity Profiler (long range) uses acoustics to measure 3D water-current velocity for a small volume of the water column above or below the sensor. The long range sensor is able to measure the current 500 meters or greater from the sensor. High frequency sound waves (75- to 600-kHz) emitted by the profiler scatter off suspended particles and back to the sensor. The sensor calculates velocity by measuring changes in these sound waves (i.e., Doppler shifts). This instrument is also referred to as an Acoustic Doppler Current Profiler (ADCP).</p>
+
+<h2><a name="58"></a>Velocity Profiler (short range)</h2>
+<p>Velocity Profiler (short range) uses acoustics to measure 3D water-current velocity for a small volume of the water column above or below the sensor. The short range sensor is able to measure the current 300 meters or greater from the sensor. High frequency sound waves (75- to 600-kHz) emitted by the profiler scatter off suspended particles and back to the sensor. The sensor calculates velocity by measuring changes in these sound waves (i.e., Doppler shifts). This instrument is also referred to as an Acoustic Doppler Current Profiler (ADCP).</p>
+
+<h2><a name="59"></a>3-D Single Point Velocity Meter</h2>
+<p>A 3-D Single Point Velocity Meter measures the fluctuating velocity (speed and direction) of water moving past the sensor and platform motion on moving profilers in three-dimensions (u,v,w).</p>
+
+<h2><a name="60"></a>Single Point Velocity Meter</h2>
+<p>A Single Point Velocity Meter measures the mean velocity (speed and direction) of water in two-dimensions (U & V) as it moves past the sensor.</p>
+<h2><a name="61"></a>3-Axis Motion Pack</h2>
+<p>The 3-Axis Motion Pack is a motion sensor located on a surface buoy used to measure its stability as well as other engineering parameters.</p>
+<h2><a name="62"></a>Modem acoustic</h2>
+<p>The Modem Acoustic facilitates data communication between underwater instruments and the surface. These instruments are found on mooring risers, profilers, and gliders.</p>
+
+
+
+
+
+ 
+        		</div>
+        
+		 
+    
+            </div><!-- #content -->
+            </div><!-- #container --> 
+          </div>
+      </div>
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  models: {
+    mapModel: new MapModel()
+  
+  },
+  collections: {
+     },
+  views: {
+
+  },
+  start: function() {
+    var self = this;
+
+
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request
+
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+   }
+});
+var ooi = new OOI();
+
+$(document).ready(function() {
+    window.addEventListener("hashchange", function() { scrollBy(0, -50) })
+    ooi.start();
+});
+</script>
+{% endblock %}
+
+
+
+
