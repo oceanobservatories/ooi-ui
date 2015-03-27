@@ -96,6 +96,15 @@ def chart_demo():
 def plots_demo():
     return render_template('common/plotsDemo.html')
 
+@app.route('/FAQ.html')
+def FAQ():
+    return render_template('common/FAQ.html')
+
+@app.route('/glossary.html')
+def glossary():
+    return render_template('common/glossary.html')
+
+
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(app.config['SERVICES_URL'] + '/organization', params=request.args)
@@ -241,4 +250,11 @@ def post_event():
 @app.route('/api/operator_event_type', methods=['GET'])
 def get_operator_event_type():
     response = requests.get(app.config['SERVICES_URL'] + '/operator_event_type', params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/glider_tracks', methods=['GET'])
+def get_glider_track():  
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_glider_track/'+request.args['id'], auth=(token, ''), data=request.args)
     return response.text, response.status_code

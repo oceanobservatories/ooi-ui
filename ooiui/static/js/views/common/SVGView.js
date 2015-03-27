@@ -61,9 +61,15 @@ var SVGPlotView = SVGView.extend({
     //requested plot
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
-    if(options && options.yvar && options.xvar) {
-      this.yvariable = options.yvar;
-      this.xvariable = options.xvar;
+    if(options && options.yvar && options.xvar) {      
+      if (options.plotType == 'timeseries'){
+        this.yvariable = options.yvar.join();
+        this.xvariable = options.xvar;
+      }else{
+        this.xvariable = options.xvar.join();
+        this.yvariable = options.yvar;
+      }
+      
     }
     if(this.yvariable != null && this.xvariable != null) {
       this.useLine = options.useLine.toString();
@@ -114,8 +120,7 @@ var SVGPlotView = SVGView.extend({
 
 var SVGPlotControlView = Backbone.View.extend({
   events: {
-    'change #xvar-select' : 'onClickPlot',
-    'change #yvar-select' : 'onClickPlot',
+    'click #update-plot' : 'onClickPlot',
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
     'dp.change #end-date' : 'onClickPlot'
@@ -175,9 +180,6 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$type_select = this.$el.find('#type-select');
 
-
-    
-    
     //this.$el.find('#xvar-select').prop('disabled', 'disabled');
     var xvar = "time"
     var variables = this.model.get('variable_types');

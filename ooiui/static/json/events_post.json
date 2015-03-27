@@ -1,0 +1,28 @@
+{
+  "asset": {
+    "@class": ".AssetRecord",
+    "assetId": 1
+  },
+  "attachments": [],
+  "class": ".DeploymentEvent",
+  "cruiseNumber": "KN-214",
+  "deploymentDepth": 133.5,
+  "deploymentDocUrls": [],
+  "deploymentLocation": [
+  ],
+  "deploymentName": null,
+  "deploymentNumber": 1,
+  "depthUnitString": "m",
+  "endDate": null,
+  "eventDescription": null,
+  "eventType": "Location",
+  "notes": [],
+  "recordedBy": null,
+  "referenceDesignator": {
+    "full": false,
+    "node": null,
+    "sensor": null,
+    "subsite": "CP01CNSM"
+  },
+  "startDate": 1385057760000
+}

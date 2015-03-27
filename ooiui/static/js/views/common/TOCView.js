@@ -209,18 +209,18 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   },
   onClick: function(e) {
     var self = this;
-    var target = $(e.target)    
+    var target = $(e.target)        
+    
     e.preventDefault();
     e.stopPropagation();
-    if(this.model.instrumentDeployments.length == 0) {
+    if(this.model.assetDeployments.length == 0) {
       target.find('.toc-arrow').addClass("fa-rotate-270"); 
       target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
       target.prop( "disabled", true );
       self.tg = target;
-      this.model.instrumentDeployments.fetch({
+      this.model.assetDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
-
           self.tg.prop( "disabled", false );
           self.tg.find(".s").remove();
         },
@@ -234,6 +234,13 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     loc = loc.coordinates
     var locat= [loc[1],loc[0]]
     ooi.models.mapModel.set({mapCenter: locat})
+    //update the glider track
+    if (this.model.get('display_name').indexOf('Glider') > -1){
+      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
+    }else{
+      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
+    }
+
   },  
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
@@ -243,11 +250,11 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   renderInstruments: function() {
     var self = this;
     if (self.platformType == "child"){
-      this.$el.find(".badge").text(this.model.instrumentDeployments.length)
+      this.$el.find(".badge").text(this.model.assetDeployments.length)
       //this.$el.find(".badge").removeClass("hidden")
     }
 
-    this.model.instrumentDeployments.each(function(instrumentModel) {
+    this.model.assetDeployments.each(function(instrumentModel) {
       self.add(instrumentModel);
     });
     this.$el.append(this.nestedView.el);

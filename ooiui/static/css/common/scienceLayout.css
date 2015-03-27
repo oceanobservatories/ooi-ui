@@ -11,6 +11,9 @@
       padding-top: 0px !important;
       padding-bottom: 0px !important;
     }
+    #wrapper-asset{
+      margin-top: 51px;
+    }
 
     #wrapper {
         padding-left: 0;
@@ -400,3 +403,11 @@
   font-family: FontAwesome;
 }
 
+.leaflet-popup-content {
+  width: auto !important;
+}
+
+.leaflet-popup-content p {
+  white-space : nowrap;
+  text-align  : center;
+}

@@ -26,15 +26,24 @@ def new_index():
 def landing_pioneer():
     return render_template('landing/pioneer.html')
 
-@app.route('/assets/platforms')
-@app.route('/assets/platforms/')
-def plat_index():
-    return render_template('asset_management/platform_list.html')
-
-@app.route('/assets/instruments')
-@app.route('/assets/instruments/')
+@app.route('/assets/list')
+@app.route('/assets/list/')
 def instr_index():
-    return render_template('asset_management/instrument_list.html')
+    return render_template('asset_management/assetslist.html')
+
+@app.route('/events/list/')
+def event_list():
+    return render_template('asset_management/eventslist.html')
+
+@app.route('/event/<int:id>', methods=['GET'])
+def event_index(id):
+    #?id=%s' % id
+    return render_template('asset_management/event.html',id=id)
+
+@app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
+def event_new(new,aid,aclass):
+    #?id=%s' % id
+    return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
 
 @app.route('/streams')
 @app.route('/streams/')
@@ -76,35 +85,67 @@ def put_annotation(id):
     response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
+#old
 @app.route('/api/array')
 def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
     return response.text, response.status_code
 
+#old
 @app.route('/api/platform_deployment')
 def platform_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/platform_deployments', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment', methods=['GET'])
+
+#Assets
+@app.route('/api/asset_deployment', methods=['GET'])
 def instrument_deployment_proxy():
-    response = requests.get(app.config['SERVICES_URL'] + '/instrument_deployment', params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment/<int:id>', methods=['PUT'])
+@app.route('/api/asset_deployment/<int:id>', methods=['GET'])
+def instrument_deployment_get(id):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/asset_deployment/<int:id>', methods=['PUT'])
 def instrument_deployment_put(id):
-    response = requests.put(app.config['SERVICES_URL'] + '/instrument_deployment/%s' % id, data=request.data)
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment', methods=['POST'])
+@app.route('/api/asset_deployment', methods=['POST'])
 def instrument_deployment_post():
-    response = requests.post(app.config['SERVICES_URL'] + '/instrument_deployment', data=request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 
-@app.route('/api/instrument_deployment/<int:id>', methods=['DELETE'])
+#not working/using now
+@app.route('/api/asset_deployment/<int:id>', methods=['DELETE'])
 def instrument_deployment_delete(id):
-    response = requests.delete(app.config['SERVICES_URL'] + '/instrument_deployment/%s' % id, data=request.data)
+    response = requests.delete(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
+
+#Events
+@app.route('/api/asset_events', methods=['GET'])
+def event_deployments_proxy():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events/<int:id>', methods=['GET'])
+def event_deployment_get(id):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events/<int:id>', methods=['PUT'])
+def asset_event_put(id):
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/asset_events', methods=['POST'])
+def asset_event_post():
+    response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
+    return response.text, response.status_code
+
 
 @app.route('/opLog.html')
 def op_log():
@@ -116,16 +157,36 @@ def stream_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_metadata/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_proxy(stream_name,reference_designator):
+    '''
+    get metadata for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/get_metadata_times/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_times_proxy(stream_name,reference_designator):
+    '''
+    get metadata times for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
 def get_csv(stream_name, reference_designator):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s' % (stream_name, reference_designator)
+    req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>')
 def get_json(stream_name, reference_designator):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s' % (stream_name, reference_designator)
+    req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>')

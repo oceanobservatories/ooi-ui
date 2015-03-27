@@ -13,11 +13,11 @@
  */
 
 var PlatformDeploymentModel = OOI.RelationalModel.extend({
-  urlRoot: '/api/platform_deployment',
+  urlRoot: '/api/asset_deployment',
   relation: {
     type: OOI.Relation.hasMany,
-    key: 'instrumentDeployments',
-    collectionType: 'InstrumentDeploymentCollection',
+    key: 'assetDeployments',
+    collectionType: 'AssetCollection',
     reverseRelation: {
       key: 'platform_deployment_id'
     }
@@ -25,9 +25,9 @@ var PlatformDeploymentModel = OOI.RelationalModel.extend({
 });
 
 var PlatformDeploymentCollection = Backbone.Collection.extend({
-  url: '/api/platform_deployment',
+  url: '/api/asset_deployment',
   model: PlatformDeploymentModel,
   parse: function(response, options) {
-    return response.platform_deployments;
+    return response.assets;
   }
 });

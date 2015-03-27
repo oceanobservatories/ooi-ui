@@ -24,7 +24,6 @@ var MapView = Backbone.View.extend({
       maxZoom: 13
     });
 
-
     this.map = L.map(this.el,{
 	       center: [20.505, -80.09],
 	       zoom: 3,
@@ -52,9 +51,14 @@ var MapView = Backbone.View.extend({
         layers: layer_list[i]
       })
       wmsLayers[layer_name[i]] = new_layer      
-    }; 
+    };
+    //wmsLayers['Glider Track'] = this.generate_glider_layer();
+    this.wmsLayers = wmsLayers;
+    this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    L.control.layers(baseLayers,wmsLayers).addTo(this.map);
+    var gl = this.generate_glider_layer();
+    gl.addTo(this.map);
+    self.gliderLayer = gl
 
     this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
 
@@ -63,8 +67,56 @@ var MapView = Backbone.View.extend({
       self.render();
       return this
     }});
+
     return this
 	},
+  update_track_glider: function(reference_designator,show_track){
+    var self = this;
+    var map = this.map;
+    console.log("CLICK!");
+    map.removeLayer(self.gliderLayer)
+    if (show_track){      
+      var gliderModel = new GliderTrackModel(reference_designator+'-00-ENG000000');
+      var ref = gliderModel.get('reference_designator')
+      gliderModel.fetch({
+          data: $.param({id:ref}),
+          success: function(collection, response, options) {          
+            var gl = self.generate_glider_layer(response);
+            gl.addTo(map);
+            self.gliderLayer = gl            
+          },
+          reset: true
+      });
+    }
+  },
+  showLayers:function(){
+    /*
+    test function to list the layers
+    */
+    //console.log("layers-----------")
+    this.map.eachLayer(function (layer) {
+      //console.log(layer.options.color);
+    });
+  },
+  generate_glider_layer:function(geojson){  
+    if (geojson === undefined){    
+      var gliderTrackLine = {
+          "type": "LineString",
+          "coordinates": []
+      };
+    }else{
+      var gliderTrackLine = geojson;
+    }
+
+    var gliderTrackStyle = {
+      "color": "#ff7800",
+      "weight": 5,
+      "opacity": 0.65
+    };
+    //returnt he new glider layer
+    var gliderTrackLayer = L.geoJson(gliderTrackLine, {style: gliderTrackStyle});
+    return gliderTrackLayer
+  },
  	//renders a simple map view
 	render: function() {
 		//needs to be set
@@ -73,26 +125,16 @@ var MapView = Backbone.View.extend({
     var map = this.map;
 		var markerCluster = new L.MarkerClusterGroup();   
 
-    this.collection.each(function(platform) { 	    	
-      var display_name = platform.get('display_name')
-      var ref_name = platform.get('reference_designator')
-      var array_id = platform.get('array_id')
-
-      platform.attributes.geo_location.properties = {'display_name':display_name,
-                              'ref':ref_name,
-                              'array_id':array_id
-                              }
-      
-      var geojsonFeature =L.geoJson(platform.attributes.geo_location, {				
-      onEachFeature: function (feature, layer) {
-        var dis = '<b>'+feature.properties.display_name+'</b>'					
-        var ref = '<b>'+feature.properties.ref+'</b>'					
-        layer.bindPopup(dis+"<br>"+ref);
-       // console.log(dis);
-        }
-      });
-     // console.log(platform.toJSON());
-      markerCluster.addLayer(geojsonFeature);
+    this.collection.each(function(platform) {
+      if (platform.attributes.coordinates) {
+        var platformFeature = L.marker([platform.attributes.coordinates[0], platform.attributes.coordinates[1]]);
+        var popupContent = '<p><strong>' + platform.attributes.ref_des + '</strong><br>' +
+            'Lat: ' + platform.attributes.coordinates[0] + '&nbsp;|&nbsp;Lon: ' + platform.attributes.coordinates[1] +
+            '<br><a href="/streams?' + platform.attributes.ref_des + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+            '<a href="/assets/list?' + platform.attributes.ref_des + '">Asset Management</a></p>';
+            platformFeature.bindPopup(popupContent);
+        markerCluster.addLayer(platformFeature);
+      }
     });
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
@@ -102,7 +144,17 @@ var MapView = Backbone.View.extend({
     //loco = loco.reverse()
     //apparently reverse is too slow set explicitly
     this.map.setView(loco,5)
-     
   }
 	//end
+});
+
+var GliderTrackModel = Backbone.Model.extend({
+  urlRoot: '/api/uframe/glider_tracks',
+  defaults: {
+        reference_designator: ""     
+  },
+  initialize: function(ref){
+    this.set('reference_designator',ref);
+  },
+
 });
