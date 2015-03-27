@@ -33,26 +33,108 @@
 <% backgound = unknownBG %>
 <% } %>
 
+<!-- If statement to display Manufacturer Informantion -->
+<% manufacturerInfo = model.get('manufactureInfo') %>
+<% var serialNumber = "N/A" %>
+<% var modelNumber = "N/A" %>
+<% var manufacturer = "N/A" %>
+
+<% if (manufacturerInfo != null) { %>
+
+    <% if (serialNumber != null) { %>
+        <% serialNumber = manufacturerInfo.serialNumber %>
+    <% } %>
+  <% if (serialNumber === null) { %> 
+        <% serialNumber = "no" %>
+    <% } %>
+
+    <% if (modelNumber != null) { %>
+         <% modelNumber = manufacturerInfo.modelNumber %>
+    <% } %>
+      <% if (modelNumber === null) { %> 
+        <% modelNumber = "no" %>
+    <% } %>
 
 
+    <% if (manufacturer != null) { %>
+        <% manufacturer = manufacturerInfo.manufacturer %>
+    <% } %>
+    <% if (manufacturer === null) { %> 
+        <% manufacturer = "no" %>
+    <% } %>
+    
+<% } %>
 
-<% var deployed = model.get('manufactureInfo') %>
-<% var assets = model.get('assets') %>
+<% if (manufacturerInfo === null) { %>
+    <% manufacturerInfo = "NONE" %>
+<% } %>
 
-<% if ("assets.has('manufactureInfo')" && "serialNumber.in('manufactureInfo')") { %>
-<!-- <% console.log(deployed.serialNumber) %> -->
-<% var date = null %>
+<!-- launch_date_time -->
+<% var deployed = model.get('launch_date_time') %>
+<% var dateTime = "N/A" %>
+
+<% if (deployed != null) { %>
+<% dateTime = deployed %>
+<% } %>
+
+<!-- coordinates -->
+<% var coords = model.get('coordinates') %>
+<% var coordinates = "N/A" %>
+
+<% if (coords != null) { %>
+<% coordinates = coords %>
+<% } %>
+
+<!-- seriesClassifiction -->
+<% var seriesClass = model.get('seriesClassifiction') %>
+<% var seriesClassifiction = "N/A" %>
+
+<% if (seriesClass != null) { %>
+<% seriesClassifiction = seriesClass %>
+<% } %>
+
+<!-- name -->
+<% var discName = model.get('name') %>
+<% var name = "N/A" %>
+
+<% if (discName != null) { %>
+<% name = discName %>
+<% } %>
+
+<!-- owner -->
+<% var discOwner = model.get('owner') %>
+<% var owner = "N/A" %>
+
+<% if (discName != null) { %>
+<% owner = discOwner %>
+<% } %>
+
+<!-- type -->
+<% var discType = model.get('type') %>
+<% var type = "N/A" %>
+
+<% if (discName != null) { %>
+<% type = discType %>
+<% } %>
+
+<!-- description -->
+<% var discDescription = model.get('description') %>
+<% var description = "N/A" %>
+
+<% if (discName != null) { %>
+<% description = discDescription %>
 <% } %>
 
 
-<!-- button trigger modal -->  
-<div class="<%= backgound %>" data-toggle="modal" data-target="#mymodal<%= asset %>">
+
+<!-- Dog Tag Buttons -->  
+<div class="<%= backgound %>" data-toggle="modal" data-target="#myModal<%= asset %>">
     <h5 class="dogTagHeader"><%= model.get('ref_des') %></h5>
-    <h5 class="platform-tile-title dogTagBody"><%= model.get('assetInfo')['type'] %></h5>
+    <h5 class="platform-tile-title dogTagBody"><%= type %></h5>
     <h5 class="platform-tile-title dogTagBody">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
     <span class="<%= badge %>"></span>
     <h5 class="platform-tile-title dogTagBody">Deployed:</h5>
-    <h5 class="platform-tile-title dogTagBody"><%= model.get('launch_date_time') %></h5>
+    <h5 class="platform-tile-title dogTagBody"><%= dateTime %></h5>
 </div>
 
 <!--Modal-->
@@ -87,10 +169,10 @@
                             <ul style="list-style-type:none;">
                                 <li>Asset Information</li>
                                 <ul>
-                                    <li>Type:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['type'] %></b></li>
-                                    <li>Description:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['name'] %></b></li>
-                                    <li>Name:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['owner'] %></b></li>
-                                    <li>Owner:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['description'] %></b></li>
+                                    <li>Type:&nbsp;&nbsp;<b><%= type %></b></li>
+                                    <li>Description:&nbsp;&nbsp;<b><%= name %></b></li>
+                                    <li>Name:&nbsp;&nbsp;<b><%= description %></b></li>
+                                    <li>Owner:&nbsp;&nbsp;<b><%= owner %></b></li>
                                 </ul>
                             </ul>
                             <hr class="new-line" />
@@ -101,11 +183,9 @@
                             <ul style="list-style-type:none;">
                                 <li>Manufacturer Information</li>
                                 <ul>
-                                    <li>Serial Number:&nbsp;&nbsp;<b><%= date
-                                            
-                                            %></b></li>
-                                    <li>Manufacturer:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['manufacturer'] %></b></li>
-                                    <li>Model Number:&nbsp;&nbsp;<b><%=  model.get('assetInfo')['modelNumber'] %></b></li>
+                                    <li>Serial Number:&nbsp;&nbsp;<b><%= serialNumber %></b></li>
+                                    <li>Model Number:&nbsp;&nbsp;<b><%= modelNumber %></b></li>
+                                    <li>Manufacturer:&nbsp;&nbsp;<b><%= manufacturer %></b></li>                                   
                                 </ul>
                             </ul>
                         </div>
@@ -116,14 +196,14 @@
                             <!--Bottom-->
                             <ul style="list-style-type:none;">
                                 <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Coordinates:&nbsp;&nbsp;<i class="badge "><%= model.get('coordinates') %></i></li> 
+                                    Coordinates:&nbsp;&nbsp;<i class="badge "><%= coordinates %></i></li> 
                                 <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Deployment Date:&nbsp;&nbsp;<i class="badge "><%= model.get('launch_date_time') %></i></li> 
+                                    Deployment Date:&nbsp;&nbsp;<i class="badge "><%= dateTime %></i></li> 
                                 <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Series Classification:&nbsp;&nbsp;<i class="badge "><%= model.get('seriesClassification') %></i></li> 
+                                    Series Classification:&nbsp;&nbsp;<i class="badge "><%= seriesClassifiction %></i></li> 
 
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
-                                            More Information</a></li>  
+                                        More Information</a></li>  
                             </ul>
                         </div>
                     </div>
@@ -145,15 +225,15 @@
     <script>
 
 
-    $('.platform-tile<%= asset %>').popover({
-        trigger: "click",
-        placement: "auto",
-        html:true,
-        content: function() {
-            return $('#tilepopovercontent<%= asset %>').html();
-        },
-        title: function() {
-            return $('#tilepopovertitle<%= asset %>').html();
-        }
-    });
+$('.platform-tile<%= asset %>').popover({
+    trigger: "click",
+    placement: "auto",
+    html:true,
+    content: function() {
+        return $('#tilepopovercontent<%= asset %>').html();
+    },
+    title: function() {
+        return $('#tilepopovertitle<%= asset %>').html();
+    }
+});
     </script>
