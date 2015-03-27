@@ -10,31 +10,13 @@
  * Usage
  *
  * http://localhost:4000/c2/array/CP/current_status_display
-{
-  "current_status_display": [
-    {
-      "display_name": "Coastal Pioneer Central Surface Mooring",
-      "operational_status": "Unknown",
-      "platform_deployment_id": 86,
-      "reference_designator": "CP01CNSM"
-    },
-    {
-      "display_name": "Coastal Pioneer Central Surface Mooring - Multi-Function Node",
-      "operational_status": "Unknown",
-      "platform_deployment_id": 87,
-      "reference_designator": "CP01CNSM-MFD00"
-    },
+
+Probably don't need right now
+
  */
 
 var PlatformStatusModel = Backbone.Model.extend({
   urlRoot: '/api/c2/array'
-/*  ,
-  defaults: {
-    platform_deployment_id: 86,
-    display_name: "Coastal Pioneer Central Surface Mooring",
-    operational_status: "Unknown",
-    reference_designator: "CP01CNSM"
-  }*/
   ,
   fetchCurrent: function (array_code, options) {
     options = options || {};

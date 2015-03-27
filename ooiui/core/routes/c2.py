@@ -111,6 +111,13 @@ def get_c2_platform_mission_display(platform_code):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/mission_display' % (platform_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01/ports_display
+@app.route('/api/c2/platform/<string:platform_code>/ports_display', methods=['GET'])
+def get_c2_platform_portsdisplay(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/ports_display' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 # INSTRUMENTS
 #
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/abstract
@@ -161,4 +168,11 @@ def get_c2_instrument_mission_display(instrument_code):
 def get_c2_instrument_stream_fields(instrument_code, stream_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (instrument_code, stream_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+# http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/parad_k_stc_imodem_instrument/fields
+@app.route('/api/c2/instrument/<string:instrument_code>/ports_display', methods=['GET'])
+def get_c2_instrument_ports_display(instrument_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (instrument_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code

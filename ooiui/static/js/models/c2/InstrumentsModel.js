@@ -10,17 +10,12 @@
  * Usage
  *
  * http://localhost:4000/c2/array/CP/abstract
-{
-  "abstract": {
-    "array_id": 3,
-    "display_name": "Coastal Pioneer",
-    "operational_status": "Online",
-    "reference_designator": "CP"
-  }
-}
+
+Probably not needed at this point
+
  */
 
-var ArrayAbstractModel = Backbone.Model.extend({
+var InstrumentModel = Backbone.Model.extend({
   urlRoot: '/api/c2/array',
   defaults: {
     array_id: 3,
@@ -42,13 +37,13 @@ var ArrayAbstractModel = Backbone.Model.extend({
   }
 });
 
-var ArrayAbstractCollection = Backbone.Collection.extend({
+var InstrumentCollection = Backbone.Collection.extend({
   //urlRoot: '/api/c2/array',
 /*  url: function() {
     return this.document.url() + '/api/c2/array/CP/abstract';
   },*/
   url: '/api/c2/array/CP/abstract',
-  model: ArrayAbstractModel,
+  model: InstrumentModel,
   parse: function(response) {
     if(response) {
       return response.abstract;
@@ -56,14 +51,4 @@ var ArrayAbstractCollection = Backbone.Collection.extend({
       return [];
     }
   }
-/*  ,
-  fetch: function (array_code, options) {
-            options = options || {};
-            if (options.url === undefined) {
-              console.log('Fetching collection: ' + array_code);
-                options.url = this.urlRoot + "/" + array_code + "/abstract";
-            }
-        console.log('URL: ');
-            return Backbone.Model.prototype.fetch.call(this, options);
-        }*/
 });

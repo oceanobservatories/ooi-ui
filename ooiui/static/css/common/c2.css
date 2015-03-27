@@ -1,15 +1,66 @@
 .breadcrumb{
 	margin-top: -17px;
 	padding: 5px 15px;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
   list-style: none;
-  background-color: #EDEBEB;
+  background-color: #F8F8F8;
   border-radius: 4px;
+}
+.col-lg-4{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.container-fluid{
+	padding-right: 7px;
 }
 .panel-title{
 	font-size: 13px;
 	margin-top:-2px;
 	margin-bottom: -2px;
+}
+
+.modal-backdrop {background: none;}
+
+.history_tree{
+  text-align: left;
+  padding-left: 10px;
+}
+tr.selected{
+	background-color: #EEEEEE !important;
+}
+
+ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover{
+	background-color: #EEE !important;
+	background: #EEE !important;
+}
+.jqtree-element{
+	padding: 4px !important;
+}
+ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree li.jqtree-selected {
+	background-color: #EEE !important;
+	background: #EEE !important;
+}
+.backgrid td, .backgrid th{
+	max-width: 310px;
+}
+.backgrid{
+	font-size: 12px !important;
+}
+.backgrid th{
+	text-align: left !important;
+}
+.string-cell{
+	text-align: left !important;
+}
+.backgrid-filter.form-search{
+	margin: 2px;
+	width: 170px;
+  	float: right;
+}
+
+.backgrid-filter.form-search input{
+	width: 130px;
+  	right: -4px
 }
 
 #panels div{
@@ -54,7 +105,6 @@
     border-radius:3px;
     background:#f7f7f7;
     text-decoration: none;
-
 }
 
 /*----- Section Titles -----*/
@@ -76,13 +126,11 @@
     background: #73ACF9;
     /* Type */
     text-decoration: none;
-    link
 }
 
 .accordion-section:last-child .accordion-section-title {
     border-bottom:none;
     text-decoration: none;
-
 }
 
 /*----- Section Content -----*/

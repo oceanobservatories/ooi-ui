@@ -13,12 +13,6 @@
 * Usage
 */
 
-/*
- * The OrgSidebarView should be bound to a
- * <div id="sidebar-wrapper" class="navbar-default">. This View will render
- * nav-style links for each organization in the collection passed in as an
- * option.
- */
 var ArraySidebarView = Backbone.View.extend({
   // The el will be a <ul> tag
   tagName: 'ul',
@@ -39,9 +33,9 @@ var ArraySidebarView = Backbone.View.extend({
     // Get the array id from the tag attribute data-id
     //var array_id = parseInt($(event.target).attr('data-id'));
     var array_id = $(event.target).attr('data-id');
+    var disp_name = event.target.innerText;
     // Publish a new method array:click with the array_id
-    //this.render();
-    this.selectArray(array_id);
+    this.selectArray(array_id,disp_name);
   },
   /*
    * During initialization of this view we fetch the collection and render when
@@ -60,19 +54,92 @@ var ArraySidebarView = Backbone.View.extend({
       }
     });
   },
-  selectArray: function(array_id) {
+
+  /*
+  Clicking the table of contents of Arrays
+  */
+  selectArray: function(array_id,dis_name) {
+    var that = this;
+    //clear all
+    this.clearallc2panels();
+
     this.$el.find("[data-id='" + array_id + "']").parent().parent().find('.selected').removeClass('selected');
     this.$el.find("[data-id='" + array_id + "']").parent().toggleClass('selected');
     
     $('#current_array_bc').remove();
-    $('#c2breakcrumb').append('<li id="current_array_bc"><a>Array:'+array_id+'</a></li>');
+    $('#current_platform_bc').remove();
+    $('#current_instrument_bc').remove();
+    $('#c2breakcrumb').append('<li id="current_array_bc"><a><b>Array:</b> '+dis_name+'</a></li>');
 
-    console.log('After ooi.trigger:' + array_id);
+    $('#accordion').find('.panel-body').html('<i style="color:#337ab7;" class="fa fa-spinner fa-spin fa-5x"></i>');
+
+    var ArrayplatformCollection = Backbone.PageableCollection.extend({
+      url: '/api/c2/array/'+array_id+'/current_status_display',
+      state: {
+        pageSize: 10
+      },
+      mode: "client",
+      parse: function(response, options) {
+        this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
+        return response.current_status_display;
+      }
+    });
+
+    var pageablePlatformsList = new ArrayplatformCollection();
+    //Platform Panel
+    pageablePlatformsList.fetch({reset: true,
+      success: function(collection, response, options) {
+          $('#collapseOne').find('.panel-body').html("<div id='datatable'></div>");
+          that.arrayPlatformView = new ArrayPlatformsView({
+          collection: collection
+        });
+      },
+      error:function(collection, response, options) {
+          var m = new ModalDialogView();
+          m.show({
+            message: "Error Getting Data",
+            type: "danger",
+          });
+      }
+    });
+
+    //History Panel
+    var Arrayhistoryist = new ArrayDataModel();
+    Arrayhistoryist.url='/api/c2/array/'+array_id+'/history';
+
+    Arrayhistoryist.fetch({
+      success: function(collection, response, options) {
+        $('#collapseTwo').find('.panel-body').html("<div id='array_history_tree' class='history_tree'></div>");
+        that.arrayHistoryView = new ArrayHistoryView({
+          collection: response.history
+        });
+      },
+      error:function(collection, response, options) {
+        var m = new ModalDialogView();
+          m.show({
+            message: "Error Getting Data",
+            type: "danger",
+          });
+      }
+    });
+
+    //other views
+    //not working now and requires login
+    //var Arraymissionslist = new ArrayDataModel({url:''});
   },
 
   template: JST['ooiui/static/js/partials/ArraySideBar.html'],
 
   render: function() {
     this.$el.html(this.template({collection: this.collection}));
+  },
+
+  clearallc2panels: function(){
+    //Array panels:
+    $('#accordion').find('.panel-body').empty();
+    //Platform panels:
+    $('#accordionP').find('.panel-body').empty();
+    //Instrument panels:
+    $('#accordionI').find('.panel-body').empty();
   }
 });

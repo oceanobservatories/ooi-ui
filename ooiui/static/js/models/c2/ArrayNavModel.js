@@ -10,23 +10,24 @@ var ArrayNavCollection = Backbone.Collection.extend({
   }
 });
 
-var ArrayHistoryModel = Backbone.Model.extend({
-  url: '/api/array',
+//this would be for sending in url parameter
+var ArrayRequestModel = Backbone.Model.extend({
+  url: function(){
+    return this.instanceUrl;
+  },
+  initialize: function(props){
+    this.instanceUrl = props.url;
+  },
   parse: function(response, options) {
-    return response.history;
+    return response;
   }
 });
 
-var ArrayPlatformModel = Backbone.Model.extend({
-  url: '/api/array',
+
+//easier to just define url when fetching
+var ArrayDataModel = Backbone.Collection.extend({
+  //url: '/api/c2/array/value',
   parse: function(response, options) {
-    return response.current_status_display;
+    return response;
   }
 });
-
-/*var ArrayMissionModel = Backbone.Model.extend({
-  url: '/api/array',
-  parse: function(response, options) {
-    return response.arrays;
-  }
-});*/

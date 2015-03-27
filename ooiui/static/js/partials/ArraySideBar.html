@@ -10,14 +10,14 @@
   <a data-id="<%= model.get('reference_designator') %>" href="#">
   <%= model.get('display_name') %>
   <% if (model.get('operational_status') == 'Online') { %>
-      <i style='float: right;padding-right: 14px;pointer-events: none;' class="fa fa-thumbs-up c2-online"></i>
+      <i style='float: right;padding-right: 14px;pointer-events: none;font-size:18px' class="fa fa-thumbs-up c2-online"></i>
     <% } else if (model.get('operational_status') == 'Unknown') { %>
-      <i style='float: right;padding-right: 14px;pointer-events: none;' class="fa fa-question-circle c2-unknown"></i>
+      <i style='float: right;padding-right: 14px;pointer-events: none;;font-size:18px' class="fa fa-question-circle c2-unknown"></i>
     <% } else { %>
-      <i style='float: right;padding-right: 14px;pointer-events: none;' class="fa fa-thumbs-down c2-offline"></i>
+      <i style='float: right;padding-right: 14px;pointer-events: none;font-size:18px' class="fa fa-thumbs-down c2-offline"></i>
     <% } %>
 
-    <i data-id="<%= model.get('reference_designator') %>" style='float: right;padding-right: 18px;' class="fa fa-info-circle"></i>
+    <i data-id="<%= model.get('reference_designator') %>" style='float: right;padding-right: 18px;font-size:14px' class="fa fa-info-circle"></i>
   </a>
 </li>
 <% }); %>
