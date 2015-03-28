@@ -66,7 +66,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
             cell: "string"
         }, {
             name: "operational_status",
-            label: "Instrument Status",
+            label: "Status",
             editable: false,
             cell: HtmlCell,
             formatter: _.extend({}, Backgrid.Cell.prototype, {

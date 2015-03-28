@@ -70,7 +70,7 @@ var ArrayPlatformsView = Backbone.View.extend({
             cell: "string"
         }, {
             name: "operational_status",
-            label: "Platform Status",
+            label: "Status",
             editable: false,
             cell: HtmlCell,
             formatter: _.extend({}, Backgrid.Cell.prototype, {

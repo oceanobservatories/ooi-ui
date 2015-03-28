@@ -66,7 +66,7 @@ var InstrumentPortsView = Backbone.View.extend({
             cell: "string"
         }, {
             name: "port_status",
-            label: "Port Status",
+            label: "Status",
             editable: false,
             cell: HtmlCell,
             formatter: _.extend({}, Backgrid.Cell.prototype, {
