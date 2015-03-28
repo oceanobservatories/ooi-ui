@@ -290,6 +290,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ModalDialog.html",
             "ooiui/static/js/partials/TermsDialog.html",
             "ooiui/static/js/partials/MissionDialog.html",
+            "ooiui/static/js/partials/CommandDialog.html",
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Panel.html",
@@ -875,7 +876,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/c2/InstrumentView.js',
             'ooiui/static/js/views/c2/InstrumentPortsView.js',
             'ooiui/static/js/views/c2/InstrumentHistoryView.js',
-            'ooiui/static/js/views/c2/MissionDialogView.js'
+            'ooiui/static/js/views/c2/MissionDialogView.js',
+            'ooiui/static/js/views/c2/CommandDialogView.js'
           ]
         }
       },

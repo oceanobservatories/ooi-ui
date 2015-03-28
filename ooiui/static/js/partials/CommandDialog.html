@@ -4,16 +4,16 @@
     <div class="modal-content">
       <!-- dialog body -->
       <div class="modal-header">
-        <h4 class="modal-title" id="missionModalLabel">Mission Actions </h4>      
+        <h3 class="modal-title" id="missionModalLabel">Control Actions </h3>      
       </div>
       <div class="modal-body mission-modal">
-        <div><h4>Missions Pending</h4></div>
+        <div><h3>Commands Pending</h3></div>
         <%= message%>
-        <div><h4>Mission List</h4></div>
+        <div><h3>Command List</h3></div>
         <%= command_options%>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" disabled data-dismiss="modal">Terminal</button>
+        <button type="button" class="btn btn-primary" id='execute_command' disabled data-dismiss="modal">Execute</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>

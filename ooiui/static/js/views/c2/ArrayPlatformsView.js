@@ -89,7 +89,7 @@ var ArrayPlatformsView = Backbone.View.extend({
       },
       {
           name: "operational_status",
-          label: "Mission",
+          label: "Commands",
           editable: false,
           cell: HtmlCell,
           formatter: _.extend({}, Backgrid.Cell.prototype, {
@@ -115,15 +115,19 @@ var ArrayPlatformsView = Backbone.View.extend({
           this.$el.toggleClass('selected');
 
           if(e.target.id == "plat_mission_icon"){
-              //mission trigger
-              this.MissionView = new MissionDialogView();
-              $('.container-fluid').first().append(this.MissionView.el);
-              
-              this.MissionView.show({
-                message: "",
+              //command trigger
+              this.CommandView = new CommandDialogView();
+              $('.container-fluid').first().append(this.CommandView.el);
+
+              this.CommandView.show({
+                message: "<i>None at this time</i>",
+                command_options: "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-5x'></i>",
+                variable: this.model.attributes.reference_designator,
+                title: this.model.attributes.display_name,
+                ctype: "platform",
                 ack: function() { console.log("Closed"); }
               });
-              $('#missionModalLabel').html("<b>Mission List:   </b>"+this.model.attributes.display_name);              
+              $('.modal-title').html("<b>"+this.model.attributes.display_name);              
           }
           else{
               //clear other panels

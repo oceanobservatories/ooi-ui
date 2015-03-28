@@ -18,7 +18,9 @@
 	margin-top:-2px;
 	margin-bottom: -2px;
 }
-
+.modal-content{
+  width: 700px;
+}
 .modal-backdrop {background: none;}
 
 .history_tree{
@@ -41,7 +43,7 @@ ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree li.jqtree-se
 	background: #EEE !important;
 }
 .backgrid td, .backgrid th{
-	max-width: 310px;
+	max-width: 290px;
 }
 .backgrid{
 	font-size: 12px !important;

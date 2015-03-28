@@ -34,8 +34,22 @@ var ArraySidebarView = Backbone.View.extend({
     //var array_id = parseInt($(event.target).attr('data-id'));
     var array_id = $(event.target).attr('data-id');
     var disp_name = event.target.innerText;
-    // Publish a new method array:click with the array_id
-    this.selectArray(array_id,disp_name);
+    if(event.target.id == "mission_link"){
+      //command trigger
+      this.MissionView = new MissionDialogView();
+      $('.container-fluid').first().append(this.MissionView.el);
+
+      this.MissionView.show({
+        message: "None at this time",
+        command_options: "",
+        ack: function() { console.log("Closed"); }
+      });
+      $('.modal-title').html("<b>"+disp_name+' -- '+ array_id); 
+    }
+    else{
+      // Publish a new method array:click with the array_id
+      this.selectArray(array_id,disp_name.replace('[Missions]',''));
+    }    
   },
   /*
    * During initialization of this view we fetch the collection and render when

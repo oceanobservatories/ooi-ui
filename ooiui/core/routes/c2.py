@@ -104,6 +104,13 @@ def get_c2_platform_status_display(platform_code):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/status_display' % (platform_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+# http://localhost:4000/c2/platform/CP02PMCO-WFP01-05-PARADK000/commands
+@app.route('/api/c2/platform/<string:platform_code>/commands', methods=['GET'])
+def get_c2_platform_commands(platform_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/commands' % (platform_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/mission_display
 @app.route('/api/c2/platform/<string:platform_code>/mission_display', methods=['GET'])
 def get_c2_platform_mission_display(platform_code):

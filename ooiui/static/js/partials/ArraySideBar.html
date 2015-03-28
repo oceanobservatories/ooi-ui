@@ -18,6 +18,9 @@
     <% } %>
 
     <i data-id="<%= model.get('reference_designator') %>" style='float: right;padding-right: 18px;font-size:14px' class="fa fa-info-circle"></i>
+    <% if (model.get('mission_enabled') == 'True') { %>
+    <span data-id="<%= model.get('reference_designator') %>" id='mission_link' style='float:right;padding-right:12px;color:red'>[Missions]</span>
+    <% } %>
   </a>
 </li>
 <% }); %>
