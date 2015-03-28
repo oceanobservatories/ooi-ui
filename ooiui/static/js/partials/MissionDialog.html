@@ -1,0 +1,21 @@
+<!-- set up the modal to start hidden and fade in and out -->
+<!-- <div id="myModal" class="modal fade"> -->
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-header">
+        <h4 class="modal-title" id="missionModalLabel">Mission Actions </h4>      
+      </div>
+      <div class="modal-body mission-modal">
+        <div><h4>Missions Pending</h4></div>
+        <%= message%>
+        <div><h4>Mission List</h4></div>
+        <%= command_options%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" disabled data-dismiss="modal">Open Terminal</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

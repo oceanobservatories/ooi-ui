@@ -35,7 +35,7 @@ var OrgSidebarView = Backbone.View.extend({
    */
   onClick: function(event) {
     //prevent double request 
-    event.preventDefault()
+    event.preventDefault();
     // Get the model id from the tag attribute data-id
     var model_id = parseInt($(event.target).attr('data-id'));
     // Publish a new method org:click with the model_id
