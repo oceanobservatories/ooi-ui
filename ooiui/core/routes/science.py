@@ -157,6 +157,24 @@ def stream_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_metadata/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_proxy(stream_name,reference_designator):
+    '''
+    get metadata for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/get_metadata_times/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_times_proxy(stream_name,reference_designator):
+    '''
+    get metadata times for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
 def get_csv(stream_name, reference_designator):
     token = get_login()
