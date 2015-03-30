@@ -126,24 +126,26 @@ var MapView = Backbone.View.extend({
 		var markerCluster = new L.MarkerClusterGroup();   
 
     this.collection.each(function(platform) {
-      if (platform.attributes.coordinates) {
-        var platformFeature = L.marker([platform.attributes.coordinates[0], platform.attributes.coordinates[1]]);
-        var popupContent = '<p><strong>' + platform.attributes.ref_des + '</strong><br>' +
-            'Lat: ' + platform.attributes.coordinates[0] + '&nbsp;|&nbsp;Lon: ' + platform.attributes.coordinates[1] +
-            '<br><a href="/streams?' + platform.attributes.ref_des + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-            '<a href="/assets/list?' + platform.attributes.ref_des + '">Asset Management</a></p>';
-            platformFeature.bindPopup(popupContent);
-        markerCluster.addLayer(platformFeature);
+      if (platform.get('coordinates')) {         
+        if (platform.get('coordinates').length ==2){          
+          if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){           
+            var platformFeature = L.marker(platform.get('coordinates'));
+            var popupContent = '<p><strong>' + platform.get('ref_des') + '</strong><br>' +
+                '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
+                'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
+                '<br><a href="/streams?' + platform.get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                '<a href="/assets/list?' + platform.get('ref_des') + '">Asset Management</a></p>';
+                platformFeature.bindPopup(popupContent);
+            markerCluster.addLayer(platformFeature);
+          }
+       }
       }
     });
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
 	},
-  setMapView: function(){
-    var loco = ooi.models.mapModel.get('mapCenter')
-    //loco = loco.reverse()
-    //apparently reverse is too slow set explicitly
-    this.map.setView(loco,5)
+  setMapView: function(lat_lon,zoom){    
+    this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
 	//end
 });

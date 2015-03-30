@@ -8,6 +8,7 @@ module.exports = function(grunt) {
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
+            "ooiui/static/js/partials/TOCParentItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -448,7 +449,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/SimpleTOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
@@ -577,7 +578,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/SimpleTOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
@@ -613,7 +614,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/SimpleTOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
@@ -654,7 +655,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/common/SimpleTOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
