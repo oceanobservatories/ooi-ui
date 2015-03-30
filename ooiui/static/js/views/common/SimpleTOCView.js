@@ -125,8 +125,8 @@ var ArrayItemView = Backbone.View.extend({
     var self = this;
     var total = 0;
     this.collection.each(function(model){            
-      if ("coordinates" in model.attributes){
-        var display_name = model.get('ref_des') || "";            
+      //if ("coordinates" in model.attributes){        
+        var display_name = model.get('assetInfo')['name'] || "";            
         //only show platforms for now
         if(display_name.indexOf('-') >= 0) {
           if (display_name in self.platformList){
@@ -139,7 +139,7 @@ var ArrayItemView = Backbone.View.extend({
             self.platformList[display_name].push(model.get('assetId'))
           }
         }  
-      }
+      //}
     });
     this.$el.find(".badge").text(total)
   },
@@ -148,12 +148,12 @@ var ArrayItemView = Backbone.View.extend({
     //this.$el.find('.collapse').collapse('toggle');
   },
   add: function(platformModel){  
-    platformModel.set('display_name',platformModel.get('ref_des'))
+    platformModel.set('display_name',platformModel.get('assetInfo')['name'])  
     var subview = new PlatformDeploymentItemView({
-      model: platformModel
+      model: platformModel,
+      
     });
-    //search for ref deg, and modify the top level parent
-    var ref_deg = platformModel.get('ref_des')
+    
     this.$el.append(subview.el);
   },
   events: {
@@ -182,6 +182,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   modifyDisplayName: function() {
     var self = this;
     var display_name = this.model.get('display_name') || "";
+    //check for station
     if(display_name.indexOf('-') >= 0) {
       var items = display_name.split(' - ');
       //this.model.set('display_name', items[items.length - 1]);

@@ -187,7 +187,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {            
-      self.views.mapView.setMapView(model.get('coordinates'),5); // recenters
+      if ('coordinates' in model.attributes){
+        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+      }
     });
 
     this.listenTo(this, "arrayItemView:arraySelect", function(model) {  
