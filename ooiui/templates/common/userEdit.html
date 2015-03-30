@@ -35,6 +35,13 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     this.login.fetch({async: false});
+    
+     if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
+
+    
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.models.userModel.fetch();
