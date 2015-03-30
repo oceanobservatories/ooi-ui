@@ -72,12 +72,12 @@
 <% } %>
 
 <!-- seriesClassifiction -->
-<% var seriesClassifiction = model.get('seriesClassifiction') %>
+<% var seriesClassification = model.get('seriesClassification') %>
 <% var assetSeriesClassifiction = "N/A" %>
 
-<% if (seriesClassifiction != null) { %>
-<% assetSeriesClassifiction = seriesClassifiction %>
-<% } %>
+<% if (seriesClassification != undefined) { %>
+        <% assetSeriesClassifiction = seriesClassification %>
+    <% } %>
 
 <!-- naundefined   me -->
 <% var name = model.get('name') %>
@@ -179,6 +179,7 @@
                                     Deployment Date:&nbsp;&nbsp;<i class="badge "><%= assetLaunchDateTime %></i></li> 
                                 <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
                                     Series Classification:&nbsp;&nbsp;<i class="badge "><%= assetSeriesClassifiction %></i></li> 
+<% console.log(seriesClassification) %>
 
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
                                         More Information</a></li>  
