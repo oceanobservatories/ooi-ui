@@ -43,12 +43,17 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {},
   models: {
+      userModel: new UserModel(),
   },
   collections: {
     users: new UserCollection(),
   },
   start: function() {
     this.login.fetch({async: false});
+   if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+ 
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.views.navbar.sidebarToggle();
