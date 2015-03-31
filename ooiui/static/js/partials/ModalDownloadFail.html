@@ -1,7 +1,7 @@
 <!-- set up the modal to start hidden and fade in and out -->
 <!-- <div id="myModal" class="modal fade"> -->
 <style type="text/css">
-.glyphicon.glyphicon-ok-circle  {
+.glyphicon.glyphicon-ban-circle  {
   font-size: 50px;
   position: abosolute;
   top: 50%;
@@ -9,18 +9,19 @@
 
 }
 </style>
-<div id='download-ok' class="modal fade ">
+<div id='download-fail' class="modal fade ">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header alert alert-success ">
+      <div class="modal-header alert alert-danger">
         <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div class=jumbotron'>
-        <span class="glyphicon glyphicon-ok-circle " aria-hidden="true"></span> 
+        <span class="glyphicon glyphicon-ban-circle " aria-hidden="true"></span> 
         </div>
       </div>
 
       <div style='text-align:center' class="modal-body">
-        <h5>Your request has been received!</h5>
+        <h5>Sorry.  Your request failed.
+          If this problem persists, please submit a <a href="/troubleTicket">trouble ticket.</a></h5>
       </div>
      </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -28,3 +29,4 @@
 
 
  
+

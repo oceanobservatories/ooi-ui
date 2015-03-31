@@ -93,6 +93,7 @@
     <div id="stream-download-modal">
     </div>
     <div id='download-ok-modal'></div>
+    <div id='download-fail-modal'></div>
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
 
@@ -147,6 +148,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.views.modalDownloadView = new ModalDownloadView({
       el: $('#download-ok-modal')
+      });
+    this.views.modalDownloadFailView = new ModalDownloadFailView({
+      el: $('#download-fail-modal')
       });
 
     this.collections.annotations.fetch({reset: true});
@@ -240,6 +244,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'DownloadModal:onHide',function(){
         self.views.modalDownloadView.show();
   });
+    this.listenTo(this, 'DownloadModalFail:onFail',function(){
+        self.views.modalDownloadFailView.show();
+  });
+
 }
 });
 
