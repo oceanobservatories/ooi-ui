@@ -1,6 +1,11 @@
 <% var asset = model.get('assetId'); %>
 
-<% var backgound %>
+<!--Remove this line when badge alerts are working-->
+<% var backgound = unknownBadge %>
+
+<!--And add this line-->
+<!--<% var backgound %>-->
+
 <% var badge %>
 
 <!-- Badge and background colors -->
@@ -14,13 +19,16 @@
 <% var redBadge =  'badge-error' %>
 <% var unknownBadge = 'badge-unkown' %>
 
-<!-- If statement to set badge and background collor bassed on priority level -->
-<% if (asset == '1') { %>
+<!-- ==========================================((((((((((())))))))))))==================================================== -->
+<!-- ===========================================!!!!DO NOT DELETE!!!!===================================================== -->
+<!-- ==========================================((((((((((())))))))))))==================================================== -->
+<!-- If statement to set badge and background collor bassed on priority level (set to asset ID 1, 2, & 3 for now) -->
+<!--<% if (asset == '1') { %>
 
 <% badge = blueBadge %>
 <% backgound = blueBG %>
 
-<% } else if (asset == '2') { %>
+<% } else if (asset === '2') { %>
 <% badge = yellowBadge %>
 <% backgound = yellowBG %>
 
@@ -32,6 +40,7 @@
 <% badge = unknownBadge %>
 <% backgound = unknownBG %>
 <% } %>
+-->
 
 <!-- If statement to display Manufacturer Informantion -->
 <% manufacturerInfo = model.get('manufactureInfo') %>
@@ -41,17 +50,17 @@
 
 <% if (manufacturerInfo !=  null) { %>
 
-    <% if (manufacturerInfo.serialNumber != null) { %>
-        <% assetSerialNumber = manufacturerInfo.serialNumber %>
-    <% } %>
+<% if (manufacturerInfo.serialNumber != null) { %>
+<% assetSerialNumber = manufacturerInfo.serialNumber %>
+<% } %>
 
-    <% if (manufacturerInfo.modelNumber != null) { %>
-         <% assetModelNumber = manufacturerInfo.modelNumber %>
-    <% } %>
+<% if (manufacturerInfo.modelNumber != null) { %>
+<% assetModelNumber = manufacturerInfo.modelNumber %>
+<% } %>
 
-    <% if (manufacturerInfo.manufacturer != null) { %>
-         <% assetManufacturer = manufacturerInfo.manufacturer %>
-    <% } %>
+<% if (manufacturerInfo.manufacturer != null) { %>
+<% assetManufacturer = manufacturerInfo.manufacturer %>
+<% } %>
 
 <% } %>
 
@@ -76,8 +85,8 @@
 <% var assetSeriesClassifiction = "N/A" %>
 
 <% if (seriesClassification != undefined) { %>
-        <% assetSeriesClassifiction = seriesClassification %>
-    <% } %>
+<% assetSeriesClassifiction = seriesClassification %>
+<% } %>
 
 <!-- naundefined   me -->
 <% var name = model.get('name') %>
@@ -163,7 +172,7 @@
                                 <ul>
                                     <li>Serial Number:&nbsp;&nbsp;<b><%= assetSerialNumber %></b></li>
                                     <li>Model Number:&nbsp;&nbsp;<b><%= assetModelNumber %></b></li>
-                                    <li>Manufacturer:&nbsp;&nbsp;<b><%= assetManufacturer %></b></li>                                  
+                                    <li>Manufacturer:&nbsp;&nbsp;<b><%= assetManufacturer %></b></li>
                                 </ul>
                             </ul>
                         </div>
@@ -173,20 +182,21 @@
                         <div class="col-md-12">
                             <!--Bottom-->
                             <ul style="list-style-type:none;">
-                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Coordinates:&nbsp;&nbsp;<i class="badge "><%= assetCoordinates %></i></li> 
-                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Deployment Date:&nbsp;&nbsp;<i class="badge "><%= assetLaunchDateTime %></i></li> 
-                                <li><div class="col-xs-1"><i class="small-status-icon "></i></div>
-                                    Series Classification:&nbsp;&nbsp;<i class="badge "><%= assetSeriesClassifiction %></i></li> 
-<% console.log(seriesClassification) %>
-
+                                <!--This code should be implimented later to small collor badges to for individual stats
+                                    <li><div class="col-xs-1"><i class="small-status-icon"></i></div>
+                                    Coordinates:&nbsp;&nbsp;<i class="badge"><%= assetCoordinates %></i></li>-->
+                                <li><div class="col-xs-1"></div>
+                                    Coordinates:&nbsp;&nbsp;<%= assetCoordinates %></li> 
+                                <li><div class="col-xs-1"></div>
+                                    Deployment Date:&nbsp;&nbsp;<%= assetLaunchDateTime %></li> 
+                                <li><div class="col-xs-1"></div>
+                                    Series Classification:&nbsp;&nbsp;<%=assetSeriesClassifiction %></li>
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
+                                       
                                         More Information</a></li>  
                             </ul>
                         </div>
                     </div>
-
                 </div><!--modal-body-->
 
 
