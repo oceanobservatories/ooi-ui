@@ -450,14 +450,15 @@ var AssetView = Backbone.View.extend({
                     //errors out
                     //self.model.set('physicalInfo',[$('#physinfo_d').val()]);
                     //--geojson connection
-                    self.model.set('coordinates',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
+                    self.model.set('coordinates',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())]);
                     //var geoObj = {};
                     //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     //geoObj['coordinates']=coord;
                     //geoObj['type'] = "Point";
                     //self.model.set('geo_location',wellknown.stringify(geoObj));
 
-                    self.model.set('lastModifiedTimestamp', selectedInstrument['lastModifiedTimestamp'])
+                    self.model.set('lastModifiedTimestamp', selectedInstrument['lastModifiedTimestamp']);
+                    self.model.set('ref_des', selectedInstrument['ref_des']);
                     //existing? this is to put edits
                     if(selectedInstrument['assetId']){
                         self.model.set('id',selectedInstrument['assetId']);
