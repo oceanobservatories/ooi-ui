@@ -24,6 +24,8 @@ var StreamDownloadFormView = Backbone.View.extend({
   onDownload: function() {
     var selection = this.$type_select.val();
     var url = this.model.getURL(selection);
+    url += '/'+this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')+'.0Z' + '/' + this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')+'.0Z' + '/0'
+    console.log(url)
     window.location.href = url;
     this.hide();
   },
@@ -46,6 +48,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     // Download Link
     var base_url = window.location.origin;
     var raw_dl_url = base_url + this.model.getURL(selection);
+    raw_dl_url += '/'+this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')+'.0Z' + '/' + this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')+'.0Z' + '/0'
     var dl_url = '<a href=\"' + raw_dl_url + '\">Download Link\</a>';
     this.$el.find('.download-link h4').html(dl_url);
 

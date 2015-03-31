@@ -27,7 +27,7 @@ var StreamModel = Backbone.Model.extend({
   },
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator') ;
     } else if(type == 'profile_json_download') {
       var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator');
     } else if(type == 'netcdf') {
@@ -38,8 +38,9 @@ var StreamModel = Backbone.Model.extend({
     return url;
   },
   getData: function(options) {
+    console.log("testing",this.attributes)
     $.ajax({
-      url: this.getURL('json'),
+      url: this.getURL('json')+"/"+moment(this.get('start')).format("YYYY-MM-DDTHH:mm:ss") +".0Z/" + moment(this.get('end')).format("YYYY-MM-DDTHH:mm:ss") + ".0Z/0",
       dataType: 'json',
       success: options.success,
       error: options.error
