@@ -450,7 +450,7 @@ var AssetView = Backbone.View.extend({
                     //errors out
                     //self.model.set('physicalInfo',[$('#physinfo_d').val()]);
                     //--geojson connection
-                    self.model.set('coordinates',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())]);
+                    self.model.set('coordinates',[Number($('#geo_d_lat').val()),Number($('#geo_d_long').val())]);
                     //var geoObj = {};
                     //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     //geoObj['coordinates']=coord;
