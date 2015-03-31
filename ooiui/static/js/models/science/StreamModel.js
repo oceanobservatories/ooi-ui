@@ -27,13 +27,13 @@ var StreamModel = Backbone.Model.extend({
   },
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     } else if(type == 'profile_json_download') {
-      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator');
+      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     } else if(type == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator');
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     } else if(type == 'csv') { 
-      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator');
+      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     }
     return url;
   },
