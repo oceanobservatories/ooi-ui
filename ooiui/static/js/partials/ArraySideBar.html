@@ -1,0 +1,26 @@
+<li class="sidebar-search">
+  <div class="input-group custom-search-form">
+    Array List
+    <div style="float: right;padding-left: 223px;font-size: 12px;">Status</div>
+  </div>
+  <!-- /input-group -->
+</li>
+<% collection.each(function(model) { %>
+<li class="array-item">
+  <a data-id="<%= model.get('reference_designator') %>" href="#">
+  <%= model.get('display_name') %>
+  <% if (model.get('operational_status') == 'Online') { %>
+      <i style='float: right;padding-right: 14px;pointer-events: none;font-size:18px' class="fa fa-thumbs-up c2-online"></i>
+    <% } else if (model.get('operational_status') == 'Unknown') { %>
+      <i style='float: right;padding-right: 14px;pointer-events: none;;font-size:18px' class="fa fa-question-circle c2-unknown"></i>
+    <% } else { %>
+      <i style='float: right;padding-right: 14px;pointer-events: none;font-size:18px' class="fa fa-thumbs-down c2-offline"></i>
+    <% } %>
+
+    <i data-id="<%= model.get('reference_designator') %>" style='float: right;padding-right: 18px;font-size:14px' class="fa fa-info-circle"></i>
+    <% if (model.get('mission_enabled') == 'True') { %>
+    <span data-id="<%= model.get('reference_designator') %>" id='mission_link' style='float:right;padding-right:12px;color:red'>[Missions]</span>
+    <% } %>
+  </a>
+</li>
+<% }); %>
