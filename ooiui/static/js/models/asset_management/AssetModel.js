@@ -37,14 +37,15 @@ var AssetModel = Backbone.Model.extend({
 		  water_depth: {
 		    unit: "m",
 		    value: 133.5
-		  }
+		  },
+		  lastModifiedTimestamp: null
   	}
 });
 
-var AssetModelSingle = Backbone.Model.extend({ 
-	defaults : { 
-       
-    } 
+var AssetModelSingle = Backbone.Model.extend({
+	defaults : {
+
+    }
 });
 
 var AssetCollection = Backbone.Collection.extend({
