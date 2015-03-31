@@ -157,6 +157,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/StreamTableItem.html",
             "ooiui/static/js/partials/StreamDownloadForm.html",
             "ooiui/static/js/partials/ModalForm.html",
+
+            "ooiui/static/js/partials/ModalDownload.html",
             "ooiui/static/js/partials/AnnotationModalForm.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
@@ -507,6 +509,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
+
+            'ooiui/static/js/views/common/ModalDownloadView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
             'ooiui/static/js/views/common/ModalFormView.js',
             'ooiui/static/js/views/common/PanelView.js',

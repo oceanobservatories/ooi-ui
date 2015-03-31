@@ -92,6 +92,7 @@
     </div>
     <div id="stream-download-modal">
     </div>
+    <div id='download-ok-modal'></div>
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
 
@@ -118,6 +119,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
+    
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.views.navbar.sidebarToggle();
@@ -143,6 +145,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.streamDownloadFormView = new StreamDownloadFormView({
       el: $('#stream-download-modal')
     });
+    this.views.modalDownloadView = new ModalDownloadView({
+      el: $('#download-ok-modal')
+      });
 
     this.collections.annotations.fetch({reset: true});
     this.collections.streams.fetch({reset:true});
@@ -232,7 +237,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
       self.views.streamDownloadFormView.show(options);
     });
-  }
+    this.listenTo(this, 'DownloadModal:onHide',function(){
+        self.views.modalDownloadView.show();
+  });
+}
 });
 
 var ooi = new OOI();
