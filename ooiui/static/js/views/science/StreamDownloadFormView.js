@@ -27,14 +27,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     url += '?'+$.param({startdate:this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss'), enddate:this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')})
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
-      console.log(xhr.steadyState);
-      console.log(xhr.status);
       if(xhr.readyState == 4 && xhr.status == 200) {
           ooi.trigger('DownloadModal:onHide'); 
           window.location.href = url;
       }else if ( xhr.status== 404 || xhr.status == 400 || xhr.status == 500){
         ooi.trigger('DownloadModalFail:onFail');
-        console.log('error');
       }
     };
 
