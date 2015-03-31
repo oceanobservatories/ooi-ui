@@ -29,5 +29,17 @@ var PlatformDeploymentCollection = Backbone.Collection.extend({
   model: PlatformDeploymentModel,
   parse: function(response, options) {
     return response.assets;
+  },
+  byRef: function(array_code_search) {
+    var filtered = this.filter(function(mod) {
+      if (mod.get("ref_des") == null){
+        mod.set("ref_des","__")
+      }
+      var array_code = mod.get("ref_des")[0]+mod.get("ref_des")[1]
+      return array_code === array_code_search;    
+      
+    });
+    return new PlatformDeploymentCollection(filtered);
   }
+
 });
