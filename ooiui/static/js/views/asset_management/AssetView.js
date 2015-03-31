@@ -6,7 +6,7 @@ var AssetView = Backbone.View.extend({
 	},
 	//renders a simple map view
 	render: function() {
-        
+
         self = this;
         var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
 
@@ -41,7 +41,7 @@ var AssetView = Backbone.View.extend({
 
         var pageabledeploy = new PageableDeployments();
         self.collection = pageabledeploy;
-        
+
         var columns = [{
             name: "assetId", // The key of the model attribute
             label: "ID", // The name to display in the header
@@ -63,7 +63,7 @@ var AssetView = Backbone.View.extend({
             }),
             sortValue: function (model, colName) {
                 return model.attributes[colName]['name'];
-            } 
+            }
         },{
             name: "assetInfo",
             label: "Owner",
@@ -163,7 +163,7 @@ var AssetView = Backbone.View.extend({
 
         // Initialize a client-side filter to filter on the client
         // mode pageable collection's cache.
-        //extend to match the nested object parameters 
+        //extend to match the nested object parameters
         var AssetFilter = Backgrid.Extension.ClientSideFilter.extend({
           //collection: pageabledeploy,
           //fields: ["assetId",'@class'],
@@ -211,7 +211,7 @@ var AssetView = Backbone.View.extend({
                   else{
                     return false;
                   }
-              }; 
+              };
           }
         });
 
@@ -359,7 +359,7 @@ var AssetView = Backbone.View.extend({
               else{
                 var l_date = Date.parse(model.attributes.launch_date_time);
               }
-              
+
               $("#startdate_d" ).datepicker( "setDate", l_date);
             }
             else{
@@ -372,7 +372,7 @@ var AssetView = Backbone.View.extend({
             else{
                $("#enddate_d" ).datepicker( "setDate", '' );
             }*/
-            
+
             $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
             $('#desc_d').val(model.attributes.assetInfo['description']);
             $('#notes_d').val(model.attributes.notes);
@@ -386,10 +386,10 @@ var AssetView = Backbone.View.extend({
             $("#type_switcher_but").attr('data', model.attributes.class);
             $("#type_switcher_but").val(classtypelist[model.attributes.class].val);
             $('#type_switcher_but').html(classtypelist[model.attributes.class].label+' <span class="caret"></span>');
-            
+
             //remove marker
             if(self.asset_mark){map.removeLayer(self.asset_mark)};
-            
+
             if(model.attributes.coordinates != null){
                 //for geojson ....
                 if(model.attributes.coordinates.length>0){
@@ -425,7 +425,7 @@ var AssetView = Backbone.View.extend({
                 $('#editdep_panel').html('Click Save to create new Record.');
             }
             else if(t.target.innerText.search('SAVE'>-1)){
-                //save to db 
+                //save to db
                 if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
                    // that.model.attributes = selectedInstrument;
@@ -442,24 +442,26 @@ var AssetView = Backbone.View.extend({
                     depthObj['unit']='m';
                     depthObj['value']=Number($('#depth_d').val());
                     self.model.set('water_depth',depthObj);
-                    
+
                     self.model.set('notes',[$('#notes_d').val()]);
                     //one way of updating the model
                     self.model.attributes.manufactureInfo.manufacturer = $('#manufacture_d').val();
-                    
+
                     //errors out
                     //self.model.set('physicalInfo',[$('#physinfo_d').val()]);
                     //--geojson connection
-                    self.model.set('coordinates',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
+                    self.model.set('coordinates',[Number($('#geo_d_lat').val()),Number($('#geo_d_long').val())]);
                     //var geoObj = {};
                     //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
                     //geoObj['coordinates']=coord;
                     //geoObj['type'] = "Point";
                     //self.model.set('geo_location',wellknown.stringify(geoObj));
 
+                    self.model.set('lastModifiedTimestamp', selectedInstrument['lastModifiedTimestamp']);
+                    self.model.set('ref_des', selectedInstrument['ref_des']);
                     //existing? this is to put edits
                     if(selectedInstrument['assetId']){
-                        self.model.set('id',selectedInstrument['assetId']);                    
+                        self.model.set('id',selectedInstrument['assetId']);
                         //If the model does not yet have an id, it is considered to be new.
                         //self.model.url = '/api/asset_deployment/'+selectedInstrument['assetId']
                     }
@@ -477,7 +479,7 @@ var AssetView = Backbone.View.extend({
                               self.modalDialog.show({
                               message: "Asset successfully saved.",
                               type: "success",
-                                ack: function() { 
+                                ack: function() {
                                   window.location = "/assets/list/"
                                 }
                               });
@@ -500,7 +502,7 @@ var AssetView = Backbone.View.extend({
                             $('#editdep_panel').html('Save Error.');
                           }
                         });
-                    
+
                         //reset
                         selectedInstrument = [];
                         self.clearform();
@@ -516,12 +518,12 @@ var AssetView = Backbone.View.extend({
             }
             //not using now - no function in uframe
             else if(t.target.innerText == 'DELETE'){
-                //delete from db 
+                //delete from db
                 //selectedInstrument
                 if(selectedInstrument['assetId']){
 
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Deleting.');
-                    self.model.set('id',selectedInstrument['assetId']);                    
+                    self.model.set('id',selectedInstrument['assetId']);
 
                     self.model.destroy({
                       success: function(model, response, options) {
@@ -529,7 +531,7 @@ var AssetView = Backbone.View.extend({
                         self.modalDialog.show({
                           message: "Asset successfully deleted.",
                           type: "success",
-                          ack: function() { 
+                          ack: function() {
                             window.location = "/assets/list/"
                           }
                         });
@@ -551,14 +553,14 @@ var AssetView = Backbone.View.extend({
                         $('#editdep_panel').html('Delete Error.');
                       }
                     });
-                    
+
                     //reset
                     selectedInstrument = [];
                     self.clearform();
                 }
             }
         });
-  
+
         //add events for DMS changes
         $('#dms_longEW').on('change',self.updateDD);
         $('#dms_longD').on('change',self.updateDD);
@@ -570,7 +572,7 @@ var AssetView = Backbone.View.extend({
         $('#dms_latNS').on('change',self.updateDD);
         $('#geo_d_lat').on('change',self.updatemarker);
         $('#geo_d_long').on('change',self.updatemarker);
-        
+
         //change lat/long input types
         $("#coordinate_switcher li a").click(function(){
           $("#coordinate_switcher .btn:first-child").html($(this).text()+'  <span class="caret"> </span>');
@@ -660,7 +662,7 @@ var AssetView = Backbone.View.extend({
         dmsMatch = dmsRe.exec(dmsStr);
         if (dmsMatch) {
           degrees = Number(dmsMatch[1]);
-     
+
           minutes = typeof (dmsMatch[2]) !== "undefined" ? Number(dmsMatch[2]) / 60 : 0;
           seconds = typeof (dmsMatch[3]) !== "undefined" ? Number(dmsMatch[3]) / 3600 : 0;
           hemisphere = dmsMatch[4] || null;
