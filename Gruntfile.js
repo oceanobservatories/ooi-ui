@@ -848,8 +848,6 @@ module.exports = function(grunt) {
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
-            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
-            "ooiui/static/lib/loremjs/lorem.js",
             "ooiui/static/lib/jqtree/tree.jquery.js",
             // App
             'ooiui/static/js/ooi.js',
