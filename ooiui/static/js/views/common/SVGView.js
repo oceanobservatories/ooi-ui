@@ -47,7 +47,8 @@ var SVGPlotView = SVGView.extend({
       var useScatter = "False"
       var plotLayoutType = "timeseries"
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.variable, 
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({start_time: this.st, end_time: this.ed,
+                                                                                                    yvar: this.variable, 
                                                                                                     height: this.height, 
                                                                                                     width: this.width, 
                                                                                                     scatter:useScatter,
@@ -79,14 +80,14 @@ var SVGPlotView = SVGView.extend({
                                                                                                     scatter:this.useScatter,
                                                                                                     lines:this.useLine, 
                                                                                                     plotLayout:this.plotType,
-                                                                                                    startdate:this.st,
-                                                                                                    enddate:this.ed})
+                                                                                                    start_date:this.st,
+                                                                                                    end_date:this.ed})
       this.fetch();
     }
   },
   download: function() {
     if(this.variable != null) {
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', 
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({start_time: this.st, end_time: this.ed,format: 'png', 
                                                                                                     yvar: this.variable, 
                                                                                                     height: this.height, 
                                                                                                     width: this.width })
@@ -126,12 +127,14 @@ var SVGPlotControlView = Backbone.View.extend({
     var self = this;
     this.model = model;
     this.data = null;
+
     this.model.getData({
       success: function(data, textStatus, jqXHR) {
         self.data = data.data;
         self.trigger('dataFetch', self.data);       
       }
     });
+    console.log("DATA",self.data)
     this.render();
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
@@ -176,6 +179,8 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$type_select = this.$el.find('#type-select');
 
 
+    this.st = this.$start_date_picker.getDate();
+    this.ed = this.$end_date_picker.getDate();
     
     
     //this.$el.find('#xvar-select').prop('disabled', 'disabled');
