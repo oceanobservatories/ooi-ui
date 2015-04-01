@@ -131,6 +131,74 @@
     margin-left: 35%;
 }
 /*
+ * Small Badges
+ */
+.small-status-icon-ok {
+    display: block;
+    background: #006eff;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 0%;
+    border: 1px solid transparent;
+    border-color: #969696 ;
+}
+.small-status-icon-issue {
+    display: block;
+    background: #FFE944;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 0%;
+    border: 1px solid transparent;
+    border-color: #969696 ;
+}
+.small-status-icon-error {
+    display: block;
+    background: #E03D2C;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 0%;
+    border: 1px solid transparent;
+    border-color: #969696 ;
+}
+.small-status-icon-unknown {
+    display: block;
+    background: #5e5e5e;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 0%;
+    border: 1px solid transparent;
+    border-color: #969696 ;
+}
+
+/*
  * Dog Tag Button
  */
 .dogTagBtn {
@@ -247,21 +315,6 @@
     border: 5px solid transparent;
     border-color: #969696 ;
 }
-.small-status-icon {
-    display: block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    line-height: 15px;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 15px;
-    margin-left: 0%;
-    border: 1px solid transparent;
-    border-color: #969696 ;
-}
 .status-badge {
     padding: 10px 12px 10px;
     font-size: 18px;
@@ -307,8 +360,18 @@
     background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, rgb(157, 157, 221)));
 }
 
-
-
+/*roatating icon for accordion */
+.accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
 
 /*    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
 box-shadow: 0 0 10px rgba(81, 203, 238, 1);

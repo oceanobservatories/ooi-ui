@@ -39,6 +39,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
     collections: {
         statusUIIconCollection: new StatusUIIconCollection(),
+        statusUIAccordionCollection: new StatusUIAccordionCollection(),
         organizations: new Organizations(),
 
         operatorEventTypes: new OperatorEventTypeCollection()
@@ -47,7 +48,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
     models: {
         orgModel: new OrganizationModel(),
         userModel: new UserModel(),
-        iconModel: new StatusUIIconModel()
+        iconModel: new StatusUIIconModel(),
+        accordionModel: new StatusUIAccordionModel()
     },
 
     views: {
@@ -73,7 +75,11 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
         this.views.statusUIIconView = new StatusUIIconView({
             model: this.models.iconModel,
-            collection: this.collections.statusUIIconCollection
+            collection: this.collections.statusUIIconCollection,
+
+            model: this.models.accordionModel,
+            collection: this.collections.statusUIAccordionCollection,
+
 
         });
         $('#event-view').html(this.views.statusUIIconView.el);
