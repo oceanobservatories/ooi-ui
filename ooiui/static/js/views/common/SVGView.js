@@ -65,8 +65,7 @@ var SVGPlotView = SVGView.extend({
       this.width = this.$el.width()-50
       //st = moment(this.model.get('start'))
       //ed = st.add('hours',1).format(moment.ISO_8601);
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {profileId:this.profileId,
-                                                                                                    dpa_flag: this.dpa_flag,
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.variable, 
                                                                                                     enddate:this.model.get('end'),
                                                                                                     startdate:this.model.get('start'),
@@ -116,8 +115,7 @@ var SVGPlotView = SVGView.extend({
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({profileId:this.profileId,
-                                                                                                    dpa_flag: this.dpa_flag,
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.yvariable , 
                                                                                                     xvar: this.xvariable, 
                                                                                                     height: this.height, 
