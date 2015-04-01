@@ -33,7 +33,7 @@ var ArraySidebarView = Backbone.View.extend({
     // Get the array id from the tag attribute data-id
     //var array_id = parseInt($(event.target).attr('data-id'));
     var array_id = $(event.target).attr('data-id');
-    var disp_name = event.target.innerText;
+    var disp_name = event.target.text;
     if(event.target.id == "mission_link"){
       //command trigger
       this.MissionView = new MissionDialogView();
