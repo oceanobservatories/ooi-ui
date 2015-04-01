@@ -42,6 +42,7 @@ var SVGPlotView = SVGView.extend({
     for(var key in variables) {
       if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
         this.variable = key;
+        this.units = this.model.get('units')[this.variable];
         break;
       }
     }
@@ -60,6 +61,7 @@ var SVGPlotView = SVGView.extend({
                                                                                                     width: this.width, 
                                                                                                     scatter:useScatter,
                                                                                                     lines:useLine, 
+                                                                                                    units:this.units, 
                                                                                                     plotLayout:plotLayoutType })
       console.log("reg url",this.url)
       this.fetch();
