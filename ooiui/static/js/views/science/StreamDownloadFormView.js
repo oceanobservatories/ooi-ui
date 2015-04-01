@@ -25,7 +25,18 @@ var StreamDownloadFormView = Backbone.View.extend({
     var selection = this.$type_select.val();
     var url = this.model.getURL(selection);
     url += '?'+$.param({startdate:this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss'), enddate:this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')})
-    window.location.href = url;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4 && xhr.status == 200) {
+          ooi.trigger('DownloadModal:onHide'); 
+          window.location.href = url;
+      }else if ( xhr.status== 404 || xhr.status == 400 || xhr.status == 500){
+        ooi.trigger('DownloadModalFail:onFail');
+      }
+    };
+
+    xhr.open('head',url);
+    xhr.send(null);
     this.hide();
   },
   failure: function() {
@@ -35,13 +46,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     var model = options.model;
     var selection = options.selection;
     this.model = model;
-
-    console.log(model);
     var startDate = model.get('start');
     var endDate = model.get('end');
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
-
     this.$el.find('.message h3').text(model.get('display_name'));
 
     // Download Link
