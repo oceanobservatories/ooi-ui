@@ -1,3 +1,5 @@
+<% var hasDepth = false %>
+
 <form>
   <div class="row" style="padding-bottom:8px;">
     <!-- Profile and additional plot controls  
@@ -48,8 +50,10 @@
     </div>
 
     <div class="col-sm-2">
-      <label  style="margin-top:30px;"  for="plotting-enable-scatter">Scatter</label>
-      <input  style="margin-top:30px;"  class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
+      <div style="padding-top:30px;">
+        <label for="plotting-enable-scatter">Scatter</label>
+        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
+      </div>
     </div>
 
   </div>
@@ -62,8 +66,9 @@
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-              <% if(varName == 'pressure') { %>
+              <% if(varName.indexOf('pressure') > -1 && hasDepth == false) { %>
                 <option value="<%=varName%>">Depth Profile</option>
+                <% hasDepth =true %>
               <% } %>                
             <% } %>
           <% }); %>
@@ -78,7 +83,14 @@
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-            <option value="<%=varName%>"><%= varName %></option>
+              <%  console.log(model.get('variables_shape')[varName])   %>
+
+              <%  if(model.get('variables_shape')[varName] == "function"){ %>
+                <option data-subtext="L1 dpa true" class="dpa-function-variable" value="<%=varName%>"><%= varName %></option>
+              <%} else { %>               
+                <option value="<%=varName%>"><%= varName %></option>
+              <% } %>
+
             <% } %>
           <% }); %>
         </select>

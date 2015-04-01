@@ -37,12 +37,13 @@ var SVGPlotView = SVGView.extend({
     this.model = model;
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
-    var variables = this.model.get('variable_types');
+    var variables = this.model.get('variable_types');    
     this.variable = null;
     for(var key in variables) {
       if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
         this.variable = key;
         this.units = this.model.get('units')[this.variable];
+        this.d_type = this.model.get('variables_shape')[this.variable];
         break;
       }
     }
@@ -62,8 +63,7 @@ var SVGPlotView = SVGView.extend({
                                                                                                     scatter:useScatter,
                                                                                                     lines:useLine, 
                                                                                                     units:this.units, 
-                                                                                                    plotLayout:plotLayoutType })
-      console.log("reg url",this.url)
+                                                                                                    plotLayout:plotLayoutType })      
       this.fetch();
     }
   },
