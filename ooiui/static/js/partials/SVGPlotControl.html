@@ -1,3 +1,5 @@
+<% var hasPracsal = false %>
+<% var hasTemp = false %>
 <% var hasDepth = false %>
 
 <form>
@@ -62,17 +64,35 @@
       <div class="form-group">
         <label for="xvar-select">Plot Type</label>
         <select id='xvar-select' class="form-control selectpicker">
+          <!--        Check for variables        -->
           <option value="time">Time Series</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
               <% if(varName.indexOf('pressure') > -1 && hasDepth == false) { %>
-                <option value="<%=varName%>">Depth Profile</option>
-                <% hasDepth =true %>
+                <option data-subtext="<%=varName%>" value="<%=varName%>">Depth Profile</option>
               <% } %>                
             <% } %>
+
+            <!--        Check for temp        -->
+            <% if(varName.indexOf('temp') > -1 && hasTemp == false) { %>
+            <%    hasTemp = true %>
+            <% } %>
+            <!--        Check for variables        -->
+            <% if(varName.indexOf('pracsal') > -1 && hasPracsal == false) { %>
+            <%    hasPracsal = true %>
+            <% } %>
+
+          <!--        end of each        -->            
           <% }); %>
-          <option value="ts-diagram" disabled>T-S Diagram</option>
+
+          <!--        Check for TS diagram        -->
+          <% if(hasPracsal && hasTemp) { %>
+            <option value="ts-diagram" disabled>T-S Diagram</option>
+          <% } else {%>
+            <option value="ts-diagram" disabled>T-S Diagram</option>
+          <% } %>
+
         </select>
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-6 -->

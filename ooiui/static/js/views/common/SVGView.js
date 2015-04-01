@@ -43,7 +43,8 @@ var SVGPlotView = SVGView.extend({
     for(var key in variables) {
       if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
         this.variable = key;
-        this.units = this.model.get('units')[this.variable];
+        this.yunits = this.model.get('units')[this.variable];
+        this.xunits = this.model.get('units')[this.variable];
         this.d_type = this.model.get('variables_shape')[this.variable];
         //if its a dpa product create the flag
         if (this.model.get('variables_shape')[this.variable] == "function"){
@@ -61,35 +62,52 @@ var SVGPlotView = SVGView.extend({
       var useLine = "True"
       var useScatter = "False"
       var plotLayoutType = "timeseries"
-
+      this.width = this.$el.width()-50
       //st = moment(this.model.get('start'))
       //ed = st.add('hours',1).format(moment.ISO_8601);
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {profileId:this.profileId,
+                                                                                                    dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.variable, 
                                                                                                     enddate:this.model.get('end'),
                                                                                                     startdate:this.model.get('start'),
                                                                                                     height: this.height, 
-                                                                                                    width: this.width, 
+                                                                                                    width: this.width , 
                                                                                                     scatter:useScatter,
                                                                                                     lines:useLine, 
-                                                                                                    units:this.units, 
+                                                                                                    x_units:this.xunits, 
+                                                                                                    y_units:this.yunits, 
                                                                                                     plotLayout:plotLayoutType })      
       this.fetch();
     }
   },
+  getDpaFlag: function(var_list) {
+    var self = this
+    var dpa_flag = "0";
+    $.each(var_list, function( index, value ) {
+      var func_type = self.model.get('variables_shape')[value]    
+      if (func_type == "function"){
+        dpa_flag = "1"        
+      }      
+    });
+    return dpa_flag
+  },
   plot: function(options) {
     //requested plot
-    this.reference_designator = this.model.get('reference_designator')
+    this.reference_designator = this.model.get('reference_designator')    
     this.stream_name = this.model.get('stream_name')
+    //set the width of the plot
+    this.width = this.$el.width()-50
+
     if(options && options.yvar && options.xvar) {      
-      if (options.plotType == 'timeseries'){
+      if (options.plotType == 'timeseries'){        
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)  
       }else{
         this.xvariable = options.xvar.join();
-        this.yvariable = options.yvar;
+        this.yvariable = options.yvar;      
+        this.dpa_flag = this.getDpaFlag(options.xvar)   
       }
-      
     }
     if(this.yvariable != null && this.xvariable != null) {
       this.useLine = options.useLine.toString();
@@ -98,7 +116,9 @@ var SVGPlotView = SVGView.extend({
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.yvariable , 
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({profileId:this.profileId,
+                                                                                                    dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.yvariable , 
                                                                                                     xvar: this.xvariable, 
                                                                                                     height: this.height, 
                                                                                                     width: this.width,
@@ -168,9 +188,11 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     data.yvar = this.$el.find('#yvar-select').val();    
 
-    if (data.xvar== "pressure"){
+    var plotType = $('#xvar-select option:selected').text();
+
+    if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
-      data.yvar = "pressure"
+      data.yvar = this.$el.find('#xvar-select').val();
       data.xvar = this.$el.find('#yvar-select').val();
 
     }else{
