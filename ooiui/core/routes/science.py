@@ -204,13 +204,12 @@ def get_profiles(stream_name, reference_designator):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/svg/plot/<string:instrument>/<string:stream>/<string:start>/<string:end>', methods=['GET'])
-def get_plotdemo(instrument, stream,start,end):
+@app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
+def get_plotdemo(instrument, stream):
     token = get_login()
-    import time
-    dpa = "0"
+    import time    
     t0 = time.time()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s/%s/%s/%s' % (instrument, stream,start,end,dpa), auth=(token, ''), params=request.args)
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()
     print "GUI took %s" % (t1 - t0)
     return req.content, 200, dict(req.headers)

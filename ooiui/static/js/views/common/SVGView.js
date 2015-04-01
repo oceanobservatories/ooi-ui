@@ -47,7 +47,11 @@ var SVGPlotView = SVGView.extend({
       var useScatter = "False"
       var plotLayoutType = "timeseries"
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.variable, 
+      //st = moment(this.model.get('start'))
+      //ed = st.add('hours',1).format(moment.ISO_8601);
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {yvar: this.variable, 
+                                                                                                    enddate:this.model.get('end'),
+                                                                                                    startdate:this.model.get('start'),
                                                                                                     height: this.height, 
                                                                                                     width: this.width, 
                                                                                                     scatter:useScatter,
