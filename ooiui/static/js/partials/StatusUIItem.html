@@ -25,21 +25,21 @@
 <!-- If statement to set badge and background collor bassed on priority level (set to asset ID 1, 2, & 3 for now) -->
 <!--<% if (asset == '1') { %>
 
-<% badge = blueBadge %>
-<% backgound = blueBG %>
+    <% badge = blueBadge %>
+    <% backgound = blueBG %>
 
-<% } else if (asset === '2') { %>
-<% badge = yellowBadge %>
-<% backgound = yellowBG %>
+    <% } else if (asset === '2') { %>
+    <% badge = yellowBadge %>
+    <% backgound = yellowBG %>
 
-<% } else if (asset == '3') { %>
-<% badge = redBadge %>
-<% backgound = redBG %>
+    <% } else if (asset == '3') { %>
+    <% badge = redBadge %>
+    <% backgound = redBG %>
 
-<% } else { %>
-<% badge = unknownBadge %>
-<% backgound = unknownBG %>
-<% } %>
+    <% } else { %>
+    <% badge = unknownBadge %>
+    <% backgound = unknownBG %>
+    <% } %>
 -->
 
 <!-- If statement to display Manufacturer Informantion -->
@@ -152,7 +152,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <!--Uper Left-->
+                            <!--Upper Left-->
                             <ul style="list-style-type:none;">
                                 <li>Asset Information</li>
                                 <ul>
@@ -166,7 +166,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <!--Uper Right-->
+                            <!--Upper Right-->
                             <ul style="list-style-type:none;">
                                 <li>Manufacturer Information</li>
                                 <ul>
@@ -192,7 +192,7 @@
                                 <li><div class="col-xs-1"></div>
                                     Series Classification:&nbsp;&nbsp;<%=assetSeriesClassifiction %></li>
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
-                                       
+
                                         More Information</a></li>  
                             </ul>
                         </div>
