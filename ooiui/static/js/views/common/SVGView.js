@@ -39,14 +39,23 @@ var SVGPlotView = SVGView.extend({
     this.stream_name = this.model.get('stream_name')
     var variables = this.model.get('variable_types');    
     this.variable = null;
+    //loop over variables
     for(var key in variables) {
       if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
         this.variable = key;
         this.units = this.model.get('units')[this.variable];
         this.d_type = this.model.get('variables_shape')[this.variable];
+        //if its a dpa product create the flag
+        if (this.model.get('variables_shape')[this.variable] == "function"){
+          this.dpa_flag = "1";
+        }else{
+          this.dpa_flag = "0";
+        }
+        
         break;
       }
     }
+
     if(this.variable != null) {
       //done on first render, i.e inital conditions      
       var useLine = "True"
@@ -55,7 +64,8 @@ var SVGPlotView = SVGView.extend({
 
       //st = moment(this.model.get('start'))
       //ed = st.add('hours',1).format(moment.ISO_8601);
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {yvar: this.variable, 
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.variable, 
                                                                                                     enddate:this.model.get('end'),
                                                                                                     startdate:this.model.get('start'),
                                                                                                     height: this.height, 
