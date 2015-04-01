@@ -12,13 +12,17 @@ var SVGView = Backbone.View.extend({
     var self = this;
     this.initialRender();
     console.log("Fetching " + this.url);
-    $.get(this.url,
-      function(svgDoc) {
+    $.get(this.url,function(svgDoc) {
         var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
         self.$el.html(importedSVGRootElement);
         self.render();
-      },
-      "xml");
+      },"xml")
+      .fail(function() {
+        self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>')
+      })
+      .always(function() {
+        
+      });
   },
   initialRender: function() {
     console.log("Plot should be a spinner");
@@ -174,10 +178,12 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
-    this.$start_date.datetimepicker({defaultDate : this.model.get('start'),
-                                                maxDate: this.model.get('end')});
-    this.$end_date.datetimepicker({defaultDate : this.model.get('end'),
-                                                minDate: this.model.get('start')}); 
+    this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
+                                     maxDate: moment(this.model.get('end'))
+                                     });
+    this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
+                                   minDate: moment(this.model.get('start'))
+                                  }); 
 
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
