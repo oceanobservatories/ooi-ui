@@ -4,17 +4,13 @@
   </h3>
   <div class="pull-right">
     <% if(collectionLength>0) { %>
-    <span class="badge">
+    <span id="parentBadge" class="badge">
+      <%= collectionLength %>
+    </span>
+    <span id="childBadge" class="badge">
       <%= collectionLength %>
     </span>
     <% } %>
   </div>
   <div class="clearfix"></div>
-</div>
-
-<div id="collapse_<%= data.get('display_name') %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%= data.get('display_name') %>">
-  <div class="panel-body">
-    <ul class="platform-list list-unstyled icon-list chevron-right">
-    </ul>
-  </div>
 </div>
