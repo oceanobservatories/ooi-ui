@@ -14,14 +14,13 @@
 <div class="row">
     <div class="col-md-11">
         <div style="float:right;"> 
-
-            <p style="font-size:18px;">Assets&nbsp;&nbsp;
-            <input id="toggle-trigger" type="checkbox" data-toggle="toggle"></p>
+            <input class="switch" type="checkbox" data-label-text="Assets" data-on-text="<span class='glyphicon glyphicon-ok'></span>" data-off-text="<span class='glyphicon glyphicon-remove'></span>" />
         </div>
     </div>
     <div class="col-md-3">
     </div>
 </div>
+
 <div class="row-centered">
     <div class="col-md-3 col-centered" id="ok-filter">
         <h4> <button type="buttonutton" class="okIssueBtn"></button>
@@ -52,4 +51,8 @@
     </div>
 </div>
 
-
+<script>
+$("input.switch").bootstrapSwitch({
+    size: 'mini'
+});
+</script>

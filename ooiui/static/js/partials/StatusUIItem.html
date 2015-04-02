@@ -111,8 +111,6 @@
 <% assetDescription = description %>
 <% } %>
 
-
-
 <!-- Dog Tag Buttons -->  
 <div class="<%= backgound %>" data-toggle="modal" data-target="#myModal<%= asset %>">
     <h5 class="dogTagHeader"><%= model.get('ref_des') %></h5>
@@ -138,8 +136,6 @@
                 </h4>
             </div>
 
-
-
             <!--MODAL BODY-->
             <div class="modal-main">
 
@@ -163,7 +159,6 @@
                             </ul>
                             <hr class="new-line" />
                         </div>
-
                         <div class="col-md-6">
                             <!--Upper Right-->
                             <ul style="list-style-type:none;">
@@ -176,7 +171,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <!--Bottom-->
@@ -191,28 +185,21 @@
                                 <li><div class="col-xs-1"></div>
                                     Series Classification:&nbsp;&nbsp;<%=assetSeriesClassifiction %></li>
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
-
                                         More Information</a></li>  
                             </ul>
                         </div>
                     </div>
                 </div><!--modal-body-->
 
-
-
-
                 <!--MODAL FOOTER-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script>
-
-
 $('.platform-tile<%= asset %>').popover({
     trigger: "click",
     placement: "auto",

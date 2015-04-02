@@ -1,6 +1,5 @@
 "use strict";
 
-
 var StatusUIItemView = Backbone.View.extend({
   tagName: "div",
   className: "platform-tile",
@@ -9,6 +8,7 @@ var StatusUIItemView = Backbone.View.extend({
     var self = this;
     _.bindAll(this, "render");
   },
+    
   template: JST['ooiui/static/js/partials/StatusUIItem.html'],
   render: function() {
     var self = this;

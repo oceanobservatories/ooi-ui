@@ -115,30 +115,29 @@
 <div class="accordion">
     <div class="accordion-section">
 
-            <div class="row" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= asset %>" aria-expanded="true" aria-cortrols="collapse<%= asset %>">
-                <div class="col-xs-1"><i class="small-status-icon-unknown"></i></div>
-                <div class="col-md-2"><%=  model.get('assetInfo')['type'] %></div>
-                <div class="col-md-4"><%= model.get('ref_des') %></div>                  
-                <div class="col-md-1"><%= asset %></div>
-                <div class="col-md-4"><%= assetLaunchDateTime %></div>
-            </div>
+        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= asset %>" aria-expanded="true" aria-cortrols="collapse<%= asset %>" style="cursor:pointer;">
+            <div class="col-xs-1"><i class="small-status-icon-unknown"></i></div>
+            <div class="col-md-2"><%=  model.get('assetInfo')['type'] %></div>
+            <div class="col-md-4"><%= model.get('ref_des') %></div>                  
+            <div class="col-md-1"><%= asset %></div>
+            <div class="col-md-4"><%= assetLaunchDateTime %></div>
+        </div>
     </div>
 
     <div id="collapse<%= asset %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
 
             <!--ACCORDION HEADER-->
-            <div class="modal-header">
-
+            <div class="modal-header" style="border-bottom:none;">
                 <!--Ref Des-->
                 <h4 class="modal-title" id="myModalLabel">
                     <%= model.get('ref_des')%>
                 </h4>
+                <hr class="new-line" />
             </div>
 
             <!--ACCORDION BODY-->
             <div class="modal-main">
-
                 <div class="row">
                     <div class="col-md-12">
                         Asset ID:&nbsp;&nbsp;<b><%=  model.get('assetId') %></b>
@@ -159,7 +158,6 @@
                             </ul>
                             <hr class="new-line" />
                         </div>
-
                         <div class="col-md-6">
                             <!--Upper Right-->
                             <ul style="list-style-type:none;">
@@ -172,7 +170,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <!--Bottom-->
@@ -187,15 +184,11 @@
                                 <li><div class="col-xs-1"></div>
                                     Series Classification:&nbsp;&nbsp;<%=assetSeriesClassifiction %></li>
                                 <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
-
                                         More Information</a></li>  
                             </ul>
                         </div>
                     </div>
                 </div><!--accordion-body-->
-
-
-
             </div>
         </div>
     </div>

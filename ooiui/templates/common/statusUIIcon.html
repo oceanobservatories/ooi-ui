@@ -41,7 +41,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
         statusUIIconCollection: new StatusUIIconCollection(),
         statusUIAccordionCollection: new StatusUIAccordionCollection(),
         organizations: new Organizations(),
-
         operatorEventTypes: new OperatorEventTypeCollection()
     },
 
@@ -52,8 +51,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
         accordionModel: new StatusUIAccordionModel()
     },
 
-    views: {
-    },
+    views: {},
 
     start: function() {
         this.login.fetch({async:false});
@@ -71,27 +69,20 @@ _.extend(OOI.prototype, Backbone.Events,  {
         });
         $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
-
-
         this.views.statusUIIconView = new StatusUIIconView({
             model: this.models.iconModel,
             collection: this.collections.statusUIIconCollection,
-
             model: this.models.accordionModel,
             collection: this.collections.statusUIAccordionCollection,
-
-
         });
         $('#event-view').html(this.views.statusUIIconView.el);
-
         this.eventListeners();
-
     },
+
     eventListeners:function() {
         this.listenTo(this, "org:click", this.orgSelection);
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
-
         this.listenTo(this.models.userModel, 'change', function(model){
             this.views.orgSidebarView.selectOrg(model.get('organization_id'));
         });
@@ -103,28 +94,14 @@ _.extend(OOI.prototype, Backbone.Events,  {
     onLogout: function() {
         location.reload();
     },
-        /*
-         * orgSelection is called by the event listener for org:click. The trigger
-         * from the OrgSidebarView passes the organization_id in as a parameter. With
-         * this we can cause the WatchView to re-render with the new watches we'll
-         * fetch, using the organization_id as a query parameter.
-         */
+
     orgSelection: function(organization_id) {
         this.models.orgModel.set({id: organization_id});
         this.models.orgModel.fetch();
-        // We have selected a new organization, so now we need to update the watch
-        // GET /api/watch?organization_id=<organization_id>
-
         this.collections.events.reset();
-        // Note: the watchview has an event listener that listens for sync events
-        // from this collection, so when the feth completes, the event will trigger
-        // and the watch view will re-render with the new watches.
     }
-
-
-
-
 });
+
 // Instantiate the application for this page
 var ooi = new OOI();
 
@@ -132,8 +109,6 @@ $(document).ready(function() {
     // Once the DOM is loaded, we start our application
     ooi.start();
 });
-
-
 </script>
 
 {% endblock %}
