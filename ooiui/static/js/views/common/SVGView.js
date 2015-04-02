@@ -120,8 +120,7 @@ var SVGPlotView = SVGView.extend({
 
 var SVGPlotControlView = Backbone.View.extend({
   events: {
-    'change #xvar-select' : 'onClickPlot',
-    'change #yvar-select' : 'onClickPlot',
+    'click #update-plot' : 'onClickPlot',
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
     'dp.change #end-date' : 'onClickPlot'

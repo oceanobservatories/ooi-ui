@@ -45,11 +45,7 @@ var StreamModel = Backbone.Model.extend({
       error: options.error
     });
   },
-  parse: function(data, options) {
-    if(data && data.start && data.end) {
-      data.start = new Date(data.start * 1000);
-      data.end = new Date(data.end * 1000);
-    }
+  parse: function(data, options) {    
     return data;
   }
 });

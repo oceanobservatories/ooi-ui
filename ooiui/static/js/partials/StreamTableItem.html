@@ -1,5 +1,27 @@
 <% _.each(columns, function(col) { %>
-  <% if(col.name == "start" || col.name == "end") { %>
+  <% if(col.name == "plot") { %>
+  	<td>
+  		<button type="button" class="btn btn-primary plotButton" aria-label="Left Align">
+		  <span class="fa fa-bar-chart" aria-hidden="true"></span> Plot
+		</button>
+	</td>
+  <% } else if(col.name == "download") { %>	
+  	<td>
+  		<div class="btn-group">
+		  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+		    Select Type <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a class="download-option" download-type="csv" href="#">CSV</a></li>
+		    <li><a class="download-option" download-type="json" href="#">JSON</a></li>
+		    <li class="disabled"><a class="download-option" download-type="netcdf" href="#">NETCDF</a></li>
+		    <li class="divider"></li>
+		    <li><a class="download-option" download-type="profile_json_download" href="#">Profile JSON</a></li>
+		  </ul>
+		</div>
+  	</td>
+  
+  <%} else if(col.name == "start" || col.name == "end") { %>
     <td><%= moment(model.get(col.name)).format('MMMM Do YYYY, h:mm:ss a') %></td>
   <% } else if(col.name == "json_download" || col.name == "netcdf_download" || col.name == "csv_download" || col.name == "profile_json_download" ) { %>
   <td><a class="<%= col.name %>" href="#"><span class="fa fa-cloud-download"> Download</span></a></td>
@@ -8,4 +30,5 @@
   <% } else { %>
     <td><%= model.get(col.name) %></td>
   <% } %>
+  
 <% }); %>

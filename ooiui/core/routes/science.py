@@ -157,6 +157,24 @@ def stream_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_metadata/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_proxy(stream_name,reference_designator):
+    '''
+    get metadata for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/get_metadata_times/<string:stream_name>/<string:reference_designator>', methods=['GET'])
+def metadata_times_proxy(stream_name,reference_designator):
+    '''
+    get metadata times for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
 def get_csv(stream_name, reference_designator):
     token = get_login()
@@ -193,3 +211,23 @@ def get_plotdemo(instrument, stream):
     print "GUI took %s" % (t1 - t0)
     return req.content, 200, dict(req.headers)
 
+# C2 Routes
+@app.route('/api/c2/array_display/<string:array_code>', methods=['GET'])
+def get_c2_array_display(array_code):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/array_display/%s' % (array_code))
+    return response.text, response.status_code
+
+@app.route('/api/c2/platform_display/<string:reference_designator>', methods=['GET'])
+def get_c2_platform_display(reference_designator):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform_display/%s' % (reference_designator))
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument_display/<string:reference_designator>', methods=['GET'])
+def get_c2_instrument_display(reference_designator):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument_display/%s' % (reference_designator))
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
+def get_c2_instrument_fields(reference_designator, stream_name):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
+    return response.text, response.status_code

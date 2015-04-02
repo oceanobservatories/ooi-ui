@@ -1,0 +1,20 @@
+<div class="category-rollup panel-heading" role="tab" id="heading<%= data.get('display_name') %>">
+  <h3 class="panel-title category-title pull-left" title="<%= data.get('display_name') %>">
+    <a style="cursor: default;"><%= data.get('display_name') %></a>
+  </h3>
+  <div class="pull-right">
+    <% if(collectionLength>0) { %>
+    <span class="badge">
+      <%= collectionLength %>
+    </span>
+    <% } %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div id="collapse_<%= data.get('display_name') %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%= data.get('display_name') %>">
+  <div class="panel-body">
+    <ul class="platform-list list-unstyled icon-list chevron-right">
+    </ul>
+  </div>
+</div>

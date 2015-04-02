@@ -20,31 +20,33 @@ var AssetModel = Backbone.Model.extend({
 	    type: "Mooring"
 		  },
 		attachments: [],
-		  class: ".AssetRecord",
-		  coordinates: [
-		    0,
-		    0
-		  ],
-		  launch_date_time: "21-Nov-13 18:16",
-		  manufactureInfo: {
-		    manufacturer: null,
-		    modelNumber: null,
-		    serialNumber: ""
-		  },
-		  notes: [""],
-		  physicalInfo: null,
-		  purchaseAndDeliveryInfo: null,
-		  water_depth: {
-		    unit: "m",
-		    value: 133.5
-		  }
+        class: ".AssetRecord",
+        coordinates: [
+            0,
+            0
+        ],
+        launch_date_time: "21-Nov-13 18:16",
+        manufactureInfo: {
+            manufacturer: null,
+            modelNumber: null,
+            serialNumber: ""
+        },
+        notes: [""],
+        physicalInfo: null,
+        purchaseAndDeliveryInfo: null,
+        water_depth: {
+            unit: "m",
+            value: 133.5
+        },
+        lastModifiedTimestamp: null,
+        ref_des: null
   	}
 });
 
-var AssetModelSingle = Backbone.Model.extend({ 
-	defaults : { 
-       
-    } 
+var AssetModelSingle = Backbone.Model.extend({
+	defaults : {
+
+    }
 });
 
 var AssetCollection = Backbone.Collection.extend({

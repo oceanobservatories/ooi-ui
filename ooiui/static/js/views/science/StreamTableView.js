@@ -17,36 +17,28 @@
 var StreamTableView = Backbone.View.extend({
   columns: [
       {
+        name : 'plot',
+        label : ' '
+      },
+      {
+        name : 'download',
+        label : 'Download<br>Data'
+      },
+      {
         name : 'stream_name',
-        label : 'Stream Identifier'
+        label : 'Stream<br>Identifier'
       },
       {
         name : 'display_name',
-        label : 'Description'
+        label : 'Stream<br>Description'
       },
       {
         name : 'start',
-        label : 'Start Time'
+        label : 'Start<br>Time'
       },
       {
         name : 'end',
-        label : 'End Time'
-      },
-      {
-        name : 'json_download',
-        label : 'Download JSON'
-      },
-      {
-        name : 'profile_json_download',
-        label : 'Download Profile JSON'
-      },
-      {
-        name : 'netcdf_download',
-        label : 'Download NetCDF'
-      },
-      {
-        name : 'csv_download',
-        label : 'Download CSV'
+        label : 'End<br>Time'
       }
   ],
   initialize: function() {
@@ -68,7 +60,8 @@ var StreamTableView = Backbone.View.extend({
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
-    this.collection.each(function(model) {
+    this.collection.each(function(model) {     
+      var dt = moment(model.get('start'),moment.ISO_8601)      
       var streamTableItemView = new StreamTableItemView({
         columns: self.columns,
         model: model
@@ -81,11 +74,8 @@ var StreamTableView = Backbone.View.extend({
 var StreamTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click a.json_download' : 'onJSONDownload',
-    'click a.profile_json_download' : 'onProfileJSONDownload',
-    'click a.netcdf_download' : 'onNetCDFDownload',
-    'click a.csv_download' : 'onCSVDownload',
-    'click' : 'onRowClick'
+    'click .download-option' : 'onDownload',
+    'click .plotButton' : 'onRowClick'    
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -94,26 +84,12 @@ var StreamTableItemView = Backbone.View.extend({
     this.listenTo(this.model, 'change', this.render);
     this.render();
   },
-  onCSVDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'csv'});
-  },
-  onJSONDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'json'});
-  },
-  onProfileJSONDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'profile_json_download'});
-  },
-  onNetCDFDownload: function(event) {
-    event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: 'netcdf'});
-  },
-  onRowClick: function(event) {
-    event.stopPropagation();
-    ooi.trigger('StreamTableItemView:onRowClick', this);
-  },
+  onDownload: function(event) {
+    event.stopPropagation();   
+    event.preventDefault();
+    var option = $(event.currentTarget).attr("download-type");    
+    ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: option});
+  },  
   focus: function() {
     console.log("Trying to focus");
     this.$el.addClass('highlight').siblings().removeClass('highlight');

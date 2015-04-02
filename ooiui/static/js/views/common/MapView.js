@@ -125,37 +125,28 @@ var MapView = Backbone.View.extend({
     var map = this.map;
 		var markerCluster = new L.MarkerClusterGroup();   
 
-    this.collection.each(function(platform) { 	    	
-      var display_name = platform.get('display_name')
-      var ref_name = platform.get('reference_designator')
-      var array_id = platform.get('array_id')
-
-      platform.attributes.geo_location.properties = {'display_name':display_name,
-                              'ref':ref_name,
-                              'array_id':array_id
-                              }
-      
-      var geojsonFeature =L.geoJson(platform.attributes.geo_location, {				
-      onEachFeature: function (feature, layer) {
-      var popupContent = '<p><strong>' + feature.properties.display_name + '</strong><br>' +
-          'Lat: ' + feature.coordinates[1] + '&nbsp;|&nbsp;Lon: ' + feature.coordinates[0] + '<br>' +
-          '<a href="/streams?' + feature.properties.ref + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-          '<a href="/assets/list?' + feature.properties.ref + '">Asset Management</a></p>';
-
-          layer.bindPopup(popupContent);
-        }
-      });
-     // console.log(platform.toJSON());
-      markerCluster.addLayer(geojsonFeature);
+    this.collection.each(function(platform) {
+      if (platform.get('coordinates')) {         
+        if (platform.get('coordinates').length ==2){   
+          var full_name = platform.get('assetInfo')['name']              
+          if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){           
+            var platformFeature = L.marker(platform.get('coordinates'));
+            var popupContent = '<p><strong>' + full_name + '</strong><br>' +
+                '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
+                'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
+                '<br><a href="/streams?' + platform.get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                '<a href="/assets/list?' + platform.get('ref_des') + '">Asset Management</a></p>';
+                platformFeature.bindPopup(popupContent);
+            markerCluster.addLayer(platformFeature);
+          }
+       }
+      }
     });
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
 	},
-  setMapView: function(){
-    var loco = ooi.models.mapModel.get('mapCenter')
-    //loco = loco.reverse()
-    //apparently reverse is too slow set explicitly
-    this.map.setView(loco,5)
+  setMapView: function(lat_lon,zoom){    
+    this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
 	//end
 });
