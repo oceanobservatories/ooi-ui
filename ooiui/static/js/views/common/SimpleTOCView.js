@@ -248,7 +248,7 @@ var ArrayItemView = BaseTOCView.extend({
           if ((typeof(display_name) !== 'undefined') && (display_name !== null) && (display_name.length>0)) { 
             platformModel.set("display_name",self.modifyDisplayName(display_name,parent_text));         
           }else{
-            platformModel.set("display_name",platformModel.get("ref_des"));
+            platformModel.set("display_name","Undefined");
           }
                     
           //if it exists add it!

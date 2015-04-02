@@ -130,7 +130,7 @@ var MapView = Backbone.View.extend({
         if (platform.get('coordinates').length ==2){   
           var name = platform.get('assetInfo')['name']              
           if (name == null){
-            name = platform.get('ref_des')          
+            name = "Undefined"          
           }
 
           if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){           
