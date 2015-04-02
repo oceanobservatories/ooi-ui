@@ -244,15 +244,18 @@ var ArrayItemView = BaseTOCView.extend({
       var parent_text = this.$el.find('#'+platformRes+'_title').attr("displayname")
       var display_name = platformModel.get("display_name")      
 
-      if ((typeof(parent_text) !== 'undefined') && (parent_text !== null) && (parent_text.length>0) ) { 
-        if ((typeof(display_name) !== 'undefined') && (display_name !== null)) {      
-          platformModel.set("display_name",self.modifyDisplayName(display_name,parent_text));                 
+      if ((typeof(parent_text) !== 'undefined') && (parent_text !== null) && (parent_text.length>0)) { 
+          if ((typeof(display_name) !== 'undefined') && (display_name !== null) && (display_name.length>0)) { 
+            platformModel.set("display_name",self.modifyDisplayName(display_name,parent_text));         
+          }else{
+            platformModel.set("display_name",platformModel.get("ref_des"));
+          }
+                    
           //if it exists add it!
           var subview = new InstrumentView({
             model: platformModel,
           });
           parent.append(subview.el); 
-        }
       }else{
         console.log("unknown...",platformModel.get('display_name'),platformModel.get('ref_des'))
       }
