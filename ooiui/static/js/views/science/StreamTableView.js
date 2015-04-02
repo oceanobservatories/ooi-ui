@@ -60,8 +60,7 @@ var StreamTableView = Backbone.View.extend({
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
-    this.collection.each(function(model) {     
-      var dt = moment(model.get('start'),moment.ISO_8601)      
+    this.collection.each(function(model) {           
       var streamTableItemView = new StreamTableItemView({
         columns: self.columns,
         model: model
@@ -97,5 +96,9 @@ var StreamTableItemView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {
     this.$el.html(this.template({model: this.model, columns: this.columns}));
-  }
+  },
+  onRowClick: function(event) {
+    event.stopPropagation();
+    ooi.trigger('StreamTableItemView:onRowClick', this);
+  },
 });

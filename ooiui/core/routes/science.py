@@ -175,36 +175,39 @@ def metadata_times_proxy(stream_name,reference_designator):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
-def get_csv(stream_name, reference_designator):
+@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_csv(stream_name, reference_designator,start,end):
     token = get_login()
-    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s' % (stream_name, reference_designator)
+    dpa = "0"
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>')
-def get_json(stream_name, reference_designator):
+@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_json(stream_name, reference_designator,start,end):
     token = get_login()
-    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s' % (stream_name, reference_designator)
+    dpa = "0"
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>')
-def get_netcdf(stream_name, reference_designator):
+@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_netcdf(stream_name, reference_designator,start,end):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    dpa = "0"
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_profiles/<string:stream_name>/<string:reference_designator>')
 def get_profiles(stream_name, reference_designator):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
 def get_plotdemo(instrument, stream):
     token = get_login()
-    import time
+    import time    
     t0 = time.time()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()

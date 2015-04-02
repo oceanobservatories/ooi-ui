@@ -1,3 +1,8 @@
+    .dpa-function-variable {
+      font-style: italic;
+      font-weight: bold !important;
+    }
+
     body {
         background-color: #f8f8f8;
     }

@@ -1,3 +1,7 @@
+<% var hasPracsal = false %>
+<% var hasTemp = false %>
+<% var hasDepth = false %>
+
 <form>
   <div class="row" style="padding-bottom:8px;">
     <!-- Profile and additional plot controls  
@@ -8,39 +12,11 @@
         <option value="depthprofile">Depth Profile</option>
       </select>   
     </div>
-    -->
-
-    <div class="col-sm-4">
-      <div class="row">
-        <!-- <div class="col-sm-6">
-          <label for="plotting-enable-line">Line</label>
-          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-line" disabled checked data-size="mini">
-        </div> -->
-        <div class="col-sm-6">
-          <label for="plotting-enable-scatter">Scatter</label>
-          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="form-group">                
-        <select id='profile-select' class="form-control selectpicker" disabled>
-          <option value="All">All</option>              
-        </select>
-      </div> <!-- .form-group -->    
-    </div>
-
-    <div class="col-sm-4">
-        <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
-          <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
-        </button>
-    </div>
-
+    -->    
   </div>  
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="start-date">Start Time</label>
         <div class='input-group date' id='start-date'>
@@ -50,7 +26,7 @@
         </div> <!-- .input-group.date #start-date -->
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-6 -->
-    <div class="col-sm-5">
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="end-date">End Time</label>
         <div class='input-group date' id='end-date'>
@@ -59,23 +35,64 @@
           </span>
         </div> <!-- .input-group.date #start-date -->
       </div>
-    </div>     
+    </div>  
+
+    <div class="col-sm-2">
+        <button style="margin-top:25px;" id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
+          <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
+        </button>
+    </div>
+
+    <div class="col-sm-2">
+      <div  style="margin-top:25px;"  class="form-group">                
+        <select id='profile-select' class="form-control selectpicker" disabled>
+          <option value="All">All</option>              
+        </select>
+      </div> <!-- .form-group -->    
+    </div>
+
+    <div class="col-sm-2">
+      <div style="padding-top:30px;">
+        <label for="plotting-enable-scatter">Scatter</label>
+        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
+      </div>
+    </div>
+
   </div>
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
         <label for="xvar-select">Plot Type</label>
         <select id='xvar-select' class="form-control selectpicker">
+          <!--        Check for variables        -->
           <option value="time">Time Series</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-              <% if(varName == 'pressure') { %>
-                <option value="<%=varName%>">Depth Profile</option>
+              <% if(varName.indexOf('pressure') > -1 && hasDepth == false) { %>
+                <option data-subtext="<%=varName%>" value="<%=varName%>">Depth Profile</option>
               <% } %>                
             <% } %>
+
+            <!--        Check for temp        -->
+            <% if(varName.indexOf('temp') > -1 && hasTemp == false) { %>
+            <%    hasTemp = true %>
+            <% } %>
+            <!--        Check for variables        -->
+            <% if(varName.indexOf('pracsal') > -1 && hasPracsal == false) { %>
+            <%    hasPracsal = true %>
+            <% } %>
+
+          <!--        end of each        -->            
           <% }); %>
-          <option value="ts-diagram" disabled>T-S Diagram</option>
+
+          <!--        Check for TS diagram        -->
+          <% if(hasPracsal && hasTemp) { %>
+            <option value="ts-diagram" disabled>T-S Diagram</option>
+          <% } else {%>
+            <option value="ts-diagram" disabled>T-S Diagram</option>
+          <% } %>
+
         </select>
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-6 -->
@@ -86,7 +103,14 @@
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
             <% if(varType == 'int' || varType == 'float') { %>
-            <option value="<%=varName%>"><%= varName %></option>
+              <%  console.log(model.get('variables_shape')[varName])   %>
+
+              <%  if(model.get('variables_shape')[varName] == "function"){ %>
+                <option data-subtext="L1 dpa true" class="dpa-function-variable" value="<%=varName%>"><%= varName %></option>
+              <%} else { %>               
+                <option value="<%=varName%>"><%= varName %></option>
+              <% } %>
+
             <% } %>
           <% }); %>
         </select>
