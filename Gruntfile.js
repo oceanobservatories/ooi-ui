@@ -9,6 +9,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/TOCParentItem.html",
+            "ooiui/static/js/partials/InstrumentItem.html",
+            "ooiui/static/js/partials/PlatformItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",

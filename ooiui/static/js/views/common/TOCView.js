@@ -16,6 +16,7 @@ var TOCView = Backbone.View.extend({
     'keyup #search-filter' : 'filterToc'
   },
   add: function(arrayModel){
+    console.log("HERE",arrayModel)
     var subview = new ArrayItemView({
       model: arrayModel
     });
@@ -24,16 +25,6 @@ var TOCView = Backbone.View.extend({
   },
   filterToc: function(){
     var self = this
-    /*
-    this.$el.find('#search-filter').keyup(function () {
-        var rex = new RegExp($(this).val());
-        self.$el.find("li ").hide();
-        self.$el.find("li ").filter(function () {
-            console.log("search...",rex)
-            return rex.test($(this).text());
-        }).show();
-    })*/
-
   },
   initialize: function(){
     _.bindAll(this, "render", "add","filterToc");
@@ -133,6 +124,7 @@ var ArrayItemView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
+    console.log(self.platformType)
     this.$el.html(this.template({data: this.model}));
   },
   renderPlatforms: function() {
@@ -150,8 +142,10 @@ var ArrayItemView = Backbone.View.extend({
     var subview = new PlatformDeploymentItemView({
       model: platformModel
     });
+    console.log(platformModel)
     //search for ref deg, and modify the top level parent
     var ref_deg = platformModel.attributes.reference_designator
+    console.log(ref_deg)
     if (subview.platformType == "parent-platform"){
       var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
         return _.any([model.attributes.reference_designator], function(v) {
@@ -250,8 +244,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
   renderInstruments: function() {
     var self = this;
     if (self.platformType == "child"){
-      this.$el.find(".badge").text(this.model.assetDeployments.length)
-      //this.$el.find(".badge").removeClass("hidden")
+      this.$el.find(".badge").text(this.model.assetDeployments.length)      
     }
 
     this.model.assetDeployments.each(function(instrumentModel) {
