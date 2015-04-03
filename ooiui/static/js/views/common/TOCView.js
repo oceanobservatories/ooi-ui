@@ -148,7 +148,8 @@ var ArrayItemView = Backbone.View.extend({
     console.log(ref_deg)
     if (subview.platformType == "parent-platform"){
       var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
-        return _.any([model.attributes.reference_designator], function(v) {
+        return _.any([model.attributes.ref_des], function(v) {
+        //return _.any([model.attributes.reference_designator], function(v) {
           var vv = v.indexOf(ref_deg)!= -1;;          
           return vv
         });                  

@@ -124,6 +124,27 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html"
 
           ],
+
+        "ooiui/static/js/partials/compiled/alertPage.js" : [
+            "ooiui/static/js/partials/TOC.html",
+            "ooiui/static/js/partials/TOCItem.html",
+            "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/StreamItem.html",
+            "ooiui/static/js/partials/DropdownMessages.html",
+            //'ooiui/static/js/partials/AlertItem.html',
+            //'ooiui/static/js/partials/AlertItems.html',
+            //'ooiui/static/js/partials/AlertFilter.html',
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            'ooiui/static/js/partials/LoggedInNavItems.html',
+            'ooiui/static/js/partials/MenuToggle.html',
+            "ooiui/static/js/partials/MenuToggle.html"
+          ],
           
           "ooiui/static/js/partials/compiled/basic.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -698,7 +719,40 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
             'ooiui/static/js/models/common/StatusUIIconModel.js',
             'ooiui/static/js/models/common/StatusUIAccordionModel.js',          
+            'ooiui/static/js/models/common/UserModel.js'
+          //alerts
+          'ooiui/static/js/compiled/alertPage.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            //"ooiui/static/lib/leaflet/dist/leaflet.js",
+            //"ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js",
+            //"ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/backlunr/backlunr.js',
+            'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
+            'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
+            'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/aa/AlertModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/asset_management/AssetModel.js',
+            //'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
+            //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',\
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -715,6 +769,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/OrgSidebarView.js'
+            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/aa/AlertView.js"
           ],
           
           'ooiui/static/js/compiled/gridList.js' : [
@@ -735,8 +791,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/core/backgrid/backgrid-paginator.min.js",
             "ooiui/static/js/core/backgrid/backgrid-select-all.min.js",
             "ooiui/static/js/core/backgrid/backgrid-filter.min.js",*/
-            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
-            "ooiui/static/lib/loremjs/lorem.js",
             "ooiui/static/js/core/filtrify/js/filtrify.js",
             "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
             // App
