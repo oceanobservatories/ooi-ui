@@ -763,6 +763,9 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/loremjs/lorem.js',
             'ooiui/static/lib/moment/moment.js',
+            "ooiui/static/js/core/filtrify/js/filtrify.js",
+            "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
+
             // App
             'ooiui/static/js/ooi.js',
             // Models

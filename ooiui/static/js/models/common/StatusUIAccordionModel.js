@@ -29,8 +29,8 @@ var StatusUIAccordionModel = Backbone.Model.extend({
   }
 });
 var StatusUIAccordionCollection = Backbone.Collection.extend({
-  //url: "json/statusIcon.json",
-  url: "/api/asset_deployment", 
+  url: "json/statusIcon.json",
+  //url: "/api/asset_deployment", 
  // url: "http://localhost:4000/uframe/assets",
 
   // model: StatusUIIconModel,
