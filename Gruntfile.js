@@ -131,6 +131,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/PlatformItem.html",
+            "ooiui/static/js/partials/InstrumentItem.html",
             //'ooiui/static/js/partials/AlertItem.html',
             //'ooiui/static/js/partials/AlertItems.html',
             //'ooiui/static/js/partials/AlertFilter.html',
@@ -143,7 +145,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Navbar.html",
             'ooiui/static/js/partials/LoggedInNavItems.html',
             'ooiui/static/js/partials/MenuToggle.html',
-            "ooiui/static/js/partials/MenuToggle.html"
+            "ooiui/static/js/partials/TriggeredAlertDialog.html"
           ],
           
           "ooiui/static/js/partials/compiled/basic.js": [
@@ -688,6 +690,7 @@ module.exports = function(grunt) {
             //"ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
+            //'ooiui/static/lib/lunr.js/lunr.js',
             'ooiui/static/lib/backlunr/backlunr.js',
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
@@ -716,7 +719,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/aa/AlertView.js",
-            "ooiui/static/js/views/common/MapView.js",
+            "ooiui/static/js/views/aa/TriggerAlertDialogView.js",
+            //"ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/models/science/InstrumentDeploymentModel.js',
@@ -727,22 +731,14 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
-            // Views
-            'ooiui/static/js/views/common/DropdownMessagesView.js',
-            'ooiui/static/js/views/common/DropdownUserView.js',
-            "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/TOCView.js",
-            "ooiui/static/js/views/common/MapView.js",
-            'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js'
-
           ],
           
           'ooiui/static/js/compiled/gridList.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
-            "ooiui/static/lib/underscore/underscore-min.js",
+            "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/wellknown/wellknown.js",
@@ -764,6 +760,7 @@ module.exports = function(grunt) {
             // Models
             'ooiui/static/js/models/asset_management/AssetModel.js',
             'ooiui/static/js/models/asset_management/EventModel.js',
+            'ooiui/static/js/models/asset_management/EventModel.js',
             'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
@@ -778,6 +775,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/asset_management/PlatformView.js',
+            'ooiui/static/js/views/asset_management/EventsView.js',
             'ooiui/static/js/views/asset_management/AssetView.js'
           ],
           'ooiui/static/js/compiled/opLog.js' : [
