@@ -109,24 +109,22 @@ var AlertFilterView = Backbone.View.extend({
 
     initialize: function () {
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render", "triggerTOCClick","submit", "remove", "addConditions", "removeConditions", "addSelect" );
+        _.bindAll(this, "render", "submit", "remove", "addConditions","triggernewAlertList", "removeConditions","filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
          
-        this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClick);
-        this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClick);
-        this.listenTo(ooi, 'instrumentDeploymentItemView:instrumentSelect', this.triggerTOCClick);
-        this.listenTo(ooi, 'streamItemView:streamSelect', this.changeStream);
+        this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
+        this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
+        this.listenTo(ooi, 'instrumentDeploymentItemView:instrumentSelect', this.triggerTOCClickI);
+        //this.listenTo(ooi, 'streamItemView:streamSelect', this.changeStream);
         var self = this;
 
-        this.OptionalModel = Backbone.Model.extend({
-        });
-       
+        
+        self.modalDialog = new ModalDialogView();
         //this.listenTo(this.collection, 'reset', function(){
         self.render();
         //});
     },
 
     render: function () {
-
         var self = this;
         var AlertsFullCollectionPage = Backbone.PageableCollection.extend({
             model: AlertModel,
@@ -137,12 +135,34 @@ var AlertFilterView = Backbone.View.extend({
             mode: "client",
             parse: function(response, options) {
               //this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-              return response.alert_alarm_definition;
+              
+              //for the response after asset query
+              if(response.alert_alarm_definition){
+                return response.alert_alarm_definition;
+              }
+              else{
+                return response
+              }
             } 
         });
 
         var pageablealerts = new AlertsFullCollectionPage();
         self.collection = pageablealerts;
+
+        var HtmlCell = Backgrid.HtmlCell = Backgrid.Cell.extend({
+          className: "html-cell",
+          initialize: function () {
+              Backgrid.Cell.prototype.initialize.apply(this, arguments);
+          },
+          render: function () {
+              this.$el.empty();
+              var rawValue = this.model.get(this.column.get("name"));
+              var formattedValue = this.formatter.fromRaw(rawValue, this.model);
+              this.$el.append(formattedValue);
+              this.delegateEvents();
+              return this;
+          }
+        });
 
         var columns = [{
             name: "array_name", // The key of the model attribute
@@ -170,11 +190,12 @@ var AlertFilterView = Backbone.View.extend({
             cell: "string",
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
-                return rawValue;
+                return "Instrument B"
+                //return rawValue;
               }
             }) ,
             sortValue: function (model, colName) {
-                return model.attributes[colName]['owner'];
+                return model.attributes[colName]['instrument_name'];
             }
         }, {
             name: "priority",
@@ -185,21 +206,37 @@ var AlertFilterView = Backbone.View.extend({
               fromRaw: function (rawValue, model) {
                 return rawValue;
               }
-            }),
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['type'];
-            }
+            })
         }, {
             name: "created_time",
             label: "Created",
             editable: false,
             cell: "string"
         },{
+            name: "priority",
+            editable: false,
+            label: "Condition Met?",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+              fromRaw: function (rawValue, model) {
+
+                //place holder right now for triggered events
+                if(rawValue =='alarm'){
+                  //fa fa-bullhorn
+                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-triangle'> Yes</i>";
+                }
+                else if(rawValue =='alert'){
+                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'> No</i>";
+                }
+              }
+            })
+        }
+        /*,{
             name: "description",
             editable: false,
             label: "Descritption",
             cell: "string"
-        }];
+        }*/];
 
         //add click event
         var ClickableRow = Backgrid.Row.extend({
@@ -209,11 +246,25 @@ var AlertFilterView = Backbone.View.extend({
             mouseover: "rowFocused",
             mouseout: "rowLostFocus"
           },
-          onClick: function () {
+          onClick: function (e) {
             Backbone.trigger("deployrowclicked", this.model);
             this.el.style.backgroundColor = this.highlightColor;
-            var $table = $('#table-transform');
-            $table.bootstrapTable();
+
+            //check to see if the condtion met item has ben clicked and open triggered events
+            if(e.target.id=='condition_met'){
+               this.triggeredalertView = new TriggeredAlertDialogView();
+                $('.container-fluid').first().append(this.triggeredalertView.el);
+
+                this.triggeredalertView.show({
+                  instrument: "Instrument Name: "  + this.model.attributes.Instrument,
+                  recent: "<i>None at this time</i>",
+                  history: "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-5x'></i>",
+                  variable: this.model.attributes.reference_designator,
+                  //ctype: "alert",
+                  //title: this.model.attributes.display_name,
+                  ack: function() { console.log("Closed");}
+                });
+            }
           },
           rowFocused: function() {
             this.el.style.backgroundColor = this.highlightColor;
@@ -241,10 +292,35 @@ var AlertFilterView = Backbone.View.extend({
         // Render the paginator
         $("#alertslist").after(paginator.render().el);
         var AssetFilter = Backgrid.Extension.ClientSideFilter.extend({
-          placeholder: "Search",
+          placeholder: "Search Alerts and Alarms",
           makeMatcher: function(query){
+               var q = '';
+               if(query!=""){
+                 q = String(query).toUpperCase();
+               }
                return function (model) {
-                return true;
+                var queryhit= false;
+                if(model.attributes['instrument_name']){
+                  if(String(model.attributes['instrument_name']).toUpperCase().search(q)>-1){
+                      queryhit= true;
+                  }
+                }
+                if(model.attributes['description']){
+                  if(String(model.attributes['description']).toUpperCase().search(q)>-1){
+                      queryhit= true;
+                  }
+                }
+                if(model.attributes['array_name']){
+                  if(String(model.attributes['array_name']).toUpperCase().search(q)>-1){
+                      queryhit= true;
+                  }
+                }
+                if(model.attributes['priority']){
+                  if(String(model.attributes['priority']).toUpperCase().search(q)>-1){
+                      queryhit= true;
+                  }
+                }
+                return queryhit;
               };
           }
         });
@@ -265,107 +341,164 @@ var AlertFilterView = Backbone.View.extend({
                 alert(' Service request failure: ' + e);
             }),
             complete: (function (e) {
-                
+                $('#loading_alerts').html('');
             })
         });
 
         //move clicked row to edit panel
         Backbone.on("deployrowclicked", function (model) {
             self.addConditions(model);
+
+        });
+        
+        $('#resetAlarms').click(function(row) {
+            $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
+            self.collection.url = "/api/aa/arrays";
+
+            self.collection.fetch({reset: false,
+                error: (function (e) {
+                    self.modalDialog.show({
+                      message: "Error Requesting Alerts for this Asset.",
+                      type: "danger",
+                    });
+                }),
+                complete: (function (e) {
+                    $('#loading_alerts').html('');                
+                })
+            });
         });
 
+        $('#saveAlarm').click(function(row) {
+            //save data
+            self.modalDialog.show({
+                message: "Alert Saved",
+                type: "success",
+              });
+
+            /*if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+              self.modalDialog.show({
+                message: "Unable to Save Asset",
+                type: "danger",
+              });
+              $('#editdep_panel').html('Save Asset Error.');
+            }
+            else{
+              self.modalDialog.show({
+              message: "Asset successfully saved.",
+              type: "success",
+                ack: function() {
+                  window.location = "/assets/list/"
+                }
+              });
+              $('#editdep_panel').html('Saved Successfully.');
+            }*/
+        });
+
+        $('#newAlert').click(function(row) {
+            //add new line
+            if($('#loading_alerts').html() == ''){
+              self.modalDialog.show({
+                message: "Please Select an Instrument to Add Alert to",
+                type: "danger",
+              });
+            }
+            else{
+            }
+        });
         //needs model to stickit not using right now
         //this.stickit();
     },
 
     addConditions: function(val){
-      //adds a div and input under conditions on the html
-      //adds bindings 
-      var streamName = val.stream_name; 
-      val = val.param;
+      //<i id='removealert' style='padding-left:20px' class='fa fa-minus-circle'></i>
+      //var $table = $('#table-transform');
+      //$table.bootstrapTable();
+      //backgrid extentsions
+      //https://github.com/twatson83/Backgrid.Extensions
+      $('#loading_alerts').html('Instrument: '+val.attributes.Instrument);
+      $('#alert_table tbody').empty();
       
-      var value = val.replace(/\s+/g, '_');
-      var value_description = value + '_description';
-      var value_priority = value + '_priority';
-      var value_symbol = value + '_symbol';
-      var value_user= value + '_user';
- 
-     $('#Conditions').prepend('<div class="form-group"> <div class="form-control"  name='+value+'> '+ val +' </div> <span class="help-block hidden"></span> </div>');
+      var filteroptions = this.filterOptionsbyInstrument(val.attributes.reference_designator);
+      $('#alert_table tbody').append("<tr id="+val.attributes.uframe_definition_id+"><td style='min-width:180px'>"+filteroptions+"</td><td style=''>"+val.attributes.operator+' '+val.attributes.values+"</td><td style=''>"+val.attributes.description+"</td><td style=''>John Smith - WHOI</td><td style=''>"+this.showtypeoptions()+"</td><td style=''>"+this.showenabledoptions()+"</td></tr>");
+      
+      //stupid hack to make the columns match
+      $('.fixed-table-container').css('padding-bottom','0px');
+      $('#alert_table').css('margin-top','0px');
+      $('.fixed-table-header').css('display','none');
 
-     $('#SymbolInput').prepend(' <div class="form-group"><select class="form-control" id='+value_symbol+' > <option> > </option> <option> < </option> <option> = </option> </select> <span class="help-block hidden"></span></div>');
-    
-     $('#ConditionsInput').prepend('<div class="form-group"> <input class="form-control" id='+value+'></input> <span class="help-block hidden"></span></div>');
-     $('#RemoveConditions').prepend('<div class="form-group "> <button class="btn btn-success" id='+  value   + '>'+ 'X' +' </button> <span class="help-block hidden"></span></div>');
-     $('#addtionalInformation').prepend('<div name='+value+' class="row col-sm-12"> <div class="col-sm-12"> <div class="form-group"> <label for="Name" class="col-sm-3 control-label">Name</label> <div class="col-sm-9"><div class="form-control"  name='+value+'> '+ val +' </div> <span class="help-block hidden"></span> </div> </div> </div> <div class="col-sm-12"> <div class="form-group"> <label for="priority" class="col-sm-3 control-label">Priority</label> <div class="col-sm-9"> <select class="form-control" id='+value_priority+' ></select> <span class="help-block hidden"></span> </div> </div> </div> <div class="col-sm-12"> <div class="form-group"> <label for="lastname" class="col-sm-3 control-label">Description</label> <div class="col-sm-9"> <textarea type="text" class="form-control" id='+value_description+'/></textarea> <span class="help-block hidden"></span> </div> </div> </div><hr width="80%"> </div> ');
+      $('#conditions_dd').selectpicker().val(val.attributes.instrument_parameter);
+      $('#type_dd').selectpicker();
+      $('#type_dd').selectpicker().val(val.attributes.priority);
+      $('#enabled_dd').selectpicker();
+      $('#enabled_dd').selectpicker().val(val.attributes.active);
 
-     $('#Users').prepend('<div class="form-group"><select class="form-control" id='+value_user +'> </select> <span class="help-block hidden"></span> </div>');
-
-     var optionalModel = new this.OptionalModel();
-     optionalModel.set({
-       'alert':value, 
-       'stream_name': streamName, 
-       'alert_id': ooi.collections.post.nextOrder(),
-       'user_name': ooi.models.userModel.get('user_name'),
-       'user_id': ooi.models.userModel.get('user_id')
-     });
-     
-     this.addBinding(optionalModel, '#'+value_description, 'description');
-     this.addBinding(optionalModel, '#'+value_priority, {
-       observe:'priority',
-       selectOptions:{
-         collection: [{name:'Low', num: 1},{name:'Normal', num: 2},{name:'High', num:3},{name:'Urgent', num:4},{name:"Immediate", num:5}],
-         labelPath:'name',
-         valuePath:'num'
-       }
-       });
-     this.addBinding(optionalModel, '#'+value, 'alert_input');
-     this.addBinding(optionalModel, '#'+value_symbol, {
-       observe:'symbol',
-       selectOptions:{
-         collection: ['<', '>', '='],
-         defaultOption:{
-           label:"Select Symbol"
-         }
-       }
-     });
-     this.addBinding(optionalModel, '#'+value_user, {
-       observe:'assignee',
-       selectOptions: {
-         collection : this.collection.pluck('user_name'),
-         defaultOption: {
-          label: 'Add Assignee'
-           }
-       },
-       onSet:function(val){
-         console.log(val);
-         var redmineId =this.collection.findWhere({user_name: val});
-         redmineId = redmineId.get(val);
-         optionalModel.set('assignee_id', redmineId);
-
-         console.log(redmineId);
-         return val;
-       }
-     });
-
-     ooi.collections.post.add(optionalModel);
+      $('#alert_table tr').click(function(row) {
+          //var eventrow = new SingleEvent({id:row.currentTarget.id});
+          //location.reload();
+          /*if(row.target.id == 'removealert'){
+            self.modalDialog.show({
+                message: "Alert is deactivated",
+                type: "success",
+              });
+          }*/
+      });  
     },
+
+    filterOptionsbyInstrument: function(instru_id){
+      //get unique values for the dropdown
+      return "<select  class='form-control' data-container='body' id='conditions_dd'><option>Longitude</option><option>Latitude</option><option>Salinity</option><option>Temperature</option><option>Water Speed</option><option>Wave Height</option></select><span class='help-block hidden'</span>";
+    },
+
+    showtypeoptions:function(){
+      return "<select data-show-icon='true' data-container='body' class='form-control' id='type_dd'><option value='Alert'>Alert</option><option data-content='<i class='fa fa-exclamation-triangle'></i>' value='Alarm'> Alarm</option></select>"; 
+    },
+
+    showenabledoptions:function(){
+      return "<select data-show-icon='true' data-container='body' class='form-control' id='enabled_dd'><option data-content='<i class='fa fa-minus-circle'></i>' value='false'> False</option><option data-content='<i class='fa fa-check-circle'></i>' value='true'>True</option></select>"; 
+    },
+    
 
     /*click on the left hand side of the TOC */
-    triggerTOCClick:function(tocitem){
-        console.log(tocitem);
-        this.addSelect();
-        //this.model.set('array',data.get('display_name')); 
+    triggerTOCClickP:function(tocitem){
+        $('#listTitle').html('Showing Alerts for Platform: <b>'+ tocitem.attributes.assetInfo['name']  +' ' +tocitem.attributes.assetId);
+        //tocitem.attributes.reference_designator
+        $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
+        this.triggernewAlertList('platform='+tocitem.attributes.reference_designator,false);
+    },
+    triggerTOCClickI:function(tocitem){
+        $('#listTitle').html('Showing Alerts for Instrument: <b>'+ tocitem.attributes.assetInfo['name'] +' ' +tocitem.attributes.assetId);
+        $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
+        this.triggernewAlertList('instrument='+tocitem.attributes.ref_des,true);
+    },
+    triggerTOCClickA:function(tocitem){
+        $('#listTitle').html('Showing Alerts for Array: <b>'+ tocitem.attributes.display_name);
+        $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
+        this.triggernewAlertList('array='+tocitem.attributes.reference_designator,false)
     },
 
-    addSelect: function(){
-     // console.log('add select called');
+    triggernewAlertList:function(id_val,instr){
+      //this is for later for filtering alerts on certain platforms, arrays, instruments
       var self = this;
-      $('#Filter').html('<select class="form-control" id="ConditionsFilter" name="ConditionsFilter"> </select> <span class="help-block hidden"></span>');
-      
-    },
+      self.instru = instr;
+      self.name = id_val;
+      this.collection.url = '/api/aa/'+id_val;
 
-    changeStream: function(data){
-
+      this.collection.fetch({reset: false,
+          error: (function (e) {
+              self.modalDialog.show({
+                message: "Error Requesting Alerts for this Asset.",
+                type: "danger",
+              });
+          }),
+          complete: (function (e) {
+              if(self.instru == true){
+                $('#loading_alerts').html('Instrument: '+ self.name);
+              }
+              else{
+                $('#loading_alerts').html('');
+              }                
+          })
+      });
     },
 
     submit: function () {
@@ -381,8 +514,6 @@ var AlertFilterView = Backbone.View.extend({
                   console.error(err);
                   var errMessage = "Unable to submit user";
                 }
-                console.error(model);
-                console.error(response.responseText);
               }
             });
         }
@@ -393,26 +524,10 @@ var AlertFilterView = Backbone.View.extend({
     },
     
     removeConditions: function(e){
-      //need some assertions or check...
-      //clicking too fast messes everything up.
-      var remove = e.target.id;
       
-      var button = e.target;
-      
-      button.remove();
-      $('#'+remove).remove();
-      $('#'+remove+'_priority').remove();
-      $('#'+remove+'_description').remove();
-      $('#'+remove+'_symbol').remove();
-      $('[name='+remove+']').remove();
-      $('#'+remove).remove();
-      $('#'+remove+'_user').remove();
-      
-      ooi.collections.post.remove(ooi.collections.post.findWhere({'alert':remove}));
     },
   
     remove: function () {
-        Backbone.Validation.unbind(this);
-        return Backbone.View.prototype.remove.apply(this, arguments);
+        
     }
 });

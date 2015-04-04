@@ -30,7 +30,30 @@ def aa_index():
 
 # AA ooi-ui-services Routes
 
-# Alerts by Array
+
+#All current alerts that have been triggered
+#
+# http://localhost:4000/alert_alarm_definition
+@app.route('/api/aa/triggered', methods=['GET'])
+def get_aa_triggered_all():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/aa/triggered/<string:id>', methods=['GET'])
+def get_triggered_specific_id(id):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm?%s' % (id), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/aa/triggered', methods=['POST'])
+def post_aa_triggered():
+    token = get_login()
+    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
+    return response.text, response.status_code
+
+
+# Alerts by List
 #
 # http://localhost:4000/alert_alarm_definition
 @app.route('/api/aa/arrays', methods=['GET'])
@@ -48,41 +71,12 @@ def create_aa_array():
     return response.text, response.status_code
 
 
-
-# Alerts by Platform
-#
-# http://localhost:4000/alert_alarm
-@app.route('/api/aa/platforms', methods=['GET'])
-def get_aa_platform_all():
+# currently fitler all alert definiations by one id
+@app.route('/api/aa/<string:id>', methods=['GET'])
+def get_aa_specific_id(id):
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_definition', auth=(token, ''))
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_definition?%s' % (id), auth=(token, ''), params=request.args)
     return response.text, response.status_code
-
-@app.route('/api/aa/platform', methods=['POST'])
-def create_aa_platform():
-    token = get_login()
-    data = json.loads(request.data)
-    api_key = app.config['UI_API_KEY']
-    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm_definition', headers={'X-Csrf-Token' : api_key}, data=data)
-    return response.text, response.status_code
-
-
-
-# Alerts by Instrument
-#
-# http://localhost:4000/alert_alarm
-#@app.route('/api/c2/array/<string:array_code>/abstract', methods=['GET'])
-#def get_c2_array_abstract(array_code):
-#    token = get_login()
-#    response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/abstract' % (array_code), auth=(token, ''), params=request.args)
-#    return response.text, response.status_code
-
-
-# Manage Instrument Alerts
-# TODO
-# ADD post section for instruments
-#
-#
 
 
 # Get Alerts Options
