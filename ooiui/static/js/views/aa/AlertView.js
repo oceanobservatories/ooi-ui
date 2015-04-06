@@ -39,10 +39,6 @@ var AlertFilterView = Backbone.View.extend({
         'click #saveAlert': function (e) {
             e.preventDefault();
             this.submit();
-        },
-        'click #RemoveConditions':function(e) {
-          e.preventDefault();
-          this.removeConditions(e);
         }
     },
 
@@ -109,7 +105,7 @@ var AlertFilterView = Backbone.View.extend({
 
     initialize: function () {
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render", "submit", "remove", "addConditions","triggernewAlertList", "removeConditions","filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
+        _.bindAll(this, "render", "submit", "addConditions","triggernewAlertList", "filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
          
         this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
         this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
@@ -128,7 +124,7 @@ var AlertFilterView = Backbone.View.extend({
         var self = this;
         var AlertsFullCollectionPage = Backbone.PageableCollection.extend({
             model: AlertModel,
-            url:"/api/aa/arrays",
+            url:"/api/aa/alerts",
             state: {
               pageSize: 7
             },
@@ -223,7 +219,7 @@ var AlertFilterView = Backbone.View.extend({
                 //place holder right now for triggered events
                 if(rawValue =='alarm'){
                   //fa fa-bullhorn
-                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-triangle'> Yes</i>";
+                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Yes</i>";
                 }
                 else if(rawValue =='alert'){
                     return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'> No</i>";
@@ -353,7 +349,7 @@ var AlertFilterView = Backbone.View.extend({
         
         $('#resetAlarms').click(function(row) {
             $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-            self.collection.url = "/api/aa/arrays";
+            self.collection.url = "/api/aa/alerts";
 
             self.collection.fetch({reset: false,
                 error: (function (e) {
@@ -368,32 +364,66 @@ var AlertFilterView = Backbone.View.extend({
             });
         });
 
+        //save data
         $('#saveAlarm').click(function(row) {
-            //save data
-            self.modalDialog.show({
-                message: "Alert Saved",
-                type: "success",
-              });
+            //get total number or rows in the table - two headers
+            $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Saving Changes...');
+            var numofrows = document.getElementById("alert_table").rows.length-2;
+            
+            //loop through and save each row
+            //temp -- do more asyncho in future
+            for(var i=0; i<numofrows;i++){
+                var saveModel = new AlertModel();
+                saveModel.set('instrument_name',self.instrumenet_reference);
+                saveModel.set('values',$('#val'+i+'').val());
+                saveModel.set('instrument_parameter',$('#conditions_dd'+i+'').val());
+                var savedate = new Date();
+                saveModel.set('created_time',savedate.toJSON());
+                saveModel.set('priority',$('#type_dd'+i+'').val());
+                saveModel.set('active',$('#enabled_dd'+i+'').val());
+                saveModel.set('description',$('#desc'+i+'').val());
+                saveModel.set('operator',$('#operator_dd'+i+'').val());
+                
+                saveModel.set('platform_name','platform a');
+                saveModel.set('array_name','array a');
+                saveModel.set('uframe_definition_id',234);
 
-            /*if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
-              self.modalDialog.show({
-                message: "Unable to Save Asset",
-                type: "danger",
-              });
-              $('#editdep_panel').html('Save Asset Error.');
+
+                saveModel.save(null, {
+                  success: function(model, response) {
+                    if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+                      $('#loading_alerts').html('Instrument: '+self.instru); 
+                      self.modalDialog.show({
+                        message: "Unable to Save Alert. Make sure all fields are valid.",
+                        type: "danger",
+                      });
+                    }
+                    else{
+                      $('#alert_table tbody').empty();
+                      $('#loading_alerts').html(''); 
+                      self.modalDialog.show({
+                      message: "Alert Row successfully saved.",
+                      type: "success",
+                        ack: function() {
+                          //refresh()
+                          //window.location = "/aa/dashboard/"
+                        }
+                      });
+                    }
+                  },
+                  error: function(model, response) {
+                    $('#loading_alerts').html('Instrument: '+self.instru); 
+                    self.modalDialog.show({
+                      message: "There was a problem with saving the Alert. Make sure all fields are valid.",
+                      type: "danger",
+                    });
+                  }
+                });
             }
-            else{
-              self.modalDialog.show({
-              message: "Asset successfully saved.",
-              type: "success",
-                ack: function() {
-                  window.location = "/assets/list/"
-                }
-              });
-              $('#editdep_panel').html('Saved Successfully.');
-            }*/
         });
 
+        self.rownum = 1;
+        //add row
         $('#newAlert').click(function(row) {
             //add new line
             if($('#loading_alerts').html() == ''){
@@ -403,35 +433,72 @@ var AlertFilterView = Backbone.View.extend({
               });
             }
             else{
+              $('#alert_table').append('<tr id="addr'+(self.rownum+1)+'"></tr>');
+               $('#addr'+self.rownum).html("<td>"+self.filterOptionsbyInstrument()+"</td><td>"+self.showenabledoperators()+"</td><td style=''><input id='val"+self.rownum+"' type='text' placeholder='where condition is' class='form-control'></td><td style=''><input type='text' id='desc"+self.rownum+"'  class='form-control'></td><td style=''><input id='owner"+self.rownum+"' class='form-control'></td><td style=''>"+self.showtypeoptions()+"</td><td style=''>"+self.showenabledoptions()+"</td>").attr('data','new');
+               
+               $('#conditions_dd'+self.rownum+'').selectpicker();
+               $('#conditions_dd'+self.rownum+'').selectpicker('refresh');
+               $('#type_dd'+self.rownum+'').selectpicker();
+               $('#type_dd'+self.rownum+'').selectpicker('refresh');
+               $('#enabled_dd'+self.rownum+'').selectpicker();
+               $('#enabled_dd'+self.rownum+'').selectpicker('refresh');
+               $('#operator_dd'+self.rownum+'').selectpicker();
+               $('#operator_dd'+self.rownum+'').selectpicker('refresh');
+               self.rownum++; 
             }
+            $("#delete_row").show();
         });
+
+        //remove row
+        $("#delete_row").click(function(){
+           if(self.rownum == 2){            
+            $("#delete_row").hide();
+           }
+           if(self.rownum>1){
+            $("#addr"+(self.rownum)).html('');
+            self.rownum--;
+           }
+         });
+
         //needs model to stickit not using right now
         //this.stickit();
     },
 
     addConditions: function(val){
-      //<i id='removealert' style='padding-left:20px' class='fa fa-minus-circle'></i>
-      //var $table = $('#table-transform');
-      //$table.bootstrapTable();
       //backgrid extentsions
       //https://github.com/twatson83/Backgrid.Extensions
+
+      //could use this for table http://vitalets.github.io/x-editable/
+      this.rownum = 0;
+      this.instrumenet_reference = val.attributes.reference_designator;
+      this.instrument_name = 
+
       $('#loading_alerts').html('Instrument: '+val.attributes.Instrument);
       $('#alert_table tbody').empty();
-      
-      var filteroptions = this.filterOptionsbyInstrument(val.attributes.reference_designator);
-      $('#alert_table tbody').append("<tr id="+val.attributes.uframe_definition_id+"><td style='min-width:180px'>"+filteroptions+"</td><td style=''>"+val.attributes.operator+' '+val.attributes.values+"</td><td style=''>"+val.attributes.description+"</td><td style=''>John Smith - WHOI</td><td style=''>"+this.showtypeoptions()+"</td><td style=''>"+this.showenabledoptions()+"</td></tr>");
+      //$('#alert_table').editableTable();
+      var filteroptions = this.filterOptionsbyInstrument(val.attributes.reference_designator,val.attributes.Instrument);
+      //<td><span id="A3" contenteditable></span></td>
+      $('#alert_table tbody').append("<tr id='addr0' data="+val.attributes.uframe_definition_id+"><td style='max-width:160px'>"+this.filterOptionsbyInstrument()+"</td><td style='max-width:100px'>"+this.showenabledoperators()+"</td><td style=''><input type='text' id='val0' placeholder='"+val.attributes.values+"' value='"+val.attributes.values+"' class='form-control'></td><td style=''><input type='text' id='desc0' placeholder='"+val.attributes.description+"' value='"+val.attributes.description+"' class='form-control'></td><td style=''><input id='owner0' value='John Smith - WHOI'  class='form-control'></td><td style=''>"+this.showtypeoptions()+"</td><td style=''>"+this.showenabledoptions()+"</td></tr><tr id='addr1'></tr>");
       
       //stupid hack to make the columns match
       $('.fixed-table-container').css('padding-bottom','0px');
       $('#alert_table').css('margin-top','0px');
       $('.fixed-table-header').css('display','none');
 
-      $('#conditions_dd').selectpicker().val(val.attributes.instrument_parameter);
-      $('#type_dd').selectpicker();
-      $('#type_dd').selectpicker().val(val.attributes.priority);
-      $('#enabled_dd').selectpicker();
-      $('#enabled_dd').selectpicker().val(val.attributes.active);
-
+      $('#conditions_dd'+this.rownum+'').selectpicker();
+      $('#conditions_dd'+this.rownum+'').selectpicker('val',val.attributes.instrument_parameter);
+      $('#conditions_dd'+this.rownum+'').selectpicker('refresh');
+      $('#type_dd'+this.rownum+'').selectpicker();
+      $('#type_dd'+this.rownum+'').selectpicker('val',val.attributes.priority);
+      $('#type_dd'+this.rownum+'').selectpicker('refresh');
+      $('#enabled_dd'+this.rownum+'').selectpicker();
+      $('#enabled_dd'+this.rownum+'').selectpicker('val',String(val.attributes.active));
+      $('#enabled_dd'+this.rownum+'').selectpicker('refresh');
+      $('#operator_dd'+this.rownum+'').selectpicker();
+      $('#operator_dd'+this.rownum+'').selectpicker('val',String(val.attributes.operator));
+      $('#operator_dd'+this.rownum+'').selectpicker('refresh');
+      
+      this.rownum = 1;
       $('#alert_table tr').click(function(row) {
           //var eventrow = new SingleEvent({id:row.currentTarget.id});
           //location.reload();
@@ -444,17 +511,53 @@ var AlertFilterView = Backbone.View.extend({
       });  
     },
 
-    filterOptionsbyInstrument: function(instru_id){
+    filterOptionsbyInstrument: function(instru_id,name){
+
+      var self = this;
+      //this will work eventually
       //get unique values for the dropdown
-      return "<select  class='form-control' data-container='body' id='conditions_dd'><option>Longitude</option><option>Latitude</option><option>Salinity</option><option>Temperature</option><option>Water Speed</option><option>Wave Height</option></select><span class='help-block hidden'</span>";
+      //for some reason this is returning a bad value:
+      //http://localhost:5000/api/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams
+      /*$('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Conditions for Insturment');
+      var collectionFields = new InstrumentFieldList();
+      collectionFields.url = "api/c2/instrument/"+instru_id+"/streams";
+      self.instr_name = name;
+      self.fieldsColl = collectionFields;
+      collectionFields.fetch({reset:true,
+        error: (function (e) {
+              self.modalDialog.show({
+                message: "No condtions or parameters for this Instrument.",
+                type: "danger",
+              });
+          }),
+          complete: (function (e) {
+              $('#loading_alerts').html('Instrument: '+ self.instr_name);
+              
+              var $jls = $('#conditions_dd');
+              $("#conditions_dd option").remove();
+              for(var c in self.fieldsColl.models){
+                $jls.append(
+                  $("<option></option>").attr(
+                      "value", self.fieldsColl.models[c].attributes.name).text(self.fieldsColl.models[c].attributes.display_name)
+                );
+              }
+              $jls.selectpicker('refresh');
+              //return "<select  class='form-control' data-container='body' id='conditions_dd'><option value='m_lon'>Longitude</option><option value='m_lat'>Latitude</option><option value='sci_salinity'>Salinity</option><option value='sci_water_temp'>Temperature</option><option  value='sci_water_cond'>Water Speed</option><option value='sci_wave_height'>Wave Height</option><option value='sci_water_pressure'>Water Pressure</option></select>";
+          })
+      });*/
+      return "<select class='form-control' data-container='body' id='conditions_dd"+this.rownum+"'><option value='m_lon'>Longitude</option><option value='m_lat'>Latitude</option><option value='sci_salinity'>Salinity</option><option value='sci_water_temp'>Temperature</option><option  value='sci_water_cond'>Water Speed</option><option value='sci_wave_height'>Wave Height</option><option value='sci_water_pressure'>Water Pressure</option></select>";
     },
 
     showtypeoptions:function(){
-      return "<select data-show-icon='true' data-container='body' class='form-control' id='type_dd'><option value='Alert'>Alert</option><option data-content='<i class='fa fa-exclamation-triangle'></i>' value='Alarm'> Alarm</option></select>"; 
+      return "<select data-show-icon='true' data-container='body' class='form-control' id='type_dd"+this.rownum+"'><option  data-icon='glyphicon-flag' value='alert'>Alert</option><option data-icon='glyphicon-exclamation-sign' value='alarm'> Alarm</option></select>"; 
     },
 
     showenabledoptions:function(){
-      return "<select data-show-icon='true' data-container='body' class='form-control' id='enabled_dd'><option data-content='<i class='fa fa-minus-circle'></i>' value='false'> False</option><option data-content='<i class='fa fa-check-circle'></i>' value='true'>True</option></select>"; 
+      return "<select data-show-icon='true' data-container='body' class='form-control' id='enabled_dd"+this.rownum+"'><option data-icon='glyphicon-ok-sign' value='true'>True</option><option data-icon='glyphicon-minus-sign' value='false'> False</option></select>"; 
+    },
+
+    showenabledoperators:function(){
+      return "<select data-show-icon='true' data-container='body' class='form-control' id='operator_dd"+this.rownum+"'><option value='>'>></option><option  value='<'> <</option><option  value='='> =</option><option  value='<>'> <></option><option  value='>='> >=</option><option  value='<='> <=</option><option  value='outside'> outside</option><option  value='inside'> inside</option></select>"; 
     },
     
 
@@ -466,6 +569,7 @@ var AlertFilterView = Backbone.View.extend({
         this.triggernewAlertList('platform='+tocitem.attributes.reference_designator,false);
     },
     triggerTOCClickI:function(tocitem){
+
         $('#listTitle').html('Showing Alerts for Instrument: <b>'+ tocitem.attributes.assetInfo['name'] +' ' +tocitem.attributes.assetId);
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
         this.triggernewAlertList('instrument='+tocitem.attributes.ref_des,true);
@@ -518,16 +622,4 @@ var AlertFilterView = Backbone.View.extend({
             });
         }
     },
-    
-    conditionsFilter: function(e){
-
-    },
-    
-    removeConditions: function(e){
-      
-    },
-  
-    remove: function () {
-        
-    }
 });

@@ -41,11 +41,12 @@
              </div>
           <hr width ='80%' style='margin-top:0;'>
           <div class="row col-sm-12" id='alert_container'>
-            <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="166">
+            <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="186">
               <thead>
                   <tr>
                       <th data-field="id">Condition</th>
-                      <th data-field="class">Input</th>
+                      <th data-field="class">Operator</th>
+                      <th data-field="class">Value</th>
                       <th data-field="sdate">Description</th>
                       <th data-field="sdate">Owner</th>
                       <th data-field="more">Type</th>
@@ -108,13 +109,14 @@
           <div class="form-group">
             <div align="center">
               <div>
-                <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:45px;'>
+                <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
                   <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms 
                 </div>
+                <button type="button" style='display:none' id="delete_row" class="btn btn-primary"><i class="fa fa-times-circle"></i> Delete Alert Row</button>
                 <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert</button>
                 <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button> -->
                 <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>
-                <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all</button>
+                <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
               </div>
             </div>
            </div>   

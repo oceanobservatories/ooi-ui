@@ -17,50 +17,87 @@
 
 var AlertModel = Backbone.Model.extend({
     defaults: {
-        array: "default",
-        Instrument: "default",
-        Platform: "default"
+        //uframe_event_id: "default",
+        //dreference_designator: "default"
     },
-    url:"/alert",
+    url:"/api/aa/alerts",
     
     validation: {
-        array: {
+        reference_designator: {
+            required: false
+        },
+        array_name: {
+            required: false
+        },
+        platform_name:{
+            required: false
+        },
+        instrument_name: {
+            required: false
+        },
+        instrument_parameter: {
+            required: false
+        },
+        operator:{
+            required: false
+        },
+        values: {
+            required: false
+        },
+        created_time: {
+            required: false
+        },
+        priority:{
             required:true 
         },
-        Platform: {
+        active: {
             required: false
         },
-        Instrument: {
+        description:{
+            required: false
+        }
+    }
+});
+
+var TriggeredAlertModel = Backbone.Model.extend({
+    defaults: {
+        uframe_event_id: "default",
+        reference_designator: "default"
+    },
+    url:"/api/aa/alerts",
+    
+    validation: {
+        reference_designator: {
             required: false
         },
-        User: {
+        system_event_definition_id: {
             required: false
         },
-        OtherUser:{
+        event_time:{
             required: false
         },
-        Name: {
+        event_response: {
             required: false
         },
-        Priority: {
+        event_type: {
             required: false
         },
-        Description:{
+        operator:{
             required: false
         },
-        Email: {
+        values: {
             required: false
         },
-        Redmine: {
+        created_time: {
             required: false
         },
-        PhoneCall:{
+        priority:{
             required:true 
         },
-        TextMessage: {
+        active: {
             required: false
         },
-        LogEvent:{
+        description:{
             required: false
         }
     }
@@ -70,6 +107,21 @@ var AlertModel = Backbone.Model.extend({
 //full collection of alerts
 var AlertsFullCollection = Backbone.Collection.extend({
     model: AlertModel,
-    url:"/api/aa/arrays"
+    url:"/api/aa/alerts"
+});
+
+
+//Todo
+var InstrumentFieldList = Backbone.Collection.extend({
+    model: AlertModel,
+    url:"/api/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams",
+    parse: function(response, options) {
+      if(response.streams){
+        return response.streams['fields'];
+      }
+      else{
+        return response
+      }
+    }
 });
 
