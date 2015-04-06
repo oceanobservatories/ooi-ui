@@ -391,10 +391,11 @@ var AlertFilterView = Backbone.View.extend({
                 saveModel.set('array_name','array a');
                 saveModel.set('uframe_definition_id',234);
 
-                //this will allow a put to edit the exisitng alerts 
-                /*if(i==0){
+                //this allows a put to edit the exisitng alerts using reference id
+                if(i==0){
+                  saveModel.url = '/api/aa/alerts/'+self.alert_id;
                   saveModel.set('id',self.alert_id);
-                }*/
+                }
 
                 saveModel.save(null, {
                   success: function(model, response) {
@@ -408,12 +409,13 @@ var AlertFilterView = Backbone.View.extend({
                     else{
                       $('#alert_table tbody').empty();
                       $('#loading_alerts').html(''); 
+                      $("#delete_row").hide();
                       self.modalDialog.show({
                       message: "Alert Row successfully saved.",
                       type: "success",
                         ack: function() {
                           //refresh()
-                          window.location = "/aa/dashboard/"
+                          window.location = "/alerts/dashboard/"
                         }
                       });
                     }
@@ -459,8 +461,8 @@ var AlertFilterView = Backbone.View.extend({
                $('#operator_dd'+self.rownum+'').selectpicker();
                $('#operator_dd'+self.rownum+'').selectpicker('refresh');
                self.rownum++; 
+              $("#delete_row").show();
             }
-            $("#delete_row").show();
         });
 
         //remove row
@@ -469,7 +471,7 @@ var AlertFilterView = Backbone.View.extend({
             $("#delete_row").hide();
            }
            if(self.rownum>1){
-            $("#addr"+(self.rownum)).html('');
+            $("#addr"+(self.rownum-1)).html('');
             self.rownum--;
            }
          });

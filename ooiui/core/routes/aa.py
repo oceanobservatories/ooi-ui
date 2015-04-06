@@ -18,14 +18,20 @@ import requests
 
 
 #main aa page
-@app.route('/aa/dashboard')
-@app.route('/aa/dashboard/')
+@app.route('/alerts/dashboard')
+@app.route('/alerts/dashboard/')
 def aa_dashboard():
     return render_template('aa/AlertPage.html')
 
+#main aa page
+@app.route('/alerts/dashboard/triggered')
+@app.route('/alerts/dashboard/triggered')
+def aa_triggered_dashboard():
+    return render_template('aa/TriggeredPage.html')
+
 #edit/new page for aa
-@app.route('/aa/createalert')
-@app.route('/aa/createalert/')
+@app.route('/alerts/createalert')
+@app.route('/alerts/createalert/')
 def aa_index():
     return render_template('aa/CreateAlert.html')
 
@@ -71,6 +77,15 @@ def create_aa_array():
     #api_key = app.config['UI_API_KEY']
     #headers={'X-Csrf-Token' : api_key}
     response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm_definition', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/aa/alerts/<int:id>', methods=['PUT'])
+def edit_aa_array(id):
+    token = get_login()
+    data = json.loads(request.data)
+    #api_key = app.config['UI_API_KEY']
+    #headers={'X-Csrf-Token' : api_key}
+    response = requests.put(app.config['SERVICES_URL'] + '/alert_alarm_definition/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 

@@ -15,8 +15,8 @@
   <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script> 
-
-  <!--<script src="/js/views/aa/AlertView.js" type="text/javascript"></script>
+<script src="/js/views/aa/AlertView.js" type="text/javascript"></script>
+  <!--
   <script src="/js/views/common/TOCView.js" type="text/javascript"></script>-->
 {% endblock %}
 
@@ -119,8 +119,7 @@
                 <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
               </div>
             </div>
-           </div>   
-          </form>
+           </div>  
           </div> 
           </div> 
         </div> 
@@ -169,6 +168,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('#sidebar-wrapper').html(this.views.tocView.el);
 
     $('.navbar-brand').html('Alerts and Alarms Dashboard');
+
+    $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
     //--------------------------------------------------------------------------------
     // Collections Fetch

@@ -749,6 +749,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/aa/AlertModel.js',
+            'ooiui/static/js/models/aa/TriggeredModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -760,6 +761,11 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
+            "ooiui/static/js/views/common/TOCView.js",
+            "ooiui/static/js/views/aa/AlertView.js",
+            "ooiui/static/js/views/aa/TriggeredView.js",
+            "ooiui/static/js/views/aa/TriggerAlertDialogView.js",
+            //"ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
@@ -772,8 +778,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/OrgSidebarView.js'
-            "ooiui/static/js/views/common/TOCView.js",
-            "ooiui/static/js/views/aa/AlertView.js"
           ],
           
           'ooiui/static/js/compiled/gridList.js' : [

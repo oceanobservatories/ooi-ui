@@ -1,0 +1,133 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    <title>Alerts Dashboard</title>
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/compiled/index.css" type="text/css" />
+
+  <script src="/js/partials/compiled/alertPage.js" type="text/javascript"></script>
+  <script src="/js/compiled/alertPage.js" type="text/javascript"></script>
+
+  <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+  <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script> 
+
+  <script src="/js/views/aa/TriggeredView.js" type="text/javascript"></script>
+    
+{% endblock %}
+
+{% block body %}
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>
+   
+   <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            <div class="panel-heading"><div>
+              <h4 style='margin-top: 0px;margin-bottom: -25px;'> Triggered Alerts & Alarms</h4>
+              <div class="panel-body">
+               <div style='color:#337ab7; text-transform:none; margin-top: 30px;position: absolute;margin-left: -2px;' id='listTitle'>
+                <b>Showing All Triggered Alerts and Alarms</b>
+               </div>
+               <div class="row form-group" id='triggerlist'>
+              </div>
+              <hr width ='80%' style='margin-top:0;'>
+              <div class="form-group">
+              <div align="center">
+                <div>
+                  <div class="col-sm-12" id="loading_triggers" style='font-weight:bold;padding-top:35px;'>
+                    <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Triggered Alerts and Alarms 
+                  </div>
+                  <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button> 
+                  <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>-->
+                  <button type="button" id="resetTriggers" class="btn btn-primary"><i class="fa fa-list"></i> Show all Triggered Alerts and Alarms</button>
+                </div>
+              </div>
+             </div>  
+            </div> 
+            </div> 
+          </div> 
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Menu Toggle Script -->
+<script type="text/javascript">
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  models: {
+    mapModel: new MapModel(),
+    alertModel: new TriggeredModel(),
+    userModel: new UserModel()  
+  },
+
+  collections: {
+    arrays: new ArrayCollection(),
+    triggered_alerts_list: new TriggeredFullCollection()
+    //alert_list: new AlertsFullCollectionPage()
+  },
+  views: {
+      //
+  },
+  start: function() {
+    var self = this;
+
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request
+    if(this.login.loggedIn()) {
+        this.models.userModel.fetch({url: '/api/current_user'});      
+    }
+
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.views.tocView = new TOCView({
+
+      collection: this.collections.arrays
+    });
+
+    $('#sidebar-wrapper').html(this.views.tocView.el);
+
+    $('.navbar-brand').html('Triggered Alerts Dashboard');
+
+    $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard">Alerts Dashboard</a></li>');
+
+    //--------------------------------------------------------------------------------
+    // Collections Fetch
+    //--------------------------------------------------------------------------------
+    
+    //empty table
+    $('#alert_table tbody').empty();
+
+    this.collections.arrays.fetch({reset: true});
+    //this.collections.alert_list.fetch({reset: true});
+
+    this.views.triggeredView = new TriggeredView({
+        //el: 'form',
+        collection: this.collections.triggered_alerts_list
+    }); 
+
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+   }
+});
+var ooi = new OOI();
+
+$(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    ooi.start();
+});
+</script>
+{% endblock %}
