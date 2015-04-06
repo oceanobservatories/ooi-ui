@@ -10,6 +10,7 @@ def science(args):
     import ooiui.core.routes.common
     import ooiui.core.routes.science
     import ooiui.core.routes.c2
+    import ooiui.core.routes.aa
 
     app.run(host='localhost', debug=True)
 

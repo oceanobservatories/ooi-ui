@@ -243,7 +243,7 @@ var EventsView = Backbone.View.extend({
                 $('#asset_top_panel').html('Click on an Event to View/Edit');
 
                 //need to add assets to the filtrify component
-                for ( t = 0; t < e.responseJSON['events'].length; t++ ) {
+                for ( var t = 0; t < e.responseJSON['events'].length; t++ ) {
                     $('#container_of_data').append("<li data-Type='"+e.responseJSON['events'][t]['eventType']+"' data-Class='"+e.responseJSON['events'][t]['class']+"' data-Cruise='"+e.responseJSON['events'][t]['cruiseNumber']+"'><span>Type: <i>"+e.responseJSON['events'][t]['eventType']+"</i></span><span>Class: <i>"+e.responseJSON['events'][t]['class']+"</i></span><span>Cruise: <i>"+e.responseJSON['events'][t]['cruiseNumber']+"</span></li>");
                 }
 

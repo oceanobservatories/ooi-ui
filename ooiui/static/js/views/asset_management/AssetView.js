@@ -126,8 +126,8 @@ var AssetView = Backbone.View.extend({
           onClick: function () {
             Backbone.trigger("deployrowclicked", this.model);
             this.el.style.backgroundColor = this.highlightColor;
-            var $table = $('#table-transform');
-            $table.bootstrapTable();
+            //var $table = $('#table-transform');
+            //$table.bootstrapTable();
           },
           rowFocused: function() {
             this.el.style.backgroundColor = this.highlightColor;
@@ -314,6 +314,10 @@ var AssetView = Backbone.View.extend({
                   for (var j in events.attributes.events){
                     var sd = new Date(events.attributes.events[j].startDate);
                     $('#event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                    //stupid hack again
+                    $('.fixed-table-container').css('padding-bottom','0px');
+                    $('#event_table').css('margin-top','0px');
+                    $('.fixed-table-header').css('display','none');
                   }
                 }
                 $('#editdep_panel').html('Click on an Asset above to Edit');
