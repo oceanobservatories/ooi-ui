@@ -101,7 +101,6 @@ def platform_deployment_proxy():
 def display_name():
     ref = request.args['reference_designator'];
     response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
-    print response
     return response.text, response.status_code
 
 #Assets

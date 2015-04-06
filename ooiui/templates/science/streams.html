@@ -257,7 +257,7 @@ $(document).ready(function() {
   $('#second-plot-panel').hide();
   $('#bottom-row').hide();
   ooi.start();
-    $('#download-plot').click(function(event) {
+  $('#download-plot').click(function(event) {
     event.preventDefault();
     ooi.trigger('ooi:downloadPlot');
   });
