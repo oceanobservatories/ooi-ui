@@ -46,10 +46,11 @@ dd:nth-of-type(6) { background: #a2c8f0; }
 
 #wrapper {
   padding: 0 0 0 220px;
-  margin-top: 51px;
+  margin-top: 59px;
 }
 #sidebar-wrapper {
   width: 200px;
+  height: 94% !important;
 }
 .sidebar-nav{
   width: 200px;

@@ -58,8 +58,8 @@ var TriggeredAlertDialogView = Backbone.View.extend({
 
     var alertist = new TriggeredAlertModel();
     //future call by instrument
-    //alertist.url='/api/aa/triggered/instrument='+options.variable;
-    alertist.url='/api/aa/triggered';
+    alertist.url='/api/aa/triggered/instrument_name='+options.variable;
+    //alertist.url='/api/aa/triggered';
 
     this.$el.html(this.template(options));
 
