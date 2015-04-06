@@ -12,6 +12,7 @@ from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
+import json
 
 import requests
 
@@ -49,25 +50,27 @@ def get_triggered_specific_id(id):
 @app.route('/api/aa/triggered', methods=['POST'])
 def post_aa_triggered():
     token = get_login()
-    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
+    data = json.loads(request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''), data=data)
     return response.text, response.status_code
 
 
 # Alerts by List
 #
 # http://localhost:4000/alert_alarm_definition
-@app.route('/api/aa/arrays', methods=['GET'])
+@app.route('/api/aa/alerts', methods=['GET'])
 def get_aa_array_all():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_definition', auth=(token, ''))
     return response.text, response.status_code
 
-@app.route('/api/aa/array', methods=['POST'])
+@app.route('/api/aa/alerts', methods=['POST'])
 def create_aa_array():
     token = get_login()
     data = json.loads(request.data)
-    api_key = app.config['UI_API_KEY']
-    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm_definition', headers={'X-Csrf-Token' : api_key}, data=data)
+    #api_key = app.config['UI_API_KEY']
+    #headers={'X-Csrf-Token' : api_key}
+    response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm_definition', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 

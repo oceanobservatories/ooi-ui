@@ -56,7 +56,7 @@ var TriggeredAlertDialogView = Backbone.View.extend({
     var that = this;
     that.options = options;
 
-    var alertist = new AlertModel();
+    var alertist = new TriggeredAlertModel();
     //future call by instrument
     //alertist.url='/api/aa/triggered/instrument='+options.variable;
     alertist.url='/api/aa/triggered';
@@ -72,10 +72,10 @@ var TriggeredAlertDialogView = Backbone.View.extend({
           var buttons = '';
           for(var c in response.alert_alarm){
             if(response.alert_alarm[c].event_type =='alarm'){
-              buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><i style='font-size:20px;padding-right: 20px;color:#a94442' class='fa fa-exclamation-triangle'></i>"+String(response.alert_alarm[c].event_type).toUpperCase()+':  <u>'+response.alert_alarm[c].event_response+'</u> occured at <u>'+response.alert_alarm[c].event_time+"</u></div>");  
+              buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><i style='font-size:20px;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'></i>"+String(response.alert_alarm[c].event_type).toUpperCase()+':  <u>'+response.alert_alarm[c].event_response+'</u> occured at <u>'+response.alert_alarm[c].event_time+"</u></div>");  
             }
             if(response.alert_alarm[c].event_type =='alert'){
-              buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><i style='font-size:20px;padding-right: 20px;color:#E3A615' class='fa fa-bullhorn'></i>"+String(response.alert_alarm[c].event_type).toUpperCase()+':  <u>'+response.alert_alarm[c].event_response+'</u> occured at <u>'+response.alert_alarm[c].event_time+"</u></div>");  
+              buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><i style='font-size:20px;padding-right: 20px;color:#E3A615' class='fa fa-flag'></i>"+String(response.alert_alarm[c].event_type).toUpperCase()+':  <u>'+response.alert_alarm[c].event_response+'</u> occured at <u>'+response.alert_alarm[c].event_time+"</u></div>");  
             }
           }
           that.options['history'] = buttons;
