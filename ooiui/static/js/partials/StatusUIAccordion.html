@@ -1,0 +1,197 @@
+
+<% var asset = model.get('assetId'); %>
+
+<!--Remove this line when badge alerts are working-->
+<% var backgound = unknownBadge %>
+
+<!--And add this line-->
+<!--<% var backgound %>-->
+
+<% var badge %>
+
+<!-- Badge and background colors -->
+<% var blueBG = 'dogTagBtn well blue-backgroud-gradiant' %>
+<% var yellowBG = 'dogTagBtn well yellow-backgroud-gradiant ' %>
+<% var redBG = 'dogTagBtn well red-backgroud-gradiant' %>
+<% var unknownBG = 'dogTagBtn well unknown-backgroud-gradiant' %>
+
+<% var blueBadge = 'small-status-icon-ok' %>
+<% var yellowBadge = 'small-status-icon-issue' %>
+<% var redBadge =  'small-status-icon-error' %>
+<% var unknownBadge = 'small-status-icon-unknown' %>
+
+<!-- ==========================================((((((((((())))))))))))==================================================== -->
+<!-- ===========================================!!!!DO NOT DELETE!!!!===================================================== -->
+<!-- ==========================================((((((((((())))))))))))==================================================== -->
+<!-- If statement to set badge and background collor bassed on priority level (set to asset ID 1, 2, & 3 for now) -->
+<!--<% if (asset == '1') { %>
+
+    <% badge = blueBadge %>
+    <% backgound = blueBG %>
+
+    <% } else if (asset === '2') { %>
+    <% badge = yellowBadge %>
+    <% backgound = yellowBG %>
+
+    <% } else if (asset == '3') { %>
+    <% badge = redBadge %>
+    <% backgound = redBG %>
+
+    <% } else { %>
+    <% badge = unknownBadge %>
+    <% backgound = unknownBG %>
+    <% } %>
+-->
+
+<!-- If statement to display Manufacturer Informantion -->
+<% manufacturerInfo = model.get('manufactureInfo') %>
+<% var assetSerialNumber = "N/A" %>
+<% var assetModelNumber = "N/A" %>
+<% var assetManufacturer = "N/A" %>
+
+<% if (manufacturerInfo !=  null) { %>
+
+<% if (manufacturerInfo.serialNumber != null) { %>
+<% assetSerialNumber = manufacturerInfo.serialNumber %>
+<% } %>
+
+<% if (manufacturerInfo.modelNumber != null) { %>
+<% assetModelNumber = manufacturerInfo.modelNumber %>
+<% } %>
+
+<% if (manufacturerInfo.manufacturer != null) { %>
+<% assetManufacturer = manufacturerInfo.manufacturer %>
+<% } %>
+
+<% } %>
+
+<!-- launch_date_time -->
+<% var launch_date_time = model.get('launch_date_time') %>
+<% var assetLaunchDateTime = "N/A" %>
+
+<% if (launch_date_time != null) { %>
+<% assetLaunchDateTime = launch_date_time %>
+<% } %>
+
+<!-- coordinates -->
+<% var coordinates = model.get('coordinates') %>
+<% var assetCoordinates = "N/A" %>
+
+<% if (coordinates != null) { %>
+<% assetCoordinates = coordinates %>
+<% } %>
+
+<!-- seriesClassifiction -->
+<% var seriesClassification = model.get('seriesClassification') %>
+<% var assetSeriesClassifiction = "N/A" %>
+
+<% if (seriesClassification != undefined) { %>
+<% assetSeriesClassifiction = seriesClassification %>
+<% } %>
+
+<!-- naundefined   me -->
+<% var name = model.get('name') %>
+<% var assetName = "N/A" %>
+
+<% if (name != null) { %>
+<% assetName = name %>
+<% } %>
+
+<!-- owner -->
+<% var owner = model.get('owner') %>
+<% var assetOwner = "N/A" %>
+
+<% if (owner != null) { %>
+<% assetOwner = owner %>
+<% } %>
+
+<!-- description -->
+<% var description = model.get('description') %>
+<% var assetDescription = "N/A" %>
+
+<% if (description != null) { %>
+<% assetDescription = description %>
+<% } %>
+
+<div class="accordion">
+    <div class="accordion-section">
+
+        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= asset %>" aria-expanded="true" aria-cortrols="collapse<%= asset %>" style="cursor:pointer;">
+            <div class="col-xs-1"><i class="small-status-icon-unknown"></i></div>
+            <div class="col-md-2"><%=  model.get('assetInfo')['type'] %></div>
+            <div class="col-md-4"><%= model.get('ref_des') %></div>                  
+            <div class="col-md-1"><%= asset %></div>
+            <div class="col-md-4"><%= assetLaunchDateTime %></div>
+        </div>
+    </div>
+
+    <div id="collapse<%= asset %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+
+            <!--ACCORDION HEADER-->
+            <div class="modal-header" style="border-bottom:none;">
+                <!--Ref Des-->
+                <h4 class="modal-title" id="myModalLabel">
+                    <%= model.get('ref_des')%>
+                </h4>
+                <hr class="new-line" />
+            </div>
+
+            <!--ACCORDION BODY-->
+            <div class="modal-main">
+                <div class="row">
+                    <div class="col-md-12">
+                        Asset ID:&nbsp;&nbsp;<b><%=  model.get('assetId') %></b>
+                        <div class="new-line" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--Upper Left-->
+                            <ul style="list-style-type:none;">
+                                <li>Asset Information</li>
+                                <ul>
+                                    <li>Type:&nbsp;&nbsp;<b><%= model.get('assetInfo')['type'] %></b></li>
+                                    <li>Description:&nbsp;&nbsp;<b><%= assetDescription %></b></li>
+                                    <li>Name:&nbsp;&nbsp;<b><%= assetName %></b></li>
+                                    <li>Owner:&nbsp;&nbsp;<b><%= assetOwner %></b></li>
+                                </ul>
+                            </ul>
+                            <hr class="new-line" />
+                        </div>
+                        <div class="col-md-6">
+                            <!--Upper Right-->
+                            <ul style="list-style-type:none;">
+                                <li>Manufacturer Information</li>
+                                <ul>
+                                    <li>Serial Number:&nbsp;&nbsp;<b><%= assetSerialNumber %></b></li>
+                                    <li>Model Number:&nbsp;&nbsp;<b><%= assetModelNumber %></b></li>
+                                    <li>Manufacturer:&nbsp;&nbsp;<b><%= assetManufacturer %></b></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--Bottom-->
+                            <ul style="list-style-type:none;">
+                                <!--This code should be implimented later to small collor badges to for individual stats
+                                    <li><div class="col-xs-1"><i class="small-status-icon"></i></div>
+                                    Coordinates:&nbsp;&nbsp;<i class="badge"><%= assetCoordinates %></i></li>-->
+                                <li><div class="col-xs-1"></div>
+                                    Coordinates:&nbsp;&nbsp;<%= assetCoordinates %></li> 
+                                <li><div class="col-xs-1"></div>
+                                    Deployment Date:&nbsp;&nbsp;<%= assetLaunchDateTime %></li> 
+                                <li><div class="col-xs-1"></div>
+                                    Series Classification:&nbsp;&nbsp;<%=assetSeriesClassifiction %></li>
+                                <li><div class="col-xs-1"></div><a href="<%= model.get('uframe_url') %>">
+                                        More Information</a></li>  
+                            </ul>
+                        </div>
+                    </div>
+                </div><!--accordion-body-->
+            </div>
+        </div>
+    </div>
+
+
