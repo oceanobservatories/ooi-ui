@@ -835,6 +835,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/asset_management/PlatformView.js',
             'ooiui/static/js/views/asset_management/EventsView.js',
+            'ooiui/static/js/views/asset_management/EventViewPage.js',
             'ooiui/static/js/views/asset_management/AssetView.js'
           ],
           'ooiui/static/js/compiled/opLog.js' : [

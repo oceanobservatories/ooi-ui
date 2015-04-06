@@ -264,7 +264,7 @@ var AssetView = Backbone.View.extend({
                 $('#editdep_panel').html('Click on an Asset above to Edit');
 
                 //need to add assets to the filtrify component
-                for ( t = 0; t < e.responseJSON['assets'].length; t++ ) {
+                for (var t = 0; t < e.responseJSON['assets'].length; t++ ) {
                     $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
                 }
 
