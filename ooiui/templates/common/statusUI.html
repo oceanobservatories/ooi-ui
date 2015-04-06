@@ -82,8 +82,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
         $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
         this.views.statusUIIconView = new StatusUIIconView({
-            model: this.models.iconModel,
-            collection: this.collections.statusUIIconCollection,
             model: this.models.accordionModel,
             collection: this.collections.statusUIAccordionCollection,
         });
@@ -110,9 +108,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     orgSelection: function(organization_id) {
         this.models.orgModel.set({id: organization_id});
         this.models.orgModel.fetch();
-        //this produces a console error
         
-        this.collections.events.reset();
     }
 });
 

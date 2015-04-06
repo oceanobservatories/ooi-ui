@@ -12,8 +12,7 @@ var StatusUIIconView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "render", "onListView", "onTableView", 'filter'); //, "onSync"
     this.initialRender();
-
-    var self = this;
+       var self = this;
     this.listenTo(this.collection,'reset',function(){
 
       self.render();
@@ -29,7 +28,8 @@ var StatusUIIconView = Backbone.View.extend({
     console.log("Plot should be a spinner");
     // fetch the collection and set up drop downs using filtrify
     this.collection.fetch({reset: true,
-      complete: (function(e){
+      complete: (function(e, collection){
+        
         for ( var t = 0; t < e.responseJSON['assets'].length; t++ ) {
                     $('#container_of_asset').append("<li id='"+e.responseJSON['assets'][t]['assetId']+"' data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
                 
@@ -37,7 +37,14 @@ var StatusUIIconView = Backbone.View.extend({
 
         self.filter(e);
 
-          })
+          }),
+      success: function(collection, options){
+        _.forEach(collection.models, function(model){
+           model.get_display_name();
+
+
+        });
+             }
     });
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
     
@@ -88,11 +95,13 @@ var StatusUIIconView = Backbone.View.extend({
     this.ft.reset();
     //remove active class from table view
     this.$el.find('#table-view').removeClass('active');
+    this.$el.find('.Hide').show();
   },
 
   onTableView: function() {
     this.viewSelection = 'table';
     this.ft.reset();
+    this.$el.find('.Hide').hide();
 
   },
 
@@ -102,6 +111,8 @@ var StatusUIIconView = Backbone.View.extend({
     // filtriy callback is then used to render views
     var self = this;
     this.$el.html(this.template());
+    this.$el.find('.Hide').hide();
+
     //set the table-view button as active on intial render
     this.$el.find('#table-view').toggleClass('active');
         this.collection.each(function(model) {     
