@@ -367,12 +367,14 @@ var AlertFilterView = Backbone.View.extend({
         //save data
         $('#saveAlarm').click(function(row) {
             //get total number or rows in the table - two headers
-            $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Saving Changes...');
             var numofrows = document.getElementById("alert_table").rows.length-2;
             
             //loop through and save each row
             //temp -- do more asyncho in future
-            for(var i=0; i<numofrows;i++){
+            if(numofrows>0){
+              //there also should be a save with ID for the put but it is not inplace
+              $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Saving Changes...');
+              for(var i=0; i<numofrows;i++){
                 var saveModel = new AlertModel();
                 saveModel.set('instrument_name',self.instrumenet_reference);
                 saveModel.set('values',$('#val'+i+'').val());
@@ -383,15 +385,20 @@ var AlertFilterView = Backbone.View.extend({
                 saveModel.set('active',$('#enabled_dd'+i+'').val());
                 saveModel.set('description',$('#desc'+i+'').val());
                 saveModel.set('operator',$('#operator_dd'+i+'').val());
+                saveModel.set('reference_designator',self.instrumenet_reference);
                 
                 saveModel.set('platform_name','platform a');
                 saveModel.set('array_name','array a');
                 saveModel.set('uframe_definition_id',234);
 
+                //this will allow a put to edit the exisitng alerts 
+                /*if(i==0){
+                  saveModel.set('id',self.alert_id);
+                }*/
 
                 saveModel.save(null, {
                   success: function(model, response) {
-                    if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+                    if(String(response).search('ERROR')>-1||String(response).search('BAD')>-1){
                       $('#loading_alerts').html('Instrument: '+self.instru); 
                       self.modalDialog.show({
                         message: "Unable to Save Alert. Make sure all fields are valid.",
@@ -406,7 +413,7 @@ var AlertFilterView = Backbone.View.extend({
                       type: "success",
                         ack: function() {
                           //refresh()
-                          //window.location = "/aa/dashboard/"
+                          window.location = "/aa/dashboard/"
                         }
                       });
                     }
@@ -419,6 +426,13 @@ var AlertFilterView = Backbone.View.extend({
                     });
                   }
                 });
+              }
+            }
+            else{
+              self.modalDialog.show({
+                message: "Please Select an Instrument to Add Alert to",
+                type: "danger",
+              });
             }
         });
 
@@ -471,7 +485,8 @@ var AlertFilterView = Backbone.View.extend({
       //could use this for table http://vitalets.github.io/x-editable/
       this.rownum = 0;
       this.instrumenet_reference = val.attributes.reference_designator;
-      this.instrument_name = 
+      this.instrument_name = val.attributes.Instrument;
+      this.alert_id = val.attributes.uframe_definition_id;
 
       $('#loading_alerts').html('Instrument: '+val.attributes.Instrument);
       $('#alert_table tbody').empty();
@@ -518,9 +533,10 @@ var AlertFilterView = Backbone.View.extend({
       //get unique values for the dropdown
       //for some reason this is returning a bad value:
       //http://localhost:5000/api/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams
+      //not matching values currently
       /*$('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Conditions for Insturment');
       var collectionFields = new InstrumentFieldList();
-      collectionFields.url = "api/c2/instrument/"+instru_id+"/streams";
+      collectionFields.url = "/api/c2/instrument/"+instru_id+"/streams";
       self.instr_name = name;
       self.fieldsColl = collectionFields;
       collectionFields.fetch({reset:true,
@@ -534,7 +550,7 @@ var AlertFilterView = Backbone.View.extend({
               $('#loading_alerts').html('Instrument: '+ self.instr_name);
               
               var $jls = $('#conditions_dd');
-              $("#conditions_dd option").remove();
+              $("#conditions_dd"+self.rownum+" option").remove();
               for(var c in self.fieldsColl.models){
                 $jls.append(
                   $("<option></option>").attr(
@@ -566,18 +582,18 @@ var AlertFilterView = Backbone.View.extend({
         $('#listTitle').html('Showing Alerts for Platform: <b>'+ tocitem.attributes.assetInfo['name']  +' ' +tocitem.attributes.assetId);
         //tocitem.attributes.reference_designator
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('platform='+tocitem.attributes.reference_designator,false);
+        this.triggernewAlertList('platform_name='+tocitem.attributes.reference_designator,false);
     },
     triggerTOCClickI:function(tocitem){
 
         $('#listTitle').html('Showing Alerts for Instrument: <b>'+ tocitem.attributes.assetInfo['name'] +' ' +tocitem.attributes.assetId);
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('instrument='+tocitem.attributes.ref_des,true);
+        this.triggernewAlertList('instrument_name='+tocitem.attributes.ref_des,true);
     },
     triggerTOCClickA:function(tocitem){
         $('#listTitle').html('Showing Alerts for Array: <b>'+ tocitem.attributes.display_name);
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('array='+tocitem.attributes.reference_designator,false)
+        this.triggernewAlertList('array_name='+tocitem.attributes.reference_designator,false)
     },
 
     triggernewAlertList:function(id_val,instr){
@@ -596,7 +612,7 @@ var AlertFilterView = Backbone.View.extend({
           }),
           complete: (function (e) {
               if(self.instru == true){
-                $('#loading_alerts').html('Instrument: '+ self.name);
+                $('#loading_alerts').html(''+ self.name);
               }
               else{
                 $('#loading_alerts').html('');
