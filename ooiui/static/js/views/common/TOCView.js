@@ -253,7 +253,7 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     }*/
   },  
 
-  template: JST['ooiui/static/js/partials/PlatformItem.html'],
+  template: JST['ooiui/static/js/partials/PlatformItem_AA.html'],
   render: function(){
     var self = this;
     this.model.set('reference_designator', this.model.get('ref_des'));
@@ -316,7 +316,7 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
     }*/
     ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
   },
-  template: JST['ooiui/static/js/partials/InstrumentItem.html'],
+  template: JST['ooiui/static/js/partials/InstrumentItem_AA.html'],
   render: function() {
     var self = this;
     this.$el.html(this.template({data: this.model}));
