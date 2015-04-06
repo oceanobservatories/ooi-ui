@@ -15,9 +15,9 @@
   <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script> 
-
+<!--
   <script src="/js/views/aa/TriggeredView.js" type="text/javascript"></script>
-    
+    -->
 {% endblock %}
 
 {% block body %}
@@ -100,7 +100,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     $('#sidebar-wrapper').html(this.views.tocView.el);
 
-    $('.navbar-brand').html('Triggered Alerts Dashboard');
+    $('.navbar-brand').html('Triggered Alerts & Alarms Dashboard');
 
     $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard">Alerts Dashboard</a></li>');
 

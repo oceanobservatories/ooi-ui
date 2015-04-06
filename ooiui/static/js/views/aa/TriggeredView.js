@@ -94,7 +94,7 @@ var TriggeredView = Backbone.View.extend({
         },
         {
             name: "event_response", // The key of the model attribute
-            label: "Event Label", // The name to display in the header
+            label: "Event Value", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             cell: "string",
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {

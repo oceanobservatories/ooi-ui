@@ -721,7 +721,24 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
             'ooiui/static/js/models/common/StatusUIIconModel.js',
             'ooiui/static/js/models/common/StatusUIAccordionModel.js',          
-            'ooiui/static/js/models/common/UserModel.js'
+            'ooiui/static/js/models/common/UserModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/StatusUIIconView.js',
+            'ooiui/static/js/views/common/StatusUIItemView.js',
+            'ooiui/static/js/views/common/StatusUIAccordionView.js',              
+            'ooiui/static/js/views/common/StatusUIIconHeaderView.js',
+            'ooiui/static/js/views/common/FakeTableView.js',
+            'ooiui/static/js/views/common/ChartView.js',
+            'ooiui/static/js/views/common/ChartViews.js',
+            'ooiui/static/js/views/common/OrgSidebarView.js'
+          ],
           //alerts
           'ooiui/static/js/compiled/alertPage.js' : [
             // Libs
@@ -754,9 +771,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/asset_management/AssetModel.js',
-            //'ooiui/static/js/models/common/MapModel.js',
+            'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
-            //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',\
+            //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -771,12 +788,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/TermsDialogView.js',
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/StatusUIIconView.js',
-            'ooiui/static/js/views/common/StatusUIItemView.js',
-            'ooiui/static/js/views/common/StatusUIAccordionView.js',              
-            'ooiui/static/js/views/common/StatusUIIconHeaderView.js',
+            'ooiui/static/js/views/common/StatusUIAccordionView.js', 
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
-            'ooiui/static/js/views/common/ChartViews.js',
             'ooiui/static/js/views/common/OrgSidebarView.js'
           ],
           

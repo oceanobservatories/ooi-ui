@@ -33,13 +33,12 @@ _.extend(Backbone.Validation.callbacks, {
     }
 });
 
-
 var AlertFilterView = Backbone.View.extend({
    events: {
-        'click #saveAlert': function (e) {
+        /*'click #saveAlert': function (e) {
             e.preventDefault();
             this.submit();
-        }
+        }*/
     },
 
     // Use stickit to perform binding between
@@ -105,7 +104,7 @@ var AlertFilterView = Backbone.View.extend({
 
     initialize: function () {
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render", "submit", "addConditions","triggernewAlertList", "filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
+        _.bindAll(this, "render","addConditions","triggernewAlertList", "filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
          
         this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
         this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
@@ -604,7 +603,8 @@ var AlertFilterView = Backbone.View.extend({
       self.instru = instr;
       self.name = id_val;
       this.collection.url = '/api/aa/'+id_val;
-
+      $('#alert_table tbody').empty();
+      
       this.collection.fetch({reset: false,
           error: (function (e) {
               self.modalDialog.show({
@@ -621,23 +621,5 @@ var AlertFilterView = Backbone.View.extend({
               }                
           })
       });
-    },
-
-    submit: function () {
-        var self = this;
-       if (this.model.isValid(false)) {
-            this.model.save(null, {
-              success: function(model, response) {
-               },
-              error: function(model, response) {
-                try {
-                  var errMessage = JSON.parse(response.responseText).error;
-                } catch(err) {
-                  console.error(err);
-                  var errMessage = "Unable to submit user";
-                }
-              }
-            });
-        }
-    },
+    }
 });
