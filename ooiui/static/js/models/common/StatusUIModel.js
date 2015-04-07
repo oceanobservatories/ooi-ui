@@ -1,4 +1,4 @@
-var StatusUIAccordionModel = Backbone.Model.extend({
+var StatusUIModel= Backbone.Model.extend({
   //url: "json/statusIcon.json", 
    //urlRool: "/api/display_name?reference_designator=",
  // url: "http://localhost:4000/uframe/assets",
@@ -11,13 +11,13 @@ var StatusUIAccordionModel = Backbone.Model.extend({
 
   xhr.onreadystatechange = function() {
       if(xhr.readyState == 4 && xhr.status == 200) {
-        //add try and catch
-        //console.log(xhr.responseText["proper_display_name"]);
+        //some assets are undefined, resulting in errors
         var myArr = JSON.parse(xhr.responseText);
         self.set('display_name', myArr["proper_display_name"]);
       }
       else{ 
         self.set('display_name', 'Undefined');
+        //console.log("Error", xhr.statusText);
       }
    };
 
@@ -53,15 +53,16 @@ var StatusUIAccordionModel = Backbone.Model.extend({
         uvalue: "" 
   }
 });
-var StatusUIAccordionCollection = Backbone.Collection.extend({
-// url: "json/statusIcon.json",
+var StatusUICollection= Backbone.Collection.extend({
+ //url: "json/statusIcon.json",
  url: "/api/asset_deployment", 
  // url: "http://localhost:4000/uframe/assets",
- model: StatusUIAccordionModel,
+ model: StatusUIModel,
 
- parse: function(response, collection) {
-      
-    return response.assets;
+ parse: function(response, options) {
+   
+       
+   return response.assets;
   },
   });  
 

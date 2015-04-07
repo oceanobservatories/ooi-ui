@@ -294,8 +294,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/OrgSidebar.html",
             "ooiui/static/js/partials/StatusUIIcon.html",
             "ooiui/static/js/partials/StatusUIItem.html",
-            "ooiui/static/js/partials/StatusUIIconView.html",
-            "ooiui/static/js/partials/StatusUIIconHeader.html",
             "ooiui/static/js/partials/StatusUIAccordion.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
@@ -696,8 +694,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/FakeTableModel.js',
             'ooiui/static/js/models/common/OrganizationModel.js',
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
-            'ooiui/static/js/models/common/StatusUIIconModel.js',
-            'ooiui/static/js/models/common/StatusUIAccordionModel.js',          
+            'ooiui/static/js/models/common/StatusUIModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -710,7 +707,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/StatusUIIconView.js',
             'ooiui/static/js/views/common/StatusUIItemView.js',
             'ooiui/static/js/views/common/StatusUIAccordionView.js',              
-            'ooiui/static/js/views/common/StatusUIIconHeaderView.js',
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
