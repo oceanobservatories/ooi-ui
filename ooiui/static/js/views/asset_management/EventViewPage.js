@@ -54,9 +54,18 @@ var EventViewPage = Backbone.View.extend({
 
           eventModel.fetch({
             success: function (event) {
-              $('#editdep_panel').html('');
+                $('#editdep_panel').html('');
 
-              //set asset_table to assetInfo table
+                //Set calibration table 
+                if (self.model.get('calibrationCoefficient')) { 
+                    $('#cal-tab').show();
+                    $('#cal_table tbody').empty(); 
+                    for ( t = 0; t < event.attributes.calibrationCoefficient.length; t++ ) {
+                        $('#cal_table tbody').append("<tr id="+event.attributes.eventId+"><td style=''>"+event.attributes.calibrationCoefficient[t].name+"</td><td style=''>"+event.attributes.calibrationCoefficient[t].values+"</td></tr>");
+                    };
+                };
+
+                //set asset_table to assetInfo table
               $('#asset_table tbody').empty();
               $('#asset_table tbody').append("<tr id="+event.attributes.asset.assetId+"><td style=''>"+event.attributes.asset.assetInfo.name+"</td><td style=''>"+event.attributes.asset.assetInfo.type+"</td><td style=''>"+event.attributes.asset.assetInfo.owner+"</td></tr>");
 
