@@ -242,11 +242,14 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  views: {
+      //
+  },
   start: function() {
-    this.navbar = new NavbarView({
-      login: this.login
-    });
-    $('body').prepend(this.navbar.el);
+    
+    this.login.fetch({async: false});
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
 
     this.arrays = new ArrayNavCollection();
     this.arrayTOCView = new ArraySidebarView({
@@ -255,6 +258,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     $('.navbar-brand').html('OOI Command and Control');
     $('#sidebar-wrapper').html(this.arrayTOCView.el);
     this.arrays.fetch({reset: true});
+
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
   }
 });
 

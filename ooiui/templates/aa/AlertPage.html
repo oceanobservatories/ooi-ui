@@ -151,9 +151,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     var self = this;
 
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
-    if(this.login.loggedIn()) {
+    
+    /*if(this.login.loggedIn()) {
         this.models.userModel.fetch({url: '/api/current_user'});      
-    }
+    }*/
 
     //--------------------------------------------------------------------------------
     // Views

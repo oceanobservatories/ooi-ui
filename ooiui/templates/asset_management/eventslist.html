@@ -81,6 +81,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     $('#sidebar-wrapper').html(this.tocView.el);
     this.arrays.fetch({reset: true});*/
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
   }
 });
 

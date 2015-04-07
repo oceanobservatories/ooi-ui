@@ -298,11 +298,13 @@
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  views: {
+      //
+  },
   start: function() {
-    this.navbar = new NavbarView({
-      login: this.login
-    });
-    $('body').prepend(this.navbar.el);
+    this.login.fetch({async: false});
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
 
     /*this.arrays = new ArrayCollection();
     this.tocView = new TOCView({
@@ -310,6 +312,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     $('#sidebar-wrapper').html(this.tocView.el);
     this.arrays.fetch({reset: true});*/
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
   }
 });
 
@@ -334,7 +338,7 @@ $(document).ready(function() {
     $('#cal-tab').hide();
 
     //add event list link
-    $('#navbar-menus').append('<li class="active"><a href="/events/list">Events Page</a></li>');
+    $('#navbar-menus').append('<li id="Science" class="active"><a href="/events/list">Events Page</a></li>');
 });
 
 function numbersonly(field, e, dec)
