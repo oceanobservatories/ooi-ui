@@ -52,8 +52,9 @@
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Information</a></li>
                     <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Information</a></li> -->
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Metadata</a></li>
+                    <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Metadata</a></li>-->
                     <li role="presentation"><a href="#event_messages" aria-controls="event_messages" role="tab" data-toggle="tab">Asset Info</a></li>
+                    <li role="presentation" id="cal-tab"><a href="#calibration" aria-controls="calibration" role="tab" data-toggle="tab">Calibration</a></li>
                   </ul>
                   <!-- Tab panes -->
                   <div class="tab-content">
@@ -256,6 +257,18 @@
                         </fieldset>
                       </form>
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="calibration">
+                        <table data-toggle="table" id='cal_table'  data-cache="false" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th data-field="id">Name</th>
+                                    <th data-field="name">Value</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
             </div> <!-- panel-body -->
@@ -318,6 +331,7 @@ $(document).ready(function() {
     $('#menu-toggle').hide();
     $('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
+    $('#cal-tab').hide();
 
     //add event list link
     $('#navbar-menus').append('<li class="active"><a href="/events/list">Events Page</a></li>');
