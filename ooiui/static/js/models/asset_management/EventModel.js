@@ -38,7 +38,8 @@ var EventsModel = Backbone.Model.extend({
           sensor: null,
           subsite: ""
         },
-        startDate: null
+        startDate: null,
+        calibrationCoefficient: []
     }
 });
 
