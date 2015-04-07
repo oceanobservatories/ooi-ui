@@ -56,24 +56,31 @@ var EventViewPage = Backbone.View.extend({
             success: function (event) {
                 $('#editdep_panel').html('');
 
+                //M@Campbell - 4/7/2015
+                //---
                 //Set calibration table 
                 if (self.model.get('calibrationCoefficient')) { 
+                    //render the tab if there is calibration coefficients
                     $('#cal-tab').show();
                     $('#cal_table tbody').empty(); 
                     
+                    //keeping things tidy...
                     var ccLen = event.attributes.calibrationCoefficient.length; 
                     for ( var t = 0; t < ccLen; t++ ) {
                         var ccName = event.attributes.calibrationCoefficient[t].name;
                         var ccValue = event.attributes.calibrationCoefficient[t].values; 
                         $('#cal_table tbody').append(
-                            "<tr id="+event.attributes.eventId+">" +
+                            "<tr class="+event.attributes.eventId+">" +
                             "<td style=''>"+ ccName+ "</td>" +
                             "<td style=''>"+ 
-                            "<input id="+ccName+" value="+ccValue+">" +
+                            "<input class=cal-cof-"+event.attributes.eventId +
+                                " id=" + ccName +
+                                " value=" + ccValue + ">" +
                             "</td></tr>"
                             );
-                    };
+                    }; 
                 };
+                //---
 
                 //set asset_table to assetInfo table
               $('#asset_table tbody').empty();
@@ -244,6 +251,26 @@ var EventViewPage = Backbone.View.extend({
                     Event4Post.set('deploymentLocation',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
                     Event4Post.set('eventDescription', $('#desc_d').val());
                     Event4Post.set('notes',[$('#notes_d').val()]);
+                    
+                    //M@Campbell - 4/7/2015
+                    //---
+                    //Save the calibration coefficients here.
+                    
+                    //create the coefficients container:
+                    var arrCalCoef = [];
+                    var calCoefClassName = 'cal-cof-'+self.model.attributes.eventId;
+                    var domCalCoef = document.getElementsByClassName(calCoefClassName);
+                    for (var i=0; i < domCalCoef.length; i++) { 
+                        arrCalCoef.push({"name": domCalCoef[i].getAttribute('id'),"values": domCalCoef[i].getAttribute('value')});
+                    };
+
+                    //TOOD: Once the services are chatting again with
+                    //  uframe events POST/PUT, circle back to this.
+                    //
+                    //add the calibration coefficient's array to the message:
+                    //Event4Post.set('calibrationCoefficient',arrCalCoef);
+                    
+                    //---
 
                     //this never changes
                     var assetObj = {}
