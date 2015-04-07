@@ -72,10 +72,8 @@ var EventViewPage = Backbone.View.extend({
                         $('#cal_table tbody').append(
                             "<tr class="+event.attributes.eventId+">" +
                             "<td style=''>"+ ccName+ "</td>" +
-                            "<td style=''>"+ 
-                            "<input class=cal-cof-"+event.attributes.eventId +
-                                " id=" + ccName +
-                                " value=" + ccValue + ">" +
+                            "<td class=cal-cof-"+event.attributes.eventId +
+                                " id=" + ccName +">" + ccValue +
                             "</td></tr>"
                             );
                     }; 
