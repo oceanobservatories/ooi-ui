@@ -1,4 +1,4 @@
-    .dpa-function-variable {
+      .dpa-function-variable {
       font-style: italic;
       font-weight: bold !important;
     }
@@ -27,7 +27,14 @@
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;    
     }
+    #dropdownUser{
+      top:8px;
+    }
 
+    #Science{
+        top: 8px;
+        font-weight: bold;
+    }
     #wrapper.toggled {
         padding-left: 350px;
     }
