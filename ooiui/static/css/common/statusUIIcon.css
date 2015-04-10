@@ -114,21 +114,21 @@
     font-size: 35px;
     margin-left: 35%;
 }
-.badge-unkown {
+.badge-unknown {
     background: #5e5e5e;
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
     display: block;
-    float: center;
-    margin: 0 10px 0px 0;
-    width: 45px;
-    height: 45px;
+    float: top;
+    margin: 0 25px 0px 0;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    line-height: 45px;
+    line-height: 30px;
     vertical-align: middle;
     text-align: center;
-    font-size: 35px;
-    margin-left: 35%;
+    font-size: 30px;
+    margin-left: 40%;
 }
 /*
  * Small Badges
@@ -271,11 +271,11 @@
     box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
 }
 .dogTagHeader {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
 }
 .dogTagBody {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 400;
 }
 
@@ -325,6 +325,7 @@
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 12px;
+    text-align: center;
 }
 
 .badge-warning {
