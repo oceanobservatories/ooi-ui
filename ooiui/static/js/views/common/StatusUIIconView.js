@@ -1,7 +1,5 @@
 //"use strict";
 
-
-
 var StatusUIIconView = Backbone.View.extend({
   events: {
     'click #list-view' : 'onListView',
@@ -16,27 +14,26 @@ var StatusUIIconView = Backbone.View.extend({
       //not the best way to render
       //but I have to make a call to our db to get display names after fetch is called.
       setTimeout(function(){
-         self.render();
+        self.render();
       },5000);
     });
     this.viewSelection = 'table';
   },
-    // Spinner
+  // Spinner
   initialRender: function() {
     var self = this;
-    console.log("Plot should be a spinner");
+
     // fetch the collection and set up drop downs using filtrify
     this.collection.fetch({reset: true,
            success: function(collection, response, options){ 
 
              for ( var t = 0; t < response['assets'].length; t++ ) {
                     $('#container_of_asset').append("<li id='"+response['assets'][t]['assetId']+"' data-Type='"+response['assets'][t].assetInfo['type']+"' data-Class='"+response['assets'][t]['class']+"' data-Owner='"+response['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+response['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+response['assets'][t]['class']+"</i></span><span>Owner: <i>"+response['assets'][t].assetInfo['owner']+"</span></li>");
-                
       }
            self.filter(response);
           _.map(collection.models, function(model){
-                             return model.get_display_name();
-           });
+            return model.get_display_name();
+          });
       }
     });
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
