@@ -20,7 +20,7 @@ import math
 
 @app.route('/')
 def new_index():
-    return render_template('science/index.html')
+    return render_template('ooiLanding/index.html')
 
 @app.route('/landing/pioneer')
 def landing_pioneer():
