@@ -6,32 +6,30 @@
    
     <li>
      
-      <a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+      <a href="#"><i class="fa fa-user fa-fw" style='padding-right: 27px;'> </i>   User Profile</a>
     </li>
     <% if(user.get('scopes').indexOf('user_admin') !== -1) { %>
     <li>
-      <a href="/users/"><i class="fa fa-gear fa-fw"></i>Edit Users</a>
+      <a href="/users/"><i class="fa fa-users" style='padding-right: 13px;'> </i>   Edit Users</a>
     </li>
     <li>
-      <a href="/c2/"><i class="fa fa-gear fa-fw"></i> Command & Control</a>
+      <a href="/c2/"><i class="fa fa-gear fa-fw" style='padding-right: 27px;'> </i>   Command & Control</a>
     </li>
     <% } %>
     
     <li>
      <a href="/troubleTicket">
-      	<i class="fa fa-exclamation-triangle" aria-hidden="true">Trouble Ticket
-      	</i></a>
+      	<i class="fa fa-exclamation-triangle" style='padding-right: 13px;' aria-hidden="true"> </i>   Trouble Ticket</a>
     </li>
     <li>
      <a href="/opLog.html">
     <!-- mail envelope -->
-     <i class="fa fa-envelope fa-fw">Operator Logs</i>
-     </a>
+     <i class="fa fa-envelope fa-fw" style='padding-right: 27px;'> </i>   Operator Logs</a>
     </li>
 
 
     <li class="divider"></li>
-    <li><a id="logout" href="/"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+    <li><a id="logout" href="/"><i style='padding-right: 27px;' class="fa fa-sign-out fa-fw"> </i>   Logout</a>
     </li>
   </ul>
   <!-- /.dropdown-user -->

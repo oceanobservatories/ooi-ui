@@ -126,8 +126,8 @@ var AssetView = Backbone.View.extend({
           onClick: function () {
             Backbone.trigger("deployrowclicked", this.model);
             this.el.style.backgroundColor = this.highlightColor;
-            var $table = $('#table-transform');
-            $table.bootstrapTable();
+            //var $table = $('#table-transform');
+            //$table.bootstrapTable();
           },
           rowFocused: function() {
             this.el.style.backgroundColor = this.highlightColor;
@@ -264,7 +264,7 @@ var AssetView = Backbone.View.extend({
                 $('#editdep_panel').html('Click on an Asset above to Edit');
 
                 //need to add assets to the filtrify component
-                for ( t = 0; t < e.responseJSON['assets'].length; t++ ) {
+                for (var t = 0; t < e.responseJSON['assets'].length; t++ ) {
                     $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
                 }
 
@@ -314,6 +314,10 @@ var AssetView = Backbone.View.extend({
                   for (var j in events.attributes.events){
                     var sd = new Date(events.attributes.events[j].startDate);
                     $('#event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                    //stupid hack again
+                    $('.fixed-table-container').css('padding-bottom','0px');
+                    $('#event_table').css('margin-top','0px');
+                    $('.fixed-table-header').css('display','none');
                   }
                 }
                 $('#editdep_panel').html('Click on an Asset above to Edit');
