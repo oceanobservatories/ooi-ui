@@ -40,6 +40,10 @@ def create_ticket():
 def user_login():
     return render_template('common/loginDemo.html')
 
+@app.route('/ooi-landing')
+def ooi_landing():
+   return render_template('ooiLanding/index.html')
+
 @app.route('/pioneer-array')
 def pioneer_array():
     return render_template('landing/pioneerArray.html')
