@@ -1,0 +1,235 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>OOI Science</title>
+{% endblock %}
+
+{% block head %}
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <!-- partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+  <!-- d3 can't be concatenated easily -->
+  <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+  <!-- lunr also requires a script tag -->
+  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+
+{% endblock %}
+
+
+{% block body %}
+
+<!--/.TOP BAR END -->
+
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
+              <div class="pull-right">
+                <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
+              </div>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="map-view" id='map'></div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-12 -->
+      </div> <!-- row -->
+      <div id='plot-row' class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <i class="fa fa-bar-chart-o"> Graph</i>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div id="plot-view">
+                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+              </div> <!-- #view -->
+              <div id="plotcontrols">
+              </div>
+            </div>
+          </div> <!-- panel -->
+        </div> <!-- col-lg-4 -->        
+      </div> <!-- row -->
+    </div> <!-- container-fluid -->
+  </div> <!-- page-content-wrapper -->
+</div>
+
+
+
+  <!-- /#wrapper -->
+
+<!-- Menu Toggle Script -->
+<script type="text/javascript">
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  models: {
+  mapModel: new MapModel()
+  },
+  collections: {
+    arrays: null,
+    platform_deployments: null,
+    stream_collection: new StreamCollection()
+  },
+  views: {
+    tocView: null,
+  },
+  start: function() {
+    var self = this;
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request
+    this.collections.stream_collection.fetch({reset: true});
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.views.mapModel = new MapModel();
+    this.collections.arrays = new ArrayCollection();
+    this.collections.platform_deployments = new PlatformDeploymentCollection();
+
+    // It allows me access(via ooi{}) models, collections or views inside one another  
+    // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
+    this.views.tocView = new SimpleTOCView({
+      parentCollection: self.collections.arrays,
+      childCollection: self.collections.platform_deployments,
+      el: $('#sidebar-wrapper')      
+    });
+   
+    this.views.svgPlotControlView = new SVGPlotControlView({
+      el: $('#plotcontrols')
+    });
+    
+    this.views.mapView = new MapView({
+      collection: this.collections.platform_deployments,
+      el: $('#map')
+    });
+
+    var divwidth = $('#plot-panel').width();
+    //console.log(divwidth);
+    this.views.svgplot = new SVGPlotView({
+      height: 350,
+      width: divwidth - 20,
+      el: $('#plot-view')
+    });
+    
+    
+    if(!this.login.loggedIn()) {
+      this.termsView = new TermsDialogView();
+      $('.container-fluid').first().append(this.termsView.el);
+      $.ajax({
+        url: "/txt/eula.txt",
+        type: "GET",
+        success: function(response) {
+          self.termsView.show({
+            message: response,
+            ack: function() { console.log("Closed"); }
+          });
+        }
+      });
+    }
+
+    //--------------------------------------------------------------------------------
+    //LISTENERS
+    //--------------------------------------------------------------------------------
+    this.listenTo(this.collections.platform_deployments, 'reset', function(collection) {
+      console.log("child updated...")
+      self.views.tocView.childCollection = collection;
+      self.views.tocView.render();
+    });
+
+    this.listenTo(this.collections.stream_collection, 'reset', function(collection) {
+      console.log("streams updated...")        
+    });
+
+    this.listenTo(this.collections.arrays, 'reset', function(collection) {
+      console.log("parent updated...")
+      self.views.tocView.parentCollection = collection;
+      self.views.tocView.render();
+    });
+
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
+      $('#map').height(328);
+      $('#plot-row').show();
+      
+      /*
+      if ('coordinates' in model.attributes){
+        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+      }
+      */
+            
+      self.collections.stream_collection.each(function(streamModel) {
+        if (streamModel.get('reference_designator') == model.get('ref_des')){
+          console.log(streamModel.get('reference_designator'),model.get('ref_des'))
+           self.views.svgPlotControlView.setModel(streamModel);
+          self.views.svgplot.setModel(streamModel);
+        }
+      });
+      /*
+      self.views.svgPlotControlView.setModel(model);
+      self.views.svgplot.setModel(model);
+      self.views.mapView.setMapView(); // recenters
+      self.views.mapView.render();
+      */
+    });
+
+    this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {            
+      if ('coordinates' in model.attributes){
+        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+      }
+    });
+
+    this.listenTo(this, "arrayItemView:arraySelect", function(model) {  
+      var coors = model.get('geo_location')['coordinates'][0][0]      
+      self.views.mapView.setMapView(coors,4); // recenters
+    });   
+
+    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+      self.views.svgplot.plot(options);
+    });
+    this.listenTo(this, 'ooi:mapExpand', function() {
+      $('#plot-row').hide();
+      $('#map').height($(window).height() - 150);
+    });
+    this.listenTo(this, 'NavbarView:sidebarToggle', function() {
+      self.views.mapView.render();
+    });
+
+    this.trigger('ooi:mapExpand');
+
+    //--------------------------------------------------------------------------------
+    //FETCHING
+    //--------------------------------------------------------------------------------
+    this.collections.platform_deployments.fetch({reset: true});
+    this.collections.arrays.fetch({reset: true});
+    
+  }
+});
+var ooi = new OOI();
+
+$(document).ready(function() {
+    $('#map').height($(window).height() - 150);
+    $('#map-expand').click(function(event) {
+      event.preventDefault();
+      ooi.trigger('ooi:mapExpand');
+    });
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    ooi.start();
+});
+</script>
+{% endblock %}

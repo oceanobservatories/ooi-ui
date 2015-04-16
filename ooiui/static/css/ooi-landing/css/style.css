@@ -1,6 +1,4 @@
-@charset 'UTF-8';
-@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900');
-@import url('font-awesome.min.css');
+
 
 //*********************************************************************************/
 /* Basic                                                                         */
@@ -604,13 +602,28 @@ body.is-loading:after {
 /*********************************************************************************/
 
 /*navbar position, letter spacing, transparent background */
-.navbar-nav.navbar-spacing {
-    float: left;
-    margin: 7.5px -25px;
-    background:  rgba(0, 67, 124, .25);
+/*.navbar-nav.navbar-spacing {
+float: left;
+margin: 7.5px -25px;
+background:  rgba(0, 67, 124, .25);
 
 }
+ */
 
+.collapse.navbar-collapse.navbar-back,
+    .navbar-nav {
+  margin-right: -21px;
+  margin-left: -21px;
+}
+
+.navbar-nav.navbar-spacing,
+.navbar-nav > li {
+    float: none;
+    margin: 0 auto;
+    background: rgba(0, 67, 124, .25);
+    table-layout: auto;
+    display: table;
+}
 
 @media(min-width:768px) {
     p {
@@ -618,9 +631,15 @@ body.is-loading:after {
         font-size: 20px;
         line-height: 1.6;
     }
+    
+    a { 
+        padding-top: 15;
+        padding-bottom: 15;
+        padding-left: 12;
+        padding-right: 12;
+    }<D-t>
 }
-
-
+ 
 .light {
     font-weight: 400;
 }
@@ -754,7 +773,7 @@ body {
 
 #about {
     background: url('/img/ooi-landing/images/bg/imgAbout.jpg');
-      background-size: cover;
+    background-size: cover;
     background-attachment: fixed;
     background-position: bottom center;
     background-repeat: no-repeat;
