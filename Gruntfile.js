@@ -710,9 +710,13 @@ module.exports = function(grunt) {
             'ooiui/static/js/ooi-landing/js/grayscale.js',
             'ooiui/static/js/ooi-landing/js/init.js',
             'ooiui/static/js/ooi-landing/js/skel.min.js',
-            'ooiui/static/js/ooi-landing/js/jquery.poptrox.min.js'
+            'ooiui/static/js/ooi-landing/js/jquery.poptrox.min.js',
             // Models
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',         
             // Views
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            'ooiui/static/js/views/common/LoginView.js'            
           ],
           'ooiui/static/js/compiled/StatusUIIcon.js' : [
             // Libs
@@ -1043,6 +1047,9 @@ module.exports = function(grunt) {
         files: {
           "ooiui/static/css/compiled/ooi-landing.css" : [
             "ooiui/static/css/ooi-landing/css/bootstrap.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+         
             "ooiui/static/css/ooi-landing/css/bootstrap.min.css",
             "ooiui/static/css/ooi-landing/css/skel.css",
             "ooiui/static/css/ooi-landing/css/style.css"

@@ -44,6 +44,10 @@ def user_login():
 def ooi_landing():
    return render_template('ooiLanding/index.html')
 
+@app.route('/science')
+def science():
+   return render_template('science/index.html')
+   
 @app.route('/pioneer-array')
 def pioneer_array():
     return render_template('landing/pioneerArray.html')
@@ -108,7 +112,7 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
-@app.route('/statusUI.html')
+@app.route('/statusUI')
 def statusUI():
     return render_template('common/statusUI.html')
 
