@@ -233,9 +233,42 @@ input[type="reset"],
     background-repeat: no-repeat;
     text-indent: -10em;
     overflow: hidden;
+    left: 55%;
+    width: 45px;
+    height: 45px;
+      bottom: 10px;
+  border-bottom: 0;
+  position: absolute;
+}
+
+.button.up {
+    width: 5em;
+    height: 5em;
+    line-height: 4.5em;
+    padding: 0;
+    background-image: url('images/dark-arrow-up.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-indent: -10em;
+    overflow: hidden;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+      bottom: 10px;
+  border-bottom: 0;
+  position: absolute;
+
 }
 
 .button.down.anchored {
+    bottom: 0;
+    border-bottom: 0;
+    border-radius: 3em 3em 0 0;
+    height: 4.5em;
+    margin-left: -2.5em;
+}
+
+.button.up.anchored {
     bottom: 0;
     border-bottom: 0;
     border-radius: 3em 3em 0 0;
