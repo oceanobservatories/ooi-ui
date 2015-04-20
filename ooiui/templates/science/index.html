@@ -48,20 +48,39 @@
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
       <div id='plot-row' class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
           <div class="panel">
             <div class="panel-heading">
-              <i class="fa fa-bar-chart-o"> Graph</i>
+              <strong>
+                <span class="fa fa-bar-chart"></span>
+                <span data-i18n="Data">Plot Controls</span>
+              </strong>
             </div> <!-- panel-heading -->
             <div class="panel-body">
-              <div id="plot-view">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div> <!-- #view -->
-              <div id="plotcontrols">
+              <div class="col-sm-12">
+                <div id="plot-controls">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
               </div>
-            </div>
+            </div> <!-- panel-body -->
           </div> <!-- panel -->
-        </div> <!-- col-lg-4 -->        
+        </div> <!-- col-lg-4 -->
+        <div class="col-lg-8">
+          <div id='plot-panel' class="panel">
+            <div class="panel-heading">
+              <strong>
+                <span class="fa fa-bar-chart"></span> <span data-i18n="Data">Plot Section</span>
+              </strong>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12">
+                <div id="plot-view">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
+              </div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-8 -->
       </div> <!-- row -->
     </div> <!-- container-fluid -->
   </div> <!-- page-content-wrapper -->
@@ -81,8 +100,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   collections: {
     arrays: null,
-    platform_deployments: null,
-    stream_collection: new StreamCollection()
+    platform_deployments: null
   },
   views: {
     tocView: null,
@@ -90,7 +108,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   start: function() {
     var self = this;
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
-    this.collections.stream_collection.fetch({reset: true});
+
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
@@ -110,7 +128,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
    
     this.views.svgPlotControlView = new SVGPlotControlView({
-      el: $('#plotcontrols')
+      el: $('#plot-controls')
     });
     
     this.views.mapView = new MapView({
@@ -151,10 +169,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.tocView.render();
     });
 
-    this.listenTo(this.collections.stream_collection, 'reset', function(collection) {
-      console.log("streams updated...")        
-    });
-
     this.listenTo(this.collections.arrays, 'reset', function(collection) {
       console.log("parent updated...")
       self.views.tocView.parentCollection = collection;
@@ -163,29 +177,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
+    this.listenTo(this, "streamItemView:streamSelect", function(model) {
       $('#map').height(328);
       $('#plot-row').show();
-      
-      /*
-      if ('coordinates' in model.attributes){
-        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-      }
-      */
-            
-      self.collections.stream_collection.each(function(streamModel) {
-        if (streamModel.get('reference_designator') == model.get('ref_des')){
-          console.log(streamModel.get('reference_designator'),model.get('ref_des'))
-           self.views.svgPlotControlView.setModel(streamModel);
-          self.views.svgplot.setModel(streamModel);
-        }
-      });
-      /*
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
-      self.views.mapView.setMapView(); // recenters
       self.views.mapView.render();
-      */
+      self.views.mapView.setMapView(); // recenters
     });
 
     this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {            
@@ -217,7 +215,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     this.collections.platform_deployments.fetch({reset: true});
     this.collections.arrays.fetch({reset: true});
-    
   }
 });
 var ooi = new OOI();

@@ -75,13 +75,13 @@ var PlatformInstrumentsView = Backbone.View.extend({
                     return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-up c2-online'></i>";
                 }
                 else if(rawValue =='Offline'){
-                    return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-down c2-offline'></i>";
+                    return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='ffa fa-thumbs-down c2-offline'></i>";
                 }
                 else{
                     return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-question-circle c2-unknown'></i>";
                 }
               }
-            })
+            }),
       },
       {
           name: "operational_status",

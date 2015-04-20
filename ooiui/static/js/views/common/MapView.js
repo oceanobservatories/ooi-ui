@@ -128,14 +128,10 @@ var MapView = Backbone.View.extend({
     this.collection.each(function(platform) {
       if (platform.get('coordinates')) {         
         if (platform.get('coordinates').length ==2){   
-          var name = platform.get('assetInfo')['name']              
-          if (name == null){
-            name = "Undefined"          
-          }
-
+          var full_name = platform.get('assetInfo')['name']              
           if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){           
-            var platformFeature = L.marker(platform.get('coordinates'));            
-            var popupContent = '<p><strong>' + name + '</strong><br>' +
+            var platformFeature = L.marker(platform.get('coordinates'));
+            var popupContent = '<p><strong>' + full_name + '</strong><br>' +
                 '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
                 'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
                 '<br><a href="/streams?' + platform.get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +

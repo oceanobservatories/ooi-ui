@@ -6,12 +6,12 @@
 
 {% block head %}
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-  <!-- partials 
-  <script src="/js/views/asset_management/EventsView.js" type="text/javascript"></script>
-  <script src="/js/compiled/index.js" type="text/javascript"></script>-->
+  <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/gridList.js" type="text/javascript"></script>
-  
+  <script src="/js/views/asset_management/EventsView.js" type="text/javascript"></script>
+
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
   <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
@@ -81,8 +81,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     $('#sidebar-wrapper').html(this.tocView.el);
     this.arrays.fetch({reset: true});*/
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
   }
 });
 
@@ -90,7 +88,7 @@ var ooi = new OOI();
 
 $(document).ready(function() {
     ooi.start();
-    var eventsView = new EventsView();
+    eventsView = new EventsView();
     $('#menu-toggle').hide();
     $('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');

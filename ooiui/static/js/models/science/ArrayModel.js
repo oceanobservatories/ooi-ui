@@ -26,8 +26,6 @@ var ArrayModel = OOI.RelationalModel.extend({
   }
 });
 
-
-
 var ArrayCollection = Backbone.Collection.extend({
   url: '/api/array',
   model: ArrayModel,
