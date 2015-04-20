@@ -1169,13 +1169,13 @@ module.exports = function(grunt) {
     },
     watch: {
       partials: {
-        files: ['**/partials/*.html'],
+        files: ['Gruntfile.js', '**/partials/*.html'],
         tasks: ['jst'],
         options: {
         }
       },
       scripts: {
-        files: ['**/views/*/*.js', '**/models/*/*.js', '**/ooi.js', '**/common/*.css'],
+        files: ['Gruntfile.js', '**/views/*/*.js', '**/models/*/*.js', '**/ooi.js', '**/common/*.css'],
         tasks: ['concat'],
         options: {
         }
