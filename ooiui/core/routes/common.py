@@ -104,10 +104,6 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
-@app.route('/statusUI.html')
-def statusUI():
-    return render_template('common/statusUI.html')
-
 
 @app.route('/api/organization', methods=['GET'])
 def get_organization():

@@ -140,8 +140,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   initViews: function() {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
-    $('body').find('#hideTOC').hide()
-
     this.views.signupview = new SignUpForm({
         el: 'form',
         model: new SignUpModel()
@@ -170,7 +168,6 @@ var ooi = new OOI();
 
 $(document).ready(function () {
   ooi.start();
-
 });
 </script>
 {% endblock %}
