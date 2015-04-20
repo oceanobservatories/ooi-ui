@@ -4,7 +4,7 @@
 	</label>	
 </div>
 <div class="row">
-	<select data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="1" >	 	
+	<select data-width="75%" data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
 		<!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
@@ -59,13 +59,14 @@
 			<% }); %>	
 		<!-- STREAMS || PARAMS -->	
 		<% } else if(labelText == "streams" || labelText == "parameters") { %>
-			
+			<!-- handled differently, i.e on selection -->	
 		<!-- ELSE -->		
 		<% } else { %>
 			
 		<% } %>  
 	</select>
 
+	<!-- ADD ARROWS -->	
 	<% if(labelText != "parameters") { %> 
 		<span class="glyphicon glyphicon-chevron-right" style="color: steelblue;" aria-hidden="true"></span>
 	<% } %>  

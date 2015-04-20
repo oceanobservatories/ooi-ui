@@ -56,11 +56,12 @@
                 </div>
               </div>
             </div>
-            <div class="panel-body">
-              <div id="plot-view">               
-              </div> <!-- #view -->
+            <div class="panel-body">              
               <div id="plotcontrols">
               </div>
+              <div id="plot-view">     
+                <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>          
+              </div> <!-- #view -->
             </div>
           </div>
         </div>        
@@ -72,7 +73,8 @@
               Annotations
             </div>
             <div class="panel-body">
-              <div id="annotation-table">                
+              <div id="annotation-table">  
+               <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                
               </div>
             </div>
           </div>          
@@ -120,6 +122,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.views.navbar.sidebarToggle();
+
     this.views.svgplot = new SVGPlotView({
       height: 400,
       width: 600,
@@ -150,9 +153,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.modalDownloadFailView = new ModalDownloadFailView({
       el: $('#download-fail-modal')
       });
-
-    //COLLECTIONS
-    this.collections.annotations.fetch({reset: true});
+    
     //ALL THE TOC COLLECTIONS
     var TocCollections = [self.collections.tocArrays, 
                           self.collections.tocMoorings,
@@ -186,11 +187,33 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'FilterSelectionView:onSelect', function(options) {
       self.views.plottingItemSelection.filterItems(options);
     });
+    //filter seection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
+      //self.views.svgPlotControlView.setModel(options.model);      
+    });
 
-
-
+    //filter seection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
+      self.views.svgPlotControlView.setModel(options.model);
+      self.views.svgplot.setModel(options.model);
+      //ANNOTATIONS
+      self.collections.annotations.fetch({
+        data: $.param({stream_name: options.model.get('stream_name')}),
+        reset: true
+      });
+    });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+      if (options.plotType == "Depth Profile"){
+        options.plotType = "depthprofile"
+
+        options.yvar = options.xvar;        
+        options.xvar = self.views.plottingItemSelection.getSelectedVars();
+      }else{
+        options.plotType = "timeseries"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+      }
+      
       self.views.svgplot.plot(options);
     });
 
@@ -219,7 +242,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      console.log("Adding ot collection");
+      console.log("Adding to collection");
       self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {

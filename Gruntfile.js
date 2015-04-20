@@ -941,6 +941,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/TocParametersModel.js',
             'ooiui/static/js/models/science/TocPlatformsModel.js',
             'ooiui/static/js/models/science/TocStreamsModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
