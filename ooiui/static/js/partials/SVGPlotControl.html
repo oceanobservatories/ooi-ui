@@ -106,7 +106,7 @@
               <%  console.log(model.get('variables_shape')[varName])   %>
 
               <%  if(model.get('variables_shape')[varName] == "function"){ %>
-                <option data-subtext="L1 dpa true" class="dpa-function-variable" value="<%=varName%>"><%= varName %></option>
+                <option data-subtext="L1/L2 DPA" class="dpa-function-variable" value="<%=varName%>"><%= varName %></option>
               <%} else { %>               
                 <option value="<%=varName%>"><%= varName %></option>
               <% } %>

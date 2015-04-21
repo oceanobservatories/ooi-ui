@@ -183,7 +183,7 @@ def metadata_times_proxy(stream_name,reference_designator):
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
 def get_csv(stream_name, reference_designator,start,end):
     token = get_login()
-    dpa = "0"
+    dpa = "1"
     url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
@@ -191,7 +191,7 @@ def get_csv(stream_name, reference_designator,start,end):
 @app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
 def get_json(stream_name, reference_designator,start,end):
     token = get_login()
-    dpa = "0"
+    dpa = "1"
     url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
@@ -199,7 +199,7 @@ def get_json(stream_name, reference_designator,start,end):
 @app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
 def get_netcdf(stream_name, reference_designator,start,end):
     token = get_login()
-    dpa = "0"
+    dpa = "1"
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
@@ -207,6 +207,26 @@ def get_netcdf(stream_name, reference_designator,start,end):
 def get_profiles(stream_name, reference_designator):
     token = get_login()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
+
+@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:dpa>')
+def get_csv_dpaflag(stream_name, reference_designator,start,end,dpa):
+    token = get_login()
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
+    req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
+
+@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:dpa>')
+def get_json_dpaflag(stream_name, reference_designator,start,end,dpa):
+    token = get_login()
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
+    req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
+    return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
+
+@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:dpa>')
+def get_netcdf_dpaflag(stream_name, reference_designator,start,end,dpa):
+    token = get_login()
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
