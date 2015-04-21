@@ -100,13 +100,14 @@ p, ul, ol, dl, table {
 }
 
 header {
-    margin-bottom: 1em;
+    /*margin-bottom: 1em;*/
 }
 
 header p {
     display: block;
-    margin: 1em 0 0 0;
+    margin: 10%;
     padding: 0 0 0.5em 0;
+    margin-bottom: 2%;
 }
 
 footer {
@@ -192,9 +193,77 @@ ol.default li {
 }
 
 /* Button */
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
+
+.nav-btn {
+    border-radius: 0;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    /*  display: inline-block;*/
+  margin-bottom: 0;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
+.nav-btn-default {
+    border: 1px solid #42dca3;
+    color: #42dca3;
+    background-color: transparent;
+}
+
+.nav-btn-default:hover,
+.nav-btn-default:focus {
+    border: 1px solid #42dca3;
+    outline: 0;
+    color: #000;
+    background-color: #42dca3;
+}
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    margin-top: 15px;
+    padding: 0px 8px 1px 10px;
+    border-radius: 100px!important;
+    font-size: 30px;
+    color: #fff;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+.btn-circle:hover,
+.btn-circle:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-circle i.animated {
+    -webkit-transitionn-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+.btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
 .button {
     background-color: #98c593;
     border: 0;
@@ -236,9 +305,9 @@ input[type="reset"],
     left: 55%;
     width: 45px;
     height: 45px;
-      bottom: 10px;
-  border-bottom: 0;
-  position: absolute;
+    bottom: 10px;
+    border-bottom: 0;
+    position: absolute;
 }
 
 .button.up {
@@ -254,9 +323,9 @@ input[type="reset"],
     left: 50%;
     width: 45px;
     height: 45px;
-      bottom: 10px;
-  border-bottom: 0;
-  position: absolute;
+    bottom: 10px;
+    border-bottom: 0;
+    position: absolute;
 
 }
 
@@ -346,7 +415,7 @@ input[type="reset"].style2:hover,
 /*style1*/
 .main.style1 {
     text-align: center;
-    padding: 3em 0 3em 0;
+   /* padding: 3em 0 3em 0;*/
 }
 
 .main.style1 h2 {
@@ -366,7 +435,7 @@ input[type="reset"].style2:hover,
     opacity: 1.0;
     display: inline-block;
     vertical-align: middle;
-
+    margin-top: -450px;
     -moz-transition: all 1s ease;
     -webkit-transition: all 1s ease;
     -o-transition: all 1s ease;
@@ -380,6 +449,20 @@ input[type="reset"].style2:hover,
     transform: translateZ(0);
 }
 
+.style1-logo1 {
+    position: relative;
+    margin: 0;
+    overflow-x: hidden;
+    padding-top: 30px;
+    float: left;
+}
+.style1-logo2 {
+    position: relative;
+    margin: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
 .main.style1.inactive {
 }
 
@@ -390,7 +473,7 @@ input[type="reset"].style2:hover,
 
 /*style2*/
 .main.style2 {
-    padding: 3em 0 3em 0;
+   /* padding: 2em 0 3em 0;*/
     overflow: hidden;
 }
 
@@ -633,20 +716,10 @@ body.is-loading:after {
 /*********************************************************************************/
 /* NavBar                                                                        */
 /*********************************************************************************/
-
-/*navbar position, letter spacing, transparent background */
-/*.navbar-nav.navbar-spacing {
-float: left;
-margin: 7.5px -25px;
-background:  rgba(0, 67, 124, .25);
-
-}
- */
-
 .collapse.navbar-collapse.navbar-back,
-    .navbar-nav {
-  margin-right: -21px;
-  margin-left: -21px;
+.navbar-nav {
+    margin-right: -21px;
+    margin-left: -21px;
 }
 
 .navbar-nav.navbar-spacing,
@@ -656,6 +729,7 @@ background:  rgba(0, 67, 124, .25);
     background: rgba(0, 67, 124, .25);
     table-layout: auto;
     display: table;
+  padding: 15px 0 15px 0;
 }
 
 @media(min-width:768px) {
@@ -664,15 +738,15 @@ background:  rgba(0, 67, 124, .25);
         font-size: 20px;
         line-height: 1.6;
     }
-    
+
     a { 
         padding-top: 15;
         padding-bottom: 15;
         padding-left: 12;
         padding-right: 12;
-    }<D-t>
+    }
 }
- 
+
 .light {
     font-weight: 400;
 }
@@ -748,10 +822,9 @@ a:hover {
 /*navbar vertical posiont (padding)*/
 @media(min-width:768px) {
     .navbar-custom {
-        padding: 310px 0;
-        border-bottom: 0;
+        padding-top: 300px;
         letter-spacing: 1px;
-        background: 0 0;
+        background: 0;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
@@ -778,7 +851,7 @@ a:hover {
 .about-text {
     z-index: 10000;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    margin-top: 35%;
+    /* margin-top: 35%;*/
     margin-bottom: 20%;
     font-size: 20px;
 }
@@ -803,6 +876,34 @@ body {
 /*********************************************************************************/
 /* About                                                                         */
 /*********************************************************************************/
+.intro {
+    display: table;
+    width: 100%;
+    height: 100%;
+       text-align: center;
+    color: #fff;
+    background: url('/img/ooi-landing/images/bg/imgAbout.jpg');
+
+    no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.intro .intro-body .brand-heading {
+    font-size: 40px;
+}
+
+.intro .intro-body .intro-text {
+    font-size: 18px;
+}
 
 #about {
     background: url('/img/ooi-landing/images/bg/imgAbout.jpg');
@@ -812,6 +913,10 @@ body {
     background-repeat: no-repeat;
 }
 
+intro.header-logos {
+    margin: 10px;
+    padding-top: 20px;
+}
 /*********************************************************************************/
 /*Ocean Observatories                                                            */
 /*********************************************************************************/
