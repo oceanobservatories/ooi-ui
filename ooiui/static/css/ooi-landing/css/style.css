@@ -1,6 +1,4 @@
-
-
-//*********************************************************************************/
+/*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
 
@@ -192,8 +190,9 @@ ol.default li {
     padding-left: 0.25em;
 }
 
-/* Button */
-
+/*********************************************************************************/
+/* Nav Buttons                                                                        */
+/*********************************************************************************/
 .nav-btn {
     border-radius: 0;
     text-transform: uppercase;
@@ -203,30 +202,17 @@ ol.default li {
     -moz-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
     /*  display: inline-block;*/
-  margin-bottom: 0;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
+    margin-bottom: 0;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
 }
 
-.nav-btn-default {
-    border: 1px solid #42dca3;
-    color: #42dca3;
-    background-color: transparent;
-}
-
-.nav-btn-default:hover,
-.nav-btn-default:focus {
-    border: 1px solid #42dca3;
-    outline: 0;
-    color: #000;
-    background-color: #42dca3;
-}
 .btn-circle {
     width: 50px;
     height: 50px;
@@ -240,6 +226,7 @@ ol.default li {
     -moz-transition: background .3s ease-in-out;
     transition: background .3s ease-in-out;
 }
+
 .btn-circle:hover,
 .btn-circle:focus {
     outline: 0;
@@ -248,7 +235,8 @@ ol.default li {
 }
 
 .btn-circle i.animated {
-    -webkit-transitionn-property: -webkit-transform;
+    -webkit-transitionn-property:
+    -webkit-transform;
     -webkit-transition-duration: 1s;
     -moz-transition-property: -moz-transform;
     -moz-transition-duration: 1s;
@@ -264,128 +252,10 @@ ol.default li {
     -webkit-animation-timing-function: linear;
     -moz-animation-timing-function: linear;
 }
-.button {
-    background-color: #98c593;
-    border: 0;
-    border-radius: 3.5em;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    height: 3.5em;
-    line-height: 3.5em;
-    outline: 0;
-    padding: 0 2em 0 2em;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
 
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -o-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
-
-.button.down {
-    width: 5em;
-    height: 5em;
-    line-height: 4.5em;
-    padding: 0;
-    background-image: url('images/dark-arrow.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    text-indent: -10em;
-    overflow: hidden;
-    left: 55%;
-    width: 45px;
-    height: 45px;
-    bottom: 10px;
-    border-bottom: 0;
-    position: absolute;
-}
-
-.button.up {
-    width: 5em;
-    height: 5em;
-    line-height: 4.5em;
-    padding: 0;
-    background-image: url('images/dark-arrow-up.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    text-indent: -10em;
-    overflow: hidden;
-    left: 50%;
-    width: 45px;
-    height: 45px;
-    bottom: 10px;
-    border-bottom: 0;
-    position: absolute;
-
-}
-
-.button.down.anchored {
-    bottom: 0;
-    border-bottom: 0;
-    border-radius: 3em 3em 0 0;
-    height: 4.5em;
-    margin-left: -2.5em;
-}
-
-.button.up.anchored {
-    bottom: 0;
-    border-bottom: 0;
-    border-radius: 3em 3em 0 0;
-    height: 4.5em;
-    margin-left: -2.5em;
-}
-
-.button.anchored {
-    position: absolute;
-    left: 50%;
-}
-
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-.button:hover {
-    background-color: #a8d5a3;
-}
-
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active,
-.button:active {
-    background-color: #88b583;
-}
-
-input[type="button"].style2,
-input[type="submit"].style2,
-input[type="reset"].style2,
-.button.style2 {
-    background-color: transparent;
-    border: solid 2px #e5e6e7;
-    color: inherit;
-}
-
-input[type="button"].style2:hover,
-input[type="submit"].style2:hover,
-input[type="reset"].style2:hover,
-.button.style2:hover {
-    background-color: rgba(145,146,147,0.035);
-}
-
-.button.style2.down {
-    background-image: url('images/arrow.svg');
-}
-
-/* Box */
-
+/*********************************************************************************/
+/* Content Box                                                                        */
+/*********************************************************************************/
 .box {
     background: rgba(255,255,255,0.5);
     color: #000000;
@@ -397,11 +267,8 @@ input[type="reset"].style2:hover,
 }
 
 /*********************************************************************************/
-/* Style2                                                                        */
+/* Main                                                                        */
 /*********************************************************************************/
-
-/* Main */
-
 .main {
     position: relative;
     margin: 0;
@@ -411,52 +278,17 @@ input[type="reset"].style2:hover,
 .main.fullscreen {
     height: 100%;
 }
-
-/*style1*/
-.main.style1 {
-    text-align: center;
-   /* padding: 3em 0 3em 0;*/
-}
-
-.main.style1 h2 {
-    font-size: 4.25em;
-    line-height: 1em;
-    letter-spacing: -4px;
-}
-
-.main.style1:before {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-}
-
-.main.style1 .content {
-    opacity: 1.0;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -450px;
-    -moz-transition: all 1s ease;
-    -webkit-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    transition: all 1s ease;
-
-    -moz-transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-.style1-logo1 {
+/*********************************************************************************/
+/* Style2                                                                        */
+/*********************************************************************************/
+.header-logo1 {
     position: relative;
     margin: 0;
     overflow-x: hidden;
     padding-top: 30px;
     float: left;
 }
-.style1-logo2 {
+.header-logo2 {
     position: relative;
     margin: 0;
     overflow-x: hidden;
@@ -470,10 +302,11 @@ input[type="reset"].style2:hover,
     opacity: 0;
 }
 
-
-/*style2*/
+/*********************************************************************************/
+/* Style2                                                                        */
+/*********************************************************************************/
 .main.style2 {
-   /* padding: 2em 0 3em 0;*/
+    /* padding: 2em 0 3em 0;*/
     overflow: hidden;
 }
 
@@ -496,7 +329,9 @@ input[type="reset"].style2:hover,
     transform: translateZ(0);
 }
 
-/*left*/
+/*********************************************************************************/
+/* Style2 >>--> Left                                                             */
+/*********************************************************************************/
 .main.style2.left {
 }
 
@@ -514,7 +349,9 @@ input[type="reset"].style2:hover,
     padding-bottom: 2px;
 }
 
-/*right*/
+/*********************************************************************************/
+/* Style2 >>--> Right                                                            */
+/*********************************************************************************/
 .main.style2.right {
 }
 
@@ -533,7 +370,9 @@ input[type="reset"].style2:hover,
 
 }
 
-/*images*/
+/*********************************************************************************/
+/* Images                                                                        */
+/*********************************************************************************/
 .main.style2.img-right .content {
     left: 46%;
 }
@@ -562,47 +401,15 @@ input[type="reset"].style2:hover,
     left: 100%;
 }
 
-.main.style3 {
-    text-align: center;
-    padding: 6em 0 6em 0;
-}
-
-.main.style3 .content {
-}
-
-.main.style3 .content > header {
-    margin-bottom: 2em;
-}
-
-.main.style3.primary {
-    background: #fff;
-}
-
-.main.style3.secondary {
-    background: #f5f6f7;
-}
-
-/* Dark */
-
+/*********************************************************************************/
+/* Dark                                                                        */
+/*********************************************************************************/
 .dark {
     color: #fff;
 }
 
 .dark a {
     color: #000;
-}
-
-.dark .button.style2 {
-    border-color: inherit;
-    background-color: rgba(64,64,64,0.05);
-}
-
-.dark .button.style2:hover {
-    background-color: rgba(255,255,255,0.1);
-}
-
-.dark .button.style2.down {
-    background-image: url('/img/ooi-landing/images/buttons/dark-arrow.svg');
 }
 
 body {
@@ -692,7 +499,6 @@ body.is-loading:after {
 /*********************************************************************************/
 /* Icons                                                                         */
 /*********************************************************************************/
-
 .icon {
     text-decoration: none;
 }
@@ -729,7 +535,7 @@ body.is-loading:after {
     background: rgba(0, 67, 124, .25);
     table-layout: auto;
     display: table;
-  padding: 15px 0 15px 0;
+    padding: 15px 0 15px 0;
 }
 
 @media(min-width:768px) {
@@ -784,10 +590,7 @@ body.is-loading:after {
 }
 a:hover {
     color: #42dca3;
-
-
 }
-
 
 .navbar-custom .nav li a {
     -webkit-transition: background .3s ease-in-out;
@@ -835,7 +638,6 @@ a:hover {
         padding: 0;
         border-bottom: 1px solid rgba(255,255,255,.3);
         background:  rgba(0, 67, 124, .7);
-        ;
     }
 }
 
@@ -880,7 +682,7 @@ body {
     display: table;
     width: 100%;
     height: 100%;
-       text-align: center;
+    text-align: center;
     color: #fff;
     background: url('/img/ooi-landing/images/bg/imgAbout.jpg');
 
@@ -920,8 +722,7 @@ intro.header-logos {
 /*********************************************************************************/
 /*Ocean Observatories                                                            */
 /*********************************************************************************/
-
-#oceanObservatories {
+#ocean-observatories {
     background: url('/img/ooi-landing/images/bg/imgOOI.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -932,7 +733,6 @@ intro.header-logos {
 /*********************************************************************************/
 /*Science                                                                        */
 /*********************************************************************************/
-
 #science {
     background: url('/img/ooi-landing/images/bg/imgScience.jpg');
     background-size: cover;
@@ -944,7 +744,6 @@ intro.header-logos {
 /*********************************************************************************/
 /*Status                                                                         */
 /*********************************************************************************/
-
 #status {
     background: url('/img/ooi-landing/images/bg/imgStatus.jpg');
     background-size: cover;
@@ -957,7 +756,6 @@ intro.header-logos {
 /*********************************************************************************/
 /*Asset Managment                                                                */
 /*********************************************************************************/
-
 #asset-management {
     background: url('/img/ooi-landing/images/bg/imgAssetManagement-2.jpg');
     background-size: cover;
@@ -970,7 +768,6 @@ intro.header-logos {
 /*********************************************************************************/
 /*C2                                                                           */
 /*********************************************************************************/
-
 #c2 {
     background: url('/img/ooi-landing/images/bg/imgC2.jpg');
     background-size: cover;
@@ -982,7 +779,6 @@ intro.header-logos {
 /*********************************************************************************/
 /* Footer                                                                        */
 /*********************************************************************************/
-
 #footer {
     position: relative;
     height: 5em;
@@ -1038,7 +834,6 @@ intro.header-logos {
 /*********************************************************************************/
 /* Touch Mode                                                                    */
 /*********************************************************************************/
-
 body.is-touch {
 }
 

@@ -17,26 +17,24 @@
 <script src="/js/ooi-landing/js/jquery.easing.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="/js/ooi-landing/js/grayscale.js"></script>
-
 <link href="/css/ooi-landing/css/style.css" rel="stylesheet" type="text/css">
 <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
 <link href="/css/ooi-landing/css/bootstrap.min.css" rel="stylesheet">
 <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 {% endblock %}
 
 {% block body %}
-<!-- Navigation -->  
+
+<!-- navbar -->  
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 
     <div class="container">
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Collect the nav links -->
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="navbar-nav">
-                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                 <li><a  href="#about">About</a></li>
-                <li><a href="#oceanObservatories">Ocean Observatories</a></li>
+                <li><a href="#ocean-observatories">Ocean Observatories</a></li>
                 <li><a href="#science">Science</a></li>
                 <li><a href="#status">Status</a></li>
                 <li><a href="#asset-management">Asset Management</a></li>
@@ -50,85 +48,70 @@
     <!-- /.container -->
 </nav>
 
-<!-- Intro Header -->
+<!-- about -->
 <header id="about" class="main intro fullscreen">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class=" style1-logo1">
-                        <a href="http://www.oceanobservatories.org">
-                            <img border="0" alt="OOI" src="img/ooi-landing/images/logos/OOI_Logo.svg" width="281" height="144">
-
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6" style="float:right;">
-                    <div class="style1-logo2">
-                        <a href="http://oceanleadership.org/">
-                            <img border="0" alt="OOI" src="img/ooi-landing/images/logos/OceanLeadershipLogoCS2.png" width="97" height="65">
-                        </a>
-                        <a href="http://www.nsf.gov/">
-                            <img border="0" alt="OOI" src="img/ooi-landing/images/logos/nsf1.png" width="65" height="65">
-                        </a>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class=" header-logo1">
+                    <a href="http://www.oceanobservatories.org">
+                        <img border="0" alt="OOI" src="img/ooi-landing/images/logos/OOI_Logo.svg" width="281" height="144">
+                    </a>
                 </div>
             </div>
-            <div class="row" style="margin-top:100px;">
-                <div class="col-md=2">
-                </div>
-                <div class="col-md-10">
-                    <p class="intro-text">The Ocean Observatories Initiative (OOI) is an National Science Foundation (NSF) Division of Ocean Sciences program that focuses the science, technology, education and outreach of an emerging network of science driven ocean observing systems. It is a networked infrastructure of science-driven sensor systems to measure the physical, chemical, geological and biological variables in the ocean and seafloor as well as the overlying atmosphere, providing a fully integrated system collecting data on coastal, regional and global scales.</p>
-                    <!--nav buttons-->
-                    <a href="#oceanObservatories" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                 </div>
-                <div class="col-md=2">
+            <div class="col-md-6" style="float:right;">
+                <div class="header-logo2">
+                    <a href="http://oceanleadership.org/">
+                        <img border="0" alt="OOI" src="img/ooi-landing/images/logos/OceanLeadershipLogoCS2.png" width="97" height="65">
+                    </a>
+                    <a href="http://www.nsf.gov/">
+                        <img border="0" alt="OOI" src="img/ooi-landing/images/logos/nsf1.png" width="65" height="65">
+                    </a>
                 </div>
             </div>
+        </div>
+        <div class="row" style="margin-top:100px;">
+            <div class="col-md=2">
+            </div>
+            <div class="col-md-10">
+                <p class="intro-text">The Ocean Observatories Initiative (OOI) is an National Science Foundation (NSF) Division of Ocean Sciences program that focuses the science, technology, education and outreach of an emerging network of science driven ocean observing systems. It is a networked infrastructure of science-driven sensor systems to measure the physical, chemical, geological and biological variables in the ocean and seafloor as well as the overlying atmosphere, providing a fully integrated system collecting data on coastal, regional and global scales.</p>
+                <!--nav buttons-->
+                <a href="#ocean-observatories" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="More..."><i class="fa fa-angle-double-down animated"></i></a>
+            </div>
+            <div class="col-md=2">
+            </div>
+        </div>
     </div>
 </header>
 
-
-
-
-
-
-
-<!-- oceanObservatories -->
-
-<section id="oceanObservatories">
+<!-- ocean-observatories -->
+<section id="ocean-observatories">
     <div class="main style2 right dark fullscreen ">
-    <div class="content box style2">
-        <header>
-            <h2>Ocean Observatories Initiative</h2>
-        </header>
-        <div class="row">
-            <div class="col-md-12">
-                <h5>The goal of the OOI is to deliver data and data products for a 25-year-plus time period within an expandable architecture that can meet emerging technical advances in ocean science. These data will be freely accessible online through the OOi Cyberinfrastructure. Construction of the OOI commenced in 2009. Initial installations of scientific instrumentation will begin in summer 2013, and the project is planned to be in full operations by early 2015.</h5>
-                <h5><a href="/infrastructure">Go to Ocean Observatories page...</a></h5>
-                <!--nav buttons-->
-                <a href="#science" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-double-up animated"></i></a>
-                <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-up animated"></i></a>
+        <div class="content box style2">
+            <header>
+                <h2>Ocean Observatories Initiative</h2>
+            </header>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>The goal of the OOI is to deliver data and data products for a 25-year-plus time period within an expandable architecture that can meet emerging technical advances in ocean science. These data will be freely accessible online through the OOi Cyberinfrastructure. Construction of the OOI commenced in 2009. Initial installations of scientific instrumentation will begin in summer 2013, and the project is planned to be in full operations by early 2015.</h5>
+                    <h5><a href="/infrastructure">Go to Ocean Observatories page...</a></h5>
+                    <!--nav buttons-->
+                    <a href="#science" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Next"><i class="fa fa-angle-double-down animated"></i></a>
+                    <a href="#about" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Previous"><i class="fa fa-angle-up animated"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="main style2 img-left fullscreen">
-        <div class="content">
-            <img border="0" alt="OOI" src="img/ooi-landing/images/thumbs/thumbOOI.jpg">
+        <!-- OOI Image -->
+        <div class="main style2 img-left fullscreen">
+            <div class="content  style2" style="margin-top:35;">
+                <img border="0" alt="OOI" src="img/ooi-landing/images/thumbs/thumbOOI.jpg">
+            </div>
         </div>
-    </div>
 </section>
-
-
-
-
-
 
 <!-- science -->
 <section id="science">
     <div class="main style2 left dark fullscreen">
-
         <div class="content box style2">
             <header>
                 <h2>Science</h2>
@@ -138,27 +121,20 @@
                     <h5>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</h5>
                     <h5> <a href="/science">Go to Science page...</a></h5>
                     <!--nav buttons-->
-                    <a href="#status" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                    <a href="#oceanObservatories" class="nav-btn btn-circle"><i class="fa fa-angle-double-up animated"></i></a>
-                    <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-up animated"></i></a>
+                    <a href="#status" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Next"><i class="fa fa-angle-double-down animated"></i></a>
+                    <a href="#ocean-observatories" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Previous"><i class="fa fa-angle-double-up animated"></i></a>
+                    <a href="#about" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Top"><i class="fa fa-angle-up animated"></i></a>
                 </div>
             </div>
         </div>
-
         <!-- Science Image -->
         <div class="main style2 img-right fullscreen">
-            <div class="content style2" style="margin-top:-40;">
+            <div class="content  style2" style="margin-top:8;">
                 <img border="0" alt="Science" src="img/ooi-landing/images/thumbs/thumbScience2.jpg">
             </div>
         </div>
     </div>
- </section>
-   
-
-
-
-
-
+</section>
 
 <!-- status -->
 <section id="status">
@@ -173,28 +149,22 @@
                     <h5>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</h5>
                     <h5> <a href="/statusUI">Go to Status page...</a></h5>
                     <!--nav buttons-->
-                    <a href="#asset-management" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                    <a href="#science" class="nav-btn btn-circle"><i class="fa fa-angle-double-up animated"></i></a>
-                    <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-up animated"></i></a>
+                    <a href="#asset-management" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Next"><i class="fa fa-angle-double-down animated"></i></a>
+                    <a href="#science" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Previous"><i class="fa fa-angle-double-up animated"></i></a>
+                    <a href="#about" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Top"><i class="fa fa-angle-up animated"></i></a>
                 </div>
             </div>
         </div>
-
         <!--Status Image-->
         <div class="main style2 img-left fullscreen">
-            <div class="content style2" style="margin-top:-40;">
+            <div class="content style2" style="margin-top:8;">
                 <img border="0" alt="Status" src="img/ooi-landing/images/thumbs/thumbStatus.jpg">
             </div>
         </div>
     </div>
-    </section>
+</section>
 
-
-
-
-
-
-<!-- Asset Management -->
+<!-- asset-management -->
 <section id="asset-management">
     <div class="main style2 left dark fullscreen">
         <div class="content box style2">
@@ -206,21 +176,20 @@
                     <!--nav buttons-->
                     <h5>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</h5>
                     <h5> <a href="assets/list/">Go to Asset Management page...</a></h5>
-                    <a href="#c2" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                    <a href="#status" class="nav-btn btn-circle"><i class="fa fa-angle-double-up animated"></i></a>
-                    <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-up animated"></i></a>
+                    <a href="#c2" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Next"><i class="fa fa-angle-double-down animated"></i></a>
+                    <a href="#status" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Previous"><i class="fa fa-angle-double-up animated"></i></a>
+                    <a href="#about" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Top"><i class="fa fa-angle-up animated"></i></a>
                 </div>
             </div>
         </div>
-
         <!--Asset Management Image-->
         <div class="main style2 img-right fullscreen">
-            <div class="content style2" style="margin-top:-40;">
+            <div class="content style2" style="margin-top:8;">
                 <img border="0" alt="Asset-Management" src="img/ooi-landing/images/thumbs/thumbAsstMgt.jpg">
             </div>
         </div>
-        </div>
-    </section>
+    </div>
+</section>
 
 <!-- C2 -->
 <section id="c2">
@@ -234,18 +203,20 @@
                     <!--nav buttons-->
                     <h5>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</h5>
                     <h5> <a href="/c2">Go to Command & Control page...</a></h5>
-                    <a href="#footer" class="nav-btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
-                    <a href="#asset-management" class="nav-btn btn-circle"><i class="fa fa-angle-double-up animated"></i></a>
-                    <a href="#about" class="nav-btn btn-circle"><i class="fa fa-angle-up animated"></i></a>
+                    <a href="#footer" class="nav-btn btn-circle" data-toggle="tooltip" data-toggle="tooltip" data-placement="left" title="Next"><i class="fa fa-angle-double-down animated"></i></a>
+                    <a href="#asset-management" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Previous"><i class="fa fa-angle-double-up animated"></i></a>
+                    <a href="#about" class="nav-btn btn-circle" data-toggle="tooltip" data-placement="left" title="Top"><i class="fa fa-angle-up animated"></i></a>
                 </div>
             </div>
         </div>
+        <!--C2 Image-->
         <div class="main style2 img-left fullscreen">
-            <div class="content style2">
+            <div class="content style2" style="margin-top:8;">
                 <img border="0" alt="C2" src="img/ooi-landing/images/thumbs/thumbC2.jpg">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <!-- Footer -->
 <footer id="footer">
@@ -254,13 +225,13 @@
         <li><a href="https://twitter.com/oceanobserv" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
         <li><a href="https://www.facebook.com/ooi.org" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
     </ul>
-    
+
     <!-- Menu -->
     <ul class="menu">
         <li>&copy; Ocean Observatories Initiative</li>
         <li>Design:<a href="http://asascience.com/"><img border="0" alt="RPS/ASA" src="img/ooi-landing/images/logos/rps-asa-260-trans.png" width="75"></a></li>
     </ul>
+    <a href="http://www.oceanobservatories.org"><imgsrc="img/ooi-landing/images/logos/OOI_Logo_hd.png"></a>
 </footer>
-<a href="http://www.oceanobservatories.org"><imgsrc="img/ooi-landing/images/logos/OOI_Logo_hd.png"></a>
 
 {% endblock %}
