@@ -1,31 +1,17 @@
-
 {% block title %}
 <title>OOI Landing</title>
 {% endblock %}
 
 {% block head %}
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
 <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-<script src="/js/ooi-landing/js/jquery.min.js"></script>
-<script src="/js/ooi-landing/js/jquery.poptrox.min.js"></script>
-<script src="/js/ooi-landing/js/jquery.scrolly.min.js"></script>
-<script src="/js/ooi-landing/js/jquery.scrollex.min.js"></script>
-<script src="/js/ooi-landing/js/skel.min.js"></script>
-<script src="/js/ooi-landing/js/init.js"></script>
-<script src="/js/ooi-landing/js/jquery.easing.min.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="/js/ooi-landing/js/grayscale.js"></script>
-<link href="/css/ooi-landing/css/style.css" rel="stylesheet" type="text/css">
-<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="/css/ooi-landing/css/bootstrap.min.css" rel="stylesheet">
+<script src="/js/compiled/OoiLanding.js"></script>
+<!-- <script src="/js/ooi-landing/js/jquery.easing.min.js"></script> **not sure** -->
+<link href="/css/compiled/ooi-landing.css" rel="stylesheet">
 <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 {% endblock %}
 
 {% block body %}
-
 <!-- navbar -->  
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 
@@ -233,7 +219,7 @@
     </ul>
     <a href="http://www.oceanobservatories.org"><imgsrc="img/ooi-landing/images/logos/OOI_Logo_hd.png"></a>
 </footer>
- 
+
 
 <script>
 // Cache selectors
@@ -244,42 +230,42 @@ var lastId,
     menuItems = topMenu.find("a"),
     // Anchors corresponding to menu items
     scrollItems = menuItems.map(function(){
-      var item = $($(this).attr("href"));
-      if (item.length) { return item; }
+        var item = $($(this).attr("href"));
+        if (item.length) { return item; }
     });
 
 // Bind click handler to menu items
 // so we can get a fancy scroll animation
 menuItems.click(function(e){
-  var href = $(this).attr("href"),
-      offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
-  $('html, body').stop().animate({ 
-      scrollTop: offsetTop
-  }, 300);
-  e.preventDefault();
+    var href = $(this).attr("href"),
+    offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+    $('html, body').stop().animate({ 
+        scrollTop: offsetTop
+    }, 300);
+    e.preventDefault();
 });
 
 // Bind to scroll
 $(window).scroll(function(){
-   // Get container scroll position
-   var fromTop = $(this).scrollTop()+topMenuHeight;
-   
-   // Get id of current scroll item
-   var cur = scrollItems.map(function(){
-     if ($(this).offset().top < fromTop)
-       return this;
-   });
-   // Get the id of the current element
-   cur = cur[cur.length-1];
-   var id = cur && cur.length ? cur[0].id : "";
-   
-   if (lastId !== id) {
-       lastId = id;
-       // Set/remove active class
-       menuItems
-         .parent().removeClass("active")
-         .end().filter("[href=#"+id+"]").parent().addClass("active");
-   }                   
+    // Get container scroll position
+    var fromTop = $(this).scrollTop()+topMenuHeight;
+
+    // Get id of current scroll item
+    var cur = scrollItems.map(function(){
+        if ($(this).offset().top < fromTop)
+            return this;
+    });
+    // Get the id of the current element
+    cur = cur[cur.length-1];
+    var id = cur && cur.length ? cur[0].id : "";
+
+    if (lastId !== id) {
+        lastId = id;
+        // Set/remove active class
+        menuItems
+            .parent().removeClass("active")
+            .end().filter("[href=#"+id+"]").parent().addClass("active");
+    }                   
 });
 </script>
 {% endblock %}
