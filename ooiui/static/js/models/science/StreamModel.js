@@ -13,7 +13,7 @@
  */
 
 var StreamModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/stream',
+  //urlRoot: '/api/uframe/get_toc',
   defaults: {
     stream_name: "",
     download: "",

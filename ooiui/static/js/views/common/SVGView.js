@@ -6,7 +6,7 @@ var SVGView = Backbone.View.extend({
     } else {
       console.error("SVGView needs height and width");
     }
-    this.initialRender();
+    //this.initialRender();
   },
   fetch: function() {
     var self = this;
@@ -26,7 +26,9 @@ var SVGView = Backbone.View.extend({
   },
   initialRender: function() {
     console.log("Plot should be a spinner");
+    //this.$el.html('<i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>');
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
+    
   },
   render: function() {
   }
@@ -34,19 +36,24 @@ var SVGView = Backbone.View.extend({
 
 var SVGPlotView = SVGView.extend({
   setModel: function(model) {
+    console.log("set Model")
     this.model = model;
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
+    this.variable = this.model.get('yvariable').join()
+    this.dpa_flag = "0";
+    /* NEED TO ADD THIS BACK
     var variables = this.model.get('variable_types');    
     this.variable = null;
     //loop over variables
     for(var key in variables) {
-      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
-        this.variable = key;
+      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {        
+        this.variable = key;        
         this.yunits = this.model.get('units')[this.variable];
         this.xunits = this.model.get('units')[this.variable];
         this.d_type = this.model.get('variables_shape')[this.variable];
         //if its a dpa product create the flag
+        
         if (this.model.get('variables_shape')[this.variable] == "function"){
           this.dpa_flag = "1";
         }else{
@@ -56,11 +63,13 @@ var SVGPlotView = SVGView.extend({
         break;
       }
     }
+    */
 
+    console.log("set Model")
     if(this.variable != null) {
       //done on first render, i.e inital conditions      
-      var useLine = "True"
-      var useScatter = "False"
+      var useLine = "true"
+      var useScatter = "false"
       var plotLayoutType = "timeseries"
       this.width = this.$el.width()-50
       //st = moment(this.model.get('start'))
@@ -92,8 +101,15 @@ var SVGPlotView = SVGView.extend({
   },
   plot: function(options) {
     //requested plot
+    console.log("plot...")
     this.reference_designator = this.model.get('reference_designator')    
     this.stream_name = this.model.get('stream_name')
+    options.yvar = this.model.get('yvariable')  
+    if('xvar' in options){
+    }else{
+      options.xvar = ["time"]
+    } 
+
     //set the width of the plot
     this.width = this.$el.width()-50
 
@@ -152,7 +168,7 @@ var SVGPlotView = SVGView.extend({
       ooi.trigger('SVGPlotView:elementClick', i);
     });
 
-    this.$el.find('#PathCollection_1 > g > use').tooltip({title: "bob"});
+    this.$el.find('#PathCollection_1 > g > use').tooltip({title: ""});
   }
 });
 
@@ -164,11 +180,12 @@ var SVGPlotControlView = Backbone.View.extend({
     'dp.change #end-date' : 'onClickPlot'
   },
   initialize: function() { 
+    
   },
   setModel: function(model) {
     var self = this;
     this.model = model;
-    this.data = null;
+    this.data = null;    
     this.model.getData({
       success: function(data, textStatus, jqXHR) {
         self.data = data.data;
@@ -184,20 +201,19 @@ var SVGPlotControlView = Backbone.View.extend({
     data.start_date = this.$start_date_picker.getDate();
     data.end_date = this.$end_date_picker.getDate();
     data.xvar = this.$el.find('#xvar-select').val();
-    data.yvar = this.$el.find('#yvar-select').val();    
-
-    var plotType = $('#xvar-select option:selected').text();
-
+    //data.yvar = this.$el.find('#yvar-select').val();    
+    data.plotType = $('#xvar-select option:selected').text();
+    /*
     if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
-      data.yvar = this.$el.find('#xvar-select').val();
+      //data.yvar = this.$el.find('#xvar-select').val();
       data.xvar = this.$el.find('#yvar-select').val();
 
     }else{
       data.plotType = "timeseries"
-    }
+    }*/
 
-    data.useLine = this.$el.find('#plotting-enable-line').bootstrapSwitch('state');
+    data.useLine = "true"
     data.useScatter = this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
 
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
@@ -210,6 +226,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
+    
     this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
                                      maxDate: moment(this.model.get('end'))
                                      });
@@ -235,5 +252,6 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$el.find('#xvar-select').selectpicker('val', xvar);
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
+    
   }
 });
