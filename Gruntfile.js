@@ -9,8 +9,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/TOCParentItem.html",
-            "ooiui/static/js/partials/InstrumentItem.html",
-            "ooiui/static/js/partials/PlatformItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -540,7 +538,7 @@ module.exports = function(grunt) {
             // Models
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
-            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/UserModel.js', 
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -696,6 +694,19 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
           ],
+          'ooiui/static/js/compiled/OoiLanding.js' : [
+            // Libs
+            'ooiui/static/lib/jquery/dist/jquery.min.js',
+            'ooiui/static/js/ooi-landing/js/jquery.poptrox.min.js',
+            'ooiui/static/js/ooi-landing/js/jquery.scrolly.min.js',
+            'ooiui/static/js/ooi-landing/js/jquery.scrollex.min.js',  
+            'ooiui/static/js/ooi-landing/js/skel.min.js',
+            'ooiui/static/js/ooi-landing/js/init.js',
+            'ooiui/static/js/ooi-landing/js/grayscale.js',
+
+            // App
+            'ooiui/static/js/ooi-landing/js/grayscale.js'
+          ],
           'ooiui/static/js/compiled/StatusUIIcon.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -805,6 +816,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/core/backgrid/backgrid-paginator.min.js",
             "ooiui/static/js/core/backgrid/backgrid-select-all.min.js",
             "ooiui/static/js/core/backgrid/backgrid-filter.min.js",*/
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
             "ooiui/static/js/core/filtrify/js/filtrify.js",
             "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
             // App
@@ -827,8 +840,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/asset_management/PlatformView.js',
-            'ooiui/static/js/views/asset_management/EventsView.js',
-            'ooiui/static/js/views/asset_management/EventViewPage.js',
             'ooiui/static/js/views/asset_management/AssetView.js'
           ],
           'ooiui/static/js/compiled/opLog.js' : [
@@ -1023,6 +1034,11 @@ module.exports = function(grunt) {
       },
       css: {
         files: {
+          "ooiui/static/css/compiled/ooi-landing.css" : [
+            "ooiui/static/css/ooi-landing/css/style.css",  
+            "ooiui/static/lib/font-awesome/css/font-awesome.min.css",
+            "ooiui/static/lib/bootstrap/dist/css/bootstrap.min.css"
+          ],
           "ooiui/static/css/compiled/science.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
@@ -1149,14 +1165,6 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/css/common/landingPages.css"
           ],
-          "ooiui/static/css/compiled/statusUIIcon.css" : [
-            "ooiui/static/css/common/scienceLayout.css",
-            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
-            "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/statusUIIcon.css",
-            "ooiui/static/css/common/orgsidebarview.css",
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
-          ],          
           "ooiui/static/css/compiled/c2.css" : [
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",

@@ -20,7 +20,7 @@ import math
 
 @app.route('/')
 def new_index():
-    return render_template('science/index.html')
+    return render_template('ooiLanding/index.html')
 
 @app.route('/landing/pioneer')
 def landing_pioneer():
@@ -97,11 +97,6 @@ def platform_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/platform_deployments', params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/display_name')
-def display_name():
-    ref = request.args['reference_designator'];
-    response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
-    return response.text, response.status_code
 
 #Assets
 @app.route('/api/asset_deployment', methods=['GET'])
