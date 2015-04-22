@@ -696,6 +696,28 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js'
           ],
+          'ooiui/static/js/compiled/OoiLanding.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/loremjs/lorem.js',
+            'ooiui/static/lib/moment/moment.js',
+            "ooiui/static/js/core/filtrify/js/filtrify.js",
+            "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
+            // App
+            'ooiui/static/js/ooi.js',
+            'ooiui/static/js/ooi-landing/js/grayscale.js',
+            'ooiui/static/js/ooi-landing/js/init.js',
+            'ooiui/static/js/ooi-landing/js/skel.min.js',
+            'ooiui/static/js/ooi-landing/js/jquery.poptrox.min.js',
+            // Models
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',         
+            // Views
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            'ooiui/static/js/views/common/LoginView.js'            
+          ],
           'ooiui/static/js/compiled/StatusUIIcon.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -1023,6 +1045,15 @@ module.exports = function(grunt) {
       },
       css: {
         files: {
+          "ooiui/static/css/compiled/ooi-landing.css" : [
+            "ooiui/static/css/ooi-landing/css/bootstrap.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+         
+            "ooiui/static/css/ooi-landing/css/bootstrap.min.css",
+            "ooiui/static/css/ooi-landing/css/skel.css",
+            "ooiui/static/css/ooi-landing/css/style.css"
+          ],
           "ooiui/static/css/compiled/science.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
