@@ -1,7 +1,6 @@
 /*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
-
 html {
     height: 100%;
 }
@@ -116,8 +115,9 @@ br.clear {
     clear: both;
 }
 
-/* List */
-
+/*********************************************************************************/
+/* Lists                                                                   */
+/*********************************************************************************/
 ul {
 }
 
@@ -191,7 +191,7 @@ ol.default li {
 }
 
 /*********************************************************************************/
-/* Nav Buttons                                                                        */
+/* Nav Buttons                                                                   */
 /*********************************************************************************/
 .nav-btn {
     border-radius: 0;
@@ -367,7 +367,6 @@ ol.default li {
     margin-top: 3%;
     padding-top: 0;
     padding-bottom: 2px;
-
 }
 
 /*********************************************************************************/
@@ -522,12 +521,6 @@ body.is-loading:after {
 /*********************************************************************************/
 /* NavBar                                                                        */
 /*********************************************************************************/
-.collapse.navbar-collapse.navbar-back,
-.navbar-nav {
-    margin-right: -21px;
-    margin-left: -21px;
-}
-
 .navbar-nav.navbar-spacing,
 .navbar-nav > li {
     float: none;
@@ -553,65 +546,56 @@ body.is-loading:after {
     }
 }
 
-.light {
-    font-weight: 400;
-}
-
 .navbar-custom {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #000;
-}
-
-.navbar-custom .navbar-brand {
-    font-weight: 700;
-}
-
-.navbar-custom .navbar-brand:focus {
-    outline: 0;`
-}
-
-.navbar-custom .navbar-brand .navbar-toggle {
-    padding: 4px 6px;
-    font-size: 16px;
-    color: #fff;
-}
-
-.navbar-custom .navbar-brand .navbar-toggle:focus,
-.navbar-custom .navbar-brand .navbar-toggle:active {
-    outline: 0;
+    text-decoration: none;   
 }
 
 .navbar-custom a {
     color: #fff;
-
+    text-decoration: none;
 }
-a:hover {
-    color: #42dca3;
+
+.navbar-custom a:hover {
+    color: #ED7E30;
+    text-decoration: none;
 }
 
 .navbar-custom .nav li a {
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
     transition: background .3s ease-in-out;
+    text-decoration: none;    
 }
 
 .navbar-custom .nav li a:hover {
     outline: 0;
     color: rgba(255,255,255,.8);
     background-color: transparent;
+    text-decoration: none;
 }
 
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a:active {
     outline: 0;
     background-color: transparent;
+    text-decoration: none;
+}
+
+/* Scrollspy */
+li.active a {
+    border-bottom: 3px solid #00F5FF;
+    color: #00F5FF;
+    text-decoration: none;
 }
 
 .navbar-custom .nav li.active {
     outline: 0;
+    text-decoration: none;
 }
 
 .navbar-custom .nav li.active a {
@@ -619,10 +603,10 @@ a:hover {
 }
 
 .navbar-custom .nav li.active a:hover {
-    color: #fff;
+    color: #00F5FF;
 }
 
-/*navbar vertical posiont (padding)*/
+/* navbar vertical posiont (padding) */
 @media(min-width:768px) {
     .navbar-custom {
         padding-top: 300px;
