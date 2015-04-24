@@ -52,9 +52,9 @@
     </div>
 
     <div class="col-sm-2">
-      <div style="padding-top:30px;">
+      <div style="">
         <label for="plotting-enable-scatter">Scatter</label>
-        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="mini">        
+        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="normal">        
       </div>
     </div>
 
@@ -68,7 +68,7 @@
           <option value="time">Time Series</option>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
-            <% if(varType == 'int' || varType == 'float') { %>
+            <% if(varType == 'int' || varType == 'float' || varType == 'double' || varType == 'short' || varType == 'ushort' || varType == 'uint') { %>
               <% if(varName.indexOf('pressure') > -1 && hasDepth == false) { %>
                 <option data-subtext="<%=varName%>" value="<%=varName%>">Depth Profile</option>
               <% } %>                
@@ -102,7 +102,7 @@
         <select id='yvar-select' class="form-control selectpicker" multiple>
           <% _.each(model.get('variables'), function(varName) { %>
           <% var varType = model.get('variable_types')[varName]; %>
-            <% if(varType == 'int' || varType == 'float') { %>
+            <% if(varType == 'int' || varType == 'float' || varType == 'double' || varType == 'short' || varType == 'ushort' || varType == 'uint') { %>
               <%  console.log(model.get('variables_shape')[varName])   %>
 
               <%  if(model.get('variables_shape')[varName] == "function"){ %>
