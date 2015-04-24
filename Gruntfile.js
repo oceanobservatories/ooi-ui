@@ -1028,11 +1028,11 @@ module.exports = function(grunt) {
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
             "ooiui/static/css/common/index.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css" ,
-            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css" ,
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css" ,            
             "ooiui/static/css/common/plot.css",
             "ooiui/static/lib/fancytree/dist/skin-bootstrap/ui.fancytree.css" ,
-            "ooiui/static/css/common/toc_menu.css"
+            "ooiui/static/css/common/toc_menu.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
           ],
           "ooiui/static/css/compiled/loginDemo.css" : [
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
@@ -1092,7 +1092,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
-            "ooiui/static/css/common/ModalForm.css"
+            "ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
           ],
           "ooiui/static/css/compiled/FAQ.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",

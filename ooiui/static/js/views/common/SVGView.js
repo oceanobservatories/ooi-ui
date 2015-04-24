@@ -160,8 +160,10 @@ var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
+    /*
     'dp.change #start-date' : 'onClickPlot',
     'dp.change #end-date' : 'onClickPlot'
+    */
   },
   initialize: function() { 
   },
@@ -211,10 +213,19 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
     this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
+                                     minDate: moment(this.model.get('start')),
                                      maxDate: moment(this.model.get('end'))
                                      });
-    this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
-                                   minDate: moment(this.model.get('start'))
+
+
+    var end_date_time = moment(this.model.get('start')).add(4, 'hours');
+    if  (moment(this.model.get('end')).isBefore(end_date_time)){
+      end_date_time = moment(this.model.get('end'))
+    }
+    
+    this.$end_date.datetimepicker({defaultDate : end_date_time,
+                                   minDate: moment(this.model.get('start')),
+                                   maxDate: moment(this.model.get('end'))
                                   }); 
 
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
