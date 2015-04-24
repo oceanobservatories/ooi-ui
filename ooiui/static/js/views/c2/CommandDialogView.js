@@ -55,21 +55,44 @@ var CommandDialogView = Backbone.View.extend({
   render: function(options) {
     var that = this;
     that.options = options;
-
+    console.log(this.options);
     var commandist = new ArrayDataModel();
     commandist.url='/api/c2/'+options.ctype+'/'+options.variable+'/commands';
+    console.log(commandist.url);
 
     this.$el.html(this.template(options));
 
     commandist.fetch({
       success: function(collection, response, options) {
-        if(response.commands.length==0){
+        console.log(response);
+        console.log("capabilities: ", response.value.capabilities);
+        console.log("commands: ", response.value.capabilities[0]);
+
+        console.log("response.value.metadata.commands: ", response.value.metadata.commands);
+
+        for(var availableCommands in response.value.metadata.commands){
+          console.log("availableCommands: ", availableCommands);
+          for(var activeCommand in availableCommands){
+            //console.log("display_name: ", response.value.metadata.commands.String(activeCommand).display_name);
+          }
+
+
+          //console.log(String(availableCommands.display_name));
+        }
+
+
+        if(response.value.capabilities.length==0){
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
         else{
           var buttons = '';
-          for(var c in response.commands){
-            buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><button type='button' class='btn btn-primary' data-toggle='button' aria-pressed='false' autocomplete='off'>"+String(Object.keys(response.commands[c])[0]).replace('_',' ')+"</button></div>");
+          var theCommands = response.value.capabilities[0];
+          console.log("one command: ", theCommands[0]);
+          for(var c in theCommands){
+            console.log(c);
+            console.log(String(theCommands[c]));
+            //console.log("display_name: ", response.value.metadata.commands.theCommands[c].display_name);
+            buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><button type='button' class='btn btn-primary' data-toggle='button' aria-pressed='false' autocomplete='off'>"+String(theCommands[c])+"</button></div>");
           }
           that.options['command_options'] = buttons;
         }
@@ -81,7 +104,7 @@ var CommandDialogView = Backbone.View.extend({
         var m = new ModalDialogView();
           m.show({
             message: "Error Getting Command Data",
-            type: "danger",
+            type: "danger"
           });
       }
     });
