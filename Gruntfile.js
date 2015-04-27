@@ -799,13 +799,9 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
             //'ooiui/static/js/core/science/date.js',
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
-            /*tried this it errored on the page for -sontag
-            "ooiui/static/lib/backgrid/lib/backgrid.js",
-            "ooiui/static/lib/backbone-pageable/lib/backbone-pageable.min.js",
-            "ooiui/static/js/core/backgrid/backgrid-paginator.min.js",
-            "ooiui/static/js/core/backgrid/backgrid-select-all.min.js",
-            "ooiui/static/js/core/backgrid/backgrid-filter.min.js",*/
-            "ooiui/static/js/core/filtrify/js/filtrify.js",
+            'ooiui/static/lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js',
+            //'ooiui/static/lib/bootstrap-table/dist/extensions/filter/bootstrap-table-filter.min.js',
+            //"ooiui/static/js/core/filtrify/js/filtrify.js",
             "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
             // App
             'ooiui/static/js/ooi.js',
