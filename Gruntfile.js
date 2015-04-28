@@ -800,7 +800,7 @@ module.exports = function(grunt) {
             //'ooiui/static/js/core/science/date.js',
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
             'ooiui/static/lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js',
-            //'ooiui/static/lib/bootstrap-table/dist/extensions/filter/bootstrap-table-filter.min.js',
+            'ooiui/static/lib/bootstrap-table/dist/extensions/filter/bootstrap-table-filter.min.js',
             //"ooiui/static/js/core/filtrify/js/filtrify.js",
             "ooiui/static/lib/jquery.browser/dist/jquery.browser.min.js",
             // App

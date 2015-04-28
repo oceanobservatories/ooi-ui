@@ -7,7 +7,7 @@
     var serverUrl;
 
     var getTypeByValues = function(vals, useAjax) {
-        var typeFloat = true, typeInt = true;
+        var typeFloat = false, typeInt = false;
         $.each(vals, function(i, val) {
             if (typeInt && (parseInt(val) != val)) {
                 typeInt = false;
@@ -47,7 +47,18 @@
         $.each(data, function(i, row) {
             $.each(ret, function(field, filter) {
                 if (ret[field].values.indexOf(row[field]) < 0) {
-                    ret[field].values.push(row[field]);
+                    //get to the object in a object
+                    if(row[filter.field]==null){
+                        //ret[field].values.push(row[filter.field][field]);
+                    }
+                    else if(typeof row[filter.field] === 'object'){
+                        if (ret[field].values.indexOf(row[filter.field][field]) < 0&&row[filter.field][field]!=null) {
+                            ret[field].values.push(row[filter.field][field]);
+                        }
+                    }else{
+                        ret[field].values.push(row[field]);    
+                    }
+                    
                 }
             });
         });
