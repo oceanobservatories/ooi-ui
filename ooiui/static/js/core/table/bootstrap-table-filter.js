@@ -156,8 +156,8 @@
                         
                     });
                 }
-                this.clearFilterOptions(filter.field);
-                this.fillFilterOptions(filter.field, vals.slice(0, 20));
+                this.clearFilterOptions(filter.col);
+                this.fillFilterOptions(filter.col, vals.slice(0, 20));
             }
         }
     };
@@ -266,7 +266,7 @@
         });
         this.$toolbar.delegate('.remove-filters *', 'click', function() {
             $.each(that.filters, function(i, filter) {
-                that.disableFilter(filter.field)
+                that.disableFilter(filter.col)
             });
         });
     };
@@ -379,12 +379,12 @@
     };
 
     BootstrapTableFilter.prototype.addFilter = function(filter) {
-        this.filters[filter.field] = filter;
-        this.$buttonList.append('<li data-filter-field="' + filter.field + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');
+        this.filters[filter.col] = filter;
+        this.$buttonList.append('<li data-filter-field="' + filter.col + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');
 
         this.trigger('add-filter', filter);
         if (typeof filter.enabled !== 'undefined' && filter.enabled) {
-            this.enableFilter(filter.field);
+            this.enableFilter(filter.col);
         }
     };
 
