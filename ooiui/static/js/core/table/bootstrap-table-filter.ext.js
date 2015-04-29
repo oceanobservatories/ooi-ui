@@ -26,6 +26,10 @@
                 });
             }
         });
+        //for flatjson object --not working yet
+        /*$(that.options.toolbar).bootstrapTableFilter({
+                    connectTo: that.$el
+                });*/
     };
 
     BootstrapTable.prototype.initSearch = function () {
