@@ -182,7 +182,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ModalDownloadFail.html",
             "ooiui/static/js/partials/ModalDownload.html",
             "ooiui/static/js/partials/AnnotationModalForm.html",
-            "ooiui/static/js/partials/LoggedInNavItems.html"
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/PlottingSelection.html",
+            "ooiui/static/js/partials/FilterPlottingSelection.html",
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -318,6 +320,15 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/css/compiled/streams.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/ModalForm.css"
+          ],
+          "ooiui/static/css/compiled/plotting.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
             "ooiui/static/css/common/scienceLayout.css",
@@ -903,6 +914,51 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
+          'ooiui/static/js/compiled/plotting.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            //'ooiui/static/lib/lunr.js/lunr.js',
+            'ooiui/static/lib/backlunr/backlunr.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/AnnotationModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/FilterSelectionModel.js',
+            'ooiui/static/js/models/science/TocArrayModel.js',
+            'ooiui/static/js/models/science/TocInstrumentsModel.js',
+            'ooiui/static/js/models/science/TocMooringsModel.js',
+            'ooiui/static/js/models/science/TocParametersModel.js',
+            'ooiui/static/js/models/science/TocPlatformsModel.js',
+            'ooiui/static/js/models/science/TocStreamsModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js',
+            'ooiui/static/js/views/common/ModalFormView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/WatchView.js',
+            'ooiui/static/js/views/common/SVGView.js',
+            'ooiui/static/js/views/common/AnnotationModalFormView.js',
+            'ooiui/static/js/views/science/AnnotationTableView.js',     
+            'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/PlottingSelectionView.js',
+            //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'      
+          ],
           'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -1092,7 +1148,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
-            "ooiui/static/css/common/ModalForm.css"
+            "ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/css/science/plotting.css",
           ],
           "ooiui/static/css/compiled/FAQ.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",

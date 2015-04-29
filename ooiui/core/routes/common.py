@@ -256,6 +256,10 @@ def get_operator_event_type():
     response = requests.get(app.config['SERVICES_URL'] + '/operator_event_type', params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_toc', methods=['GET'])
+def get_toc_list():  
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_toc')
+    return response.text, response.status_code
 
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
 def get_glider_track():  
