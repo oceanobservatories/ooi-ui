@@ -21,210 +21,182 @@ var AssetView = Backbone.View.extend({
         }).addTo(map);
 
         self.map = map;
-        var selectedInstrument = [];
+        self.classtypelist = classtypelist;
+        self.selectedInstrument = [];
         //bind
         self.model = new AssetModel();
         self.modalDialog = new ModalDialogView();
-
-        var PageableDeployments = Backbone.PageableCollection.extend({
-          model: AssetModel,
-          url: '/api/asset_deployment',
-          state: {
-            pageSize: 7
-          },
-          mode: "client",
-          parse: function(response, options) {
-            this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-            return response.assets;
-          } // page entirely on the client side  options: infinite, server
-        });
-
-        var pageabledeploy = new PageableDeployments();
-        self.collection = pageabledeploy;
-
-        var columns = [{
-            name: "assetId", // The key of the model attribute
-            label: "ID", // The name to display in the header
-            editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-            // Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
-            cell: Backgrid.IntegerCell.extend({
-                orderSeparator: ''
-            })
-        }, {
-            name: "assetInfo",
-            label: "Name",
-            editable: false,
-            // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return rawValue['name'];
-              }
-            }),
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['name'];
-            }
-        },{
-            name: "assetInfo",
-            label: "Owner",
-            editable: false,
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return rawValue['owner'];
-              }
-            }) ,
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['owner'];
-            }
-        }, {
-            name: "assetInfo",
-            label: "Type",
-            editable: false,
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return rawValue['type'];
-              }
-            }),
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['type'];
-            }
-        }, {
-            name: "launch_date_time",
-            label: "Launch Date",
-            editable: false,
-            cell: "string"
-        },{
-            name: "assetInfo",
-            label: "Description",
-            editable: false,
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return rawValue['description'];
-              }
-            }),
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['description'];
-            }
-        }, {
-            name: "class",
-            editable: false,
-            label: "Class",
-            cell: "string"
-        }];
-
-        //add click event
-        var ClickableRow = Backgrid.Row.extend({
-          highlightColor: "#eee",
-          events: {
-            "click": "onClick",
-            mouseover: "rowFocused",
-            mouseout: "rowLostFocus"
-          },
-          onClick: function () {
-            Backbone.trigger("deployrowclicked", this.model);
-            this.el.style.backgroundColor = this.highlightColor;
-            //var $table = $('#table-transform');
-            //$table.bootstrapTable();
-          },
-          rowFocused: function() {
-            this.el.style.backgroundColor = this.highlightColor;
-          },
-          rowLostFocus: function() {
-            this.el.style.backgroundColor = '#FFF';
-          }
-        });
-
-        // Set up a grid to use the pageable collection
-        var pageableGrid = new Backgrid.Grid({
-          columns: columns,
-          // enable the select-all extension and select row
-          /*[{
-            name: "",
-            cell: "select-row",
-            headerCell: "select-all"
-          }].concat(columns),*/
-          collection: pageabledeploy,
-          row: ClickableRow
-        });
-
-        // Render the grid and attach the root to your HTML document
-        $("#datatable").append(pageableGrid.render().el);
-
-        // Initialize the paginator
-        var paginator = new Backgrid.Extension.Paginator({
-          collection: pageabledeploy
-        });
-
-        // Render the paginator
-        $("#datatable").after(paginator.render().el);
-
-        // Initialize a client-side filter to filter on the client
-        // mode pageable collection's cache.
-        //extend to match the nested object parameters
-        var AssetFilter = Backgrid.Extension.ClientSideFilter.extend({
-          //collection: pageabledeploy,
-          //fields: ["assetId",'@class'],
-          placeholder: "Search",
-          makeMatcher: function(query){
-               var q = '';
-               if(query!=""){
-                 q = String(query).toUpperCase();
-               }
-               return function (model) {
-                  if(self.query_filter){
-                    var queryhit = true;
-                    //iterate through the filtering to see if it matches any of the attributes
-                    for(var obj in self.query_filter){
-                      for (var j = 0; j < self.query_filter[obj].length; j++ ) {
-                        if(self.query_filter[obj][j] == model.attributes['assetInfo'][String(obj).toLowerCase()]){queryhit= true;}
-                        else if(self.query_filter[obj][j] == model.attributes[String(obj).toLowerCase()]){queryhit= true;}
-                        //this is so that it refreshes if there is no drop down queries
-                        else{queryhit = false;}
+      
+        $('#datatable').bootstrapTable({
+              method: 'get',
+              url: '/api/asset_deployment',
+              cache: false,
+              height: 400,
+              striped: false,
+              pagination: true,
+              //pageSize: 50,
+              //pageList: [10, 25, 50, ],
+              search: false,
+              showColumns: true,
+              showRefresh: true,
+              minimumCountColumns: 2,
+              onClickRow: self.rowClicked,
+              //clickToSelect: true,
+              responseHandler: function responseHandler(res) {
+                  $('#asset_top_panel').html('Click on an Asset to Edit');
+                  $('#editdep_panel').html('Click on an Asset above to Edit');
+                  return res.assets;
+              },
+              showFilter:true,
+              showExport:true,
+              columns: [/*{
+                  field: 'state',
+                  checkbox: true
+              },*/ 
+              {
+                  field: 'display_name',
+                  title: 'Name',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'display_name',
+                  searchable: true
+              },{
+                  field: 'assetInfo',
+                  title: 'Owner',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'owner',
+                  object:true,
+                  formatter:  function aFormatter(value) {
+                      return value['owner'];
+                  }
+              },{
+                  field: 'seriesClassification',
+                  title: 'Series',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'seriesClassification',
+                  visible:false
+              },{
+                  field: 'manufactureInfo',
+                  title: 'Serial Number',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  visible:false,
+                  col:'serialNumber',
+                  formatter:  function tFormatter(value) {
+                      if(value == null){
+                        return '';
                       }
-                    }
-                    if(q == ''){
-                      return queryhit;
-                    }
+                      else{
+                        return value['serialNumber'];  
+                      }
+                      
                   }
-                  //still allow upper right hand search to occur
-                  if(q == ''){
-                      return true;
+              },{
+                  field: "launch_date_time",
+                  title: "Date",
+                  align: 'left',
+                  valign: 'bottom',
+                  col:'launch_date_time',
+                  sortable: true
+              },{
+                  field: 'class',
+                  title: 'Class',
+                  align: 'left',
+                  valign: 'bottom',
+                  col:'class',
+                  sortable: true
+              },{
+                  field: 'assetInfo',
+                  title: 'Type',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'type',
+                  formatter:  function eFormatter(value) {
+                      return value['type'];
                   }
-                  else if(model.attributes['assetInfo']['name']){
-                    if(String(model.attributes['assetInfo']['name']).toUpperCase().search(q)>-1){
-                        return true;
-                    }
+                  //sorter: priceSorter
+              },{
+                  field: 'assetInfo',
+                  title: 'Description',
+                  align: 'left',
+                  valign: 'top',
+                  //clickToSelect: false,
+                  sortable:true,
+                  col:'description',
+                  formatter:  function aFormatter(value) {
+                      return value['description'];
                   }
-                  else if(model.attributes['assetInfo']['description']){
-                    if(String(model.attributes['assetInfo']['description']).toUpperCase().search(q)>-1){
-                        return true;
-                    }
-                  }
-                  else if(model.attributes['assetInfo']['owner']){
-                    if(String(model.attributes['assetInfo']['owner']).toUpperCase().search(q)>-1){
-                        return true;
-                    }
-                  }
-                  else{
-                    return false;
-                  }
-              };
-          }
-        });
-
-        var filter = new AssetFilter({
-          collection: pageabledeploy
-        });
-        self.filter = filter;
-
-        // Render the filter
-        $("#datatable").before(filter.render().el);
-        // Add some space to the filter and move it to the right
-        $(filter.el).css({float: "right", margin: "20px"});
-        $(filter.el).find("input").attr('id', 'asset_search_box');
+                  //events: operateEvents
+              },{
+                  field: 'assetId',
+                  title: 'ID',
+                  align: 'center',
+                  visible: false,
+                  valign: 'left',
+                  col:'assetId',
+                  sortable: true
+              }]
+          });
+          /*$('#filter-toolbar').bootstrapTableFilter({
+            connectTo: '#datatable',
+            filterIcon: '<span class="fa fa-search">  </span>   Filter',
+            refreshIcon: '<span class="glyphicon glyphicon-refresh"></span>',
+            clearAllIcon: '<span class="glyphicon glyphicon-remove"></span>',
+            filters:[
+                /*{
+                    field: 'manufactureInfo',    // field identifier
+                    label: 'Manufacturer',    // filter label
+                    type:  'search'
+                },
+                {
+                    field: 'display_name',    // field identifier
+                    label: 'Name',    // filter label
+                    type:  'search'
+                },
+                {
+                    field: 'assetInfo',    // field identifier
+                    label: 'Type',    // filter label
+                    type:  'select',
+                    values: [
+                        {id: 'Sensor', label: 'Sensor'},
+                        {id: 'Mooring', label: 'Mooring'}
+                    ]
+                }
+                {
+                    field: 'class',    // field identifier
+                    label: 'Class',    // filter label
+                    type:  'select',
+                    values: [
+                        {id: '.InstrumentAssetRecord', label: 'Instrument'},
+                        {id: '.AssetRecord', label: 'Asset'}
+                    ]
+                    //type: 'ajaxSelect',
+                    //source: 'http://example.com/get-cities.php'
+                },
+                {
+                    field: 'seriesClassification',    // field identifier
+                    label: 'Series',    // filter label
+                    type:  'search'
+                },
+                {
+                    field: 'assetInfo',    // field identifier
+                    label: 'Owner',    // filter label
+                    type:  'search'
+                }
+            ],
+            onSubmit: function() {
+                var data = $('#filter-toolbar').bootstrapTableFilter('getData');
+                //console.log(data);
+            }
+        });*/
+        
 
         //datepickers with min/max validation
         $( "#startdate_d" ).datepicker({
@@ -249,168 +221,6 @@ var AssetView = Backbone.View.extend({
         $('#type_switcher_but_val').on('click', function(e) {
             $('#type_switcher_but').attr('data',e.target.attributes[1].value);
             $('#type_switcher_but').html(e.target.innerHTML);
-        })
-
-        // Fetch some instruments from the url
-        pageabledeploy.fetch({reset: true,
-            error: (function (e) {
-                $('#asset_top_panel').html('There was an error with the Asset list.');
-                $('#editdep_panel').html('There was an error with the Asset list.');
-                alert(' Service request failure: ' + e);
-            }),
-            complete: (function (e) {
-                $('#number_of_assets').html(e.responseJSON['assets'].length+' total records');
-                $('#asset_top_panel').html('Click on an Asset to Edit');
-                $('#editdep_panel').html('Click on an Asset above to Edit');
-
-                //need to add assets to the filtrify component
-                for (var t = 0; t < e.responseJSON['assets'].length; t++ ) {
-                    $('#container_of_data').append("<li data-Type='"+e.responseJSON['assets'][t].assetInfo['type']+"' data-Class='"+e.responseJSON['assets'][t]['class']+"' data-Owner='"+e.responseJSON['assets'][t].assetInfo['owner']+"'><span>Type: <i>"+e.responseJSON['assets'][t].assetInfo['type']+"</i></span><span>Class: <i>"+e.responseJSON['assets'][t]['class']+"</i></span><span>Owner: <i>"+e.responseJSON['assets'][t].assetInfo['owner']+"</span></li>");
-                }
-
-                //query drop downs filters based on data
-                $.filtrify( 'container_of_data', 'asset_search_pan', {
-                  callback : function( query, match, mismatch ) {
-                      self.query_filter = query;
-                      /* complicated
-                      var this_q = query;
-                      self.collection.reset(self.collection.fullCollection.filter(
-                        function(model){
-                            if(model.attributes['@class'] == this_q['Class'][0]){
-                              return !0;
-                            }
-                            else{
-                              return !1;
-                            }
-                      }),{reindex: !1});*/
-                      self.filter.search();
-                      $('#number_of_assets').html(match.length+' total records');
-                  }
-              });
-            })
-        });
-
-        //try to call this on page change
-        pageabledeploy.on("pageabledeploy:updated", function( details ){
-            //updatePagination( details, showBicycles );
-        });
-
-        //move clicked row to edit panel
-        Backbone.on("deployrowclicked", function (model) {
-            //get all the events for the asset to populate table
-            $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
-            var assetInfoModel = new AssetEvents({id:model.attributes.assetId});
-            assetInfoModel.fetch({
-              success: function (events) {
-                $('#event_table tbody').empty();
-                $('#butnewevent').show();
-
-                $('#butnewevent').on('click',function(){
-                    window.open('/event/new/'+events.attributes.assetId+'/'+events.attributes.class,'_blank');
-                });
-                $('#physinfo_d').val(events.attributes.physicalInfo);
-
-                if(events.attributes.events){
-                  for (var j in events.attributes.events){
-                    var sd = new Date(events.attributes.events[j].startDate);
-                    $('#event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                    //stupid hack again
-                    $('.fixed-table-container').css('padding-bottom','0px');
-                    $('#event_table').css('margin-top','0px');
-                    $('.fixed-table-header').css('display','none');
-                  }
-                }
-                $('#editdep_panel').html('Click on an Asset above to Edit');
-
-                //event click -- go to event page add each time new events are loaded
-                $('#event_table tr').click(function(row) {
-                    //var eventrow = new SingleEvent({id:row.currentTarget.id});
-                    if(row.currentTarget.id){
-                      window.open('/event/'+row.currentTarget.id,'_blank');
-                  }
-                });
-                //allow to edit.
-                //$('#event_table').editableTable();
-              },
-              error: function(er){
-                $('#editdep_panel').html('Error finding Events');
-              }
-            });
-
-            $('#editdep_form').show();
-            $('#editdep_map').show();
-            map.invalidateSize();
-            selectedInstrument = model.attributes;
-
-            $('#name_d').val(model.attributes.assetInfo['name']);
-            $('#owner_d').val(model.attributes.assetInfo['owner']);
-            if(model.attributes.water_depth){
-              $('#depth_d').val(model.attributes.water_depth['value']);
-            }
-            else{
-               $('#depth_d').val('');
-            }
-
-            //stupid catch for the date contat
-            if(model.attributes.launch_date_time){
-              if(String(model.attributes.launch_date_time).search('Z')>-1){
-                var dobj = String(model.attributes.launch_date_time).split('Z')
-                var l_date = Date.parse(dobj[0]);
-              }
-              else if(!isNaN(model.attributes.launch_date_time)){
-                var l_date = new Date(model.attributes.launch_date_time*1000);
-              }
-              else{
-                var l_date = Date.parse(model.attributes.launch_date_time);
-              }
-
-              $("#startdate_d" ).datepicker( "setDate", l_date);
-            }
-            else{
-               $("#startdate_d" ).datepicker( "setDate", '' );
-            }
-            /*if(model.attributes.launch_date_time){
-              var l_date = Date.parse(model.attributes.launch_date_time);
-              $("#enddate_d" ).datepicker( "setDate", l_date );
-            }
-            else{
-               $("#enddate_d" ).datepicker( "setDate", '' );
-            }*/
-
-            $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
-            $('#desc_d').val(model.attributes.assetInfo['description']);
-            $('#notes_d').val(model.attributes.notes);
-            if(model.attributes.manufactureInfo){
-              $('#manufacture_d').val(model.attributes.manufactureInfo['manufacturer']);
-            }
-            else{
-               $('#manufacture_d').val('');
-            }
-            $("#type_d").val(model.attributes.assetInfo['type']);
-            $("#type_switcher_but").attr('data', model.attributes.class);
-            $("#type_switcher_but").val(classtypelist[model.attributes.class].val);
-            $('#type_switcher_but').html(classtypelist[model.attributes.class].label+' <span class="caret"></span>');
-
-            //remove marker
-            if(self.asset_mark){map.removeLayer(self.asset_mark)};
-
-            if(model.attributes.coordinates != null){
-                //for geojson ....
-                if(model.attributes.coordinates.length>0){
-                //if(model.attributes.geo_location.type == "Point"){
-                    //[x,y]
-                    $('#geo_d_lat').val(model.attributes.coordinates[0]);
-                    $('#geo_d_long').val(model.attributes.coordinates[1]);
-
-                    // add a marker in the given location, attach some popup content to it and open the popup
-                    var asset_mark = L.marker([model.attributes.coordinates[0], model.attributes.coordinates[1]]).addTo(map)
-                        .bindPopup(model.attributes.assetInfo['name'])
-                        .openPopup();
-                    self.asset_mark = asset_mark;
-                    map.panTo({lat: model.attributes.coordinates[0], lng: model.attributes.coordinates[1]});
-                    //map.setView({lat: 50, lng: 30},8);
-                }
-            }
         });
 
         //on button bar click
@@ -419,7 +229,7 @@ var AssetView = Backbone.View.extend({
 
             if(t.target.innerText.search('NEW')>-1){
                 self.clearform();
-                selectedInstrument = [];
+                self.selectedInstrument = [];
                 self.model =  new AssetModel();
                 $('#editdep_map').show();
                 map.invalidateSize();
@@ -433,7 +243,13 @@ var AssetView = Backbone.View.extend({
                 if (self.model.isValid()) {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
                    // that.model.attributes = selectedInstrument;
+                   if($( "#startdate_d" ).datepicker('getDate' )){
                     self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
+                   }
+                   else{
+                    self.model.set('launch_date_time','');
+                   }
+                    
                     //self.model.set('end_date',$( "#enddate_d" ).datepicker('getDate' ));
                     var infoObj = {};
                     infoObj['name']= $('#name_d').val();
@@ -461,11 +277,11 @@ var AssetView = Backbone.View.extend({
                     //geoObj['type'] = "Point";
                     //self.model.set('geo_location',wellknown.stringify(geoObj));
 
-                    self.model.set('lastModifiedTimestamp', selectedInstrument['lastModifiedTimestamp']);
-                    self.model.set('ref_des', selectedInstrument['ref_des']);
+                    self.model.set('lastModifiedTimestamp', self.selectedInstrument['lastModifiedTimestamp']);
+                    self.model.set('ref_des', self.selectedInstrument['ref_des']);
                     //existing? this is to put edits
-                    if(selectedInstrument['assetId']){
-                        self.model.set('id',selectedInstrument['assetId']);
+                    if(self.selectedInstrument['assetId']){
+                        self.model.set('id',self.selectedInstrument['assetId']);
                         //If the model does not yet have an id, it is considered to be new.
                         //self.model.url = '/api/asset_deployment/'+selectedInstrument['assetId']
                     }
@@ -508,7 +324,7 @@ var AssetView = Backbone.View.extend({
                         });
 
                         //reset
-                        selectedInstrument = [];
+                        self.selectedInstrument = [];
                         self.clearform();
                     }
                     else{
@@ -524,10 +340,10 @@ var AssetView = Backbone.View.extend({
             else if(t.target.innerText == 'DELETE'){
                 //delete from db
                 //selectedInstrument
-                if(selectedInstrument['assetId']){
+                if(self.selectedInstrument['assetId']){
 
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Deleting.');
-                    self.model.set('id',selectedInstrument['assetId']);
+                    self.model.set('id',self.selectedInstrument['assetId']);
 
                     self.model.destroy({
                       success: function(model, response, options) {
@@ -559,7 +375,7 @@ var AssetView = Backbone.View.extend({
                     });
 
                     //reset
-                    selectedInstrument = [];
+                    self.selectedInstrument = [];
                     self.clearform();
                 }
             }
@@ -631,6 +447,122 @@ var AssetView = Backbone.View.extend({
             }
           }
        });
+    },
+
+    rowClicked: function (model, element) {
+        $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
+        var assetInfoModel = new AssetEvents({id:model.assetId});
+        assetInfoModel.fetch({
+          success: function (events) {
+            $('#event_table tbody').empty();
+            $('#butnewevent').show();
+
+            $('#butnewevent').on('click',function(){
+                window.open('/event/new/'+events.attributes.assetId+'/'+events.attributes.class,'_blank');
+            });
+            $('#physinfo_d').val(events.attributes.physicalInfo);
+
+            if(events.attributes.events){
+              for (var j in events.attributes.events){
+                var sd = new Date(events.attributes.events[j].startDate);
+                $('#event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                //stupid hack again
+                $('.fixed-table-container').css('padding-bottom','0px');
+                $('#event_table').css('margin-top','0px');
+                $('.fixed-table-header').css('display','none');
+              }
+            }
+            $('#editdep_panel').html('Click on an Asset above to Edit');
+
+            //event click -- go to event page add each time new events are loaded
+            $('#event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                  window.open('/event/'+row.currentTarget.id,'_blank');
+              }
+            });
+            //allow to edit.
+            //$('#event_table').editableTable();
+          },
+          error: function(er){
+            $('#editdep_panel').html('Error finding Events');
+          }
+        });
+
+        $('#editdep_form').show();
+        $('#editdep_map').show();
+        self.map.invalidateSize();
+        self.selectedInstrument = model;
+
+        $('#name_d').val(model.display_name);
+        $('#owner_d').val(model.assetInfo['owner']);
+        if(model.water_depth){
+          $('#depth_d').val(model.water_depth['value']);
+        }
+        else{
+           $('#depth_d').val('');
+        }
+
+        //stupid catch for the date contat
+        if(model.launch_date_time){
+          if(String(model.launch_date_time).search('Z')>-1){
+            var dobj = String(model.launch_date_time).split('Z')
+            var l_date = Date.parse(dobj[0]);
+          }
+          else if(!isNaN(model.launch_date_time)){
+            var l_date = new Date(model.launch_date_time*1000);
+          }
+          else{
+            var l_date = Date.parse(model.launch_date_time);
+          }
+
+          $("#startdate_d" ).datepicker( "setDate", l_date);
+        }
+        else{
+           $("#startdate_d" ).datepicker( "setDate", '' );
+        }
+        /*if(model.attributes.launch_date_time){
+          var l_date = Date.parse(model.attributes.launch_date_time);
+          $("#enddate_d" ).datepicker( "setDate", l_date );
+        }
+        else{
+           $("#enddate_d" ).datepicker( "setDate", '' );
+        }*/
+
+        $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
+        $('#desc_d').val(model.assetInfo['description']);
+        $('#notes_d').val(model.notes);
+        if(model.manufactureInfo){
+          $('#manufacture_d').val(model.manufactureInfo['manufacturer']);
+        }
+        else{
+           $('#manufacture_d').val('');
+        }
+        $("#type_d").val(model.assetInfo['type']);
+        $("#type_switcher_but").attr('data', model.class);
+        $("#type_switcher_but").val(self.classtypelist[model.class].val);
+        $('#type_switcher_but').html(self.classtypelist[model.class].label+' <span class="caret"></span>');
+
+        //remove marker
+        if(self.asset_mark){self.map.removeLayer(self.asset_mark)};
+
+        if(model.coordinates != null){
+            //for geojson ....
+            if(model.coordinates.length>0){
+            //if(model.attributes.geo_location.type == "Point"){
+                //[x,y]
+                $('#geo_d_lat').val(model.coordinates[0]);
+                $('#geo_d_long').val(model.coordinates[1]);
+
+                // add a marker in the given location, attach some popup content to it and open the popup
+                var asset_mark = L.marker([model.coordinates[0], model.coordinates[1]]).addTo(self.map)
+                    .bindPopup(model.assetInfo['name'])
+                    .openPopup();
+                self.asset_mark = asset_mark;
+                self.map.panTo({lat: model.coordinates[0], lng: model.coordinates[1]});
+                //map.setView({lat: 50, lng: 30},8);
+            }
+        }
     },
 
     clearform: function(){
