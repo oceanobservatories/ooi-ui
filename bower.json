@@ -44,7 +44,7 @@
     "backlunr": "https://github.com/mpneuried/backlunr.git#~0.2.2",
     "lunr.js": "~0.5.7",
     "bootstrap-switch":"~3.3.2",
-    "bootstrap-table":"1.6.0",
+    "bootstrap-table":"~1.7.0",
     "jquery.browser":"~0.0.7",
     "bootstrap-editable-table":"~0.2.13",
     "jqtree":"~1.0.0"
