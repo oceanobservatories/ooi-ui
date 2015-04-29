@@ -1,0 +1,303 @@
+
+{% extends "common/base.html" %}
+
+{% block title %}
+    <title>Data Catalog</title>
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/compiled/svgplot.css" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>  
+  <!-- lunr needs to be imported by a script tag -->
+  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+
+  <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}    
+
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="hidden navbar-default">
+  </div> <!-- #sidebar-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="content-fluid"> 
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>              
+            </div>
+            <div class="panel-body">
+              <div id="plot-item-selection">
+                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+              </div> 
+            </div> 
+          </div> 
+        </div> 
+      </div>  
+
+      <!--  Plot section of the page   -->
+      <div id='bottom-row' class="row">
+        <div class="col-sm-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <i class="fa fa-bar-chart-o"> Graph</i>
+              <div class="pull-right">
+                <div class="dropdown">
+                  <a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>
+                    <i class="fa fa-caret-down" style="margin-right:200px;"></i>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>
+                    <li role="presentation"><a id='add-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-plus"> Add Plot</i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body">              
+              <div id="plotcontrols">
+              </div>
+              <div id="plot-view">     
+                <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>          
+              </div> <!-- #view -->
+            </div>
+          </div>
+        </div>        
+      </div> <!-- .row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div id='annotation-panel' class="panel">
+            <div class="panel-heading">
+              Annotations
+            </div>
+            <div class="panel-body">
+              <div id="annotation-table">  
+               <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                
+              </div>
+            </div>
+          </div>          
+        </div>  <!-- .annotations -->
+      </div>  <!-- .row -->
+    </div> <!-- .content-fluid -->
+    <div id="annotation-modal">
+    </div>
+    <div id="stream-download-modal">
+    </div>
+    <div id='download-ok-modal'></div>
+    <div id='download-fail-modal'></div>
+  </div> <!-- #page-content-wrapper -->
+</div> <!-- #wrapper -->
+
+
+<script type="text/javascript">
+
+var userId = parseInt(window.location.href.split('/').pop());
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  collections: {
+    annotations: new AnnotationCollection(),
+    //TOC items
+    tocArrays: new TocArrayCollection(),
+    tocMoorings: new TocMooringsCollection(),
+    tocPlatforms: new TocPlatformsCollection(),    
+    tocInstruments: new TocInstrumentsCollection(),
+  },
+  views: {
+    plottingItemSelection : null
+  },
+  models: {
+    userModel: new UserModel()
+  },
+  start: function() {
+    var self = this;
+    this.login.fetch({async: false});
+    
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+    
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+    this.views.navbar.sidebarToggle();
+
+    this.views.svgplot = new SVGPlotView({
+      height: 400,
+      width: 600,
+      el: $('#plot-view')
+    });
+
+    //The plotting buttons
+    this.views.plottingItemSelection = new PlottingSelectionView({      
+      el: $('#plot-item-selection')
+    });
+
+    this.views.annotationTableView = new AnnotationTableView({
+      collection: this.collections.annotations,
+      el: $('#annotation-table')
+    });
+    this.views.svgPlotControlView = new SVGPlotControlView({
+      el: $('#plotcontrols')
+    });
+    this.views.annotationModal = new AnnotationModalFormView({
+      el: $('#annotation-modal')
+    });
+    this.views.streamDownloadFormView = new StreamDownloadFormView({
+      el: $('#stream-download-modal')
+    });
+    this.views.modalDownloadView = new ModalDownloadView({
+      el: $('#download-ok-modal')
+      });
+    this.views.modalDownloadFailView = new ModalDownloadFailView({
+      el: $('#download-fail-modal')
+      });
+    
+    //ALL THE TOC COLLECTIONS
+    var TocCollections = [self.collections.tocArrays, 
+                          self.collections.tocMoorings,
+                          self.collections.tocPlatforms,
+                          self.collections.tocInstruments];
+
+    //GRAB THEM THEN PASS TO VIEW
+    var complete = _.invoke(TocCollections, 'fetch');
+    //when all of them are complete...
+    $.when.apply($, complete).done(function() {
+       //all ready and good to go...
+       self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
+                                                          "moorings":self.collections.tocMoorings,
+                                                          "platforms":self.collections.tocPlatforms,
+                                                          "instruments":self.collections.tocInstruments,
+                                                          "streams":self.collections.tocInstruments,
+                                                          "parameters":self.collections.tocInstruments
+                                                          };
+       self.views.plottingItemSelection.render();
+    });  
+
+    /* Dispatcher Sectiion */
+    this.listenTo(this, "login:success", function() { location.reload(); });
+    this.listenTo(this, "login:logout", function() { location.reload(); });
+
+    //filter selection : unselect
+    this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {
+      self.views.plottingItemSelection.unFilterItems(options);
+    });
+    //filter selection : select
+    this.listenTo(this, 'FilterSelectionView:onSelect', function(options) {
+      self.views.plottingItemSelection.filterItems(options);
+    });
+    //filter seection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
+      //self.views.svgPlotControlView.setModel(options.model);      
+    });
+
+    //filter seection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
+      self.views.svgPlotControlView.setModel(options.model);
+      self.views.svgplot.setModel(options.model);
+      //ANNOTATIONS
+      self.collections.annotations.fetch({
+        data: $.param({stream_name: options.model.get('stream_name')}),
+        reset: true
+      });
+    });
+
+    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+      if (options.plotType == "Depth Profile"){
+        options.plotType = "depthprofile"
+
+        options.yvar = options.xvar;        
+        options.xvar = self.views.plottingItemSelection.getSelectedVars();
+      }else{
+        options.plotType = "timeseries"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+      }
+      
+      self.views.svgplot.plot(options);
+    });
+
+    this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
+      var annotation = new AnnotationModel();
+      var record = self.views.svgPlotControlView.data[idx];
+      var preferred = record['preferred_timestamp']
+      var xval = record[preferred];
+      var xdate = new Date((xval - 2208988800) * 1000);
+      var yvar = self.views.svgplot.variable;
+      annotation.set('stream_name', self.views.svgplot.model.get('stream_name'));
+      annotation.set('instrument_name', self.views.svgplot.model.get('reference_designator'));
+      annotation.set('field_x', preferred);
+      annotation.set('field_y', yvar);
+      annotation.set('pos_x', xdate);
+      annotation.set('pos_y', record[yvar]);
+      annotation.set('value', record[yvar]);
+      console.log(self.models.userModel.get('scopes'));
+      if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
+        console.log("Trying to show");
+        self.views.annotationModal.show({
+          model: annotation,
+          userModel: self.models.userModel
+        });
+      }
+    });
+
+    this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
+      console.log("Adding to collection");
+      self.collections.annotations.add(model);
+    });
+    this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
+      if(self.login.loggedIn()) {
+        self.views.annotationModal.show({
+          model: model,
+          userModel: self.models.userModel
+        });
+      }
+    });
+
+    this.listenTo(this, 'ooi:downloadPlot', function() {
+      self.views.svgplot.download();
+    });
+
+    this.listenTo(this, 'DownloadModal:onHide',function(){
+        self.views.modalDownloadView.show();
+    });
+
+    this.listenTo(this, 'DownloadModalFail:onFail',function(){
+        self.views.modalDownloadFailView.show();
+    });
+
+}
+});
+
+var ooi = new OOI();
+
+$(document).ready(function() {
+  //hide the toc
+  $('body').find('#hideTOC').hide()
+  
+  //hide annotations as they are not ready yet....
+  //$('#annotation-panel').hide();
+  //hide the second plot panel
+
+  $('#second-plot-panel').hide();  
+
+  ooi.start();
+
+  $('#download-plot').click(function(event) {
+    event.preventDefault();
+    ooi.trigger('ooi:downloadPlot');
+  });
+
+  var svgUrl = '/svg/plotdemo';
+});
+
+function jump(h){
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
+
+</script>
+
+{% endblock %}
