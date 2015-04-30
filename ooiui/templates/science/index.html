@@ -85,7 +85,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     stream_collection: new StreamCollection()
   },
   views: {
-    tocView: null,
+    tocView: null
   },
   start: function() {
     var self = this;
@@ -106,7 +106,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.tocView = new SimpleTOCView({
       parentCollection: self.collections.arrays,
       childCollection: self.collections.platform_deployments,
-      el: $('#sidebar-wrapper')      
+      el: $('#sidebar-wrapper')
     });
    
     this.views.svgPlotControlView = new SVGPlotControlView({
