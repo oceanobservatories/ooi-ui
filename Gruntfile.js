@@ -315,7 +315,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/StatusUIIcon.html",
             "ooiui/static/js/partials/StatusUIItem.html",
             "ooiui/static/js/partials/StatusUIAccordion.html",
-            "ooiui/static/js/partials/LoggedInNavItems.html"
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/AssetMap.html"
           ],
           "ooiui/static/css/compiled/streams.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
@@ -730,7 +731,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/ChartViews.js',
-            'ooiui/static/js/views/common/OrgSidebarView.js'
+            'ooiui/static/js/views/common/OrgSidebarView.js',
+            'ooiui/static/js/views/asset_management/AssetMapView.js'
           ],
           //alerts
           'ooiui/static/js/compiled/alertPage.js' : [
