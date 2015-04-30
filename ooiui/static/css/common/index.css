@@ -84,3 +84,7 @@ text.value{
   width: 100% !important;  
   height: 120px;  
 }
+
+.dropdown-menu{
+  min-width: 200px !important;
+}

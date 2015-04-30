@@ -151,6 +151,11 @@ def asset_event_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
     return response.text, response.status_code
 
+@app.route('/api/events/<string:ref_des>', methods=['GET'])
+def get_event_by_ref_des(ref_des):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % ref_des, data=request.args)
+    return response.text, response.status_code
+
 
 @app.route('/opLog.html')
 def op_log():

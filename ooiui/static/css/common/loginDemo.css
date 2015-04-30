@@ -146,3 +146,7 @@ button.question{
 .lgn-message {
     color: #fd0404;
 }
+
+.dropdown-menu{
+  min-width: 200px !important;
+}
