@@ -40,7 +40,9 @@ var InstrumentView = Backbone.View.extend({
     var $wind = $("#instr_window");
 
     $wind.append("<h5><b>Instrument Name:  </b> "+this.collection.display_name+"</h5>");
-    $wind.append("<h5><b>Status:  </b> "+this.collection.operational_status+"</h5>");
+    //$wind.append("<h5><b>Status:  </b> "+this.collection.operational_status+"</h5>");
+    //until status is working
+    $wind.append("<h5><b>Status:  </b> Unknown</h5>");
     if(this.collection.operational_status =='Online'){
         $wind.append("<h2><i style='pointer-events: none; font-size:25px;' class='fa fa-thumbs-up c2-online'></i></h2>");
     }
