@@ -12,13 +12,17 @@ var SVGView = Backbone.View.extend({
     var self = this;
     this.initialRender();
     console.log("Fetching " + this.url);
-    $.get(this.url,
-      function(svgDoc) {
+    $.get(this.url,function(svgDoc) {
         var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
         self.$el.html(importedSVGRootElement);
         self.render();
-      },
-      "xml");
+      },"xml")
+      .fail(function() {
+        self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>')
+      })
+      .always(function() {
+        
+      });
   },
   initialRender: function() {
     console.log("Plot should be a spinner");
@@ -33,43 +37,76 @@ var SVGPlotView = SVGView.extend({
     this.model = model;
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
-    var variables = this.model.get('variable_types');
+    var variables = this.model.get('variable_types');    
     this.variable = null;
+    //loop over variables
     for(var key in variables) {
       if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
         this.variable = key;
+        this.yunits = this.model.get('units')[this.variable];
+        this.xunits = this.model.get('units')[this.variable];
+        this.d_type = this.model.get('variables_shape')[this.variable];
+        //if its a dpa product create the flag
+        if (this.model.get('variables_shape')[this.variable] == "function"){
+          this.dpa_flag = "1";
+        }else{
+          this.dpa_flag = "0";
+        }
+        
         break;
       }
     }
+
     if(this.variable != null) {
       //done on first render, i.e inital conditions      
       var useLine = "True"
       var useScatter = "False"
       var plotLayoutType = "timeseries"
-
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.variable, 
+      this.width = this.$el.width()-50
+      //st = moment(this.model.get('start'))
+      //ed = st.add('hours',1).format(moment.ISO_8601);
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.variable, 
+                                                                                                    enddate:this.model.get('end'),
+                                                                                                    startdate:this.model.get('start'),
                                                                                                     height: this.height, 
-                                                                                                    width: this.width, 
+                                                                                                    width: this.width , 
                                                                                                     scatter:useScatter,
                                                                                                     lines:useLine, 
-                                                                                                    plotLayout:plotLayoutType })
-      console.log("reg url",this.url)
+                                                                                                    x_units:this.xunits, 
+                                                                                                    y_units:this.yunits, 
+                                                                                                    plotLayout:plotLayoutType })      
       this.fetch();
     }
   },
+  getDpaFlag: function(var_list) {
+    var self = this
+    var dpa_flag = "0";
+    $.each(var_list, function( index, value ) {
+      var func_type = self.model.get('variables_shape')[value]    
+      if (func_type == "function"){
+        dpa_flag = "1"        
+      }      
+    });
+    return dpa_flag
+  },
   plot: function(options) {
     //requested plot
-    this.reference_designator = this.model.get('reference_designator')
+    this.reference_designator = this.model.get('reference_designator')    
     this.stream_name = this.model.get('stream_name')
+    //set the width of the plot
+    this.width = this.$el.width()-50
+
     if(options && options.yvar && options.xvar) {      
-      if (options.plotType == 'timeseries'){
+      if (options.plotType == 'timeseries'){        
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)  
       }else{
         this.xvariable = options.xvar.join();
-        this.yvariable = options.yvar;
+        this.yvariable = options.yvar;      
+        this.dpa_flag = this.getDpaFlag(options.xvar)   
       }
-      
     }
     if(this.yvariable != null && this.xvariable != null) {
       this.useLine = options.useLine.toString();
@@ -78,7 +115,8 @@ var SVGPlotView = SVGView.extend({
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({yvar: this.yvariable , 
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.yvariable , 
                                                                                                     xvar: this.xvariable, 
                                                                                                     height: this.height, 
                                                                                                     width: this.width,
@@ -148,9 +186,11 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     data.yvar = this.$el.find('#yvar-select').val();    
 
-    if (data.xvar== "pressure"){
+    var plotType = $('#xvar-select option:selected').text();
+
+    if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
-      data.yvar = "pressure"
+      data.yvar = this.$el.find('#xvar-select').val();
       data.xvar = this.$el.find('#yvar-select').val();
 
     }else{
@@ -170,10 +210,12 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
-    this.$start_date.datetimepicker({defaultDate : this.model.get('start'),
-                                                maxDate: this.model.get('end')});
-    this.$end_date.datetimepicker({defaultDate : this.model.get('end'),
-                                                minDate: this.model.get('start')}); 
+    this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
+                                     maxDate: moment(this.model.get('end'))
+                                     });
+    this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
+                                   minDate: moment(this.model.get('start'))
+                                  }); 
 
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');

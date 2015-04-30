@@ -16,6 +16,7 @@ var TOCView = Backbone.View.extend({
     'keyup #search-filter' : 'filterToc'
   },
   add: function(arrayModel){
+    
     var subview = new ArrayItemView({
       model: arrayModel
     });
@@ -24,16 +25,6 @@ var TOCView = Backbone.View.extend({
   },
   filterToc: function(){
     var self = this
-    /*
-    this.$el.find('#search-filter').keyup(function () {
-        var rex = new RegExp($(this).val());
-        self.$el.find("li ").hide();
-        self.$el.find("li ").filter(function () {
-            console.log("search...",rex)
-            return rex.test($(this).text());
-        }).show();
-    })*/
-
   },
   initialize: function(){
     _.bindAll(this, "render", "add","filterToc");
@@ -133,6 +124,7 @@ var ArrayItemView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
     var self = this;
+    //console.log(self.platformType)
     this.$el.html(this.template({data: this.model}));
   },
   renderPlatforms: function() {
@@ -150,11 +142,14 @@ var ArrayItemView = Backbone.View.extend({
     var subview = new PlatformDeploymentItemView({
       model: platformModel
     });
+    //console.log(platformModel)
     //search for ref deg, and modify the top level parent
-    var ref_deg = platformModel.attributes.reference_designator
+    var ref_deg = platformModel.attributes.ref_des
+    //console.log(ref_deg)
     if (subview.platformType == "parent-platform"){
       var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
-        return _.any([model.attributes.reference_designator], function(v) {
+        return _.any([model.attributes.ref_des], function(v) {
+        //return _.any([model.attributes.reference_designator], function(v) {
           var vv = v.indexOf(ref_deg)!= -1;;          
           return vv
         });                  
@@ -213,11 +208,20 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     
     e.preventDefault();
     e.stopPropagation();
+
     if(this.model.assetDeployments.length == 0) {
       target.find('.toc-arrow').addClass("fa-rotate-270"); 
       target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
       target.prop( "disabled", true );
       self.tg = target;
+
+      /*var ArrayplatformCollection = Backbone.Collection.extend({
+        url: '/api/c2/array/'+this.model.attributes.array_code+'/current_status_display'
+      });
+      var platformCollection = new ArrayplatformCollection();*/
+
+      //This sets the id to be set to the get request, but nothing returning now
+      this.model.attributes['id']= this.model.get('assetId');
       this.model.assetDeployments.fetch({
         success: function(collection, response, options) {
           self.renderInstruments();
@@ -229,29 +233,36 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     } else {
       this.nestedView.toggle();      
     }
-    ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
-    var loc = this.model.get('geo_location')
-    loc = loc.coordinates
-    var locat= [loc[1],loc[0]]
-    ooi.models.mapModel.set({mapCenter: locat})
-    //update the glider track
-    if (this.model.get('display_name').indexOf('Glider') > -1){
-      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
-    }else{
-      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
-    }
 
+    ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
+    
+    /*if(this.model.get('coordinates')){
+      var loc = this.model.get('coordinates')
+      //loc = loc.coordinates
+      var locat= [loc[1],loc[0]]
+      ooi.models.mapModel.set({mapCenter: locat})
+    }
+    if(this.model.get('display_name')){
+      //update the glider track
+      if (this.model.get('display_name').indexOf('Glider') > -1){
+        ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
+      }
+    }
+    else{
+      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
+    }*/
   },  
-  template: JST['ooiui/static/js/partials/ArrayItem.html'],
+
+  template: JST['ooiui/static/js/partials/PlatformItem_AA.html'],
   render: function(){
     var self = this;
+    this.model.set('reference_designator', this.model.get('ref_des'));
     this.$el.html(this.template({data: this.model,type:self.platformType}));
   },
   renderInstruments: function() {
     var self = this;
     if (self.platformType == "child"){
-      this.$el.find(".badge").text(this.model.assetDeployments.length)
-      //this.$el.find(".badge").removeClass("hidden")
+      this.$el.find(".badge").text(this.model.assetDeployments.length)      
     }
 
     this.model.assetDeployments.each(function(instrumentModel) {
@@ -288,7 +299,7 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
     var target = $(e.target);
     e.preventDefault();
     e.stopPropagation();
-    if(this.streams.length == 0) {
+    /*if(this.streams.length == 0) {
       target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
       target.prop( "disabled", true );
       self.tg = target;
@@ -302,10 +313,10 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
         },
         reset: true
       });
-    }
+    }*/
     ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
   },
-  template: JST['ooiui/static/js/partials/ArrayItem.html'],
+  template: JST['ooiui/static/js/partials/InstrumentItem_AA.html'],
   render: function() {
     var self = this;
     this.$el.html(this.template({data: this.model}));

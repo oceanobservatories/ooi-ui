@@ -1,0 +1,277 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Command & Control: Landing Page</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/index.css" type="text/css" />
+<link rel="stylesheet" href="/css/compiled/c2.css" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/c2.js" type="text/javascript"></script>
+<script src="/js/compiled/c2.js" type="text/javascript"></script>
+
+<!-- <link rel="stylesheet" href="/css/common/c2.css" type="text/css" />
+<script src="/js/models/c2/ArrayNavModel.js" type="text/javascript"></script>
+<script src="/js/views/c2/ArraySideBarView.js" type="text/javascript"></script>
+<script src="/js/views/c2/ArrayHistoryView.js" type="text/javascript"></script>
+<script src="/js/views/c2/ArrayPlatformsView.js" type="text/javascript"></script>
+<script src="/js/views/c2/PlatformHistoryView.js" type="text/javascript"></script>
+<script src="/js/views/c2/PlatformInstrumentsView.js" type="text/javascript"></script>
+<script src="/js/views/c2/PlatformPortsView.js" type="text/javascript"></script>
+<script src="/js/views/c2/InstrumentHistoryView.js" type="text/javascript"></script>
+<script src="/js/views/c2/InstrumentView.js" type="text/javascript"></script>
+<script src="/js/views/c2/InstrumentPortsView.js" type="text/javascript"></script>
+<script src="/js/views/c2/MissionDialogView.js" type="text/javascript"></script>
+<script src="/js/views/c2/CommandDialogView.js" type="text/javascript"></script> -->
+
+<script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+<script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+<script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>  
+
+{% endblock %}
+
+{%block body %}
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>
+
+  <div id="page-content-wrapper">
+    <ol class="breadcrumb" id='c2breakcrumb'>
+      <li><a >Arrays</a></li>
+    </ol>
+    <div class="container-fluid">
+      <div class="row">
+        <div  id="array-dashboard" class="col-lg-4">
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-caret-square-o-left">    </i>        Array DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div> -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">History</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Ports</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div> -->
+          </div>
+        </div>
+        <div id="platform-dashboard" class="col-lg-4">
+          <div class="panel-group" id="accordionP">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseOneP"><i class="fa fa-caret-square-o-left">    </i>        Platform DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOneP" class="panel-collapse collapse in">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseTwoP">Ports</a>
+                    </h4>
+                </div>
+                <div id="collapseTwoP" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" >
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseFiveP">Commands</a>
+                    </h4>
+                </div>
+                <div id="collapseFiveP" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseThreeP">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseThreeP" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div> -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" >
+                        <a data-toggle="collapse" data-parent="#accordionP" href="#collapseFourP">History</a>
+                    </h4>
+                </div>
+                <div id="collapseFourP" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div id="instrument-dashboard" class="col-lg-4">
+          <div class="panel-group" id="accordionI">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseOneI"><i class="fa fa-caret-square-o-left">   </i>     Instrument DASHBOARD</a>
+                    </h4>
+                </div>
+                <div id="collapseOneI" class="panel-collapse collapse in">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseSixI">Ports</a>
+                    </h4>
+                </div>
+                <div id="collapseSixI" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseTwoI">Streams</a>
+                    </h4>
+                </div>
+                <div id="collapseTwoI" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseFiveI">Commands</a>
+                    </h4>
+                </div>
+                <div id="collapseFiveI" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseThreeI">Missions</a>
+                    </h4>
+                </div>
+                <div id="collapseThreeI" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div> -->
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionI" href="#collapseFourI">History</a>
+                    </h4>
+                </div>
+                <div id="collapseFourI" class="panel-collapse collapse">
+                    <div class="panel-body" style='text-align:center;'>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+/*
+ * OOI is the main class that we extend from to create behavior and render pages.
+ *
+ * Here we create the application by extending OOI with Backbone.Events, this
+ * gives us the ability to listen to events from models and/or views. When we
+ * hear these events the main application can then trigger another view to
+ * render, or in this case cause a collection to be fetched as a result.
+ */
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  views: {
+      //
+  },
+  start: function() {
+    
+    this.login.fetch({async: false});
+    this.views.navbar = new NavbarView();
+    $('body').prepend(this.views.navbar.el);
+
+    this.arrays = new ArrayNavCollection();
+    this.arrayTOCView = new ArraySidebarView({
+      collection: this.arrays
+    });
+    $('.navbar-brand').html('OOI Command and Control');
+    $('#sidebar-wrapper').html(this.arrayTOCView.el);
+    this.arrays.fetch({reset: true});
+
+    this.listenTo(this, "login:success", this.onLogin);
+    this.listenTo(this, "login:logout", this.onLogout);
+  }
+});
+
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+  // Once the DOM is loaded, we start our application
+  ooi.start();
+});
+
+</script>
+
+{% endblock %}

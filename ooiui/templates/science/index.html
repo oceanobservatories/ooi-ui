@@ -48,39 +48,20 @@
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
       <div id='plot-row' class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-12">
           <div class="panel">
             <div class="panel-heading">
-              <strong>
-                <span class="fa fa-bar-chart"></span>
-                <span data-i18n="Data">Plot Controls</span>
-              </strong>
+              <i class="fa fa-bar-chart-o"> Graph</i>
             </div> <!-- panel-heading -->
             <div class="panel-body">
-              <div class="col-sm-12">
-                <div id="plot-controls">
-                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-                </div>
+              <div id="plot-view">
+                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+              </div> <!-- #view -->
+              <div id="plotcontrols">
               </div>
-            </div> <!-- panel-body -->
+            </div>
           </div> <!-- panel -->
-        </div> <!-- col-lg-4 -->
-        <div class="col-lg-8">
-          <div id='plot-panel' class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-bar-chart"></span> <span data-i18n="Data">Plot Section</span>
-              </strong>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12">
-                <div id="plot-view">
-                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-                </div>
-              </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-lg-8 -->
+        </div> <!-- col-lg-4 -->        
       </div> <!-- row -->
     </div> <!-- container-fluid -->
   </div> <!-- page-content-wrapper -->
@@ -99,48 +80,53 @@ _.extend(OOI.prototype, Backbone.Events, {
   mapModel: new MapModel()
   },
   collections: {
-    arrays: new ArrayCollection(),
-    platform_deployments: new PlatformDeploymentCollection()
+    arrays: null,
+    platform_deployments: null,
+    stream_collection: new StreamCollection()
   },
   views: {
-
+    tocView: null,
   },
   start: function() {
     var self = this;
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
-
+    this.collections.stream_collection.fetch({reset: true});
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.views.mapModel= new MapModel()
+    this.views.mapModel = new MapModel();
+    this.collections.arrays = new ArrayCollection();
+    this.collections.platform_deployments = new PlatformDeploymentCollection();
+
     // It allows me access(via ooi{}) models, collections or views inside one another  
     // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
-    this.views.tocView = new TOCView({
-      collection: this.collections.arrays
+    this.views.tocView = new SimpleTOCView({
+      parentCollection: self.collections.arrays,
+      childCollection: self.collections.platform_deployments,
+      el: $('#sidebar-wrapper')      
     });
-    $('#sidebar-wrapper').html(this.views.tocView.el);
+   
     this.views.svgPlotControlView = new SVGPlotControlView({
-      el: $('#plot-controls')
+      el: $('#plotcontrols')
     });
+    
     this.views.mapView = new MapView({
       collection: this.collections.platform_deployments,
       el: $('#map')
     });
+
     var divwidth = $('#plot-panel').width();
-    console.log(divwidth);
+    //console.log(divwidth);
     this.views.svgplot = new SVGPlotView({
       height: 350,
       width: divwidth - 20,
       el: $('#plot-view')
     });
-    //--------------------------------------------------------------------------------
-    // Collections Fetch
-    //--------------------------------------------------------------------------------
     
-    this.collections.arrays.fetch({reset: true});
+    
     if(!this.login.loggedIn()) {
       this.termsView = new TermsDialogView();
       $('.container-fluid').first().append(this.termsView.el);
@@ -155,16 +141,64 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       });
     }
+
+    //--------------------------------------------------------------------------------
+    //LISTENERS
+    //--------------------------------------------------------------------------------
+    this.listenTo(this.collections.platform_deployments, 'reset', function(collection) {
+      console.log("child updated...")
+      self.views.tocView.childCollection = collection;
+      self.views.tocView.render();
+    });
+
+    this.listenTo(this.collections.stream_collection, 'reset', function(collection) {
+      console.log("streams updated...")        
+    });
+
+    this.listenTo(this.collections.arrays, 'reset', function(collection) {
+      console.log("parent updated...")
+      self.views.tocView.parentCollection = collection;
+      self.views.tocView.render();
+    });
+
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "streamItemView:streamSelect", function(model) {
+    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
       $('#map').height(328);
       $('#plot-row').show();
+      
+      /*
+      if ('coordinates' in model.attributes){
+        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+      }
+      */
+            
+      self.collections.stream_collection.each(function(streamModel) {
+        if (streamModel.get('reference_designator') == model.get('ref_des')){
+          console.log(streamModel.get('reference_designator'),model.get('ref_des'))
+           self.views.svgPlotControlView.setModel(streamModel);
+          self.views.svgplot.setModel(streamModel);
+        }
+      });
+      /*
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
-      self.views.mapView.render();
       self.views.mapView.setMapView(); // recenters
+      self.views.mapView.render();
+      */
     });
+
+    this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {            
+      if ('coordinates' in model.attributes){
+        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+      }
+    });
+
+    this.listenTo(this, "arrayItemView:arraySelect", function(model) {  
+      var coors = model.get('geo_location')['coordinates'][0][0]      
+      self.views.mapView.setMapView(coors,4); // recenters
+    });   
+
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       self.views.svgplot.plot(options);
     });
@@ -177,6 +211,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.trigger('ooi:mapExpand');
+
+    //--------------------------------------------------------------------------------
+    //FETCHING
+    //--------------------------------------------------------------------------------
+    this.collections.platform_deployments.fetch({reset: true});
+    this.collections.arrays.fetch({reset: true});
+    
   }
 });
 var ooi = new OOI();

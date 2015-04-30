@@ -1,4 +1,4 @@
-/* CSS REQUIRED */
+log/* CSS REQUIRED */
 .lgn .btn-launch{
   margin: 20px;
 }
@@ -47,7 +47,7 @@
 
 } */
 .btn-logIn{
-  background: #4fd934;
+  /*background: #4fd934;*/
   -webkit-border-radius: 6;
   -moz-border-radius: 6;
   border-radius: 6px;
@@ -55,12 +55,12 @@
   /*color: #000000;*/
   font-size: 15px;
   padding: 0px 50px 0px 50px;
-  border: solid #9ff5a2 2px;
+  /*border: solid #9ff5a2 2px;*/
   text-decoration: none;
   margin-top: 15px;
 
 }
-.btn-logIn:hover {
+/*.btn-logIn:hover {
  background: #299943;
  background-image: -webkit-linear-gradient(top, #299943, #70d934);
  background-image: -moz-linear-gradient(top, #299943, #70d934);
@@ -68,7 +68,7 @@
  background-image: -o-linear-gradient(top, #299943, #70d934);
  background-image: linear-gradient(to bottom, #299943, #70d934);
  text-decoration: none;
-}
+}*/
 .lgn-input .input{
  background: #4fd934;
  background-image: -webkit-linear-gradient(top, #4fd934, #298c29);
@@ -145,4 +145,8 @@ button.question{
 }
 .lgn-message {
     color: #fd0404;
+}
+
+.dropdown-menu{
+  min-width: 200px !important;
 }

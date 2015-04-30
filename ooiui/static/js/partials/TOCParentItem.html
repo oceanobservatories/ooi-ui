@@ -1,0 +1,16 @@
+<div class="category-rollup panel-heading" role="tab" id="heading<%= data.get('display_name') %>">
+  <h3 class="panel-title category-title pull-left" title="<%= data.get('display_name') %>">
+    <a style="cursor: default;"><%= data.get('display_name') %></a>
+  </h3>
+  <div class="pull-right">
+    <% if(collectionLength>0) { %>
+    <span id="parentBadge" class="badge">
+      <%= collectionLength %>
+    </span>
+    <span id="childBadge" class="badge">
+      <%= collectionLength %>
+    </span>
+    <% } %>
+  </div>
+  <div class="clearfix"></div>
+</div>

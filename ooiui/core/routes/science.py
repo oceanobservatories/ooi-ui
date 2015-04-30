@@ -97,6 +97,11 @@ def platform_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/platform_deployments', params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/display_name')
+def display_name():
+    ref = request.args['reference_designator'];
+    response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
+    return response.text, response.status_code
 
 #Assets
 @app.route('/api/asset_deployment', methods=['GET'])
@@ -146,6 +151,11 @@ def asset_event_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
     return response.text, response.status_code
 
+@app.route('/api/events/<string:ref_des>', methods=['GET'])
+def get_event_by_ref_des(ref_des):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % ref_des, data=request.args)
+    return response.text, response.status_code
+
 
 @app.route('/opLog.html')
 def op_log():
@@ -175,39 +185,62 @@ def metadata_times_proxy(stream_name,reference_designator):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>')
-def get_csv(stream_name, reference_designator):
+@app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_csv(stream_name, reference_designator,start,end):
     token = get_login()
-    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s' % (stream_name, reference_designator)
+    dpa = "0"
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>')
-def get_json(stream_name, reference_designator):
+@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_json(stream_name, reference_designator,start,end):
     token = get_login()
-    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s' % (stream_name, reference_designator)
+    dpa = "0"
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>')
-def get_netcdf(stream_name, reference_designator):
+@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+def get_netcdf(stream_name, reference_designator,start,end):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    dpa = "0"
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_profiles/<string:stream_name>/<string:reference_designator>')
 def get_profiles(stream_name, reference_designator):
     token = get_login()
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
 def get_plotdemo(instrument, stream):
     token = get_login()
-    import time
+    import time    
     t0 = time.time()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()
     print "GUI took %s" % (t1 - t0)
     return req.content, 200, dict(req.headers)
 
+# C2 Routes
+@app.route('/api/c2/array_display/<string:array_code>', methods=['GET'])
+def get_c2_array_display(array_code):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/array_display/%s' % (array_code))
+    return response.text, response.status_code
+
+@app.route('/api/c2/platform_display/<string:reference_designator>', methods=['GET'])
+def get_c2_platform_display(reference_designator):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/platform_display/%s' % (reference_designator))
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument_display/<string:reference_designator>', methods=['GET'])
+def get_c2_instrument_display(reference_designator):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument_display/%s' % (reference_designator))
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
+def get_c2_instrument_fields(reference_designator, stream_name):
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
+    return response.text, response.status_code
