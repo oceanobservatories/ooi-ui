@@ -45,6 +45,9 @@
                   </button>
                   <button id="disableSecondView" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
+                  </button>  
+                  <button id="shareStationLink" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                   </button>                  
                 </div>
               </div>    
@@ -126,6 +129,52 @@ _.extend(OOI.prototype, Backbone.Events, {
   models: {
     userModel: new UserModel()
   },
+  initalFilterOptions: function() {
+    var path = window.location.pathname;
+    var path = path.split("/").slice(2);
+    var dataContentArray = ["arrays","moorings", "platforms","instruments","streams","parameters"];
+
+    if (path.length == 1 && path[0] == ""){
+      //no path information
+    }else{
+      //path information
+      console.log(path)
+      $.each( path, function( key, value ) {
+        console.log( dataContentArray[key] + ": " + value );        
+        var validItem = false; 
+             
+        $('#plot-item-selection #'+dataContentArray[key]+'_id option').each(function( index, obj ) {                    
+          if (value == $( this ).val()){
+            console.log( "FOUND!", value , $(this).val() );
+            validItem = true
+            //$('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('val', $(this).val());
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').val( $(this).val() );                    
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').change();         
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('refresh');                             
+            return false;
+          }
+        });
+
+        //make sure path is >=3
+        if ( key >= 3){
+          //check that platform in instrument
+          if ( path[3].indexOf(path[2]) >=0 ){
+            validItem = true
+          }else{
+            alert("invalid instrument selection");
+            return false
+          }
+        }
+
+        //IF AT ANY POINT IT CANT BE FOUND STOP! 
+        if(!validItem){
+          return false;
+        }
+
+      });
+
+    }
+  },
   start: function() {
     var self = this;
     this.login.fetch({async: false});
@@ -202,6 +251,8 @@ _.extend(OOI.prototype, Backbone.Events, {
                                                           "parameters":self.collections.tocInstruments
                                                           };
        self.views.plottingItemSelection2.render();
+
+       self.initalFilterOptions();
     });      
 
     /* Dispatcher Sectiion */
@@ -333,13 +384,10 @@ var ooi = new OOI();
 
 $(document).ready(function() {
   //hide the toc
-  $('body').find('#hideTOC').hide()
+  $('body').find('#hideTOC').hide()   
   
-  //hide annotations as they are not ready yet....
-  //$('#annotation-panel').hide();
-  //hide the second plot panel
-
-  $('#second-plot-panel').hide();  
+  //dont hide annotations  
+  //$('#annotation-panel').hide();    
 
   ooi.start();
 
