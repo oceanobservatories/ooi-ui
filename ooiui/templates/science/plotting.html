@@ -31,13 +31,26 @@
               <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>              
             </div>
             <div class="panel-body">
-              <div id="plot-item-selection">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div> 
+              <div class="col-sm-11" style="padding-right:1px;">              
+                <div id="plot-item-selection">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
+                <div id="plot-item-selection2" style="display: none;">                
+                </div> 
+              </div>
+              <div class="col-sm-1" style="padding-left:1px;"> 
+                <div class="btn-group-vertical" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
+                  <button id="enableSecondView" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
+                  </button>
+                  <button id="disableSecondView" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
+                  </button>                  
+                </div>
+              </div>    
             </div> 
           </div> 
         </div> 
-      </div>  
 
       <!--  Plot section of the page   -->
       <div id='bottom-row' class="row">
@@ -107,7 +120,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocInstruments: new TocInstrumentsCollection(),
   },
   views: {
-    plottingItemSelection : null
+    plottingItemSelection : null,
+    plottingItemSelection2 : null
   },
   models: {
     userModel: new UserModel()
@@ -131,8 +145,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     //The plotting buttons
-    this.views.plottingItemSelection = new PlottingSelectionView({      
+    this.views.plottingItemSelection = new PlottingSelectionView({            
       el: $('#plot-item-selection')
+    });
+
+    //The plotting buttons
+    this.views.plottingItemSelection2 = new PlottingSelectionView({            
+      el: $('#plot-item-selection2')
     });
 
     this.views.annotationTableView = new AnnotationTableView({
@@ -174,19 +193,36 @@ _.extend(OOI.prototype, Backbone.Events, {
                                                           "parameters":self.collections.tocInstruments
                                                           };
        self.views.plottingItemSelection.render();
-    });  
+
+       self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
+                                                          "moorings":self.collections.tocMoorings,
+                                                          "platforms":self.collections.tocPlatforms,
+                                                          "instruments":self.collections.tocInstruments,
+                                                          "streams":self.collections.tocInstruments,
+                                                          "parameters":self.collections.tocInstruments
+                                                          };
+       self.views.plottingItemSelection2.render();
+    });      
 
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
 
     //filter selection : unselect
-    this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {
-      self.views.plottingItemSelection.unFilterItems(options);
+    this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {      
+      if (options.itemid == "plot-item-selection" ){
+        self.views.plottingItemSelection.unFilterItems(options);
+      }else{
+        self.views.plottingItemSelection2.unFilterItems(options);
+      }
     });
     //filter selection : select
     this.listenTo(this, 'FilterSelectionView:onSelect', function(options) {
-      self.views.plottingItemSelection.filterItems(options);
+      if (options.itemid == "plot-item-selection" ){
+        self.views.plottingItemSelection.filterItems(options);
+      }else{
+        self.views.plottingItemSelection2.filterItems(options);
+      }
     });
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
@@ -195,13 +231,21 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
-      self.views.svgPlotControlView.setModel(options.model);
-      self.views.svgplot.setModel(options.model);
-      //ANNOTATIONS
-      self.collections.annotations.fetch({
-        data: $.param({stream_name: options.model.get('stream_name')}),
-        reset: true
-      });
+      if (options.itemid == "plot-item-selection" ){      
+        
+        self.views.svgPlotControlView.setModel(options.model);                
+        self.views.svgplot.setModel(options.model);
+        
+
+        //ANNOTATIONS
+        self.collections.annotations.fetch({
+          data: $.param({stream_name: options.model.get('stream_name')}),
+          reset: true
+        });
+
+      }else{
+
+      }
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
@@ -302,6 +346,16 @@ $(document).ready(function() {
   $('#download-plot').click(function(event) {
     event.preventDefault();
     ooi.trigger('ooi:downloadPlot');
+  });
+
+  $('#disableSecondView').on('click', function(event){
+    event.preventDefault();
+    $('#plot-item-selection2').hide();
+  });
+
+  $('#enableSecondView').on( "click", function(event) {
+    event.preventDefault();
+    $('#plot-item-selection2').show();
   });
 
   var svgUrl = '/svg/plotdemo';

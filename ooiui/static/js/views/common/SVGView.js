@@ -86,7 +86,7 @@ var SVGPlotView = SVGView.extend({
                                                                                                     x_units:this.xunits, 
                                                                                                     y_units:this.yunits, 
                                                                                                     plotLayout:plotLayoutType })      
-      this.fetch();
+      //this.fetch();
     }
   },
   getDpaFlag: function(var_list) {

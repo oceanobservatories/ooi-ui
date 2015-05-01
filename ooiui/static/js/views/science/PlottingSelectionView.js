@@ -18,6 +18,9 @@
 var PlottingSelectionView = Backbone.View.extend({ 
   filterSubviews:[],
   dataCollection: {},
+  options : {
+    itemid:null,
+  },
   parentChild : {
                  "arrays":{"parent":null,"child":"moorings"},
                  "moorings":{"parent":"arrays","child":"platforms"},
@@ -26,28 +29,29 @@ var PlottingSelectionView = Backbone.View.extend({
                  "streams":{"parent":"streams","child":"instruments"},
                  "parameters":{"parent":"instruments","child":"parameters"}
                  },    
-  initialize: function() {
-    _.bindAll(this, "render");     
+  initialize: function(options) {    
+    _.bindAll(this, "render");            
   },
   getSelectedVars: function(filterModel,filterCollection){        
     var selectedParam = this.$el.find( "#parameters_id option:selected").val()        
     return selectedParam;
   },
   addFilter: function(filterModel,filterCollection){    
+    var self = this;
     if (filterModel.get('labelText') == "arrays"){
-      var subview = new FilterSelectionView({        
+      var subview = new FilterSelectionView({             
         model: filterModel,
         collection: filterCollection
       });
       subview.initallyDisabled = ""
     }else if(filterModel.get('labelText') == "parameters"){
-      var subview = new FilterSelectionView({        
+      var subview = new FilterSelectionView({                
         model: filterModel,
         collection: filterCollection
       });
       subview.numberSelectable = 6
     }else{
-      var subview = new FilterSelectionView({
+      var subview = new FilterSelectionView({        
         model: filterModel,
         collection: filterCollection
       });
@@ -63,13 +67,15 @@ var PlottingSelectionView = Backbone.View.extend({
     var self = this;
     this.$el.html(this.template({}));   
     
+    this.options.itemid = this.el.id
     var filterItems = Object.keys(self.dataCollection)
 
     for (var i = 0; i < filterItems.length; i++) {
       var filterModel = new FilterSelectionModel({        
         labelText : filterItems[i],
         parentItem : self.parentChild[filterItems[i]]['parent'],
-        childItem : self.parentChild[filterItems[i]]['child']
+        childItem : self.parentChild[filterItems[i]]['child'],
+        itemid: this.options.itemid
       });      
       //add the sub here
       this.addFilter(filterModel,self.dataCollection[filterItems[i]]) 
@@ -133,7 +139,7 @@ var PlottingSelectionView = Backbone.View.extend({
                                            reference_designator:  selectedStream.attr("sensor"),
                                        })
         
-        ooi.trigger('FilterSelectionView:onParameterSelection', {model: streamModel});
+        ooi.trigger('FilterSelectionView:onParameterSelection', {model: streamModel,itemid:this.el.id});
       }else if (currentItem == "streams"){        
         /*
         var selectedStream = this.$el.find( "#streams_id option:selected")   
@@ -188,7 +194,7 @@ var PlottingSelectionView = Backbone.View.extend({
       this.$el.find( "#streams_id" ).removeAttr("disabled");
       this.$el.find( "#parameters_id" ).removeAttr("disabled");
       //refresh
-      $('.selectpicker').selectpicker('refresh');
+      this.$el.find('.selectpicker').selectpicker('refresh');
     }else{
       this.unFilterItems(options)
       //filter items
@@ -202,7 +208,8 @@ var PlottingSelectionView = Backbone.View.extend({
           newText = newText.trim();
 
           $( this ).text(newText)
-          console.log(newText)
+          //console.log(newText)
+
           //self.$el.find( "#"+childItem+"_id").text(newText)
         }
         else{
@@ -215,13 +222,16 @@ var PlottingSelectionView = Backbone.View.extend({
 
       //refresh
       console.log("filter called, refresh",childItem);
-      $('.selectpicker').selectpicker('refresh');
+      this.$el.find('.selectpicker').selectpicker('refresh');
     }
   },  
 });
 
 var FilterSelectionView = Backbone.View.extend({ 
   collection: null,
+  options : {
+    itemid:null,
+  },
   initallyDisabled: "disabled",
   tagName: "div",
   numberSelectable: 1,
@@ -231,6 +241,7 @@ var FilterSelectionView = Backbone.View.extend({
   },
   initialize: function(options) {
     _.bindAll(this, "render");
+    this.options.itemid = options.itemid
   },
   template: JST['ooiui/static/js/partials/FilterPlottingSelection.html'],
   render: function() {
@@ -253,9 +264,9 @@ var FilterSelectionView = Backbone.View.extend({
     var child_item = self.model.get('childItem');
     //fire when the options is selected or unselected
     if (val === undefined){     
-      ooi.trigger('FilterSelectionView:onUnSelect', {model: this.model});
+      ooi.trigger('FilterSelectionView:onUnSelect', {model: this.model,itemid:this.model.get('itemid')});
     }else{      
-      ooi.trigger('FilterSelectionView:onSelect', {model: this.model, filter:text.trim(),filterValue:val, collection: this.collection});
+      ooi.trigger('FilterSelectionView:onSelect', {model: this.model, filter:text.trim(),filterValue:val, collection: this.collection,itemid:this.model.get('itemid')});
     }
 
   }
