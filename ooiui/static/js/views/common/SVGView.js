@@ -65,8 +65,6 @@ var SVGPlotView = SVGView.extend({
       }
     }
     */
-
-    console.log("set Model")
     if(this.variable != null) {
       //done on first render, i.e inital conditions      
       var useLine = "true"

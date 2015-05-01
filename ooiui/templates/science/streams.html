@@ -36,60 +36,8 @@
             </div> <!-- .panel-body -->
           </div> <!-- .panel -->
         </div> <!-- .col -->
-      </div> <!-- .row -->
-      <a href='#bottom-row'></a>
-      <div id='bottom-row' class="row">
-        <div class="col-sm-8">
-          <div class="panel">
-            <div class="panel-heading">
-              <i class="fa fa-bar-chart-o"> Graph</i>
-              <div class="pull-right">
-                <div class="dropdown">
-                  <a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>
-                    <i class="fa fa-caret-down"></i>
-                  </a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>
-                    <li role="presentation"><a id='add-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-plus"> Add Plot</i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div id="plot-view">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div> <!-- #view -->
-              <div id="plotcontrols">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div id='annotation-panel' class="panel">
-            <div class="panel-heading">
-              Annotations
-            </div>
-            <div class="panel-body">
-              <div id="annotation-table">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div>
-            </div>
-          </div>
-          <div id='second-plot-panel' class='panel'>
-            <div class='panel-heading'>
-              <i class="fa fa-bar-chart-o"> Graph</i>
-            </div>
-            <div class="panel-body">
-              <div id="second-plot">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> <!-- .row -->
-    </div> <!-- .content-fluid -->
-    <div id="annotation-modal">
-    </div>
+      </div> <!-- .row -->      
+    </div> <!-- .content-fluid -->    
     <div id="stream-download-modal">
     </div>
     <div id='download-ok-modal'></div>
@@ -124,11 +72,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
     this.views.navbar.sidebarToggle();
-    this.views.svgplot = new SVGPlotView({
-      height: 400,
-      width: 600,
-      el: $('#plot-view')
-    });
+   
     this.views.streamTableView = new StreamTableView({
       collection: this.collections.streams,
       el: $('#stream-table-view')
@@ -137,12 +81,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection: this.collections.annotations,
       el: $('#annotation-table')
     });
-    this.views.svgPlotControlView = new SVGPlotControlView({
-      el: $('#plotcontrols')
-    });
-    this.views.annotationModal = new AnnotationModalFormView({
-      el: $('#annotation-modal')
-    });
+        
     this.views.streamDownloadFormView = new StreamDownloadFormView({
       el: $('#stream-download-modal')
     });
@@ -160,6 +99,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
+      /*
       $('#bottom-row').show();
       jump('bottom-row');
       var model = row.model;
@@ -169,35 +109,10 @@ _.extend(OOI.prototype, Backbone.Events, {
         data: $.param({stream_name: model.get('stream_name')}),
         reset: true
       });
+      */
       row.focus();
     });
-    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
-      self.views.svgplot.plot(options);
-    });
-
-    this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
-      var annotation = new AnnotationModel();
-      var record = self.views.svgPlotControlView.data[idx];
-      var preferred = record['preferred_timestamp']
-      var xval = record[preferred];
-      var xdate = new Date((xval - 2208988800) * 1000);
-      var yvar = self.views.svgplot.variable;
-      annotation.set('stream_name', self.views.svgplot.model.get('stream_name'));
-      annotation.set('instrument_name', self.views.svgplot.model.get('reference_designator'));
-      annotation.set('field_x', preferred);
-      annotation.set('field_y', yvar);
-      annotation.set('pos_x', xdate);
-      annotation.set('pos_y', record[yvar]);
-      annotation.set('value', record[yvar]);
-      console.log(self.models.userModel.get('scopes'));
-      if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
-        console.log("Trying to show");
-        self.views.annotationModal.show({
-          model: annotation,
-          userModel: self.models.userModel
-        });
-      }
-    });
+    
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
       console.log("Adding ot collection");
@@ -210,25 +125,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           userModel: self.models.userModel
         });
       }
-    });
-
-    this.listenTo(this, 'ooi:addPlot', function() {
-      $('#annotation-panel').hide();
-      $('#second-plot-panel').show();
-      self.views.secondPlot = new SVGPlotView({
-        height: 400,
-        width: 600,
-        model: self.views.svgplot.model,
-        el: $('#second-plot')
-      });
-      self.views.secondPlot.plot({
-        yvar: self.views.svgplot.variable
-      });
-    });
-
-    this.listenTo(this, 'ooi:downloadPlot', function() {
-      self.views.svgplot.download();
-    });
+    });    
 
     this.listenTo(this, 'ooi:streamSearch', function(searchTerm) {
       if(searchTerm == '') {
@@ -254,25 +151,15 @@ _.extend(OOI.prototype, Backbone.Events, {
 var ooi = new OOI();
 
 $(document).ready(function() {
-  $('#second-plot-panel').hide();
-  $('#bottom-row').hide();
   ooi.start();
-  $('#download-plot').click(function(event) {
-    event.preventDefault();
-    ooi.trigger('ooi:downloadPlot');
-  });
-  $('#add-plot').click(function(event) {
-    event.preventDefault();
-    ooi.trigger('ooi:addPlot');
-  });
+  
   $('#stream-search').keyup(function(e) {
     if(e.keyCode == 13) {
       ooi.trigger('ooi:streamSearch', $(e.target).val());
     }
   });
   $('body').find('#hideTOC').hide()
-
-  var svgUrl = '/svg/plotdemo';
+  
 });
 
 function jump(h){
