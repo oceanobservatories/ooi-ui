@@ -75,7 +75,7 @@ var PlottingSelectionView = Backbone.View.extend({
       this.addFilter(filterModel,self.dataCollection[filterItems[i]]) 
     };
 
-    this.$el.find('#parameters_id .dropdown-menu').addClass("pull-right")
+    this.$el.find('#parameters_id').parent().find('.dropdown-menu').addClass("pull-right")
 
   },
   unFilterItems: function(options) {
