@@ -126,7 +126,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.svgplot = new SVGPlotView({
       height: 400,
-      width: 600,
+      width: 500,
       el: $('#plot-view')
     });
 
@@ -207,12 +207,27 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       if (options.plotType == "Depth Profile"){
         options.plotType = "depthprofile"
-
         options.yvar = options.xvar;        
         options.xvar = self.views.plottingItemSelection.getSelectedVars();
-      }else{
+      }else if (options.plotType == "Time Series"){
         options.plotType = "timeseries"
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
+      }else if (options.plotType == "T-S Diagram"){
+        options.plotType = "ts_diagram"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.xvar = 'time';
+      }else if (options.plotType == "Quiver"){
+        options.plotType = "quiver"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.xvar = 'time';
+      }else if (options.plotType == "3D Colored Scatter"){
+        options.plotType = "3d_scatter"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.xvar = 'time';
+      }else if (options.plotType == "Rose"){
+        options.plotType = "rose"
+        options.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.xvar = 'time';
       }
       
       self.views.svgplot.plot(options);

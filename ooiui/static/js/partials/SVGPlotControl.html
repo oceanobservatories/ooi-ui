@@ -21,8 +21,11 @@
         <label for="xvar-select">Plot Type</label>
         <select data-width="85%" id='xvar-select' class="form-control selectpicker">
           <option value="time">Time Series</option>
-          <option value="ts-diagram" disabled>T-S Diagram</option>
+          <option value="ts-diagram">T-S Diagram</option>
           <option data-subtext="" value="pressure" disabled>Depth Profile</option>
+          <option value="time">Quiver</option>
+          <option value="rose">Rose</option>
+          <option value="colorxyz">3D Colored Scatter</option>
             <!-- old options -->
         </select>
       </div> <!-- .form-group -->
@@ -42,6 +45,13 @@
       <div style="padding-top:0px;">
         <label for="plotting-enable-scatter">Scatter</label>
         <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="normal">        
+      </div>
+    </div>
+
+    <div class="col-sm-1">
+      <div style="padding-top:0px;">
+        <label for="plotting-enable-events">Events</label>
+        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">        
       </div>
     </div>
 

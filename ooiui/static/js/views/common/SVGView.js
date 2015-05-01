@@ -1,3 +1,4 @@
+
 var SVGView = Backbone.View.extend({
   initialize: function(options) {
     if(options && options.height && options.width) {
@@ -114,14 +115,14 @@ var SVGPlotView = SVGView.extend({
     this.width = this.$el.width()-50
 
     if(options && options.yvar && options.xvar) {      
-      if (options.plotType == 'timeseries'){        
+      if (options.plotType == 'depthprofile'){        
+        this.xvariable = options.xvar.join();
+        this.yvariable = options.yvar;      
+        this.dpa_flag = this.getDpaFlag(options.xvar)  
+      }else{
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)  
-      }else{
-        this.xvariable = options.xvar.join();
-        this.yvariable = options.yvar;      
-        this.dpa_flag = this.getDpaFlag(options.xvar)   
       }
     }
     if(this.yvariable != null && this.xvariable != null) {
@@ -203,6 +204,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     //data.yvar = this.$el.find('#yvar-select').val();    
     data.plotType = $('#xvar-select option:selected').text();
+    console.log(data.plotType)
     /*
     if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
