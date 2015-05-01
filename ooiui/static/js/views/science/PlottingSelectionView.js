@@ -152,6 +152,8 @@ var PlottingSelectionView = Backbone.View.extend({
       this.$el.find( "#streams_id").html("")
       this.$el.find( "#parameters_id").html("")
 
+      var param_list = []
+
       options.collection.each(function(model) {
         if (model.get('reference_designator') == filterVal){
           //reset then build html
@@ -172,7 +174,10 @@ var PlottingSelectionView = Backbone.View.extend({
           for (var i = 0; i < model.get('instrument_parameters').length; i++) {
             var parameterTextValue = model.get('instrument_parameters')[i]           
             var parameterSubText = ""    
-            parameterhtml+= "<option data-subtext='"+streamSubText+"' >"+parameterTextValue+"</option>"
+            if (param_list.indexOf(parameterTextValue) == -1){
+              parameterhtml+= "<option data-subtext='"+streamSubText+"' >"+parameterTextValue+"</option>"
+              param_list.push(parameterTextValue);
+            }
           };
           //set them
           self.$el.find( "#streams_id").html(streamhtml)         
