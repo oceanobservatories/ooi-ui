@@ -145,12 +145,27 @@ li.org-item {
 
 #page-content-wrapper {
   padding: 2px 0 0 5px;
+  background: #eee;
 }
 
 .timeline {
   z-index: 10;
-  margin-top: -82px;
+  margin-top: -91px;
+  padding-top: 50px;
 }
 #log-search-view {
   z-index: 20;
 }
+
+@media only screen and (min-width: 1170px) {
+  .timeline {
+    z-index: 10;
+    margin-top: -60px;
+    padding-top: 10px;
+  }
+  #log-search-view {
+    z-index: 20;
+  }
+}
+
+

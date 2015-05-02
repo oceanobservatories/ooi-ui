@@ -57,6 +57,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     timelineView: null
   },
   start: function() {
+    var self = this;
     /* Login stuff */
     this.login.fetch({async:false});
     this.views.navbar = new NavbarView();
@@ -65,7 +66,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});      
     }
-
     /* Views */
     this.views.orgSidebarView = new OrgSidebarView({
       collection: this.collections.organizations,
@@ -82,22 +82,60 @@ _.extend(OOI.prototype, Backbone.Events,  {
       el: $('#log-timeline')
     });
     this.views.timelineView.render();
+    
+    /* Event listeners */
+    this.eventListeners();
+
 
   },
   eventListeners:function() {
+    var self = this;
     this.listenTo(this, "org:click", this.orgSelection);
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     this.listenTo(this.models.userModel, 'change', function(model){      
       this.views.orgSidebarView.selectOrg(model.get('organization_id'));
     });
+    this.listenTo(this.collections.logEntries, 'add', function(model) {
+      self.views.timelineView.addItem(model);
+    });
+    this.listenTo(this.views.timelineView, 'endOfPage', function() {
+      if(self.collections.logEntries.endOfCollection) {
+        console.log("end of page");
+        return;
+      }
+      self.collections.logEntries.offset += self.collections.logEntries.limit;
+      var fetch = self.collections.logEntries.fetch({data: {
+        limit: self.collections.logEntries.limit,
+        offset: self.collections.logEntries.offset
+      }});
+    });
+    this.listenTo(this.views.logSearchView, 'onInput', this.search);
+    this.listenTo(this, 'timelinenewitem:submit', function(model) {
+      var organization_id = self.models.orgModel.get('id');
+      model.set('organization_id', organization_id);
+      model.save();
+      self.orgSelection(organization_id);
+    });
   },
-
   onLogin: function() {
     location.reload();
   },
   onLogout: function() {
     location.reload();
+  },
+  search: function(query) {
+    var self = this;
+    var organization_id = this.models.orgModel.get('id');
+    if(query == '') {
+      this.orgSelection(organization_id);
+    }
+    this.collections.logEntries.reset();
+    this.views.timelineView.render();
+    this.collections.logEntries.fetch({data: {
+      search: query,
+      organization_id: organization_id
+    }});
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
@@ -106,14 +144,18 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
+    var self = this;
     this.models.orgModel.set({id: organization_id});
     this.models.orgModel.fetch();
+    this.collections.logEntries.reset();
+    this.views.timelineView.render();
+    this.collections.logEntries.fetch({data: {organization_id: organization_id, limit: 20, offset: 0}});
   },
   test: function() {
     var logEntry = new LogEntryModel({
       log_entry_type: "INFO",
-      entry_title: "Another Entry",
-      entry_description: "これもいつか過ぎ去るものです。"
+      entry_title: "Cleanup",
+      entry_description: "Still trying to clean up the mess."
     });
     var promise = logEntry.save();
     $.when(promise).done(function(){
@@ -128,32 +170,6 @@ $(document).ready(function() {
   // Once the DOM is loaded, we start our application
   ooi.start();
   ooi.test();
-	var $timeline_block = $('.cd-timeline-block');
-
-	//hide timeline blocks which are outside the viewport
-	$timeline_block.each(function(){
-    console.log($(this).offset());
-    console.log($(window).scrollTop());
-		if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
-      console.log("Hiding element");
-			$(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-		}
-	});
-
-	//on scolling, show/animate timeline blocks when enter the viewport
-	$(window).on('scroll', function(){
-		$timeline_block.each(function(){
-      /*
-      console.log("timeline offset", $(this).offset().top);
-      console.log("window scroll top", $(window).scrollTop());
-      console.log("window height", $(window).height());
-      */
-			if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
-        console.log("element outside viewport");
-				$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-			}
-		});
-	});
 });
 
 

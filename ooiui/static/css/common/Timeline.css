@@ -72,6 +72,10 @@ Main components
   }
 }
 
+#new-entry-btn {
+  cursor: pointer;
+}
+
 #cd-timeline {
   position: relative;
   padding: 2em 0;
@@ -152,9 +156,29 @@ Main components
   background: #c03b44;
 }
 .cd-timeline-img.cd-location {
-  background: #f0ca45;
+  background: #45BCF0;
+}
+.cd-timeline-img .cd-text {
+  position: relative;
+  font-size: 40px;
+  color: white;
+  display: block;
+  width: 24px;
+  height: 24px;
+  left: 13%;
+  top: 4%;
 }
 @media only screen and (min-width: 1170px) {
+  .cd-timeline-img .cd-text {
+    position: relative;
+    font-size: 40px;
+    color: white;
+    display: block;
+    width: 24px;
+    height: 24px;
+    left: 25%;
+    top: 22%;
+  }
   .cd-timeline-img {
     width: 60px;
     height: 60px;
@@ -239,6 +263,14 @@ Main components
   border-radius: 0.25em;
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed;
+}
+
+.cd-timeline-content .cd-timeline-author {
+  float: right;
+  opacity: 0.7;
+  font-size: 13px;
+  font-size: 1.3rem;
+  margin-top: 1.5em;
 }
 .cd-timeline-content:after {
   content: "";
@@ -354,23 +386,23 @@ Main components
     padding: 1.6em;
     width: 45%;
   }
-  .cd-timeline-block:nth-child(even) .cd-timeline-content {
+  .cd-timeline-block:nth-child(odd) .cd-timeline-content {
     margin-left: 55%;
   }
-  .cd-timeline-block:nth-child(even) .cd-timeline-comment-box {
+  .cd-timeline-block:nth-child(odd) .cd-timeline-comment-box {
     margin-left: 55%;
   }
-  .cd-timeline-block:nth-child(even) .cd-timeline-content::before {
+  .cd-timeline-block:nth-child(odd) .cd-timeline-content::before {
     top: 24px;
     left: auto;
     right: 100%;
     border-color: transparent;
     border-right-color: white;
   }
-  .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
+  .cd-timeline-block:nth-child(odd) .cd-timeline-content .cd-read-more {
     float: right;
   }
-  .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-date {
+  .cd-timeline-block:nth-child(odd) .cd-timeline-content .cd-date {
     left: auto;
     right: 122%;
     text-align: right;
@@ -388,7 +420,7 @@ Main components
 
 @media only screen and (min-width: 1170px) {
   /* inverse bounce effect on even content blocks */
-  .cssanimations .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
+  .cssanimations .cd-timeline-block:nth-child(odd) .cd-timeline-content.bounce-in {
     -webkit-animation: cd-bounce-2-inverse 0.6s;
     -moz-animation: cd-bounce-2-inverse 0.6s;
     animation: cd-bounce-2-inverse 0.6s;

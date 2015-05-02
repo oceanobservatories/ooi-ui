@@ -226,6 +226,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LogEntry.html",
             "ooiui/static/js/partials/LogSearch.html",
             "ooiui/static/js/partials/Timeline.html",
+            "ooiui/static/js/partials/TimelineItem.html",
+            "ooiui/static/js/partials/TimelineNewItem.html",
+            "ooiui/static/js/partials/TimelineItemComment.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/landingPages.js": [
@@ -840,6 +843,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/loremjs/lorem.js',
             'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -869,6 +873,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/EventListView.js',
             'ooiui/static/js/views/common/TimeLineEventView.js',
             'ooiui/static/js/views/common/TimelineView.js',
+            'ooiui/static/js/views/common/TimelineItemView.js',
+            'ooiui/static/js/views/common/TimelineNewItemView.js',
             'ooiui/static/js/views/common/NewEventView.js',
             'ooiui/static/js/views/common/LogEntryView.js',
             'ooiui/static/js/views/common/LogSearchView.js',
@@ -1132,6 +1138,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/lib/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css",
             "ooiui/static/css/common/opLog.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
