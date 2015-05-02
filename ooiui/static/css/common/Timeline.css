@@ -47,6 +47,9 @@ Modules - reusable parts of our design
 Main components 
 
 -------------------------------- */
+.timeline {
+  background-color: #eee;
+}
 .timeline header {
   height: 200px;
   line-height: 200px;
@@ -281,6 +284,26 @@ Main components
   border: 7px solid transparent;
   border-right: 7px solid white;
 }
+
+.cd-timeline-comment-box {
+  position: relative;
+  margin-left: 60px;
+  background: white;
+  border-radius: 0.25em;
+  box-shadow: 0 3px 0 #d7e4ed;
+  margin-top:1em;
+  padding: 1em;
+}
+
+.cd-timeline-comment-box p {
+  margin: 1em 0;
+  line-height: 1.6;
+}
+
+.cd-timeline-comment-box .cd-comment-posted-by {
+  opacity: 0.7;
+  padding-bottom: 1em;
+}
 @media only screen and (min-width: 768px) {
   .cd-timeline-content h2 {
     font-size: 20px;
@@ -291,6 +314,14 @@ Main components
     font-size: 1.25rem;
   }
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+    font-size: 14px;
+    font-size: 1.0rem;
+  }
+  .cd-timeline-comment-box p {
+    font-size: 16px;
+    font-size: 1.25rem;
+  }
+  .cd-timeline-comment-box .cd-comment-posted-by {
     font-size: 14px;
     font-size: 1.0rem;
   }
@@ -318,8 +349,16 @@ Main components
     font-size: 16px;
     font-size: 1rem;
   }
+  .cd-timeline-comment-box {
+    margin-left: 0;
+    padding: 1.6em;
+    width: 45%;
+  }
   .cd-timeline-block:nth-child(even) .cd-timeline-content {
-    float: right;
+    margin-left: 55%;
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-comment-box {
+    margin-left: 55%;
   }
   .cd-timeline-block:nth-child(even) .cd-timeline-content::before {
     top: 24px;

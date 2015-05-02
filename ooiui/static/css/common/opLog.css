@@ -112,3 +112,45 @@ depending on over all color theme
 .btnStartStop {
   float: right;
 }
+
+#wrapper.toggled.org-sidebar-wrapper {
+    padding-left: 275px;
+}
+
+#wrapper.toggled #sidebar-wrapper.org-sidebar {
+    width: 275px;
+}
+
+#sidebar-wrapper.org-sidebar {
+  left: 275px;
+  margin-left: -275px;
+}
+
+@media(min-width:768px) {
+  #wrapper.org-sidebar-wrapper{
+    padding-left: 275px;
+  }
+  #sidebar-wrapper.org-sidebar {
+      width: 275px;
+  }
+}
+
+.org-sidebar .sidebar-nav {
+  width: 275px;
+}
+
+li.org-item {
+  padding: 4px 0 4px 0;
+}
+
+#page-content-wrapper {
+  padding: 2px 0 0 5px;
+}
+
+.timeline {
+  z-index: 10;
+  margin-top: -82px;
+}
+#log-search-view {
+  z-index: 20;
+}

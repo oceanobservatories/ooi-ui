@@ -223,6 +223,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TimeLineEvent.html",
             "ooiui/static/js/partials/NewEvent.html",
             "ooiui/static/js/partials/Event.html",
+            "ooiui/static/js/partials/LogEntry.html",
+            "ooiui/static/js/partials/LogSearch.html",
+            "ooiui/static/js/partials/Timeline.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/landingPages.js": [
@@ -847,6 +850,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/OrganizationModel.js',
             'ooiui/static/js/models/common/EventModel.js',
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
+            'ooiui/static/js/models/common/LogEntryModel.js',
+            'ooiui/static/js/models/common/LogEntryComment.js',
             'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -863,7 +868,10 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/OrgSidebarView.js',
             'ooiui/static/js/views/common/EventListView.js',
             'ooiui/static/js/views/common/TimeLineEventView.js',
+            'ooiui/static/js/views/common/TimelineView.js',
             'ooiui/static/js/views/common/NewEventView.js',
+            'ooiui/static/js/views/common/LogEntryView.js',
+            'ooiui/static/js/views/common/LogSearchView.js',
             'ooiui/static/js/views/common/EventView.js'
           ],
           'ooiui/static/js/compiled/streams.js' : [
@@ -1125,10 +1133,11 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/opLog.css",
-            "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/newEvent.css",
+            "ooiui/static/css/common/LogSearch.css",
+            "ooiui/static/css/common/Timeline.css",
             "ooiui/static/css/common/watch.css"
           ],
           "ooiui/static/css/compiled/streams.css" : [

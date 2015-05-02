@@ -1,0 +1,6 @@
+.log-search {
+  z-index: 20;
+}
+.log-search input[type=text] {
+  font-family: FontAwesome;
+}
