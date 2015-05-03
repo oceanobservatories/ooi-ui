@@ -9,10 +9,17 @@ var LogEntryCommentModel = Backbone.Model.extend({
   defaults: {
     comment: '',
     log_entry_id: null
+  },
+  validate: function(attrs, options) {
+    this.set("comment", this.showdown(attrs.comment));
+  },
+  showdown: function(text) {
+    var converter = new Showdown.converter();
+    return converter.makeHtml(text);
   }
 });
 
-var LogEntryCommentCollection = Backbone.Model.extend({
+var LogEntryCommentCollection = Backbone.Collection.extend({
   url: '/api/log_entry_comment',
   model: LogEntryCommentModel,
   parse: function(response) {

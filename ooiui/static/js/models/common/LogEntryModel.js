@@ -22,6 +22,13 @@ var LogEntryModel = Backbone.Model.extend({
     var first = this.get('user').first_name;
     var last = this.get('user').last_name;
     return [last, first].join(', ');
+  },
+  validate: function(attrs, option) {
+    this.set('entry_description', this.showdown(attrs.entry_description));
+  },
+  showdown: function(text) {
+    var converter = new Showdown.converter();
+    return converter.makeHtml(text);
   }
 });
 

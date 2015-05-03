@@ -294,10 +294,18 @@ Main components
 .cd-timeline-content .cd-read-more {
   float: right;
   padding: .8em 1em;
-  background: #acb7c0;
-  color: white;
+  background: #ced4d8;
+  color: #555;
   border-radius: 0.25em;
 }
+
+.cd-timeline-content .cd-read-more a{
+  color: #555;
+}
+.cd-timeline-content .cd-read-more a:hover{
+  color: #222;
+}
+
 .no-touch .cd-timeline-content .cd-read-more:hover {
   background-color: #bac4cb;
 }
@@ -325,6 +333,15 @@ Main components
   box-shadow: 0 3px 0 #d7e4ed;
   margin-top:1em;
   padding: 1em;
+}
+.cd-timeline-comment-box a.delete-comment {
+  position: relative;
+  top: -14px;
+  left: 14px;
+  font-size: 15px;
+  font-size: 1.5rem;
+  float: right;
+  color: #777;
 }
 
 .cd-timeline-comment-box p {

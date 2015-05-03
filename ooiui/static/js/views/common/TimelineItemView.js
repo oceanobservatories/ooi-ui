@@ -6,21 +6,58 @@
 var TimelineItemView = Backbone.View.extend({
   className: 'cd-timeline-block',
   events: {
-    'click .cd-read-more' : 'showComments'
+    'click .show-comments' : 'showComments',
+    'click .new-comment' : 'newComment',
   },
   initialize: function(options) {
-    _.bindAll(this, 'showComments');
+    _.bindAll(this, 'showComments', 'newComment', 'displayComments');
   },
   templates: {
-    timelineItem: this.JST['ooiui/static/js/partials/TimelineItem.html'],
-    timelineComment: this.JST['ooiui/static/js/partials/TimelineItemComment.html']
+    timelineItem: JST['ooiui/static/js/partials/TimelineItem.html'],
+    timelineNewComment: JST['ooiui/static/js/partials/TimelineNewItemComment.html']
   },
   showComments: function(e) {
+    var self = this;
     e.preventDefault();
-    console.log("oi");
-    for(var i=0; i<4; i++) {
-      this.$el.append(this.templates.timelineComment());
-    }
+    this.displayComments();
+  },
+  displayComments: function() {
+    var self = this;
+    /* Clear the comments first */
+    this.render();
+    var comments = new LogEntryCommentCollection();
+    var commentFetch = comments.fetch({
+      data: {
+        log_entry_id: this.model.get('id')
+      }
+    });
+    $.when(commentFetch).done(function() {
+      console.log(comments);
+      comments.each(function(commentModel) {
+        var subview = new TimelineItemCommentView({model: commentModel});
+        subview.render();
+        self.$el.append(subview.el);
+        self.subviews.push(subview);
+      });
+    });
+  },
+  subviews: [],
+  newComment: function(e) {
+    var self = this;
+    this.displayComments();
+    this.$el.find('.cd-timeline-box').after(this.templates.timelineNewComment());
+    this.$el.find('#new-comment').editable();
+    this.$el.find('#new-comment').on('save', function(e, params) {
+      var logEntryComment = new LogEntryCommentModel({
+        comment: params.newValue,
+        log_entry_id: self.model.get('id')
+      });
+      var saveAction = logEntryComment.save();
+      $.when(saveAction).done(function() {
+        self.$el.find('.editable-comment').remove();
+        self.displayComments();
+      });
+    });
   },
   getDateString: function(dateObj) {
     var now = new Date();

@@ -150,17 +150,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.collections.logEntries.reset();
     this.views.timelineView.render();
     this.collections.logEntries.fetch({data: {organization_id: organization_id, limit: 20, offset: 0}});
-  },
-  test: function() {
-    var logEntry = new LogEntryModel({
-      log_entry_type: "INFO",
-      entry_title: "Cleanup",
-      entry_description: "Still trying to clean up the mess."
-    });
-    var promise = logEntry.save();
-    $.when(promise).done(function(){
-      console.log("Saved");
-    });
   }
 });
 // Instantiate the application for this page
@@ -169,7 +158,6 @@ var ooi = new OOI();
 $(document).ready(function() {
   // Once the DOM is loaded, we start our application
   ooi.start();
-  ooi.test();
 });
 
 

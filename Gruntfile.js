@@ -229,6 +229,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TimelineItem.html",
             "ooiui/static/js/partials/TimelineNewItem.html",
             "ooiui/static/js/partials/TimelineItemComment.html",
+            "ooiui/static/js/partials/TimelineNewItemComment.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/landingPages.js": [
@@ -844,6 +845,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/loremjs/lorem.js',
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js',
+            'ooiui/static/lib/showdown/src/showdown.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -855,7 +857,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/EventModel.js',
             'ooiui/static/js/models/common/OperatorEventTypeModel.js',
             'ooiui/static/js/models/common/LogEntryModel.js',
-            'ooiui/static/js/models/common/LogEntryComment.js',
+            'ooiui/static/js/models/common/LogEntryCommentModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -874,6 +876,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/TimeLineEventView.js',
             'ooiui/static/js/views/common/TimelineView.js',
             'ooiui/static/js/views/common/TimelineItemView.js',
+            'ooiui/static/js/views/common/TimelineItemCommentView.js',
             'ooiui/static/js/views/common/TimelineNewItemView.js',
             'ooiui/static/js/views/common/NewEventView.js',
             'ooiui/static/js/views/common/LogEntryView.js',
