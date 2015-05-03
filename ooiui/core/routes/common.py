@@ -276,13 +276,13 @@ def get_log_entry(id):
 @app.route('/api/log_entry/<int:id>', methods=['PUT'])
 def put_log_entry(id):
     token = get_login()
-    response = requests.put(app.config['SERVICES_URL'] + '/log_entry', auth=(token, ''), data=request.data)
+    response = requests.put(app.config['SERVICES_URL'] + '/log_entry/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/log_entry/<int:id>', methods=['DELETE'])
 def delete_log_entry(id):
     token = get_login()
-    response = requests.delete(app.config['SERVICES_URL'] + '/log_entry', auth=(token, ''))
+    response = requests.delete(app.config['SERVICES_URL'] + '/log_entry/%s' % id, auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/log_entry_comment', methods=['GET'])
@@ -304,7 +304,7 @@ def get_log_entry_comment(id):
 @app.route('/api/log_entry_comment/<int:id>', methods=['PUT'])
 def put_log_entry_comment(id):
     token = get_login()
-    response = requests.put(app.config['SERVICES_URL'] + '/log_entry_comment', auth=(token, ''), data=request.data)
+    response = requests.put(app.config['SERVICES_URL'] + '/log_entry_comment/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/log_entry_comment/<int:id>', methods=['DELETE'])

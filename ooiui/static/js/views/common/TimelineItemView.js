@@ -8,12 +8,16 @@ var TimelineItemView = Backbone.View.extend({
   events: {
     'click .show-comments' : 'showComments',
     'click .new-comment' : 'newComment',
+    'click .delete-entry' : 'deleteEntry',
+    'click .edit-entry' : 'editEntry',
+    'click .save-entry' : 'saveEntry'
   },
   initialize: function(options) {
-    _.bindAll(this, 'showComments', 'newComment', 'displayComments');
+    _.bindAll(this, 'showComments', 'newComment', 'displayComments', 'deleteEntry', 'editEntry', 'renderEdit', 'saveEntry');
   },
   templates: {
     timelineItem: JST['ooiui/static/js/partials/TimelineItem.html'],
+    timelineEditItem: JST['ooiui/static/js/partials/TimelineEditItem.html'],
     timelineNewComment: JST['ooiui/static/js/partials/TimelineNewItemComment.html']
   },
   showComments: function(e) {
@@ -39,6 +43,30 @@ var TimelineItemView = Backbone.View.extend({
         self.$el.append(subview.el);
         self.subviews.push(subview);
       });
+    });
+  },
+  deleteEntry: function(e) {
+    var self = this;
+    e.preventDefault();
+    this.model.destroy({
+      success: function() {
+        self.$el.html('');
+      }
+    });
+  },
+  editEntry: function(e) {
+    var self = this;
+    e.preventDefault();
+    this.renderEdit();
+  },
+  saveEntry: function(e) {
+    var self = this;
+    console.log("Attempting to save");
+    this.model.set('entry_title', this.$el.find('#entry-title').text());
+    this.model.set('entry_description', this.$el.find('#entry-description').text());
+    var response = this.model.save();
+    $.when(response).done(function() {
+      self.render();
     });
   },
   subviews: [],
@@ -69,13 +97,28 @@ var TimelineItemView = Backbone.View.extend({
     return moment(dateObj).fromNow();
   },
   render: function() {
+    var converter = new Showdown.converter();
     this.$el.html(this.templates.timelineItem({
+      owner: (this.model.get('user').id == ooi.models.userModel.get('id') || ooi.models.userModel.get('scopes').indexOf('user_admin') >= 0),
+      name: this.model.getUserName(),
+      title: this.model.get('entry_title'),
+      description: converter.makeHtml(this.model.get('entry_description')),
+      dateString: this.getDateString(this.model.getDate())
+    }));
+    return this;
+  },
+  renderEdit: function() {
+    console.log(this.templates);
+    this.$el.html(this.templates.timelineEditItem({
+      owner: (this.model.get('user').id == ooi.models.userModel.get('id') || ooi.models.userModel.get('scopes').indexOf('user_admin') >= 0),
       name: this.model.getUserName(),
       title: this.model.get('entry_title'),
       description: this.model.get('entry_description'),
       dateString: this.getDateString(this.model.getDate())
     }));
+    this.$el.find('#entry-title').editable();
+    this.$el.find('#entry-description').editable();
     return this;
-  }
+  },
 });
 

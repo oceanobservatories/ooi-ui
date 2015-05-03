@@ -227,6 +227,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LogSearch.html",
             "ooiui/static/js/partials/Timeline.html",
             "ooiui/static/js/partials/TimelineItem.html",
+            "ooiui/static/js/partials/TimelineEditItem.html",
             "ooiui/static/js/partials/TimelineNewItem.html",
             "ooiui/static/js/partials/TimelineItemComment.html",
             "ooiui/static/js/partials/TimelineNewItemComment.html",

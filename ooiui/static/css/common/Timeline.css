@@ -324,6 +324,15 @@ Main components
   border: 7px solid transparent;
   border-right: 7px solid white;
 }
+.cd-timeline-content a.delete-entry {
+  position: relative;
+  top: -14px;
+  left: 14px;
+  font-size: 15px;
+  font-size: 1.5rem;
+  float: right;
+  color: #777;
+}
 
 .cd-timeline-comment-box {
   position: relative;
@@ -334,6 +343,8 @@ Main components
   margin-top:1em;
   padding: 1em;
 }
+
+
 .cd-timeline-comment-box a.delete-comment {
   position: relative;
   top: -14px;

@@ -4,24 +4,20 @@
 
 <div class="cd-timeline-box">
   <div class="cd-timeline-content">
-    <% if(owner) { %>
-      <a href='#' class='delete-entry'><i class="fa fa-close"></i></a>
-    <% } %>
     <div class="cd-timeline-author">
       <%= name %>
     </div>
-    <% if(owner) { %>
-    <h2><a href="#" class="edit-entry"><%= title %></a></h2>
-    <% } else { %>
-    <h2><%= title %></h2>
-    <% } %>
+    <h2><a href="#" id="entry-title" data-type="text" data-title="Enter a title"><%= title %></a></h2>
     <p>
-      <%= description %>
+      <a href='#' id='entry-description' data-type="textarea" data-title="Enter a description">
+        <%= description %>
+      </a>
     </p>
     <div class="cd-read-more">
-      <a href="#" class="show-comments">Read more</a> | 
-      <a href="#" class="new-comment">New Comment</a>
+      <a href="#" class="save-entry">Save</a> |
+      <a href="#" class="cancel-entry">Cancel</a>
     </div>
     <span class="cd-date"><%= dateString %></span>
   </div> <!-- cd-timeline-content -->
 </div>
+
