@@ -56,6 +56,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     logSearchView: null,
     timelineView: null
   },
+  pageWait: null,
   start: function() {
     var self = this;
     /* Login stuff */
@@ -99,16 +100,24 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.listenTo(this.collections.logEntries, 'add', function(model) {
       self.views.timelineView.addItem(model);
     });
+    /* This handles the pagination portion */
     this.listenTo(this.views.timelineView, 'endOfPage', function() {
       if(self.collections.logEntries.endOfCollection) {
         console.log("end of page");
         return;
       }
-      self.collections.logEntries.offset += self.collections.logEntries.limit;
-      var fetch = self.collections.logEntries.fetch({data: {
-        limit: self.collections.logEntries.limit,
-        offset: self.collections.logEntries.offset
-      }});
+      if(this.pageWait === null) {
+        this.pageWait = new Date().getTime();
+      }
+      var now = new Date().getTime();
+      if(now >= this.pageWait) {
+        self.collections.logEntries.offset += self.collections.logEntries.limit;
+        var fetch = self.collections.logEntries.fetch({data: {
+          limit: self.collections.logEntries.limit,
+          offset: self.collections.logEntries.offset
+        }});
+        this.pageWait = now + 500;
+      }
     });
     this.listenTo(this.views.logSearchView, 'onInput', this.search);
     this.listenTo(this, 'timelinenewitem:submit', function(model) {
@@ -150,6 +159,14 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.collections.logEntries.reset();
     this.views.timelineView.render();
     this.collections.logEntries.fetch({data: {organization_id: organization_id, limit: 20, offset: 0}});
+  },
+  test: function() {
+    var now = moment().format('MMMM Do YYYY, h:mm:ss a');
+    var log_entry = new LogEntryModel({
+      entry_title: "New Title",
+      entry_description: "This was posted on " + now
+    });
+    log_entry.save();
   }
 });
 // Instantiate the application for this page
