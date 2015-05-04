@@ -98,6 +98,47 @@ var SVGPlotView = SVGView.extend({
     });
     return dpa_flag
   },
+  plotMulti: function(options) {
+    //requested plot
+    console.log("plot...")
+    this.reference_designator = this.model.get('reference_designator') + "," +options.secRef    
+    this.stream_name = this.model.get('stream_name') + "," +options.secStream  
+    //options.yvar = this.model.get('yvariable')  
+    if('xvar' in options){
+    }else{
+      options.xvar = ["time"]
+    } 
+
+    //set the width of the plot, 90% width
+    this.width = (this.$el.width()/100)*90;
+
+    if(options && options.yvar && options.xvar) {            
+        this.yvariable = options.yvar+","+options.yvar2
+        this.xvariable = options.xvar;
+        this.dpa_flag = true;
+    }
+    if(this.yvariable != null && this.xvariable != null) {
+      this.useLine = options.useLine.toString();
+      this.useScatter = options.useScatter.toString();  
+      this.useEvent = options.useEvent.toString();      
+      this.plotType = options.plotType;
+      this.st = moment(options.start_date).toISOString()
+      this.ed = moment(options.end_date).toISOString()
+
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.yvariable , 
+                                                                                                    xvar: this.xvariable, 
+                                                                                                    height: this.height, 
+                                                                                                    width: this.width,
+                                                                                                    scatter:this.useScatter,
+                                                                                                    lines:this.useLine,
+                                                                                                    event:this.useEvent, 
+                                                                                                    plotLayout:this.plotType,
+                                                                                                    startdate:this.st,                                                                                                    
+                                                                                                    enddate:this.ed})
+      this.fetch();
+    }
+  },
   plot: function(options) {
     //requested plot
     console.log("plot...")
@@ -109,8 +150,8 @@ var SVGPlotView = SVGView.extend({
       options.xvar = ["time"]
     } 
 
-    //set the width of the plot
-    this.width = this.$el.width()-50
+    //set the width of the plot, 90% width
+    this.width = (this.$el.width()/100)*90;
 
     if(options && options.yvar && options.xvar) {      
       if (options.plotType == 'depthprofile'){        

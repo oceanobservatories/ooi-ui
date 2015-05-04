@@ -177,6 +177,9 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     var self = this;
+
+    this.multiStation = false;
+
     this.login.fetch({async: false});
     
     if(this.login.loggedIn()) {
@@ -325,7 +328,21 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.xvar = 'time';
       }
       
-      self.views.svgplot.plot(options);
+      //used to handle a second station 
+      options.multiStation = self.multiStation;
+
+      if (options.multiStation){
+        console.log("*********", options.multiStation, options.secRef , options.secStream);
+        
+        options.xvar = "time,time"
+        options.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
+        options.secRef = self.views.plottingItemSelection2.getSelectedRef();   
+        options.secStream = self.views.plottingItemSelection2.getSelectedStream();
+        
+        self.views.svgplot.plotMulti(options);
+      }else{
+        self.views.svgplot.plot(options);
+      }
     });
 
     this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
@@ -398,11 +415,13 @@ $(document).ready(function() {
 
   $('#disableSecondView').on('click', function(event){
     event.preventDefault();
-    $('#plot-item-selection2').hide();
+    ooi.multiStation = false;
+    $('#plot-item-selection2').hide();    
   });
 
   $('#enableSecondView').on( "click", function(event) {
     event.preventDefault();
+    ooi.multiStation = true;
     $('#plot-item-selection2').show();
   });
 

@@ -32,6 +32,16 @@ var PlottingSelectionView = Backbone.View.extend({
   initialize: function(options) {    
     _.bindAll(this, "render");            
   },
+  getSelectedRef : function(){
+    var selectedRef= this.$el.find( "#instruments_id option:selected").val()        
+    return selectedRef;
+  },
+  getSelectedStream: function(){
+    var selectedType= this.$el.find( "#streams_id option:selected").attr("stream_type")  
+    var selectedRef= this.$el.find( "#streams_id option:selected").val()  
+    
+    return selectedType+"_"+selectedRef;
+  },
   getSelectedVars: function(filterModel,filterCollection){        
     var selectedParam = this.$el.find( "#parameters_id option:selected").val()        
     return selectedParam;
