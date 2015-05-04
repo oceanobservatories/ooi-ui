@@ -70,7 +70,7 @@ var SVGPlotView = SVGView.extend({
       var useLine = "true"
       var useScatter = "false"
       var plotLayoutType = "timeseries"
-      this.width = this.$el.width()-50
+      this.width = (this.$el.width()/100*90);
       //st = moment(this.model.get('start'))
       //ed = st.add('hours',1).format(moment.ISO_8601);
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
@@ -125,7 +125,8 @@ var SVGPlotView = SVGView.extend({
     }
     if(this.yvariable != null && this.xvariable != null) {
       this.useLine = options.useLine.toString();
-      this.useScatter = options.useScatter.toString();      
+      this.useScatter = options.useScatter.toString();  
+      this.useEvent = options.useEvent.toString();      
       this.plotType = options.plotType;
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
@@ -136,9 +137,10 @@ var SVGPlotView = SVGView.extend({
                                                                                                     height: this.height, 
                                                                                                     width: this.width,
                                                                                                     scatter:this.useScatter,
-                                                                                                    lines:this.useLine, 
+                                                                                                    lines:this.useLine,
+                                                                                                    event:this.useEvent, 
                                                                                                     plotLayout:this.plotType,
-                                                                                                    startdate:this.st,
+                                                                                                    startdate:this.st,                                                                                                    
                                                                                                     enddate:this.ed})
       this.fetch();
     }
@@ -214,7 +216,8 @@ var SVGPlotControlView = Backbone.View.extend({
     }*/
 
     data.useLine = "true"
-    data.useScatter = this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
+    data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
+    data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
 
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
