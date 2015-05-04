@@ -176,9 +176,11 @@ var SVGPlotView = SVGView.extend({
 var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
+    /*
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
     'dp.change #end-date' : 'onClickPlot'
+    */
   },
   initialize: function() { 
     
@@ -187,12 +189,14 @@ var SVGPlotControlView = Backbone.View.extend({
     var self = this;
     this.model = model;
     this.data = null;    
+    /*
     this.model.getData({
       success: function(data, textStatus, jqXHR) {
         self.data = data.data;
         self.trigger('dataFetch', self.data);       
       }
     });
+    */
     this.render();
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],

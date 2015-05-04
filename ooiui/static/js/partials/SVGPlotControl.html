@@ -17,18 +17,18 @@
 
   <div class="row">
     <div class="col-sm-2">
-      <div class="form-group">
-        <label for="xvar-select">Plot Type</label>
-        <select data-width="85%" id='xvar-select' class="form-control selectpicker">
-          <option value="time">Time Series</option>
-          <option value="ts-diagram">T-S Diagram</option>
-          <option data-subtext="" value="pressure" disabled>Depth Profile</option>
-          <option value="time">Quiver</option>
-          <option value="rose">Rose</option>
-          <option value="colorxyz">3D Colored Scatter</option>
-            <!-- old options -->
-        </select>
-      </div> <!-- .form-group -->
+        <div class="form-group">
+          <label for="xvar-select">Plot Type</label>
+          <select data-width="85%" id='xvar-select' class="form-control selectpicker">
+            <option value="time">Time Series</option>
+            <option value="ts-diagram">T-S Diagram</option>
+            <option data-subtext="" value="pressure" disabled>Depth Profile</option>
+            <option value="time">Quiver</option>
+            <option value="rose">Rose</option>
+            <option value="colorxyz">3D Colored Scatter</option>
+              <!-- old options -->
+          </select>
+        </div> <!-- .form-group -->      
     </div> <!-- .col-sm-3 -->
     <!--
     <div class="col-sm-3">
@@ -50,23 +50,25 @@
     </div>
     -->
 
-    <div class="col-sm-1">
-      <div style="padding-top:0px;">
+    <div class="col-sm-2">
+      <div class="form-group" style="padding-top:0px;">
         <label for="plotting-enable-events">Events</label>
         <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">        
-      </div>
+      </div>      
     </div>
 
+    <!--
     <div class="col-sm-2">
       <div  style=""  class="form-group">                
         <label for="profile-select">Profile Selection</label>
         <select data-width="75%" id='profile-select' class="form-control selectpicker" disabled>
           <option value="All">All</option>              
         </select>
-      </div> <!-- .form-group -->    
+      </div> 
     </div>
+    -->    
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="start-date">Start Time</label>
         <div class='input-group date' id='start-date'>
@@ -77,7 +79,7 @@
       </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="end-date">End Time</label>
         <div class='input-group date' id='end-date'>
@@ -88,7 +90,7 @@
       </div>  <!-- .form-group -->
     </div>  <!-- .col-sm-3 -->
 
-    <div class="col-sm-1">        
+    <div class="col-sm-2">        
         <button style="margin-top:25px;" id="update-plot" type="button" class="btn btn-primary" aria-label="Left Align">
           <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
         </button>

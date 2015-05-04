@@ -111,6 +111,25 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
       */
       row.focus();
+
+      //get the model
+      var ref_des = row.model.get('reference_designator')
+      var ref_des_split = ref_des.split("-")
+      //get the current location
+      if (!location.origin)
+        location.origin = location.protocol + "//" + location.host;
+      
+      //get the parts
+      var array = ref_des.substring(0, 2);
+      var mooring = ref_des_split[0]
+      var platform = ref_des_split[1]
+      var instrument = ref_des
+      var instrument_url = [array, mooring, platform , instrument].join("/");
+
+      var win = window.open(location.origin+"/plotting/"+instrument_url, '_blank');
+      win.focus();
+
+
     });
     
 
@@ -136,7 +155,8 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-      self.views.streamDownloadFormView.show(options);
+        
+      console.log(options)
     });
     this.listenTo(this, 'DownloadModal:onHide',function(){
         self.views.modalDownloadView.show();
