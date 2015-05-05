@@ -383,7 +383,7 @@ var AssetView = Backbone.View.extend({
         var assetInfoModel = new AssetEvents({id:model.assetId});
         assetInfoModel.fetch({
           success: function (events) {
-            $('#event_table tbody').empty();
+
             $('#butnewevent').show();
 
             $('#butnewevent').on('click',function(){
@@ -392,51 +392,36 @@ var AssetView = Backbone.View.extend({
             $('#physinfo_d').val(events.attributes.physicalInfo);
 
             if(events.attributes.events){
-              for (var j in events.attributes.events){
-                  switch (events.attributes.events[j].class) {
-                      // Storage Events
-                      case '.StorageEvent':
-                          var sd = new Date(events.attributes.events[j].startDate);
-                          $('#storage_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                          //stupid hack again
-                          $('.fixed-table-container').css('padding-bottom','0px');
-                          $('#event_table').css('margin-top','0px');
-                          $('.fixed-table-header').css('display','none');
-                          break;
-                      case '.DeploymentEvent':
-                          var sd = new Date(events.attributes.events[j].startDate);
-                          $('#deployment_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                          //stupid hack again
-                          $('.fixed-table-container').css('padding-bottom','0px');
-                          $('#event_table').css('margin-top','0px');
-                          $('.fixed-table-header').css('display','none');
-                          break;
-                      case '.CalibrationEvent':
-                          var sd = new Date(events.attributes.events[j].startDate);
-                          $('#calibration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                          //stupid hack again
-                          $('.fixed-table-container').css('padding-bottom','0px');
-                          $('#event_table').css('margin-top','0px');
-                          $('.fixed-table-header').css('display','none');
-                          break;
-                      case '.IntegrationEvent':
-                          var sd = new Date(events.attributes.events[j].startDate);
-                          $('#integration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                          //stupid hack again
-                          $('.fixed-table-container').css('padding-bottom','0px');
-                          $('#event_table').css('margin-top','0px');
-                          $('.fixed-table-header').css('display','none');
-                          break;
-                      case '.Service':
-                          var sd = new Date(events.attributes.events[j].startDate);
-                          $('#service_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                          //stupid hack again
-                          $('.fixed-table-container').css('padding-bottom','0px');
-                          $('#event_table').css('margin-top','0px');
-                          $('.fixed-table-header').css('display','none');
-                          break;
-                  };
-              }
+                for (var j in events.attributes.events){
+                    var sd = new Date(events.attributes.events[j].startDate);
+                    switch (events.attributes.events[j].class) {
+                        // Storage Events
+                        case '.StorageEvent':
+                            $('#storage_event_table tbody').empty();
+                            $('#storage_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.DeploymentEvent':
+                            $('#deployment_event_table tbody').empty();
+                            $('#deployment_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.CalibrationEvent':
+                            $('#calibration_event_table tbody').empty();
+                            $('#calibration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.IntegrationEvent':
+                            $('#integration_event_table tbody').empty();
+                            $('#integration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.Service':
+                            $('#service_event_table tbody').empty();
+                            $('#service_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+
+                            $('.fixed-table-container').css('padding-bottom','0px');
+                            $('#event_table').css('margin-top','0px');
+                            $('.fixed-table-header').css('display','none');
+                    };
+                }
             }
             $('#event_panel').html('Click on an event to inspect.');
 
@@ -462,52 +447,52 @@ var AssetView = Backbone.View.extend({
         $('#name_d').val(model.display_name);
         $('#owner_d').val(model.assetInfo['owner']);
         if(model.water_depth){
-          $('#depth_d').val(model.water_depth['value']);
+            $('#depth_d').val(model.water_depth['value']);
         }
         else{
-           $('#depth_d').val('');
+            $('#depth_d').val('');
         }
 
         //stupid catch for the date contat
         if(model.launch_date_time){
-          if(String(model.launch_date_time).search('Z')>-1){
-            var dobj = String(model.launch_date_time).split('Z')
-            var l_date = Date.parse(dobj[0]);
-          }
-          else if(!isNaN(model.launch_date_time)){
-            var l_date = new Date(model.launch_date_time*1000);
-          }
-          else{
-            var l_date = Date.parse(model.launch_date_time);
-          }
+            if(String(model.launch_date_time).search('Z')>-1){
+                var dobj = String(model.launch_date_time).split('Z')
+                    var l_date = Date.parse(dobj[0]);
+            }
+            else if(!isNaN(model.launch_date_time)){
+                var l_date = new Date(model.launch_date_time*1000);
+            }
+            else{
+                var l_date = Date.parse(model.launch_date_time);
+            }
 
-          $("#startdate_d" ).datepicker( "setDate", l_date);
+            $("#startdate_d" ).datepicker( "setDate", l_date);
         }
         else{
-           $("#startdate_d" ).datepicker( "setDate", '' );
+            $("#startdate_d" ).datepicker( "setDate", '' );
         }
         /*if(model.attributes.launch_date_time){
           var l_date = Date.parse(model.attributes.launch_date_time);
           $("#enddate_d" ).datepicker( "setDate", l_date );
-        }
-        else{
-           $("#enddate_d" ).datepicker( "setDate", '' );
-        }*/
+          }
+          else{
+          $("#enddate_d" ).datepicker( "setDate", '' );
+          }*/
 
         $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
         $('#desc_d').val(model.assetInfo['description']);
         $('#notes_d').val(model.notes);
         if(model.manufactureInfo){
-          $('#manufacture_d').val(model.manufactureInfo['manufacturer']);
+            $('#manufacture_d').val(model.manufactureInfo['manufacturer']);
         }
         else{
-           $('#manufacture_d').val('');
+            $('#manufacture_d').val('');
         }
         $("#type_d").val(model.assetInfo['type']);
         $("#type_switcher_but").attr('data', model.class);
         $("#type_switcher_but").val(self.classtypelist[model.class].val);
         $('#type_switcher_but').html(self.classtypelist[model.class].label+' <span class="caret"></span>');
-    },
+                },
 
     clearform: function(){
         $('#depth_d').val('');
