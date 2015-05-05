@@ -393,28 +393,27 @@ var AssetView = Backbone.View.extend({
 
             if(events.attributes.events){
                 for (var j in events.attributes.events){
-                    var sd = new Date(events.attributes.events[j].startDate);
                     switch (events.attributes.events[j].class) {
                         // Storage Events
                         case '.StorageEvent':
                             $('#storage_event_table tbody').empty();
-                            $('#storage_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            $('#storage_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
                             break;
                         case '.DeploymentEvent':
                             $('#deployment_event_table tbody').empty();
-                            $('#deployment_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            $('#deployment_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
                             break;
                         case '.CalibrationEvent':
                             $('#calibration_event_table tbody').empty();
-                            $('#calibration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            $('#calibration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
                             break;
                         case '.IntegrationEvent':
                             $('#integration_event_table tbody').empty();
-                            $('#integration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            $('#integration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
                             break;
                         case '.Service':
                             $('#service_event_table tbody').empty();
-                            $('#service_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            $('#service_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
                             break;
 
                             $('.fixed-table-container').css('padding-bottom','0px');
