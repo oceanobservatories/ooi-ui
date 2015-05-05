@@ -10,23 +10,6 @@ var AssetView = Backbone.View.extend({
         self = this;
         var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
 
-        //add map
-        L.Icon.Default.imagePath = '/img';
-        var map = L.map('editdep_map').setView([1.505, 1.09], 2);
-        L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-            }).addTo(map);
-        // add an OpenStreetMap tile layer
-        L.tileLayer('http://{s}.tile.stamen.com/toner-hybrid/{z}/{x}/{y}.png', {
-        }).addTo(map);
-
-        self.map = map;
-        self.classtypelist = classtypelist;
-        self.selectedInstrument = [];
-        //bind
-        self.model = new AssetModel();
-        self.modalDialog = new ModalDialogView();
-      
         $('#datatable').bootstrapTable({
               method: 'get',
               url: '/api/asset_deployment',
@@ -144,60 +127,6 @@ var AssetView = Backbone.View.extend({
                   sortable: true
               }]
           });
-          /*$('#filter-toolbar').bootstrapTableFilter({
-            connectTo: '#datatable',
-            filterIcon: '<span class="fa fa-search">  </span>   Filter',
-            refreshIcon: '<span class="glyphicon glyphicon-refresh"></span>',
-            clearAllIcon: '<span class="glyphicon glyphicon-remove"></span>',
-            filters:[
-                /*{
-                    field: 'manufactureInfo',    // field identifier
-                    label: 'Manufacturer',    // filter label
-                    type:  'search'
-                },
-                {
-                    field: 'display_name',    // field identifier
-                    label: 'Name',    // filter label
-                    type:  'search'
-                },
-                {
-                    field: 'assetInfo',    // field identifier
-                    label: 'Type',    // filter label
-                    type:  'select',
-                    values: [
-                        {id: 'Sensor', label: 'Sensor'},
-                        {id: 'Mooring', label: 'Mooring'}
-                    ]
-                }
-                {
-                    field: 'class',    // field identifier
-                    label: 'Class',    // filter label
-                    type:  'select',
-                    values: [
-                        {id: '.InstrumentAssetRecord', label: 'Instrument'},
-                        {id: '.AssetRecord', label: 'Asset'}
-                    ]
-                    //type: 'ajaxSelect',
-                    //source: 'http://example.com/get-cities.php'
-                },
-                {
-                    field: 'seriesClassification',    // field identifier
-                    label: 'Series',    // filter label
-                    type:  'search'
-                },
-                {
-                    field: 'assetInfo',    // field identifier
-                    label: 'Owner',    // filter label
-                    type:  'search'
-                }
-            ],
-            onSubmit: function() {
-                var data = $('#filter-toolbar').bootstrapTableFilter('getData');
-                //console.log(data);
-            }
-        });*/
-        
-
         //datepickers with min/max validation
         $( "#startdate_d" ).datepicker({
           changeMonth: true,
@@ -450,11 +379,11 @@ var AssetView = Backbone.View.extend({
     },
 
     rowClicked: function (model, element) {
-        $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
+        $('#event_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
         var assetInfoModel = new AssetEvents({id:model.assetId});
         assetInfoModel.fetch({
           success: function (events) {
-            $('#event_table tbody').empty();
+
             $('#butnewevent').show();
 
             $('#butnewevent').on('click',function(){
@@ -463,107 +392,131 @@ var AssetView = Backbone.View.extend({
             $('#physinfo_d').val(events.attributes.physicalInfo);
 
             if(events.attributes.events){
-              for (var j in events.attributes.events){
-                var sd = new Date(events.attributes.events[j].startDate);
-                $('#event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''>"+sd.toDateString()+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
-                //stupid hack again
-                $('.fixed-table-container').css('padding-bottom','0px');
-                $('#event_table').css('margin-top','0px');
-                $('.fixed-table-header').css('display','none');
-              }
+                for (var j in events.attributes.events){
+                    switch (events.attributes.events[j].class) {
+                        // Storage Events
+                        case '.StorageEvent':
+                            $('#storage_event_table tbody').empty();
+                            $('#storage_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.DeploymentEvent':
+                            $('#deployment_event_table tbody').empty();
+                            $('#deployment_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.CalibrationEvent':
+                            $('#calibration_event_table tbody').empty();
+                            $('#calibration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.IntegrationEvent':
+                            $('#integration_event_table tbody').empty();
+                            $('#integration_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+                        case '.Service':
+                            $('#service_event_table tbody').empty();
+                            $('#service_event_table tbody').append("<tr id="+events.attributes.events[j].eventId+"><td style=''>"+events.attributes.events[j].eventId+"</td><td style=''>"+String(events.attributes.events[j].class).replace('.','')+"</td><td style=''><i class='fa fa-info-circle'></i></td></tr>");
+                            break;
+
+                            $('.fixed-table-container').css('padding-bottom','0px');
+                            $('#event_table').css('margin-top','0px');
+                            $('.fixed-table-header').css('display','none');
+                    };
+                }
             }
-            $('#editdep_panel').html('Click on an Asset above to Edit');
+            $('#event_panel').html('Click on an event to inspect.');
 
             //event click -- go to event page add each time new events are loaded
-            $('#event_table tr').click(function(row) {
+
+            $('#storage_event_table tr').click(function(row) {
                 //var eventrow = new SingleEvent({id:row.currentTarget.id});
                 if(row.currentTarget.id){
-                  window.open('/event/'+row.currentTarget.id,'_blank');
-              }
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#deployment_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#calibration_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#integration_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#service_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
             });
             //allow to edit.
             //$('#event_table').editableTable();
-          },
-          error: function(er){
-            $('#editdep_panel').html('Error finding Events');
-          }
+                   },
+              error: function(er){
+                         $('#editdep_panel').html('Error finding Events');
+                     }
         });
 
         $('#editdep_form').show();
-        $('#editdep_map').show();
         self.map.invalidateSize();
         self.selectedInstrument = model;
 
         $('#name_d').val(model.display_name);
         $('#owner_d').val(model.assetInfo['owner']);
         if(model.water_depth){
-          $('#depth_d').val(model.water_depth['value']);
+            $('#depth_d').val(model.water_depth['value']);
         }
         else{
-           $('#depth_d').val('');
+            $('#depth_d').val('');
         }
 
         //stupid catch for the date contat
         if(model.launch_date_time){
-          if(String(model.launch_date_time).search('Z')>-1){
-            var dobj = String(model.launch_date_time).split('Z')
-            var l_date = Date.parse(dobj[0]);
-          }
-          else if(!isNaN(model.launch_date_time)){
-            var l_date = new Date(model.launch_date_time*1000);
-          }
-          else{
-            var l_date = Date.parse(model.launch_date_time);
-          }
+            if(String(model.launch_date_time).search('Z')>-1){
+                var dobj = String(model.launch_date_time).split('Z')
+                    var l_date = Date.parse(dobj[0]);
+            }
+            else if(!isNaN(model.launch_date_time)){
+                var l_date = new Date(model.launch_date_time*1000);
+            }
+            else{
+                var l_date = Date.parse(model.launch_date_time);
+            }
 
-          $("#startdate_d" ).datepicker( "setDate", l_date);
+            $("#startdate_d" ).datepicker( "setDate", l_date);
         }
         else{
-           $("#startdate_d" ).datepicker( "setDate", '' );
+            $("#startdate_d" ).datepicker( "setDate", '' );
         }
         /*if(model.attributes.launch_date_time){
           var l_date = Date.parse(model.attributes.launch_date_time);
           $("#enddate_d" ).datepicker( "setDate", l_date );
-        }
-        else{
-           $("#enddate_d" ).datepicker( "setDate", '' );
-        }*/
+          }
+          else{
+          $("#enddate_d" ).datepicker( "setDate", '' );
+          }*/
 
         $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
         $('#desc_d').val(model.assetInfo['description']);
         $('#notes_d').val(model.notes);
         if(model.manufactureInfo){
-          $('#manufacture_d').val(model.manufactureInfo['manufacturer']);
+            $('#manufacture_d').val(model.manufactureInfo['manufacturer']);
         }
         else{
-           $('#manufacture_d').val('');
+            $('#manufacture_d').val('');
         }
         $("#type_d").val(model.assetInfo['type']);
         $("#type_switcher_but").attr('data', model.class);
         $("#type_switcher_but").val(self.classtypelist[model.class].val);
         $('#type_switcher_but').html(self.classtypelist[model.class].label+' <span class="caret"></span>');
-
-        //remove marker
-        if(self.asset_mark){self.map.removeLayer(self.asset_mark)};
-
-        if(model.coordinates != null){
-            //for geojson ....
-            if(model.coordinates.length>0){
-            //if(model.attributes.geo_location.type == "Point"){
-                //[x,y]
-                $('#geo_d_lat').val(model.coordinates[0]);
-                $('#geo_d_long').val(model.coordinates[1]);
-
-                // add a marker in the given location, attach some popup content to it and open the popup
-                var asset_mark = L.marker([model.coordinates[0], model.coordinates[1]]).addTo(self.map)
-                    .bindPopup(model.assetInfo['name'])
-                    .openPopup();
-                self.asset_mark = asset_mark;
-                self.map.panTo({lat: model.coordinates[0], lng: model.coordinates[1]});
-                //map.setView({lat: 50, lng: 30},8);
-            }
-        }
-    },
+                },
 
     clearform: function(){
         $('#depth_d').val('');
@@ -622,14 +575,4 @@ var AssetView = Backbone.View.extend({
       $('#geo_d_lat').val(self.ConvertDMSToDD($('#dms_latd').val()+':'+$('#dms_latm').val()+':'+$('#dms_lats').val()+$('#dms_latNS').val()));
       self.updatemarker();
     },
-
-    updatemarker:function(){
-
-      if(self.asset_mark){self.map.removeLayer(self.asset_mark)};
-      if($('#geo_d_lat').val()!=''& $('#geo_d_long').val()!=''){
-        var asset_mark = L.marker([$('#geo_d_lat').val(), $('#geo_d_long').val()]).addTo(self.map);
-        self.asset_mark = asset_mark;
-        self.map.panTo({lat: $('#geo_d_lat').val(), lng: $('#geo_d_long').val()});
-      }
-    }
 });
