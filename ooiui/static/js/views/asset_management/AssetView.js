@@ -425,7 +425,32 @@ var AssetView = Backbone.View.extend({
             $('#event_panel').html('Click on an event to inspect.');
 
             //event click -- go to event page add each time new events are loaded
-            $('#event_table tr').click(function(row) {
+
+            $('#storage_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#deployment_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#calibration_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#integration_event_table tr').click(function(row) {
+                //var eventrow = new SingleEvent({id:row.currentTarget.id});
+                if(row.currentTarget.id){
+                    window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+            });
+            $('#service_event_table tr').click(function(row) {
                 //var eventrow = new SingleEvent({id:row.currentTarget.id});
                 if(row.currentTarget.id){
                     window.open('/event/'+row.currentTarget.id,'_blank');
