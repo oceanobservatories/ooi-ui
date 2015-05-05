@@ -50,6 +50,17 @@ def event_new(new,aid,aclass):
 def streams_page():
     return render_template('science/streams.html')
 
+@app.route('/plotting', methods=['GET'])
+@app.route('/plotting/', methods=['GET'])
+def show_plotting_no_path():
+    return plotting_page(None)
+
+@app.route('/plotting/<path:path>', methods=['GET'])
+def plotting_page(path):
+    print path    
+    return render_template('science/plotting.html')
+
+
 @app.route('/getdata/')
 def getData():
     '''
