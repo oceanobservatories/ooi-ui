@@ -1,6 +1,4 @@
 body {
-    padding-top: ;
-    padding-bottom: ;
 }
 
 p { 
@@ -10,7 +8,82 @@ p {
 h1, h2, h3, h4, h5, h6 {
     font-family; 'Hevedica Neue';
 }
-/* ~navbar~ */    
+/* ~navbar~ */  
+
+
+
+
+
+/* Navbar Styles Styles */
+.navbar-top-links-new li {
+    display: inline-block;
+}
+
+.navbar-top-links-new li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links-new li a {
+    padding: 7px;
+    /* min-height: 50px; */
+}
+
+
+.navbar-top-links-new li a:hover,
+.navbar-top-links-new li a:active {
+   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
+   border-radius: 5px;
+}
+
+
+.navbar-top-links-new .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links-new .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links-new .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links-new .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links-new .dropdown-messages,
+.navbar-top-links-new .dropdown-tasks,
+.navbar-top-links-new .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links-new .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links-new .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links-new .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links-new .dropdown-user {
+    right: 0;
+    left: auto;
+}
+
+
+
+
+.nav > li > a {
+    color: #000;
+}
+
 .navbar-text > a {
     color: #000;
     text-decoration: none;
@@ -20,6 +93,9 @@ h1, h2, h3, h4, h5, h6 {
     height: 38.5px;
     border-color:  #7E9CD9 ;
     background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
+    background-color: none;
+    border-bottom-width: 2px;
+    border-bottom-color: #F09349;
 }
 
 .navbar-default .navbar-brand {
@@ -47,56 +123,56 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #fff;
-    backgound-color: #A3A7BF; 
-*/
+color: #fff;
+backgound-color: #A3A7BF; 
+ */
 
-/* ~drop downs~ */    
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-    background-color:  #A3A7BF;
-    color: #fff;
-}
+    /* ~drop downs~ */    
+    .navbar-default .navbar-nav > .open > a,
+    .navbar-default .navbar-nav > .open > a:hover,
+    .navbar-default .navbar-nav > .open > a:focus {
+        background-color:  #A3A7BF;
+        color: #fff;
+    }
 
-/* ~buttons~ */    
-/* ~default~ */    
+    /* ~buttons~ */    
+    /* ~default~ */    
 
-/* ~primary~ */    
-.btn-primary {
-    border-color:  #7E9CD9 ;
-    background: linear-gradient(rgba(255,0,0,0), rgba(126,156,217,.2), rgba(255,0,0,0));
-    color: #000;
-}
+    /* ~primary~ */    
+    .btn-primary {
+        border-color:  #7E9CD9 ;
+        background: linear-gradient(rgba(255,0,0,0), rgba(126,156,217,.2), rgba(255,0,0,0));
+        color: #000;
+    }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary:active,
-.open .dropdown-toggle.btn-primary {
-    border-color:  #7E9CD9 ;
-    color: #000;
-}
-
-     
-
-/* ~success~ */    
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary:active,
+    .open .dropdown-toggle.btn-primary {
+        border-color:  #7E9CD9 ;
+        color: #000;
+    }
 
 
+
+    /* ~success~ */    
 
 
 
 
-/*
+
+
+    /*
     ~new~
     light-grey-blue: #6080A1 (rgb: 96 128 161)
     dark-blue: #004773 (rgb: 0 71 115)
     light-blue: #8DA2E4 (rgb: 141 162 228)
     orange: #F09349 (rgb: 240 147 73)
     grey: #F4F4F4 (tgb: 244 244 244)
-   
+
     ~old~
     light-grey-blue: #A3A7BF (rgb: 163 167 191)
     dark-blue: #353840 (rgb: 53 56 64)
     light-blue: #7E9CD9(rgb: 126 156 217)
-*/    
+     */    

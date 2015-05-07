@@ -46,9 +46,9 @@ var NavbarView = Backbone.View.extend({
     //Remove event listener on menu toggle.
     var sidebar = $("#sidebar-wrapper").children().length;
     if (sidebar == 0) {
-        this.undelegateEvents();
+      this.undelegateEvents();
     }
-    },
+  },
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
     sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html'],
@@ -59,11 +59,11 @@ var NavbarView = Backbone.View.extend({
     this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()) {
-        this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
-        this.$el.find('#Science').hide();
-        //this.$el.find('#navbar-menus').append(this.messageView.el);
+      this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
+      this.$el.find('#home').hide();
+      //this.$el.find('#navbar-menus').appe<D-d>nd(this.messageView.el);
     }
-    this.$el.find('#navbar-menus').append(this.dropdownUserView.el);
-   
+    this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
+
   }
 });
