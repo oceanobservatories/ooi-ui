@@ -11,8 +11,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ~banner~ */
-.banner {
-    height: 90px;
+#banner {
+    background-image: url("/img/ooi-banner.png");
+    height: 136px;
+    background-siz: 100%;
+    width:
     background: #FFF;
     border-color: #FFF;
     background-repeat: no-repeat;
@@ -26,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
 #wrapper {
-    margin-top: 160px;
+    margin-top: 200px;
 }
 
 #page-content-wrapper {
@@ -35,8 +38,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ~navbar~ */  
 .navbar-fixed-top {
-  top: 90px;
+  top: 126px;
   border-width: 0 0 1px;
+  z-index: 20000;
 }
 
 .navbar-top-links-new li {
