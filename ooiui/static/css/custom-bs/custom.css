@@ -9,7 +9,36 @@ p {
 h1, h2, h3, h4, h5, h6 {
     font-family; 'Hevedica Neue';
 }
+
+/* ~banner~ */
+.banner {
+    height: 90px;
+    background: #FFF;
+    border-color: #FFF;
+    background-repeat: no-repeat;
+    top: 0;
+    border-width: 0 0 1px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1040;
+}
+
+/* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
+#wrapper {
+    margin-top: 160px;
+}
+
+#page-content-wrapper {
+    padding: 0 20px 20px 20px;
+}
+
 /* ~navbar~ */  
+.navbar-fixed-top {
+  top: 90px;
+  border-width: 0 0 1px;
+}
+
 .navbar-top-links-new li {
     display: inline-block;
 }
