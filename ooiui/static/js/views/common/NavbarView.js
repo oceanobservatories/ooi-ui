@@ -15,10 +15,16 @@ var NavbarView = Backbone.View.extend({
   events: {
     'click #menu-toggle' : "menuToggle"
   },
+ 
+
+  
   menuToggle: function(e) {
     e.preventDefault(); // Prevent the #about
     this.sidebarToggle();
   },
+
+ 
+  
   initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle");
     if(ooi.login.loggedIn()) {
@@ -31,8 +37,10 @@ var NavbarView = Backbone.View.extend({
     });
     this.render();
   },
-  sidebarToggle: function() {
 
+
+  
+  sidebarToggle: function() {
     $("#wrapper").toggleClass("toggled");
     if($('#collapse-button').hasClass('fa-caret-left')) {
       $('#collapse-button').removeClass('fa-caret-left');
@@ -46,24 +54,28 @@ var NavbarView = Backbone.View.extend({
     //Remove event listener on menu toggle.
     var sidebar = $("#sidebar-wrapper").children().length;
     if (sidebar == 0) {
-        this.undelegateEvents();
+      this.undelegateEvents();
     }
-    },
+  },
+ 
+  
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
     sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html'],
     logged_in_nav_items: JST['ooiui/static/js/partials/LoggedInNavItems.html']
   },
+ 
+  
   render: function() {
     this.$el.html(this.templates.navbar());
     this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()) {
-        this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
-        this.$el.find('#Science').hide();
-        //this.$el.find('#navbar-menus').append(this.messageView.el);
+      this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
+      this.$el.find('#current').hide();
+      //this.$el.find('#navbar-menus').appe<D-d>nd(this.messageView.el);
     }
-    this.$el.find('#navbar-menus').append(this.dropdownUserView.el);
-   
+    this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
+
   }
 });
