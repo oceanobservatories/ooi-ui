@@ -1,4 +1,5 @@
 body {
+    font-family; 'Hevedica Neue';    
 }
 
 p { 
@@ -9,12 +10,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family; 'Hevedica Neue';
 }
 /* ~navbar~ */  
-
-
-
-
-
-/* Navbar Styles Styles */
 .navbar-top-links-new li {
     display: inline-block;
 }
@@ -28,13 +23,18 @@ h1, h2, h3, h4, h5, h6 {
     /* min-height: 50px; */
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
+    border-radius: 5px;
 
-.navbar-top-links-new li a:hover,
-.navbar-top-links-new li a:active {
-   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
-   border-radius: 5px;
+    border-color: #337ab7;
 }
 
+.navbar-top-links-new li a:hover,
+.navbar-top-links-new li a:focus {
+    background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
+    border-radius: 5px;
+}
 
 .navbar-top-links-new .dropdown-menu li {
     display: block;
@@ -47,6 +47,9 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-top-links-new .dropdown-menu li a {
     padding: 3px 20px;
     min-height: 0;
+}
+.navbar-top-links-new .dropdown-menu li a:hover {
+    background: rgba(141,162,228,.1); 
 }
 
 .navbar-top-links-new .dropdown-menu li a div {
@@ -76,9 +79,6 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     left: auto;
 }
-
-
-
 
 .nav > li > a {
     color: #000;
