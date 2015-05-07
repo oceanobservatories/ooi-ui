@@ -32,7 +32,7 @@ var CommandDialogView = Backbone.View.extend({
   },
   
   initialize: function() {
-    _.bindAll(this, "render", "hidden");
+    _.bindAll(this, "render", "hidden",'acquire');
   },
   
   show: function(options) {
@@ -101,12 +101,16 @@ var CommandDialogView = Backbone.View.extend({
           var theParameters = response.value.metadata.parameters;
 
           for(var p in theParameters){
+            var units = 'None';
+            if(response.value.metadata.parameters[p].value['units']){
+              units = response.value.metadata.parameters[p].value['units'];
+            }
             if(response.value.metadata.parameters[p].visibility == "READ_WRITE"){
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" value="+response.value.parameters[p]+"></input></div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
             } 
             //disable this parameter from editing     
             else{
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
             }
           }
           that.options['parameter_options'] = parameter_html;
@@ -122,7 +126,7 @@ var CommandDialogView = Backbone.View.extend({
       },
 
       error:function(collection, response, options) {
-        $('.modal').remove();
+        that.$el.modal('hide');
         var m = new ModalDialogView();
           m.show({
             message: "Error Getting Command Data",
@@ -149,14 +153,20 @@ var CommandDialogView = Backbone.View.extend({
 
         for(var p in theParameters){
           if(theParameters[p].visibility == "READ_WRITE"){
-            param_list[p]=$('#'+p).val();
+            if(theParameters[p].value.type == 'int'){
+              param_list[p]=parseInt($('#'+p).val());
+            }
+            //todo add validation for date
+            else{
+              param_list[p]=$('#'+p).val();
+            }
           }
         }
 
         var post_data_param = {'resource':param_list,'timeout':60000};
         var data_param  = JSON.stringify(post_data_param, null, '\t');
 
-        this.options.parameter_options= "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-4x'></i>";
+        this.options.parameter_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
         this.$el.html(this.template(this.options));
 
         $.ajax({
@@ -199,49 +209,80 @@ var CommandDialogView = Backbone.View.extend({
         //execute a command from the button
         var command = button.target.id;
         
-        var post_url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
+        //aquire sample data
+        if(command.search('ACQUIRE_SAMPLE')>-1){
+            that.acquire('sample',ref_des)
+        }
+        //aquire status
+        else if(command.search('ACQUIRE_STATUS')>-1){
+            that.acquire('status',ref_des)
+        }
+        //all other commands
+        else{
+            var post_url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
 
-        var post_data = {'command':command,'timeout':60000};
-        var data  = JSON.stringify(post_data, null, '\t');
-        //arguments - optional
-        //post_data['kwargs'] = command;
+            var post_data = {'command':command,'timeout':60000};
+            var data  = JSON.stringify(post_data, null, '\t');
+            //arguments - optional
+            //post_data['kwargs'] = command;
 
-        this.options.command_options= "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-4x'></i>";
-        this.$el.html(this.template(this.options));
+            this.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+            this.$el.html(this.template(this.options));
 
-        $.ajax({
-          type: "POST",
-          url: post_url,
-          data: data,
-          contentType: 'application/json;charset=UTF-8',
-          dataType:'json',
-          success: function(response){
-            var m = new ModalDialogView();
-            if(response.response.message == ''){
+            $.ajax({
+              type: "POST",
+              url: post_url,
+              data: data,
+              contentType: 'application/json;charset=UTF-8',
+              dataType:'json',
+              success: function(response){
+                var m = new ModalDialogView();
+                if(response.response.message == ''){
+                    m.show({
+                    message: "Command Executed Successfully",
+                    type: "success"
+                  });
+
+                  that.render(that.options);
+                }
+                else{
+                    m.show({
+                    message: "Error Executing Command:  "+response.response.message,
+                    type: "danger"
+                  });
+                  that.render(that.options);
+                }  
+              },
+              error: function(){
+                var m = new ModalDialogView();
                 m.show({
-                message: "Command Executed Successfully",
-                type: "success"
-              });
-
-              that.render(that.options);
-            }
-            else{
-                m.show({
-                message: "Error Executing Command:  "+response.response.message,
-                type: "danger"
-              });
-              that.render(that.options);
-            }  
-          },
-          error: function(){
-            var m = new ModalDialogView();
-            m.show({
-              message: "Error Executing Command",
-              type: "danger"
+                  message: "Error Executing Command",
+                  type: "danger"
+                });
+                that.render(that.options);
+              }
             });
-            that.render(that.options);
-          }
-        });
+        }
     }
+  },
+
+  //aquire latest values
+  acquire: function(type,ref_des)
+  {
+      var m = new ModalDialogView();
+      //check status
+      if(type=='status'){
+          m.show({
+            message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div>",
+            type: "info"
+          });
+      }
+      //sample data
+      else{
+          m.show({
+            message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div>",
+            type: "info"
+          });
+      }
   }
 });

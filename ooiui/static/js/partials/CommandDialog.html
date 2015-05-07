@@ -1,7 +1,7 @@
 <!-- set up the modal to start hidden and fade in and out -->
 <!-- <div id="myModal" class="modal fade"> -->
   <div class="modal-dialog" >
-    <div class="modal-content">
+    <div class="modal-content" style='width:840px'>
       <!-- dialog body -->
       <div class="modal-header">
         <h3 class="modal-title"  id="missionModalLabel">Control Actions </h3>      
@@ -11,13 +11,13 @@
           <%= message%> -->
         <div><h3>Parameter Settings</h3></div>
         <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='submit_win_param'>Save Settings</button>
-        <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-5'>Description</div><div class='col-md-3'>Value</div></div>
+        <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><div style='right:-25px' class='col-md-2'>Units</div></div>
         <hr>
-        <div style='max-height:270px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
+        <div style='max-height:260px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
           <%= parameter_options%>
         </div>
         <div><h3>Command List</h3></div>
-        <div style='max-height:180px;overflow-y: auto;overflow-x: hidden;'>
+        <div style='max-height:170px;overflow-y: auto;overflow-x: hidden;'>
           <%= command_options%>
         </div>
       </div>
