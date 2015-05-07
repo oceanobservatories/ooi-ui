@@ -64,6 +64,7 @@ var CommandDialogView = Backbone.View.extend({
     commandist.fetch({
       success: function(collection, response, options) {
 
+        that.options['model'] = response;
         //Command Options
         if(!response.value){
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
@@ -100,12 +101,12 @@ var CommandDialogView = Backbone.View.extend({
           var theParameters = response.value.metadata.parameters;
 
           for(var p in theParameters){
-            if(response.value.metadata.parameters[p].direct_access == true){
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" value="+response.value.parameters[p]+"></input></div></div>");  
+            if(response.value.metadata.parameters[p].visibility == "READ_WRITE"){
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" value="+response.value.parameters[p]+"></input></div></div>");  
             } 
             //disable this parameter from editing     
             else{
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div></div>");  
             }
           }
           that.options['parameter_options'] = parameter_html;
@@ -136,14 +137,66 @@ var CommandDialogView = Backbone.View.extend({
   {
     var that = this;
     
+    var ref_des = that.options.variable;
+
     if(button.target.id =='submit_win_param'){
         //execute parameter changes
+        var post_url_param = '/api/c2/'+this.options.ctype+'/'+ref_des+'/parameters';
+        var param_list = {};
 
+        //loop through and get all the parameters
+        var theParameters = this.options['model'].value.metadata.parameters;
 
+        for(var p in theParameters){
+          if(theParameters[p].visibility == "READ_WRITE"){
+            param_list[p]=$('#'+p).val();
+          }
+        }
+
+        var post_data_param = {'resource':param_list,'timeout':60000};
+        var data_param  = JSON.stringify(post_data_param, null, '\t');
+
+        this.options.parameter_options= "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-4x'></i>";
+        this.$el.html(this.template(this.options));
+
+        $.ajax({
+          type: "POST",
+          url: post_url_param,
+          data: data_param,
+          contentType: 'application/json;charset=UTF-8',
+          dataType:'json',
+          success: function(response){
+            var m = new ModalDialogView();
+            if(response.response.message == ''){
+                m.show({
+                message: "Settings Saved Successfully",
+                type: "success"
+              });
+
+              that.render(that.options);
+            }
+            else{
+                m.show({
+                message: "Error Saving Settings:  "+response.response.message,
+                type: "danger"
+              });
+              that.render(that.options);
+            }  
+          },
+          error: function(){
+            var m = new ModalDialogView();
+            m.show({
+              message: "Error Saving Settings",
+              type: "danger"
+            });
+            that.render(that.options);
+          }
+        });
     }
+
+    //for commands
     else if(button.target.id !='close_win_command'){
         //execute a command from the button
-        var ref_des = this.options.variable;
         var command = button.target.id;
         
         var post_url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
@@ -170,13 +223,14 @@ var CommandDialogView = Backbone.View.extend({
                 type: "success"
               });
 
-               that.render(that.options);
+              that.render(that.options);
             }
             else{
                 m.show({
                 message: "Error Executing Command:  "+response.response.message,
                 type: "danger"
               });
+              that.render(that.options);
             }  
           },
           error: function(){
@@ -185,9 +239,9 @@ var CommandDialogView = Backbone.View.extend({
               message: "Error Executing Command",
               type: "danger"
             });
+            that.render(that.options);
           }
         });
     }
   }
 });
-
