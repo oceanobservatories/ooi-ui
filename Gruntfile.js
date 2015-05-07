@@ -1073,6 +1073,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/c2/InstrumentsModel.js',
             'ooiui/static/js/models/c2/PlatformStatusModel.js',
             'ooiui/static/js/models/c2/ArrayNavModel.js',
+            'ooiui/static/js/models/c2/CommandParameterModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',

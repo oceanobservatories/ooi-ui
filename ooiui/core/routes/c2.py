@@ -216,3 +216,18 @@ def c2_edit_instr_params(instrument_ref):
 
     response = requests.post(app.config['SERVICES_URL'] + '/c2/instrument/%s/parameters' % (instrument_ref), auth=(token, ''), data=request.data)
     return response.text, response.status_code
+
+
+# STATUS and SAMPLE GET
+#
+@app.route('/api/c2/sample/<string:ref_code>', methods=['GET'])
+def get_c2_instrument_sample(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/c2/status/<string:ref_code>', methods=['GET'])
+def get_c2_instrument_status(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code

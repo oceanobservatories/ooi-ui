@@ -145,11 +145,12 @@ var CommandDialogView = Backbone.View.extend({
 
     if(button.target.id =='submit_win_param'){
         //execute parameter changes
-        var post_url_param = '/api/c2/'+this.options.ctype+'/'+ref_des+'/parameters';
-        var param_list = {};
-
+        var param_model = new ParameterModel();
+        param_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/parameters';
+        
         //loop through and get all the parameters
         var theParameters = this.options['model'].value.metadata.parameters;
+        var param_list = {};
 
         for(var p in theParameters){
           if(theParameters[p].visibility == "READ_WRITE"){
@@ -163,44 +164,40 @@ var CommandDialogView = Backbone.View.extend({
           }
         }
 
-        var post_data_param = {'resource':param_list,'timeout':60000};
-        var data_param  = JSON.stringify(post_data_param, null, '\t');
+        param_model.set('resource',param_list);
+        /*var post_data_param = {'resource':param_list,'timeout':60000};
+        var data_param  = JSON.stringify(post_data_param, null, '\t');*/
 
         this.options.parameter_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
         this.$el.html(this.template(this.options));
 
-        $.ajax({
-          type: "POST",
-          url: post_url_param,
-          data: data_param,
-          contentType: 'application/json;charset=UTF-8',
-          dataType:'json',
+        param_model.save({},{
           success: function(response){
-            var m = new ModalDialogView();
-            if(response.response.message == ''){
-                m.show({
-                message: "Settings Saved Successfully",
-                type: "success"
-              });
+              var m = new ModalDialogView();
+              if(response.attributes.response.message == ''){
+                  m.show({
+                  message: "Settings Saved Successfully",
+                  type: "success"
+                });
 
-              that.render(that.options);
-            }
-            else{
-                m.show({
-                message: "Error Saving Settings:  "+response.response.message,
+                that.render(that.options);
+              }
+              else{
+                  m.show({
+                  message: "Error Saving Settings:  "+response.attributes.response.message,
+                  type: "danger"
+                });
+                that.render(that.options);
+              }  
+            },
+            error: function(){
+              var m = new ModalDialogView();
+              m.show({
+                message: "Error Saving Settings",
                 type: "danger"
               });
               that.render(that.options);
-            }  
-          },
-          error: function(){
-            var m = new ModalDialogView();
-            m.show({
-              message: "Error Saving Settings",
-              type: "danger"
-            });
-            that.render(that.options);
-          }
+            }
         });
     }
 
@@ -219,25 +216,17 @@ var CommandDialogView = Backbone.View.extend({
         }
         //all other commands
         else{
-            var post_url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
-
-            var post_data = {'command':command,'timeout':60000};
-            var data  = JSON.stringify(post_data, null, '\t');
-            //arguments - optional
-            //post_data['kwargs'] = command;
+            var command_model = new CommandModel();
+            command_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
+            command_model.set('command',command);
 
             this.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
             this.$el.html(this.template(this.options));
-
-            $.ajax({
-              type: "POST",
-              url: post_url,
-              data: data,
-              contentType: 'application/json;charset=UTF-8',
-              dataType:'json',
+            
+            command_model.save({},{
               success: function(response){
                 var m = new ModalDialogView();
-                if(response.response.message == ''){
+                if(response.attributes.response.message == ''){
                     m.show({
                     message: "Command Executed Successfully",
                     type: "success"
@@ -247,7 +236,7 @@ var CommandDialogView = Backbone.View.extend({
                 }
                 else{
                     m.show({
-                    message: "Error Executing Command:  "+response.response.message,
+                    message: "Error Executing Command:  "+response.attributes.response.message,
                     type: "danger"
                   });
                   that.render(that.options);
@@ -270,19 +259,53 @@ var CommandDialogView = Backbone.View.extend({
   acquire: function(type,ref_des)
   {
       var m = new ModalDialogView();
+      var list_values = '';
+      
       //check status
       if(type=='status'){
-          m.show({
-            message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div>",
-            type: "info"
-          });
+        var stat_model = new StatusModel();
+        stat_model.url = '';
+        stat_model.fetch({
+          success: function(response){
+              var m = new ModalDialogView();
+              m.show({
+                message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
+                type: "info"
+              });  
+            },
+
+            error: function(){
+              var m = new ModalDialogView();
+              m.show({
+                message: "Error Getting Status Information",
+                type: "danger"
+              });
+              that.render(that.options);
+            }
+        });
       }
       //sample data
       else{
-          m.show({
-            message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div>",
-            type: "info"
-          });
+        var samp_model = new SampleModel();
+        samp_model.url = '';
+        samp_model.fetch({
+          success: function(response){
+              var m = new ModalDialogView();
+              m.show({
+                message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
+                type: "info"
+              }); 
+            },
+
+            error: function(){
+              var m = new ModalDialogView();
+              m.show({
+                message: "Error Getting Sample Information",
+                type: "danger"
+              });
+              that.render(that.options);
+            }
+        });
       }
   }
 });
