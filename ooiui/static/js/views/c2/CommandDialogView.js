@@ -64,12 +64,7 @@ var CommandDialogView = Backbone.View.extend({
     commandist.fetch({
       success: function(collection, response, options) {
 
-        /*for(var availableCommands in response.value.metadata.commands){
-          
-          for(var activeCommand in availableCommands){
-            
-          }
-        }*/
+        //Command Options
         if(!response.value){
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
@@ -77,12 +72,12 @@ var CommandDialogView = Backbone.View.extend({
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
         else{
-          var buttons = '';
+          var buttons = '<i style"margin-bottom:5px">Click to Execute Command</i>';
           var theCommands = response.value.capabilities[0];
 
           for(var c in theCommands){
             if(response.value.metadata.commands[theCommands[c]]){
-                buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><button type='button' data="+theCommands[c]+" class='btn btn-primary' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button></div>");  
+                buttons = buttons.concat("<div style='padding-top:4px;padding-left:2px;'><button type='button' data="+theCommands[c]+" class='btn btn-default' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button></div>");  
                 //data-toggle='button'
             }
             else{
@@ -91,9 +86,37 @@ var CommandDialogView = Backbone.View.extend({
             }            
           }
           that.options['command_options'] = buttons;
-
         }
+
+        //Parameter Options and values
+        var parameter_html = '';
+        if(!response.value){
+          that.options['parameter_options'] = '<div><i>No Parameters available at this time.</i></div>';
+        }
+        else if(!response.value.metadata.parameters || response.value.metadata.parameters == null){
+          that.options['parameter_options'] = '<div><i>No Parameters available at this time.</i></div>';
+        }
+        else{
+          var theParameters = response.value.metadata.parameters;
+
+          for(var p in theParameters){
+            if(response.value.metadata.parameters[p].direct_access == true){
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" value="+response.value.parameters[p]+"></input></div></div>");  
+            } 
+            //disable this parameter from editing     
+            else{
+                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div class='col-md-5'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-3'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div></div>");  
+            }
+          }
+          that.options['parameter_options'] = parameter_html;
+        }
+        
         that.$el.html(that.template(that.options));
+        if(parameter_html !=''){
+          $('.submitparam').show();
+          $('.submitparam').prop('disabled', false);
+        }
+
         $('.modal-title').html("<b>"+that.options.title);
       },
 
@@ -111,9 +134,14 @@ var CommandDialogView = Backbone.View.extend({
 
   executeCommand:function(button)
   {
-    if(button.target.id !='close_win_command'){
+    var that = this;
+    
+    if(button.target.id =='submit_win_param'){
+        //execute parameter changes
 
-        var that = this;
+
+    }
+    else if(button.target.id !='close_win_command'){
         //execute a command from the button
         var ref_des = this.options.variable;
         var command = button.target.id;
@@ -125,7 +153,7 @@ var CommandDialogView = Backbone.View.extend({
         //arguments - optional
         //post_data['kwargs'] = command;
 
-        this.options.command_options= "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-5x'></i>";
+        this.options.command_options= "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-4x'></i>";
         this.$el.html(this.template(this.options));
 
         $.ajax({

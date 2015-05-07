@@ -121,7 +121,8 @@ var ArrayPlatformsView = Backbone.View.extend({
 
               this.CommandView.show({
                 message: "<i>None at this time</i>",
-                command_options: "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-5x'></i>",
+                parameter_options: "",
+                command_options: "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-3x'></i>",
                 variable: this.model.attributes.reference_designator,
                 title: this.model.attributes.display_name,
                 ctype: "platform",

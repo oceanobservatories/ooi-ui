@@ -4,13 +4,22 @@
     <div class="modal-content">
       <!-- dialog body -->
       <div class="modal-header">
-        <h3 class="modal-title" id="missionModalLabel">Control Actions </h3>      
+        <h3 class="modal-title"  id="missionModalLabel">Control Actions </h3>      
       </div>
-      <div class="modal-body mission-modal">
-        <div><h3>Commands Pending</h3></div>
-        <%= message%>
+      <div class="modal-body mission-modal" style='margin-top:-17px'>
+        <!-- <div><h3>Pending Messages</h3></div>
+          <%= message%> -->
+        <div><h3>Parameter Settings</h3></div>
+        <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='submit_win_param' data-dismiss="modal">Save Settings</button>
+        <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-5'>Description</div><div class='col-md-3'>Value</div></div>
+        <hr>
+        <div style='max-height:270px;overflow-y: auto;overflow-x: hidden;'>
+          <%= parameter_options%>
+        </div>
         <div><h3>Command List</h3></div>
-        <%= command_options%>
+        <div style='max-height:180px;overflow-y: auto;overflow-x: hidden;'>
+          <%= command_options%>
+        </div>
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-primary" id='execute_command' disabled data-dismiss="modal">Execute</button> -->
