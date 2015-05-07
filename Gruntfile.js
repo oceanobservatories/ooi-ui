@@ -8,6 +8,8 @@ module.exports = function(grunt) {
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
+            "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/NestedTocItem.html",            
             "ooiui/static/js/partials/TOCParentItem.html",
             "ooiui/static/js/partials/InstrumentItem.html",
             "ooiui/static/js/partials/PlatformItem.html",
@@ -539,11 +541,12 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/science/TocModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
-            "ooiui/static/js/views/common/SimpleTOCView.js",
+            "ooiui/static/js/views/common/TOCView.js",
             "ooiui/static/js/views/common/MapView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',

@@ -14,45 +14,129 @@
 var TOCView = Backbone.View.extend({
   events: {   
     'keyup #search-filter' : 'filterToc'
+  },  
+  initialize: function(){
+    _.bindAll(this, "render","add","filterToc");
+    this.subviews = [];    
+    this.arrayViews = [];    
+
+    this.dataIndent = {"platform":1, "mooring":2, "instrument":3}
+    this.initalRender();
+    //this.listenTo(this.collection, "reset", this.render);
   },
-  add: function(arrayModel){
-    
-    var subview = new ArrayItemView({
-      model: arrayModel
+  initalRender: function(){
+     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>');
+  },
+  getArrayCode: function(model){
+    var array_code = model.get('platform_code').substr(0,2)
+    return array_code
+  },
+  add: function(model){
+    var self = this;
+
+    var array_body = this.$el.find('#array_'+this.getArrayCode(model)+"_body") 
+
+    var key_list = Object.keys(this.dataIndent);    
+
+    $(key_list).each(function(index,key) {      
+      var key_body = self.$el.find('#'+key+'_'+model.get(key+'_code')+"_body")       
+     
+      if (key_body.length ==1){
+
+      }else{
+        //create a new one
+        console.log("need to create the item")
+        //add to the right place
+        var sub_name = model.get(key+'_code');
+        var sub_id = key+"_"+model.get(key+'_code')+"_body";
+        var sub_level  = self.dataIndent[key];
+
+        var subview = new NestedTocItemView({
+          level: sub_level,
+          display_name: sub_name,
+          id: sub_id,
+        });
+        self.subviews.push(subview);        
+
+        //var new_content = '<div id="'+key+"_"+model.get(key+'_code')+"_body"+'" ></div>'
+        if (key == "platform"){
+          array_body.append(subview.el)  
+        }else if (key == "mooring"){
+          self.$el.find('#platform_'+model.get('platform_code')+"_body").append(subview.el)
+        }else if (key == "instrument"){                    
+          self.$el.find('#platform_'+model.get('platform_code')+"_body "+'#mooring_'+model.get('mooring_code')+"_body").append(subview.el)
+        }        
+      }
+      
     });
-    this.subviews.push(subview);
-    this.$el.find('ul').append(subview.el);
+
+    //self.$el.find('#instrument_'+model.get('reference_designator')+"_body").append(subview.el);
   },
   filterToc: function(){
     var self = this
   },
-  initialize: function(){
-    _.bindAll(this, "render", "add","filterToc");
-    this.subviews = [];
-    this.listenTo(this.collection, "reset", this.render);
-  },
   template: JST['ooiui/static/js/partials/TOC.html'],
+  renderArrays: function(){
+    var self = this;
+    this.arrayCollection.each(function(model){
+      var arrayview = new ArrayItemView({
+        model: model
+      });      
+      self.$el.find('#array-accordion').append(arrayview.el);
+    });
+  },
   render: function(){
     var self = this;
     this.$el.html(this.template());
-    this.collection.each(function(arrayModel){
-      self.add(arrayModel);
+    //render the arrays
+    self.renderArrays();
+    this.$el.find('[data-toggle="tooltip"]').tooltip()
+
+    console.log(this.collection.length)    
+    this.collection.each(function(model){  
+      console.log(model)    
+      self.add(model);
     });
   }
 });
+
+var ArrayItemView = Backbone.View.extend({  
+  className:"panel panel-default",
+  id:"array_accordion",
+  role:"tablist",  
+  initialize: function(options) {
+    this.render();
+  },
+  template: JST['ooiui/static/js/partials/ArrayItem.html'],
+  render: function(){
+    this.$el.html(this.template({model: this.model}));
+  }
+})
+
 
 //--------------------------------------------------------------------------------
 //  NestedItemView
 //--------------------------------------------------------------------------------
 
-var NestedItemView = Backbone.View.extend({
+var NestedTocItemView = Backbone.View.extend({
   level: 2,
-  add: function(subview) {
-    this.subviews.push(subview);
-    this.$el.append(subview.el);
-  },
   tagName: 'ul',
-  className: 'nav',
+  className: 'nav sidebar-nav',
+  display_name:"",
+  id:"",
+  initialize: function(options) {
+    if(options && options.level) {
+      this.level = options.level;
+    }
+    if(options && options.display_name) {
+      this.display_name = options.display_name;
+    }
+    if(options && options.id) {
+      this.id = options.id;
+    }    
+    this.render();    
+  },  
+  template: JST['ooiui/static/js/partials/NestedTocItem.html'],
   toggle: function() {    
     this.$el.collapse('toggle');    
     if (this.$el.parent().first().find('.toc-arrow').hasClass("fa-rotate-270")){
@@ -63,25 +147,24 @@ var NestedItemView = Backbone.View.extend({
     }
 
   },
-  initialize: function(options) {
-    if(options && options.level) {
-      this.level = options.level;
-    }
-    this.subviews = [];
-    this.render();
-  },
   render: function(){
-    if(this.level == 2) {
-      this.$el.toggleClass('sidebar-nav-second-level');
+    var self = this;
+    self.$el.html(self.template({display_name: self.display_name,id : self.id}));
+    
+    if(this.level == 1) {
+      self.$el.toggleClass('sidebar-nav-second-level');
+    } else if(this.level == 2) {
+      self.$el.toggleClass('sidebar-nav-third-level');
     } else if(this.level == 3) {
-      this.$el.toggleClass('sidebar-nav-third-level');
-    } else if(this.level == 4) {
-      this.$el.toggleClass('sidebar-nav-third-level');
+      self.$el.toggleClass('sidebar-nav-third-level');
     }
     this.$el.collapse('show');
+    
   }
 });
 
+
+/*
 //--------------------------------------------------------------------------------
 //  ArrayItemView
 //--------------------------------------------------------------------------------
@@ -215,11 +298,6 @@ var PlatformDeploymentItemView = Backbone.View.extend({
       target.prop( "disabled", true );
       self.tg = target;
 
-      /*var ArrayplatformCollection = Backbone.Collection.extend({
-        url: '/api/c2/array/'+this.model.attributes.array_code+'/current_status_display'
-      });
-      var platformCollection = new ArrayplatformCollection();*/
-
       //This sets the id to be set to the get request, but nothing returning now
       this.model.attributes['id']= this.model.get('assetId');
       this.model.assetDeployments.fetch({
@@ -235,22 +313,6 @@ var PlatformDeploymentItemView = Backbone.View.extend({
     }
 
     ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
-    
-    /*if(this.model.get('coordinates')){
-      var loc = this.model.get('coordinates')
-      //loc = loc.coordinates
-      var locat= [loc[1],loc[0]]
-      ooi.models.mapModel.set({mapCenter: locat})
-    }
-    if(this.model.get('display_name')){
-      //update the glider track
-      if (this.model.get('display_name').indexOf('Glider') > -1){
-        ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
-      }
-    }
-    else{
-      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
-    }*/
   },  
 
   template: JST['ooiui/static/js/partials/PlatformItem_AA.html'],
@@ -299,21 +361,6 @@ var InstrumentDeploymentItemView = Backbone.View.extend({
     var target = $(e.target);
     e.preventDefault();
     e.stopPropagation();
-    /*if(this.streams.length == 0) {
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
-      target.prop( "disabled", true );
-      self.tg = target;
-      this.streams.fetch({
-        data: $.param({reference_designator: this.model.get('reference_designator')}),
-        success: function(collection, response, options) {
-          self.renderStreams();
-
-          self.tg.prop( "disabled", false );
-          self.tg.find(".s").remove();
-        },
-        reset: true
-      });
-    }*/
     ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
   },
   template: JST['ooiui/static/js/partials/InstrumentItem_AA.html'],
@@ -350,3 +397,4 @@ var StreamItemView = Backbone.View.extend({
     this.$el.html(this.template({data: this.model}));
   }
 });
+*/
