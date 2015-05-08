@@ -155,11 +155,11 @@ var CommandDialogView = Backbone.View.extend({
         for(var p in theParameters){
           if(theParameters[p].visibility == "READ_WRITE"){
             if(theParameters[p].value.type == 'int'){
-              param_list[p]=parseInt($('#'+p).val());
+              param_list[p]=parseInt(this.$el.find('#'+p).val());
             }
             //todo add validation for date
             else{
-              param_list[p]=$('#'+p).val();
+              param_list[p]=this.$el.find('#'+p).val();
             }
           }
         }
