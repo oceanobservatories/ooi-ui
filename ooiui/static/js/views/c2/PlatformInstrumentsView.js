@@ -90,7 +90,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
           cell: HtmlCell,
           formatter: _.extend({}, Backgrid.Cell.prototype, {
             fromRaw: function (rawValue, model) {
-               return "<i id='inst_mission_icon' style='font-size:19px;color:#A9A9A9;float:right;padding-right: 30px;' class='fa fa-toggle-off'></i>";
+               return "<button type='button' style='float:right' id='inst_mission_icon' class='btn btn-default'><i style='font-size:19px;color:#A9A9A9;float:right;pointer-events: none;' class='fa fa-toggle-off'></i></button>";
             }
           }),
       }];

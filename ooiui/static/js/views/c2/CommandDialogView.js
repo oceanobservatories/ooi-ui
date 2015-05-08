@@ -73,12 +73,12 @@ var CommandDialogView = Backbone.View.extend({
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
         else{
-          var buttons = '<i style"margin-bottom:5px">Click to Execute Command</i>';
+          var buttons = '<div  style="margin-bottom: 9px;"><i>Click to Execute Command</i></div>';
           var theCommands = response.value.capabilities[0];
 
           for(var c in theCommands){
             if(response.value.metadata.commands[theCommands[c]]){
-                buttons = buttons.concat("<div style='padding-top:4px;padding-left:2px;'><button type='button' data="+theCommands[c]+" class='btn btn-default' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button></div>");  
+                buttons = buttons.concat("<button style='margin-left: 7px;' type='button' data="+theCommands[c]+" class='btn btn-default' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button>");  
                 //data-toggle='button'
             }
             else{
@@ -101,16 +101,16 @@ var CommandDialogView = Backbone.View.extend({
           var theParameters = response.value.metadata.parameters;
 
           for(var p in theParameters){
-            var units = 'None';
+            var units = '';
             if(response.value.metadata.parameters[p].value['units']){
               units = response.value.metadata.parameters[p].value['units'];
             }
             if(response.value.metadata.parameters[p].visibility == "READ_WRITE"){
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
             } 
             //disable this parameter from editing     
             else{
-                parameter_html = parameter_html.concat("<div style='font-size:12px;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
             }
           }
           that.options['parameter_options'] = parameter_html;
@@ -118,11 +118,15 @@ var CommandDialogView = Backbone.View.extend({
         
         that.$el.html(that.template(that.options));
         if(parameter_html !=''){
-          $('.submitparam').show();
-          $('.submitparam').prop('disabled', false);
+          that.$el.find('.submitparam').show();
+          that.$el.find('.submitparam').prop('disabled', false);
         }
 
-        $('.modal-title').html("<b>"+that.options.title);
+        that.$el.find('.modal-title').html("<b>"+that.options.title);
+        if(response.value){
+          that.$el.find('.modal-subtitle').html("State: "+String(response.value.state).split('_').join(' '));  
+        }
+        that.$el.find('.modal-content').resizable();
       },
 
       error:function(collection, response, options) {
@@ -142,8 +146,13 @@ var CommandDialogView = Backbone.View.extend({
     var that = this;
     
     var ref_des = that.options.variable;
-
-    if(button.target.id =='submit_win_param'){
+    if(button.target.id =='refresh_win_param'){
+      that.render(that.options);
+      that.options.parameter_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.$el.html(this.template(this.options));
+    }
+    else if(button.target.id =='submit_win_param'){
         //execute parameter changes
         var param_model = new ParameterModel();
         param_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/parameters';
@@ -208,51 +217,70 @@ var CommandDialogView = Backbone.View.extend({
         
         //aquire sample data
         if(command.search('ACQUIRE_SAMPLE')>-1){
-            that.acquire('sample',ref_des)
+            //that.acquire('sample',ref_des)
+            that.command = 'sample';
         }
         //aquire status
         else if(command.search('ACQUIRE_STATUS')>-1){
-            that.acquire('status',ref_des)
+            //that.acquire('status',ref_des)
+            that.command = 'status';
         }
-        //all other commands
-        else{
-            var command_model = new CommandModel();
-            command_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
-            command_model.set('command',command);
+        
 
-            this.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
-            this.$el.html(this.template(this.options));
-            
-            command_model.save({},{
-              success: function(response){
-                var m = new ModalDialogView();
-                if(response.attributes.response.message == ''){
-                    m.show({
-                    message: "Command Executed Successfully",
-                    type: "success"
-                  });
+        var command_model = new CommandModel();
+        command_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
+        command_model.set('command',command);
 
-                  that.render(that.options);
-                }
-                else{
-                    m.show({
-                    message: "Error Executing Command:  "+response.attributes.response.message,
-                    type: "danger"
-                  });
-                  that.render(that.options);
-                }  
-              },
-              error: function(){
+        this.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+        this.$el.html(this.template(this.options));
+        
+        command_model.save({},{
+          success: function(response){
+            var m = new ModalDialogView();
+            if(that.command=='status'){
                 var m = new ModalDialogView();
                 m.show({
-                  message: "Error Executing Command",
-                  type: "danger"
-                });
-                that.render(that.options);
-              }
+                  message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
+                  type: "info"
+                });  
+            }
+            //sample data
+            else if(that.command=='sample'){
+              var samp_model = new SampleModel();
+              samp_model.url = '/api/c2/sample/'+ref_des;
+              var m = new ModalDialogView();
+              m.show({
+                message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
+                type: "info"
+              }); 
+            }
+
+            else if(response.attributes.response.message == ''){
+                m.show({
+                message: "Command Executed Successfully",
+                type: "success"
+              });
+            }
+            else{
+                m.show({
+                message: "Error Executing Command:  "+response.attributes.response.message,
+                type: "danger"
+              });
+            }  
+
+            //refresh
+            that.render(that.options);
+          },
+          error: function(){
+            var m = new ModalDialogView();
+            m.show({
+              message: "Error Executing Command",
+              type: "danger"
             });
-        }
-    }
+            that.render(that.options);
+          }
+        });
+      }
   },
 
   //aquire latest values
@@ -264,8 +292,13 @@ var CommandDialogView = Backbone.View.extend({
       //check status
       if(type=='status'){
         var stat_model = new StatusModel();
-        stat_model.url = '';
-        stat_model.fetch({
+        stat_model.url = '/api/c2/status/'+ref_des;
+        var m = new ModalDialogView();
+        m.show({
+          message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
+          type: "info"
+        });  
+        /*stat_model.fetch({
           success: function(response){
               var m = new ModalDialogView();
               m.show({
@@ -282,13 +315,18 @@ var CommandDialogView = Backbone.View.extend({
               });
               that.render(that.options);
             }
-        });
+        });*/
       }
       //sample data
       else{
         var samp_model = new SampleModel();
-        samp_model.url = '';
-        samp_model.fetch({
+        samp_model.url = '/api/c2/sample/'+ref_des;
+        var m = new ModalDialogView();
+        m.show({
+          message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
+          type: "info"
+        }); 
+        /*samp_model.fetch({
           success: function(response){
               var m = new ModalDialogView();
               m.show({
@@ -305,7 +343,7 @@ var CommandDialogView = Backbone.View.extend({
               });
               that.render(that.options);
             }
-        });
+        });*/
       }
   }
 });
