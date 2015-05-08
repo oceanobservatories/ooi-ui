@@ -12,9 +12,12 @@
  */
 
 var TocModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/get_toc',
+  urlRoot: '#',
   defaults: {
-    display_name: "",   
+    display_name: "",
+    instrument_display_name: "",   
+    platform_display_name: "",   
+    mooring_display_name: "",   
   }
 });
 
