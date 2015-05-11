@@ -790,6 +790,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/AssetModel.js',
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/science/TocModel.js',
             //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',

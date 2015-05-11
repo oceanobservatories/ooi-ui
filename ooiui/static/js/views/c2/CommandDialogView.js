@@ -148,8 +148,8 @@ var CommandDialogView = Backbone.View.extend({
     var ref_des = that.options.variable;
     if(button.target.id =='refresh_win_param'){
       that.render(that.options);
-      that.options.parameter_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
-      that.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
     }
     else if(button.target.id =='submit_win_param'){
@@ -177,7 +177,7 @@ var CommandDialogView = Backbone.View.extend({
         /*var post_data_param = {'resource':param_list,'timeout':60000};
         var data_param  = JSON.stringify(post_data_param, null, '\t');*/
 
-        this.options.parameter_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+        this.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
         this.$el.html(this.template(this.options));
 
         param_model.save({},{
@@ -231,7 +231,7 @@ var CommandDialogView = Backbone.View.extend({
         command_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
         command_model.set('command',command);
 
-        this.options.command_options= "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+        this.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
         this.$el.html(this.template(this.options));
         
         command_model.save({},{
@@ -244,7 +244,7 @@ var CommandDialogView = Backbone.View.extend({
               });
             } 
             else if(that.command=='status'){
-                var html_status = "<div><h4>Current Status</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Status Name</div><div style='' class='col-md-6'>Value</div></div><hr style='margin-bottom:28px'></div>";
+                var html_status = "<div><h4>Current Status</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Status Name</div><div style='' class='col-md-6'>Value</div></div><hr>";
                 
                 if(response.changed.acquire_result){
                   //get the latest sample
