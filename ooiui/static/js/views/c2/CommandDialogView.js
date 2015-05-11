@@ -214,7 +214,8 @@ var CommandDialogView = Backbone.View.extend({
     else if(button.target.id !='close_win_command'){
         //execute a command from the button
         var command = button.target.id;
-        
+        that.command = '';
+
         //aquire sample data
         if(command.search('ACQUIRE_SAMPLE')>-1){
             //that.acquire('sample',ref_des)
@@ -224,8 +225,7 @@ var CommandDialogView = Backbone.View.extend({
         else if(command.search('ACQUIRE_STATUS')>-1){
             //that.acquire('status',ref_des)
             that.command = 'status';
-        }
-        
+        }       
 
         var command_model = new CommandModel();
         command_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/execute';
@@ -237,36 +237,64 @@ var CommandDialogView = Backbone.View.extend({
         command_model.save({},{
           success: function(response){
             var m = new ModalDialogView();
-            if(that.command=='status'){
-                var m = new ModalDialogView();
+            if(response.attributes.response.message != ''){
                 m.show({
-                  message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
+                message: "Error Executing Command:  "+response.attributes.response.message,
+                type: "danger"
+              });
+            } 
+            else if(that.command=='status'){
+                var html_status = "<div><h4>Current Status</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Status Name</div><div style='' class='col-md-6'>Value</div></div><hr style='margin-bottom:28px'></div>";
+                
+                if(response.changed.acquire_result){
+                  //get the latest sample
+                  var data_status = response.changed.acquire_result[response.changed.acquire_result.length-1];
+                  for(var a in data_status){
+                    var val_data = data_status[a];
+                    if(a=='time'){
+                        val_data = new Date(data_status[a]).toJSON();
+                    }
+                    if(!(data_status[a] instanceof Object)&&a.search('timestamp')<0){
+                      html_status+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(a).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+val_data+"</div></div>";
+                    }                    
+                  }
+                }
+
+                m.show({
+                  message: html_status,
                   type: "info"
                 });  
             }
             //sample data
             else if(that.command=='sample'){
-              var samp_model = new SampleModel();
-              samp_model.url = '/api/c2/sample/'+ref_des;
-              var m = new ModalDialogView();
+              var html_sample = "<div><h4>Current Sample Values</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+
+              if(response.changed.acquire_result){
+                //get the latest sample
+                var data_sample = response.changed.acquire_result[response.changed.acquire_result.length-1];
+                for(var a in data_sample){
+                  if(!(data_sample[a] instanceof Object)&&a.search('timestamp')<0){
+                    var val_data = data_sample[a];
+                    if(a=='time'){
+                        val_data = new Date(data_sample[a]).toJSON();
+                    }
+                    html_sample+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(a).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+val_data+"</div></div>";
+                  }
+                }
+              }
+
               m.show({
-                message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
+                message: html_sample,
                 type: "info"
               }); 
             }
 
-            else if(response.attributes.response.message == ''){
+            else{
                 m.show({
                 message: "Command Executed Successfully",
                 type: "success"
               });
-            }
-            else{
-                m.show({
-                message: "Error Executing Command:  "+response.attributes.response.message,
-                type: "danger"
-              });
-            }  
+            } 
 
             //refresh
             that.render(that.options);
@@ -284,6 +312,7 @@ var CommandDialogView = Backbone.View.extend({
   },
 
   //aquire latest values
+  //not used now
   acquire: function(type,ref_des)
   {
       var m = new ModalDialogView();
@@ -298,24 +327,6 @@ var CommandDialogView = Backbone.View.extend({
           message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
           type: "info"
         });  
-        /*stat_model.fetch({
-          success: function(response){
-              var m = new ModalDialogView();
-              m.show({
-                message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
-                type: "info"
-              });  
-            },
-
-            error: function(){
-              var m = new ModalDialogView();
-              m.show({
-                message: "Error Getting Status Information",
-                type: "danger"
-              });
-              that.render(that.options);
-            }
-        });*/
       }
       //sample data
       else{
@@ -326,24 +337,6 @@ var CommandDialogView = Backbone.View.extend({
           message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
           type: "info"
         }); 
-        /*samp_model.fetch({
-          success: function(response){
-              var m = new ModalDialogView();
-              m.show({
-                message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
-                type: "info"
-              }); 
-            },
-
-            error: function(){
-              var m = new ModalDialogView();
-              m.show({
-                message: "Error Getting Sample Information",
-                type: "danger"
-              });
-              that.render(that.options);
-            }
-        });*/
       }
   }
 });
