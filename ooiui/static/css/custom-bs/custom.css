@@ -12,11 +12,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ~banner~ */
 #banner {
-    background-image: url("/img/ooi-banner.png");
+    background-position: 50% 50%;
+    
+    background-image: url("/img/logos-banners/ban1024.svg");
     height: 136px;
-    background-siz: 100%;
-    width:
-    background: #FFF;
+    background-size: 100%;
+    width: 100%;
     border-color: #FFF;
     background-repeat: no-repeat;
     top: 0;
@@ -40,7 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-fixed-top {
   top: 126px;
   border-width: 0 0 1px;
-  z-index: 20000;
+  z-index: 1000;
 }
 
 .navbar-top-links-new li {
