@@ -12,17 +12,20 @@
  */
 
 var TocArrayModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/get_toc',
+  urlRoot: '/api/uframe/get_arrays',
   defaults: {
-    display_name: "",    
+    display_name: "", 
+    reference_designator: "",    
   }
 });
 
 var TocArrayCollection = Backbone.Collection.extend({
-  url: '/api/uframe/get_toc',
+  url: '/api/uframe/get_arrays',
   model: TocArrayModel,
   parse: function(response, options) {
-    //console.log(response);
-    return response.toc.arrays;
+    if (response && response.arrays){
+      return response.arrays;
+    }
+    return [];
   }
 });

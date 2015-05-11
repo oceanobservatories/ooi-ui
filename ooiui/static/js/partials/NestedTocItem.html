@@ -1,0 +1,21 @@
+<ul class='nav sidebar-nav' type="<%=key%>" level=<%=level%>>
+	<!-- tag is li -->
+	<a type="<%=key%>" level=<%=level%> data-toggle="tooltip" data-placement="bottom" data-delay="200" title="<%= display_name %>" href="#">
+	  <!--
+	  <i class="fa fa-share-alt fa-fw"></i>
+	  -->
+	  <% if (level<3){ %>
+	  	<span id="<%=level%>_icon" class="glyphicon glyphicon-chevron-right toc-arrow"></span>
+	  <% } else { %>
+	  	<span id="<%=level%>_icon" class="glyphicon glyphicon-record"></span>
+	  <% } %>
+		<i>
+	  		<%= display_name %>
+	    </i>
+	</a>
+
+	<div id="<%= sub_id %>" class="<%=level%>_item_content <%=key%>_item_content collapse">
+
+
+	</div>
+</ul>
