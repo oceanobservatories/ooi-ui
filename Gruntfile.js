@@ -790,6 +790,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/AssetModel.js',
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/science/TocModel.js',
             //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -1073,6 +1074,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/c2/InstrumentsModel.js',
             'ooiui/static/js/models/c2/PlatformStatusModel.js',
             'ooiui/static/js/models/c2/ArrayNavModel.js',
+            'ooiui/static/js/models/c2/CommandParameterModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',

@@ -1,4 +1,7 @@
-      .dpa-function-variable {
+    .fa-spinner{
+      color:#337ab7;
+    }
+    .dpa-function-variable {
       font-style: italic;
       font-weight: bold !important;
     }

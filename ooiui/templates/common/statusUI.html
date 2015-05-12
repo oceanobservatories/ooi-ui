@@ -24,8 +24,8 @@
 <script src="/js/partials/compiled/StatusUIIcon.js" type="text/javascript"></script>
 <script src="/js/compiled/StatusUIIcon.js" type="text/javascript"></script>
 
-<!-- for dev - delete when done -->
-<script src="/js/views/common/StatusUIIconView.js" type="text/javascript"></script>
+<!-- for dev - delete when done 
+<script src="/js/views/common/StatusUIIconView.js" type="text/javascript"></script>-->
 
 <script type="text/javascript" src="/js/core/table/bootstrap-table-filter.js"></script>
 <script src="/js/core/table/bootstrap-table-filter.ext.js"></script>
@@ -45,7 +45,7 @@
     <div id="page-content-wrapper" style='padding-top:70px;'>
         <div class="container-fluid">
             <div id ='filter-toolbar2' style='padding-left:140px;padding-top:3px;position:absolute;z-index:100;'></div>
-            <div id ='datatable_div' style='opacity:0;height:0px'><table id="datatable"></table></div>
+            <div id ='datatable_div' style='opacity:0;height:0px'><table id="bootstrap-table"></table></div>
             <ul  id="container_of_asset" style='display:none'></ul>
             <div id="event-view" class="col-md-12">          
             </div>
@@ -100,7 +100,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
         this.listenTo(this.models.userModel, 'change', function(model){
-            this.views.orgSidebarView.selectOrg(model.get('organization_id'));
+            //this.views.orgSidebarView.selectOrg(model.get('organization_id'));
         });
     },
 

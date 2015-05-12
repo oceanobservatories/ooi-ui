@@ -64,7 +64,6 @@ var ArraySidebarView = Backbone.View.extend({
     var self = this;
     this.collection.fetch({
       success: function(collection, response, options) {
-        console.log('success');
         // If the fetch was successful, then we render
         //self.collection = response.arrays;
         self.render();
