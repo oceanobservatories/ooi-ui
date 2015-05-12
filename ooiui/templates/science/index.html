@@ -155,7 +155,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
 
     $.when(tocFetch,arraysFetch).done(function(){
-      console.log("child updated...")
+      //console.log("child updated...")
       self.views.tocView.collection = self.collections.toc;
       self.views.tocView.arrayCollection = self.collections.arrays;
       self.views.tocView.render();

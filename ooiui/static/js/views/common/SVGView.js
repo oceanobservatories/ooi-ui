@@ -27,7 +27,7 @@ var SVGView = Backbone.View.extend({
   },
   initialRender: function() {
     //console.log("Plot should be a spinner");
-    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;color:#337ab7"> </i>');
+    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
   },
   render: function() {
   }

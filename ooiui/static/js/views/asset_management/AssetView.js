@@ -7,8 +7,7 @@ var AssetView = Backbone.View.extend({
 	//renders a simple map view
 	render: function() {
 
-        self = this;
-        var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
+        var self = this;
 
         $('#datatable').bootstrapTable({
               method: 'get',
@@ -161,10 +160,10 @@ var AssetView = Backbone.View.extend({
                 self.selectedInstrument = [];
                 self.model =  new AssetModel();
                 $('#editdep_map').show();
-                map.invalidateSize();
+                //map.invalidateSize();
                 $('#editdep_form').show();
                 //check to see if there is marker on the map and remove it
-                if(self.asset_mark){map.removeLayer(self.asset_mark)};
+                //if(self.asset_mark){map.removeLayer(self.asset_mark)};
                 $('#editdep_panel').html('Click Save to create new Record.');
             }
             else if(t.target.innerText.search('SAVE'>-1)){
@@ -379,8 +378,11 @@ var AssetView = Backbone.View.extend({
     },
 
     rowClicked: function (model, element) {
+        
+        var self = this;
         $('#event_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
         var assetInfoModel = new AssetEvents({id:model.assetId});
+        
         assetInfoModel.fetch({
           success: function (events) {
 
@@ -465,7 +467,7 @@ var AssetView = Backbone.View.extend({
         });
 
         $('#editdep_form').show();
-        self.map.invalidateSize();
+        //self.map.invalidateSize();
         self.selectedInstrument = model;
 
         $('#name_d').val(model.display_name);
@@ -512,11 +514,14 @@ var AssetView = Backbone.View.extend({
         else{
             $('#manufacture_d').val('');
         }
+
+        var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
+
         $("#type_d").val(model.assetInfo['type']);
         $("#type_switcher_but").attr('data', model.class);
-        $("#type_switcher_but").val(self.classtypelist[model.class].val);
-        $('#type_switcher_but').html(self.classtypelist[model.class].label+' <span class="caret"></span>');
-                },
+        $("#type_switcher_but").val(classtypelist[model.class].val);
+        $('#type_switcher_but').html(classtypelist[model.class].label+' <span class="caret"></span>');
+    },
 
     clearform: function(){
         $('#depth_d').val('');
