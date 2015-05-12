@@ -12,7 +12,7 @@
  */
 
 var TocArrayModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/get_arrays',
+  urlRoot: '/api/array',
   defaults: {
     display_name: "", 
     reference_designator: "",    
@@ -20,7 +20,7 @@ var TocArrayModel = Backbone.Model.extend({
 });
 
 var TocArrayCollection = Backbone.Collection.extend({
-  url: '/api/uframe/get_arrays',
+  url: '/api/array',
   model: TocArrayModel,
   parse: function(response, options) {
     if (response && response.arrays){

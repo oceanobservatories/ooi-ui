@@ -164,14 +164,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
+      /*
+      console.log(model)
+
       $('#map').height(328);
       $('#plot-row').show();
       
-      /*
-      if ('coordinates' in model.attributes){
+      
+      if (model && 'attributes' in model && 'coordinates' in model.attributes){
         self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-      }
-      */
+      } 
+      */     
       
       /* 
       self.collections.stream_collection.each(function(streamModel) {
@@ -205,7 +208,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.svgplot.plot(options);
     });
     this.listenTo(this, 'ooi:mapExpand', function() {
-      //$('#plot-row').hide();
+      $('#plot-row').hide();
       $('#map').height($(window).height() - 150);
     });
     this.listenTo(this, 'NavbarView:sidebarToggle', function() {

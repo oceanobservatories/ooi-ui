@@ -12,14 +12,14 @@
  */
 
 var TocInstrumentsModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/get_toc',
+  urlRoot: '#',
   defaults: {
     display_name: "",   
   }
 });
 
 var TocInstrumentsCollection = Backbone.Collection.extend({
-  url: '/api/uframe/get_toc',
+  url: '/api/uframe/get_structured_toc',
   model: TocInstrumentsModel,
   parse: function(response, options) {
     //console.log(response);
