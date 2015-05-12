@@ -102,6 +102,11 @@ def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_structured_toc')
+def structured_toc_proxy():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_structured_toc', params=request.args)
+    return response.text, response.status_code
+
 #old
 @app.route('/api/platform_deployment')
 def platform_deployment_proxy():

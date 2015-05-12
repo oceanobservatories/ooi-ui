@@ -20,7 +20,7 @@ var TOCView = Backbone.View.extend({
     this.subviews = [];    
     this.arrayViews = [];    
 
-    this.dataIndent = {"platform":1, "mooring":2, "instrument":3}
+    this.dataIndent = {"mooring":1, "platform":2, "instrument":3}
     this.initalRender();
     //this.listenTo(this.collection, "reset", this.render);
   },
@@ -28,13 +28,18 @@ var TOCView = Backbone.View.extend({
      this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>');
   },
   getArrayCode: function(model){
-    var array_code = model.get('platform_code').substr(0,2)
+    var array_code = model.get('mooring_code').substr(0,2)
     return array_code
   },
   add: function(model){
     var self = this;
 
     var array_body = this.$el.find('#array_'+this.getArrayCode(model)+"_body") 
+
+    var current = parseInt(this.$el.find('#array_'+this.getArrayCode(model)+"_badge").text())  
+    this.$el.find('#array_'+this.getArrayCode(model)+"_badge").text(current+1) 
+    
+
     var key_list = Object.keys(this.dataIndent);    
 
     $(key_list).each(function(index,key) {      
@@ -51,20 +56,23 @@ var TOCView = Backbone.View.extend({
         var sub_level  = self.dataIndent[key];
 
         var subview = new NestedTocItemView({
+          model: model,          
           level: sub_level,
           display_name: sub_name,
           sub_id: sub_id,          
           key: key,
+          stream_list:model.get('streams'),
+          variable_list:model.get('instrument_parameters')
         });
         self.subviews.push(subview);        
         subview.render();   
         
-        if (key == "platform"){
+        if (key == "mooring"){
           array_body.append(subview.el)  
-        }else if (key == "mooring"){
-          self.$el.find('#platform_'+model.get('platform_code')+"_body").append(subview.el)
+        }else if (key == "platform"){
+          self.$el.find('#mooring_'+model.get('mooring_code')+"_body").append(subview.el)
         }else if (key == "instrument"){                    
-          self.$el.find('#platform_'+model.get('platform_code')+"_body "+'#mooring_'+model.get('mooring_code')+"_body").append(subview.el)
+          self.$el.find('#mooring_'+model.get('mooring_code')+"_body " + '#platform_'+model.get('platform_code')+"_body").append(subview.el)
         }  
         subview=null;      
       }
@@ -91,12 +99,12 @@ var TOCView = Backbone.View.extend({
     this.$el.html(this.template());
     //render the arrays
     self.renderArrays();
-    this.$el.find('[data-toggle="tooltip"]').tooltip()
-
-    console.log(this.collection.length)    
+    this.$el.find('[data-toggle="tooltip"]').tooltip();
+      
     this.collection.each(function(model){        
       self.add(model);
-    });
+    }); 
+
   }
 });
 
@@ -122,10 +130,12 @@ var NestedTocItemView = Backbone.View.extend({
   display_name:"",
   sub_id: "",
   level:1,
-  key:"",  
+  key:"", 
   events:{
     'click a' : 'onClick',
   },
+  stream_list:[],
+  variable_list:[],
   initialize: function(options) {
     var self = this;
     if(options && options.level && options.key) {
@@ -138,12 +148,17 @@ var NestedTocItemView = Backbone.View.extend({
     if(options && options.sub_id) {
       self.sub_id = options.sub_id;
     } 
+    if(options && options.stream_list) {
+      self.stream_list = options.stream_list;
+    }
+    if(options && options.variable_list) {
+      self.variable_list = options.variable_list;
+    }
     
   },  
   template: JST['ooiui/static/js/partials/NestedTocItem.html'],
   onClick: function(e) {
-    e.stopPropagation();
-    e.preventDefault();    
+    e.stopPropagation();    
     this.toggle(e);
   },
   toggle: function(e) {    
@@ -161,10 +176,27 @@ var NestedTocItemView = Backbone.View.extend({
         //this.$el.find("ul ."+(self.level+1)+"_item_content").addClass("in")
     }
 
+    if (self.level ==3 ){
+      self.instrumentSelect();
+    }
+
+  },
+  instrumentSelect: function(){
+    ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
   },
   render: function(){
     var self = this;
-    self.$el.html(self.template({display_name: self.display_name,sub_id : self.sub_id, key:self.key ,level: self.level}));
+    var plottingLink = ""
+    if(this.level == 3) {      
+      var mooring = self.model.get('mooring_code')
+      var array = mooring.substr(0,2)      
+      var platform = self.model.get('platform_code')      
+      var ref = self.model.get('reference_designator')
+      plottingLink = array+"/"+mooring+"/"+platform+"/"+ref
+      var plottingLink = window.location.protocol + '//' + window.location.host+"/plotting/"+plottingLink
+    }
+
+    self.$el.html(self.template({plottingLink:plottingLink,display_name: self.display_name,sub_id : self.sub_id, key:self.key ,level: self.level}));
     
     if(this.level == 1) {
       self.$el.toggleClass('sidebar-nav-first-level');
@@ -175,8 +207,7 @@ var NestedTocItemView = Backbone.View.extend({
     } else if(this.level == 3) {
       self.$el.toggleClass('sidebar-nav-third-level');
       self.$el.find(self.key+"_item_content").addClass("collapse")
-    }
-    
-    
+      //add popover
+    }    
   }
 });

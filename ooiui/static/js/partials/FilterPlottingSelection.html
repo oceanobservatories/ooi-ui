@@ -15,23 +15,26 @@
 			    		<%= model.get('display_name') %>
 			    	</option>
 		    	<% } %> 
-			<% }); %>   
+			<% }); %>
+
 		<!-- MOORING -->	
 		<% } else if(labelText == "moorings") { %>
-			<% collection.each(function(model) { %>		    
-			    <% if (model.get('display_name') != null) { %>			    
+			<% collection.each(function(model) { %>		
+			    <% if (model.get('display_name') != null) { %>			    			    	
 			    	<option data-subtext="<%=model.get('reference_designator')%>"
 			    			arrays-code="<%=model.get('array_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
 			    			value="<%=model.get('reference_designator')%>">
 			    		<%= model.get('display_name') %>
-			    	</option>
+			    	</option>			    	
 			    <% } %> 
-			<% }); %>  
+			<% }); %>  	
+
 		<!-- PLATFORMS -->	
 		<% } else if(labelText == "platforms") { %>
 			<% collection.each(function(model) { %>		    
 		    	<% if (model.get('display_name') != null ) { %>		    	
+			    	
 			    	<option data-subtext="<%=model.get('platform_code')%>"
 			    			moorings-code="<%=model.get('mooring_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
@@ -40,7 +43,8 @@
 			    		<%= model.get('display_name') %>
 			    	</option>
 			    <% } %> 
-			<% }); %> 
+			<% }); %>   
+			
 		<!-- INSTRUMENTS -->	
 		<% } else if(labelText == "instruments") { %>
 			<% collection.each(function(model) { %>		    
