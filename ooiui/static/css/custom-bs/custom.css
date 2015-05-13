@@ -1,0 +1,239 @@
+body {
+  font-family; 'Hevedica Neue';    
+}
+
+p { 
+  font-family; 'Hevedica Neue';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family; 'Hevedica Neue';
+}
+
+/* ~banner~
+#banner {
+  background-position: 50% 50%;
+  background-image: url("/img/logos-banners/ban1024.svg");
+  height: 136px;
+  background-size: 100%;
+  width: 100%;
+  border-color: #FFF;
+  background-repeat: no-repeat;
+  top: 0;
+  border-width: 0 0 1px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1040;
+}
+ */
+
+.banner-image {
+  background: url("/img/logos-banners/banner-1024px.svg"); 
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
+#wrapper {
+  margin-top: 0;
+  position: inherit;
+}
+
+#sidebar-wrapper {
+  z-index: 500;
+}
+
+#page-content-wrapper {
+  padding: 0 20px 20px 20px;
+}
+
+
+.logo-left {
+  float: left;
+  left: 30px;
+  list-style: none;
+}
+
+.logo-right {
+  float: right;
+  right: 0px;
+  list-style: none;
+}
+
+/* ~navbar~ */  
+.navbar-fixed-top {
+  top: 126px;
+  border-width: 0 0 1px;
+  position: inherit;
+  padding-right: 30px;
+  padding-left: 30px;
+  z-index: 1000;
+}
+
+.navbar-top-links-new li {
+  display: inline-block;
+}
+
+.navbar-top-links-new li:last-child {
+  margin-right: 15px;
+}
+
+.navbar-top-links-new li a {
+  padding: 7px;
+  /* min-height: 50px; */
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
+  border-radius: 5px;
+
+  border-color: #337ab7;
+}
+
+.navbar-top-links-new li a:hover,
+.navbar-top-links-new li a:focus {
+  background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
+  border-radius: 5px;
+}
+
+.navbar-top-links-new .dropdown-menu li {
+  display: block;
+}
+
+.navbar-top-links-new .dropdown-menu li:last-child {
+  margin-right: 0;
+}
+
+.navbar-top-links-new .dropdown-menu li a {
+  padding: 3px 20px;
+  min-height: 0;
+}
+.navbar-top-links-new .dropdown-menu li a:hover {
+  background: rgba(141,162,228,.1); 
+}
+
+.navbar-top-links-new .dropdown-menu li a div {
+  white-space: normal;
+}
+
+.navbar-top-links-new .dropdown-messages,
+.navbar-top-links-new .dropdown-tasks,
+.navbar-top-links-new .dropdown-alerts {
+  width: 310px;
+  min-width: 0;
+}
+
+.navbar-top-links-new .dropdown-messages {
+  margin-left: 5px;
+}
+
+.navbar-top-links-new .dropdown-tasks {
+  margin-left: -59px;
+}
+
+.navbar-top-links-new .dropdown-alerts {
+  margin-left: -123px;
+}
+
+.navbar-top-links-new .dropdown-user {
+  right: 0;
+  left: auto;
+  z-index: 1001;
+}
+
+.nav > li > a {
+  color: #000;
+}
+
+.navbar-text > a {
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar-default {
+  height: 38.5px;
+  border-color:  #7E9CD9 ;
+  background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
+  background-color: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #F09349;
+}
+
+.navbar-default .navbar-brand {
+  color: #fff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #A3A7BF;
+  backgound-color: transparent;
+}
+
+/* ~link colors~ */
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a 
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #A3A7BF;
+}
+
+/*color of active nabar btn
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+color: #fff;
+backgound-color: #A3A7BF; 
+*/
+
+/* ~drop downs~ */    
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color:  #A3A7BF;
+  color: #fff;
+}
+
+/* ~buttons~ */    
+/* ~default~ */    
+
+/* ~primary~ */    
+.btn-primary {
+  border-color:  #7E9CD9 ;
+  background: linear-gradient(rgba(255,0,0,0), rgba(126,156,217,.2), rgba(255,0,0,0));
+  color: #000;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active,
+.open .dropdown-toggle.btn-primary {
+  border-color:  #7E9CD9 ;
+  color: #000;
+}
+
+
+
+/* ~success~ */    
+
+
+/*
+~new~
+light-grey-blue: #6080A1 (rgb: 96 128 161)
+dark-blue: #004773 (rgb: 0 71 115)
+light-blue: #8DA2E4 (rgb: 141 162 228)
+orange: #F09349 (rgb: 240 147 73)
+grey: #F4F4F4 (tgb: 244 244 244)
+
+~old~
+light-grey-blue: #A3A7BF (rgb: 163 167 191)
+dark-blue: #353840 (rgb: 53 56 64)
+light-blue: #7E9CD9(rgb: 126 156 217)
+*/    
