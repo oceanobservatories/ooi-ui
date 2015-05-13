@@ -94,7 +94,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     // Views
     //--------------------------------------------------------------------------------
     this.views.banner = new BannerView();
-    $(body).prepend(this.views.banner.el);
+    $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({
         el: $('#navbar')
