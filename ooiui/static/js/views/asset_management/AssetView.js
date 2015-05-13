@@ -8,6 +8,8 @@ var AssetView = Backbone.View.extend({
 	render: function() {
 
         var self = this;
+        self.modalDialog = new ModalDialogView();
+        self.model = '';
 
         $('#datatable').bootstrapTable({
               method: 'get',
@@ -126,6 +128,7 @@ var AssetView = Backbone.View.extend({
                   sortable: true
               }]
           });
+
         //datepickers with min/max validation
         $( "#startdate_d" ).datepicker({
           changeMonth: true,
@@ -153,9 +156,10 @@ var AssetView = Backbone.View.extend({
 
         //on button bar click
         $('#deploy_edit').click(function(t) {
+
             var deploy_obj_ = {};
 
-            if(t.target.innerText.search('NEW')>-1){
+            if(t.target.innerText.search('NEW')>-1||t.target.className.search('plus-square')>-1){
                 self.clearform();
                 self.selectedInstrument = [];
                 self.model =  new AssetModel();
@@ -166,17 +170,36 @@ var AssetView = Backbone.View.extend({
                 //if(self.asset_mark){map.removeLayer(self.asset_mark)};
                 $('#editdep_panel').html('Click Save to create new Record.');
             }
-            else if(t.target.innerText.search('SAVE'>-1)){
+            else if(t.target.innerText.search('PLOT')>-1||t.target.className.search('chart')>-1){
+
+                if (self.model!='') {
+                    //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
+                    //window.open('/event/'+row.currentTarget.id,'_blank');
+                }
+                else{
+                    self.modalDialog.show({
+                      message: "Please Select an Asset.",
+                      type: "danger"
+                    });
+                }
+            }
+            else if(t.target.innerText.search('SAVE')>-1||t.target.className.search('floppy')>-1){
                 //save to db
-                if (self.model.isValid()) {
+                if (self.model =='') {
+                  self.modalDialog.show({
+                    message: "Please Select an Asset.",
+                    type: "danger"
+                  });
+                }
+                else {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
-                   // that.model.attributes = selectedInstrument;
-                   if($( "#startdate_d" ).datepicker('getDate' )){
-                    self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
-                   }
-                   else{
-                    self.model.set('launch_date_time','');
-                   }
+                    // that.model.attributes = selectedInstrument;
+                    if($( "#startdate_d" ).datepicker('getDate' )){
+                      self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
+                    }
+                    else{
+                      self.model.set('launch_date_time','');
+                    }
                     
                     //self.model.set('end_date',$( "#enddate_d" ).datepicker('getDate' ));
                     var infoObj = {};
@@ -245,8 +268,6 @@ var AssetView = Backbone.View.extend({
                               message: errMessage,
                               type: "danger",
                             });
-                            console.log(model);
-                            console.log(response.responseText);
                             $('#editdep_panel').html('Save Error.');
                           }
                         });
@@ -275,7 +296,6 @@ var AssetView = Backbone.View.extend({
 
                     self.model.destroy({
                       success: function(model, response, options) {
-                        console.log("destroyed");
                         self.modalDialog.show({
                           message: "Asset successfully deleted.",
                           type: "success",
@@ -296,8 +316,6 @@ var AssetView = Backbone.View.extend({
                           message: errMessage,
                           type: "danger",
                         });
-                        console.log(model);
-                        console.log(response.responseText);
                         $('#editdep_panel').html('Delete Error.');
                       }
                     });
@@ -325,6 +343,7 @@ var AssetView = Backbone.View.extend({
         $("#coordinate_switcher li a").click(function(){
           $("#coordinate_switcher .btn:first-child").html($(this).text()+'  <span class="caret"> </span>');
           $("#coordinate_switcher .btn:first-child").val($(this).text());
+
           if($(this).text() == 'DD DD'){
             $('#dd_input').show();
             $('#ddmm_input').hide();
@@ -361,7 +380,8 @@ var AssetView = Backbone.View.extend({
               $('#dms_longM').val(dmsN[1]);
               $('#dms_longS').val(dmsN[2]);
             }
-            if($('#geo_d_lat').val()!=''){
+            if($('#geo_d_lat').val()!='')
+            {
               var dmsE=self.ConvertDDToDMS($('#geo_d_lat').val());
               if($('#geo_d_lat').val()>0){
                   $('#dms_latNS').val('N');
@@ -379,10 +399,12 @@ var AssetView = Backbone.View.extend({
 
     rowClicked: function (model, element) {
         
-        var self = this;
         $('#event_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
         var assetInfoModel = new AssetEvents({id:model.assetId});
         
+        assetView.model = model;
+        assetView.selectedInstrument = model;
+
         assetInfoModel.fetch({
           success: function (events) {
 
@@ -460,18 +482,18 @@ var AssetView = Backbone.View.extend({
             });
             //allow to edit.
             //$('#event_table').editableTable();
-                   },
-              error: function(er){
-                         $('#editdep_panel').html('Error finding Events');
-                     }
+          },
+          error: function(er){
+              $('#editdep_panel').html('Error finding Events');
+          }
         });
 
         $('#editdep_form').show();
         //self.map.invalidateSize();
-        self.selectedInstrument = model;
 
         $('#name_d').val(model.display_name);
         $('#owner_d').val(model.assetInfo['owner']);
+
         if(model.water_depth){
             $('#depth_d').val(model.water_depth['value']);
         }
@@ -483,7 +505,7 @@ var AssetView = Backbone.View.extend({
         if(model.launch_date_time){
             if(String(model.launch_date_time).search('Z')>-1){
                 var dobj = String(model.launch_date_time).split('Z')
-                    var l_date = Date.parse(dobj[0]);
+                var l_date = Date.parse(dobj[0]);
             }
             else if(!isNaN(model.launch_date_time)){
                 var l_date = new Date(model.launch_date_time*1000);

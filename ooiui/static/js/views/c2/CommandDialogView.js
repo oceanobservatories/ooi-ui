@@ -152,6 +152,10 @@ var CommandDialogView = Backbone.View.extend({
       that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
     }
+    else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
+      //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
+      //window.open('/event/'+row.currentTarget.id,'_blank');
+    }
     else if(button.target.id =='submit_win_param'){
         //execute parameter changes
         var param_model = new ParameterModel();
