@@ -32,7 +32,7 @@ var CommandDialogView = Backbone.View.extend({
   },
   
   initialize: function() {
-    _.bindAll(this, "render", "hidden",'acquire');
+    _.bindAll(this, "render", "hidden");
   },
   
   show: function(options) {
@@ -154,7 +154,7 @@ var CommandDialogView = Backbone.View.extend({
     }
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
       var ref_array = ref_des.split('-');
-      var plot_url = '/plotting/'+ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_des;
+      var plot_url = '/plotting/'+ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+ref_des;
 
       //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
       window.open(plot_url,'_blank');
@@ -315,35 +315,6 @@ var CommandDialogView = Backbone.View.extend({
             that.render(that.options);
           }
         });
-      }
-  },
-
-  //aquire latest values
-  //not used now
-  acquire: function(type,ref_des)
-  {
-      var m = new ModalDialogView();
-      var list_values = '';
-      
-      //check status
-      if(type=='status'){
-        var stat_model = new StatusModel();
-        stat_model.url = '/api/c2/status/'+ref_des;
-        var m = new ModalDialogView();
-        m.show({
-          message: "<div><h3>Current Status</h3></div><hr> <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div></div><hr>",
-          type: "info"
-        });  
-      }
-      //sample data
-      else{
-        var samp_model = new SampleModel();
-        samp_model.url = '/api/c2/sample/'+ref_des;
-        var m = new ModalDialogView();
-        m.show({
-          message: "<div><h3>Current Sample Values</h3></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><hr>",
-          type: "info"
-        }); 
       }
   }
 });
