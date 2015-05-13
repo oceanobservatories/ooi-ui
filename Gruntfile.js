@@ -187,6 +187,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html",
             "ooiui/static/js/partials/PlottingSelection.html",
             "ooiui/static/js/partials/FilterPlottingSelection.html",
+            "ooiui/static/js/partials/PlotEvent.html",
+            "ooiui/static/js/partials/PlotEventTableItem.html"
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -963,6 +965,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/TocPlatformsModel.js',
             'ooiui/static/js/models/science/TocStreamsModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/PlotEventModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -978,6 +981,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/AnnotationTableView.js',     
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
             'ooiui/static/js/views/science/PlottingSelectionView.js',
+            'ooiui/static/js/views/science/PlotEventListView.js',
             //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'      
           ],
           'ooiui/static/js/compiled/landingPages.js' : [

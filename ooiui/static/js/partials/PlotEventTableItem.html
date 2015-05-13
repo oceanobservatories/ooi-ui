@@ -1,0 +1,31 @@
+<% _.each(columns, function(col) { %>
+    <% if(col.name == "id") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "class") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "event_type") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "start_date") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "notes") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "ref_des") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } else if(col.name == "event_description") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
+    <% } %>
+<% }); %>
