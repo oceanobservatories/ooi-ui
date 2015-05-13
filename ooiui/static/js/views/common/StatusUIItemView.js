@@ -24,10 +24,11 @@ var StatusUIItemView = Backbone.View.extend({
   plot: function(button) {
     if(button.target.id=='plot_status'||button.target.className.search('chart')>-1){
 
-      var self = this;
+      var ref_array = this.model.attributes.ref_des.split('-');
+      var plot_url = '/plotting/'+this.model.attributes.ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+this.model.attributes.ref_des;
 
       //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
-      //window.open('/event/'+row.currentTarget.id,'_blank');
+      window.open(plot_url,'_blank');
     }
   }
 

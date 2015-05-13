@@ -27,8 +27,19 @@ var AssetView = Backbone.View.extend({
               onClickRow: self.rowClicked,
               //clickToSelect: true,
               responseHandler: function responseHandler(res) {
-                  $('#asset_top_panel').html('Click on an Asset to Edit');
-                  $('#editdep_panel').html('Click on an Asset above to Edit');
+                  if(res.assets.error){
+                    self.modalDialog.show({
+                      message: res.assets.message,
+                      type: "danger"
+                    });
+
+                    $('#asset_top_panel').html('Error Connecting to Data');
+                    $('#editdep_panel').html('Error Connecting to Data'); 
+                  }
+                  else{
+                    $('#asset_top_panel').html('Click on an Asset to Edit');
+                    $('#editdep_panel').html('Click on an Asset above to Edit'); 
+                  }
                   return res.assets;
               },
               showFilter:true,
@@ -173,8 +184,19 @@ var AssetView = Backbone.View.extend({
             else if(t.target.innerText.search('PLOT')>-1||t.target.className.search('chart')>-1){
 
                 if (self.model!='') {
+                  if(self.model.attributes.ref_des==null){
+                    self.modalDialog.show({
+                      message: "No Reference ID to Plot",
+                      type: "danger"
+                    });
+                  }
+                  else{
+                    var ref_array = self.model.attributes.ref_des.split('-');
+                    var plot_url = '/plotting/'+self.model.attributes.ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+self.model.attributes.ref_des;
+
                     //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
-                    //window.open('/event/'+row.currentTarget.id,'_blank');
+                    window.open(plot_url,'_blank'); 
+                  }
                 }
                 else{
                     self.modalDialog.show({
@@ -279,9 +301,9 @@ var AssetView = Backbone.View.extend({
                     else{
                         $('#editdep_panel').html('Display Name are Required.');
                         self.modalDialog.show({
-                              message: "Please fill out Display Name fields.",
-                              type: "danger"
-                            });
+                          message: "Please fill out Display Name fields.",
+                          type: "danger"
+                        });
                     }
                 }
             }
@@ -402,7 +424,7 @@ var AssetView = Backbone.View.extend({
         $('#event_panel').html('<i class="fa fa-spinner fa-spin"></i>  Loading Events...');
         var assetInfoModel = new AssetEvents({id:model.assetId});
         
-        assetView.model = model;
+        assetView.model = new AssetModel();
         assetView.selectedInstrument = model;
 
         assetInfoModel.fetch({

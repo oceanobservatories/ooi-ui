@@ -112,8 +112,16 @@ var ArrayItemView = Backbone.View.extend({
   className:"panel panel-default",
   id:"array_accordion",
   role:"tablist",  
+  events:{
+    'click a' : 'onClick',
+  },
   initialize: function(options) {
     this.render();
+  },
+  onClick: function(e) {    
+    //e.preventDefault();
+    //e.stopPropagation();
+    ooi.trigger('arrayItemView:arraySelect', this.model);
   },
   template: JST['ooiui/static/js/partials/ArrayItem.html'],
   render: function(){
@@ -160,6 +168,15 @@ var NestedTocItemView = Backbone.View.extend({
   onClick: function(e) {
     e.stopPropagation();    
     this.toggle(e);
+    if(this.level == 1){
+      ooi.trigger('platformDeploymentItemView:platformSelect', this.model);  
+    }
+    else if(this.level ==2){
+      ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
+    }
+    else if(this.level ==3){
+      console.log(this.model); 
+    }
   },
   toggle: function(e) {    
     var self = this

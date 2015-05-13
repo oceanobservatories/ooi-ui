@@ -153,8 +153,11 @@ var CommandDialogView = Backbone.View.extend({
       that.$el.html(this.template(this.options));
     }
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
+      var ref_array = ref_des.split('-');
+      var plot_url = '/plotting/'+ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_des;
+
       //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
-      //window.open('/event/'+row.currentTarget.id,'_blank');
+      window.open(plot_url,'_blank');
     }
     else if(button.target.id =='submit_win_param'){
         //execute parameter changes

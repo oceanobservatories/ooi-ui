@@ -108,7 +108,7 @@ var AlertFilterView = Backbone.View.extend({
          
         this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
         this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
-        this.listenTo(ooi, 'instrumentDeploymentItemView:instrumentSelect', this.triggerTOCClickI);
+        this.listenTo(ooi, 'InstrumentItemView:instrumentSelect', this.triggerTOCClickI);
         //this.listenTo(ooi, 'streamItemView:streamSelect', this.changeStream);
         var self = this;
 
@@ -580,21 +580,21 @@ var AlertFilterView = Backbone.View.extend({
 
     /*click on the left hand side of the TOC */
     triggerTOCClickP:function(tocitem){
-        $('#listTitle').html('Showing Alerts for Platform: <b>'+ tocitem.attributes.assetInfo['name']  +' ' +tocitem.attributes.assetId);
+        $('#listTitle').html('Showing Alerts for Mooring: <b>'+ tocitem.attributes['mooring_display_name']);
         //tocitem.attributes.reference_designator
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('platform_name='+tocitem.attributes.reference_designator,false);
+        this.triggernewAlertList('platform_name='+tocitem.attributes['reference_designator'],false);
     },
     triggerTOCClickI:function(tocitem){
 
-        $('#listTitle').html('Showing Alerts for Instrument: <b>'+ tocitem.attributes.assetInfo['name'] +' ' +tocitem.attributes.assetId);
+        $('#listTitle').html('Showing Alerts for Platform: <b>'+ tocitem.attributes['platform_display_name']);
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('instrument_name='+tocitem.attributes.ref_des,true);
+        this.triggernewAlertList('instrument_name='+tocitem.attributes['reference_designator'],true);
     },
     triggerTOCClickA:function(tocitem){
         $('#listTitle').html('Showing Alerts for Array: <b>'+ tocitem.attributes.display_name);
         $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-        this.triggernewAlertList('array_name='+tocitem.attributes.reference_designator,false)
+        this.triggernewAlertList('array_name='+tocitem.attributes['reference_designator'],false)
     },
 
     triggernewAlertList:function(id_val,instr){
