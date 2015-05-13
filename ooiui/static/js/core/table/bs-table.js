@@ -52,11 +52,11 @@
                         //ret[field].values.push(row[filter.field][field]);
                     }
                     else if(typeof row[filter.field] === 'object'){
-                        if (ret[field].values.indexOf(row[filter.field][field]) < 0&&row[filter.field][field]!=null) {
-                            ret[field].values.push(row[filter.field][field]);
+                        if (ret[field].values.indexOf(String(row[filter.field][field])) < 0&&row[filter.field][field]!=null) {
+                            ret[field].values.push(String(row[filter.field][field]));
                         }
                     }else{
-                        ret[field].values.push(row[field]);    
+                        ret[field].values.push(String(row[field]));    
                     }
                     
                 }
@@ -87,7 +87,7 @@
                        try {
                             filterType = bootstrapTableFilter.getFilterType(field1);
                             if (filterType && typeof filterData[field1] !== 'undefined') {
-                                ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field1], value1);
+                                ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field1], String(value1));
                                 return ret;
                                 //ret = true;
                             }
@@ -103,7 +103,7 @@
                    try {
                         filterType = bootstrapTableFilter.getFilterType(field);
                         if (filterType && typeof filterData[field] !== 'undefined') {
-                            ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], value);
+                            ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], String(value));
                             return ret;
                             //ret = true;
                         }
