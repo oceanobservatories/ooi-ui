@@ -22,6 +22,7 @@
 {% block body %}
 
 <!--/.TOP BAR END -->
+<div id="navbar" class="row"></div>
 
 <div id="wrapper">
   <!-- Sidebar -->
@@ -92,9 +93,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-
+    this.views.banner = new BannerView();
+    $(body).prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
+    
     this.views.mapModel = new MapModel();    
     this.collections.platform_deployments = new PlatformDeploymentCollection();
     this.collections.toc = new TocCollection();
