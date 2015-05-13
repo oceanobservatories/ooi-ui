@@ -10,6 +10,24 @@ h1, h2, h3, h4, h5, h6 {
   font-family; 'Hevedica Neue';
 }
 
+/* ~placeholder style~ */
+::-webkit-input-placeholder {
+  font-family; 'Hevedica Neue';
+  letter-spacing: 2px;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-family; 'Hevedica Neue';
+  letter-spacing: 2px; 
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  font-family; 'Hevedica Neue';
+  letter-spacing: 2px;  
+}
+:-ms-input-placeholder {  
+  font-family; 'Hevedica Neue';
+  letter-spacing: 2px;  
+}
+
 /* ~banner~
 #banner {
   background-position: 50% 50%;
@@ -200,6 +218,11 @@ backgound-color: #A3A7BF;
   color: #fff;
 }
 
+/* ~input-group~ */
+.input-group .form-control:first-child{
+  border-color: #7E9CD9;
+}
+
 /* ~buttons~ */    
 /* ~default~ */    
 
@@ -213,15 +236,26 @@ backgound-color: #A3A7BF;
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-primary:active,
 .open .dropdown-toggle.btn-primary {
   border-color:  #7E9CD9 ;
   color: #000;
 }
-
-
+/* ~search~ */
+.btn-search {
+  border: 1px solid #7E9CD9;
+  background: #F09349;  
+}
+.btn-search:hover,
+.btn-search:focus,
+.btn-search:active {
+  background-image: linear-gradient(to bottom,#BD7138 0,#BD7138 100%);
+}
+.sidebar-nav .sidebar-search {
+  padding:0 0 15px 0;
+}
 
 /* ~success~ */    
+
 
 
 /*
