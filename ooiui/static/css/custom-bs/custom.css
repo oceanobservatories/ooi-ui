@@ -226,7 +226,7 @@ backgound-color: #A3A7BF;
 /* ~sidebar accordion~ */
 .panel > .panel-heading {
   color: #353840;
-  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(126,156,217,.8));
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   border: 1px solid #7E9CD9;
@@ -234,6 +234,63 @@ backgound-color: #A3A7BF;
   font-weight: 300;
   text-transform: uppercase;
 }
+
+.panel > .panel-heading.collapsed {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+}
+
+.collapse.in {
+  background: #E9E9E9;
+} 
+
+/**********************
+***** First Level *****
+**********************/
+.sidebar-nav-first-level {
+  background-image:linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
+  background-image:-webkit-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
+  background-image:-o-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
+  background-image:-ms-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
+  background-image:-webkit-gradient(linear, right bottom, left bottom, color-stop(0%,#353840), color-stop(50%,#7E9CD9),color-stop(100%,#353840));
+  border: 1px solid silver;
+}
+
+.sidebar-nav-first-level > ul.nav.sidebar-nav > a {
+  color: #FFF;
+  font-size: 14px;
+  text-decoration: none;  
+}
+
+/***********************
+***** Second Level *****
+***********************/
+
+.sidebar-nav-second-level {
+  background-image: #FFF;
+}
+
+.sidebar-nav-second-level > ul.nav.sidebar-nav > a {
+  color: #353840;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/**********************
+***** Third Level *****
+**********************/
+.sidebar-nav .sidebar-nav-third-level {
+  background: #FFF;
+  border: 1px solid silver;
+  border-radius: 25px;
+    
+}  
+
+.sidebar-nav-third-level > ul.nav.sidebar-nav > a {
+  color: #353840;
+  font-size: 14px;
+  text-decoration: none; 
+}
+
 /*
 #headingOne:hover,
 #headingOne:active, 
@@ -248,10 +305,6 @@ div[aria-expanded="true"] {
 
 }
  */ 
-.panel > .panel-heading.collapsed {
-  background: linear-gradient(rgba(255,255,255,0),rgba(126,156,217,.8), rgba(255,255,255,0));
-}
-
 
 
  /* ~input-group~ */
