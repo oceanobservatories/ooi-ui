@@ -73,8 +73,8 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   collections: {
     arrays: new ArrayCollection(),
-    triggered_alerts_list: new TriggeredFullCollection()
-    //alert_list: new AlertsFullCollectionPage()
+    triggered_alerts_list: new TriggeredFullCollection(),
+    toc: new TocCollection()
   },
   views: {
       //
@@ -95,7 +95,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.tocView = new TOCView({
 
-      collection: this.collections.arrays
+      arrayCollection: this.collections.arrays,
+      collection: this.collections.toc,
+      el: $('#sidebar-wrapper')
     });
 
     $('#sidebar-wrapper').html(this.views.tocView.el);
@@ -111,8 +113,14 @@ _.extend(OOI.prototype, Backbone.Events, {
     //empty table
     $('#alert_table tbody').empty();
 
-    this.collections.arrays.fetch({reset: true});
-    //this.collections.alert_list.fetch({reset: true});
+    var tocFetch = this.collections.toc.fetch({reset: true});
+    var arraysFetch = this.collections.arrays.fetch({reset: true});
+    
+    $.when(tocFetch,arraysFetch).done(function(){
+      self.views.tocView.collection = self.collections.toc;
+      self.views.tocView.arrayCollection = self.collections.arrays;
+      self.views.tocView.render();
+    });
 
     this.views.triggeredView = new TriggeredView({
         //el: 'form',

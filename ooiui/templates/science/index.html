@@ -163,10 +163,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
+    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {    
       /*
       console.log(model)
-
       $('#map').height(328);
       $('#plot-row').show();
       
