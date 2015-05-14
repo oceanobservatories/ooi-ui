@@ -54,8 +54,8 @@
             </div> 
           </div> 
         </div> 
-
-      <!--  Plot section of the page   -->
+    </div>
+    <!--  Plot section of the page   -->
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
           <div class="panel">
@@ -83,6 +83,20 @@
           </div>
         </div>        
       </div> <!-- .row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div id='plot-events-panel' class="panel">
+            <div class="panel-heading">
+              Events
+            </div>
+            <div class="panel-body">
+              <div id="events-table">  
+               <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                
+              </div>
+            </div>
+          </div>          
+        </div>  <!-- .events -->
+      </div>  <!-- .row -->
       <div class="row">
         <div class="col-sm-12">
           <div id='annotation-panel' class="panel">
@@ -121,10 +135,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocMoorings: new TocMooringsCollection(),
     tocPlatforms: new TocPlatformsCollection(),    
     tocInstruments: new TocInstrumentsCollection(),
+    plotEventList: new PlotEventsCollection(),
   },
   views: {
     plottingItemSelection : null,
-    plottingItemSelection2 : null
+    plottingItemSelection2 : null,
+    plotEventListView: null,
   },
   models: {
     userModel: new UserModel()
@@ -225,7 +241,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.modalDownloadFailView = new ModalDownloadFailView({
       el: $('#download-fail-modal')
       });
-    
+    this.views.plotEventListView = new PlotEventListView({
+        el: $('#events-table')
+    });
+
     //ALL THE TOC COLLECTIONS
     var TocCollections = [self.collections.tocArrays, 
                           self.collections.tocMoorings,
@@ -285,7 +304,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
-      if (options.itemid == "plot-item-selection" ){      
+    self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
+    
+    if (options.itemid == "plot-item-selection" ){      
         
         self.views.svgPlotControlView.setModel(options.model);                
         self.views.svgplot.setModel(options.model);
@@ -300,6 +321,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else{
 
       }
+    });
+    
+
+
+    this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
+            self.views.plotEventListView.collection = collection;
+            self.views.plotEventListView.render();
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
