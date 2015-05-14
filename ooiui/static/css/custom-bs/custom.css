@@ -1,30 +1,35 @@
 body {
-  font-family; 'Hevedica Neue';    
-}
+  
+  font-weight: 300;
+}   
 
 p { 
-  font-family; 'Hevedica Neue';
+  font-weight: 300;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family; 'Hevedica Neue';
+  font-weight: 300;
 }
 
 /* ~placeholder style~ */
 ::-webkit-input-placeholder {
-  font-family; 'Hevedica Neue';
+   
+  font-weight: 300;
   letter-spacing: 2px;
 }
 :-moz-placeholder { /* Firefox 18- */
-  font-family; 'Hevedica Neue';
+   
+  font-weight: 300;
   letter-spacing: 2px; 
 }
 ::-moz-placeholder {  /* Firefox 19+ */
-  font-family; 'Hevedica Neue';
+   
+  font-weight: 300;
   letter-spacing: 2px;  
 }
 :-ms-input-placeholder {  
-  font-family; 'Hevedica Neue';
+   
+  font-weight: 300;
   letter-spacing: 2px;  
 }
 
@@ -218,7 +223,38 @@ backgound-color: #A3A7BF;
   color: #fff;
 }
 
-/* ~input-group~ */
+/* ~sidebar accordion~ */
+.panel > .panel-heading {
+  color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(126,156,217,.8));
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+/*
+#headingOne:hover,
+#headingOne:active, 
+#headingOne:focus {
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(126,156,217,.8));
+}
+*/
+/*
+div[aria-expanded="true"] {
+
+  background: pink;
+
+}
+ */ 
+.panel > .panel-heading.collapsed {
+  background: linear-gradient(rgba(255,255,255,0),rgba(126,156,217,.8), rgba(255,255,255,0));
+}
+
+
+
+ /* ~input-group~ */
 .input-group .form-control:first-child{
   border-color: #7E9CD9;
 }
@@ -229,7 +265,7 @@ backgound-color: #A3A7BF;
 /* ~primary~ */    
 .btn-primary {
   border-color:  #7E9CD9 ;
-  background: linear-gradient(rgba(255,0,0,0), rgba(126,156,217,.2), rgba(255,0,0,0));
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.2), rgba(255,255,255,0));
   color: #000;
 }
 
