@@ -1,0 +1,2018 @@
+
+{% extends "common/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
+<!-- Partials -->
+
+<script src="/js/partials/compiled/basic.js" type="text/javascript"></script>
+<script src="/js/compiled/sp.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <form class="form-horizontal" role="form">
+          <hr width="80%">
+          <div class="container">
+            <h2>FCC Version</h2>
+            <h2>System Functions</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>port</th>
+                  <th>baud</th>
+                  <th>parity</th>
+                  <th>nbits</th>
+                  <th>stop</th>
+                  <th>flowctl</th>
+                  <th>debug_level</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+              <tr>
+                <td >Freewave</td>
+                <td>/dev/ttyAMO</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Supervisor</td>
+                <td>/dev/ttts0</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+
+              </tr>
+              <tr>
+                <td>GPS</td>
+                <td>/dev/ttts2</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>PwrSya</td>
+                <td>/dev/ttts3</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Irid9522B</td>
+                <td>/dev/ttts10</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+
+              <tr>
+                <td>DCL</td>
+                <td class='form-group'>Console</td>
+                <td class='form-group'>Ports</td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+              </tr>
+
+              <tr>
+
+                <td>DCLCon1</td>
+                <td>/dev/ttyAM1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon2</td>
+                <td>/dev/ttts1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon3</td>
+                <td>/dev/ttts4</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon4</td>
+                <td>/dev/ttts5</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon5</td>
+                <td>/dev/ttts6</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon6</td>
+                <td>/dev/ttts7</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>DCLCon7</td>
+                <td>/dev/ttts9</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Not</td>
+                <td class='form-group'>Connected</td>
+                <td class='form-group'>Unavailable</td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+                <td class='form-group'></td>
+              </tr>
+
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts8</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts11</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+
+              </tbody>
+            </table>
+            <h2>DCL SERIAL Config</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>port</th>
+                  <th>baud</th>
+                  <th>parity</th>
+                  <th>nbits</th>
+                  <th>stop</th>
+                  <th>flowctl</th>
+                  <th>debug_level</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+              <tr>
+                <td>Console</td>
+                <td>/dev/ttyAMO</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Supervisor</td>
+                <td>/dev/ttts0</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+
+              </tr>
+              <tr>
+                <td>GPS</td>
+                <td>/dev/ttts2</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr> <th>Instrument Port Mappings</th> </tr>
+              <tr>
+                <td>3dmgx3</td>
+                <td>/dev/ttyAM1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>metbk</td>
+                <td>/dev/ttts1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>loadcell</td>
+                <td>/dev/ttts1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>pco2</td>
+                <td>/dev/ttts5</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>rreflect</td>
+                <td>/dev/ttts6</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Inst6</td>
+                <td>/dev/ttts7</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Inst7</td>
+                <td>/dev/ttts9</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Inst8</td>
+                <td>/dev/ttts10</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts3</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts8</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts11</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+
+              </tbody>
+            </table>
+            <h2>STC SERIAL Config</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>port</th>
+                  <th>baud</th>
+                  <th>parity</th>
+                  <th>nbits</th>
+                  <th>stop</th>
+                  <th>flowctl</th>
+                  <th>debug_level</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+              <tr>
+                <td>Freewave</td>
+                <td>/dev/ttyAMO</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Supervisor</td>
+                <td>/dev/ttts0</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+
+              </tr>
+              <tr>
+                <td>GPS</td>
+                <td>/dev/ttts2</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Irid9522B</td>
+                <td>/dev/ttts10</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Unused1</td>
+                <td>/dev/ttyAM1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>imm</td>
+                <td>/dev/ttts1</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Unused2</td>
+                <td>/dev/ttts4</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>3dmgx3</td>
+                <td>/dev/ttts6</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>Unused3</td>
+                <td>/dev/ttts8</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts3</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts5</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts7</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts8</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+              <tr>
+                <td>N/C</td>
+                <td>/dev/ttts11</td>
+                <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+                <td class='form-group'><input name="Freewave_parity" id="Freewave_parity" placeholder="N" /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_nbits" id="Freewave_nbits" placeholder="8"  /> <span class="help-block hidden"></span> </td>
+                <td class='form-group'><input name="Freewave_stop" id="Freewave_stop" placeholder="1" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input name="Freewave_flowctl" id="Freewave_flowctl" placeholder="0" /><span class="help-block hidden"></span></td>
+                <td class='form-group'><input  name="Freewave_debuglevel" id="Freewave_debuglevel" placeholder="MSG" /><span class="help-block hidden"></span></td>
+              </tr>
+
+              </tbody>
+            </table>
+
+          </table>
+          <h2>1. Sample CPM Mission Configuration</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+              <td>CPM Mission confirguration file</td>
+            </tr>
+
+            <tr>
+              <td>cpm.wake.sched</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>cpm.ctl.action</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>cpm.next_wake_amt</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>cpm.halt_time</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>Power System Controller Section</td>
+            </tr>
+
+            <tr>
+              <td>psc.reset</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.set_time</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.update_rate</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.override</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>pv1,pv2,pv3,pv4,wt1,wt2,fc1,fc2</td>
+            </tr>
+
+            <tr>
+              <td>psc.connect.pv</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.connect.wt</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.connect.fc</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>psc.boot.override_off.timeout</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>Supervision mpic Section</td>
+            </tr>
+            <tr>
+              <td>int_wake_mask</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>onboot.time.fwf</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>mpic.update_rate</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>mpic.hotel.irid</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+
+            <tr>
+              <td>mpic.hotel.fwwf</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>mpic.hotel.sbd</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>mpic.hotel.gps</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>hbeat.enable</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+
+            <tr>
+              <td>hbeat.dtime</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>hbeat.threshold</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>gflt_cfg.sbd</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>gflt_cfg.gps</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+
+            <tr>
+              <td>gflt_cfg.vmain</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>gflt_cfg.chan</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+            <tr>
+              <td>ldet_cfg</td>
+              <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+            </tr>
+
+            <tr>
+              <td>CPM Power Management Section</td>
+            </tr>
+          <tr>
+            <td>shed.load.enable</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+          <tr>
+            <td>shed.thresh_low</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>shed.thresh_high</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>shed.delay_intrev</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>shed.priority</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>Misc CE hotel loads</td>
+          </tr>
+          <tr>
+          <td>ce_hotel.eth1.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>ce_hotel.usb.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>ce_hotel.esw1.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>ce_hotel.esw2.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>ce_hotel.fb1.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>ce_hotel.fb2.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>ce_hotel.vds1.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>ce_hotel.ce_led.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>CPM/DCL Configuration</td>
+        </tr>
+        <tr>
+          <td>max_dcls</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>dc11.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>dc12.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>dc13.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+          <td>dc14.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>dc15.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+
+        <tr>
+          <td>dc16.pwr</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+        <td>dc17.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>Telemetry Configuration and Schedule</td>
+      </tr>
+      <tr>
+        <td>telem.fb1.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.fb2.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.irid.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.fwwf.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>dc14.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td> Shore server ip address, uname, deployment id </td>
+      </tr>
+      <tr>
+        <td>shore.server_ip</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shore.uname</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shore.deploy_dir</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>Misc fleet broadband fb250 and rsync options </td>
+      </tr>
+
+      <tr>
+        <td>fb.xfr_status_only</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.linkup_afterxfr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.esw1_on_afterxfr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.attempt_limit</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.attempt_retry_delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.rsync_verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.rsyn.timeout</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.cpm.rsync_enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <tr>
+          <td>fb.cmp.rsync_date</td>
+          <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+        </tr>
+        <tr>
+        <td>fb.cpm.rync_dirs</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.cmp.rsync_verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>fb.dc11.rsync_enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc11.rsync_date</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc11.rsync_dirs</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc11.rsync_verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc17.rsync_enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc17.rsync_date</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc17.rsync_dirs</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>fb.dc17.rsync_verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>Misc Iridium 9522b options </td>
+      </tr>
+      <tr>
+        <td>irid.phone1</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>irid.phone2</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.phone3</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.to_buoy_dir_name</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.from_shore_dir_name</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.csq_threshold</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.dial_attempts</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.session_attempts</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.AT_cmd_attempts</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.establish_conn_timeout</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.max_session_time</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.linkup_afterxfr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.uname</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>irid.send_syslog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr> 
+        <td>Misc IMM options</td>
+      </tr>
+      <tr>
+        <td>imm.max_attempts</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>imm.max_mmp_time</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>imm.max_mc_time</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>imm.mc_device_count</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>imm.mc_device_list</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>imm.verbose</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>batch_cmd</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+
+      </tbody>
+    </table>
+
+    <h2>2. Sample DCL Mission Configuration</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>Sample DCl Mission Configuration</td>
+      </tr>
+
+      <tr>
+        <td>mpic.udate_rate</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.iso3v3</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.vmain</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.inst</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ldet_cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>DCL Power Management Section</td>
+      </tr>
+
+      <tr>
+        <td>shed.load_enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.thresh_low</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.thresh_high</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.delay_interv</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>shed.priority</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>Misc CE hotel loads</td>
+      </tr>
+      <tr>
+        <td>ce_hotel.eth1.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.usb.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ci.enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>DCL Instrument Port Configuration</td>
+      </tr>
+      <tr>
+        <td>num_inst_ports</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port1.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port1.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port1.pwr.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port1.pwr.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port1.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port1.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port2.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>dcl_serial.cfg</td>
+      </tr>
+
+      <tr>
+        <td>port2.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port2.pwr.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port2.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port2.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>-1-do nothing</td>
+      </tr>
+      <tr>
+        <td>port2.dap.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port3.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port3.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port3.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port3.pwr.shed</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port3.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port3.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>-1-do nothing</td>
+      </tr>
+      <tr>
+        <td>port3.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port4.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>dcl_serial.cfg</td>
+      </tr>
+
+      <tr>
+        <td>port4.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port4.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port4.pwr.shed</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port4.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port4.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>-1-do nothing</td>
+      </tr>
+      <tr>
+        <td>port4.dap.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port5.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port5.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port5.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port5.pwr.shed</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port5.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port5.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port5.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port6.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.pwr.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port6.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.pwr.shed</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.dlog</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port7.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port8.label</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port8.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port8.pwr.cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port8.pwr.shed</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>port8.pwroff.delay</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>port8.daq.sched</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>batch_cmd</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+
+      </tbody>
+    </table>
+
+    <h4>Supervisor mpic Section</h4>
+    <p> int_wake_mask: interrupt wake mask, default to 200 for STCi</p>
+    <p>onboot.timeout.fwwf: on boot up shutdown the freewave and wifi systems after n-seconds (0 for no timeout)</p>
+    <p>mpic.update_rate: change frequency of mpic status string to every n-seconds</p>
+    <p> mpic.hotel.irid: iridium 9522b power supply, 0-off, 1-on, -1 do nothing</p>
+    <p>mpic.hotel.fwwf: freewave and wifi power supply, 0-off, 1-on, -1 do nothing</p>
+    <p> mpic.hotel.sbd: iridium 9602 short burst data modem power supply, 0-off, 1-on, -1 do nothing</p>
+    <p>mpic.hotel.gps: GPS power supply, 0-off, 1-on, -1 do nothing</p>
+    <p>mpic.select_pps: primary pps signal, 0-gps, 1-seascan</p>
+    <p>hbeat.enable: turn heartbeat monitoring on/off, 0-disable, 1-enable</p>
+    <p>hbeat.dtime: max delta time between each heartbeat in seconds</p>
+    <p>hbeat.threshold: max number of missed heartbeats allowed</p>
+    <p>individual power supply ground fault setup</p>
+    <p>enable/disable with 0,1</p>
+    <p>positive side ground fault micro amp limit</p>
+    <p>ground side ground fault micro amp limit</p>
+    <p>sample ground fault setup below for each supply </p>
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      <tr>
+        <td>gflt_cfg.sbd</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.gps</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.sensor</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>gflt_cfg.tel</td>
+
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr> 
+        <td>there are 2 leak detectors in the buoy well. you can enable/disable each one and set it's limit in millivolts</td>
+      </tr>
+      <tr>
+        <td>ldet_cfg</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>STC Power Management Section</td>
+      </tr>
+      <tr>
+        <td>when battery voltage drops below shed.thresh_low we can turn off sensors ports to try to conserver power </td>
+      </tr>
+      <tr>
+        <td>shed.thresh_high provides the high level at which to turn ports back on </td>
+      </tr>
+      <tr>
+        <td>shed.delay_interv is how many seconds we need to be back at the high level before we decide to turn back on the ports </td>
+      </tr>
+
+      <tr>
+        <td>shed.load.enable</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>shed.thresh_low</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.thresh_high</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.delay_intrev</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>shed.priority</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>Misc CE hotel loads</td>
+      </tr>
+      <tr>
+        <td>these are other CE and STC subsystems that can be turned on or off to conserve power </td>
+      </tr>
+
+      <tr>
+        <td>ce_hotel.eth1.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.usb.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.esw1.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.esw2.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>ce_hotel.fb1.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+        <td>ce_hotel.fb2.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.vdsl.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>ce_hotel.ce_led.pwr</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>Telemetry Configuration and Schedule</td>
+      </tr>
+      <tr>
+        <td>these telemetry schedules are a means of running these processes based on a schedule </td>
+      </tr>
+      <tr>
+        <td>we do not use these parameters on a profiler mooring</td>
+      </tr>
+
+      <tr>
+        <td>a profiler mooring's schedule is more or less controlled by the MMP and we use the action method above to control these things </td>
+      </tr>
+
+
+
+      <tr>
+        <td>telem.fb1.sched duration(min)</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.fb2.sched duration(min)</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.irid.sched duration(min)</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+      <tr>
+        <td>telem.fwwf.shed duration(min)</td>
+        <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+
+      <tr>
+
+        <td>Shore server ip address, uname, deployment id</td>
+      </tr>
+      <tr>
+        <td>below are some settings used for interacting with the shore-based server </td> 
+      </tr>
+      <tr>
+        <td>shore.server_ip</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+      </tr>
+          <tr>
+            <td>shore.uname</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>shore.deploy_dir</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+
+          <tr>
+            <td>Misc fleet broadband</td>
+          </tr>
+
+          <tr>
+
+            <td>stc systems do not have fleet broadband</td>
+          </tr>
+
+          <tr>
+            <td>fb.xfr_status_only</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>fb.linkup_afterxfr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>fb.esw1_on_afterxfr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+          <tr>
+            <td>rsync.timeout</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+
+          <tr>
+            <td>fb.cpm.rsync_enable</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>fb.cpm.rsync_date</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>fb.cpm.rsync_dirs</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>fb.cpm.rsync_verbose</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>Misc Iridium 9522b options</td>
+          </tr>
+          <tr>
+            <td>below are iridium 9522b settings</td>
+          </tr>
+          <tr>
+            <td>an attemp to clarify is made if the comment doesn't suffice </td>
+          </tr>
+          <tr>
+            <td>csq_threshold: the minimum signal strength quality value that we must have before we attempt to dial out </td>
+          </tr>
+          <tr>
+            <td>dial_attempts: number of dial attempts at each phone number </td>
+          </tr>
+          <tr>
+            <td>session_attempts: number of times we can get disconnected then reconnected during an epoch before giving up</td>
+          </tr>
+          <tr>
+            <td>AT_cmd_attempts: number of times we try each of the different AT commands before giving up on that session </td>
+          </tr>
+          <tr>
+            <td>establish_conn_timeout: amount of time we will spend trying to get connected for each session </td>
+          </tr>
+          <tr>
+            <td>max_session_time: amount of time that the whole iridium transfer process is allowed per epoch </td>
+          </tr>
+          <tr>
+            <td>verbose: adds more detailed messaging to the irid logs </td>
+          </tr>
+          <tr>
+            <td> send_syslog: this setting controls whether or not the syslog is sent home when the day changes </td>
+          </tr>
+          <tr>
+            <td>send_3dmgx3_fcnt: a means throttling how many 3dm files are sent home </td>
+          </tr>
+          <tr>
+            <td>irid.phone1</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>seaglass</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>ultramoor</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+          <tr>
+            <td>irid.phone2</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.phone3</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.to_buoy_dir_name</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>retrieve files from server</td>
+          </tr>
+          <tr>
+            <td>irid.from_shore_dir_name</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>stores files retrieved from server</td>
+          </tr>
+          <tr>
+            <td>irid.csq_threshold</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.dial_attemps</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.session_attempts</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.AT_cmd_attempts</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.establish_conn_timeout</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.max_session_time</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>connect time??]</td>
+          </tr>
+          <tr>
+            <td>irid.linup_afterxfr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>transfer and run mgetty)</td>
+          </tr>
+          <tr>
+            <td>irid.verbose</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.uname</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.send_syslog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>default:0 for cpm</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irid.send_3dmggx3_fcnt</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>Misc IMM options</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>below are settings that the IMM process uses </td>
+          </tr>
+          <tr>
+            <td>max_attempts: max failed MMP task attempts</td>
+          </tr>
+
+          <tr>
+            <td> max_mmp_time: max overall MMP transfer time</td>
+          </tr>
+          <tr>
+            <td> max_mc_time: max overall microcat transfer time</td>
+          </tr>
+          <tr>
+            <td> mc_device_count: number of microcats on the inductive line</td>
+          </tr>
+          <tr>
+
+            <td>mc_device_count: number of microcats on the inductive line </td>
+          </tr>
+          <tr>
+            <td>mc_device_list: modem address id's of all the microcats on the inductive line</td>
+          </tr>
+          <tr>
+            <td>verbose: adds more detailed messaging to the imm logs </td>
+          </tr>
+          <tr>
+            <td>imm.max_attempts</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>imm.max_mmp_time</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>imm.max_mc_time</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>imm.mc_device_count</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>imm.mc_device_list</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>spaces starting with 02</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>imm.verbose</td>
+          </tr>
+          <tr>
+            <td>STC Instrument Port Configuration - port1,2,3,5,7 </td>
+          </tr>
+          <tr>
+            <td>below are setting for schedule, power and logging of individual sensor ports</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>num_inst_ports</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port1.label</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>dcl_serial.cfg</td>
+          </tr>
+          <tr>
+            <td>port1.pwr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port1.pwr.cfg</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>irs232F,2-485,3-422),sstart</td>
+          </tr>
+          <tr>
+            <td>port1.pwr.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port1.pwroff.delay</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port1.dlog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>-1-do nothing</td>
+          </tr>
+          <tr>
+            <td>port1.dag.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port2.label</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>dcl_serial.cfg</td>
+          </tr>
+          <tr>
+            <td>port2.pwr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port2.pwr.cfg</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td> rs232F,2-485,3-422),sstart</td>
+          </tr>
+          <tr>
+            <td> port2.pwr.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port2.pwroff.delay</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port2.dlog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>-1-do nothing</td>
+          </tr>
+          <tr>
+            <td>port2.daq.sched durations(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port3.label</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>dcl_serial.cfg</td>
+          </tr>
+          <tr>
+            <td>port3.pwr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port3.pwr.cfg</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td> rs232F,2-485,3-422),sstart</td>
+          </tr>
+          <tr>
+            <td> port3.pwr.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port3.pwroff.delay</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port3.dlog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>-1-do nothing</td>
+          </tr>
+          <tr>
+            <td>port3.daq.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+          <tr>
+            <td>port5.label</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>dcl_serial.cfg</td>
+          </tr>
+          <tr>
+            <td>port5.pwr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port5.pwr.cfg</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td> rs232F,2-485,3-422),sstart</td>
+          </tr>
+          <tr>
+            <td> port5.pwr.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port5.pwroff.delay</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port5.dlog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>-1-do nothing</td>
+          </tr>
+          <tr>
+            <td>port5.daq.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+          <tr>
+            <td>port7.label</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>dcl_serial.cfg</td>
+          </tr>
+          <tr>
+            <td>port7.pwr</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port7.pwr.cfg</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td> rs232F,2-485,3-422),sstart</td>
+          </tr>
+          <tr>
+            <td> port7.pwr.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port7.pwroff.delay</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>port7.dlog</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+          <tr>
+            <td>-1-do nothing</td>
+          </tr>
+          <tr>
+            <td>port7.daq.sched duration(min)</td>
+            <td class='form-group'><input name="Freewave_baud" id="Freewave_baud" placeholder="115200"> <span class="help-block hidden"></span> </input></td>
+          </tr>
+
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Bootstrap FAQ - END -->
+<script type="text/javascript">
+
+_.extend(OOI.prototype, Backbone.Events, {
+login: new LoginModel(),
+models: {
+secretPageModel:new SecretPageModel() 
+
+},
+collections: {
+},
+views: {
+
+},
+start: function() {
+var self = this;
+
+
+this.login.fetch({async: false}); // Doesn't actually make an ajax request
+
+//--------------------------------------------------------------------------------
+// Views
+//--------------------------------------------------------------------------------
+this.views.navbar = new NavbarView();
+$('body').prepend(this.views.navbar.el);
+
+this.views.SecretPageView = new SecretPageView({
+el: 'form',
+model: this.models.secretPageModel
+
+})
+
+}
+});
+var ooi = new OOI();
+
+$(document).ready(function() {
+
+    ooi.start();
+    $('body').find('#hideTOC').hide()
+
+    });
+</script>
+{% endblock %}
+
+
+
+
+

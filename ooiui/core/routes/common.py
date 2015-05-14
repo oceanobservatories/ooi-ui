@@ -107,7 +107,9 @@ def glossary():
 @app.route('/statusUI.html')
 def statusUI():
     return render_template('common/statusUI.html')
-
+@app.route('/sp.html')
+def sp():
+    return render_template('common/sp.html')
 
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
