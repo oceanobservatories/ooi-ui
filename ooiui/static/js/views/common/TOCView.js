@@ -55,6 +55,15 @@ var TOCView = Backbone.View.extend({
         var sub_id = key+"_"+model.get(key+'_code')+"_body";
         var sub_level  = self.dataIndent[key];
 
+        if (sub_name.length < 1){
+          sub_name = model.get(key+'_code')
+        }     
+
+        if (sub_level == 2){
+          var intValue = parseInt(model.get(key+'_code').match(/[0-9]+/)[0], 10);
+          sub_name+= ": "+intValue
+        }  
+
         var subview = new NestedTocItemView({
           model: model,          
           level: sub_level,

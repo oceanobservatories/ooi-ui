@@ -184,13 +184,43 @@ var SVGPlotView = SVGView.extend({
       this.fetch();
     }
   },
-  download: function() {
-    if(this.variable != null) {
+  download: function(options) {    
+    this.reference_designator = this.model.get('reference_designator')    
+    this.stream_name = this.model.get('stream_name')
+    var yvar = this.yvariable
+    var xvar = this.xvariable
+    if('xvar'){
+    }else{
+      xvar = ["time"]
+    } 
+
+    //set the width of the plot, 90% width
+    this.width = (this.$el.width()/100)*90;
+
+    if(this.yvariable != null && this.xvariable != null) {            
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', 
-                                                                                                    yvar: this.variable, 
+                                                                                                    dpa_flag: this.dpa_flag,
+                                                                                                    yvar: this.yvariable , 
+                                                                                                    xvar: this.xvariable, 
                                                                                                     height: this.height, 
-                                                                                                    width: this.width })
-      window.location.href = this.url;
+                                                                                                    width: this.width,
+                                                                                                    scatter:this.useScatter,
+                                                                                                    lines:this.useLine,
+                                                                                                    event:this.useEvent, 
+                                                                                                    plotLayout:this.plotType,
+                                                                                                    startdate:this.st,                                                                                                    
+                                                                                                    enddate:this.ed})
+      //window.open(this.url, '_blank');      
+
+      var a = $("<a>")
+          .attr("href", this.url)
+          .attr("download", this.reference_designator + '_' + this.stream_name+".png")
+          .appendTo("body");
+
+      a[0].click();
+
+      a.remove();
+
     }
   },
   render: function() {
