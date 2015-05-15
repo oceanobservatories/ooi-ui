@@ -61,6 +61,7 @@ var NavbarView = Backbone.View.extend({
     if(ooi.login.loggedIn()) {
         this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
         this.$el.find('#current').hide();
+        this.$el.find('#world-map').hide();
         //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
