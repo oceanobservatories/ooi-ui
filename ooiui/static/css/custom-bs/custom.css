@@ -317,12 +317,13 @@ button.btn.btn-default.btn-xs.dropdown-toggle {
 ****** Search Bar *****
 **********************/
  /* ~input-group~ */
-.input-group .form-control:first-child{
-  border-color: #7E9CD9;
-}
+  .input-group.custom-search-form {
+    border: 1px solid #7E9CD9;
+  }
 
 .btn-search {
-  border: 1px solid #7E9CD9;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
   background: #F09349;  
 }
 
@@ -336,6 +337,16 @@ button.btn.btn-default.btn-xs.dropdown-toggle {
   padding:0 0 15px 0;
 }
 
+.btn-reset{
+  color: #FFF;
+  font-weight: normal;
+  letter-spacing: 2px;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+  border-right: 1px solid #FFF;
+  border-left: none;
+  background: #7E9CD9;  
+}
 
 
 
