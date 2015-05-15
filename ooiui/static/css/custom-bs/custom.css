@@ -1,5 +1,4 @@
 body {
-  
   font-weight: 300;
 }   
 
@@ -33,23 +32,9 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 2px;  
 }
 
-/* ~banner~
-#banner {
-  background-position: 50% 50%;
-  background-image: url("/img/logos-banners/ban1024.svg");
-  height: 136px;
-  background-size: 100%;
-  width: 100%;
-  border-color: #FFF;
-  background-repeat: no-repeat;
-  top: 0;
-  border-width: 0 0 1px;
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 1040;
-}
- */
+/***********************
+******** Banner ********
+***********************/
 
 .banner-image {
   background: url("/img/logos-banners/banner-1024px.svg"); 
@@ -74,7 +59,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 20px 20px 20px;
 }
 
-
 .logo-left {
   float: left;
   left: 30px;
@@ -87,7 +71,9 @@ h1, h2, h3, h4, h5, h6 {
   list-style: none;
 }
 
-/* ~navbar~ */  
+/***********************
+******** Navbar ********
+***********************/
 .navbar-fixed-top {
   top: 126px;
   border-width: 0 0 1px;
@@ -99,6 +85,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-top-links-new li {
   display: inline-block;
+  z-index: 1500;
 }
 
 .navbar-top-links-new li:last-child {
@@ -223,7 +210,13 @@ backgound-color: #A3A7BF;
   color: #fff;
 }
 
-/* ~sidebar accordion~ */
+/***********************
+******** Sidebar *******
+***********************/
+
+/***********************
+******* Accordion ******
+***********************/
 .panel > .panel-heading {
   color: #353840;
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
@@ -261,10 +254,15 @@ backgound-color: #A3A7BF;
   text-decoration: none;  
 }
 
+.panel-default > .panel-heading .badge {
+  color: #000;
+  background-color: #D1DAF5;
+  font-weight: normal;
+}
+
 /***********************
 ***** Second Level *****
 ***********************/
-
 .sidebar-nav-second-level {
   background-image: #FFF;
 }
@@ -291,30 +289,15 @@ backgound-color: #A3A7BF;
   text-decoration: none; 
 }
 
-/*
-#headingOne:hover,
-#headingOne:active, 
-#headingOne:focus {
-  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(126,156,217,.8));
-}
-*/
-/*
-div[aria-expanded="true"] {
-
-  background: pink;
-
-}
- */ 
-
-
- /* ~input-group~ */
-.input-group .form-control:first-child{
-  border-color: #7E9CD9;
+/* ~accordion dropdown~ */
+button.btn.btn-default.btn-xs.dropdown-toggle {
+  background: white;
+  border: none
 }
 
-/* ~buttons~ */    
-/* ~default~ */    
-
+/**********************
+******* Buttons *******
+**********************/
 /* ~primary~ */    
 .btn-primary {
   border-color:  #7E9CD9 ;
@@ -329,21 +312,32 @@ div[aria-expanded="true"] {
   border-color:  #7E9CD9 ;
   color: #000;
 }
-/* ~search~ */
+
+/**********************
+****** Search Bar *****
+**********************/
+ /* ~input-group~ */
+.input-group .form-control:first-child{
+  border-color: #7E9CD9;
+}
+
 .btn-search {
   border: 1px solid #7E9CD9;
   background: #F09349;  
 }
+
 .btn-search:hover,
 .btn-search:focus,
 .btn-search:active {
   background-image: linear-gradient(to bottom,#BD7138 0,#BD7138 100%);
 }
+
 .sidebar-nav .sidebar-search {
   padding:0 0 15px 0;
 }
 
-/* ~success~ */    
+
+
 
 
 
@@ -359,4 +353,45 @@ grey: #F4F4F4 (tgb: 244 244 244)
 light-grey-blue: #A3A7BF (rgb: 163 167 191)
 dark-blue: #353840 (rgb: 53 56 64)
 light-blue: #7E9CD9(rgb: 126 156 217)
-*/    
+
+alt light blue #D1DAF5 rgb(209,218,245)
+alt light blue2 #7F9BDA
+ */    
+
+
+
+  /* ~banner~
+#banner {
+  background-position: 50% 50%;
+  background-image: url("/img/logos-banners/ban1024.svg");
+  height: 136px;
+  background-size: 100%;
+  width: 100%;
+  border-color: #FFF;
+  background-repeat: no-repeat;
+  top: 0;
+  border-width: 0 0 1px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1040;
+}
+ */
+
+
+  /*
+#headingOne:hover,
+#headingOne:active, 
+#headingOne:focus {
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(126,156,217,.8));
+}
+*/
+/*
+div[aria-expanded="true"] {
+
+  background: pink;
+
+}
+ */ 
+
+
