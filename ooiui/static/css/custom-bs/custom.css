@@ -217,7 +217,7 @@ backgound-color: #A3A7BF;
 /***********************
 ******* Accordion ******
 ***********************/
-.panel > .panel-heading {
+div#headingOne .panel > .panel-heading {
   color: #353840;
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
   padding: 10px 15px;
@@ -226,6 +226,10 @@ backgound-color: #A3A7BF;
   border-radius: 4px;
   font-weight: 300;
   text-transform: uppercase;
+}
+
+div#headingOne {
+  border: 1px solid #7E9CD9;
 }
 
 .panel > .panel-heading.collapsed {
