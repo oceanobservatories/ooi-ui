@@ -245,6 +245,7 @@ var SVGPlotView = SVGView.extend({
 var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
+    'change #xvar-select' : 'xVarChange', 
     /*
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
@@ -269,6 +270,24 @@ var SVGPlotControlView = Backbone.View.extend({
     this.render();
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
+  xVarChange: function(e) {    
+    var plotType = $('#xvar-select option:selected').text();
+
+    if (plotType=="Time Series"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }else if(plotType=="T-S Diagram"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }else if(plotType=="Depth Profile"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }else if(plotType=="Quiver"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }else if(plotType=="Rose"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }else if(plotType=="3D Colored Scatter"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"some new title "+plotType)
+    }
+
+  },
   onClickPlot: function(e) {    
     var data = {};
     
@@ -300,6 +319,8 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$el.find('.selectpicker').selectpicker();
     this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
+    this.$el.find('[data-toggle="tooltip"]').tooltip()
+
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
     
@@ -315,7 +336,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$type_select = this.$el.find('#type-select');
 
-    //this.$el.find('#xvar-select').prop('disabled', 'disabled');
+    
     var xvar = "time"
     var variables = this.model.get('variable_types');
     this.variable = null;
