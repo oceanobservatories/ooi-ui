@@ -245,6 +245,7 @@ var SVGPlotView = SVGView.extend({
 var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
+    'change #xvar-select' : 'xVarChange', 
     /*
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
@@ -269,6 +270,24 @@ var SVGPlotControlView = Backbone.View.extend({
     this.render();
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
+  xVarChange: function(e) {    
+    var plotType = $('#xvar-select option:selected').text();
+
+    if (plotType=="Time Series"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.")
+    }else if(plotType=="T-S Diagram"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
+    }else if(plotType=="Depth Profile"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The Depth Profile plot uses the Pressure and/or Depth parameter from a data stream, as well as a maxima/minima extrema calculation, to determine singular depth profiles present in the data.  Users should select only a single parameter for this plot type.")
+    }else if(plotType=="Quiver"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The Quiver plot is designed to be used with two velocitiy parameters.  This plot is used primarily with the Velocity Meters and the Acoustic Doppler Current Profilers.  This plot will provide an arrow to display the direction of the water movement, as well as a gray shadow to represent the magnitude.")
+    }else if(plotType=="Rose"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The Rose Plot is designed to show the magnitude and direction of water currents and wind movement.  The direction should be represented as a value between 0 and 360.")
+    }else if(plotType=="3D Colored Scatter"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The 3D Colored Scatter allows a user to select two parameters as the X and Y axes, then select a 3rd parameter to use as a color map for the plotted points.")
+    }
+
+  },
   onClickPlot: function(e) {    
     var data = {};
     
@@ -300,6 +319,8 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$el.find('.selectpicker').selectpicker();
     this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
+    this.$el.find('[data-toggle="tooltip"]').tooltip()
+
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
     
@@ -315,7 +336,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$type_select = this.$el.find('#type-select');
 
-    //this.$el.find('#xvar-select').prop('disabled', 'disabled');
+    
     var xvar = "time"
     var variables = this.model.get('variable_types');
     this.variable = null;

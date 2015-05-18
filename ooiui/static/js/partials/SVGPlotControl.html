@@ -19,6 +19,7 @@
     <div class="col-sm-2">
         <div class="form-group">
           <label for="xvar-select">Plot Type</label>
+           <li id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></li>
           <select data-width="85%" id='xvar-select' class="form-control selectpicker">
             <option value="time">Time Series</option>
             <option value="ts-diagram">T-S Diagram</option>
@@ -28,7 +29,9 @@
             <option value="colorxyz">3D Colored Scatter</option>
               <!-- old options -->
           </select>
-        </div> <!-- .form-group -->      
+
+        </div> <!-- .form-group -->  
+          
     </div> <!-- .col-sm-3 -->
     <!--
     <div class="col-sm-3">
