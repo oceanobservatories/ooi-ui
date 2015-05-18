@@ -1,0 +1,171 @@
+/*----- Accordion -----*/
+.accordion, .accordion * {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    text-decoration: none;
+
+}
+
+.accordion {
+    overflow:hidden;
+    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
+    border-radius:3px;
+    background:#f7f7f7;
+    text-decoration: none;
+
+}
+
+/*----- Section Titles -----*/
+.accordion-section-title {
+    width:100%;
+    padding:5px;
+    display:inline-block;
+    border-bottom:1px solid #FFFFFF;
+    background: #3289ED;
+    transition:all linear 0.15s;
+    /* Type */
+    font-size:1.200em;
+    text-shadow:0px 1px 0px #1a1a1a;
+    color:#fff;
+    text-decoration: none;
+}
+
+.accordion-section-title.active, .accordion-section-title:hover {
+    background: #73ACF9;
+    /* Type */
+    text-decoration: none;
+    link
+}
+
+.accordion-section:last-child .accordion-section-title {
+    border-bottom:none;
+    text-decoration: none;
+
+}
+
+/*----- Section Content -----*/
+.accordion-section-content {
+    padding:15px;
+    display:none;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+
+/*.panel-title a {
+  display: block;
+}
+.panel-title a:hover {
+  text-decoration: none;
+}
+.panel-title a:focus {
+  text-decoration: none;
+}
+#accordion .panel-heading {
+  color: #fff;
+  background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+}
+#opLogDiv {
+  width	: 100%;
+  height	: 300px;
+}
+.watch-when {
+  font-size: 10px;
+  color: #333;
+}*/
+
+/*trying different color combinations...
+depending on over all color theme
+>>---->also needs a clicked color and hover color<----<<
+>>---->also needs better font and font-size<----<<
+*/
+.li-blue {
+  background: #BBD9EE;
+}
+
+.li-green {
+  background: #E7E4D3;
+}
+/*.li-blue {
+  background: #C0C0C0;
+}
+
+.li-green {
+  background: #E7E4D3;
+}*/
+.btnStartStop {
+  float: right;
+}
+
+#wrapper.toggled.org-sidebar-wrapper {
+    padding-left: 275px;
+}
+
+#wrapper.toggled #sidebar-wrapper.org-sidebar {
+    width: 275px;
+}
+
+#sidebar-wrapper.org-sidebar {
+  left: 275px;
+  margin-left: -275px;
+}
+
+@media(min-width:768px) {
+  #wrapper.org-sidebar-wrapper{
+    padding-left: 275px;
+  }
+  #sidebar-wrapper.org-sidebar {
+      width: 275px;
+  }
+}
+
+.org-sidebar .sidebar-nav {
+  width: 275px;
+}
+
+li.org-item {
+  padding: 4px 0 4px 0;
+}
+
+#page-content-wrapper {
+  padding: 2px 0 0 5px;
+  background: #eee;
+}
+
+.timeline {
+  z-index: 10;
+  margin-top: -91px;
+  padding-top: 50px;
+}
+#log-search-view {
+  z-index: 20;
+}
+
+@media only screen and (min-width: 1170px) {
+  .timeline {
+    z-index: 10;
+    margin-top: -60px;
+    padding-top: 10px;
+  }
+  #log-search-view {
+    z-index: 20;
+  }
+}
+
+

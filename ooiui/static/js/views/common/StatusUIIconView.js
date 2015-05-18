@@ -22,6 +22,7 @@ var StatusUIIconView = Backbone.View.extend({
       },5000);
     });
     this.viewSelection = 'table';
+    //this.onTableView();
   },
   
   initialRender: function() {
@@ -38,7 +39,7 @@ var StatusUIIconView = Backbone.View.extend({
           }
 
           //this is a hidden table for the filter boxes using the flat json object (one call to assets)
-          $('#datatable').bootstrapTable({
+          $('#bootstrap-table').bootstrapTable({
               data: response.assets,
               needFlatJSON: true,
               /*method: 'get',
@@ -149,13 +150,14 @@ var StatusUIIconView = Backbone.View.extend({
                   col:'assetId',
                   sortable: true
               }],
-              onPostHeader:function(newdata){
-                    self.filter();  
+              onPageChange:function(newdata){
+                  
+                  self.filter();  
                 }
           });
 
           $('#filter-toolbar2').bootstrapTableFilter({
-            connectTo: '#datatable',
+            connectTo: '#bootstrap-table',
             filterIcon: '<span class="fa fa-search">  </span>   Filter',
             refreshIcon: '<span class="glyphicon glyphicon-refresh"></span>',
             clearAllIcon: '<span class="glyphicon glyphicon-remove"></span>',
@@ -163,7 +165,7 @@ var StatusUIIconView = Backbone.View.extend({
                   
                 ],
                 onSubmit: function() {
-                    var t = '';
+                    //self.filter();  
                 }
             });
 
@@ -213,10 +215,17 @@ var StatusUIIconView = Backbone.View.extend({
   filter:function(){
 
         var self = this;
-        var data2 = $('#datatable').bootstrapTable('getData');
+        var data2 = $('#bootstrap-table').bootstrapTable('getData');
 
         //filter!!
         self.$el.find('#alert-container').html('');
+
+        if (self.viewSelection ==='map'){
+          var assetMapView = new AssetMapView({          
+          });
+          self.$el.find('#alert-container').append(assetMapView.el);
+          assetMapView.renderMap();
+        }; 
 
         //filter out each model then pass it to a view to be rendered.
          _.each(data2, function(modelId){
@@ -237,14 +246,10 @@ var StatusUIIconView = Backbone.View.extend({
               
               self.$el.find('#alert-container').append(filterview.el);
           }
-          /*else if (self.viewSelection ==='map'){
-
-              var filterview = new StatusUIItemView({
-                model:filtered
-              });
-              
-              self.$el.find('#alert-container').append(filterview.el);
-          }*/
+          else if (self.viewSelection ==='map'){
+              //render called in the map init
+              assetMapView.addStation(filtered);
+          }
         });
   },
   
@@ -254,7 +259,7 @@ var StatusUIIconView = Backbone.View.extend({
   
   onListView: function() {
     this.viewSelection = 'list';
-    //this.ft.reset();
+    this.modifyActive(this.viewSelection);
     this.filter();
     //remove active class from table view
     this.$el.find('#table-view').removeClass('active');
@@ -263,15 +268,27 @@ var StatusUIIconView = Backbone.View.extend({
   
   onTableView: function() {
     this.viewSelection = 'table';
-    //this.ft.reset();
+    this.modifyActive(this.viewSelection);
     this.filter();
     this.$el.find('.Hide').hide();
   },
-
-
+  modifyActive:function(id_prefix){
+    var self = this;
+    self.$el.find("#btn-selection a").each(function( index, obj ) { 
+      //$(this).removeClass('btn-info');   
+      $(this).removeClass('active');
+      if ( (obj.id).indexOf(id_prefix) > -1){        
+        $(this).addClass('active');
+        //$(this).addClass('btn-info');
+      }
+    });
+  },
   onMapView: function() {
-    //todo
-    //this.filter();
+    var self = this;
+    this.viewSelection = 'map';
+    this.modifyActive(this.viewSelection);
+    this.filter();
+    this.$el.find('.Hide').hide();
   },
   
   template: JST['ooiui/static/js/partials/StatusUIIcon.html'],
@@ -284,11 +301,11 @@ var StatusUIIconView = Backbone.View.extend({
     this.$el.find('.Hide').hide();
     //set the table-view button as active on intial render
     this.$el.find('#table-view').toggleClass('active');
-        this.collection.each(function(model) { 
-        var subview = new StatusUIItemView({
-          model: model
-        });    
-        self.add(subview);
-      });
+    this.collection.each(function(model) { 
+      var subview = new StatusUIItemView({
+        model: model
+      });    
+      self.add(subview);
+    });
   }
 });

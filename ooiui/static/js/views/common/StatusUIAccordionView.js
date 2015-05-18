@@ -1,6 +1,11 @@
 "use strict";
 
 var StatusUIAccordionView = Backbone.View.extend({
+  
+  events: {
+    'click div': 'plot'
+  },
+
   initialize: function() {
     var self = this;
     _.bindAll(this, "render");
@@ -11,6 +16,17 @@ var StatusUIAccordionView = Backbone.View.extend({
   render: function() {
     var self = this;
     this.$el.html(this.template({model:this.model}));
+  },
+
+  plot: function(button) {
+  if(button.target.id=='plot_status'||button.target.className.search('chart')>-1){
+
+    var ref_array = this.model.attributes.ref_des.split('-');
+    var plot_url = '/plotting/'+this.model.attributes.ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+this.model.attributes.ref_des;
+
+    //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
+    window.open(plot_url,'_blank');
   }
+}
 });
 

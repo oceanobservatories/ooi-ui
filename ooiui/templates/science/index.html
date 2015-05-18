@@ -47,7 +47,7 @@
           </div> <!-- panel -->
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
-      <div id='plot-row' class="row">
+      <div id='plot-row' class="row" style="display:none;">
         <div class="col-lg-12">
           <div class="panel">
             <div class="panel-heading">
@@ -81,31 +81,30 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   collections: {
     arrays: null,
-    platform_deployments: null,
-    stream_collection: new StreamCollection()
+    platform_deployments: null,    
   },
   views: {
     tocView: null
   },
   start: function() {
     var self = this;
-    this.login.fetch({async: false}); // Doesn't actually make an ajax request
-    this.collections.stream_collection.fetch({reset: true});
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    this.views.mapModel = new MapModel();
-    this.collections.arrays = new ArrayCollection();
+    this.views.mapModel = new MapModel();    
     this.collections.platform_deployments = new PlatformDeploymentCollection();
+    this.collections.toc = new TocCollection();
+    this.collections.arrays = new ArrayCollection();
 
     // It allows me access(via ooi{}) models, collections or views inside one another  
     // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
-    this.views.tocView = new SimpleTOCView({
-      parentCollection: self.collections.arrays,
-      childCollection: self.collections.platform_deployments,
+    this.views.tocView = new TOCView({
+      arrayCollection: this.collections.arrays,
+      collection: this.collections.toc,
       el: $('#sidebar-wrapper')
     });
    
@@ -142,37 +141,41 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
 
+
+    //--------------------------------------------------------------------------------
+    //FETCHING
+    //--------------------------------------------------------------------------------
+    var platformDeploymentsFetch = this.collections.platform_deployments.fetch({reset: true});
+    //this.collections.stream_collection.fetch({reset: true});
+    var tocFetch = this.collections.toc.fetch({reset: true});    
+    var arraysFetch = this.collections.arrays.fetch({reset: true});
+
     //--------------------------------------------------------------------------------
     //LISTENERS
     //--------------------------------------------------------------------------------
-    this.listenTo(this.collections.platform_deployments, 'reset', function(collection) {
+
+    $.when(tocFetch,arraysFetch).done(function(){
       console.log("child updated...")
-      self.views.tocView.childCollection = collection;
-      self.views.tocView.render();
-    });
-
-    this.listenTo(this.collections.stream_collection, 'reset', function(collection) {
-      console.log("streams updated...")        
-    });
-
-    this.listenTo(this.collections.arrays, 'reset', function(collection) {
-      console.log("parent updated...")
-      self.views.tocView.parentCollection = collection;
+      self.views.tocView.collection = self.collections.toc;
+      self.views.tocView.arrayCollection = self.collections.arrays;
       self.views.tocView.render();
     });
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {
+    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {    
+      /*
+      console.log(model)
       $('#map').height(328);
       $('#plot-row').show();
       
-      /*
-      if ('coordinates' in model.attributes){
+      
+      if (model && 'attributes' in model && 'coordinates' in model.attributes){
         self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-      }
-      */
-            
+      } 
+      */     
+      
+      /* 
       self.collections.stream_collection.each(function(streamModel) {
         if (streamModel.get('reference_designator') == model.get('ref_des')){
           console.log(streamModel.get('reference_designator'),model.get('ref_des'))
@@ -180,6 +183,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           self.views.svgplot.setModel(streamModel);
         }
       });
+      */
       /*
       self.views.svgPlotControlView.setModel(model);
       self.views.svgplot.setModel(model);
@@ -211,18 +215,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.trigger('ooi:mapExpand');
-
-    //--------------------------------------------------------------------------------
-    //FETCHING
-    //--------------------------------------------------------------------------------
-    this.collections.platform_deployments.fetch({reset: true});
-    this.collections.arrays.fetch({reset: true});
     
   }
 });
 var ooi = new OOI();
 
 $(document).ready(function() {
+    //$('#plot-row').hide();
     $('#map').height($(window).height() - 150);
     $('#map-expand').click(function(event) {
       event.preventDefault();

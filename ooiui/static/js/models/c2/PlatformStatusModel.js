@@ -37,8 +37,6 @@ var PlatformStatusCollection = Backbone.Collection.extend({
   model: PlatformStatusModel,
   parse: function(response, options) {
     if(response) {
-      console.log('got to parse response');
-      console.log(response);
       return response.current_status_display;
     } else {
       return [];
@@ -48,9 +46,7 @@ var PlatformStatusCollection = Backbone.Collection.extend({
   fetch: function (array_code, options) {
     options = options || {};
     if (options.url === undefined) {
-      console.log('Fetching collection: ' + array_code);
       options.url = this.urlRoot + "/" + array_code + "/current_status_display";
-      console.log('URL: ' + this.urlRoot + "/" + array_code + "/current_status_display");
     }
     return Backbone.Model.prototype.fetch.call(this, options);
   }

@@ -1,0 +1,39 @@
+<ul class='nav sidebar-nav' type="<%=key%>" level=<%=level%>>	
+
+	<!-- tag is li -->
+	<% if (level == 3) {%>
+		<div class="btn-group" >
+		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu" style='z-index: 9999;position:absolute;overflow: hidden;'>
+		    <li><a target="_blank" href="<%= plottingLink %>">Plot</a></li>		    
+		    <!--
+		    <li class="divider"></li>
+		    <li><a href="#">Separated link</a></li>
+			-->
+		  </ul>
+		</div>
+	<% } %>
+
+	<a type="<%=key%>" level=<%=level%> data-toggle="tooltip" data-placement="bottom" data-delay="200" title="<%= display_name %>" href="#">
+		
+	  <!--
+	  <i class="fa fa-share-alt fa-fw"></i>
+	  -->
+	  <% if (level<3){ %>
+	  	<span id="<%=level%>_icon" class="glyphicon glyphicon-chevron-right toc-arrow"></span>
+	  <% } else { %>
+	  	<span id="<%=level%>_icon" class="glyphicon glyphicon-record"></span>
+	  <% } %>
+		<i>
+	  		<%= display_name %>
+	    </i>
+	</a>
+
+	
+
+	<div id="<%= sub_id %>" class="<%=level%>_item_content <%=key%>_item_content collapse">	
+
+	</div>
+</ul>

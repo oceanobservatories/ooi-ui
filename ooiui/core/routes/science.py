@@ -50,6 +50,17 @@ def event_new(new,aid,aclass):
 def streams_page():
     return render_template('science/streams.html')
 
+@app.route('/plotting', methods=['GET'])
+@app.route('/plotting/', methods=['GET'])
+def show_plotting_no_path():
+    return plotting_page(None)
+
+@app.route('/plotting/<path:path>', methods=['GET'])
+def plotting_page(path):
+    print path    
+    return render_template('science/plotting.html')
+
+
 @app.route('/getdata/')
 def getData():
     '''
@@ -89,6 +100,11 @@ def put_annotation(id):
 @app.route('/api/array')
 def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/get_structured_toc')
+def structured_toc_proxy():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_structured_toc', params=request.args)
     return response.text, response.status_code
 
 #old
@@ -151,9 +167,9 @@ def asset_event_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
     return response.text, response.status_code
 
-@app.route('/api/events/<string:ref_des>', methods=['GET'])
-def get_event_by_ref_des(ref_des):
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % ref_des, data=request.args)
+@app.route('/api/events', methods=['GET'])
+def get_event_by_ref_des():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events?ref_des=%s' % request.args.get('ref_des'), data=request.args)
     return response.text, response.status_code
 
 

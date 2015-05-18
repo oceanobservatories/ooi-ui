@@ -15,9 +15,9 @@
   <script src="/js/core/table/bootstrap-table-filter.ext.js"></script>
   <script type="text/javascript" src="/js/core/table/bs-table.js"></script>
   
-  <!-- partials
-  <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
-  -->
+  <!-- partials  
+  <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>-->
+  
   <script type="text/javascript" src="/js/core/table/tableExport.min.js"></script>
   <script type="text/javascript" src="/js/core/table/FileSaver.min.js"></script>
 {% endblock %}
@@ -62,6 +62,7 @@
                 <div class="btn-group" id='deploy_edit' role="group" style="top: -7px;" aria-label="...">
                   <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-plus-square"></i> New</div>
                   <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-floppy-o"></i> Save</div>
+                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-bar-chart"></i> Plot</div>
                   <div class="btn btn-primary" disabled type="button" aria-label="..."><i class="fa fa-trash-o"></i> Delete</div>
                 </div>
               </div>
@@ -75,7 +76,6 @@
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Metadata</a></li>
                     <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Information</a></li> -->
-                    <li role="presentation"><a href="#event_messages" aria-controls="event_messages" role="tab" data-toggle="tab">Events</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Information</a></li>
                   </ul>
                   <!-- Tab panes -->
@@ -243,21 +243,6 @@
                         </fieldset>
                       </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="event_messages">
-                      <table data-toggle="table" id='event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="sdate">Start Date</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                      <div class="btn btn-primary" style='display:none;' type="button" id='butnewevent' aria-label="..."><i class="fa fa-plus-square"></i> New Event</div>
-                    </div>
                   </div>
                 </div>
             </div> <!-- panel-body -->
@@ -267,14 +252,94 @@
           <div class="panel">
             <div class="panel-heading">
               <strong>
-                <span class="fa fa-globe"> </span> Location<span data-i18n="Data"></span>
+                <span class="fa fa-edit"> </span>Events<span data-i18n="Data"></span>
               </strong>
-              <div disabled class="btn btn-default" id="asset_draw_btn" style='float: right;font-size: 11px;margin-top: -4px;' type="button" aria-label="..."><i class="fa fa-pencil"></i> Draw</div>
-            </div>
-            <div class="panel-body" style='min-height:53px;'>
-               <div  id="editdep_map" style="display:none;height:400px">
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12" id="event_panel" style='width:320px;top: 10px;margin-left: 139px; position:absolute;'>
               </div>
-          </div>
+                  </div>
+                  <div class="tab-content">
+              <div role="tabpanel">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#storage_events" aria-controls="storage_events" role="tab" data-toggle="tab">Storage</a></li>
+                    <li role="presentation"><a href="#deployment_events" aria-controls="deployment_events" role="tab" data-toggle="tab">Deployment</a></li>
+                    <li role="presentation"><a href="#calibration_events" aria-controls="calibration_events" role="tab" data-toggle="tab">Calibration</a></li>
+                    <li role="presentation"><a href="#integration_events" aria-controls="integration_events" role="tab" data-toggle="tab">Integration</a></li>
+                    <li role="presentation"><a href="#service_events" aria-controls="service_events" role="tab" data-toggle="tab">Service</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="storage_events">
+                      <table data-toggle="table" id='storage_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Event ID</th>
+                                <th data-field="class">Class Name</th>
+                                <th data-field="more">More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="deployment_events">
+                      <table data-toggle="table" id='deployment_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Event ID</th>
+                                <th data-field="class">Class Name</th>
+                                <th data-field="more">More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="calibration_events">
+                      <table data-toggle="table" id='calibration_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Event ID</th>
+                                <th data-field="class">Class Name</th>
+                                <th data-field="more">More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="integration_events">
+                      <table data-toggle="table" id='integration_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Event ID</th>
+                                <th data-field="class">Class Name</th>
+                                <th data-field="more">More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="service_events">
+                      <table data-toggle="table" id='service_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Event ID</th>
+                                <th data-field="class">Class Name</th>
+                                <th data-field="more">More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
         </div>
       </div> <!-- row -->
     </div> <!-- container-fluid -->

@@ -51,7 +51,7 @@ var SimpleTOCView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/TOC.html'],
   initialRender: function() {
-    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;"> </i>');
+    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
   }
 });
 

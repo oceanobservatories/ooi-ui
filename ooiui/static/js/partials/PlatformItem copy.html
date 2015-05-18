@@ -1,0 +1,16 @@
+<!-- <li> -->
+<a data-toggle="tooltip" data-placement="top" data-delay="500" title="<%= data.get('ref_des') %>" data-reference-designator="<%= data.get('ref_des') %>" href='#'>
+  <%= data.get('display_name') %>
+    
+  <%if(typeof type === 'undefined'){ %>
+  	<span class="badge hidden"> --- </span> <span class="toc-arrow pull right fa arrow"></span>
+  <% } else { %>
+      <%if(type == 'array'){ %>
+        <span class="badge"> --- </span> <span class="toc-arrow pull right fa arrow"></span>
+      <% } %>
+    	<% if(type == "parent-platform") { %>
+    		<span class="badge hidden"> --- </span> 
+    	<% }%>
+  <% } %>
+</a>
+<!-- </li> -->
