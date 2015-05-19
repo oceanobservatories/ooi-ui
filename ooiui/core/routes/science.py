@@ -204,9 +204,9 @@ def metadata_times_proxy(stream_name,reference_designator):
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
 def get_csv(stream_name, reference_designator,start,end):
     token = get_login()
-    dpa = "0"
+    dpa = "1"
     url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
-    req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
+    req = requests.get(url, auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
