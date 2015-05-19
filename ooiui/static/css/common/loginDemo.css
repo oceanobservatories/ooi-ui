@@ -41,35 +41,7 @@ log/* CSS REQUIRED */
   font-size: 10px;
   float: right;
 }
-/* .lgn .btn .newEvent{
-  margin-top: 5px;
-  margin-bottom: 0px;
-
-} */
-.btn-logIn{
-  /*background: #4fd934;*/
-  -webkit-border-radius: 6;
-  -moz-border-radius: 6;
-  border-radius: 6px;
-  font-family: Arial;
-  /*color: #000000;*/
-  font-size: 15px;
-  padding: 0px 50px 0px 50px;
-  /*border: solid #9ff5a2 2px;*/
-  text-decoration: none;
-  margin-top: 15px;
-
-}
-/*.btn-logIn:hover {
- background: #299943;
- background-image: -webkit-linear-gradient(top, #299943, #70d934);
- background-image: -moz-linear-gradient(top, #299943, #70d934);
- background-image: -ms-linear-gradient(top, #299943, #70d934);
- background-image: -o-linear-gradient(top, #299943, #70d934);
- background-image: linear-gradient(to bottom, #299943, #70d934);
- text-decoration: none;
-}*/
-.lgn-input .input{
+button#btnLogin {
  background: #4fd934;
  background-image: -webkit-linear-gradient(top, #4fd934, #298c29);
  background-image: -moz-linear-gradient(top, #4fd934, #298c29);
@@ -79,12 +51,12 @@ log/* CSS REQUIRED */
  -webkit-border-radius: 6;
  -moz-border-radius: 6;
  border-radius: 6px;
- font-family: Arial;
  color: #000000;
- font-size: 15px;
  padding: 0px 40px 0px 40px;
  border: solid #9ff5a2 2px;
  text-decoration: none;
+ font-weight: 300;
+ 
 }
 div.image {
  content: url(/img/modal/OOI_Banner.png);
@@ -92,6 +64,13 @@ div.image {
  margin-right: auto;
  margin-top: -20px;
  margin-bottom: -3px;
+}
+div.water-image {
+  content: url(/img/modal/water-devider.png);
+  margin-left: -35px;
+  margin-right: auto;
+  margin-top: -20px;
+  margin-bottom: -3px;
 }
 button.close{
   padding: 4px 7px 0px 0px;
@@ -146,7 +125,6 @@ button.question{
 .lgn-message {
     color: #fd0404;
 }
-
 .dropdown-menu{
   min-width: 200px !important;
 }
