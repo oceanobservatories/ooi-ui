@@ -36,6 +36,11 @@
 {% endblock %}
 
 {%block body %}
+
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
 <div id="wrapper-status">
     <!-- disable the left hand side orgainization panel
     <div id="wrapper">
@@ -43,7 +48,7 @@
     </div> -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" style='padding-top:70px;'>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div id ='filter-toolbar2' style='padding-left:140px;padding-top:3px;position:absolute;z-index:100;'></div>
             <div id ='datatable_div' style='opacity:0;height:0px'><table id="bootstrap-table"></table></div>
@@ -73,7 +78,17 @@ _.extend(OOI.prototype, Backbone.Events,  {
     views: {},
 
     start: function() {
-        this.login.fetch({async:false});
+      this.login.fetch({async:false});
+      //--------------------------------------------------------------------------------
+      // Views
+      //--------------------------------------------------------------------------------
+      this.views.banner = new BannerView();
+      $('body').prepend(this.views.banner.el);
+    
+      this.views.navbar = new NavbarView({
+        el: $('#navbar')
+      });
+
         this.collections.operatorEventTypes.fetch();
         this.views.navbar = new NavbarView();
         $('body').prepend(this.views.navbar.el);
