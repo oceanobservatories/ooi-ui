@@ -56,15 +56,20 @@ button#btnLogin {
  border: solid #9ff5a2 2px;
  text-decoration: none;
  font-weight: 300;
- 
+ margin-top: 15px;
 }
 div.image {
- content: url(/img/modal/OOI_Banner.png);
+ content: url(/img/modal/OOI_Banner.svg);
  margin-left: auto;
  margin-right: auto;
- margin-top: -20px;
- margin-bottom: -3px;
+ margin-top: -60px;
+ margin-bottom: -30px;
 }
+  /*
+   * ~ .water-image ~
+   * Source: http://pixabay.com/en/abstract-blue-bubble-clean-drop-72288/ 
+   * License: CC0 Public Domain - http://creativecommons.org/publicdomain/zero/1.0/deed.en
+   * */
 div.water-image {
   content: url(/img/modal/water-devider.png);
   margin-left: -35px;
