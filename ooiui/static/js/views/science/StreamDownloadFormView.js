@@ -22,21 +22,19 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.render();
   },
   onDownload: function() {
+    /*
+     * Make a copy of the stream model and then set the start and end dates to
+     * the form fields, then grab the URL and send the user to it.
+     */
     var selection = this.$type_select.val();
-    var url = this.model.getURL(selection);
-    url += '?'+$.param({startdate:this.$start_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss'), enddate:this.$end_date_picker.getDate().format('YYYY-MM-DDTHH:mm:ss')})
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-      if(xhr.readyState == 4 && xhr.status == 200) {
-          ooi.trigger('DownloadModal:onHide'); 
-          window.location.href = url;
-      }else if ( xhr.status== 404 || xhr.status == 400 || xhr.status == 500){
-        ooi.trigger('DownloadModalFail:onFail');
-      }
-    };
+    var localModel = this.model.clone();
+    var startDate = new Date(this.$start_date.data('date')).toISOString();
+    var endDate = new Date(this.$end_date.data('date')).toISOString();
+    localModel.set('start', startDate);
+    localModel.set('end', endDate);
 
-    xhr.open('head',url);
-    xhr.send(null);
+    var url = localModel.getURL(selection);
+    window.location.href = url;
     this.hide();
   },
   failure: function() {
@@ -45,18 +43,13 @@ var StreamDownloadFormView = Backbone.View.extend({
   show: function(options) {
     var model = options.model;
     var selection = options.selection;
+    console.log("SHOW", options.model.attributes);
     this.model = model;
-    var startDate = model.get('start');
-    var endDate = model.get('end');
+    var startDate = new Date(model.get('start'));
+    var endDate = new Date(model.get('end'));
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
     this.$el.find('.message h3').text(model.get('display_name'));
-
-    // Download Link
-    var base_url = window.location.origin;
-    var raw_dl_url = base_url + this.model.getURL(selection);
-    var dl_url = '<a href=\"' + raw_dl_url + '\">Download Link\</a>';
-    this.$el.find('.download-link h4').html(dl_url);
 
     this.$el.find('#type-select').val(selection);
 
