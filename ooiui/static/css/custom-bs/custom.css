@@ -222,16 +222,40 @@ backgound-color: #A3A7BF;
   color: #fff;
 }
 
+.panel {
+  border: none;
+  box-shadow: none;
+  background-color: #F8F8F8;
+}
+.panel > .panel-heading {
+    border: none;
+  box-shadow: none;
+  background-color: #F8F8F8;
+}
+
+form.backgrid-filter.form-search {
+  float: right;
+  margin: 0px 0px 25px 0px;
+
 /***********************
 ******** Sidebar *******
 ***********************/
 #array-accordion {
   margin-bottom: 100%;
+  border-right; solid 1px black;
 }
+/*not working-verticle devider using sidebar right border
+div#sidebar-wrapper.ul.nav.sidebar-nav.navbar-collapse {
+    border-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#7E9CD9), color-stop(1, #7E9CD9), color-stop(1, #fff)) 21 333;
+  border-right-width: 1px;
+  margin-right: 12px;
+}
+*/
+
 /***********************
 ******* Accordion ******
 ***********************/
-.panel > .panel-heading {
+div#headingOne{
   color: #353840;
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
   padding: 10px 15px;
@@ -255,8 +279,9 @@ div#headingOne {
   border: 1px solid #7E9CD9;
 }
 */
-  
-.panel > .panel-heading.collapsed {
+ 
+  div#headingOne.collapsed {
+
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
 }
 
