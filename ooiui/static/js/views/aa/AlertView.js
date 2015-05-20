@@ -329,7 +329,7 @@ var AlertFilterView = Backbone.View.extend({
         // Render the filter
         $("#alertslist").before(filter.render().el);
         // Add some space to the filter and move it to the right
-        $(filter.el).css({float: "right", margin: "20px"});
+       // $(filter.el).css({float: "right", margin: "20px"});
         $(filter.el).find("input").attr('id', 'alert_search_box');
 
         pageablealerts.fetch({reset: true,
