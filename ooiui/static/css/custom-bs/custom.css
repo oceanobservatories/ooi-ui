@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
-#wrapper {
+div#wrapper {
   margin-top: 170px;
 }
 
