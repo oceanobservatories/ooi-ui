@@ -223,19 +223,22 @@ backgound-color: #A3A7BF;
 }
 
 
-/*breaks everything
-.panel {
+/*breaks everything*/
+div#aa-panel {
   border: none;
   box-shadow: none;
   background-color: #F8F8F8;
 }
+/*
 .panel > .panel-heading {
     border: none;
   box-shadow: none;
   background-color: #F8F8F8;
 }
 
-form.backgrid-filter.form-search {
+
+*can be changed in views/aa/AlertView.js - line 331
+div#alertslist > form.backgrid-filter.form-search {
   float: right;
   margin: 0px 0px 25px 0px;
 */
