@@ -12,8 +12,11 @@
 <link rel="stylesheet" href="/css/compiled/index.css" type="text/css" />
 <link rel="stylesheet" href="/css/compiled/c2.css" type="text/css" />
 <!-- Partials -->
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <script src="/js/partials/compiled/c2.js" type="text/javascript"></script>
 <script src="/js/compiled/c2.js" type="text/javascript"></script>
+<script src="/js/compiled/index.js" type="text/javascript"></script>
+
 
 <!--  
 <script src="/js/models/c2/ArrayNavModel.js" type="text/javascript"></script>
@@ -39,8 +42,12 @@
 {% endblock %}
 
 {%block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
 <div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default">
+  <div id="sidebar-wrapper">
   </div>
 
   <div id="page-content-wrapper">
@@ -249,8 +256,15 @@ _.extend(OOI.prototype, Backbone.Events, {
   start: function() {
     
     this.login.fetch({async: false});
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView();
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
 
     this.arrays = new ArrayNavCollection();
     this.arrayTOCView = new ArraySidebarView({
