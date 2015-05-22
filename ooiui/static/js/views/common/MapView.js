@@ -131,15 +131,40 @@ var MapView = Backbone.View.extend({
           var name = platform.get('assetInfo')['name']              
           if (name == null){
             name = "Undefined"          
-          }
+          }          
 
           if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){           
             var platformFeature = L.marker(platform.get('coordinates'));            
+
+            var ref_des = platform.get('ref_des')
+            if (typeof(ref_des) != "undefined"){             
+              var ref_des_split = ref_des.split("-")
+              //get the current location
+              if (!location.origin)
+                location.origin = location.protocol + "//" + location.host;
+              
+              //get the parts
+              var array = ref_des.substring(0, 2);
+              var mooring = ref_des_split[0]
+              var platform_val = ref_des_split[1]
+              if (ref_des_split.length > 2){                
+                var instrument = ref_des
+                var instrument_url = [array, mooring, platform_val , instrument].join("/");                
+              }else{
+                var instrument_url = [array, mooring, platform_val].join("/");
+              }
+              var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
+            }else{
+              var instrument_plot = ""
+            }
+
             var popupContent = '<p><strong>' + name + '</strong><br>' +
                 '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
                 'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
-                '<br><a href="/streams?' + platform.get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                instrument_plot+
+                '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
                 '<a href="/assets/list?' + platform.get('ref_des') + '">Asset Management</a></p>';
+
                 platformFeature.bindPopup(popupContent);
             markerCluster.addLayer(platformFeature);
           }

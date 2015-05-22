@@ -1,3 +1,6 @@
+.fa-spinner{
+  color:#337ab7;
+}
 .breadcrumb{
 	margin-top: -17px;
 	padding: 5px 15px;
@@ -19,7 +22,7 @@
 	margin-bottom: -2px;
 }
 .modal-content{
-  width: 700px;
+  /*width: 700px;*/
 }
 .modal-backdrop {background: none;}
 

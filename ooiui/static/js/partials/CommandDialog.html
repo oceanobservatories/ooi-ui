@@ -1,20 +1,31 @@
 <!-- set up the modal to start hidden and fade in and out -->
 <!-- <div id="myModal" class="modal fade"> -->
-  <div class="modal-dialog" >
-    <div class="modal-content">
+  <div class="modal-dialog"  style='width:840px'>
+    <div class="modal-content" style='width:840px'>
       <!-- dialog body -->
       <div class="modal-header">
-        <h3 class="modal-title" id="missionModalLabel">Control Actions </h3>      
+        <h3 class="modal-title"  id="missionModalLabel">Commands: </h3>
+        <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: Unknown</h4>      
       </div>
-      <div class="modal-body mission-modal">
-        <div><h3>Commands Pending</h3></div>
-        <%= message%>
+      <div class="modal-body mission-modal" style='margin-top:-17px'>
+        <!-- <div><h3>Pending Messages</h3></div>
+          <%= message%> -->
+        <div><h3>Parameter Settings</h3></div>
+        <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='submit_win_param'><i class="fa fa-floppy-o"> </i> Apply Settings</button>
+        <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='refresh_win_param'><i class="fa fa-refresh"> </i> Refresh</button>
+        <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><div style='right:-25px' class='col-md-2'>Units</div></div>
+        <hr>
+        <div style='max-height:255px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
+          <%= parameter_options%>
+        </div>
         <div><h3>Command List</h3></div>
-        <%= command_options%>
+        <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
+          <%= command_options%>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id='execute_command' disabled data-dismiss="modal">Execute</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id='plot_c2'><i class="fa fa-bar-chart">  </i>  Plot</button>
+        <button type="button" class="btn btn-primary" id='close_win_command' data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

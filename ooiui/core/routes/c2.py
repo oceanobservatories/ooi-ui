@@ -8,6 +8,7 @@ from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
+import json
 
 import requests
 
@@ -125,6 +126,22 @@ def get_c2_platform_portsdisplay(platform_code):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/ports_display' % (platform_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/c2/platform/<string:platform_code>/execute', methods=['POST'])
+def c2_execute_command_plat(platform_code):
+    token = get_login()
+    data = request.json
+
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/platform/%s/execute' % (instrument_ref), auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/c2/platform/<string:platform_code>/parameters', methods=['POST'])
+def c2_edit_plat_params(platform_code):
+    token = get_login()
+    data = request.json
+
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/platform/%s/parameters' % (instrument_ref), auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
 # INSTRUMENTS
 #
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/abstract
@@ -182,4 +199,35 @@ def get_c2_instrument_stream_fields(instrument_code, stream_code):
 def get_c2_instrument_ports_display(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (instrument_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument/<string:instrument_ref>/execute', methods=['POST'])
+def c2_execute_command(instrument_ref):
+    token = get_login()
+    data = request.json
+
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/instrument/%s/execute' % (instrument_ref), auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+@app.route('/api/c2/instrument/<string:instrument_ref>/parameters', methods=['POST'])
+def c2_edit_instr_params(instrument_ref):
+    token = get_login()
+    data = request.json
+
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/instrument/%s/parameters' % (instrument_ref), auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+
+# STATUS and SAMPLE GET
+#
+@app.route('/api/c2/sample/<string:ref_code>', methods=['GET'])
+def get_c2_instrument_sample(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/c2/status/<string:ref_code>', methods=['GET'])
+def get_c2_instrument_status(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code

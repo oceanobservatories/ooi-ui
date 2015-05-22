@@ -1,14 +1,8 @@
 {% extends "common/base.html" %}
-
+{% block head %}
 {% block title %}
 <title>Operations Log</title>
 {% endblock %}
-
-{% block beforebootstrap %}
-
-{% endblock %}
-
-{% block head %}
 <link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
 <link rel="stylesheet" href="/css/common/timeline.css" type="text/css" />
 <link rel="stylesheet" href="/css/compiled/opLog.css" type="text/css" />
@@ -16,140 +10,20 @@
 <script src="/js/partials/compiled/OpLog.js" type="text/javascript"></script>
 <script src="/js/compiled/opLog.js" type="text/javascript"></script>
 
-<style>
 
-/*----- Accordion -----*/
-.accordion, .accordion * {
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
-    text-decoration: none;
-
-}
-
-.accordion {
-    overflow:hidden;
-    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
-    border-radius:3px;
-    background:#f7f7f7;
-    text-decoration: none;
-
-}
-
-/*----- Section Titles -----*/
-.accordion-section-title {
-    width:100%;
-    padding:5px;
-    display:inline-block;
-    border-bottom:1px solid #FFFFFF;
-    background: #3289ED;
-    transition:all linear 0.15s;
-    /* Type */
-    font-size:1.200em;
-    text-shadow:0px 1px 0px #1a1a1a;
-    color:#fff;
-    text-decoration: none;
-}
-
-.accordion-section-title.active, .accordion-section-title:hover {
-    background: #73ACF9;
-    /* Type */
-    text-decoration: none;
-    link
-}
-
-.accordion-section:last-child .accordion-section-title {
-    border-bottom:none;
-    text-decoration: none;
-
-}
-
-/*----- Section Content -----*/
-.accordion-section-content {
-    padding:15px;
-    display:none;
-    text-decoration: none;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
-}
-
-
-/*.panel-title a {
-  display: block;
-}
-.panel-title a:hover {
-  text-decoration: none;
-}
-.panel-title a:focus {
-  text-decoration: none;
-}
-#accordion .panel-heading {
-  color: #fff;
-  background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
-}
-#opLogDiv {
-  width	: 100%;
-  height	: 300px;
-}
-.watch-when {
-  font-size: 10px;
-  color: #333;
-}*/
-
-/*trying different color combinations...
-depending on over all color theme
->>---->also needs a clicked color and hover color<----<<
->>---->also needs better font and font-size<----<<
-*/
-.li-blue {
-  background: #BBD9EE;
-}
-
-.li-green {
-  background: #E7E4D3;
-}
-/*.li-blue {
-  background: #C0C0C0;
-}
-
-.li-green {
-  background: #E7E4D3;
-}*/
-.btnStartStop {
-  float: right;
-}
-</style>
 {% endblock %}
 
 {%block body %}
-<div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default">
+<div id="wrapper" class="org-sidebar-wrapper">
+  <div id="sidebar-wrapper" class="navbar-default org-sidebar">
   </div>
-
   <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div  id="watch-view" class="col-lg-4">
-        </div>
-
-
-        <div id="event-view" class="col-lg-8">
-        </div>
+    <div class="row">
+      <div id="log-search-view" class="col-lg-12">
       </div>
+    </div>
+    <div class="row">
+      <div id="log-timeline" class="cssanimations timeline col-lg-12"></div>
     </div>
   </div>
 </div>
@@ -170,65 +44,107 @@ _.extend(OOI.prototype, Backbone.Events,  {
   collections: {
     // Instantiate a new Organizations collection
     organizations: new Organizations(),
-    // watches is the Watch collection, by default is un-fetched
-    watches: new Watches(),
-    //events: new Events(),
-    events: new EventsCollection(),
-    operatorEventTypes: new OperatorEventTypeCollection()
+    logEntries: new LogEntryCollection(),
+    logComments: new LogEntryCommentCollection()
   },
   models: {
-    watchModel: new WatchModel(),
     orgModel: new OrganizationModel(),
     userModel: new UserModel()
   },
   views: {
+    orgSidebarView: null,
+    logSearchView: null,
+    timelineView: null
   },
+  pageWait: null,
   start: function() {
+    var self = this;
+    /* Login stuff */
     this.login.fetch({async:false});
-    this.collections.operatorEventTypes.fetch();
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});      
     }
-
+    /* Views */
     this.views.orgSidebarView = new OrgSidebarView({
       collection: this.collections.organizations,
       userModel: this.models.userModel
     });
     $('#sidebar-wrapper').html(this.views.orgSidebarView.el);
 
-
-    this.views.watchView = new WatchView({
-      collection: this.collections.watches,
+    this.views.logSearchView = new LogSearchView({
+      el: $('#log-search-view')
     });
-    $('#watch-view').html(this.views.watchView.el);
+    this.views.logSearchView.render();
 
-    this.views.eventView = new EventView({
-      collection: this.collections.events
+    this.views.timelineView = new TimelineView({
+      el: $('#log-timeline')
     });
-    $('#event-view').html(this.views.eventView.el);
-
-
+    this.views.timelineView.render();
+    
+    /* Event listeners */
     this.eventListeners();
+
+
   },
   eventListeners:function() {
+    var self = this;
     this.listenTo(this, "org:click", this.orgSelection);
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, 'watchview:click', this.watchSelection);
-    this.listenTo(this, 'watchview:newwatch', this.newWatch);
     this.listenTo(this.models.userModel, 'change', function(model){      
       this.views.orgSidebarView.selectOrg(model.get('organization_id'));
     });
+    this.listenTo(this.collections.logEntries, 'add', function(model) {
+      self.views.timelineView.addItem(model);
+    });
+    /* This handles the pagination portion */
+    this.listenTo(this.views.timelineView, 'endOfPage', function() {
+      if(self.collections.logEntries.endOfCollection) {
+        console.log("end of page");
+        return;
+      }
+      if(this.pageWait === null) {
+        this.pageWait = new Date().getTime();
+      }
+      var now = new Date().getTime();
+      if(now >= this.pageWait) {
+        self.collections.logEntries.offset += self.collections.logEntries.limit;
+        var fetch = self.collections.logEntries.fetch({data: {
+          limit: self.collections.logEntries.limit,
+          offset: self.collections.logEntries.offset
+        }});
+        this.pageWait = now + 500;
+      }
+    });
+    this.listenTo(this.views.logSearchView, 'onInput', this.search);
+    this.listenTo(this, 'timelinenewitem:submit', function(model) {
+      var organization_id = self.models.orgModel.get('id');
+      model.set('organization_id', organization_id);
+      model.save();
+      self.orgSelection(organization_id);
+    });
   },
-
   onLogin: function() {
     location.reload();
   },
   onLogout: function() {
     location.reload();
+  },
+  search: function(query) {
+    var self = this;
+    var organization_id = this.models.orgModel.get('id');
+    if(query == '') {
+      this.orgSelection(organization_id);
+    }
+    this.collections.logEntries.reset();
+    this.views.timelineView.render();
+    this.collections.logEntries.fetch({data: {
+      search: query,
+      organization_id: organization_id
+    }});
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
@@ -237,35 +153,20 @@ _.extend(OOI.prototype, Backbone.Events,  {
    * fetch, using the organization_id as a query parameter.
    */
   orgSelection: function(organization_id) {
+    var self = this;
     this.models.orgModel.set({id: organization_id});
     this.models.orgModel.fetch();
-    // We have selected a new organization, so now we need to update the watch
-    // GET /api/watch?organization_id=<organization_id>
-    this.collections.watches.fetch({
-      data: $.param({organization_id: organization_id}),
-    });
-    this.collections.events.reset();    
-    // Note: the watchview has an event listener that listens for sync events
-    // from this collection, so when the feth completes, the event will trigger
-    // and the watch view will re-render with the new watches.
+    this.collections.logEntries.reset();
+    this.views.timelineView.render();
+    this.collections.logEntries.fetch({data: {organization_id: organization_id, limit: 20, offset: 0}});
   },
-  watchSelection: function(model) {
-    this.models.watchModel.set({id: model.get('id')});
-    this.models.watchModel.fetch();
-    this.collections.events.fetch({
-      data: $.param({watch_id: model.get('id')}),
+  test: function() {
+    var now = moment().format('MMMM Do YYYY, h:mm:ss a');
+    var log_entry = new LogEntryModel({
+      entry_title: "New Title",
+      entry_description: "This was posted on " + now
     });
-  },
-  newWatch: function(watchModel) {
-    var organization_id = this.models.orgModel.get('id');
-    this.models.watchModel.set({id: watchModel.id});
-    this.models.watchModel.fetch();
-    this.collections.watches.fetch({
-      data: $.param({organization_id: organization_id}),
-    });
-    this.collections.events.fetch({
-      data: $.param({watch_id: watchModel.id}),
-    });
+    log_entry.save();
   }
 });
 // Instantiate the application for this page

@@ -1,0 +1,81 @@
+<!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
+<div class="row">
+	<label> <%= labelText %>
+	</label>	
+</div>
+<div class="row">
+	<select data-width="75%" data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
+		<!-- ARRAY -->	
+		<% if(labelText == "arrays") { %>
+			<% collection.each(function(model) { %>		   
+				<% if (model.get('display_name') != null) { %>
+			    	<option data-subtext="<%=model.get('array_code')%>" 
+			    			filter="<%=model.get('display_name')%>" 
+			    			value="<%=model.get('array_code')%>">
+			    		<%= model.get('display_name') %>
+			    	</option>
+		    	<% } %> 
+			<% }); %>
+
+		<!-- MOORING -->	
+		<% } else if(labelText == "moorings") { %>
+			<% collection.each(function(model) { %>		
+			    <% if (model.get('display_name') != null) { %>			    			    	
+			    	<option data-subtext="<%=model.get('reference_designator')%>"
+			    			arrays-code="<%=model.get('array_code')%>" 
+			    			filter="<%=model.get('display_name')%>" 
+			    			value="<%=model.get('reference_designator')%>">
+			    		<%= model.get('display_name') %>
+			    	</option>			    	
+			    <% } %> 
+			<% }); %>  	
+
+		<!-- PLATFORMS -->	
+		<% } else if(labelText == "platforms") { %>
+			<% collection.each(function(model) { %>		    
+		    	<% if (model.get('display_name') != null ) { %>		    	
+			    	
+			    	<option data-subtext="<%=model.get('platform_code')%>"
+			    			moorings-code="<%=model.get('mooring_code')%>" 
+			    			filter="<%=model.get('display_name')%>" 
+			    			platforms-code="<%=model.get('platform_code')%>" 
+			    			value="<%=model.get('platform_code')%>">
+			    		<%= model.get('display_name') %>
+			    	</option>
+			    <% } %> 
+			<% }); %>   
+			
+		<!-- INSTRUMENTS -->	
+		<% } else if(labelText == "instruments") { %>
+			<% collection.each(function(model) { %>		    
+		    	<% if (model.get('display_name') != null ) { %>		    	 	
+			    	<option data-subtext="<%=model.get('platform_code')%>"
+			    			instruments-code="<%=model.get('instrument_code')%>" 
+			    			filter="<%=model.get('display_name')%>" 
+			    			moorings-code="<%=model.get('mooring_code')%>" 
+			    			platforms-code="<%=model.get('platform_code')%>"
+			    			value="<%=model.get('reference_designator')%>">
+			    		<%= model.get('display_name') %>
+			    		<!--<span class="badge">(<%= model.get('instrument_parameters').length %>)</span>-->
+			    	</option>
+
+			    <% } %> 
+			<% }); %>	
+		<!-- STREAMS || PARAMS -->	
+		<% } else if(labelText == "streams" || labelText == "parameters") { %>
+			<!-- handled differently, i.e on selection -->	
+		<!-- ELSE -->		
+		<% } else { %>
+			
+		<% } %>  
+	</select>
+
+	<!-- ADD ARROWS -->	
+	<% if(labelText != "parameters") { %> 
+		<span class="glyphicon glyphicon-chevron-right" style="color: steelblue;" aria-hidden="true"></span>
+	<% } %>  
+
+</div>
+<!--</div>-->
+
+

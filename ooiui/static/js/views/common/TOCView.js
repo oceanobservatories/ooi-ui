@@ -14,339 +14,226 @@
 var TOCView = Backbone.View.extend({
   events: {   
     'keyup #search-filter' : 'filterToc'
+  },  
+  initialize: function(){
+    _.bindAll(this, "render","add","filterToc");
+    this.subviews = [];    
+    this.arrayViews = [];    
+
+    this.dataIndent = {"mooring":1, "platform":2, "instrument":3}
+    this.initalRender();
+    //this.listenTo(this.collection, "reset", this.render);
   },
-  add: function(arrayModel){
+  initalRender: function(){
+     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>');
+  },
+  getArrayCode: function(model){
+    var array_code = model.get('mooring_code').substr(0,2)
+    return array_code
+  },
+  add: function(model){
+    var self = this;
+
+    var array_body = this.$el.find('#array_'+this.getArrayCode(model)+"_body") 
+
+    var current = parseInt(this.$el.find('#array_'+this.getArrayCode(model)+"_badge").text())  
+    this.$el.find('#array_'+this.getArrayCode(model)+"_badge").text(current+1) 
     
-    var subview = new ArrayItemView({
-      model: arrayModel
+
+    var key_list = Object.keys(this.dataIndent);    
+
+    $(key_list).each(function(index,key) {      
+      var key_body = self.$el.find('#'+key+'_'+model.get(key+'_code')+"_body")       
+     
+      if (key_body.length ==1){
+
+      }else{
+        //create a new one
+        //console.log("need to create the item")
+        //add to the right place
+        var sub_name = model.get(key+'_display_name');
+        var sub_id = key+"_"+model.get(key+'_code')+"_body";
+        var sub_level  = self.dataIndent[key];
+
+        if (sub_name.length < 1){
+          sub_name = model.get(key+'_code')
+        }     
+
+        if (sub_level == 2){
+          var intValue = parseInt(model.get(key+'_code').match(/[0-9]+/)[0], 10);
+          sub_name+= ": "+intValue
+        }  
+
+        var subview = new NestedTocItemView({
+          model: model,          
+          level: sub_level,
+          display_name: sub_name,
+          sub_id: sub_id,          
+          key: key,
+          stream_list:model.get('streams'),
+          variable_list:model.get('instrument_parameters')
+        });
+        self.subviews.push(subview);        
+        subview.render();   
+        
+        if (key == "mooring"){
+          array_body.append(subview.el)  
+        }else if (key == "platform"){
+          self.$el.find('#mooring_'+model.get('mooring_code')+"_body").append(subview.el)
+        }else if (key == "instrument"){                    
+          self.$el.find('#mooring_'+model.get('mooring_code')+"_body " + '#platform_'+model.get('platform_code')+"_body").append(subview.el)
+        }  
+        subview=null;      
+      }
+      
     });
-    this.subviews.push(subview);
-    this.$el.find('ul').append(subview.el);
+
+    //self.$el.find('#instrument_'+model.get('reference_designator')+"_body").append(subview.el);
   },
   filterToc: function(){
     var self = this
   },
-  initialize: function(){
-    _.bindAll(this, "render", "add","filterToc");
-    this.subviews = [];
-    this.listenTo(this.collection, "reset", this.render);
-  },
   template: JST['ooiui/static/js/partials/TOC.html'],
+  renderArrays: function(){
+    var self = this;
+    this.arrayCollection.each(function(model){
+      var arrayview = new ArrayItemView({
+        model: model
+      });      
+      self.$el.find('#array-accordion').append(arrayview.el);
+    });
+  },
   render: function(){
     var self = this;
     this.$el.html(this.template());
-    this.collection.each(function(arrayModel){
-      self.add(arrayModel);
-    });
+    //render the arrays
+    self.renderArrays();
+    this.$el.find('[data-toggle="tooltip"]').tooltip();
+      
+    this.collection.each(function(model){        
+      self.add(model);
+    }); 
+
   }
 });
+
+var ArrayItemView = Backbone.View.extend({  
+  className:"panel panel-default",
+  id:"array_accordion",
+  role:"tablist",  
+  events:{
+    'click a' : 'onClick',
+  },
+  initialize: function(options) {
+    this.render();
+  },
+  onClick: function(e) {    
+    //e.preventDefault();
+    //e.stopPropagation();
+    ooi.trigger('arrayItemView:arraySelect', this.model);
+  },
+  template: JST['ooiui/static/js/partials/ArrayItem.html'],
+  render: function(){
+    this.$el.html(this.template({model: this.model}));
+  }
+})
+
 
 //--------------------------------------------------------------------------------
 //  NestedItemView
 //--------------------------------------------------------------------------------
 
-var NestedItemView = Backbone.View.extend({
-  level: 2,
-  add: function(subview) {
-    this.subviews.push(subview);
-    this.$el.append(subview.el);
+var NestedTocItemView = Backbone.View.extend({  
+  display_name:"",
+  sub_id: "",
+  level:1,
+  key:"", 
+  events:{
+    'click a' : 'onClick',
   },
-  tagName: 'ul',
-  className: 'nav',
-  toggle: function() {    
-    this.$el.collapse('toggle');    
-    if (this.$el.parent().first().find('.toc-arrow').hasClass("fa-rotate-270")){
-        this.$el.parent().first().find('.toc-arrow').removeClass("fa-rotate-270"); 
-    }
-    else{
-        this.$el.parent().first().find('.toc-arrow').addClass("fa-rotate-270");  
-    }
-
-  },
+  stream_list:[],
+  variable_list:[],
   initialize: function(options) {
-    if(options && options.level) {
-      this.level = options.level;
+    var self = this;
+    if(options && options.level && options.key) {
+      self.level = options.level;
+      self.key = options.key;
     }
-    this.subviews = [];
-    this.render();
-  },
-  render: function(){
-    if(this.level == 2) {
-      this.$el.toggleClass('sidebar-nav-second-level');
-    } else if(this.level == 3) {
-      this.$el.toggleClass('sidebar-nav-third-level');
-    } else if(this.level == 4) {
-      this.$el.toggleClass('sidebar-nav-third-level');
+    if(options && options.display_name) {
+      self.display_name = options.display_name;
     }
-    this.$el.collapse('show');
-  }
-});
-
-//--------------------------------------------------------------------------------
-//  ArrayItemView
-//--------------------------------------------------------------------------------
-
-var ArrayItemView = Backbone.View.extend({  
-  tagName: 'li',
-  initialize: function() {
-    this.nestedView = new NestedItemView();
-    this.model.set('reference_designator', this.model.get('array_code'));
-    this.render();
-  },
+    if(options && options.sub_id) {
+      self.sub_id = options.sub_id;
+    } 
+    if(options && options.stream_list) {
+      self.stream_list = options.stream_list;
+    }
+    if(options && options.variable_list) {
+      self.variable_list = options.variable_list;
+    }
+    
+  },  
+  template: JST['ooiui/static/js/partials/NestedTocItem.html'],
   onClick: function(e) {
-    var self = this;
-    var target = $(e.target);
-
-    e.preventDefault();
-    e.stopPropagation();
-    if(this.model.platformDeployments.length == 0) {      
-      target.find('.toc-arrow').addClass("fa-rotate-270"); 
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
-      target.prop( "disabled", true );
-      self.tg = target;
-      this.model.platformDeployments.fetch({
-        success: function(collection, response, options) {
-          //save more than one request
-          //if(self.el.childElementCount == 2){
-            self.renderPlatforms(); 
-            self.tg.prop( "disabled", false );
-            self.tg.find(".s").remove();
-          //}
-        },
-        reset: true
-      });
-    } else {
-      this.nestedView.toggle();
-      
+    e.stopPropagation();    
+    this.toggle(e);
+    if(this.level == 1){
+      ooi.trigger('platformDeploymentItemView:platformSelect', this.model);  
     }
-    ooi.trigger('arrayItemView:arraySelect', this.model);
+    else if(this.level ==2){
+      ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
+    }
+    else if(this.level ==3){
+      console.log(this.model); 
+    }
   },
-  template: JST['ooiui/static/js/partials/ArrayItem.html'],
-  render: function(){
-    var self = this;
-    //console.log(self.platformType)
-    this.$el.html(this.template({data: this.model}));
-  },
-  renderPlatforms: function() {
-    var self = this;
+  toggle: function(e) {    
+    var self = this
     
-    this.$el.find(".badge").text(this.model.platformDeployments.length)
-    //this.$el.find(".badge").toggleClass("hidden")
+    var current = this.$el.find("ul a #"+(self.level)+"_icon")
+    this.$el.find('#'+self.sub_id).collapse('toggle')
 
-    this.model.platformDeployments.each(function(platformModel,i,list){      
-      self.add(platformModel);
-    });
-    this.$el.append(this.nestedView.el);
-  },
-  add: function(platformModel){    
-    var subview = new PlatformDeploymentItemView({
-      model: platformModel
-    });
-    //console.log(platformModel)
-    //search for ref deg, and modify the top level parent
-    var ref_deg = platformModel.attributes.ref_des
-    //console.log(ref_deg)
-    if (subview.platformType == "parent-platform"){
-      var platformDeploymentsSubset = this.model.platformDeployments.filter(function(model) { 
-        return _.any([model.attributes.ref_des], function(v) {
-        //return _.any([model.attributes.reference_designator], function(v) {
-          var vv = v.indexOf(ref_deg)!= -1;;          
-          return vv
-        });                  
-      });
-      //update the badge
-      subview.$el.find(".badge").text(platformDeploymentsSubset.length-1)
-      //subview.$el.find(".badge").toggleClass("hidden")
-    }
-
-    this.nestedView.add(subview);
-  },
-  events: {
-    'click a' : 'onClick' 
-  }
-});
-
-//--------------------------------------------------------------------------------
-//  PlatformDeploymentItemView
-//--------------------------------------------------------------------------------
-
-var PlatformDeploymentItemView = Backbone.View.extend({
-  tagName:'li',  
-  initialize: function(){
-    var self = this;
-    _.bindAll(this, "render", "onClick");
-    this.nestedView = new NestedItemView({
-      level: 3
-    });
-    this.modifyDisplayName();
-    this.render();
-  },
-  add: function(instrumentModel) {
-    var subview = new InstrumentDeploymentItemView({
-      model: instrumentModel
-    });
-    this.nestedView.add(subview);
-  },
-  events: {
-    'click a' : 'onClick' 
-  },
-  modifyDisplayName: function() {
-    var self = this;
-    var display_name = this.model.get('display_name') || "";
-    if(display_name.indexOf('-') >= 0) {
-      var items = display_name.split(' - ');
-      this.model.set('display_name', items[items.length - 1]);
-      self.platformType = "child";
-    } else {
-      this.$el.toggleClass('parent-platform');
-      self.platformType = "parent-platform";      
-    }
-  },
-  onClick: function(e) {
-    var self = this;
-    var target = $(e.target)        
-    
-    e.preventDefault();
-    e.stopPropagation();
-
-    if(this.model.assetDeployments.length == 0) {
-      target.find('.toc-arrow').addClass("fa-rotate-270"); 
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
-      target.prop( "disabled", true );
-      self.tg = target;
-
-      /*var ArrayplatformCollection = Backbone.Collection.extend({
-        url: '/api/c2/array/'+this.model.attributes.array_code+'/current_status_display'
-      });
-      var platformCollection = new ArrayplatformCollection();*/
-
-      //This sets the id to be set to the get request, but nothing returning now
-      this.model.attributes['id']= this.model.get('assetId');
-      this.model.assetDeployments.fetch({
-        success: function(collection, response, options) {
-          self.renderInstruments();
-          self.tg.prop( "disabled", false );
-          self.tg.find(".s").remove();
-        },
-        reset: true
-      });
-    } else {
-      this.nestedView.toggle();      
-    }
-
-    ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
-    
-    /*if(this.model.get('coordinates')){
-      var loc = this.model.get('coordinates')
-      //loc = loc.coordinates
-      var locat= [loc[1],loc[0]]
-      ooi.models.mapModel.set({mapCenter: locat})
-    }
-    if(this.model.get('display_name')){
-      //update the glider track
-      if (this.model.get('display_name').indexOf('Glider') > -1){
-        ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),true);
-      }
+    if (current.hasClass("fa-rotate-90")){
+        current.removeClass("fa-rotate-90"); 
+        //this.$el.find("ul ."+(self.level+1)+"_item_content").removeClass("in")
     }
     else{
-      ooi.views.mapView.update_track_glider(this.model.get('reference_designator'),false);
-    }*/
-  },  
-
-  template: JST['ooiui/static/js/partials/PlatformItem_AA.html'],
-  render: function(){
-    var self = this;
-    this.model.set('reference_designator', this.model.get('ref_des'));
-    this.$el.html(this.template({data: this.model,type:self.platformType}));
-  },
-  renderInstruments: function() {
-    var self = this;
-    if (self.platformType == "child"){
-      this.$el.find(".badge").text(this.model.assetDeployments.length)      
+        current.addClass("fa-rotate-90");  
+        //this.$el.find("ul ."+(self.level+1)+"_item_content").addClass("in")
     }
 
-    this.model.assetDeployments.each(function(instrumentModel) {
-      self.add(instrumentModel);
-    });
-    this.$el.append(this.nestedView.el);
-  }
-});
+    if (self.level ==3 ){
+      self.instrumentSelect();
+    }
 
-//--------------------------------------------------------------------------------
-//  InstrumentDeploymentItemView
-//--------------------------------------------------------------------------------
+  },
+  instrumentSelect: function(){
+    ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
+  },
+  render: function(){
+    var self = this;
+    var plottingLink = ""
+    if(this.level == 3) {      
+      var mooring = self.model.get('mooring_code')
+      var array = mooring.substr(0,2)      
+      var platform = self.model.get('platform_code')      
+      var ref = self.model.get('reference_designator')
+      plottingLink = array+"/"+mooring+"/"+platform+"/"+ref
+      var plottingLink = window.location.protocol + '//' + window.location.host+"/plotting/"+plottingLink
+    }
 
-var InstrumentDeploymentItemView = Backbone.View.extend({
-  events: {
-    'click a' : 'onClick'
-  },
-  add: function(streamModel) {
-    var subview = new StreamItemView({
-      model: streamModel
-    });
-    this.nestedView.add(subview);
-  },
-  tagName: 'li',
-  initialize: function() {
-    this.nestedView = new NestedItemView({
-      level: 4
-    });
-    this.streams = new StreamCollection();
-    this.render();
-  },
-  onClick: function(e) {
-    var self = this;
-    var target = $(e.target);
-    e.preventDefault();
-    e.stopPropagation();
-    /*if(this.streams.length == 0) {
-      target.prepend("<i class='fa fa-spinner fa-spin s'></i>"); 
-      target.prop( "disabled", true );
-      self.tg = target;
-      this.streams.fetch({
-        data: $.param({reference_designator: this.model.get('reference_designator')}),
-        success: function(collection, response, options) {
-          self.renderStreams();
-
-          self.tg.prop( "disabled", false );
-          self.tg.find(".s").remove();
-        },
-        reset: true
-      });
-    }*/
-    ooi.trigger('instrumentDeploymentItemView:instrumentSelect', this.model);
-  },
-  template: JST['ooiui/static/js/partials/InstrumentItem_AA.html'],
-  render: function() {
-    var self = this;
-    this.$el.html(this.template({data: this.model}));
-  },
-  renderStreams: function() {
-    var self = this;
-    this.streams.each(function(streamModel) {
-      self.add(streamModel);
-    });
-    this.$el.append(this.nestedView.el);
-  }
-});
-
-var StreamItemView = Backbone.View.extend({
-  tagName: 'li',
-  className: 'stream-item',
-  events: {
-    'click a' : 'onClick'
-  },
-  initialize: function() {
-    this.render();
-  },
-  onClick: function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    ooi.trigger('streamItemView:streamSelect', this.model);
-  },
-  template: JST['ooiui/static/js/partials/StreamItem.html'],
-  render: function() {
-    var self = this;
-    this.$el.html(this.template({data: this.model}));
+    self.$el.html(self.template({plottingLink:plottingLink,display_name: self.display_name,sub_id : self.sub_id, key:self.key ,level: self.level}));
+    
+    if(this.level == 1) {
+      self.$el.toggleClass('sidebar-nav-first-level');
+      //this.$el.collapse('show');
+    } else if(this.level == 2) {
+      self.$el.toggleClass('sidebar-nav-second-level');
+      //self.$el.find(self.key+"_item_content").addClass("collapse") 
+    } else if(this.level == 3) {
+      self.$el.toggleClass('sidebar-nav-third-level');
+      self.$el.find(self.key+"_item_content").addClass("collapse")
+      //add popover
+    }    
   }
 });

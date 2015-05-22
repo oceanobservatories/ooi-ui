@@ -25,8 +25,8 @@
 }
 .okIssueBtn {
     background: #006eff;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     padding-bottom: 10px;
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
@@ -35,8 +35,8 @@
 }
 .issueIssueBtn {
     background: #FFE944;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     padding-bottom: 10px;
     border: 1px solid #6E6E6C;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
@@ -45,8 +45,8 @@
 }
 .errorIssueBtn {
     background: #E03D2C;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     padding-bottom: 10px;
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
@@ -55,8 +55,8 @@
 }
 .unknownIssueBtn {
     background: #5e5e5e;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     padding-bottom: 10px;
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);

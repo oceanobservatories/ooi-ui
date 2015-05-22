@@ -112,7 +112,7 @@
 <% } %>
 
 <!-- Dog Tag Buttons -->  
-<div class="<%= backgound %>" data-toggle="modal" data-target="#myModal<%= asset %>">
+<div class="<%= backgound %>" style='cursor:pointer;' data-toggle="modal" data-target="#myModal<%= asset %>">
     <h5 class="dogTagHeader"><%= model.get('display_name') %></h5>
     <h5 class="platform-tile-title dogTagBody"><%= model.get('assetInfo')['type'] %></h5>
     <h5 class="platform-tile-title dogTagBody">Asset ID:&nbsp;&nbsp;<%= model.get('assetId') %></h5>
@@ -193,7 +193,8 @@
 
                 <!--MODAL FOOTER-->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id='plot_status'><i class="fa fa-bar-chart">  </i> Plot</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

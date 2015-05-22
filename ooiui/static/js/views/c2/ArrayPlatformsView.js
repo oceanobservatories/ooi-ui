@@ -94,7 +94,7 @@ var ArrayPlatformsView = Backbone.View.extend({
           cell: HtmlCell,
           formatter: _.extend({}, Backgrid.Cell.prototype, {
             fromRaw: function (rawValue, model) {
-               return "<i id='plat_mission_icon' style='font-size:19px;color:#A9A9A9;float:right;padding-right: 30px;' class='fa fa-toggle-off'></i>";
+               return "<button type='button' style='float:right' id='plat_mission_icon' class='btn btn-default'><i style='font-size:19px;color:#A9A9A9;float:right;pointer-events: none;' class='fa fa-toggle-off'></i></button>";
             }
           }),
       }
@@ -121,7 +121,8 @@ var ArrayPlatformsView = Backbone.View.extend({
 
               this.CommandView.show({
                 message: "<i>None at this time</i>",
-                command_options: "<i style='color:#337ab7;' class='fa fa-spinner fa-spin fa-5x'></i>",
+                parameter_options: "",
+                command_options: "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-3x'></i>",
                 variable: this.model.attributes.reference_designator,
                 title: this.model.attributes.display_name,
                 ctype: "platform",

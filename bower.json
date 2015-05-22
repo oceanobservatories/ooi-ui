@@ -29,7 +29,7 @@
     "fancytree": "~2.4.1",
     "font-awesome": "~4.2.0",
     "jquery-ui": "~1.11.2",
-    "bootstrap-switch": "~3.2.2",
+    "bootstrap-switch": "~3.3.2",
     "backbone": "~1.1.2",
     "backbone-validation": "~0.9.1",
     "backbone.stickit": "~0.8.0",
@@ -43,11 +43,12 @@
     "bootstrap-select": "~1.6.3",
     "backlunr": "https://github.com/mpneuried/backlunr.git#~0.2.2",
     "lunr.js": "~0.5.7",
-    "bootstrap-switch":"~3.3.2",
-    "bootstrap-table":"1.6.0",
-    "jquery.browser":"~0.0.7",
-    "bootstrap-editable-table":"~0.2.13",
-    "jqtree":"~1.0.0"
+    "bootstrap-table": "1.6.0",
+    "jquery.browser": "~0.0.7",
+    "bootstrap-editable-table": "~0.2.13",
+    "jqtree": "~1.0.0",
+    "x-editable": "~1.5.1",
+    "showdown": "~0.5.0"
   },
   "resolutions": {
     "jquery": "~2.1.1",

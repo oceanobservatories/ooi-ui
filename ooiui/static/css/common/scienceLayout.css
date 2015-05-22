@@ -1,4 +1,7 @@
-      .dpa-function-variable {
+    .fa-spinner{
+      color:#337ab7;
+    }
+    .dpa-function-variable {
       font-style: italic;
       font-weight: bold !important;
     }
@@ -71,35 +74,7 @@
 
 
     /* Sidebar Styles */
-    .sidebar-nav {
-        position: absolute;
-        top: 0;
-        width: 350px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .sidebar-nav li {
-        /* box height*/
-        line-height: 15px; 
-    }
-
-    .sidebar-nav li a {
-        display: block;
-        text-decoration: none;
-        /*color: #999999;*/
-    }
-
     /*main side bar components,  thick lines between items*/
-    .sidebar-nav ul{
-        border-bottom: 2px solid #e7e7e7;
-    }
-
-    .sidebar-nav li{
-        border-bottom: 2px solid #e7e7e7;
-    }
-
 
     .sidebar-nav li a:focus {
         text-decoration: none;
@@ -127,19 +102,17 @@
     }
 
     /*  LEVELS   */
-    .sidebar-nav .sidebar-nav-second-level li,
-    .sidebar-nav .sidebar-nav-third-level li {
+    .sidebar-nav .sidebar-nav-second-level,
+    .sidebar-nav .sidebar-nav-third-level {
         border-bottom: 0!important;
     }
 
-    .sidebar-nav .sidebar-nav-second-level li a {
+    .sidebar-nav .sidebar-nav-second-level{
         padding-left: 17px;
-        border-bottom: 1px solid #e7e7e7;
     }
 
-    .sidebar-nav .sidebar-nav-third-level li a {
+    .sidebar-nav .sidebar-nav-third-level {
         padding-left: 22px;
-        border-bottom: 1px solid #e7e7e7;
     }
 
     /*  content sizes   */

@@ -34,6 +34,9 @@ var ArraySidebarView = Backbone.View.extend({
     //var array_id = parseInt($(event.target).attr('data-id'));
     var array_id = $(event.target).attr('data-id');
     var disp_name = event.target.text;
+    if(disp_name == undefined){
+        disp_name = event.target.parentElement.text;
+    }
     if(event.target.id == "mission_link"){
       //command trigger
       this.MissionView = new MissionDialogView();
@@ -61,7 +64,6 @@ var ArraySidebarView = Backbone.View.extend({
     var self = this;
     this.collection.fetch({
       success: function(collection, response, options) {
-        console.log('success');
         // If the fetch was successful, then we render
         //self.collection = response.arrays;
         self.render();
