@@ -1,7 +1,11 @@
 body {
   font-weight: 300;
 }   
-
+a {
+	text-decoration: none;
+  color: black;
+  background-color: transparent;
+}
 p { 
   font-weight: 300;
 }
@@ -269,6 +273,10 @@ div#headingOne {
   text-decoration: none;
 }
 
+div#headingOne.collapsed {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+}
+
 .panel-title > a {
   text-decoration: none;
 }
@@ -282,9 +290,6 @@ div#headingOne {
 }
 */
   
-div#headingOne.collapsed {
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-}
 
 .collapse.in {
   background: #E9E9E9;
@@ -294,13 +299,32 @@ div#headingOne.collapsed {
 ***** First Level *****
 **********************/
 .sidebar-nav-first-level {
+	background-color: #6080A1;
+  border-radius: 5px;
+	border: 1px solid #7E9CD9
+}
+
+.sidebar-nav-first-level:hover {
+	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
+  border-radius: 5px;
+	border:1px solid white;
+}
+
+
+.sidebar-nav-first-level > ul.nav.sidebar-nav > a:hover,
+.sidebar-nav-first-level > ul.nav.sidebar-nav > a:focus,
+.sidebar-nav-first-level > ul.nav.sidebar-nav > a:active {
+	color: #000;
+}
+/*.sidebar-nav-first-level {
   background-image:linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
   background-image:-webkit-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
   background-image:-o-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
   background-image:-ms-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
   background-image:-webkit-gradient(linear, right bottom, left bottom, color-stop(0%,#353840), color-stop(50%,#7E9CD9),color-stop(100%,#353840));
   border: 1px solid silver;
-}
+}*/
+
 
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a {
   color: #FFF;
@@ -318,10 +342,12 @@ div#headingOne.collapsed {
 ***** Second Level *****
 ***********************/
 .sidebar-nav-second-level {
-  background-image: #FFF;
+/*accordian background*/
+	background-color: #FFF;
 }
 
 .sidebar-nav-second-level > ul.nav.sidebar-nav > a {
+	/*accordian text*/
   color: #353840;
   font-size: 14px;
   text-decoration: none;
@@ -330,23 +356,49 @@ div#headingOne.collapsed {
 /**********************
 ***** Third Level *****
 **********************/
+	 /*accordian background*/	
 .sidebar-nav .sidebar-nav-third-level {
   background: #FFF;
   border: 1px solid silver;
   border-radius: 25px;
-    
 }  
-
+/*accordian text*/	
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a {
   color: #353840;
   font-size: 14px;
   text-decoration: none; 
 }
+/*link text*/	
+.sidebar-nav-third-level > ul.nav.sidebar-nav > a:hover {
+	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
+  border-radius: 5px;
+	border:1px solid white;
+	color: #000;	
+}
+/*dropdown button(caret)
+button.btn.btn-default.btn-xs.dropdown-toggle:hover {
+	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
+}*/ 
 
-/* ~accordion dropdown~ */
-button.btn.btn-default.btn-xs.dropdown-toggle {
-  background: white;
-  border: none
+/*dropdown menu item(plot)*/
+ul.dropdown-menu {
+	background: #fff;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+ul.dropdown-menu:hover {
+  color: #353840;
+  background: linear-gradient(rgba(255,255,255,1), rgba(216, 221, 230, 1));
+  border-bottom: 1px solid transparent;
+}
+ul.dropdown-menu > a:hover {
+  text-decoration: none;
+  color: black;
+  background-color: transparent;
 }
 
 /**********************
