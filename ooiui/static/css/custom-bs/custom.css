@@ -382,7 +382,7 @@ button.btn.btn-default.btn-xs.dropdown-toggle:hover {
 }*/ 
 
 /*dropdown menu item(plot)*/
-ul.dropdown-menu {
+ul#plot-dd {
 	background: #fff;
   padding: 3px 20px;
   clear: both;
@@ -391,12 +391,12 @@ ul.dropdown-menu {
   color: #333;
   white-space: nowrap;
 }
-ul.dropdown-menu:hover {
+ul#plot-dd:hover {
   color: #353840;
   background: linear-gradient(rgba(255,255,255,1), rgba(216, 221, 230, 1));
   border-bottom: 1px solid transparent;
 }
-ul.dropdown-menu > a:hover {
+ul#plot-dd > a:hover {
   text-decoration: none;
   color: black;
   background-color: transparent;
@@ -443,7 +443,46 @@ ul.dropdown-menu > a:hover {
 	background-repeat: no-repeat;
 	color: #004773;
 }
+/*needs work*/
+.btn-default {
+  background: #7E9CD9;
+  background-image: linear-gradient(to bottom, #7E9CD9, #7E9CD9);
+  border-radius: 5px;
+  color: #000;
+  font-size: 14px;
+  padding: 5px 8px 5px 8px;
+  border: solid #1f628d 1.5px;
+  text-decoration: none;
+}
 
+.btn-default:hover {
+  background: #3cb0fd;
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+/* ~dropdown toggle~ */    
+.btn.dropdown-toggle {
+	background-color: #A3A7BF;
+	height: 25px;
+  padding-top: 1px;
+  padding-left: 8px;
+  border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+	font-weight: 300;
+  text-decoration: none;
+}
+
+.dropdown-menu {
+	background: #fff;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
 
 /**********************
 ****** Search Bar *****
