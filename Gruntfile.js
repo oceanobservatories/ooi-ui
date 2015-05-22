@@ -562,6 +562,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
             'ooiui/static/lib/bootstrap-switch/dist/js/bootstrap-switch.js',
+            'ooiui/static/js/core/common/paginate.js',
             //'ooiui/static/lib/lunr.js/lunr.js',
             'ooiui/static/lib/backlunr/backlunr.js',
             // App

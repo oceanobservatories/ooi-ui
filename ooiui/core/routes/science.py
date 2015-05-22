@@ -46,9 +46,18 @@ def event_new(new,aid,aclass):
     return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
 
 @app.route('/streams')
-@app.route('/streams/')
 def streams_page():
     return render_template('science/streams.html')
+
+@app.route('/plotting', methods=['GET'])
+@app.route('/plotting/', methods=['GET'])
+def show_plotting_no_path():
+    return plotting_page(None)
+
+@app.route('/plotting/<path:path>', methods=['GET'])
+def plotting_page(path):
+    print path
+    return render_template('science/plotting.html')
 
 @app.route('/getdata/')
 def getData():
@@ -212,7 +221,7 @@ def get_profiles(stream_name, reference_designator):
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
 def get_plotdemo(instrument, stream):
     token = get_login()
-    import time    
+    import time
     t0 = time.time()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()
