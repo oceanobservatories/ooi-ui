@@ -1,18 +1,11 @@
-body {
+body,
+h1, h2, h3, h4, h5, h6, 
+a, p {
   font-weight: 300;
+	color: #004773;
+	background-color: transparent;
+		
 }   
-a {
-	text-decoration: none;
-  color: black;
-  background-color: transparent;
-}
-p { 
-  font-weight: 300;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
-}
 
 /* ~placeholder style~ */
 ::-webkit-input-placeholder {
@@ -301,15 +294,17 @@ div#headingOne {
 .sidebar-nav-first-level {
 	background-color: #6080A1;
   border-radius: 5px;
-	border: 1px solid #7E9CD9
 }
 
 .sidebar-nav-first-level:hover {
 	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
   border-radius: 5px;
-	border:1px solid white;
 }
 
+.sidebar-nav-first-level > ul.nav.sidebar-nav {
+	border-bottom: 1px solid #7E9CD9;
+	border-radius:5px;
+}
 
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:hover,
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:focus,
@@ -324,7 +319,6 @@ div#headingOne {
   background-image:-webkit-gradient(linear, right bottom, left bottom, color-stop(0%,#353840), color-stop(50%,#7E9CD9),color-stop(100%,#353840));
   border: 1px solid silver;
 }*/
-
 
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a {
   color: #FFF;
@@ -343,7 +337,12 @@ div#headingOne {
 ***********************/
 .sidebar-nav-second-level {
 /*accordian background*/
-	background-color: #FFF;
+	background-color: #E9E9E9;
+}
+
+.sidebar-nav-second-level > ul.nav.sidebar-nav {
+	border-bottom: 1px solid #FFF;
+	border-radius:5px;
 }
 
 .sidebar-nav-second-level > ul.nav.sidebar-nav > a {
@@ -352,7 +351,9 @@ div#headingOne {
   font-size: 14px;
   text-decoration: none;
 }
-
+ul.nav.sidebar-nav > div 	{
+	background: ##E9E9E9;
+}
 /**********************
 ***** Third Level *****
 **********************/
@@ -405,34 +406,58 @@ ul.dropdown-menu > a:hover {
 ******* Buttons *******
 **********************/
 /* ~primary~ */    
-.btn-primary {
+/*.btn-primary {
   border-color:  #7E9CD9 ;
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.2), rgba(255,255,255,0));
   color: #000;
-}
-
-.btn-primary:hover,
+	}
+	
+	.btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .open .dropdown-toggle.btn-primary {
   border-color:  #7E9CD9 ;
   color: #000;
+}*/
+
+.btn-primary {
+  background-image: -webkit-linear-gradient(top, #ffffff, #7E9CD9 );
+  background-image: -moz-linear-gradient(top, #ffffff, #7E9CD9 );
+  background-image: -ms-linear-gradient(top, #ffffff, #7E9CD9 );
+  background-image: -o-linear-gradient(top, #ffffff, #7E9CD9 );
+  background-image: linear-gradient(to bottom, #ffffff, #7E9CD9 );
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+	font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  border: solid #5578D9 1.5px;
+  text-decoration: none;
 }
+.btn.btn-primary:hover {
+	background: #8DA2E4;
+	background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.7),  rgba(126, 156, 217,.0));
+  text-decoration: none;
+	background-repeat: no-repeat;
+	color: #004773;
+}
+
 
 /**********************
 ****** Search Bar *****
 **********************/
- /* ~input-group~ */
-  .input-group.custom-search-form {
+/* ~input-group~ */
+.input-group.custom-search-form {
     border: 1px solid #7E9CD9;
   }
-
+/* ~search btn~ */
 .btn-search {
   border-top: 1px solid #FFF;
   border-bottom: 1px solid #FFF;
   background: #F09349;  
 }
-
 .btn-search:hover,
 .btn-search:focus,
 .btn-search:active {
@@ -443,17 +468,27 @@ ul.dropdown-menu > a:hover {
   padding:0 0 15px 0;
 }
 
-.btn-reset{
-  color: #FFF;
+/* ~reset btn~ */
+button.btn.btn-primary.btn-reset.btn-reset{
+  color: #F4F4F4;
   font-weight: normal;
   letter-spacing: 2px;
   border-top: 1px solid #FFF;
-  border-bottom: 1px solid #FFF;
+  border-bottom: 0px solid #FFF;
   border-right: 1px solid #FFF;
   border-left: none;
-  background: #7E9CD9;  
 }
-
+button.btn.btn-primary.btn-reset:focus {
+	background: #8DA2E4;
+	background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.7),  rgba(126, 156, 217,.0));
+	color: #F4F4F4;
+  font-weight: normal;
+  letter-spacing: 2px;
+  border-top: 1px solid #FFF;
+  border-bottom: 0px solid #FFF;
+  border-right: 1px solid #FFF;
+  border-left: none;
+}
 
 
 
