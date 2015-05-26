@@ -33,6 +33,7 @@
                       <div class="panel-body">
                           <div id="stream-table-view">
                               <table  class="table table-bordered table-striped table-selectable">
+                                  <i  class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
                                   <thead>
                                   </thead>
                               </table>
@@ -161,7 +162,7 @@ var collection = new StreamCollection();
 // The pagination object holds information about the current
 // state of the page for us.
 var pagination = {
-    itemsPerPage : 10, // how many items per page
+    itemsPerPage : 7, // how many items per page
     currentPage : 1, // page to start at, first page is 1, not 0
     maxPages: 10 // max number of pages to show in the pagination element
 }
@@ -181,7 +182,6 @@ $(document).ready(function() {
                 updateCollection( showStreams )
             });
         $('body').find('#hideTOC').hide()
-
 });
 
 function jump(h){
@@ -200,15 +200,24 @@ function showStreams( collection, response ){
 
 // Empty the table and append the new results.
         $(".table").find("tbody").remove().end();
+        $(".fa-spinner").remove();
         $(".table").append( streamTableView.el );
     }
 
 function updateCollection( successCallback ){
 
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    var startingPoint = "";
+    if ($('#stream-search').is(':focus')) {
+        startingPoint = 0;
+    } else {
+        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
+    }
     // Pagination attributes will be passed in using
     // backbone's collection data method.
     var data = {
-        startAt : ( pagination.currentPage - 1) *  pagination.itemsPerPage,
+        startAt : startingPoint,
         count : pagination.itemsPerPage,
         search : $('#stream-search').val()
     };
@@ -246,12 +255,6 @@ function updatePagination( details, successCallback ){
                 updateCollection( successCallback );
             }
         }
-    });
-    
-    // Disable the baxes until the page is finished.
-    $("ul.pagination").children().attr('disabled',true);
-    $('ul.pagination .disabled a, .pagination .active a').on('click', function(e) {
-                e.preventDefault();
     });
 }
 </script>
