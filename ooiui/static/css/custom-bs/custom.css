@@ -81,6 +81,22 @@ div#wrapper-asset {
   list-style: none;
 }
 
+.logo-center {
+  color: #000;
+  opacity: 0.3;
+  font-size: 53px;
+  font-family: Athelas W01 Regular;
+  float: left;
+  list-style: none;
+  padding-left: 30%;
+  padding-top: 5px;
+	display: inline;
+}
+.text-body {
+  display: inline;
+  color: #000;
+}
+
 /***********************
 ******** Navbar ********
 ***********************/
