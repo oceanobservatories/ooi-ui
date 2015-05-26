@@ -34,7 +34,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     localModel.set('end', endDate);
 
     var url = localModel.getURL(selection);
-    window.location.href = url;
+    window.open(url, '_blank');
+//    window.location.href = url;
     this.hide();
   },
   failure: function() {
