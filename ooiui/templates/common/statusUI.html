@@ -90,9 +90,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
       });
 
         this.collections.operatorEventTypes.fetch();
-        this.views.navbar = new NavbarView();
-        $('body').prepend(this.views.navbar.el);
-
+       
         if(this.login.loggedIn()) {
             this.models.userModel.fetch({url: '/api/current_user'});
         }
