@@ -239,7 +239,6 @@ backgound-color: #A3A7BF;
   color: #fff;
 }
 
-
 /*breaks everything*/
 div#aa-panel {
   border: none;
@@ -300,7 +299,6 @@ div#headingOne {
 }
 */
   
-
 .collapse.in {
   background: #E9E9E9;
 } 
@@ -467,7 +465,6 @@ btn-success {
 	line-height: .9;
 }
 
-
 /*needs work*/
 .btn-default {
   color: #004773;
@@ -525,7 +522,6 @@ button.btn.btn-success.dropdown-toggle {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
 	line-height: 1;
 }
-
 
 button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
 	line-height: 1;
