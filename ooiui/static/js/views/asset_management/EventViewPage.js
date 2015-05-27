@@ -95,34 +95,16 @@ var EventViewPage = Backbone.View.extend({
                  $('#depth_e').val('');
               }
               if(event.attributes.startDate){
-                if(String(event.attributes.startDate).search('Z')>-1){
-                  var dobj = String(event.attributes.startDate).split('Z')
-                  var l_date = Date.parse(dobj[0]);
-                }
-                else if(!isNaN(event.attributes.startDate)){
-                  var l_date = new Date(event.attributes.startDate*1000);
-                }
-                else{
-                  var l_date = Date.parse(event.attributes.startDate);
-                }
-                $("#startdate_d" ).datepicker( "setDate", l_date);
+                var eventStartDate = event.attributes.startDate;
+                $("#startdate_d" ).val(eventStartDate);
               }
               else{
                  $("#startdate_d" ).datepicker( "setDate", '' );
               }
 
               if(event.attributes.endDate){
-                if(String(event.attributes.endDate).search('Z')>-1){
-                  var dobj2 = String(event.attributes.endDate).split('Z')
-                  var l_date = Date.parse(dobj2[0]);
-                }
-                else if(!isNaN(event.attributes.endDate)){
-                  var l_date = new Date(event.attributes.endDate*1000);
-                }
-                else{
-                  var l_date = Date.parse(event.attributes.endDate);
-                }
-                $("#enddate_d" ).datepicker( "setDate", l_date);
+                  var eventEndDate = event.attributes.endDate;
+                $("#enddate_d" ).val(eventEndDate);
               }
               else{
                  $("#enddate_d" ).datepicker( "setDate", '' );
@@ -187,24 +169,6 @@ var EventViewPage = Backbone.View.extend({
 
     initializeEvent:function(){
         var self = this;
-        //datepickers with min/max validation
-        $( "#startdate_d" ).datepicker({
-          changeMonth: true,
-          numberOfMonths: 2,
-          maxDate: "+1m +1w",
-          onClose: function( selectedDate ) {
-            $( "#enddate_d" ).datepicker( "option", "minDate", selectedDate );
-          }
-        });
-        $( "#enddate_d" ).datepicker({
-          changeMonth: true,
-          numberOfMonths: 2,
-          maxDate: "+1m +1w",
-          onClose: function( selectedDate ) {
-            $( "#startdate_d" ).datepicker( "option", "maxDate", selectedDate );
-          }
-        });
-
         //asset type switcher
         $('#type_switcher_but').dropdown();
         $('#type_switcher_but_val').on('click', function(e) {
