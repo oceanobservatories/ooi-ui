@@ -41,22 +41,13 @@ var StreamTableView = Backbone.View.extend({
         label : 'End<br>Time'
       }
   ],
+  tagName: 'tbody',
   initialize: function() {
     _.bindAll(this, "render");
     this.listenTo(this.collection, 'reset', this.render);
+    this.collection.on("add", this.addOne, this);
   },
   template: JST['ooiui/static/js/partials/StreamTable.html'],
-  search: function(searchTerm) {
-    var self = this;
-    this.$el.html(this.template({collection: this.collection, columns: this.columns}));
-    _.each(this.collection.search(searchTerm), function(model) {
-      var streamTableItemView = new StreamTableItemView({
-        columns: self.columns,
-        model: model
-      });
-      self.$el.find('tbody').append(streamTableItemView.el);
-    });
-  },
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
@@ -65,7 +56,7 @@ var StreamTableView = Backbone.View.extend({
         columns: self.columns,
         model: model
       });
-      self.$el.find('tbody').append(streamTableItemView.el);
+      self.$el.append(streamTableItemView.el);
     });
   }
 });
@@ -95,7 +86,8 @@ var StreamTableItemView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/StreamTableItem.html'],
   render: function() {
-    this.$el.html(this.template({model: this.model, columns: this.columns}));
+      var attributes = this.model.toJSON();
+    this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns}));
   },
   onRowClick: function(event) {
     event.stopPropagation();
