@@ -185,11 +185,11 @@ div#wrapper-asset {
 }
 
 .nav > li > a {
-  color: #000;
+  color: #004773;
 }
 
 .navbar-text > a {
-  color: #000;
+  color: #004773;
   text-decoration: none;
 }
 
@@ -404,7 +404,7 @@ ul#plot-dd {
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  line-height: 1.42857143;
+  line-height: 1;
   color: #333;
   white-space: nowrap;
 }
@@ -452,6 +452,7 @@ ul#plot-dd > a:hover {
   padding: 5px 8px 5px 8px;
   border: solid #5578D9 1.5px;
   text-decoration: none;
+	line-height: .9; 
 }
 .btn.btn-primary:hover {
 	background: #8DA2E4;
@@ -460,35 +461,54 @@ ul#plot-dd > a:hover {
 	background-repeat: no-repeat;
 	color: #004773;
 }
+
+btn-success {
+  background-image: linear-gradient(to bottom, #4fd934, #298c29);
+	line-height: .9;
+}
+
+
 /*needs work*/
 .btn-default {
-  background: #7E9CD9;
-  background-image: linear-gradient(to bottom, #7E9CD9, #7E9CD9);
-  border-radius: 5px;
-  color: #000;
+  color: #004773;
+	border-radius: 5px;
   font-size: 14px;
   padding: 5px 8px 5px 8px;
   border: solid #1f628d 1.5px;
   text-decoration: none;
+	line-height: 1; 
 }
 
 .btn-default:hover {
-  background: #3cb0fd;
-  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+ /* background: #3cb0fd;*/
   text-decoration: none;
+	border: solid 1.5px #353840;
+}
+
+a#map-view.active,
+a#list-view.active,
+a#table-view.active {
+ border-color: #A3A7BF;
+}
+
+.btn
+button.btn.btn-default.dropdown-toggle {
+	line-height: .9;
 }
 
 /* ~dropdown toggle~ */    
 .btn.dropdown-toggle {
-	background-color: #A3A7BF;
-	height: 25px;
-  padding-top: 1px;
+/*	background-color: #A3A7BF;
+/*height: 25px;
+  padding-top: 1px*/;
   padding-left: 8px;
   border-radius: 5px;
   color: #004773;
   font-size: 14px;
 	font-weight: 300;
   text-decoration: none;
+	line-height: 1;
+  text-shadow: none;
 }
 
 .dropdown-menu {
@@ -501,18 +521,36 @@ ul#plot-dd > a:hover {
   white-space: nowrap;
 }
 
-/**********************
-****** Search Bar *****
-**********************/
+button.btn.btn-success.dropdown-toggle {
+  background-image: linear-gradient(to bottom, #4fd934, #298c29);
+	line-height: 1;
+}
+
+
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+	line-height: 1;
+}
+/****************************
+****** Search/Reset Bar *****
+****************************/
 /* ~input-group~ */
 .input-group.custom-search-form {
     border: 1px solid #7E9CD9;
   }
+input#search-filter {
+  border-top: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
+  border-right: none;
+}
 /* ~search btn~ */
 .btn-search {
   border-top: 1px solid #FFF;
+	border-left: none;
   border-bottom: 1px solid #FFF;
+	border-right: none;
   background: #F09349;  
+	line-height: 1.5;
 }
 .btn-search:hover,
 .btn-search:focus,
@@ -526,13 +564,15 @@ ul#plot-dd > a:hover {
 
 /* ~reset btn~ */
 button.btn.btn-primary.btn-reset.btn-reset{
-  color: #F4F4F4;
+  :promptfind
+	color: #F4F4F4;
   font-weight: normal;
   letter-spacing: 2px;
   border-top: 1px solid #FFF;
   border-bottom: 0px solid #FFF;
   border-right: 1px solid #FFF;
   border-left: none;
+	line-height: 1.5;
 }
 button.btn.btn-primary.btn-reset:focus {
 	background: #8DA2E4;

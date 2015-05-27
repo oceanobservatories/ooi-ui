@@ -51,12 +51,12 @@ button#btnLogin {
  -webkit-border-radius: 6;
  -moz-border-radius: 6;
  border-radius: 6px;
- color: #000000;
  padding: 0px 40px 0px 40px;
  border: solid #9ff5a2 2px;
  text-decoration: none;
  font-weight: 300;
  margin-top: 15px;
+ line-height: 1.4;
 }
 div.image {
  content: url(/img/modal/OOI_Banner.svg);
