@@ -1,6 +1,7 @@
 "use strict"
 var BannerView = Backbone.View.extend({
   initialize: function(options) {
+    this.options = options;
     _.bindAll(this, "render");
     this.render();
   },
