@@ -64,6 +64,7 @@
 
 
 <script type="text/javascript">
+var bannerTitle = "Data Catalog";
 
 var userId = parseInt(window.location.href.split('/').pop());
 
@@ -81,7 +82,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     var self = this;
     this.login.fetch({async: false});
 
-    this.views.banner = new BannerView();
+    this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({

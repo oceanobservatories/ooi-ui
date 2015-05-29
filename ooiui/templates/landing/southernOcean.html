@@ -62,6 +62,9 @@
 </div><!-- wrapper -->
 
 <script type="text/javascript">
+
+var bannerTitle = "Southern Ocean";
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   views: {},
@@ -76,7 +79,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView();
+    this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({

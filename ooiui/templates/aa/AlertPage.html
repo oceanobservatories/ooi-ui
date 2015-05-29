@@ -138,6 +138,8 @@
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
+var bannerTitle = "Alerts & Alarms";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
@@ -166,7 +168,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-      this.views.banner = new BannerView();
+    this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({

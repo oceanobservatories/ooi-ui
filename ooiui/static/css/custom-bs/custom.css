@@ -51,6 +51,10 @@ div#wrapper {
   margin-top: 170px;
 }
 
+div#gloss-wrapper {
+  margin-top: 170px;
+}
+
 div#wrapper-status{
   margin-top: 170px;
   text-align: center;
@@ -69,7 +73,7 @@ div#wrapper-asset {
   padding: 0 20px 20px 20px;
 }
 
-.logo-left {
+#fadein-left > li.logo-left {
   float: left;
   left: 30px;
   list-style: none;
@@ -81,21 +85,62 @@ div#wrapper-asset {
   list-style: none;
 }
 
-.logo-center {
+#fadein-left > li.banner-title {
   color: #000;
   opacity: 0.3;
-  font-size: 53px;
-  font-family: Athelas W01 Regular;
+  font-size: 30px;
+  font-family: Athelas;
+	font-weight: normal;
   float: left;
+	text-transform: uppercase;
   list-style: none;
-  padding-left: 30%;
+  padding-left: 25%;
   padding-top: 5px;
 	display: inline;
+	position: relative;
+	animation: fadein 7s;
+	-moz-animation: fadein 7s; /* Firefox */
+	-webkit-animation: fadein 7s; /* Safari and Chrome */
+	-o-animation: fadein 7s; /* Opera */
 }
-.text-body {
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 2;
+    }
+}
+/*.text-body {
   display: inline;
   color: #000;
-}
+	position: relative;
+	left: 50%;
+}*/
 
 /***********************
 ******** Navbar ********

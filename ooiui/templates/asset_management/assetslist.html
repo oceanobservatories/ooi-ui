@@ -359,6 +359,8 @@
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
+var bannerTitle = "Asset Dashboard";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
@@ -369,8 +371,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.banner = new BannerView({
-      login: this.login       
+    this.banner = new BannerView({bannerTitle, login: this.login       
     });
     $('body').prepend(this.banner.el);
      
