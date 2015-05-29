@@ -48,7 +48,8 @@
     "bootstrap-editable-table": "~0.2.13",
     "jqtree": "~1.0.0",
     "x-editable": "~1.5.1",
-    "showdown": "~0.5.0"
+    "showdown": "~0.5.0",
+    "leaflet.wms": "https://github.com/cgalvarino/leaflet.wms.git#62b489f0f9b83f375f330f0ed60adbc0ce40918c"
   },
   "resolutions": {
     "jquery": "~2.1.1",
