@@ -255,7 +255,7 @@ var SVGPlotControlView = Backbone.View.extend({
   initialize: function() { 
     
   },
-  setModel: function(model) {
+  setModel: function(model,updateTimes) {
     var self = this;
     this.model = model;
     this.data = null;    
@@ -267,7 +267,7 @@ var SVGPlotControlView = Backbone.View.extend({
       }
     });
     */
-    this.render();
+    this.render(updateTimes);
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
   xVarChange: function(e) {    
@@ -313,26 +313,29 @@ var SVGPlotControlView = Backbone.View.extend({
 
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
-  render: function() {
+  render: function(updateTimes) {
     var self = this
-    this.$el.html(this.template({model: this.model}));
-    this.$el.find('.selectpicker').selectpicker();
-    this.$el.find('.bootstrap-switch').bootstrapSwitch();
+    if (updateTimes){
+      this.$el.html(this.template({model: this.model}));
+      this.$el.find('.selectpicker').selectpicker();
+      this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
-    this.$el.find('[data-toggle="tooltip"]').tooltip()
-
-    this.$start_date = this.$el.find('#start-date');
-    this.$end_date = this.$el.find('#end-date');
+      this.$el.find('[data-toggle="tooltip"]').tooltip()
     
-    this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
-                                     maxDate: moment(this.model.get('end'))
-                                     });
-    this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
-                                   minDate: moment(this.model.get('start'))
-                                  }); 
+      this.$start_date = this.$el.find('#start-date');
+      this.$end_date = this.$el.find('#end-date');
+    
+    
+      this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
+                                       maxDate: moment(this.model.get('end'))
+                                       });
+      this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
+                                     minDate: moment(this.model.get('start'))
+                                    }); 
 
-    this.$start_date_picker = this.$start_date.data('DateTimePicker');
-    this.$end_date_picker = this.$end_date.data('DateTimePicker');
+      this.$start_date_picker = this.$start_date.data('DateTimePicker');
+      this.$end_date_picker = this.$end_date.data('DateTimePicker');
+    }
 
     this.$type_select = this.$el.find('#type-select');
 

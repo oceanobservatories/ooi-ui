@@ -298,28 +298,26 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
-      //self.views.svgPlotControlView.setModel(options.model);      
+      self.views.svgPlotControlView.setModel(options.model,true);                    
     });
 
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
-    self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
-    
-    if (options.itemid == "plot-item-selection" ){      
-        
-        self.views.svgPlotControlView.setModel(options.model);                
-        self.views.svgplot.setModel(options.model);
-        
+      self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
+      
+      if (options.itemid == "plot-item-selection" ){      
+          
+          self.views.svgPlotControlView.setModel(options.model,false);                
+          self.views.svgplot.setModel(options.model);
+          
 
-        //ANNOTATIONS
-        self.collections.annotations.fetch({
-          data: $.param({stream_name: options.model.get('stream_name')}),
-          reset: true
-        });
+          //ANNOTATIONS
+          self.collections.annotations.fetch({
+            data: $.param({stream_name: options.model.get('stream_name')}),
+            reset: true
+          });
 
-      }else{
-
-      }
+        }
     });
     
 
@@ -329,10 +327,11 @@ _.extend(OOI.prototype, Backbone.Events, {
             self.views.plotEventListView.render();
     });
 
-    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
+    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {      
+      
       if (options.plotType == "Depth Profile"){
         options.plotType = "depthprofile"
-        options.yvar = options.xvar;        
+        options.yvar = options.xvar;               
         options.xvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.plotType == "Time Series"){
         options.plotType = "timeseries"
