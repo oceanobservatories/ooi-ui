@@ -60,6 +60,9 @@
     </div>
 
 <script type="text/javascript">
+
+var bannerTitle = "Status Dashboard";
+
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
 
@@ -82,7 +85,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
       //--------------------------------------------------------------------------------
       // Views
       //--------------------------------------------------------------------------------
-      this.views.banner = new BannerView();
+      this.views.banner = new BannerView({bannerTitle});
       $('body').prepend(this.views.banner.el);
     
       this.views.navbar = new NavbarView({

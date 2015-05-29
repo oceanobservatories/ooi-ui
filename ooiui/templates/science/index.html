@@ -76,7 +76,7 @@
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
-var bannerName = "Science";
+var bannerTitle = "Science Map";
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
@@ -96,7 +96,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerName});
+    this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({

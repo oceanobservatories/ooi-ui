@@ -50,6 +50,8 @@
  * render, or in this case cause a collection to be fetched as a result.
  */
 
+var bannerTitle = "Operations";
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   // Models and collections
@@ -76,7 +78,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView();
+    this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({
