@@ -30,12 +30,17 @@ a:hover {
   text-decoration: none;
 	color: #8DA2E4;
 }
-a:visited {
-	color: #A3A7BF;
-}
+/* a:visited { */
+/* 	color: #A3A7BF; */
+/* } */
 a:focus {
 	text-decoration: none;
 }
+
+li {
+	list-style: none;
+}
+
 /* ~placeholder style~ */
 ::-webkit-input-placeholder {
    
@@ -353,6 +358,12 @@ div#alertslist > form.backgrid-filter.form-search {
 #array-accordion {
   margin-bottom: 100%;
 }
+
+ul.nav.sidebar-nav.navbar-collapse {
+  -webkit-border-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(126, 156, 217, 1) 50%,rgba(255,255,255,1) 100%) 0 100% 0 0/0 1px 0 0 stretch;
+}
+
+
 /***********************
 ******* Accordion ******
 ***********************/
