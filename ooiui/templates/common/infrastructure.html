@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block head %}
-  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/landingPages.css" rel="stylesheet" type="text/css" />
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <!-- Partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
@@ -20,58 +20,38 @@
 {% endblock %}
 
 {%block body %}
-<div id="navbar" class="row"></div>
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
 <div id="wrapper">
-
   <!-- Sidebar -->
-  <div id="sidebar-wrapper"></div>
+  <div id="sidebar-wrapper">
+  </div>
   <!-- sidebar-wrapper -->
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Infrastructure</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
-  <br />
-  
-  <div class="row">
-    <!-- Accordioan -->
-    <div class="col-md-5">
-      <div style="padding-left: inherit;">
-        <ul>
-          <li><a href="/pioneer-array" title="Pioneer Array">Pioneer Array</a></li>
-          <li><a href="/endurance-array" title="Endurance Array">Endurance Array</a></li>
-          <li><a href="/cabled-array" title="Cabled Array">Cabled Array</a></li>
-          <li><a href="/station-papa" title="Station Papa">Station Papa</a></li>
-          <li><a href="/irminger-sea" title="Irminger Sea">Irminger Sea</a></li>
-          <li><a href="/argentine-basin" title="Argentine Basin">Argentine Basin</a></li>
-          <li><a href="/southern-ocean" title="Southern Ocean">Southern Ocean</a></li>
-        </ul>
-      </div>  <!-- padding-left -->
-    </div>  <!-- col-md-5 -->
-  
-    <div class="col-md-12">
-      <p>
-      <span style="font-size: small;">
-        <strong>
-          <strong>For more information on the Instrument Table Portal</strong>
-        </strong>
-        <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/ooi-instrument-tables/" title="click here">
-          <strong><strong>click here</strong></strong></a><strong><strong>.</strong></strong>
-      </span>
-      </p>
-      <p>
-      <span style="font-size: small;">
-        Note: 
-        <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/regional-scale-nodes/" title="Cabled Array">
-          Cabled Array
-        </a>&amp;
+    
+  <div class="col-md-12">
+    <p>
+    <span style="font-size: small;">
+      <strong>
+        <strong>For more information on the Instrument Table Portal - </strong>
+      </strong>
+      <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/ooi-instrument-tables/" title="click here">
+	Click Here</a>
+    </span>
+    </p>
+    <p>
+    <span style="font-size: small;">
+        Note:
+	<a href="http://oceanobservatories.org/infrastructure/ooi-station-map/regional-scale-nodes/" title="Cabled Array">
+	  Cabled Array</a>
+	&amp;
         <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/endurance-array/" title="Endurance Array">
-          Endurance Array</a> are in the same region. Click on the text for whichever you would like more information about.
+          Endurance Array</a> 
+	are in the same region. Click on the text for whichever you would like more information about.
       </span>
       <strong>
         <br>
-    
       </strong>
       </p>
     </div>  <!-- col-md-12 -->

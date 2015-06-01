@@ -1,12 +1,41 @@
+/*
+~new~
+light-grey-blue: #6080A1 (rgb: 96 128 161)
+dark-blue: #004773 (rgb: 0 71 115)
+light-blue: #8DA2E4 (rgb: 141 162 228)
+orange: #F09349 (rgb: 240 147 73)
+grey: #F4F4F4 (tgb: 244 244 244)
+
+~old~
+light-grey-blue: #A3A7BF (rgb: 163 167 191)
+dark-blue: #353840 (rgb: 53 56 64)
+light-blue: #7E9CD9(rgb: 126 156 217)
+
+alt light blue #D1DAF5 rgb(209,218,245)
+alt light blue2 #7F9BDA
+ */    
+
 body,
-h1, h2, h3, h4, h5, h6, 
-a, p {
+h1, h2, h3, h4, h5, h6, p {
   font-weight: 300;
 	color: #004773;
 	background-color: transparent;
-		
+  text-decoration: none;
 }   
-
+a {
+	color: #008FE9;
+	font-weight: bold;
+}	
+a:hover {
+  text-decoration: none;
+	color: #8DA2E4;
+}
+a:visited {
+	color: #A3A7BF;
+}
+a:focus {
+	text-decoration: none;
+}
 /* ~placeholder style~ */
 ::-webkit-input-placeholder {
    
@@ -168,6 +197,7 @@ div#wrapper-asset {
 .navbar-top-links-new li a {
   padding: 7px;
   /* min-height: 50px; */
+	font-weight: 300;
 }
 
 .nav .open > a,
@@ -176,28 +206,34 @@ div#wrapper-asset {
   background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
   border-radius: 5px;
   border-color: #337ab7;
+	font-weight: 300;	
 }
 
 .navbar-top-links-new li a:hover,
 .navbar-top-links-new li a:focus {
   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
   border-radius: 5px;
+	font-weight: 300;	
 }
 
 .navbar-top-links-new .dropdown-menu li {
   display: block;
+	font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li:last-child {
   margin-right: 0;
+	font-weight: 300;	
 }
 
 .navbar-top-links-new .dropdown-menu li a {
   padding: 3px 20px;
   min-height: 0;
+	font-weight: 300;	
 }
 .navbar-top-links-new .dropdown-menu li a:hover {
   background: rgba(141,162,228,.1); 
+	font-weight: 300;	
 }
 
 .navbar-top-links-new .dropdown-menu li a div {
@@ -231,11 +267,13 @@ div#wrapper-asset {
 
 .nav > li > a {
   color: #004773;
+	font-weight: 300;	
 }
 
 .navbar-text > a {
   color: #004773;
   text-decoration: none;
+	font-weight: 300;	
 }
 
 .navbar-default {
@@ -260,12 +298,14 @@ div#wrapper-asset {
 /* ~link colors~ */
 .navbar-default .navbar-nav > li > a {
   color: #fff;
+	font-weight: 300;	
 }
 
 .navbar-default .navbar-nav > li > a 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #A3A7BF;
+	font-weight: 300;	
 }
 
 /*color of active nabar btn
@@ -282,6 +322,7 @@ backgound-color: #A3A7BF;
 .navbar-default .navbar-nav > .open > a:focus {
   background-color:  #A3A7BF;
   color: #fff;
+	font-weight: 300;	
 }
 
 /*breaks everything*/
@@ -333,10 +374,11 @@ div#headingOne.collapsed {
 
 .panel-title > a {
   text-decoration: none;
+	font-weight: 300;	
 }
 .panel-title > a:hover {
   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0));
-
+	font-weight: 300;
 }
 /*
 div#headingOne {
@@ -370,6 +412,7 @@ div#headingOne {
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:focus,
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:active {
 	color: #000;
+	font-weight: 300;	
 }
 /*.sidebar-nav-first-level {
   background-image:linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
@@ -384,6 +427,7 @@ div#headingOne {
   color: #FFF;
   font-size: 14px;
   text-decoration: none;  
+	font-weight: 300;	
 }
 
 .panel-default > .panel-heading .badge {
@@ -410,6 +454,7 @@ div#headingOne {
   color: #353840;
   font-size: 14px;
   text-decoration: none;
+	font-weight: 300;	
 }
 ul.nav.sidebar-nav > div 	{
 	background: ##E9E9E9;
@@ -428,6 +473,7 @@ ul.nav.sidebar-nav > div 	{
   color: #353840;
   font-size: 14px;
   text-decoration: none; 
+	font-weight: 300;	
 }
 /*link text*/	
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a:hover {
@@ -460,6 +506,7 @@ ul#plot-dd > a:hover {
   text-decoration: none;
   color: black;
   background-color: transparent;
+	font-weight: 300;	
 }
 
 /**********************

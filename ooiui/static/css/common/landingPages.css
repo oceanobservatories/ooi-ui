@@ -1,14 +1,14 @@
-* { margin: 0; padding: 0; }
+/* * { margin: 0; padding: 0; } */
 
-body {
-  font-size: 14px;
-}
-a:link {
-  color: #007EA3;
-  font-weight: 300;
-  font-size: 14px;
-  text-decoration: none;
-}
+/* body { */
+/*   font-size: 14px; */
+/* } */
+/* a:link { */
+/*   color: #007EA3; */
+/*   font-weight: 300; */
+/*   font-size: 14px; */
+/*   text-decoration: none; */
+/* } */
 #page-wrap {
   width: auto;
   margin: 0 auto;
