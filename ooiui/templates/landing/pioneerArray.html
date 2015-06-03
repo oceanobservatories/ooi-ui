@@ -17,52 +17,42 @@
   <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
   <script src="js/landingPagesJS.js" type="text/javascript"></script>
-
 {% endblock %}
 
 {%block body %}
-<div id="navbar" class="row"></div>
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
 <div id="wrapper">
-
   <!-- Sidebar -->
-  <div id="sidebar-wrapper"></div>
-  <!-- sidebar-wrapper -->
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Infrastructure</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
-  <br />
+  <div id="sidebar-wrapper">
+  </div>
   
-  <div class="row">
-    <!-- Accordian -->
-    <div class="col-sm-12">
-      <div class="container-fluid">
-
-
-        <div id="pioneer-location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- panel-group -->
-
-        <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- infrastructureArray-view -->
-
-        <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- stationSummaryArray-view -->
-
-        <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- deploymentSchedule-view -->
-
-        <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- infrastructureTables-view -->
-
-        <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- technicalDrawings-view -->
-
-
-      </div><!-- container-fluid -->
-    </div><!-- col-sm-12 -->
-  </div><!-- row -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+      
+	
+      <!-- Accordian -->
+      <div class="col-sm-12">
+	  <div id="pioneer-location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- panel-group -->
+	  <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- infrastructureArray-view -->
+	  <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- stationSummaryArray-view -->
+	  <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- deploymentSchedule-view -->
+	  <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- infrastructureTables-view -->
+	  <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- technicalDrawings-view -->
+      </div><!-- col-sm-12 -->
+      
+      </div><!-- row -->
+    </div><!--container-fluid -->
+  </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">

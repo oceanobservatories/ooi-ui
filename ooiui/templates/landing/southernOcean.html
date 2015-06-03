@@ -20,45 +20,39 @@
 {% endblock %}
 
 {%block body %}
-<div id="navbar" class="row"></div>
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
 <div id="wrapper">
-
   <!-- Sidebar -->
-  <div id="sidebar-wrapper"></div>
-  <!-- sidebar-wrapper -->
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Infrastructure</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
-  <br />
+  <div id="sidebar-wrapper">
+  </div>
   
-  <div class="row">
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+  
+    	
     <!-- Accordian -->
     <div class="col-md-12">
-      <div class="container-fluid">
-        <div id="locationsampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- locationsampling-view -->
-        
-        <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- description-infrastructure-view- -->
+      <div id="locationsampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- locationsampling-view -->
+      <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- description-infrastructure-view- -->
+      <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- station-summary-view -->
+      <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- deployment-view -->
+      <div id="detailed-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- detailed-infrastructur-view -->
+      <div id="technical-drawing-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- technical-drawings-view -->
+    </div><!-- col-sm-12 -->
 
-        <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- station-summary-view -->
-
-        <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- deployment-view -->
-
-        <div id="detailed-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- detailed-infrastructur-view -->
-
-        <div id="technical-drawing-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- technical-drawings-view -->
-
-      </div><!-- container-fluid -->
-    </div><!-- col-md-12 -->
-  </div><!-- row -->
+      </div><!-- row -->
+    </div><!--container-fluid -->
+  </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">
