@@ -20,49 +20,41 @@
 {% endblock %}
 
 {%block body %}
-<div id="navbar" class="row"></div>
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
 <div id="wrapper">
-
   <!-- Sidebar -->
-  <div id="sidebar-wrapper"></div>
-  <!-- sidebar-wrapper -->
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Infrastructure</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
-  <br />
-  
-  <div class="row">
-    <!-- Accordian -->
-    <div class="col-md-12">
-      <div class="container-fluid">
+  <div id="sidebar-wrapper">
+  </div>
 
-        <div id="location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- cabled-array-location-sampling-view -->
-
-        <div id="primary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- primary-infrastructure-view -->
-
-        <div id="secondary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- secondary-infrastructure-view -->
-
-        <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- station-summary-view -->
-
-        <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- deployment-schedule-view -->
-
-        <div id="detailed-infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- detailed-infrastructure-tables-view -->
-
-        <div id="technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- cabled-array-technical-drawings-view -->
-
-      </div><!-- container-fluid -->
-    </div><!-- col-md-12 -->
-  </div><!-- row -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      
+      <div class="row">
+	
+	<!-- Accordian -->
+    	<div class="col-md-12">
+      	  <div id="location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div>	<!-- cabled-array-location-sampling-view -->
+  	  <div id="primary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    	  </div>	<!-- primary-infrastructure-view -->
+	  <div id="secondary-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+    	  </div>	<!-- secondary-infrastructure-view -->
+      	  <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div>	<!-- station-summary-view -->
+  	  <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+  	  </div>	<!-- deployment-schedule-view -->
+    	  <div id="detailed-infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      	  </div>	<!-- detailed-infrastructure-tables-view -->
+	  <div id="technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div>	<!-- cabled-array-technical-drawings-view -->
+	</div><!-- col-sm-12 -->
+      
+      </div><!-- row -->
+    </div><!--container-fluid -->
+  </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">
