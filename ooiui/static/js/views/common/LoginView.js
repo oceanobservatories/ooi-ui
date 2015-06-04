@@ -65,6 +65,7 @@ var LoginView = Backbone.View.extend({
       console.log("success");
       this.hide();
       this.success();
+      window.location.reload();
     } else {
       console.log("no bueno amigo");
       this.attempts++;

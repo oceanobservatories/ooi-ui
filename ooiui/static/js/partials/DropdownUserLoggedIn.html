@@ -3,9 +3,9 @@
     <i class="fa fa-user fa-fw"></i> <%= user.get('user_name') %> <i class="fa fa-caret-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-user">
-   
+
     <li>
-     
+
       <a href="#"><i class="fa fa-user fa-fw" style='padding-right: 27px;'> </i>   User Profile</a>
     </li>
     <% if(user.get('scopes').indexOf('user_admin') !== -1) { %>
@@ -16,7 +16,7 @@
       <a href="/c2/"><i class="fa fa-gear fa-fw" style='padding-right: 27px;'> </i>   Command & Control</a>
     </li> -->
     <% } %>
-    
+
     <li>
      <a href="/troubleTicket">
       	<i class="fa fa-exclamation-triangle" style='padding-right: 13px;' aria-hidden="true"> </i>   Trouble Ticket</a>
@@ -29,7 +29,7 @@
 
 
     <li class="divider"></li>
-    <li><a id="logout" href="/"><i style='padding-right: 27px;' class="fa fa-sign-out fa-fw"> </i>   Logout</a>
+    <li><a id="logout" href="#"><i style='padding-right: 27px;' class="fa fa-sign-out fa-fw"> </i>   Logout</a>
     </li>
   </ul>
   <!-- /.dropdown-user -->
