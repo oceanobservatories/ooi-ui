@@ -60,19 +60,43 @@ OOI.RelationalModel = Backbone.Model.extend({
  * Logged in returns true if we have identified that the user is logged in.
  */
 OOI.LoggedIn = function() {
-  if($.cookie('ooiusertoken')) {
-    return true;
-  }
+    if($.cookie('ooiusertoken')) {
+        return true;
+    }
   return false;
 }
 
 OOI.LogOut = function() {
   $.removeCookie('ooiusertoken', { path: '/' });
+  window.location.replace('/');
 }
 
 OOI.prototype.onLogin = function() {
-  location.reload();
+    window.location.reload();
 }
 OOI.prototype.onLogout = function() {
-  location.reload();
+    window.location.reload();
+}
+
+var idleTime = 0;
+//Increment the idle time counter every minute.
+
+var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+
+//Zero the idle timer on mouse movement.
+$(this).mousemove(function (e) {
+    idleTime = 0;
+});
+$(this).keypress(function (e) {
+    idleTime = 0;
+});
+
+function timerIncrement() {
+    if (OOI.LoggedIn()) {
+        idleTime = idleTime + 1;
+        if (idleTime > 19) { // 20 minutes
+            OOI.LogOut();
+        }
+    }
 }

@@ -30,6 +30,7 @@ var DropdownUserView = Backbone.View.extend({
   },
   logout: function() {
     this.model.logOut();
+    window.location.replace("/");
   },
   initialize: function() {
     var self = this;

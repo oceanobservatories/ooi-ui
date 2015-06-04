@@ -64,6 +64,6 @@ var NavbarView = Backbone.View.extend({
         //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus').append(this.dropdownUserView.el);
-   
+
   }
 });
