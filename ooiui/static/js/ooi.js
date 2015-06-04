@@ -68,7 +68,7 @@ OOI.LoggedIn = function() {
 
 OOI.LogOut = function() {
   $.removeCookie('ooiusertoken', { path: '/' });
-  window.location.reload();
+  window.location.replace('/');
 }
 
 OOI.prototype.onLogin = function() {
@@ -97,7 +97,6 @@ function timerIncrement() {
         idleTime = idleTime + 1;
         if (idleTime > 19) { // 20 minutes
             OOI.LogOut();
-            window.location.reload();
         }
     }
 }
