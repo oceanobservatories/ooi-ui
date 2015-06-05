@@ -17,9 +17,11 @@ from datetime import datetime,timedelta
 import time
 import numpy as np
 import math
+import urllib2
 
 @app.route('/')
 def new_index():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fscience%2Fworld')
     return render_template('science/index.html')
 
 @app.route('/landing/pioneer')
@@ -29,10 +31,12 @@ def landing_pioneer():
 @app.route('/assets/list')
 @app.route('/assets/list/')
 def instr_index():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassets')
     return render_template('asset_management/assetslist.html')
 
 @app.route('/events/list/')
 def event_list():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fevents')
     return render_template('asset_management/eventslist.html')
 
 @app.route('/event/<int:id>', methods=['GET'])
@@ -47,15 +51,18 @@ def event_new(new,aid,aclass):
 
 @app.route('/streams')
 def streams_page():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
     return render_template('science/streams.html')
 
 @app.route('/plotting', methods=['GET'])
 @app.route('/plotting/', methods=['GET'])
 def show_plotting_no_path():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return plotting_page(None)
 
 @app.route('/plotting/<path:path>', methods=['GET'])
 def plotting_page(path):
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     print path
     return render_template('science/plotting.html')
 
@@ -173,6 +180,7 @@ def get_event_by_ref_des():
 
 @app.route('/opLog.html')
 def op_log():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FopLog')
     return render_template("common/opLog.html")
 
 @app.route('/api/uframe/stream')
