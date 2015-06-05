@@ -17,34 +17,22 @@
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
 {% endblock %}
 
-{%block body %}    
+{%block body %}   :: 
 
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="wrapper">
-  <div id="sidebar-wrapper" class="hidden navbar-default">
-  </div> <!-- #sidebar-wrapper -->
-  <div id="page-content-wrapper">
-    <div class="content-fluid"> 
-
-      <div class="row">
+<div id="wrapper" class="plot-wrapper">
+  <div id="sidebar-wrapper" class="plot-sidebar">
+   <div class="row">
         <div class="col-sm-12">
           <div class="panel">
             <div class="panel-heading">
               <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>              
             </div>
             <div class="panel-body">
-              <div class="col-sm-11" style="padding-right:1px;">              
-                <div id="plot-item-selection">
-                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-                </div>
-                <div id="plot-item-selection2" style="display: none;">                
-                </div> 
-              </div>
-              <div class="col-sm-1" style="padding-left:1px;"> 
-                <div class="btn-group-vertical" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
+                <div class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
                   <button id="enableSecondView" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
                   </button>
@@ -55,11 +43,24 @@
                     <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                   </button>                  
                 </div>
-              </div>    
+              <div class="col-sm-12" style="padding-right:1px;">     
+      	      
+                <div id="plot-item-selection">
+                  <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                </div>
+                <div id="plot-item-selection2" style="display: none;">                
+                </div> 
+              </div>
+                
             </div> 
           </div> 
         </div> 
     </div>
+  </div> <!-- #sidebar-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="content-fluid"> 
+
+     
     <!--  Plot section of the page   -->
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
@@ -215,9 +216,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
     
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-    this.views.navbar.sidebarToggle();
+    {# this.views.navbar.sidebarToggle(); #}
 
     this.views.svgplot = new SVGPlotView({
       height: 400,

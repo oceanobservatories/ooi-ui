@@ -359,9 +359,9 @@ div#alertslist > form.backgrid-filter.form-search {
   margin-bottom: 100%;
 }
 
-ul.nav.sidebar-nav.navbar-collapse {
-  -webkit-border-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(126, 156, 217, 1) 50%,rgba(255,255,255,1) 100%) 0 100% 0 0/0 1px 0 0 stretch;
-}
+/* ul.nav.sidebar-nav.navbar-collapse { */
+/*   -webkit-border-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(126, 156, 217, 1) 50%,rgba(255,255,255,1) 100%) 0 100% 0 0/0 1px 0 0 stretch; */
+/* } */
 
 
 /***********************
@@ -678,26 +678,79 @@ button.btn.btn-primary.btn-reset:focus {
 	background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.7),  rgba(126, 156, 217,.0));
 	color: #F4F4F4;
   font-weight: normal;
-  letter-spacing: 2px;
+  letter-spacing: 2px; 
   border-top: 1px solid #FFF;
   border-bottom: 0px solid #FFF;
   border-right: 1px solid #FFF;
   border-left: none;
 }
 
-div#sidebar-wrapper {
-  position: fixed;
-  left: 109px;
-  margin-left: -135px;
-  overflow-y: auto;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+/* div#sidebar-wrapper { */
+/*   position: fixed; */
+/*   left: 109px; */
+/*   margin-left: -135px; */
+/*   overflow-y: auto; */
+/*   -webkit-transition: all 0.5s ease; */
+/*   -moz-transition: all 0.5s ease; */
+/*   -o-transition: all 0.5s ease; */
+/*   transition: all 0.5s ease; */
+/* } */
+/*  */
+
+/* ~plotting~ */
+/* ~vertical buttons on sidebar~ */
+.plotting-selection {
+	position: relative;
+	width: 100%;
+	margin-top: 25px;
 }
 
+/* @media (min-width: 768px) */
+div#wrapper.plot-wrapper {
+	padding-left: 250px;
+}
+
+/* @media (min-width: 768px) */
+div#sidebar-wrapper.plot-sidebar {
+	width: 250px;
+	left: 250px;
+  margin-left: -250px;
+	overflow: visible;
+}
+
+.dropdown-menu.open {
+	margin: 2px 170px 0;
+	background-color: rgba(255, 255, 255, 0.87);
+	padding-bottom: 14px;
+	border: none;
+	}
+
+input.form-control:focus {
+	border-color: #FBB500;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);	
+}
+.dropdown-menu > li > a {
+	margin: 4px;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+	background-color: #FFF;
+	background: #FFF;
+}
+
+div ul.dropdown-menu.inner.selectpicker {
+	padding: 10px;
+} 	 	 
 
 
+ul.dropdown-menu.inner.selectpicker > li > a:hover,
+ul.dropdown-menu.inner.selectpicker > li > a:focus {
+	outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+  box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
+}
 
 /*
 ~new~

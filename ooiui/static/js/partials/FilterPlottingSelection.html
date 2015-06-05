@@ -1,19 +1,26 @@
 <!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
 <div class="row">
-	<label> <%= labelText %>
-	</label>	
+ <label> 
+	<!-- ADD ARROWS -->	
+	<% if(labelText != "parameters") { %> 
+		<span class="glyphicon glyphicon-chevron-right" style="color: steelblue; top: 2px;" aria-hidden="true"></span>
+	<% } %>  
+
+ <%= labelText %>
+	</label>
 </div>
 <div class="row">
-	<select data-width="75%" data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
-		<!-- ARRAY -->	
+  <select data-width="75%" data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >
+	
+  	  <!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
 				<% if (model.get('display_name') != null) { %>
 			    	<option data-subtext="<%=model.get('array_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
 			    			value="<%=model.get('array_code')%>">
-			    		<%= model.get('display_name') %>
-			    	</option>
+					<%= model.get('display_name') %>	
+				</option>
 		    	<% } %> 
 			<% }); %>
 
@@ -69,11 +76,6 @@
 			
 		<% } %>  
 	</select>
-
-	<!-- ADD ARROWS -->	
-	<% if(labelText != "parameters") { %> 
-		<span class="glyphicon glyphicon-chevron-right" style="color: steelblue;" aria-hidden="true"></span>
-	<% } %>  
 
 </div>
 <!--</div>-->
