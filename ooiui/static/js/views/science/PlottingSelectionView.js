@@ -154,7 +154,13 @@ var PlottingSelectionView = Backbone.View.extend({
                                            reference_designator:  selectedStream.attr("sensor"),
                                        })
         
-        ooi.trigger('FilterSelectionView:onParameterSelection', {model: streamModel,itemid:this.el.id});
+        var data_units = {}
+        
+        $.each( this.$el.find( "#parameters_id option:selected") , function( key, value ) {
+          data_units[$(value).val()] = $(value).attr('data-subtext')
+        });
+
+        ooi.trigger('FilterSelectionView:onParameterSelection', {model: streamModel,itemid:this.el.id,data_units:data_units});
       }else if (currentItem == "streams"){ 
 
         var param_list = []
