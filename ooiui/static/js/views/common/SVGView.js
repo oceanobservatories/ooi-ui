@@ -139,11 +139,14 @@ var SVGPlotView = SVGView.extend({
   },
   plot: function(options) {
     //requested plot
+    var self = this;
     console.log("plot...")
+
     this.reference_designator = this.model.get('reference_designator')    
     this.stream_name = this.model.get('stream_name')
     options.yvar = this.model.get('yvariable')  
     if('xvar' in options){
+      options.xvar = ["time"]
     }else{
       options.xvar = ["time"]
     } 
@@ -151,11 +154,26 @@ var SVGPlotView = SVGView.extend({
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
 
+    var x_units = ""
+    var y_units = ""
+
     if(options && options.yvar && options.xvar) {      
-      if (options.plotType == 'depthprofile'){        
-        this.xvariable = options.xvar.join();
-        this.yvariable = options.yvar;      
-        this.dpa_flag = this.getDpaFlag(options.xvar)  
+      if (options.plotType == 'depthprofile'){   
+        //Variables are backwards, beware
+        this.xvariable = null
+        var not_list = []
+        $.each( options.yvar[0][0], function( key, value ) {
+          if (value.indexOf("pressure") > -1){
+            self.xvariable = value
+            y_units = self.model.get('units')[self.xvariable]
+          }else{
+            not_list.push(value)
+            x_units = self.model.get('units')[not_list[0]]
+          }          
+        });
+
+        this.yvariable = not_list.join();  
+        this.dpa_flag = "1"     //this.getDpaFlag(options.xvar)  
       }else{
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
@@ -168,9 +186,11 @@ var SVGPlotView = SVGView.extend({
       this.useEvent = options.useEvent.toString();      
       this.plotType = options.plotType;
       this.st = moment(options.start_date).toISOString()
-      this.ed = moment(options.end_date).toISOString()
+      this.ed = moment(options.end_date).toISOString()      
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
+                                                                                                    y_units:y_units,
+                                                                                                    dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.yvariable , 
                                                                                                     xvar: this.xvariable, 
                                                                                                     height: this.height, 
@@ -182,6 +202,10 @@ var SVGPlotView = SVGView.extend({
                                                                                                     startdate:this.st,                                                                                                    
                                                                                                     enddate:this.ed})
       this.fetch();
+    }else{
+      if (options.plotType == 'depthprofile'){ 
+        $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Depth profile requires "pressure" selection</div>')
+      }
     }
   },
   download: function(options) {    
