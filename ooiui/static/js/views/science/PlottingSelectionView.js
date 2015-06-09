@@ -121,6 +121,7 @@ var PlottingSelectionView = Backbone.View.extend({
   },
   filterItems: function(options) {
     var self = this;
+    var selected = options.selected;
     var childItem = options.model.get("childItem") ;
     var currentItem =  options.model.get("labelText") ;
     var filterItem =  options.filter ;
@@ -234,17 +235,34 @@ var PlottingSelectionView = Backbone.View.extend({
       //filter items
       this.$el.find( "#"+childItem+"_id option" ).each(function( index, obj ) {
         var childValue = $( this ).attr("filter").trim();                  
-        var childCode = $( this ).attr(currentItem+"-code");                    
-        if (filterVal == childCode){          
-          //ITS GOOD!          
-          $( this ).text(childValue)
-          //console.log(newText)
+        var childCode = $( this ).attr(currentItem+"-code");  
 
-          //self.$el.find( "#"+childItem+"_id").text(newText)
+        //if we selected a platform the subsequent items need to have their mooring checked, at platform is not unique
+        if (currentItem == "platforms"){          
+          var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("moorings-code"); 
+          var plotfilterVal = $(selected).not("[disabled]").attr(currentItem+"-code") + $(selected).not("[disabled]").attr("moorings-code")
+
+          if (plotfilterVal == platchildCode){                              
+            $( this ).text(childValue)
+          }
+          else{
+            $( this ).attr("disabled", true);
+          }
+        //normal filter  
+        }else{
+          if (filterVal == childCode){          
+            //ITS GOOD!          
+            $( this ).text(childValue)
+            //console.log(newText)
+
+            //self.$el.find( "#"+childItem+"_id").text(newText)
+          }
+          else{
+            $( this ).attr("disabled", true);
+          }  
         }
-        else{
-          $( this ).attr("disabled", true);
-        }
+
+        
       });
 
       //remove disabled
@@ -287,7 +305,8 @@ var FilterSelectionView = Backbone.View.extend({
   },
   onChange: function() {
     var self = this;
-    var val = this.$el.find("option:selected").val(); 
+    var val = this.$el.find("option:selected").val();
+    var selected = this.$el.find("option:selected");
     var text = this.$el.find("option:selected").text(); 
     var parent_item = self.model.get('parentItem'); 
     var child_item = self.model.get('childItem');
@@ -297,7 +316,7 @@ var FilterSelectionView = Backbone.View.extend({
     if (val === undefined){     
       ooi.trigger('FilterSelectionView:onUnSelect', {model: this.model,itemid:this.model.get('itemid')});
     }else{      
-      ooi.trigger('FilterSelectionView:onSelect', {model: this.model, filter:text.trim(),filterValue:val, collection: this.collection,itemid:this.model.get('itemid')});
+      ooi.trigger('FilterSelectionView:onSelect', {model: this.model, filter:text.trim(),filterValue:val, selected:selected, collection: this.collection,itemid:this.model.get('itemid')});
     }
 
   }
