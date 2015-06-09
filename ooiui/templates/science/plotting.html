@@ -28,11 +28,13 @@
    <div class="row">
         <div class="col-sm-12">
           <div class="panel">
-            <div class="panel-heading">
-              <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>              
-            </div>
+            {# <div class="panel-heading"> #}
+            {#   <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>#}
+            {# </div> #}
             <div class="panel-body">
-                <div class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
+	      {# buttons #}   
+	      <div class="col-sm-12" style="text-align:center;">    
+		<div class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
                   <button id="enableSecondView" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
                   </button>
@@ -43,16 +45,17 @@
                     <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                   </button>                  
                 </div>
+	      </div>
+
               <div class="col-sm-12" style="padding-right:1px;">     
-      	      
-                <div id="plot-item-selection">
+		<div id="plot-item-selection">
                   <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
                 </div>
                 <div id="plot-item-selection2" style="display: none;">                
                 </div> 
               </div>
-                
-            </div> 
+           
+	    </div> 
           </div> 
         </div> 
     </div>
@@ -68,21 +71,17 @@
             <div class="panel-heading">
               <i class="fa fa-bar-chart-o"> Graph</i>
               <div class="pull-right">
-                <div class="dropdown">
-                  <a href='#' class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>
-                    <i class="fa fa-caret-down" style="margin-right:200px;"></i>
-                  </a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <ul role="menu" aria-labelledby="dropdownMenu1">
                     <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>                    
                   </ul>
-                </div>
               </div>
             </div>
             <div class="panel-body">              
               <div id="plotcontrols">
               </div>
               <div id="plot-view">     
-                <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>          
+                {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+		<img src="/img/graph7.png" style="width:100%;">
               </div> <!-- #view -->
             </div>
           </div>
@@ -96,7 +95,8 @@
             </div>
             <div class="panel-body">
               <div id="events-table">  
-               <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                
+               {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+		{# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
               </div>
             </div>
           </div>          
@@ -110,7 +110,7 @@
             </div>
             <div class="panel-body">
               <div id="annotation-table">  
-               <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                
+               {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
               </div>
             </div>
           </div>          
@@ -138,7 +138,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //TOC items
     tocArrays: new TocArrayCollection(),
     tocMoorings: new TocMooringsCollection(),
-    tocPlatforms: new TocPlatformsCollection(),    
+    tocPlatforms: new TocPlatformsCollection(),
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
   },
@@ -153,7 +153,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   initalFilterOptions: function() {
     var path = window.location.pathname;
     var path = path.split("/").slice(2);
-    var dataContentArray = ["arrays","moorings", "platforms","instruments","streams","parameters"];
+    var dataContentArray = ["Arrays","Moorings", "Platforms","Instruments","Streams","Parameters"];
 
     if (path.length == 1 && path[0] == ""){
       //no path information
