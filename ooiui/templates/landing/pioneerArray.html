@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Pioneer Array</title>
+<title>Argentine Basin</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -24,19 +24,21 @@
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="wrapper">
+<div id="wrapper" class="btn-wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
+  <div id="sidebar-wrapper" class="btn-sidebar">
   </div>
-  
+
+
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
       
-	
-      <!-- Accordian -->
-      <div class="col-sm-12">
-	  <div id="pioneer-location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
+
+    	<!-- Accordian -->
+    
+	<div class="col-md-12">
+	  <div id="pioneer-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- panel-group -->
 	  <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- infrastructureArray-view -->
@@ -46,10 +48,12 @@
 	  </div><!-- deploymentSchedule-view -->
 	  <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- infrastructureTables-view -->
+  	  
 	  <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- technicalDrawings-view -->
-      </div><!-- col-sm-12 -->
-      
+
+	</div><!-- col-sm-12 -->
+
       </div><!-- row -->
     </div><!--container-fluid -->
   </div><!-- page-content-wrapper -->
@@ -78,8 +82,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
     
     this.views.navbar = new NavbarView({
         el: $('#navbar')
-    }); 
-
+    });
+    
     this.views.landingPagesTOC = new LandingPagesTOC({
       collection: this.collections.organizations,
     });
@@ -88,9 +92,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.views.pioneerArrayView = new PioneerArrayView({
       el: $('#pioneer-upper')
     });
-
+    
     this.views.pioneerLocationSamplingView = new PioneerLocationSamplingView({
-      el: $('#pioneer-location-sampling')
+      el: $('#pioneer-location-sampling-view')
     });
 
     this.views.pioneerInfrastructureArrayView = new PioneerInfrastructureArrayView({
@@ -105,15 +109,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
       el: $('#deploymentSchedule-view')
     });
 
-    this.views.pioneerInfrastructureTablesView = new PioneerInfrastructureTablesView({
-      el: $('#infrastructureTables-view')
-    });
-
-    this.views.pioneerTechnicalDrawingsView = new PioneerTechnicalDrawingsView({
+    this.views.PioneerTechnicalDrawingsView = new PioneerTechnicalDrawingsView({
       el: $('#technicalDrawings-view')
     });
   }
-
 });
 // Instantiate the application for this page
 var ooi = new OOI();
@@ -125,3 +124,4 @@ $(document).ready(function() {
 </script>
 
 {% endblock %}
+

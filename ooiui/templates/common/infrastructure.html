@@ -24,66 +24,66 @@
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="wrapper">
+<div id="wrapper" class="btn-wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
+  <div id="sidebar-wrapper" class="btn-sidebar">
   </div>
   
   <div id="page-content-wrapper" class="jobitem displayed">
-    {# <div class="container-fluid"> #}
-    {#   <div class="row"> #}
-	{# <div class="col-md-12"> #}
-	{#   <p> #}
-	{#     <span style="font-size: small;"> #}
-	{#       For more information on the Instrument Table Portal #}
-	{#       &nbsp;&dash;&nbsp; #}
-	{#       <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/ooi-instrument-tables/" title="click here"> #}
-	{#       Click Here</a> #}
-	{#     </span> #}
-	{#   </p> #}
-	{#  #}
-	{#   <p> #}
-	{#   <span style="font-size: small;"> #}
-	{#     Note: #}
-    {# 	    <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/regional-scale-nodes/" title="Cabled Array"> #}
-    {# 	      Cabled Array</a> #}
-	{#     &amp; #}
-	{#     <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/endurance-array/" title="Endurance Array"> #}
-	{#       Endurance Array</a>  #}
-    {# 	    are in the same region. Click on the text for whichever you would like more information about. #}
-	{#   </span> #}
-    {#   	  </p> #}
-    {#   </div>  <!-- col-md-12 --> #}
-    {#  #}
-	{# <!-- Mapp --> #}
-	{# <div class="col-md-12 jobitem displayed"> #}
-	{#     <img class="delayImg" delayedSrc="http://oceanobservatories.org/wp-content/uploads/OOI-Station-Map.jpg" alt="OOI-Station-Map" width="907" height="998" /> #}
-	{#     <div class="col-md-12"> #}
-	{#     <p> #}
-    {# 	    <strong style="font-size: small;"> #}
-	{#       Credit: OOI Cabled Array program and the Center for Environmental Visualization, University of Washington #}
-    {#   	    </strong> #}
-	{#     </p> #}
-    {#   	  </div>  <!-- col-md-12 --> #}
-    {#  #}
-	{# </div><!-- col-md-12 --> #}
-    {#  #}
-    {#   </div><!-- row --> #}
-    {# </div><!--container-fluid --> #}
+    <div class="container-fluid">
+      <div class="row">
+	<div class="col-md-12">
+	  <p>
+	    <span style="font-size: small;">
+	      For more information on the Instrument Table Portal
+	      &nbsp;&dash;&nbsp;
+	      <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/ooi-instrument-tables/" title="click here">
+	      Click Here</a>
+	    </span>
+	  </p>
+
+	  <p>
+	  <span style="font-size: small;">
+	    Note:
+    	    <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/regional-scale-nodes/" title="Cabled Array">
+    	      Cabled Array</a>
+	    &amp;
+	    <a href="http://oceanobservatories.org/infrastructure/ooi-station-map/endurance-array/" title="Endurance Array">
+	      Endurance Array</a> 
+    	    are in the same region. Click on the text for whichever you would like more information about.
+	  </span>
+      	  </p>
+      </div>  <!-- col-md-12 -->
+
+	<!-- Mapp -->
+	<div class="col-md-12 jobitem displayed">
+	    <img class="delayImg" delayedSrc="http://oceanobservatories.org/wp-content/uploads/OOI-Station-Map.jpg" alt="OOI-Station-Map" width="907" height="998" />
+	    <div class="col-md-12">
+	    <p>
+    	    <strong style="font-size: small;">
+	      Credit: OOI Cabled Array program and the Center for Environmental Visualization, University of Washington
+      	    </strong>
+	    </p>
+      	  </div>  <!-- col-md-12 -->
+
+	</div><!-- col-md-12 -->
+
+      </div><!-- row -->
+    </div><!--container-fluid -->
   </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
-{# <!-- fade in image --> #}
-{# <script> #}
-{# $(document).ready(function() { #}
-{# $(".delayImg").each(function() { #}
-{# this.onload = function() { #}
-{# $(this).animate({opacity: 1}, 2000); #}
-{# }; #}
-{# this.src = this.getAttribute("delayedSrc"); #}
-{# }); #}
-{# }); #}
-{# </script> #}
+<!-- fade in image -->
+<script>
+$(document).ready(function() {
+$(".delayImg").each(function() {
+this.onload = function() {
+$(this).animate({opacity: 1}, 2000);
+};
+this.src = this.getAttribute("delayedSrc");
+});
+});
+</script>
 
 <script type="text/javascript">
 

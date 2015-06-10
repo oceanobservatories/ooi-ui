@@ -1079,7 +1079,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/PioneerStationSummaryArrayView.js',
             'ooiui/static/js/views/common/PioneerDeploymentScheduleView.js',
             'ooiui/static/js/views/common/PioneerInfrastructureTablesView.js',
-            'ooiui/statis/js/views/common/PioneerTechnicalDrawingsView.js'
+            'ooiui/static/js/views/common/PioneerTechnicalDrawingsView.js',
           ],
           'ooiui/static/js/compiled/c2.js' : [
             // Libs
