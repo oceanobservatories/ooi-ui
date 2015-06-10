@@ -105,9 +105,9 @@ div#wrapper-asset {
   margin-top: 170px;
 }
 
-#sidebar-wrapper {
-  z-index: 500;
-}
+/* #sidebar-wrapper { */
+/*   z-index: 500; */
+/* } */
 
 #page-content-wrapper {
   padding: 0 20px 20px 20px;
@@ -365,10 +365,44 @@ div#alertslist > form.backgrid-filter.form-search {
   margin-bottom: 100%;
 }
 
-/* ul.nav.sidebar-nav.navbar-collapse { */
-/*   -webkit-border-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(126, 156, 217, 1) 50%,rgba(255,255,255,1) 100%) 0 100% 0 0/0 1px 0 0 stretch; */
-/* } */
+/* @media (min-width: 768px) */
+div#wrapper.btn-wrapper {
+	margin-left: 50px;
+}
 
+/* @media (min-width: 768px) */
+div#sidebar-wrapper.btn-sidebar {
+	width: 250px;
+	left: 210px;
+  margin-left: -250px;
+	/* overflow: visible; */
+}
+
+.btn.btn-primary.sidebar {
+	color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));	
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: none;
+	width: 100%;
+	margin-bottom: 5px;
+  line-height: 1.1;
+  font-family: inherit;
+}
+.btn.btn-primary.sidebar:hover {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+}
+
+button.btn.btn-primary.sidebar > a {
+	float: left;
+	color: #353840;
+	font-weight: 300;
+	
+}
 
 /***********************
 ******* Accordion ******
@@ -711,19 +745,6 @@ button.btn.btn-primary.btn-reset:focus {
 	position: relative;
 	width: 100%;
 	margin-top: 25px;
-}
-
-/* @media (min-width: 768px) */
-div#wrapper.plot-wrapper {
-	padding-left: 250px;
-}
-
-/* @media (min-width: 768px) */
-div#sidebar-wrapper.plot-sidebar {
-	width: 250px;
-	left: 250px;
-  margin-left: -250px;
-	overflow: visible;
 }
 
 .dropdown-menu.open {

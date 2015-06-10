@@ -53,13 +53,9 @@ div#wrapper {
   width: 200px;
   height: 94% !important;
 }
-.container-fluid {
-  border-left: solid 1px #7E9CD9;	
-	/* -webkit-border-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(126, 156, 217, 1) 50%,rgba(255,255,255,1) 100%) 0 100% 0 0/0 1px 0 0 stretch;  */
-}
 
 .sidebar-nav {
-  width: 200px;
+  width: 100%;
 }
 
 .tooltip {
@@ -113,9 +109,9 @@ img.aligncenter, img.alignright, img.alignleft  {
 }
 
 #infrastructure-TOC > li.sidebar-search {
-	border-bottom: 1px solid #7E9CD9;
-  padding: 5px 0 5px 0;
-  border-right: 1px solid #7E9CD9;
+  padding: 5px 0 5px 0;	
+	/* border-bottom: 1px solid #7E9CD9; */
+  /* border-right: 1px solid #7E9CD9; */
 }
 #infrastructure-TOC > li.sidebar-search:hover,
 #infrastructure-TOC > li.sidebar-search:focus {
