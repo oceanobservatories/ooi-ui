@@ -101,10 +101,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     updateCollection( showStreams );
 
     // When the custom event fires, update the pagination
-    collection.on("collection:updated", function( details ){
-        updatePagination( details, showStreams );
-        });
-    
+    this.listenTo(collection, "collection:updated", function(details){
+            updatePagination(details, showStreams);
+    });
+
     //this.collections.streams.fetch({reset:true});
 
     /* Dispatcher Sectiion */

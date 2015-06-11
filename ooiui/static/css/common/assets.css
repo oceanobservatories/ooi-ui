@@ -1,0 +1,35 @@
+/* Navbar */
+@media screen and (max-width: 1040px) {
+    #navbar {
+        max-height: 50px;
+    }
+    #navbar img {
+        visibility: hidden;
+        display: none;
+    }
+    #navbar-right {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+/* Bootstrap Pagination modifications */
+.pagination {
+    margin: 0px 0px !important;
+}
+
+/* Asset Table */
+#asset-panel-body {
+    min-height:460px;
+}
+
+/* Asset Settings Panel */
+div#assetInspector > div > div  {
+    height: 40px;
+}
+
+
+/* Event Information Panel */
+div#eventInspector > div > div {
+    height: 40px;
+}
