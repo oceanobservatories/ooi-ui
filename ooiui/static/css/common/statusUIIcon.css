@@ -1,6 +1,11 @@
 /*
  * Badge Buttons @ Top
  */
+/* status map styles */
+ .popup-map-btn{
+    min-width: 280px !important;
+    text-align: center;
+ }
 /* centered columns styles */
 .row-centered {
     text-align:center;

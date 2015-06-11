@@ -64,6 +64,7 @@ var AssetView = Backbone.View.extend({
                   field: 'state',
                   checkbox: true
               },*/ 
+              /*Doesn't seem to be a display name currently
               {
                   field: 'display_name',
                   title: 'Name',
@@ -72,6 +73,18 @@ var AssetView = Backbone.View.extend({
                   sortable: true,
                   col:'display_name',
                   searchable: true
+              },*/
+              {
+                  field: 'assetInfo',
+                  title: 'Name',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'name',
+                  object:true,
+                  formatter:  function aFormatter(value) {
+                      return value['name'];
+                  }
               },{
                   field: 'assetInfo',
                   title: 'Owner',
@@ -192,15 +205,15 @@ var AssetView = Backbone.View.extend({
             else if(t.target.innerText.search('PLOT')>-1||t.target.className.search('chart')>-1){
 
                 if (self.model!='') {
-                  if(self.selectedInstrument.ref_des==null){
+                  if(self.model.get('ref_des')==null){
                     self.modalDialog.show({
                       message: "No Reference ID to Plot",
                       type: "danger"
                     });
                   }
                   else{
-                    var ref_array = self.selectedInstrument.ref_des.split('-');
-                    var plot_url = '/plotting/'+self.selectedInstrument.ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+self.selectedInstrument.ref_des;
+                    var ref_array = self.model.get('ref_des').split('-');
+                    var plot_url = '/plotting/'+self.model.get('ref_des').substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+self.selectedInstrument.ref_des;
 
                     //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
                     window.open(plot_url,'_blank'); 
@@ -237,6 +250,8 @@ var AssetView = Backbone.View.extend({
                     infoObj['owner']= $('#owner_d').val();
                     infoObj['type']= $('#type_d').val();
                     infoObj['description']= $('#desc_d').val();
+
+                    //self.model.set('display_name',$('#name_d').val());
                     self.model.set('assetInfo',infoObj);
                     self.model.set('class', $('#type_switcher_but').attr('data'));
                     var depthObj={};
@@ -521,7 +536,7 @@ var AssetView = Backbone.View.extend({
         $('#editdep_form').show();
         //self.map.invalidateSize();
 
-        $('#name_d').val(model.display_name);
+        $('#name_d').val(model.assetInfo['name']);
         $('#owner_d').val(model.assetInfo['owner']);
 
         if(model.water_depth){

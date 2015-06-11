@@ -213,7 +213,7 @@ var EventViewPage = Backbone.View.extend({
             var deploy_obj_ = {};
 
             //this is because the data model is different coming in and going out!
-            var Event4Post = new SingleEvent();
+            var Event4Post = self.model;
 
             if(t.target.innerText.search('NEW')>-1){
                 self.clearform();
@@ -233,7 +233,7 @@ var EventViewPage = Backbone.View.extend({
                   if($('#enddate_d').data("DateTimePicker").getDate()!=null){
                       Event4Post.set('endDate',$('#enddate_d').data("DateTimePicker").getDate().toISOString());  
                   }
-                  
+
                   Event4Post.set('eventType',$('#type_e').val());
                   Event4Post.set('cruiseNumber',$('#cruise_e').val());
                   Event4Post.set('deploymentName', $('#dep_name_e').val());
@@ -293,22 +293,22 @@ var EventViewPage = Backbone.View.extend({
                       Event4Post.save(null, {
                         success: function(model, response) {
                           if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
+                            var errMessage = response.message;
                             self.modalDialog.show({
-                              message: "Unable to Save Event",
+                              message: "Unable to Save Event because:  "+errMessage,
                               type: "danger",
                             });
-                            console.log(response.responseText);
-                            $('#editdep_panel').html('Save Event Error.');
+                            $('#editdep_panel').html('There was an error saving the Event.');
                           }
                           else{
                             self.modalDialog.show({
-                            message: "Event successfully saved.",
+                            message: "The Event was saved Successfully.",
                             type: "success",
                             ack: function() { 
                               //window.location = "/assets/list/"
                             }
                             });
-                            $('#editdep_panel').html('Saved Successfully.');
+                            $('#editdep_panel').html('The Event was saved Successfully.');
                             //reload page
                             //location.reload();
                           }
@@ -318,15 +318,13 @@ var EventViewPage = Backbone.View.extend({
                           try {
                             var errMessage = JSON.parse(response.responseText).error;
                           } catch(err) {
-                            console.log(err);
                             var errMessage = "Unable to Save Event";
                           }
                           self.modalDialog.show({
                             message: errMessage,
                             type: "danger",
                           });
-                          console.log(response.responseText);
-                          $('#editdep_panel').html('Save Event Error.');
+                          $('#editdep_panel').html('There was an error saving the Event.');
                         }
                       });
                   
@@ -334,7 +332,7 @@ var EventViewPage = Backbone.View.extend({
                       //self.clearform();
                   }
                   else{
-                      $('#editdep_panel').html('Deployment Name is Required.');
+                      $('#editdep_panel').html('The Deployment Name is Required.');
                       self.modalDialog.show({
                         message: "Please fill out Name fields",
                         type: "danger",

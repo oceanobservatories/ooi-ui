@@ -22,9 +22,9 @@
 {% block body %}
 <!--/.TOP BAR END -->
 <div id="wrapper-asset">
-  <!-- Sidebar -->
+  <!-- Sidebar 
   <div id="sidebar-wrapper" class="navbar-default">
-  </div>
+  </div>-->
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -308,12 +308,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
 
-    /*this.arrays = new ArrayCollection();
-    this.tocView = new TOCView({
-      collection: this.arrays
-    });
-    $('#sidebar-wrapper').html(this.tocView.el);
-    this.arrays.fetch({reset: true});*/
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
   }
@@ -335,7 +329,7 @@ $(document).ready(function() {
     }
     
     $('#menu-toggle').hide();
-    $('#sidebar-wrapper').hide();
+    //$('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
     $('#cal-tab').hide();
 
