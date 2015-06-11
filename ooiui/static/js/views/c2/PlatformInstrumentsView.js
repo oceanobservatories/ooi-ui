@@ -1,6 +1,6 @@
 "use strict";
 /*
-* ooiui/static/js/views/c2/ArraySideBarView.js
+* ooiui/static/js/views/c2/PlatformInstrumentsView.js
 * View definitions for charts
 *
 * Dependencies
@@ -60,30 +60,29 @@ var PlatformInstrumentsView = Backbone.View.extend({
     });
 
     var columns = [{
-            name: "display_name", // The key of the model attribute
-            label: " Instrument Name", // The name to display in the header
-            editable: false,
-            cell: "string"
-        }, {
-            name: "operational_status",
-            label: "Status",
-            editable: false,
-            cell: HtmlCell,
-            formatter: _.extend({}, Backgrid.Cell.prototype, {
-              fromRaw: function (rawValue, model) {
-                if(rawValue =='Online'){
-                    return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-up c2-online'></i>";
-                }
-                else if(rawValue =='Offline'){
-                    return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-down c2-offline'></i>";
-                }
-                else{
-                    return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-question-circle c2-unknown'></i>";
-                }
+          name: "display_name", // The key of the model attribute
+          label: " Instrument Name", // The name to display in the header
+          editable: false,
+          cell: "string"
+      }, {
+          name: "operational_status",
+          label: "Status",
+          editable: false,
+          cell: HtmlCell,
+          formatter: _.extend({}, Backgrid.Cell.prototype, {
+            fromRaw: function (rawValue, model) {
+              if(rawValue =='Online'){
+                  return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-up c2-online'></i>";
               }
-            })
-      },
-      {
+              else if(rawValue =='Offline'){
+                  return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-thumbs-down c2-offline'></i>";
+              }
+              else{
+                  return "<i style='pointer-events: none; font-size:20px;float:right;padding-right: 25px;' class='fa fa-question-circle c2-unknown'></i>";
+              }
+            }
+          })
+      },{
           name: "operational_status",
           label: "Commands",
           editable: false,

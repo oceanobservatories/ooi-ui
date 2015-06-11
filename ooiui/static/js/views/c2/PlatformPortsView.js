@@ -92,7 +92,7 @@ var PlatformPortsView = Backbone.View.extend({
             label: "Series", // The name to display in the header
             editable: false,
             cell: "string"
-        }];
+      }];
 
       //add click event
       var ClickableRow = Backgrid.Row.extend({

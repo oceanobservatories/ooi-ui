@@ -1,6 +1,7 @@
+"use strict";
 /*
  *
- * ooiui/static/js/models/common/FilterViewModel.js
+ * ooiui/static/js/models/aa/AlertFilterView.js
  * Validation model for Alerts and Alarms Page.
  *
  * Dependencies
@@ -431,7 +432,7 @@ var AlertFilterView = Backbone.View.extend({
             }
             else{
               self.modalDialog.show({
-                message: "Please Select an Instrument to Add Alert to",
+                message: "Please Select an Instrument to apply new Alert(s)",
                 type: "danger",
               });
             }
@@ -443,7 +444,7 @@ var AlertFilterView = Backbone.View.extend({
             //add new line
             if($('#loading_alerts').html() == ''){
               self.modalDialog.show({
-                message: "Please Select an Instrument to Add Alert to",
+                message: "Please Select an Instrument to apply new Alert(s)",
                 type: "danger",
               });
             }

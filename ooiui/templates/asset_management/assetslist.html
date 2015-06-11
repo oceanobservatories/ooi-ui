@@ -25,9 +25,9 @@
 {% block body %}
 <!--/.TOP BAR END -->
 <div id="wrapper-asset">
-  <!-- Sidebar -->
+  <!-- Sidebar 
   <div id="sidebar-wrapper" class="navbar-default">
-  </div>
+  </div>-->
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -111,13 +111,15 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="startdate_d">Launch Date: </label>
                               <div class="controls">
-                                <input id="startdate_d" name="startdate_d" style='cursor:pointer;width:450px' type="text" placeholder="" class="input-xlarge">
+                                <input id="startdate_d" name="startdate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
+                                <span class="fa fa-calendar"></span>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="enddate_d">End Date: </label>
                               <div class="controls">
-                                <input id="enddate_d" name="enddate_d" style='cursor:pointer;width:450px' type="text" placeholder="" class="input-xlarge">
+                                <input id="enddate_d" name="enddate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
+                                <span class="fa fa-calendar"></span>
                               </div>
                             </div>
                             <div class="form-group">
@@ -369,13 +371,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     $('body').prepend(this.navbar.el);
 
-    /*this.arrays = new ArrayCollection();
-    this.tocView = new TOCView({
-      collection: this.arrays
-    });
-    $('#sidebar-wrapper').html(this.tocView.el);
-    this.arrays.fetch({reset: true});*/
-
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
   }
@@ -387,7 +382,7 @@ $(document).ready(function() {
     ooi.start();
     assetView = new AssetView();
     $('#menu-toggle').hide();
-    $('#sidebar-wrapper').hide();
+    //$('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
 });
 

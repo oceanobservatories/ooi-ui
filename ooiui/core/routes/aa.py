@@ -32,6 +32,7 @@ def aa_triggered_dashboard():
     return render_template('aa/TriggeredPage.html')
 
 #edit/new page for aa
+#this is not being used right now
 @app.route('/alerts/createalert')
 @app.route('/alerts/createalert/')
 def aa_index():
