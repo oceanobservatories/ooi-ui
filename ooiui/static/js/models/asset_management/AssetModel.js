@@ -11,7 +11,6 @@
  */
 
 var AssetModel = Backbone.Model.extend({
-  urlRoot: '/api/asset_deployment',
   defaults: {
   	assetInfo: {
 	    description: null,
@@ -52,8 +51,12 @@ var AssetModelSingle = Backbone.Model.extend({
 var AssetCollection = Backbone.Collection.extend({
   url: '/api/asset_deployment',
   model: AssetModel,
-  parse: function(response, options) {
-    return response.assets;
+  parse: function(response) {
+    if (response) {
+        this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt });
+        return response.assets;
+    }
+    return [];
   }
 });
 
