@@ -1,3 +1,19 @@
+"use strict";
+/*
+ *
+ * ooiui/static/js/models/asset_management/AssetView.js
+ * Validation model for Alerts and Alarms Page.
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/compiled/alertPage.js
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * Usage
+ * 
+ */
+
 var AssetView = Backbone.View.extend({
 
 	initialize: function() {
@@ -141,21 +157,13 @@ var AssetView = Backbone.View.extend({
           });
 
         //datepickers with min/max validation
-        $( "#startdate_d" ).datepicker({
-          changeMonth: true,
-          numberOfMonths: 2,
-          maxDate: "+1m +1w",
-          onClose: function( selectedDate ) {
-            $( "#enddate_d" ).datepicker( "option", "minDate", selectedDate );
-          }
+        $('#enddate_d').datetimepicker();
+        $('#startdate_d').datetimepicker();
+        $("#enddate_d").on("dp.change", function (e) {
+          $('#startdate_d').data("DateTimePicker").setMaxDate(e.date);
         });
-        $( "#enddate_d" ).datepicker({
-          changeMonth: true,
-          numberOfMonths: 2,
-          maxDate: "+1m +1w",
-          onClose: function( selectedDate ) {
-            $( "#startdate_d" ).datepicker( "option", "maxDate", selectedDate );
-          }
+        $("#startdate_d").on("dp.change", function (e) {
+          $('#enddate_d').data("DateTimePicker").setMinDate(e.date);
         });
 
         //asset type switcher
@@ -216,8 +224,8 @@ var AssetView = Backbone.View.extend({
                 else {
                     $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
                     // that.model.attributes = selectedInstrument;
-                    if($( "#startdate_d" ).datepicker('getDate' )){
-                      self.model.set('launch_date_time',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
+                    if($( "#startdate_d" ).data("DateTimePicker").getDate()!=null){
+                      self.model.set('launch_date_time',$( "#startdate_d" ).data("DateTimePicker").getDate().toISOString());
                     }
                     else{
                       self.model.set('launch_date_time','');
@@ -533,23 +541,31 @@ var AssetView = Backbone.View.extend({
                 var l_date = new Date(model.launch_date_time*1000);
             }
             else{
-                var l_date = Date.parse(model.launch_date_time);
+                var l_date = new Date(Date.parse(model.launch_date_time));
             }
-
-            $("#startdate_d" ).datepicker( "setDate", l_date);
+            $("#startdate_d" ).data("DateTimePicker").setDate(l_date);
         }
         else{
-            $("#startdate_d" ).datepicker( "setDate", '' );
+            $("#startdate_d" ).data("DateTimePicker").setDate();
         }
-        /*if(model.attributes.launch_date_time){
-          var l_date = Date.parse(model.attributes.launch_date_time);
-          $("#enddate_d" ).datepicker( "setDate", l_date );
-          }
-          else{
-          $("#enddate_d" ).datepicker( "setDate", '' );
-          }*/
 
-        $("#enddate_d" ).datepicker( "setDate", "" );//10/12/2014
+        if(model.end_date_time){
+            if(String(model.end_date_time).search('Z')>-1){
+                var dobj = String(model.end_date_time).split('Z')
+                var l_date = Date.parse(dobj[0]);
+            }
+            else if(!isNaN(model.end_date_time)){
+                var l_date = new Date(model.launch_date_time*1000);
+            }
+            else{
+                var l_date = new Date(Date.parse(model.end_date_time));
+            }
+            $("#enddate_d" ).data("DateTimePicker").setDate(l_date);
+        }
+        else{
+            $("#enddate_d" ).data("DateTimePicker").setDate();
+        }
+
         $('#desc_d').val(model.assetInfo['description']);
         $('#notes_d').val(model.notes);
         if(model.manufactureInfo){
@@ -562,16 +578,16 @@ var AssetView = Backbone.View.extend({
         var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
 
         $("#type_d").val(model.assetInfo['type']);
-        $("#type_switcher_but").attr('data', model.class);
-        $("#type_switcher_but").val(classtypelist[model.class].val);
-        $('#type_switcher_but').html(classtypelist[model.class].label+' <span class="caret"></span>');
+        $("#type_switcher_but").attr('data', model['@class']);
+        $("#type_switcher_but").val(classtypelist[model['@class']].val);
+        $('#type_switcher_but').html(classtypelist[model['@class']].label+' <span class="caret"></span>');
     },
 
     clearform: function(){
         $('#depth_d').val('');
         $('#name_d').val('');
-        $('#startdate_d').val('');
-        $('#enddate_d').val('');
+        $('#startdate_d').data("DateTimePicker").setDate();
+        $('#enddate_d').data("DateTimePicker").setDate();
         $('#type_d').val('');
         $('#owner_d').val('');
         $('#geo_d_lat').val('');

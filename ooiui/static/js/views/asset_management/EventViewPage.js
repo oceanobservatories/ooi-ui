@@ -1,3 +1,19 @@
+"use strict";
+/*
+ *
+ * ooiui/static/js/models/asset_management/EventViewPage.js
+ * Validation model for Alerts and Alarms Page.
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/compiled/alertPage.js
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * Usage
+ * 
+ */
+
 var EventViewPage = Backbone.View.extend({
 
 	initialize: function(d) {
@@ -54,32 +70,30 @@ var EventViewPage = Backbone.View.extend({
 
           eventModel.fetch({
             success: function (event) {
-                $('#editdep_panel').html('');
+              $('#editdep_panel').html('');
 
-                //M@Campbell - 4/7/2015
-                //---
-                //Set calibration table 
-                if (self.model.get('calibrationCoefficient')) { 
-                    //render the tab if there is calibration coefficients
-                    $('#cal-tab').show();
-                    $('#cal_table tbody').empty(); 
-                    
-                    //keeping things tidy...
-                    var ccLen = event.attributes.calibrationCoefficient.length; 
-                    for ( var t = 0; t < ccLen; t++ ) {
-                        var ccName = event.attributes.calibrationCoefficient[t].name;
-                        var ccValue = event.attributes.calibrationCoefficient[t].values; 
-                        $('#cal_table tbody').append(
-                            "<tr class="+event.attributes.eventId+">" +
-                            "<td style=''>"+ ccName+ "</td>" +
-                            "<td class=cal-cof-"+event.attributes.eventId +
-                                " id=" + ccName +">" + ccValue +
-                            "</td></tr>"
-                            );
-                    }; 
-                };
-                //---
-
+              //M@Campbell - 4/7/2015
+              //---
+              //Set calibration table 
+              if (self.model.get('calibrationCoefficient')) { 
+                  //render the tab if there is calibration coefficients
+                  $('#cal-tab').show();
+                  $('#cal_table tbody').empty(); 
+                  
+                  //keeping things tidy...
+                  var ccLen = event.attributes.calibrationCoefficient.length; 
+                  for ( var t = 0; t < ccLen; t++ ) {
+                      var ccName = event.attributes.calibrationCoefficient[t].name;
+                      var ccValue = event.attributes.calibrationCoefficient[t].values; 
+                      $('#cal_table tbody').append(
+                          "<tr class="+event.attributes.eventId+">" +
+                          "<td style=''>"+ ccName+ "</td>" +
+                          "<td class=cal-cof-"+event.attributes.eventId +
+                              " id=" + ccName +">" + ccValue +
+                          "</td></tr>"
+                          );
+                  }; 
+              };
                 //set asset_table to assetInfo table
               $('#asset_table tbody').empty();
               $('#asset_table tbody').append("<tr id="+event.attributes.asset.assetId+"><td style=''>"+event.attributes.asset.assetInfo.name+"</td><td style=''>"+event.attributes.asset.assetInfo.type+"</td><td style=''>"+event.attributes.asset.assetInfo.owner+"</td></tr>");
@@ -94,20 +108,29 @@ var EventViewPage = Backbone.View.extend({
               else{
                  $('#depth_e').val('');
               }
+
+              //start date
               if(event.attributes.startDate){
                 var eventStartDate = event.attributes.startDate;
                 $("#startdate_d" ).val(eventStartDate);
+
+                var s_date = new Date(event.attributes.startDate);
+                $("#startdate_d" ).data("DateTimePicker").setDate(s_date);
               }
               else{
-                 $("#startdate_d" ).datepicker( "setDate", '' );
+                 $("#startdate_d" ).data("DateTimePicker").setDate();
               }
 
+              //end date
               if(event.attributes.endDate){
-                  var eventEndDate = event.attributes.endDate;
+                var eventEndDate = event.attributes.endDate;
                 $("#enddate_d" ).val(eventEndDate);
+
+                var e_date = new Date(Date.parse(event.attributes.endDate));
+                $("#enddate_d" ).data("DateTimePicker").setDate(e_date);
               }
               else{
-                 $("#enddate_d" ).datepicker( "setDate", '' );
+                 $("#enddate_d" ).data("DateTimePicker").setDate();
               }
               
               $('#desc_d').val(event.attributes.eventDescription);
@@ -169,6 +192,16 @@ var EventViewPage = Backbone.View.extend({
 
     initializeEvent:function(){
         var self = this;
+        
+        $('#enddate_d').datetimepicker();
+        $('#startdate_d').datetimepicker();
+        $("#enddate_d").on("dp.change", function (e) {
+          $('#startdate_d').data("DateTimePicker").setMaxDate(e.date);
+        });
+        $("#startdate_d").on("dp.change", function (e) {
+          $('#enddate_d').data("DateTimePicker").setMinDate(e.date);
+        });
+
         //asset type switcher
         $('#type_switcher_but').dropdown();
         $('#type_switcher_but_val').on('click', function(e) {
@@ -192,121 +225,121 @@ var EventViewPage = Backbone.View.extend({
             else if(t.target.innerText.search('SAVE'>-1)){
                 //save to db 
                 if (self.model.isValid()) {
-                    $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
-                   
-                    if($( "#startdate_d" ).datepicker('getDate' )){
-                        Event4Post.set('startDate',$( "#startdate_d" ).datepicker('getDate' ).toISOString());
-                    }
-                    if($( "#enddate_d" ).datepicker('getDate' )){
-                        Event4Post.set('endDate',$( "#enddate_d" ).datepicker('getDate' ).toISOString());  
-                    }
-                    
-                    Event4Post.set('eventType',$('#type_e').val());
-                    Event4Post.set('cruiseNumber',$('#cruise_e').val());
-                    Event4Post.set('deploymentName', $('#dep_name_e').val());
-                    Event4Post.set('deploymentNumber',Number($('#dep_num_e').val()));
-                    Event4Post.set('recordedBy',$('#recordedby_d').val());
-                    //Event4Post.set('deploymentLocationName',$('#cur_loc_d').val());
-                    
-                    Event4Post.set('class', $('#type_switcher_but').attr('data'));
-                    Event4Post.set('deploymentDepth',Number($('#depth_e').val()));
-                    Event4Post.set('deploymentLocation',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
-                    Event4Post.set('eventDescription', $('#desc_d').val());
-                    Event4Post.set('notes',[$('#notes_d').val()]);
-                    
-                    //M@Campbell - 4/7/2015
-                    //---
-                    //Save the calibration coefficients here.
-                    
-                    //create the coefficients container:
-                    var arrCalCoef = [];
-                    var calCoefClassName = 'cal-cof-'+self.model.attributes.eventId;
-                    var domCalCoef = document.getElementsByClassName(calCoefClassName);
-                    for (var i=0; i < domCalCoef.length; i++) { 
-                        arrCalCoef.push({"name": domCalCoef[i].getAttribute('id'),"values": domCalCoef[i].getAttribute('value')});
-                    };
+                  $('#editdep_panel').html('<i class="fa fa-spinner fa-spin"></i>  Saving...');
+                 
+                  if($('#startdate_d').data("DateTimePicker").getDate() !=null){
+                      Event4Post.set('startDate',$('#startdate_d').data("DateTimePicker").getDate().toISOString());
+                  }
+                  if($('#enddate_d').data("DateTimePicker").getDate()!=null){
+                      Event4Post.set('endDate',$('#enddate_d').data("DateTimePicker").getDate().toISOString());  
+                  }
+                  
+                  Event4Post.set('eventType',$('#type_e').val());
+                  Event4Post.set('cruiseNumber',$('#cruise_e').val());
+                  Event4Post.set('deploymentName', $('#dep_name_e').val());
+                  Event4Post.set('deploymentNumber',Number($('#dep_num_e').val()));
+                  Event4Post.set('recordedBy',$('#recordedby_d').val());
+                  //Event4Post.set('deploymentLocationName',$('#cur_loc_d').val());
+                  
+                  Event4Post.set('class', $('#type_switcher_but').attr('data'));
+                  Event4Post.set('deploymentDepth',Number($('#depth_e').val()));
+                  Event4Post.set('deploymentLocation',[Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())])
+                  Event4Post.set('eventDescription', $('#desc_d').val());
+                  Event4Post.set('notes',[$('#notes_d').val()]);
+                  
+                  //M@Campbell - 4/7/2015
+                  //---
+                  //Save the calibration coefficients here.
+                  
+                  //create the coefficients container:
+                  var arrCalCoef = [];
+                  var calCoefClassName = 'cal-cof-'+self.model.attributes.eventId;
+                  var domCalCoef = document.getElementsByClassName(calCoefClassName);
+                  for (var i=0; i < domCalCoef.length; i++) { 
+                      arrCalCoef.push({"name": domCalCoef[i].getAttribute('id'),"values": domCalCoef[i].getAttribute('value')});
+                  };
 
-                    //TOOD: Once the services are chatting again with
-                    //  uframe events POST/PUT, circle back to this.
-                    //
-                    //add the calibration coefficient's array to the message:
-                    //Event4Post.set('calibrationCoefficient',arrCalCoef);
-                    
-                    //---
+                  //TOOD: Once the services are chatting again with
+                  //  uframe events POST/PUT, circle back to this.
+                  //
+                  //add the calibration coefficient's array to the message:
+                  //Event4Post.set('calibrationCoefficient',arrCalCoef);
+                  
+                  //---
 
-                    //this never changes
-                    var assetObj = {}
-                    assetObj= {
-                      "@class": self.model.attributes.asset['@class'],
-                      "assetId": self.model.attributes.asset['assetId']
-                     };
-                    Event4Post.set('asset',assetObj);
-                    /*var manObj = {};
-                    manObj['manufacturer']=$('#manufacture_d').val()
-                    self.model.set('manufactureInfo',manObj);*/
-                    //var geoObj = {};
-                    //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
-                    //geoObj['coordinates']=coord;
-                    //geoObj['type'] = "Point";
-                    //self.model.set('geo_location',wellknown.stringify(geoObj));
+                  //this never changes
+                  var assetObj = {}
+                  assetObj= {
+                    "@class": self.model.attributes.asset['@class'],
+                    "assetId": self.model.attributes.asset['assetId']
+                   };
+                  Event4Post.set('asset',assetObj);
+                  /*var manObj = {};
+                  manObj['manufacturer']=$('#manufacture_d').val()
+                  self.model.set('manufactureInfo',manObj);*/
+                  //var geoObj = {};
+                  //var coord = [Number($('#geo_d_long').val()),Number($('#geo_d_lat').val())];
+                  //geoObj['coordinates']=coord;
+                  //geoObj['type'] = "Point";
+                  //self.model.set('geo_location',wellknown.stringify(geoObj));
 
-                    //existing? this is to put edits
-                    if(self.model.attributes.eventId != null){
-                        Event4Post.set('id',self.model.attributes.eventId);                    
-                        //If the model does not yet have an id, it is considered to be new.
-                        //self.model.url = '/api/asset_deployment/'+selectedInstrument['assetId']
-                    }
-                    if($('#dep_name_e').val() != ''){
-                        Event4Post.save(null, {
-                          success: function(model, response) {
-                            if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
-                              self.modalDialog.show({
-                                message: "Unable to Save Event",
-                                type: "danger",
-                              });
-                              console.log(response.responseText);
-                              $('#editdep_panel').html('Save Event Error.');
-                            }
-                            else{
-                              self.modalDialog.show({
-                              message: "Event successfully saved.",
-                              type: "success",
-                              ack: function() { 
-                                //window.location = "/assets/list/"
-                              }
-                              });
-                              $('#editdep_panel').html('Saved Successfully.');
-                              //reload page
-                              //location.reload();
-                            }
-                            
-                          },
-                          error: function(model, response) {
-                            try {
-                              var errMessage = JSON.parse(response.responseText).error;
-                            } catch(err) {
-                              console.log(err);
-                              var errMessage = "Unable to Save Event";
-                            }
+                  //existing? this is to put edits
+                  if(self.model.attributes.eventId != null){
+                      Event4Post.set('id',self.model.attributes.eventId);                    
+                      //If the model does not yet have an id, it is considered to be new.
+                      //self.model.url = '/api/asset_deployment/'+selectedInstrument['assetId']
+                  }
+                  if($('#dep_name_e').val() != ''){
+                      Event4Post.save(null, {
+                        success: function(model, response) {
+                          if(response.statusCode.search('ERROR')>-1||response.statusCode.search('BAD')>-1){
                             self.modalDialog.show({
-                              message: errMessage,
+                              message: "Unable to Save Event",
                               type: "danger",
                             });
                             console.log(response.responseText);
                             $('#editdep_panel').html('Save Event Error.');
                           }
-                        });
-                    
-                        //reset
-                        //self.clearform();
-                    }
-                    else{
-                        $('#editdep_panel').html('Deployment Name is Required.');
-                        self.modalDialog.show({
-                          message: "Please fill out Name fields",
-                          type: "danger",
-                        });
-                    }
+                          else{
+                            self.modalDialog.show({
+                            message: "Event successfully saved.",
+                            type: "success",
+                            ack: function() { 
+                              //window.location = "/assets/list/"
+                            }
+                            });
+                            $('#editdep_panel').html('Saved Successfully.');
+                            //reload page
+                            //location.reload();
+                          }
+                          
+                        },
+                        error: function(model, response) {
+                          try {
+                            var errMessage = JSON.parse(response.responseText).error;
+                          } catch(err) {
+                            console.log(err);
+                            var errMessage = "Unable to Save Event";
+                          }
+                          self.modalDialog.show({
+                            message: errMessage,
+                            type: "danger",
+                          });
+                          console.log(response.responseText);
+                          $('#editdep_panel').html('Save Event Error.');
+                        }
+                      });
+                  
+                      //reset
+                      //self.clearform();
+                  }
+                  else{
+                      $('#editdep_panel').html('Deployment Name is Required.');
+                      self.modalDialog.show({
+                        message: "Please fill out Name fields",
+                        type: "danger",
+                      });
+                  }
                 }
             }
             //not using now - no function in uframe
@@ -424,8 +457,8 @@ var EventViewPage = Backbone.View.extend({
     clearform: function(){
         $('#depth_e').val('');
         $('#name_d').val('');
-        $('#startdate_d').val('');
-        $('#enddate_d').val('');
+        $('#startdate_d').data("DateTimePicker").setDate();
+        $('#enddate_d').data("DateTimePicker").setDate();
         $('#type_e').val('');
         $('#cruise_e').val('');
         $('#dep_name_e').val('');

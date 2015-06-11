@@ -1,6 +1,7 @@
+"use strict";
 /*
  *
- * ooiui/static/js/models/common/FilterViewModel.js
+ * ooiui/static/js/models/aa/TriggeredView.js
  * Validation model for Alerts and Alarms Page.
  *
  * Dependencies
@@ -114,10 +115,10 @@ var TriggeredView = Backbone.View.extend({
                 //place holder right now for triggered events
                 if(rawValue =='alarm'){
                   //fa fa-bullhorn
-                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
+                  return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
                 }
                 else if(rawValue =='alert'){
-                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#E3A615' class='fa fa-flag'> Alert</i>";
+                  return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#E3A615' class='fa fa-flag'> Alert</i>";
                 }
               }
             })
@@ -136,6 +137,7 @@ var TriggeredView = Backbone.View.extend({
             this.el.style.backgroundColor = this.highlightColor;
 
             //check to see if the condtion met item has ben clicked and open triggered events
+            //Todo Open widow with triggered alerts metadata
             /*if(e.target.id=='condition_met'){
                this.triggeredalertView = new TriggeredAlertDialogView();
                 $('.container-fluid').first().append(this.triggeredalertView.el);

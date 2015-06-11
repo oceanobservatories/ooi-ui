@@ -1,6 +1,6 @@
 "use strict";
 /*
-* ooiui/static/js/views/c2/ArraySideBarView.js
+* ooiui/static/js/views/c2/ArrayHistoryView.js
 * View definitions for charts
 *
 * Dependencies

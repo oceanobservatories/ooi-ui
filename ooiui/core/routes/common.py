@@ -108,7 +108,7 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
-@app.route('/statusUI.html')
+@app.route('/statusUI')
 def statusUI():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FstatusUI')
     return render_template('common/statusUI.html')

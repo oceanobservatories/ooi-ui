@@ -49,20 +49,6 @@ var PlatformStatusView = Backbone.View.extend({
   initialize: function(options) {
     _.bindAll(this, "render", "onSync", "selectPlatform");
     this.listenTo(this.collection, "sync", this.onSync);
-    //this.listenTo(this.collection, "reset", this.onSync);
-    //this.render();
-    //var self = this;
-    //this.collection.fetch('CP',{
-    //  success: function(collection, response, options) {
-    //    console.log('success');
-    //    // If the fetch was successful, then we render
-    //    self.render();
-    //    var refdes = ooi.models.platformStatusModel.get('reference_designator');
-    //    if(refdes && refdes != '' && refdes != null) {
-    //      self.selectPlatform(refdes)
-    //    }
-    //  }
-    //});
   },
   onSync: function() {
     this.render();

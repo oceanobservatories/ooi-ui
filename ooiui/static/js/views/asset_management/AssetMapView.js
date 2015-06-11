@@ -1,5 +1,18 @@
 "use strict";
-
+/*
+ *
+ * ooiui/static/js/models/asset_management/AssetMapView.js
+ * Validation model for Alerts and Alarms Page.
+ *
+ * Dependencies
+ * Partials
+ * - ooiui/static/js/partials/compiled/alertPage.js
+ * Libs
+ * - ooiui/static/lib/underscore/underscore.js
+ * - ooiui/static/lib/backbone/backbone.js
+ * Usage
+ * 
+ */
 
 var AssetMapView = Backbone.View.extend({
   events: {    
