@@ -205,15 +205,15 @@ var AssetView = Backbone.View.extend({
             else if(t.target.innerText.search('PLOT')>-1||t.target.className.search('chart')>-1){
 
                 if (self.model!='') {
-                  if(self.model.get('ref_des')==null){
+                  if(self.selectedInstrument.ref_des==null){
                     self.modalDialog.show({
                       message: "No Reference ID to Plot",
                       type: "danger"
                     });
                   }
                   else{
-                    var ref_array = self.model.get('ref_des').split('-');
-                    var plot_url = '/plotting/'+self.model.get('ref_des').substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+self.selectedInstrument.ref_des;
+                    var ref_array = self.selectedInstrument.ref_des.split('-');
+                    var plot_url = '/plotting/'+self.selectedInstrument.ref_des.substring(0, 2)+'/'+ref_array[0]+'/'+ref_array[1]+'/'+self.selectedInstrument.ref_des;
 
                     //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
                     window.open(plot_url,'_blank'); 
