@@ -111,6 +111,8 @@ div#wrapper-asset {
 
 #page-content-wrapper {
   padding: 0 20px 20px 20px;
+	widows: 100%;
+	z-index: 1000;
 }
 
 #fadein-left > li.logo-left {
@@ -367,14 +369,26 @@ div#alertslist > form.backgrid-filter.form-search {
 
 /* @media (min-width: 768px) */
 div#wrapper.btn-wrapper {
-	margin-left: 50px;
+	padding-left: 250px;
+	/* margin-left: 50px; */
+}
+div#wrapper.toggled.btn-wrapper {
+	padding-left: 0px;
+	/* margin-left: 50px; */
 }
 
-/* @media (min-width: 768px) */
-div#sidebar-wrapper.btn-sidebar {
-	width: 250px;
-	left: 210px;
-  margin-left: -250px;
+div#wrapper.toggled.btn-wrapper idebar-wrapper.btn-sidebar {
+	width: 275px;
+	/* width: 250px; */
+	/* left: 220px; */
+  /* margin-left: -250px; */
+	/* overflow: visible; */
+}
+div#wrapper.toggled.btn-wrapper #sidebar-wrapper.btn-sidebar {
+	width: 0px;
+	/* width: 250px; */
+	/* left: 220px; */
+  /* margin-left: -250px; */
 	/* overflow: visible; */
 }
 
@@ -579,12 +593,13 @@ ul#plot-dd > a:hover {
 }*/
 
 .btn-primary {
-  background-image: -webkit-linear-gradient(top, #ffffff, #7E9CD9 );
-  background-image: -moz-linear-gradient(top, #ffffff, #7E9CD9 );
-  background-image: -ms-linear-gradient(top, #ffffff, #7E9CD9 );
-  background-image: -o-linear-gradient(top, #ffffff, #7E9CD9 );
-  background-image: linear-gradient(to bottom, #ffffff, #7E9CD9 );
-  -webkit-border-radius: 5;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));	
+	/* background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+	/* background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+	/* background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+	/* background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+	-webkit-border-radius: 5;
   -moz-border-radius: 5;
   border-radius: 5px;
   color: #004773;
@@ -595,15 +610,14 @@ ul#plot-dd > a:hover {
   text-decoration: none;
 	line-height: .9; 
 }
-.btn.btn-primary:hover {
-	background: #8DA2E4;
-	background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.7),  rgba(126, 156, 217,.0));
-  text-decoration: none;
-	background-repeat: no-repeat;
-	color: #004773;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+	background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+	text-decoration: none;
 }
 
-btn-success {
+.btn-success {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
 	line-height: .9;
 }
@@ -666,9 +680,8 @@ button.btn.btn-success.dropdown-toggle {
 	line-height: 1;
 }
 
-button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
-	line-height: 1;
-}
+
+
 /****************************
 ****** Search/Reset Bar *****
 ****************************/
@@ -747,6 +760,31 @@ button.btn.btn-primary.btn-reset:focus {
 	margin-top: 25px;
 }
 
+/* change for select buttons on plot page */
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+	color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));	
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: none;
+	width: 100%;
+	margin-bottom: 5px;
+  line-height: 1.1;
+  font-family: inherit;
+}
+
+
+
+
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
+
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+}
+
 .dropdown-menu.open {
 	margin: 2px 170px 0;
 	background-color: rgba(255, 255, 255, 0.87);
@@ -780,16 +818,47 @@ ul.dropdown-menu.inner.selectpicker > li > a:focus {
   box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
 }
 
-/*space between button group on plotting page*/
-button[id*="Second"] {
-	margin: 0px 5px;
-}
-
 span.filter-option.pull-left {
 	text-transform: capitalize;
 }
 
-/*
+/* Plotting sidebar buttons */
+/*space between button group on plotting page*/
+#plot-btn-group button[class*="plot-btn"] {
+	/* margin: 0px 5px; */
+	/* border-top-left-radius: 41px; */
+  /* border-bottom-left-radius: 41px; */
+  width: auto;
+	color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));	
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-decoration: none;
+	margin-bottom: 5px;
+  line-height: 1;
+  font-family: inherit;
+}
+
+#plot-btn-group button[class*="plot-btn"]:hover {
+	width: auto;
+	color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));	
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-decoration: none;
+	margin-bottom: 5px;
+  line-height: 1;
+  font-family: inherit;
+
+}
+
+#plot-btn-group button span[class*="glyphicon"] {
+	background: transparent;
+}
 ~new~
 light-grey-blue: #6080A1 (rgb: 96 128 161)
 dark-blue: #004773 (rgb: 0 71 115)
