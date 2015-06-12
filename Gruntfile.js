@@ -1150,7 +1150,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/backgridall.min.css",
             "ooiui/static/css/filtrify/css/filtrify.css",
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css',
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/custom-bs/custom.css"  
           ],
           "ooiui/static/css/compiled/signup.css" : [
