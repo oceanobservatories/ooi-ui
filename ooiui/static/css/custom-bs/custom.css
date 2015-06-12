@@ -51,13 +51,16 @@ h1, h2, h3, h4, h5, h6 {
 /* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
 #wrapper {
   margin-top: 170px;
-  tex
 }
 
-#wrapper-status{
+div#wrapper-status{
   margin-top: 170px;
   text-align: center;
   
+}
+
+div#wrapper-asset {
+  margin-top: 170px;
 }
 
 #sidebar-wrapper {

@@ -157,7 +157,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     var self = this;
-
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
     
     /*if(this.login.loggedIn()) {

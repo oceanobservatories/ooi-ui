@@ -24,10 +24,15 @@
 
 {% block body %}
 <!--/.TOP BAR END -->
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
 <div id="wrapper-asset">
-  <!-- Sidebar 
-  <div id="sidebar-wrapper" class="navbar-default">
-  </div>-->
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+  </div>
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -361,15 +366,28 @@ _.extend(OOI.prototype, Backbone.Events, {
     },
   start: function() {
     this.login.fetch({async:false});
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.banner = new BannerView({
+      login: this.login       
+    });
+    $('body').prepend(this.banner.el);
+     
+    this.navbar = new NavbarView({
+      el: $('#navbar')
+              
+    });
 
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
-
+/*
     this.navbar = new NavbarView({
       login: this.login
     });
     $('body').prepend(this.navbar.el);
+  */
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
