@@ -6,80 +6,93 @@
 
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="/css/common/assets.css">
+{# <link rel="stylesheet" type="text/css" href="/css/common/assets.css"> #}
+
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
 <script src="/js/core/common/paginate.js" type="text/javascript"></script>
+<script src="/js/compiled/asset_management.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
-<div id="page-wrapper">
-    <div id="navbar" style="margin-bottom:50px; max-height:50px;"></div>
-    <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" class="toggled">
+    {# <div id="sidebar-wrapper" class="hidden navbar-default"> #}
+  {# </div>  #}
+  <!-- #sidebar-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="content-fluid">
+      <div class="row">
+        <div  class="col-sm-12">
+          <div id="navbarOld" class="panel">
+            <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
         <!-- ooiui/static/js/partials/AssetEditorModal.html -->
-    </div>
-    <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
+            </div>
+            <div class="modal fade" id="ass tetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
         <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
-    </div>
-    <div id="page-content-wrapper">
-        <div class="content-fluid">
-            <div class="row">
-                <div  class="col-sm-12">
-                    <div class="panel">
-                        <div id="assetTableHeading" class="panel-heading hidden">
-                            <!-- ooiui/static/js/partials/AssetTableHeader.html -->
-                        </div>
-                        <i class="fa fa-circle-o-notch fa-spin" style="margin-left:50%; font-size:90px;"></i>
-                        <div id="assetPanelBody" class="panel-body hidden">
-                            <div id="asset-table-view">
-                                <table class="table table-bordered table-striped table-selectable" id="assetsTable">
-                                    <thead>
-                                        <tr>
-                                            <th id="assetTableIdCol">ID#</th>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- ooiui/static/js/partials/AssetTableRow.html -->
-                                    </tbody>
-                                </table>
-                            </div><!-- #asset-table-view -->
-                            <div class="pagination-info text-center"></div>
-                        </div><!-- .panel-body -->
-                    </div>
-                </div><!-- .col-sm-12 -->
-            </div><!-- .row -->
-            <div class="row">
-                <div id="assetDetailsPlaceholder" class="jumbotron text-center hidden">
-                    <h2>Please click an asset to view details</h2>
-                </div>
-                <div id="assetLoadingPlaceholder" class="jumbotron text-center">
-                    <h2>Loading Assets, please wait...</h2>
-                </div>
             </div>
-            <div class="row">
-                <div id="assetAttachmentsTable" class="col-md-12">
-                    <!-- ooiui/static/js/partials/AssetAttachmentsTable.html -->
-                </div>
+            <div id="assetTableHeading" class="panel-heading hidden">
+      <!-- ooiui/static/js/partials/AssetTableHeader.html -->
             </div>
-            <div class="row">
-                <div id="assetInspector" class="col-md-6">
-                    <!-- ooiui/static/js/partials/AssetInspectorForm.html -->
-                </div>
-                <div id="assetEventsTable" class="col-md-6">
-                    <!-- ooiui/static/js/partials/AssetEventTable.html -->
-                </div>
-            </div><!-- .row -->
-        </div><!-- .content-fluid -->
-    </div><!-- #page-content-wrapper -->
+            <i class="fa fa-circle-o-notch fa-spin" style="margin-left:50%; font-size:90px;"></i>
+            <div id="assetPanelBody" class="panel-body hidden">
+              <div id="asset-table-view">
+                <table class="table table-bordered table-striped table-selectable" id="assetsTable">
+                  <thead>
+                    <tr>
+                      <th id="assetTableIdCol">ID#</th>
+                      <th>Name</th>
+                      <th>Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+            <!-- ooiui/static/js/partials/AssetTableRow.html -->
+                  </tbody>
+                </table>
+              </div><!-- #asset-table-view -->
+              <div class="pagination-info text-center"></div>
+              <div id="footer"></div>
+            </div><!-- .panel-body -->
+          </div>
+        </div><!-- .col-sm-12 -->
+      </div><!-- .row -->
+  
+
+      <div class="row">
+        <div id="assetDetailsPlaceholder" class="jumbotron text-center hidden">
+          <h3>Please click an asset to view details</h3>
+        </div>
+        <div id="assetLoadingPlaceholder" class="jumbotron text-center">
+          <h3>Loading Assets, please wait...</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div id="assetAttachmentsTable" class="col-md-12">
+          <!-- ooiui/static/js/partials/AssetAttachmentsTable.html -->
+        </div>
+      </div>
+      <div class="row">
+        <div id="assetInspector" class="col-md-6">
+          <!-- ooiui/static/js/partials/AssetInspectorForm.html -->
+        </div>
+        <div id="assetEventsTable" class="col-md-6">
+          <!-- ooiui/static/js/partials/AssetEventTable.html -->
+        </div>
+      </div><!-- .row -->
+    </div><!-- .content-fluid -->
+  </div><!-- #page-content-wrapper -->
 </div><!-- #wrapper -->
 
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
+
+var bannerTitle = "Asset Dashboard";
 
 _.extend(OOI.prototype, Backbone.Events, {
     login: new LoginModel(),
@@ -89,10 +102,14 @@ _.extend(OOI.prototype, Backbone.Events, {
     start: function() {
     this.login.fetch({async:false});
 
+    banner = new BannerView({bannerTitle});
+
     navbar = new NavbarView({
     login: this.login
     });
-
+    
+    footer = new AssetTabelFooterView({});
+    
     //Render the asset table header
     renderAssetTableHeader();
 
@@ -134,8 +151,12 @@ var pagination = {
 };
 
 $(document).ready(function() {
-    ooi.start();
-    $('body').find('#search-clear').hide();
+  ooi.start();
+  
+   
+    $('body').prepend(banner.el);
+    
+    $('navbarOld').find('#search-clear').hide();
     $('#search-clear').click(function(){
         $('#asset-search').val('').focus();
         $(this).hide();
@@ -146,10 +167,11 @@ $(document).ready(function() {
         $('#search-clear').toggle(Boolean($('#asset-search').val()));
         updateCollection( showAssets );
     });
-    $('#navbar').prepend(navbar.el);
+    $('#navbar').append(navbar.el);
     $('#menu-toggle').hide();
     $('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
+    $('#footer').append(footer.el);
 });
 
 function showAssets( collection, response ){
