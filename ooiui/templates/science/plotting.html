@@ -17,32 +17,36 @@
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
 {% endblock %}
 
-{%block body %}   :: 
+{%block body %}
 
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
 
 <div id="wrapper" class="btn-wrapper">
-  <div id="sidebar-wrapper" class="btn-sidebar">
-   <div class="row">
+  <div id="sidebar-wrapper" class="btn-sidebar" style="overflow:visible;">
+   <ul class="nav sidebar-nav navbar-collapse">
         <div class="col-sm-12">
-          <div class="panel">
             {# <div class="panel-heading"> #}
             {#   <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>#}
             {# </div> #}
-            <div class="panel-body">
 	      {# buttons #}   
-	      <div class="col-sm-12" style="text-align:center;">    
-		<div class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
-                  <button id="enableSecondView" type="button" class="btn btn-default">
+	      <div class="col-sm-12">
+		<div class="row">
+		  <div class="col-sm-12">
+		<div id="plot-btn-group" class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
+                  <button id="enableSecondView" type="button" class="btn btn-default plot-btn">
                     <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
+		    <span style="padding-left:5px;">Add</span>
                   </button>
-                  <button id="disableSecondView" type="button" class="btn btn-default">
+                  <button id="disableSecondView" type="button" class="btn btn-default plot-btn">
                     <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
+		    <span style="padding-left:5px;">Delet</span>
+		    
                   </button>  
-                  <button id="shareStationLink" type="button" class="btn btn-default">
+                  <button id="shareStationLink" type="button" class="btn btn-default plot-btn">
                     <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+		    <span style="padding-left:5px;">Copy</span>		    
                   </button>                  
                 </div>
 	      </div>
@@ -54,11 +58,10 @@
                 <div id="plot-item-selection2" style="display: none;">                
                 </div> 
               </div>
-           
-	    </div> 
-          </div> 
+		</div>
+	      </div>
         </div> 
-    </div>
+    </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
     <div class="content-fluid"> 
