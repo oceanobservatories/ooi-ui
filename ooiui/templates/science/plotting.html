@@ -302,11 +302,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     //filter seection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
+    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {  
+
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
       
       if (options.itemid == "plot-item-selection" ){      
-          
+          options.model.set('units',options.data_units)
           self.views.svgPlotControlView.setModel(options.model,false);                
           self.views.svgplot.setModel(options.model);
           

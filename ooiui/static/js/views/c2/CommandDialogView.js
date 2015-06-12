@@ -1,6 +1,6 @@
 "use strict";
 /*
- * ooiui/static/js/views/common/ModalDialogView.js
+ * ooiui/static/js/views/common/CommandDialogView.js
  * Model definitions for Arrays
  *
  * Dependencies

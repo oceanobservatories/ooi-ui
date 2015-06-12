@@ -4,6 +4,7 @@ from werkzeug.exceptions import Unauthorized
 import requests
 import json
 import urllib
+import urllib2
 from uuid import uuid4
 
 def get_login():
@@ -34,6 +35,7 @@ def users():
 
 @app.route('/troubleTicket')
 def create_ticket():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FtroubleTicket')
     return render_template('common/troubleTicket.html')
 
 @app.route('/login')
@@ -78,10 +80,12 @@ def new_event():
 
 @app.route('/basic.html')
 def basic():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fbasic')
     return render_template('common/basic.html')
 
 @app.route('/svgplot.html')
 def svg_timeseries_plot():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplot')
     return render_template('common/svgplot.html')
 
 @app.route('/depthplot.html')
@@ -104,8 +108,9 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
-@app.route('/statusUI.html')
+@app.route('/statusUI')
 def statusUI():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FstatusUI')
     return render_template('common/statusUI.html')
 
 

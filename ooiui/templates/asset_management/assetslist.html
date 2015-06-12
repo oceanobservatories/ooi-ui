@@ -17,21 +17,125 @@
 
 {% block body %}
 <!--/.TOP BAR END -->
-<div id="page-wrapper">
-    <div id="navbar" style="margin-bottom:50px; max-height:50px;"></div>
-    <div id="page-content-wrapper">
-        <div class="content-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="glyphicon glyphicon-hdd col-sm-4" aria-hidden="true"> Assets</div>
-                                <div class="pagination pagination-sm pagination-right pagination-boxes text-center col-sm-4"></div>
-                                <div class="panel-search col-sm-4 text-right">
-                                    <input id="asset-search" type="text" placeholder="&#xf002; Search">
-                                    <span id="search-clear" classt ="glyphicon glyphicon-remove-circle"></span>
-                                </div>
+<div id="wrapper-asset">
+  <!-- Sidebar
+  <div id="sidebar-wrapper" class="navbar-default">
+  </div>-->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong><span class="fa fa-list"></span> <span data-i18n="Data">Asset List</span></strong>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12" id="asset_top_panel" style='top: -36px;width: 280px;margin-left: 139px; position:relative;'>
+                <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Assets
+              </div>
+              <div id ='filter-toolbar' style='margin-left:-414px'></div>
+              <div id ='datatable_div'><table data-toolbar="#filter-toolbar" style='cursor:pointer' data-show-filter="true" id="datatable"></table>
+              </div>
+              <!-- <h4 style="position: absolute;top: 62px;left:35px">Filter Assets By:</h4>
+              <h5 id='number_of_assets' style="font-style:italic">0 records</h5>
+              <div id ='asset_search_pan' style='top: 73px;position: absolute;left: 180px;'></div>-->
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+        </div> <!-- col-lg-12 -->
+      </div> <!-- row -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel">
+            <div class="panel-heading">
+              <strong>
+                <span class="fa fa-edit"> </span> Edit Asset<span data-i18n="Data"></span>
+              </strong>
+              <div class="pull-right">
+                <div class="btn-group" id='deploy_edit' role="group" style="top: -7px;" aria-label="...">
+                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-plus-square"></i> New</div>
+                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-floppy-o"></i> Save</div>
+                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-bar-chart"></i> Plot</div>
+                  <div class="btn btn-primary" disabled type="button" aria-label="..."><i class="fa fa-trash-o"></i> Delete</div>
+                </div>
+              </div>
+            </div> <!-- panel-heading -->
+            <div class="panel-body">
+              <div class="col-sm-12" id="editdep_panel" style='width:320px;top: 10px;margin-left: 139px; position:absolute;'>
+                <i class="fa fa-spinner fa-spin"></i>  Loading Deployments
+              </div>
+              <div role="tabpanel">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Metadata</a></li>
+                    <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Information</a></li> -->
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Information</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <form class="form-horizontal" id="editdep_form" style="display:none;padding-top:10px">
+                          <fieldset style="width: 100%;">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="name_d">Display Name: </label>
+                              <div class="controls">
+                                <input id="name_d" name="name_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="owner_d">Owner: </label>
+                              <div class="controls">
+                                <input id="owner_d" name="owner_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="type_d">Type: </label>
+                              <div class="controls">
+                                <input id="type_d" name="type_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="depth_d">Depth Value: </label>
+                              <div class="controls">
+                                <input id="depth_d" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="quantity" min="-10" max="5000" style='width:250px' type="text" placeholder="" class="input-xlarge">
+                              </div>
+                              <label class="col-sm-3 control-label" style="position: absolute;left: 443px;font-weight: normal;margin-top: -30px;" for="startdate_d">Meters Below Sea Level</label>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="startdate_d">Launch Date: </label>
+                              <div class="controls">
+                                <input id="startdate_d" name="startdate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
+                                <span class="fa fa-calendar"></span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="enddate_d">End Date: </label>
+                              <div class="controls">
+                                <input id="enddate_d" name="enddate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
+                                <span class="fa fa-calendar"></span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="geo_d_lat">Latitude: </label>
+                              <div id='dd_input'>
+                                <input id="geo_d_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:187px' class="input-xlarge" value='0' type="text">
+                                <span class="add-on"> °</span>
+                              </div>
+                              <div id='ddmm_input' style='display:none;'>
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
+                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:37px' class="input-xlarge" placeholder="" type="text">
+                              </div>
+                              <div id='ddmmss_input' style='display:none;'>
+                                <input id="dms_latd" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" value='0' type="text">
+                                <span class="add-on"> °</span>
+                                <input id="dms_latm" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" value='0' type="text">
+                                <span class="add-on"> '</span>
+                                <input id="dms_lats" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" value='0' name="number" min="-90" max="90" style='width:87px' class="input-xlarge"  type="text">
+                                <span class="add-on"> ''</span>
+                                <input id="dms_latNS" style='width:37px' value='N' onKeyup="isValidCharLat(this.value)" class="input-xlarge"  type="text">
+                              </div>
                             </div>
                         </div>
                         <div id="asset-panel-body" class="panel-body">
@@ -98,12 +202,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     login: this.login
     });
 
-    updateCollection( showAssets );
-
-    this.listenTo(collection, "collection:updated", function(details){
-        updatePagination(details, showAssets);
-    });
-
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     }
@@ -135,7 +233,7 @@ $(document).ready(function() {
         });
     $('#navbar').prepend(navbar.el);
     $('#menu-toggle').hide();
-    $('#sidebar-wrapper').hide();
+    //$('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
 });
 

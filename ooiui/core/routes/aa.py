@@ -13,6 +13,7 @@ from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 import json
+import urllib2 
 
 import requests
 
@@ -21,6 +22,7 @@ import requests
 @app.route('/alerts/dashboard')
 @app.route('/alerts/dashboard/')
 def aa_dashboard():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Falerts')
     return render_template('aa/AlertPage.html')
 
 #main aa page
@@ -30,6 +32,7 @@ def aa_triggered_dashboard():
     return render_template('aa/TriggeredPage.html')
 
 #edit/new page for aa
+#this is not being used right now
 @app.route('/alerts/createalert')
 @app.route('/alerts/createalert/')
 def aa_index():

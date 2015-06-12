@@ -9,6 +9,7 @@ from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 import json
+import urllib2
 
 import requests
 
@@ -16,17 +17,20 @@ import requests
 @app.route('/c2/platforms')
 @app.route('/c2/platforms/')
 def c2_platforms():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Fplatforms')
     return render_template('c2/platforms.html')
 
 @app.route('/c2/instrument')
 @app.route('/c2/instrument/')
 def c2_platform_status():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Finstrument')
     return render_template('c2/instrument.html')
 
 #arrays list
 @app.route('/c2')
 @app.route('/c2/')
 def c2_index():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Flanding')
     return render_template('c2/landing.html')
 
 # C2 ooi-ui-services Routes
