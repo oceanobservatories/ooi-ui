@@ -1,11 +1,12 @@
 * { margin: 0; padding: 0; }
 
 body {
-  /* font: 14px; */
+  font-size: 14px;
 }
 a:link {
   color: #007EA3;
-  font-weight: bold;
+  font-weight: 300;
+  font-size: 14px;
   text-decoration: none;
 }
 #page-wrap {
@@ -14,7 +15,7 @@ a:link {
   overflow: hidden;
   height: 100%;
 }
-.em.disclamer { text-align: center; font-weight: normal; }
+.em.disclamer { text-align: center; font-weight: 300px; }
 .info-col {
   float: left;
   height: 100%;
