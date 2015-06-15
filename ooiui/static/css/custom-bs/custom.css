@@ -74,7 +74,7 @@ li {
 ***********************/
 
 .banner-image {
-  background: url("/img/logos-banners/banner-1024px.svg"); 
+  background: url("/img/logos-banners/ooi-banner-1024.png"); 
   background-repeat: no-repeat;
   background-position-x: 50%;
   display: block;
@@ -88,7 +88,7 @@ li {
 
 /* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
 div#wrapper {
-  margin-top: 170px;
+  margin-top: 185px;
 }
 
 div#gloss-wrapper {
@@ -115,32 +115,48 @@ div#wrapper-asset {
 	z-index: 1000;
 }
 
+.left { text-align: left; }
+.right {text-align: right; }
+.rightright {text-align: right; }
+.center {text-align: center; }
+
 #fadein-left > li.logo-left {
-  float: left;
-  left: 30px;
-  list-style: none;
+  /* float: left; */
+  /* left: 30px; */
+	text-decoration: left;
 }
 
 .logo-right {
-  float: right;
-  right: 0px;
-  list-style: none;
+  /* float: right; */
+  /* right: 0px; */
+	text-align: right;
+}
+#fadein-left > li {
+	display: table-cell; 
+	width: 33%;
 }
 
+@media screen and (max-width: 1024px) {
 #fadein-left > li.banner-title {
+	line-height: 1;
+}
+}
+#fadein-left > li.banner-title {
+	/* float: left; */
+  /* padding-left: 25%; */
+  /* padding-top: 5px; */
+	/* display: inline; */
+	/* position: relative; */
+	text-align: center;
+
   color: #000;
   opacity: 0.3;
   font-size: 30px;
   font-family: Athelas;
 	font-weight: normal;
-  float: left;
-	text-transform: uppercase;
+ 	text-transform: uppercase;
   list-style: none;
-  padding-left: 25%;
-  padding-top: 5px;
-	display: inline;
-	position: relative;
-	animation: fadein 7s;
+ 	animation: fadein 7s;
 	-moz-animation: fadein 7s; /* Firefox */
 	-webkit-animation: fadein 7s; /* Safari and Chrome */
 	-o-animation: fadein 7s; /* Opera */
@@ -177,6 +193,13 @@ div#wrapper-asset {
         opacity: 2;
     }
 }
+
+@media screen and (max-width: 1024px) {
+	#fadein-left > li.banner-title {
+	line-height: .9;
+	}
+}
+
 /*.text-body {
   display: inline;
   color: #000;
@@ -188,7 +211,7 @@ div#wrapper-asset {
 ******** Navbar ********
 ***********************/
 .navbar-fixed-top {
-  top: 100px;
+  top: 113px;
   border-width: 0 0 1px;
   z-index: 1001;
   /*
