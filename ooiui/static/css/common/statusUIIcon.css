@@ -6,6 +6,10 @@
     min-width: 280px !important;
     text-align: center;
  }
+
+ .dropdown-menu{
+    max-height: 250px;
+ }
 /* centered columns styles */
 .row-centered {
     text-align:center;

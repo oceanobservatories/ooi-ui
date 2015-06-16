@@ -1,3 +1,7 @@
+/**
+ * modified from  https://github.com/lukaskral/bootstrap-table-filter
+ */
+
 !function($) {
 
     'use strict';
@@ -379,8 +383,12 @@
     };
 
     BootstrapTableFilter.prototype.addFilter = function(filter) {
+                
         this.filters[filter.col] = filter;
-        this.$buttonList.append('<li data-filter-field="' + filter.col + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');
+
+        //if(!this.filters.hasOwnProperty(filter.col)){
+        this.$buttonList.append('<li data-filter-field="' + filter.col + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');    
+        //}
 
         this.trigger('add-filter', filter);
         if (typeof filter.enabled !== 'undefined' && filter.enabled) {

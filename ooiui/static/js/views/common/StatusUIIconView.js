@@ -14,7 +14,6 @@
  * 
  */
 
-
 var StatusUIIconView = Backbone.View.extend({
   events: {
     'click #list-view' : 'onListView',
@@ -24,7 +23,7 @@ var StatusUIIconView = Backbone.View.extend({
 
   initialize: function() {
     
-    _.bindAll(this, "render", "onListView", "onTableView", 'filter','onMapView'); //, "onSync"
+    _.bindAll(this, "render", "onListView", "onTableView", 'filter','onMapView'); 
     
     this.initialRender();
     var self = this;
@@ -32,9 +31,9 @@ var StatusUIIconView = Backbone.View.extend({
       //not the best way to render
       //but I have to make a call to our db to get display names after fetch is called.
       setTimeout(function(){
-        
         self.render();
       },5000);
+
     });
     this.viewSelection = 'table';
     //this.onTableView();
@@ -76,6 +75,7 @@ var StatusUIIconView = Backbone.View.extend({
                   field: 'state',
                   checkbox: true
               },*/ 
+              /*Doesn't seem to be a display name currently in most
               {
                   field: 'display_name',
                   title: 'Name',
@@ -84,6 +84,24 @@ var StatusUIIconView = Backbone.View.extend({
                   sortable: true,
                   col:'display_name',
                   searchable: true
+              },*/
+              {
+                  field: 'assetInfo',
+                  title: 'Name',
+                  align: 'left',
+                  valign: 'top',
+                  sortable: true,
+                  col:'name',
+                  object:true,
+                  formatter:  function aFormatter(value) {
+                      return value['name'];
+                  },
+                  sorter: function nsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
+                  }
               },{
                   field: 'assetInfo',
                   title: 'Owner',
@@ -94,6 +112,12 @@ var StatusUIIconView = Backbone.View.extend({
                   object:true,
                   formatter:  function aFormatter(value) {
                       return value['owner'];
+                  },
+                  sorter: function osorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
               },{
                   field: 'seriesClassification',
@@ -112,12 +136,18 @@ var StatusUIIconView = Backbone.View.extend({
                   visible:false,
                   col:'serialNumber',
                   formatter:  function tFormatter(value) {
-                      if(value == null){
-                        return '';
-                      }
-                      else{
-                        return value['serialNumber'];  
-                      }
+                    if(value == null){
+                      return '';
+                    }
+                    else{
+                      return value['serialNumber'];  
+                    } 
+                  },
+                  sorter: function msorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
               },{
                   field: "launch_date_time",
@@ -142,19 +172,30 @@ var StatusUIIconView = Backbone.View.extend({
                   col:'type',
                   formatter:  function eFormatter(value) {
                       return value['type'];
+                  },
+                  sorter: function tsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
-                  //sorter: priceSorter
               },{
                   field: 'assetInfo',
                   title: 'Description',
                   align: 'left',
                   valign: 'top',
-                  //clickToSelect: false,
                   sortable:true,
                   col:'description',
                   formatter:  function aFormatter(value) {
                       return value['description'];
+                  },
+                  sorter: function descsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
+                  //clickToSelect: false,
                   //events: operateEvents
               },{
                   field: 'assetId',
@@ -166,7 +207,6 @@ var StatusUIIconView = Backbone.View.extend({
                   sortable: true
               }],
               onPageChange:function(newdata){
-                  
                   self.filter();  
                 }
           });
@@ -177,7 +217,7 @@ var StatusUIIconView = Backbone.View.extend({
             refreshIcon: '<span class="glyphicon glyphicon-refresh"></span>',
             clearAllIcon: '<span class="glyphicon glyphicon-remove"></span>',
             filters:[
-                  
+                
                 ],
                 onSubmit: function() {
                     //self.filter();  
@@ -188,13 +228,14 @@ var StatusUIIconView = Backbone.View.extend({
            _.map(collection.models, function(model){
               return model.get_display_name();
            });
-      }
+        }
     });
     
     this.$el.html('<i class="fa fa-spinner fa-spin"  style="color:#337ab7;margin-left:50%;font-size:90px;"> </i>');
   },
   
   //this is for filtrify and the first callback
+  //may use later but no longer
   /*filter: function(e){
      var self= this;
      this.ft = $.filtrify('container_of_asset', 'asset_search_filter', {

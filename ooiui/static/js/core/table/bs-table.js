@@ -1,3 +1,7 @@
+/**
+ * modified from  https://github.com/lukaskral/bootstrap-table-filter
+ */
+
 !function($) {
 
     'use strict';
@@ -38,11 +42,11 @@
                 
             }*/
             ret[col.col] = {
-                    field: col.field,
-                    label: col.title,
-                    col: col.col,
-                    values: []
-                };
+                field: col.field,
+                label: col.title,
+                col: col.col,
+                values: []
+            };
         });
         $.each(data, function(i, row) {
             $.each(ret, function(field, filter) {
@@ -135,7 +139,6 @@
                     filterData = bootstrapTableFilter.getData();
                     var delimiter = serverUrl.indexOf('?') < 0 ? '?' : '&';
                     var url = serverUrl + delimiter + 'filter=' + encodeURIComponent(JSON.stringify(filterData));
-//                    console.log(url);
                     $bootstrapTable.bootstrapTable('updateSearch');
                 });
             }
@@ -144,6 +147,15 @@
                 this.$el.on('submit.bs.table.filter', function() {
                     filterData = bootstrapTableFilter.getData();
                     $bootstrapTable.bootstrapTable('updateSearch');
+                    
+                    //reapply the search criteria to filter down dropdown options
+                    var data = filterData;
+                    var cols = $bootstrapTable.bootstrapTable('getColumns');
+                    var filters = getCols(cols, data, false);
+                    bootstrapTableFilter.filters = {};
+                    /*$.each(filters, function(field, filter) {
+                        bootstrapTableFilter.addFilter(filter);
+                    });*/
                 });
             }
         }
