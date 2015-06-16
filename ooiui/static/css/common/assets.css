@@ -24,8 +24,18 @@
 }
 
 /* Asset Settings Panel */
-div#assetInspector > div > div  {
+div#assetInspector > div > div.panel-heading {
     height: 40px;
+    margin-bottom: 5px;
+}
+
+div#assetForm > form > div.panel {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+div#assetForm > form > div > label {
+    text-align: left;
+    padding-left: 20px;
 }
 
 

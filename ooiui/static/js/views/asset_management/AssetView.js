@@ -7,7 +7,7 @@ var AssetsTableView = Backbone.View.extend({
 	},
     render: function() {
         var assetsRowSubView = this.collection.map(function(model) {
-            return (new AssetsRowSubView({ model:model })).render().el;
+            return (new AssetsTableRowSubView({ model:model })).render().el;
         });
         this.$el.html(assetsRowSubView);
         return this;
@@ -15,31 +15,37 @@ var AssetsTableView = Backbone.View.extend({
 });
 
 //Asset item subview, as a table row.
-var AssetsRowSubView = Backbone.View.extend({
+var AssetsTableRowSubView = Backbone.View.extend({
     tagName: 'tr',
-    template: "<td><%= assetId %></td><td><%= assetInfo.name  %></td><td><%= assetInfo.type %></td><td><%= ref_des  %></td><td><%= assetInfo.owner %></td><td><%= isoToDateTime(launch_date_time) %></td>",
+    template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
+    initialize: function(){
+        _.bindAll(this,"render", "onClick");
+    },
     render: function() {
-        var tmpl = _.template(this.template);
-        this.$el.html(tmpl(this.model.toJSON()));
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    },
+    events: {
+        "click" : "onClick"
+    },
+    onClick: function() {
+        var assetInspectorForm = new AssetInspectorFormView({ model:this.model }).render().el;
         return this;
     }
 });
 
-//Asset inspector window; intended to be a modal.
-var AssetInspectorView = Backbone.View.extend({
+//Asset inspector window.
+var AssetInspectorFormView = Backbone.View.extend({
+    el: '#assetForm',
+    template: JST['ooiui/static/js/partials/AssetInspectorForm.html'],
     initialize: function() {
         _.bindAll(this,"render");
         this.render();
     },
-    render: function() {}
-});
-
-//Asset detail subview.
-var AssetDetailSubView = Backbone.View.extend({
-    el: 'tbody',
-    initialize: function() {},
-    template: _.template(" {%= wtf.quick_form %}" ),
-    render: function() {}
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
 });
 
 //Asset event detail subview.

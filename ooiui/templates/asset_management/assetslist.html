@@ -7,6 +7,7 @@
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
@@ -58,20 +59,20 @@
                 </div><!-- .col-sm-12 -->
             </div><!-- .row -->
             <div class="row">
-                <div id="assetInspector" class="col-sm-6">
+                <div id="assetInspector" class="col-md-6">
                     <div class="panel">
                         <div class="panel-heading">
-                            <div class="glyphicon glyphicon-cog col-sm-4" aria-hidden="true"> Settings</div>
+                            <div class="glyphicon glyphicon-cog col-md-4" aria-hidden="true"> Info</div>
                         </div><!-- .panel-headering -->
-                        <div class="panel-body">
+                        <div class="panel-body" id='assetForm'>
 
                         </div><!-- .panel-body" -->
                     </div><!-- .panel -->
                 </div><!-- #assetInspector .col -->
-                <div id="eventInspector" class="col-sm-6">
+                <div id="eventInspector" class="col-md-6">
                     <div class="panel">
                         <div class="panel-heading">
-                                <div class="glyphicon glyphicon-warning-sign col-sm-4" aria-hidden="true"> Event</div>
+                                <div class="glyphicon glyphicon-warning-sign col-md-4" aria-hidden="true"> Events</div>
                         </div><!-- .panel-headering -->
                         <div class="panel-body">
 
@@ -89,7 +90,7 @@
 _.extend(OOI.prototype, Backbone.Events, {
     login: new LoginModel(),
     models: {
-    userModel: new UserModel()
+        userModel: new UserModel()
     },
     start: function() {
     this.login.fetch({async:false});
