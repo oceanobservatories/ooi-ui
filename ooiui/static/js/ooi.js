@@ -95,7 +95,7 @@ $(this).keypress(function (e) {
 function timerIncrement() {
     if (OOI.LoggedIn()) {
         idleTime = idleTime + 1;
-        if (idleTime > 19) { // 20 minutes
+        if (idleTime > 1200) { // 20 hours
             OOI.LogOut();
         }
     }
