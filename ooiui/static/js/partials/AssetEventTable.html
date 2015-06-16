@@ -1,0 +1,25 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="glyphicon glyphicon-warning-sign col-md-4" aria-hidden="true"> Events</div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped table-selectable">
+            <thead>
+                <tr>
+                    <th>ID#</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(events, function(row) { %>
+                <tr>
+                    <td><%= row.eventId  %></td>
+                    <td><%= row.class %></td>
+                    <td><%= Date(row.startDate) %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

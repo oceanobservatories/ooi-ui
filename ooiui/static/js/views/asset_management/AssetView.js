@@ -30,13 +30,14 @@ var AssetsTableRowSubView = Backbone.View.extend({
     },
     onClick: function() {
         var assetInspectorForm = new AssetInspectorFormView({ model:this.model }).render().el;
+        var assetEventTable = new AssetEventTableView({ model:this.model }).render().el;
         return this;
     }
 });
 
 //Asset inspector window.
 var AssetInspectorFormView = Backbone.View.extend({
-    el: '#assetForm',
+    el: '#assetInspector',
     template: JST['ooiui/static/js/partials/AssetInspectorForm.html'],
     initialize: function() {
         _.bindAll(this,"render");
@@ -49,11 +50,17 @@ var AssetInspectorFormView = Backbone.View.extend({
 });
 
 //Asset event detail subview.
-var AssetEventSubView = Backbone.View.extend({
-    el: 'tbody',
-    initialize: function() {},
-    template: _.template(" {%= wtf.quick_form %}" ),
-    render: function() {}
+var AssetEventTableView = Backbone.View.extend({
+    el: '#assetEventsTable',
+    template: JST['ooiui/static/js/partials/AssetEventTable.html'],
+    initialize: function() {
+        _.bindAll(this,"render");
+        this.render();
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
 });
 
 // time conversions

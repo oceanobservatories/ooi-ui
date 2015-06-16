@@ -1,0 +1,32 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="glyphicon glyphicon-hdd col-sm-4" aria-hidden="trie"> Assets</div>
+            <div class="pagination pagination-sm pagination-right pagination-boxes text-center col-sm-4"></div>
+            <div class="panel-search col-sm-4 text-right">
+                <input id="asset-search" type="text" placeholder="&#xf002; Search">
+                <span id="search-clear" classt ="glyphicon glyphicon-remove-circle"></span>
+            </div>
+        </div>
+    </div>
+    <div id="asset-panel-body" class="panel-body">
+        <div id="asset-table-view">
+            <table class="table table-bordered table-striped table-selectable" id="assetTable">
+                <i class="fa-spinner fa-spin" style="margin-left:50%; font-size:90px;"></i>
+                <thead>
+                    <tr>
+                        <th>ID#</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Reference Designator</th>
+                        <th>Owner</th>
+                        <th>Launch Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-info text-center"></div>
+    </div>
+</div>

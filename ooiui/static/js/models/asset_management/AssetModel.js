@@ -38,7 +38,9 @@ var AssetModel = Backbone.Model.extend({
             value: 133.5
         },
         lastModifiedTimestamp: null,
-        ref_des: null
+        ref_des: null,
+        asset_class: null,
+        deployment_number: null
   	}
 });
 

@@ -38,8 +38,8 @@ div#assetForm > form > div > label {
     padding-left: 20px;
 }
 
-
 /* Event Information Panel */
-div#eventInspector > div > div {
+div#assetEventsTable > div > div.panel-heading {
     height: 40px;
+    margin-bottom: 5px;
 }
