@@ -157,6 +157,7 @@ var StatusUIIconView = Backbone.View.extend({
                   col:'launch_date_time',
                   sortable: true
               },{
+                  //&#64;
                   field: 'class',
                   title: 'Class',
                   align: 'left',

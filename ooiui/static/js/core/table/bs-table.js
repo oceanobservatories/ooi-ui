@@ -76,48 +76,59 @@
         if(Object.getOwnPropertyNames(filterData).length == 0){
             var ret = true;
         }
-        else{
-            var ret = false;    
-        }
-        $.each(item, function(field, value) {
-            filterType = false;
-            if(value == null){
+        else{ 
+            var ret = ''; 
+            $.each(item, function(field, value) {
+                if(value == null ||field == undefined|| value ===''){
+                }
+                //search into the individual array objects
+                else if(typeof value === 'object'){
+                    $.each(value, function(field1, value1) {
+                        if(filterData[field1]){
+                            if(value1 == null ||field1 == undefined|| value ===''){
+                                ret = false;
+                            }
+                            else{
+                                try {
+                                    if(ret === "" || ret === true){
+                                        ret = bootstrapTableFilter.checkFilterTypeValue(true, filterData[field1], value1);
+                                    }
+                                }
+                                catch (e) {} 
+                            }
+                           
+                        }
+                    });
+                }
 
-            }
-            else if(typeof value === 'object'){
-                $.each(value, function(field1, value1) {
-                    filterType = false;
-                    if(filterData[field1]){
-                       try {
-                            filterType = bootstrapTableFilter.getFilterType(field1);
-                            if (filterType && typeof filterData[field1] !== 'undefined') {
-                                ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field1], String(value1));
-                                return ret;
-                                //ret = true;
+                //only search searched fields
+                else if(filterData[field]){
+
+                    if(value ===''){
+                        ret = false;
+                    }
+                    else{
+                        filterType = false;
+                        try {
+                            filterType = true;//bootstrapTableFilter.getFilterType(field);
+                            //filter = bootstrapTableFilter.getFilter(field);
+                            /*if (typeof filter.values !== 'undefined') {
+                                value = filter.values.indexOf(value);
+                            }*/
+                            //if (filterType && typeof filterData[field] !== 'undefined') {
+                            if(ret === "" || ret === true){
+                                ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], value);
                             }
                         }
-                        catch (e) {
-                            //ret = false;
-                        } 
+                        catch (e) {}
                     }
-                });
-            }
-            else{
-                if(filterData[field]){
-                   try {
-                        filterType = bootstrapTableFilter.getFilterType(field);
-                        if (filterType && typeof filterData[field] !== 'undefined') {
-                            ret = bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], String(value));
-                            return ret;
-                            //ret = true;
-                        }
-                    }
-                    catch (e) {
-                        //ret = false;
-                    } 
-                }
-            }           
-        });
+                }          
+            });  
+        }
+        if(ret == ''){
+            ret = false;
+        }
+        
         return ret;
     };
 
@@ -146,16 +157,23 @@
                 $bootstrapTable.bootstrapTable('registerSearchCallback', rowFilter);
                 this.$el.on('submit.bs.table.filter', function() {
                     filterData = bootstrapTableFilter.getData();
+                    
                     $bootstrapTable.bootstrapTable('updateSearch');
                     
+                    filterData = {};//new empty object
                     //reapply the search criteria to filter down dropdown options
-                    var data = filterData;
+                    ////********
+
+                    var data = $bootstrapTable.bootstrapTable('getData');
                     var cols = $bootstrapTable.bootstrapTable('getColumns');
-                    var filters = getCols(cols, data, false);
-                    bootstrapTableFilter.filters = {};
-                    /*$.each(filters, function(field, filter) {
-                        bootstrapTableFilter.addFilter(filter);
-                    });*/
+                    var dataSourceServer = false;
+                    var filters = getCols(cols, data, dataSourceServer);
+                    
+                    bootstrapTableFilter.filters = filters;
+                    $.each(filters, function(field, filter) {
+                        bootstrapTableFilter.fillFilterOptions(field,filterData,'static')
+                        
+                    });
                 });
             }
         }

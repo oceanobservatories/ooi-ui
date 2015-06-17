@@ -9,6 +9,7 @@
 
  .dropdown-menu{
     max-height: 250px;
+    overflow-y:auto;
  }
 /* centered columns styles */
 .row-centered {
