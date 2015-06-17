@@ -1,33 +1,35 @@
-//Container for the list of all assets.
-var AssetsTableView = Backbone.View.extend({
-    tagName: 'tbody',
-	initialize: function() {
-		_.bindAll(this,"render");
-		this.render();
-	},
+// Parent class for asset views.
+var ParentAssetView = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this,"render", "onClick");
+        this.render();
+    },
+    events: {
+        "click": "onClick"
+    },
+    onClick: function() {},
     render: function() {
-        var assetsRowSubView = this.collection.map(function(model) {
-            return (new AssetsTableRowSubView({ model:model })).render().el;
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+//Container for the list of all assets.
+var AssetsTableView = ParentAssetView.extend({
+    tagName: 'tbody',
+    render: function() {
+        var assetsRowView = this.collection.map(function(model) {
+            return (new AssetsTableRowView({ model:model })).render().el;
         });
-        this.$el.html(assetsRowSubView);
+        this.$el.html(assetsRowView);
         return this;
     }
 });
 
 //Asset item subview, as a table row.
-var AssetsTableRowSubView = Backbone.View.extend({
+var AssetsTableRowView = ParentAssetView.extend({
     tagName: 'tr',
     template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
-    initialize: function(){
-        _.bindAll(this,"render", "onClick");
-    },
-    render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    },
-    events: {
-        "click" : "onClick"
-    },
     onClick: function() {
         var assetInspectorForm = new AssetInspectorFormView({ model:this.model }).render().el;
         var assetEventTable = new AssetEventTableView({ model:this.model }).render().el;
@@ -36,31 +38,15 @@ var AssetsTableRowSubView = Backbone.View.extend({
 });
 
 //Asset inspector window.
-var AssetInspectorFormView = Backbone.View.extend({
+var AssetInspectorFormView = ParentAssetView.extend({
     el: '#assetInspector',
     template: JST['ooiui/static/js/partials/AssetInspectorForm.html'],
-    initialize: function() {
-        _.bindAll(this,"render");
-        this.render();
-    },
-    render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    }
 });
 
 //Asset event detail subview.
-var AssetEventTableView = Backbone.View.extend({
+var AssetEventTableView = ParentAssetView.extend({
     el: '#assetEventsTable',
     template: JST['ooiui/static/js/partials/AssetEventTable.html'],
-    initialize: function() {
-        _.bindAll(this,"render");
-        this.render();
-    },
-    render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    }
 });
 
 // time conversions

@@ -386,6 +386,7 @@ module.exports = function(grunt) {
                 "ooiui/static/js/partials/AssetInspectorForm.html",
                 "ooiui/static/js/partials/AssetsTableRow.html",
                 "ooiui/static/js/partials/AssetEventTable.html",
+                "ooiui/static/js/paritals/AssetsTable.html",
             ]
         }
       }
