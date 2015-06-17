@@ -54,7 +54,7 @@ var AssetView = Backbone.View.extend({
                   }
                   else{
                     $('#asset_top_panel').html('Click on an Asset to Edit');
-                    $('#editdep_panel').html('Click on an Asset above to Edit'); 
+                    $('#editdep_panel').html('Click on an Asset to Edit'); 
                   }
                   return res.assets;
               },
@@ -64,7 +64,7 @@ var AssetView = Backbone.View.extend({
                   field: 'state',
                   checkbox: true
               },*/ 
-              /*Doesn't seem to be a display name currently
+              /*Doesn't seem to be a display name currently in most
               {
                   field: 'display_name',
                   title: 'Name',
@@ -84,6 +84,12 @@ var AssetView = Backbone.View.extend({
                   object:true,
                   formatter:  function aFormatter(value) {
                       return value['name'];
+                  },
+                  sorter: function nsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
               },{
                   field: 'assetInfo',
@@ -95,6 +101,12 @@ var AssetView = Backbone.View.extend({
                   object:true,
                   formatter:  function aFormatter(value) {
                       return value['owner'];
+                  },
+                  sorter: function osorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
               },{
                   field: 'seriesClassification',
@@ -113,13 +125,18 @@ var AssetView = Backbone.View.extend({
                   visible:false,
                   col:'serialNumber',
                   formatter:  function tFormatter(value) {
-                      if(value == null){
-                        return '';
-                      }
-                      else{
-                        return value['serialNumber'];  
-                      }
-                      
+                    if(value == null){
+                      return '';
+                    }
+                    else{
+                      return value['serialNumber'];  
+                    } 
+                  },
+                  sorter: function msorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
               },{
                   field: "launch_date_time",
@@ -144,19 +161,30 @@ var AssetView = Backbone.View.extend({
                   col:'type',
                   formatter:  function eFormatter(value) {
                       return value['type'];
+                  },
+                  sorter: function tsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
-                  //sorter: priceSorter
               },{
                   field: 'assetInfo',
                   title: 'Description',
                   align: 'left',
                   valign: 'top',
-                  //clickToSelect: false,
                   sortable:true,
                   col:'description',
                   formatter:  function aFormatter(value) {
                       return value['description'];
+                  },
+                  sorter: function descsorter(a, b) { 
+                      if(a == null && b == null) return 0;
+                      if (a > b || b==null) return 1;
+                      if (a < b || a==null) return -1;
+                      return 0;
                   }
+                  //clickToSelect: false,
                   //events: operateEvents
               },{
                   field: 'assetId',
@@ -167,7 +195,7 @@ var AssetView = Backbone.View.extend({
                   col:'assetId',
                   sortable: true
               }]
-          });
+        });
 
         //datepickers with min/max validation
         $('#enddate_d').datetimepicker();
@@ -593,9 +621,9 @@ var AssetView = Backbone.View.extend({
         var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
 
         $("#type_d").val(model.assetInfo['type']);
-        $("#type_switcher_but").attr('data', model['@class']);
-        $("#type_switcher_but").val(classtypelist[model['@class']].val);
-        $('#type_switcher_but').html(classtypelist[model['@class']].label+' <span class="caret"></span>');
+        $("#type_switcher_but").attr('data', model['class']);
+        $("#type_switcher_but").val(classtypelist[model['class']].val);
+        $('#type_switcher_but').html(classtypelist[model['class']].label+' <span class="caret"></span>');
     },
 
     clearform: function(){

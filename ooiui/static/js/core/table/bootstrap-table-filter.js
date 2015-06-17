@@ -1,3 +1,7 @@
+/**
+ * modified from  https://github.com/lukaskral/bootstrap-table-filter
+ */
+
 !function($) {
 
     'use strict';
@@ -265,8 +269,11 @@
             that.addFilter(filter);
         });
         this.$toolbar.delegate('.remove-filters *', 'click', function() {
+            //that.$toolbar.find('.btn-group-filters').empty();
+            //$(that.options.connectTo).bootstrapTable('updateSearch');
             $.each(that.filters, function(i, filter) {
-                that.disableFilter(filter.col)
+                that.disableFilter(filter.col);
+                //that.fillFilterOptions(filter.col,{},'static');
             });
         });
     };
@@ -329,11 +336,11 @@
     };
     BootstrapTableFilter.prototype.checkFilterTypeValue = function(filterType, filterData, value) {
         if (typeof filterType.check === 'function') {
-            return filterType.check(filterData, value);
+            return filterType.check(filterData, String(value));
         }
         else {
             if (typeof filterData._values !== 'undefined') {
-                return $.inArray(value, filterData._values) >= 0;
+                return $.inArray(String(value), filterData._values) >= 0;
             }
         }
     };
@@ -346,6 +353,11 @@
     BootstrapTableFilter.prototype.fillFilterOptions = function(field, data, cls) {
         var that = this;
         var filter = this.getFilter(field);
+        if(filter.$dropdownList){
+            filter.$dropdownList.empty();
+            filter.$dropdownList.append($('<li class="static"><span><input type="text" class="form-control search-values" placeholder="Search"></span></li>'));
+            filter.$dropdownList.append($('<li class="static divider"></li>'));    
+        }
         cls = cls || '';
         var option, checked;
         $.each(data, function(i, row) {
@@ -370,8 +382,7 @@
     };
 
     // PUBLIC FUNCTION DEFINITION
-    // =======================
-
+    // ======================
     BootstrapTableFilter.prototype.resetView = function() {
         this.$el.html();
         this.init();
@@ -379,8 +390,9 @@
     };
 
     BootstrapTableFilter.prototype.addFilter = function(filter) {
+                
         this.filters[filter.col] = filter;
-        this.$buttonList.append('<li data-filter-field="' + filter.col + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');
+        this.$buttonList.append('<li data-filter-field="' + filter.col + '"><a href="javascript:void(0)"><input type="checkbox"> ' + filter.label + '</a></li>');    
 
         this.trigger('add-filter', filter);
         if (typeof filter.enabled !== 'undefined' && filter.enabled) {
@@ -435,6 +447,9 @@
             filter.$dropdown.remove();
             delete filter.$dropdown;
             this.trigger('disable-filter', filter);
+        }
+        else{
+            this.$filters.find('[data-filter-field=' + field + ']').remove();
         }
     };
 
