@@ -54,7 +54,7 @@ var AssetView = Backbone.View.extend({
                   }
                   else{
                     $('#asset_top_panel').html('Click on an Asset to Edit');
-                    $('#editdep_panel').html('Click on an Asset above to Edit'); 
+                    $('#editdep_panel').html('Click on an Asset to Edit'); 
                   }
                   return res.assets;
               },
@@ -146,11 +146,11 @@ var AssetView = Backbone.View.extend({
                   col:'launch_date_time',
                   sortable: true
               },{
-                  field: '@class',
+                  field: 'class',
                   title: 'Class',
                   align: 'left',
                   valign: 'bottom',
-                  col:'@class',
+                  col:'class',
                   sortable: true
               },{
                   field: 'assetInfo',
@@ -621,9 +621,9 @@ var AssetView = Backbone.View.extend({
         var classtypelist = {'.AssetRecord':{'val':1,'label':'Asset'},'.InstrumentAssetRecord':{'val':2,'label':'Instrument'},'.PlatformAssetRecord':{'val':3,'label':'Platform'}};
 
         $("#type_d").val(model.assetInfo['type']);
-        $("#type_switcher_but").attr('data', model['@class']);
-        $("#type_switcher_but").val(classtypelist[model['@class']].val);
-        $('#type_switcher_but').html(classtypelist[model['@class']].label+' <span class="caret"></span>');
+        $("#type_switcher_but").attr('data', model['class']);
+        $("#type_switcher_but").val(classtypelist[model['class']].val);
+        $('#type_switcher_but').html(classtypelist[model['class']].label+' <span class="caret"></span>');
     },
 
     clearform: function(){

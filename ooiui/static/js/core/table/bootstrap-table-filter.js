@@ -269,9 +269,11 @@
             that.addFilter(filter);
         });
         this.$toolbar.delegate('.remove-filters *', 'click', function() {
-            that.$toolbar.find('.btn-group-filters').empty();
+            //that.$toolbar.find('.btn-group-filters').empty();
+            //$(that.options.connectTo).bootstrapTable('updateSearch');
             $.each(that.filters, function(i, filter) {
-                that.disableFilter(filter.col)
+                that.disableFilter(filter.col);
+                //that.fillFilterOptions(filter.col,{},'static');
             });
         });
     };
@@ -352,7 +354,9 @@
         var that = this;
         var filter = this.getFilter(field);
         if(filter.$dropdownList){
-            filter.$dropdownList.empty();    
+            filter.$dropdownList.empty();
+            filter.$dropdownList.append($('<li class="static"><span><input type="text" class="form-control search-values" placeholder="Search"></span></li>'));
+            filter.$dropdownList.append($('<li class="static divider"></li>'));    
         }
         cls = cls || '';
         var option, checked;

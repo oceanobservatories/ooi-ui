@@ -155,11 +155,21 @@
             }
             else {
                 $bootstrapTable.bootstrapTable('registerSearchCallback', rowFilter);
+                bootstrapTableFilter.$toolbar.delegate('.remove-filters *', 'click', function() {
+                    $bootstrapTable.bootstrapTable('updateSearch');
+                    var data = $bootstrapTable.bootstrapTable('getData');
+                    var cols = $bootstrapTable.bootstrapTable('getColumns');
+                    var dataSourceServer = false;
+                    var filters = getCols(cols, data, dataSourceServer);
+                    
+                    bootstrapTableFilter.filters = filters;
+                });
                 this.$el.on('submit.bs.table.filter', function() {
                     filterData = bootstrapTableFilter.getData();
                     
                     $bootstrapTable.bootstrapTable('updateSearch');
-                    
+                    var searchdata = bootstrapTableFilter.getData();
+
                     filterData = {};//new empty object
                     //reapply the search criteria to filter down dropdown options
                     ////********
@@ -169,10 +179,21 @@
                     var dataSourceServer = false;
                     var filters = getCols(cols, data, dataSourceServer);
                     
-                    bootstrapTableFilter.filters = filters;
                     $.each(filters, function(field, filter) {
-                        bootstrapTableFilter.fillFilterOptions(field,filterData,'static')
-                        
+                        if(bootstrapTableFilter.filters[field].$dropdownList){
+                            bootstrapTableFilter.filters[field].$dropdownList.empty(); 
+                            bootstrapTableFilter.filters[field].$dropdownList.append($('<li class="static"><span><input type="text" class="form-control search-values" placeholder="Search"></span></li>'));
+                            bootstrapTableFilter.filters[field].$dropdownList.append($('<li class="static divider"></li>'));
+                            //add new values in
+                            $.each(filter['values'], function(row,i) {
+                                var checked = false;
+                                bootstrapTableFilter.filters[field].$dropdownList.append($('<li data-val="' + i + '" class=""><a href="javascript:void(0)"><input type="checkbox" class="filter-enabled"' + (checked ? ' checked' : '') + '> ' + i + '</a></li>'));
+                            });
+                        }
+                        else{
+                            bootstrapTableFilter.filters[field] = filter;
+                        }
+                        //bootstrapTableFilter.fillFilterOptions(field,filterData,'static');
                     });
                 });
             }
