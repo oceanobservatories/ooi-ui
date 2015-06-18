@@ -69,63 +69,73 @@
      
     <!--  Plot section of the page   -->
       <div id='bottom-row' class="row">
+      {# <div id='bottom-row' class="row"> #}
         <div class="col-sm-12">
           <div class="panel">
-            <div class="panel-heading">
-              <i class="fa fa-bar-chart-o"> Graph</i>
-              <div class="pull-right">
+            {# <div class="panel-heading"> #}
+            <div class="new-heading">	      
+		Graph
+	    </div>
+              <div class="pull-right" style="margin-bottom:-5px">
                   <ul role="menu" aria-labelledby="dropdownMenu1">
                     <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>                    
                   </ul>
               </div>
-            </div>
             <div class="panel-body">              
-              <div id="plotcontrols">
-              </div>
+              {# <div id="plotcontrols"> #}
+              {# </div> #}
               <div id="plot-view">     
                 {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-		<img src="/img/graph7.png" style="width:100%;">
+		{# <img src="/img/graph7.png" style="width:100%;"> #}
+		<img src="/img/plotting/graph.png" style="width:100%;">
               </div> <!-- #view -->
             </div>
-          </div>
-        </div>        
-      </div> <!-- .row -->
+          {# </div> #}
+	  </div> <!-- panel -->       
+      </div> <!-- col-sm-12 -->
+    {# </div> <!-- .row --> #}
+    </div> <!-- .row -->
+      
       <div class="row">
         <div class="col-sm-12">
           <div id='plot-events-panel' class="panel">
-            <div class="panel-heading">
-              Events
-            </div>
+	    
+            <div class="new-heading">
+	      Events
+          </div> <!-- panel-heading -->      
+	      
             <div class="panel-body">
               <div id="events-table">  
                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
 		{# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
-              </div>
-            </div>
-          </div>          
-        </div>  <!-- .events -->
-      </div>  <!-- .row -->
+		<img src="/img/plotting/events.png" style="width:100%;">
+	      </div> <!-- panel-table -->  
+            </div> <!-- panel-body -->  
+        </div> <!-- panel -->
+      </div> <!-- col-sm-12 -->
+      </div>
+
       <div class="row">
         <div class="col-sm-12">
           <div id='annotation-panel' class="panel">
-            <div class="panel-heading">
+	    <div class="new-heading">
               Annotations
             </div>
             <div class="panel-body">
               <div id="annotation-table">  
                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-              </div>
-            </div>
-          </div>          
-        </div>  <!-- .annotations -->
+		<img src="/img/plotting/anotations.png" style="width:100%;">	       
+              </div> <!-- annotation-table -->
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
+	</div>  <!-- col-sm-12 -->
       </div>  <!-- .row -->
-    </div> <!-- .content-fluid -->
-    <div id="annotation-modal">
-    </div>
-    <div id="stream-download-modal">
-    </div>
+    
+    <div id="annotation-modal"></div>
+    <div id="stream-download-modal"></div>
     <div id='download-ok-modal'></div>
     <div id='download-fail-modal'></div>
+    </div> <!-- #content-fluid -->
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
 
