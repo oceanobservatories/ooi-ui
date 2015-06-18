@@ -43,22 +43,18 @@ li {
 
 /* ~placeholder style~ */
 ::-webkit-input-placeholder {
-   
   font-weight: 300;
   letter-spacing: 2px;
 }
 :-moz-placeholder { /* Firefox 18- */
-   
   font-weight: 300;
   letter-spacing: 2px; 
 }
 ::-moz-placeholder {  /* Firefox 19+ */
-   
   font-weight: 300;
   letter-spacing: 2px;  
 }
 :-ms-input-placeholder {  
-   
   font-weight: 300;
   letter-spacing: 2px;  
 }
@@ -69,10 +65,54 @@ li {
 .panel-body {
 	border: none;
 }
+
+/***********************
+**** Panel Heading *****
+***********************/
+.new-heading {
+  display: inline-block;
+	padding: 0px 5px 18px 5px;
+	top: 0px;
+  height: 15px;
+  /* width: 50px; */
+  left: 10px;
+  background: transparent;
+  position: relative;
+border-left: 1px solid #e8ecf1;
+	border-right: 1px solid #6080A1;
+	border-bottom: 1px solid #6080A1;
+  -webkit-perspective: 8000px;
+  -webkit-perspective-origin: 20% 2000px;
+
+}
+.new-heading:before {
+	/* margin-left: 6px; */
+	/* margin-top: -2px; */
+	content: "";
+	position: absolute;
+}
+
+.new-heading:after {
+	top: 18px;
+	left: 0px;
+  /* height: 15px; */
+  width: 25px;
+  -webkit-transform: rotateY(102deg);
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+  /* border-top: 2px solid green;
+  border-right: 2px solid yellow;
+  border-left: 2px solid blue;*/
+  border-bottom: 1px solid #859eb7;
+  background: transparent;
+  content: "";
+  position: absolute;
+  /*box-shadow: 0 4px 2px -2px lightgray;*/
+}
+
 /***********************
 ******** Banner ********
 ***********************/
-
 .banner-image {
   background: url("/img/logos-banners/ooi-banner-1024.png"); 
   background-repeat: no-repeat;
