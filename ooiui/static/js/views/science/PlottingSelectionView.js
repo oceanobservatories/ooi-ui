@@ -285,7 +285,7 @@ var FilterSelectionView = Backbone.View.extend({
   numberSelectable: 1,
   className:"plotting-selection",
   // className:"col-sm-2 plotting-selection",
-  id:"ploting-selection",
+  id:"plotting-selection",
     // style:"position:realtive width:100%",
   events: {
     'change .selectpicker' : 'onChange'
