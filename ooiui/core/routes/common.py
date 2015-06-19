@@ -348,7 +348,7 @@ def post_config():
 @app.route('/config_file', methods=['GET'])
 def get_config():
     '''
-    Loads up the previous config_file.txt, on page load
+    Loads up previous config_file.txt, on page load
     '''
     with open('config_file.txt','r') as f:
          response = make_response(f.read())
