@@ -814,7 +814,7 @@ button.btn.btn-primary.btn-reset:focus {
 .plotting-selection {
 	position: relative;
 	width: 100%;
-	margin-top: 25px;
+	/* margin-top: 25px; */
 }
 
 /* change for select buttons on plot page */
@@ -833,13 +833,12 @@ button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
   line-height: 1.1;
   font-family: inherit;
 }
-
-
-
-
 button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
-
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+}
+
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+	text-transform: uppercase;
 }
 
 .dropdown-menu.open {
@@ -890,10 +889,10 @@ span.filter-option.pull-left {
   background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));	
   border-bottom: 1px solid transparent;
   border: 1px solid #7E9CD9;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   font-weight: 300;
   text-decoration: none;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
   line-height: 1;
   font-family: inherit;
 }
