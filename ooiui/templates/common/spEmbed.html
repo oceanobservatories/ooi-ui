@@ -19,6 +19,10 @@
     <div class="container-fluid">
 
 <style type="text/css" media="screen">
+    #nav { 
+      position: absolute;
+      z-index: 1;
+    }
     textarea {
         display: block;
         margin: auto;
@@ -26,8 +30,9 @@
         height: 5px;
     }
     #editor_div {
+        position: relative;
         display: block;
-        margin: auto;
+        margin-top: 40px;
         width: 100%;
         height: 600px;
         border: 1px solid #888;
@@ -36,6 +41,7 @@
         text-align: center;
     }
 </style>
+
 <div id="editor_div"> </div>
 
 <form action="/config_file" method="post" enctype="multipart/form">
@@ -73,7 +79,7 @@
 <script type="text/javascript">
 
 _.extend(OOI.prototype, Backbone.Events, {
-  //login: new LoginModel(),
+  login: new LoginModel(),
   //models: {
   //mapModel: new MapModel()
   
@@ -93,7 +99,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     // Views
     //--------------------------------------------------------------------------------
     this.views.navbar = new NavbarView();
-    $('body').append(this.views.navbar.el);
+    $('#nav').append(this.views.navbar.el);
 
    }
 });

@@ -6,9 +6,8 @@ import json
 import urllib
 from uuid import uuid4
 import json
-import re
-import linecache
-import os
+import sys, os, time, difflib 
+
 
 def get_login():
     token = request.cookies.get('ooiusertoken')
@@ -337,10 +336,16 @@ def post_config():
     Receives post form data from config file page(spEmbed).
     Writes to config_file.txt, located at the root dir.
     Sends a repsonse back that automatically downloads the config file.
+    Creates a diff file.
     '''
     res = request.form['editor']
+    before = open('config_file.txt').readlines()
     with open('config_file.txt','w') as f:
         f.write(res)
+    after = open('config_file.txt').readlines()
+    diff = difflib.unified_diff(before, after, 'before', 'after',)
+    with open("diff.txt",'w') as d:
+        d.writelines(diff)
     response = make_response(res)
     response.headers["Content-Disposition"] = "attachment; filename=config.txt"
     return response
