@@ -1,0 +1,16 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="glyphicon glyphicon glyphicon-paperclip col-md-12" aria-hidden="true"> Attachments</div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped table-selectable">
+            <tbody>
+                <% _.each(attachments, function(row) { %>
+                <tr>
+                    <td><%= row %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

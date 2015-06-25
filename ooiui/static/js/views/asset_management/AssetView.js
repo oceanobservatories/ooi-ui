@@ -1,16 +1,16 @@
 // Parent class for asset views.
 var ParentAssetView = Backbone.View.extend({
     initialize: function() {
-        _.bindAll(this,"render", "onClick");
-        this.render();
+        _.bindAll(this, 'render', 'derender');
     },
-    events: {
-        "click": "onClick"
-    },
-    onClick: function() {},
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
+    },
+    derender: function() {
+        this.remove();
+        this.unbind();
+        this.model.off;
     }
 });
 
@@ -30,25 +30,92 @@ var AssetsTableView = ParentAssetView.extend({
 var AssetsTableRowView = ParentAssetView.extend({
     tagName: 'tr',
     template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
-    onClick: function() {
-        var assetInspectorForm = new AssetInspectorFormView({ model:this.model }).render().el;
-        var assetEventTable = new AssetEventTableView({ model:this.model }).render().el;
+    initialize: function() {
+        _.bindAll(this, 'renderSubViews');
+        this.listenToOnce(vent, 'asset:tableDerender', function(model) {
+            this.derender();
+        });
+        this.listenTo(vent, 'asset:modelChange', this.render);
+    },
+    events: {
+        "click" : "renderSubViews"
+    },
+    renderSubViews: function() {
+        vent.trigger('asset:renderSubViews', this.model);
+    }
+});
+
+//Asset inspector panel.
+var AssetInspectorView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetInspector.html'],
+    initialize: function() {
+        _.bindAll(this, 'editAsset');
+        this.listenToOnce(vent, 'asset:derender', function(model) {
+            this.derender();
+        });
+        this.listenTo(vent, 'asset:modelChange', this.render);
+    },
+    events: {
+        "click #assetEditorBtn": "editAsset"
+    },
+    editAsset: function() {
+        var assetEditorModal = new AssetEditorModalView({ model:this.model });
+        $(assetEditorModal.render().el).appendTo('#assetEditorModal');
         return this;
     }
 });
 
-//Asset inspector window.
-var AssetInspectorFormView = ParentAssetView.extend({
-    el: '#assetInspector',
-    template: JST['ooiui/static/js/partials/AssetInspectorForm.html'],
+//Asset event detail panel.
+var AssetEventsTableView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetEventsTable.html'],
+    initialize: function() {
+        this.listenToOnce(vent, 'asset:derender', function(model) {
+            this.derender();
+        });
+    },
 });
 
-//Asset event detail subview.
-var AssetEventTableView = ParentAssetView.extend({
-    el: '#assetEventsTable',
-    template: JST['ooiui/static/js/partials/AssetEventTable.html'],
+//Asset Attachments View (nuxeo).
+var AssetAttachmentsTableView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetAttachmentsTable.html'],
+    initialize: function() {
+        this.listenToOnce(vent, 'asset:derender', function(model) {
+            this.derender();
+        });
+    },
 });
 
+//Asset editor modal panel.
+var AssetEditorModalView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
+    initialize: function() {
+        _.bindAll(this, 'cancel', 'submit');
+    },
+    events: {
+        "click button#cancelEdit" : "cancel",
+        "click button#saveEdit" : "submit"
+    },
+    submit: function() {
+        var attr = this.model.get('assetInfo');
+        attr.name = this.$el.find('#assetName').val();
+        attr.owner = this.$el.find('#assetOwner').val(),
+        attr.description = this.$el.find('#assetDescription').val();
+
+        this.model.set('assetInfo', attr);
+        vent.trigger('asset:modelChange');
+        this.model.save();
+        this.cleanUp();
+    },
+    cancel: function() {
+        this.cleanUp();
+    },
+    cleanUp: function() {
+        $('#assetEditorModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        this.derender();
+    }
+});
 // time conversions
 function isoToDateTime( strInput ) {
     var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;

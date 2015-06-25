@@ -17,9 +17,11 @@
 {% endblock %}
 
 {% block body %}
-<!--/.TOP BAR END -->
 <div id="page-wrapper">
     <div id="navbar" style="margin-bottom:50px; max-height:50px;"></div>
+    <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel">
+        <!-- ooiui/static/js/partials/AssetEditorModal.html -->
+    </div>
     <div id="page-content-wrapper">
         <div class="content-fluid">
             <div class="row">
@@ -27,12 +29,14 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="glyphicon glyphicon-hdd col-sm-4" aria-hidden="true"> Assets</div>
-                                <div class="pagination pagination-sm pagination-right pagination-boxes text-center col-sm-4"></div>
-                                <div class="panel-search col-sm-4 text-right">
-                                    <input id="asset-search" type="text" placeholder="&#xf002; Search">
-                                    <span id="search-clear" classt ="glyphicon glyphicon-remove-circle"></span>
+                                <div class="glyphicon glyphicon-hdd" aria-hidden="true"> Assets</div>
+                                <div class="panel-search pull-right">
+                                    <input id='asset-search' type="text" placeholder="&#xf002; Search">
+                                    <span id="search-clear" class="glyphicon glyphicon-remove-circle"></span>
                                 </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
                             </div>
                         </div>
                         <div id="asset-panel-body" class="panel-body">
@@ -59,6 +63,11 @@
                     </div>
                 </div><!-- .col-sm-12 -->
             </div><!-- .row -->
+            <div class="row">
+                <div id="assetAttachmentsTable" class="col-md-12">
+                    <!-- ooiui/static/js/partials/AssetAttachmentsTable.html -->
+                </div>
+            </div>
             <div class="row">
                 <div id="assetInspector" class="col-md-6">
                     <!-- ooiui/static/js/partials/AssetInspectorForm.html -->
@@ -89,13 +98,23 @@ _.extend(OOI.prototype, Backbone.Events, {
     updateCollection( showAssets );
 
     this.listenTo(collection, "collection:updated", function(details){
+        vent.trigger('asset:tableDerender');
         updatePagination(details, showAssets);
+    });
+
+    this.listenTo(vent, "asset:renderSubViews", function(model) {
+        vent.trigger('asset:derender');
+        renderAssetInspector(model);
+        renderAssetEventsTable(model);
+        renderAssetAttachmentsTable(model);
     });
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     }
 });
+
+var vent = _.extend({}, Backbone.Events);
 
 // Main collection for this page's asset information.
 var collection = new AssetCollection();
@@ -114,13 +133,13 @@ $(document).ready(function() {
     $('#search-clear').click(function(){
         $('#asset-search').val('').focus();
         $(this).hide();
-            updateCollection( showAssets)
-            });
+        updateCollection( showAssets);
+    });
     $('#asset-search').keyup(function(e) {
         $('#search-clear').toggle(Boolean($(this).val()));
         $('#search-clear').toggle(Boolean($('#asset-search').val()));
-        updateCollection( showAssets)
-        });
+        updateCollection( showAssets );
+    });
     $('#navbar').prepend(navbar.el);
     $('#menu-toggle').hide();
     $('#sidebar-wrapper').hide();
@@ -139,12 +158,50 @@ function showAssets( collection, response ){
     $("#assetsTable").append( assetsTableView.el );
 }
 
+function renderAssetInspector(model) {
+    //create a new asset inspector (info) panel and render it's view.
+    var assetInspectorView = new AssetInspectorView({ model:model });
+    assetInspectorView.render();
+
+    //Clear out the old asset inspector panel DOM
+    $('#assetInspector').children().remove();
+
+    //Then attach the new one.
+    $('#assetInspector').append( assetInspectorView.el );
+}
+
+function renderAssetEventsTable(model) {
+    //create a new event table panel and reder it's view.
+    var assetEventsTableView = new AssetEventsTableView({ model:model });
+    assetEventsTableView.render();
+
+    //clear out the old events table panel DOM
+    $('#assetEventsTable').children().remove();
+
+    //then put the newly created view into the DOM.
+    $('#assetEventsTable').append( assetEventsTableView.el );
+}
+
+function renderAssetAttachmentsTable(model) {
+    //create a new attachments table and render it's view.
+    var assetAttachmentsTableView = new AssetAttachmentsTableView({ model:model });
+    assetAttachmentsTableView.render();
+
+    //remove the old attachment panel.
+    $('#assetAttachmentsTable').children().remove();
+    //attach the new one!
+    $('#assetAttachmentsTable').append( assetAttachmentsTableView.el );
+}
+
 function updateCollection( successCallback ){
 
     // If there is a search term, we need to set the startAt attribute to 0,
     // otherwise the results may not load on the page.
-    var startingPoint = "";
+    if ($('#asset-search').is(':focus')) {
+        startingPoint = 0;
+    } else {
         startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
+    }
     // Pagination attributes will be passed in using
     // backbone's collection data method.
     var data = {

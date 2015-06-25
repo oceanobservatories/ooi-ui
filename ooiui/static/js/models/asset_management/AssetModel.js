@@ -11,20 +11,22 @@
  */
 
 var AssetModel = Backbone.Model.extend({
+  urlRoot: '/api/asset_deployment',
   defaults: {
-  	assetInfo: {
-	    description: null,
-	    name: "Test",
-	    owner: null,
-	    type: "Mooring"
-		  },
+        assetId: null,
+  	    assetInfo: {
+            description: null,
+            name: null,
+            owner: null,
+            type: null
+		},
 		attachments: [],
-        class: ".AssetRecord",
+        class: null,
         coordinates: [
             0,
             0
         ],
-        launch_date_time: "21-Nov-13 18:16",
+        launch_date_time: null,
         manufactureInfo: {
             manufacturer: null,
             modelNumber: null,
@@ -34,34 +36,30 @@ var AssetModel = Backbone.Model.extend({
         physicalInfo: null,
         purchaseAndDeliveryInfo: null,
         water_depth: {
-            unit: "m",
-            value: 133.5
+            unit: null,
+            value: null
         },
         lastModifiedTimestamp: null,
         ref_des: null,
         asset_class: null,
-        deployment_number: null
-  	}
-});
-
-var AssetModelSingle = Backbone.Model.extend({
-	defaults : {
-
+        deployment_number: null,
+        metaData: []
+  	},
+    toJSON: function() {
+        var attrs = _.clone(this.attributes);
+        attrs.assetId = attrs.id;
+        return attrs;
     }
 });
 
 var AssetCollection = Backbone.Collection.extend({
-  url: '/api/asset_deployment',
-  model: AssetModel,
-  parse: function(response) {
-    if (response) {
-        this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt });
-        return response.assets;
+    url: '/api/asset_deployment',
+    model: AssetModel,
+    parse: function(response) {
+        if (response) {
+            this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt });
+            return response.assets;
+        }
+        return [];
     }
-    return [];
-  }
-});
-
-var AssetEvents = Backbone.Model.extend({
-  urlRoot: '/api/asset_deployment'
 });

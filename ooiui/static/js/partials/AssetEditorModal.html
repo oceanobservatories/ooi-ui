@@ -1,0 +1,78 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">Edit Asset: </h4>
+        </div>
+        <form class="form-horizontal">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="assetName" class="col-md-2 control-label">Name</label>
+                    <div class="col-md-9">
+                        <input id="assetName" type="text" class="form-control" value="<%= assetInfo.name %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetOwner" class="col-md-2 control-label">Owner</label>
+                    <div class="col-md-9">
+                        <input id="assetOwner" type="text" class="form-control" value="<%= assetInfo.owner %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetDescription" class="col-md-2 control-label">Description</label>
+                    <div class="col-md-9">
+                        <input id="assetDescription" type="text" class="form-control" value="<%= assetInfo.description %>">
+                    </div>
+                </div>
+<!--                <div class="form-group">
+                    <label for="assetRefDes" class="col-md-2 control-label">Reference Designator</label>
+                    <div class="col-md-9">
+                        <input id="assetRefDes" type="text" class="form-control" value="<%= ref_des %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetType" class="col-md-2 control-label">Type</label>
+                    <div class="col-md-4">
+                        <input id="assetType" type="text" class="form-control" value="<%= assetInfo.type %>">
+                    </div>
+                    <label for="assetLaunchDate" class="col-md-2 control-label">Launch Date</label>
+                    <div class="col-md-3">
+                        <input id="assetLaunchDate" type="text" class="form-control" value="<%= launch_date_time %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetClass" class="col-md-2 control-label">Class</label>
+                    <div class="col-md-4">
+                        <input id="assetClass" type="text" class="form-control" value="<%= asset_class %>">
+                    </div>
+                    <label for="assetDeploymentNum" class="col-md-2 control-label">Deployment#</label>
+                    <div class="col-md-3">
+                        <input id="assetDeploymentNum" type="text" class="form-control" value="<%= deployment_number %>">
+                    </div>
+                </div>
+                <div>
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <label for="assetLat" class="col-md-2 control-label">Latitude</label>
+                    <div class="col-md-4">
+                        <input id="assetLat" type="text" class="form-control" value="<%= coordinates[0] %>">
+                    </div>
+                    <label for="assetLon" class="col-md-2 control-label">Longitude</label>
+                    <div class="col-md-3">
+                        <input id="assetLon" type="text" class="form-control" value="<%= coordinates[1] %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetWaterDepth" class="col-md-2 control-label">Water Depth</label>
+                    <div class="col-md-4">
+                        <input id="assetName" type="text" class="form-control" value="<%= water_depth.value %> m">
+                    </div>
+                </div> -->
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEdit" type="button" class="btn btn-default">Cancel</button>
+                <button id="saveEdit" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

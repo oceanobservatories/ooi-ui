@@ -383,10 +383,12 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/PlatformStatus.html"
           ],
             "ooiui/static/js/partials/compiled/asset_management.js": [
-                "ooiui/static/js/partials/AssetInspectorForm.html",
+                "ooiui/static/js/partials/AssetInspector.html",
                 "ooiui/static/js/partials/AssetsTableRow.html",
-                "ooiui/static/js/partials/AssetEventTable.html",
+                "ooiui/static/js/partials/AssetEventsTable.html",
                 "ooiui/static/js/paritals/AssetsTable.html",
+                "ooiui/static/js/partials/AssetEditorModal.html",
+                "ooiui/static/js/partials/AssetAttachmentsTable.html",
             ]
         }
       }
