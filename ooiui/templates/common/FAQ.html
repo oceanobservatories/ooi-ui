@@ -6,22 +6,30 @@
 
 {% block head %}
   <link rel="stylesheet" href="/css/compiled/FAQ.css" type="text/css" />
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+ 
   <!-- Partials -->
-  
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/FAQ.js" type="text/javascript"></script>
   <script src="/js/compiled/FAQ.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script><F14>
+  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
 
-<div id='nav'></div> 
+<div id="gloss-wrapper"></div> 
    <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
 
-         <div  class="col-md-3 navbar-default">
-            <ol style="padding-top: 2cm" class="nav nav-sidebar">
+         <div  class="col-md-3">
+            <ol class="nav nav-sidebar">
 
               
               <li><a href="#1" title="What is the Ocean Observatories Initiative (OOI)?"><strong>What is the Ocean Observatories Initiative (OOI)?</strong></a></li>
@@ -43,16 +51,10 @@
 
         <div class="col-md-9">
           <div class="panel">
-            <div class="panel-heading">
-              
-            
-                           </div>
             <div class="panel-body">
-            <div id="section-toc">  <!-- SECTION CONTENT HEADER AND LINK TO SECTION HOME -->
-            <h2>Example OOI Frequently Asked Questions </h2>
+	      <div id="section-toc">  <!-- SECTION CONTENT HEADER AND LINK TO SECTION HOME -->
+		<h2>Example OOI Frequently Asked Questions </h2>
 
-<p>&nbsp;</p>
-<hr>
 <h2><a name="1"></a>What is the Ocean Observatories Initiative (OOI)?</h2>
 <p>The OOI, a project funded by the <a href="http://www.nsf.gov/" target="_blank" title="National Science Foundation">National Science Foundation</a>, is planned as a networked infrastructure of science-driven sensor systems to measure the physical, chemical, geological and biological variables in the ocean and seafloor. The OOI will be one fully integrated system collecting data on coastal, regional and global scales. Greater knowledge of the ocean’s interrelated systems is vital for increased understanding of their effects on biodiversity, ocean and coastal ecosystems, ecosystem health and climate change. OOI will put real time ocean observing data in the hands of a vast user community of oceanographers, scientists and researchers, educators and the public.</p>
 <h2><a name="2"></a>What are the science themes of the program?</h2>
@@ -120,6 +122,8 @@
 <!-- Bootstrap FAQ - END -->
 <script type="text/javascript">
 
+var bannerTitle = "FAQ";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
@@ -140,8 +144,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
 
    }
 });

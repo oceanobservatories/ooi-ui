@@ -18,9 +18,13 @@
 {% endblock %}
 
 {%block body %}
-<div id="wrapper">
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
-  <div id="sidebar-wrapper" class="navbar-default">
+<div id="wrapper" class="btn-wrapper">
+
+  <div id="sidebar-wrapper" class="btn-sidebar">
   </div>
 
   <div id="page-content-wrapper">
@@ -32,6 +36,9 @@
 
 
 <script type="text/javascript">
+
+var bannerTitle = "Trouble Ticket Submission";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
@@ -45,6 +52,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   start: function() {
     this.login.fetch({async:false});
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
 
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});

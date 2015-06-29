@@ -1,0 +1,43 @@
+<div class="container-fluid banner-image">
+  <div class="row">
+    <ul id="fadein-left">
+    
+      <li class="left">
+        <a href="/">
+          <img src="/img/logos-banners/OOI_Logo.svg" style="width:150px;">
+        </a>
+      </li>
+    
+      <li class="center banner-title">
+				<lg><%= bannerTitle %></lg>
+      </li>
+
+      <li class="right">
+        <a href="http://oceanleadership.org/">
+          <img src="/img/logos-banners/ocean-leadership.png">
+        </a>
+      </li>
+    
+      <li class="rightright">
+        <a href="http://www.nsf.gov/">
+          <img src="/img/logos-banners/nsf.png">
+				</a>
+      </li>
+    
+    </ul>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+    var words = $('lg').text().split(' ');
+    var html = '';
+    $.each(words, function() {
+        html += '<span style="font-size:60px;">'+this.substring(0,1)+'</span>'+this.substring(1) + ' ';
+    });
+    $('lg').html(html);
+});
+</script>
+
+
