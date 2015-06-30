@@ -19,25 +19,19 @@
 {% block body %}
 <div id="page-wrapper">
     <div id="navbar" style="margin-bottom:50px; max-height:50px;"></div>
-    <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel">
+    <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
         <!-- ooiui/static/js/partials/AssetEditorModal.html -->
+    </div>
+    <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
+        <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
     </div>
     <div id="page-content-wrapper">
         <div class="content-fluid">
             <div class="row">
-                <div class="col-sm-12">
+                <div  class="col-sm-12">
                     <div class="panel">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="glyphicon glyphicon-hdd" aria-hidden="true"> Assets</div>
-                                <div class="panel-search pull-right">
-                                    <input id='asset-search' type="text" placeholder="&#xf002; Search">
-                                    <span id="search-clear" class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
-                            </div>
+                        <div id="assetTableHeading" class="panel-heading">
+                            <!-- ooiui/static/js/partials/AssetTableHeader.html -->
                         </div>
                         <div id="asset-panel-body" class="panel-body">
                             <div id="asset-table-view">
@@ -45,12 +39,9 @@
                                     <i class="fa-spinner fa-spin" style="margin-left:50%; font-size:90px;"></i>
                                     <thead>
                                         <tr>
-                                            <th>ID#</th>
+                                            <th id="assetTableIdCol">ID#</th>
                                             <th>Name</th>
                                             <th>Type</th>
-                                            <th>Reference Designator</th>
-                                            <th>Owner</th>
-                                            <th>Launch Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,6 +54,11 @@
                     </div>
                 </div><!-- .col-sm-12 -->
             </div><!-- .row -->
+            <div class="row">
+                <div id="assetPlaceholder" class="jumbotron text-center">
+                    <h2>Please click an asset to view details</h2>
+                </div>
+            </div>
             <div class="row">
                 <div id="assetAttachmentsTable" class="col-md-12">
                     <!-- ooiui/static/js/partials/AssetAttachmentsTable.html -->
@@ -94,6 +90,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     navbar = new NavbarView({
     login: this.login
     });
+
+    renderAssetTableHeader();
 
     updateCollection( showAssets );
 
@@ -156,6 +154,16 @@ function showAssets( collection, response ){
     $("#assetsTable").find("tbody").remove().end();
     $(".fa-spinner").remove();
     $("#assetsTable").append( assetsTableView.el );
+}
+
+function renderAssetTableHeader(collection) {
+    //create the table header for the assets table.
+    //Will manage the search box, the pagination boxes and the asset creator button.
+    var assetTableHeaderView = new AssetTableHeaderView({ collection: collection });
+    assetTableHeaderView.render();
+
+    $('#assetTableHeading').children().remove();
+    $('#assetTableHeading').append( assetTableHeaderView.el );
 }
 
 function renderAssetInspector(model) {

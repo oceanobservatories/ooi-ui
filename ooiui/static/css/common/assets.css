@@ -19,17 +19,27 @@
 }
 
 /* Asset Table */
-#asset-panel-body {
-    min-height:460px;
+div#panel-heading > div.row {
+    margin-right:10px;
+    margin-left:10px;
+}
+div#asset-panel-body {
+    min-height:360px;
 }
 
+th#assetTableIdCol {
+    width: 15px;
+}
 /* Asset Settings Panel */
 div#assetInspector {
-    min-height: 540px;
+    min-height: 360px;
 }
 div#assetInspector > div > div > div.panel-heading {
     height: 40px;
     margin-bottom: 5px;
+}
+div#assetInspector > div > div > div.panel-heading > span > div.row {
+    padding-right: 10px;
 }
 div#assetInspector > div > div > div.panel-body > div.tab-content {
     padding-top: 10px;
@@ -55,6 +65,9 @@ div#assetForm > form > div.panel {
 div#assetForm > form > div > label {
     text-align: left;
     padding-left: 20px;
+}
+textarea {
+    resize: none;
 }
 
 /* Event Information Panel */

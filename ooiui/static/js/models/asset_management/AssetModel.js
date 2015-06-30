@@ -13,7 +13,7 @@
 var AssetModel = Backbone.Model.extend({
   urlRoot: '/api/asset_deployment',
   defaults: {
-        assetId: null,
+        id: null,
   	    assetInfo: {
             description: null,
             name: null,
@@ -21,12 +21,7 @@ var AssetModel = Backbone.Model.extend({
             type: null
 		},
 		attachments: [],
-        class: null,
-        coordinates: [
-            0,
-            0
-        ],
-        launch_date_time: null,
+        asset_class: null,
         manufactureInfo: {
             manufacturer: null,
             modelNumber: null,
@@ -35,15 +30,10 @@ var AssetModel = Backbone.Model.extend({
         notes: [""],
         physicalInfo: null,
         purchaseAndDeliveryInfo: null,
-        water_depth: {
-            unit: null,
-            value: null
-        },
         lastModifiedTimestamp: null,
-        ref_des: null,
-        asset_class: null,
-        deployment_number: null,
-        metaData: []
+        metaData: [],
+        classCode: null,
+        seriesClassification: null
   	},
     toJSON: function() {
         var attrs = _.clone(this.attributes);

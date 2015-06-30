@@ -4,7 +4,7 @@ var ParentAssetView = Backbone.View.extend({
         _.bindAll(this, 'render', 'derender');
     },
     render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
+        if (this.model) { this.$el.html(this.template(this.model.toJSON())) } else { this.$el.html(this.template())};
         return this;
     },
     derender: function() {
@@ -12,6 +12,23 @@ var ParentAssetView = Backbone.View.extend({
         this.unbind();
         this.model.off;
     }
+});
+
+//Header for the asset table.
+var AssetTableHeaderView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetTableHeader.html'],
+    initialize: function() {
+        _.bindAll(this, 'createAsset');
+    },
+    events: {
+        "click #assetCreatorBtn" : "createAsset"
+    },
+    createAsset: function() {
+        var assetCreatorModal = new AssetCreatorModalView();
+        $(assetCreatorModal.render().el).appendTo('#assetCreatorModal');
+        return this;
+    }
+
 });
 
 //Container for the list of all assets.
@@ -41,6 +58,7 @@ var AssetsTableRowView = ParentAssetView.extend({
         "click" : "renderSubViews"
     },
     renderSubViews: function() {
+        $('#assetPlaceholder').remove();
         vent.trigger('asset:renderSubViews', this.model);
     }
 });
@@ -56,7 +74,7 @@ var AssetInspectorView = ParentAssetView.extend({
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click #assetEditorBtn": "editAsset"
+        "click #assetEditorBtn": "editAsset",
     },
     editAsset: function() {
         var assetEditorModal = new AssetEditorModalView({ model:this.model });
@@ -65,14 +83,14 @@ var AssetInspectorView = ParentAssetView.extend({
     }
 });
 
-//Asset event detail panel.
+//Asset event detail view.
 var AssetEventsTableView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetEventsTable.html'],
     initialize: function() {
         this.listenToOnce(vent, 'asset:derender', function(model) {
             this.derender();
         });
-    },
+    }
 });
 
 //Asset Attachments View (nuxeo).
@@ -85,7 +103,91 @@ var AssetAttachmentsTableView = ParentAssetView.extend({
     },
 });
 
-//Asset editor modal panel.
+//Asset creator modal view
+var AssetCreatorModalView = ParentAssetView.extend({
+    template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
+    initialize: function() {
+        _.bindAll(this, 'save');
+    },
+    events: {
+        "click button#cancel" : "cancel",
+        "click button#save" : "save"
+    },
+    save: function() {
+
+        var assetInfo = {};
+        assetInfo.name = this.$el.find('#assetName').val();
+        assetInfo.owner = this.$el.find('#assetOwner').val();
+        assetInfo.description = this.$el.find('#assetDescription').val();
+        assetInfo.type = this.$el.find('#assetType').val();
+
+        var manufactureInfo = {};
+        manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
+        manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
+        manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
+
+        var metaData = [
+        {
+            "key": "Ref Des",
+            "value": this.$el.find('#assetRefDes').val(),
+            "type": "java.lang.String"
+        },
+        {
+            "key": "Anchor Launch Date",
+            "value": this.$el.find('#assetLaunchDate').val(),
+            "type": "java.lang.String"
+        },
+        {
+            "key": "Anchor Launch Time",
+            "value": this.$el.find('#assetLaunchTime').val(),
+            "type": "java.lang.String"
+        },
+        {
+            "key": "Latitude",
+            "value": this.$el.find('#assetLatitude').val(),
+            "type": "java.lang.String"
+        },
+        {
+            "key": "Longitude",
+            "value": this.$el.find('#assetLongitude').val(),
+            "type": "java.lang.String"
+        },
+        {
+            "key": "Water Depth",
+            "value": this.$el.find('#assetDepth').val(),
+            "type": "java.lang.String"
+        }];
+
+        var newAsset = new AssetModel({});
+        newAsset.set('assetInfo', assetInfo);
+        newAsset.set('asset_class', this.$el.find('#assetClass').val());
+        newAsset.set('manufactureInfo', manufactureInfo);
+        newAsset.set('notes', [ this.$el.find('#assetNotes').val() ]);
+        newAsset.set('purchaseAndDeliveryInfo', this.$el.find('#assetPurchaseAndDeliveryInfo').val());
+        newAsset.set('metaData', metaData);
+        newAsset.set('classCode', this.$el.find('#assetClassCode').val());
+        newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
+        console.log(newAsset);
+        newAsset.save({
+            success: function(){
+            }
+        });
+
+        this.cleanUp();
+        newAsset.off();
+    },
+    cancel: function() {
+        this.cleanUp();
+    },
+    cleanUp: function() {
+        $('#assetCreatorModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        this.remove();
+        this.unbind();
+    }
+});
+//Asset editor modal view.
 var AssetEditorModalView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
     initialize: function() {
@@ -96,14 +198,18 @@ var AssetEditorModalView = ParentAssetView.extend({
         "click button#saveEdit" : "submit"
     },
     submit: function() {
-        var attr = this.model.get('assetInfo');
-        attr.name = this.$el.find('#assetName').val();
-        attr.owner = this.$el.find('#assetOwner').val(),
-        attr.description = this.$el.find('#assetDescription').val();
+        var assetInfo = this.model.get('assetInfo');
+        assetInfo.name = this.$el.find('#assetName').val();
+        assetInfo.owner = this.$el.find('#assetOwner').val(),
+        assetInfo.description = this.$el.find('#assetDescription').val();
 
-        this.model.set('assetInfo', attr);
-        vent.trigger('asset:modelChange');
-        this.model.save();
+        this.model.set('assetInfo', assetInfo);
+        this.model.save({
+            success: function(){
+                this.model.fetch();
+            }
+        });
+        vent.trigger('asset:modelChange', this.model);
         this.cleanUp();
     },
     cancel: function() {

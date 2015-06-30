@@ -3,9 +3,11 @@
 <div class="panel">
     <div class="panel-heading">
         <span>
-        <div class="glyphicon glyphicon-cog col-xs-10" aria-hidden="true"> Info</div>
-        <div class="col-xs-1">
-            <button id="assetEditorBtn" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#assetEditorModal" data-whatever="<%= assetInfo.name %>">Edit Asset</button>
+            <div class="row">
+                <div class="glyphicon glyphicon-cog col-xs-8" aria-hidden="true"> Asset ID# <%= id %></div>
+            <p class="text-right">
+            <button id="assetEditorBtn" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#assetEditorModal">Edit Asset</button>
+            </p>
         </div>
         </span>
     </div>
@@ -32,39 +34,16 @@
                     <dd><%= assetInfo.owner %></dd>
                 </dl>
                 <dl class="dl-horizontal">
-                    <dt>Reference Designator</dt>
-                    <dd><%= ref_des %></dd>
-                </dl>
-                <dl class="dl-horizontal">
                     <dt>Type</dt>
                     <dd><%= assetInfo.type %></dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Launch Date</dt>
-                    <dd><%= launch_date_time %></dd>
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>Class</dt>
                     <dd><%= asset_class %></dd>
                 </dl>
                 <dl class="dl-horizontal">
-                    <dt>Deployment #</dt>
-                    <dd><%= deployment_number %></dd>
-                </dl>
-                <div>
-                    <hr/>
-                </div>
-                <dl class="dl-horizontal">
-                    <dt>Latitude</dt>
-                    <dd><%= coordinates[0] %></dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Longitude</dt>
-                    <dd><%= coordinates[0] %></dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Water Depth</dt>
-                    <dd><%= water_depth.value %> <%= water_depth.unit %></dd>
+                    <dt>Class Code</dt>
+                    <dd><%= classCode %></dd>
                 </dl>
             </div>
             <div role="tabpanel" class="tab-pane" id="metaData">
