@@ -100,6 +100,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         updatePagination(details, showAssets);
     });
 
+    this.listenTo(vent, 'asset:changeCollection', function() {
+        vent.trigger('asset:tableDerender');
+        updateCollection( showAssets );
+    });
+
     this.listenTo(vent, "asset:renderSubViews", function(model) {
         vent.trigger('asset:derender');
         renderAssetInspector(model);

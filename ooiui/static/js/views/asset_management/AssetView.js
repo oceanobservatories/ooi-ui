@@ -107,7 +107,7 @@ var AssetAttachmentsTableView = ParentAssetView.extend({
 var AssetCreatorModalView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'save');
+        _.bindAll(this, 'save', 'cancel');
     },
     events: {
         "click button#cancel" : "cancel",
@@ -173,6 +173,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
             }
         });
 
+        vent.trigger('asset:changeCollection');
         this.cleanUp();
         newAsset.off();
     },
@@ -191,11 +192,12 @@ var AssetCreatorModalView = ParentAssetView.extend({
 var AssetEditorModalView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'cancel', 'submit');
+        _.bindAll(this, 'cancel', 'submit', 'destroy');
     },
     events: {
         "click button#cancelEdit" : "cancel",
-        "click button#saveEdit" : "submit"
+        "click button#saveEdit" : "submit",
+        "click button#delete" : "destroy"
     },
     submit: function() {
         var assetInfo = this.model.get('assetInfo');
@@ -214,6 +216,14 @@ var AssetEditorModalView = ParentAssetView.extend({
     },
     cancel: function() {
         this.cleanUp();
+    },
+    destroy: function() {
+        var youSure = confirm("Are you sure you would like to delete this asset?");
+        if (youSure) {
+            this.model.destroy();
+            vent.trigger('asset:changeCollection');
+            this.cleanUp();
+        }
     },
     cleanUp: function() {
         $('#assetEditorModal').modal('hide');
