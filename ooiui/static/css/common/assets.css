@@ -13,6 +13,11 @@
     }
 }
 
+/* helpful formatting classes */
+. {
+    min-height: 360px;
+}
+
 /* Bootstrap Pagination modifications */
 .pagination {
     margin: 0px 0px !important;
@@ -23,7 +28,7 @@ div#panel-heading > div.row {
     margin-right:10px;
     margin-left:10px;
 }
-div#asset-panel-body {
+div#assetPanelBody {
     min-height:360px;
 }
 
