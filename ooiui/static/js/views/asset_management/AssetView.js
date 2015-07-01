@@ -58,7 +58,7 @@ var AssetsTableRowView = ParentAssetView.extend({
         "click" : "renderSubViews"
     },
     renderSubViews: function() {
-        $('#assetPlaceholder').remove();
+        $('#assetDetailsPlaceholder').remove();
         vent.trigger('asset:renderSubViews', this.model);
     }
 });
