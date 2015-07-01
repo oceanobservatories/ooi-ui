@@ -30,7 +30,7 @@
             <div class="row">
                 <div  class="col-sm-12">
                     <div class="panel">
-                        <div id="assetTableHeading" class="panel-heading">
+                        <div id="assetTableHeading" class="panel-heading hidden">
                             <!-- ooiui/static/js/partials/AssetTableHeader.html -->
                         </div>
                         <i class="fa fa-circle-o-notch fa-spin" style="margin-left:50%; font-size:90px;"></i>
@@ -93,6 +93,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     navbar = new NavbarView({
     login: this.login
     });
+
+    //Render the asset table header
+    renderAssetTableHeader();
 
     updateCollection( showAssets );
 
@@ -157,9 +160,7 @@ function showAssets( collection, response ){
     $('div#assetPanelBody').removeClass('hidden');
     $('div#assetLoadingPlaceholder').remove();
     $('#assetDetailsPlaceholder').removeClass('hidden');
-
-    //Render the asset table header
-    renderAssetTableHeader();
+    $('#assetTableHeading').removeClass('hidden');
 
     // Create the view that will hold the list of assets.
     var assetsTableView = new AssetsTableView({ collection: collection });
