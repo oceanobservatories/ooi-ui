@@ -26,6 +26,9 @@ var AssetTableHeaderView = ParentAssetView.extend({
     createAsset: function() {
         var assetCreatorModal = new AssetCreatorModalView();
         $(assetCreatorModal.render().el).appendTo('#assetCreatorModal');
+        assetCreatorModal.setupFields();
+        // setup some fields once the modal renders
+
         return this;
     }
 
@@ -107,11 +110,15 @@ var AssetAttachmentsTableView = ParentAssetView.extend({
 var AssetCreatorModalView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'save', 'cancel');
+        _.bindAll(this, 'save', 'cancel', 'setupFields');
+
     },
     events: {
         "click button#cancel" : "cancel",
         "click button#save" : "save"
+    },
+    setupFields: function() {
+        this.$el.find('#assetLaunchDate').datepicker();
     },
     save: function() {
 
@@ -221,6 +228,7 @@ var AssetEditorModalView = ParentAssetView.extend({
         var youSure = confirm("Are you sure you would like to delete this asset?");
         if (youSure) {
             this.model.destroy();
+            vent.trigger('asset:derender');
             vent.trigger('asset:changeCollection');
             this.cleanUp();
         }
