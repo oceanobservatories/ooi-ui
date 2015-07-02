@@ -71,10 +71,22 @@
                     <tbody>
                         <% _.each(events, function(row) { %>
                             <% if (row.class == '.CalibrationEvent') { %>
-                                <tr>
+                            <tr class="accordion-toggle"
+                                data-toggle="collapse"
+                                data-target="#cal-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
                                     <td><%= Date(row.startDate) %></td>
+                                </tr>
+                                <tr class="collapse" id="cal-<%= row.eventId %>">
+                                    <td colspan="3">
+                                        <% _.each(row.calibrationCoefficient, function(subRow) { %>
+                                            <dl class="dl-horizontal">
+                                                <dt><%= subRow.name %></dt>
+                                                <dd colspan="2"><%= subRow.values %></dd>
+                                            </dl>
+                                        <% }); %>
+                                    </td>
                                 </tr>
                             <% } %>
                         <% }); %>
