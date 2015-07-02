@@ -211,7 +211,11 @@ var AssetEditorModalView = ParentAssetView.extend({
         assetInfo.name = this.$el.find('#assetName').val();
         assetInfo.owner = this.$el.find('#assetOwner').val(),
         assetInfo.description = this.$el.find('#assetDescription').val();
+        assetInfo.type = this.$el.find('#assetType').val();
 
+        this.model.set('notes', [ this.$el.find('#assetNotes').val() ]);
+        this.model.set('asset_class', this.$el.find('#assetClass').val());
+        this.model.set('classCode', this.$el.find('#assetClassCode').val());
         this.model.set('assetInfo', assetInfo);
         this.model.save({
             success: function(){
