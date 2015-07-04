@@ -1,5 +1,10 @@
 // Parent class for asset views.
 var ParentAssetView = Backbone.View.extend({
+    /* Parent class for the asset views.
+     *  - initialize()
+     *  - render()
+     *  - derender()
+     */
     initialize: function() {
         _.bindAll(this, 'render', 'derender');
     },
@@ -16,6 +21,11 @@ var ParentAssetView = Backbone.View.extend({
 
 //Header for the asset table.
 var AssetTableHeaderView = ParentAssetView.extend({
+    /* This will render the search field, pagination boxes,
+     * and the 'create asset' link button.
+     * - initialize()
+     * - createAsset()
+     */
     template: JST['ooiui/static/js/partials/AssetTableHeader.html'],
     initialize: function() {
         _.bindAll(this, 'createAsset');
@@ -27,8 +37,6 @@ var AssetTableHeaderView = ParentAssetView.extend({
         var assetCreatorModal = new AssetCreatorModalView();
         $(assetCreatorModal.render().el).appendTo('#assetCreatorModal');
         assetCreatorModal.setupFields();
-        // setup some fields once the modal renders
-
         return this;
     }
 
@@ -36,6 +44,11 @@ var AssetTableHeaderView = ParentAssetView.extend({
 
 //Container for the list of all assets.
 var AssetsTableView = ParentAssetView.extend({
+    /* This is the meat and potatoes of the page;
+     * all the assets in the collection are rendered
+     * out through this view.
+     * - render()
+     */
     tagName: 'tbody',
     render: function() {
         var assetsRowView = this.collection.map(function(model) {
@@ -48,6 +61,10 @@ var AssetsTableView = ParentAssetView.extend({
 
 //Asset item subview, as a table row.
 var AssetsTableRowView = ParentAssetView.extend({
+    /* Each asset is itemized in it's own row for display.
+     * - initialize()
+     * - renderSubViews()
+     */
     tagName: 'tr',
     template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
     initialize: function() {
@@ -68,6 +85,14 @@ var AssetsTableRowView = ParentAssetView.extend({
 
 //Asset inspector panel.
 var AssetInspectorView = ParentAssetView.extend({
+    /* This will display the details of the asset after it's row item
+     * has been clicked.  It will live below the list of assets, on the left.
+     * It contains 3 tabs, 'Overview', 'Meta Data', and 'Aquision Data'.
+     * This view also constructs the 'Edit Asset' button, and renders own the
+     * view associated.
+     * - initialize()
+     * - editAsset()
+     */
     template: JST['ooiui/static/js/partials/AssetInspector.html'],
     initialize: function() {
         _.bindAll(this, 'editAsset');
@@ -88,6 +113,11 @@ var AssetInspectorView = ParentAssetView.extend({
 
 //Asset event detail view.
 var AssetEventsTableView = ParentAssetView.extend({
+    /* This view lists out all the events associated with the asset.
+     * A special note: when clicking the Calibration Event, the calibration
+     * coeffcients will display.
+     * - initialize()
+     */
     template: JST['ooiui/static/js/partials/AssetEventsTable.html'],
     initialize: function() {
         this.listenToOnce(vent, 'asset:derender', function(model) {
@@ -98,6 +128,11 @@ var AssetEventsTableView = ParentAssetView.extend({
 
 //Asset Attachments View (nuxeo).
 var AssetAttachmentsTableView = ParentAssetView.extend({
+    /* TODO: enable this to interact with the NUXEO services.
+     * This will display a table list of all attachements
+     * associated with this asset.
+     * WORK IN PROGRESS
+     */
     template: JST['ooiui/static/js/partials/AssetAttachmentsTable.html'],
     initialize: function() {
         this.listenToOnce(vent, 'asset:derender', function(model) {
@@ -108,6 +143,16 @@ var AssetAttachmentsTableView = ParentAssetView.extend({
 
 //Asset creator modal view
 var AssetCreatorModalView = ParentAssetView.extend({
+    /* Renders out a modal window, which contains a form for
+     * creating a new asset.
+     * TODO: create field validations for each of the inputs.
+     * - initialize()
+     * - setupFields() ... this is useful, if there are modifications
+     *      that need to be done to the template after it's rendered.
+     * - save()
+     * - cancel()
+     * - cleanup()
+     */
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
         _.bindAll(this, 'save', 'cancel', 'setupFields');
@@ -197,6 +242,15 @@ var AssetCreatorModalView = ParentAssetView.extend({
 });
 //Asset editor modal view.
 var AssetEditorModalView = ParentAssetView.extend({
+    /* This will render out a asset editor modal window.
+     * Only certain fields are editable to date, noteably
+     * the fields omitted are the reference designator.
+     * - initialize()
+     * - submit()
+     * - cancel()
+     * - destory() ... This will delete an asset...beware!
+     * - cleanUp()
+     */
     template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
     initialize: function() {
         _.bindAll(this, 'cancel', 'submit', 'destroy');
@@ -220,9 +274,9 @@ var AssetEditorModalView = ParentAssetView.extend({
         this.model.save({
             success: function(){
                 this.model.fetch();
+                vent.trigger('asset:modelChange', this.model);
             }
         });
-        vent.trigger('asset:modelChange', this.model);
         this.cleanUp();
     },
     cancel: function() {
@@ -245,6 +299,7 @@ var AssetEditorModalView = ParentAssetView.extend({
     }
 });
 // time conversions
+// TODO: Determine if these should be here.
 function isoToDateTime( strInput ) {
     var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;
     var returnDate = (true) ? new Date(Date.parse(temp[0])) : new Date(temp);
