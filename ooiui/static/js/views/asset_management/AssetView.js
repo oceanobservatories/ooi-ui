@@ -155,7 +155,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'save', 'cancel', 'setupFields');
+        _.bindAll(this, 'save', 'cancel', 'setupFields', 'validateFields');
     },
     events: {
         "click button#cancel" : "cancel",
@@ -163,6 +163,41 @@ var AssetCreatorModalView = ParentAssetView.extend({
     },
     setupFields: function() {
         this.$el.find('#assetLaunchDate').datepicker();
+    },
+    validateFields: function() {
+        /* TODO:
+         * 1. assetInfo: Required (all)
+         *      a. name: Valid Char ( - , A-Z , a-z , 0-9 )
+         *      b. owner: Valid Char ( - , A-Z , a-z , 0-9 )
+         *      c. description: Valid Char ( - , A-Z , a-z , 0-9 )
+         *      d. type: Selected
+         * 2. manufactureInfo: Optional (all)
+         *      a. manufacturer: Valid Char ( - , A-Z , a-z )
+         *      b. modelNumber:  Valid Char ( - , A-Z , 0-9 )
+         *      c. serialNumber:  Valid Char ( - , A-Z , 0-9)
+         * 3. metaData: Required (all)
+         *      a. Ref Des: Valid Char ( - , A-Z , 0-9 )
+         *      b. Anchor Launch Date: Not future.
+         *      c. Anchor Launch Time: 24hr format, not future.
+         *      d. Latitude: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
+         *      e. Longitutde: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
+         *          - Actually map the input and return approx location
+         *            below input fields (non modifiable text field).
+         *      f. Water Depth: Valid Char ( m, 0-9 )
+         * 4. assetClassCode: String Length, Valid Char (A-Z, 0-9)
+         * 5. assetNotes: Valid Char (A-Z, a-z, 0-9, . , (comma) , - )
+         * 6. purchaseAndDeliveryInfo: Valid Char (A-Z, a-z, 0-9, . , (comma) , - , $ )
+         * 7. assetClass: Selected
+         * 8. assetSeriesClassification: <Unknown> ... leave out for now.
+         *
+         * Once Complete, change 'events:'
+         *  from:
+         *      "click button#save" : "save"
+         *  to:
+         *      "click button#save" : "validate",
+         *
+         * Then call this.save() at the successful validation.
+         */
     },
     save: function() {
         // TODO: This entire function should be called
@@ -259,12 +294,15 @@ var AssetEditorModalView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'cancel', 'submit', 'destroy');
+        _.bindAll(this, 'cancel', 'submit', 'destroy', 'validateFields');
     },
     events: {
         "click button#cancelEdit" : "cancel",
         "click button#saveEdit" : "submit",
         "click button#delete" : "destroy"
+    },
+    validateFields: function() {
+
     },
     submit: function() {
         var assetInfo = this.model.get('assetInfo');
@@ -304,16 +342,3 @@ var AssetEditorModalView = ParentAssetView.extend({
         this.derender();
     }
 });
-// time conversions
-// TODO: Determine if these should be here.
-function isoToDateTime( strInput ) {
-    var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;
-    var returnDate = (true) ? new Date(Date.parse(temp[0])) : new Date(temp);
-    return returnDate;
-}
-function dateTimeToISO( strInput ) {
-    var temp = Date.parse(strInput);
-    var parseDate = new Date(temp);
-    var isoDateReturn = parseDate.toISOString();
-    return isoDateReturn;
-}
