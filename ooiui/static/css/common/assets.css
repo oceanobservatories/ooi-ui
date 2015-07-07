@@ -1,0 +1,91 @@
+/* Navbar */
+@media screen and (max-width: 1040px) {
+    #navbar {
+        max-height: 50px;
+    }
+    #navbar img {
+        visibility: hidden;
+        display: none;
+    }
+    #navbar-right {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+/* helpful formatting classes */
+. {
+    min-height: 360px;
+}
+
+/* Bootstrap Pagination modifications */
+.pagination {
+    margin: 0px 0px !important;
+}
+
+/* Asset Table */
+div#panel-heading > div.row {
+    margin-right:10px;
+    margin-left:10px;
+}
+div#assetPanelBody {
+    min-height:360px;
+}
+
+th#assetTableIdCol {
+    width: 15px;
+}
+/* Asset Settings Panel */
+div#assetInspector {
+    min-height: 360px;
+}
+div#assetInspector > div > div > div.panel-heading {
+    height: 40px;
+    margin-bottom: 5px;
+}
+div#assetInspector > div > div > div.panel-heading > span > div.row {
+    padding-right: 10px;
+}
+div#assetInspector > div > div > div.panel-body > div.tab-content {
+    padding-top: 10px;
+}
+div#assetAquisitionInfo > dl > dt {
+    /* background-color: #D6EBFF; */
+    text-decoration: underline;
+}
+
+div#assetAquisitionInfo > dl > dd > dl.dl-horizontal {
+    margin-bottom: 0px;
+}
+
+div#assetAquisitionInfo > dl > dd > dl.dl-horizontal > dt {
+    text-align: left;
+    margin-left: 25px;
+}
+
+div#assetForm > form > div.panel {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+div#assetForm > form > div > label {
+    text-align: left;
+    padding-left: 20px;
+}
+textarea {
+    resize: none;
+}
+
+/* Event Information Panel */
+div#assetEventsTable {
+    min-height: 540px;
+}
+div#assetEventsTable > div > div > div.panel-heading {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+/* Attachments Table */
+div#assetAttachmentsTable div > div > div.panel-heading {
+    height: 40px;
+    margin-bottom: 5px;
+}

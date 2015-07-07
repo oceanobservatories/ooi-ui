@@ -1,0 +1,144 @@
+<!-- wrapped in a .row -->
+<% try { %>
+<div class="panel">
+    <div class="panel-heading">
+        <div class="glyphicon glyphicon-warning-sign col-md-4" aria-hidden="true"> Events</div>
+    </div>
+    <div class="panel-body">
+        <!-- tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#deploymentEvent" aria-controls="deploymentEvent" data-toggle="tab">Deployment Events</a></li>
+            <li role="presentation"><a href="#storageEvent" aria-controls="storageEvent" role="tab" data-toggle="tab">Storage Events</a></li>
+            <li role="presentation"><a href="#calibrationEvent" aria-controls="calibrationEvent" data-toggle="tab">Calibration Events</a></li>
+            <li role="presentation"><a href="#integrationEvent" aria-controls="integrationEvent" data-toggle="tab">Integration Events</a></li>
+            <li role="presentation"><a href="#serviceEvent" aria-controls="serviceEvent" data-toggle="tab">Service Events</a></li>
+        </ul>
+        <!-- tab panes -->
+        <div class="tab-content">
+            <div rolw="tabpanel" class="tab-pane active" id="deploymentEvent">
+                <table class="table table-bordered table-striped table-selectable">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(events, function(row) { %>
+                            <% if (row.class == '.DeploymentEvent') { %>
+                                <tr>
+                                    <td><%= row.eventId  %></td>
+                                    <td><%= row.class %></td>
+                                    <td><%= Date(row.startDate) %></td>
+                                </tr>
+                            <% } %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="storageEvent">
+                <table class="table table-bordered table-striped table-selectable">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(events, function(row) { %>
+                            <% if (row.class == '.StorageEvent') { %>
+                                <tr>
+                                    <td><%= row.eventId  %></td>
+                                    <td><%= row.class %></td>
+                                    <td><%= Date(row.startDate) %></td>
+                                </tr>
+                            <% } %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="calibrationEvent">
+                <table class="table table-bordered table-striped table-selectable">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(events, function(row) { %>
+                            <% if (row.class == '.CalibrationEvent') { %>
+                            <tr class="accordion-toggle"
+                                data-toggle="collapse"
+                                data-target="#cal-<%= row.eventId %>">
+                                    <td><%= row.eventId  %></td>
+                                    <td><%= row.class %></td>
+                                    <td><%= Date(row.startDate) %></td>
+                                </tr>
+                                <tr class="collapse" id="cal-<%= row.eventId %>">
+                                    <td colspan="3">
+                                        <% _.each(row.calibrationCoefficient, function(subRow) { %>
+                                            <dl class="dl-horizontal">
+                                                <dt><%= subRow.name %></dt>
+                                                <dd colspan="2"><%= subRow.values %></dd>
+                                            </dl>
+                                        <% }); %>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="integrationEvent">
+                <table class="table table-bordered table-striped table-selectable">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(events, function(row) { %>
+                            <% if (row.class == '.IntegrationEvent') { %>
+                                <tr>
+                                    <td><%= row.eventId  %></td>
+                                    <td><%= row.class %></td>
+                                    <td><%= Date(row.startDate) %></td>
+                                </tr>
+                            <% } %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="serviceEvent">
+                <table class="table table-bordered table-striped table-selectable">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(events, function(row) { %>
+                            <% if (row.class == '.ServiceEvent') { %>
+                                <tr>
+                                    <td><%= row.eventId  %></td>
+                                    <td><%= row.class %></td>
+                                    <td><%= Date(row.startDate) %></td>
+                                </tr>
+                            <% } %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<% } catch(err) { console.log(err) } %>
+<!-- .row -->

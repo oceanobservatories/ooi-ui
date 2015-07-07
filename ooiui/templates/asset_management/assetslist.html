@@ -5,476 +5,280 @@
 {% endblock %}
 
 {% block head %}
-  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-
-  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/compiled/gridList.js" type="text/javascript"></script>
-  
-  <script type="text/javascript" src="/js/core/table/bootstrap-table-filter.js"></script>
-  <script src="/js/core/table/bootstrap-table-filter.ext.js"></script>
-  <script type="text/javascript" src="/js/core/table/bs-table.js"></script>
-  
-  <!-- partials  
-  <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>-->
-  
-  <script type="text/javascript" src="/js/core/table/tableExport.min.js"></script>
-  <script type="text/javascript" src="/js/core/table/FileSaver.min.js"></script>
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/css/common/assets.css">
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
+<script src="/js/compiled/index.js" type="text/javascript"></script>
+<script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+<script src="/js/core/common/paginate.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
-<!--/.TOP BAR END -->
-<div id="wrapper-asset">
-  <!-- Sidebar 
-  <div id="sidebar-wrapper" class="navbar-default">
-  </div>-->
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong><span class="fa fa-list"></span> <span data-i18n="Data">Asset List</span></strong>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12" id="asset_top_panel" style='top: -36px;width: 280px;margin-left: 139px; position:relative;'>
-                <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Assets 
-              </div>
-              <div id ='filter-toolbar' style='margin-left:-414px'></div>
-              <div id ='datatable_div'><table data-toolbar="#filter-toolbar" style='cursor:pointer' data-show-filter="true" id="datatable"></table>
-              </div>
-              <!-- <h4 style="position: absolute;top: 62px;left:35px">Filter Assets By:</h4>
-              <h5 id='number_of_assets' style="font-style:italic">0 records</h5> 
-              <div id ='asset_search_pan' style='top: 73px;position: absolute;left: 180px;'></div>-->
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-lg-12 -->
-      </div> <!-- row -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-edit"> </span> Edit Asset<span data-i18n="Data"></span>
-              </strong>
-              <div class="pull-right">
-                <div class="btn-group" id='deploy_edit' role="group" style="top: -7px;" aria-label="...">
-                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-plus-square"></i> New</div>
-                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-floppy-o"></i> Save</div>
-                  <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-bar-chart"></i> Plot</div>
-                  <div class="btn btn-primary" disabled type="button" aria-label="..."><i class="fa fa-trash-o"></i> Delete</div>
+<div id="page-wrapper">
+    <div id="navbar" style="margin-bottom:50px; max-height:50px;"></div>
+    <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
+        <!-- ooiui/static/js/partials/AssetEditorModal.html -->
+    </div>
+    <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
+        <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
+    </div>
+    <div id="page-content-wrapper">
+        <div class="content-fluid">
+            <div class="row">
+                <div  class="col-sm-12">
+                    <div class="panel">
+                        <div id="assetTableHeading" class="panel-heading hidden">
+                            <!-- ooiui/static/js/partials/AssetTableHeader.html -->
+                        </div>
+                        <i class="fa fa-circle-o-notch fa-spin" style="margin-left:50%; font-size:90px;"></i>
+                        <div id="assetPanelBody" class="panel-body hidden">
+                            <div id="asset-table-view">
+                                <table class="table table-bordered table-striped table-selectable" id="assetsTable">
+                                    <thead>
+                                        <tr>
+                                            <th id="assetTableIdCol">ID#</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- ooiui/static/js/partials/AssetTableRow.html -->
+                                    </tbody>
+                                </table>
+                            </div><!-- #asset-table-view -->
+                            <div class="pagination-info text-center"></div>
+                        </div><!-- .panel-body -->
+                    </div>
+                </div><!-- .col-sm-12 -->
+            </div><!-- .row -->
+            <div class="row">
+                <div id="assetDetailsPlaceholder" class="jumbotron text-center hidden">
+                    <h2>Please click an asset to view details</h2>
                 </div>
-              </div>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12" id="editdep_panel" style='width:320px;top: 10px;margin-left: 139px; position:absolute;'>
-                <i class="fa fa-spinner fa-spin"></i>  Loading Deployments 
-              </div>
-              <div role="tabpanel">
-                  <!-- Nav tabs -->
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Metadata</a></li>
-                    <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Information</a></li> -->
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Information</a></li>
-                  </ul>
-                  <!-- Tab panes -->
-                  <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <form class="form-horizontal" id="editdep_form" style="display:none;padding-top:10px">
-                          <fieldset style="width: 100%;">
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="name_d">Display Name: </label>
-                              <div class="controls">
-                                <input id="name_d" name="name_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="owner_d">Owner: </label>
-                              <div class="controls">
-                                <input id="owner_d" name="owner_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="type_d">Type: </label>
-                              <div class="controls">
-                                <input id="type_d" name="type_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="depth_d">Depth Value: </label>
-                              <div class="controls">
-                                <input id="depth_d" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="quantity" min="-10" max="5000" style='width:250px' type="text" placeholder="" class="input-xlarge">
-                              </div>
-                              <label class="col-sm-3 control-label" style="position: absolute;left: 443px;font-weight: normal;margin-top: -30px;" for="startdate_d">Meters Below Sea Level</label>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="startdate_d">Launch Date: </label>
-                              <div class="controls">
-                                <input id="startdate_d" name="startdate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
-                                <span class="fa fa-calendar"></span>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="enddate_d">End Date: </label>
-                              <div class="controls">
-                                <input id="enddate_d" name="enddate_d" style='cursor:pointer;width:430px' type="text" placeholder="" class="input-xlarge">
-                                <span class="fa fa-calendar"></span>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="col-sm-3 control-label" for="geo_d_lat">Latitude: </label>
-                              <div id='dd_input'>
-                                <input id="geo_d_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:187px' class="input-xlarge" value='0' type="text">
-                                <span class="add-on"> °</span>
-                              </div>
-                              <div id='ddmm_input' style='display:none;'> 
-                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                                <span class="add-on"> °</span>
-                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                                <input id="dm_lat" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:37px' class="input-xlarge" placeholder="" type="text">
-                              </div>
-                              <div id='ddmmss_input' style='display:none;'>
-                                <input id="dms_latd" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" value='0' type="text">
-                                <span class="add-on"> °</span>
-                                <input id="dms_latm" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" name="number" min="-90" max="90" style='width:87px' class="input-xlarge" value='0' type="text">
-                                <span class="add-on"> '</span>
-                                <input id="dms_lats" type="number" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" value='0' name="number" min="-90" max="90" style='width:87px' class="input-xlarge"  type="text">
-                                <span class="add-on"> ''</span>
-                                <input id="dms_latNS" style='width:37px' value='N' onKeyup="isValidCharLat(this.value)" class="input-xlarge"  type="text">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class='col-sm-3 control-label' for="geo_d_long">Longitude: </label>
-                              <div id='dd_inputG'>
-                                <input id="geo_d_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" value='0' min="-180" max="180" name="geo_d_long" style='width:187px' class="input-xlarge"  type="text">
-                                <span class="add-on"> °</span>
-                              </div>
-                              <div id='ddmm_inputG' style='display:none;'>
-                                <input id="dm_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                                <span class="add-on"> °</span>
-                                <input id="dm_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" placeholder="" type="text">
-                                <input id="dm_long" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" name="quantity" min="-180" max="180" name="geo_d_long" style='width:37px' class="input-xlarge" placeholder="" type="text">
-                              </div>
-                              <div id='ddmmss_inputG' style='display:none;'>
-                                <input id="dms_longD" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" value='0' min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" type="text">
-                                <span class="add-on"> °</span>
-                                <input id="dms_longM" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" value='0' min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge" type="text">
-                                <span class="add-on"> '</span>
-                                <input id="dms_longS" onChange="return numbercheck(this, event)" onKeyPress="return numbersonly(this, event)" type="number" value='0' min="-180" max="180" name="geo_d_long" style='width:87px' class="input-xlarge"  type="text">
-                                <span class="add-on"> ''</span>
-                                <input id="dms_longEW" name="dms_longEW" onKeyup="isValidCharLon(this.value)" style='width:37px' class="input-xlarge" value='E' type="text">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label" for="coordinate_switcher">Coordinate Type: </label>
-                            <div class="btn-group dropup" id='coordinate_switcher' style='' >
-                              <button class="btn btn-default" data-toggle="dropdown">Decimal Degrees
-                                <span class="caret"></span>
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li><a style='cursor:pointer'>DD DD</a></li>
-                                <!-- <li><a href="#">DD MM.MM</a></li> -->
-                                <li><a style='cursor:pointer'>DD MM.SS</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                          <div class="form-group" style="display:none;">
-                            <label class="control-label" for="radios">Options</label>
-                            <div class="controls">
-                              <label class="radio inline" for="radios-0">
-                                <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
-                                1
-                              </label>
-                              <label class="radio inline" for="radios-1">
-                                <input type="radio" name="radios" id="radios-1" value="2">
-                                2
-                              </label>
-                              <label class="radio inline" for="radios-2">
-                                <input type="radio" name="radios" id="radios-2" value="3">
-                                3
-                              </label>
-                              <label class="radio inline" for="radios-3">
-                                <input type="radio" name="radios" id="radios-3" value="4">
-                                4
-                              </label>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="settings">
-                      <form class="form-horizontal" id="infodep_form" style="padding-top:10px">
-                        <fieldset style="width: 100%;">
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label" for="physinfo_d">Physical Information: </label>
-                            <div class="controls">
-                              <input id="physinfo_d" name="physinfo_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label" for="manufacture_d">Manufacturer: </label>
-                            <div class="controls">
-                              <input id="manufacture_d" name="manufacture_d" style='width:450px' type="text" placeholder="" class="input-xlarge">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="desc_d" class="col-sm-3 control-label">Description:</label>
-                            <div class="controls">
-                              <textarea class="form-control" rows="3" style='width:450px' id="desc_d"></textarea>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="notes_d" class="col-sm-3 control-label">Notes:</label>
-                            <div class="controls">
-                              <textarea class="form-control" rows="3" style='width:450px' id="notes_d"></textarea>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label" for="geo_d_lat">Type: </label>
-                            <div class="btn-group dropup" id='type_switcher' style='' >
-                              <button class="btn btn-default" data='.AssetRecord' id='type_switcher_but' data-toggle="dropdown" >Asset<span class="caret"></span>
-                              </button>
-                              <ul class="dropdown-menu" id='type_switcher_but_val'>
-                                <li><a style='cursor:pointer' data='.AssetRecord'>Asset</a></li>
-                                <li><a style='cursor:pointer' data='.InstrumentAssetRecord'>Instrument</a></li>
-                                <li><a style='cursor:pointer' data='.PlatformAssetRecord'>Plaform</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </div>
-                  </div>
+                <div id="assetLoadingPlaceholder" class="jumbotron text-center">
+                    <h2>Loading Assets, please wait...</h2>
                 </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div>
-        <div class="col-md-6">
-          <div class="panel">
-            <div class="panel-heading">
-              <strong>
-                <span class="fa fa-edit"> </span>Events<span data-i18n="Data"></span>
-              </strong>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div class="col-sm-12" id="event_panel" style='width:320px;top: 10px;margin-left: 139px; position:absolute;'>
-              </div>
-                  </div>
-                  <div class="tab-content">
-              <div role="tabpanel">
-                  <!-- Nav tabs -->
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#storage_events" aria-controls="storage_events" role="tab" data-toggle="tab">Storage</a></li>
-                    <li role="presentation"><a href="#deployment_events" aria-controls="deployment_events" role="tab" data-toggle="tab">Deployment</a></li>
-                    <li role="presentation"><a href="#calibration_events" aria-controls="calibration_events" role="tab" data-toggle="tab">Calibration</a></li>
-                    <li role="presentation"><a href="#integration_events" aria-controls="integration_events" role="tab" data-toggle="tab">Integration</a></li>
-                    <li role="presentation"><a href="#service_events" aria-controls="service_events" role="tab" data-toggle="tab">Service</a></li>
-                  </ul>
-                  <!-- Tab panes -->
-                  <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="storage_events">
-                      <table data-toggle="table" id='storage_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="deployment_events">
-                      <table data-toggle="table" id='deployment_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="calibration_events">
-                      <table data-toggle="table" id='calibration_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="integration_events">
-                      <table data-toggle="table" id='integration_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="service_events">
-                      <table data-toggle="table" id='service_event_table' style='cursor:pointer;' data-cache="false" data-height="299">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Event ID</th>
-                                <th data-field="class">Class Name</th>
-                                <th data-field="more">More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+            </div>
+            <div class="row">
+                <div id="assetAttachmentsTable" class="col-md-12">
+                    <!-- ooiui/static/js/partials/AssetAttachmentsTable.html -->
                 </div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div>
-      </div> <!-- row -->
-    </div> <!-- container-fluid -->
-  </div> <!-- page-content-wrapper -->
-</div>
-<ul id="container_of_data" style='display:none'>
-</ul>
-<!-- /#wrapper -->
+            </div>
+            <div class="row">
+                <div id="assetInspector" class="col-md-6">
+                    <!-- ooiui/static/js/partials/AssetInspectorForm.html -->
+                </div>
+                <div id="assetEventsTable" class="col-md-6">
+                    <!-- ooiui/static/js/partials/AssetEventTable.html -->
+                </div>
+            </div><!-- .row -->
+        </div><!-- .content-fluid -->
+    </div><!-- #page-content-wrapper -->
+</div><!-- #wrapper -->
 
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
 _.extend(OOI.prototype, Backbone.Events, {
-  login: new LoginModel(),
-  models: {
-    userModel: new UserModel()
+    login: new LoginModel(),
+    models: {
+        userModel: new UserModel()
     },
-  start: function() {
+    start: function() {
     this.login.fetch({async:false});
 
-    if(this.login.loggedIn()) {
-      this.models.userModel.fetch({url: '/api/current_user'});
-    }
-
-    this.navbar = new NavbarView({
-      login: this.login
+    navbar = new NavbarView({
+    login: this.login
     });
-    $('body').prepend(this.navbar.el);
+
+    //Render the asset table header
+    renderAssetTableHeader();
+
+    updateCollection( showAssets );
+
+    this.listenTo(collection, "collection:updated", function(details){
+        vent.trigger('asset:tableDerender');
+        updatePagination(details, showAssets);
+    });
+
+    this.listenTo(vent, 'asset:changeCollection', function() {
+        vent.trigger('asset:tableDerender');
+        updateCollection( showAssets );
+    });
+
+    this.listenTo(vent, "asset:renderSubViews", function(model) {
+        vent.trigger('asset:derender');
+        renderAssetInspector(model);
+        renderAssetEventsTable(model);
+        renderAssetAttachmentsTable(model);
+    });
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-  }
+    }
 });
+
+var vent = _.extend({}, Backbone.Events);
+
+// Main collection for this page's asset information.
+var collection = new AssetCollection();
 
 var ooi = new OOI();
 
+var pagination = {
+    itemsPerPage: 10,
+    currentPage: 1,
+    maxPages: 10
+};
+
 $(document).ready(function() {
     ooi.start();
-    assetView = new AssetView();
+    $('body').find('#search-clear').hide();
+    $('#search-clear').click(function(){
+        $('#asset-search').val('').focus();
+        $(this).hide();
+        updateCollection( showAssets);
+    });
+    $('#asset-search').keyup(function(e) {
+        $('#search-clear').toggle(Boolean($(this).val()));
+        $('#search-clear').toggle(Boolean($('#asset-search').val()));
+        updateCollection( showAssets );
+    });
+    $('#navbar').prepend(navbar.el);
     $('#menu-toggle').hide();
-    //$('#sidebar-wrapper').hide();
+    $('#sidebar-wrapper').hide();
     $('.navbar-brand').html('OOI Assets and Configuration');
 });
 
-function numbersonly(field, e, dec)
-{
-    var key;
-    var keychar;
+function showAssets( collection, response ){
 
-    if (window.event)
-       key = window.event.keyCode;
-    else if (e)
-       key = e.which;
-    else
-       return true;
-    keychar = String.fromCharCode(key);
+    //Clean up the loading stuff and get ready to show the table
+    $('i.fa-spin').remove();
+    $('div#assetPanelBody').removeClass('hidden');
+    $('div#assetLoadingPlaceholder').remove();
+    $('#assetDetailsPlaceholder').removeClass('hidden');
+    $('#assetTableHeading').removeClass('hidden');
 
-    // control keys
-    if ((key==null) || (key==0) || (key==8) || 
-        (key==9) || (key==13) || (key==27) )
-       return true;
+    // Create the view that will hold the list of assets.
+    var assetsTableView = new AssetsTableView({ collection: collection });
+    assetsTableView.render();
 
-    // numbers
-    else if (((".-0123456789").indexOf(keychar) > -1))
-       return true;
-
-    else
-       return false;
-};
-
-function numbercheck(field, e){
-
-    if($.isNumeric( e.currentTarget.value )){
-      var val = Number(e.currentTarget.value);
-      var maxval = Number(e.currentTarget.max);
-      var minval = Number(e.currentTarget.min);
-      if(val>maxval){
-         e.currentTarget.value = maxval;
-      }
-      if(val<minval){
-        e.currentTarget.value = minval;
-      }
-    }
-    else{
-        e.currentTarget.value = 0;
-    }   
-};
-
-function isValidCharLat(char){
-
-    var txt = char;
-    var found = false;
-    var validChars = "NSns"; //List of valid characters
-
-    for(j=0;j<txt.length;j++){ //Will look through the value of text
-        var c = txt.charAt(j);
-        found = false;
-        for(x=0;x<validChars.length;x++){
-            if(c==validChars.charAt(x)){
-                found=true;
-                break;
-            }
-        }
-        if(!found){
-            //If invalid character is found remove it and return the valid character(s).
-            document.getElementById('dms_latNS').value = char.substring(0, char.length -1);
-            break;
-        }
-    }
+    // Empty the table and append the new results.
+    $('#assetsTable').find('tbody').remove().end();
+    $("#assetsTable").append( assetsTableView.el );
 }
 
-function isValidCharLon(char){
+function renderAssetTableHeader(collection) {
+    //create the table header for the assets table.
+    //Will manage the search box, the pagination boxes and the asset creator button.
+    var assetTableHeaderView = new AssetTableHeaderView({ collection: collection });
+    assetTableHeaderView.render();
 
-    var txt = char;
-    var found = false;
-    var validChars = "EWew"; //List of valid characters
-
-    for(j=0;j<txt.length;j++){ //Will look through the value of text
-        var c = txt.charAt(j);
-        found = false;
-        for(x=0;x<validChars.length;x++){
-            if(c==validChars.charAt(x)){
-                found=true;
-                break;
-            }
-        }
-        if(!found){
-            //If invalid character is found remove it and return the valid character(s).
-            document.getElementById('dms_longEW').value = char.substring(0, char.length -1);
-            break;
-        }
-    }
+    $('#assetTableHeading').children().remove();
+    $('#assetTableHeading').append( assetTableHeaderView.el );
 }
 
+function renderAssetInspector(model) {
+    //create a new asset inspector (info) panel and render it's view.
+    var assetInspectorView = new AssetInspectorView({ model:model });
+    assetInspectorView.render();
+
+    //Clear out the old asset inspector panel DOM
+    $('#assetInspector').children().remove();
+
+    //Then attach the new one.
+    $('#assetInspector').append( assetInspectorView.el );
+}
+
+function renderAssetEventsTable(model) {
+    //create a new event table panel and reder it's view.
+    var assetEventsTableView = new AssetEventsTableView({ model:model });
+    assetEventsTableView.render();
+
+    //clear out the old events table panel DOM
+    $('#assetEventsTable').children().remove();
+
+    //then put the newly created view into the DOM.
+    $('#assetEventsTable').append( assetEventsTableView.el );
+}
+
+function renderAssetAttachmentsTable(model) {
+    //create a new attachments table and render it's view.
+    var assetAttachmentsTableView = new AssetAttachmentsTableView({ model:model });
+    assetAttachmentsTableView.render();
+
+    //remove the old attachment panel.
+    $('#assetAttachmentsTable').children().remove();
+    //attach the new one!
+    $('#assetAttachmentsTable').append( assetAttachmentsTableView.el );
+}
+
+function updateCollection( successCallback ){
+
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    if ($('#asset-search').is(':focus')) {
+        startingPoint = 0;
+    } else {
+        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
+    }
+    // Pagination attributes will be passed in using
+    // backbone's collection data method.
+    var data = {
+        startAt : startingPoint,
+        count : pagination.itemsPerPage,
+        search : $('#asset-search').val()
+    };
+    collection.fetch({
+        data : data,
+        success : successCallback,
+    //    error : showError
+    });
+}
+
+function updatePagination( details, successCallback ){
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $(".pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $(".pagination-boxes").unbind();
+
+    // Redraw the jquery pagination boxes
+    $(".pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: pagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                pagination.currentPage = page;
+                updateCollection( successCallback );
+            }
+        }
+    });
+}
+
+function isoToDateTime( strInput ) {
+    var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;
+    var returnDate = (true) ? new Date(Date.parse(temp[0])) : new Date(temp);
+    return returnDate;
+}
+function dateTimeToISO( strInput ) {
+    var temp = Date.parse(strInput);
+    var parseDate = new Date(temp);
+    var isoDateReturn = parseDate.toISOString();
+    return isoDateReturn;
+}
 </script>
 {% endblock %}
