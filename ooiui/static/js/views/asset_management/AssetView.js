@@ -156,7 +156,6 @@ var AssetCreatorModalView = ParentAssetView.extend({
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
         _.bindAll(this, 'save', 'cancel', 'setupFields');
-
     },
     events: {
         "click button#cancel" : "cancel",
@@ -166,18 +165,24 @@ var AssetCreatorModalView = ParentAssetView.extend({
         this.$el.find('#assetLaunchDate').datepicker();
     },
     save: function() {
-
+        // TODO: This entire function should be called
+        // on a successful form validation.  A refactor will be
+        // required to implement.
         var assetInfo = {};
         assetInfo.name = this.$el.find('#assetName').val();
         assetInfo.owner = this.$el.find('#assetOwner').val();
         assetInfo.description = this.$el.find('#assetDescription').val();
         assetInfo.type = this.$el.find('#assetType').val();
 
+        // For now, this dict isn't implemented due to issues with uframe's
+        // acceptance of this data.
         var manufactureInfo = {};
         manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
         manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
         manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
 
+        // The metaData field is very loosly defined.  These are the only
+        // field supported for asset creation at this time.
         var metaData = [
         {
             "key": "Ref Des",
@@ -210,6 +215,8 @@ var AssetCreatorModalView = ParentAssetView.extend({
             "type": "java.lang.String"
         }];
 
+        // Create the new asset model that will be saved to the collection,
+        // and posted to the server.
         var newAsset = new AssetModel({});
         newAsset.set('assetInfo', assetInfo);
         newAsset.set('asset_class', this.$el.find('#assetClass').val());
@@ -222,10 +229,9 @@ var AssetCreatorModalView = ParentAssetView.extend({
         console.log(newAsset);
         newAsset.save({
             success: function(){
+                vent.trigger('asset:changeCollection');
             }
         });
-
-        vent.trigger('asset:changeCollection');
         this.cleanUp();
         newAsset.off();
     },
