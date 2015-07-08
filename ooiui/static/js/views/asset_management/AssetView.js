@@ -105,6 +105,8 @@ var AssetInspectorView = ParentAssetView.extend({
         "click #assetEditorBtn": "editAsset",
     },
     editAsset: function() {
+        // before editing the asset, make sure it's up to date.
+        this.model.fetch();
         var assetEditorModal = new AssetEditorModalView({ model:this.model });
         $(assetEditorModal.render().el).appendTo('#assetEditorModal');
         return this;
@@ -261,9 +263,8 @@ var AssetCreatorModalView = ParentAssetView.extend({
         newAsset.set('metaData', metaData);
         newAsset.set('classCode', this.$el.find('#assetClassCode').val());
         newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
-        console.log(newAsset);
-        newAsset.save({
-            success: function(){
+        newAsset.save(null, {
+            success: function(model, response){
                 vent.trigger('asset:changeCollection');
             }
         });
@@ -311,16 +312,19 @@ var AssetEditorModalView = ParentAssetView.extend({
         assetInfo.description = this.$el.find('#assetDescription').val();
         assetInfo.type = this.$el.find('#assetType').val();
 
+        this.model.set('assetId', this.model.get('id'));
         this.model.set('notes', [ this.$el.find('#assetNotes').val() ]);
         this.model.set('asset_class', this.$el.find('#assetClass').val());
         this.model.set('classCode', this.$el.find('#assetClassCode').val());
         this.model.set('assetInfo', assetInfo);
-        this.model.save({
-            success: function(){
-                this.model.fetch();
-                vent.trigger('asset:modelChange', this.model);
+        this.model.save(null, {
+            success: function(model, response){
+                vent.trigger('asset:modelChange', model);
+            },
+            error: function(model, response){
             }
         });
+
         this.cleanUp();
     },
     cancel: function() {
