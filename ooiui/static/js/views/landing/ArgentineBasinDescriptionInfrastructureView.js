@@ -8,7 +8,7 @@ var ArgentineBasinDescriptionInfrastructureView = Backbone.View.extend({
     var self = this;
     self.render();
   },
-  template: JST['ooiui/static/js/partials/ArgentineBasinDescriptionInfrastructure.html'],
+  template: JST['ooiui/static/js/partials/landing/ArgentineBasinDescriptionInfrastructure.html'],
   render: function() {
     this.$el.html(this.template());
   } 

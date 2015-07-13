@@ -1,14 +1,14 @@
 "use strict";
 
 
-var ArgentineBasinStationSummaryView = Backbone.View.extend({
+var ArgentineBasinDetailedInfrastructureTablesView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
     var self = this;
     self.render();
   },
-  template: JST['ooiui/static/js/partials/ArgentineBasinStationSummary.html'],
+  template: JST['ooiui/static/js/partials/landing/ArgentineBasinDetailedInfrastructureTables.html'],
   render: function() {
     this.$el.html(this.template());
   } 
