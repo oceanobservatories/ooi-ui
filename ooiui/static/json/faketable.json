@@ -1,9 +1,0 @@
-{ "cols": ["Team", "Win/Loss Ratio", "Quarterback", "Awesome Stat"],
-  "rows" : [
-     ["Patriots", "100", "Tom Brady", "Bill"],
-     ["Colts", "20", "Not Tom Brady", "Nada"],
-     ["Broncos", "80", "Manning", "Denver"],
-     ["Giants", "60", "Another Manning", "no Shooting"]
-  ]
-}
-
