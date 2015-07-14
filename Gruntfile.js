@@ -26,7 +26,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Banner.html",              
             "ooiui/static/js/partials/Navbar.html",
             "ooiui/static/js/partials/MenuToggle.html",
-             "ooiui/static/js/partials/LoggedInNavItems.html"
+            "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
@@ -1162,7 +1162,11 @@ module.exports = function(grunt) {
             "ooiui/static/css/filtrify/css/filtrify.css",
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css',
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-            "ooiui/static/css/custom-bs/custom.css"  
+            "ooiui/static/css/custom-bs/banner.css",             
+            "ooiui/static/css/custom-bs/navbar.css",
+            "ooiui/static/css/custom-bs/sidebar.css",              
+            "ooiui/static/css/custom-bs/custom.css", 
+            "ooiui/static/css/common/plotting.css" 
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
