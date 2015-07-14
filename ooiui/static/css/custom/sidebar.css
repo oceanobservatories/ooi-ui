@@ -53,7 +53,9 @@ div#wrapper.toggled.btn-wrapper #sidebar-wrapper.btn-sidebar {
 /****************************
 ****** Search/Reset Bar *****
 ****************************/
-/* ~input-group~ */
+/*
+>>-input-group->
+*/
 .input-group.custom-search-form {
     border: 1px solid #7E9CD9;
   }
@@ -63,7 +65,9 @@ input#search-filter {
   border-bottom: 2px solid #FFF;
   border-right: none;
 }
-/* ~search btn~ */
+/*
+>>-search btn->
+*/
 .btn-search {
   border-top: 1px solid #FFF;
 	border-left: none;
@@ -82,7 +86,9 @@ input#search-filter {
   padding:0 0 15px 0;
 }
 
-/* ~reset btn~ */
+/* 
+>>-reset btn->
+*/
 button.btn.btn-primary.btn-reset.btn-reset{
   :promptfind
 	color: #F4F4F4;
@@ -205,7 +211,9 @@ div#headingOne {
 ***** Second Level *****
 ***********************/
 .sidebar-nav-second-level {
-/*accordian background*/
+  /*
+  >>-accordion background->
+  */
 	background-color: #E9E9E9;
 }
 
@@ -215,7 +223,9 @@ div#headingOne {
 }
 
 .sidebar-nav-second-level > ul.nav.sidebar-nav > a {
-	/*accordian text*/
+	/*
+   >>-accordion text->
+   */
   color: #353840;
   font-size: 14px;
   text-decoration: none;
@@ -227,20 +237,26 @@ ul.nav.sidebar-nav > div 	{
 /**********************
 ***** Third Level *****
 **********************/
-	 /*accordian background*/	
+	 /*
+   >>-accordion background->
+   */	
 .sidebar-nav .sidebar-nav-third-level {
   background: #FFF;
   border: 1px solid silver;
   border-radius: 25px;
 }  
-/*accordian text*/	
+/*
+>>-accordion text->
+*/	
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a {
   color: #353840;
   font-size: 14px;
   text-decoration: none; 
 	font-weight: 300;	
 }
-/*link text*/	
+/*
+>>-link text->
+*/	
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a:hover {
 	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
   border-radius: 5px;
@@ -252,7 +268,9 @@ button.btn.btn-default.btn-xs.dropdown-toggle:hover {
 	background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
 }*/ 
 
-/*dropdown menu item(plot)*/
+/*
+>>-dropdown menu item(plot)->
+*/
 ul#plot-dd {
 	background: #fff;
   padding: 3px 20px;

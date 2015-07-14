@@ -1153,10 +1153,10 @@ module.exports = function(grunt) {
             "ooiui/static/css/filtrify/css/filtrify.css",
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css',
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-            "ooiui/static/css/custom-bs/banner.css",             
-            "ooiui/static/css/custom-bs/navbar.css",
-            "ooiui/static/css/custom-bs/sidebar.css",              
-            "ooiui/static/css/custom-bs/custom.css", 
+            "ooiui/static/css/custom/banner.css",             
+            "ooiui/static/css/custom/navbar.css",
+            "ooiui/static/css/custom/sidebar.css",              
+            "ooiui/static/css/custom/custom.css", 
             "ooiui/static/css/common/plotting.css" 
           ],
           "ooiui/static/css/compiled/signup.css" : [
@@ -1199,8 +1199,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
-            "ooiui/static/css/common/ModalForm.css",
-            "ooiui/static/css/science/plotting.css",
+            "ooiui/static/css/common/ModalForm.css"
           ],
           "ooiui/static/css/compiled/FAQ.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
@@ -1286,7 +1285,7 @@ module.exports = function(grunt) {
         }
       },
       scripts: {
-        files: ['Gruntfile.js', '**/views/*/*.js', '**/models/*/*.js', '**/ooi.js', '**/common/*.css', '**/ooi-landing/*.css', '**/custom-bs/*.css'],
+        files: ['Gruntfile.js', '**/views/*/*.js', '**/models/*/*.js', '**/ooi.js', '**/common/*.css', '**/ooi-landing/*.css', '**/custom/*.css'],
         tasks: ['concat'],
         options: {
         }
