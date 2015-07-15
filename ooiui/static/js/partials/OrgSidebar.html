@@ -5,8 +5,8 @@
   <!-- /input-group -->
 </li>
 <% collection.each(function(model) { %>
-<li class="org-item">
-  <a data-id="<%= model.get('id') %>" href="#">
+<li>
+  <a class="btn btn-primary sidebar" data-id="<%= model.get('id') %>" href="#">
     <%= model.get('organization_long_name') %>
   </a>
 </li>

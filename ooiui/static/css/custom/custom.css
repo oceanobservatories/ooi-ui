@@ -47,8 +47,13 @@ li {
 .panel {
 	border: none;
 }
+
 .panel-body {
 	border: none;
+}
+
+.panel-heading.panel-search.pull-right {
+  background-color: #.panel-heading.panel-search.pull-rightFFF;
 }
 
 /**********************

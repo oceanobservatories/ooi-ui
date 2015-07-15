@@ -6,25 +6,38 @@
 
 {% block head %}
   <link rel="stylesheet" href="/css/compiled/userEdit.css" type="text/css" />
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" /> 
   <!-- Partials -->
   <script src="/js/partials/compiled/userEdit.js" type="text/javascript"></script>
   <script src="/js/compiled/userEdit.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}    
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12">
-      <div id="user-edit">
-      </div>
+<div id="wrapper">
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel">
+            {# <div class="panel-heading"> #}
+            {#   Edit User #}
+            {# </div> #}
+          <div id="user-edit">
+          </div>
+          </div> 
+        </div>
+      </div> <!-- row -->
     </div>
-  </div> <!-- row -->
+  </div>
 </div>
 
 
 <script type="text/javascript">
-
+var bannerTitle = "User Profile";
 var userId = parseInt(window.location.href.split('/').pop());
 
 _.extend(OOI.prototype, Backbone.Events, {
@@ -39,11 +52,18 @@ _.extend(OOI.prototype, Backbone.Events, {
      if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
-
-
     
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+    this.views.navbar.sidebarToggle();
+    
     this.models.userModel.fetch();
     this.views.userEditFormView = new UserEditFormView({
       el: $('#user-edit'),
@@ -56,6 +76,7 @@ var ooi = new OOI();
 
 $(document).ready(function() {
   ooi.start();
+  $('body').find('#hideTOC').hide()
 });
 
 </script>
