@@ -97,7 +97,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/UserTable.html",
             "ooiui/static/js/partials/UserTableItem.html",
-            "ooiui/static/js/partials/LoggedInNavItems.html"
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/Banner.html"              
           ],
 
           "ooiui/static/js/partials/compiled/FAQ.js" : [
@@ -529,7 +530,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/common/UserTableView.js'
+            'ooiui/static/js/views/common/UserTableView.js',
+            'ooiui/static/js/views/common/BannerView.js'                                          
           ],
           'ooiui/static/js/compiled/index.js' : [
             // Libs
