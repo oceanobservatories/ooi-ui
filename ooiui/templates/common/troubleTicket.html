@@ -63,7 +63,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
-    his.collections.troubleticketdropdowncollection.fetch({
+    this.collections.troubleticketdropdowncollection.fetch({
       data: $.param({
         project: "ooinet-user-interface-development"
       }),
