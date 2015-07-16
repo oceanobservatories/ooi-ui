@@ -101,7 +101,30 @@ li {
 
 .btn-success {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
+  background-color: #4fd934;
+  color: #FFF;
 	line-height: .9;
+}
+.btn-success:hover {
+  background-color: #398439;  
+  background-position: 0 -15px;  
+  color: #333;
+  text-decoration: none;
+}
+
+.btn-reset {
+  background-image: linear-gradient(to bottom, #19C8FC, #0850F8);
+  /* background-image: linear-gradient(to bottom, #7F9BDA, #0050DA); */
+  background-color: #0850F8;
+  color: #FFF;
+  line-height: .9;
+}
+.btn-reset:hover {
+  background-color: #0850F8;  
+  background-position: 0 -15px; 
+  color: #333;
+  text-decoration: none;
+  background-repeat: repeat-x;  
 }
 
 /*needs work*/
