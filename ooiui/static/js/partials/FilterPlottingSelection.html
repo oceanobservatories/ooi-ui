@@ -16,7 +16,7 @@
 		</optgroup>
 
 		<!-- MOORING -->	
-		<% } else if(labelText == "moorings") { %>
+		<% } else if(labelText == "sites") { %>
 			<% collection.each(function(model) { %>		
 			    <% if (model.get('display_name') != null) { %>			    			    	
 			    	<option data-subtext="<%=model.get('reference_designator')%>"

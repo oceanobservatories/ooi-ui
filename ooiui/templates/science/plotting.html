@@ -166,7 +166,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   initalFilterOptions: function() {
     var path = window.location.pathname;
     var path = path.split("/").slice(2);
-    var dataContentArray = ["Arrays","Sites","Platforms","Instruments","Streams","Parameters"];
+    var dataContentArray = ["Arrays","Moorings","Platforms","Instruments","Streams","Parameters"];
 
     if (path.length == 1 && path[0] == ""){
       //no path information
