@@ -303,7 +303,7 @@ var FilterSelectionView = Backbone.View.extend({
                                  labelText:self.model.get('labelText'),
                                  model:self.model,
                                  collection:self.collection})); 
-    //setup the picker
+    //setup the pickerooiui/templates/science/plotting.html
     this.$el.find('.selectpicker').selectpicker();
   },
   onChange: function() {
