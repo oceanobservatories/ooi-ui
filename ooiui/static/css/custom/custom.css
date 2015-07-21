@@ -188,6 +188,12 @@ button.btn.btn-success.dropdown-toggle {
 /***********************
 **** Panel Heading *****
 ***********************/
+.panel > .panel-heading {
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0px 15px;
+}
+
 .new-heading {
   display: inline-block;
 	padding: 0px 5px 18px 5px;

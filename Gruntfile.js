@@ -388,7 +388,19 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html",
             "ooiui/static/js/partials/ArraySideBar.html",
             "ooiui/static/js/partials/PlatformStatus.html"
-          ]
+          ],
+          "ooiui/static/js/partials/compiled/asset_management.js": [
+                "ooiui/static/js/partials/AssetInspector.html",
+                "ooiui/static/js/partials/AssetsTableRow.html",
+                "ooiui/static/js/partials/AssetEventsTable.html",
+                "ooiui/static/js/partials/AssetTableHeader.html",
+                "ooiui/static/js/partials/AssetTableFooter.html",
+                "ooiui/static/js/partials/AssetEditorModal.html",
+                "ooiui/static/js/partials/AssetAttachmentsTable.html",
+                "ooiui/static/js/partials/AssetCreatorModal.html",
+                "ooiui/static/js/partials/Banner.html",
+                "ooiui/static/js/partials/AssetTabelFooter.html"
+            ]
         }
       }
     },
@@ -1123,7 +1135,36 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/c2/InstrumentHistoryView.js',
             'ooiui/static/js/views/c2/MissionDialogView.js',
             'ooiui/static/js/views/c2/CommandDialogView.js'
-          ]
+          ],
+          'ooiui/static/js/compiled/asset_management.js' : [
+          //   // Libs
+          //   'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+          //   'ooiui/static/lib/underscore/underscore.js',
+          //   'ooiui/static/lib/backbone/backbone.js',
+          //   'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+          //   'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+          //   'ooiui/static/lib/moment/moment.js',
+          //   // App
+          //   'ooiui/static/js/ooi.js',
+          //   // Models
+          //   'ooiui/static/js/models/common/MessageModel.js',
+          //   'ooiui/static/js/models/common/LoginModel.js',
+          //   'ooiui/static/js/models/common/UserModel.js',
+          //   'ooiui/static/js/models/common/UserFormModel.js',
+          //   'ooiui/static/js/models/common/RoleModel.js',
+          //   'ooiui/static/js/models/common/UserModel.js',
+          //   'ooiui/static/js/models/common/UserScopeModel.js',
+          //   'ooiui/static/js/models/common/OrganizationModel.js',
+            // Views
+            // 'ooiui/static/js/views/common/DropdownMessagesView.js',
+            // 'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            // 'ooiui/static/js/views/common/LoginView.js',
+            // 'ooiui/static/js/views/common/ModalDialogView.js',
+            // 'ooiui/static/js/views/common/UserEditFormView.js',
+            'ooiui/static/js/views/common/BannerView.js',
+            'ooiui/static/js/views/common/AssetTabelFooterView.js'
+          ],
         }
       },
       css: {
@@ -1161,7 +1202,11 @@ module.exports = function(grunt) {
             "ooiui/static/css/custom/navbar.css",
             "ooiui/static/css/custom/sidebar.css",              
             "ooiui/static/css/custom/custom.css", 
-            "ooiui/static/css/common/plotting.css" 
+            "ooiui/static/css/common/plotting.css", 
+            "ooiui/static/css/common/assets.css" 
+          ],
+          "ooiui/static/css/compiled/assets.css" : [
+            "ooiui/static/css/common/assets.css"
           ],
           "ooiui/static/css/compiled/signup.css" : [
             "ooiui/static/css/common/userSignUpForm.css",
