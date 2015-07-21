@@ -88,7 +88,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});      
     }
-    /* Views */
+    
     this.views.orgSidebarView = new OrgSidebarView({
       collection: this.collections.organizations,
       userModel: this.models.userModel
