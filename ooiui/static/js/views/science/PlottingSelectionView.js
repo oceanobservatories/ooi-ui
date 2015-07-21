@@ -22,9 +22,9 @@ var PlottingSelectionView = Backbone.View.extend({
     itemid:null,
   },
   parentChild : {
-                 "arrays":{"parent":null,"child":"sites"},
-                 "sites":{"parent":"arrays","child":"platforms"},    
-                 "platforms":{"parent":"sites","child":"instruments"},                                   
+                 "arrays":{"parent":null,"child":"moorings"},
+                 "moorings":{"parent":"arrays","child":"platforms"},    
+                 "platforms":{"parent":"moorings","child":"instruments"},                                   
                  "instruments":{"parent":"platforms","child":"streams"},
                  "streams":{"parent":"streams","child":"instruments"},
                  "parameters":{"parent":"instruments","child":"parameters"}

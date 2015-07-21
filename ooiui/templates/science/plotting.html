@@ -282,7 +282,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     $.when.apply($, complete).done(function() {
        //all ready and good to go...
        self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,   
+                                                          "moorings":self.collections.tocMoorings,   
                                                           "platforms":self.collections.tocPlatforms,       
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
@@ -291,7 +291,7 @@ _.extend(OOI.prototype, Backbone.Events, {
        self.views.plottingItemSelection.render();
 
        self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings, 
+                                                          "moorings":self.collections.tocMoorings, 
                                                           "platforms":self.collections.tocPlatforms,           
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
