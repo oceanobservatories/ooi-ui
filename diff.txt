@@ -1,0 +1,10 @@
+--- before
++++ after
+@@ -645,7 +645,3 @@
+ port7.pwroff.delay= 2               # seconds for dlog to gracefully stop before power-off
+ port7.dlog        = -1              # 0-stop data log process, 1-start process, t-toggle process, -1-do nothing
+ port7.daq.sched   = 0:0-23:0:30     # 0-disable, 1-enable : hours(0-23) : offset(min) : duration(min)
+-
+-
+-
+-

@@ -590,7 +590,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/PanelView.js',
             'ooiui/static/js/views/common/WatchView.js'
           ],
-          'ooiui/static/js/compiled/svgplot.js' : [
+            'ooiui/static/js/compiled/svgplot.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
