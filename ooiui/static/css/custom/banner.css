@@ -123,9 +123,15 @@ div#wrapper-asset {
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1185px) {
 	#fadein-left > li.banner-title {
 	line-height: .9;
+	}
+}
+/* this is a temporary fix...spacing is off */
+@media screen and (max-width: 815px) {
+	#fadein-left > li.banner-title {
+	line-height: .5;
 	}
 }
 

@@ -89,3 +89,8 @@ div#assetAttachmentsTable div > div > div.panel-heading {
     height: 40px;
     margin-bottom: 5px;
 }
+
+div#assetDetailsPlaceholder {
+  background-color: #FFF;
+  padding: 0px;
+}
