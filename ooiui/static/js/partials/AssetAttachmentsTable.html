@@ -1,0 +1,19 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="glyphicon glyphicon glyphicon-paperclip col-xs-8" aria-hidden="true"> Attachments</div>
+            <p class="text-right"><img src="../../img/asset_management/nuxeo-logo.jpg" height="20px"></p>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped table-selectable">
+            <tbody>
+                <% _.each(attachments, function(row) { %>
+                <tr>
+                    <td><%= row %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

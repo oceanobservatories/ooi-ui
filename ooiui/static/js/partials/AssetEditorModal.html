@@ -1,0 +1,69 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">Edit Asset: </h4>
+        </div>
+        <form class="form-horizontal">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="assetName" class="col-md-2 control-label">Name</label>
+                    <div class="col-md-9">
+                        <input id="assetName" type="text" class="form-control" value="<%= assetInfo.name %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetDescription" class="col-md-2 control-label">Description</label>
+                    <div class="col-md-9">
+                        <input id="assetDescription" type="text" class="form-control" value="<%= assetInfo.description %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetOwner" class="col-md-2 control-label">Owner</label>
+                    <div class="col-md-9">
+                        <input id="assetOwner" type="text" class="form-control" value="<%= assetInfo.owner %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetType" class="col-md-2 control-label">Type</label>
+                    <div class="col-md-3">
+                        <select id="assetType" class="form-control" >
+                            <option value="<%= assetInfo.type %>" selected><%= assetInfo.type %></option>
+                            <option>--</option>
+                            <option value="Sensor">Sensor</option>
+                            <option value="Mooring">Mooring</option>
+                        </select>
+                    </div>
+                    <label for="assetClass" class="col-md-2 control-label">Class</label>
+                    <div class="col-md-4">
+                        <select id="assetClass" class="form-control">
+                            <option value="<%= asset_class %>" selected><%= asset_class %></option>
+                            <option>--</option>
+                            <option value=".AssetRecord">Asset Record</option>
+                            <option value=".InstrumentAssetRecord">Instrument Asset Record</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetClassCode" class="col-md-2 control-label">Class Code</label>
+                    <div class="col-md-4">
+                        <input id="assetClassCode" type="text" class="form-control" value="<%= classCode %>">
+                    </div>
+                </div>
+                <div>
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <label for="assetNotes" class="col-md-3 control-label">Notes</label>
+                    <div class="col-md-6">
+                        <textarea id="assetNotes" class="form-control" rows="3"><%= notes %></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="delete" type="button" class="btn btn-danger">Delete</button>
+                    <button id="cancelEdit" type="button" class="btn btn-default">Cancel</button>
+                    <button id="saveEdit" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

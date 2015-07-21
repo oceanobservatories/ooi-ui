@@ -1,0 +1,89 @@
+<!-- wrapped in a .row -->
+<% try { %>
+<div class="panel">
+    <div class="panel-heading">
+        <span>
+            <div class="row">
+                <div class="glyphicon glyphicon-cog col-xs-8" aria-hidden="true"> Asset ID# <%= id %></div>
+            <p class="text-right">
+            <button id="assetEditorBtn" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#assetEditorModal">Edit Asset</button>
+            </p>
+        </div>
+        </span>
+    </div>
+    <div class="panel-body">
+        <!-- tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+            <li role="presentation"><a href="#metaData" aria-controls="metaData" data-toggle="tab">Meta Data</a></li>
+            <li role="presentation"><a href="#assetAquisitionInfo" aria-controls="assetAquisitionInfo" data-toggle="tab">Aquisition Data</a></li>
+        </ul>
+        <!-- tab-panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="overview">
+                <dl class="dl-horizontal">
+                    <dt>Name</dt>
+                    <dd><%= assetInfo.name %></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Description</dt>
+                    <dd><%= assetInfo.description %></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Owner</dt>
+                    <dd><%= assetInfo.owner %></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Type</dt>
+                    <dd><%= assetInfo.type %></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Class</dt>
+                    <dd><%= asset_class %></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Class Code</dt>
+                    <dd><%= classCode %></dd>
+                </dl>
+                <hr/>
+                <dl class="dl-horizontal">
+                    <dt>Notes</dt>
+                    <dd><%= notes %></dd>
+                </dl>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="metaData">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(metaData, function(row) { %>
+                        <tr>
+                            <td><%= row.key %></td>
+                            <td><%= row.value %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="assetAquisitionInfo">
+                <dl>
+                    <dt>Manufacture Information</dt>
+                </dl>
+                <dl>
+                    <dt>Purchase and Delivery Information</dt>
+                    <dd><%= purchaseAndDeliveryInfo %></dd>
+                </dl>
+                <dl>
+                    <dt>Physical Information</dt>
+                    <dd><%= physicalInfo %></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<% } catch(err) { console.log(err) } %>
+<!-- .row -->
