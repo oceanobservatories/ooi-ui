@@ -9,56 +9,57 @@
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
-<!-- Partials -->
-<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
-<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-<script src="js/landingPagesJS.js" type="text/javascript"></script>
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/landingPages.css" rel="stylesheet" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="js/landingPagesJS.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-<div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
-  </div>  <!-- sidebar-wrapper -->
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Southern Ocean</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
+<div id="wrapper" class="btn-wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="btn-sidebar">
+  </div>
 
-  <div id="upper-view"></div>
-
-  <div class="row">
+  
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+  
+    	
     <!-- Accordian -->
     <div class="col-md-12">
-      <div class="container-fluid">
+      <div id="locationsampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- locationsampling-view -->
+      <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- description-infrastructure-view- -->
+      <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- station-summary-view -->
+      <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- deployment-view -->
+      <div id="detailed-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- detailed-infrastructur-view -->
+      <div id="technical-drawing-view" class="panel-group" role="tablist" aria-multiselectable="true">
+      </div>	<!-- technical-drawings-view -->
+    </div><!-- col-sm-12 -->
 
-        <div id="locationsampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- locationsampling-view -->
-
-        <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- description-infrastructure-view- -->
-
-        <div id="station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- station-summary-view -->
-
-        <div id="deployment-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- deployment-view -->
-
-        <div id="detailed-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- detailed-infrastructur-view -->
-
-        <div id="technical-drawing-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div>	<!-- technical-drawings-view -->
-
-      </div><!-- container-fluid -->
-    </div><!-- col-md-12 -->
-  </div><!-- row -->
+      </div><!-- row -->
+    </div><!--container-fluid -->
+  </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">
+
+var bannerTitle = "Southern Ocean";
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   views: {},
@@ -68,10 +69,17 @@ _.extend(OOI.prototype, Backbone.Events,  {
   models: {},
 
   start: function() {
-    this.login.fetch({async:false});
-
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    var self = this;
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
 
     this.views.landingPagesTOC = new LandingPagesTOC({
       collection: this.collections.organizations,

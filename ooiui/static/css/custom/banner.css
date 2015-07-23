@@ -1,0 +1,145 @@
+
+/***********************
+******** Banner ********
+***********************/
+.banner-image {
+  background: url("/img/logos-banners/ooi-banner-1024.png"); 
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  position: fixed;
+  height: auto;
+  z-index: 1002;
+	background-color: #FFF;
+}
+
+/* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
+div#wrapper {
+  margin-top: 185px;
+}
+
+div#gloss-wrapper {
+  margin-top: 170px;
+}
+
+div#wrapper-status{
+  margin-top: 170px;
+  text-align: center;
+
+}
+
+div#wrapper-asset {
+  margin-top: 170px;
+}
+
+/* #sidebar-wrapper { */
+/*   z-index: 500; */
+/* } */
+
+#page-content-wrapper {
+  padding: 0 20px 20px 20px;
+	widows: 100%;
+	z-index: 1000;
+}
+
+.left { text-align: left; }
+.right {text-align: right; }
+.rightright {text-align: right; }
+.center {text-align: center; }
+
+#fadein-left > li.logo-left {
+  /* float: left; */
+  /* left: 30px; */
+	text-decoration: left;
+}
+
+.logo-right {
+  /* float: right; */
+  /* right: 0px; */
+	text-align: right;
+}
+#fadein-left > li {
+	display: table-cell; 
+	width: 33%;
+}
+
+@media screen and (max-width: 1024px) {
+#fadein-left > li.banner-title {
+	line-height: 1;
+}
+}
+#fadein-left > li.banner-title {
+	/* float: left; */
+  /* padding-left: 25%; */
+  /* padding-top: 5px; */
+	/* display: inline; */
+	/* position: relative; */
+	text-align: center;
+
+  color: #000;
+  opacity: 0.3;
+  font-size: 30px;
+  font-family: Athelas;
+	font-weight: normal;
+ 	text-transform: uppercase;
+  list-style: none;
+ 	animation: fadein 7s;
+	-moz-animation: fadein 7s; /* Firefox */
+	-webkit-animation: fadein 7s; /* Safari and Chrome */
+	-o-animation: fadein 7s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.2;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 2;
+    }
+}
+
+@media screen and (max-width: 1185px) {
+	#fadein-left > li.banner-title {
+	line-height: .9;
+	}
+}
+/* this is a temporary fix...spacing is off */
+@media screen and (max-width: 815px) {
+	#fadein-left > li.banner-title {
+	line-height: .5;
+	}
+}
+
+/*.text-body {
+  display: inline;
+  color: #000;
+	position: relative;
+	left: 50%;
+}*/
+
+
