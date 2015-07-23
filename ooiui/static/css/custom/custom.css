@@ -98,6 +98,9 @@ li {
 	background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
 	text-decoration: none;
 }
+.btn-primary[disabled] {
+  background-color: #EDF5FC;
+}
 
 .btn-success {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
@@ -191,7 +194,8 @@ button.btn.btn-success.dropdown-toggle {
 .panel > .panel-heading {
   background-color: transparent;
   border-color: transparent;
-  padding: 0px 15px;
+  padding-left: 5px;
+  padding-right: 18px;
 }
 
 .new-heading {
@@ -232,7 +236,6 @@ button.btn.btn-success.dropdown-toggle {
   position: absolute;
   /*box-shadow: 0 4px 2px -2px lightgray;*/
 }
-
 
 /* colors used */
 /* new */
