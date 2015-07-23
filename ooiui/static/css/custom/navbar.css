@@ -1,0 +1,174 @@
+/***********************
+******** Navbar ********
+***********************/
+.navbar-fixed-top {
+  top: 113px;
+  border-width: 0 0 1px;
+  z-index: 1001;
+  /*
+   *   position: inherit;
+  padding-right: 30px;
+  padding-left: 30px;
+*/
+}
+
+.navbar-top-links-new li {
+  display: inline-block;
+  z-index: 1500;
+}
+
+.navbar-top-links-new li:last-child {
+  margin-right: 15px;
+}
+
+.navbar-top-links-new li a {
+  padding: 7px;
+  /* min-height: 50px; */
+	font-weight: 300;
+}
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
+  border-radius: 5px;
+  border-color: #337ab7;
+	font-weight: 300;	
+}
+
+.navbar-top-links-new li a:hover,
+.navbar-top-links-new li a:focus {
+  background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
+  border-radius: 5px;
+	font-weight: 300;	
+}
+
+.navbar-top-links-new .dropdown-menu li {
+  display: block;
+	font-weight: 300;
+}
+
+.navbar-top-links-new .dropdown-menu li:last-child {
+  margin-right: 0;
+	font-weight: 300;	
+}
+
+.navbar-top-links-new .dropdown-menu li a {
+  padding: 3px 20px;
+  min-height: 0;
+	font-weight: 300;	
+}
+.navbar-top-links-new .dropdown-menu li a:hover {
+  background: rgba(141,162,228,.1); 
+	font-weight: 300;	
+}
+
+.navbar-top-links-new .dropdown-menu li a div {
+  white-space: normal;
+}
+
+.navbar-top-links-new .dropdown-messages,
+.navbar-top-links-new .dropdown-tasks,
+.navbar-top-links-new .dropdown-alerts {
+  width: 310px;
+  min-width: 0;
+}
+
+.navbar-top-links-new .dropdown-messages {
+  margin-left: 5px;
+}
+
+.navbar-top-links-new .dropdown-tasks {
+  margin-left: -59px;
+}
+
+.navbar-top-links-new .dropdown-alerts {
+  margin-left: -123px;
+}
+
+.navbar-top-links-new .dropdown-user {
+  right: 0;
+  left: auto;
+  z-index: 1001;
+}
+
+.nav > li > a {
+  color: #004773;
+	font-weight: 300;	
+}
+
+.navbar-text > a {
+  color: #004773;
+  text-decoration: none;
+	font-weight: 300;	
+}
+
+.navbar-default {
+  height: 38.5px;
+  border-color:  #7E9CD9 ;
+  background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
+  background-color: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #F09349;
+}
+
+.navbar-default .navbar-brand {
+  color: #fff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #A3A7BF;
+  backgound-color: transparent;
+}
+
+/* ~link colors~ */
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+	font-weight: 300;	
+}
+
+.navbar-default .navbar-nav > li > a 
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #A3A7BF;
+	font-weight: 300;	
+}
+
+/*color of active nabar btn
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+color: #fff;
+backgound-color: #A3A7BF; 
+*/
+
+/* ~drop downs~ */    
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color:  #A3A7BF;
+  color: #fff;
+	font-weight: 300;	
+}
+
+/*breaks everything*/
+div#aa-panel {
+  border: none;
+  box-shadow: none;
+  background-color: #F8F8F8;
+}
+/*
+.panel > .panel-heading {
+    border: none;
+  box-shadow: none;
+  background-color: #F8F8F8;
+}
+
+
+*can be changed in views/aa/AlertView.js - line 331
+div#alertslist > form.backgrid-filter.form-search {
+  float: right;
+  margin: 0px 0px 25px 0px;
+*/
+

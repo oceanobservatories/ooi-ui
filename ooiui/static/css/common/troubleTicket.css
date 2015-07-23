@@ -37,9 +37,9 @@ img {
   font-family: FontAwesome;
   border-radius: 6px;
 }
-.btn-group-sm {
-  margin-top: 25px;
-}
+/* .btn-group-sm { */
+/*   margin-top: 25px; */
+/* } */
 .btn-custom-reset {
   background-color: #00a7ee;
 }
@@ -52,18 +52,18 @@ img {
 .btn-custom-reset:focus {
   background-color: #00abdf;
 }
-.btn-custom-submit {
-  background-color: #f07c00;
-}
-.btn-custom-submit:hover {
-  background-color: #ff7700;
-}
-.btn-custom-submit:active {
-  background-color: #f07000;
-}
-.btn-custom-submit:focus {
-  background-color: #f07000;
-}
+/* .btn-custom-submit { */
+/*   background-color: #f07c00; */
+/* } */
+/* .btn-custom-submit:hover { */
+/*   background-color: #ff7700; */
+/* } */
+/* .btn-custom-submit:active { */
+/*   background-color: #f07000; */
+/* } */
+/* .btn-custom-submit:focus { */
+/*   background-color: #f07000; */
+/* } */
 br {
   display: block;
   margin: 10px 0;

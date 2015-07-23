@@ -6,8 +6,8 @@
 		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 		    <span class="caret"></span>
 		  </button>
-		  <ul class="dropdown-menu" role="menu" style='z-index: 9999;position:absolute;overflow: hidden;'>
-		    <li><a target="_blank" href="<%= plottingLink %>">Plot</a></li>		    
+		  <ul id="plot-dd" class="dropdown-menu" role="menu" style='z-index: 9999;position:absolute;overflow: hidden;'>
+		   <a target="_blank" href="<%= plottingLink %>">Plot</a>	    
 		    <!--
 		    <li class="divider"></li>
 		    <li><a href="#">Separated link</a></li>
@@ -16,7 +16,7 @@
 		</div>
 	<% } %>
 
-	<a type="<%=key%>" level=<%=level%> data-toggle="tooltip" data-placement="bottom" data-delay="200" title="<%= display_name %>" href="#">
+	<a type="<%=key%>" level="<%=level%>" data-toggle="tooltip" data-placement="top" data-delay="200" title="<%= display_name %>" href="#">
 		
 	  <!--
 	  <i class="fa fa-share-alt fa-fw"></i>

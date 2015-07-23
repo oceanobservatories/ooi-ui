@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Pioneer Array</title>
+<title>Argentine Basin</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -9,58 +9,60 @@
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
-<!-- Partials -->
-<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
-<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-<script src="js/landingPagesJS.js" type="text/javascript"></script>
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/landingPages.css" rel="stylesheet" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="js/landingPagesJS.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-<div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
-  </div>  <!-- sidebar-wrapper -->
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Pioneer Array</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
-
-  <div id="pioneer-upper"></div>
-
-  <div class="row">
-    <!-- Accordian -->
-    <div class="col-sm-12">
-      <div class="container-fluid">
+<div id="wrapper" class="btn-wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="btn-sidebar">
+  </div>
 
 
-        <div id="pioneer-location-sampling" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- panel-group -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+      
 
-        <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- infrastructureArray-view -->
+    	<!-- Accordian -->
+    
+	<div class="col-md-12">
+	  <div id="pioneer-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- panel-group -->
+	  <div id="infrastructureArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- infrastructureArray-view -->
+	  <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- stationSummaryArray-view -->
+	  <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- deploymentSchedule-view -->
+	  <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- infrastructureTables-view -->
+  	  
+	  <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	  </div><!-- technicalDrawings-view -->
 
-        <div id="stationSummaryArray-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- stationSummaryArray-view -->
+	</div><!-- col-sm-12 -->
 
-        <div id="deploymentSchedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- deploymentSchedule-view -->
-
-        <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- infrastructureTables-view -->
-
-        <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
-        </div><!-- technicalDrawings-view -->
-
-
-      </div><!-- container-fluid -->
-    </div><!-- col-sm-12 -->
-  </div><!-- row -->
+      </div><!-- row -->
+    </div><!--container-fluid -->
+  </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">
+
+var bannerTitle = "Pioneer Array";
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   views: {},
@@ -70,11 +72,18 @@ _.extend(OOI.prototype, Backbone.Events,  {
   models: {},
 
   start: function() {
-    this.login.fetch({async:false});
-
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-
+    var self = this;
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
+    
     this.views.landingPagesTOC = new LandingPagesTOC({
       collection: this.collections.organizations,
     });
@@ -83,9 +92,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.views.pioneerArrayView = new PioneerArrayView({
       el: $('#pioneer-upper')
     });
-
+    
     this.views.pioneerLocationSamplingView = new PioneerLocationSamplingView({
-      el: $('#pioneer-location-sampling')
+      el: $('#pioneer-location-sampling-view')
     });
 
     this.views.pioneerInfrastructureArrayView = new PioneerInfrastructureArrayView({
@@ -100,15 +109,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
       el: $('#deploymentSchedule-view')
     });
 
-    this.views.pioneerInfrastructureTablesView = new PioneerInfrastructureTablesView({
-      el: $('#infrastructureTables-view')
-    });
-
-    this.views.pioneerTechnicalDrawingsView = new PioneerTechnicalDrawingsView({
+    this.views.PioneerTechnicalDrawingsView = new PioneerTechnicalDrawingsView({
       el: $('#technicalDrawings-view')
     });
   }
-
 });
 // Instantiate the application for this page
 var ooi = new OOI();
@@ -120,3 +124,4 @@ $(document).ready(function() {
 </script>
 
 {% endblock %}
+

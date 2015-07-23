@@ -1,5 +1,5 @@
-<form class="form-horizontal" role="form">
-  <h3>Edit User</h3> 
+<form id="user-edit-form" class="form-horizontal" role="form">
+  <h3>Profile</h3> 
   <hr width="80%">
   <div class="form-group ">
     <label for="username" class="col-sm-3 control-label">User Name</label>
@@ -11,7 +11,7 @@
   <div class="form-group ">
     <label class="col-sm-3 control-label">Account Enabled</label>
     <div class="col-sm-6">
-      <input type="checkbox" class="form-control" id="active" name="active" />
+      <input type="checkbox" class="form-control" id="active" name="active" style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.075);" />
       <span class="help-block hidden"></span>
     </div>
   </div>
@@ -81,7 +81,7 @@
   <div class="form-group">
     <div class="col-sm-12">
       <button type="button" id="submitButton" class="btn btn-success">Submit</button>
-      <button type="button" id="resetButton" class="btn btn-success">Reset</button>
+      <button type="button" id="resetButton" class="btn btn-reset">Reset</button>
 
     </div>                 
   </div>
