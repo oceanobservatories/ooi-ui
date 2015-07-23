@@ -329,14 +329,19 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {      
-      
+        console.log(options.yvar);
+
       if (options.plotType == "Depth Profile"){
         options.plotType = "depthprofile"
         options.yvar = options.xvar;               
         options.xvar = self.views.plottingItemSelection.getSelectedVars();
+
       }else if (options.plotType == "Time Series"){
         options.plotType = "timeseries"
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
+        vars =  self.views.plottingItemSelection.getSelectedVars()
+        console.log(vars);
+        console.log(options.yvar[0]);
       }else if (options.plotType == "T-S Diagram"){
         options.plotType = "ts_diagram"
         options.yvar = self.views.plottingItemSelection.getSelectedVars();

@@ -1,3 +1,88 @@
+var plotParameters ={
+  timeseries:[
+    'conductivity',
+    'temperature',
+    'pressure',
+    'dofst_k_oxygen',
+    'raw_signal_chl',
+    'salinity',
+    'pressure_variance',
+    'water_velocity_east',
+    'water_velocity_north',
+    'water_velocity_up',
+    'sci_water_cond',
+    'sci_water_pressure',
+    'sci_water_temp',
+    'pressure_temp',
+    'optode_temperature',
+    'estimated_oxygen_concentration',
+    'estimated_oxygen_saturation',
+    'cdomflo',
+    'chlaflo',
+    'ntuflo',
+    'num_wavelengths',
+    'pressure_depth',
+    'temp_compensated_phase',
+    'optode_temperature',
+    'raw_signal_chl',
+    'nitrate_concentration',
+    'nutnr_nitrogen_in_nitrate',
+    'nutnr_absorbance_at_254_nm',
+    'nutnr_absorbance_at_350_nm',
+    'nutnr_bromide_trace',
+    'nutnr_spectrum_average',
+    'humidity',
+    'ctd_psu',
+    'ctd_temp',
+    'ctd_dbar',
+    'speed_of_sound',
+    'velpt_pressure',
+    'water_direction',
+    'average_wave_height',
+    'mean_spectral_period',
+    'max_wave_height',
+    'significant_wave_height',
+    'significant_period',
+    'wave_height_10',
+    'wave_period_10',
+    'mean_wave_period',
+    'peak_wave_period',
+    'wave_period_tp5',
+    'wave_height_hmo',
+    'mean_direction',
+    'mean_spread',
+    'fdchp_wind_x',
+    'fdchp_wind_y',
+    'fdchp_wind_z',
+    'fdchp_speed_of_sound_sonic',
+    'x_ang_rate',
+    'y_ang_rate',
+    'z_ang_rate',
+    'fdchp_x_accel_g',
+    'fdchp_y_accel_g',
+    'fdchp_z_accel_g'
+      ],
+
+
+
+  depthprofile:['pressure','temperature',],
+  ts_diagram: ['temperature','salinity'],
+  quiver:['pressure','temperature'],
+  scatter:['temperature','salinity','pressure', 'conductivity'],
+  rose:['temperature','salinity','pressure', 'conductivity','heading','pitch','roll','velocity','scale','vel']
+};
+var isInArray = function(value, array) {
+  for (var j=0; j<array.length; j++){
+      var isMatch = value.search(array[j]);
+      if(value.search(array[j]) > -1){
+        return true;
+      }
+    }
+
+};
+
+
+
 
 var SVGView = Backbone.View.extend({
   initialize: function(options) {
@@ -18,9 +103,22 @@ var SVGView = Backbone.View.extend({
         self.$el.html(importedSVGRootElement);
         self.render();
       },"xml")
-      .fail(function() {
-        self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>')
-      })
+      .fail(function(e) {
+         console.log(e);
+         //any plot errors should be handled before we get to here.
+         // this should be uframe alert here.
+         self.$el.html(' ');
+         if (e.status == 400){
+         $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         }
+         else if (e.status == 500){
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         }
+         else{
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         }
+        // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
+       })
       .always(function() {
         
       });
@@ -144,7 +242,9 @@ var SVGPlotView = SVGView.extend({
 
     this.reference_designator = this.model.get('reference_designator')    
     this.stream_name = this.model.get('stream_name')
-    options.yvar = this.model.get('yvariable')  
+    options.yvar = this.model.get('yvariable')
+    console.log(this.model);
+
     if('xvar' in options){
       options.xvar = ["time"]
     }else{
@@ -154,11 +254,90 @@ var SVGPlotView = SVGView.extend({
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
 
-    var x_units = ""
-    var y_units = ""
+    var x_units = "";
+    var y_units = "";
 
-    if(options && options.yvar && options.xvar) {      
-      if (options.plotType == 'depthprofile'){   
+    if(options && options.yvar && options.xvar) {
+          // Plot validation
+      var invalidParam = false;
+      //begin timeseries
+      if(options.plotType == 'timeseries'){
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.timeseries)){
+             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+           }
+        });
+      }
+      //end timesries
+      //begin temperature- salinity diagram
+      if(options.plotType == 'ts_diagram'){
+        // requires two parameters, will assume must be equal to two
+        if(options.yvar[0][0].length !=2){
+           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>  T-S Diagram requires two parameters (Temperature and Salinity)</div>');
+
+          return false;
+        }
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.ts_diagram)){
+             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. T-S Diagram requires both a temperature and a salinity parameter.</div>');
+             //parameter not valid for plot selected
+             invalidParam = true;
+             return false;
+           }
+        });
+      }
+      //end temperature-salinity diagram
+      //begin quiver
+      if(options.plotType == 'quiver'){
+        //requires two parameters
+        if(options.yvar[0][0].length !=2){
+           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>Quiver Diagram requires two parameters </div>');
+           return false;
+        }
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.quiver)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+      }
+      if(options.plotType == '3d_scatter'){
+         if(options.yvar[0][0].length !=3){
+           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>3D Colored Scater requires three parameters </div>');
+           return false;
+        }
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.scatter)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+      }
+      if(options.plotType == 'rose'){
+        if(options.yvar[0][0].length !=2){
+           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>Rose requires two parameters: Directional parameter and Magnitudinal parameter </div>');
+           return false;
+        }
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.rose)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. Rose graph requires direction parameter.</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+      }
+      //
+      if (options.plotType == 'depthprofile'){
         //Variables are backwards, beware
         this.xvariable = null
         var not_list = []
@@ -180,7 +359,7 @@ var SVGPlotView = SVGView.extend({
         this.dpa_flag = this.getDpaFlag(options.yvar)  
       }
     }
-    if(this.yvariable != null && this.xvariable != null) {
+    if(this.yvariable != null && this.xvariable != null && invalidParam == false) {
       this.useLine = options.useLine.toString();
       this.useScatter = options.useScatter.toString();  
       this.useEvent = options.useEvent.toString();      
@@ -318,7 +497,9 @@ var SVGPlotControlView = Backbone.View.extend({
     data.start_date = this.$start_date_picker.getDate();
     data.end_date = this.$end_date_picker.getDate();
     data.xvar = this.$el.find('#xvar-select').val();
-    //data.yvar = this.$el.find('#yvar-select').val();    
+    console.log('xvar!!!!!');
+    console.log(data.xvar);
+    //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = $('#xvar-select option:selected').text();
     console.log(data.plotType)
     /*
@@ -334,7 +515,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.useLine = "true"
     data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
     data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
-
+    console.log(data);
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
   render: function(updateTimes) {
