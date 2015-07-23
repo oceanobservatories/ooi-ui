@@ -20,8 +20,13 @@
 {% endblock %}
 
 {% block body %}
-<!--/.TOP BAR END -->
-<div id="wrapper-asset">
+
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" class="btn-wrapper">
+{# <div id="wrapper-asset"> #}
   <!-- Sidebar 
   <div id="sidebar-wrapper" class="navbar-default">
   </div>-->
@@ -32,10 +37,10 @@
         <div class="col-md-6">
           <div class="panel">
             <div class="panel-heading">
-              <strong>
-                <span class="fa fa-edit"> </span> Edit Event<span data-i18n="Data"></span>
-              </strong>
-              <div class="pull-right">
+              {# <strong> #}
+              {#   <span class="fa fa-edit"> </span> Edit Event<span data-i18n="Data"></span> #}
+              {# </strong> #}
+              <div>
                 <div class="btn-group" id='deploy_edit' role="group" style="top: -7px;" aria-label="...">
                   <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-plus-square"></i> New</div>
                   <div class="btn btn-primary" type="button" aria-label="..."><i class="fa fa-floppy-o"></i> Save</div>
@@ -44,7 +49,7 @@
               </div>
             </div> <!-- panel-heading -->
             <div class="panel-body" style="height:550px">
-              <div class="col-sm-12" id="editdep_panel" style='width:320px;top: 10px;margin-left: 139px; position:absolute;'>
+              <div class="col-sm-12" id="editdep_panel" style='width:320px;top: 30px;margin-left: 275px; position:absolute;'>
                 <i class="fa fa-spinner fa-spin"></i>  Loading Selected Event 
               </div>
               <div role="tabpanel">
@@ -297,6 +302,7 @@
 
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
+var bannerTitle = "Edit Event";
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
@@ -305,8 +311,15 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     this.login.fetch({async: false});
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
 
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
