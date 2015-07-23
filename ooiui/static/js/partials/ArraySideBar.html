@@ -1,13 +1,13 @@
-<li class="sidebar-search">
-  <div class="input-group custom-search-form">
-    Array List
+<li class="breadcrumb" style="margin-top:5px;">
+  <div class="input-group">
+		Array List
     <div style="float: right;padding-left: 223px;font-size: 12px;"></div>
   </div>
   <!-- /input-group -->
 </li>
 <% collection.each(function(model) { %>
-<li class="array-item">
-  <a data-id="<%= model.get('reference_designator') %>" href="#">
+<li>
+  <a class="btn btn-primary sidebar" data-id="<%= model.get('reference_designator') %>" href="#">
     <%= model.get('display_name') %>
     <i style='float: right;padding-right: 4px;pointer-events: none;;font-size:18px' class="fa fa-question-circle"></i>
   <!--/<% if (model.get('operational_status') == 'Online') { %>

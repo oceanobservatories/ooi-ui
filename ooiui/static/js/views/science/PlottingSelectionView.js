@@ -90,9 +90,9 @@ var PlottingSelectionView = Backbone.View.extend({
       this.addFilter(filterModel,self.dataCollection[filterItems[i]]) 
     };
 
-    this.$el.find('#parameters_id').parent().find('.dropdown-menu').addClass("pull-right")
-
+    this.$el.find('#parameters_id').parent().find('.dropdown-menu')
   },
+    
   unFilterItems: function(options) {
     var self = this;
     var childItem = options.model.get("childItem") ;
@@ -283,7 +283,10 @@ var FilterSelectionView = Backbone.View.extend({
   initallyDisabled: "disabled",
   tagName: "div",
   numberSelectable: 1,
-  className:"col-sm-2",
+  className:"plotting-selection",
+  // className:"col-sm-2 plotting-selection",
+  id:"plotting-selection",
+    // style:"position:realtive width:100%",
   events: {
     'change .selectpicker' : 'onChange'
   },
@@ -300,7 +303,7 @@ var FilterSelectionView = Backbone.View.extend({
                                  labelText:self.model.get('labelText'),
                                  model:self.model,
                                  collection:self.collection})); 
-    //setup the picker
+    //setup the picker    
     this.$el.find('.selectpicker').selectpicker();
   },
   onChange: function() {

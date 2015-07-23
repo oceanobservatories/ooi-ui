@@ -5,8 +5,7 @@
   <ul class="dropdown-menu dropdown-user">
 
     <li>
-
-      <a href="#"><i class="fa fa-user fa-fw" style='padding-right: 27px;'> </i>   User Profile</a>
+      <a href="/user/edit/<%= user.get('id') %>"><i class="fa fa-user fa-fw" style='padding-right: 27px;'> </i>   User Profile</a>
     </li>
     <% if(user.get('scopes').indexOf('user_admin') !== -1) { %>
     <li>

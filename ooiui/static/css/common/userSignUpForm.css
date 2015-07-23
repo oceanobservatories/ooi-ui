@@ -26,3 +26,7 @@ h5 {
     padding: 10px 12px;
     pointer-events: none;
 }
+
+form#user-edit-form div input.form-control {
+  background-color: #FFF
+}

@@ -9,78 +9,55 @@
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="/css/compiled/basic.css" type="text/css" />
-<link rel="stylesheet" href="/css/common/landingPages.css" type="text/css" />
-<!-- Partials -->
-<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
-<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-<script src="js/landingPagesJS.js" type="text/javascript"></script>
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/landingPages.css" rel="stylesheet" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="js/landingPagesJS.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-<div id="wrapper">
-  <div id="sidebar-wrapper" class="navbar-default"><!--CHANGE CSS BACK ONCE NEW CSS TOC IS MADE-->
-  </div>  <!-- sidebar-wrapper -->
+<div class="container-fluid"> 
+  <div id="navbar" class="row"></div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align="left">Endurance Array</h2>
-    </div>  <!-- col-md-12 -->
-  </div>  <!-- title-row -->
+<div id="wrapper" class="btn-wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="btn-sidebar">
+  </div>
 
-  <div id="endurance-upper-view"></div>
-
-  <div class="row">
-    <!--     <div class="col-md-6">
-    <div style="float:left;">
-    <h3 align="left"title="Disclaimer: All data are subject to revision without notice; exact locations of mooring sites are not yet finalized; exact depths of sensors will be determined at the time of deployment.">Description<i class="fa fa-info-circle" style="font-size: 12px;"></i></h3>
-    <em class="disclamer"></em></strong>
-
-    <p>Description goes here....
-    The Endurance Array, located on the continental shelf and slope off Oregon and Washington, will provide a long-term network of moorings, benthic nodes, cabled and uncabled sensors, and gliders. The array will consist of two lines of moorings, one off Newport, Oregon (the Oregon Line) and the other off Grays Harbor, Washington (the Washington Line). Gliders will sample between the mooring lines. The array will focus on observing the influence of the Columbia River on the coastal ecosystem as well as sample a prototypical upwelling regime on a narrow continental shelf where anoxia events are common. Some of the Endurance Array Oregon Line infrastructure will be connected to the RSN cabled network providing enhanced power and communications for observing water column and seafloor processes.</p>
-  </div>  col-md-6
-
-  <div style="clear:both;">
-  <h3>Summary</h3>
-  <p>The first phase of the Pioneer Array deployment took place in November 2013, with the installation of three moorings – a surface mooring at the central site, a profiler mooring at the upstream inshore site and a profiler mooring at the upstream offshore site. In April 2014, during the second deployment phase, five Wire-Following Profile Moorings were deployed at the Pioneer Array with three gliders. The third and final deployment phase is scheduled for Fall 2014.</p>
-</div>  col-md-6
-</div>  col-md-6
-
-HEADER IMAGE
-<div class="col-md-6">
-<div  id="contact">
-<img class="delayImg" delayedSrc="/img/landingPages/EnduranceArray/Endurance-Array-Map_2013_04-17_ver_0-02.jpg" style="width:411px; height:500px;" />
-</div>  col-md-6
-</div>  Description-row -->
-
-<!-- Accordian -->
-<div class="col-sm-12">
-  <div class="container-fluid">
-
-    <div id="endurance-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- endurance-location-sampling-view -->
-
-    <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- description-infrastructure-view -->
-
-    <div id="endurance-station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- endurance-station-summary-view -->
-
-    <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- deployment-schedule-view -->
-
-    <div id="infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- infrastructure-tables-view -->
-
-    <div id="endurance-technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
-    </div><!-- endurance-technical-drawings-view -->
-
-  </div><!-- container-fluid -->
-</div><!-- col-sm-12 -->
-</div><!-- row -->
+    <div class="container-fluid">
+      <div id="page-content-wrapper">
+	<div class="row">
+	
+	  <!-- Accordian -->
+	  <div class="col-sm-12">
+	    <div id="endurance-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- endurance-location-sampling-view -->
+	    <div id="description-infrastructure-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- description-infrastructure-view -->
+	    <div id="endurance-station-summary-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- endurance-station-summary-view -->
+	    <div id="deployment-schedule-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- deployment-schedule-view -->
+	    <div id="infrastructure-tables-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- infrastructure-tables-view -->
+	    <div id="endurance-technical-drawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
+	    </div><!-- endurance-technical-drawings-view -->
+	</div><!-- col-sm-12 -->
+	
+	</div><!-- row -->
+      </div><!--container-fluid -->
+    </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
 
 <script type="text/javascript">
+
+var bannerTitle = "Endurance Array";
+
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
   views: {},
@@ -90,11 +67,18 @@ _.extend(OOI.prototype, Backbone.Events,  {
   models: {},
 
   start: function() {
-    this.login.fetch({async:false});
-
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-
+    var self = this;
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
+    
     this.views.landingPagesTOC = new LandingPagesTOC({
       collection: this.collections.organizations,
     });

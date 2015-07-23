@@ -22,23 +22,30 @@
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
 <div id="wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper" class="navbar-default">
+  <div id="sidebar-wrapper">
   </div>
-   
+  <!-- /#sidebar-wrapper -->
+  
    <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <div class="panel">
+          <div id="aa-panel" class="panel">
+          <!--
             <div class="panel-heading"><div>
               <h4 style='margin-top: 0px;margin-bottom: -25px;'> Current Alerts & Alarms Definitions</h4>
-            <div class="panel-body">
-             <div style='color:#337ab7; text-transform:none; margin-top: 30px;position: absolute;margin-left: -2px;' id='listTitle'>
+          -->
+              <div id="aa-panel-body" class="panel-body">
+             <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
               <b>Showing All</b>
              </div>
-             <div class="row form-group" id='alertslist'>
+             <div id='alertslist' class="row form-group">
              </div>
           <hr width ='80%' style='margin-top:0;'>
           <div class="row col-sm-12" id='alert_container'>
@@ -131,6 +138,8 @@
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
+var bannerTitle = "Alerts & Alarms";
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
@@ -150,7 +159,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     var self = this;
-
     this.login.fetch({async: false}); // Doesn't actually make an ajax request
     
     /*if(this.login.loggedIn()) {
@@ -160,9 +168,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+    
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
+    
     this.views.tocView = new TOCView({
       arrayCollection: this.collections.arrays,
       collection: this.collections.toc,
