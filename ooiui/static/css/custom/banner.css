@@ -40,8 +40,8 @@ div#wrapper-asset {
 
 #page-content-wrapper {
   padding: 0 20px 20px 20px;
-	widows: 100%;
-	z-index: 1000;
+	width:: 100%;
+	/* z-index: 1000; */
 }
 
 .left { text-align: left; }

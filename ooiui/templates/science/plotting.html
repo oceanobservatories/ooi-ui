@@ -50,18 +50,19 @@
                   </button>                  
                 </div>
 	      </div>
-
-              <div class="col-sm-12" style="padding-right:1px;">     
-		<div id="plot-item-selection">
-                  <i class="fa fa-spinner fa-spin" style="margin-left:20%;font-size:90px;"> </i>
-                </div>
-                <div id="plot-item-selection2" style="display: none;">                
-                </div> 
-              </div>
-		</div>
-	      </div>
+              
+          <div class="col-sm-12" style="padding-right:1px;">     
+            <div id="plot-item-selection">
+              <i class="fa fa-spinner fa-spin" style="margin-left:20%;font-size:90px;"> </i>
+            </div>
+            </br>
+            <div id="plot-item-selection2" style="display: none;">                
+            </div> 
+          </div>
+        </div>
+          </div>
         </div> 
-    </ul>
+   </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
     <div class="content-fluid"> 
@@ -282,7 +283,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     $.when.apply($, complete).done(function() {
        //all ready and good to go...
        self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "moorings":self.collections.tocMoorings,   
+                                                          "sites":self.collections.tocMoorings,   
                                                           "platforms":self.collections.tocPlatforms,       
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
@@ -291,7 +292,7 @@ _.extend(OOI.prototype, Backbone.Events, {
        self.views.plottingItemSelection.render();
 
        self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "moorings":self.collections.tocMoorings, 
+                                                          "sites":self.collections.tocMoorings, 
                                                           "platforms":self.collections.tocPlatforms,           
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,

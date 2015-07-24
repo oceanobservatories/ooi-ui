@@ -16,7 +16,7 @@
 		</optgroup>
 
 		<!-- MOORING -->	
-		<% } else if(labelText == "moorings") { %>
+		<% } else if(labelText == "sites") { %>
 			<% collection.each(function(model) { %>		
 			    <% if (model.get('display_name') != null) { %>			    			    	
 			    	<option data-subtext="<%=model.get('reference_designator')%>"
@@ -34,7 +34,7 @@
 		    	<% if (model.get('display_name') != null ) { %>		    	
 			    	
 			    	<option data-subtext="<%=model.get('platform_code')%>"
-			    			moorings-code="<%=model.get('mooring_code')%>" 
+			    			sites-code="<%=model.get('mooring_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
 			    			platforms-code="<%=model.get('platform_code')%>" 
 			    			value="<%=model.get('platform_code')%>">
@@ -50,7 +50,7 @@
 			    	<option data-subtext="<%=model.get('platform_code')%>"
 			    			instruments-code="<%=model.get('instrument_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
-			    			moorings-code="<%=model.get('mooring_code')%>" 
+			    			sites-code="<%=model.get('mooring_code')%>" 
 			    			platforms-code="<%=model.get('platform_code')%>"
 			    			value="<%=model.get('reference_designator')%>">
 			    		<%= model.get('display_name') %>
