@@ -77,26 +77,3 @@ OOI.prototype.onLogin = function() {
 OOI.prototype.onLogout = function() {
     window.location.reload();
 }
-
-var idleTime = 0;
-//Increment the idle time counter every minute.
-
-var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-
-
-//Zero the idle timer on mouse movement.
-$(this).mousemove(function (e) {
-    idleTime = 0;
-});
-$(this).keypress(function (e) {
-    idleTime = 0;
-});
-
-function timerIncrement() {
-    if (OOI.LoggedIn()) {
-        idleTime = idleTime + 1;
-        if (idleTime > 1200) { // 20 hours
-            OOI.LogOut();
-        }
-    }
-}

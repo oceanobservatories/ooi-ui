@@ -15,24 +15,27 @@
 
 
 var ArrayModel = OOI.RelationalModel.extend({
-  urlRoot: '/api/array',
-  relation: {
-    type: OOI.Relation.hasMany,
-    key: 'platformDeployments',
-    collectionType: 'PlatformDeploymentCollection',
-    reverseRelation: {
-      key: 'array_id'
+    urlRoot: '/api/array',
+    defaults: {
+        id: null,
+        array_code: null,
+        array_name: null,
+        display_name: null,
+        geo_location: [],
+        description: null
     }
-  }
 });
 
 
 
 var ArrayCollection = Backbone.Collection.extend({
-  url: '/api/array',
-  model: ArrayModel,
-  parse: function(response, options) {
-    return response.arrays;
-  }
+    url: '/api/array',
+    model: ArrayModel,
+    parse: function(response) {
+        if (response) {
+            return response.arrays;
+        }
+        return [];
+    }
 });
 
