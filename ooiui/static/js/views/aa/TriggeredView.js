@@ -82,29 +82,31 @@ var TriggeredView = Backbone.View.extend({
           }
         });
 
-        var columns = [{
+        var columns = [
+          {
             name: "event_response", // The key of the model attribute
             label: "Event Label", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             cell: "string"
-        },  {
+          },
+          {
             name: "event_time",
             label: "Event Time",
             editable: false,
             cell: "string"
-        },
-        {
-            name: "event_response", // The key of the model attribute
-            label: "Event Value", // The name to display in the header
+          },
+          {
+            name: "acknowledged", // The key of the model attribute
+            label: "Acknowledged", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+            cell: "string"
+/*            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 return "5.432"
               }
-            })
-        },
-        {
+            })*/
+          },
+          {
             name: "event_type",
             editable: false,
             label: "Event Type",
@@ -122,7 +124,8 @@ var TriggeredView = Backbone.View.extend({
                 }
               }
             })
-        }];
+          }
+        ];
 
         //add click event
         var ClickableRow = Backgrid.Row.extend({
