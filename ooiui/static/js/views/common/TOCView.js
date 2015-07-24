@@ -79,6 +79,9 @@ var SearchResultView = Backbone.View.extend({
     tagName: 'ul',
     initialize: function() {
         _.bindAll(this, 'render', 'derender');
+        this.listenTo(vent, 'toc:derenderItems', function() {
+            this.derender();
+        });
     },
     render: function(){
         var arrayItemView = this.collection.map(function(model) {
@@ -93,7 +96,6 @@ var SearchResultView = Backbone.View.extend({
     derender: function() {
         this.remove();
         this.unbind();
-        this.model.off;
     },
 });
 
@@ -123,7 +125,14 @@ var ArrayContainerView = Backbone.View.extend({
 })
 
 var ArrayItemView = Backbone.View.extend({
+    //TODO: Create a partial and put all the html/css in it...
     tagName: 'li',
+    className: 'btn col-md-12',
+    attributes: function() {
+        return {
+        'style': 'text-align: left !important; overflow:hidden;'
+        };
+    },
     events: {
         'click': 'onClick'
     },
@@ -136,7 +145,7 @@ var ArrayItemView = Backbone.View.extend({
     onClick: function() {
          ooi.trigger('toc:selectItem', this.model);
     },
-    template: _.template('<a><%= ref_des %></a>'),
+    template: _.template('<a><%= assetId %> | <%= assetInfo.name %> | <%= ref_des %></a>'),
     derender: function() {
         this.remove();
         this.unbind();

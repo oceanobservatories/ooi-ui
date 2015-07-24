@@ -33,13 +33,20 @@
         <div class="container-fluid">
             <div class="row">
                 <div id="sidebar-wrapper" class="btn-sidebar">
-                    <!-- TODO: Clean this up -->
-                    <ul>
-                        <li>
-                        <input id="search-filter" type="text"  placeholder=" Search..." style="width:80%; border:solid 1px black">
-                        <span id="search-clear" class="glyphicon glyphicon-remove-circle"></span></input>
-                        </li>
-                    <ul>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                        <!-- TODO: Clean this up -->
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
+                            <div class="input-group-btn">
+                                <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
+                            </div>
+                            <div id="search-submit" class="input-group-btn">
+                                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="panel">
@@ -75,6 +82,9 @@ _.extend(OOI.prototype, Backbone.Events, {
         navbar = new NavbarView({
         login: this.login
     });
+
+    var banner = new BannerView({ bannerTitle });
+    $('body').prepend(banner.el);
 
     // render out our views:
     var mapView = new MapView({
@@ -179,11 +189,11 @@ $(document).ready(function() {
             renderTOCView( arrayCollection, assetCollection );
         });
     });
-    $('#search-filter').keyup(function(e) {
+    $('#search-submit').click(function(e) {
         $('#search-clear').toggle(Boolean($(this).val()));
         $('#search-clear').toggle(Boolean($('#search-filter').val()));
-        updateCollection( showSearchResults );
 
+        updateCollection( showSearchResults );
     });
 });
 </script>
