@@ -42,7 +42,8 @@ var PlottingSelectionView = Backbone.View.extend({
     return selectedType+"_"+selectedRef;
   },
   getSelectedVars: function(filterModel,filterCollection){        
-    var selectedParam = this.$el.find( "#parameters_id option:selected").val()          
+    var selectedParam = this.$el.find( "#parameters_id option:selected").val()
+     console.log(selectedParam);
     return selectedParam;
   },
   addFilter: function(filterModel,filterCollection){    
