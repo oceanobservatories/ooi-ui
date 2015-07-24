@@ -136,7 +136,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     
     if(!this.login.loggedIn()) {
       this.termsView = new TermsDialogView();
-      $('.container-fluid').first().append(this.termsView.el);
+      $('body').first().prepend(this.termsView.el);
       $.ajax({
         url: "/txt/eula.txt",
         type: "GET",
