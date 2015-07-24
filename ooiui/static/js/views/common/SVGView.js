@@ -1,4 +1,6 @@
+//--------------- validation
 var plotParameters ={
+
   timeseries:[
     'conductivity',
     'temperature',
@@ -63,7 +65,141 @@ var plotParameters ={
     'fdchp_z_accel_g'
       ],
 
+  _selectedX:{
+    valid:true,
+    _selectedPrams:{
+        timeseries:{val:6,condition:"<=",message:"No More than 6 Parameters"},
+        ts_diagram:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        depthprofile:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        quiver:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        rose:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        scatter:{val:3,condition:"=",message:"Must Select 3 Parameters"},
+        _validate:function(name,length){return (length==0?false: (this[name].condition=="<="
+                                            ? length<=parseInt(this[name].val)
+                                            : parseInt(this[name].val)==length));}
+    },
 
+    _validateNumberOfSelected(plottype,selectlist){
+         if(!this._selectedPrams._validate(plottype,selectlist.length)){
+          $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
+          this._selectedPrams[plottype].message +'</div>');
+          this.valid=false;
+          return false;
+         }else{this.valid=true; return true;}
+    }
+  },
+  _isInArray:function(value, array) {
+      for (var j=0; j<array.length; j++){
+        var isMatch = value.search(array[j]);
+        if(value.search(array[j]) > -1){
+            return true;
+        }
+      }
+    },
+  _validateTimeSpan(options){
+   this._selectedX.valid=true;
+   try{
+    if(options.end_date.isBefore(options.start_date)){
+      throw "Bad Date Object";
+    }
+    }catch(e){
+      this._selectedX.valid=false;
+       $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Date Warning!</strong> &nbsp;'
+       + 'Start Time must be less than End Time </div>');
+      return false;
+    }
+    return true;
+  },
+  invalidParam:function(){return !this._selectedX.valid},
+  validateSelected:function(options){
+    if(!this._validateTimeSpan(options)) return false;
+    if(options.plotType.toString().indexOf("_scatter")!=-1) return this._selectedX._validateNumberOfSelected("scatter",options.yvar[0][0])
+    else return this._selectedX._validateNumberOfSelected(options.plotType,options.yvar[0][0])
+
+      /*
+      /begin timeseries
+      if(options.plotType == 'timeseries'){
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, this.timeseries)){
+             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+           }
+        });
+
+      }
+      //end timesries
+      //begin temperature- salinity diagram
+      if(options.plotType == 'ts_diagram'){
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.ts_diagram)){
+             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. T-S Diagram requires both a temperature and a salinity parameter.</div>');
+             //parameter not valid for plot selected
+             invalidParam = true;
+             return false;
+           }
+        });
+      }
+      //end temperature-salinity diagram
+      //begin quiver
+      if(options.plotType == 'quiver'){
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.quiver)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+      }
+      if(options.plotType == '3d_scatter'){
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.scatter)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+      }
+      if(options.plotType == 'rose'){
+
+        $.each(options.yvar[0][0],function(key, value){
+           if (!isInArray(value, plotParameters.rose)){
+              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. Rose graph requires direction parameter.</div>');
+             invalidParam = true;
+             return false;
+             //parameter not valid for plot selected
+           }
+        });
+  }
+  */
+  },
+  validateMultiPlot:function(options){
+    var _this= this;
+    _this._selectedX.valid=true;
+    var ddl=$('[id="parameters_id"]').selectpicker();
+    try{
+         for(var i=0;i<ddl.length;i++){
+            if($(ddl[i]).data().selectpicker.val()!=null){
+                if($(ddl[i]).data().selectpicker.val().length>1) {
+                  throw 'To many Parameters Selected in list '+(i+1).toString();
+                }
+            }else{
+                //second or more lists not completed
+                  throw 'No Parameters Selected in list '+(i+1).toString();
+            }
+         }
+     }catch(e){
+        $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'
+            + e.toString()+'</div>');
+        _this._selectedX.valid=false;
+     }
+    return  _this._selectedX.valid;
+
+    },
 
   depthprofile:['pressure','temperature',],
   ts_diagram: ['temperature','salinity'],
@@ -71,15 +207,7 @@ var plotParameters ={
   scatter:['temperature','salinity','pressure', 'conductivity'],
   rose:['temperature','salinity','pressure', 'conductivity','heading','pitch','roll','velocity','scale','vel']
 };
-var isInArray = function(value, array) {
-  for (var j=0; j<array.length; j++){
-      var isMatch = value.search(array[j]);
-      if(value.search(array[j]) > -1){
-        return true;
-      }
-    }
-
-};
+//-----------------
 
 
 
@@ -197,6 +325,7 @@ var SVGPlotView = SVGView.extend({
   plotMulti: function(options) {
     //requested plot
     console.log("plot...")
+    if(!plotParameters.validateMultiPlot(options)) return false;
     this.reference_designator = this.model.get('reference_designator') + "," +options.secRef    
     this.stream_name = this.model.get('stream_name') + "," +options.secStream  
     //options.yvar = this.model.get('yvariable')  
@@ -258,85 +387,7 @@ var SVGPlotView = SVGView.extend({
     var y_units = "";
 
     if(options && options.yvar && options.xvar) {
-          // Plot validation
-      var invalidParam = false;
-      //begin timeseries
-      if(options.plotType == 'timeseries'){
-        $.each(options.yvar[0][0],function(key, value){
-           if (!isInArray(value, plotParameters.timeseries)){
-             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
-             invalidParam = true;
-             return false;
-           }
-        });
-      }
-      //end timesries
-      //begin temperature- salinity diagram
-      if(options.plotType == 'ts_diagram'){
-        // requires two parameters, will assume must be equal to two
-        if(options.yvar[0][0].length !=2){
-           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>  T-S Diagram requires two parameters (Temperature and Salinity)</div>');
-
-          return false;
-        }
-        $.each(options.yvar[0][0],function(key, value){
-           if (!isInArray(value, plotParameters.ts_diagram)){
-             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. T-S Diagram requires both a temperature and a salinity parameter.</div>');
-             //parameter not valid for plot selected
-             invalidParam = true;
-             return false;
-           }
-        });
-      }
-      //end temperature-salinity diagram
-      //begin quiver
-      if(options.plotType == 'quiver'){
-        //requires two parameters
-        if(options.yvar[0][0].length !=2){
-           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>Quiver Diagram requires two parameters </div>');
-           return false;
-        }
-
-        $.each(options.yvar[0][0],function(key, value){
-           if (!isInArray(value, plotParameters.quiver)){
-              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
-             invalidParam = true;
-             return false;
-             //parameter not valid for plot selected
-           }
-        });
-      }
-      if(options.plotType == '3d_scatter'){
-         if(options.yvar[0][0].length !=3){
-           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>3D Colored Scater requires three parameters </div>');
-           return false;
-        }
-
-        $.each(options.yvar[0][0],function(key, value){
-           if (!isInArray(value, plotParameters.scatter)){
-              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid</div>');
-             invalidParam = true;
-             return false;
-             //parameter not valid for plot selected
-           }
-        });
-      }
-      if(options.plotType == 'rose'){
-        if(options.yvar[0][0].length !=2){
-           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong>Rose requires two parameters: Directional parameter and Magnitudinal parameter </div>');
-           return false;
-        }
-
-        $.each(options.yvar[0][0],function(key, value){
-           if (!isInArray(value, plotParameters.rose)){
-              $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Parameter <b>'+ value +'</b> not valid. Rose graph requires direction parameter.</div>');
-             invalidParam = true;
-             return false;
-             //parameter not valid for plot selected
-           }
-        });
-      }
-      //
+      if(!plotParameters.validateSelected(options)) return false;
       if (options.plotType == 'depthprofile'){
         //Variables are backwards, beware
         this.xvariable = null
@@ -359,7 +410,7 @@ var SVGPlotView = SVGView.extend({
         this.dpa_flag = this.getDpaFlag(options.yvar)  
       }
     }
-    if(this.yvariable != null && this.xvariable != null && invalidParam == false) {
+    if(this.yvariable != null && this.xvariable != null && !plotParameters.invalidParam()) {
       this.useLine = options.useLine.toString();
       this.useScatter = options.useScatter.toString();  
       this.useEvent = options.useEvent.toString();      
