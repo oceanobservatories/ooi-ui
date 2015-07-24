@@ -244,7 +244,8 @@ def get_plotdemo(instrument, stream):
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()
     print "GUI took %s" % (t1 - t0)
-    return req.content, 200, dict(req.headers)
+     # they fake the response to 200
+    return req.content, req.status_code, dict(req.headers)
 
 # C2 Routes
 @app.route('/api/c2/array_display/<string:array_code>', methods=['GET'])
