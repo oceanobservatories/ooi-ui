@@ -83,7 +83,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         login: this.login
     });
 
-    var banner = new BannerView({ bannerTitle });
+    var banner = new BannerView({ bannerTitle:bannerTitle });
     $('body').prepend(banner.el);
 
     // render out our views:

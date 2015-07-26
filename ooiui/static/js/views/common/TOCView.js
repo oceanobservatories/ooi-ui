@@ -42,23 +42,33 @@ var TOCView = Backbone.View.extend({
         this.$el.find('#array-accordion').append(arrayContainerView);
     },
     renderItems: function(){
+        // create a model for each item in the collection, and based on it's class,
+        // render it in the browser as a platform or instrument.
         this.assetCollection.map(function(model) {
             // only render assets that have a lat/lon (since it's a map).
             var coord = model.get('coordinates');
+            var assetClass = model.get('asset_class');
             if (coord) {
                 // get the array code from the reference designator
                 var arrayCode = model.get('ref_des').substr(0,2);
+                var platformCode = model.get('ref_des').substr(0,8)
 
                 // set the target to where this item will be inserted.
-                var arrayTarget = $('#array_'+ arrayCode +'_body');
+                var arrayTarget = '#array_'+ arrayCode +'_body';
+                var platformTarget = 'li#'+platformCode+' > div > ul';
 
-                // workout the number of each asset...
-                var contentNum = parseInt($('#array_'+ arrayCode +'_badge').text());
-                $('#array_'+ arrayCode +'_badge').text(contentNum+1);
+                var assetItemView = new AssetItemView({ model:model });
 
-                var arrayItemView = new ArrayItemView({ model:model });
+                // lets check to see if it's a platform (.AssetRecord) or an (.instrumentAssetRecord)
+                if (assetClass == '.AssetRecord') {
+                    // workout the number of each asset...
+                    var contentNum = parseInt($('#array_'+ arrayCode +'_badge').text());
+                    $('#array_'+ arrayCode +'_badge').text(contentNum+1);
+                    $( arrayTarget ).append( assetItemView.render().el );
 
-                arrayTarget.append( arrayItemView.render().el );
+                } else if (assetClass == '.InstrumentAssetRecord')  {
+                    $( platformTarget ).append( assetItemView.render().el );
+                }
             }
         });
     },
@@ -84,13 +94,13 @@ var SearchResultView = Backbone.View.extend({
         });
     },
     render: function(){
-        var arrayItemView = this.collection.map(function(model) {
+        var assetItemView = this.collection.map(function(model) {
             var coord = model.get('coordinates');
             if (coord) {
-                return(new ArrayItemView({ model:model }).render().el);
+                return(new AssetItemView({ model:model }).render().el);
             }
         });
-        this.$el.html(arrayItemView);
+        this.$el.html(assetItemView);
         return this;
     },
     derender: function() {
@@ -124,13 +134,13 @@ var ArrayContainerView = Backbone.View.extend({
     },
 })
 
-var ArrayItemView = Backbone.View.extend({
+var AssetItemView = Backbone.View.extend({
     //TODO: Create a partial and put all the html/css in it...
     tagName: 'li',
-    className: 'btn col-md-12',
+    className: 'col-md-12 btn btn-sm',
     attributes: function() {
         return {
-        'style': 'text-align: left !important; overflow:hidden;'
+        'style': 'text-align: left !important; overflow: hidden; white-space: normal;'
         };
     },
     events: {
@@ -145,14 +155,33 @@ var ArrayItemView = Backbone.View.extend({
     onClick: function() {
          ooi.trigger('toc:selectItem', this.model);
     },
-    template: _.template('<a><%= assetId %> | <%= assetInfo.name %> | <%= ref_des %></a>'),
+    template: _.template('<a href="#"><%= assetId %> | <%= assetInfo.name %> <br> <%= ref_des %></a>'),
     derender: function() {
         this.remove();
         this.unbind();
         this.model.off;
     },
     render: function() {
-        this.$el.html( this.template(this.model.toJSON()) );
+
+        // If the asset class is an AssetRecord, give the view an ID of the
+        // first 8 characters of the Reference Designator
+        if (this.model.get('asset_class') == '.AssetRecord') {
+            this.$el.attr('id', this.model.get('ref_des').substr(0,8));
+            this.$el.html( this.template(this.model.toJSON()) );
+            // since this is an AssetRecord (platform / glider) lets assume
+            // it'll need to have instruments attached to it...so create a container!
+            this.$el.append('<div id="'+ this.model.get('id') +'" class="collapse"><ul class="sidebar-nav"></ul></div>');
+            // since there will be a lot of instrumnets, lets set this view to collapse.
+            this.$('a').attr('data-toggle', 'collapse');
+            this.$('a').attr('data-target', '#'+this.model.get('id'));
+        // otherwise, if it's an InstrumentAssetRecord then give the view an ID
+        // of the entire Reference Designator
+        } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
+            this.$el.attr('id', this.model.get('ref_des'));
+            // since the instrument is to be attached to something, lets
+            // change the indent and display slightly.
+            this.$el.html( this.template(this.model.toJSON()) );
+        }
         return this;
     }
 });
