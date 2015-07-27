@@ -49,14 +49,16 @@ var TOCView = Backbone.View.extend({
             var coord = model.get('coordinates');
             var assetClass = model.get('asset_class');
             if (coord) {
+
                 // get the array code from the reference designator
                 var arrayCode = model.get('ref_des').substr(0,2);
-                var platformCode = model.get('ref_des').substr(0,8)
+                // get the platform code as well.
+                var platformCode = model.get('ref_des').substr(0,14);
 
                 // set the target to where this item will be inserted.
                 var arrayTarget = '#array_'+ arrayCode +'_body';
                 var platformTarget = 'li#'+platformCode+' > div > ul';
-
+                console.log(platformTarget);
                 var assetItemView = new AssetItemView({ model:model });
 
                 // lets check to see if it's a platform (.AssetRecord) or an (.instrumentAssetRecord)
@@ -166,7 +168,7 @@ var AssetItemView = Backbone.View.extend({
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
         if (this.model.get('asset_class') == '.AssetRecord') {
-            this.$el.attr('id', this.model.get('ref_des').substr(0,8));
+            this.$el.attr('id', this.model.get('ref_des').substr(0,14));
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!

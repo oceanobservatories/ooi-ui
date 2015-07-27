@@ -210,7 +210,14 @@ var MapView = Backbone.View.extend({
             var events = platform.get('events');
             popupContent += '<ul>';
             _.each(events, function(item) {
-                popupContent += '<li>'+ item['eventId'] + ' | ' + item['class'] +'</li>';
+
+                var tStart  = new Date( item['startDate'] );
+                //tStart = tStart.format('mm.dd.yyyy hh:MM:ss');
+
+                var tEnd    = new Date( item['endDate'] );
+                //tEnd = tEnd.format('mm.dd.yyyy hh:MM:ss');
+
+                popupContent += '<li>'+ item['eventId'] + ' | ' + item['class'] + ' | ' + tStart + ' TO  ' + tEnd +  '</li>';
             });
             popupContent += '</ul>';
 
