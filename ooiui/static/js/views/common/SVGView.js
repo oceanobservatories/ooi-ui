@@ -436,6 +436,8 @@ var SVGPlotView = SVGView.extend({
                                                                                                     startdate:this.st,
                                                                                                     enddate:this.ed,
                                                                                                     qaqc:plotParameters.getQAQC()})
+      this.fetch();
+
     }else{
       if (options.plotType == 'depthprofile'){
         $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Depth profile requires "pressure" selection</div>')
