@@ -79,7 +79,7 @@ var plotParameters ={
                                             : parseInt(this[name].val)==length));}
     },
 
-    _validateNumberOfSelected(plottype,selectlist){
+    _validateNumberOfSelected: function (plottype,selectlist){
          if(!this._selectedPrams._validate(plottype,selectlist.length)){
           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
           this._selectedPrams[plottype].message +'</div>');
@@ -96,7 +96,7 @@ var plotParameters ={
         }
       }
     },
-  _validateTimeSpan(options){
+  _validateTimeSpan: function (options){
    this._selectedX.valid=true;
    try{
     if(options.end_date.isBefore(options.start_date)){
@@ -248,7 +248,7 @@ var SVGView = Backbone.View.extend({
         // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
        })
       .always(function() {
-        
+
       });
   },
   initialRender: function() {
@@ -268,29 +268,29 @@ var SVGPlotView = SVGView.extend({
     this.variable = this.model.get('yvariable').join()
     this.dpa_flag = "0";
     /* NEED TO ADD THIS BACK
-    var variables = this.model.get('variable_types');    
+    var variables = this.model.get('variable_types');
     this.variable = null;
     //loop over variables
     for(var key in variables) {
-      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {        
-        this.variable = key;        
+      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
+        this.variable = key;
         this.yunits = this.model.get('units')[this.variable];
         this.xunits = this.model.get('units')[this.variable];
         this.d_type = this.model.get('variables_shape')[this.variable];
         //if its a dpa product create the flag
-        
+
         if (this.model.get('variables_shape')[this.variable] == "function"){
           this.dpa_flag = "1";
         }else{
           this.dpa_flag = "0";
         }
-        
+
         break;
       }
     }
     */
     if(this.variable != null) {
-      //done on first render, i.e inital conditions      
+      //done on first render, i.e inital conditions
       var useLine = "true"
       var useScatter = "false"
       var plotLayoutType = "timeseries"
@@ -298,16 +298,16 @@ var SVGPlotView = SVGView.extend({
       //st = moment(this.model.get('start'))
       //ed = st.add('hours',1).format(moment.ISO_8601);
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.variable, 
+                                                                                                    yvar: this.variable,
                                                                                                     enddate:this.model.get('end'),
                                                                                                     startdate:this.model.get('start'),
-                                                                                                    height: this.height, 
-                                                                                                    width: this.width , 
+                                                                                                    height: this.height,
+                                                                                                    width: this.width ,
                                                                                                     scatter:useScatter,
-                                                                                                    lines:useLine, 
-                                                                                                    x_units:this.xunits, 
-                                                                                                    y_units:this.yunits, 
-                                                                                                    plotLayout:plotLayoutType })      
+                                                                                                    lines:useLine,
+                                                                                                    x_units:this.xunits,
+                                                                                                    y_units:this.yunits,
+                                                                                                    plotLayout:plotLayoutType })
       //this.fetch();
     }
   },
@@ -315,10 +315,10 @@ var SVGPlotView = SVGView.extend({
     var self = this
     var dpa_flag = "0";
     $.each(var_list, function( index, value ) {
-      var func_type = self.model.get('variables_shape')[value]    
+      var func_type = self.model.get('variables_shape')[value]
       if (func_type == "function"){
-        dpa_flag = "1"        
-      }      
+        dpa_flag = "1"
+      }
     });
     return dpa_flag
   },
@@ -326,40 +326,40 @@ var SVGPlotView = SVGView.extend({
     //requested plot
     console.log("plot...")
     if(!plotParameters.validateMultiPlot(options)) return false;
-    this.reference_designator = this.model.get('reference_designator') + "," +options.secRef    
-    this.stream_name = this.model.get('stream_name') + "," +options.secStream  
-    //options.yvar = this.model.get('yvariable')  
+    this.reference_designator = this.model.get('reference_designator') + "," +options.secRef
+    this.stream_name = this.model.get('stream_name') + "," +options.secStream
+    //options.yvar = this.model.get('yvariable')
     if('xvar' in options){
     }else{
       options.xvar = ["time"]
-    } 
+    }
 
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
 
-    if(options && options.yvar && options.xvar) {            
+    if(options && options.yvar && options.xvar) {
         this.yvariable = options.yvar+","+options.yvar2
         this.xvariable = options.xvar;
         this.dpa_flag = true;
     }
     if(this.yvariable != null && this.xvariable != null) {
       this.useLine = options.useLine.toString();
-      this.useScatter = options.useScatter.toString();  
-      this.useEvent = options.useEvent.toString();      
+      this.useScatter = options.useScatter.toString();
+      this.useEvent = options.useEvent.toString();
       this.plotType = options.plotType;
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.yvariable , 
-                                                                                                    xvar: this.xvariable, 
-                                                                                                    height: this.height, 
+                                                                                                    yvar: this.yvariable ,
+                                                                                                    xvar: this.xvariable,
+                                                                                                    height: this.height,
                                                                                                     width: this.width,
                                                                                                     scatter:this.useScatter,
                                                                                                     lines:this.useLine,
-                                                                                                    event:this.useEvent, 
+                                                                                                    event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
-                                                                                                    startdate:this.st,                                                                                                    
+                                                                                                    startdate:this.st,
                                                                                                     enddate:this.ed})
       this.fetch();
     }
@@ -369,7 +369,7 @@ var SVGPlotView = SVGView.extend({
     var self = this;
     console.log("plot...")
 
-    this.reference_designator = this.model.get('reference_designator')    
+    this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     options.yvar = this.model.get('yvariable')
     console.log(this.model);
@@ -378,7 +378,7 @@ var SVGPlotView = SVGView.extend({
       options.xvar = ["time"]
     }else{
       options.xvar = ["time"]
-    } 
+    }
 
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
@@ -399,72 +399,72 @@ var SVGPlotView = SVGView.extend({
           }else{
             not_list.push(value)
             x_units = self.model.get('units')[not_list[0]]
-          }          
+          }
         });
 
-        this.yvariable = not_list.join();  
-        this.dpa_flag = "1"     //this.getDpaFlag(options.xvar)  
+        this.yvariable = not_list.join();
+        this.dpa_flag = "1"     //this.getDpaFlag(options.xvar)
       }else{
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
-        this.dpa_flag = this.getDpaFlag(options.yvar)  
+        this.dpa_flag = this.getDpaFlag(options.yvar)
       }
     }
     if(this.yvariable != null && this.xvariable != null && !plotParameters.invalidParam()) {
       this.useLine = options.useLine.toString();
-      this.useScatter = options.useScatter.toString();  
-      this.useEvent = options.useEvent.toString();      
+      this.useScatter = options.useScatter.toString();
+      this.useEvent = options.useEvent.toString();
       this.plotType = options.plotType;
       this.st = moment(options.start_date).toISOString()
-      this.ed = moment(options.end_date).toISOString()      
+      this.ed = moment(options.end_date).toISOString()
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
                                                                                                     y_units:y_units,
                                                                                                     dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.yvariable , 
-                                                                                                    xvar: this.xvariable, 
-                                                                                                    height: this.height, 
+                                                                                                    yvar: this.yvariable ,
+                                                                                                    xvar: this.xvariable,
+                                                                                                    height: this.height,
                                                                                                     width: this.width,
                                                                                                     scatter:this.useScatter,
                                                                                                     lines:this.useLine,
-                                                                                                    event:this.useEvent, 
+                                                                                                    event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
-                                                                                                    startdate:this.st,                                                                                                    
+                                                                                                    startdate:this.st,
                                                                                                     enddate:this.ed})
       this.fetch();
     }else{
-      if (options.plotType == 'depthprofile'){ 
+      if (options.plotType == 'depthprofile'){
         $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Depth profile requires "pressure" selection</div>')
       }
     }
   },
-  download: function(options) {    
-    this.reference_designator = this.model.get('reference_designator')    
+  download: function(options) {
+    this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     var yvar = this.yvariable
     var xvar = this.xvariable
     if('xvar'){
     }else{
       xvar = ["time"]
-    } 
+    }
 
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
 
-    if(this.yvariable != null && this.xvariable != null) {            
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png', 
+    if(this.yvariable != null && this.xvariable != null) {
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: 'png',
                                                                                                     dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.yvariable , 
-                                                                                                    xvar: this.xvariable, 
-                                                                                                    height: this.height, 
+                                                                                                    yvar: this.yvariable ,
+                                                                                                    xvar: this.xvariable,
+                                                                                                    height: this.height,
                                                                                                     width: this.width,
                                                                                                     scatter:this.useScatter,
                                                                                                     lines:this.useLine,
-                                                                                                    event:this.useEvent, 
+                                                                                                    event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
-                                                                                                    startdate:this.st,                                                                                                    
+                                                                                                    startdate:this.st,
                                                                                                     enddate:this.ed})
-      //window.open(this.url, '_blank');      
+      //window.open(this.url, '_blank');
 
       var a = $("<a>")
           .attr("href", this.url)
@@ -483,7 +483,7 @@ var SVGPlotView = SVGView.extend({
      * Hovers
      */
     this.$el.find('#PathCollection_1 > g > use')
-    .mouseenter(function(e) {      
+    .mouseenter(function(e) {
       self.$el.find(e.target).css('fill', '#0000ff');
     }).mouseleave(function(e) {
       self.$el.find(e.target).css('fill', '#fc8d62');
@@ -499,32 +499,32 @@ var SVGPlotView = SVGView.extend({
 var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
-    'change #xvar-select' : 'xVarChange', 
+    'change #xvar-select' : 'xVarChange',
     /*
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
     'dp.change #end-date' : 'onClickPlot'
     */
   },
-  initialize: function() { 
-    
+  initialize: function() {
+
   },
   setModel: function(model,updateTimes) {
     var self = this;
     this.model = model;
-    this.data = null;    
+    this.data = null;
     /*
     this.model.getData({
       success: function(data, textStatus, jqXHR) {
         self.data = data.data;
-        self.trigger('dataFetch', self.data);       
+        self.trigger('dataFetch', self.data);
       }
     });
     */
     this.render(updateTimes);
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
-  xVarChange: function(e) {    
+  xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();
 
     if (plotType=="Time Series"){
@@ -542,9 +542,9 @@ var SVGPlotControlView = Backbone.View.extend({
     }
 
   },
-  onClickPlot: function(e) {    
+  onClickPlot: function(e) {
     var data = {};
-    
+
     data.start_date = this.$start_date_picker.getDate();
     data.end_date = this.$end_date_picker.getDate();
     data.xvar = this.$el.find('#xvar-select').val();
@@ -577,17 +577,17 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
       this.$el.find('[data-toggle="tooltip"]').tooltip()
-    
+
       this.$start_date = this.$el.find('#start-date');
       this.$end_date = this.$el.find('#end-date');
-    
-    
+
+
       this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
                                        maxDate: moment(this.model.get('end'))
                                        });
       this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
                                      minDate: moment(this.model.get('start'))
-                                    }); 
+                                    });
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
       this.$end_date_picker = this.$end_date.data('DateTimePicker');
@@ -595,7 +595,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$type_select = this.$el.find('#type-select');
 
-    
+
     var xvar = "time"
     var variables = this.model.get('variable_types');
     this.variable = null;
@@ -608,6 +608,6 @@ var SVGPlotControlView = Backbone.View.extend({
 
     this.$el.find('#xvar-select').selectpicker('val', xvar);
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
-    
+
   }
 });
