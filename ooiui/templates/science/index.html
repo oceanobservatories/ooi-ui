@@ -94,7 +94,10 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     var acFetch = arrayCollection.fetch({ reset: true });
     $.when(acFetch).done(function() {
-        renderTOCView( arrayCollection, assetCollection );
+        var assetFetch = assetCollection.fetch({ reset: true });
+        $.when(assetFetch).done(function() {
+            renderTOCView( arrayCollection, assetCollection );
+        });
     });
 
     if(!this.login.loggedIn()) {
