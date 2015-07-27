@@ -111,6 +111,12 @@ span.filter-option.pull-left {
 	background: transparent;
 }
 
+/***********************
+****** Tool Tips *******
+***********************/
+li#xVarTooltip {
+  z-index: 1000;
+}
 .div-qa-qc{
   position:absolute;
   width:900px;
