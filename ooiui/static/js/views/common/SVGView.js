@@ -201,9 +201,9 @@ var plotParameters ={
 
     },
   getQAQC:function(){
-      if($(".div-qa-qc").css("display")=="none") return {0:0}
-      if($('.div-qa-qc input:checked').val()=='undefined')return {0:0}
-      return {1:$('.div-qa-qc input:checked').val()}
+      if($(".div-qa-qc").css("display")=="none") return 0
+      if($('.div-qa-qc input:checked').val()=='undefined')return 0
+      return parseInt($('.div-qa-qc input:checked').val().toString())
   },
   depthprofile:['pressure','temperature',],
   ts_diagram: ['temperature','salinity'],
