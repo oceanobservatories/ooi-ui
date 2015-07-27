@@ -200,16 +200,20 @@ var plotParameters ={
     return  _this._selectedX.valid;
 
     },
-
+  getQAQC:function(){
+      if($(".div-qa-qc").css("display")=="none") return {0:0}
+      if($('.div-qa-qc input:checked').val()=='undefined')return {0:0}
+      return {1:$('.div-qa-qc input:checked').val()}
+  },
   depthprofile:['pressure','temperature',],
   ts_diagram: ['temperature','salinity'],
   quiver:['pressure','temperature'],
   scatter:['temperature','salinity','pressure', 'conductivity'],
   rose:['temperature','salinity','pressure', 'conductivity','heading','pitch','roll','velocity','scale','vel']
+
+
 };
 //-----------------
-
-
 
 
 var SVGView = Backbone.View.extend({
@@ -360,7 +364,8 @@ var SVGPlotView = SVGView.extend({
                                                                                                     event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
                                                                                                     startdate:this.st,
-                                                                                                    enddate:this.ed})
+                                                                                                    enddate:this.ed,
+                                                                                                    qaqc:plotParameters.getQAQC()})
       this.fetch();
     }
   },
@@ -368,7 +373,6 @@ var SVGPlotView = SVGView.extend({
     //requested plot
     var self = this;
     console.log("plot...")
-
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     options.yvar = this.model.get('yvariable')
@@ -430,8 +434,8 @@ var SVGPlotView = SVGView.extend({
                                                                                                     event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
                                                                                                     startdate:this.st,
-                                                                                                    enddate:this.ed})
-      this.fetch();
+                                                                                                    enddate:this.ed,
+                                                                                                    qaqc:plotParameters.getQAQC()})
     }else{
       if (options.plotType == 'depthprofile'){
         $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Depth profile requires "pressure" selection</div>')
@@ -463,7 +467,8 @@ var SVGPlotView = SVGView.extend({
                                                                                                     event:this.useEvent,
                                                                                                     plotLayout:this.plotType,
                                                                                                     startdate:this.st,
-                                                                                                    enddate:this.ed})
+                                                                                                    enddate:this.ed,
+                                                                                                    qaqc:plotParameters.getQAQC()})
       //window.open(this.url, '_blank');
 
       var a = $("<a>")
@@ -500,6 +505,8 @@ var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
     'change #xvar-select' : 'xVarChange',
+    'switchChange.bootstrapSwitch .bootstrap-switch' : 'onSwitchChange',
+    'change .div-qa-qc input[type=checkbox]':'onCheckChange'
     /*
     "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
     'dp.change #start-date' : 'onClickPlot',
@@ -507,8 +514,20 @@ var SVGPlotControlView = Backbone.View.extend({
     */
   },
   initialize: function() {
+    //_.bindAll(this,"onSwitchChange");
+  },
+  onSwitchChange: function(e,state){
+    $(".div-qa-qc").css("display",state?"block":"none")
+  },
+
+  //set ony 1 checkbox
+  onCheckChange:function(v){
+      if (v.currentTarget.checked) {
+            $('.div-qa-qc input[type=checkbox]').not($(v.currentTarget)).prop('checked', false);
+        }
 
   },
+
   setModel: function(model,updateTimes) {
     var self = this;
     this.model = model;

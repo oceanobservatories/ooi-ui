@@ -111,3 +111,8 @@ span.filter-option.pull-left {
 	background: transparent;
 }
 
+.div-qa-qc{
+  position:absolute;
+  width:900px;
+  top:-35px
+}
