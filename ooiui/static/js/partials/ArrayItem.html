@@ -1,14 +1,15 @@
-<div class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#array_<%= model.get('array_code')%>" aria-expanded="true" aria-controls="collapseOne">
+<div class=" btn panel-heading collapsed col-md-12" style="text-align:left;"  role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#array_<%= array_code %>" aria-expanded="true" aria-controls="collapseOne">
   <h4 class="panel-title">
     <a>
-      <%= model.get('display_name')%>
-      <i class="fa fa-info-circle" data-toggle="tooltip" title="<%= model.get('description')%>" data-placement="right">
+        <%= display_name %>
+      <i class="fa fa-info-circle" data-toggle="tooltip" title="<%= description %>" data-placement="right">
       </i>
     </a>
-    <span id="array_<%= model.get('array_code')%>_badge" class="badge pull-right">0</span>
+    <span id="array_<%= array_code %>_badge" class="badge pull-right">0</span>
   </h4>
 </div>
-<div id="array_<%= model.get('array_code')%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-  <div id="array_<%= model.get('array_code')%>_body" class="panel-body">    
+<div id="array_<%= array_code %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+  <div id="array_<%= array_code %>_body" class="panel-body">
+      <ul><ul>
   </div>
 </div>

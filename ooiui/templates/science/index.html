@@ -15,9 +15,11 @@
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
   <script src="/lib/leaflet.wms/leaflet.wms.js" type="text/javascript"></script>
-{% endblock %}
- 
+  {% endblock %}
+
+
 {% block body %}
 
 <!--/.TOP BAR END -->
@@ -26,190 +28,108 @@
 </div>
 
 <div id="wrapper">
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-  </div>
-  <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="sidebar-wrapper" class="btn-sidebar">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                        <!-- TODO: Clean this up -->
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
+                            <div class="input-group-btn">
+                                <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
+                            </div>
+                            <div id="search-submit" class="input-group-btn">
+                                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
+                            <div class="pull-right">
+                                <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div> <!-- panel-heading -->
+                        <div class="panel-body">
+                            <div class="map-view" id='map'></div>
+                        </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+                </div> <!-- col-lg-12 -->
+            </div> <!-- row -->
+        </div> <!-- container-fluid -->
+    </div> <!-- page-content-wrapper -->
+</div><!-- page-wrapper -->
+<!-- /#wrapper -->
 
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="panel">
-        <!--    <div class="panel-heading">
-              <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
-              <div class="pull-right">
-                <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
-              </div>
-            </div>  panel-heading -->
-            <div class="panel-body">
-              <div class="map-view" id='map'></div>
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-lg-12 -->
-      </div> <!-- row -->
-      <div id='plot-row' class="row" style="display:none;">
-        <div class="col-lg-12">
-          <div class="panel">
-            <div class="panel-heading">
-              <i class="fa fa-bar-chart-o"> Graph</i>
-            </div> <!-- panel-heading -->
-            <div class="panel-body">
-              <div id="plot-view">
-                <i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-              </div> <!-- #view -->
-              <div id="plotcontrols">
-              </div>
-            </div>
-          </div> <!-- panel -->
-        </div> <!-- col-lg-4 -->        
-      </div> <!-- row -->
-    </div> <!-- container-fluid -->
-  </div> <!-- page-content-wrapper -->
-</div>
-
-
-
-  <!-- /#wrapper -->
-
-<!-- Menu Toggle Script -->
 <script type="text/javascript">
 
 var bannerTitle = "Science Map";
 
 _.extend(OOI.prototype, Backbone.Events, {
-  login: new LoginModel(),
-  models: {
-  mapModel: new MapModel()
-  },
-  collections: {
-    arrays: null,
-    platform_deployments: null,    
-  },
-  views: {
-    tocView: null
-  },
-  start: function() {
-    var self = this;
-    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
-    //--------------------------------------------------------------------------------
-    // Views
-    //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle});
-    $('body').prepend(this.views.banner.el);
-    
-    this.views.navbar = new NavbarView({
-        el: $('#navbar')
-    });
-    
-    this.views.mapModel = new MapModel();    
-    this.collections.platform_deployments = new PlatformDeploymentCollection();
-    this.collections.toc = new TocCollection();
-    this.collections.arrays = new ArrayCollection();
-
-    // It allows me access(via ooi{}) models, collections or views inside one another  
-    // e.g. I call ooi.mapModel inside the TocView and MapView to access the change in attributes
-    this.views.tocView = new TOCView({
-      arrayCollection: this.collections.arrays,
-      collection: this.collections.toc,
-      el: $('#sidebar-wrapper')
-    });
-   
-    this.views.svgPlotControlView = new SVGPlotControlView({
-      el: $('#plotcontrols')
-    });
-    
-    this.views.mapView = new MapView({
-      collection: this.collections.platform_deployments,
-      el: $('#map')
+    login: new LoginModel(),
+    models: {
+        userModel: new UserModel(),
+        mapModel: new MapModel()
+    },
+    start: function() {
+        this.login.fetch({async:false});
+        navbar = new NavbarView({
+        login: this.login
     });
 
-    var divwidth = $('#plot-panel').width();
-    //console.log(divwidth);
-    this.views.svgplot = new SVGPlotView({
-      height: 350,
-      width: divwidth - 20,
-      el: $('#plot-view')
+    var banner = new BannerView({ bannerTitle:bannerTitle });
+    $('body').prepend(banner.el);
+
+    // render out our views:
+    var mapView = new MapView({
+        collection:assetCollection,
+        el: $('#map')
     });
-    
-    
+
+    var acFetch = arrayCollection.fetch({ reset: true });
+    $.when(acFetch).done(function() {
+        renderTOCView( arrayCollection, assetCollection );
+    });
+
     if(!this.login.loggedIn()) {
-      this.termsView = new TermsDialogView();
-      $('body').first().prepend(this.termsView.el);
+      var termsView = new TermsDialogView();
+      $('body').first().prepend(termsView.el);
       $.ajax({
         url: "/txt/eula.txt",
         type: "GET",
         success: function(response) {
-          self.termsView.show({
+          termsView.show({
             message: response,
-            ack: function() { console.log("Closed"); }
+            ack: function() {  }
           });
         }
       });
     }
 
-
-    //--------------------------------------------------------------------------------
-    //FETCHING
-    //--------------------------------------------------------------------------------
-    var platformDeploymentsFetch = this.collections.platform_deployments.fetch({reset: true});
-    //this.collections.stream_collection.fetch({reset: true});
-    var tocFetch = this.collections.toc.fetch({reset: true});    
-    var arraysFetch = this.collections.arrays.fetch({reset: true});
-
-    //--------------------------------------------------------------------------------
-    //LISTENERS
-    //--------------------------------------------------------------------------------
-
-    $.when(tocFetch,arraysFetch).done(function(){
-      console.log("child updated...")
-      self.views.tocView.collection = self.collections.toc;
-      self.views.tocView.arrayCollection = self.collections.arrays;
-      self.views.tocView.render();
-    });
-
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "InstrumentItemView:instrumentSelect", function(model) {    
-      /*
-      console.log(model)
-      $('#map').height(328);
-      $('#plot-row').show();
-      
-      
-      if (model && 'attributes' in model && 'coordinates' in model.attributes){
-        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-      } 
-      */     
-      
-      /* 
-      self.collections.stream_collection.each(function(streamModel) {
-        if (streamModel.get('reference_designator') == model.get('ref_des')){
-          console.log(streamModel.get('reference_designator'),model.get('ref_des'))
-           self.views.svgPlotControlView.setModel(streamModel);
-          self.views.svgplot.setModel(streamModel);
-        }
-      });
-      */
-      /*
-      self.views.svgPlotControlView.setModel(model);
-      self.views.svgplot.setModel(model);
-      self.views.mapView.setMapView(); // recenters
-      self.views.mapView.render();
-      */
-    });
 
-    this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {            
+    this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {
       if ('coordinates' in model.attributes){
         self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
       }
     });
 
-    this.listenTo(this, "arrayItemView:arraySelect", function(model) {  
-      var coors = model.get('geo_location')['coordinates'][0][0]      
-      self.views.mapView.setMapView(coors,4); // recenters
-    });   
+    this.listenTo(this, "toc:selectArray", function(model) {
+      var coors = model.get('geo_location')['coordinates'][0][0]
+      mapView.setMapView(coors,4); // recenters
+    });
+
+    this.listenTo(this, "toc:selectItem", function(model) {
+      var coors = model.get('coordinates');
+      mapView.setMapView(coors,100); // recenters
+    });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       self.views.svgplot.plot(options);
@@ -223,20 +143,73 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.trigger('ooi:mapExpand');
-    
   }
 });
+
+var vent = _.extend({}, Backbone.Events);
+
+// controller for our model collections
+var assetCollection     = new AssetCollection();
+var arrayCollection     = new ArrayCollection();
+
+
+function renderTOCView( container, contents ) {
+    var tocView = new TOCView({
+        arrayCollection: container,
+        assetCollection: contents
+    });
+    tocView.render();
+
+    $('#sidebar-wrapper').append( tocView.el );
+
+    tocView.renderItems();
+}
+
+function showSearchResults( collection ) {
+    vent.trigger('toc:derenderItems');
+
+    var searchResultView = new SearchResultView({ collection:collection });
+    searchResultView.render();
+
+    $('#assetBrowser').remove();
+
+    $('#sidebar-wrapper').append(searchResultView.el);
+}
+
+function updateCollection( assetCallback ){
+    var data = {
+        search : $('#search-filter').val()
+    };
+    assetCollection.fetch({
+        data : data,
+        success : assetCallback,
+    });
+
+}
+// initialize our app object
 var ooi = new OOI();
 
 $(document).ready(function() {
-    //$('#plot-row').hide();
-    $('#map').height($(window).height() - 150);
-    $('#map-expand').click(function(event) {
-      event.preventDefault();
-      ooi.trigger('ooi:mapExpand');
-    });
-    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     ooi.start();
+    $('#navbar').prepend(navbar.el);
+    $('#map').height($(window).height() - 150);
+    $('#search-clear').hide();
+    $('#search-clear').click(function(){
+        $('#search-filter').val('').focus();
+        $(this).hide();
+        vent.trigger('toc:derenderItems');
+
+        var assetFetch = assetCollection.fetch();
+        $.when(assetFetch).done(function() {
+            renderTOCView( arrayCollection, assetCollection );
+        });
+    });
+    $('#search-submit').click(function(e) {
+        $('#search-clear').toggle(Boolean($(this).val()));
+        $('#search-clear').toggle(Boolean($('#search-filter').val()));
+
+        updateCollection( showSearchResults );
+    });
 });
 </script>
 {% endblock %}
