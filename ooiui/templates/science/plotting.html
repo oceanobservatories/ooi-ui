@@ -1,4 +1,3 @@
-
 {% extends "common/base.html" %}
 
 {% block title %}
@@ -13,67 +12,56 @@
   <!-- lunr needs to be imported by a script tag -->
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
-
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
 
 <div id="wrapper" class="btn-wrapper">
   <div id="sidebar-wrapper" class="btn-sidebar" style="overflow:visible;">
-   <ul class="nav sidebar-nav navbar-collapse">
+    <ul class="nav sidebar-nav navbar-collapse">
+      <div class="col-sm-12">
         <div class="col-sm-12">
-            {# <div class="panel-heading"> #}
-            {#   <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Item Selection</span>#}
-            {# </div> #}
-	      {# buttons #}
-	      <div class="col-sm-12">
-		<div class="row">
-		  <div class="col-sm-12">
-		<div id="plot-btn-group" class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
-                  <button id="enableSecondView" type="button" class="btn btn-default plot-btn">
-                    <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
-		    <span style="padding-left:4px;">Add</span>
-                  </button>
-                  <button id="disableSecondView" type="button" class="btn btn-default plot-btn">
-                    <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
-		    <span style="padding-left:4px;">Delete</span>
-
-                  </button>
-                  <button id="shareStationLink" type="button" class="btn btn-default plot-btn">
-                    <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-		    <span style="padding-left:4px;">Copy</span>
-                  </button>
-                </div>
-	      </div>
-
-          <div class="col-sm-12" style="padding-right:1px;">
-            <div id="plot-item-selection">
-              <i class="fa fa-spinner fa-spin" style="margin-left:20%;font-size:90px;"> </i>
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="plot-btn-group" class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
+                <button id="enableSecondView" type="button" class="btn btn-default plot-btn">
+                  <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
+                  <span style="padding-left:4px;">Add</span>
+                </button>
+                <button id="disableSecondView" type="button" class="btn btn-default plot-btn">
+                  <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
+                  <span style="padding-left:4px;">Delete</span>
+                </button>
+                <button id="shareStationLink" type="button" class="btn btn-default plot-btn">
+                  <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                  <span style="padding-left:4px;">Copy</span>
+                </button>
+              </div>
             </div>
-            </br>
-            <div id="plot-item-selection2" style="display: none;">
+            <div class="col-sm-12" style="padding-right:1px;">
+              <div id="plot-item-selection">
+                <i class="fa fa-spinner fa-spin" style="margin-left:20%;font-size:90px;"> </i>
+              </div>
+              </br>
+              <div id="plot-item-selection2" style="display: none;">
+              </div>
             </div>
           </div>
         </div>
-          </div>
-        </div>
-   </ul>
+      </div>
+    </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
     <div class="content-fluid">
-
-
-    <!--  Plot section of the page   -->
+      
+      <!--  Plot section of the page   -->
       <div id='bottom-row' class="row">
-      {# <div id='bottom-row' class="row"> #}
         <div class="col-sm-12">
           <div class="panel">
-            {# <div class="panel-heading"> #}
             <div class="new-heading">
               Graph
             </div>
@@ -149,11 +137,13 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
     annotations: new AnnotationCollection(),
+    
     //TOC items
     tocArrays: new TocArrayCollection(),
     tocMoorings: new TocMooringsCollection(),
     tocPlatforms: new TocPlatformsCollection(),    
     tocInstruments: new TocInstrumentsCollection(),
+    plotEventList: new PlotEventsCollection(),
   },
   views: {
     plottingItemSelection : null,
@@ -204,17 +194,15 @@ _.extend(OOI.prototype, Backbone.Events, {
         if(!validItem){
           return false;
         }
-
       });
-
     }
   },
+
   start: function() {
     var self = this;
-
     this.multiStation = false;
-
     this.login.fetch({async: false});
+
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
@@ -322,7 +310,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
-      //self.views.svgPlotControlView.setModel(options.model,true);      
+      self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
     //filter seection : listen to the selection of the parameter
@@ -387,6 +375,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgplot.plot(options);
       }
     });
+    
+    this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
+      self.views.plotEventListView.collection = collection;
+      self.views.plotEventListView.render();
+    });
 
     this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
       var annotation = new AnnotationModel();
@@ -430,27 +423,23 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'DownloadModal:onHide',function(){
-        self.views.modalDownloadView.show();
+      self.views.modalDownloadView.show();
     });
 
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
-        self.views.modalDownloadFailView.show();
-    });
-
-}
+      self.views.modalDownloadFailView.show();
+    })
+  }
 });
 
 var ooi = new OOI();
 
 $(document).ready(function() {
   //hide the toc
-  $('body').find('#hideTOC').hide()   
+  $('body').find('#hideTOC').hide()
+    
+    ooi.start();
   
-  //dont hide annotations  
-  //$('#annotation-panel').hide();    
-
-  ooi.start();
-
   $('#download-plot').click(function(event) {
     event.preventDefault();
     ooi.trigger('ooi:downloadPlot');
@@ -472,11 +461,9 @@ $(document).ready(function() {
 });
 
 function jump(h){
-    var url = location.href;               //Save down the URL without hash.
-    location.href = "#"+h;                 //Go to the target element.
-    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+  var url = location.href;               //Save down the URL without hash.
+  location.href = "#"+h;                 //Go to the target element.
+  history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
 }
-
 </script>
-
 {% endblock %}
