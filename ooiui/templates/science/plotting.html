@@ -75,8 +75,8 @@
           <div class="panel">
             {# <div class="panel-heading"> #}
             <div class="new-heading">
-		Graph
-	    </div>
+              Graph
+            </div>
               <div class="pull-right" style="margin-bottom:-5px">
                   <ul role="menu" aria-labelledby="dropdownMenu1">
                     <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>
@@ -102,40 +102,40 @@
           <div id='plot-events-panel' class="panel">
 
             <div class="new-heading">
-	      Events
-          </div> <!-- panel-heading -->
+              Events
+            </div> <!-- panel-heading -->
 
             <div class="panel-body">
               <div id="events-table">
-               {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-		{# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
-		<img src="/img/plotting/events.png" style="width:100%;">
-	      </div> <!-- panel-table -->
+                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+               {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
+               <img src="/img/plotting/events.png" style="width:100%;">
+              </div> <!-- panel-table -->
             </div> <!-- panel-body -->
-        </div> <!-- panel -->
-      </div> <!-- col-sm-12 -->
+          </div> <!-- panel -->
+        </div> <!-- col-sm-12 -->
       </div>
-
+      
       <div class="row">
         <div class="col-sm-12">
           <div id='annotation-panel' class="panel">
-	    <div class="new-heading">
+            <div class="new-heading">
               Annotations
             </div>
             <div class="panel-body">
               <div id="annotation-table">
-               {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-		<img src="/img/plotting/anotations.png" style="width:100%;">
+                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                <img src="/img/plotting/anotations.png" style="width:100%;">
               </div> <!-- annotation-table -->
             </div> <!-- panel-body -->
           </div> <!-- panel -->
-	</div>  <!-- col-sm-12 -->
+        </div> <!-- col-sm-12 -->
       </div>  <!-- .row -->
 
-    <div id="annotation-modal"></div>
-    <div id="stream-download-modal"></div>
-    <div id='download-ok-modal'></div>
-    <div id='download-fail-modal'></div>
+      <div id="annotation-modal"></div>
+      <div id="stream-download-modal"></div>
+      <div id='download-ok-modal'></div>
+      <div id='download-fail-modal'></div>
     </div> <!-- #content-fluid -->
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
@@ -143,7 +143,6 @@
 
 <script type="text/javascript">
 var bannerTitle = "Plotting";
-
 var userId = parseInt(window.location.href.split('/').pop());
 
 _.extend(OOI.prototype, Backbone.Events, {
@@ -229,10 +228,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
-    {#  #}
-    {# this.views.navbar = new NavbarView(); #}
-    {# $('body').prepend(this.views.navbar.el); #}
-    {# this.views.navbar.sidebarToggle(); #}
 
     this.views.svgplot = new SVGPlotView({
       height: 400,
@@ -269,7 +264,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.modalDownloadFailView = new ModalDownloadFailView({
       el: $('#download-fail-modal')
       });
-    
+    this.views.plotEventListView = new PlotEventListView({
+        el: $('#events-table')
+    });
+
     //ALL THE TOC COLLECTIONS
     var TocCollections = [self.collections.tocArrays, 
                           self.collections.tocMoorings,
@@ -324,14 +322,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     //filter seection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
-      //self.views.svgPlotControlView.setModel(options.model);      
+      //self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
     //filter seection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {          
-      if (options.itemid == "plot-item-selection" ){      
-        
-        self.views.svgPlotControlView.setModel(options.model);                
+    this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
+
+      self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
+      
+      if (options.itemid == "plot-item-selection" ){
+        options.model.set('units',options.data_units)
+        self.views.svgPlotControlView.setModel(options.model,false);                
         self.views.svgplot.setModel(options.model);
         
 
@@ -340,8 +341,6 @@ _.extend(OOI.prototype, Backbone.Events, {
           data: $.param({stream_name: options.model.get('stream_name')}),
           reset: true
         });
-
-      }else{
 
       }
     });
