@@ -138,9 +138,11 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   csrf_token: csrf_token,
   initViews: function() {
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
-    $('body').find('#hideTOC').hide()
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+    this.views.navbar.sidebarToggle();
+    $('body').find('#hideTOC').hide();
 
     this.views.signupview = new SignUpForm({
         el: 'form',
