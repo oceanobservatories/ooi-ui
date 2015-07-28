@@ -1,7 +1,12 @@
 <!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
+<!-- <div class="row"> -->
+<!-- 	<label> <%= labelText %> -->
+<!-- 	</label>	 -->
+<!-- </div>	 -->
+<select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
 
-	<select data-width="70%" title="<%= labelText %>" data-hide-disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >
-		<optgroup label="<%= labelText %>" style="text-transform: capitalize;">	
+	<!-- <select data&#45;width="70%" title="<%= labelText %>" data&#45;hide&#45;disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc&#45;plotting&#45;text" data&#45;live&#45;search="true" multiple data&#45;max&#45;options="<%=numberSelectable%>" > -->
+		<!-- <optgroup label="<%= labelText %>" style="text&#45;transform: capitalize;">	 -->
   	  <!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
@@ -13,10 +18,10 @@
 				</option>
 		    	<% } %> 
 			<% }); %>
-		</optgroup>
+		<!-- </optgroup> -->
 
 		<!-- MOORING -->	
-		<% } else if(labelText == "sites") { %>
+		<% } else if(labelText == "moorings") { %>
 			<% collection.each(function(model) { %>		
 			    <% if (model.get('display_name') != null) { %>			    			    	
 			    	<option data-subtext="<%=model.get('reference_designator')%>"
@@ -34,7 +39,7 @@
 		    	<% if (model.get('display_name') != null ) { %>		    	
 			    	
 			    	<option data-subtext="<%=model.get('platform_code')%>"
-			    			sites-code="<%=model.get('mooring_code')%>" 
+			    			moorings-code="<%=model.get('mooring_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
 			    			platforms-code="<%=model.get('platform_code')%>" 
 			    			value="<%=model.get('platform_code')%>">
@@ -50,7 +55,7 @@
 			    	<option data-subtext="<%=model.get('platform_code')%>"
 			    			instruments-code="<%=model.get('instrument_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
-			    			sites-code="<%=model.get('mooring_code')%>" 
+			    			moorings-code="<%=model.get('mooring_code')%>" 
 			    			platforms-code="<%=model.get('platform_code')%>"
 			    			value="<%=model.get('reference_designator')%>">
 			    		<%= model.get('display_name') %>
