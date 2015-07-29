@@ -152,6 +152,7 @@ var pagination = {
 
 $(document).ready(function() {
   ooi.start();
+        populate();
 
 
     $('body').prepend(banner.el);
@@ -235,6 +236,20 @@ function renderAssetAttachmentsTable(model) {
     $('#assetAttachmentsTable').children().remove();
     //attach the new one!
     $('#assetAttachmentsTable').append( assetAttachmentsTableView.el );
+}
+
+function populate() {
+  {# var newURL = window.location.href; #}
+  {# var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1); #}
+
+  // get url
+  var newURL = window.location.href;
+  // remove the preceding '?' from index
+  newURL = newURL.split('#').pop().split('?').pop();
+  // get last index of url
+  var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);
+  console.log(assetLink);
+  document.getElementById("asset-search").value = assetLink;
 }
 
 function updateCollection( successCallback ){
