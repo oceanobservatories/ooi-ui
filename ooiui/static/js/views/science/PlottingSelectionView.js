@@ -240,8 +240,8 @@ var PlottingSelectionView = Backbone.View.extend({
 
         //if we selected a platform the subsequent items need to have their mooring checked, at platform is not unique
         if (currentItem == "platforms"){          
-          var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("moorings-code"); 
-          var plotfilterVal = $(selected).not("[disabled]").attr(currentItem+"-code") + $(selected).not("[disabled]").attr("moorings-code")
+          var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("sites-code"); 
+          var plotfilterVal = $(selected).not("[disabled]").attr(currentItem+"-code") + $(selected).not("[disabled]").attr("sites-code")
 
           if (plotfilterVal == platchildCode){                              
             $( this ).text(childValue)
