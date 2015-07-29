@@ -66,6 +66,11 @@ var AssetsTableRowView = ParentAssetView.extend({
      * - renderSubViews()
      */
     tagName: 'tr',
+    attributes: function(){
+        return {
+            'style': 'cursor:pointer'
+        }
+    },
     template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
     initialize: function() {
         _.bindAll(this, 'renderSubViews');
@@ -252,6 +257,9 @@ var AssetCreatorModalView = ParentAssetView.extend({
             "type": "java.lang.String"
         }];
 
+        var coordinates = [
+            this.$el.find('#assetLatitude').val(), this.$el.find('#assetLongitude').val()
+        ]
         // Create the new asset model that will be saved to the collection,
         // and posted to the server.
         var newAsset = new AssetModel({});
@@ -263,6 +271,9 @@ var AssetCreatorModalView = ParentAssetView.extend({
         newAsset.set('metaData', metaData);
         newAsset.set('classCode', this.$el.find('#assetClassCode').val());
         newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
+        newAsset.set('ref_des', this.$el.find('#assetRefDes').val());
+        newAsset.set('coordinates', coordinates);
+        newAsset.set('events', []);
         newAsset.save(null, {
             success: function(model, response){
                 vent.trigger('asset:changeCollection');
