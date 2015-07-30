@@ -20,7 +20,7 @@
 			<% }); %>
 		<!-- </optgroup> -->
 
-		<!-- SITES -->	
+		<!-- MOORING -->	
 		<% } else if(labelText == "sites") { %>
 			<% collection.each(function(model) { %>		
 			    <% if (model.get('display_name') != null) { %>			    			    	
@@ -33,15 +33,15 @@
 			    <% } %> 
 			<% }); %>  	
 
-		<!-- ASSEMBLIES -->	
-		<% } else if(labelText == "assemblies") { %>
+		<!-- PLATFORMS -->	
+		<% } else if(labelText == "platforms") { %>
 			<% collection.each(function(model) { %>		    
 		    	<% if (model.get('display_name') != null ) { %>		    	
 			    	
 			    	<option data-subtext="<%=model.get('platform_code')%>"
 			    			sites-code="<%=model.get('mooring_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
-			    			assemblies-code="<%=model.get('platform_code')%>" 
+			    			platforms-code="<%=model.get('platform_code')%>" 
 			    			value="<%=model.get('platform_code')%>">
 			    		<%= model.get('display_name') %>
 			    	</option>
@@ -56,7 +56,7 @@
 			    			instruments-code="<%=model.get('instrument_code')%>" 
 			    			filter="<%=model.get('display_name')%>" 
 			    			sites-code="<%=model.get('mooring_code')%>" 
-			    			assemblies-code="<%=model.get('platform_code')%>"
+			    			platforms-code="<%=model.get('platform_code')%>"
 			    			value="<%=model.get('reference_designator')%>">
 			    		<%= model.get('display_name') %>
 			    		<!--<span class="badge">(<%= model.get('instrument_parameters').length %>)</span>-->
