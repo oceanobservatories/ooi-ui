@@ -23,9 +23,9 @@ var PlottingSelectionView = Backbone.View.extend({
   },
   parentChild : {
                  "arrays":{"parent":null,"child":"sites"},
-                 "sites":{"parent":"arrays","child":"platforms"},    
-                 "platforms":{"parent":"sites","child":"instruments"},                                   
-                 "instruments":{"parent":"platforms","child":"streams"},
+                 "sites":{"parent":"arrays","child":"assemblies"},    
+                 "assemblies":{"parent":"sites","child":"instruments"},                                   
+                 "instruments":{"parent":"assemblies","child":"streams"},
                  "streams":{"parent":"streams","child":"instruments"},
                  "parameters":{"parent":"instruments","child":"parameters"}
                  },    
@@ -239,7 +239,7 @@ var PlottingSelectionView = Backbone.View.extend({
         var childCode = $( this ).attr(currentItem+"-code");  
 
         //if we selected a platform the subsequent items need to have their mooring checked, at platform is not unique
-        if (currentItem == "platforms"){          
+        if (currentItem == "assemblies"){          
           var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("sites-code"); 
           var plotfilterVal = $(selected).not("[disabled]").attr(currentItem+"-code") + $(selected).not("[disabled]").attr("sites-code")
 
