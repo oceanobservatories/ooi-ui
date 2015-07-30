@@ -156,7 +156,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   initalFilterOptions: function() {
     var path = window.location.pathname;
     var path = path.split("/").slice(2);
-    var dataContentArray = ["arrays","sites", "platforms","instruments","streams","parameters"];
+    var dataContentArray = ["arrays","sites", "assemblies","instruments","streams","parameters"];
 
     if (path.length == 1 && path[0] == ""){
       //no path information
@@ -269,7 +269,7 @@ _.extend(OOI.prototype, Backbone.Events, {
        //all ready and good to go...
        self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
                                                           "sites":self.collections.tocMoorings,   
-                                                          "platforms":self.collections.tocPlatforms,       
+                                                          "assemblies":self.collections.tocPlatforms,       
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
                                                           "parameters":self.collections.tocInstruments
@@ -278,7 +278,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
        self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
                                                           "sites":self.collections.tocMoorings, 
-                                                          "platforms":self.collections.tocPlatforms,           
+                                                          "assemblies":self.collections.tocPlatforms,           
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
                                                           "parameters":self.collections.tocInstruments
