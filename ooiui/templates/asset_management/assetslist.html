@@ -239,17 +239,21 @@ function renderAssetAttachmentsTable(model) {
 }
 
 function populate() {
-  {# var newURL = window.location.href; #}
-  {# var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1); #}
-
   // get url
   var newURL = window.location.href;
   // remove the preceding '?' from index
   newURL = newURL.split('#').pop().split('?').pop();
   // get last index of url
-  var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);
-  console.log(assetLink);
-  document.getElementById("asset-search").value = assetLink;
+  var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);  
+  // put last index in search box...
+  if(assetLink.length  >= 1) {
+    console.log(">>--URL-contains-assetLink-"+assetLink+"-->");
+    $('#asset-search').val(assetLink);
+    updateCollection( showAssets );
+  }
+  else {
+    console.log("<--URL-contains-no-assetLink--<<");
+  }
 }
 
 function updateCollection( successCallback ){
