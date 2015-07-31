@@ -64,7 +64,9 @@
 
     #page-content-wrapper {
         width: 100%;
-        padding: 15px;
+        padding: 0 20px 20px 20px;
+        width:: 100%;
+        z-index: 1000;
     }
 
     #wrapper.toggled #page-content-wrapper {
@@ -133,10 +135,6 @@
 
         #wrapper.toggled #sidebar-wrapper {
             width: 0;
-        }
-
-        #page-content-wrapper {
-            padding: 20px;
         }
 
         #wrapper.toggled #page-content-wrapper {

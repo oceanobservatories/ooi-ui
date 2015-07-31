@@ -4,7 +4,7 @@
 .navbar-fixed-top {
   top: 113px;
   border-width: 0 0 1px;
-  z-index: 100;
+  z-index: 1001;
   /*
    *   position: inherit;
   padding-right: 30px;
