@@ -72,7 +72,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle});
+    this.views.banner = new BannerView({bannerTitle: bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({
