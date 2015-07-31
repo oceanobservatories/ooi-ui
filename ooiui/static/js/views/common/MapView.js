@@ -174,14 +174,14 @@ var MapView = Backbone.View.extend({
     });
 
     var unique_res_des = _.uniq(res_des_list);
-    _.each(unique_res_des, function(platform_id) {
-
-      //get the stations
+    _.each(unique_res_des, function(platform_id) {           
+      
+      //get the stations 
       var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' })
 
       var lat_lons = []
 
-      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
         var platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'));
 
         //reset the event popup
@@ -211,17 +211,17 @@ var MapView = Backbone.View.extend({
           var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
         }else{
           var instrument_plot = ""
-        }
+        }    
 
         var eventContent = '<ul><h5>Deployment Event(s)</h5>';
         var popupContent = ""
         var hasDeploymentEvent = false;
 
         //loop through each to create the popup
-        _.each(platforms, function(platform_entry) {
+        _.each(platforms, function(platform_entry) {     
             lat_lons.push(platform_entry.get('coordinates'))
 
-            var events = platform_entry.get('events');
+            var events = platform_entry.get('events');        
              _.each(events, function(item) {
                 if (item['class'] == ".DeploymentEvent"){
 
@@ -236,62 +236,26 @@ var MapView = Backbone.View.extend({
 
                   hasDeploymentEvent = true;
 
-          if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){
-            var platformFeature = L.marker(platform.get('coordinates'));
-
-            var ref_des = platform.get('ref_des')
-            if (typeof(ref_des) != "undefined"){
-              var ref_des_split = ref_des.split("-")
-              //get the current location
-              if (!location.origin)
-                location.origin = location.protocol + "//" + location.host;
-
-              //get the parts
-              var array = ref_des.substring(0, 2);
-              var mooring = ref_des_split[0]
-              var platform_val = ref_des_split[1]
-              if (ref_des_split.length > 2){
-                var instrument = ref_des
-                var instrument_url = [array, mooring, platform_val , instrument].join("/");
-              }else{
-                var instrument_url = [array, mooring, platform_val].join("/");
-              }
-              var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
-            }else{
-              var instrument_plot = ""
-            }
-
-            var popupContent = '<p><strong>' + name + '</strong><br>' +
-                '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
-                'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
-                instrument_plot+
-                '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-                '<a href="/assets/list?' + platform.get('ref_des') + '">Asset Management</a></p>';
-            var events = platform.get('events');
-            popupContent += '<ul>';
-            _.each(events, function(item) {
-
-                var tStart  = new Date( item['startDate'] );
-                //tStart = tStart.format('mm.dd.yyyy hh:MM:ss');
-
-                var tEnd    = new Date( item['endDate'] );
-                //tEnd = tEnd.format('mm.dd.yyyy hh:MM:ss');
-
-                popupContent += '<li>'+ item['eventId'] + ' | ' + item['class'] + ' | ' + tStart + ' TO  ' + tEnd +  '</li>';
+                  if (_.isNull(item['endDate'])){
+                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  }else{
+                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  }
+                }
             });
         });
-        eventContent += '</ul>';
+        eventContent += '</ul>'; 
 
         popupContent+=eventContent;
 
 
         //only add the item if there are deployment events
-        if (hasDeploymentEvent){
+        if (hasDeploymentEvent){          
           platformFeature.bindPopup(popupContent);
           markerCluster.addLayer(platformFeature);
         }
       }
-
+      
     })
 
     map.addLayer(markerCluster);
