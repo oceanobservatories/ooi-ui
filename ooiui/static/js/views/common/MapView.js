@@ -179,9 +179,10 @@ var MapView = Backbone.View.extend({
       //get the stations 
       var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' })
 
-      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
-        var platformFeature = L.marker(platforms[0].get('coordinates'));
+      var lat_lons = []
 
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
+        var platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'));
 
         //reset the event popup
         var eventPopup = ""
@@ -210,33 +211,46 @@ var MapView = Backbone.View.extend({
           var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
         }else{
           var instrument_plot = ""
-        }
+        }    
 
-
-        var popupContent = '<p><strong>' + name + '</strong><br>' +
-                          '<strong>Launch Date</strong>: '+platforms[0].get('launch_date_time')+'<br>'+
-                          'Lat: ' + platforms[0].get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platforms[0].get('coordinates')[1] +
-                          instrument_plot+
-                          '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-                          '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></p>';
-
-        popupContent += '<ul>';
-
+        var eventContent = '<ul><h5>Deployment Event(s)</h5>';
+        var popupContent = ""
         var hasDeploymentEvent = false;
+
         //loop through each to create the popup
-        _.each(platforms, function(platform_entry) {          
+        _.each(platforms, function(platform_entry) {     
+            lat_lons.push(platform_entry.get('coordinates'))
+
             var events = platform_entry.get('events');        
              _.each(events, function(item) {
                 if (item['class'] == ".DeploymentEvent"){
+
+                  if (!hasDeploymentEvent){
+                    popupContent = '<p><strong>' + name + '</strong><br>' +
+                          '<strong>Launch Date</strong>: '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
+                          'Lat: ' + platforms[platforms.length -1].get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platforms[platforms.length -1].get('coordinates')[1] +
+                          instrument_plot+
+                          '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                          '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></p>';
+                  }
+
                   hasDeploymentEvent = true;
-                  popupContent += '<li>'+ item['eventId'] + ' | ' + item['class']+ ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD")+ ' | '+ item['deploymentNumber'] +'</li>';
+
+                  if (_.isNull(item['endDate'])){
+                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  }else{
+                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  }
                 }
             });
         });
-        popupContent += '</ul>'; 
+        eventContent += '</ul>'; 
+
+        popupContent+=eventContent;
+
 
         //only add the item if there are deployment events
-        if (hasDeploymentEvent){
+        if (hasDeploymentEvent){          
           platformFeature.bindPopup(popupContent);
           markerCluster.addLayer(platformFeature);
         }
