@@ -17,69 +17,64 @@ var TOCView = Backbone.View.extend({
         'keyup #search-filter' : 'filterToc'
     },
     initialize: function(options){
-        _.bindAll(this, "render", "derender", "renderArrays", "renderItems");
-        this.initalRender();
-
+        _.bindAll(this, "render", "derender", "renderArrays", "renderAssets", "renderStreams");
         this.arrayCollection = options.arrayCollection;
         this.assetCollection = options.assetCollection;
+        this.streamCollection = options.streamCollection;
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
-
-    },
-    initalRender: function(){
-        this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>');
-    },
-    getArrayCode: function(model){
-        var array_code = model.get('mooring_code').substr(0,2)
-        return array_code
     },
     template: JST['ooiui/static/js/partials/TOC.html'],
     renderArrays: function(){
         var arrayContainerView = this.arrayCollection.map(function(model) {
             return (new ArrayContainerView({ model:model })).render().el;
         });
-        this.$el.find('#array-accordion').append(arrayContainerView);
+        this.$el.find('ul.nav-list').append(arrayContainerView);
     },
-    renderItems: function(){
+    renderAssets: function(){
         // create a model for each item in the collection, and based on it's class,
         // render it in the browser as a platform or instrument.
-        this.assetCollection.map(function(model) {
-            // only render assets that have a lat/lon (since it's a map).
+        var filteredPlatforms = this.assetCollection.byClass('.AssetRecord');
+        var filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord');
+
+        filteredPlatforms.map(function(model) {
+            // get the array code from the reference designator
+            var arrayCode = model.get('ref_des').substr(0,2);
+
+            // set the target to where this item will be inserted.
+            var arrayTarget = '#array_'+ arrayCode;
+            var assetItemView = new AssetItemView({ model:model });
+
+            $( arrayTarget ).append( assetItemView.render().el );
+
+        });
+
+        filteredInstruments.map(function(model) {
             var coord = model.get('coordinates');
-            var assetClass = model.get('asset_class');
-            if (coord) {
 
-                // get the array code from the reference designator
-                var arrayCode = model.get('ref_des').substr(0,2);
-                // get the platform code as well.
-                var platformCode = model.get('ref_des').substr(0,14);
+            var platformCode = model.get('ref_des').substr(0,14);
 
-                // set the target to where this item will be inserted.
-                var arrayTarget = '#array_'+ arrayCode +'_body';
-                var platformTarget = 'li#'+platformCode+' > div > ul';
-                console.log(platformTarget);
-                var assetItemView = new AssetItemView({ model:model });
+            // set the target to where this item will be inserted.
+            var platformTarget = 'ul#'+platformCode;
+            var assetItemView = new AssetItemView({ model:model });
 
-                // lets check to see if it's a platform (.AssetRecord) or an (.instrumentAssetRecord)
-                if (assetClass == '.AssetRecord') {
-                    // workout the number of each asset...
-                    var contentNum = parseInt($('#array_'+ arrayCode +'_badge').text());
-                    $('#array_'+ arrayCode +'_badge').text(contentNum+1);
-                    $( arrayTarget ).append( assetItemView.render().el );
-
-                } else if (assetClass == '.InstrumentAssetRecord')  {
-                    $( platformTarget ).append( assetItemView.render().el );
-                }
-            }
+            $( platformTarget ).append( assetItemView.render().el );
+        });
+    },
+    renderStreams: function() {
+        this.streamCollection.map( function(model) {
+            var instrumentCode = model.get('reference_designator');
+            var instrumentTarget = 'ul#'+instrumentCode;
+            var streamItemView = new StreamItemView({ model:model });
+            $( instrumentTarget ).append( streamItemView.render().el );
         });
     },
     render: function(){
-                this.$el.html(this.template());
-                this.renderArrays();
-                this.$el.find('[data-toggle="tooltip"]').tooltip();
-
-                return this;
+        this.$el.html(this.template());
+        this.renderArrays();
+        this.$el.find('[data-toggle="tooltip"]').tooltip();
+        return this;
     },
     derender: function() {
         this.remove();
@@ -94,6 +89,7 @@ var SearchResultView = Backbone.View.extend({
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
+
     },
     render: function(){
         var assetItemView = this.collection.map(function(model) {
@@ -112,14 +108,25 @@ var SearchResultView = Backbone.View.extend({
 });
 
 var ArrayContainerView = Backbone.View.extend({
+    tagName: 'li',
+    attributes: function(){
+        return {
+            'style': 'width:100%'
+        };
+    },
     events:{
-        'click h4' : 'onClick',
+        'click .nav-header' : 'onClick',
+        'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
-        _.bindAll(this, 'render', 'onClick');
+        _.bindAll(this, 'render', 'onClick', 'collapse');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
+    },
+    collapse: function(e) {
+        e.stopImmediatePropagation();
+        this.$el.children('ul.tree').toggle(300);
     },
     onClick: function(e) {
                  ooi.trigger('toc:selectArray', this.model);
@@ -127,6 +134,7 @@ var ArrayContainerView = Backbone.View.extend({
     template: JST['ooiui/static/js/partials/ArrayItem.html'],
     render: function(){
         this.$el.html( this.template(this.model.toJSON()) );
+        this.$el.append('<li class="divider"></li>');
         return this;
     },
     derender: function() {
@@ -139,51 +147,81 @@ var ArrayContainerView = Backbone.View.extend({
 var AssetItemView = Backbone.View.extend({
     //TODO: Create a partial and put all the html/css in it...
     tagName: 'li',
-    className: 'col-md-12 btn btn-sm',
-    attributes: function() {
-        return {
-        'style': 'text-align: left !important; overflow: hidden; white-space: normal;'
-        };
-    },
     events: {
-        'click': 'onClick'
+        'click label.platform': 'onClick',
+        'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
-        _.bindAll(this,'render', 'onClick');
+        _.bindAll(this,'render', 'onClick', 'collapse');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
+        this.listenTo(vent, 'toc:cleanUp', function() {
+            if ( this.$el.find('ul.tree').children().length == 0 ) {
+                this.derender();
+            }
+        });
     },
     onClick: function() {
-         ooi.trigger('toc:selectItem', this.model);
+        ooi.trigger('toc:selectItem', this.model);
     },
-    template: _.template('<a href="#"><%= assetId %> | <%= assetInfo.name %> <br> <%= ref_des %></a>'),
+    collapse: function(e) {
+        e.stopImmediatePropagation();
+        this.$el.children('ul.tree').toggle(300);
+    },
+    template: _.template('<label class="tree-toggler nav-header><%= assetInfo.name %></label>'),
     derender: function() {
         this.remove();
         this.unbind();
         this.model.off;
     },
     render: function() {
-
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
         if (this.model.get('asset_class') == '.AssetRecord') {
-            this.$el.attr('id', this.model.get('ref_des').substr(0,14));
+            var platformId = this.model.get('ref_des').substr(0,14);
+            this.$el.attr('id', platformId);
+            this.$el.attr('class', 'platform');
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            this.$el.append('<div id="'+ this.model.get('id') +'" class="collapse"><ul class="sidebar-nav"></ul></div>');
-            // since there will be a lot of instrumnets, lets set this view to collapse.
-            this.$('a').attr('data-toggle', 'collapse');
-            this.$('a').attr('data-target', '#'+this.model.get('id'));
-        // otherwise, if it's an InstrumentAssetRecord then give the view an ID
-        // of the entire Reference Designator
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ platformId + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
-            this.$el.attr('id', this.model.get('ref_des'));
-            // since the instrument is to be attached to something, lets
-            // change the indent and display slightly.
+            // otherwise, if it's an InstrumentAssetRecord then give the view an ID
+            // of the entire Reference Designator
+            var instrumentId = this.model.get('ref_des');
+            this.$el.attr('id', instrumentId);
+            this.$el.attr('class', 'instrument');
             this.$el.html( this.template(this.model.toJSON()) );
+            this.$el.append('<label class="tree-toggler nav-header">'+ instrumentId+ '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
+        return this;
+    }
+});
+
+var StreamItemView = Backbone.View.extend({
+    tagName: 'li',
+    events: {
+        'click': 'onClick'
+    },
+    initialize: function(options) {
+        _.bindAll(this, 'render', 'derender', 'onClick');
+        this.listenTo(vent, 'toc:denrenderItems', function() {
+            this.derender();
+        });
+    },
+    onClick: function() {
+        ooi.trigger('toc:selectStream', this.model);
+    },
+    template: _.template('<a href="#"><%= stream_name %>'),
+    derender: function() {
+        this.remove();
+        this.unbind();
+        this.model.off;
+    },
+    render: function() {
+        this.$el.attr('id', this.model.get('reference_designator') + '-' + this.model.get('stream_name'));
+        this.$el.html( this.template(this.model.toJSON()) );
         return this;
     }
 });

@@ -1,140 +1,97 @@
-#tocmenusection{
-  min-height: 423px; 
-  height: 423px; 
-  max-height: 423px;  
-  width: 100%;
-  overflow: scroll;
-  padding: 5px;
+#sidebar-wrapper {
+    max-height:80%;
+}
+#assetBrowser {
+    margin-top:25px;
+}
+#array {
+    background-color:
+}
+div.well {
+    width: 300px;
+}
+div#assetBrowser {
+    overflow-x: hidden;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    max-width:100%;
+}
+.nav-list>li>a,.nav-list .nav-header {
+    margin-right: -15px;
+    margin-left: -15px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+.nav-header {
+    display: block;
+    padding: 3px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    text-transform: uppercase;
+}
+.nav-list {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 0;
+}
+label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+    cursor: pointer;
+}
+#navToc {
+float: none;
+margin: 0 0 10px
 }
 
-.toc-menu{
- 
+#navToc > li > a {
+    color: #004773;
+    font-weight: 300;
 }
 
-.fancytree-expander{
-  left: -25px;
-  /* set the size of the expander*/
-  font-size: 1.2em;
+#navToc>li {
+    float: none
 }
 
-/*
-Color for plus sign
-*/
-span.fancytree-expander.glyphicon-plus-sign{
-  color: orange;    
+#navToc>li>a {
+    margin-bottom: 2px
 }
 
-/*
-Color for minus sign
-*/
-span.fancytree-expander.glyphicon-minus-sign{
-  color: blue;    
+#navToc .nav-header {
+    color: #;
+    text-shadow: none
 }
 
-span.fancytree-folder {
-  left: 25px;
-  position: relative;
+#navToc>li>a {
+    padding: 9px 15px;
+    font-weight: bold;
+    color: #777;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px
 }
 
-span.fancytree-icon {
-  position: relative;
-  /*  folder icon size  */
-  font-size: 1.2em;
-  /* folder color*/
-  color: #333340;    
-}
-span.fancytree-childcounter {
-  color: #fff;
-  background: #428BCA;
-  position: absolute;
-  top: -4px;
-  left: -25px;
-  min-width: 13px;
-  height: 20px;
-  width: 20px;
-  line-height: 1;
-  vertical-align: baseline;
-  border-radius: 15px;
-  padding: 1px;
-  text-align: center;
-  font-size: 13px;
+
+#navToc>li>a:hover, #navToc>li>a:focus {
+    background-color: #f2f2f2
 }
 
-/*
-.badge-error {
-    background-color: #b94a48;
+#navToc>li>a {
+    color: #999
 }
 
-.badge-warning {
-  background-color: #f89406;
+#navToc>li>a:hover, #sidebar-wrapper > .nav>li>a:focus {
+    background-color: #111
 }
 
-.badge-success {
-  background-color: #468847;
-}
-
-.badge-info {
-  background-color: #3a87ad;
-}
-
-.badge-inverse {
-  background-color: #333333;
-}
-
-.tocsidebar {
-  display: block;
-  float: left;
-  width: 100%;
-  background: #333;
-}
-.content {
-  display: block;
-  overflow: hidden;
-  width: auto;
-}
-
-.tocsidebar-nav {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  background-image: -webkit-linear-gradient(left, color-stop(#333333 10px), color-stop(#222222 10px));
-  background-image: linear-gradient(to right, #333333 10px, #222222 10px);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff333333', endColorstr='#ff222222', GradientType=1);
-}
-.tocsidebar-nav ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.tocsidebar-nav ul li,
-.tocsidebar-nav ul a {
-  display: block;
-}
-.tocsidebar-nav ul a {
-  padding: 10px 20px;
-  color: #aaa;
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.05) inset;
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
-}
-.tocsidebar-nav ul a:hover,
-.tocsidebar-nav ul a:focus,
-.tocsidebar-nav ul a:active {
-  color: #fff;
-  text-decoration: none;
-}
-.tocsidebar-nav ul ul a {
-  padding: 10px 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.tocsidebar-nav ul ul a:hover,
-.tocsidebar-nav ul ul a:focus,
-.tocsidebar-nav ul ul a:active {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.tocsidebar-nav-item {
-  padding-left: 5px;
-}
-.tocsidebar-nav-item-icon {
-  padding-right: 5px;
-}
-*/
+.divider {
+    height: 1px;
+    margin: 9px 1px;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    border-bottom: 1px solid #fff;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(255, 255, 255);
+                            }

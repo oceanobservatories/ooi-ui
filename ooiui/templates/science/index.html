@@ -6,6 +6,7 @@
 
 {% block head %}
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -31,37 +32,32 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div id="sidebar-wrapper" class="btn-sidebar">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                        <!-- TODO: Clean this up -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
-                            <div class="input-group-btn">
-                                <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
-                            </div>
-                            <div id="search-submit" class="input-group-btn">
-                                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
-                        </div>
+            <div id="sidebar-wrapper" class="well">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
+                    <div class="input-group-btn">
+                        <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
                     </div>
+                    <div id="search-submit" class="input-group-btn">
+                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
-                            <div class="pull-right">
-                                <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
-                            </div>
-                        </div> <!-- panel-heading -->
-                        <div class="panel-body">
-                            <div class="map-view" id='map'></div>
-                        </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                </div> <!-- col-lg-12 -->
-            </div> <!-- row -->
+                <i class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <strong><span class="fa fa-globe"></span> <span data-i18n="Data">Map Section</span></strong>
+                        <div class="pull-right">
+                            <a id='map-expand' href='#'><i class="fa fa-expand"></i></a>
+                        </div>
+                    </div> <!-- panel-heading -->
+                    <div class="panel-body">
+                        <div class="map-view" id='map'></div>
+                    </div> <!-- panel-body -->
+                </div> <!-- panel -->
+            </div> <!-- col-lg-12 -->
+        </div> <!-- row -->
         </div> <!-- container-fluid -->
     </div> <!-- page-content-wrapper -->
 </div><!-- page-wrapper -->
@@ -92,11 +88,45 @@ _.extend(OOI.prototype, Backbone.Events, {
         el: $('#map')
     });
 
-    var acFetch = arrayCollection.fetch({ reset: true });
-    $.when(acFetch).done(function() {
+
+    var streamDownloadFormView = new StreamDownloadFormView({
+      el: $('#stream-download-modal')
+    });
+    var modalDownloadView = new ModalDownloadView({
+      el: $('#download-ok-modal')
+      });
+    var modalDownloadFailView = new ModalDownloadFailView({
+      el: $('#download-fail-modal')
+      });
+
+    this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+      var base_url = window.location.protocol+"//"+window.location.host+"/"
+      var download_link = options.model.get('download');
+      var download_link_url = download_link[options['selection']]
+
+      base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
+
+      streamDownloadFormView.show(options);
+      //window.open(base_url, '_blank');
+
+    });
+    this.listenTo(this, 'DownloadModal:onHide',function(){
+        self.views.modalDownloadView.show();
+  });
+    this.listenTo(this, 'DownloadModalFail:onFail',function(){
+        self.views.modalDownloadFailView.show();
+  });
+    var arrayFetch = arrayCollection.fetch({ reset: true });
+    $.when(arrayFetch).done(function() {
         var assetFetch = assetCollection.fetch({ reset: true });
         $.when(assetFetch).done(function() {
-            renderTOCView( arrayCollection, assetCollection );
+            var streamFetch = streamCollection.fetch({ reset: true });
+            $.when(streamFetch).done(function() {
+                $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                  vent.trigger('toc:cleanUp');
+                  vent.trigger('toc:cleanUp');
+                });
+            });
         });
     });
 
@@ -119,32 +149,34 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:logout", this.onLogout);
 
     this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {
-      if ('coordinates' in model.attributes){
-        self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-      }
+        if ('coordinates' in model.attributes){
+            self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
+        }
     });
 
     this.listenTo(this, "toc:selectArray", function(model) {
-      var coors = model.get('geo_location')['coordinates'][0][0]
-      mapView.setMapView(coors,4); // recenters
+        var coors = model.get('geo_location')['coordinates'][0][0]
+        mapView.setMapView(coors,4); // recenters
     });
 
     this.listenTo(this, "toc:selectItem", function(model) {
-      var coors = model.get('coordinates');
-      mapView.setMapView(coors,100); // recenters
+        var coors = model.get('coordinates');
+        mapView.setMapView(coors,100); // recenters
     });
 
+    this.listenTo(this, 'toc:selectInstrument', function(model) {
+
+    });
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
-      self.views.svgplot.plot(options);
+        self.views.svgplot.plot(options);
     });
     this.listenTo(this, 'ooi:mapExpand', function() {
-      $('#plot-row').hide();
-      $('#map').height($(window).height() - 150);
+        $('#plot-row').hide();
+        $('#map').height($(window).height() - 150);
     });
     this.listenTo(this, 'NavbarView:sidebarToggle', function() {
-      self.views.mapView.render();
+        self.views.mapView.render();
     });
-
     this.trigger('ooi:mapExpand');
   }
 });
@@ -154,18 +186,23 @@ var vent = _.extend({}, Backbone.Events);
 // controller for our model collections
 var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
+var streamCollection    = new StreamCollection();
 
 
-function renderTOCView( container, contents ) {
+function renderTOCView( container, contents, streams ) {
     var tocView = new TOCView({
-        arrayCollection: container,
-        assetCollection: contents
+        arrayCollection:    container,
+        assetCollection:    contents,
+        streamCollection:   streams
     });
     tocView.render();
-
+    // remove the spinnter
+    $('i.fa').remove();
+    // append the toc
     $('#sidebar-wrapper').append( tocView.el );
 
-    tocView.renderItems();
+    tocView.renderAssets();
+    tocView.renderStreams();
 }
 
 function showSearchResults( collection ) {
@@ -201,18 +238,23 @@ $(document).ready(function() {
         $('#search-filter').val('').focus();
         $(this).hide();
         vent.trigger('toc:derenderItems');
-
         var assetFetch = assetCollection.fetch();
         $.when(assetFetch).done(function() {
-            renderTOCView( arrayCollection, assetCollection );
+            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                vent.trigger('toc:cleanUp');
+            });
         });
     });
     $('#search-submit').click(function(e) {
         $('#search-clear').toggle(Boolean($(this).val()));
         $('#search-clear').toggle(Boolean($('#search-filter').val()));
-
         updateCollection( showSearchResults );
     });
 });
+$(document).ready(function () {
+            $('label.tree-toggler').click(function () {
+                        $(this).parent().children('ul.tree').toggle(300);
+                            });
+            });
 </script>
 {% endblock %}

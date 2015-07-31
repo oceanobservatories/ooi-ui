@@ -51,5 +51,11 @@ var AssetCollection = Backbone.Collection.extend({
             return response.assets;
         }
         return [];
+    },
+    byClass: function(classType) {
+        var filtered = this.filter(function (asset) {
+            return asset.get('asset_class') === classType;
+        });
+        return new AssetCollection(filtered);
     }
 });
