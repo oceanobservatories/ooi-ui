@@ -43,7 +43,7 @@
     }
 
     #sidebar-wrapper {
-        z-index: 1000;
+        z-index: 99;
         position: fixed;
         left: 350px;
         width: 0;
@@ -318,6 +318,7 @@
         overflow: hidden;
         border-style: solid;
         border-width: 1px;
+        z-index: 99;
     }
 
     .badge-error {
