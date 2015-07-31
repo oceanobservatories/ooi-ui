@@ -1015,7 +1015,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
             'ooiui/static/js/views/science/PlottingSelectionView.js',
-            'ooiui/static/js/views/science/PlotEventListView.js',
+            'ooiui/static/js/views/science/PlotEventListView.js'
             //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'
           ],
           'ooiui/static/js/compiled/landingPages.js' : [
@@ -1097,7 +1097,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/landing/pioneer_array/PioneerStationSummaryArrayView.js',
             'ooiui/static/js/views/landing/pioneer_array/PioneerDeploymentScheduleView.js',
             'ooiui/static/js/views/landing/pioneer_array/PioneerInfrastructureTablesView.js',
-            'ooiui/static/js/views/landing/views/common/landing/PioneerTechnicalDrawingsView.js',
+            'ooiui/static/js/views/landing/pioneer_array/PioneerTechnicalDrawingsView.js'
           ],
           'ooiui/static/js/compiled/c2.js' : [
             // Libs

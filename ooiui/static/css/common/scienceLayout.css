@@ -43,7 +43,7 @@
     }
 
     #sidebar-wrapper {
-        z-index: 1000;
+        z-index: 99;
         position: fixed;
         left: 350px;
         width: 0;
@@ -64,7 +64,9 @@
 
     #page-content-wrapper {
         width: 100%;
-        padding: 15px;
+        padding: 0 20px 20px 20px;
+        width:: 100%;
+        z-index: 1000;
     }
 
     #wrapper.toggled #page-content-wrapper {
@@ -133,10 +135,6 @@
 
         #wrapper.toggled #sidebar-wrapper {
             width: 0;
-        }
-
-        #page-content-wrapper {
-            padding: 20px;
         }
 
         #wrapper.toggled #page-content-wrapper {
@@ -318,6 +316,7 @@
         overflow: hidden;
         border-style: solid;
         border-width: 1px;
+        z-index: 99;
     }
 
     .badge-error {

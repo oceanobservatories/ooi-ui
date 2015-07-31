@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Argentine Basin</title>
+<title>Endurance Array</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -29,14 +29,11 @@
   <div id="sidebar-wrapper" class="btn-sidebar">
   </div>
 
-
-  <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="row">
-      
+      <div id="page-content-wrapper">
+	<div class="row">
 
     	<!-- Accordian -->
-    
 	<div class="col-md-12">
 	  <div id="pioneer-location-sampling-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- panel-group -->
@@ -48,10 +45,8 @@
 	  </div><!-- deploymentSchedule-view -->
 	  <div id="infrastructureTables-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- infrastructureTables-view -->
-  	  
 	  <div id="technicalDrawings-view" class="panel-group" role="tablist" aria-multiselectable="true">
 	  </div><!-- technicalDrawings-view -->
-
 	</div><!-- col-sm-12 -->
 
       </div><!-- row -->
@@ -77,7 +72,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle});
+    this.views.banner = new BannerView({bannerTitle: bannerTitle});
     $('body').prepend(this.views.banner.el);
     
     this.views.navbar = new NavbarView({
@@ -124,4 +119,3 @@ $(document).ready(function() {
 </script>
 
 {% endblock %}
-

@@ -11,7 +11,7 @@
   width: 100%;
   position: fixed;
   height: auto;
-  z-index: 1002;
+  z-index: 1001;
 	background-color: #FFF;
 }
 
@@ -37,12 +37,6 @@ div#wrapper-asset {
 /* #sidebar-wrapper { */
 /*   z-index: 500; */
 /* } */
-
-#page-content-wrapper {
-  padding: 0 20px 20px 20px;
-	width:: 100%;
-	/* z-index: 1000; */
-}
 
 .left { text-align: left; }
 .right {text-align: right; }
