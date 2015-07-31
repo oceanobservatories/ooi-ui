@@ -1,6 +1,6 @@
 var MapView = Backbone.View.extend({
-	initialize: function() {
-		var self = this;
+  initialize: function() {
+    var self = this;
 
     var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -25,12 +25,12 @@ var MapView = Backbone.View.extend({
     });
 
     this.map = L.map(this.el,{
-	       center: [20.505, -80.09],
-	       zoom: 3,
-	       maxZoom: 10,
+         center: [20.505, -80.09],
+         zoom: 3,
+         maxZoom: 10,
          minZoom: 3,
          layers: [Esri_OceanBasemap]
-   	});
+    });
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
@@ -112,7 +112,7 @@ var MapView = Backbone.View.extend({
     }});
 
     return this
-	},
+  },
   update_track_glider: function(reference_designator,show_track){
     var self = this;
     var map = this.map;
@@ -160,15 +160,95 @@ var MapView = Backbone.View.extend({
     var gliderTrackLayer = L.geoJson(gliderTrackLine, {style: gliderTrackStyle});
     return gliderTrackLayer
   },
- 	//renders a simple map view
-	render: function() {
-		//needs to be set
-		L.Icon.Default.imagePath = '/img';
+  //renders a simple map view
+  render: function() {
+    var self = this;
+    //needs to be set
+    L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
-		var markerCluster = new L.MarkerClusterGroup();
+    var markerCluster = new L.MarkerClusterGroup();
 
+    var res_des_list = this.collection.map(function(model){
+      return model.get('ref_des');
+    });
+
+    var unique_res_des = _.uniq(res_des_list);
+    _.each(unique_res_des, function(platform_id) {           
+      
+      //get the stations 
+      var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' })
+
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
+        var platformFeature = L.marker(platforms[0].get('coordinates'));
+
+
+        //reset the event popup
+        var eventPopup = ""
+        var name = platforms[0].get('assetInfo')['name']
+        if (name == null){
+              name = "Undefined"
+        }
+
+
+        if (typeof(platform_id) != "undefined"){
+          var ref_des_split = platform_id.split("-")
+          //get the current location
+          if (!location.origin)
+            location.origin = location.protocol + "//" + location.host;
+
+          //get the parts
+          var array = platform_id.substring(0, 2);
+          var mooring = ref_des_split[0]
+          var platform_val = ref_des_split[1]
+          if (ref_des_split.length > 2){
+            var instrument = platform_id
+            var instrument_url = [array, mooring, platform_val , instrument].join("/");
+          }else{
+            var instrument_url = [array, mooring, platform_val].join("/");
+          }
+          var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
+        }else{
+          var instrument_plot = ""
+        }
+
+
+        var popupContent = '<p><strong>' + name + '</strong><br>' +
+                          '<strong>Launch Date</strong>: '+platforms[0].get('launch_date_time')+'<br>'+
+                          'Lat: ' + platforms[0].get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platforms[0].get('coordinates')[1] +
+                          instrument_plot+
+                          '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                          '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></p>';
+
+        popupContent += '<ul>';
+
+        var hasDeploymentEvent = false;
+        //loop through each to create the popup
+        _.each(platforms, function(platform_entry) {          
+            var events = platform_entry.get('events');        
+             _.each(events, function(item) {
+                if (item['class'] == ".DeploymentEvent"){
+                  hasDeploymentEvent = true;
+                  popupContent += '<li>'+ item['eventId'] + ' | ' + item['class']+ ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD")+ ' | '+ item['deploymentNumber'] +'</li>';
+                }
+            });
+        });
+        popupContent += '</ul>'; 
+
+        //only add the item if there are deployment events
+        if (hasDeploymentEvent){
+          platformFeature.bindPopup(popupContent);
+          markerCluster.addLayer(platformFeature);
+        }
+      }
+      
+    })
+    
+
+    
+    /*
     this.collection.each(function(platform) {
+      //console.log(platform,platform.get('asset_class'))
       if (platform.get('coordinates')) {
         if (platform.get('coordinates').length == 2 && platform.get('asset_class') == '.AssetRecord'){
           var name = platform.get('assetInfo')['name']
@@ -214,19 +294,23 @@ var MapView = Backbone.View.extend({
             });
             popupContent += '</ul>';
 
-                platformFeature.bindPopup(popupContent);
+            platformFeature.bindPopup(popupContent);
             markerCluster.addLayer(platformFeature);
           }
        }
       }
     });
+    */
+
+
+
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
-	},
+  },
   setMapView: function(lat_lon,zoom){
     this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
-	//end
+  //end
 });
 
 var GliderTrackModel = Backbone.Model.extend({
