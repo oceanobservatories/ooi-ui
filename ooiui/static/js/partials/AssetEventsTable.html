@@ -27,10 +27,25 @@
                     <tbody>
                         <% _.each(events, function(row) { %>
                             <% if (row.class == '.DeploymentEvent') { %>
-                                <tr>
+                            <tr class="accordion-toggle"
+                                style="cursor: pointer;"
+                                data-toggle="collapse"
+                                data-target="#cal-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
                                     <td><%= Date(row.startDate) %></td>
+                                </tr>
+                                <tr class="collapse" id="cal-<%= row.eventId %>">
+                                    <td colspan="3">
+                                        <dl class="dl-horizontal">
+                                            <dt>Deployment Location</dt>
+                                            <dd colspan="2"><%= row.locationLonLat %></dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Deployment Depth</dt>
+                                            <dd colspan="2"><%= row.deploymentDepth %></dd>
+                                        </dl>
+                                    </td>
                                 </tr>
                             <% } %>
                         <% }); %>
@@ -72,6 +87,7 @@
                         <% _.each(events, function(row) { %>
                             <% if (row.class == '.CalibrationEvent') { %>
                             <tr class="accordion-toggle"
+                                style="cursor: pointer;"
                                 data-toggle="collapse"
                                 data-target="#cal-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>

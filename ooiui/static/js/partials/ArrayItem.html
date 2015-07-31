@@ -1,15 +1,4 @@
-<div class=" btn panel-heading collapsed col-md-12" style="text-align:left;"  role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#array_<%= array_code %>" aria-expanded="true" aria-controls="collapseOne">
-  <h4 class="panel-title">
-    <a>
-        <%= display_name %>
-      <i class="fa fa-info-circle" data-toggle="tooltip" title="<%= description %>" data-placement="right">
-      </i>
-    </a>
-    <span id="array_<%= array_code %>_badge" class="badge pull-right">0</span>
-  </h4>
-</div>
-<div id="array_<%= array_code %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-  <div id="array_<%= array_code %>_body" class="panel-body">
-      <ul><ul>
-  </div>
-</div>
+<label class="tree-toggler nav-header array"><%= display_name %>
+    <i class="fa fa-info-circle" data-toggle="tooltip" title="<%= description %>" data-placement="right"></i>
+</label>
+<ul id="array_<%= array_code %>" class="nav nav-list tree" style="display:none"></ul>
