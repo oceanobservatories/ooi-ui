@@ -37,10 +37,13 @@ button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
 }
 
 .dropdown-menu.open {
-	margin: 2px 170px 0;
+	/* margin: 2px 170px 0; */
 	background-color: rgba(255, 255, 255, 0.87);
 	padding-bottom: 14px;
 	border: none;
+  position: absolute;
+  top: 0px;
+  left: 210px;
 	}
 
 input.form-control:focus {

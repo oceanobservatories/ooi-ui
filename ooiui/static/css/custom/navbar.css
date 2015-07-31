@@ -14,7 +14,7 @@
 
 .navbar-top-links-new li {
   display: inline-block;
-  z-index: 1500;
+  /* z-index: 1500; */
 }
 
 .navbar-top-links-new li:last-child {
@@ -89,7 +89,7 @@
 .navbar-top-links-new .dropdown-user {
   right: 0;
   left: auto;
-  z-index: 1001;
+  /* z-index: 1001; */
 }
 
 .nav > li > a {
