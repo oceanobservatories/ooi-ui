@@ -245,6 +245,7 @@ $(document).ready(function() {
         $.when(assetFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 vent.trigger('toc:cleanUp');
+                vent.trigger('toc:cleanUp');
             });
         });
     });
