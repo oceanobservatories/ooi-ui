@@ -179,6 +179,7 @@ var MapView = Backbone.View.extend({
           if (platform.get('coordinates')[0]!=0 && platform.get('coordinates')[1]!=0){
             var platformFeature = L.marker(platform.get('coordinates'));
 
+            var id_des = platform.get('id')
             var ref_des = platform.get('ref_des')
             if (typeof(ref_des) != "undefined"){
               var ref_des_split = ref_des.split("-")
@@ -205,7 +206,7 @@ var MapView = Backbone.View.extend({
                 '<strong>Launch Date</strong>: '+platform.get('launch_date_time')+'<br>'+
                 'Lat: ' + platform.get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platform.get('coordinates')[1] +
                 instrument_plot+
-                '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                '<br><a href="/streams?' + platform.get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
                 '<a href="/assets/list?' + platform.get('ref_des') + '">Asset Management</a></p>';
             var events = platform.get('events');
             popupContent += '<ul>';
