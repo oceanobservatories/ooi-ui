@@ -44,9 +44,12 @@ var TOCView = Backbone.View.extend({
 
             // set the target to where this item will be inserted.
             var arrayTarget = '#array_'+ arrayCode;
-            var assetItemView = new AssetItemView({ model:model });
+            if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
 
-            $( arrayTarget ).append( assetItemView.render().el );
+                var assetItemView = new AssetItemView({ model:model });
+
+                $( arrayTarget ).append( assetItemView.render().el );
+            }
 
         });
 
@@ -57,9 +60,11 @@ var TOCView = Backbone.View.extend({
 
             // set the target to where this item will be inserted.
             var platformTarget = 'ul#'+platformCode;
-            var assetItemView = new AssetItemView({ model:model });
+            if ( document.getElementById( model.get('ref_des')) == null ) {
+                var assetItemView = new AssetItemView({ model:model });
 
-            $( platformTarget ).append( assetItemView.render().el );
+                $( platformTarget ).append( assetItemView.render().el );
+            }
         });
     },
     renderStreams: function() {

@@ -117,10 +117,13 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.modalDownloadFailView.show();
   });
     var arrayFetch = arrayCollection.fetch({ reset: true });
+    var data = {
+        min : 'True'
+    };
     $.when(arrayFetch).done(function() {
-        var assetFetch = assetCollection.fetch({ reset: true });
+        var assetFetch = assetCollection.fetch({ data: data, reset: true });
         $.when(assetFetch).done(function() {
-            var streamFetch = streamCollection.fetch({ reset: true });
+            var streamFetch = streamCollection.fetch({ data: data,  reset: true });
             $.when(streamFetch).done(function() {
                 $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                   vent.trigger('toc:cleanUp');
@@ -241,6 +244,7 @@ $(document).ready(function() {
         var assetFetch = assetCollection.fetch();
         $.when(assetFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
             });
         });
