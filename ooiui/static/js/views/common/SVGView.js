@@ -620,6 +620,7 @@ var SVGPlotControlView = Backbone.View.extend({
   },
   render: function(updateTimes) {
     var self = this
+    var xvar = this.$el.find('#xvar-select').find(":selected").val()
     if (updateTimes){
       this.$el.html(this.template({model: this.model}));
       this.$el.find('.selectpicker').selectpicker();
@@ -640,12 +641,12 @@ var SVGPlotControlView = Backbone.View.extend({
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
       this.$end_date_picker = this.$end_date.data('DateTimePicker');
+      
+      console.log(this.$el.find('#xvar-select'))
     }
 
     this.$type_select = this.$el.find('#type-select');
-
-
-    var xvar = "time"
+    
     var variables = this.model.get('variable_types');
     this.variable = null;
     for(var key in variables) {
@@ -655,7 +656,10 @@ var SVGPlotControlView = Backbone.View.extend({
       }
     }
 
-    this.$el.find('#xvar-select').selectpicker('val', xvar);
+    // var xvar = "time"
+    if (xvar){
+      this.$el.find('#xvar-select').selectpicker('val', xvar);
+    }
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
 
   }
