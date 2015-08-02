@@ -67,7 +67,10 @@
             </div>
               <div class="pull-right" style="margin-bottom:-5px">
                   <ul role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download</i></a></li>
+                    <li role="presentation"><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
+                  </ul>
+                  <ul role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
                   </ul>
               </div>
             <div class="panel-body">
@@ -422,6 +425,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.svgplot.download();
     });
 
+    this.listenTo(this, 'ooi:downloadData', function() {
+      self.views.svgplot.downloadData();
+    });
+
     this.listenTo(this, 'DownloadModal:onHide',function(){
       self.views.modalDownloadView.show();
     });
@@ -443,6 +450,11 @@ $(document).ready(function() {
   $('#download-plot').click(function(event) {
     event.preventDefault();
     ooi.trigger('ooi:downloadPlot');
+  });
+
+  $('#download-data').click(function(event) {
+    event.preventDefault();
+    ooi.trigger('ooi:downloadData');
   });
 
   $('#disableSecondView').on('click', function(event){

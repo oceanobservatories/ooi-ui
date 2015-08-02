@@ -445,6 +445,7 @@ var SVGPlotView = SVGView.extend({
     }
   },
   download: function(options) {
+    console.log('download')
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     var yvar = this.yvariable
@@ -476,6 +477,33 @@ var SVGPlotView = SVGView.extend({
       var a = $("<a>")
           .attr("href", this.url)
           .attr("download", this.reference_designator + '_' + this.stream_name+".png")
+          .appendTo("body");
+
+      a[0].click();
+
+      a.remove();
+
+    }
+  },
+  downloadData: function(options) {
+    this.reference_designator = this.model.get('reference_designator')
+    this.stream_name = this.model.get('stream_name')
+    var yvar = this.yvariable
+    var xvar = this.xvariable
+    if('xvar'){
+    }else{
+      xvar = ["time"]
+    }
+
+    //set the width of the plot, 90% width
+    this.width = (this.$el.width()/100)*90;
+    if(this.yvariable != null && this.xvariable != null) {
+      this.url = '/api/uframe/get_netcdf/' + this.stream_name + '/' + this.reference_designator + '/' + this.st + '/' + this.ed;
+      //window.open(this.url, '_blank');
+
+      var a = $("<a>")
+          .attr("href", this.url)
+          .attr("download", this.reference_designator + '_' + this.stream_name+".nc")
           .appendTo("body");
 
       a[0].click();
