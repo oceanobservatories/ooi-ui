@@ -72,10 +72,80 @@
             <div role="tabpanel" class="tab-pane" id="assetAquisitionInfo">
                 <dl>
                     <dt>Manufacture Information</dt>
+                    <dd>
+                        <% if ( manufactureInfo.manufacturer ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> Manufacturer: </dt>
+                                <dd>
+                                <%=  manufactureInfo.manufacturer %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if ( manufactureInfo.modelNumber ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> Model #: </dt>
+                                <dd>
+                                <%=  manufactureInfo.modelNumber %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if ( manufactureInfo.serialNumber ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> S/N : </dt>
+                                <dd>
+                                <%=  manufactureInfo.serialNumber %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>Purchase and Delivery Information</dt>
-                    <dd><%= purchaseAndDeliveryInfo %></dd>
+                    <dd>
+                        <% if (purchaseAndDeliveryInfo.purchaseOrderNumber ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> PO #: </dt>
+                                <dd>
+                                <%= purchaseAndDeliveryInfo.purchaseOrderNumber %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if (purchaseAndDeliveryInfo.purchaseCost ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> Cost: </dt>
+                                <dd>
+                                <%= purchaseAndDeliveryInfo.purchaseCost %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if (purchaseAndDeliveryInfo.purchaseDate ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> PO Date: </dt>
+                                <dd>
+                                <%= purchaseAndDeliveryInfo.purchaseDate %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if (purchaseAndDeliveryInfo.deliveryOrderNumber || purchaseAndDeliveryInfo.deliveryDat) { %>
+                        <hr>
+                        <% } %>
+                        <% if (purchaseAndDeliveryInfo.deliveryOrderNumber ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> Delivery Order #: </dt>
+                                <dd>
+                                <%= purchaseAndDeliveryInfo.deliveryOrderNumber %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                        <% if (purchaseAndDeliveryInfo.deliveryDate ) { %>
+                            <dl class="dl-horizontal">
+                                <dt> Delivery Date: </dt>
+                                <dd>
+                                <%= Date(purchaseAndDeliveryInfo.deliveryDate) %>
+                                </dd>
+                            </dl>
+                        <% } %>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>Physical Information</dt>
