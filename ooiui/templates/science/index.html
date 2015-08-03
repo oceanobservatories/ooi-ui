@@ -59,6 +59,9 @@
             </div> <!-- col-lg-12 -->
         </div> <!-- row -->
         </div> <!-- container-fluid -->
+        <div id="stream-download-modal"></div>
+        <div id='download-ok-modal'></div>
+        <div id='download-fail-modal'></div>
     </div> <!-- page-content-wrapper -->
 </div><!-- page-wrapper -->
 <!-- /#wrapper -->
@@ -88,33 +91,25 @@ _.extend(OOI.prototype, Backbone.Events, {
         el: $('#map')
     });
 
+    this.listenTo(this, 'toc:selectStream', function(options) {
+        var streamDownloadFormView = new StreamDownloadFormView({
+            el: $('#stream-download-modal')
+        });
 
-    var streamDownloadFormView = new StreamDownloadFormView({
-      el: $('#stream-download-modal')
+        streamDownloadFormView.show( options );
     });
-    var modalDownloadView = new ModalDownloadView({
-      el: $('#download-ok-modal')
-      });
-    var modalDownloadFailView = new ModalDownloadFailView({
-      el: $('#download-fail-modal')
-      });
 
-    this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-      var base_url = window.location.protocol+"//"+window.location.host+"/"
-      var download_link = options.model.get('download');
-      var download_link_url = download_link[options['selection']]
-
-      base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
-
-      streamDownloadFormView.show(options);
-      //window.open(base_url, '_blank');
-
-    });
     this.listenTo(this, 'DownloadModal:onHide',function(){
-        self.views.modalDownloadView.show();
+        var modalDownloadView = new ModalDownloadView({
+          el: $('#download-ok-modal')
+          });
+        modalDownloadView.show();
   });
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
-        self.views.modalDownloadFailView.show();
+        var modalDownloadFailView = new ModalDownloadFailView({
+          el: $('#download-fail-modal')
+          });
+        modalDownloadFailView.show();
   });
     var arrayFetch = arrayCollection.fetch({ reset: true });
     var data = {
