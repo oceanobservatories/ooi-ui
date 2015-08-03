@@ -150,7 +150,6 @@ var ArrayContainerView = Backbone.View.extend({
 })
 
 var AssetItemView = Backbone.View.extend({
-    //TODO: Create a partial and put all the html/css in it...
     tagName: 'li',
     events: {
         'click label.platform': 'onClick',
@@ -215,8 +214,11 @@ var StreamItemView = Backbone.View.extend({
             this.derender();
         });
     },
-    onClick: function() {
-        ooi.trigger('toc:selectStream', this.model);
+    onClick: function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        var option = null;
+        ooi.trigger('toc:selectStream', { model: this.model, selection : option });
     },
     template: _.template('<a href="#"><%= stream_name %>'),
     derender: function() {
