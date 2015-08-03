@@ -31,12 +31,7 @@
       <div class="row">
         <div  class="col-sm-12">
           <div id="navbarOld" class="panel">
-            <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
-        <!-- ooiui/static/js/partials/AssetEditorModal.html -->
-            </div>
-            <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
-        <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
-            </div>
+           
             <div id="assetTableHeading" class="panel-heading hidden">
       <!-- ooiui/static/js/partials/AssetTableHeader.html -->
             </div>
@@ -63,7 +58,6 @@
         </div><!-- .col-sm-12 -->
       </div><!-- .row -->
 
-
       <div class="row">
         <div id="assetDetailsPlaceholder" class="jumbotron text-center hidden">
           <h3>Please click an asset to view details</h3>
@@ -87,6 +81,14 @@
       </div><!-- .row -->
     </div><!-- .content-fluid -->
   </div><!-- #page-content-wrapper -->
+
+  <!-- modal needs to me outside or it will be behind banner/navbar --> 
+  <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
+    <!-- ooiui/static/js/partials/AssetEditorModal.html -->
+  </div>
+  <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
+    <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
+  </div>
 </div><!-- #wrapper -->
 
 <!-- Menu Toggle Script -->
