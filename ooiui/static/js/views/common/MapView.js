@@ -24,6 +24,13 @@ var MapView = Backbone.View.extend({
       maxZoom: 13
     });
 
+    var NGDC_WorldTerrain = L.tileLayer('http://maps.ngdc.noaa.gov/arcgis/rest/services/web_mercator/etopo1_hillshade/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Hillshade visualization by J. Varner and E. Lim, CIRES, University of Colorado at Boulder and NOAA/NGDC.',
+      maxZoom: 13
+    });
+
+    
+
     this.map = L.map(this.el,{
          center: [20.505, -80.09],
          zoom: 3,
@@ -34,8 +41,9 @@ var MapView = Backbone.View.extend({
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
+      "NGDC Bathymetry" : NGDC_WorldTerrain,
       "ESRI Terrain": Esri_WorldTerrain,
-      "World Imagery" :Esri_WorldImagery,
+      "World Imagery" : Esri_WorldImagery,
       "Grayscale": grayscale,
     };
 
