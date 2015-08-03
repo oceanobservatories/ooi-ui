@@ -171,7 +171,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
         self.views.modalDownloadFailView.show();
   });
-
 }
 });
 
@@ -189,16 +188,12 @@ var pagination = {
 $(document).ready(function() {
         ooi.start();
         populate();
-
         $('body').find('#search-clear').hide();
-      
-        
         $("#search-clear").click(function(){
             $("#stream-search").val('').focus();
             $(this).hide();
             updateCollection( showStreams )
             });
-
         $('#stream-search').keyup(function(e) {
                 $("#search-clear").toggle(Boolean($(this).val()));
                 $("#search-clear").toggle(Boolean($("#stream-search").val()));
