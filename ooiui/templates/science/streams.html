@@ -174,7 +174,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
         self.views.modalDownloadFailView.show();
   });
-
 }
 });
 
@@ -191,6 +190,7 @@ var pagination = {
 
 $(document).ready(function() {
         ooi.start();
+        populate();
         $('body').find('#search-clear').hide();
         $("#search-clear").click(function(){
             $("#search").val('').focus();
@@ -227,6 +227,20 @@ function showStreams( collection, response ){
         $(".fa-spinner").remove();
         $(".table").append( streamTableView.el );
     }
+
+function populate() {
+  // get url
+  var newURL = window.location.href;
+  // remove the preceding '?' from index
+  newURL = newURL.split('#').pop().split('?').pop();
+  // get last index of url
+  var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);  
+  // put last index in search box...box
+  if(assetLink.length  >= 1) {
+    $('#search').val(assetLink);
+    updateCollection( showStreams );
+  }
+}
 
 function updateCollection( successCallback ){
 

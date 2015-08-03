@@ -49,7 +49,7 @@ def event_new(new,aid,aclass):
     #?id=%s' % id
     return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
 
-@app.route('/streams')
+@app.route('/streams/')
 def streams_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
     return render_template('science/streams.html')
