@@ -175,11 +175,33 @@ var MapView = Backbone.View.extend({
     L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
-    var markerCluster = new L.MarkerClusterGroup();
+    var markerCluster = new L.MarkerClusterGroup({spiderfyDistanceMultiplier:2});    
 
     var res_des_list = this.collection.map(function(model){
       return model.get('ref_des');
     });
+
+    var mooringIcon = L.icon({
+        iconUrl: '/img/mooring.png',
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var platformIcon = L.icon({
+        iconUrl: '/img/platform.png',        
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var gliderIcon = L.icon({
+        iconUrl: '/img/glider.png',        
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
 
     var unique_res_des = _.uniq(res_des_list);
     _.each(unique_res_des, function(platform_id) {           
@@ -189,8 +211,9 @@ var MapView = Backbone.View.extend({
 
       var lat_lons = []
 
-      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
-        var platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'));
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){               
+
+        
 
         //reset the event popup
         var eventPopup = ""
@@ -210,6 +233,18 @@ var MapView = Backbone.View.extend({
           var array = platform_id.substring(0, 2);
           var mooring = ref_des_split[0]
           var platform_val = ref_des_split[1]
+
+          var platformFeature = null
+          if (_.isUndefined(platform_val)){
+            //itemType = "mooring"
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
+          }else if (name.toLowerCase().indexOf("glider") > -1){
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
+          }else{
+            //itemType = "platform"
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
+          }          
+
           if (ref_des_split.length > 2){
             var instrument = platform_id
             var instrument_url = [array, mooring, platform_val , instrument].join("/");
@@ -258,7 +293,8 @@ var MapView = Backbone.View.extend({
 
 
         //only add the item if there are deployment events
-        if (hasDeploymentEvent){          
+        if (hasDeploymentEvent){   
+          console.log(platforms[0])       
           platformFeature.bindPopup(popupContent);
           markerCluster.addLayer(platformFeature);
         }
