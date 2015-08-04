@@ -1,13 +1,7 @@
 <!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
-<!-- <div class="row"> -->
-<!-- 	<label> <%= labelText %> -->
-<!-- 	</label>	 -->
-<!-- </div>	 -->
-<select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
-
-	<!-- <select data&#45;width="70%" title="<%= labelText %>" data&#45;hide&#45;disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc&#45;plotting&#45;text" data&#45;live&#45;search="true" multiple data&#45;max&#45;options="<%=numberSelectable%>" > -->
-		<!-- <optgroup label="<%= labelText %>" style="text&#45;transform: capitalize;">	 -->
-  	  <!-- ARRAY -->	
+<select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>">	 	
+  <%= searchIcon %>	
+  <!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
 				<% if (model.get('display_name') != null) { %>
@@ -18,7 +12,7 @@
 				</option>
 		    	<% } %> 
 			<% }); %>
-		<!-- </optgroup> -->
+		 <!-- </optgroup>&#45;> -->
 
 		<!-- MOORING -->	
 		<% } else if(labelText == "sites") { %>
@@ -72,7 +66,4 @@
 			
 		<% } %>  
 	</select>
-
-<!--</div>-->
-
 
