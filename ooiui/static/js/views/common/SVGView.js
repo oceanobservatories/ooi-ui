@@ -69,11 +69,11 @@ var plotParameters ={
     valid:true,
     _selectedPrams:{
         timeseries:{val:6,condition:"<=",message:"No More than 6 Parameters"},
-        ts_diagram:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        ts_diagram:{val:2,condition:"=",message:"Must Select Temperature and Salinity"},
         depthprofile:{val:2,condition:"=",message:"Must Select 2 Parameters"},
-        quiver:{val:2,condition:"=",message:"Must Select 2 Parameters"},
-        rose:{val:2,condition:"=",message:"Must Select 2 Parameters"},
-        scatter:{val:3,condition:"=",message:"Must Select 3 Parameters"},
+        quiver:{val:2,condition:"=",message:"Must Select U- and V-Components"},
+        rose:{val:2,condition:"=",message:"Must Select Magnitude and Direction"},
+        scatter:{val:3,condition:"=",message:"Must Select X, Y, and Color Components"},
         _validate:function(name,length){return (length==0?false: (this[name].condition=="<="
                                             ? length<=parseInt(this[name].val)
                                             : parseInt(this[name].val)==length));}
@@ -112,9 +112,30 @@ var plotParameters ={
   },
   invalidParam:function(){return !this._selectedX.valid},
   validateSelected:function(options){
+    console.log(options.yvar[0][0])
+    var check2yvarplots = ['quiver', 'rose', 'ts_diagram'];
+    
     if(!this._validateTimeSpan(options)) return false;
-    if(options.plotType.toString().indexOf("_scatter")!=-1) return this._selectedX._validateNumberOfSelected("scatter",options.yvar[0][0])
-    else return this._selectedX._validateNumberOfSelected(options.plotType,options.yvar[0][0])
+    
+    if (options.plotType.toString().indexOf("_scatter")!=-1){
+      var var1 = $("#yvar1-select :selected").text();
+      var var2 = $("#yvar2-select :selected").text();
+      var var3 = $("#yvar3-select :selected").text();
+      var yvar = [];
+      if ( var1 != 'undefined' ) yvar.push(var1);
+      if ( var2 != 'undefined' ) yvar.push(var2);
+      if ( var3 != 'undefined' ) yvar.push(var3);
+      return this._selectedX._validateNumberOfSelected("scatter", yvar)
+    }else if ($.inArray(options.plotType, check2yvarplots)) {
+      var var1 = $("#yvar1-select :selected").text();
+      var var2 = $("#yvar2-select :selected").text();
+      var yvar = [];
+      if ( var1 != 'undefined' ) yvar.push(var1);
+      if ( var2 != 'undefined' ) yvar.push(var2);
+      return this._selectedX._validateNumberOfSelected(options.plotType, yvar)
+    }else {
+      return this._selectedX._validateNumberOfSelected(options.plotType, options.yvar[0][0])
+    };
 
       /*
       /begin timeseries
@@ -241,13 +262,13 @@ var SVGView = Backbone.View.extend({
          // this should be uframe alert here.
          self.$el.html(' ');
          if (e.status == 400){
-         $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
          }
          else if (e.status == 500){
-         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
          }
          else{
-         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong></div>');
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
          }
         // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
        })
@@ -376,7 +397,7 @@ var SVGPlotView = SVGView.extend({
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     options.yvar = this.model.get('yvariable')
-    console.log(this.model);
+    // console.log(options.yvar);
 
     if('xvar' in options){
       options.xvar = ["time"]
@@ -394,6 +415,7 @@ var SVGPlotView = SVGView.extend({
       if(!plotParameters.validateSelected(options)) return false;
       if (options.plotType == 'depthprofile'){
         //Variables are backwards, beware
+        
         this.xvariable = null
         var not_list = []
         $.each( options.yvar[0][0], function( key, value ) {
@@ -408,6 +430,25 @@ var SVGPlotView = SVGView.extend({
 
         this.yvariable = not_list.join();
         this.dpa_flag = "1"     //this.getDpaFlag(options.xvar)
+      }else if (options.plotType == 'ts_diagram'){
+        this.yvariable = $( "#yvar2-select option:selected").val() + ',' + $( "#yvar1-select option:selected").val()
+        this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)
+      }else if (options.plotType == 'quiver'){
+        this.yvariable = $( "#yvar1-select option:selected").val() + ',' + $( "#yvar2-select option:selected").val()
+        this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)
+      
+      }else if (options.plotType == '3d_scatter'){
+        this.yvariable = $( "#yvar1-select option:selected").val() + ',' + $( "#yvar2-select option:selected").val() + ',' + $( "#yvar3-select option:selected").val()
+        this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)
+
+      }else if (options.plotType == 'rose'){
+        this.yvariable = $( "#yvar1-select option:selected").val() + ',' + $( "#yvar2-select option:selected").val()
+        this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)
+
       }else{
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
@@ -419,6 +460,7 @@ var SVGPlotView = SVGView.extend({
       this.useScatter = options.useScatter.toString();
       this.useEvent = options.useEvent.toString();
       this.plotType = options.plotType;
+      console.log(options.start_date)
       this.st = moment(options.start_date).toISOString()
       this.ed = moment(options.end_date).toISOString()
 
@@ -445,7 +487,6 @@ var SVGPlotView = SVGView.extend({
     }
   },
   download: function(options) {
-    console.log('download')
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
     var yvar = this.yvariable
@@ -535,6 +576,9 @@ var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
     'change #xvar-select' : 'xVarChange',
+    'change #yvar1-select' : 'yVar1Change',
+    'change #yvar2-select' : 'yVar2Change',
+    'change #yvar3-select' : 'yVar3Change',
     'switchChange.bootstrapSwitch .bootstrap-switch' : 'onSwitchChange',
     'change .div-qa-qc input[type=checkbox]':'onCheckChange'
     /*
@@ -557,7 +601,14 @@ var SVGPlotControlView = Backbone.View.extend({
         }
 
   },
-
+  updateYVarDropdown: function(){
+      // This function copies parameters from parameters_id to the 3 yVar 
+      // dropdowns for the advanced plots
+      $( "#yvar1-select").html($("#parameters_id").html());
+      $( "#yvar2-select").html($("#parameters_id").html());
+      $( "#yvar3-select").html($("#parameters_id").html());
+      this.$el.find('.selectpicker').selectpicker('refresh');
+  },
   setModel: function(model,updateTimes) {
     var self = this;
     this.model = model;
@@ -578,18 +629,88 @@ var SVGPlotControlView = Backbone.View.extend({
 
     if (plotType=="Time Series"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.")
+
+      $('#parameters_id').attr('disabled', false);
+      $('#plotting-enable-events').attr('disabled', false);
+      this.$el.find('#yvar1-selection').hide();
+      this.$el.find('#yvar2-selection').hide();
+      this.$el.find('#yvar3-selection').hide();
     }else if(plotType=="T-S Diagram"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
+
+      $('#parameters_id').attr('disabled', true);
+      $('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select-text').text("Temperature");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar2-select-text').text("Salinity");
+      this.$el.find('#yvar3-selection').hide();
+
     }else if(plotType=="Depth Profile"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Depth Profile plot uses the Pressure and/or Depth parameter from a data stream, as well as a maxima/minima extrema calculation, to determine singular depth profiles present in the data.  Users should select only a single parameter for this plot type.")
+      
+      $('#parameters_id').attr('disabled', false);
+      $('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#yvar1-selection').hide();
+      this.$el.find('#yvar2-selection').hide();
+      this.$el.find('#yvar3-selection').hide();
+
     }else if(plotType=="Quiver"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Quiver plot is designed to be used with two velocitiy parameters.  This plot is used primarily with the Velocity Meters and the Acoustic Doppler Current Profilers.  This plot will provide an arrow to display the direction of the water movement, as well as a gray shadow to represent the magnitude.")
+      
+      $('#parameters_id').attr('disabled', true);
+      $('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select-text').text("U-Component");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar2-select-text').text("V-Component");
+      this.$el.find('#yvar3-selection').hide();
+
     }else if(plotType=="Rose"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Rose Plot is designed to show the magnitude and direction of water currents and wind movement.  The direction should be represented as a value between 0 and 360.")
+      
+      $('#parameters_id').attr('disabled', true);
+      $('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select-text').text("Magnitude");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar2-select-text').text("Direction");
+      this.$el.find('#yvar3-selection').hide();
+
     }else if(plotType=="3D Colored Scatter"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The 3D Colored Scatter allows a user to select two parameters as the X and Y axes, then select a 3rd parameter to use as a color map for the plotted points.")
+      
+      $('#parameters_id').attr('disabled', true);
+      $('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select-text').text("X-Component");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar2-select-text').text("Y-Component");
+      this.$el.find('#yvar3-selection').show();
+      this.$el.find('#yvar3-select-text').text("Color");
     }
-
+  },
+  yVar1Change: function(e) {
+    var selectedParam = this.$el.find( "#yvar1-select option:selected").val()
+    $("#parameters_id").val(selectedParam);
+    $("#parameters_id").change();
+    $("#parameters_id").selectpicker('refresh');
+  },
+  yVar2Change: function(e) {
+    var selectedParam = this.$el.find( "#yvar2-select option:selected").val()
+    $("#parameters_id").val(selectedParam);
+    $("#parameters_id").change();
+    $("#parameters_id").selectpicker('refresh');
+  },
+  yVar3Change: function(e) {
+    var selectedParam = this.$el.find( "#yvar3-select option:selected").val()
+    $("#parameters_id").val(selectedParam);
+    $("#parameters_id").change();
+    $("#parameters_id").selectpicker('refresh');
   },
   onClickPlot: function(e) {
     var data = {};
@@ -601,7 +722,6 @@ var SVGPlotControlView = Backbone.View.extend({
     console.log(data.xvar);
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = $('#xvar-select option:selected').text();
-    console.log(data.plotType)
     /*
     if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
@@ -641,8 +761,6 @@ var SVGPlotControlView = Backbone.View.extend({
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
       this.$end_date_picker = this.$end_date.data('DateTimePicker');
-      
-      console.log(this.$el.find('#xvar-select'))
     }
 
     this.$type_select = this.$el.find('#type-select');

@@ -43,7 +43,6 @@ var PlottingSelectionView = Backbone.View.extend({
   },
   getSelectedVars: function(filterModel,filterCollection){        
     var selectedParam = this.$el.find( "#parameters_id option:selected").val()
-     console.log(selectedParam);
     return selectedParam;
   },
   addFilter: function(filterModel,filterCollection){    
@@ -191,7 +190,7 @@ var PlottingSelectionView = Backbone.View.extend({
                 }
               }              
             }
-            self.$el.find( "#parameters_id").html(parameterhtml)  
+            self.$el.find( "#parameters_id").html(parameterhtml)
           }
         });
 
@@ -220,8 +219,9 @@ var PlottingSelectionView = Backbone.View.extend({
             var start = model.get('streams')[i]['beginTime']                            
             var end = model.get('streams')[i]['endTime']            
             var sensor = model.get('streams')[i]['sensor']    
-
-            streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"            
+            if (streamTextValue.indexOf("metadata") < 0){
+              streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"            
+            }
           };
 
           self.$el.find( "#streams_id").html(streamhtml)        

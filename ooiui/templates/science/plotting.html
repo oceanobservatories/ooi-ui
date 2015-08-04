@@ -127,6 +127,7 @@
       <div id="stream-download-modal"></div>
       <div id='download-ok-modal'></div>
       <div id='download-fail-modal'></div>
+      <div id='plot-params-modal'></div>
     </div> <!-- #content-fluid -->
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
@@ -311,12 +312,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.plottingItemSelection2.filterItems(options);
       }
     });
-    //filter seection : listen to the selection of the parameter
+    //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
       self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
-    //filter seection : listen to the selection of the parameter
+    //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
 
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
@@ -362,6 +363,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.xvar = 'time';
       }
       
+      console.log(options.yvar)
       //used to handle a second station 
       options.multiStation = self.multiStation;
 
