@@ -240,7 +240,6 @@ var MapView = Backbone.View.extend({
 
     //add labels
     _.each(self.arrayMapping, function(arrayMap,index) {
-      console.log(arrayMap);
         var labelMarker = L.marker([arrayMap._northEast.lat, arrayMap._southWest.lng-2],{ opacity: 0.001 })
                             .bindLabel(self.arrayTitle[index], { className: "array-title-label", noHide: true });
         self.arrayLayers.addLayer(labelMarker);
