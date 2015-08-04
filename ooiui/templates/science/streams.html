@@ -165,7 +165,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
 
       self.views.streamDownloadFormView.show(options);
-      console.log(options)
       //window.open(base_url, '_blank');
 
     });
