@@ -48,7 +48,7 @@ python app.py -s
 Remember to modify WSGI.py and app.ini to your specific installation environment
 ```
 sudo mkdir /tmp/ooi-ui
-sudo chown case:nginx /tmp/ooi-ui
+sudo chown ooiui:nginx /tmp/ooi-ui
 sudo chmod 755 /tmp/ooi-ui
 ```
 
