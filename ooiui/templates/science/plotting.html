@@ -127,6 +127,7 @@
       <div id="stream-download-modal"></div>
       <div id='download-ok-modal'></div>
       <div id='download-fail-modal'></div>
+      <div id='plot-params-modal'></div>
     </div> <!-- #content-fluid -->
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
@@ -165,14 +166,14 @@ _.extend(OOI.prototype, Backbone.Events, {
       //no path information
     }else{
       //path information
-      console.log(path)
+      // console.log(path)
       $.each( path, function( key, value ) {
-        console.log( dataContentArray[key] + ": " + value );        
+        // console.log( dataContentArray[key] + ": " + value );        
         var validItem = false; 
              
         $('#plot-item-selection #'+dataContentArray[key]+'_id option').each(function( index, obj ) {                    
           if (value == $( this ).val()){
-            console.log( "FOUND!", value , $(this).val() );
+            // console.log( "FOUND!", value , $(this).val() );
             validItem = true
             //$('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('val', $(this).val());
             $('#plot-item-selection #'+dataContentArray[key]+'_id').val( $(this).val() );                    
@@ -311,12 +312,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.plottingItemSelection2.filterItems(options);
       }
     });
-    //filter seection : listen to the selection of the parameter
+    //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
       self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
-    //filter seection : listen to the selection of the parameter
+    //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
 
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
@@ -366,7 +367,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       options.multiStation = self.multiStation;
 
       if (options.multiStation){
-        console.log("*********", options.multiStation, options.secRef , options.secStream);
+        // console.log("*********", options.multiStation, options.secRef , options.secStream);
         
         options.xvar = "time,time"
         options.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
@@ -398,9 +399,9 @@ _.extend(OOI.prototype, Backbone.Events, {
       annotation.set('pos_x', xdate);
       annotation.set('pos_y', record[yvar]);
       annotation.set('value', record[yvar]);
-      console.log(self.models.userModel.get('scopes'));
+      // console.log(self.models.userModel.get('scopes'));
       if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
-        console.log("Trying to show");
+        // console.log("Trying to show");
         self.views.annotationModal.show({
           model: annotation,
           userModel: self.models.userModel
@@ -409,7 +410,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      console.log("Adding to collection");
+      // console.log("Adding to collection");
       self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {

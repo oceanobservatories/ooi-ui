@@ -24,7 +24,7 @@
             <option value="time">Time Series</option>
             <option value="ts-diagram">T-S Diagram</option>
             <option data-subtext="" value="pressure">Depth Profile</option>
-            <option value="time">Quiver</option>
+            <option value="quiver">Quiver</option>
             <option value="rose">Rose</option>
             <option value="colorxyz">3D Colored Scatter</option>
               <!-- old options -->
@@ -105,4 +105,29 @@
         </button>
     </div>    
   </div> <!-- .row -->
+
+  <div class="row">
+    <div class="col-sm-2" style="display: none;" id="yvar1-selection">
+        <div class="form-group">
+          <label id='yvar1-select-text' for="yvar1-select">Select X</label>
+          <li> </li>
+          <select data-width="85%" data-hide-disabled=true id="yvar1-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+          </select>
+        </div> <!-- .form-group -->  
+    </div> <!-- .col-sm-3 -->
+    <div class="col-sm-2" style="display: none;" id="yvar2-selection">
+        <div class="form-group">
+          <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
+          <select data-width="85%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+          </select>
+        </div> <!-- .form-group -->  
+    </div> <!-- .col-sm-3 -->
+    <div class="col-sm-2" style="display: none;" id="yvar3-selection">
+        <div class="form-group">
+          <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
+          <select data-width="85%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+          </select>
+        </div> <!-- .form-group -->  
+    </div> <!-- .col-sm-3 -->
+  </div> <!-- row -->
 </form>
