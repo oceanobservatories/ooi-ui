@@ -76,17 +76,29 @@ _.extend(OOI.prototype, Backbone.Events, {
         userModel: new UserModel(),
         mapModel: new MapModel()
     },
+    collections:{
+        gliderCollection: null
+    },
+    views:{
+        mapView:null
+    },
     start: function() {
         this.login.fetch({async:false});
         navbar = new NavbarView({
         login: this.login
     });
 
+    var self = this;
+
     var banner = new BannerView({ bannerTitle:bannerTitle });
     $('body').prepend(banner.el);
 
+
+    self.collections.gliderCollection = new GliderTrackCollection();
+
     // render out our views:
-    var mapView = new MapView({
+    self.views.mapView = new MapView({
+        gliderCollection: self.collections.gliderCollection,
         collection:assetCollection,
         el: $('#map')
     });
@@ -111,10 +123,23 @@ _.extend(OOI.prototype, Backbone.Events, {
           });
         modalDownloadFailView.show();
   });
+
     var arrayFetch = arrayCollection.fetch({ reset: true });
+
+    var gliderFetch = this.collections.gliderCollection.fetch({ reset: true });
+
     var data = {
         min : 'True'
     };
+
+    $.when(gliderFetch).done(function() {
+        console.log("GLIDER DONE")
+        //when the glider fetch is done update the map
+        self.views.mapView.gliderCollection = self.collections.gliderCollection;
+        self.views.mapView.add_glider_tracks();
+    });
+
+
     $.when(arrayFetch).done(function() {
         var assetFetch = assetCollection.fetch({ data: data, reset: true });
         $.when(assetFetch).done(function() {
@@ -154,12 +179,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "toc:selectArray", function(model) {
         var coors = model.get('geo_location')['coordinates'][0][0]
-        mapView.setMapView(coors,4); // recenters
+        self.views.mapView.setMapView(coors,4); // recenters
     });
 
     this.listenTo(this, "toc:selectItem", function(model) {
         var coors = model.get('coordinates');
-        mapView.setMapView(coors,100); // recenters
+        self.views.mapView.setMapView(coors,100); // recenters
     });
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
@@ -251,9 +276,9 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function () {
-            $('label.tree-toggler').click(function () {
-                        $(this).parent().children('ul.tree').toggle(300);
-                            });
-            });
+    $('label.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+    });
+});
 </script>
 {% endblock %}

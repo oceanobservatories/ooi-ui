@@ -1,4 +1,5 @@
 var MapView = Backbone.View.extend({
+  gliderCollection:null,
   initialize: function() {
     var self = this;
 
@@ -29,15 +30,50 @@ var MapView = Backbone.View.extend({
       maxZoom: 13
     });
 
+    self.arrayTitle =   { 
+                         "pioneer":"Coastal Pioneer",
+                         "endurance":"Endurance & Cabled Array",
+                         "papa":"Station Papa",
+                         "irminger":"Irminger Sea",
+                         "argentine":"Argentine Basin",
+                         "southern":"Southern Ocean"
+                        }
     
+    self.arrayLinks =   { 
+                         "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
+                         "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
+                         "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
+                         "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+                         "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+                         "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
+                        }
 
+    self.arrayMapping = {"pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
+                         "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
+                         "papa": new L.LatLngBounds([[52,-150],[46,-139]]),
+                         "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
+                         "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
+                         "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])                         
+                        }
+
+    self.sizeMapping = {"pioneer":[200,300],
+                         "endurance":[200,400],
+                         "papa":[250,250],
+                         "irminger":[200,250],
+                         "argentine":[200,250],
+                         "southern":[200,250]
+                        }    
+    
+  
     this.map = L.map(this.el,{
          center: [20.505, -80.09],
          zoom: 3,
          maxZoom: 10,
          minZoom: 3,
          layers: [Esri_OceanBasemap]
-    });
+    });   
+
+    L.control.mousePosition().addTo(this.map);
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
@@ -105,11 +141,14 @@ var MapView = Backbone.View.extend({
     });
     //wmsLayers['Glider Track'] = this.generate_glider_layer();
     this.wmsLayers = wmsLayers;
-    this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    var gl = this.generate_glider_layer();
-    gl.addTo(this.map);
-    self.gliderLayer = gl
+    //glider layer
+    this.gliderLayers = L.layerGroup();
+    this.arrayLayers = L.layerGroup();
+
+    wmsLayers['Array Titles'] = this.arrayLayers;
+    wmsLayers['Glider Tracks'] = this.gliderLayers;
+    this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
     this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
 
@@ -121,6 +160,28 @@ var MapView = Backbone.View.extend({
 
     return this
   },
+  add_glider_tracks: function(){
+    var self = this;
+    //this.gliderCollection
+    var gliderTrackStyle = {
+      "color": "#ff7800",
+      "weight": 5,
+      "opacity": 0.65
+    };
+
+    self.gliderCollection.each(function(model) {      
+      var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});      
+      //popup
+      var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
+      //bind 
+      gliderTrackLayer.bindPopup(popupContent);
+      //add
+      self.gliderLayers.addLayer(gliderTrackLayer)
+    });     
+    
+
+  },
+  //deprecated i think
   update_track_glider: function(reference_designator,show_track){
     var self = this;
     var map = this.map;
@@ -149,6 +210,7 @@ var MapView = Backbone.View.extend({
       //console.log(layer.options.color);
     });
   },
+  //deprecated i think
   generate_glider_layer:function(geojson){
     if (geojson === undefined){
       var gliderTrackLine = {
@@ -175,7 +237,75 @@ var MapView = Backbone.View.extend({
     L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
-    var markerCluster = new L.MarkerClusterGroup({spiderfyDistanceMultiplier:2});    
+
+    //add labels
+    _.each(self.arrayMapping, function(arrayMap,index) {
+      console.log(arrayMap);
+        var labelMarker = L.marker([arrayMap._northEast.lat, arrayMap._southWest.lng-2],{ opacity: 0.001 })
+                            .bindLabel(self.arrayTitle[index], { className: "array-title-label", noHide: true });
+        self.arrayLayers.addLayer(labelMarker);
+
+
+    });
+
+    self.arrayLayers.addTo(map);
+
+
+
+    var popup = null;
+    var markerCluster = new L.MarkerClusterGroup({iconCreateFunction: function(cluster) {
+                                                      return new L.DivIcon({ html: '<b class="textClusteredMarker">' + '</b>', //cluster.getChildCount() + '</b>' ,
+                                                                             className: 'clusterdMarker', 
+                                                                             iconSize: L.point(40, 40)
+                                                                            });
+                                                  },
+                                                  spiderfyDistanceMultiplier:2,
+                                                  showCoverageOnHover: false
+                                                  });    
+
+    markerCluster.on('clustermouseover', function (a) {            
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
+
+        //console.log(a.layer.getAllChildMarkers()[0])
+        var url = null;
+        var size = null;
+        var title = null;
+        _.each(self.arrayMapping, function(arrayMap,index) {
+          if (arrayMap.contains(a.latlng)){
+            url = self.arrayLinks[index];
+            size = self.sizeMapping[index];
+            title = self.arrayTitle[index];
+          }          
+        })
+
+
+        popup = L.popup({offset: new L.Point(0, -20)})
+         .setLatLng(a.latlng) 
+         .setContent('<h4>'+title+'</h4><br><img height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+         .openOn(map);
+      }
+
+
+      //a.layer.getAllChildMarkers().length
+
+    });
+
+
+    map.on('zoomstart', function(e) {
+      if (popup && map) {
+          map.closePopup(popup);
+          popup = null;
+      }
+    });
+
+    markerCluster.on('clustermouseout', function (e) {
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
+        if (popup && map) {
+          map.closePopup(popup);
+          popup = null;
+        }
+      }
+    });
 
     var res_des_list = this.collection.map(function(model){
       return model.get('ref_des');
@@ -238,7 +368,7 @@ var MapView = Backbone.View.extend({
           if (_.isUndefined(platform_val)){
             //itemType = "mooring"
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
-          }else if (name.toLowerCase().indexOf("glider") > -1){
+          }else if (name.toLowerCase().indexOf("glider") > -1){      
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
           }else{
             //itemType = "platform"
@@ -288,14 +418,21 @@ var MapView = Backbone.View.extend({
             });
         });
         eventContent += '</ul>'; 
-
         popupContent+=eventContent;
 
 
         //only add the item if there are deployment events
         if (hasDeploymentEvent){   
-          console.log(platforms[0])       
+          
           platformFeature.bindPopup(popupContent);
+
+          platformFeature.on('mouseover', function (e) {
+            this.openPopup();
+          });
+          platformFeature.on('mouseout', function (e) {
+              this.closePopup();
+          });
+
           markerCluster.addLayer(platformFeature);
         }
       }
@@ -311,13 +448,3 @@ var MapView = Backbone.View.extend({
   //end
 });
 
-var GliderTrackModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/glider_tracks',
-  defaults: {
-        reference_designator: ""
-  },
-  initialize: function(ref){
-    this.set('reference_designator',ref);
-  },
-
-});
