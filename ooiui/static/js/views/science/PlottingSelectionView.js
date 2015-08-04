@@ -116,7 +116,7 @@ var PlottingSelectionView = Backbone.View.extend({
       
       //refresh
       $('.selectpicker').selectpicker('refresh');
-      console.log("un:filter called, refresh");
+      // console.log("un:filter called, refresh");
     }
   },
   filterItems: function(options) {
@@ -200,7 +200,7 @@ var PlottingSelectionView = Backbone.View.extend({
         this.$el.find('.selectpicker').selectpicker('refresh');
         ooi.trigger('FilterSelectionView:onStreamSelection', {model:streamModel});
       }
-      console.log("no more filter");
+      // console.log("no more filter");
     }else if (childItem == "streams" || childItem == "parameters"){
       //this.$el.find( "#"+currentItem+"_id option").each(function(){$( this ).remove()});
       this.$el.find( "#streams_id").html("")
@@ -254,9 +254,6 @@ var PlottingSelectionView = Backbone.View.extend({
           if (filterVal == childCode){          
             //ITS GOOD!          
             $( this ).text(childValue)
-            //console.log(newText)
-
-            //self.$el.find( "#"+childItem+"_id").text(newText)
           }
           else{
             $( this ).attr("disabled", true);
@@ -270,7 +267,7 @@ var PlottingSelectionView = Backbone.View.extend({
       this.$el.find( "#"+childItem+"_id" ).removeAttr("disabled");
 
       //refresh
-      console.log("filter called, refresh",childItem);
+      // console.log("filter called, refresh",childItem);
       this.$el.find('.selectpicker').selectpicker('refresh');
     }
   },  
@@ -297,7 +294,7 @@ var FilterSelectionView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/FilterPlottingSelection.html'],
   render: function() {
-    console.log("FilterSelectionView render called");
+    // console.log("FilterSelectionView render called");
     var self = this;   
     this.$el.html(this.template({numberSelectable: self.numberSelectable,
                                  isDisabled:self.initallyDisabled,
