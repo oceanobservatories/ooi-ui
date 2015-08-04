@@ -13,6 +13,28 @@
     }
 }
 
+tr.highlight-row {
+    background-color: #004773 !important;
+    color: #fff!important;
+}
+
+div.panel {
+}
+
+div.panel-heading {
+    background-color: #EEEEEE !important;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+#assetCreatorBtn {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#search {
+    margin-top: 5px;
+}
 /* helpful formatting classes */
 . {
     min-height: 360px;
