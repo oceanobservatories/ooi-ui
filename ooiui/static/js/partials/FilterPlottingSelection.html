@@ -1,12 +1,5 @@
 <!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
-<!-- <div class="row"> -->
-<!-- 	<label> <%= labelText %> -->
-<!-- 	</label>	 -->
-<!-- </div>	 -->
 <select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
-
-	<!-- <select data&#45;width="70%" title="<%= labelText %>" data&#45;hide&#45;disabled=true id="<%=labelText%>_id" <%= isDisabled %> class="selectpicker toc&#45;plotting&#45;text" data&#45;live&#45;search="true" multiple data&#45;max&#45;options="<%=numberSelectable%>" > -->
-<!--  <optgroup label="<%= labelText %>">	  -->
   	  <!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
@@ -72,14 +65,13 @@
 			
 		<% } %>  
 	</select>
-
 <!--</div>-->
 
 <script>
 $(function() {
   $("input[type=text]").css("font-family", "FontAwesome");
-  // $('.form-control').attr("value", "&#xf0b0;");
-  $('.form-control').attr("placeholder","Filter");
+  var icon = "\uf0b0" //Font Awesom unicode for Filter icon
+    $('.form-control').attr("placeholder",icon+" Filter");
 });
-  </script>
+</script>
 
