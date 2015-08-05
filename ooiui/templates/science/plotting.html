@@ -64,15 +64,7 @@
     </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
-    <div class="content-fluid">
-      
-      <!--  Plot section of the page   -->
-      <div id='highcharts-row-section' class="row">
-        <div class="col-sm-12">
-          <div class="panel" id="highcharts-row-section-panel">
-          </div>    
-        </div>
-      </div>
+    <div class="content-fluid">      
 
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
@@ -89,13 +81,25 @@
                   </ul>
               </div>
             <div class="panel-body">
-	      <div id="plotcontrols">
-	      </div>
-	      <div id="plot-view">
-		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-		{# <img src="/img/graph7.png" style="width:100%;"> #}
-		<img src="/img/plotting/graph.png" style="width:100%;">
-	      </div> <!-- #view -->
+      	      
+              <div id="plotcontrols">
+      	      </div>
+
+              <!--  Plot section NORMAL   -->
+      	      <div id="plot-view">
+            		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+            		{# <img src="/img/graph7.png" style="width:100%;"> #}
+            		<img src="/img/plotting/graph.png" style="width:100%;">
+      	      </div> <!-- #view -->
+
+              <!--  Plot section HIGHCHARTS   -->
+              <div style="display:none" id='highcharts-row-section' class="row">
+                <div class="col-sm-12">
+                  <div class="panel" id="highcharts-row-section-panel">
+                  </div>    
+                </div>
+              </div>
+
             </div>
           {# </div> #}
 	  </div> <!-- panel -->
@@ -218,14 +222,31 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   },
-  setDefaults: function() {
+  setParams: function(options) {
+    //init the timeseries view
+    this.views.timeseriesView.initialize();    
+
+    console.log("model",this.views.svgplot.model);
+    console.log("options",options);
+
+    var p_yvarList = [];
+    var p_xvarList = [];
+    //sort the list of vars and time will always be on the x, duplicated per var
+    _.each(this.views.svgplot.model.attributes.yvariable[0][0],function(element){
+      if (element != "time"){
+        p_yvarList.push(element);
+        p_xvarList.push("time")
+      }
+    })    
+
     //set data series options
-    this.collections.dataseries.stream = "telemetered_ctdgv_m_glider_instrument";
-    this.collections.dataseries.ref_des = "CE05MOAS-GL382-05-CTDGVM000";
-    this.collections.dataseries.startdate = "2015-01-21T22:01:48.103Z",
-    this.collections.dataseries.enddate = "2015-01-22T22:01:48.103Z",
-    this.collections.dataseries.xparameters = ["time","time"],
-    this.collections.dataseries.yparameters = ["sci_water_pressure","sci_water_cond"],
+    this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
+    this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
+    this.collections.dataseries.startdate = options.start_date.toISOString(),
+    this.collections.dataseries.enddate = options.end_date.toISOString(),
+    //will always be time
+    this.collections.dataseries.xparameters = p_xvarList,
+    this.collections.dataseries.yparameters = p_yvarList,
     this.collections.dataseries.fetch({reset: true});
   },
   start: function() {
@@ -257,10 +278,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
     });
-    //init the timeseries view
-    this.views.timeseriesView.initialize();
-
-    this.setDefaults();    
+    
 
     this.listenTo(this.collections.dataseries, 'reset', function(series) {        
       this.views.timeseriesView.collection = series;
@@ -402,7 +420,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.xvar = 'time';
       }
-      
+          
       //used to handle a second station 
       options.multiStation = self.multiStation;
 
@@ -416,7 +434,18 @@ _.extend(OOI.prototype, Backbone.Events, {
         
         self.views.svgplot.plotMulti(options);
       }else{
-        self.views.svgplot.plot(options);
+        if (options.plotType = "timeseries"){
+          //use high charts
+          $('#highcharts-row-section').css('display',"");
+          $('#plot-view').css('display',"none");
+          //set the params and generate the view
+          this.setParams(options);    
+        }else{
+          $('#highcharts-row-section').css('display',"none");
+          $('#plot-view').css('display',"");
+          //use default
+          self.views.svgplot.plot(options);
+        }
       }
     });
     
