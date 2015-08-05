@@ -70,8 +70,10 @@
 <script>
 $(function() {
   $("input[type=text]").css("font-family", "FontAwesome");
-  var icon = "\uf0b0" //Font Awesom unicode for Filter icon
-    $('.form-control').attr("placeholder",icon+" Filter");
+  var icon = "\uf002"; // Font Awesome Unicode for Filter icon
+    var remove = "\uf00d";
+    $('.form-control').attr("placeholder",icon+" Search");
+    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
 });
 </script>
 
