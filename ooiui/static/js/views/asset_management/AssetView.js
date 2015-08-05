@@ -255,7 +255,9 @@ var AssetCreatorModalView = ParentAssetView.extend({
         newAsset.set('asset_class', this.$el.find('#assetClass').val());
         newAsset.set('manufactureInfo', manufactureInfo);
         newAsset.set('notes', [ this.$el.find('#assetNotes').val() ]);
-        newAsset.set('purchaseAndDeliveryInfo', this.$el.find('#assetPurchaseAndDeliveryInfo').val());
+//        newAsset.set('purchaseAndDeliveryInfo', this.$el.find('#assetPurchaseAndDeliveryInfo').val());
+
+        newAsset.set('purchaseAndDeliveryInfo', null);
         newAsset.set('metaData', metaData);
         newAsset.set('classCode', this.$el.find('#assetClassCode').val());
         newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
