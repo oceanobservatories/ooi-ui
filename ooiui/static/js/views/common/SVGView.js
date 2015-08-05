@@ -399,8 +399,8 @@ var SVGPlotView = SVGView.extend({
       this.useScatter = options.useScatter.toString();
       this.useEvent = options.useEvent.toString();
       this.plotType = options.plotType;
-      this.st = moment(options.start_date).toISOString()
-      this.ed = moment(options.end_date).toISOString()
+      this.st = moment.utc(options.start_date).toISOString()
+      this.ed = moment.utc(options.end_date).toISOString()
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
                                                                                                     y_units:y_units,
@@ -653,10 +653,9 @@ var SVGPlotControlView = Backbone.View.extend({
   onClickPlot: function(e) {
     var data = {};
 
-    data.start_date = this.$start_date_picker.getDate();
-    data.end_date = this.$end_date_picker.getDate();
+    data.start_date = moment.utc(this.$start_date.data('date'));
+    data.end_date = moment.utc(this.$end_date.data('date'));
     data.xvar = this.$el.find('#xvar-select').val();
-    // console.log('xvar!!!!!');
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = this.$el.find('#xvar-select option:selected').text();
     /*
@@ -690,10 +689,16 @@ var SVGPlotControlView = Backbone.View.extend({
 
 
       this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
-                                       maxDate: moment(this.model.get('end'))
+                                       minDate: moment(this.model.get('start')),
+                                       maxDate: moment(this.model.get('end')),
+                                       format: "YYYY-MM-DD HH:mm:ss",
+                                       sideBySide: true
                                        });
       this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
-                                     minDate: moment(this.model.get('start'))
+                                     minDate: moment(this.model.get('start')),
+                                     maxDate: moment(this.model.get('end')),
+                                     format: "YYYY-MM-DD HH:mm:ss",
+                                     sideBySide: true
                                     });
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
