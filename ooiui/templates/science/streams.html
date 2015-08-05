@@ -225,21 +225,14 @@ function showStreams( collection, response ){
 function populate() {
   // get url
   var newURL = window.location.href;
-  console.log(newURL);
   // remove the preceding '?' from index
   newURL = newURL.split('#').pop().split('?').pop();
-  console.log(newURL);
   // get last index of url
   var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);  
-  console.log(assetLink);
   // put last index in search box...box
   if(assetLink.length  >= 1) {
-    console.log(">>--URL-contains-assetLink-"+assetLink+"-->");
     $('#stream-search').val(assetLink);
     updateCollection( showStreams );
-  }
-  else {
-    console.log("<--URL-contains-no-assetLink--<<");
   }
 }
 
