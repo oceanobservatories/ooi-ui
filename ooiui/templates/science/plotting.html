@@ -4,15 +4,23 @@
     <title>Data Catalog</title>
 {% endblock %}
 
-{% block head %}
+{% block head %}  
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <!-- Partials -->
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <!-- lunr needs to be imported by a script tag -->
+
+  <!-- TODO MOVE TO GRUNT FILE  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
+  
+
 {% endblock %}
 
 {%block body %}
@@ -59,6 +67,13 @@
     <div class="content-fluid">
       
       <!--  Plot section of the page   -->
+      <div id='highcharts-row-section' class="row">
+        <div class="col-sm-12">
+          <div class="panel" id="highcharts-row-section-panel">
+          </div>    
+        </div>
+      </div>
+
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
           <div class="panel">
@@ -147,14 +162,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocPlatforms: new TocPlatformsCollection(),    
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
+    dataseries: new DataSeriesCollection()
   },
   views: {
     plottingItemSelection : null,
     plotEventListView: null,
-    plottingItemSelection2 : null
+    plottingItemSelection2 : null,
+    timeseriesView: null
   },
   models: {
-    userModel: new UserModel()
+    userModel: new UserModel()    
   },
   initalFilterOptions: function() {
     var path = window.location.pathname;
@@ -200,7 +217,16 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   },
-
+  setDefaults: function() {
+    //set data series options
+    this.collections.dataseries.stream = "telemetered_ctdgv_m_glider_instrument";
+    this.collections.dataseries.ref_des = "CE05MOAS-GL382-05-CTDGVM000";
+    this.collections.dataseries.startdate = "2015-01-21T22:01:48.103Z",
+    this.collections.dataseries.enddate = "2015-01-22T22:01:48.103Z",
+    this.collections.dataseries.xparameters = ["time","time"],
+    this.collections.dataseries.yparameters = ["sci_water_pressure","sci_water_cond"],
+    this.collections.dataseries.fetch({reset: true});
+  },
   start: function() {
     var self = this;
     this.multiStation = false;
@@ -224,6 +250,20 @@ _.extend(OOI.prototype, Backbone.Events, {
       height: 400,
       width: 500,
       el: $('#plot-view')
+    });
+
+
+    this.views.timeseriesView = new TimeseriesView({
+      el: $('#highcharts-row-section-panel')
+    });
+    //init the timeseries view
+    this.views.timeseriesView.initialize();
+
+    this.setDefaults();    
+
+    this.listenTo(this.collections.dataseries, 'reset', function(series) {        
+      this.views.timeseriesView.collection = series;
+      this.views.timeseriesView.render();
     });
 
     //The plotting buttons
