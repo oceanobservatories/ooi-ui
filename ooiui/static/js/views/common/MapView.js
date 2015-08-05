@@ -403,7 +403,6 @@ var MapView = Backbone.View.extend({
                           'Lat: ' + platforms[platforms.length -1].get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platforms[platforms.length -1].get('coordinates')[1] +
                           instrument_plot+
                           '<br><a href="/streams?' + platforms[0].get('ref_des') + '">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-                          
                           '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></p>';
                   }
 
