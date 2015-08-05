@@ -85,6 +85,9 @@ var AssetsTableRowView = ParentAssetView.extend({
     renderSubViews: function() {
         $('#assetDetailsPlaceholder').remove();
         vent.trigger('asset:renderSubViews', this.model);
+        if ( !( this.$el.attr('class') == 'highlight-row' )  ) {
+            this.$el.toggleClass('highlight-row');
+        }
     }
 });
 
@@ -131,21 +134,6 @@ var AssetEventsTableView = ParentAssetView.extend({
             this.derender();
         });
     }
-});
-
-//Asset Attachments View (nuxeo).
-var AssetAttachmentsTableView = ParentAssetView.extend({
-    /* TODO: enable this to interact with the NUXEO services.
-     * This will display a table list of all attachements
-     * associated with this asset.
-     * WORK IN PROGRESS
-     */
-    template: JST['ooiui/static/js/partials/AssetAttachmentsTable.html'],
-    initialize: function() {
-        this.listenToOnce(vent, 'asset:derender', function(model) {
-            this.derender();
-        });
-    },
 });
 
 //Asset creator modal view

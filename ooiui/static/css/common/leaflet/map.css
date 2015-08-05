@@ -1,0 +1,26 @@
+.clusterdMarker{
+  background-image: url("/img/array.png");
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  text-align: center;
+  font-size: 10px;
+  color: white;
+}
+
+.textClusteredMarker{
+
+}
+
+
+.array-title-label{
+	/* array title */
+	border-style: none !important;
+	font-size:18px !important;
+	background-color:transparent !important;
+	color:black !important;
+}
+
+.leaflet-label:before{
+	/* stop the boarder */
+	border-right: 6px none #7D7A7A !important;
+}
