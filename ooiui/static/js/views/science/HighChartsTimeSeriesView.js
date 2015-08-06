@@ -45,6 +45,9 @@ var TimeseriesView = Backbone.View.extend({
     /* Build a list of series */
     var seriesCollection = new SeriesCollection();
 
+    var startDate = self.collection.getStartDate();
+    var endDate = self.collection.getEndDate();
+
     _.each(self.collection.xparameters, function(param,index) { 
 
       var xvar = self.collection.xparameters[index]
@@ -52,7 +55,7 @@ var TimeseriesView = Backbone.View.extend({
       var series_data = [];
 
       //loop over a collection of params make uframe return look like highcharts data
-      self.collection.each(function(model) {        
+      self.collection.each(function(model,i) {        
         //get the data, and convert if its date time
         if (xvar == "time"){
           series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
@@ -67,6 +70,8 @@ var TimeseriesView = Backbone.View.extend({
       seriesModel.set('units', self.collection.getUnits(yvar));
       seriesModel.set('name', yvar);
       seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
+      seriesModel.set('xmin',startDate);
+      seriesModel.set('xmax',endDate);
       seriesCollection.add(seriesModel);
 
     });
