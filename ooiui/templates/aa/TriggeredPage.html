@@ -71,6 +71,8 @@
 
 var bannerTitle = "Triggered Alerts & Alarms";
 
+var vent = _.extend({}, Backbone.Events);
+
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {

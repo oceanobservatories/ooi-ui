@@ -124,6 +124,22 @@ var TriggeredView = Backbone.View.extend({
                 }
               }
             })
+          },
+          {
+            name: "ticket_id",
+            editable: false,
+            label: "Redmine Ticket",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+              fromRaw: function (rawValue, model) {
+
+                //place holder right now for triggered events
+                if(rawValue > 0){
+                  //fa fa-bullhorn
+                  return "<i id='condition_met' style='text-align:center;font-size:20px;float:center;padding-right: 5px;color:#a94442'><a href=\"https://uframe-cm.ooi.rutgers.edu/issues/" + rawValue + "\" target=\"_blank\" class='fa fa-ticket'></a></i>";
+                }
+              }
+            })
           }
         ];
 
