@@ -434,7 +434,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         
         self.views.svgplot.plotMulti(options);
       }else{
-        if (options.plotType = "timeseries"){
+        if (options.plotType == "timeseries"){
           //use high charts
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
