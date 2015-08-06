@@ -1,6 +1,7 @@
 <!--<div> ADDED FROM VIEW    data-selected-text-format="count>0" --> 
-<select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>" >	 	
-  	  <!-- ARRAY -->	
+<select data-width="70%" data-hide-disabled=true id="<%=labelText%>_id" multiple title="<%=labelText%>" <%= isDisabled %> class="selectpicker toc-plotting-text" data-live-search="true" multiple data-max-options="<%=numberSelectable%>">	 	
+  <%= searchIcon %>	
+  <!-- ARRAY -->	
 		<% if(labelText == "arrays") { %>
 			<% collection.each(function(model) { %>		   
 				<% if (model.get('display_name') != null) { %>
@@ -65,15 +66,4 @@
 			
 		<% } %>  
 	</select>
-<!--</div>-->
-
-<script>
-$(function() {
-  $("input[type=text]").css("font-family", "FontAwesome");
-  var icon = "\uf002"; // Font Awesome Unicode for Filter icon
-    var remove = "\uf00d";
-    $('.form-control').attr("placeholder",icon+" Search");
-    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
-});
-</script>
 
