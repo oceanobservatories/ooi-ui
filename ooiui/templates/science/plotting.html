@@ -510,19 +510,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
       self.views.modalDownloadFailView.show();
     });
-
-    // this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-    //   var base_url = window.location.protocol+"//"+window.location.host+"/"
-    //   var download_link = options.model.get('download');
-    //   var download_link_url = download_link[options['selection']]
-
-    //   base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
-
-    //   self.views.streamDownloadFormView.show(options);
-    //   //window.open(base_url, '_blank');
-
-    // });
-
   }
 });
 
