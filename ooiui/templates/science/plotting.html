@@ -4,15 +4,23 @@
     <title>Data Catalog</title>
 {% endblock %}
 
-{% block head %}
+{% block head %}  
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <!-- Partials -->
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <!-- lunr needs to be imported by a script tag -->
+
+  <!-- TODO MOVE TO GRUNT FILE  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
+  
+
 {% endblock %}
 
 {%block body %}
@@ -56,9 +64,8 @@
     </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
-    <div class="content-fluid">
-      
-      <!--  Plot section of the page   -->
+    <div class="content-fluid">      
+
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
           <div class="panel">
@@ -74,13 +81,25 @@
                   </ul>
               </div>
             <div class="panel-body">
-	      <div id="plotcontrols">
-	      </div>
-	      <div id="plot-view">
-		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-		{# <img src="/img/graph7.png" style="width:100%;"> #}
-		<img src="/img/plotting/graph.png" style="width:100%;">
-	      </div> <!-- #view -->
+      	      
+              <div id="plotcontrols">
+      	      </div>
+
+              <!--  Plot section NORMAL   -->
+      	      <div id="plot-view">
+            		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+            		{# <img src="/img/graph7.png" style="width:100%;"> #}
+            		<img src="/img/plotting/graph.png" style="width:100%;">
+      	      </div> <!-- #view -->
+
+              <!--  Plot section HIGHCHARTS   -->
+              <div style="display:none" id='highcharts-row-section' class="row">
+                <div class="col-sm-12">
+                  <div class="panel" id="highcharts-row-section-panel">
+                  </div>    
+                </div>
+              </div>
+
             </div>
           {# </div> #}
 	  </div> <!-- panel -->
@@ -148,14 +167,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocPlatforms: new TocPlatformsCollection(),    
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
+    dataseries: new DataSeriesCollection()
   },
   views: {
     plottingItemSelection : null,
     plotEventListView: null,
-    plottingItemSelection2 : null
+    plottingItemSelection2 : null,
+    timeseriesView: null
   },
   models: {
-    userModel: new UserModel()
+    userModel: new UserModel()    
   },
   initalFilterOptions: function() {
     var path = window.location.pathname;
@@ -201,7 +222,33 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   },
+  setParams: function(options) {
+    //init the timeseries view
+    this.views.timeseriesView.initialize();    
 
+    console.log("model",this.views.svgplot.model);
+    console.log("options",options);
+
+    var p_yvarList = [];
+    var p_xvarList = [];
+    //sort the list of vars and time will always be on the x, duplicated per var
+    _.each(this.views.svgplot.model.attributes.yvariable[0][0],function(element){
+      if (element != "time"){
+        p_yvarList.push(element);
+        p_xvarList.push("time")
+      }
+    })    
+
+    //set data series options
+    this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
+    this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
+    this.collections.dataseries.startdate = options.start_date.toISOString(),
+    this.collections.dataseries.enddate = options.end_date.toISOString(),
+    //will always be time
+    this.collections.dataseries.xparameters = p_xvarList,
+    this.collections.dataseries.yparameters = p_yvarList,
+    this.collections.dataseries.fetch({reset: true});
+  },
   start: function() {
     var self = this;
     this.multiStation = false;
@@ -225,6 +272,17 @@ _.extend(OOI.prototype, Backbone.Events, {
       height: 400,
       width: 500,
       el: $('#plot-view')
+    });
+
+
+    this.views.timeseriesView = new TimeseriesView({
+      el: $('#highcharts-row-section-panel')
+    });
+    
+
+    this.listenTo(this.collections.dataseries, 'reset', function(series) {        
+      this.views.timeseriesView.collection = series;
+      this.views.timeseriesView.render();
     });
 
     //The plotting buttons
@@ -362,7 +420,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.xvar = 'time';
       }
-      
+          
       //used to handle a second station 
       options.multiStation = self.multiStation;
 
@@ -376,7 +434,18 @@ _.extend(OOI.prototype, Backbone.Events, {
         
         self.views.svgplot.plotMulti(options);
       }else{
-        self.views.svgplot.plot(options);
+        if (options.plotType == "timeseries"){
+          //use high charts
+          $('#highcharts-row-section').css('display',"");
+          $('#plot-view').css('display',"none");
+          //set the params and generate the view
+          this.setParams(options);    
+        }else{
+          $('#highcharts-row-section').css('display',"none");
+          $('#plot-view').css('display',"");
+          //use default
+          self.views.svgplot.plot(options);
+        }
       }
     });
     

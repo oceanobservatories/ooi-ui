@@ -198,7 +198,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/PlottingSelection.html",
             "ooiui/static/js/partials/FilterPlottingSelection.html",
             "ooiui/static/js/partials/PlotEvent.html",
-            "ooiui/static/js/partials/PlotEventTableItem.html"
+            "ooiui/static/js/partials/PlotEventTableItem.html",
+            "ooiui/static/js/partials/Timeseries.html",
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -630,6 +631,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/SeriesModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -647,7 +649,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/AnnotationModalFormView.js',
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamTableView.js',
-            'ooiui/static/js/views/science/StreamDownloadFormView.js'
+            'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/HighchartsView.js',
+            'ooiui/static/js/views/science/HighChartsTimeSeriesView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -1257,7 +1261,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
-            "ooiui/static/css/common/ModalForm.css"
+            "ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/css/common/timeseries.css",
           ],
           "ooiui/static/css/compiled/FAQ.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
