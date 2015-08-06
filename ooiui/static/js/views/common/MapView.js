@@ -300,15 +300,15 @@ var MapView = Backbone.View.extend({
       //a.layer.getAllChildMarkers().length
 
     });
-
-
-    map.on('zoomstart', function(e) {
+    map.on('zoomend', function(e) {  
       if (map.getZoom() === 3 || map.getZoom()==4 ) {
         $('.array-title-label').css('display','');
       }else{
         $('.array-title-label').css('display','none');
       }
+    });
 
+    map.on('zoomstart', function(e) {            
       if (popup && map) {
           map.closePopup(popup);
           popup = null;
