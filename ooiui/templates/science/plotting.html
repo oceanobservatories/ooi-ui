@@ -176,7 +176,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     timeseriesView: null
   },
   models: {
-    userModel: new UserModel()    
+    downloadModel : new StreamModel(),
+    userModel: new UserModel()
   },
   initalFilterOptions: function() {
     var path = window.location.pathname;
@@ -371,13 +372,14 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
     //filter selection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
+    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {     
+      self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
     //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
-
+      self.models.downloadModel.model = options.model;
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
       
       if (options.itemid == "plot-item-selection" ){
@@ -496,7 +498,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'ooi:downloadData', function() {
-      self.views.svgplot.downloadData();
+      // Default to NetCDF download
+      self.models.downloadModel.selection = 'netcdf';
+      self.views.streamDownloadFormView.show(self.models.downloadModel);
     });
 
     this.listenTo(this, 'DownloadModal:onHide',function(){
@@ -505,7 +509,20 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
       self.views.modalDownloadFailView.show();
-    })
+    });
+
+    // this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+    //   var base_url = window.location.protocol+"//"+window.location.host+"/"
+    //   var download_link = options.model.get('download');
+    //   var download_link_url = download_link[options['selection']]
+
+    //   base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
+
+    //   self.views.streamDownloadFormView.show(options);
+    //   //window.open(base_url, '_blank');
+
+    // });
+
   }
 });
 
