@@ -67,8 +67,12 @@ var StreamDownloadFormView = Backbone.View.extend({
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
     this.$el.html(this.template({}));
-    this.$el.find('#start-date').datetimepicker();
-    this.$el.find('#end-date').datetimepicker();
+    this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
+                                                 sideBySide: true
+                                                 });
+    this.$el.find('#end-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
+                                               sideBySide: true
+                                               });
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
     this.$type_select = this.$el.find('#type-select');
