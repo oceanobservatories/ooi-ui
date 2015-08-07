@@ -293,7 +293,7 @@ var FilterSelectionView = Backbone.View.extend({
   },
   searchIcon: function() {
     var self = this;
-  $("input[type=text]").css("font-family", "FontAwesome");
+    this.$el.find("input[type=text]").css("font-family", "FontAwesome");
   var icon = "\uf002"; // Font Awesome Unicode for Search icon
     var remove = "\uf00d"; // Font Awesome Unicode for Remove icon
     $('.form-control').attr("placeholder",icon+" Search");
@@ -308,7 +308,6 @@ var FilterSelectionView = Backbone.View.extend({
     console.log("FilterSelectionView render called");
     var self = this;   
     this.$el.html(this.template({numberSelectable: self.numberSelectable,
-                                 searchIcon: self.searchIcon,
                                  isDisabled:self.initallyDisabled,
                                  labelText:self.model.get('labelText'),
                                  model:self.model,
