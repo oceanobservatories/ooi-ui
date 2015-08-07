@@ -183,6 +183,22 @@ button.btn.btn-default.dropdown-toggle {
   white-space: nowrap;
 }
 
+/* .timepicker { */
+/*   display: none; */
+/* } */
+/* .bootstrap-datetimepicker-widget.timepicker-sbs.usetwentyfour.dropdown-menu.bottom.picker-open { */
+/*   width: auto; */
+/* } */ 
+.col-sm-6.timepicker {
+  width: auto;
+}
+@media (min-width: 768px) {
+.col-sm-6.datepicker
+}
+.bootstrap-datetimepicker-widget.timepicker-sbs.usetwentyfour.dropdown-menu {
+  white-space: inherit;
+}
+
 button.btn.btn-success.dropdown-toggle {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
 	line-height: 1;
