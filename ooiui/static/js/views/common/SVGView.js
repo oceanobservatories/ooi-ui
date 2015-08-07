@@ -473,9 +473,6 @@ var SVGPlotView = SVGView.extend({
     }else{
       xvar = ["time"]
     }
-
-    //set the width of the plot, 90% width
-    this.width = (this.$el.width()/100)*90;
     if(this.yvariable != null && this.xvariable != null) {
       this.url = '/api/uframe/get_netcdf/' + this.stream_name + '/' + this.reference_designator + '/' + this.st + '/' + this.ed;
       //window.open(this.url, '_blank');
