@@ -159,9 +159,20 @@ var HighchartsView = Backbone.View.extend({
           states: {hover: {enabled: false}} // no highlighted dots
         };
       }),
+      navigation: {
+          buttonOptions: {
+              enabled: false   // Hide the buttons
+          }
+      },
       exporting: { //Enable exporting images
         enabled: true,
-        enableImages: true
+        enableImages: true,
+        chartOptions: {
+            chart: {
+                width: 1200,
+                height: 400
+            }
+        }
       }
     });
     this.trigger('rendered', this);
