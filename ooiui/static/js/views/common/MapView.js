@@ -287,7 +287,8 @@ var MapView = Backbone.View.extend({
         //generate array popup
         popup = L.popup({offset: new L.Point(0, -20)})
          .setLatLng(a.latlng) 
-         .setContent('<div class="cluster-popup"><h4>'+title+'</h4><br><img height="'+size[0]+'" width="'+size[1]+'" src="'+url+'"></div>')
+         .setContent('<h4 style="border-top-left-radius:12px; border-top-right-radius:12px; background-color: #FFF; padding-left:10px; margin-top:2px; margin-bottom:-13px;">'+title+'</h4><br><img height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+         
          .openOn(map);
       }else{        
         _.each(self.arrayMapping, function(arrayMap,index) {
