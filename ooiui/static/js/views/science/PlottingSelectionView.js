@@ -288,6 +288,14 @@ var FilterSelectionView = Backbone.View.extend({
   events: {
     'change .selectpicker' : 'onChange'
   },
+  searchIcon: function() {
+    var self = this;
+    this.$el.find("input[type=text]").css("font-family", "FontAwesome");
+  var icon = "\uf002"; // Font Awesome Unicode for Search icon
+    var remove = "\uf00d"; // Font Awesome Unicode for Remove icon
+    $('.form-control').attr("placeholder",icon+" Search");
+    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
+},
   initialize: function(options) {
     _.bindAll(this, "render");
     this.options.itemid = options.itemid
@@ -303,6 +311,7 @@ var FilterSelectionView = Backbone.View.extend({
                                  collection:self.collection})); 
     //setup the picker    
     this.$el.find('.selectpicker').selectpicker();
+    this.searchIcon();
   },
   onChange: function() {
     var self = this;
