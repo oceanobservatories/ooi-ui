@@ -81,8 +81,8 @@ li {
 	/* background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
 	/* background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
 	/* background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
-	-webkit-border-radius: 5;
-  -moz-border-radius: 5;
+	-webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
   color: #004773;
   font-size: 14px;
@@ -183,6 +183,40 @@ button.btn.btn-default.dropdown-toggle {
   white-space: nowrap;
 }
 
+/**********************
+** Date/Time Picker ***
+**********************/
+@media (min-width: 768px) {
+.col-sm-6.datepicker
+}
+
+.bootstrap-datetimepicker-widget.timepicker-sbs.usetwentyfour.dropdown-menu {
+  white-space: inherit;
+}
+ 
+th.picker-switch {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+    /* background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+    /* background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+    /* background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+    /* background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+    /* background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* color: #004773; */
+    font-size: 14px;
+    font-weight: 300;
+    padding: 5px 8px 5px 8px;
+    border: solid #E5E8EF 1px;
+    text-decoration: none;
+    line-height: .9;
+  }
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover {
+  background: none;
+	background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+	text-decoration: none;
+}
 button.btn.btn-success.dropdown-toggle {
   background-image: linear-gradient(to bottom, #4fd934, #298c29);
 	line-height: 1;
