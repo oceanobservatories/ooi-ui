@@ -24,3 +24,7 @@
 	/* stop the boarder */
 	border-right: 6px none #7D7A7A !important;
 }
+
+.cluster-popup{
+  min-width: 200px;
+}

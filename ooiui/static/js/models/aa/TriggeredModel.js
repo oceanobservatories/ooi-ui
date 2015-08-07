@@ -37,6 +37,12 @@ var TriggeredModel = Backbone.Model.extend({
         },
         system_event_definition_id: {
             required: false
+        },
+        escalated: {
+            required: false
+        },
+        ticket_id: {
+            required: false
         }
     }
 });
