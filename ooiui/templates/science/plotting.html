@@ -243,12 +243,18 @@ _.extend(OOI.prototype, Backbone.Events, {
     //set data series options
     this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
     this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
-    this.collections.dataseries.startdate = options.start_date.toISOString(),
-    this.collections.dataseries.enddate = options.end_date.toISOString(),
+    this.collections.dataseries.startdate = options.start_date.toISOString();
+    this.collections.dataseries.enddate = options.end_date.toISOString();
     //will always be time
-    this.collections.dataseries.xparameters = p_xvarList,
-    this.collections.dataseries.yparameters = p_yvarList,
-    this.collections.dataseries.fetch({reset: true});
+    this.collections.dataseries.xparameters = p_xvarList;
+    this.collections.dataseries.yparameters = p_yvarList;
+
+    errorHandler = function(collection, response){
+      errorText = response.status+': '+response.statusText
+      ooi.trigger('httpError', {response:response, error:errorText});
+    }
+
+    this.collections.dataseries.fetch({error: errorHandler, reset: true});
   },
   start: function() {
     var self = this;
@@ -354,6 +360,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
+
+    this.listenTo(this, 'httpError', function(options) {      
+      this.views.timeseriesView.errorRender(options);
+    });
 
     //filter selection : unselect
     this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {      
