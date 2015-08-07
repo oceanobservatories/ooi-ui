@@ -166,16 +166,18 @@ var AlertFilterView = Backbone.View.extend({
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             cell: "string"
         }, {
-            name: "instrument_name",
+            name: "platform_name",
             label: "Platform",
             editable: false,
             // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-            cell: "string",
+            cell: "string"
+/*          ,
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 return "Platform Q";
               }
-            }),
+            })*/
+          ,
             sortValue: function (model, colName) {
                 return colName;
             }
@@ -183,19 +185,21 @@ var AlertFilterView = Backbone.View.extend({
             name: "instrument_name",
             label: "Instrument",
             editable: false,
-            cell: "string",
+            cell: "string"
+/*          ,
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 return "Instrument B"
                 //return rawValue;
               }
-            }) ,
+            })*/
+          ,
             sortValue: function (model, colName) {
                 return model.attributes[colName]['instrument_name'];
             }
         }, {
-            name: "priority",
-            label: "Priority",
+            name: "severity",
+            label: "Severity",
             editable: false,
             cell: "string",
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
@@ -209,7 +213,7 @@ var AlertFilterView = Backbone.View.extend({
             editable: false,
             cell: "string"
         },{
-            name: "priority",
+            name: "event_type",
             editable: false,
             label: "Condition Met?",
             cell: HtmlCell,
