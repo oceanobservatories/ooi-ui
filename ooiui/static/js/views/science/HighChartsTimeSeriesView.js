@@ -37,6 +37,11 @@ var TimeseriesView = Backbone.View.extend({
     var d = moment.utc(time_sec);        
     return d._i*1000;   
   },
+  getQAQC:function(){
+      if($(".div-qa-qc").css("display")=="none") return 0
+      if($('.div-qa-qc input:checked').val()=='undefined')return 0
+      return parseInt($('.div-qa-qc input:checked').val().toString())
+    },
   addNotify: function(notify_list){
     var notifydiv = '<div class="alert alert-warning alert-dismissible" role="alert">'
     notifydiv+=     '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
@@ -51,6 +56,8 @@ var TimeseriesView = Backbone.View.extend({
     //get the title from the collection
     this.views.highchartsView.title = self.collection.getTitle();
     this.views.highchartsView.subtitle = self.collection.getSubtitle();
+
+    var qaqc = this.getQAQC();
     
     /* Build a list of series */
     var seriesCollection = new SeriesCollection();
@@ -58,27 +65,49 @@ var TimeseriesView = Backbone.View.extend({
     var startDate = self.collection.getStartDate();
     var endDate = self.collection.getEndDate();
 
+    var xvars = self.collection.xparameters;
+    var yvars = self.collection.yparameters;
+
     var notifyList = []
 
-    _.each(self.collection.xparameters, function(param,index) { 
-      var xvar = self.collection.xparameters[index]
-      var yvar = self.collection.yparameters[index]
+    _.each(xvars, function(param,index) { 
+      var xvar = xvars[index]
+      var yvar = yvars[index]
       var series_data = [];
       //reset for each series
       var addNotify = false;
       
       //loop over a collection of params make uframe return look like highcharts data
-      self.collection.each(function(model,i) {        
-        //get the data, and convert if its date time
+      self.collection.each(function(model,i) {
+
         if (typeof(model.get(xvar)) == "string" || typeof(model.get(yvar)) == "string"){          
           addNotify = true;
           notifyList.push(yvar);
         } 
 
         //only if its valid
-        if (!addNotify){          
+        if (!addNotify){
+          //get the data, and convert if its date time   
           if (xvar == "time"){
-            series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+            if (qaqc){
+              var qaqc_data = model.get(yvar+'_qc_results');
+              
+              if (qaqc < 10){   // Check against specific tests
+                if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
+                  series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+                }else{  //FAIL
+                  series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+                }
+              }else{  // Check against all tests
+                if (qaqc_data == Math.pow(2,9)){  // PASS
+                  series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+                }else{  //FAIL
+                   series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+                }
+              }
+            }else{
+              series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+            }
           }else if (yvar == "time"){
             series_data.push([model.get(xvar),self.modifytime(model.get(yvar))]);
           }else{
@@ -86,8 +115,6 @@ var TimeseriesView = Backbone.View.extend({
           }
         } 
       });
-      
-      
 
       var seriesModel = new SeriesModel({data:series_data})
       seriesModel.set('units', self.collection.getUnits(yvar));
@@ -98,8 +125,9 @@ var TimeseriesView = Backbone.View.extend({
       seriesCollection.add(seriesModel);
 
     });
-
-    self.addNotify(notifyList);
+    if(notifyList.length > 0){ 
+      self.addNotify(notifyList);
+    }
 
     /*
     var colorPalette = this.colorPalette.clone()
