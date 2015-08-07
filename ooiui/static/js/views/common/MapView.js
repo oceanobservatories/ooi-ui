@@ -73,6 +73,15 @@ var MapView = Backbone.View.extend({
          layers: [Esri_OceanBasemap]
     });   
 
+    var allLatLons = []
+    //loop over the corners and add to bounds
+    _.each(self.arrayMapping, function(arrayMap,index) {
+      allLatLons.push(arrayMap.getNorthWest());
+      allLatLons.push(arrayMap.getSouthEast());
+    });
+
+    this.map.fitBounds(allLatLons);
+
     L.control.mousePosition().addTo(this.map);
 
     var baseLayers = {
