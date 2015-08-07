@@ -449,20 +449,20 @@ var MapView = Backbone.View.extend({
                     // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
                     eventContent += '<div class="floatLeft">';
 
-                    eventContent += '<h6 style=" background-color:white; width:auto; margin-top:5px;"><strong>Deployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong><td>'+ item['deploymentNumber'] +'</td></tr>';
+                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Deployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong> '+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
-                    eventContent +='<tr><td><strong>End:&nbsp;</strong> '+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
 
                   }else{
                     eventContent += '<div class="floatRight">';
                     
-                    eventContent += '<h6 style=" background-color:white; width:auto; margin-top:5px; margin-bottom:5px; padding:5px 10px 5px 10px ;"><strong>Undeployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong><td>'+ item['deploymentNumber'] +'</td></tr>';
+                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Undeployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
-                    eventContent += '<tr><td><strong>Start:</strong>&nbsp;'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
-                    eventContent +='<tr><td><strong>End:</strong>&nbsp;'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
                     
                     // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
                   }
