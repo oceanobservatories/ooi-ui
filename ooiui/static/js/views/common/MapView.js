@@ -73,6 +73,15 @@ var MapView = Backbone.View.extend({
          layers: [Esri_OceanBasemap]
     });   
 
+    var allLatLons = []
+    //loop over the corners and add to bounds
+    _.each(self.arrayMapping, function(arrayMap,index) {
+      allLatLons.push(arrayMap.getNorthWest());
+      allLatLons.push(arrayMap.getSouthEast());
+    });
+
+    this.map.fitBounds(allLatLons);
+
     L.control.mousePosition().addTo(this.map);
 
     var baseLayers = {
@@ -263,9 +272,7 @@ var MapView = Backbone.View.extend({
                                                   });    
 
     markerCluster.on('clustermouseover', function (a) {            
-      if (map.getZoom() === 3 || map.getZoom()==4 ) {
-
-        //console.log(a.layer.getAllChildMarkers()[0])
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {        
         var url = null;
         var size = null;
         var title = null;
@@ -277,10 +284,24 @@ var MapView = Backbone.View.extend({
           }          
         })
 
-
+        //generate array popup
         popup = L.popup({offset: new L.Point(0, -20)})
          .setLatLng(a.latlng) 
-         .setContent('<h4>'+title+'</h4><br><img height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+         .setContent('<div class="cluster-popup"><h4>'+title+'</h4><br><img height="'+size[0]+'" width="'+size[1]+'" src="'+url+'"></div>')
+         .openOn(map);
+      }else{        
+        _.each(self.arrayMapping, function(arrayMap,index) {
+          if (arrayMap.contains(a.latlng)){
+            url = self.arrayLinks[index];
+            size = self.sizeMapping[index];
+            title = self.arrayTitle[index];
+          }          
+        })
+
+        //generate normal popup
+        popup = L.popup({offset: new L.Point(0, -20)})
+         .setLatLng(a.latlng) 
+         .setContent('<div class="cluster-popup"><h4>'+title+'</h4><p>'+a.layer.getAllChildMarkers().length+' assets'+"</p></div>")
          .openOn(map);
       }
 
@@ -288,9 +309,15 @@ var MapView = Backbone.View.extend({
       //a.layer.getAllChildMarkers().length
 
     });
+    map.on('zoomend', function(e) {  
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
+        $('.array-title-label').css('display','');
+      }else{
+        $('.array-title-label').css('display','none');
+      }
+    });
 
-
-    map.on('zoomstart', function(e) {
+    map.on('zoomstart', function(e) {            
       if (popup && map) {
           map.closePopup(popup);
           popup = null;
