@@ -80,7 +80,6 @@ var plotParameters ={
     },
 
     _validateNumberOfSelected: function (plottype, selectlist){
-      console.log(plottype)
         if(!this._selectedPrams._validate(plottype,selectlist.length)){
           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
           this._selectedPrams[plottype].message +'</div>');
@@ -676,7 +675,6 @@ var SVGPlotControlView = Backbone.View.extend({
     data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
     data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
 
-    plotParameters
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
   render: function(updateTimes) {
