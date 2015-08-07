@@ -225,10 +225,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   setParams: function(options) {
     //init the timeseries view
-    this.views.timeseriesView.initialize();    
-
-    console.log("model",this.views.svgplot.model);
-    console.log("options",options);
+    this.views.timeseriesView.initialize();
 
     var p_yvarList = [];
     var p_xvarList = [];
@@ -422,7 +419,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.xvar = 'time';
       }
-          
       //used to handle a second station 
       options.multiStation = self.multiStation;
 
@@ -438,6 +434,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else{
         if (options.plotType == "timeseries"){
           //use high charts
+          if(!options.yvar){
+            $('#highcharts-row-section').css('display',"none");
+            $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
+              '</strong> &nbsp;Please select a parameter to plot</div>');
+            return false;
+          }
+
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
           //set the params and generate the view
@@ -500,6 +503,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'ooi:downloadData', function() {
       // Default to NetCDF download
       self.models.downloadModel.selection = 'netcdf';
+      // Get the user selected start and end dates
+      self.models.downloadModel.model.attributes.start = moment($('#start-date').data('date')).format();
+      self.models.downloadModel.model.attributes.end = moment($('#end-date').data('date')).format();
       self.views.streamDownloadFormView.show(self.models.downloadModel);
     });
 

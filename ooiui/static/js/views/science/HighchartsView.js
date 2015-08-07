@@ -75,9 +75,6 @@ var HighchartsView = Backbone.View.extend({
       }
     });
 
-
-
-
     /* Actually produce the chart */
     this.chart = new Highcharts.Chart({
       chart: {
