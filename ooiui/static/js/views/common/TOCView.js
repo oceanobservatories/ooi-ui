@@ -44,7 +44,7 @@ var TOCView = Backbone.View.extend({
 
             // set the target to where this item will be inserted.
             var arrayTarget = '#array_'+ arrayCode;
-            if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
+            if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
 
                 var assetItemView = new AssetItemView({ model:model });
 
@@ -56,7 +56,7 @@ var TOCView = Backbone.View.extend({
         filteredInstruments.map(function(model) {
             var coord = model.get('coordinates');
 
-            var platformCode = model.get('ref_des').substr(0,14);
+            var platformCode = model.get('ref_des').substr(0,8);
 
             // set the target to where this item will be inserted.
             var platformTarget = 'ul#'+platformCode;
@@ -90,11 +90,14 @@ var TOCView = Backbone.View.extend({
 var SearchResultView = Backbone.View.extend({
     tagName: 'ul',
     initialize: function() {
-        _.bindAll(this, 'render', 'derender');
+        _.bindAll(this, 'render', 'derender', 'onClick');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
 
+    },
+    onClick: function() {
+        ooi.trigger('toc:selectItem', this.model);
     },
     render: function(){
         var assetItemView = this.collection.map(function(model) {
@@ -153,6 +156,7 @@ var AssetItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
         'click label.platform': 'onClick',
+        'click label.instrument': 'onClick',
         'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
@@ -183,21 +187,25 @@ var AssetItemView = Backbone.View.extend({
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
         if (this.model.get('asset_class') == '.AssetRecord') {
-            var platformId = this.model.get('ref_des').substr(0,14);
+            var platformName = this.model.get('assetInfo').name;
+            var platformId = this.model.get('ref_des').substr(0,8);
             this.$el.attr('id', platformId);
             this.$el.attr('class', 'platform');
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ platformId + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+            var label = (platformName == undefined) ? platformId : platformName;
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
             // of the entire Reference Designator
+            var instrumentName = this.model.get('assetInfo').name;
             var instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
             this.$el.html( this.template(this.model.toJSON()) );
-            this.$el.append('<label class="tree-toggler nav-header">'+ instrumentId+ '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            var label = (instrumentName == undefined) ? instrumentId : instrumentName;
+            this.$el.append('<label class="tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
     }
@@ -220,7 +228,7 @@ var StreamItemView = Backbone.View.extend({
         var option = null;
         ooi.trigger('toc:selectStream', { model: this.model, selection : option });
     },
-    template: _.template('<a href="#"><%= stream_name %>'),
+    template: _.template('<a href="#"><%= (display_name == null) ? stream_name : display_name  %></a>'),
     derender: function() {
         this.remove();
         this.unbind();
@@ -237,6 +245,7 @@ var StreamItemView = Backbone.View.extend({
 //--------------------------------------------------------------------------------
 
 var NestedTocItemView = Backbone.View.extend({
+
   display_name:"",
   sub_id: "",
   level:1,
