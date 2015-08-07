@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 /*
  * ooiui/static/js/models/science/SeriesModel.js
  * Model definition for a series that fits into the Highcharts time series charts
@@ -20,7 +20,9 @@ var SeriesModel = Backbone.Model.extend({
     color: "",
     data: [],
     enableMarker: true,
-    units:" ....test...."
+    units:"",
+    xmin:0,
+    xmax:0
   }
 });
 
@@ -57,6 +59,12 @@ var DataSeriesCollection = Backbone.Collection.extend({
   model: DataSeriesModel,
   getTitle:function(){
     return this.ref_des;
+  },
+  getStartDate:function(){
+    return moment.utc(this.startdate).unix()*1000;
+  },
+  getEndDate:function(){
+    return moment.utc(this.enddate).unix()*1000;
   },
   getSubtitle:function(){
     return this.stream;
