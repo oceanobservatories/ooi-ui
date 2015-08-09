@@ -95,3 +95,13 @@ margin: 0 0 10px
     border-bottom-style: solid;
     border-bottom-color: rgb(255, 255, 255);
                             }
+
+#search {
+    width:300px;
+}
+
+li.highlight-row > label {
+
+    background-color: #004773 !important;
+    color: #fff!important;
+}

@@ -68,12 +68,14 @@ var TOCView = Backbone.View.extend({
         });
     },
     renderStreams: function() {
-        this.streamCollection.map( function(model) {
-            var instrumentCode = model.get('reference_designator');
-            var instrumentTarget = 'ul#'+instrumentCode;
-            var streamItemView = new StreamItemView({ model:model });
-            $( instrumentTarget ).append( streamItemView.render().el );
-        });
+        if ( this.streamCollection != undefined ) {
+            this.streamCollection.map( function(model) {
+                var instrumentCode = model.get('reference_designator');
+                var instrumentTarget = 'ul#'+instrumentCode;
+                var streamItemView = new StreamItemView({ model:model });
+                $( instrumentTarget ).append( streamItemView.render().el );
+            });
+        }
     },
     render: function(){
         this.$el.html(this.template());
@@ -155,12 +157,12 @@ var ArrayContainerView = Backbone.View.extend({
 var AssetItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
-        'click label.platform': 'onClick',
-        'click label.instrument': 'onClick',
+        'click label.platform': 'onClickPlatform',
+        'click label.instrument': 'onClickInstrument',
         'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
-        _.bindAll(this,'render', 'onClick', 'collapse');
+        _.bindAll(this,'render', 'onClickPlatform', 'onClickInstrument', 'collapse');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
@@ -170,8 +172,15 @@ var AssetItemView = Backbone.View.extend({
             }
         });
     },
-    onClick: function() {
-        ooi.trigger('toc:selectItem', this.model);
+    onClickPlatform: function() {
+        ooi.trigger('toc:selectPlatform', this.model);
+    },
+    onClickInstrument: function() {
+        ooi.trigger('toc:selectInstrument', this.model);
+        $('.instrument').removeClass('highlight-row');
+        if ( !( this.$el.attr('class') == 'highlight-row' )  ) {
+            this.$el.toggleClass('highlight-row');
+        }
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
@@ -205,7 +214,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('class', 'instrument');
             this.$el.html( this.template(this.model.toJSON()) );
             var label = (instrumentName == undefined) ? instrumentId : instrumentName;
-            this.$el.append('<label class="tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
     }

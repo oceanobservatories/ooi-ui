@@ -124,7 +124,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(vent, "asset:renderSubViews", function(model) {
-        $('#assetsTable tr').removeClass('highlight-row');
         vent.trigger('asset:derender');
         renderAssetInspector(model);
         renderAssetEventsTable(model);

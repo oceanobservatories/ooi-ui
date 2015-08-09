@@ -22,28 +22,16 @@
 
 
 {% block body %}
-
-<!--/.TOP BAR END -->
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
-
 <div id="wrapper">
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div id="sidebar-wrapper" class="well">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
-                    <div class="input-group-btn">
-                        <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
-                    </div>
-                    <div id="search-submit" class="input-group-btn">
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                    </div>
-                </div>
-                <i id="tocSpinner" class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>
-            </div>
+            {% block sidebar %}
+                {{ super() }}
+            {% endblock %}
             <div class="col-lg-12">
                 <div class="panel">
                     <div class="panel-heading">
@@ -58,11 +46,8 @@
                 </div> <!-- panel -->
             </div> <!-- col-lg-12 -->
         </div> <!-- row -->
-        </div> <!-- container-fluid -->
-        <div id="stream-download-modal"></div>
-        <div id='download-ok-modal'></div>
-        <div id='download-fail-modal'></div>
-    </div> <!-- page-content-wrapper -->
+    </div> <!-- container-fluid -->
+</div> <!-- page-content-wrapper -->
 </div><!-- page-wrapper -->
 <!-- /#wrapper -->
 
@@ -85,124 +70,77 @@ _.extend(OOI.prototype, Backbone.Events, {
     start: function() {
         this.login.fetch({async:false});
         navbar = new NavbarView({
-        login: this.login
-    });
-
-    var self = this;
-
-    var banner = new BannerView({ bannerTitle:bannerTitle });
-    $('body').prepend(banner.el);
-
-
-    self.collections.gliderCollection = new GliderTrackCollection();
-
-    // render out our views:
-    self.views.mapView = new MapView({
-        gliderCollection: self.collections.gliderCollection,
-        collection:assetCollection,
-        el: $('#map')
-    });
-
-    this.listenTo(this, 'toc:selectStream', function(options) {
-        var streamDownloadFormView = new StreamDownloadFormView({
-            el: $('#stream-download-modal')
+            login: this.login
         });
 
-        streamDownloadFormView.show( options );
-    });
+        var self = this;
 
-    this.listenTo(this, 'DownloadModal:onHide',function(){
-        var modalDownloadView = new ModalDownloadView({
-          el: $('#download-ok-modal')
-          });
-        modalDownloadView.show();
-  });
-    this.listenTo(this, 'DownloadModalFail:onFail',function(){
-        var modalDownloadFailView = new ModalDownloadFailView({
-          el: $('#download-fail-modal')
-          });
-        modalDownloadFailView.show();
-  });
-
-    var arrayFetch = arrayCollection.fetch({ reset: true });
-
-    var gliderFetch = this.collections.gliderCollection.fetch({ reset: true });
-
-    var data = {
-        min : 'True'
-    };
-
-    $.when(gliderFetch).done(function() {
-        console.log("GLIDER DONE")
-        //when the glider fetch is done update the map
-        self.views.mapView.gliderCollection = self.collections.gliderCollection;
-        self.views.mapView.add_glider_tracks();
-    });
+        var banner = new BannerView({ bannerTitle:bannerTitle });
+        $('body').prepend(banner.el);
 
 
-    $.when(arrayFetch).done(function() {
-        var assetFetch = assetCollection.fetch({ data: data, reset: true });
-        $.when(assetFetch).done(function() {
-            var streamFetch = streamCollection.fetch({ data: data,  reset: true });
-            $.when(streamFetch).done(function() {
-                $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                  vent.trigger('toc:cleanUp');
-                  vent.trigger('toc:cleanUp');
-                });
-            });
+        self.collections.gliderCollection = new GliderTrackCollection();
+
+        // render out our views:
+        self.views.mapView = new MapView({
+            gliderCollection: self.collections.gliderCollection,
+            collection:assetCollection,
+            el: $('#map')
         });
-    });
 
-    if(!this.login.loggedIn()) {
-      var termsView = new TermsDialogView();
-      $('body').first().prepend(termsView.el);
-      $.ajax({
-        url: "/txt/eula.txt",
-        type: "GET",
-        success: function(response) {
-          termsView.show({
-            message: response,
-            ack: function() {  }
+        var gliderFetch = this.collections.gliderCollection.fetch({ reset: true });
+
+        $.when(gliderFetch).done(function() {
+            //when the glider fetch is done update the map
+            self.views.mapView.gliderCollection = self.collections.gliderCollection;
+            self.views.mapView.add_glider_tracks();
+        });
+
+        this.listenTo(this, "toc:selectArray", function(model) {
+            var coors = model.get('geo_location')['coordinates'][0][0]
+            self.views.mapView.setMapView(coors,4); // recenters
+        });
+
+        this.listenTo(this, "toc:selectPlatform", function(model) {
+            var coors = model.get('coordinates');
+            self.views.mapView.setMapView(coors,6); // recenters
+        });
+
+        this.listenTo(this, 'toc:selectInstrument', function(model) {
+            if ('coordinates' in model.attributes){
+                self.views.mapView.setMapView(model.get('coordinates'),100); // recenters
+            }
+        });
+
+        this.listenTo(this, 'toc:selectStream', function(options) {
+            // TODO: Trigger pop up on map cursor icon.
+        });
+
+        this.listenTo(this, 'NavbarView:sidebarToggle', function() {
+            self.views.mapView.render();
+        });
+
+        // Login stuff..
+        if(!this.login.loggedIn()) {
+          var termsView = new TermsDialogView();
+          $('body').first().prepend(termsView.el);
+          $.ajax({
+            url: "/txt/eula.txt",
+            type: "GET",
+            success: function(response) {
+              termsView.show({
+                message: response,
+                ack: function() {  }
+              });
+            }
           });
         }
-      });
+
+        this.listenTo(this, "login:success", this.onLogin);
+        this.listenTo(this, "login:logout", this.onLogout);
     }
-
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
-
-    this.listenTo(this, "platformDeploymentItemView:platformSelect", function(model) {
-        if ('coordinates' in model.attributes){
-            self.views.mapView.setMapView(model.get('coordinates'),6); // recenters
-        }
-    });
-
-    this.listenTo(this, "toc:selectArray", function(model) {
-        var coors = model.get('geo_location')['coordinates'][0][0]
-        self.views.mapView.setMapView(coors,4); // recenters
-    });
-
-    this.listenTo(this, "toc:selectItem", function(model) {
-        var coors = model.get('coordinates');
-        self.views.mapView.setMapView(coors,100); // recenters
-    });
-
-    this.listenTo(this, 'toc:selectInstrument', function(model) {
-
-    });
-    this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
-        self.views.svgplot.plot(options);
-    });
-    this.listenTo(this, 'ooi:mapExpand', function() {
-        $('#plot-row').hide();
-        $('#map').height($(window).height() - 150);
-    });
-    this.listenTo(this, 'NavbarView:sidebarToggle', function() {
-        self.views.mapView.render();
-    });
-    this.trigger('ooi:mapExpand');
-  }
 });
+
 
 var vent = _.extend({}, Backbone.Events);
 
@@ -212,58 +150,53 @@ var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
 
-function renderTOCView( container, contents, streams ) {
-    var tocView = new TOCView({
-        arrayCollection:    container,
-        assetCollection:    contents,
-        streamCollection:   streams
+// url arguments
+var data = { min : 'True' };
+// begin the iterative fetching of arrays, assets, and streams.
+var arrayFetch = arrayCollection.fetch({ reset: true });
+$.when(arrayFetch).done(function() {
+    var assetFetch = assetCollection.fetch({ data: data, reset: true });
+    $.when(assetFetch).done(function() {
+        var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+        $.when(streamFetch).done(function() {
+            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                // right now we need to call this twice...not sure why.
+                vent.trigger('toc:cleanUp');
+                vent.trigger('toc:cleanUp');
+            });
+        });
     });
-    tocView.render();
-    // remove the spinner
-    $('i#tocSpinner').remove();
-    // append the toc
-    $('#sidebar-wrapper').append( tocView.el );
+});
 
-    tocView.renderAssets();
-    tocView.renderStreams();
+
+// Takes care of the strange size of the map
+window.onresize = function(event) {
+    resizeMap();
 }
 
-function showSearchResults( collection ) {
-    vent.trigger('toc:derenderItems');
-
-    var searchResultView = new SearchResultView({ collection:collection });
-    searchResultView.render();
-
-    $('#assetBrowser').remove();
-
-    $('#sidebar-wrapper').append(searchResultView.el);
+function resizeMap() {
+    vpw = $(window).width();
+    //keep the map the same height as the side bar..?
+    vph = $('#sidebar-wrapper').height() - 5;
+    $('#map').css({'height': vph + 'px'});
 }
 
-function updateCollection( assetCallback ){
-    var data = {
-        search : $('#search-filter').val()
-    };
-    assetCollection.fetch({
-        data : data,
-        success : assetCallback,
-    });
-
-}
 // initialize our app object
 var ooi = new OOI();
 
 $(document).ready(function() {
     ooi.start();
     $('#navbar').prepend(navbar.el);
-    $('#map').height($(window).height() - 150);
-    $('#search-clear').hide();
-    $('#search-clear').click(function(){
+    resizeMap();
+    $('#search-clear').click(function(e){
+        $('i#tocSpinner').show();
         $('#search-filter').val('').focus();
         $(this).hide();
         vent.trigger('toc:derenderItems');
         var assetFetch = assetCollection.fetch();
         $.when(assetFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                console.log('triggered');
                 vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
             });
@@ -275,10 +208,6 @@ $(document).ready(function() {
         updateCollection( showSearchResults );
     });
 });
-$(document).ready(function () {
-    $('label.tree-toggler').click(function () {
-        $(this).parent().children('ul.tree').toggle(300);
-    });
-});
+
 </script>
 {% endblock %}
