@@ -14,6 +14,7 @@
   <!-- TODO MOVE TO GRUNT FILE  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
   <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
@@ -196,10 +197,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   setParams: function(options) {
     //init the timeseries view
     this.views.timeseriesView.initialize();
-
-    console.log("model",this.views.svgplot.model);
-    console.log("options",options);
-
     var p_yvarList = [];
     var p_xvarList = [];
     //sort the list of vars and time will always be on the x, duplicated per var
@@ -213,12 +210,18 @@ _.extend(OOI.prototype, Backbone.Events, {
     //set data series options
     this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
     this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
-    this.collections.dataseries.startdate = options.start_date.toISOString(),
-    this.collections.dataseries.enddate = options.end_date.toISOString(),
+    this.collections.dataseries.startdate = options.start_date.toISOString();
+    this.collections.dataseries.enddate = options.end_date.toISOString();
     //will always be time
-    this.collections.dataseries.xparameters = p_xvarList,
-    this.collections.dataseries.yparameters = p_yvarList,
-    this.collections.dataseries.fetch({reset: true});
+    this.collections.dataseries.xparameters = p_xvarList;
+    this.collections.dataseries.yparameters = p_yvarList;
+
+    errorHandler = function(collection, response){
+      errorText = response.status+': '+response.statusText
+      ooi.trigger('httpError', {response:response, error:errorText});
+    }
+
+    this.collections.dataseries.fetch({error: errorHandler, reset: true});
   },
   start: function() {
     var self = this;
@@ -325,6 +328,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
 
+    this.listenTo(this, 'httpError', function(options) {
+      this.views.timeseriesView.errorRender(options);
+    });
+
     //filter selection : unselect
     this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {
       if (options.itemid == "plot-item-selection" ){
@@ -392,7 +399,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.xvar = 'time';
       }
-
       //used to handle a second station
       options.multiStation = self.multiStation;
 
@@ -408,6 +414,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else{
         if (options.plotType == "timeseries"){
           //use high charts
+          if(!options.yvar){
+            $('#highcharts-row-section').css('display',"none");
+            $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
+              '</strong> &nbsp;Please select a parameter to plot</div>');
+            return false;
+          }
+
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
           //set the params and generate the view
@@ -470,6 +483,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'ooi:downloadData', function() {
       // Default to NetCDF download
       self.models.downloadModel.selection = 'netcdf';
+      // Get the user selected start and end dates
+      self.models.downloadModel.model.attributes.start = moment($('#start-date').data('date')).format();
+      self.models.downloadModel.model.attributes.end = moment($('#end-date').data('date')).format();
       self.views.streamDownloadFormView.show(self.models.downloadModel);
     });
 
@@ -520,7 +536,13 @@ $(document).ready(function() {
 
   $('#download-plot').click(function(event) {
     event.preventDefault();
-    ooi.trigger('ooi:downloadPlot');
+    if ($('#highcharts-row-section').css('display')=="block"){
+      var chart = $('#highcharts-view').highcharts();
+      var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
+      chart.exportChart({type: 'image/png', filename: fileName});
+    }else{
+      ooi.trigger('ooi:downloadPlot');
+    }
   });
 
   $('#download-data').click(function(event) {

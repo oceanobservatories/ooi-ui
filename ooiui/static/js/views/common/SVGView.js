@@ -79,13 +79,18 @@ var plotParameters ={
                                             : parseInt(this[name].val)==length));}
     },
 
-    _validateNumberOfSelected: function (plottype,selectlist){
-         if(!this._selectedPrams._validate(plottype,selectlist.length)){
+    _validateNumberOfSelected: function (plottype, selectlist){
+        if(!this._selectedPrams._validate(plottype,selectlist.length)){
           $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
           this._selectedPrams[plottype].message +'</div>');
           this.valid=false;
           return false;
-         }else{this.valid=true; return true;}
+        }else if(selectlist.length==0){
+          $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' + 
+            '</strong> &nbsp;Please select a parameter to plot</div>');
+          this.valid=false;
+          return false;
+        }else{this.valid=true; return true;}
     }
   },
   _isInArray:function(value, array) {
@@ -145,7 +150,7 @@ var plotParameters ={
          for(var i=0;i<ddl.length;i++){
             if($(ddl[i]).data().selectpicker.val()!=null){
                 if($(ddl[i]).data().selectpicker.val().length>1) {
-                  throw 'To many Parameters Selected in list '+(i+1).toString();
+                  throw 'Too many Parameters Selected in list '+(i+1).toString();
                 }
             }else{
                 //second or more lists not completed
@@ -655,6 +660,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = this.$el.find('#xvar-select option:selected').text();
+
     /*
     if (plotType == "Depth Profile"){
       data.plotType = "depthprofile"
@@ -668,6 +674,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.useLine = "true"
     data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
     data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
+
     ooi.trigger('SVGPlotControlView:onClickPlot', data);
   },
   render: function(updateTimes) {

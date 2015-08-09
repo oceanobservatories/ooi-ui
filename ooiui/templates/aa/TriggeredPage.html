@@ -21,23 +21,29 @@
 {% endblock %}
 
 {% block body %}
+  <div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
 <div id="wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper" class="navbar-default">
+  <div id="sidebar-wrapper">
   </div>
    
    <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <div class="panel">
+          <div id="aa-trig-panel" class="panel">
+            <!--
             <div class="panel-heading"><div>
               <h4 style='margin-top: 0px;margin-bottom: -25px;'> Triggered Alerts & Alarms</h4>
-              <div class="panel-body">
-               <div style='color:#337ab7; text-transform:none; margin-top: 30px;position: absolute;margin-left: -2px;' id='listTitle'>
+              -->
+            <div id="aatrig-panel-body" class="panel-body">
+              <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='triggeredAA'>
                 <b>Showing All Triggered Alerts and Alarms</b>
                </div>
-               <div class="row form-group" id='triggerlist'>
+               <div id='triggerlist' class="row form-group">
               </div>
               <hr width ='80%' style='margin-top:0;'>
               <div class="form-group">
@@ -62,6 +68,10 @@
 </div>
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
+
+var bannerTitle = "Triggered Alerts & Alarms";
+
+var vent = _.extend({}, Backbone.Events);
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
@@ -90,8 +100,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
-    this.views.navbar = new NavbarView();
-    $('body').prepend(this.views.navbar.el);
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+        el: $('#navbar')
+    });
 
     this.views.tocView = new TOCView({
 

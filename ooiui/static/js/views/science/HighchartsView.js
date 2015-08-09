@@ -24,7 +24,14 @@ var HighchartsView = Backbone.View.extend({
     var formatter = d3.format(".2f");
     var uniqAxis = [];
     /* Generate uniqe axis for the series */
+
+    var defaultsDates = null
+
     this.collection.each(function(model, i) {
+      if (i==0){
+        defaultsDates= [ model.get('xmin'), model.get('xmax')];
+      }
+
       var axis = _.find(uniqAxis, function(item) {
         return item.title.text == model.get('axisName');
       });
@@ -68,9 +75,6 @@ var HighchartsView = Backbone.View.extend({
       }
     });
 
-
-
-
     /* Actually produce the chart */
     this.chart = new Highcharts.Chart({
       chart: {
@@ -103,7 +107,9 @@ var HighchartsView = Backbone.View.extend({
           },
           title: {
               text: 'Date (UTC)'
-          }
+          },
+          min : defaultsDates[0],
+          max : defaultsDates[1]
       },
       yAxis: uniqAxis,
       tooltip: {
@@ -153,9 +159,20 @@ var HighchartsView = Backbone.View.extend({
           states: {hover: {enabled: false}} // no highlighted dots
         };
       }),
+      navigation: {
+          buttonOptions: {
+              enabled: false   // Hide the buttons
+          }
+      },
       exporting: { //Enable exporting images
         enabled: true,
-        enableImages: true
+        enableImages: true,
+        chartOptions: {
+            chart: {
+                width: 1200,
+                height: 400
+            }
+        }
       }
     });
     this.trigger('rendered', this);
