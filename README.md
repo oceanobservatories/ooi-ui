@@ -44,6 +44,24 @@ grunt
 python app.py -s
 ```
 
+### To run the project using uWSGI
+Remember to modify WSGI.py and app.ini to your specific installation environment
+```
+sudo mkdir /tmp/ooi-ui
+sudo chown ooiui:nginx /tmp/ooi-ui
+sudo chmod 755 /tmp/ooi-ui
+```
+
+Modify the nginx config file using the example nginx.conf
+```
+sudo service nginx restart
+```
+
+Launch as a background process
+```
+uwsgi --ini app.ini &
+```
+
 
 ##### To view in your browser
 [Click here](http://localhost:5000/)

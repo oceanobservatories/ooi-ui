@@ -49,7 +49,7 @@ def event_new(new,aid,aclass):
     #?id=%s' % id
     return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
 
-@app.route('/streams')
+@app.route('/streams/')
 def streams_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
     return render_template('science/streams.html')
@@ -83,6 +83,30 @@ def getData():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_data'+"/"+instr+"/"+stream+ann, params=request.args)
 
     return response.text, response.status_code
+
+
+@app.route('/api/get_data', methods=['GET'])
+def getUframeDataProxy():
+    '''
+    gets data in the google chart format
+    '''
+    try:
+        instr = request.args['instrument']
+        stream = request.args['stream']
+        #comma list
+        xvars = request.args['xvars']
+        yvars = request.args['yvars']
+
+        #there should be a start and end date in the params
+        #?startdate=2015-01-21T22:01:48.103Z&enddate=2015-04-29T10:10:51.563Z
+
+        data_url = "/".join([app.config['SERVICES_URL'],'uframe/get_data',instr,stream,xvars,yvars])        
+        response = requests.get(data_url, params=request.args)
+        data_text = response.text
+        data_text = data_text.replace("NaN", "null")
+        return data_text, response.status_code, dict(response.headers)
+    except Exception,e:
+        return jsonify(error=str(e))
 
 @app.route('/api/annotation', methods=['GET'])
 def get_annotations():

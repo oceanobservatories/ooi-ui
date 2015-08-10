@@ -4,15 +4,24 @@
     <title>Data Catalog</title>
 {% endblock %}
 
-{% block head %}
+{% block head %}  
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <!-- Partials -->
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
   <!-- lunr needs to be imported by a script tag -->
+
+  <!-- TODO MOVE TO GRUNT FILE  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
+
+
 {% endblock %}
 
 {%block body %}
@@ -56,9 +65,8 @@
     </ul>
   </div> <!-- #sidebar-wrapper -->
   <div id="page-content-wrapper">
-    <div class="content-fluid">
-      
-      <!--  Plot section of the page   -->
+    <div class="content-fluid">      
+
       <div id='bottom-row' class="row">
         <div class="col-sm-12">
           <div class="panel">
@@ -74,13 +82,25 @@
                   </ul>
               </div>
             <div class="panel-body">
-	      <div id="plotcontrols">
-	      </div>
-	      <div id="plot-view">
-		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-		{# <img src="/img/graph7.png" style="width:100%;"> #}
-		<img src="/img/plotting/graph.png" style="width:100%;">
-	      </div> <!-- #view -->
+      	      
+              <div id="plotcontrols">
+      	      </div>
+
+              <!--  Plot section NORMAL   -->
+      	      <div id="plot-view">
+            		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+            		{# <img src="/img/graph7.png" style="width:100%;"> #}
+            		<img src="/img/plotting/graph.png" style="width:100%;">
+      	      </div> <!-- #view -->
+
+              <!--  Plot section HIGHCHARTS   -->
+              <div style="display:none" id='highcharts-row-section' class="row">
+                <div class="col-sm-12">
+                  <div class="panel" id="highcharts-row-section-panel">
+                  </div>    
+                </div>
+              </div>
+
             </div>
           {# </div> #}
 	  </div> <!-- panel -->
@@ -127,6 +147,7 @@
       <div id="stream-download-modal"></div>
       <div id='download-ok-modal'></div>
       <div id='download-fail-modal'></div>
+      <div id='plot-params-modal'></div>
     </div> <!-- #content-fluid -->
   </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
@@ -147,13 +168,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocPlatforms: new TocPlatformsCollection(),    
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
+    dataseries: new DataSeriesCollection()
   },
   views: {
     plottingItemSelection : null,
     plotEventListView: null,
-    plottingItemSelection2 : null
+    plottingItemSelection2 : null,
+    timeseriesView: null
   },
   models: {
+    downloadModel : new StreamModel(),
     userModel: new UserModel()
   },
   initalFilterOptions: function() {
@@ -165,14 +189,14 @@ _.extend(OOI.prototype, Backbone.Events, {
       //no path information
     }else{
       //path information
-      console.log(path)
+      // console.log(path)
       $.each( path, function( key, value ) {
-        console.log( dataContentArray[key] + ": " + value );        
+        // console.log( dataContentArray[key] + ": " + value );        
         var validItem = false; 
              
         $('#plot-item-selection #'+dataContentArray[key]+'_id option').each(function( index, obj ) {                    
           if (value == $( this ).val()){
-            console.log( "FOUND!", value , $(this).val() );
+            // console.log( "FOUND!", value , $(this).val() );
             validItem = true
             //$('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('val', $(this).val());
             $('#plot-item-selection #'+dataContentArray[key]+'_id').val( $(this).val() );                    
@@ -200,7 +224,36 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   },
+  setParams: function(options) {
+    //init the timeseries view
+    this.views.timeseriesView.initialize();
 
+    var p_yvarList = [];
+    var p_xvarList = [];
+    //sort the list of vars and time will always be on the x, duplicated per var
+    _.each(this.views.svgplot.model.attributes.yvariable[0][0],function(element){
+      if (element != "time"){
+        p_yvarList.push(element);
+        p_xvarList.push("time")
+      }
+    })    
+
+    //set data series options
+    this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
+    this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
+    this.collections.dataseries.startdate = options.start_date.toISOString();
+    this.collections.dataseries.enddate = options.end_date.toISOString();
+    //will always be time
+    this.collections.dataseries.xparameters = p_xvarList;
+    this.collections.dataseries.yparameters = p_yvarList;
+
+    errorHandler = function(collection, response){
+      errorText = response.status+': '+response.statusText
+      ooi.trigger('httpError', {response:response, error:errorText});
+    }
+
+    this.collections.dataseries.fetch({error: errorHandler, reset: true});
+  },
   start: function() {
     var self = this;
     this.multiStation = false;
@@ -224,6 +277,17 @@ _.extend(OOI.prototype, Backbone.Events, {
       height: 400,
       width: 500,
       el: $('#plot-view')
+    });
+
+
+    this.views.timeseriesView = new TimeseriesView({
+      el: $('#highcharts-row-section-panel')
+    });
+    
+
+    this.listenTo(this.collections.dataseries, 'reset', function(series) {        
+      this.views.timeseriesView.collection = series;
+      this.views.timeseriesView.render();
     });
 
     //The plotting buttons
@@ -295,6 +359,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
 
+    this.listenTo(this, 'httpError', function(options) {      
+      this.views.timeseriesView.errorRender(options);
+    });
+
     //filter selection : unselect
     this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {      
       if (options.itemid == "plot-item-selection" ){
@@ -311,14 +379,15 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.plottingItemSelection2.filterItems(options);
       }
     });
-    //filter seection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {          
+    //filter selection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {     
+      self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true);      
     });
 
-    //filter seection : listen to the selection of the parameter
+    //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
-
+      self.models.downloadModel.model = options.model;
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
       
       if (options.itemid == "plot-item-selection" ){
@@ -361,12 +430,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.xvar = 'time';
       }
-      
       //used to handle a second station 
       options.multiStation = self.multiStation;
 
       if (options.multiStation){
-        console.log("*********", options.multiStation, options.secRef , options.secStream);
+        // console.log("*********", options.multiStation, options.secRef , options.secStream);
         
         options.xvar = "time,time"
         options.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
@@ -375,7 +443,25 @@ _.extend(OOI.prototype, Backbone.Events, {
         
         self.views.svgplot.plotMulti(options);
       }else{
-        self.views.svgplot.plot(options);
+        if (options.plotType == "timeseries"){
+          //use high charts
+          if(!options.yvar){
+            $('#highcharts-row-section').css('display',"none");
+            $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
+              '</strong> &nbsp;Please select a parameter to plot</div>');
+            return false;
+          }
+
+          $('#highcharts-row-section').css('display',"");
+          $('#plot-view').css('display',"none");
+          //set the params and generate the view
+          this.setParams(options);    
+        }else{
+          $('#highcharts-row-section').css('display',"none");
+          $('#plot-view').css('display',"");
+          //use default
+          self.views.svgplot.plot(options);
+        }
       }
     });
     
@@ -398,9 +484,9 @@ _.extend(OOI.prototype, Backbone.Events, {
       annotation.set('pos_x', xdate);
       annotation.set('pos_y', record[yvar]);
       annotation.set('value', record[yvar]);
-      console.log(self.models.userModel.get('scopes'));
+      // console.log(self.models.userModel.get('scopes'));
       if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
-        console.log("Trying to show");
+        // console.log("Trying to show");
         self.views.annotationModal.show({
           model: annotation,
           userModel: self.models.userModel
@@ -409,7 +495,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      console.log("Adding to collection");
+      // console.log("Adding to collection");
       self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
@@ -426,7 +512,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'ooi:downloadData', function() {
-      self.views.svgplot.downloadData();
+      // Default to NetCDF download
+      self.models.downloadModel.selection = 'netcdf';
+      // Get the user selected start and end dates
+      self.models.downloadModel.model.attributes.start = moment($('#start-date').data('date')).format();
+      self.models.downloadModel.model.attributes.end = moment($('#end-date').data('date')).format();
+      self.views.streamDownloadFormView.show(self.models.downloadModel);
     });
 
     this.listenTo(this, 'DownloadModal:onHide',function(){
@@ -435,7 +526,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
       self.views.modalDownloadFailView.show();
-    })
+    });
   }
 });
 
@@ -449,7 +540,13 @@ $(document).ready(function() {
   
   $('#download-plot').click(function(event) {
     event.preventDefault();
-    ooi.trigger('ooi:downloadPlot');
+    if ($('#highcharts-row-section').css('display')=="block"){
+      var chart = $('#highcharts-view').highcharts();
+      var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
+      chart.exportChart({type: 'image/png', filename: fileName});
+    }else{
+      ooi.trigger('ooi:downloadPlot');
+    }
   });
 
   $('#download-data').click(function(event) {

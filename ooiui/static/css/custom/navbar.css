@@ -172,3 +172,11 @@ div#alertslist > form.backgrid-filter.form-search {
   margin: 0px 0px 25px 0px;
 */
 
+/***********************
+****** User Name *******
+***********************/
+a#logged-in-user.dropdown-toggle {
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}

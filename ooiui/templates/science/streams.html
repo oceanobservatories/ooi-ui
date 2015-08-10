@@ -10,6 +10,9 @@
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
   <!-- lunr needs to be imported by a script tag -->
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
@@ -32,15 +35,19 @@
               <div class="panel-search">
                 </br>
                   <div class="panel">
-                    <div class='pull-right'>
-                      <div class="panel-heading pull-right">
-                          {# <span class="glyphicon glyphicon-hdd" aria-hidden="true"> Data Catalog</span> #}
-                          {# <div class="panel-search pull-right"> #}
-                              <input id='stream-search' type="text" placeholder="&#xf002; Search">
+                      <div class="panel-heading">
+                          <div class="row">
+                          <div class="col-md-4">
+                          </div>
+                          <div class="col-md-5">
+                              <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
+                          </div>
+                          <div class="col-md-3 panel-search text-right">
+                              <input id='search' type="text" placeholder="&#xf002; Search">
                               <span id="search-clear" class="glyphicon glyphicon-remove-circle"></span>
-                          {# </div> #}
+                          </div>
                       </div>
-                  </div> <!-- .pull-right -->
+                      </div>
 
                       <div class="panel-body">
                           <div id="stream-table-view">
@@ -50,19 +57,18 @@
                                   </thead>
                               </table>
                           </div> <!-- #view -->
+                          <div class="paginator row text-center">
+                              <div class="pagination-info"> </div>
+                          </div>
                       </div> <!-- .panel-body -->
                   </div> <!-- .panel -->
               </div> <!-- .panel-search -->
           </div> <!-- .row -->
-          <div class="paginator row text-center">
-              <div class="pagination-info"> </div>
-              <div class="pagination pagination-right pagination-boxes"></div>
-          </div>
     </div> <!-- .content-fluid -->
   </div> <!-- #page-content-wrapper -->
     <div id="stream-download-modal"></div>
     <div id='download-ok-modal'></div>
-    <div id='download-fail-modal'></div>  
+    <div id='download-fail-modal'></div>
 </div> <!-- #wrapper -->
 
 
@@ -161,7 +167,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
 
       self.views.streamDownloadFormView.show(options);
-      console.log(options)
       //window.open(base_url, '_blank');
 
     });
@@ -171,7 +176,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'DownloadModalFail:onFail',function(){
         self.views.modalDownloadFailView.show();
   });
-
 }
 });
 
@@ -188,20 +192,23 @@ var pagination = {
 
 $(document).ready(function() {
         ooi.start();
+        populate();
         $('body').find('#search-clear').hide();
         $("#search-clear").click(function(){
-            $("#stream-search").val('').focus();
+            $("#search").val('').focus();
             $(this).hide();
             updateCollection( showStreams )
             });
 
-        $('#stream-search').keyup(function(e) {
-                $("#search-clear").toggle(Boolean($(this).val()));
-                $("#search-clear").toggle(Boolean($("#stream-search").val()));
-                updateCollection( showStreams )
-            });
+        $('#search').keyup( _.debounce(textInput, 250) );
         $('body').find('#hideTOC').hide()
 });
+
+function textInput() {
+        $('#search-clear').toggle(Boolean($(this).val()));
+        $('#search-clear').toggle(Boolean($('#search').val()));
+        updateCollection( showStreams );
+}
 
 function jump(h){
     var url = location.href;               //Save down the URL without hash.
@@ -223,12 +230,26 @@ function showStreams( collection, response ){
         $(".table").append( streamTableView.el );
     }
 
+function populate() {
+  // get url
+  var newURL = window.location.href;
+  // remove the preceding '?' from index
+  newURL = newURL.split('#').pop().split('?').pop();
+  // get last index of url
+  var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);
+  // put last index in search box...box
+  if(assetLink.length  >= 1) {
+    $('#search').val(assetLink);
+    updateCollection( showStreams );
+  }
+}
+
 function updateCollection( successCallback ){
 
     // If there is a search term, we need to set the startAt attribute to 0,
     // otherwise the results may not load on the page.
     var startingPoint = "";
-    if ($('#stream-search').is(':focus')) {
+    if ($('#search').is(':focus')) {
         startingPoint = 0;
     } else {
         startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
@@ -238,7 +259,7 @@ function updateCollection( successCallback ){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : $('#stream-search').val()
+        search : $('#search').val()
     };
 
     collection.fetch({

@@ -61,6 +61,9 @@ var StreamTableView = Backbone.View.extend({
   }
 });
 
+/*
+  model : StreamModel
+ */
 var StreamTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {

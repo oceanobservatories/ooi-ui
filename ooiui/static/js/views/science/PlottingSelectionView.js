@@ -43,7 +43,6 @@ var PlottingSelectionView = Backbone.View.extend({
   },
   getSelectedVars: function(filterModel,filterCollection){        
     var selectedParam = this.$el.find( "#parameters_id option:selected").val()
-     console.log(selectedParam);
     return selectedParam;
   },
   addFilter: function(filterModel,filterCollection){    
@@ -117,7 +116,7 @@ var PlottingSelectionView = Backbone.View.extend({
       
       //refresh
       $('.selectpicker').selectpicker('refresh');
-      console.log("un:filter called, refresh");
+      // console.log("un:filter called, refresh");
     }
   },
   filterItems: function(options) {
@@ -191,7 +190,7 @@ var PlottingSelectionView = Backbone.View.extend({
                 }
               }              
             }
-            self.$el.find( "#parameters_id").html(parameterhtml)  
+            self.$el.find( "#parameters_id").html(parameterhtml)
           }
         });
 
@@ -201,7 +200,7 @@ var PlottingSelectionView = Backbone.View.extend({
         this.$el.find('.selectpicker').selectpicker('refresh');
         ooi.trigger('FilterSelectionView:onStreamSelection', {model:streamModel});
       }
-      console.log("no more filter");
+      // console.log("no more filter");
     }else if (childItem == "streams" || childItem == "parameters"){
       //this.$el.find( "#"+currentItem+"_id option").each(function(){$( this ).remove()});
       this.$el.find( "#streams_id").html("")
@@ -220,8 +219,9 @@ var PlottingSelectionView = Backbone.View.extend({
             var start = model.get('streams')[i]['beginTime']                            
             var end = model.get('streams')[i]['endTime']            
             var sensor = model.get('streams')[i]['sensor']    
-
-            streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"            
+            if (streamTextValue.indexOf("metadata") < 0){
+              streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"            
+            }
           };
 
           self.$el.find( "#streams_id").html(streamhtml)        
@@ -254,9 +254,6 @@ var PlottingSelectionView = Backbone.View.extend({
           if (filterVal == childCode){          
             //ITS GOOD!          
             $( this ).text(childValue)
-            //console.log(newText)
-
-            //self.$el.find( "#"+childItem+"_id").text(newText)
           }
           else{
             $( this ).attr("disabled", true);
@@ -270,7 +267,7 @@ var PlottingSelectionView = Backbone.View.extend({
       this.$el.find( "#"+childItem+"_id" ).removeAttr("disabled");
 
       //refresh
-      console.log("filter called, refresh",childItem);
+      // console.log("filter called, refresh",childItem);
       this.$el.find('.selectpicker').selectpicker('refresh');
     }
   },  
@@ -291,13 +288,21 @@ var FilterSelectionView = Backbone.View.extend({
   events: {
     'change .selectpicker' : 'onChange'
   },
+  searchIcon: function() {
+    var self = this;
+    this.$el.find("input[type=text]").css("font-family", "FontAwesome");
+  var icon = "\uf002"; // Font Awesome Unicode for Search icon
+    var remove = "\uf00d"; // Font Awesome Unicode for Remove icon
+    $('.form-control').attr("placeholder",icon+" Search");
+    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
+},
   initialize: function(options) {
     _.bindAll(this, "render");
     this.options.itemid = options.itemid
   },
   template: JST['ooiui/static/js/partials/FilterPlottingSelection.html'],
   render: function() {
-    console.log("FilterSelectionView render called");
+    // console.log("FilterSelectionView render called");
     var self = this;   
     this.$el.html(this.template({numberSelectable: self.numberSelectable,
                                  isDisabled:self.initallyDisabled,
@@ -306,6 +311,7 @@ var FilterSelectionView = Backbone.View.extend({
                                  collection:self.collection})); 
     //setup the picker    
     this.$el.find('.selectpicker').selectpicker();
+    this.searchIcon();
   },
   onChange: function() {
     var self = this;

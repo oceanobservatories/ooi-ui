@@ -1,4 +1,5 @@
 var MapView = Backbone.View.extend({
+  gliderCollection:null,
   initialize: function() {
     var self = this;
 
@@ -24,18 +25,70 @@ var MapView = Backbone.View.extend({
       maxZoom: 13
     });
 
+    var NGDC_WorldTerrain = L.tileLayer('http://maps.ngdc.noaa.gov/arcgis/rest/services/web_mercator/etopo1_hillshade/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Hillshade visualization by J. Varner and E. Lim, CIRES, University of Colorado at Boulder and NOAA/NGDC.',
+      maxZoom: 13
+    });
+
+    self.arrayTitle =   { 
+                         "pioneer":"Coastal Pioneer",
+                         "endurance":"Endurance & Cabled Array",
+                         "papa":"Station Papa",
+                         "irminger":"Irminger Sea",
+                         "argentine":"Argentine Basin",
+                         "southern":"Southern Ocean"
+                        }
+    
+    self.arrayLinks =   { 
+                         "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
+                         "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
+                         "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
+                         "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+                         "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+                         "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
+                        }
+
+    self.arrayMapping = {"pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
+                         "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
+                         "papa": new L.LatLngBounds([[52,-150],[46,-139]]),
+                         "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
+                         "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
+                         "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])                         
+                        }
+
+    self.sizeMapping = {"pioneer":[200,300],
+                         "endurance":[200,400],
+                         "papa":[250,250],
+                         "irminger":[200,250],
+                         "argentine":[200,250],
+                         "southern":[200,250]
+                        }    
+    
+  
     this.map = L.map(this.el,{
          center: [20.505, -80.09],
          zoom: 3,
          maxZoom: 10,
          minZoom: 3,
          layers: [Esri_OceanBasemap]
+    });   
+
+    var allLatLons = []
+    //loop over the corners and add to bounds
+    _.each(self.arrayMapping, function(arrayMap,index) {
+      allLatLons.push(arrayMap.getNorthWest());
+      allLatLons.push(arrayMap.getSouthEast());
     });
+
+    this.map.fitBounds(allLatLons);
+
+    L.control.mousePosition().addTo(this.map);
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
+      "NGDC Bathymetry" : NGDC_WorldTerrain,
       "ESRI Terrain": Esri_WorldTerrain,
-      "World Imagery" :Esri_WorldImagery,
+      "World Imagery" : Esri_WorldImagery,
       "Grayscale": grayscale,
     };
 
@@ -97,11 +150,14 @@ var MapView = Backbone.View.extend({
     });
     //wmsLayers['Glider Track'] = this.generate_glider_layer();
     this.wmsLayers = wmsLayers;
-    this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    var gl = this.generate_glider_layer();
-    gl.addTo(this.map);
-    self.gliderLayer = gl
+    //glider layer
+    this.gliderLayers = L.layerGroup();
+    this.arrayLayers = L.layerGroup();
+
+    wmsLayers['Array Titles'] = this.arrayLayers;
+    wmsLayers['Glider Tracks'] = this.gliderLayers;
+    this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
     this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
 
@@ -113,6 +169,28 @@ var MapView = Backbone.View.extend({
 
     return this
   },
+  add_glider_tracks: function(){
+    var self = this;
+    //this.gliderCollection
+    var gliderTrackStyle = {
+      "color": "#ff7800",
+      "weight": 5,
+      "opacity": 0.65
+    };
+
+    self.gliderCollection.each(function(model) {      
+      var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});      
+      //popup
+      var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
+      //bind 
+      gliderTrackLayer.bindPopup(popupContent);
+      //add
+      self.gliderLayers.addLayer(gliderTrackLayer)
+    });     
+    
+
+  },
+  //deprecated i think
   update_track_glider: function(reference_designator,show_track){
     var self = this;
     var map = this.map;
@@ -141,6 +219,7 @@ var MapView = Backbone.View.extend({
       //console.log(layer.options.color);
     });
   },
+  //deprecated i think
   generate_glider_layer:function(geojson){
     if (geojson === undefined){
       var gliderTrackLine = {
@@ -167,11 +246,119 @@ var MapView = Backbone.View.extend({
     L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
-    var markerCluster = new L.MarkerClusterGroup();
+
+    //add labels
+    _.each(self.arrayMapping, function(arrayMap,index) {
+        var labelMarker = L.marker([arrayMap._northEast.lat, arrayMap._southWest.lng-2],{ opacity: 0.001 })
+                            .bindLabel(self.arrayTitle[index], { className: "array-title-label", noHide: true });
+        self.arrayLayers.addLayer(labelMarker);
+
+
+    });
+
+    self.arrayLayers.addTo(map);
+
+
+
+    var popup = null;
+    var markerCluster = new L.MarkerClusterGroup({iconCreateFunction: function(cluster) {
+                                                      return new L.DivIcon({ html: '<b class="textClusteredMarker">' + '</b>', //cluster.getChildCount() + '</b>' ,
+                                                                             className: 'clusterdMarker', 
+                                                                             iconSize: L.point(40, 40)
+                                                                            });
+                                                  },
+                                                  spiderfyDistanceMultiplier:2,
+                                                  showCoverageOnHover: false
+                                                  });    
+
+    markerCluster.on('clustermouseover', function (a) {            
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {        
+        var url = null;
+        var size = null;
+        var title = null;
+        _.each(self.arrayMapping, function(arrayMap,index) {
+          if (arrayMap.contains(a.latlng)){
+            url = self.arrayLinks[index];
+            size = self.sizeMapping[index];
+            title = self.arrayTitle[index];
+          }          
+        })
+
+        //generate array popup
+        popup = L.popup({offset: new L.Point(0, -20)})
+         .setLatLng(a.latlng) 
+         .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+         
+         .openOn(map);
+      }else{        
+        _.each(self.arrayMapping, function(arrayMap,index) {
+          if (arrayMap.contains(a.latlng)){
+            url = self.arrayLinks[index];
+            size = self.sizeMapping[index];
+            title = self.arrayTitle[index];
+          }          
+        })
+
+        //generate normal popup
+        popup = L.popup({offset: new L.Point(0, -20)})
+         .setLatLng(a.latlng) 
+         .setContent('<div class="cluster-popup"><h4>'+title+'</h4><p>'+a.layer.getAllChildMarkers().length+' assets'+"</p></div>")
+         .openOn(map);
+      }
+
+
+      //a.layer.getAllChildMarkers().length
+
+    });
+    map.on('zoomend', function(e) {  
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
+        $('.array-title-label').css('display','');
+      }else{
+        $('.array-title-label').css('display','none');
+      }
+    });
+
+    map.on('zoomstart', function(e) {            
+      if (popup && map) {
+          map.closePopup(popup);
+          popup = null;
+      }
+    });
+
+    markerCluster.on('clustermouseout', function (e) {
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
+        if (popup && map) {
+          map.closePopup(popup);
+          popup = null;
+        }
+      }
+    });
 
     var res_des_list = this.collection.map(function(model){
       return model.get('ref_des');
     });
+
+    var mooringIcon = L.icon({
+        iconUrl: '/img/mooring.png',
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var platformIcon = L.icon({
+        iconUrl: '/img/platform.png',        
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var gliderIcon = L.icon({
+        iconUrl: '/img/glider.png',        
+        iconSize:     [50, 50], // size of the icon        
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
 
     var unique_res_des = _.uniq(res_des_list);
     _.each(unique_res_des, function(platform_id) {           
@@ -181,8 +368,9 @@ var MapView = Backbone.View.extend({
 
       var lat_lons = []
 
-      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){          
-        var platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'));
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){               
+
+        
 
         //reset the event popup
         var eventPopup = ""
@@ -192,6 +380,7 @@ var MapView = Backbone.View.extend({
         }
 
 
+        // Plotting
         if (typeof(platform_id) != "undefined"){
           var ref_des_split = platform_id.split("-")
           //get the current location
@@ -202,18 +391,30 @@ var MapView = Backbone.View.extend({
           var array = platform_id.substring(0, 2);
           var mooring = ref_des_split[0]
           var platform_val = ref_des_split[1]
+
+          var platformFeature = null
+          if (_.isUndefined(platform_val)){
+            //itemType = "mooring"
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
+          }else if (name.toLowerCase().indexOf("glider") > -1){      
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
+          }else{
+            //itemType = "platform"
+            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
+          }          
+
           if (ref_des_split.length > 2){
             var instrument = platform_id
             var instrument_url = [array, mooring, platform_val , instrument].join("/");
           }else{
             var instrument_url = [array, mooring, platform_val].join("/");
           }
-          var instrument_plot = '<br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
+          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
         }else{
           var instrument_plot = ""
         }    
 
-        var eventContent = '<ul><h5>Deployment Event(s)</h5>';
+        var eventContent = '<h5 id="deployEvents"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">';
         var popupContent = ""
         var hasDeploymentEvent = false;
 
@@ -226,32 +427,65 @@ var MapView = Backbone.View.extend({
                 if (item['class'] == ".DeploymentEvent"){
 
                   if (!hasDeploymentEvent){
-                    popupContent = '<p><strong>' + name + '</strong><br>' +
-                          '<strong>Launch Date</strong>: '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
-                          'Lat: ' + platforms[platforms.length -1].get('coordinates')[0] + '&nbsp;|&nbsp;Lon: ' + platforms[platforms.length -1].get('coordinates')[1] +
-                          instrument_plot+
-                          '<br><a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
-                          '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></p>';
+
+                    // Name
+                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>' +
+                      
+                      // Launch Date      
+                      // '<strong>Launch Date:</strong> '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
+                          
+                      // Lat & Lon
+                      '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
+
+                      // Data Catalog
+                      '<a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                  
+                      // Asset Managment
+                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
 
                   if (_.isNull(item['endDate'])){
-                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                    eventContent += '<div class="floatLeft">';
+
+                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
+                    
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
+
                   }else{
-                    eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                    eventContent += '<div class="floatRight">';
+                    
+                    eventContent += '<h6><strong>Past</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
+                    
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
+                    
+                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
                   }
                 }
             });
         });
-        eventContent += '</ul>'; 
-
+        eventContent += '</div></div>'; 
         popupContent+=eventContent;
 
 
         //only add the item if there are deployment events
-        if (hasDeploymentEvent){          
+        if (hasDeploymentEvent){   
+          
           platformFeature.bindPopup(popupContent);
+
+          platformFeature.on('mouseover', function (e) {
+            this.openPopup();
+          });
+          platformFeature.on('click', function (e) {
+              this.closePopup();
+          });
+
           markerCluster.addLayer(platformFeature);
         }
       }
@@ -267,13 +501,3 @@ var MapView = Backbone.View.extend({
   //end
 });
 
-var GliderTrackModel = Backbone.Model.extend({
-  urlRoot: '/api/uframe/glider_tracks',
-  defaults: {
-        reference_designator: ""
-  },
-  initialize: function(ref){
-    this.set('reference_designator',ref);
-  },
-
-});

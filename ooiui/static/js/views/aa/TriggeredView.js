@@ -82,29 +82,31 @@ var TriggeredView = Backbone.View.extend({
           }
         });
 
-        var columns = [{
+        var columns = [
+          {
             name: "event_response", // The key of the model attribute
             label: "Event Label", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
             cell: "string"
-        },  {
+          },
+          {
             name: "event_time",
             label: "Event Time",
             editable: false,
             cell: "string"
-        },
-        {
-            name: "event_response", // The key of the model attribute
-            label: "Event Value", // The name to display in the header
+          },
+          {
+            name: "acknowledged", // The key of the model attribute
+            label: "Acknowledged", // The name to display in the header
             editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+            cell: "string"
+/*            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 return "5.432"
               }
-            })
-        },
-        {
+            })*/
+          },
+          {
             name: "event_type",
             editable: false,
             label: "Event Type",
@@ -122,7 +124,24 @@ var TriggeredView = Backbone.View.extend({
                 }
               }
             })
-        }];
+          },
+          {
+            name: "ticket_id",
+            editable: false,
+            label: "Redmine Ticket",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+              fromRaw: function (rawValue, model) {
+
+                //place holder right now for triggered events
+                if(rawValue > 0){
+                  //fa fa-bullhorn
+                  return "<i id='condition_met' style='text-align:center;font-size:20px;float:center;padding-right: 5px;color:#a94442'><a href=\"https://uframe-cm.ooi.rutgers.edu/issues/" + rawValue + "\" target=\"_blank\" class='fa fa-ticket'></a></i>";
+                }
+              }
+            })
+          }
+        ];
 
         //add click event
         var ClickableRow = Backgrid.Row.extend({
