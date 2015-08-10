@@ -1,15 +1,28 @@
 /***********************
 ******** Navbar ********
 ***********************/
-.navbar-fixed-top {
-  top: 113px;
-  border-width: 0 0 1px;
-  z-index: 1001;
-  /*
-   *   position: inherit;
-  padding-right: 30px;
-  padding-left: 30px;
-*/
+@media screen and (max-width: 1024px) {
+  .navbar-fixed-top {
+    top: 113px;
+    border-width: 0 0 1px;
+    z-index: 1001;
+    /*
+     *   position: inherit;
+     padding-right: 30px;
+     padding-left: 30px;
+     */
+    }
+}
+@media (min-width: 958px) {
+  .navbar-fixed-top {
+    top: 103px;
+  }
+}
+
+@media (min-width: 958px) {
+  .navbar-fixed-top {
+    top: 100px;
+  }
 }
 
 .navbar-top-links-new li {
@@ -103,13 +116,24 @@
 	font-weight: 300;	
 }
 
-.navbar-default {
-  height: 38.5px;
-  border-color:  #7E9CD9 ;
-  background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
-  background-color: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #F09349;
+  .navbar-default {
+    height: 38.5px;
+    border-color:  #7E9CD9 ;
+    background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
+    background-color: none;
+    border-bottom-width: 2px;
+    border-bottom-color: #F09349;
+  }
+
+@media (min-width: 955px) {
+  .navbar-default: {
+    height: 78px;
+    border-color:  #7E9CD9 ;
+    background: linear-gradient(#fff,  #7E9CD9);/*add % to value to adjust gradiant*/
+    background-color: none;
+    border-bottom-width: 2px;
+    border-bottom-color: #F09349;
+  }
 }
 
 .navbar-default .navbar-brand {
