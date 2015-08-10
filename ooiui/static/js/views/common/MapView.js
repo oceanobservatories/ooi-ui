@@ -409,7 +409,7 @@ var MapView = Backbone.View.extend({
           }else{
             var instrument_url = [array, mooring, platform_val].join("/");
           }
-          var instrument_plot = '<br><br><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
+          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
         }else{
           var instrument_plot = ""
         }    
@@ -435,13 +435,13 @@ var MapView = Backbone.View.extend({
                       // '<strong>Launch Date:</strong> '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
                           
                       // Lat & Lon
-                      '<h5 style=" background-color:white; width:auto; margin-top:2px; margin-bottom:0px; padding:5px 10px 5px 10px;"><strong>Lat:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '<strong>&nbsp;|&nbsp;Lon:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
+                      '<h5 style=" background-color:white; width:auto; margin-top:2px; margin-bottom:0px; padding:5px 10px 5px 10px;"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
 
                       // Data Catalog
                       '<a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
                   
                       // Asset Managment
-                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></h5>';
+                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;

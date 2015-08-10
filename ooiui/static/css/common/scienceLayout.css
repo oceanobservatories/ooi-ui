@@ -457,8 +457,6 @@ width: 50%;
 float: right;
 background-color: white;
 padding: 5px 10px 5px 10px; 
-
-
     /*  */
     /* background-color: #fff; */
     /* background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .15)); */
@@ -466,6 +464,16 @@ padding: 5px 10px 5px 10px;
     /* /* border: 1px solid rgba(252, 171, 171, 1); */ */
     /* padding-left: 30px; */
 }
+
+.latFloat {
+  float: left;
+}
+
+.lonFloat {
+  width: 60%;
+  float: right;  
+}
+
 /* h4 { */
 /*     background-color: white; */
 /*     width: auto; */
