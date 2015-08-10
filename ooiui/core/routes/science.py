@@ -239,19 +239,20 @@ def get_csv(stream_name, reference_designator,start,end):
     req = requests.get(url, auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
-def get_json(stream_name, reference_designator,start,end):
+@app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:provenance>/<string:annotations>')
+def get_json(stream_name, reference_designator, start, end, provenance, annotations):
     token = get_login()
     dpa = "0"
-    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa)
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s/%s/%s' % (stream_name, reference_designator, start, end, dpa, provenance, annotations)
     req = requests.get(url, auth=(token, ''), stream=True,params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
-@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
-def get_netcdf(stream_name, reference_designator,start,end):
+@app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:provenance>/<string:annotations>')
+def get_netcdf(stream_name, reference_designator, start, end, provenance, annotations):
     token = get_login()
     dpa = "0"
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s' % (stream_name, reference_designator,start,end,dpa), auth=(token, ''), stream=True)
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s/%s/%s'
+                       % (stream_name, reference_designator, start, end, dpa, provenance, annotations), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 @app.route('/api/uframe/get_profiles/<string:stream_name>/<string:reference_designator>')

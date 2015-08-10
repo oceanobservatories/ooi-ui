@@ -16,10 +16,39 @@
 
 var StreamDownloadFormView = Backbone.View.extend({
   events: {
-    'click #download-btn' : 'onDownload'
+    'click #download-btn' : 'onDownload',
+    'change #type-select' : 'onTypeChange',
+    'click #provenance-select' : 'onProvenanceSelect',
+    'click #annotation-select' : 'onAnnotationsSelect',
   },
   initialize: function() {
     this.render();
+  },
+  onAnnotationsSelect: function() {
+    if(this.$el.find('#annotation-select').is(':checked')){
+      this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
+    }else{
+      this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
+    }
+  },
+  onProvenanceSelect: function() {
+    if(this.$el.find('#provenance-select').is(':checked')){
+      this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
+    }else{
+      this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
+    }
+  },
+  onTypeChange: function() {
+    var type = this.$el.find('#type-select').val();
+    if(type == 'csv') {
+      this.$el.find('#provenance-select').attr("disabled", true);
+      this.$el.find('#provenance-select').attr('checked', false);
+      this.$el.find('#annotation-select').attr("disabled", true);
+      this.$el.find('#annotation-select').attr('checked', false);
+    } else {
+      this.$el.find('#provenance-select').removeAttr("disabled");
+      this.$el.find('#annotation-select').removeAttr("disabled");
+    }
   },
   onDownload: function() {
     /*
@@ -32,7 +61,18 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = new Date(this.$end_date.data('date')).toISOString();
     localModel.set('start', startDate);
     localModel.set('end', endDate);
-
+    // Check for provenance and set the model
+    if(this.$el.find('#provenance-select').is(':checked')){
+      localModel.set('provenance', 'true');
+    }else{
+      localModel.set('provenance', 'false');
+    }
+    // Check for annotations and set the model
+    if(this.$el.find('#annotation-select').is(':checked')){
+      localModel.set('annotations', 'true');
+    }else{
+      localModel.set('annotations', 'false');
+    }
     var url = localModel.getURL(selection);
     window.open(url, '_blank');
 //    window.location.href = url;
