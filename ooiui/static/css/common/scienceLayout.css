@@ -397,10 +397,18 @@
 .leaflet-popup-content p {
   font-weight: 300px;  
   width: 420px !important;
-  margin: -11px 4px 4px 4px; /* inner sections(title, lat/lon) */
-  white-space : nowrap;
-  text-align  : left;
-  background-color: transparent;
+  /* margin: -11px 4px 4px 4px; /* inner sections(title, lat/lon) */ */
+  /* white-space : nowrap; */
+  /* text-align  : left; */
+  background-color: white;
+  background: white;  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 .leaflet-container a.leaflet-popup-close-button {
@@ -439,11 +447,66 @@
 	background: rgba(81, 203, 238, 0.4); 
 }
 
+h4#arrayPopup {
+  border-top-left-radius:12px; 
+  border-top-right-radius:12px; 
+  background-color: #FFF; 
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left:10px;
+  padding-right: 10px;
+  margin-top:2px; 
+  margin-bottom:-13px;
+}
+
+img#arrayImg {
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+}
+
+.cluster-popup h4 {
+  background: white;
+  padding: 10px;  
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+/* .cluster-popup h4 p { */
+/*   background: white; */
+/* } */
+/*  */
+#latLon {
+  background-color:white; 
+  width:auto;
+  margin-top:2px;
+  margin-bottom:0px; 
+  padding:5px 10px 5px 10px;
+}
+#popTitle {
+  background-color:white; 
+  width:auto;
+  margin-top:0; 
+  margin-bottom:0px;
+  padding:5px 10px 5px 10px;
+  border-top-right-radius:12px; 
+  border-top-left-radius:12px;"
+}
+
+#deployEvents {
+  background-color:white; 
+  width:auto; 
+  margin-top:2px; 
+  margin-bottom:0px; 
+  padding:5px 10px 5px 10px;"
+}
+
 .floatLeft {
-width: 50%; 
-float: left; 
-background-color: white;
-padding: 5px 10px 5px 10px; 
+  width: 50%; 
+  float: left; 
+  background-color: white;
+  padding: 5px 10px 5px 10px; 
 
     /* background-color: #fff; */
     /* background-image: radial-gradient( 100% 100%, #fff, rgba(81, 203, 238, 0.15)); */
@@ -453,12 +516,10 @@ padding: 5px 10px 5px 10px;
 }
 
 .floatRight {
-width: 50%; 
-float: right;
-background-color: white;
-padding: 5px 10px 5px 10px; 
-
-
+  width: 50%; 
+  float: right;
+  background-color: white;
+  padding: 5px 10px 5px 10px; 
     /*  */
     /* background-color: #fff; */
     /* background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .15)); */
@@ -466,6 +527,22 @@ padding: 5px 10px 5px 10px;
     /* /* border: 1px solid rgba(252, 171, 171, 1); */ */
     /* padding-left: 30px; */
 }
+.floatRight > h6,
+.floatLeft > h6 {
+  background-color:white; 
+  width:auto; 
+  margin-top:5px;
+
+}
+.latFloat {
+  float: left;
+}
+
+.lonFloat {
+  width: 60%;
+  float: right;  
+}
+
 /* h4 { */
 /*     background-color: white; */
 /*     width: auto; */
