@@ -397,10 +397,18 @@
 .leaflet-popup-content p {
   font-weight: 300px;  
   width: 420px !important;
-  margin: -11px 4px 4px 4px; /* inner sections(title, lat/lon) */
-  white-space : nowrap;
-  text-align  : left;
-  background-color: transparent;
+  /* margin: -11px 4px 4px 4px; /* inner sections(title, lat/lon) */ */
+  /* white-space : nowrap; */
+  /* text-align  : left; */
+  background-color: white;
+  background: white;  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 .leaflet-container a.leaflet-popup-close-button {
@@ -439,6 +447,36 @@
 	background: rgba(81, 203, 238, 0.4); 
 }
 
+h4#arrayPopup {
+  border-top-left-radius:12px; 
+  border-top-right-radius:12px; 
+  background-color: #FFF; 
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left:10px;
+  padding-right: 10px;
+  margin-top:2px; 
+  margin-bottom:-13px;
+}
+
+img#arrayImg {
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+}
+
+.cluster-popup h4 {
+  background: white;
+  padding: 10px;  
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+/* .cluster-popup h4 p { */
+/*   background: white; */
+/* } */
+/*  */
 #latLon {
   background-color:white; 
   width:auto;
