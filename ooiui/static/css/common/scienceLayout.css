@@ -439,11 +439,36 @@
 	background: rgba(81, 203, 238, 0.4); 
 }
 
+#latLon {
+  background-color:white; 
+  width:auto;
+  margin-top:2px;
+  margin-bottom:0px; 
+  padding:5px 10px 5px 10px;
+}
+#popTitle {
+  background-color:white; 
+  width:auto;
+  margin-top:0; 
+  margin-bottom:0px;
+  padding:5px 10px 5px 10px;
+  border-top-right-radius:12px; 
+  border-top-left-radius:12px;"
+}
+
+#deployEvents {
+  background-color:white; 
+  width:auto; 
+  margin-top:2px; 
+  margin-bottom:0px; 
+  padding:5px 10px 5px 10px;"
+}
+
 .floatLeft {
-width: 50%; 
-float: left; 
-background-color: white;
-padding: 5px 10px 5px 10px; 
+  width: 50%; 
+  float: left; 
+  background-color: white;
+  padding: 5px 10px 5px 10px; 
 
     /* background-color: #fff; */
     /* background-image: radial-gradient( 100% 100%, #fff, rgba(81, 203, 238, 0.15)); */
@@ -453,10 +478,10 @@ padding: 5px 10px 5px 10px;
 }
 
 .floatRight {
-width: 50%; 
-float: right;
-background-color: white;
-padding: 5px 10px 5px 10px; 
+  width: 50%; 
+  float: right;
+  background-color: white;
+  padding: 5px 10px 5px 10px; 
     /*  */
     /* background-color: #fff; */
     /* background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .15)); */
@@ -464,7 +489,13 @@ padding: 5px 10px 5px 10px;
     /* /* border: 1px solid rgba(252, 171, 171, 1); */ */
     /* padding-left: 30px; */
 }
+.floatRight > h6,
+.floatLeft > h6 {
+  background-color:white; 
+  width:auto; 
+  margin-top:5px;
 
+}
 .latFloat {
   float: left;
 }

@@ -414,7 +414,7 @@ var MapView = Backbone.View.extend({
           var instrument_plot = ""
         }    
 
-        var eventContent = '<h5 style=" background-color:white; width:auto; margin-top:2px; margin-bottom:0px; padding:5px 10px 5px 10px;"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">';
+        var eventContent = '<h5 id="deployEvents"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">';
         var popupContent = ""
         var hasDeploymentEvent = false;
 
@@ -429,13 +429,13 @@ var MapView = Backbone.View.extend({
                   if (!hasDeploymentEvent){
 
                     // Name
-                    popupContent = '<h4 style=" background-color:white; width:auto; margin-top:0; margin-bottom:0px; padding:5px 10px 5px 10px; border-top-right-radius:12px; border-top-left-radius:12px;"><strong>' + name + '</strong></h4>' +
+                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>' +
                       
                       // Launch Date      
                       // '<strong>Launch Date:</strong> '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
                           
                       // Lat & Lon
-                      '<h5 style=" background-color:white; width:auto; margin-top:2px; margin-bottom:0px; padding:5px 10px 5px 10px;"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
+                      '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
 
                       // Data Catalog
                       '<a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
@@ -450,7 +450,7 @@ var MapView = Backbone.View.extend({
                     // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
                     eventContent += '<div class="floatLeft">';
 
-                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
                     eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
@@ -459,7 +459,7 @@ var MapView = Backbone.View.extend({
                   }else{
                     eventContent += '<div class="floatRight">';
                     
-                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Past</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<h6><strong>Past</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
                     eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
