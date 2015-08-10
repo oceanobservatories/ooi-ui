@@ -382,7 +382,15 @@ _.extend(OOI.prototype, Backbone.Events, {
     //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {     
       self.models.downloadModel.model = options.model;
-      self.views.svgPlotControlView.setModel(options.model,true);      
+      self.views.svgPlotControlView.setModel(options.model,true); 
+      
+      //ANNOTATIONS
+      self.collections.annotations.fetch({
+          data: $.param({reference_designator:options.model.get('reference_designator'),
+                         stream_name: options.model.get('stream_name')}),
+          reset: true
+      });
+
     });
 
     //filter selection : listen to the selection of the parameter
@@ -393,15 +401,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
         self.views.svgPlotControlView.setModel(options.model,false);                
-        self.views.svgplot.setModel(options.model);
-        
-
-        //ANNOTATIONS
-        self.collections.annotations.fetch({
-          data: $.param({stream_name: options.model.get('stream_name')}),
-          reset: true
-        });
-
+        self.views.svgplot.setModel(options.model);        
       }
     });
 
@@ -465,6 +465,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
     
+    this.listenTo(self.collections.annotations, 'reset', function(collection) {
+      console.log(collection,"annotations are here!!!!!")
+    });
+
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
       self.views.plotEventListView.render();
@@ -496,15 +500,17 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
       // console.log("Adding to collection");
-      self.collections.annotations.add(model);
+      //self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
+      /*
       if(self.login.loggedIn()) {
         self.views.annotationModal.show({
           model: model,
           userModel: self.models.userModel
         });
       }
+      */
     });
 
     this.listenTo(this, 'ooi:downloadPlot', function() {
