@@ -450,7 +450,7 @@ var MapView = Backbone.View.extend({
                     // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
                     eventContent += '<div class="floatLeft">';
 
-                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Deployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
                     eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
@@ -459,7 +459,7 @@ var MapView = Backbone.View.extend({
                   }else{
                     eventContent += '<div class="floatRight">';
                     
-                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Undeployed</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<h6 style="background-color:white; width:auto; margin-top:5px;"><strong>Past</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
                     eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     
