@@ -1,4 +1,15 @@
-textarea#comment-text {
-    resize: vertical;
-    max-height: 200px;
+textarea#comments-input{
+  margin-top:0px;
+  margin-bottom:0px;
+  height: 182px
+}
+
+.main-container{
+	padding:10px;
+}
+
+
+#annotation-table #addAnnotation{
+	margin-top: 5px;
+	margin-bottom: 5px;
 }

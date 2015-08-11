@@ -30,9 +30,8 @@ var AnnotationModalFormView = ModalFormView.extend({
     // Intentionally left blank to override parent
   },
   show: function(options) {
-    if(options
-      && options.model // annotation model
-      && options.userModel) {
+    //options.model = annotation model
+    if(options && options.model && options.userModel) {
         this.model = options.model;
         this.username = options.userModel.get('user_name');
         this.render();
@@ -62,5 +61,11 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.$el.find('#submit-button').text('Update');
       this.$el.find('#reset-button').prop('disabled', 'disabled');
     }
+
+    if(this.model.get('annotation')) {
+      this.$el.find('#comments-input').val(this.model.get('annotation'));
+
+    }
+
   }
 });

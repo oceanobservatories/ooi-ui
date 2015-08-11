@@ -17,39 +17,39 @@
  */
 
 var AnnotationTableView = Backbone.View.extend({
+  className: "annotationTableView",
   columns: [
       {
-        name : 'title',
-        label : 'Title'
+        name : 'ui_id',
+        label : 'Annotation ID' //not the same as the uframe id
       },
       {
-        name : 'stream_name',
-        label : 'Stream Name'
+        name : 'annotation',
+        label : 'Annotation'
       },
       {
-        name : 'pos_x',
-        label : 'Date Time'
+        name : 'referenceDesignator',
+        label : 'Reference Designator'
+      },      
+      {
+        name : 'beginDT',
+        label : 'Date Time (Start)'
       },
       {
-        name : 'pos_y',
-        label : 'Value'
-      },
-      {
-        name : 'field_y',
-        label : 'Field'
+        name : 'endDT',
+        label : 'Date Time (End)'
       }
   ],
   initialize: function() {
-    _.bindAll(this, "render");
-    this.listenTo(this.collection, 'reset', this.render);
-    this.listenTo(this.collection, 'add', this.render);
+    _.bindAll(this, "render");    
   },
   template: JST['ooiui/static/js/partials/AnnotationTable.html'],
-  render: function() {
-    console.log("render called");
+  render: function() {    
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
-    this.collection.each(function(model) {
+    this.collection.each(function(model, i) {
+      console.log(model);
+      model.set('ui_id',i)
       var streamTableItemView = new AnnotationTableItemView({
         columns: self.columns,
         model: model

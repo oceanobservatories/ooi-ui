@@ -10,7 +10,7 @@ tabindex allows the escape key to be used to close the modal -->
       </div> <!-- modal-form-header -->
 
       <!--Body-->
-      <div class="modal-form-body">
+      <div class="modal-form-body main-container">
         <div class="row">
           <div class="col-sm-4">
             <div class="banner-image"></div>
@@ -18,8 +18,7 @@ tabindex allows the escape key to be used to close the modal -->
           <div class="col-sm-8">
             <div class="modal-form-message">
               <h1>Annotate Stream</h1>
-              <h3><%= model.get('instrument_name') %></h3>
-              <%= model.get('stream_name') %>
+              <h3><%= model.get('reference_designator') %></h3>              
             </div> <!-- .message -->
           </div> <!-- .col-sm-12 -->
         </div> <!-- .row -->
@@ -31,24 +30,20 @@ tabindex allows the escape key to be used to close the modal -->
                 <input id="username" type="text" class="form-control modal-form-input input" value="<%= username %>" disabled="disabled">
               </div>
               <div class="form-group">
-                <label for="date">Date</label>
-                <input id="date" type="text" class="form-control modal-form-input input" value="you-shouldn't-see-this" disabled="disabled">
+                <label for="datestart">Start Date</label>
+                <input id="datestart" type="text" class="form-control modal-form-input input" value="<%= model.get('beginDT') %>" disabled="disabled">
               </div>
               <div class="form-group">
-                <label for="yvalue"><%= model.get('field_y') %></label>
-                <input id="yvalue" type="text" class="form-control modal-form-input input" value="again-you-shouldn't-see-this" disabled="disabled">
+                <label for="dateend">End Date</label>
+                <input id="dateend" type="text" class="form-control modal-form-input input" value="<%= model.get('endDT') %>" disabled="disabled">
               </div>
               <div class="pull-right">
                 <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6">              
               <div class="form-group">
-                <label for="title-input">Title</label>
-                <input id="title-input" type="text" class="form-control modal-form-input input">
-              </div> <!-- .form-group -->
-              <div class="form-group">
-                <label for="comments-input">Comments</label>
+                <label for="comments-input">Annotation</label>
                 <textarea id="comments-input" class="modal-form-textarea-row-3 form-control"></textarea>
               </div> <!-- .form-group -->
               <div class="pull-left">

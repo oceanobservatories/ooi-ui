@@ -383,11 +383,14 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {     
       self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true); 
-      
+        
       //ANNOTATIONS
-      self.collections.annotations.fetch({
-          data: $.param({reference_designator:options.model.get('reference_designator'),
-                         stream_name: options.model.get('stream_name')}),
+      self.collections.annotations.fetch({          
+          data: $.param({ startdate: options.model.get('start'), 
+                          enddate:  options.model.get('end'),
+                          reference_designator:options.model.get('reference_designator'),
+                          stream_name: options.model.get('stream_name')
+                        }),
           reset: true
       });
 
@@ -467,6 +470,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     
     this.listenTo(self.collections.annotations, 'reset', function(collection) {
       console.log(collection,"annotations are here!!!!!")
+      self.views.annotationTableView.collection = collection;      
+      self.views.annotationTableView.render();
     });
 
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
@@ -503,14 +508,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       //self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
-      /*
+      console.log('clicked')      
       if(self.login.loggedIn()) {
         self.views.annotationModal.show({
           model: model,
           userModel: self.models.userModel
         });
-      }
-      */
+      }      
     });
 
     this.listenTo(this, 'ooi:downloadPlot', function() {
