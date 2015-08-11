@@ -177,10 +177,6 @@ var AssetItemView = Backbone.View.extend({
     },
     onClickInstrument: function() {
         ooi.trigger('toc:selectInstrument', this.model);
-        $('.instrument').removeClass('highlight-row');
-        if ( !( this.$el.attr('class') == 'highlight-row' )  ) {
-            this.$el.toggleClass('highlight-row');
-        }
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
@@ -234,10 +230,9 @@ var StreamItemView = Backbone.View.extend({
     onClick: function(e) {
         e.stopImmediatePropagation();
         e.preventDefault();
-        var option = null;
-        ooi.trigger('toc:selectStream', { model: this.model, selection : option });
+        ooi.trigger('toc:selectStream', { model: this.model });
     },
-    template: _.template('<a href="#"><%= (display_name == null) ? stream_name : display_name  %></a>'),
+    template: _.template('<a href="#"><%= stream_name %></a>'),
     derender: function() {
         this.remove();
         this.unbind();

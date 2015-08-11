@@ -85,7 +85,7 @@ var AssetsTableRowView = ParentAssetView.extend({
     renderSubViews: function() {
         $('#assetDetailsPlaceholder').remove();
         vent.trigger('asset:renderSubViews', this.model);
-        // Don't shoot me andy, but this needs to be a call outside
+        // this needs to be a call outside
         // the scope of this view, otherwise we have to put it in
         // strange places.
         $('#assetsTable tr').removeClass('highlight-row');

@@ -231,6 +231,7 @@ var pagination = {
 $(document).ready(function() {
         ooi.start();
         populate();
+        $('#searchGroup').attr('style','');
         $('body').find('#search-clear').hide();
         $('div#search-submit > button').toggle();
         $("#search-clear").click(function(){

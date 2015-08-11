@@ -21,9 +21,11 @@
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
     {% block link %}
+        <!-- common/base.html -->
         {{ super() }}
     {% endblock %}
     {% block script %}
+        <!-- common/base.html -->
         {{ super() }}
     {% endblock %}
 {% endblock %}
@@ -34,92 +36,99 @@
 </div>
 
 <div id="wrapper" >
-  <div id="page-content-wrapper">
-    <div class="content-fluid">
+    <div id="page-content-wrapper">
+        <div class="content-fluid">
             {% block sidebar %}
-                {{ super() }}
+            <!-- common/base.html -->
+            {{ super() }}
             {% endblock %}
-        <div class="col-sm-12">
-          <div class="panel">
-            <div class="new-heading">
-              Graph
+                <div id="plottingBody" class="col-sm-12">
+                    <div class="row">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div id="plotcontrols">
+
+                                            <p> Please select a stream </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="pull-right" style="margin-bottom:-5px">
+                                            <ul role="menu" aria-labelledby="dropdownMenu1">
+                                                <li role="presentation"><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
+                                            </ul>
+                                            <ul role="menu" aria-labelledby="dropdownMenu1">
+                                                <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- panel-heading -->
+                        </div> <!-- panel -->
+                    </div>
+                    <div class="row">
+                        <div class="panel">
+                        <div class="new-heading">
+                            Graph
+                        </div>
+                        <div class="panel-body">
+                            <!--  Plot section NORMAL   -->
+                            <div id="plot-view">
+                                {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+                                {# <img src="/img/graph7.png" style="width:100%;"> #}
+                                <img src="/img/plotting/graph.png" style="width:100%;">
+                            </div> <!-- #view -->
+
+                            <!--  Plot section HIGHCHARTS   -->
+                            <div style="display:none" id='highcharts-row-section' class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel" id="highcharts-row-section-panel">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div> <!-- panel -->
+            </div> <!-- .row -->
+
+            <div class="row">
+                    <div id='plot-events-panel' class="panel">
+
+                        <div class="new-heading">
+                            Events
+                        </div> <!-- panel-heading -->
+
+                        <div class="panel-body">
+                            <div id="events-table">
+                                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                                {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
+                                <img src="/img/plotting/events.png" style="width:100%;">
+                            </div> <!-- panel-table -->
+                        </div> <!-- panel-body -->
+                    </div> <!-- panel -->
             </div>
-              <div class="pull-right" style="margin-bottom:-5px">
-                  <ul role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-                  </ul>
-                  <ul role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-                  </ul>
-              </div>
-            <div class="panel-body">
 
-              <div id="plotcontrols">
-      	      </div>
-
-              <!--  Plot section NORMAL   -->
-      	      <div id="plot-view">
-            		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-            		{# <img src="/img/graph7.png" style="width:100%;"> #}
-            		<img src="/img/plotting/graph.png" style="width:100%;">
-      	      </div> <!-- #view -->
-
-              <!--  Plot section HIGHCHARTS   -->
-              <div style="display:none" id='highcharts-row-section' class="row">
-                <div class="col-sm-12">
-                  <div class="panel" id="highcharts-row-section-panel">
-                  </div>
-                </div>
-              </div>
-
+            <div class="row">
+                    <div id='annotation-panel' class="panel">
+                        <div class="new-heading">
+                            Annotations
+                        </div>
+                        <div class="panel-body">
+                            <div id="annotation-table">
+                                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                                <img src="/img/plotting/anotations.png" style="width:100%;">
+                            </div> <!-- annotation-table -->
+                        </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+            </div>  <!-- .row -->
             </div>
-          {# </div> #}
-	  </div> <!-- panel -->
-    {# </div> <!-- .row --> #}
-    </div> <!-- .row -->
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div id='plot-events-panel' class="panel">
-
-            <div class="new-heading">
-              Events
-            </div> <!-- panel-heading -->
-
-            <div class="panel-body">
-              <div id="events-table">
-                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-               {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
-               <img src="/img/plotting/events.png" style="width:100%;">
-              </div> <!-- panel-table -->
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-sm-12 -->
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div id='annotation-panel' class="panel">
-            <div class="new-heading">
-              Annotations
-            </div>
-            <div class="panel-body">
-              <div id="annotation-table">
-                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                <img src="/img/plotting/anotations.png" style="width:100%;">
-              </div> <!-- annotation-table -->
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-sm-12 -->
-      </div>  <!-- .row -->
-
-      <div id="annotation-modal"></div>
-      <div id="stream-download-modal"></div>
-      <div id='download-ok-modal'></div>
-      <div id='download-fail-modal'></div>
-      <div id='plot-params-modal'></div>
-    </div> <!-- #content-fluid -->
-  </div> <!-- #page-content-wrapper -->
+            <div id="annotation-modal"></div>
+            <div id="stream-download-modal"></div>
+            <div id='download-ok-modal'></div>
+            <div id='download-fail-modal'></div>
+            <div id='plot-params-modal'></div>
+        </div> <!-- #content-fluid -->
+    </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
 
 
@@ -291,7 +300,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.plotEventListView = new PlotEventListView({
         el: $('#events-table')
     });
-
+    /*
     //ALL THE TOC COLLECTIONS
     var TocCollections = [self.collections.tocArrays,
                           self.collections.tocMoorings,
@@ -323,7 +332,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
        self.initalFilterOptions();
     });
-
+    */
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
@@ -348,10 +357,34 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.plottingItemSelection2.filterItems(options);
       }
     });
+
+    this.listenTo(this, 'toc:selectStream', function(options) {
+        // TODO: Trigger pop up on map cursor icon.
+      self.models.downloadModel.model = options.model;
+      self.views.svgPlotControlView.setModel(options.model,true);
+
+      self.models.downloadModel.model = options.model;
+      self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
+
+      if (options.itemid == "plot-item-selection" ){
+        options.model.set('units',options.data_units)
+        self.views.svgPlotControlView.setModel(options.model,false);
+        self.views.svgplot.setModel(options.model);
+
+
+        //ANNOTATIONS
+        self.collections.annotations.fetch({
+          data: $.param({stream_name: options.model.get('stream_name')}),
+          reset: true
+        });
+
+      }
+    });
     //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {
       self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true);
+
     });
 
     //filter selection : listen to the selection of the parameter
@@ -500,8 +533,6 @@ _.extend(OOI.prototype, Backbone.Events, {
 });
 
 var ooi = new OOI();
-
-
 var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
@@ -517,7 +548,7 @@ var arrayFetch = arrayCollection.fetch({ reset: true });
 $.when(arrayFetch).done(function() {
     var assetFetch = assetCollection.fetch({ data: data, reset: true });
     $.when(assetFetch).done(function() {
-        var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+        var streamFetch = streamCollection.fetch({ reset: true });
         $.when(streamFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 // right now we need to call this twice...not sure why.
@@ -530,8 +561,6 @@ $.when(arrayFetch).done(function() {
 
 $(document).ready(function() {
   //hide the toc
-  $('body').find('#hideTOC').hide()
-
     ooi.start();
 
   $('#download-plot').click(function(event) {
