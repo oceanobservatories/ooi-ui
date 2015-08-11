@@ -384,14 +384,18 @@
 }
 
 .leaflet-popup-content-wrapper {
-  background-color: rgba(250, 250, 250, 0.17);
+  /* background-color: rgba(250, 250, 250, 0.17); */
+  background-color:  rgba(177, 204, 231, 0.88);
   border: 1px solid white;
 }
 .leaflet-popup-content {
   width: auto !important;
   /* margin: 15px 20px; */
   margin: 2px 2px 2px 2px; /* outer border */
-  background-color: transparent;
+  border-radius: 12px;
+  background-color: rgba(177, 204, 231, 0.88);
+  /* background-color: #9BB9DB; */
+  /* background-color: transparent; */
 }
 
 .leaflet-popup-content p {
@@ -459,6 +463,10 @@ h4#arrayPopup {
   margin-bottom:-13px;
 }
 
+img#clusterImg {
+  float: right;
+  vertical-align: middle;
+}
 img#arrayImg {
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
