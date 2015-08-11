@@ -83,11 +83,16 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = new Date(model.get('end'));
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
-    this.$el.find('.message h3').text(model.get('display_name'));
+    
+    if(model.get('display_name') != null) {
+      this.$el.find('#streamName').text(model.get('display_name'));
+    }else{
+    this.$el.find('#streamName').text(model.get('stream_name'));
+    }
 
     this.$el.find('#type-select').val(selection);
 
-    this.$el.find('.stream-name').text(model.get('stream_name'));
+    // this.$el.find('.stream-name').text(model.get('stream_name'));
 
     this.$el.find('#download-modal').modal('show');
 
