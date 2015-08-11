@@ -18,21 +18,14 @@ var StreamDownloadFormView = Backbone.View.extend({
   events: {
     'click #download-btn' : 'onDownload',
     'change #type-select' : 'onTypeChange',
-    'click #provenance-select' : 'onProvenanceSelect',
-    'click #annotation-select' : 'onAnnotationsSelect',
+    'click #provenance-select' : 'onCheckboxSelect',
+    'click #annotation-select' : 'onCheckboxSelect',
   },
   initialize: function() {
     this.render();
   },
-  onAnnotationsSelect: function() {
-    if(this.$el.find('#annotation-select').is(':checked')){
-      this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
-    }else{
-      this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
-    }
-  },
-  onProvenanceSelect: function() {
-    if(this.$el.find('#provenance-select').is(':checked')){
+  onCheckboxSelect: function() {
+    if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
       this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
     }else{
       this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
