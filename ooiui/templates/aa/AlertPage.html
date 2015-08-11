@@ -9,6 +9,7 @@
 
   <script src="/js/partials/compiled/alertPage.js" type="text/javascript"></script>
   <script src="/js/compiled/alertPage.js" type="text/javascript"></script>
+  <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
 
   <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
   <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
@@ -27,196 +28,281 @@
 </div>
 
 <div id="wrapper">
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-  </div>
-  <!-- /#sidebar-wrapper -->
-  
-   <div id="page-content-wrapper">
+  <div id="page-content-wrapper">
     <div class="container-fluid">
+      <div id="sidebar-wrapper" class="well">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
+            <div class="input-group-btn">
+              <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
+            </div>
+            <div id="search-submit" class="input-group-btn">
+              <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        <i id="tocSpinner" class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>
+      </div>
       <div class="row">
         <div class="col-lg-12">
           <div id="aa-panel" class="panel">
-          <!--
-            <div class="panel-heading"><div>
-              <h4 style='margin-top: 0px;margin-bottom: -25px;'> Current Alerts & Alarms Definitions</h4>
-          -->
-              <div id="aa-panel-body" class="panel-body">
-             <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
-              <b>Showing All</b>
-             </div>
-             <div id='alertslist' class="row form-group">
-             </div>
-          <hr width ='80%' style='margin-top:0;'>
-          <div class="row col-sm-12" id='alert_container'>
-            <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="186">
-              <thead>
+            <div id="aa-panel-body" class="panel-body">
+              <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
+                <b>Showing All</b>
+              </div>
+              <div id='alertslist' class="row form-group">
+              </div>
+              <hr width ='80%' style='margin-top:0;'>
+              <div class="row col-sm-12" id='alert_container'>
+                <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="186">
+                  <thead>
                   <tr>
-                      <th data-field="id">Condition</th>
-                      <th data-field="class">Operator</th>
-                      <th data-field="class">Value</th>
-                      <th data-field="sdate">Description</th>
-                      <th data-field="sdate">Owner</th>
-                      <th data-field="more">Type</th>
-                      <th data-field="more">Enabled</th>
+                    <th data-field="id">Condition</th>
+                    <th data-field="class">Operator</th>
+                    <th data-field="class">Value</th>
+                    <th data-field="sdate">Description</th>
+                    <th data-field="sdate">Owner</th>
+                    <th data-field="more">Type</th>
+                    <th data-field="more">Enabled</th>
                   </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-        </div>
-          <hr width ='80%'>
-          <div class="row col-sm-12">
-
-          <div class="form-group">
-           <div>
-              <label class="col-sm-2" style='padding-top:18px;'>
-               Notification:  
-              </label>
-            </div>
-          </div>
-            
-          <div class="form-group">
-           <div class="checkbox">
-              <label class="col-sm-2">
-                <input type="checkbox"id="Email" name="Email" checked> Email    
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-             <div class="checkbox">
-              <label class="col-sm-2">
-                <input type="checkbox"id="Redmine" name="Redmine"> Redmine
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-             <div class="checkbox">
-              <label class="col-sm-2">
-                <input type="checkbox"id="PhoneCall" name="PhoneCall"> Phone Call
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-             <div class="checkbox">
-              <label class="col-sm-2">
-                <input type="checkbox" id="TextMessage" name="TextMessage"> Text Message
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-             <div class="checkbox">
-              <label class="col-sm-2">
-                <input type="checkbox" id="LogEvent" name="LogEvent"> LogEvent
-              </label>
-            </div>
-          </div>
-          </div>
-
-          <div class="form-group">
-            <div align="center">
-              <div>
-                <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
-                  <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms 
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <hr width ='80%'>
+              <div class="row col-sm-12">
+                <div class="form-group">
+                  <div>
+                    <label class="col-sm-2" style='padding-top:18px;'>
+                      Notification:
+                    </label>
+                  </div>
                 </div>
-                <button type="button" style='display:none' id="delete_row" class="btn btn-primary"><i class="fa fa-times-circle"></i> Delete Alert Row</button>
-                <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Definition</button>
-                <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button> -->
-                <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>
-                <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="col-sm-2">
+                      <input type="checkbox" id="Email" name="Email" checked> Email
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="col-sm-2">
+                      <input type="checkbox"id="Redmine" name="Redmine"> Redmine
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="col-sm-2">
+                      <input type="checkbox"id="PhoneCall" name="PhoneCall"> Phone Call
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="col-sm-2">
+                      <input type="checkbox" id="TextMessage" name="TextMessage"> Text Message
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="col-sm-2">
+                      <input type="checkbox" id="LogEvent" name="LogEvent"> LogEvent
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div align="center">
+                  <div>
+                    <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
+                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms
+                    </div>
+                    <button type="button" style='display:none' id="delete_row" class="btn btn-primary"><i class="fa fa-times-circle"></i> Delete Alert Row</button>
+                    <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Definition</button>
+                    <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button> -->
+                    <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>
+                    <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
+                  </div>
+                </div>
               </div>
             </div>
-           </div>  
-          </div> 
-          </div> 
-        </div> 
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
+  var bannerTitle = "Alerts & Alarms";
 
-var bannerTitle = "Alerts & Alarms";
+  var vent = _.extend({}, Backbone.Events);
 
-var vent = _.extend({}, Backbone.Events);
+  _.extend(OOI.prototype, Backbone.Events, {
+    login: new LoginModel(),
+    models: {
+      alertModel: new AlertModel(),
+      userModel: new UserModel()
+    },
 
-_.extend(OOI.prototype, Backbone.Events, {
-  login: new LoginModel(),
-  models: {
-    mapModel: new MapModel(),
-    alertModel: new AlertModel(),
-    userModel: new UserModel()  
-  },
+    collections: {
+      arrays: new ArrayCollection(),
+      alert_list: new AlertsFullCollection()
+    },
+    views: {
+        //
+    },
+    start: function() {
+      this.login.fetch({async:false});
+      navbar = new NavbarView({
+        login: this.login
+      });
 
-  collections: {
-    arrays: new ArrayCollection(),
-    alert_list: new AlertsFullCollection(),
-    toc: new TocCollection()
-    //alert_list: new AlertsFullCollectionPage()
-  },
-  views: {
-      //
-  },
-  start: function() {
-    var self = this;
-    this.login.fetch({async: false}); // Doesn't actually make an ajax request
-    
-    /*if(this.login.loggedIn()) {
-        this.models.userModel.fetch({url: '/api/current_user'});      
-    }*/
+      var self = this;
 
-    //--------------------------------------------------------------------------------
-    // Views
-    //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle});
-    $('body').prepend(this.views.banner.el);
-    
-    this.views.navbar = new NavbarView({
-        el: $('#navbar')
-    });
-    
-    this.views.tocView = new TOCView({
-      arrayCollection: this.collections.arrays,
-      collection: this.collections.toc,
-      el: $('#sidebar-wrapper')
-    });
+      var banner = new BannerView({ bannerTitle:bannerTitle });
+      $('body').prepend(banner.el);
+        this.views.navbar = new NavbarView({
+          el: $('#navbar')
+      });
+      $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
-    //$('#sidebar-wrapper').html(this.views.tocView.el);
-    $('.navbar-brand').html('Alerts and Alarms Dashboard');
-    $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
+      // render out our views:
 
-    //--------------------------------------------------------------------------------
-    // Collections Fetch
-    //--------------------------------------------------------------------------------
-    
-    //empty table
-    $('#alert_table tbody').empty();
+      this.listenTo(this, 'toc:selectStream', function(options) {
+        var streamDownloadFormView = new StreamDownloadFormView({
+          el: $('#stream-download-modal')
+        });
 
-    var tocFetch = this.collections.toc.fetch({reset: true});
-    var arraysFetch = this.collections.arrays.fetch({reset: true});
-    
-    $.when(tocFetch,arraysFetch).done(function(){
-      self.views.tocView.collection = self.collections.toc;
-      self.views.tocView.arrayCollection = self.collections.arrays;
-      self.views.tocView.render();
-    });
+        streamDownloadFormView.show( options );
+      });
 
-    this.views.alertFilterView = new AlertFilterView({
-        //el: 'form',
+      this.listenTo(this, 'DownloadModal:onHide',function(){
+        var modalDownloadView = new ModalDownloadView({
+          el: $('#download-ok-modal')
+        });
+        modalDownloadView.show();
+      });
+
+      this.listenTo(this, 'DownloadModalFail:onFail',function(){
+        var modalDownloadFailView = new ModalDownloadFailView({
+          el: $('#download-fail-modal')
+        });
+        modalDownloadFailView.show();
+      });
+
+      var arrayFetch = arrayCollection.fetch({ reset: true });
+
+      var data = {
+        min : 'True'
+      };
+
+      $.when(arrayFetch).done(function() {
+        var assetFetch = assetCollection.fetch({ data: data, reset: true });
+        $.when(assetFetch).done(function() {
+          var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+          $.when(streamFetch).done(function() {
+            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+              vent.trigger('toc:cleanUp');
+              vent.trigger('toc:cleanUp');
+            });
+          });
+        });
+      });
+
+      this.listenTo(this, "login:success", this.onLogin);
+      this.listenTo(this, "login:logout", this.onLogout);
+
+      //empty table
+      $('#alert_table').find('tbody').empty();
+
+      this.views.alertFilterView = new AlertFilterView({
         collection: this.collections.alert_list
-    }); 
+      });
+    }
+  });
 
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
-   }
-});
-var ooi = new OOI();
+  // controller for our model collections
+  var assetCollection     = new AssetCollection();
+  var arrayCollection     = new ArrayCollection();
+  var streamCollection    = new StreamCollection();
 
-$(document).ready(function() {
+
+  function renderTOCView( container, contents, streams ) {
+    var tocView = new TOCView({
+      arrayCollection:    container,
+      assetCollection:    contents,
+      streamCollection:   streams
+    });
+    tocView.render();
+    // remove the spinner
+    $('i#tocSpinner').remove();
+    // append the toc
+    $('#sidebar-wrapper').append( tocView.el );
+
+    tocView.renderAssets();
+    tocView.renderStreams();
+  }
+
+  function showSearchResults( collection ) {
+    vent.trigger('toc:derenderItems');
+
+    var searchResultView = new SearchResultView({ collection:collection });
+    searchResultView.render();
+
+    $('#assetBrowser').remove();
+
+    $('#sidebar-wrapper').append(searchResultView.el);
+  }
+
+  function updateCollection( assetCallback ){
+    var data = {
+      search : $('#search-filter').val()
+    };
+    assetCollection.fetch({
+      data : data,
+      success : assetCallback
+    });
+  }
+
+  var ooi = new OOI();
+
+  $(document).ready(function() {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     ooi.start();
-});
+    $('#navbar').prepend(navbar.el);
+
+    $('#search-clear').hide();
+
+    $('#search-clear').click(function(){
+      $('#search-filter').val('').focus();
+      $(this).hide();
+      vent.trigger('toc:derenderItems');
+      var assetFetch = assetCollection.fetch();
+      $.when(assetFetch).done(function() {
+        $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+          vent.trigger('toc:cleanUp');
+          vent.trigger('toc:cleanUp');
+        });
+      });
+    });
+
+    $('#search-submit').click(function(e) {
+      $('#search-clear').toggle(Boolean($(this).val()));
+      $('#search-clear').toggle(Boolean($('#search-filter').val()));
+      updateCollection( showSearchResults );
+    });
+  });
+
+  $(document).ready(function () {
+    $('label.tree-toggler').click(function () {
+      $(this).parent().children('ul.tree').toggle(300);
+    });
+  });
+
 </script>
 {% endblock %}
