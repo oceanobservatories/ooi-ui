@@ -44,6 +44,9 @@
             {% endblock %}
                 <div id="plottingBody" class="col-sm-12">
                     <div id="download-row" class="row">
+                    <div id="download-outline" class="pull-left">
+                      <li style="font-weight:bold;padding-left:10px;" id="ref_des_stream_outline"></li>
+                    </div>  
                     <div id="download-options" class="pull-right">
                         <ul>
                             <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
@@ -304,39 +307,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.plotEventListView = new PlotEventListView({
         el: $('#events-table')
     });
-    /*
-    //ALL THE TOC COLLECTIONS
-    var TocCollections = [self.collections.tocArrays,
-                          self.collections.tocMoorings,
-                          self.collections.tocPlatforms,
-                          self.collections.tocInstruments];
 
-    //GRAB THEM THEN PASS TO VIEW
-    var complete = _.invoke(TocCollections, 'fetch');
-    //when all of them are complete...
-    $.when.apply($, complete).done(function() {
-       //all ready and good to go...
-       self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,
-                                                          "platforms":self.collections.tocPlatforms,
-                                                          "instruments":self.collections.tocInstruments,
-                                                          "streams":self.collections.tocInstruments,
-                                                          "parameters":self.collections.tocInstruments
-                                                          };
-       self.views.plottingItemSelection.render();
-
-       self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,
-                                                          "platforms":self.collections.tocPlatforms,
-                                                          "instruments":self.collections.tocInstruments,
-                                                          "streams":self.collections.tocInstruments,
-                                                          "parameters":self.collections.tocInstruments
-                                                          };
-       self.views.plottingItemSelection2.render();
-
-       self.initalFilterOptions();
-    });
-    */
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
@@ -373,22 +344,21 @@ _.extend(OOI.prototype, Backbone.Events, {
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
         self.views.svgPlotControlView.setModel(options.model,false);
-        self.views.svgplot.setModel(options.model);
-
-
-        //ANNOTATIONS
-        self.collections.annotations.fetch({
-          data: $.param({stream_name: options.model.get('stream_name')}),
-          reset: true
-        });
-
+        self.views.svgplot.setModel(options.model);        
       }
-    });
-    //filter selection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {
-      self.models.downloadModel.model = options.model;
-      self.views.svgPlotControlView.setModel(options.model,true);
 
+      $('#ref_des_stream_outline').text(options.model.get('reference_designator')+" > "+ options.model.get('stream_name'))
+
+      //ANNOTATIONS
+      self.collections.annotations.fetch({          
+          data: $.param({ startdate: options.model.get('start'), 
+                          enddate:  options.model.get('end'),
+                          reference_designator:options.model.get('reference_designator'),
+                          stream_name: options.model.get('stream_name')
+                        }),
+          reset: true
+      });
+      
     });
 
     //filter selection : listen to the selection of the parameter
@@ -398,15 +368,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
-        self.views.svgPlotControlView.setModel(options.model,false);
-        self.views.svgplot.setModel(options.model);
 
-
-        //ANNOTATIONS
-        self.collections.annotations.fetch({
-          data: $.param({stream_name: options.model.get('stream_name')}),
-          reset: true
-        });
+        self.views.svgPlotControlView.setModel(options.model,false);                
+        self.views.svgplot.setModel(options.model);        
 
       }
     });
@@ -469,44 +433,49 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       }
     });
+    
+    this.listenTo(self.collections.annotations, 'reset', function(collection) {
+      self.views.annotationTableView.collection = collection;      
+      self.views.annotationTableView.render();
+    });
 
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
       self.views.plotEventListView.render();
     });
 
-    this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
-      var annotation = new AnnotationModel();
-      var record = self.views.svgPlotControlView.data[idx];
-      var preferred = record['preferred_timestamp']
-      var xval = record[preferred];
-      var xdate = new Date((xval - 2208988800) * 1000);
-      var yvar = self.views.svgplot.variable;
-      annotation.set('stream_name', self.views.svgplot.model.get('stream_name'));
-      annotation.set('instrument_name', self.views.svgplot.model.get('reference_designator'));
-      annotation.set('field_x', preferred);
-      annotation.set('field_y', yvar);
-      annotation.set('pos_x', xdate);
-      annotation.set('pos_y', record[yvar]);
-      annotation.set('value', record[yvar]);
-      if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
-        self.views.annotationModal.show({
-          model: annotation,
-          userModel: self.models.userModel
-        });
-      }
+    this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
+      self.collections.annotations.add(model);      
+      self.views.annotationTableView.render();
     });
 
-    this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      self.collections.annotations.add(model);
+    this.listenTo(this, 'AnnotationModalFormView:onUpdate', function(model) {
+      //do nothing as were updating the model
     });
+
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
       if(self.login.loggedIn()) {
         self.views.annotationModal.show({
           model: model,
           userModel: self.models.userModel
         });
-      }
+      }      
+    });
+
+    this.listenTo(this, 'AnnotationTableView:onAddClick', function() {      
+      var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
+                                       "beginDT":self.models.downloadModel.model.get("start"),
+                                       "endDT":self.models.downloadModel.model.get("start"),
+                                       "method":self.models.downloadModel.model.get("stream_name"),
+                                       "stream_name":self.models.downloadModel.model.get("stream_name")
+                                      });
+
+      if(self.login.loggedIn()) {
+        self.views.annotationModal.show({
+          model: model,
+          userModel: self.models.userModel
+        });
+      }      
     });
 
     this.listenTo(this, 'ooi:downloadPlot', function() {

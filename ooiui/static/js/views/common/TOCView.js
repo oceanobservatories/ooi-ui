@@ -228,8 +228,10 @@ var StreamItemView = Backbone.View.extend({
         });
     },
     onClick: function(e) {
+        $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
         e.preventDefault();
+        $(e.target).addClass("active-toc-item"); 
 
         var param_list = []
         var parameterhtml = "";

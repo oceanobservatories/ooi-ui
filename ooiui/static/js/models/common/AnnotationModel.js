@@ -17,17 +17,15 @@
 var AnnotationModel = Backbone.Model.extend({
   urlRoot: '/api/annotation',
   defaults: {
-    title: "",
-    comment: "",
-    recorded_date: "date from instrument",
-    value: "9999",
-    stream_name: "stream name",
-    instrument_name: " instrument name",
-    pos_x : "recorded_date",
-    pos_y : 0,
-    field_y: "var name",
-    field_x:"You shall always be known as time"
-  }
+    annotation:"",
+    stream_name: "",
+    instrument_name: "",    
+    beginDT:"",   //start date, from chart
+    endDT:"",    //end date, from chart
+    referenceDesignator:"",    
+    method:"",  //stream name
+    parameters:"" //param list is affects
+  }  
 });
 
 var AnnotationCollection = Backbone.Collection.extend({
