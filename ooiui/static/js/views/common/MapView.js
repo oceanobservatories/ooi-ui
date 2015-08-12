@@ -302,7 +302,7 @@ var MapView = Backbone.View.extend({
         //generate normal popup
         popup = L.popup({offset: new L.Point(0, -20)})
          .setLatLng(a.latlng) 
-         .setContent('<div class="cluster-popup"><h4>'+title+'</h4><p>'+a.layer.getAllChildMarkers().length+' assets'+"</p></div>")
+         .setContent('<div class="cluster-popup"><h4>'+title+'<img id="clusterImg" src="/img/sciMap/OOI_Logo.png"></h4><p>'+a.layer.getAllChildMarkers().length+' assets'+"</p></div>")
          .openOn(map);
       }
 
@@ -409,7 +409,7 @@ var MapView = Backbone.View.extend({
           }else{
             var instrument_url = [array, mooring, platform_val].join("/");
           }
-          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '">Plotting</a>&nbsp;&ndash;&nbsp;'
+          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
         }else{
           var instrument_plot = ""
         }    
@@ -438,10 +438,10 @@ var MapView = Backbone.View.extend({
                       '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
 
                       // Data Catalog
-                      '<a href="/streams">Data Catalog</a>&nbsp;&ndash;&nbsp;' +
+                      '<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;' +
                   
                       // Asset Managment
-                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '">Asset Management</a></div></h5>';
+                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
@@ -459,7 +459,7 @@ var MapView = Backbone.View.extend({
                   }else{
                     eventContent += '<div class="floatRight">';
                     
-                    eventContent += '<h6><strong>Past</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
                   
                     eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     

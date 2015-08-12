@@ -1,12 +1,12 @@
 from ooiui.core.app import app
-from flask import request, render_template, Response, jsonify, session
+from flask import request, render_template, Response, jsonify, session,make_response
 from werkzeug.exceptions import Unauthorized
 import requests
 import json
 import urllib
 import urllib2
 from uuid import uuid4
-
+import sys,os,time,difflib
 def get_login():
     token = request.cookies.get('ooiusertoken')
     if not token:
@@ -327,3 +327,28 @@ def get_glider_track():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_glider_track/'+request.args['id'], auth=(token, ''), data=request.args)
     return response.text, response.status_code
+
+@app.route('/CGSNConfig')
+def CGSNConfig():
+    return render_template('common/CGSNConfig.html')
+@app.route('/config_file', methods=['GET'])
+def get_config():
+    with open('ooiui/static/txt/config_file.txt','r') as f:
+        response = make_response(f.read())
+        if not request.args.get("dl"): response.headers["Content-Type"] = "text;"
+        else: response.headers["Content-Disposition"] = "attachment; filename=config.txt"
+    return response
+@app.route('/config_file', methods=['POST'])
+def post_config():
+    res = request.form["txt"]
+    before = open('ooiui/static/txt/config_file.txt').readlines()
+    with open('ooiui/static/txt/config_file.txt','w') as f:
+        f.write(res)
+    after = open('ooiui/static/txt/config_file.txt').readlines()
+    diff=''
+    for line in difflib.unified_diff(before, after, 'before', 'after',):diff+=line
+    #diff = difflib.unified_diff(before, after, 'before', 'after',)
+    response = make_response(diff)
+    response.headers["Content-Type"] = "text;"
+    return response
+
