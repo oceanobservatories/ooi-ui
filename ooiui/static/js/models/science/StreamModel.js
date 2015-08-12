@@ -23,15 +23,17 @@ var StreamModel = Backbone.Model.extend({
     display_name: "",
     variables: [],
     variable_types: {},
-    preferred_timestamp: ""
+    preferred_timestamp: "",
+    provenance: "",
+    annotations: "",
   },
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations');
     } else if(type == 'profile_json_download') {
       var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     } else if(type == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations');
     } else if(type == 'csv') { 
       var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     }
