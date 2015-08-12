@@ -45,7 +45,7 @@ var TimeseriesView = Backbone.View.extend({
   addNotify: function(notify_list){
     var notifydiv = '<div class="alert alert-warning alert-dismissible" role="alert">'
     notifydiv+=     '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-    notifydiv+= '<strong>Data fields unable to render</strong>:'+ _.uniq(notify_list);
+    notifydiv+= '<strong>Data fields unable to render</strong>: '+ _.uniq(notify_list);
     notifydiv+= '</div>'
     this.$el.append(notifydiv);
   },
@@ -87,29 +87,41 @@ var TimeseriesView = Backbone.View.extend({
 
         //only if its valid
         if (!addNotify){
-          //get the data, and convert if its date time   
-          if (xvar == "time"){
-            if (qaqc){
+          //get the data
+          
+          if (xvar == "time"){  //Time series!
+            
+            if (qaqc){  // Check for QAQC Time Series
               var qaqc_data = model.get(yvar+'_qc_results');
               
-              if (qaqc < 10){   // Check against specific tests
-                if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
-                  series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
-                }else{  //FAIL
-                  series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+              if (typeof qaqc_data != 'undefined'){  //Some data doesn't have QAQC values
+                if (qaqc < 10){   // Check against specific tests
+                  if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
+                    series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+                  }else{  //FAIL
+                    series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+                  }
+                }else{  // Check against all tests
+                  if (qaqc_data == Math.pow(2,9)){  // PASS
+                    series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+                  }else{  //FAIL
+                     series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+                  }
                 }
-              }else{  // Check against all tests
-                if (qaqc_data == Math.pow(2,9)){  // PASS
-                  series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
-                }else{  //FAIL
-                   series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+              }else{  // No QAQC data found
+                // Add to the notify list
+                if ($.inArray(yvar+'_qc_results', notifyList) == -1){
+                  notifyList.push(yvar+'_qc_results');
                 }
+                series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
               }
-            }else{
+            }else{  // Not QAQC
               series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
             }
+
           }else if (yvar == "time"){
             series_data.push([model.get(xvar),self.modifytime(model.get(yvar))]);
+
           }else{
             series_data.push([model.get(xvar),model.get(yvar)]);        
           }
@@ -125,6 +137,7 @@ var TimeseriesView = Backbone.View.extend({
       seriesCollection.add(seriesModel);
 
     });
+
     if(notifyList.length > 0){ 
       self.addNotify(notifyList);
     }
