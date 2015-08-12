@@ -4,7 +4,7 @@
     <title>Data Catalog</title>
 {% endblock %}
 
-{% block head %}  
+{% block head %}
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <!-- Partials -->
@@ -16,12 +16,18 @@
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
-
-
-
+    {% block link %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
+    {% block script %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
 {% endblock %}
 
 {%block body %}
@@ -29,127 +35,98 @@
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="wrapper" class="btn-wrapper">
-  <div id="sidebar-wrapper" class="btn-sidebar" style="overflow:visible;">
-    <ul class="nav sidebar-nav navbar-collapse">
-      <div class="col-sm-12">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-12">
-              <div id="plot-btn-group" class="btn-group" role="group" aria-label="..." style="text-align:center;vertical-align: middle;">
-                <button id="enableSecondView" type="button" class="btn btn-default plot-btn">
-                  <span class="glyphicon glyphicon-plus-sign alert-success" aria-hidden="true"></span>
-                  <span style="padding-left:4px;">Add</span>
-                </button>
-                <button id="disableSecondView" type="button" class="btn btn-default plot-btn">
-                  <span class="glyphicon glyphicon-minus-sign alert-danger" aria-hidden="true"></span>
-                  <span style="padding-left:4px;">Delete</span>
-                </button>
-                <button id="shareStationLink" type="button" class="btn btn-default plot-btn">
-                  <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-                  <span style="padding-left:4px;">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="col-sm-12" style="padding-right:1px;">
-              <div id="plot-item-selection">
-                <i class="fa fa-spinner fa-spin" style="margin-left:20%;font-size:90px;"> </i>
-              </div>
-              </br>
-              <div id="plot-item-selection2" style="display: none;">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ul>
-  </div> <!-- #sidebar-wrapper -->
-  <div id="page-content-wrapper">
-    <div class="content-fluid">      
-
-      <div id='bottom-row' class="row">
-        <div class="col-sm-12">
-          <div class="panel">
-            <div class="new-heading">
-              Graph
-            </div>
-              <div class="pull-right" style="margin-bottom:-5px">
-                  <ul role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-                  </ul>
-                  <ul role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-                  </ul>
-              </div>
-            <div class="panel-body">
-      	      
-              <div id="plotcontrols">
-      	      </div>
-
-              <!--  Plot section NORMAL   -->
-      	      <div id="plot-view">
-            		{# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-            		{# <img src="/img/graph7.png" style="width:100%;"> #}
-            		<img src="/img/plotting/graph.png" style="width:100%;">
-      	      </div> <!-- #view -->
-
-              <!--  Plot section HIGHCHARTS   -->
-              <div style="display:none" id='highcharts-row-section' class="row">
-                <div class="col-sm-12">
-                  <div class="panel" id="highcharts-row-section-panel">
-                  </div>    
+<div id="wrapper" >
+    <div id="page-content-wrapper">
+        <div class="content-fluid">
+            {% block sidebar %}
+            <!-- common/base.html -->
+            {{ super() }}
+            {% endblock %}
+                <div id="plottingBody" class="col-sm-12">
+                    <div id="download-row" class="row">
+                    <div id="download-options" class="pull-right">
+                        <ul>
+                            <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
+                            <li><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
+                    <div class="row">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="plotcontrols">
 
+                                            <p class="glyphicon glyphicon-hand-left"> Please select a stream </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- panel-heading -->
+                        </div> <!-- panel -->
+                    </div>
+                    <div class="row">
+                        <div class="panel">
+                        <div class="new-heading">
+                            Graph
+                        </div>
+                        <div class="panel-body">
+                            <!--  Plot section NORMAL   -->
+                            <div id="plot-view">
+                                {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+                                {# <img src="/img/graph7.png" style="width:100%;"> #}
+                                <img src="/img/plotting/graph.png" style="width:100%;">
+                            </div> <!-- #view -->
+
+                            <!--  Plot section HIGHCHARTS   -->
+                            <div style="display:none" id='highcharts-row-section' class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel" id="highcharts-row-section-panel">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div> <!-- panel -->
+            </div> <!-- .row -->
+
+            <div class="row">
+                    <div id='plot-events-panel' class="panel">
+
+                        <div class="new-heading">
+                            Events
+                        </div> <!-- panel-heading -->
+
+                        <div class="panel-body">
+                            <div id="events-table">
+                                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                                {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
+                                <img src="/img/plotting/events.png" style="width:100%;">
+                            </div> <!-- panel-table -->
+                        </div> <!-- panel-body -->
+                    </div> <!-- panel -->
             </div>
-          {# </div> #}
-	  </div> <!-- panel -->
-      </div> <!-- col-sm-12 -->
-    {# </div> <!-- .row --> #}
-    </div> <!-- .row -->
 
-      <div class="row">
-        <div class="col-sm-12">
-          <div id='plot-events-panel' class="panel">
-
-            <div class="new-heading">
-              Events
-            </div> <!-- panel-heading -->
-
-            <div class="panel-body">
-              <div id="events-table">
-                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-               {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
-               <img src="/img/plotting/events.png" style="width:100%;">
-              </div> <!-- panel-table -->
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-sm-12 -->
-      </div>
-      
-      <div class="row">
-        <div class="col-sm-12">
-          <div id='annotation-panel' class="panel">
-            <div class="new-heading">
-              Annotations
+            <div class="row">
+                    <div id='annotation-panel' class="panel">
+                        <div class="new-heading">
+                            Annotations
+                        </div>
+                        <div class="panel-body">
+                            <div id="annotation-table">
+                                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                                <img src="/img/plotting/anotations.png" style="width:100%;">
+                            </div> <!-- annotation-table -->
+                        </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+            </div>  <!-- .row -->
             </div>
-            <div class="panel-body">
-              <div id="annotation-table">
-                {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                <img src="/img/plotting/anotations.png" style="width:100%;">
-              </div> <!-- annotation-table -->
-            </div> <!-- panel-body -->
-          </div> <!-- panel -->
-        </div> <!-- col-sm-12 -->
-      </div>  <!-- .row -->
-
-      <div id="annotation-modal"></div>
-      <div id="stream-download-modal"></div>
-      <div id='download-ok-modal'></div>
-      <div id='download-fail-modal'></div>
-      <div id='plot-params-modal'></div>
-    </div> <!-- #content-fluid -->
-  </div> <!-- #page-content-wrapper -->
+            <div id="annotation-modal"></div>
+            <div id="stream-download-modal"></div>
+            <div id='download-ok-modal'></div>
+            <div id='download-fail-modal'></div>
+            <div id='plot-params-modal'></div>
+        </div> <!-- #content-fluid -->
+    </div> <!-- #page-content-wrapper -->
 </div> <!-- #wrapper -->
 
 
@@ -161,11 +138,11 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
     annotations: new AnnotationCollection(),
-    
+
     //TOC items
     tocArrays: new TocArrayCollection(),
     tocMoorings: new TocMooringsCollection(),
-    tocPlatforms: new TocPlatformsCollection(),    
+    tocPlatforms: new TocPlatformsCollection(),
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
     dataseries: new DataSeriesCollection()
@@ -189,19 +166,16 @@ _.extend(OOI.prototype, Backbone.Events, {
       //no path information
     }else{
       //path information
-      // console.log(path)
       $.each( path, function( key, value ) {
-        // console.log( dataContentArray[key] + ": " + value );        
-        var validItem = false; 
-             
-        $('#plot-item-selection #'+dataContentArray[key]+'_id option').each(function( index, obj ) {                    
+        var validItem = false;
+
+        $('#plot-item-selection #'+dataContentArray[key]+'_id option').each(function( index, obj ) {
           if (value == $( this ).val()){
-            // console.log( "FOUND!", value , $(this).val() );
             validItem = true
             //$('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('val', $(this).val());
-            $('#plot-item-selection #'+dataContentArray[key]+'_id').val( $(this).val() );                    
-            $('#plot-item-selection #'+dataContentArray[key]+'_id').change();         
-            $('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('refresh');                             
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').val( $(this).val() );
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').change();
+            $('#plot-item-selection #'+dataContentArray[key]+'_id').selectpicker('refresh');
             return false;
           }
         });
@@ -217,7 +191,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           }
         }
 
-        //IF AT ANY POINT IT CANT BE FOUND STOP! 
+        //IF AT ANY POINT IT CANT BE FOUND STOP!
         if(!validItem){
           return false;
         }
@@ -227,22 +201,30 @@ _.extend(OOI.prototype, Backbone.Events, {
   setParams: function(options) {
     //init the timeseries view
     this.views.timeseriesView.initialize();
-
     var p_yvarList = [];
     var p_xvarList = [];
     //sort the list of vars and time will always be on the x, duplicated per var
-    _.each(this.views.svgplot.model.attributes.yvariable[0][0],function(element){
+
+    var selected = [];
+    var selected_ids = [];
+    var selectedParam = $("#yvar0-selection-default option:selected");
+    $(selectedParam).each(function(index){
+        selected.push([$(this).val()]);
+        selected_ids.push([$(this).attr('pid')]);
+    });
+
+    _.each(selected ,function(element){
       if (element != "time"){
         p_yvarList.push(element);
         p_xvarList.push("time")
       }
-    })    
+    })
 
     //set data series options
-    this.collections.dataseries.stream = this.views.svgplot.model.get('stream_name');
-    this.collections.dataseries.ref_des = this.views.svgplot.model.get('reference_designator');
-    this.collections.dataseries.startdate = options.start_date.toISOString();
-    this.collections.dataseries.enddate = options.end_date.toISOString();
+    this.collections.dataseries.stream = options.attributes.stream_name;
+    this.collections.dataseries.ref_des = options.attributes.reference_designator;
+    this.collections.dataseries.startdate = options.attributes.start;
+    this.collections.dataseries.enddate = options.attributes.end;
     //will always be time
     this.collections.dataseries.xparameters = p_xvarList;
     this.collections.dataseries.yparameters = p_yvarList;
@@ -264,11 +246,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     this.views.banner = new BannerView({bannerTitle: bannerTitle});
     $('body').prepend(this.views.banner.el);
-    
+
     this.views.navbar = new NavbarView({
         el: $('#navbar')
     });
-    
+
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
@@ -283,20 +265,20 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
     });
-    
 
-    this.listenTo(this.collections.dataseries, 'reset', function(series) {        
+
+    this.listenTo(this.collections.dataseries, 'reset', function(series) {
       this.views.timeseriesView.collection = series;
       this.views.timeseriesView.render();
     });
 
     //The plotting buttons
-    this.views.plottingItemSelection = new PlottingSelectionView({            
+    this.views.plottingItemSelection = new PlottingSelectionView({
       el: $('#plot-item-selection')
     });
 
     //The plotting buttons
-    this.views.plottingItemSelection2 = new PlottingSelectionView({            
+    this.views.plottingItemSelection2 = new PlottingSelectionView({
       el: $('#plot-item-selection2')
     });
 
@@ -322,9 +304,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.plotEventListView = new PlotEventListView({
         el: $('#events-table')
     });
-
+    /*
     //ALL THE TOC COLLECTIONS
-    var TocCollections = [self.collections.tocArrays, 
+    var TocCollections = [self.collections.tocArrays,
                           self.collections.tocMoorings,
                           self.collections.tocPlatforms,
                           self.collections.tocInstruments];
@@ -335,8 +317,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     $.when.apply($, complete).done(function() {
        //all ready and good to go...
        self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,   
-                                                          "platforms":self.collections.tocPlatforms,       
+                                                          "sites":self.collections.tocMoorings,
+                                                          "platforms":self.collections.tocPlatforms,
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
                                                           "parameters":self.collections.tocInstruments
@@ -344,8 +326,8 @@ _.extend(OOI.prototype, Backbone.Events, {
        self.views.plottingItemSelection.render();
 
        self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings, 
-                                                          "platforms":self.collections.tocPlatforms,           
+                                                          "sites":self.collections.tocMoorings,
+                                                          "platforms":self.collections.tocPlatforms,
                                                           "instruments":self.collections.tocInstruments,
                                                           "streams":self.collections.tocInstruments,
                                                           "parameters":self.collections.tocInstruments
@@ -353,18 +335,18 @@ _.extend(OOI.prototype, Backbone.Events, {
        self.views.plottingItemSelection2.render();
 
        self.initalFilterOptions();
-    });      
-
+    });
+    */
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
 
-    this.listenTo(this, 'httpError', function(options) {      
+    this.listenTo(this, 'httpError', function(options) {
       this.views.timeseriesView.errorRender(options);
     });
 
     //filter selection : unselect
-    this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {      
+    this.listenTo(this, 'FilterSelectionView:onUnSelect', function(options) {
       if (options.itemid == "plot-item-selection" ){
         self.views.plottingItemSelection.unFilterItems(options);
       }else{
@@ -379,22 +361,46 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.plottingItemSelection2.filterItems(options);
       }
     });
-    //filter selection : listen to the selection of the parameter
-    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {     
+
+    this.listenTo(this, 'toc:selectStream', function(options) {
+        // TODO: Trigger pop up on map cursor icon.
       self.models.downloadModel.model = options.model;
-      self.views.svgPlotControlView.setModel(options.model,true);      
+      self.views.svgPlotControlView.setModel(options.model,true);
+
+      self.models.downloadModel.model = options.model;
+      self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
+
+      if (options.itemid == "plot-item-selection" ){
+        options.model.set('units',options.data_units)
+        self.views.svgPlotControlView.setModel(options.model,false);
+        self.views.svgplot.setModel(options.model);
+
+
+        //ANNOTATIONS
+        self.collections.annotations.fetch({
+          data: $.param({stream_name: options.model.get('stream_name')}),
+          reset: true
+        });
+
+      }
+    });
+    //filter selection : listen to the selection of the parameter
+    this.listenTo(this, 'FilterSelectionView:onStreamSelection', function(options) {
+      self.models.downloadModel.model = options.model;
+      self.views.svgPlotControlView.setModel(options.model,true);
+
     });
 
     //filter selection : listen to the selection of the parameter
     this.listenTo(this, 'FilterSelectionView:onParameterSelection', function(options) {
       self.models.downloadModel.model = options.model;
       self.collections.plotEventList.fetch({reset: true, data: $.param({ref_des: options.model.get('reference_designator')})});
-      
+
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
-        self.views.svgPlotControlView.setModel(options.model,false);                
+        self.views.svgPlotControlView.setModel(options.model,false);
         self.views.svgplot.setModel(options.model);
-        
+
 
         //ANNOTATIONS
         self.collections.annotations.fetch({
@@ -406,46 +412,45 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
-      if (options.plotType == "Depth Profile"){
-        options.plotType = "depthprofile"
-        options.yvar = options.xvar;        
-        options.xvar = self.views.plottingItemSelection.getSelectedVars();
-      }else if (options.plotType == "Time Series"){
-        options.plotType = "timeseries"
-        options.yvar = self.views.plottingItemSelection.getSelectedVars();
-      }else if (options.plotType == "T-S Diagram"){
-        options.plotType = "ts_diagram"
-        options.yvar = self.views.plottingItemSelection.getSelectedVars();
-        options.xvar = 'time';
-      }else if (options.plotType == "Quiver"){
-        options.plotType = "quiver"
-        options.yvar = self.views.plottingItemSelection.getSelectedVars();
-        options.xvar = 'time';
-      }else if (options.plotType == "3D Colored Scatter"){
-        options.plotType = "3d_scatter"
-        options.yvar = self.views.plottingItemSelection.getSelectedVars();
-        options.xvar = 'time';
-      }else if (options.plotType == "Rose"){
-        options.plotType = "rose"
-        options.yvar = self.views.plottingItemSelection.getSelectedVars();
-        options.xvar = 'time';
+      if (options.attributes.data.plotType == "Depth Profile"){
+        options.attributes.data.plotType = "depthprofile"
+        options.attributes.data.yvar = options.attributes.data.xvar;
+        options.attributes.data.xvar = self.views.plottingItemSelection.getSelectedVars();
+      }else if (options.attributes.data.plotType == "Time Series"){
+        options.attributes.data.plotType = "timeseries"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+      }else if (options.attributes.data.plotType == "T-S Diagram"){
+        options.attributes.data.plotType = "ts_diagram"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.xvar = 'time';
+      }else if (options.attributes.data.plotType == "Quiver"){
+        options.attributes.data.plotType = "quiver"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.xvar = 'time';
+      }else if (options.attributes.data.plotType == "3D Colored Scatter"){
+        options.attributes.data.plotType = "3d_scatter"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.xvar = 'time';
+      }else if (options.attributes.data.plotType == "Rose"){
+        options.attributes.data.plotType = "rose"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.xvar = 'time';
       }
-      //used to handle a second station 
-      options.multiStation = self.multiStation;
+      //used to handle a second station
+      options.attributes.data.multiStation = self.multiStation;
 
-      if (options.multiStation){
-        // console.log("*********", options.multiStation, options.secRef , options.secStream);
-        
-        options.xvar = "time,time"
-        options.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
-        options.secRef = self.views.plottingItemSelection2.getSelectedRef();   
-        options.secStream = self.views.plottingItemSelection2.getSelectedStream();
-        
+      if (options.attributes.data.multiStation){
+
+        options.attributes.data.xvar = "time,time"
+        options.attributes.data.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
+        options.attributes.data.secRef = self.views.plottingItemSelection2.getSelectedRef();
+        options.attributes.data.secStream = self.views.plottingItemSelection2.getSelectedStream();
+
         self.views.svgplot.plotMulti(options);
       }else{
-        if (options.plotType == "timeseries"){
+        if (options.attributes.data.plotType == "timeseries"){
           //use high charts
-          if(!options.yvar){
+          if(!options.attributes.data.yvar){
             $('#highcharts-row-section').css('display',"none");
             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
               '</strong> &nbsp;Please select a parameter to plot</div>');
@@ -455,7 +460,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
           //set the params and generate the view
-          this.setParams(options);    
+          this.setParams(options);
         }else{
           $('#highcharts-row-section').css('display',"none");
           $('#plot-view').css('display',"");
@@ -464,7 +469,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       }
     });
-    
+
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
       self.views.plotEventListView.render();
@@ -484,9 +489,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       annotation.set('pos_x', xdate);
       annotation.set('pos_y', record[yvar]);
       annotation.set('value', record[yvar]);
-      // console.log(self.models.userModel.get('scopes'));
       if(self.models.userModel.get('scopes').indexOf('annotate') >= 0) {
-        // console.log("Trying to show");
         self.views.annotationModal.show({
           model: annotation,
           userModel: self.models.userModel
@@ -495,7 +498,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      // console.log("Adding to collection");
       self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
@@ -531,13 +533,36 @@ _.extend(OOI.prototype, Backbone.Events, {
 });
 
 var ooi = new OOI();
+var vent = _.extend({}, Backbone.Events);
+
+// controller for our model collections
+var assetCollection     = new AssetCollection();
+var arrayCollection     = new ArrayCollection();
+var streamCollection    = new StreamCollection();
+
+
+// url arguments
+var data = { min : 'True' };
+// begin the iterative fetching of arrays, assets, and streams.
+var arrayFetch = arrayCollection.fetch({ reset: true });
+$.when(arrayFetch).done(function() {
+    var assetFetch = assetCollection.fetch({ data: data, reset: true });
+    $.when(assetFetch).done(function() {
+        var streamFetch = streamCollection.fetch({ reset: true });
+        $.when(streamFetch).done(function() {
+            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                // right now we need to call this twice...not sure why.
+                vent.trigger('toc:cleanUp');
+                vent.trigger('toc:cleanUp');
+            });
+        });
+    });
+});
 
 $(document).ready(function() {
   //hide the toc
-  $('body').find('#hideTOC').hide()
-    
     ooi.start();
-  
+
   $('#download-plot').click(function(event) {
     event.preventDefault();
     if ($('#highcharts-row-section').css('display')=="block"){
@@ -557,7 +582,7 @@ $(document).ready(function() {
   $('#disableSecondView').on('click', function(event){
     event.preventDefault();
     ooi.multiStation = false;
-    $('#plot-item-selection2').hide();    
+    $('#plot-item-selection2').hide();
   });
 
   $('#enableSecondView').on( "click", function(event) {

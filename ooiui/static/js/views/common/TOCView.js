@@ -68,12 +68,14 @@ var TOCView = Backbone.View.extend({
         });
     },
     renderStreams: function() {
-        this.streamCollection.map( function(model) {
-            var instrumentCode = model.get('reference_designator');
-            var instrumentTarget = 'ul#'+instrumentCode;
-            var streamItemView = new StreamItemView({ model:model });
-            $( instrumentTarget ).append( streamItemView.render().el );
-        });
+        if ( this.streamCollection != undefined ) {
+            this.streamCollection.map( function(model) {
+                var instrumentCode = model.get('reference_designator');
+                var instrumentTarget = 'ul#'+instrumentCode;
+                var streamItemView = new StreamItemView({ model:model });
+                $( instrumentTarget ).append( streamItemView.render().el );
+            });
+        }
     },
     render: function(){
         this.$el.html(this.template());
@@ -155,12 +157,12 @@ var ArrayContainerView = Backbone.View.extend({
 var AssetItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
-        'click label.platform': 'onClick',
-        'click label.instrument': 'onClick',
+        'click label.platform': 'onClickPlatform',
+        'click label.instrument': 'onClickInstrument',
         'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
-        _.bindAll(this,'render', 'onClick', 'collapse');
+        _.bindAll(this,'render', 'onClickPlatform', 'onClickInstrument', 'collapse');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
@@ -170,8 +172,11 @@ var AssetItemView = Backbone.View.extend({
             }
         });
     },
-    onClick: function() {
-        ooi.trigger('toc:selectItem', this.model);
+    onClickPlatform: function() {
+        ooi.trigger('toc:selectPlatform', this.model);
+    },
+    onClickInstrument: function() {
+        ooi.trigger('toc:selectInstrument', this.model);
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
@@ -205,7 +210,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('class', 'instrument');
             this.$el.html( this.template(this.model.toJSON()) );
             var label = (instrumentName == undefined) ? instrumentId : instrumentName;
-            this.$el.append('<label class="tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
     }
@@ -225,10 +230,29 @@ var StreamItemView = Backbone.View.extend({
     onClick: function(e) {
         e.stopImmediatePropagation();
         e.preventDefault();
-        var option = null;
-        ooi.trigger('toc:selectStream', { model: this.model, selection : option });
+
+        var param_list = []
+        var parameterhtml = "";
+        for (var i = 0; i < this.model.get('variables').length; i++) {
+            if (param_list.indexOf(this.model.get('variables')) == -1){
+                var parameterId = this.model.get('parameter_id')[i];
+                var units = this.model.get('units')[i];
+                var variable = this.model.get('variables')[i];
+                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                param_list.push(variable);
+            }
+        }
+        $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
+            $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
+            $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
+            $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
+            $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
+            $('#parameters_id').removeAttr('disabled');
+            $('.selectpicker').selectpicker('refresh');
+        });
+
     },
-    template: _.template('<a href="#"><%= (display_name == null) ? stream_name : display_name  %></a>'),
+    template: _.template('<a href="#"><%= stream_name %></a>'),
     derender: function() {
         this.remove();
         this.unbind();

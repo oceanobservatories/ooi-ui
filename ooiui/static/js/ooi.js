@@ -77,3 +77,57 @@ OOI.prototype.onLogin = function() {
 OOI.prototype.onLogout = function() {
     window.location.reload();
 }
+
+
+// TOC Functions
+function renderTOCView( container, contents, streams ) {
+    var tocView = new TOCView({
+        arrayCollection:    container,
+        assetCollection:    contents,
+        streamCollection:   streams
+    });
+    tocView.render();
+    // hide the spinner
+    $('i#tocSpinner').hide();
+    // append the toc
+    $('#sidebar-wrapper').append( tocView.el );
+    if ( contents != null ) {
+        tocView.renderAssets();
+    }
+    if ( streams != null ) {
+        tocView.renderStreams();
+    }
+}
+
+function showSearchResults( collection ) {
+    vent.trigger('toc:derenderItems');
+
+    var searchResultView = new SearchResultView({ collection:collection });
+    searchResultView.render();
+
+    $('#assetBrowser').remove();
+
+    $('i#tocSpinner').hide();
+    $('#sidebar-wrapper').append(searchResultView.el);
+}
+
+function updateCollection( assetCallback ){
+    var data = {
+        search : $('#search-filter').val()
+    };
+    assetCollection.fetch({
+        data : data,
+        success : assetCallback,
+    });
+
+}
+
+// global document controller
+
+$(document).ready(function () {
+    $('#search').width = "300px";
+    $('#search-clear').hide();
+    $('label.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+    });
+});
