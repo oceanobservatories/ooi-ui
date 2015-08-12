@@ -638,7 +638,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-
             'ooiui/static/js/views/common/ModalDownloadFailView.js',
             'ooiui/static/js/views/common/ModalDownloadView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
@@ -1240,6 +1239,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/custom/sidebar.css",              
             "ooiui/static/css/custom/custom.css", 
             "ooiui/static/css/common/plotting.css", 
+            "ooiui/static/css/common/downloadModalForm.css", 
             "ooiui/static/css/common/assets.css",
             "ooiui/static/css/common/leaflet/map.css",
             "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css",
@@ -1291,6 +1291,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css",
             "ooiui/static/css/common/timeseries.css",
+            "ooiui/static/css/common/downloadModalForm.css"
           ],
           "ooiui/static/css/compiled/FAQ.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
