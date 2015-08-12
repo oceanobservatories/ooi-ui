@@ -28,6 +28,10 @@ div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
 
 }
 
+span.filter-option {
+    margin-left: 0px !important;
+}
+
 #plottingBody > div:nth-child(1) > div > div > div:nth-child(1) > div.col-md-10 {
     padding-left: 0px;
 }
@@ -61,8 +65,8 @@ button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
 	padding-bottom: 14px;
 	border: none;
   position: absolute;
-  top: 0px;
-  left: 210px;
+  top: 40px;
+  left: 140px;
 	}
 
 input.form-control:focus {
@@ -141,8 +145,31 @@ span.filter-option.pull-left {
 li#xVarTooltip {
   z-index: 1000;
 }
-.div-qa-qc{
-  position:absolute;
-  width:900px;
-  top:-35px
+div#qa-qc {
+    margin-left: 0px !important;
+
+}
+div.div-qa-qc{
+  width:100%;
+  top:-35px;
+  margin-left: 0px !important;
+}
+
+div.div-qa-qc > span {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+}
+
+/* Download buttons */
+div#download-row {
+background-color: #E0E0E0;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-top: 5px;
+}
+div#download-options > ul > li {
+    display: inline !important;
+    list-style-type: none;
+    padding-right: 20px;
 }

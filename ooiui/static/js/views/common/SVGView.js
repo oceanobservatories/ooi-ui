@@ -194,7 +194,6 @@ var SVGView = Backbone.View.extend({
   fetch: function() {
     var self = this;
     this.initialRender();
-    // console.log("Fetching " + this.url);
     $.get(this.url,function(svgDoc) {
         var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
         self.$el.html(importedSVGRootElement);
@@ -221,7 +220,6 @@ var SVGView = Backbone.View.extend({
       });
   },
   initialRender: function() {
-    //console.log("Plot should be a spinner");
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
   },
   render: function() {
@@ -230,7 +228,6 @@ var SVGView = Backbone.View.extend({
 
 var SVGPlotView = SVGView.extend({
   setModel: function(model) {
-    // console.log("set Model")
     this.model = model;
     this.reference_designator = this.model.get('reference_designator')
     this.stream_name = this.model.get('stream_name')
@@ -293,7 +290,6 @@ var SVGPlotView = SVGView.extend({
   },
   plotMulti: function(options) {
     //requested plot
-    // console.log("plot...")
     if(!plotParameters.validateMultiPlot(options)) return false;
     this.reference_designator = this.model.get('reference_designator') + "," +options.secRef
     this.stream_name = this.model.get('stream_name') + "," +options.secStream

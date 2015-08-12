@@ -4,7 +4,7 @@
 
 <form>
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-lg-2">
         <div class="form-group">
             <label for="xvar-select">Plot Type <li id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></li></label>
           <select data-width="85%" id='xvar-select' class="form-control selectpicker">
@@ -20,79 +20,7 @@
         </div> <!-- .form-group -->
 
     </div> <!-- .col-sm-3 -->
-    <!--
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="yvar-select">Variable(s)</label>
-        <select id='yvar-select' class="form-control selectpicker" multiple>
-          OLD OPTIONS
-        </select>
-      </div>
-    </div>
-    -->
-
-    <!--
-    <div class="col-sm-1">
-      <div disabled hidden style="padding-top:0px;">
-        <label for="plotting-enable-scatter">Scatter</label>
-        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-scatter" data-size="normal">
-      </div>
-    </div>
-    -->
-
-    <div class="col-sm-2">
-        <div class="div-qa-qc" style="display:none"><input name="radio-qa-qc" type="checkbox"  value="1">Global Range <input type="checkbox" name="radio-qa-qc" value="2">Local Range <input type="checkbox" name="radio-qa-qc" value="3">Spike <input type="checkbox" name="radio-qa-qc" value="4">Polytrend
-            <input type="checkbox" name="radio-qa-qc" value="5">Stuck Value <input type="checkbox" name="radio-qa-qc" value="6">Gradient <input type="checkbox" name="radio-qa-qc" value="7">Solar Elevation <input type="checkbox" name="radio-qa-qc" value="8">Propagate Flags <input type="checkbox" name="radio-qa-qc" value="9">Cond Compress
-            <input type="checkbox" name="radio-qa-qc" value="10" checked>All </div>
-        <div class="form-group" style="padding-top:0px;">
-            <label for="plotting-enable-events">QAQC Test</label>
-            <div>
-                <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
-            </div>
-        </div>
-    </div>
-
-    <!--
-    <div class="col-sm-2">
-      <div  style=""  class="form-group">
-        <label for="profile-select">Profile Selection</label>
-        <select data-width="75%" id='profile-select' class="form-control selectpicker" disabled>
-          <option value="All">All</option>
-        </select>
-      </div>
-    </div>
-    -->
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="start-date">Start Time (UTC)</label>
-        <div class='input-group date' id='start-date'>
-          <input type='text' class="form-control" />
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div> <!-- .input-group.date #start-date -->
-      </div> <!-- .form-group -->
-    </div> <!-- .col-sm-3 -->
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="end-date">End Time (UTC)</label>
-        <div class='input-group date' id='end-date'>
-          <input type='text' class="form-control" />
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div> <!-- .input-group.date #end-date -->
-      </div>  <!-- .form-group -->
-    </div>  <!-- .col-sm-3 -->
-    <div class="col-sm-2">
-        <button style="margin-top:25px;" id="update-plot" type="button" class="btn btn-primary" aria-label="Left Align">
-          <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
-        </button>
-    </div>
-  </div> <!-- .row -->
-
-  <div class="row">
-    <div class="col-sm-2"  id="yvar0-selection-default">
+    <div class="col-lg-2"  id="yvar0-selection-default">
         <div class="form-group">
           <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
           <li> </li>
@@ -100,7 +28,7 @@
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-sm-2" style="display: none;" id="yvar1-selection">
+    <div class="col-lg-2" style="display: none;" id="yvar1-selection">
         <div class="form-group">
           <label id='yvar1-select-text' for="yvar1-select">Select X</label>
           <li> </li>
@@ -108,19 +36,66 @@
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-sm-2" style="display: none;" id="yvar2-selection">
+    <div class="col-lg-2" style="display: none;" id="yvar2-selection">
         <div class="form-group">
           <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
           <select data-width="85%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-sm-2" style="display: none;" id="yvar3-selection">
+    <div class="col-lg-2" style="display: none;" id="yvar3-selection">
         <div class="form-group">
           <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
           <select data-width="85%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="start-date">Start Time (UTC)</label>
+            <div class='input-group date' id='start-date'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div> <!-- .input-group.date #start-date -->
+        </div> <!-- .form-group -->
+    </div> <!-- .col-sm-3 -->
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="end-date">End Time (UTC)</label>
+            <div class='input-group date' id='end-date'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div> <!-- .input-group.date #end-date -->
+        </div>  <!-- .form-group -->
+    </div>  <!-- .col-sm-3 -->
+    <div class="col-sm-2">
+        <div class="form-group" style="padding-top:0px;">
+            <label for="plotting-enable-events">QAQC Test</label>
+            <div>
+                <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <button style="margin-top:25px;" id="update-plot" type="button" class="btn btn-primary" aria-label="Left Align">
+            <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
+        </button>
+    </div>
+</div>
+<div id="qa-qc" class="row">
+        <div class="div-qa-qc" style="display:none">
+            <input type="checkbox" name="radio-qa-qc" value="1"><span>Global Range</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="2"><span>Local Range</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="3"><span>Spike</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="4"><span>Polytrend</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="5"><span>Stuck Value</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="6"><span>Gradient</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="7"><span>Solar Elevation</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="8"><span>Propagate Flags</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="9"><span>Cond Compress</span></input>
+            <input type="checkbox" name="radio-qa-qc" value="10" checked><span>All</span></input>
+        </div>
 </div>
 </form>
