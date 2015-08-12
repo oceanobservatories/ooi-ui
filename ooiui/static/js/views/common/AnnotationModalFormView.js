@@ -17,10 +17,7 @@
  */
 
 var AnnotationModalFormView = ModalFormView.extend({
-  bindings: {
-    '#date' : 'pos_x',
-    '#yvalue' : 'pos_y',
-    '#title-input' : 'title',
+  bindings: {    
     '#comments-input' : 'comment'
   },
   events: {
@@ -41,11 +38,19 @@ var AnnotationModalFormView = ModalFormView.extend({
     }
   },
   onSubmit: function(event) {
+    var self = this;
     event.stopPropagation();
     event.preventDefault();
+    this.model.set('annotation',this.$el.find('#comments-input').val());    
     this.model.save(null, {
-      success: function(model) {
-        ooi.trigger('AnnotationModalFormView:onSubmit', model);
+      success: function(model,response) {             
+        if(model.id) {
+          ooi.trigger('AnnotationModalFormView:onUpdate', model);
+        }else{
+          ooi.trigger('AnnotationModalFormView:onSubmit', model);
+        }
+      },
+      error: function(){            
       }
     });
     this.hide();

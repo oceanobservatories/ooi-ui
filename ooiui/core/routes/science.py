@@ -119,14 +119,16 @@ def get_annotations():
     except Exception,e:
         return jsonify(error=str(e))
 
+
 @app.route('/api/annotation', methods=['POST'])
-def post_annotation():
+def post_annotation():    
     token = get_login()
     response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)
     return response.text, response.status_code, dict(response.headers)
 
-@app.route('/api/annotation/<int:id>', methods=['PUT'])
-def put_annotation(id):
+
+@app.route('/api/annotation/<string:id>', methods=['PUT'])
+def put_annotation(id):    
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code

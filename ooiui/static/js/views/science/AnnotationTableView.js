@@ -18,6 +18,9 @@
 
 var AnnotationTableView = Backbone.View.extend({
   className: "annotationTableView",
+  events:{
+    "click #addAnnotation"   : "onAddClick"
+  },
   columns: [
       {
         name : 'ui_id',
@@ -38,18 +41,23 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'endDT',
         label : 'Date Time (End)'
-      }
+      }      
   ],
   initialize: function() {
     _.bindAll(this, "render");    
   },
   template: JST['ooiui/static/js/partials/AnnotationTable.html'],
+  onAddClick: function(event) {
+    event.stopPropagation();
+    ooi.trigger('AnnotationTableView:onAddClick');
+  },
   render: function() {    
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
     this.collection.each(function(model, i) {
       console.log(model);
       model.set('ui_id',i)
+
       var streamTableItemView = new AnnotationTableItemView({
         columns: self.columns,
         model: model
