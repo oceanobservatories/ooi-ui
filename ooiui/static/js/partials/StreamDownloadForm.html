@@ -1,88 +1,84 @@
-<!--Modal-->
-<!-- data-backdrop prevents the modal from closeing when backtorp is clicked
-  tabindex allows the escape key to be used to close the modal -->
-  <div class="modal fade" id="download-modal" data-backdrop="static" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!--Header-->
-        <div class="col-md-12">        
-          <!-- <div class="dwn&#45;header"> -->
-          <!-- <span>Steams Download</span> -->
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <!-- </div> <!&#45;&#45; dwn&#45;header &#45;&#45;> -->
-        </div> <!-- col-md-12 -->
+<!--Download Modal-->
+<!-- data-backdrop prevents the modal from closing when backdrop is clicked tabindex allows the escape key to be used to close the modal -->
 
-        <!--Body-->
-        <div class="col-md-12">
-          <div class="col-md-4">  
-            <img width="150px" src="/img/logos-banners/OOI_Logo.svg">
-          </div>
-          <div class="col-md-8">
-            <h3>Streams Download</h3>
-          </div>
-        </div> <!-- .dwn-body -->
+<div class="modal fade" id="download-modal" data-backdrop="static" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-        <div class="col-md-12">
-          <div class="col-md-12">
-            <h4 id="streamName">Name</h4>
-          </div> <!-- .dwn-body -->        
+      <!--Header-->
+      <div class="col-md-12 dwn-content">        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!-- </div> <!&#45;&#45; dwn&#45;header &#45;&#45;> -->
+    </div> <!-- col-md-12 -->
+
+    <!--Body-->
+    <div class="col-md-12">
+      <div class="col-md-4">  
+        <img width="150px" src="/img/logos-banners/OOI_Logo.svg">
+      </div>
+
+      <div class="col-md-8">
+        <h3>Streams Download</h3>
+      </div>
+    </div> <!-- .col-md-12 -->
+
+    <div class="col-md-12">
+      <h4 id="streamName" style="padding:15px;">Name</h4>
+    </div>
+
+    <form>
+      <div class="col-md-12">          
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <div class='input-group date' id='start-date'>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div> <!-- .input-group.date #start-date -->
+          </div> <!-- .form-group -->
         </div>
 
-        <form>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="start-date">Start Date</label>
-                <div class='input-group date' id='start-date'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div> <!-- .input-group.date #start-date -->
-              </div> <!-- .form-group -->
-            </div> <!-- .col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="end-date">End Date</label>
-                <div class='input-group date' id='end-date'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div> <!-- .input-group.date #start-date -->
-              </div> <!-- .form-group -->
-            </div> <!-- .col-md-6 -->
-          </div> <!-- .row-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="end-date">End Date</label>
+            <div class='input-group date' id='end-date'>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div> <!-- .input-group.date #start-date -->
+          </div> <!-- .form-group -->
+        </div> <!-- .col-md-6 -->
+      </div> <!-- .col-md-12-->
 
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
+          <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
+        </div>
 
-          <div class="col-md-12">
+        <div class="col-md-4">
+          <div class="form-group">
+            <select id='type-select' class="form-control">
+              <option value="" selected disabled>Download Format</option>
+              <option value="netcdf">NetCDF (.nc)</option>
+              <option value="json">JSON (.json)</option>
+              <!-- <option value="profile_json_download">Profile JSON (.json)</option> -->
+              <option value="csv">CSV (.csv)</option>
+            </select>
+          </div> <!-- .form-group -->
+        </div> <!-- .col-md-4 -->
+      </div>
 
-            <div class="col-md-8">
-              <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
-              <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
-            </div>
+      <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-default" type="button" id="download-btn" style="margin-left: 65px; margin-bottom: 13px;">Download</button>
+        </div>
+      </div>  
+    </form>
 
-            <div class="col-md-4">
-              <div class="form-group">
-                <select id='type-select' class="form-control">
-                  <option value="netcdf">NetCDF (.nc)</option>
-                  <option value="json">JSON (.json)</option>
-                  <!-- <option value="profile_json_download">Profile JSON (.json)</option> -->
-                  <option value="csv">CSV (.csv)</option>
-                </select>
-              </div> <!-- .form-group -->
-            </div> <!-- .col-md-12 -->
-
-          </div>
-
-          <div class="row">
-          </div> <!-- .row-->
-          <div class="row">
-            <div class="col-md-8">
-            </div>
-            <div class="col-md-4">
-              <button class="btn btn-default" type="button" id="download-btn" style="margin-left: 65px; margin-bottom: 13px;">Download</button>
-            </div>
-          </div>        </form>
-      </div> <!-- lgn-body -->
-    </div>  <!-- modal-content -->
-  </div> <!-- modal-dialog -->
-  </div> <!-- modal fade -->
+  </div>
+</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
