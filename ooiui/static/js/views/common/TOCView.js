@@ -230,7 +230,27 @@ var StreamItemView = Backbone.View.extend({
     onClick: function(e) {
         e.stopImmediatePropagation();
         e.preventDefault();
-        ooi.trigger('toc:selectStream', { model: this.model });
+
+        var param_list = []
+        var parameterhtml = "";
+        for (var i = 0; i < this.model.get('variables').length; i++) {
+            if (param_list.indexOf(this.model.get('variables')) == -1){
+                var parameterId = this.model.get('parameter_id')[i];
+                var units = this.model.get('units')[i];
+                var variable = this.model.get('variables')[i];
+                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                param_list.push(variable);
+            }
+        }
+        $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
+            $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
+            $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
+            $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
+            $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
+            $('#parameters_id').removeAttr('disabled');
+            $('.selectpicker').selectpicker('refresh');
+        });
+
     },
     template: _.template('<a href="#"><%= stream_name %></a>'),
     derender: function() {

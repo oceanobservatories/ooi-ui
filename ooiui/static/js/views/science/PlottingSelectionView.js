@@ -1,12 +1,12 @@
 "use strict";
 /*
  * ooiui/static/js/views/science/PlottingSelection.js
- * Builds a list of the arrays subsequent items 
+ * Builds a list of the arrays subsequent items
  *
  * Dependencies
- * CSS: 
+ * CSS:
  * - ooiui/static/css/common/PlottingSelection.css
- * Partials: 
+ * Partials:
  * - ooiui/static/js/partials/PlottingSelection.html
  * Libs
  * - ooiui/static/lib/underscore/underscore.js
@@ -15,7 +15,7 @@
  * Usage
  */
 
-var PlottingSelectionView = Backbone.View.extend({ 
+var PlottingSelectionView = Backbone.View.extend({
   filterSubviews:[],
   dataCollection: {},
   options : {
@@ -23,45 +23,45 @@ var PlottingSelectionView = Backbone.View.extend({
   },
   parentChild : {
                  "arrays":{"parent":null,"child":"sites"},
-                 "sites":{"parent":"arrays","child":"platforms"},    
-                 "platforms":{"parent":"sites","child":"instruments"},                                   
+                 "sites":{"parent":"arrays","child":"platforms"},
+                 "platforms":{"parent":"sites","child":"instruments"},
                  "instruments":{"parent":"platforms","child":"streams"},
                  "streams":{"parent":"streams","child":"instruments"},
                  "parameters":{"parent":"instruments","child":"parameters"}
-                 },    
-  initialize: function(options) {    
-    _.bindAll(this, "render");            
+                 },
+  initialize: function(options) {
+    _.bindAll(this, "render");
   },
   getSelectedRef : function(){
-    var selectedRef= this.$el.find( "#instruments_id option:selected").val()        
+    var selectedRef= this.$el.find( "#instruments_id option:selected").val()
     return selectedRef;
   },
   getSelectedStream: function(){
-    var selectedType= this.$el.find( "#streams_id option:selected").attr("stream_type")  
-    var selectedRef= this.$el.find( "#streams_id option:selected").val()      
+    var selectedType= this.$el.find( "#streams_id option:selected").attr("stream_type")
+    var selectedRef= this.$el.find( "#streams_id option:selected").val()
     return selectedType+"_"+selectedRef;
   },
-  getSelectedVars: function(filterModel,filterCollection){        
-    var selectedParam = this.$el.find( "#parameters_id option:selected").val()
+  getSelectedVars: function(filterModel,filterCollection){
+    var selectedParam = this.$el.find( "#yvar0-selection-default option:selected").val;
     return selectedParam;
   },
-  addFilter: function(filterModel,filterCollection){    
-    var self = this;    
+  addFilter: function(filterModel,filterCollection){
+    var self = this;
 
     if (filterModel.get('labelText') == "arrays"){
-      var subview = new FilterSelectionView({             
+      var subview = new FilterSelectionView({
         model: filterModel,
         collection: filterCollection
       });
       subview.initallyDisabled = ""
     }else if(filterModel.get('labelText') == "parameters"){
-      var subview = new FilterSelectionView({                
+      var subview = new FilterSelectionView({
         model: filterModel,
         collection: filterCollection
       });
       subview.numberSelectable = 6
     }else{
-      var subview = new FilterSelectionView({        
+      var subview = new FilterSelectionView({
         model: filterModel,
         collection: filterCollection
       });
@@ -72,27 +72,27 @@ var PlottingSelectionView = Backbone.View.extend({
     this.$el.find('.filter-selection-body').append(subview.el);
   },
   template: JST['ooiui/static/js/partials/PlottingSelection.html'],
-  render: function() {    
+  render: function() {
     var self = this;
-    this.$el.html(this.template({}));   
-    
+    this.$el.html(this.template({}));
+
     this.options.itemid = this.el.id
     var filterItems = Object.keys(self.dataCollection)
 
     for (var i = 0; i < filterItems.length; i++) {
-      var filterModel = new FilterSelectionModel({        
+      var filterModel = new FilterSelectionModel({
         labelText : filterItems[i],
         parentItem : self.parentChild[filterItems[i]]['parent'],
         childItem : self.parentChild[filterItems[i]]['child'],
         itemid: this.options.itemid
-      });           
+      });
       //add the sub here
-      this.addFilter(filterModel,self.dataCollection[filterItems[i]]) 
+      this.addFilter(filterModel,self.dataCollection[filterItems[i]])
     };
 
     this.$el.find('#parameters_id').parent().find('.dropdown-menu')
   },
-    
+
   unFilterItems: function(options) {
     var self = this;
     var childItem = options.model.get("childItem") ;
@@ -104,7 +104,7 @@ var PlottingSelectionView = Backbone.View.extend({
       //no more need to filter
       console.log("no more filter");
     }else if (childItem == "streams" || childItem == "parameters"){
-      
+
     }else{
 
       //unfilter items
@@ -113,7 +113,7 @@ var PlottingSelectionView = Backbone.View.extend({
       });
       //add disabled back
       this.$el.find( "#"+childItem+"_id" ).attr("disabled", true);
-      
+
       //refresh
       $('.selectpicker').selectpicker('refresh');
       // console.log("un:filter called, refresh");
@@ -131,17 +131,17 @@ var PlottingSelectionView = Backbone.View.extend({
       //no more need to filter
       if (currentItem == "parameters"){
 
-        
-        var selectedStream = this.$el.find( "#streams_id option:selected")        
-        var selectedParam = this.$el.find( "#parameters_id option:selected")     
-        
-        var selected = [];
-        var selected_ids = [];        
-        var selectedParam = this.$el.find( "#parameters_id ") 
 
-        $(selectedParam).each(function(index){            
+        var selectedStream = this.$el.find( "#streams_id option:selected")
+        var selectedParam = this.$el.find( "#parameters_id option:selected")
+
+        var selected = [];
+        var selected_ids = [];
+        var selectedParam = this.$el.find( "#parameters_id ")
+
+        $(selectedParam).each(function(index){
             selected.push([$(this).val()]);
-            selected_ids.push([$(this).attr('pid')]);            
+            selected_ids.push([$(this).attr('pid')]);
         });
 
         var streamModel = new StreamModel({preferred_timestamp : "internal_timestamp",
@@ -154,24 +154,24 @@ var PlottingSelectionView = Backbone.View.extend({
                                            variables_shape : {filterVal:"float"},
                                            reference_designator:  selectedStream.attr("sensor"),
                                        })
-        
+
         var data_units = {}
-        
+
         $.each( this.$el.find( "#parameters_id option:selected") , function( key, value ) {
           data_units[$(value).val()] = $(value).attr('data-subtext')
         });
 
         ooi.trigger('FilterSelectionView:onParameterSelection', {model: streamModel,itemid:this.el.id,data_units:data_units});
-      }else if (currentItem == "streams"){ 
+      }else if (currentItem == "streams"){
 
         var param_list = []
-        var selectedStream = this.$el.find( "#streams_id option:selected")     
+        var selectedStream = this.$el.find( "#streams_id option:selected")
         var selectedRef = selectedStream.attr('sensor')
 
         var streamModel = new StreamModel({preferred_timestamp : "internal_timestamp",
                                            start : selectedStream.attr('start'),
                                            end : selectedStream.attr('end'),
-                                           stream_name : selectedStream.attr("stream_type") + "_" + selectedStream.text(),                                           
+                                           stream_name : selectedStream.attr("stream_type") + "_" + selectedStream.text(),
                                            reference_designator:  selectedStream.attr("sensor"),
                                        })
 
@@ -180,21 +180,21 @@ var PlottingSelectionView = Backbone.View.extend({
           if (model.get('reference_designator') == selectedRef){
             //reset then build html
             var parameterhtml = ""
-            for (var i = 0; i < model.get('instrument_parameters').length; i++) {     
+            for (var i = 0; i < model.get('instrument_parameters').length; i++) {
               if (model.get('instrument_parameters')[i].stream == filterVal){
-                var parameterItem = model.get('instrument_parameters')[i]                                       
+                var parameterItem = model.get('instrument_parameters')[i]
 
                 if (param_list.indexOf(parameterItem.particleKey) == -1){
                   parameterhtml+= "<option pid='"+parameterItem.pdId+"' data-subtext='"+parameterItem.units+"' >"+parameterItem.particleKey+"</option>"
                   param_list.push(parameterItem.particleKey);
                 }
-              }              
+              }
             }
             self.$el.find( "#parameters_id").html(parameterhtml)
           }
         });
 
-        
+
 
         this.$el.find( "#parameters_id" ).removeAttr("disabled");
         this.$el.find('.selectpicker').selectpicker('refresh');
@@ -211,56 +211,56 @@ var PlottingSelectionView = Backbone.View.extend({
       options.collection.each(function(model) {
         if (model.get('reference_designator') == filterVal){
           //reset then build html
-          var streamhtml = ""          
-          for (var i = 0; i < model.get(childItem).length; i++) {            
+          var streamhtml = ""
+          for (var i = 0; i < model.get(childItem).length; i++) {
             //add the contents for the stream info
             var streamTextValue = model.get('streams')[i]['stream']
-            var streamSubText = model.get('streams')[i]['method']  
-            var start = model.get('streams')[i]['beginTime']                            
-            var end = model.get('streams')[i]['endTime']            
-            var sensor = model.get('streams')[i]['sensor']    
+            var streamSubText = model.get('streams')[i]['method']
+            var start = model.get('streams')[i]['beginTime']
+            var end = model.get('streams')[i]['endTime']
+            var sensor = model.get('streams')[i]['sensor']
             if (streamTextValue.indexOf("metadata") < 0){
-              streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"            
+              streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"
             }
           };
 
-          self.$el.find( "#streams_id").html(streamhtml)        
+          self.$el.find( "#streams_id").html(streamhtml)
         }
       });
       //remove disabled
-      this.$el.find( "#streams_id" ).removeAttr("disabled");      
+      this.$el.find( "#streams_id" ).removeAttr("disabled");
       //refresh
       this.$el.find('.selectpicker').selectpicker('refresh');
     }else{
       this.unFilterItems(options)
       //filter items
       this.$el.find( "#"+childItem+"_id option" ).each(function( index, obj ) {
-        var childValue = $( this ).attr("filter").trim();                  
-        var childCode = $( this ).attr(currentItem+"-code");  
+        var childValue = $( this ).attr("filter").trim();
+        var childCode = $( this ).attr(currentItem+"-code");
 
         //if we selected a platform the subsequent items need to have their mooring checked, at platform is not unique
-        if (currentItem == "platforms"){          
-          var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("sites-code"); 
+        if (currentItem == "platforms"){
+          var platchildCode = $( this ).attr(currentItem+"-code") + $( this ).attr("sites-code");
           var plotfilterVal = $(selected).not("[disabled]").attr(currentItem+"-code") + $(selected).not("[disabled]").attr("sites-code")
 
-          if (plotfilterVal == platchildCode){                              
+          if (plotfilterVal == platchildCode){
             $( this ).text(childValue)
           }
           else{
             $( this ).attr("disabled", true);
           }
-        //normal filter  
+        //normal filter
         }else{
-          if (filterVal == childCode){          
-            //ITS GOOD!          
+          if (filterVal == childCode){
+            //ITS GOOD!
             $( this ).text(childValue)
           }
           else{
             $( this ).attr("disabled", true);
-          }  
+          }
         }
 
-        
+
       });
 
       //remove disabled
@@ -270,10 +270,10 @@ var PlottingSelectionView = Backbone.View.extend({
       // console.log("filter called, refresh",childItem);
       this.$el.find('.selectpicker').selectpicker('refresh');
     }
-  },  
+  },
 });
 
-var FilterSelectionView = Backbone.View.extend({ 
+var FilterSelectionView = Backbone.View.extend({
   collection: null,
   options : {
     itemid:null,
@@ -294,7 +294,7 @@ var FilterSelectionView = Backbone.View.extend({
   var icon = "\uf002"; // Font Awesome Unicode for Search icon
     var remove = "\uf00d"; // Font Awesome Unicode for Remove icon
     $('.form-control').attr("placeholder",icon+" Search");
-    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
+    // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');
 },
   initialize: function(options) {
     _.bindAll(this, "render");
@@ -303,13 +303,13 @@ var FilterSelectionView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/FilterPlottingSelection.html'],
   render: function() {
     // console.log("FilterSelectionView render called");
-    var self = this;   
+    var self = this;
     this.$el.html(this.template({numberSelectable: self.numberSelectable,
                                  isDisabled:self.initallyDisabled,
                                  labelText:self.model.get('labelText'),
                                  model:self.model,
-                                 collection:self.collection})); 
-    //setup the picker    
+                                 collection:self.collection}));
+    //setup the picker
     this.$el.find('.selectpicker').selectpicker();
     this.searchIcon();
   },
@@ -317,15 +317,15 @@ var FilterSelectionView = Backbone.View.extend({
     var self = this;
     var val = this.$el.find("option:selected").val();
     var selected = this.$el.find("option:selected");
-    var text = this.$el.find("option:selected").text(); 
-    var parent_item = self.model.get('parentItem'); 
+    var text = this.$el.find("option:selected").text();
+    var parent_item = self.model.get('parentItem');
     var child_item = self.model.get('childItem');
     //fire when the options is selected or unselected
 
 
-    if (val === undefined){     
+    if (val === undefined){
       ooi.trigger('FilterSelectionView:onUnSelect', {model: this.model,itemid:this.model.get('itemid')});
-    }else{      
+    }else{
       ooi.trigger('FilterSelectionView:onSelect', {model: this.model, filter:text.trim(),filterValue:val, selected:selected, collection: this.collection,itemid:this.model.get('itemid')});
     }
 

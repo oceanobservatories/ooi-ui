@@ -6,8 +6,7 @@
   <div class="row">
     <div class="col-sm-2">
         <div class="form-group">
-          <label for="xvar-select">Plot Type</label>
-           <li id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></li>
+            <label for="xvar-select">Plot Type <li id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></li></label>
           <select data-width="85%" id='xvar-select' class="form-control selectpicker">
             <option value="time">Time Series</option>
             <option value="ts-diagram">T-S Diagram</option>
@@ -93,6 +92,14 @@
   </div> <!-- .row -->
 
   <div class="row">
+    <div class="col-sm-2"  id="yvar0-selection-default">
+        <div class="form-group">
+          <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
+          <li> </li>
+          <select data-width="85%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
+          </select>
+        </div> <!-- .form-group -->
+    </div> <!-- .col-sm-3 -->
     <div class="col-sm-2" style="display: none;" id="yvar1-selection">
         <div class="form-group">
           <label id='yvar1-select-text' for="yvar1-select">Select X</label>
