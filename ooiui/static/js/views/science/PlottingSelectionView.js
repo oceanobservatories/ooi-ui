@@ -291,7 +291,7 @@ var FilterSelectionView = Backbone.View.extend({
   searchIcon: function() {
     var self = this;
     this.$el.find("input[type=text]").css("font-family", "FontAwesome");
-  var icon = "\uf002"; // Font Awesome Unicode for Search icon
+    var icon = "\uf002"; // Font Awesome Unicode for Search icon
     var remove = "\uf00d"; // Font Awesome Unicode for Remove icon
     $('.form-control').attr("placeholder",icon+" Search");
     // $("input[type=text]").append('<span id="search-clear" class="fa fa-remove" style="display: none" />');      
