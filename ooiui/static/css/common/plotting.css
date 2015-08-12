@@ -175,9 +175,83 @@
     padding-right: 20px;
   }
 
-  div#events-table {
-    display: block;
-    height: 335px;
-    overflow: auto;
+.header-fixed {
     width: 100%;
-  }
+    border: 1px solid #ddd;
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 15%;
+    float: left;
+}
+.header-fixed > thead > tr > th {
+    border: 1px solid #ddd;
+  
+}
+
+     
+  /* table { */
+  /*   width: 100%;   */
+  /* } */
+  /*  */
+  /* thead, tbody, tr, td, th { */
+  /*   display: block;  */
+  /* } */
+  /*  */
+  /*        tr:after { */
+  /*           content: ' '; */
+  /*           display: block; */
+  /*           visibility: hidden; */
+  /*           clear: both; */
+  /*       } */
+  /*  */
+  /*       thead th { */
+  /*           height: 30px; */
+  /*  */
+  /*           /*text-align: left;*/ */
+  /*       } */
+  /*  */
+  /*       tbody { */
+  /*           height: 120px; */
+  /*           overflow-y: auto; */
+  /*       } */
+  /*  */
+  /*       thead { */
+  /*           /* fallback */ */
+  /*       } */
+  /*  */
+  /*  */
+  /*       tbody td, thead th { */
+  /*           width: 19.2%; */
+  /*           float: left; */
+  /*       } */
+  /*        */
+  /* /* div#events-table { */ */
+  /* /*   display: block; */ */
+  /* /*   height: 335px; */ */
+  /* /*   overflow: auto; */ */
+  /* /*   width: 100%; */ */
+  /* /* } */ */
