@@ -87,15 +87,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     if(model.get('display_name') != null) {
       this.$el.find('#streamName').text(model.get('display_name'));
     }else{
-    this.$el.find('#streamName').text(model.get('stream_name'));
+      this.$el.find('#streamName').text(model.get('stream_name'));
     }
-
     this.$el.find('#type-select').val(selection);
-
-    // this.$el.find('.stream-name').text(model.get('stream_name'));
-
     this.$el.find('#download-modal').modal('show');
-
     return this;
   },
   hide: function() {
