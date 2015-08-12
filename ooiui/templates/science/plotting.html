@@ -435,7 +435,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     
     this.listenTo(self.collections.annotations, 'reset', function(collection) {
-      console.log(collection,"annotations are here!!!!!")
       self.views.annotationTableView.collection = collection;      
       self.views.annotationTableView.render();
     });
@@ -446,7 +445,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      console.log("Adding to annotation collection");
       self.collections.annotations.add(model);      
       self.views.annotationTableView.render();
     });
