@@ -117,6 +117,19 @@
               <div class="form-group">
                 <div align="center">
                   <div>
+                    <div class="col-sm-12" id="current_array" style='font-weight:bold;padding-top:35px;'>
+                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Array
+                    </div>
+                    <div class="col-sm-12" id="current_platform" style='font-weight:bold;padding-top:35px;'>
+                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Platform
+                    </div>
+                    <div class="col-sm-12" id="current_instrument" style='font-weight:bold;padding-top:35px;'>
+                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Instrument
+                    </div>
+                    <div class="col-sm-12" id="current_stream" style='font-weight:bold;padding-top:35px;'>
+                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Stream
+                    </div>
+
                     <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
                       <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms
                     </div>
@@ -172,13 +185,31 @@
       $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
       // render out our views:
-
+      this.listenTo(this, 'toc:selectArray', function(options) {
+        console.log('ARRAY');
+        console.log(options);
+        console.log(options.attributes['display_name']);
+        console.log(options.attributes['array_code']);
+        $('#current_array').append('<li id="current_array">' + options.attributes['array_code'] + '</li>');
+      });
+      this.listenTo(this, 'platformDeploymentItemView:platformSelect', function(options) {
+        console.log('PLATFORM');
+        console.log(options);
+        console.log(options.model.attributes['display_name']);
+        console.log(options.model.attributes['reference_designator']);
+        $('#current_platform').replace('<li id="current_platform">' + options.model.attributes['display_name'] + '</li>');
+      });
+      this.listenTo(this, 'InstrumentItemView:instrumentSelect', function(options) {
+        console.log(options);
+        console.log(options.model.attributes['display_name']);
+        console.log(options.model.attributes['reference_designator']);
+        $('#current_instrument').replace('<li id="current_instrument">' + options.model.attributes['display_name'] + '</li>');
+      });
       this.listenTo(this, 'toc:selectStream', function(options) {
-        var streamDownloadFormView = new StreamDownloadFormView({
-          el: $('#stream-download-modal')
-        });
-
-        streamDownloadFormView.show( options );
+        console.log(options);
+        console.log(options.model.attributes['display_name']);
+        console.log(options.model.attributes['reference_designator']);
+        $('#current_stream').replace('<li id="current_stream">' + options.model.attributes['display_name'] + '</li>');
       });
 
       this.listenTo(this, 'DownloadModal:onHide',function(){
