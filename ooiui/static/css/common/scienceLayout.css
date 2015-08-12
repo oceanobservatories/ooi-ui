@@ -478,9 +478,12 @@ img#clusterImg {
   vertical-align: middle;
 }
 img#arrayImg {
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-bottom-right-radius: 12px;
+  -moz-border-bottom-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  -webkit-border-bottom-left-radius: 12px;
+  -moz-border-bottom-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .cluster-popup h4 {
