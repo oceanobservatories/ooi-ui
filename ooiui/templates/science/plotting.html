@@ -44,6 +44,9 @@
             {% endblock %}
                 <div id="plottingBody" class="col-sm-12">
                     <div id="download-row" class="row">
+                    <div id="download-outline" class="pull-left">
+                      <li style="font-weight:bold;padding-left:10px;" id="ref_des_stream_outline"></li>
+                    </div>  
                     <div id="download-options" class="pull-right">
                         <ul>
                             <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
@@ -304,39 +307,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.plotEventListView = new PlotEventListView({
         el: $('#events-table')
     });
-    /*
-    //ALL THE TOC COLLECTIONS
-    var TocCollections = [self.collections.tocArrays,
-                          self.collections.tocMoorings,
-                          self.collections.tocPlatforms,
-                          self.collections.tocInstruments];
 
-    //GRAB THEM THEN PASS TO VIEW
-    var complete = _.invoke(TocCollections, 'fetch');
-    //when all of them are complete...
-    $.when.apply($, complete).done(function() {
-       //all ready and good to go...
-       self.views.plottingItemSelection.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,
-                                                          "platforms":self.collections.tocPlatforms,
-                                                          "instruments":self.collections.tocInstruments,
-                                                          "streams":self.collections.tocInstruments,
-                                                          "parameters":self.collections.tocInstruments
-                                                          };
-       self.views.plottingItemSelection.render();
-
-       self.views.plottingItemSelection2.dataCollection = {"arrays":self.collections.tocArrays,
-                                                          "sites":self.collections.tocMoorings,
-                                                          "platforms":self.collections.tocPlatforms,
-                                                          "instruments":self.collections.tocInstruments,
-                                                          "streams":self.collections.tocInstruments,
-                                                          "parameters":self.collections.tocInstruments
-                                                          };
-       self.views.plottingItemSelection2.render();
-
-       self.initalFilterOptions();
-    });
-    */
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
@@ -375,6 +346,8 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgPlotControlView.setModel(options.model,false);
         self.views.svgplot.setModel(options.model);        
       }
+
+      $('#ref_des_stream_outline').text(options.model.get('reference_designator')+" > "+ options.model.get('stream_name'))
 
       //ANNOTATIONS
       self.collections.annotations.fetch({          

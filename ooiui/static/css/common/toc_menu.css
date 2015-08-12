@@ -23,6 +23,19 @@ label {
     margin-left: -15px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
+
+.nav .nav-list .tree li a:hover{
+    background-color:lightgray;
+}
+
+.nav .nav-list .tree li a:active{
+    background-color:lightblue;
+}
+
+.nav .nav-list .tree .active-toc-item{
+    background-color:lightblue;
+}
+
 .nav-header {
     display: block;
     padding: 3px 15px;
@@ -69,11 +82,6 @@ margin: 0 0 10px
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px
-}
-
-
-#navToc > a:hover, #navToc > a:focus {
-    background-color: rgb(129, 158, 218) !important;
 }
 
 #navToc>li>a {
