@@ -1173,6 +1173,33 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/BannerView.js',
             'ooiui/static/js/views/common/AssetTabelFooterView.js'
           ],
+          'ooiui/static/js/compiled/CGSNConfig.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            //'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            //'ooiui/static/js/models/common/UserModel.js',
+            //'ooiui/static/js/models/common/UserFormModel.js',
+            'ooiui/static/js/models/common/CGSNConfigModel.js',
+            //'ooiui/static/js/models/common/RoleModel.js',
+            //'ooiui/static/js/models/common/OrganizationModel.js',
+            // Views
+           //'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/CGSNConfigView.js',
+           // 'ooiui/static/js/views/common/DropdownUserView.js',
+           // "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+           // 'ooiui/static/js/views/common/ModalDialogView.js',
+           // 'ooiui/static/js/views/common/TermsDialogView.js',
+           // 'ooiui/static/js/views/common/UserFormView.js'
+        ],
         }
       },
       css: {
