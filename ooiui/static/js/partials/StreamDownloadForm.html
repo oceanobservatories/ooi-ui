@@ -4,7 +4,6 @@
   <div class="modal fade" id="download-modal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-
         <!--Header-->
         <div class="col-md-12">        
           <!-- <div class="dwn&#45;header"> -->
@@ -30,8 +29,7 @@
         </div>
 
         <form>
-          <div class="col-md-12">
-
+          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="start-date">Start Date</label>
@@ -42,7 +40,6 @@
                 </div> <!-- .input-group.date #start-date -->
               </div> <!-- .form-group -->
             </div> <!-- .col-md-6 -->
-
             <div class="col-md-6">
               <div class="form-group">
                 <label for="end-date">End Date</label>
@@ -53,35 +50,39 @@
                 </div> <!-- .input-group.date #start-date -->
               </div> <!-- .form-group -->
             </div> <!-- .col-md-6 -->
+          </div> <!-- .row-->
 
-            <div class="col-md-12">
-              <div class="col-md-8" align="left">
-                <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
-                <!-- </div> -->
-                <!-- <div class="col&#45;md&#45;4" align="left"> -->
-                <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
-                </div>
-                <div class="col-md-4" align="right">
-                  <div class="form-group">
-                    <select id='type-select' class="form-control">
-                      <option value="" selected disabled>Download Format</option>
-                      <option value="netcdf">NetCDF (.nc)</option>
-                      <option value="json">JSON (.json)</option>
-                      <!-- <option value="profile_json_download">Profile JSON (.json)</option> -->
-                      <option value="csv">CSV (.csv)</option>
-                    </select>
-                  </div> <!-- .form-group -->
-                  <button class="btn btn-default" type="button" id="download-btn">Download</button>
 
-                </div>
+          <div class="col-md-12">
 
+            <div class="col-md-8">
+              <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
+              <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
             </div>
 
-          </div> <!-- .col-md-12 -->
-        </form>
+            <div class="col-md-4">
+              <div class="form-group">
+                <select id='type-select' class="form-control">
+                  <option value="netcdf">NetCDF (.nc)</option>
+                  <option value="json">JSON (.json)</option>
+                  <!-- <option value="profile_json_download">Profile JSON (.json)</option> -->
+                  <option value="csv">CSV (.csv)</option>
+                </select>
+              </div> <!-- .form-group -->
+            </div> <!-- .col-md-12 -->
 
-        <button></button>
+          </div>
 
+          <div class="row">
+          </div> <!-- .row-->
+          <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-default" type="button" id="download-btn" style="margin-left: 65px; margin-bottom: 13px;">Download</button>
+            </div>
+          </div>        </form>
       </div> <!-- lgn-body -->
     </div>  <!-- modal-content -->
   </div> <!-- modal-dialog -->
+  </div> <!-- modal fade -->
