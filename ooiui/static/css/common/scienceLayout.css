@@ -416,8 +416,18 @@
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  top: -22px;
-  color: white;
+    top: -6px;
+    color: white;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 0px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+    background-color: rgba(177, 204, 231, .88);
+    border: 1px solid white;
 }
 .map-pop-container {
   width: 460px;
