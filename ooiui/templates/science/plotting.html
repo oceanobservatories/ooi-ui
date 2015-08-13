@@ -46,7 +46,7 @@
                     <div id="download-row" class="row">
                     <div id="download-outline" class="pull-left">
                       <li style="font-weight:bold;padding-left:10px;" id="ref_des_stream_outline"></li>
-                    </div>  
+                    </div>
                     <div id="download-options" class="pull-right">
                         <ul>
                             <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
@@ -344,21 +344,21 @@ _.extend(OOI.prototype, Backbone.Events, {
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
         self.views.svgPlotControlView.setModel(options.model,false);
-        self.views.svgplot.setModel(options.model);        
+        self.views.svgplot.setModel(options.model);
       }
 
       $('#ref_des_stream_outline').text(options.model.get('reference_designator')+" > "+ options.model.get('stream_name'))
 
       //ANNOTATIONS
-      self.collections.annotations.fetch({          
-          data: $.param({ startdate: options.model.get('start'), 
+      self.collections.annotations.fetch({
+          data: $.param({ startdate: options.model.get('start'),
                           enddate:  options.model.get('end'),
                           reference_designator:options.model.get('reference_designator'),
                           stream_name: options.model.get('stream_name')
                         }),
           reset: true
       });
-      
+
     });
 
     //filter selection : listen to the selection of the parameter
@@ -369,15 +369,15 @@ _.extend(OOI.prototype, Backbone.Events, {
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
 
-        self.views.svgPlotControlView.setModel(options.model,false);                
-        self.views.svgplot.setModel(options.model);        
+        self.views.svgPlotControlView.setModel(options.model,false);
+        self.views.svgplot.setModel(options.model);
 
       }
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       if (options.attributes.data.plotType == "Depth Profile"){
-        options.attributes.data.plotType = "depthprofile"
+        options.attributes.data.plotType = "depthprofile";
         options.attributes.data.yvar = options.attributes.data.xvar;
         options.attributes.data.xvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.attributes.data.plotType == "Time Series"){
@@ -400,11 +400,9 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
       }
-      //used to handle a second station
-      options.attributes.data.multiStation = self.multiStation;
+      options.attributes.data.multiStation = this.multiStation;
 
       if (options.attributes.data.multiStation){
-
         options.attributes.data.xvar = "time,time"
         options.attributes.data.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
         options.attributes.data.secRef = self.views.plottingItemSelection2.getSelectedRef();
@@ -429,13 +427,14 @@ _.extend(OOI.prototype, Backbone.Events, {
           $('#highcharts-row-section').css('display',"none");
           $('#plot-view').css('display',"");
           //use default
+          this.views.svgplot.setModel(options);
           self.views.svgplot.plot(options);
         }
       }
     });
-    
+
     this.listenTo(self.collections.annotations, 'reset', function(collection) {
-      self.views.annotationTableView.collection = collection;      
+      self.views.annotationTableView.collection = collection;
       self.views.annotationTableView.render();
     });
 
@@ -445,7 +444,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      self.collections.annotations.add(model);      
+      self.collections.annotations.add(model);
       self.views.annotationTableView.render();
     });
 
@@ -459,10 +458,10 @@ _.extend(OOI.prototype, Backbone.Events, {
           model: model,
           userModel: self.models.userModel
         });
-      }      
+      }
     });
 
-    this.listenTo(this, 'AnnotationTableView:onAddClick', function() {      
+    this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
       var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
                                        "beginDT":self.models.downloadModel.model.get("start"),
                                        "endDT":self.models.downloadModel.model.get("start"),
@@ -475,7 +474,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           model: model,
           userModel: self.models.userModel
         });
-      }      
+      }
     });
 
     this.listenTo(this, 'ooi:downloadPlot', function() {
