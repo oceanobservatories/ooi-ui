@@ -101,7 +101,10 @@ margin: 0 0 10px
                             }
 
 #search {
-    width:300px;
+    width: 275px;
+    height: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 li.highlight-row > label {
@@ -131,4 +134,17 @@ label.instrument > span {
 label.instrument > font {
     font-size: 80%;
     color: #6E89AB;
+}
+div#searchGroup {
+  margin-left: 30px;
+}
+
+button#search-clear {
+  margin-top: 5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#streamPanel {
+  padding-left: 15px;
 }
