@@ -199,7 +199,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            var label = (platformName == undefined) ? platformId : platformName;
+            var label = (platformName == undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId + '</span>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
@@ -231,7 +231,7 @@ var StreamItemView = Backbone.View.extend({
         $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
         e.preventDefault();
-        $(e.target).addClass("active-toc-item"); 
+        $(e.target).addClass("active-toc-item");
 
         var param_list = []
         var parameterhtml = "";
