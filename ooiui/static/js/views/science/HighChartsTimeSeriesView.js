@@ -67,7 +67,7 @@ var TimeseriesView = Backbone.View.extend({
 
     var xvars = self.collection.xparameters;
     var yvars = self.collection.yparameters;
-
+    var axes_count = 0;
     var notifyList = []
 
     _.each(xvars, function(param,index) { 
@@ -127,14 +127,16 @@ var TimeseriesView = Backbone.View.extend({
           }
         } 
       });
-
-      var seriesModel = new SeriesModel({data:series_data})
-      seriesModel.set('units', self.collection.getUnits(yvar));
-      seriesModel.set('name', yvar);
-      seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
-      seriesModel.set('xmin',startDate);
-      seriesModel.set('xmax',endDate);
-      seriesCollection.add(seriesModel);
+      if (!addNotify){
+        axes_count += 1
+        var seriesModel = new SeriesModel({data:series_data})
+        seriesModel.set('units', self.collection.getUnits(yvar));
+        seriesModel.set('name', yvar);
+        seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
+        seriesModel.set('xmin',startDate);
+        seriesModel.set('xmax',endDate);
+        seriesCollection.add(seriesModel);
+      }
 
     });
 
@@ -152,7 +154,9 @@ var TimeseriesView = Backbone.View.extend({
 
     this.views.highchartsView.collection = seriesCollection;
     this.views.highchartsView.setElement(this.$el.find('#highcharts-view'));
-    this.views.highchartsView.render();
+    if (axes_count > 0){
+      this.views.highchartsView.render();
+    }
     return this;
   }
 });
