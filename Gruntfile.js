@@ -562,6 +562,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backlunr/backlunr.js',
             "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.js",
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.js",
+            "ooiui/static/lib/Leaflet.EasyButton/src/easy-button.js",
             //'ooiui/static/lib/dateformat/dist/dateformat.min.js',
             // App
             'ooiui/static/js/ooi.js',
@@ -1225,6 +1226,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
             "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
+            "ooiui/static/lib/Leaflet.EasyButton/src/easy-button.css",
             "ooiui/static/css/common/scienceLayout.css",
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.css',
             "ooiui/static/css/common/loginDemo.css",

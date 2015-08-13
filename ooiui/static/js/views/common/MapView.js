@@ -66,23 +66,18 @@ var MapView = Backbone.View.extend({
     
   
     this.map = L.map(this.el,{
-         center: [20.505, -80.09],
-         zoom: 3,
          maxZoom: 10,
-         minZoom: 3,
+         minZoom: 2,
          layers: [Esri_OceanBasemap]
     });   
-
-    var allLatLons = []
-    //loop over the corners and add to bounds
-    _.each(self.arrayMapping, function(arrayMap,index) {
-      allLatLons.push(arrayMap.getNorthWest());
-      allLatLons.push(arrayMap.getSouthEast());
-    });
-
-    this.map.fitBounds(allLatLons);
+    
+    this.inititalMapBounds = [[63, -143],[-59, -29]]    
 
     L.control.mousePosition().addTo(this.map);
+
+    L.easyButton('fa-globe', function(btn, map){
+      map.fitBounds(self.inititalMapBounds);
+    },"Reset Zoom Level").addTo( this.map );
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
@@ -159,13 +154,12 @@ var MapView = Backbone.View.extend({
     wmsLayers['Glider Tracks'] = this.gliderLayers;
     this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
-
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)    
 
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
       return this
-    }});
+    }});    
 
     return this
   },
@@ -246,6 +240,9 @@ var MapView = Backbone.View.extend({
     L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
+
+    map.fitBounds(self.inititalMapBounds);    
+
 
     //add labels
     _.each(self.arrayMapping, function(arrayMap,index) {
@@ -495,7 +492,7 @@ var MapView = Backbone.View.extend({
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
   },
-  setMapView: function(lat_lon,zoom){
+  setMapView: function(lat_lon,zoom){    
     this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
   //end
