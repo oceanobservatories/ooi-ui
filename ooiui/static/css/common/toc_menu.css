@@ -12,7 +12,7 @@ div.well {
 }
 div#assetBrowser {
     overflow-x: hidden;
-    padding-left: 50px;
+    padding-left: 25px;
 }
 label {
     display: block;
@@ -120,6 +120,21 @@ li.instrument {
     width:300px;
 }
 
+label.platform > span  {
+    display:inline;
+    vertical-align: center;
+}
+label.platform > font {
+    font-size: 80%;
+    color: #6E89AB;
+}
+label.instrument > span {
+    display: block;
+}
+label.instrument > font {
+    font-size: 80%;
+    color: #6E89AB;
+}
 div#searchGroup {
   margin-left: 30px;
 }
@@ -133,4 +148,3 @@ button#search-clear {
 #streamPanel {
   padding-left: 15px;
 }
-

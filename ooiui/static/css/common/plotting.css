@@ -173,3 +173,7 @@ div#download-options > ul > li {
     list-style-type: none;
     padding-right: 20px;
 }
+
+/* controls */
+#plotcontrols .label {white-space:nowrap;}
+

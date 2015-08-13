@@ -4,7 +4,7 @@
 
 <form>
   <div class="row">
-    <div class="col-lg-2">
+    <div class="col-md-2">
         <div class="form-group">
             <label for="xvar-select">Plot Type <li id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></li></label>
           <select data-width="85%" id='xvar-select' class="form-control selectpicker">
@@ -20,7 +20,7 @@
         </div> <!-- .form-group -->
 
     </div> <!-- .col-sm-3 -->
-    <div class="col-lg-2"  id="yvar0-selection-default">
+    <div class="col-md-2"  id="yvar0-selection-default">
         <div class="form-group">
           <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
           <li> </li>
@@ -28,7 +28,7 @@
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-lg-2" style="display: none;" id="yvar1-selection">
+    <div class="col-md-2" style="display: none;" id="yvar1-selection">
         <div class="form-group">
           <label id='yvar1-select-text' for="yvar1-select">Select X</label>
           <li> </li>
@@ -36,21 +36,21 @@
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-lg-2" style="display: none;" id="yvar2-selection">
+    <div class="col-md-2" style="display: none;" id="yvar2-selection">
         <div class="form-group">
           <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
           <select data-width="85%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-lg-2" style="display: none;" id="yvar3-selection">
+    <div class="col-md-2" style="display: none;" id="yvar3-selection">
         <div class="form-group">
           <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
-          <select data-width="85%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+          <select data-width="85%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="2" >
           </select>
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-sm-2">
+    <div class="col-md-2">
         <div class="form-group">
             <label for="start-date">Start Time (UTC)</label>
             <div class='input-group date' id='start-date'>
@@ -60,7 +60,7 @@
             </div> <!-- .input-group.date #start-date -->
         </div> <!-- .form-group -->
     </div> <!-- .col-sm-3 -->
-    <div class="col-sm-2">
+    <div class="col-md-2">
         <div class="form-group">
             <label for="end-date">End Time (UTC)</label>
             <div class='input-group date' id='end-date'>
@@ -70,7 +70,7 @@
             </div> <!-- .input-group.date #end-date -->
         </div>  <!-- .form-group -->
     </div>  <!-- .col-sm-3 -->
-    <div class="col-sm-1">
+    <div class="col-md-2">
         <div class="form-group" style="padding-top:0px;">
             <label for="plotting-enable-events">QAQC Test</label>
             <div>
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <button style="margin-top:25px;" id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
         </button>

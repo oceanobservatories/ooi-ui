@@ -70,7 +70,7 @@ var plotParameters ={
     _selectedPrams:{
         timeseries:{val:6,condition:"<=",message:"No More than 6 Parameters"},
         ts_diagram:{val:2,condition:"=",message:"Must Select Temperature and Salinity"},
-        depthprofile:{val:1,condition:"=",message:"Must Select 1 Parameter"},
+        depthprofile:{val:2,condition:"=",message:"Must Select 2 Parameters"},
         quiver:{val:2,condition:"=",message:"Must Select U- and V-Components"},
         rose:{val:2,condition:"=",message:"Must Select Magnitude and Direction"},
         scatter:{val:3,condition:"=",message:"Must Select X, Y, and Color Components"},
@@ -141,10 +141,7 @@ var plotParameters ={
       if ( var2 != 'undefined' ) yvar.push(var2);
       return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, yvar)
     }else {
-        var yvar = [];
-        var var1 = $("#yvar1-select :selected").text();
-        if ( var1 != 'undefined' ) yvar.push(var1);
-        return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, yvar)
+      return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, options.yvar[0][0])
     };
 
   },
@@ -308,10 +305,10 @@ var SVGPlotView = SVGView.extend({
         //Variables are backwards, beware
         this.xvariable = null;
         var not_list = [];
-        $.each( options.yvar, function( key, value ) {
+        $.each( options.yvar[0][0], function( key, value ) {
           if (value.indexOf("pressure") > -1){
             this.xvariable = value;
-            y_units = options.attributes.units[this.xvariable];
+            y_units = options.attributes.units[self.xvariable];
           }else{
             not_list.push(value)
             x_units = options.attributes.units[not_list[0]];
@@ -543,7 +540,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#plotting-enable-events').attr('disabled', true);
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
-      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar1-select').attr('data-max-options','2');
       this.$el.find('#yvar2-selection').hide();
       this.$el.find('#yvar3-selection').hide();
 
