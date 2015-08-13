@@ -66,23 +66,18 @@ var MapView = Backbone.View.extend({
     
   
     this.map = L.map(this.el,{
-         center: [20.505, -80.09],
-         zoom: 3,
          maxZoom: 10,
-         minZoom: 3,
+         minZoom: 2,
          layers: [Esri_OceanBasemap]
     });   
-
-    var allLatLons = []
-    //loop over the corners and add to bounds
-    _.each(self.arrayMapping, function(arrayMap,index) {
-      allLatLons.push(arrayMap.getNorthWest());
-      allLatLons.push(arrayMap.getSouthEast());
-    });
-
-    this.map.fitBounds(allLatLons);
+    
+    this.inititalMapBounds = [[63, -143],[-59, -29]]    
 
     L.control.mousePosition().addTo(this.map);
+
+    L.easyButton('fa-globe', function(btn, map){
+      map.fitBounds(self.inititalMapBounds);
+    },"Reset Zoom Level").addTo( this.map );
 
     var baseLayers = {
       "ESRI Oceans": Esri_OceanBasemap,
@@ -159,13 +154,12 @@ var MapView = Backbone.View.extend({
     wmsLayers['Glider Tracks'] = this.gliderLayers;
     this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
-
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)    
 
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
       return this
-    }});
+    }});    
 
     return this
   },
@@ -246,6 +240,9 @@ var MapView = Backbone.View.extend({
     L.Icon.Default.imagePath = '/img';
 
     var map = this.map;
+
+    map.fitBounds(self.inititalMapBounds);    
+
 
     //add labels
     _.each(self.arrayMapping, function(arrayMap,index) {
@@ -374,9 +371,10 @@ var MapView = Backbone.View.extend({
 
         //reset the event popup
         var eventPopup = ""
-        var name = platforms[0].get('assetInfo')['name']
+        var name = platforms[0].get('assetInfo')['name']      
+        
         if (name == null){
-              name = "Undefined"
+              name = platforms[0].get('ref_des')
         }
 
 
@@ -425,47 +423,30 @@ var MapView = Backbone.View.extend({
             var events = platform_entry.get('events');        
              _.each(events, function(item) {
                 if (item['class'] == ".DeploymentEvent"){
-
-                  if (!hasDeploymentEvent){
-
+                  if (!hasDeploymentEvent){                                                                               
                     // Name
-                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>' +
-                      
-                      // Launch Date      
-                      // '<strong>Launch Date:</strong> '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
-                          
-                      // Lat & Lon
-                      '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
-
-                      // Data Catalog
-                      '<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;' +
-                  
-                      // Asset Managment
-                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>'
+                    // Lat & Lon
+                    popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot
+                    // Data Catalog
+                    popupContent+='<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
+                    // Asset Managment
+                    popupContent+='<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
 
-                  if (_.isNull(item['endDate'])){
-                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  if (_.isNull(item['endDate'])){                    
                     eventContent += '<div class="floatLeft">';
-
-                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
-                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
-                    
-                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
+                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
 
                   }else{
-                    eventContent += '<div class="floatRight">';
-                    
-                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
-                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
-                    
-                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
-                    
-                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                    eventContent += '<div class="floatRight">';                    
+                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';                    
                   }
                 }
             });
@@ -495,7 +476,7 @@ var MapView = Backbone.View.extend({
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
   },
-  setMapView: function(lat_lon,zoom){
+  setMapView: function(lat_lon,zoom){    
     this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
   //end
