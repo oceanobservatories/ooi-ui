@@ -351,4 +351,6 @@ def post_config():
     response = make_response(diff)
     response.headers["Content-Type"] = "text;"
     return response
-
+@app.route('/notsupported')
+def not_supported():
+    return render_template("/common/notsupported.html")
