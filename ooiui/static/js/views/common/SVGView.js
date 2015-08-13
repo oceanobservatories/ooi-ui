@@ -70,7 +70,7 @@ var plotParameters ={
     _selectedPrams:{
         timeseries:{val:6,condition:"<=",message:"No More than 6 Parameters"},
         ts_diagram:{val:2,condition:"=",message:"Must Select Temperature and Salinity"},
-        depthprofile:{val:2,condition:"=",message:"Must Select 2 Parameters"},
+        depthprofile:{val:1,condition:"=",message:"Must Select 1 Parameter"},
         quiver:{val:2,condition:"=",message:"Must Select U- and V-Components"},
         rose:{val:2,condition:"=",message:"Must Select Magnitude and Direction"},
         scatter:{val:3,condition:"=",message:"Must Select X, Y, and Color Components"},
@@ -103,11 +103,14 @@ var plotParameters ={
     },
   _validateTimeSpan: function (options){
    this._selectedX.valid=true;
+    var startDate = new Date(options.attributes.start);
+    var endDate = new Date(options.attributes.end);
    try{
-    if(options.end_date.isBefore(options.start_date)){
+    if(startDate > endDate){
       throw "Bad Date Object";
     }
     }catch(e){
+        console.log(e);
       this._selectedX.valid=false;
        $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Date Warning!</strong> &nbsp;'
        + 'Start Time must be less than End Time </div>');
@@ -121,7 +124,7 @@ var plotParameters ={
 
     if(!this._validateTimeSpan(options)) return false;
 
-    if (options.plotType.toString().indexOf("_scatter")!=-1){
+    if (options.attributes.data.plotType.toString().indexOf("_scatter")!=-1){
       var var1 = $("#yvar1-select :selected").text();
       var var2 = $("#yvar2-select :selected").text();
       var var3 = $("#yvar3-select :selected").text();
@@ -130,15 +133,18 @@ var plotParameters ={
       if ( var2 != 'undefined' ) yvar.push(var2);
       if ( var3 != 'undefined' ) yvar.push(var3);
       return this._selectedX._validateNumberOfSelected("scatter", yvar)
-    }else if ($.inArray(options.plotType, check2yvarplots)!=-1) {
+    }else if ($.inArray(options.attributes.data.plotType, check2yvarplots)!=-1) {
       var var1 = $("#yvar1-select :selected").text();
       var var2 = $("#yvar2-select :selected").text();
       var yvar = [];
       if ( var1 != 'undefined' ) yvar.push(var1);
       if ( var2 != 'undefined' ) yvar.push(var2);
-      return this._selectedX._validateNumberOfSelected(options.plotType, yvar)
+      return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, yvar)
     }else {
-      return this._selectedX._validateNumberOfSelected(options.plotType, options.yvar[0][0])
+        var yvar = [];
+        var var1 = $("#yvar1-select :selected").text();
+        if ( var1 != 'undefined' ) yvar.push(var1);
+        return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, yvar)
     };
 
   },
@@ -227,56 +233,9 @@ var SVGView = Backbone.View.extend({
 });
 
 var SVGPlotView = SVGView.extend({
-  setModel: function(model) {
-    this.model = model;
-    this.reference_designator = this.model.get('reference_designator')
-    this.stream_name = this.model.get('stream_name')
-    this.variable = this.model.get('yvariable').join()
-    this.dpa_flag = "0";
-    /* NEED TO ADD THIS BACK
-    var variables = this.model.get('variable_types');
-    this.variable = null;
-    //loop over variables
-    for(var key in variables) {
-      if(key.indexOf('timestamp') == -1 && (variables[key] == 'int' || variables[key] == 'float')) {
-        this.variable = key;
-        this.yunits = this.model.get('units')[this.variable];
-        this.xunits = this.model.get('units')[this.variable];
-        this.d_type = this.model.get('variables_shape')[this.variable];
-        //if its a dpa product create the flag
-
-        if (this.model.get('variables_shape')[this.variable] == "function"){
-          this.dpa_flag = "1";
-        }else{
-          this.dpa_flag = "0";
-        }
-
-        break;
-      }
-    }
-    */
-    if(this.variable != null) {
-      //done on first render, i.e inital conditions
-      var useLine = "true"
-      var useScatter = "false"
-      var plotLayoutType = "timeseries"
-      this.width = (this.$el.width()/100*90);
-      //st = moment(this.model.get('start'))
-      //ed = st.add('hours',1).format(moment.ISO_8601);
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name +'?' + $.param( {dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.variable,
-                                                                                                    enddate:this.model.get('end'),
-                                                                                                    startdate:this.model.get('start'),
-                                                                                                    height: this.height,
-                                                                                                    width: this.width ,
-                                                                                                    scatter:useScatter,
-                                                                                                    lines:useLine,
-                                                                                                    x_units:this.xunits,
-                                                                                                    y_units:this.yunits,
-                                                                                                    plotLayout:plotLayoutType })
-      //this.fetch();
-    }
-  },
+    setModel: function(options) {
+        this.model = options;
+    },
   getDpaFlag: function(var_list) {
     var self = this
     var dpa_flag = "0";
@@ -308,12 +267,12 @@ var SVGPlotView = SVGView.extend({
         this.dpa_flag = true;
     }
     if(this.yvariable != null && this.xvariable != null) {
-      this.useLine = options.useLine.toString();
-      this.useScatter = options.useScatter.toString();
-      this.useEvent = options.useEvent.toString();
-      this.plotType = options.plotType;
-      this.st = moment(options.start_date).toISOString()
-      this.ed = moment(options.end_date).toISOString()
+      this.useLine = options.attributes.data.useLine.toString();
+      this.useScatter = options.attributes.data.useScatter.toString();
+      this.useEvent = options.attributes.data.useEvent.toString();
+      this.plotType = options.attributes.data.plotType;
+      this.st = moment(options.attributes.start).toISOString();
+      this.ed = moment(options.attributes.end).toISOString();
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.yvariable ,
@@ -332,57 +291,51 @@ var SVGPlotView = SVGView.extend({
   },
   plot: function(options) {
     //requested plot
-    var self = this;
-    this.reference_designator = options.model.get('reference_designator')
-    this.stream_name = this.model.get('stream_name')
-    options.yvar = this.model.get('yvariable')
-
-    if('xvar' in options){
-      options.xvar = ["time"]
-    }else{
-      options.xvar = ["time"]
-    }
+    this.reference_designator = options.attributes.reference_designator;
+    this.stream_name = options.attributes.stream_name;
+    options.yvar = options.attributes.variables;
+    options.xvar = ['time'];
 
     //set the width of the plot, 90% width
     this.width = (this.$el.width()/100)*90;
-
+    this.height = this.width / 3;
     var x_units = "";
     var y_units = "";
 
     if(options && options.yvar && options.xvar) {
       if(!plotParameters.validateSelected(options)) return false;
-      if (options.plotType == 'depthprofile'){
+      if (options.attributes.data.plotType == 'depthprofile'){
         //Variables are backwards, beware
-
-        this.xvariable = null
-        var not_list = []
-        $.each( options.yvar[0][0], function( key, value ) {
+        this.xvariable = null;
+        var not_list = [];
+        $.each( options.yvar, function( key, value ) {
           if (value.indexOf("pressure") > -1){
-            self.xvariable = value
-            y_units = self.model.get('units')[self.xvariable]
+            this.xvariable = value;
+            y_units = options.attributes.units[this.xvariable];
           }else{
             not_list.push(value)
-            x_units = self.model.get('units')[not_list[0]]
+            x_units = options.attributes.units[not_list[0]];
           }
         });
 
         this.yvariable = not_list.join();
         this.dpa_flag = "1"     //this.getDpaFlag(options.xvar)
-      }else if (options.plotType == 'ts_diagram'){
+      }else if (options.attributes.data.plotType == 'ts_diagram'){
         this.yvariable = $("#yvar2-select option:selected").val() + ',' + $("#yvar1-select option:selected").val()
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)
-      }else if (options.plotType == 'quiver'){
+      }else if (options.attributes.data.plotType == 'quiver'){
         this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val()
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)
 
-      }else if (options.plotType == '3d_scatter'){
+      }else if (options.attributes.data.plotType == '3d_scatter'){
         this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val() + ',' + $("#yvar3-select option:selected").val()
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)
 
-      }else if (options.plotType == 'rose'){
+      }else if (options.attributes.data.plotType == 'rose'){
+
         this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val()
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)
@@ -394,12 +347,12 @@ var SVGPlotView = SVGView.extend({
       }
     }
     if(this.yvariable != null && this.xvariable != null && !plotParameters.invalidParam()) {
-      this.useLine = options.useLine.toString();
-      this.useScatter = options.useScatter.toString();
-      this.useEvent = options.useEvent.toString();
-      this.plotType = options.plotType;
-      this.st = moment.utc(options.start_date).toISOString()
-      this.ed = moment.utc(options.end_date).toISOString()
+      this.useLine = options.attributes.data.useLine.toString();
+      this.useScatter = options.attributes.data.useScatter.toString();
+      this.useEvent = options.attributes.data.useEvent.toString();
+      this.plotType = options.attributes.data.plotType;
+      this.st = moment.utc(options.attributes.start).toISOString()
+      this.ed = moment.utc(options.attributes.end).toISOString()
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
                                                                                                     y_units:y_units,
@@ -418,7 +371,7 @@ var SVGPlotView = SVGView.extend({
       this.fetch();
 
     }else{
-      if (options.plotType == 'depthprofile'){
+      if (options.attributes.data.plotType == 'depthprofile'){
         $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> Depth profile requires "pressure" selection</div>')
       }
     }
