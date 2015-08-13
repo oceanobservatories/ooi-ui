@@ -196,7 +196,6 @@ var SVGView = Backbone.View.extend({
   },
   fetch: function() {
     var self = this;
-    console.log('fetched!');
     this.initialRender();
     $.get(this.url,function(svgDoc) {
         var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
@@ -302,10 +301,8 @@ var SVGPlotView = SVGView.extend({
 
     if(options && options.yvar && options.xvar) {
       if(!plotParameters.validateSelected(options)) return false;
-      console.log('pass?');
       if (options.attributes.data.plotType == 'depthprofile'){
         //Variables are backwards, beware
-console.log('deep!');
         this.xvariable = null;
         var not_list = [];
         $.each( options.yvar[0][0], function( key, value ) {
