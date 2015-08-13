@@ -30,22 +30,23 @@
 <div id="wrapper">
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div id="sidebar-wrapper" class="well">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search-filter">
-            <div class="input-group-btn">
-              <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
-            </div>
-            <div id="search-submit" class="input-group-btn">
-              <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </div>
-        <i id="tocSpinner" class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>
-      </div>
+      {% block sidebar %}
+        {{ super() }}
+      {% endblock %}
       <div class="row">
         <div class="col-lg-12">
           <div id="aa-panel" class="panel">
             <div id="aa-panel-body" class="panel-body">
+              <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
+                <i id="current_array" style="color:#337ab7"></i>
+                <i id="current_platform" style="color:#337ab7"></i>
+                <i id="current_instrument" style="color:#337ab7"></i>
+                <i id="current_stream" style="color:#337ab7"></i>
+              </div>
+              <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:35px;'>
+                <i id="create_aa_def_btn"></i>
+              </div>
+
               <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
                 <b>Showing All</b>
               </div>
@@ -117,19 +118,6 @@
               <div class="form-group">
                 <div align="center">
                   <div>
-                    <div class="col-sm-12" id="current_array" style='font-weight:bold;padding-top:35px;'>
-                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Array
-                    </div>
-                    <div class="col-sm-12" id="current_platform" style='font-weight:bold;padding-top:35px;'>
-                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Platform
-                    </div>
-                    <div class="col-sm-12" id="current_instrument" style='font-weight:bold;padding-top:35px;'>
-                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Instrument
-                    </div>
-                    <div class="col-sm-12" id="current_stream" style='font-weight:bold;padding-top:35px;'>
-                      <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Stream
-                    </div>
-
                     <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
                       <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms
                     </div>
@@ -190,40 +178,36 @@
         console.log(options);
         console.log(options.attributes['display_name']);
         console.log(options.attributes['array_code']);
-        $('#current_array').append('<li id="current_array">' + options.attributes['array_code'] + '</li>');
+        $('#current_array').replaceWith('<li id="current_array">' + options.attributes['display_name'] + ' (' + options.attributes['array_code'] + ')</li>');
+        $('#current_platform').replaceWith('<li id="current_platform"></li>');
+        $('#current_instrument').replaceWith('<li id="current_instrument"></li');
+        $('#current_stream').replaceWith('<li id="current_stream"></li>');
+        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
       });
-      this.listenTo(this, 'platformDeploymentItemView:platformSelect', function(options) {
+      this.listenTo(this, 'toc:selectPlatform', function(options) {
         console.log('PLATFORM');
         console.log(options);
-        console.log(options.model.attributes['display_name']);
-        console.log(options.model.attributes['reference_designator']);
-        $('#current_platform').replace('<li id="current_platform">' + options.model.attributes['display_name'] + '</li>');
+        console.log(options.attributes.assetInfo['name']);
+        console.log(options.attributes['ref_des']);
+        $('#current_platform').replaceWith('<li id="current_platform">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
+        $('#current_instrument').replaceWith('<li id="current_instrument"></li');
+        $('#current_stream').replaceWith('<li id="current_stream"></li>');
+        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
       });
-      this.listenTo(this, 'InstrumentItemView:instrumentSelect', function(options) {
+      this.listenTo(this, 'toc:selectInstrument', function(options) {
         console.log(options);
-        console.log(options.model.attributes['display_name']);
-        console.log(options.model.attributes['reference_designator']);
-        $('#current_instrument').replace('<li id="current_instrument">' + options.model.attributes['display_name'] + '</li>');
+        console.log(options.attributes.assetInfo['name']);
+        console.log(options.attributes['ref_des']);
+        $('#current_instrument').replaceWith('<li id="current_instrument">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
+        $('#current_stream').replaceWith('<li id="current_stream"></li>');
+        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
       });
       this.listenTo(this, 'toc:selectStream', function(options) {
         console.log(options);
         console.log(options.model.attributes['display_name']);
         console.log(options.model.attributes['reference_designator']);
-        $('#current_stream').replace('<li id="current_stream">' + options.model.attributes['display_name'] + '</li>');
-      });
-
-      this.listenTo(this, 'DownloadModal:onHide',function(){
-        var modalDownloadView = new ModalDownloadView({
-          el: $('#download-ok-modal')
-        });
-        modalDownloadView.show();
-      });
-
-      this.listenTo(this, 'DownloadModalFail:onFail',function(){
-        var modalDownloadFailView = new ModalDownloadFailView({
-          el: $('#download-fail-modal')
-        });
-        modalDownloadFailView.show();
+        $('#current_stream').replaceWith('<li id="current_stream">' + options.model.attributes['stream_name'] + '</li>');
+        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"><button type="button" id="newAlertAlarmDefinition" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert/Alarm Definition</button></li>');
       });
 
       var arrayFetch = arrayCollection.fetch({ reset: true });
