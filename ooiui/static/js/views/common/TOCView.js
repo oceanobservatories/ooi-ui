@@ -41,6 +41,7 @@ var TOCView = Backbone.View.extend({
         filteredPlatforms.map(function(model) {
             // get the array code from the reference designator
             var arrayCode = model.get('ref_des').substr(0,2);
+            var assCode = model.get('ref_des').substr(0,8);
 
             // set the target to where this item will be inserted.
             var arrayTarget = '#array_'+ arrayCode;
@@ -168,7 +169,7 @@ var AssetItemView = Backbone.View.extend({
         });
         this.listenTo(vent, 'toc:cleanUp', function() {
             if ( this.$el.find('ul.tree').children().length == 0 ) {
-                this.derender();
+                this.$el.attr('style', 'color:grey');
             }
         });
     },
@@ -209,7 +210,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
             this.$el.html( this.template(this.model.toJSON()) );
-            var label = (instrumentName == undefined) ? instrumentId : instrumentName;
+            var label = (instrumentName == undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
@@ -265,106 +266,4 @@ var StreamItemView = Backbone.View.extend({
         this.$el.html( this.template(this.model.toJSON()) );
         return this;
     }
-});
-//--------------------------------------------------------------------------------
-//  NestedItemView
-//--------------------------------------------------------------------------------
-
-var NestedTocItemView = Backbone.View.extend({
-
-  display_name:"",
-  sub_id: "",
-  level:1,
-  key:"",
-  events:{
-    'click a' : 'onClick',
-  },
-  stream_list:[],
-  variable_list:[],
-  initialize: function(options) {
-    var self = this;
-    if(options && options.level && options.key) {
-      self.level = options.level;
-      self.key = options.key;
-    }
-    if(options && options.display_name) {
-      self.display_name = options.display_name;
-    }
-    if(options && options.sub_id) {
-      self.sub_id = options.sub_id;
-    }
-    if(options && options.stream_list) {
-      self.stream_list = options.stream_list;
-    }
-    if(options && options.variable_list) {
-      self.variable_list = options.variable_list;
-    }
-
-  },
-  template: JST['ooiui/static/js/partials/NestedTocItem.html'],
-  onClick: function(e) {
-    e.stopPropagation();
-    this.toggle(e);
-    if(this.level == 1){
-      ooi.trigger('platformDeploymentItemView:platformSelect', this.model);
-    }
-    else if(this.level ==2){
-      ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
-    }
-    else if(this.level ==3){
-      console.log(this.model);
-    }
-  },
-  toggle: function(e) {
-    var self = this
-
-    var current = this.$el.find("ul a #"+(self.level)+"_icon")
-    this.$el.find('#'+self.sub_id).collapse('toggle')
-
-    if (current.hasClass("fa-rotate-90")){
-        current.removeClass("fa-rotate-90");
-        //this.$el.find("ul ."+(self.level+1)+"_item_content").removeClass("in")
-    }
-    else{
-        current.addClass("fa-rotate-90");
-        //this.$el.find("ul ."+(self.level+1)+"_item_content").addClass("in")
-    }
-
-    if (self.level ==3 ){
-      self.instrumentSelect();
-    }
-
-  },
-  instrumentSelect: function(){
-    ooi.trigger('InstrumentItemView:instrumentSelect', this.model);
-  },
-    filterToc: function(){
-        var self = this
-    },
-  render: function(){
-    var self = this;
-    var plottingLink = ""
-    if(this.level == 3) {
-      var mooring = self.model.get('mooring_code')
-      var array = mooring.substr(0,2)
-      var platform = self.model.get('platform_code')
-      var ref = self.model.get('reference_designator')
-      plottingLink = array+"/"+mooring+"/"+platform+"/"+ref
-      var plottingLink = window.location.protocol + '//' + window.location.host+"/plotting/"+plottingLink
-    }
-
-    self.$el.html(self.template({plottingLink:plottingLink,display_name: self.display_name,sub_id : self.sub_id, key:self.key ,level: self.level}));
-
-    if(this.level == 1) {
-      self.$el.toggleClass('sidebar-nav-first-level');
-      //this.$el.collapse('show');
-    } else if(this.level == 2) {
-      self.$el.toggleClass('sidebar-nav-second-level');
-      //self.$el.find(self.key+"_item_content").addClass("collapse")
-    } else if(this.level == 3) {
-      self.$el.toggleClass('sidebar-nav-third-level');
-      self.$el.find(self.key+"_item_content").addClass("collapse")
-      //add popover
-    }
-  }
 });
