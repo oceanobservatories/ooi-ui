@@ -371,9 +371,10 @@ var MapView = Backbone.View.extend({
 
         //reset the event popup
         var eventPopup = ""
-        var name = platforms[0].get('assetInfo')['name']
+        var name = platforms[0].get('assetInfo')['name']      
+        
         if (name == null){
-              name = "Undefined"
+              name = platforms[0].get('ref_des')
         }
 
 
@@ -422,47 +423,30 @@ var MapView = Backbone.View.extend({
             var events = platform_entry.get('events');        
              _.each(events, function(item) {
                 if (item['class'] == ".DeploymentEvent"){
-
-                  if (!hasDeploymentEvent){
-
+                  if (!hasDeploymentEvent){                                                                               
                     // Name
-                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>' +
-                      
-                      // Launch Date      
-                      // '<strong>Launch Date:</strong> '+moment(item['startDate']).utc().format("YYYY-MM-DD")+'<br>'+
-                          
-                      // Lat & Lon
-                      '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot+
-
-                      // Data Catalog
-                      '<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;' +
-                  
-                      // Asset Managment
-                      '<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>'
+                    // Lat & Lon
+                    popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot
+                    // Data Catalog
+                    popupContent+='<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
+                    // Asset Managment
+                    popupContent+='<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
 
-                  if (_.isNull(item['endDate'])){
-                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                  if (_.isNull(item['endDate'])){                    
                     eventContent += '<div class="floatLeft">';
-
-                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
-                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
-                    
+                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
                     eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
 
                   }else{
-                    eventContent += '<div class="floatRight">';
-                    
-                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
-                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
-                    
-                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
-                    
-                    // eventContent += '<li>'+ item['eventId'] + ' | ' + moment(item['startDate']).utc().format("YYYY-MM-DD") +" to "+ moment(item['endDate']).utc().format("YYYY-MM-DD") + ' | '+ item['deploymentNumber'] +'</li>';
+                    eventContent += '<div class="floatRight">';                    
+                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';                    
                   }
                 }
             });
