@@ -351,8 +351,9 @@ var SVGPlotView = SVGView.extend({
       this.useScatter = options.attributes.data.useScatter.toString();
       this.useEvent = options.attributes.data.useEvent.toString();
       this.plotType = options.attributes.data.plotType;
-      this.st = moment.utc(options.attributes.start).toISOString()
-      this.ed = moment.utc(options.attributes.end).toISOString()
+
+      this.st = options.attributes.data.start;
+      this.ed = options.attributes.data.end;
 
       this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
                                                                                                     y_units:y_units,
