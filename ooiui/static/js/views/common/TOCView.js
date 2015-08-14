@@ -45,7 +45,7 @@ var TOCView = Backbone.View.extend({
 
             // set the target to where this item will be inserted.
             var arrayTarget = '#array_'+ arrayCode;
-            if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
+            if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
 
                 var assetItemView = new AssetItemView({ model:model });
 
