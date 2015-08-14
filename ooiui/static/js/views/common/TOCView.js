@@ -41,11 +41,10 @@ var TOCView = Backbone.View.extend({
         filteredPlatforms.map(function(model) {
             // get the array code from the reference designator
             var arrayCode = model.get('ref_des').substr(0,2);
-            var assCode = model.get('ref_des').substr(0,8);
 
             // set the target to where this item will be inserted.
             var arrayTarget = '#array_'+ arrayCode;
-            if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
+            if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
 
                 var assetItemView = new AssetItemView({ model:model });
 
@@ -195,13 +194,14 @@ var AssetItemView = Backbone.View.extend({
         if (this.model.get('asset_class') == '.AssetRecord') {
             var platformName = this.model.get('assetInfo').name;
             var platformId = this.model.get('ref_des').substr(0,8);
-            var assName = this.model.get('ref_des').substr(10,14);
+            var assName = this.model.get('ref_des').substr(9,14);
+            assName = (assName.length > 0) ? '-' + assName : "";
             this.$el.attr('id', platformId);
             this.$el.attr('class', 'platform');
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            var label = (platformName == undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId + "-" + assName +'</span>';
+            var label = (platformName == undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
