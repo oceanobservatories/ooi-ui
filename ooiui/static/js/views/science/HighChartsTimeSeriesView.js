@@ -116,7 +116,15 @@ var TimeseriesView = Backbone.View.extend({
                 series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
               }
             }else{  // Not QAQC
-              series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+              if (typeof model.get(yvar) != 'undefined'){  //Some data doesn't have QAQC values
+                series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
+              }else{
+                 // Add to the notify list
+                addNotify = true;
+                if ($.inArray(yvar, notifyList) == -1){
+                  notifyList.push(yvar);
+                }
+              }
             }
 
           }else if (yvar == "time"){
