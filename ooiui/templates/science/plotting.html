@@ -226,8 +226,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     //set data series options
     this.collections.dataseries.stream = options.attributes.stream_name;
     this.collections.dataseries.ref_des = options.attributes.reference_designator;
-    this.collections.dataseries.startdate = options.attributes.start;
-    this.collections.dataseries.enddate = options.attributes.end;
+    this.collections.dataseries.startdate = options.attributes.data.start;
+    this.collections.dataseries.enddate = options.attributes.data.end;
     //will always be time
     this.collections.dataseries.xparameters = p_xvarList;
     this.collections.dataseries.yparameters = p_yvarList;
@@ -401,7 +401,9 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.attributes.data.xvar = 'time';
       }
       options.attributes.data.multiStation = this.multiStation;
-
+      options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
+      options.attributes.data.end = moment.utc($('#end-date').data('date')).toISOString();
+      // console.log(moment.utc(this.$start_date.data('date')));
       if (options.attributes.data.multiStation){
         options.attributes.data.xvar = "time,time"
         options.attributes.data.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
