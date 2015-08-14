@@ -30,7 +30,7 @@ var MapView = Backbone.View.extend({
       maxZoom: 13
     });
 
-    self.arrayTitle =   { 
+    self.arrayTitle =   {
                          "pioneer":"Coastal Pioneer",
                          "endurance":"Endurance & Cabled Array",
                          "papa":"Station Papa",
@@ -38,8 +38,8 @@ var MapView = Backbone.View.extend({
                          "argentine":"Argentine Basin",
                          "southern":"Southern Ocean"
                         }
-    
-    self.arrayLinks =   { 
+
+    self.arrayLinks =   {
                          "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
                          "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
                          "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
@@ -53,7 +53,7 @@ var MapView = Backbone.View.extend({
                          "papa": new L.LatLngBounds([[52,-150],[46,-139]]),
                          "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
                          "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
-                         "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])                         
+                         "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])
                         }
 
     self.sizeMapping = {"pioneer":[200,300],
@@ -62,16 +62,16 @@ var MapView = Backbone.View.extend({
                          "irminger":[200,250],
                          "argentine":[200,250],
                          "southern":[200,250]
-                        }    
-    
-  
+                        }
+
+
     this.map = L.map(this.el,{
          maxZoom: 10,
          minZoom: 2,
          layers: [Esri_OceanBasemap]
-    });   
-    
-    this.inititalMapBounds = [[63, -143],[-59, -29]]    
+    });
+
+    this.inititalMapBounds = [[63, -143],[-59, -29]]
 
     L.control.mousePosition().addTo(this.map);
 
@@ -154,12 +154,12 @@ var MapView = Backbone.View.extend({
     wmsLayers['Glider Tracks'] = this.gliderLayers;
     this.mapLayerControl = L.control.layers(baseLayers,wmsLayers).addTo(this.map);
 
-    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)    
+    this.listenTo(ooi.models.mapModel, 'change', this.setMapView)
 
     this.collection.fetch({success: function(collection, response, options) {
       self.render();
       return this
-    }});    
+    }});
 
     return this
   },
@@ -172,16 +172,16 @@ var MapView = Backbone.View.extend({
       "opacity": 0.65
     };
 
-    self.gliderCollection.each(function(model) {      
-      var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});      
+    self.gliderCollection.each(function(model) {
+      var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});
       //popup
       var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
-      //bind 
+      //bind
       gliderTrackLayer.bindPopup(popupContent);
       //add
       self.gliderLayers.addLayer(gliderTrackLayer)
-    });     
-    
+    });
+
 
   },
   //deprecated i think
@@ -241,7 +241,7 @@ var MapView = Backbone.View.extend({
 
     var map = this.map;
 
-    map.fitBounds(self.inititalMapBounds);    
+    map.fitBounds(self.inititalMapBounds);
 
 
     //add labels
@@ -260,16 +260,16 @@ var MapView = Backbone.View.extend({
     var popup = null;
     var markerCluster = new L.MarkerClusterGroup({iconCreateFunction: function(cluster) {
                                                       return new L.DivIcon({ html: '<b class="textClusteredMarker">' + '</b>', //cluster.getChildCount() + '</b>' ,
-                                                                             className: 'clusterdMarker', 
+                                                                             className: 'clusterdMarker',
                                                                              iconSize: L.point(40, 40)
                                                                             });
                                                   },
                                                   spiderfyDistanceMultiplier:2,
                                                   showCoverageOnHover: false
-                                                  });    
+                                                  });
 
-    markerCluster.on('clustermouseover', function (a) {            
-      if (map.getZoom() === 3 || map.getZoom()==4 ) {        
+    markerCluster.on('clustermouseover', function (a) {
+      if (map.getZoom() === 3 || map.getZoom()==4 ) {
         var url = null;
         var size = null;
         var title = null;
@@ -278,27 +278,27 @@ var MapView = Backbone.View.extend({
             url = self.arrayLinks[index];
             size = self.sizeMapping[index];
             title = self.arrayTitle[index];
-          }          
+          }
         })
 
         //generate array popup
         popup = L.popup({offset: new L.Point(0, -20)})
-         .setLatLng(a.latlng) 
+         .setLatLng(a.latlng)
          .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
-         
+
          .openOn(map);
-      }else{        
+      }else{
         _.each(self.arrayMapping, function(arrayMap,index) {
           if (arrayMap.contains(a.latlng)){
             url = self.arrayLinks[index];
             size = self.sizeMapping[index];
             title = self.arrayTitle[index];
-          }          
+          }
         })
 
         //generate normal popup
         popup = L.popup({offset: new L.Point(0, -20)})
-         .setLatLng(a.latlng) 
+         .setLatLng(a.latlng)
          .setContent('<div class="cluster-popup"><h4>'+title+'<img id="clusterImg" src="/img/sciMap/OOI_Logo.png"></h4><p>'+a.layer.getAllChildMarkers().length+' assets'+"</p></div>")
          .openOn(map);
       }
@@ -307,7 +307,7 @@ var MapView = Backbone.View.extend({
       //a.layer.getAllChildMarkers().length
 
     });
-    map.on('zoomend', function(e) {  
+    map.on('zoomend', function(e) {
       if (map.getZoom() === 3 || map.getZoom()==4 ) {
         $('.array-title-label').css('display','');
       }else{
@@ -315,7 +315,7 @@ var MapView = Backbone.View.extend({
       }
     });
 
-    map.on('zoomstart', function(e) {            
+    map.on('zoomstart', function(e) {
       if (popup && map) {
           map.closePopup(popup);
           popup = null;
@@ -337,42 +337,42 @@ var MapView = Backbone.View.extend({
 
     var mooringIcon = L.icon({
         iconUrl: '/img/mooring.png',
-        iconSize:     [50, 50], // size of the icon        
-        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        iconSize:     [50, 50], // size of the icon
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
     });
 
     var platformIcon = L.icon({
-        iconUrl: '/img/platform.png',        
-        iconSize:     [50, 50], // size of the icon        
-        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        iconUrl: '/img/platform.png',
+        iconSize:     [50, 50], // size of the icon
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
     });
 
     var gliderIcon = L.icon({
-        iconUrl: '/img/glider.png',        
-        iconSize:     [50, 50], // size of the icon        
-        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location        
+        iconUrl: '/img/glider.png',
+        iconSize:     [50, 50], // size of the icon
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
     });
 
 
     var unique_res_des = _.uniq(res_des_list);
-    _.each(unique_res_des, function(platform_id) {           
-      
-      //get the stations 
+    _.each(unique_res_des, function(platform_id) {
+
+      //get the stations
       var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' })
 
       var lat_lons = []
 
-      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){               
+      if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){
 
-        
+
 
         //reset the event popup
         var eventPopup = ""
-        var name = platforms[0].get('assetInfo')['name']      
-        
+        var name = platforms[0].get('assetInfo')['name']
+
         if (name == null){
               name = platforms[0].get('ref_des')
         }
@@ -394,12 +394,12 @@ var MapView = Backbone.View.extend({
           if (_.isUndefined(platform_val)){
             //itemType = "mooring"
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
-          }else if (name.toLowerCase().indexOf("glider") > -1){      
+          }else if (name.toLowerCase().indexOf("glider") > -1){
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
           }else{
             //itemType = "platform"
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
-          }          
+          }
 
           if (ref_des_split.length > 2){
             var instrument = platform_id
@@ -410,54 +410,54 @@ var MapView = Backbone.View.extend({
           var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
         }else{
           var instrument_plot = ""
-        }    
+        }
 
         var eventContent = '<h5 id="deployEvents"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">';
         var popupContent = ""
         var hasDeploymentEvent = false;
 
         //loop through each to create the popup
-        _.each(platforms, function(platform_entry) {     
+        _.each(platforms, function(platform_entry) {
             lat_lons.push(platform_entry.get('coordinates'))
 
-            var events = platform_entry.get('events');        
+            var events = platform_entry.get('events');
              _.each(events, function(item) {
                 if (item['class'] == ".DeploymentEvent"){
-                  if (!hasDeploymentEvent){                                                                               
+                  if (!hasDeploymentEvent){
                     // Name
                     popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>'
                     // Lat & Lon
                     popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot
                     // Data Catalog
-                    popupContent+='<a href="/streams"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
+                    popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
                     // Asset Managment
                     popupContent+='<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
 
-                  if (_.isNull(item['endDate'])){                    
+                  if (_.isNull(item['endDate'])){
                     eventContent += '<div class="floatLeft">';
-                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
+                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
                     eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
 
                   }else{
-                    eventContent += '<div class="floatRight">';                    
-                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';                  
-                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';                    
-                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';                    
+                    eventContent += '<div class="floatRight">';
+                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item['deploymentNumber'] +'</tr>';
+                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item['startDate']).utc().format("YYYY-MM-DD")+'</td></tr>';
+                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item['endDate']).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
                   }
                 }
             });
         });
-        eventContent += '</div></div>'; 
+        eventContent += '</div></div>';
         popupContent+=eventContent;
 
 
         //only add the item if there are deployment events
-        if (hasDeploymentEvent){   
-          
+        if (hasDeploymentEvent){
+
           platformFeature.bindPopup(popupContent);
 
           platformFeature.on('mouseover', function (e) {
@@ -470,13 +470,13 @@ var MapView = Backbone.View.extend({
           markerCluster.addLayer(platformFeature);
         }
       }
-      
+
     })
 
     map.addLayer(markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
   },
-  setMapView: function(lat_lon,zoom){    
+  setMapView: function(lat_lon,zoom){
     this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
   //end

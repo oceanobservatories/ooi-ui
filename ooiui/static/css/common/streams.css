@@ -1,46 +1,20 @@
-div.banner-image {
-    content: url(/img/OOI_BannerNew_01.png);
-    max-width: 100%;
-    max-height: 100%;
+/* page specific toc styling */
+
+/* formatting for the search field */
+#sidebar-wrapper {
+    padding-top:0px;
+    border-top-width: 22px;
+    border-color: #E9E9E9;
+    -webkit-box-shadow: none;
 }
 
-.message {
-    padding-right: 10px;
-    line-height: 0.2;
+#search {
+    margin-top:0px;
 }
-
-
-.message h1 {
-    font-size: 14px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+#search-clear {
+    margin-top:0px;
 }
-
-.message h3 {
-    margin-top: 5px;
-    font-size: 12px;
+#assetBrowser {
+    margin-top: 55px;
 }
-
-.message h4 {
-    margin-top: 5px;
-    font-size: 6px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.download-link {
-    margin-top: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.download-link a {
-    color: #8eadd2;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.download-link a:hover {
-    color: #6e91b9;
-}
+/* end toc styling */
