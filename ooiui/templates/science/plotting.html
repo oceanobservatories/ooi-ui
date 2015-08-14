@@ -519,8 +519,6 @@ $.when(arrayFetch).done(function() {
         var streamFetch = streamCollection.fetch({ reset: true });
         $.when(streamFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                // right now we need to call this twice...not sure why.
-                vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
             });
         });
