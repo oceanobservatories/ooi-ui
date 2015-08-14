@@ -56,7 +56,7 @@
               <div class="panel-body">
                   <div id="stream-table-view">
                       <table  class="table table-bordered table-striped table-selectable">
-                          <i  class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                          <i  id="streamSpinner" class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
                           <thead>
                           </thead>
                       </table>
@@ -205,6 +205,7 @@ $.when(arrayFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 // right now we need to call this twice...not sure why.
                 vent.trigger('toc:cleanUp');
+                focusToItem();
             });
         });
     });
@@ -256,7 +257,7 @@ function showStreams( collection, response ){
 
 // Empty the table and append the new results.
         $(".table").find("tbody").remove().end();
-        $(".fa-spinner").remove();
+        $("#streamSpinner").remove();
         $(".table").append( streamTableView.el );
     }
 

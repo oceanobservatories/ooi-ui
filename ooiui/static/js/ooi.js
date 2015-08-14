@@ -125,13 +125,15 @@ function focusToItem(e) {
   // get url
   var newURL = window.location.href;
   var afterHashTag = newURL.substr(newURL.indexOf('#') + 1);
+  console.log(newURL + ' ' + afterHashTag);
   if (newURL != afterHashTag) {
       var urlArray = afterHashTag.split('/');
       if (urlArray.length == 2) {
           var ref_des  = urlArray[urlArray.length - 2];
           var stream_name = urlArray[urlArray.length - 1];
-      } else if (urlArray.length == 1) {
-          var ref_des  = urlArray[urlArray.length - 1];
+      } else {
+          console.log('test');
+          var ref_des  = afterHashTag;
           var stream_name = "";
       }
 
@@ -142,7 +144,8 @@ function focusToItem(e) {
           $('#'+ref_des+'-'+stream_name).trigger('click');
           $('li#'+ref_des+'-'+stream_name).focus();
       }else{
-          $('#'+ref_des).parents().eq(2).toggle(300);
+          ref_des = ref_des.substring(0,8);
+          console.log(ref_des);
           $('#'+ref_des).parents().eq(0).toggle(300);
           $('#'+ref_des+'> label').trigger('click');
       }
