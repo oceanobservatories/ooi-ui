@@ -520,6 +520,7 @@ $.when(arrayFetch).done(function() {
         $.when(streamFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 vent.trigger('toc:cleanUp');
+                focusToItem();
             });
         });
     });

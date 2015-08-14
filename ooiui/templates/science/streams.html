@@ -137,27 +137,20 @@ _.extend(OOI.prototype, Backbone.Events, {
     /* Dispatcher Section */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
+
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
-        row.focus();
+            row.focus();
+            console.log(row);
 
-      //get the model
-      var ref_des = row.model.get('reference_designator')
-      var ref_des_split = ref_des.split("-")
-      //get the current location
-      if (!location.origin)
-        location.origin = location.protocol + "//" + location.host;
+            //get the model
+            var ref_des = row.model.get('reference_designator');
+            var stream_name = row.model.get('stream_name');
+            //get the current location
+            if (!location.origin);
+            location.origin = location.protocol + "//" + location.host;
 
-      //get the parts
-      var array = ref_des.substring(0, 2);
-      var mooring = ref_des_split[0]
-      var platform = ref_des_split[1]
-      var instrument = ref_des
-      var instrument_url = [array, mooring, platform , instrument].join("/");
-
-      var win = window.open(location.origin+"/plotting/"+instrument_url, '_blank');
-      win.focus();
-
-
+            var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
+            win.focus();
     });
 
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
@@ -211,7 +204,6 @@ $.when(arrayFetch).done(function() {
         $.when(streamFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 // right now we need to call this twice...not sure why.
-                vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
             });
         });

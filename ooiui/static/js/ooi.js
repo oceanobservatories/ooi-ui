@@ -119,7 +119,34 @@ function updateCollection( assetCallback ){
         data : data,
         success : assetCallback,
     });
+}
+function focusToItem(e) {
+    //From Dan L. by M@C
+  // get url
+  var newURL = window.location.href;
+  var afterHashTag = newURL.substr(newURL.indexOf('#') + 1);
+  if (newURL != afterHashTag) {
+      var urlArray = afterHashTag.split('/');
+      if (urlArray.length == 2) {
+          var ref_des  = urlArray[urlArray.length - 2];
+          var stream_name = urlArray[urlArray.length - 1];
+      } else if (urlArray.length == 1) {
+          var ref_des  = urlArray[urlArray.length - 1];
+          var stream_name = "";
+      }
 
+      if (stream_name.length > 0) {
+          $('#'+ref_des).parents().eq(2).toggle(300);
+          $('#'+ref_des).parents().eq(0).toggle(300);
+          $('#'+ref_des+'> label').trigger('click');
+          $('#'+ref_des+'-'+stream_name).trigger('click');
+          $('li#'+ref_des+'-'+stream_name).focus();
+      }else{
+          $('#'+ref_des).parents().eq(2).toggle(300);
+          $('#'+ref_des).parents().eq(0).toggle(300);
+          $('#'+ref_des+'> label').trigger('click');
+      }
+  }
 }
 
 // global document controller
