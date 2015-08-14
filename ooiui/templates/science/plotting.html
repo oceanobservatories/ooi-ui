@@ -472,7 +472,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
-      self.views.plotEventListView.render();
+      $.when(self.views.plotEventListView.render()).done(function() {
+        $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });  
+      });
     });
 
     this.listenTo(this, 'SVGPlotView:elementClick', function(idx) {
@@ -590,9 +592,9 @@ $(document).ready(function() {
     ooi.multiStation = true;
     $('#plot-item-selection2').show();
   });
-
   var svgUrl = '/svg/plotdemo';
 });
+
 
 function jump(h){
   var url = location.href;               //Save down the URL without hash.
