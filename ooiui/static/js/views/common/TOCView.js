@@ -43,7 +43,7 @@ var TOCView = Backbone.View.extend({
                 // get the array code from the reference designator
                 var arrayCode = model.get('ref_des').substr(0,2);
                 // set the target to where this item will be inserted.
-                var arrayTarget = '#array_'+ arrayCode;
+                var arrayTarget = String('#array_'+ arrayCode);
                 if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
                     var assetItemView = new AssetItemView({ model:model });
                     $( arrayTarget ).append( assetItemView.render().el );
@@ -57,7 +57,7 @@ var TOCView = Backbone.View.extend({
             try {
                 var platformCode = model.get('ref_des').substr(0,8);
                 // set the target to where this item will be inserted.
-                var platformTarget = 'ul#'+platformCode;
+                var platformTarget = String('ul#'+platformCode);
                 if ( document.getElementById( model.get('ref_des')) == null ) {
                     var assetItemView = new AssetItemView({ model:model });
                     $( platformTarget ).append( assetItemView.render().el );
@@ -72,7 +72,7 @@ var TOCView = Backbone.View.extend({
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
-                    var instrumentTarget = 'ul#'+instrumentCode;
+                    var instrumentTarget = String('ul#'+instrumentCode);
                     var streamItemView = new StreamItemView({ model:model });
                     $( instrumentTarget ).append( streamItemView.render().el );
                 } catch (e) {
