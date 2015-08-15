@@ -49,7 +49,8 @@ var TOCView = Backbone.View.extend({
                     $( arrayTarget ).append( assetItemView.render().el );
                 }
             } catch(e) {
-                console.log(e);
+                console.log('Error: Asset does not have reference designator:'+ model.get('id'));
+                //console.log(e);
             }
         });
 
@@ -63,7 +64,8 @@ var TOCView = Backbone.View.extend({
                     $( platformTarget ).append( assetItemView.render().el );
                 }
             }catch (e) {
-                console.log(e);
+                console.log('Error: Asset does not have reference designator:'+model.get('id'));
+                //console.log(e);
             }
         });
     },
@@ -76,7 +78,8 @@ var TOCView = Backbone.View.extend({
                     var streamItemView = new StreamItemView({ model:model });
                     $( instrumentTarget ).append( streamItemView.render().el );
                 } catch (e) {
-                    console.log(e);
+                    console.log('Error: Asset does not have reference designator:'+model.get('id'));
+                    //console.log(e);
                 }
             });
         }
