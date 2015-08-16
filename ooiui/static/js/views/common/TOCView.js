@@ -37,44 +37,54 @@ var TOCView = Backbone.View.extend({
         // render it in the browser as a platform or instrument.
         var filteredPlatforms = this.assetCollection.byClass('.AssetRecord');
         var filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord');
-
+        var log = [];
         filteredPlatforms.map(function(model) {
             try {
                 // get the array code from the reference designator
                 var arrayCode = model.get('ref_des').substr(0,2);
                 // set the target to where this item will be inserted.
-                var arrayTarget = String('#array_'+ arrayCode);
-                if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
+                var arrayTarget = '#array_'+ arrayCode;
+                if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
                     var assetItemView = new AssetItemView({ model:model });
                     $( arrayTarget ).append( assetItemView.render().el );
                 }
             } catch(e) {
-                console.log('Error: Asset does not have reference designator:'+ model.get('id'));
+                log.push("Platform with invalid reference designator:" + model.get('id'));
                 //console.log(e);
             }
         });
 
         filteredInstruments.map(function(model) {
             try {
-                var platformCode = model.get('ref_des').substr(0,8);
+                var platformCode = model.get('ref_des').substr(0,14);
                 // set the target to where this item will be inserted.
-                var platformTarget = String('ul#'+platformCode);
-                if ( document.getElementById( model.get('ref_des')) == null ) {
-                    var assetItemView = new AssetItemView({ model:model });
-                    $( platformTarget ).append( assetItemView.render().el );
+
+                if ( document.getElementById(platformCode) == null ) {
+                    platformCode = model.get('ref_des').substr(0,8);
                 }
+                var platformTarget = 'ul#'+platformCode;
+                var assetItemView = new AssetItemView({ model:model });
+                $( platformTarget ).append( assetItemView.render().el );
             }catch (e) {
-                console.log('Error: Asset does not have reference designator:'+model.get('id'));
+                log.push("Instrument with invalid reference designator:" + model.get('id'));
                 //console.log(e);
             }
         });
+        if (log.length > 0) {
+            var errorObj = { 'TOC error' : log };
+            console.log(errorObj);
+        }
     },
     renderStreams: function() {
         if ( this.streamCollection != undefined ) {
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
-                    var instrumentTarget = String('ul#'+instrumentCode);
+                    if ( document.getElementById( instrumentCode ) == null ){
+                        instrumentCode = model.get('reference_designator').substring(0,8);
+                    }
+                    var instrumentTarget = 'ul#'+instrumentCode;
+
                     var streamItemView = new StreamItemView({ model:model });
                     $( instrumentTarget ).append( streamItemView.render().el );
                 } catch (e) {
@@ -203,13 +213,13 @@ var AssetItemView = Backbone.View.extend({
             var platformId = this.model.get('ref_des').substr(0,8);
             var assName = this.model.get('ref_des').substr(9,14);
             assName = (assName.length > 0) ? '-' + assName : "";
-            this.$el.attr('id', platformId);
+            this.$el.attr('id', platformId+assName);
             this.$el.attr('class', 'platform');
             this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            var label = (platformName == undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+            var label = (platformName == undefined) ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assName +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
             // of the entire Reference Designator

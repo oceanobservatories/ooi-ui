@@ -154,7 +154,6 @@ $.when(arrayFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 // right now we need to call this twice...not sure why.
                 vent.trigger('toc:cleanUp');
-                vent.trigger('toc:cleanUp');
             });
         });
     });
