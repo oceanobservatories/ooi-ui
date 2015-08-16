@@ -39,41 +39,48 @@ var TOCView = Backbone.View.extend({
         var filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord');
 
         filteredPlatforms.map(function(model) {
-            // get the array code from the reference designator
-            var arrayCode = model.get('ref_des').substr(0,2);
-
-            // set the target to where this item will be inserted.
-            var arrayTarget = '#array_'+ arrayCode;
-            if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
-
-                var assetItemView = new AssetItemView({ model:model });
-
-                $( arrayTarget ).append( assetItemView.render().el );
+            try {
+                // get the array code from the reference designator
+                var arrayCode = model.get('ref_des').substr(0,2);
+                // set the target to where this item will be inserted.
+                var arrayTarget = String('#array_'+ arrayCode);
+                if ( document.getElementById( model.get('ref_des').substring(0,8)) == null ) {
+                    var assetItemView = new AssetItemView({ model:model });
+                    $( arrayTarget ).append( assetItemView.render().el );
+                }
+            } catch(e) {
+                console.log('Error: Asset does not have reference designator:'+ model.get('id'));
+                //console.log(e);
             }
-
         });
 
         filteredInstruments.map(function(model) {
-            var coord = model.get('coordinates');
-
-            var platformCode = model.get('ref_des').substr(0,8);
-
-            // set the target to where this item will be inserted.
-            var platformTarget = 'ul#'+platformCode;
-            if ( document.getElementById( model.get('ref_des')) == null ) {
-                var assetItemView = new AssetItemView({ model:model });
-
-                $( platformTarget ).append( assetItemView.render().el );
+            try {
+                var platformCode = model.get('ref_des').substr(0,8);
+                // set the target to where this item will be inserted.
+                var platformTarget = String('ul#'+platformCode);
+                if ( document.getElementById( model.get('ref_des')) == null ) {
+                    var assetItemView = new AssetItemView({ model:model });
+                    $( platformTarget ).append( assetItemView.render().el );
+                }
+            }catch (e) {
+                console.log('Error: Asset does not have reference designator:'+model.get('id'));
+                //console.log(e);
             }
         });
     },
     renderStreams: function() {
         if ( this.streamCollection != undefined ) {
             this.streamCollection.map( function(model) {
-                var instrumentCode = model.get('reference_designator');
-                var instrumentTarget = 'ul#'+instrumentCode;
-                var streamItemView = new StreamItemView({ model:model });
-                $( instrumentTarget ).append( streamItemView.render().el );
+                try {
+                    var instrumentCode = model.get('reference_designator');
+                    var instrumentTarget = String('ul#'+instrumentCode);
+                    var streamItemView = new StreamItemView({ model:model });
+                    $( instrumentTarget ).append( streamItemView.render().el );
+                } catch (e) {
+                    console.log('Error: Asset does not have reference designator:'+model.get('id'));
+                    //console.log(e);
+                }
             });
         }
     },

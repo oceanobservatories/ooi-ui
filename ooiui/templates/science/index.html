@@ -32,8 +32,8 @@
             {% block sidebar %}
                 {{ super() }}
             {% endblock %}
-            <div class="col-lg-12">               
-                <div class="map-view" id='map'></div>                                    
+            <div class="col-lg-12">
+                <div class="map-view" id='map'></div>
             </div> <!-- col-lg-12 -->
         </div> <!-- row -->
     </div> <!-- container-fluid -->
@@ -93,13 +93,15 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(this, "toc:selectPlatform", function(model) {
             var coors = model.get('coordinates');
-            self.views.mapView.setMapView(coors,6); // recenters
+            self.views.mapView.setMapView(coors,10); // recenters
         });
 
         this.listenTo(this, 'toc:selectInstrument', function(model) {
+                //TODO: Leave this out for now, it's too confusing.
+            /*
             if ('coordinates' in model.attributes){
                 self.views.mapView.setMapView(model.get('coordinates'),100); // recenters
-            }
+            }*/
         });
 
         this.listenTo(this, 'toc:selectStream', function(options) {
