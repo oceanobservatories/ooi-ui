@@ -184,8 +184,9 @@ var AssetItemView = Backbone.View.extend({
             this.derender();
         });
         this.listenTo(vent, 'toc:cleanUp', function() {
+            // if the item doesn't have any children, grey it out.
             if ( this.$el.find('ul.tree').children().length == 0 ) {
-                this.$el.attr('style', 'color:grey');
+                this.$el.addClass('no-children');
             }
         });
     },
