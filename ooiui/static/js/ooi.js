@@ -141,8 +141,12 @@ function focusToItem(e) {
           $('#'+ref_des+'> label').trigger('click');
           $('#'+ref_des+'-'+stream_name).trigger('click');
           $('li#'+ref_des+'-'+stream_name).focus();
-      }else{
+      } else if ( ref_des.length == 8) {
           ref_des = ref_des.substring(0,8);
+          $('#'+ref_des).parents().eq(0).toggle(300);
+          $('#'+ref_des+'> label').trigger('click');
+      } else if ( ref_des.length == 14) {
+          ref_des = ref_des.substring(0,14);
           $('#'+ref_des).parents().eq(0).toggle(300);
           $('#'+ref_des+'> label').trigger('click');
       }
