@@ -289,8 +289,6 @@ var MapView = Backbone.View.extend({
 
     var map = this.map;
 
-    self.selectedMarker = null;
-
     map.fitBounds(self.inititalMapBounds);
 
 
