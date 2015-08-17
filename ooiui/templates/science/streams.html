@@ -173,7 +173,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     // TOC Controls
     this.listenTo(this, 'toc:selectPlatform', function(model) {
-        var searchFor = model.get('ref_des').substr(0,8);
+        var searchFor = model.get('ref_des').substr(0,14);
         $('#search').val(searchFor);
         $('#search-clear').show();
         updateCollection( showStreams );

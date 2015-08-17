@@ -148,3 +148,7 @@ button#search-clear {
 #streamPanel {
   padding-left: 15px;
 }
+/* styling for items with no children */
+.no-children {
+    color: grey;
+}
