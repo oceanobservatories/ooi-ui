@@ -37,7 +37,6 @@ var AddAnnotationView = Backbone.View.extend({
     });
     this.model.save(null, {
       success: function() {
-        console.log("I'm calling hide");
         self.hide();
         ooi.trigger('AddAnnotationView:addAnnotation', self.model);
       }

@@ -464,6 +464,16 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
+
+      var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      console.log(bounds)
+
+
+      var min = moment.utc(bounds.dataMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+      var max = moment.utc(bounds.dataMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+
+      debugger; 
+      
       var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
                                        "beginDT":self.models.downloadModel.model.get("start"),
                                        "endDT":self.models.downloadModel.model.get("start"),

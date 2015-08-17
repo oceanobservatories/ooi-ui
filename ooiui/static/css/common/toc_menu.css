@@ -2,8 +2,14 @@
     max-height:80%;
 }
 #assetBrowser {
-    margin-top:25px;
+    margin-top:5px;
 }
+
+.toc-header{
+    margin-left: 15px;
+    text-align: left;
+}
+
 #array {
     background-color:
 }
