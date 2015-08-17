@@ -407,7 +407,7 @@ var MapView = Backbone.View.extend({
           }else{
             var instrument_url = [array, mooring, platform_val].join("/");
           }
-          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
+//          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
         }else{
           var instrument_plot = ""
         }
@@ -425,11 +425,13 @@ var MapView = Backbone.View.extend({
                 if (item['class'] == ".DeploymentEvent"){
                   if (!hasDeploymentEvent){
                     // Name
-                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>'
+                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>';
                     // Lat & Lon
-                    popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + instrument_plot
+                    popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + '</div>';
+                    // Plotting
+                    popupContent += '<br><br><div><a href="/plotting/#'+platforms[0].get('ref_des')+'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
                     // Data Catalog
-                    popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
+                    popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
                     // Asset Managment
                     popupContent+='<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
