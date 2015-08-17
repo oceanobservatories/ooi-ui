@@ -108,12 +108,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(this, 'toc:selectInstrument', function(model) {            
             //set the marker popup
-            self.views.mapView.selectMarker(model,"instrument",true)
+            //self.views.mapView.selectMarker(model,"instrument",true)
         });
 
         this.listenTo(this, 'toc:selectStream', function(options) {
             //set the marker popup
-            self.views.mapView.selectMarker(options,"stream",true)
+            //self.views.mapView.selectMarker(options,"stream",true)
         });
 
         this.listenTo(this, 'NavbarView:sidebarToggle', function() {
