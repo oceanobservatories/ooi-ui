@@ -515,15 +515,14 @@ var streamCollection    = new StreamCollection();
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
-$.when(arrayFetch).done(function() {
-    var assetFetch = assetCollection.fetch({ data: data, reset: true });
-    $.when(assetFetch).done(function() {
-        var streamFetch = streamCollection.fetch({ reset: true });
-        $.when(streamFetch).done(function() {
-            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                vent.trigger('toc:cleanUp');
-                focusToItem();
-            });
+var assetFetch = assetCollection.fetch({ data: data, reset: true });
+var streamFetch = streamCollection.fetch({ reset: true });
+$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+    $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+        vent.trigger('toc:cleanUp');
+        $.when(focusToItem()).done(function() {
+              //if the page is loaded, and the instrument defined, auto click the parameter's list.
+              $('#yvar0-selection-default>div>div>button').trigger('click');
         });
     });
 });
@@ -560,6 +559,7 @@ $(document).ready(function() {
   });
 
   var svgUrl = '/svg/plotdemo';
+
 });
 
 function jump(h){

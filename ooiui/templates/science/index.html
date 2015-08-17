@@ -154,17 +154,13 @@ var streamCollection    = new StreamCollection();
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
-$.when(arrayFetch).done(function() {
-    var assetFetch = assetCollection.fetch({ data: data, reset: true });
-    $.when(assetFetch).done(function() {
-        var streamFetch = streamCollection.fetch({ data: data,  reset: true });
-        $.when(streamFetch).done(function() {
-            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                // right now we need to call this twice...not sure why.
-                vent.trigger('toc:cleanUp');
-                focusToItem();
-            });
-        });
+var assetFetch = assetCollection.fetch({ data: data, reset: true });
+var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+    $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+        // right now we need to call this twice...not sure why.
+        vent.trigger('toc:cleanUp');
+        focusToItem();
     });
 });
 
@@ -197,7 +193,6 @@ $(document).ready(function() {
         $.when(assetFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 console.log('triggered');
-                vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
             });
         });
