@@ -267,13 +267,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
-    });
-
-
-    this.listenTo(this.collections.dataseries, 'reset', function(series) {
-      this.views.timeseriesView.collection = series;
-      this.views.timeseriesView.render();
-    });
+    });    
 
     //The plotting buttons
     this.views.plottingItemSelection = new PlottingSelectionView({
@@ -434,17 +428,44 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       }
     });
+    
+    //render the time series data
+    this.listenTo(this.collections.dataseries, 'reset', function(series) {
+      this.views.timeseriesView.collection = series;
+      this.views.timeseriesView.render();
 
-    this.listenTo(self.collections.annotations, 'reset', function(collection) {
-      self.views.annotationTableView.collection = collection;
-      self.views.annotationTableView.render();
+      self.collections.annotations.each(function(annotation,i) {  
+        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+                from: moment.utc(annotation.get('beginDT')),
+                to: moment.utc(annotation.get('endDT')),
+                color: '#FCFFC5',
+                label: { 
+                  text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label. 
+                  align: 'left', // Positioning of the label. 
+                  x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+                },
+                id: 'plot-band-'+annotation.get('ui_id')
+        });
+      });
+
+      //render the annotations
+      var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      
     });
 
+    //render the annotations
+    this.listenTo(self.collections.annotations, 'reset', function(collection) {
+      self.views.annotationTableView.collection = collection;
+      self.views.annotationTableView.render();            
+    });
+
+    //  
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
       self.views.plotEventListView.render();
     });
 
+    //
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
       self.collections.annotations.add(model);
       self.views.annotationTableView.render();
@@ -466,17 +487,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
 
       var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
-      console.log(bounds)
 
-
-      var min = moment.utc(bounds.dataMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-      var max = moment.utc(bounds.dataMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-
-      debugger; 
+      var min = moment.utc(bounds.userMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+      var max = moment.utc(bounds.userMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";   
       
       var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
-                                       "beginDT":self.models.downloadModel.model.get("start"),
-                                       "endDT":self.models.downloadModel.model.get("start"),
+                                       "beginDT":min,
+                                       "endDT":max,
                                        "method":self.models.downloadModel.model.get("stream_name"),
                                        "stream_name":self.models.downloadModel.model.get("stream_name")
                                       });
