@@ -45,8 +45,11 @@ var TOCView = Backbone.View.extend({
                 // set the target to where this item will be inserted.
                 var arrayTarget = '#array_'+ arrayCode;
                 if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
-                    var assetItemView = new AssetItemView({ model:model });
-                    $( arrayTarget ).append( assetItemView.render().el );
+                    // TODO: Remove this - only for 08/17/2015 demo: M@C
+                    if ( !(model.get('ref_des').indexOf('-000') > -1 ) ) {
+                        var assetItemView = new AssetItemView({ model:model });
+                        $( arrayTarget ).append( assetItemView.render().el );
+                    }
                 }
             } catch(e) {
                 //log.push("Platform with invalid reference designator:" + model.get('id'));
