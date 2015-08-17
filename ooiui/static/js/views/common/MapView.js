@@ -249,8 +249,7 @@ var MapView = Backbone.View.extend({
     ref_des = new_split.join('-');
 
     var found = false
-
-    console.log(ref_des,type,".....");
+    
     //close all open markers
     _.each(this.markerCluster.getLayers(), function(marker) {      
         marker.closePopup();      
