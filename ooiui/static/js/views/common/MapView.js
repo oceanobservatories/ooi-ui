@@ -439,12 +439,12 @@ var MapView = Backbone.View.extend({
           var platformFeature = null
           if (_.isUndefined(platform_val)){
             //itemType = "mooring"
-            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
+            platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
           }else if (name.toLowerCase().indexOf("glider") > -1){
-            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
+            platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
           }else{
             //itemType = "platform"
-            platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
+            platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
           }
 
           platformFeature.options.alt = platforms[0].get('ref_des')          
@@ -508,14 +508,7 @@ var MapView = Backbone.View.extend({
         //only add the item if there are deployment events
         if (hasDeploymentEvent){
 
-          platformFeature.bindPopup(popupContent);
-
-          platformFeature.on('mouseover', function (e) {
-            this.openPopup();
-          });
-          platformFeature.on('click', function (e) {
-              this.closePopup();
-          });
+          platformFeature.bindPopup(popupContent,{offset: new L.Point(0, 0),showOnMouseOver: true});                
 
           self.markerCluster.addLayer(platformFeature);
         }
@@ -525,10 +518,103 @@ var MapView = Backbone.View.extend({
 
     map.addLayer(self.markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
+
   },
   setMapView: function(lat_lon,zoom){
     this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
   }
   //end
+});
+
+
+var OOICustomMarker = L.Marker.extend({
+ 
+    bindPopup: function(htmlContent, options) {
+          
+    if (options && options.showOnMouseOver) {
+      
+      // call the super method
+      L.Marker.prototype.bindPopup.apply(this, [htmlContent, options]);
+      
+      // unbind the click event
+      this.off("click", this.openPopup, this);
+      
+      // bind to mouse over
+      this.on("mouseover", function(e) {
+        
+        // get the element that the mouse hovered onto
+        var target = e.originalEvent.fromElement || e.originalEvent.relatedTarget;
+        var parent = this._getParent(target, "leaflet-popup");
+ 
+        // check to see if the element is a popup, and if it is this marker's popup
+        if (parent == this._popup._container)
+          return true;
+        
+        // show the popup
+        this.openPopup();
+        
+      }, this);
+      
+      // and mouse out
+      this.on("mouseout", function(e) {
+        
+        // get the element that the mouse hovered onto
+        var target = e.originalEvent.toElement || e.originalEvent.relatedTarget;
+        
+        // check to see if the element is a popup
+        if (this._getParent(target, "leaflet-popup")) {
+ 
+          L.DomEvent.on(this._popup._container, "mouseout", this._popupMouseOut, this);
+          return true;
+ 
+        }
+        
+        // hide the popup
+        this.closePopup();
+        
+      }, this);
+      
+    }
+    
+  },
+ 
+  _popupMouseOut: function(e) {
+      
+    // detach the event
+    L.DomEvent.off(this._popup, "mouseout", this._popupMouseOut, this);
+ 
+    // get the element that the mouse hovered onto
+    var target = e.toElement || e.relatedTarget;
+    
+    // check to see if the element is a popup
+    if (this._getParent(target, "leaflet-popup"))
+      return true;
+    
+    // check to see if the marker was hovered back onto
+    if (target == this._icon)
+      return true;
+    
+    // hide the popup
+    this.closePopup();
+    
+  },
+  
+  _getParent: function(element, className) {
+    
+    var parent = element.parentNode;
+    
+    while (parent != null) {
+      
+      if (parent.className && L.DomUtil.hasClass(parent, className))
+        return parent;
+      
+      parent = parent.parentNode;
+      
+    }
+    
+    return false;
+    
+  }
+ 
 });
 

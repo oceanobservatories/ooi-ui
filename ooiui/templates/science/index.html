@@ -84,7 +84,7 @@ _.extend(OOI.prototype, Backbone.Events, {
             //when the glider fetch is done update the map
             self.views.mapView.gliderCollection = self.collections.gliderCollection;
             self.views.mapView.add_glider_tracks();
-        });
+        });        
 
         this.listenTo(this, "toc:selectArray", function(model) {
             var coors = model.get('geo_location')['coordinates'][0][0]
@@ -181,7 +181,8 @@ function resizeMap() {
 var ooi = new OOI();
 
 $(document).ready(function() {
-    ooi.start();
+    ooi.start();    
+
     $('#navbar').prepend(navbar.el);
     resizeMap();
     $('#search-clear').click(function(e){
