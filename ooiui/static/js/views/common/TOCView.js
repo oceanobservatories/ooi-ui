@@ -263,8 +263,11 @@ var StreamItemView = Backbone.View.extend({
                 var parameterId = this.model.get('parameter_id')[i];
                 var units = this.model.get('units')[i];
                 var variable = this.model.get('variables')[i];
-                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                param_list.push(variable);
+                if (variable.toLowerCase() != "time"){
+                    parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                    param_list.push(variable);
+                }
+                
             }
         }
         $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
