@@ -94,18 +94,26 @@ _.extend(OOI.prototype, Backbone.Events, {
         this.listenTo(this, "toc:selectPlatform", function(model) {
             var coors = model.get('coordinates');
             self.views.mapView.setMapView(coors,10); // recenters
+            
+            var css_display = $($('#'+model.get('ref_des')).find('.nav-list')[0]).css('display');
+            var display = true;
+            if (css_display == "none"){
+                //leave it true
+            }else{
+                display = false;
+            }
+            //set the marker popup
+            self.views.mapView.selectMarker(model,"platform",display);        
         });
 
-        this.listenTo(this, 'toc:selectInstrument', function(model) {
-                //TODO: Leave this out for now, it's too confusing.
-            /*
-            if ('coordinates' in model.attributes){
-                self.views.mapView.setMapView(model.get('coordinates'),100); // recenters
-            }*/
+        this.listenTo(this, 'toc:selectInstrument', function(model) {            
+            //set the marker popup
+            //self.views.mapView.selectMarker(model,"instrument",true)
         });
 
         this.listenTo(this, 'toc:selectStream', function(options) {
-            // TODO: Trigger pop up on map cursor icon.
+            //set the marker popup
+            //self.views.mapView.selectMarker(options,"stream",true)
         });
 
         this.listenTo(this, 'NavbarView:sidebarToggle', function() {

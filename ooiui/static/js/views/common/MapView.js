@@ -233,6 +233,54 @@ var MapView = Backbone.View.extend({
     var gliderTrackLayer = L.geoJson(gliderTrackLine, {style: gliderTrackStyle});
     return gliderTrackLayer
   },
+  //toc selected item
+  selectMarker: function(select_model,type,show_popoup){
+    var self = this;
+    if (type == "stream"){
+      var ref_des = select_model.model.get('reference_designator')
+    }else{
+      var ref_des = select_model.get('ref_des')  
+    }
+
+    var split = ref_des.split('-');
+    var new_split  = []
+    new_split.push(split[0]);
+    new_split.push(split[1]);
+    ref_des = new_split.join('-');
+
+    var found = false
+    
+    //close all open markers
+    _.each(this.markerCluster.getLayers(), function(marker) {      
+        marker.closePopup();      
+    });
+      
+    //we only want to show popups on the expand
+    if (show_popoup){
+      //initial pass and open spider for popup
+      _.each(this.markerCluster.getLayers(), function(marker) {
+        if (marker.options.alt == ref_des){    
+          self.map.panTo(marker.getLatLng());    
+          if (!marker._icon) marker.__parent.spiderfy();
+          marker.openPopup();
+          found = true;
+        }
+      });
+
+      //if its not found remove a section of the ref_des to identify it
+      if (found == false){
+        var ref_des = ref_des.split('-')[0];
+        _.each(this.markerCluster.getLayers(), function(marker) {        
+          if (marker.options.alt == ref_des){    
+            self.map.panTo(marker.getLatLng());    
+            if (!marker._icon) marker.__parent.spiderfy();
+            marker.openPopup();
+            found = true;
+          }
+        });
+      }
+    }
+  },
   //renders a simple map view
   render: function() {
     var self = this;
@@ -258,7 +306,7 @@ var MapView = Backbone.View.extend({
 
 
     var popup = null;
-    var markerCluster = new L.MarkerClusterGroup({iconCreateFunction: function(cluster) {
+    self.markerCluster = new L.MarkerClusterGroup({iconCreateFunction: function(cluster) {
                                                       return new L.DivIcon({ html: '<b class="textClusteredMarker">' + '</b>', //cluster.getChildCount() + '</b>' ,
                                                                              className: 'clusterdMarker',
                                                                              iconSize: L.point(40, 40)
@@ -268,7 +316,7 @@ var MapView = Backbone.View.extend({
                                                   showCoverageOnHover: false
                                                   });
 
-    markerCluster.on('clustermouseover', function (a) {
+    self.markerCluster.on('clustermouseover', function (a) {
       if (map.getZoom() === 3 || map.getZoom()==4 ) {
         var url = null;
         var size = null;
@@ -322,7 +370,7 @@ var MapView = Backbone.View.extend({
       }
     });
 
-    markerCluster.on('clustermouseout', function (e) {
+    self.markerCluster.on('clustermouseout', function (e) {
       if (map.getZoom() === 3 || map.getZoom()==4 ) {
         if (popup && map) {
           map.closePopup(popup);
@@ -401,6 +449,8 @@ var MapView = Backbone.View.extend({
             platformFeature = L.marker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
           }
 
+          platformFeature.options.alt = platforms[0].get('ref_des')          
+
           if (ref_des_split.length > 2){
             var instrument = platform_id
             var instrument_url = [array, mooring, platform_val , instrument].join("/");
@@ -469,13 +519,13 @@ var MapView = Backbone.View.extend({
               this.closePopup();
           });
 
-          markerCluster.addLayer(platformFeature);
+          self.markerCluster.addLayer(platformFeature);
         }
       }
 
     })
 
-    map.addLayer(markerCluster);
+    map.addLayer(self.markerCluster);
     L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
   },
   setMapView: function(lat_lon,zoom){
