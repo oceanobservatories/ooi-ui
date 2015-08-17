@@ -152,3 +152,6 @@ button#search-clear {
 .no-children {
     color: grey;
 }
+.detached {
+    color: red;
+}

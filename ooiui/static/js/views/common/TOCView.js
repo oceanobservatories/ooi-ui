@@ -17,7 +17,7 @@ var TOCView = Backbone.View.extend({
         'keyup #search-filter' : 'filterToc'
     },
     initialize: function(options){
-        _.bindAll(this, "render", "derender", "renderArrays", "renderAssets", "renderStreams");
+        _.bindAll(this, "render", "derender", "renderArrays", "renderAssets", "renderStreams", "renderHomelessStreams");
         this.arrayCollection = options.arrayCollection;
         this.assetCollection = options.assetCollection;
         this.streamCollection = options.streamCollection;
@@ -75,13 +75,43 @@ var TOCView = Backbone.View.extend({
             console.log(errorObj);
         }
     },
-    renderStreams: function() {
+    renderStreams: function(e) {
         if ( this.streamCollection != undefined ) {
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
                     if ( document.getElementById( instrumentCode ) == null ){
-                        instrumentCode = model.get('reference_designator').substring(0,8);
+                        instrumentCode = model.get('reference_designator').substring(0,2);
+
+                        var platformHome = model.get('reference_designator').substring(0,8);
+                        if ( document.getElementById(platformHome) == null ) {
+                            $('ul#array_'+instrumentCode).append('<li id="'+platformHome+'" class="platform detached">'+
+                                '<label class="platform tree-toggler nav-header">'+platformHome+'</label>'+
+                                '<ul id="'+platformHome+'" class="nav nav-list tree" style="display:none"></ul></li>');
+                        }
+                        if ( document.getElementById( instrumentCode ) == null ){
+                            instrumentCode = model.get('reference_designator').substring(0,8);
+
+                            var platformHome = model.get('reference_designator').substring(0,14);
+                            if ( document.getElementById(platformHome) == null ) {
+                                $('ul#array_'+instrumentCode).append('<li id="'+platformHome+'" class="platform detached">'+
+                                    '<label class="platform tree-toggler nav-header">'+platformHome+'</label>'+
+                                    '<ul id="'+platformHome+'" class="nav nav-list tree" style="display:none"></ul></li>');
+                            }
+
+                            if ( document.getElementById( instrumentCode ) == null ) {
+                                instrumentCode = model.get('reference_designator').substring(0,14);
+                                if ( document.getElementById( instrumentCode ) == null ) {
+                                    // TODO: Since we've reached the end of the searchable
+                                    // TODO: DOM for assets, we need to now build the tree from
+                                    // TODO: the bottom up.
+                                    console.log('calling all homeless');
+
+
+                                    //this.renderHomelessStreams();
+                                }
+                            }
+                        }
                     }
                     var instrumentTarget = 'ul#'+instrumentCode;
 
@@ -93,6 +123,10 @@ var TOCView = Backbone.View.extend({
                 }
             });
         }
+    },
+    // should not be called by the controller.
+    renderHomelessStreams: function() {
+        console.log('no home');
     },
     render: function(){
         this.$el.html(this.template());
