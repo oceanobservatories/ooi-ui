@@ -104,10 +104,6 @@ img.aligncenter, img.alignright, img.alignleft  {
     margin-right:-4px;
 }
 
-#infrastructure-TOC {
-  margin-left: 55px;
-}
-
 #infrastructure-TOC > li.sidebar-search {
   padding: 5px 0 5px 0;	
 	/* border-bottom: 1px solid #7E9CD9; */
