@@ -24,8 +24,12 @@
 .modal-content{
   /*width: 700px;*/
 }
-.modal-backdrop {background: none;}
 
+/* .modal-backdrop {background: none;} */
+
+.modal.fade.in {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .history_tree{
   text-align: left;
   padding-left: 10px;
