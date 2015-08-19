@@ -1,15 +1,15 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-    <title>Edit User</title>
+<title>Edit User</title>
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="/css/compiled/userEdit.css" type="text/css" />
-  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" /> 
-  <!-- Partials -->
-  <script src="/js/partials/compiled/userEdit.js" type="text/javascript"></script>
-  <script src="/js/compiled/userEdit.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/css/compiled/userEdit.css" type="text/css" />
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" /> 
+<!-- Partials -->
+<script src="/js/partials/compiled/userEdit.js" type="text/javascript"></script>
+<script src="/js/compiled/userEdit.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}    
@@ -24,14 +24,15 @@
         <div class="col-lg-12">
           <div class="panel">
             {# <div class="panel-heading"> #}
-            {#   Edit User #}
-            {# </div> #}
-          <div id="user-edit">
-          </div>
+              {#   Edit User #}
+              {# </div> #}
+
           </div> 
         </div>
       </div> <!-- row -->
     </div>
+  </div>
+  <div id="user-edit">
   </div>
 </div>
 
@@ -48,11 +49,11 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     this.login.fetch({async: false});
-    
-     if(this.login.loggedIn()) {
+
+    if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
-    
+
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
@@ -63,7 +64,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       el: $('#navbar')
     });
     this.views.navbar.sidebarToggle();
-    
+
     this.models.userModel.fetch();
     this.views.userEditFormView = new UserEditFormView({
       el: $('#user-edit'),
