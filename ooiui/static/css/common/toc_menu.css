@@ -11,13 +11,13 @@
 }
 
 #array {
-    background-color:
 }
 div.well {
     width: 300px;
 }
 div#assetBrowser {
     overflow-x: hidden;
+    padding-left: 25px;
 }
 label {
     display: block;
@@ -27,12 +27,13 @@ label {
 .nav-list>li>a,.nav-list .nav-header {
     margin-right: -15px;
     margin-left: -15px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
+
 
 .active-toc-item{
-    background-color:lightblue;
+    background-color:lightblue !important;
 }
-
 
 .nav-header {
     display: block;
@@ -106,7 +107,6 @@ margin: 0 0 10px
 
 li.highlight-row > label {
 
-    background-color: #004773 !important;
     color: #fff!important;
 }
 
@@ -148,7 +148,4 @@ button#search-clear {
 /* styling for items with no children */
 .no-children {
     color: grey;
-}
-.detached {
-    color: red;
 }
