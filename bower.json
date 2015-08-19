@@ -55,7 +55,8 @@
     "nuxeo": "~0.5.1",
     "highcharts": "4.1.6",
     "highchart-export-csv": "*",
-    "Leaflet.EasyButton": "~1.1.0"
+    "Leaflet.EasyButton": "~1.1.0",
+    "bootstrap-validator": "~0.9.0"
   },
   "resolutions": {
     "jquery": "~2.1.1",

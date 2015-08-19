@@ -106,6 +106,7 @@ var AlertFilterView = Backbone.View.extend({
     initialize: function () {
         Backbone.Validation.bind(this);
         _.bindAll(this, "render","addConditions","triggernewAlertList", "filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
+        
          
         this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
         this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
@@ -129,9 +130,7 @@ var AlertFilterView = Backbone.View.extend({
               pageSize: 7
             },
             mode: "client",
-            parse: function(response, options) {
-              //this.trigger("pageabledeploy:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-              
+            parse: function(response, options) {              
               //for the response after asset query
               if(response.alert_alarm_definition){
                 return response.alert_alarm_definition;
