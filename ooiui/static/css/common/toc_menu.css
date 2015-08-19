@@ -28,20 +28,12 @@ label {
 .nav-list>li>a,.nav-list .nav-header {
     margin-right: -15px;
     margin-left: -15px;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 
-.nav .nav-list .tree li a:hover{
-    background-color:lightgray;
-}
-
-.nav .nav-list .tree li a:active{
+.active-toc-item{
     background-color:lightblue;
 }
 
-.nav .nav-list .tree .active-toc-item{
-    background-color:lightblue;
-}
 
 .nav-header {
     display: block;

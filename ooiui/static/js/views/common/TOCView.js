@@ -17,7 +17,7 @@ var TOCView = Backbone.View.extend({
         'keyup #search-filter' : 'filterToc'
     },
     initialize: function(options){
-        _.bindAll(this, "render", "derender", "renderArrays", "renderAssets", "renderStreams", "renderHomelessStreams");
+        _.bindAll(this, "render", "derender", "renderArrays", "renderAssets", "renderStreams");
         this.arrayCollection = options.arrayCollection;
         this.assetCollection = options.assetCollection;
         this.streamCollection = options.streamCollection;
@@ -36,7 +36,9 @@ var TOCView = Backbone.View.extend({
         // create a model for each item in the collection, and based on it's class,
         // render it in the browser as a platform or instrument.
         var filteredPlatforms = this.assetCollection.byClass('.AssetRecord');
+        console.log(filteredPlatforms.length);
         var filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord');
+        console.log(filteredInstruments.length);
         var log = [];
         filteredPlatforms.map(function(model) {
             try {
@@ -65,10 +67,12 @@ var TOCView = Backbone.View.extend({
                 if ( document.getElementById(platformCode) == null ) {
                     platformCode = model.get('ref_des').substr(0,8);
                 }
+
                 var platformTarget = 'ul#'+platformCode;
                 var assetItemView = new AssetItemView({ model:model });
                 $( platformTarget ).append( assetItemView.render().el );
             }catch (e) {
+                console.log(model);
                 //log.push("Instrument with invalid reference designator:" + model.get('id'));
                 //console.log(e);
             }
@@ -85,51 +89,23 @@ var TOCView = Backbone.View.extend({
                     var instrumentCode = model.get('reference_designator');
                     if ( document.getElementById( instrumentCode ) == null ){
                         instrumentCode = model.get('reference_designator').substring(0,2);
-
-                        var platformHome = model.get('reference_designator').substring(0,8);
+                        var platformHome = model.get('reference_designator').substring(0,14);
                         if ( document.getElementById(platformHome) == null ) {
-                            $('ul#array_'+instrumentCode).append('<li id="'+platformHome+'" class="platform detached">'+
-                                '<label class="platform tree-toggler nav-header">'+platformHome+'</label>'+
-                                '<ul id="'+platformHome+'" class="nav nav-list tree" style="display:none"></ul></li>');
+                            var homelessStreamItem = new HomelessStreamItemView({  model: model });
+                            $('ul#array_'+instrumentCode).append( homelessStreamItem.render().el );
                         }
-                        if ( document.getElementById( instrumentCode ) == null ){
-                            instrumentCode = model.get('reference_designator').substring(0,8);
 
-                            var platformHome = model.get('reference_designator').substring(0,14);
-                            if ( document.getElementById(platformHome) == null ) {
-                                $('ul#array_'+instrumentCode).append('<li id="'+platformHome+'" class="platform detached">'+
-                                    '<label class="platform tree-toggler nav-header">'+platformHome+'</label>'+
-                                    '<ul id="'+platformHome+'" class="nav nav-list tree" style="display:none"></ul></li>');
-                            }
-
-                            if ( document.getElementById( instrumentCode ) == null ) {
-                                instrumentCode = model.get('reference_designator').substring(0,14);
-                                if ( document.getElementById( instrumentCode ) == null ) {
-                                    // TODO: Since we've reached the end of the searchable
-                                    // TODO: DOM for assets, we need to now build the tree from
-                                    // TODO: the bottom up.
-                                    console.log('calling all homeless');
-
-
-                                    //this.renderHomelessStreams();
-                                }
-                            }
-                        }
                     }
                     var instrumentTarget = 'ul#'+instrumentCode;
-
                     var streamItemView = new StreamItemView({ model:model });
                     $( instrumentTarget ).append( streamItemView.render().el );
+
                 } catch (e) {
                     //console.log('Error: Asset does not have reference designator:'+model.get('id'));
-                    //console.log(e);
+                    console.log(e);
                 }
             });
         }
-    },
-    // should not be called by the controller.
-    renderHomelessStreams: function() {
-        console.log('no home');
     },
     render: function(){
         this.$el.html(this.template());
@@ -227,17 +203,20 @@ var AssetItemView = Backbone.View.extend({
             }
         });
     },
-    onClickPlatform: function() {
+    onClickPlatform: function(e) {
+        $(".active-toc-item").removeClass("active-toc-item");
+        this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectPlatform', this.model);
     },
     onClickInstrument: function() {
+        $(".active-toc-item").removeClass("active-toc-item");
+        this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectInstrument', this.model);
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
         this.$el.children('ul.tree').toggle(300);
     },
-    template: _.template('<label class="tree-toggler nav-header><%= assetInfo.name %></label>'),
     derender: function() {
         this.remove();
         this.unbind();
@@ -253,7 +232,6 @@ var AssetItemView = Backbone.View.extend({
             assName = (assName.length > 0) ? '-' + assName : "";
             this.$el.attr('id', platformId+assName);
             this.$el.attr('class', 'platform');
-            this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
             var label = (platformName == undefined) ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
@@ -265,7 +243,6 @@ var AssetItemView = Backbone.View.extend({
             var instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
-            this.$el.html( this.template(this.model.toJSON()) );
             var label = (instrumentName == undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
@@ -273,10 +250,21 @@ var AssetItemView = Backbone.View.extend({
     }
 });
 
+var HomelessStreamItemView = AssetItemView.extend({
+    render: function() {
+        this.model.set('ref_des', this.model.get('reference_designator'));
+        var platformId = this.model.get('reference_designator').substr(0,14);
+        this.$el.attr('id', platformId);
+        this.$el.attr('class', 'platform detached');
+        this.$el.append('<label class="platform tree-toggler nav-header">'+ platformId + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+        return this
+    }
+});
+
 var StreamItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
-        'click': 'onClick'
+        'click a': 'onClick'
     },
     initialize: function(options) {
         _.bindAll(this, 'render', 'derender', 'onClick');
@@ -287,7 +275,6 @@ var StreamItemView = Backbone.View.extend({
     onClick: function(e) {
         $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
-        e.preventDefault();
         $(e.target).addClass("active-toc-item");
 
         var param_list = []
@@ -301,7 +288,7 @@ var StreamItemView = Backbone.View.extend({
                     parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
                     param_list.push(variable);
                 }
-                
+
             }
         }
         $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
