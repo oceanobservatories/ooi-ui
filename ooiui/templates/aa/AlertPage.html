@@ -38,12 +38,6 @@
           <div id="aa-panel" class="panel">
             <div id="aa-panel-body" class="panel-body">
               <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
-                <!--
-                <i id="current_array" style="color:#337ab7"></i>
-                <i id="current_platform" style="color:#337ab7"></i>
-                <i id="current_instrument" style="color:#337ab7"></i>
-                <i id="current_stream" style="color:#337ab7"></i>
-                -->
                 <i id="current_selection" style="color:#337ab7"></i>
               </div>
               <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:35px;'>
@@ -53,12 +47,13 @@
                   </button>
                 </i>
               </div>
+              
+              <div class="row form-group">
+                <div id='alertslist' class="col-sm-12">
+                </div>
+              <div>
 
-              <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
-                <b>Showing All</b>
-              </div>
-              <div id='alertslist' class="row form-group">
-              </div>
+              <!--
               <hr width ='80%' style='margin-top:0;'>
               <div class="row col-sm-12" id='alert_container'>
                 <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="186">
@@ -77,8 +72,10 @@
                   </tbody>
                 </table>
               </div>
+
               <hr width ='80%'>
-              <!-- TODO MAKE IN TO VIEW -->
+              -->
+              <!-- TODO MAKE IN TO VIEW 
               <div class="row col-sm-12">
                 <div class="form-group">
                   <div>
@@ -123,7 +120,9 @@
                   </div>
                 </div>
               </div>
-              <!-- TODO MAKE IN TO VIEW -->
+              -->
+
+              <!-- TODO MAKE IN TO VIEW 
               <div class="form-group">
                 <div align="center">
                   <div>
@@ -131,13 +130,13 @@
                       <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms
                     </div>
                     <button type="button" style='display:none' id="delete_row" class="btn btn-primary"><i class="fa fa-times-circle"></i> Delete Alert Row</button>
-                    <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Definition</button>
-                    <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button> -->
+                    <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Definition</button>                    
                     <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>
                     <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
                   </div>
                 </div>
-              </div>              
+              </div> 
+              -->             
             </div>
           </div>
         </div>
@@ -172,7 +171,6 @@
       console.log(level,options);
     },
     setButtonDefinitionVisibility:function(visible) {
-      console.log("setButtonDefinitionVisibility")
       if (visible){
         $('#newAlertAlarmDefinition').show();
       }else{
@@ -206,21 +204,32 @@
       this.views.definitionModal = new DefinitionModalFormView({
         el: $('#definition-modal'),
         model:self.models.alertModel
-      });            
+      });  
 
-      // render out our views:
+      //empty table
+      $('#alert_table').find('tbody').empty();
+
+      this.views.alertFilterView = new AlertFilterView({
+        collection: this.collections.alert_list,
+        el: $('#alert_table')
+      });
+
+      // TOC, render out our views:
       this.listenTo(this, 'toc:selectArray', function(options) {        
         self.resetSelection();
       });
 
+      // TOC, render out our views:
       this.listenTo(this, 'toc:selectPlatform', function(options) {                
         self.resetSelection();
       });
 
+      // TOC, render out our views:
       this.listenTo(this, 'toc:selectInstrument', function(options) {               
         self.resetSelection();
       });
 
+      // TOC, render out our views:
       this.listenTo(this, 'toc:selectStream', function(options) {
         //options.model = stream selection model        
         self.models.selectedStream = options.model;
@@ -231,7 +240,7 @@
         self.outputInfo('stream',options)        
       });
 
-
+      //click the add definitation button
       $('#newAlertAlarmDefinition').on( "click", function(evt) {
         console.log("clicked,show modal");
         //update collection and fetch
@@ -239,10 +248,8 @@
         self.collections.alert_metadata.fetch({reset: true});        
       });
 
-      this.listenTo(self.collections.alert_metadata, 'reset', function(options) {
-        console.log('metadata reset')
-        
-        
+      //when the metadata is complete actually render the popup modal
+      this.listenTo(self.collections.alert_metadata, 'reset', function(options) {        
         //update the model
         self.models.alertModel = new AlertModel({reference_designator:self.models.selectedStream.get('reference_designator'),
                                                 stream:self.models.selectedStream.get('stream_name')});
@@ -263,7 +270,8 @@
         console.log('alert alarm reset complete')
       });
 
-      this.listenTo(this, 'addDefinitionModal:submit', function(options) {
+      //RE-RENDER TABLE
+      this.listenTo(this, 'addDefinitionForm:added', function(options) {
       });
 
       var arrayFetch = arrayCollection.fetch({ reset: true });
@@ -288,17 +296,7 @@
 
       this.listenTo(this, "login:success", this.onLogin);
       this.listenTo(this, "login:logout", this.onLogout);
-
-      //empty table
-      $('#alert_table').find('tbody').empty();
-
-      this.views.alertFilterView = new AlertFilterView({
-        collection: this.collections.alert_list,
-        el: $('#alert_table')
-      });
-
-      
-
+          
     }
   });
 

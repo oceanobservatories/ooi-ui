@@ -102,15 +102,17 @@ var AlertFilterView = Backbone.View.extend({
             }
           },   
     },
-
+    initialRender: function() {
+      this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
+    },
     initialize: function () {
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render","addConditions","triggernewAlertList", "filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
+        _.bindAll(this, "render","filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
         
          
-        this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
-        this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
-        this.listenTo(ooi, 'InstrumentItemView:instrumentSelect', this.triggerTOCClickI);
+        //this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
+        //this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
+        //this.listenTo(ooi, 'InstrumentItemView:instrumentSelect', this.triggerTOCClickI);
         //this.listenTo(ooi, 'streamItemView:streamSelect', this.changeStream);
         var self = this;
 
@@ -123,11 +125,12 @@ var AlertFilterView = Backbone.View.extend({
 
     render: function () {
         var self = this;
+
         var AlertsFullCollectionPage = Backbone.PageableCollection.extend({
             model: AlertModel,
             url:"/api/aa/alerts",
             state: {
-              pageSize: 7
+              pageSize: 20
             },
             mode: "client",
             parse: function(response, options) {              
@@ -159,83 +162,76 @@ var AlertFilterView = Backbone.View.extend({
           }
         });
 
-        var columns = [{
-            name: "array_name", // The key of the model attribute
-            label: "Array", // The name to display in the header
-            editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-            cell: "string"
-        }, {
-            name: "platform_name",
-            label: "Platform",
-            editable: false,
-            // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-            cell: "string"
-/*          ,
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return "Platform Q";
+        var columns = [
+            {
+              name: "uframe_filter_id", // The key of the model attribute
+              label: "ID", // The name to display in the header
+              editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+              cell: "string"
+            },             
+            {
+              name: "array_name", // The key of the model attribute
+              label: "Array", // The name to display in the header
+              editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+              cell: "string"
+            },             
+            {
+              name: "instrument_name",
+              label: "Instrument",
+              editable: false,
+              cell: "string",
+              sortValue: function (model, colName) {
+                  return model.attributes[colName]['instrument_name'];
               }
-            })*/
-          ,
-            sortValue: function (model, colName) {
-                return colName;
-            }
-        },{
-            name: "instrument_name",
-            label: "Instrument",
-            editable: false,
-            cell: "string"
-/*          ,
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return "Instrument B"
-                //return rawValue;
-              }
-            })*/
-          ,
-            sortValue: function (model, colName) {
-                return model.attributes[colName]['instrument_name'];
-            }
-        }, {
-            name: "severity",
-            label: "Severity",
-            editable: false,
-            cell: "string",
-            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-              fromRaw: function (rawValue, model) {
-                return rawValue;
-              }
-            })
-        }, {
-            name: "created_time",
-            label: "Created",
-            editable: false,
-            cell: "string"
-        },{
-            name: "event_type",
-            editable: false,
-            label: "Condition Met?",
-            cell: HtmlCell,
-            formatter: _.extend({}, Backgrid.Cell.prototype, {
-              fromRaw: function (rawValue, model) {
-
-                //place holder right now for triggered events
-                if(rawValue =='alarm'){
-                  //fa fa-bullhorn
-                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Yes</i>";
+            }, 
+            {
+              name: "severity",
+              label: "Severity",
+              editable: false,
+              cell: "string",
+              formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
+                fromRaw: function (rawValue, model) {
+                  return rawValue;
                 }
-                else if(rawValue =='alert'){
-                    return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'> No</i>";
+              })
+            }, 
+            {
+              name: "created_time",
+              label: "Created",
+              editable: false,
+              cell: "string"
+            },
+            {
+              name: "stream",
+              label: "Stream Name",
+              editable: false,
+              cell: "string"
+            },
+            {
+              name: "description",
+              label: "Description",
+              editable: false,
+              cell: "string"
+            },
+            {
+              name: "event_type",
+              editable: false,
+              label: "Condition Met?",
+              cell: HtmlCell,
+              formatter: _.extend({}, Backgrid.Cell.prototype, {
+                fromRaw: function (rawValue, model) {
+                  //place holder right now for triggered events
+                  if(rawValue =='alarm'){
+                    //fa fa-bullhorn
+                      return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Yes</i>";
+                  }
+                  else if(rawValue =='alert'){
+                      return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'> No</i>";
+                  }
                 }
-              }
-            })
-        }
-        /*,{
-            name: "description",
-            editable: false,
-            label: "Descritption",
-            cell: "string"
-        }*/];
+              })
+            }
+          ];
 
         //add click event
         var ClickableRow = Backgrid.Row.extend({
@@ -290,6 +286,7 @@ var AlertFilterView = Backbone.View.extend({
 
         // Render the paginator
         $("#alertslist").after(paginator.render().el);
+
         var AssetFilter = Backgrid.Extension.ClientSideFilter.extend({
           placeholder: "Search Alerts and Alarms",
           makeMatcher: function(query){
@@ -346,10 +343,10 @@ var AlertFilterView = Backbone.View.extend({
 
         //move clicked row to edit panel
         Backbone.on("deployrowclicked", function (model) {
-            self.addConditions(model);
-
+            //self.addConditions(model);
         });
         
+        /*
         $('#resetAlarms').click(function(row) {
             $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
             self.collection.url = "/api/aa/alerts";
@@ -366,7 +363,9 @@ var AlertFilterView = Backbone.View.extend({
                 })
             });
         });
+        */
 
+        /*
         //save data
         $('#saveAlarm').click(function(row) {
             //get total number or rows in the table - two headers
@@ -440,9 +439,12 @@ var AlertFilterView = Backbone.View.extend({
               });
             }
         });
+        */
+
 
         self.rownum = 1;
         //add row
+        /*
         $('#newAlert').click(function(row) {
             //add new line
             if($('#loading_alerts').html() == ''){
@@ -467,6 +469,7 @@ var AlertFilterView = Backbone.View.extend({
               $("#delete_row").show();
             }
         });
+        */
 
         //remove row
         $("#delete_row").click(function(){
@@ -477,12 +480,13 @@ var AlertFilterView = Backbone.View.extend({
             $("#addr"+(self.rownum-1)).html('');
             self.rownum--;
            }
-         });
+        });
 
         //needs model to stickit not using right now
         //this.stickit();
     },
 
+    /*
     addConditions: function(val){
       //backgrid extentsions
       //https://github.com/twatson83/Backgrid.Extensions
@@ -519,53 +523,14 @@ var AlertFilterView = Backbone.View.extend({
       $('#operator_dd'+this.rownum+'').selectpicker('refresh');
       
       this.rownum = 1;
-      $('#alert_table tr').click(function(row) {
-          //var eventrow = new SingleEvent({id:row.currentTarget.id});
-          //location.reload();
-          /*if(row.target.id == 'removealert'){
-            self.modalDialog.show({
-                message: "Alert is deactivated",
-                type: "success",
-              });
-          }*/
+      $('#alert_table tr').click(function(row) {          
       });  
     },
+    */
 
     filterOptionsbyInstrument: function(instru_id,name){
 
-      var self = this;
-      //this will work eventually
-      //get unique values for the dropdown
-      //for some reason this is returning a bad value:
-      //http://localhost:5000/api/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams
-      //not matching values currently
-      /*$('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Conditions for Insturment');
-      var collectionFields = new InstrumentFieldList();
-      collectionFields.url = "/api/c2/instrument/"+instru_id+"/streams";
-      self.instr_name = name;
-      self.fieldsColl = collectionFields;
-      collectionFields.fetch({reset:true,
-        error: (function (e) {
-              self.modalDialog.show({
-                message: "No condtions or parameters for this Instrument.",
-                type: "danger",
-              });
-          }),
-          complete: (function (e) {
-              $('#loading_alerts').html('Instrument: '+ self.instr_name);
-              
-              var $jls = $('#conditions_dd');
-              $("#conditions_dd"+self.rownum+" option").remove();
-              for(var c in self.fieldsColl.models){
-                $jls.append(
-                  $("<option></option>").attr(
-                      "value", self.fieldsColl.models[c].attributes.name).text(self.fieldsColl.models[c].attributes.display_name)
-                );
-              }
-              $jls.selectpicker('refresh');
-              //return "<select  class='form-control' data-container='body' id='conditions_dd'><option value='m_lon'>Longitude</option><option value='m_lat'>Latitude</option><option value='sci_salinity'>Salinity</option><option value='sci_water_temp'>Temperature</option><option  value='sci_water_cond'>Water Speed</option><option value='sci_wave_height'>Wave Height</option><option value='sci_water_pressure'>Water Pressure</option></select>";
-          })
-      });*/
+      var self = this;     
       return "<select class='form-control' data-container='body' id='conditions_dd"+this.rownum+"'><option value='m_lon'>Longitude</option><option value='m_lat'>Latitude</option><option value='sci_salinity'>Salinity</option><option value='sci_water_temp'>Temperature</option><option  value='sci_water_cond'>Water Speed</option><option value='sci_wave_height'>Wave Height</option><option value='sci_water_pressure'>Water Pressure</option></select>";
     },
 
@@ -582,7 +547,7 @@ var AlertFilterView = Backbone.View.extend({
     },
     
 
-    /*click on the left hand side of the TOC */
+    /*click on the left hand side of the TOC
     triggerTOCClickP:function(tocitem){
         $('#listTitle').html('Showing Alerts for Mooring: <b>'+ tocitem.attributes['mooring_display_name']);
         //tocitem.attributes.reference_designator
@@ -626,4 +591,5 @@ var AlertFilterView = Backbone.View.extend({
           })
       });
     }
+    */
 });
