@@ -38,13 +38,20 @@
           <div id="aa-panel" class="panel">
             <div id="aa-panel-body" class="panel-body">
               <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
+                <!--
                 <i id="current_array" style="color:#337ab7"></i>
                 <i id="current_platform" style="color:#337ab7"></i>
                 <i id="current_instrument" style="color:#337ab7"></i>
                 <i id="current_stream" style="color:#337ab7"></i>
+                -->
+                <i id="current_selection" style="color:#337ab7"></i>
               </div>
               <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:35px;'>
-                <i id="create_aa_def_btn"></i>
+                <i id="create_aa_def_btn">
+                  <button type="button" id="newAlertAlarmDefinition" class="btn btn-primary" style="display: none;">
+                    <i class="fa fa-plus-square"></i> Add Alert/Alarm Definition
+                  </button>
+                </i>
               </div>
 
               <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='listTitle'>
@@ -71,6 +78,7 @@
                 </table>
               </div>
               <hr width ='80%'>
+              <!-- TODO MAKE IN TO VIEW -->
               <div class="row col-sm-12">
                 <div class="form-group">
                   <div>
@@ -115,6 +123,7 @@
                   </div>
                 </div>
               </div>
+              <!-- TODO MAKE IN TO VIEW -->
               <div class="form-group">
                 <div align="center">
                   <div>
@@ -128,11 +137,12 @@
                     <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
                   </div>
                 </div>
-              </div>
+              </div>              
             </div>
           </div>
         </div>
       </div>
+      <div id="definition-modal"></div>
     </div>
   </div>
 </div>
@@ -147,15 +157,33 @@
     login: new LoginModel(),
     models: {
       alertModel: new AlertModel(),
-      userModel: new UserModel()
+      userModel: new UserModel(),
+      selectedStream: null
     },
-
     collections: {
       arrays: new ArrayCollection(),
-      alert_list: new AlertsFullCollection()
+      alert_list: new AlertsFullCollection(),
+      alert_metadata: new AlertMetadataCollection()
     },
     views: {
         //
+    },
+    outputInfo:function(level,options) {
+      console.log(level,options);
+    },
+    setButtonDefinitionVisibility:function(visible) {
+      console.log("setButtonDefinitionVisibility")
+      if (visible){
+        $('#newAlertAlarmDefinition').show();
+      }else{
+        $('#newAlertAlarmDefinition').hide();  
+      }      
+    },
+    resetSelection:function(){
+      //make invisible, reset selection items
+      this.models.selectedStream = null;
+      this.setButtonDefinitionVisibility(false);
+      $('#current_selection').text("");
     },
     start: function() {
       this.login.fetch({async:false});
@@ -170,47 +198,76 @@
         this.views.navbar = new NavbarView({
           el: $('#navbar')
       });
+
       $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
+      self.models.alertModel.set('test','test');
+
+      this.views.definitionModal = new DefinitionModalFormView({
+        el: $('#definition-modal'),
+        model:self.models.alertModel
+      });            
+
       // render out our views:
-      this.listenTo(this, 'toc:selectArray', function(options) {
-        console.log('ARRAY');
-        console.log(options);
-        console.log(options.attributes['display_name']);
-        console.log(options.attributes['array_code']);
-        $('#current_array').replaceWith('<li id="current_array">' + options.attributes['display_name'] + ' (' + options.attributes['array_code'] + ')</li>');
-        $('#current_platform').replaceWith('<li id="current_platform"></li>');
-        $('#current_instrument').replaceWith('<li id="current_instrument"></li');
-        $('#current_stream').replaceWith('<li id="current_stream"></li>');
-        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
+      this.listenTo(this, 'toc:selectArray', function(options) {        
+        self.resetSelection();
       });
-      this.listenTo(this, 'toc:selectPlatform', function(options) {
-        console.log('PLATFORM');
-        console.log(options);
-        console.log(options.attributes.assetInfo['name']);
-        console.log(options.attributes['ref_des']);
-        $('#current_platform').replaceWith('<li id="current_platform">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
-        $('#current_instrument').replaceWith('<li id="current_instrument"></li');
-        $('#current_stream').replaceWith('<li id="current_stream"></li>');
-        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
+
+      this.listenTo(this, 'toc:selectPlatform', function(options) {                
+        self.resetSelection();
       });
-      this.listenTo(this, 'toc:selectInstrument', function(options) {
-        console.log(options);
-        console.log(options.attributes.assetInfo['name']);
-        console.log(options.attributes['ref_des']);
-        $('#current_instrument').replaceWith('<li id="current_instrument">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
-        $('#current_stream').replaceWith('<li id="current_stream"></li>');
-        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');
+
+      this.listenTo(this, 'toc:selectInstrument', function(options) {               
+        self.resetSelection();
       });
+
       this.listenTo(this, 'toc:selectStream', function(options) {
-        console.log(options);
-        console.log(options.model.attributes['display_name']);
-        console.log(options.model.attributes['reference_designator']);
-        $('#current_stream').replaceWith('<li id="current_stream">' + options.model.attributes['stream_name'] + '</li>');
-        $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"><button type="button" id="newAlertAlarmDefinition" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert/Alarm Definition</button></li>');
+        //options.model = stream selection model        
+        self.models.selectedStream = options.model;
+        $('#current_selection').text(options.model.get('reference_designator')+" > "+options.model.get('stream_name'))
+        //make visible
+        self.setButtonDefinitionVisibility(true);
+        //output....just cause.
+        self.outputInfo('stream',options)        
+      });
+
+
+      $('#newAlertAlarmDefinition').on( "click", function(evt) {
+        console.log("clicked,show modal");
+        //update collection and fetch
+        self.collections.alert_metadata.stream_model = self.models.selectedStream;
+        self.collections.alert_metadata.fetch({reset: true});        
+      });
+
+      this.listenTo(self.collections.alert_metadata, 'reset', function(options) {
+        console.log('metadata reset')
+        
+        
+        //update the model
+        self.models.alertModel = new AlertModel({reference_designator:self.models.selectedStream.get('reference_designator'),
+                                                stream:self.models.selectedStream.get('stream_name')});
+        
+        self.views.definitionModal.model = self.models.alertModel;
+
+        self.views.definitionModal.metadata_collection = self.collections.alert_metadata        
+        self.views.definitionModal.render();
+
+        self.views.definitionModal.show({
+          model: self.models.alertModel,
+          userModel: self.models.userModel
+        });
+        
+      });
+
+      this.listenTo(this.collections.alert_list, 'reset', function(options) {
+        console.log('alert alarm reset complete')
+      });
+
+      this.listenTo(this, 'addDefinitionModal:submit', function(options) {
       });
 
       var arrayFetch = arrayCollection.fetch({ reset: true });
+      var alertFetch = self.collections.alert_list.fetch({reset: true});
 
       var data = {
         min : 'True'
@@ -236,8 +293,12 @@
       $('#alert_table').find('tbody').empty();
 
       this.views.alertFilterView = new AlertFilterView({
-        collection: this.collections.alert_list
+        collection: this.collections.alert_list,
+        el: $('#alert_table')
       });
+
+      
+
     }
   });
 
@@ -288,7 +349,9 @@
 
   $(document).ready(function() {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    
     ooi.start();
+    
     $('#navbar').prepend(navbar.el);
 
     $('#search-clear').hide();
