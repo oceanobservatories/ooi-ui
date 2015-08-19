@@ -24,8 +24,12 @@
 .modal-content{
   /*width: 700px;*/
 }
-.modal-backdrop {background: none;}
 
+/* .modal-backdrop {background: none;} */
+
+.modal.fade.in {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .history_tree{
   text-align: left;
   padding-left: 10px;
@@ -172,3 +176,18 @@ a:active {
 .btnStartStop {
   float: right;
 }
+
+.panel-default>.panel-heading {
+  background-image: -webkit-linear-gradient(top,#fff 0,#fff 100%);
+    background-image: -o-linear-gradient(top,#fff 0,#fff 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#fff));
+    background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#fff', GradientType=0);
+    background-repeat: repeat-x;
+}
+/*  inner accordions  */
+/* div#collapseOne, */
+/* div#collapseOneP, */
+/* div#collapseOneI { */
+/*   background-color: #fff; */
+/* } */

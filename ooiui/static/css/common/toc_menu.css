@@ -18,7 +18,6 @@ div.well {
 }
 div#assetBrowser {
     overflow-x: hidden;
-    padding-left: 25px;
 }
 label {
     display: block;

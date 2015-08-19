@@ -45,10 +45,10 @@
     #sidebar-wrapper {
         z-index: 99;
         position: fixed;
-        left: 311px;
+        left: 375px;
         width: 0;
         height: 94%;
-        margin-left: -350px;
+        margin-left: -375px;
         overflow-y: auto;
         /*background: #000;*/ /*black background*/
 
@@ -64,8 +64,7 @@
 
     #page-content-wrapper {
         width: 100%;
-        padding: 0 20px 20px 20px;
-        width:: 100%;
+        /* padding: 0 20px 20px 20px; */
         z-index: 1000;
     }
 
@@ -135,6 +134,10 @@
 
         #wrapper.toggled #sidebar-wrapper {
             width: 0;
+        }
+
+        div#sidebar-wrapper {
+          padding: 0px;
         }
 
         #wrapper.toggled #page-content-wrapper {
