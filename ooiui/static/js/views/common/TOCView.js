@@ -89,32 +89,42 @@ var TOCView = Backbone.View.extend({
                      * render the streams.  If there are streams that have been detached
                      * from their instrument / platform, we'll need to append a 'logical'
                      * tree for the streams to live.*/
-                    var buildDetachedTree = function() {
-                        if ( document.getElementById(instrumentCode) == null ){
-                            instrumentCode = model.get('reference_designator').substring(0,2);
-                            var platformHome = model.get('reference_designator').substring(0,14);
-                            if ( document.getElementById(platformHome) == null ) {
-
-                                model.attributes.asset_class = '.AssetRecord';
-                                var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                $.when( $('ul#array_'+instrumentCode).append( homelessStreamItem.render().el ) ).done( function() {
-                                    model.attributes.asset_class = '.InstrumentAssetRecord';
-                                    var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                    $('ul#'+platformHome).append( homelessStreamItem.render().el )
-                                });
-                            } else {
+                    if ( document.getElementById(instrumentCode) == null ){
+                        instrumentCode = model.get('reference_designator').substring(0,2);
+                        var platformHome = model.get('reference_designator').substring(0,14);
+                        if ( document.getElementById(platformHome) == null ) {
+                            //platform
+                            model.attributes.asset_class = '.AssetRecord';
+                            var homelessStreamItem = new HomelessStreamItemView({ model: model });
+                            $.when( $('ul#array_'+instrumentCode).append( homelessStreamItem.render().el ) ).done( function() {
+                                //instrument
                                 model.attributes.asset_class = '.InstrumentAssetRecord';
                                 var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                $('ul#'+platformHome).append( homelessStreamItem.render().el )
-                            }
-
+                                $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                                    //stream
+                                    var instrumentTarget = 'ul#'+instrumentCode;
+                                    var streamItemView = new StreamItemView({ model:model });
+                                    $(instrumentTarget).append(streamItemView.render().el);
+                                });
+                            });
+                        } else {
+                            //instrument
+                            model.attributes.asset_class = '.InstrumentAssetRecord';
+                            var homelessStreamItem = new HomelessStreamItemView({ model: model });
+                            $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                                //stream
+                                var instrumentTarget = 'ul#'+instrumentCode;
+                                var streamItemView = new StreamItemView({ model:model });
+                                $(instrumentTarget).append(streamItemView.render().el);
+                            });
                         }
-                    }
-                    $.when(buildDetachedTree()).done( function() {
+
+                    } else {
+                        //stream
                         var instrumentTarget = 'ul#'+instrumentCode;
                         var streamItemView = new StreamItemView({ model:model });
                         $(instrumentTarget).append(streamItemView.render().el);
-                    });
+                    }
                 } catch (e) {
                     console.log(e);
                 }
@@ -276,9 +286,11 @@ var HomelessStreamItemView = AssetItemView.extend({
         if ( this.model.get('asset_class') == '.InstrumentAssetRecord' ) {
             this.model.set('ref_des', this.model.get('reference_designator'));
             var instrumentId = this.model.get('ref_des');
+            var instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
-            this.$el.append('<label class="instrument tree-toggler nav-header">'+ instrumentId + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            var label = (instrumentName == undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this
     }
