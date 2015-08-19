@@ -85,6 +85,10 @@ var TOCView = Backbone.View.extend({
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
+                    /* Not all streams have physical instruments, so the asset list won't
+                     * render the streams.  If there are streams that have been detached
+                     * from their instrument / platform, we'll need to append a 'logical'
+                     * tree for the streams to live.*/
                     var buildDetachedTree = function() {
                         if ( document.getElementById(instrumentCode) == null ){
                             instrumentCode = model.get('reference_designator').substring(0,2);
@@ -111,7 +115,6 @@ var TOCView = Backbone.View.extend({
                         var streamItemView = new StreamItemView({ model:model });
                         $(instrumentTarget).append(streamItemView.render().el);
                     });
-
                 } catch (e) {
                     console.log(e);
                 }
