@@ -112,7 +112,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
           if(e.target.id == "inst_mission_icon"){
               //command trigger
               this.CommandView = new CommandDialogView();
-              $('.container-fluid').first().append(this.CommandView.el);
+              $('#wrapper').first().append(this.CommandView.el);
 
               this.CommandView.show({
                 message: "<i>None at this time</i>",
