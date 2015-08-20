@@ -380,3 +380,7 @@
 .fht-tbody::-webkit-scrollbar-thumb:window-inactive {
 	background: #D1DAF5; 
 }
+
+table#eventsTable {
+  width: 100% !important;
+}
