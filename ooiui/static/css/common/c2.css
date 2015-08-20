@@ -50,7 +50,7 @@ ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree li.jqtree-se
 	background: #EEE !important;
 }
 .backgrid td, .backgrid th{
-	max-width: 205px;
+	max-width: 125px;
 }
 .backgrid{
 	font-size: 12px !important;
