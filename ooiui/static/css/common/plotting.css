@@ -315,9 +315,13 @@
     /* position */
     position: relative;
   }
-
+  
+  .fht-table-wrapper .fht-thead {
+    border-right: 1px solid #D1DAF5;
+  }
+  
   .fht-table-wrapper .fht-tbody {
-    height: 145px;
+    height: 170px;
   }
 
   .fht-table-wrapper .fht-fixed-body .fht-tbody,
@@ -356,6 +360,11 @@
 .fht-tbody::-webkit-scrollbar {
     width: 10px;
     background: transparent;
+    border: 1px solid #D1DAF5;
+}
+
+.fht-tbody::-webkit-scrollbar-corner {
+  border: 1px solid #D1DAF5;
 }
  
 /* Track */
@@ -374,3 +383,4 @@
 .fht-tbody::-webkit-scrollbar-thumb:window-inactive {
 	background: #D1DAF5; 
 }
+
