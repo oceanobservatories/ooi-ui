@@ -59,15 +59,17 @@ var TOCView = Backbone.View.extend({
 
         filteredInstruments.map(function(model) {
             try {
-                var platformCode = model.get('ref_des').substr(0,14);
-                // set the target to where this item will be inserted.
+                if ( document.getElementById(model.get('ref_des')) == null ) {
+                    var platformCode = model.get('ref_des').substr(0,14);
+                    // set the target to where this item will be inserted.
 
-                if ( document.getElementById(platformCode) == null ) {
-                    platformCode = model.get('ref_des').substr(0,8);
+                    if ( document.getElementById(platformCode) == null ) {
+                        platformCode = model.get('ref_des').substr(0,8);
+                    }
+                    var platformTarget = 'ul#'+platformCode;
+                    var assetItemView = new AssetItemView({ model:model });
+                    $( platformTarget ).append( assetItemView.render().el );
                 }
-                var platformTarget = 'ul#'+platformCode;
-                var assetItemView = new AssetItemView({ model:model });
-                $( platformTarget ).append( assetItemView.render().el );
             }catch (e) {
                 //log.push("Instrument with invalid reference designator:" + model.get('id'));
                 //console.log(e);
@@ -78,21 +80,53 @@ var TOCView = Backbone.View.extend({
             console.log(errorObj);
         }
     },
-    renderStreams: function() {
+    renderStreams: function(e) {
         if ( this.streamCollection != undefined ) {
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
-                    if ( document.getElementById( instrumentCode ) == null ){
-                        instrumentCode = model.get('reference_designator').substring(0,8);
-                    }
-                    var instrumentTarget = 'ul#'+instrumentCode;
+                    /* Not all streams have physical instruments, so the asset list won't
+                     * render the streams.  If there are streams that have been detached
+                     * from their instrument / platform, we'll need to append a 'logical'
+                     * tree for the streams to live.*/
+                    if ( document.getElementById(instrumentCode) == null ){
+                        instrumentCode = model.get('reference_designator').substring(0,2);
+                        var platformHome = model.get('reference_designator').substring(0,14);
+                        if ( document.getElementById(platformHome) == null ) {
+                            //platform
+                            model.attributes.asset_class = '.AssetRecord';
+                            var homelessStreamItem = new HomelessStreamItemView({ model: model });
+                            $.when( $('ul#array_'+instrumentCode).append( homelessStreamItem.render().el ) ).done( function() {
+                                //instrument
+                                model.attributes.asset_class = '.InstrumentAssetRecord';
+                                var homelessStreamItem = new HomelessStreamItemView({ model: model });
+                                $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                                    //stream
+                                    var instrumentTarget = 'ul#'+instrumentCode;
+                                    var streamItemView = new StreamItemView({ model:model });
+                                    $(instrumentTarget).append(streamItemView.render().el);
+                                });
+                            });
+                        } else {
+                            //instrument
+                            model.attributes.asset_class = '.InstrumentAssetRecord';
+                            var homelessStreamItem = new HomelessStreamItemView({ model: model });
+                            $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                                //stream
+                                var instrumentTarget = 'ul#'+instrumentCode;
+                                var streamItemView = new StreamItemView({ model:model });
+                                $(instrumentTarget).append(streamItemView.render().el);
+                            });
+                        }
 
-                    var streamItemView = new StreamItemView({ model:model });
-                    $( instrumentTarget ).append( streamItemView.render().el );
+                    } else {
+                        //stream
+                        var instrumentTarget = 'ul#'+instrumentCode;
+                        var streamItemView = new StreamItemView({ model:model });
+                        $(instrumentTarget).append(streamItemView.render().el);
+                    }
                 } catch (e) {
-                    //console.log('Error: Asset does not have reference designator:'+model.get('id'));
-                    //console.log(e);
+                    console.log(e);
                 }
             });
         }
@@ -193,17 +227,20 @@ var AssetItemView = Backbone.View.extend({
             }
         });
     },
-    onClickPlatform: function() {
+    onClickPlatform: function(e) {
+        $(".active-toc-item").removeClass("active-toc-item");
+        this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectPlatform', this.model);
     },
     onClickInstrument: function() {
+        $(".active-toc-item").removeClass("active-toc-item");
+        this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectInstrument', this.model);
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
         this.$el.children('ul.tree').toggle(300);
     },
-    template: _.template('<label class="tree-toggler nav-header><%= assetInfo.name %></label>'),
     derender: function() {
         this.remove();
         this.unbind();
@@ -219,7 +256,6 @@ var AssetItemView = Backbone.View.extend({
             assName = (assName.length > 0) ? '-' + assName : "";
             this.$el.attr('id', platformId+assName);
             this.$el.attr('class', 'platform');
-            this.$el.html( this.template(this.model.toJSON()) );
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
             var label = (platformName == undefined) ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
@@ -231,7 +267,6 @@ var AssetItemView = Backbone.View.extend({
             var instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
-            this.$el.html( this.template(this.model.toJSON()) );
             var label = (instrumentName == undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
@@ -239,10 +274,32 @@ var AssetItemView = Backbone.View.extend({
     }
 });
 
+var HomelessStreamItemView = AssetItemView.extend({
+    render: function() {
+        if ( this.model.get('asset_class') == '.AssetRecord' ) {
+            this.model.set('ref_des', this.model.get('reference_designator'));
+            var platformId = this.model.get('reference_designator').substr(0,14);
+            this.$el.attr('id', platformId);
+            this.$el.attr('class', 'platform detached');
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ platformId + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+        }
+        if ( this.model.get('asset_class') == '.InstrumentAssetRecord' ) {
+            this.model.set('ref_des', this.model.get('reference_designator'));
+            var instrumentId = this.model.get('ref_des');
+            var instrumentName = this.model.get('display_name');
+            this.$el.attr('id', instrumentId);
+            this.$el.attr('class', 'instrument detached');
+            var label = (instrumentName == undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+        }
+        return this
+    }
+});
+
 var StreamItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
-        'click': 'onClick'
+        'click a': 'onClick'
     },
     initialize: function(options) {
         _.bindAll(this, 'render', 'derender', 'onClick');
@@ -253,7 +310,6 @@ var StreamItemView = Backbone.View.extend({
     onClick: function(e) {
         $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
-        e.preventDefault();
         $(e.target).addClass("active-toc-item");
 
         var param_list = []
@@ -267,7 +323,7 @@ var StreamItemView = Backbone.View.extend({
                     parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
                     param_list.push(variable);
                 }
-                
+
             }
         }
         $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {

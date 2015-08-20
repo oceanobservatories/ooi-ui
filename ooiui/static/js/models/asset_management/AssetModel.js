@@ -54,7 +54,9 @@ var AssetCollection = Backbone.Collection.extend({
     },
     byClass: function(classType) {
         var filtered = this.filter(function (asset) {
-            return asset.get('asset_class') === classType;
+            if ( asset.get('ref_des') != "") {
+                return asset.get('asset_class') === classType;
+            }
         });
         return new AssetCollection(filtered);
     }

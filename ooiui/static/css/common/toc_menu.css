@@ -11,13 +11,13 @@
 }
 
 #array {
-    background-color:
 }
 div.well {
     width: 300px;
 }
 div#assetBrowser {
     overflow-x: hidden;
+    padding-left: 25px;
 }
 label {
     display: block;
@@ -30,16 +30,9 @@ label {
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 
-.nav .nav-list .tree li a:hover{
-    background-color:lightgray;
-}
 
-.nav .nav-list .tree li a:active{
-    background-color:lightblue;
-}
-
-.nav .nav-list .tree .active-toc-item{
-    background-color:lightblue;
+.active-toc-item{
+    background-color:lightblue !important;
 }
 
 .nav-header {
@@ -114,7 +107,6 @@ margin: 0 0 10px
 
 li.highlight-row > label {
 
-    background-color: #004773 !important;
     color: #fff!important;
 }
 
