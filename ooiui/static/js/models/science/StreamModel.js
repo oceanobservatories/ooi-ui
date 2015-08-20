@@ -21,6 +21,7 @@ var StreamModel = Backbone.Model.extend({
     end: "",
     reference_designator: "",
     display_name: "",
+    long_display_name: "",
     variables: [],
     variable_types: {},
     preferred_timestamp: "",
@@ -34,7 +35,7 @@ var StreamModel = Backbone.Model.extend({
       var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     } else if(type == 'netcdf') {
       var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations');
-    } else if(type == 'csv') { 
+    } else if(type == 'csv') {
       var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
     }
     return url;
@@ -47,7 +48,7 @@ var StreamModel = Backbone.Model.extend({
       error: options.error
     });
   },
-  parse: function(data, options) {    
+  parse: function(data, options) {
     return data;
   }
 });
