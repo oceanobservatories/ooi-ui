@@ -6,7 +6,7 @@ Defines the application routes
 '''
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
-from flask import stream_with_context, make_response
+from flask import stream_with_context, make_response, redirect, url_for
 from ooiui.core.routes.common import get_login
 
 
@@ -18,6 +18,16 @@ import time
 import numpy as np
 import math
 import urllib2
+from functools import wraps
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if get_login() is None:
+            return redirect(url_for('new_index'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/')
 def new_index():
@@ -56,6 +66,7 @@ def streams_page():
 
 @app.route('/plotting', methods=['GET'])
 @app.route('/plotting/', methods=['GET'])
+@login_required
 def show_plotting_no_path():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return plotting_page(None)
