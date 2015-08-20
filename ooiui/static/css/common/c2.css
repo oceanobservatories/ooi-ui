@@ -66,7 +66,7 @@ ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree li.jqtree-se
     width: 170px;
   	float: right;
 }
-
+input#inst_search_box,
 input#plat_search_box {
   border: 1px solid #F09349;
 }
