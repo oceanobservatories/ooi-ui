@@ -107,6 +107,14 @@ li {
   background-color: #4fd934;
   color: #FFF;
 	line-height: .9;
+
+  border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+	font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  text-decoration: none;
+
 }
 .btn-success:hover {
   background-color: #398439;  
@@ -121,14 +129,43 @@ li {
   background-color: #0850F8;
   color: #FFF;
   line-height: .9;
+    border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+	font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  text-decoration: none;
 }
 .btn-reset:hover {
   background-color: #0850F8;  
-  background-position: 0 -15px; 
+  background-position: 0px -15px; 
   color: #333;
   text-decoration: none;
   background-repeat: repeat-x;  
 }
+
+.btn-danger {
+  background-image: linear-gradient(to bottom, #F11616, #C20000);
+  background-color: #C20000;
+  border-color: #5C0000;
+  color: #FFF;
+  line-height: .9;
+  font-size: 14px;
+	font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  text-decoration: none;
+
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+  background-image: linear-gradient(to bottom, #C20000, #F11616);
+  background-position: 0px 0px; 
+  color: #333;
+  text-decoration: none;
+  /* background-repeat: repeat-x;   */
+}
+
 
 /*needs work*/
 .btn-default {
@@ -138,7 +175,8 @@ li {
   padding: 5px 8px 5px 8px;
   border: solid #1f628d 1.5px;
   text-decoration: none;
-	line-height: 1; 
+	line-height: .9;
+	font-weight: 300;
 }
 
 .btn-default:hover {
