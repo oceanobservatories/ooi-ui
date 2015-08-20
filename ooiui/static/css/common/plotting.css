@@ -231,6 +231,7 @@
     /* text */
     color: #262c31;
     font-size: 14px;
+    padding-left: 10px;
   }
 
   .styleTable tbody tr.odd td {
@@ -267,6 +268,7 @@
     color: #121517;
     font-size: 14px;
     font-weight: bolder;
+    padding-left: 10px;
     /* text-shadow: 0 1px 1px #e8ebee; */
   }
 
