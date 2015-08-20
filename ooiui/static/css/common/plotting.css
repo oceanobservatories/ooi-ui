@@ -1,179 +1,388 @@
 .toc-plotting-text {
-    font-size: 10px !important;
+  font-size: 10px !important;
 }
 
 /****************************
-****** Plotting  *****
-****************************/
+ ****** Plotting  *****
+ ****************************/
 
-div#plottingBody {
+  div#plottingBody {
     margin-left: 20px;
 
     padding-right: 50px;
 
     max-height: 700px;
     max-width: 1560px;
-}
-/* ~vertical buttons on sidebar~ */
-.plotting-selection {
-	position: relative;
-	width: 100%;
-	/* margin-top: 25px; */
-}
+  }
+  /* ~vertical buttons on sidebar~ */
+  .plotting-selection {
+    position: relative;
+    width: 100%;
+    /* margin-top: 25px; */
+  }
 
-div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
+  div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
 
     margin-left: 5px !important;
     margin-right: 5px !important;
 
-}
+  }
 
-span.filter-option {
+  span.filter-option {
     margin-left: 0px !important;
-}
+  }
 
-#plottingBody > div:nth-child(1) > div > div > div:nth-child(1) > div.col-md-10 {
+  #plottingBody > div:nth-child(1) > div > div > div:nth-child(1) > div.col-md-10 {
     padding-left: 0px;
-}
-/* change for select buttons on plot page */
-button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
-	color: #353840;
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-  padding: 10px 15px;
-  border-bottom: 1px solid transparent;
-  border: 1px solid #7E9CD9;
-  border-radius: 4px;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-decoration: none;
-	width: 100%;
-	margin-bottom: 5px;
-  line-height: 1.1;
-  font-family: inherit;
-}
-button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
-}
+  }
+  /* change for select buttons on plot page */
+  button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+    color: #353840;
+    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border: 1px solid #7E9CD9;
+    border-radius: 4px;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 100%;
+    margin-bottom: 5px;
+    line-height: 1.1;
+    font-family: inherit;
+  }
+  button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
+    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+  }
 
-button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
-	text-transform: uppercase;
-}
+  button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+    text-transform: uppercase;
+  }
 
-.dropdown-menu.open {
-	/* margin: 2px 170px 0; */
-	background-color: rgba(255, 255, 255, 0.87);
-	padding-bottom: 14px;
-	border: none;
-  position: absolute;
-  top: 40px;
-  left: 140px;
-	}
+  .dropdown-menu.open {
+    /* margin: 2px 170px 0; */
+    background-color: rgba(255, 255, 255, 0.87);
+    padding-bottom: 14px;
+    border: none;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+  }
 
-input.form-control:focus {
-	border-color: #FBB500;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
-}
-.dropdown-menu > li > a {
-	margin: 4px;
-}
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-	background-color: #FFF;
-	background: #FFF;
-}
+  input.form-control:focus {
+    border-color: #FBB500;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
+  }
+  .dropdown-menu > li > a {
+    margin: 4px;
+  }
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:focus {
+    background-color: #FFF;
+    background: #FFF;
+  }
 
-div ul.dropdown-menu.inner.selectpicker {
-	padding: 10px;
-}
+  div ul.dropdown-menu.inner.selectpicker {
+    padding: 10px;
+  }
 
-ul.dropdown-menu.inner.selectpicker > li > a:hover,
-ul.dropdown-menu.inner.selectpicker > li > a:focus {
-	outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-  box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
-}
+  ul.dropdown-menu.inner.selectpicker > li > a:hover,
+  ul.dropdown-menu.inner.selectpicker > li > a:focus {
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
+  }
 
-span.filter-option.pull-left {
-	text-transform: capitalize;
-  margin-left: -9px;
-  padding-bottom: 5px;
-}
+  span.filter-option.pull-left {
+    text-transform: capitalize;
+    margin-left: -9px;
+    padding-bottom: 5px;
+  }
 
-/* Plotting sidebar buttons */
-/*space between button group on plotting page*/
-#plot-btn-group button[class*="plot-btn"] {
-	/* margin: 0px 5px; */
-	/* border-top-left-radius: 41px; */
-  /* border-bottom-left-radius: 41px; */
-  width: auto;
-	color: #353840;
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-  border-bottom: 1px solid transparent;
-  border: 1px solid #7E9CD9;
-  /* border-radius: 4px; */
-  font-weight: 300;
-  text-decoration: none;
-	margin-bottom: 15px;
-  line-height: 1;
-  font-family: inherit;
-}
+  /* Plotting sidebar buttons */
+  /*space between button group on plotting page*/
+  #plot-btn-group button[class*="plot-btn"] {
+    /* margin: 0px 5px; */
+    /* border-top-left-radius: 41px; */
+    /* border-bottom-left-radius: 41px; */
+    width: auto;
+    color: #353840;
+    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+    border-bottom: 1px solid transparent;
+    border: 1px solid #7E9CD9;
+    /* border-radius: 4px; */
+    font-weight: 300;
+    text-decoration: none;
+    margin-bottom: 15px;
+    line-height: 1;
+    font-family: inherit;
+  }
 
-#plot-btn-group button[class*="plot-btn"]:hover {
-	width: auto;
-	color: #353840;
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
-  border-bottom: 1px solid transparent;
-  border: 1px solid #7E9CD9;
-  border-radius: 4px;
-  font-weight: 300;
-  text-decoration: none;
-	margin-bottom: 5px;
-  line-height: 1;
-  font-family: inherit;
+  #plot-btn-group button[class*="plot-btn"]:hover {
+    width: auto;
+    color: #353840;
+    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+    border-bottom: 1px solid transparent;
+    border: 1px solid #7E9CD9;
+    border-radius: 4px;
+    font-weight: 300;
+    text-decoration: none;
+    margin-bottom: 5px;
+    line-height: 1;
+    font-family: inherit;
 
-}
+  }
 
-#plot-btn-group button span[class*="glyphicon"] {
-	background: transparent;
-}
+  #plot-btn-group button span[class*="glyphicon"] {
+    background: transparent;
+  }
 
-/***********************
-****** Tool Tips *******
-***********************/
-li#xVarTooltip {
-  z-index: 1000;
-}
-div#qa-qc {
+  /***********************
+   ****** Tool Tips *******
+   ***********************/
+  li#xVarTooltip {
+    z-index: 1000;
+  }
+  div#qa-qc {
     margin-left: 0px !important;
 
-}
-div.div-qa-qc{
-  width:100%;
-  top:-35px;
-  margin-left: 0px !important;
-}
+  }
+  div.div-qa-qc{
+    width:100%;
+    top:-35px;
+    margin-left: 0px !important;
+  }
 
-div.div-qa-qc > span {
+  div.div-qa-qc > span {
     padding-left: 5px;
     padding-right: 5px;
     margin-right: 5px;
-}
+  }
 
-/* Download buttons */
-div#download-row {
-background-color: #E0E0E0;
+  /* Download buttons */
+  div#download-row {
+    background-color: #E0E0E0;
     margin-left: -10px;
     margin-right: -10px;
     padding-top: 5px;
-}
-div#download-options > ul > li {
+  }
+
+  div#download-options > ul > li {
     display: inline !important;
     list-style-type: none;
     padding-right: 20px;
 }
 
 /* controls */
-#plotcontrols .label {white-space:nowrap;}
+#plotcontrols .label {
+  white-space:nowrap;
+}
 
+
+
+
+
+
+
+
+/**********************
+**** Event Scroll *****
+**********************/
+
+  .eventHeight {
+    height: 150 px;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  .styleTable td, .styleTable th {
+    /* appearance */
+    border: 1px solid #7E9CD9;
+
+    /* size */
+    padding: 5px;
+  }
+
+  .styleTable {
+    /* text */
+    /* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+    color: #262c31;
+  }
+
+  .styleTable tbody tr td {
+    /* appearance */
+    background-color: #F3F5FC;
+    background-image: -moz-linear-gradient(
+    top,
+    rgba(255,255,255,0.4) 0%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.1) 51%,
+    rgba(255,255,255,0.0) 100%);
+
+    background-image: -webkit-gradient(
+    linear, left top, left bottom,
+    color-stop(0%,rgba(255,255,255,0.4)),
+    color-stop(50%,rgba(255,255,255,0.2)),
+    color-stop(51%,rgba(255,255,255,0.1)),
+    color-stop(100%,rgba(255,255,255,0.0)));
+
+    /* text */
+    color: #262c31;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+
+  .styleTable tbody tr.odd td {
+    /* appearance */
+    background-color: #FDFDFA;
+    background-image: -moz-linear-gradient(
+    top,
+    rgba(255,255,255,0.4) 0%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.1) 51%,
+    rgba(255,255,255,0.0) 100%);
+
+    background-image: -webkit-gradient(
+    linear, left top, left bottom,
+    color-stop(0%,rgba(255,255,255,0.4)),
+    color-stop(50%,rgba(255,255,255,0.2)),
+    color-stop(51%,rgba(255,255,255,0.1)),
+    color-stop(100%,rgba(255,255,255,0.0)));
+  }
+
+  .styleTable thead tr th,
+  .styleTable thead tr td,
+  .styleTable tfoot tr th, 
+  .styleTable tfoot tr td {
+    /* appearance */
+    height: 15px;
+    border-bottom-width: 1px;
+    border-bottom-color: #F09349;
+    background: linear-gradient(#fff, #7E9CD9);
+    background-image: -moz-linear-gradient(#fff, #7E9CD9);
+    background-image: -webkit-gradient(#fff, #7E9CD9);
+  
+    /* text */
+    color: #121517;
+    font-size: 14px;
+    font-weight: bolder;
+    padding-left: 10px;
+    /* text-shadow: 0 1px 1px #e8ebee; */
+  }
+
+  .fht-table,
+  .fht-table thead,
+  .fht-table tfoot,
+  .fht-table tbody,
+  .fht-table tr,
+  .fht-table th,
+  .fht-table td {
+    /* position */
+    margin: 0;
+
+    /* size */
+    padding: 0;
+
+    /* text */
+    font-size: 15px; 
+    font: inherit;
+    vertical-align: top;
+  }
+
+  .fht-table {
+    /* appearance */
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .fht-thead {
+    border-right: 1px solid #7E9CD9;
+  }
+
+  /* @group Content */
+
+  .fht-table-wrapper,
+  .fht-table-wrapper .fht-thead,
+  .fht-table-wrapper .fht-tfoot,
+  .fht-table-wrapper .fht-fixed-column .fht-tbody,
+  .fht-table-wrapper .fht-fixed-body .fht-tbody,
+  .fht-table-wrapper .fht-tbody {
+    /* appearance */
+    overflow: hidden;
+    /* position */
+    position: relative;
+  }
+  
+  .fht-table-wrapper .fht-thead {
+    border-right: 1px solid #7E9CD9;
+  }
+  
+  .fht-table-wrapper .fht-tbody {
+    height: 170px;
+  }
+
+  .fht-table-wrapper .fht-fixed-body .fht-tbody,
+  .fht-table-wrapper .fht-tbody {
+    /* appearance */
+    overflow: auto;
+  }
+
+  .fht-table-wrapper .fht-table .fht-cell {
+    /* appearance */
+    overflow: hidden;
+
+    /* size */
+    height: 1px;
+  }
+
+  .fht-table-wrapper .fht-fixed-column,
+  .fht-table-wrapper .fht-fixed-body {
+    /* position */
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
+
+  .fht-table-wrapper .fht-fixed-column {
+    /* position */
+    z-index: 1;
+  }
+
+  /* .fht-tbody::-webkit-scrollbar { */
+  /*   border-bottom-right-radius: 10px; */
+  /*   border-right: 1px solid #D1DAF5; */
+  /*   border-bottom: 1px solid #D1DAF5; */
+  /* } */
+ /* scrollbar styling */
+.fht-tbody::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+    border: 1px solid #D1DAF5;
+}
+
+.fht-tbody::-webkit-scrollbar-corner {
+  border: 1px solid #D1DAF5;
+}
+ 
+/* Track */
+.fht-tbody::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.fht-tbody::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #D1DAF5; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+.fht-tbody::-webkit-scrollbar-thumb:window-inactive {
+	background: #D1DAF5; 
+}
+
+table#eventsTable {
+  width: 100% !important;
+}

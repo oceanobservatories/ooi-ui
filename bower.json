@@ -55,7 +55,8 @@
     "nuxeo": "~0.5.1",
     "highcharts": "4.1.6",
     "highchart-export-csv": "*",
-    "Leaflet.EasyButton": "~1.1.0"
+    "Leaflet.EasyButton": "~1.1.0",
+    "jquery.fixedheadertable": "http://github.com/markmalek/Fixed-Header-Table.git#8b8667e86c"
   },
   "resolutions": {
     "jquery": "~2.1.1",
