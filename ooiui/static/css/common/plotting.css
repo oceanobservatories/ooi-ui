@@ -295,11 +295,8 @@
     border-spacing: 0;
   }
 
-  .fht-tbody {
-    border-bottom: 1px solid #D1DAF5;
-    border-right: 1px solid #D1DAF5;
-    border-bottom-right-radius: 4px;
-
+  .fht-thead {
+    border-right: 1px solid #7E9CD9;
   }
 
   /* @group Content */
@@ -317,7 +314,7 @@
   }
   
   .fht-table-wrapper .fht-thead {
-    border-right: 1px solid #D1DAF5;
+    border-right: 1px solid #7E9CD9;
   }
   
   .fht-table-wrapper .fht-tbody {
@@ -383,4 +380,3 @@
 .fht-tbody::-webkit-scrollbar-thumb:window-inactive {
 	background: #D1DAF5; 
 }
-
