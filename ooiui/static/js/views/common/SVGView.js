@@ -460,6 +460,7 @@ var SVGPlotView = SVGView.extend({
 var SVGPlotControlView = Backbone.View.extend({
   events: {
     'click #update-plot' : 'onClickPlot',
+    'click #reset-time' : 'onResetTime',
     'change #xvar-select' : 'xVarChange',
     'change #yvar1-select' : 'yVar1Change',
     'change #yvar2-select' : 'yVar2Change',
@@ -603,6 +604,10 @@ var SVGPlotControlView = Backbone.View.extend({
     $("#parameters_id").val(selectedParam);
     $("#parameters_id").change();
     $("#parameters_id").selectpicker('refresh');
+  },
+  onResetTime: function(e){
+    this.$start_date.data("DateTimePicker").setDate(moment(this.model.get('start')).format("YYYY-MM-DD HH:mm:ss"));
+    this.$end_date.data("DateTimePicker").setDate(moment(this.model.get('end')).format("YYYY-MM-DD HH:mm:ss"));
   },
   onClickPlot: function(e) {
     var data = {};
