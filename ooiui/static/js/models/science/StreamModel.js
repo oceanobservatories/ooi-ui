@@ -22,6 +22,7 @@ var StreamModel = Backbone.Model.extend({
     reference_designator: "",
     display_name: "",
     long_display_name: "",
+    platform_name: "",
     variables: [],
     variable_types: {},
     preferred_timestamp: "",

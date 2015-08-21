@@ -281,8 +281,10 @@ var HomelessStreamItemView = AssetItemView.extend({
             this.model.set('ref_des', this.model.get('reference_designator'));
             var platformId = this.model.get('reference_designator').substr(0,14);
             this.$el.attr('id', platformId);
+            var platformName = this.model.get('platform_name');
             this.$el.attr('class', 'platform detached');
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ platformId + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+            var label = (platformName == undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId.substr(0,8)+'</span>';
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         }
         if ( this.model.get('asset_class') == '.InstrumentAssetRecord' ) {
             this.model.set('ref_des', this.model.get('reference_designator'));
