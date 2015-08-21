@@ -100,7 +100,7 @@ var AlertFilterView = Backbone.View.extend({
             setOptions: {
                 validate: false
             }
-          },   
+          }
     },
     initialRender: function() {
       this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
@@ -216,17 +216,16 @@ var AlertFilterView = Backbone.View.extend({
             {
               name: "event_type",
               editable: false,
-              label: "Condition Met?",
+              label: "Type",
               cell: HtmlCell,
               formatter: _.extend({}, Backgrid.Cell.prototype, {
                 fromRaw: function (rawValue, model) {
                   //place holder right now for triggered events
                   if(rawValue =='alarm'){
-                    //fa fa-bullhorn
-                      return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Yes</i>";
+                      return "Alarm";
                   }
                   else if(rawValue =='alert'){
-                      return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'> No</i>";
+                      return "Alert";
                   }
                 }
               })
@@ -544,7 +543,7 @@ var AlertFilterView = Backbone.View.extend({
 
     showenabledoperators:function(){
       return "<select data-show-icon='true' data-container='body' class='form-control' id='operator_dd"+this.rownum+"'><option value='>'>></option><option  value='<'> <</option><option  value='='> =</option><option  value='<>'> <></option><option  value='>='> >=</option><option  value='<='> <=</option><option  value='outside'> outside</option><option  value='inside'> inside</option></select>"; 
-    },
+    }
     
 
     /*click on the left hand side of the TOC
