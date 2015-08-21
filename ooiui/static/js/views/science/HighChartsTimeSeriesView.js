@@ -144,6 +144,14 @@ var TimeseriesView = Backbone.View.extend({
         seriesModel.set('xmin',startDate);
         seriesModel.set('xmax',endDate);
         seriesCollection.add(seriesModel);
+        if (qaqc && axes_count == 1){
+            // Add a legend entry for QAQC 
+           var seriesModel = new SeriesModel({data:[]})
+           seriesModel.set('name', 'Failed QAQC');
+           seriesModel.set('color', '#FF0000');
+           // seriesModel.set('type', 'scatter');
+           seriesCollection.add(seriesModel);
+        }
       }
 
     });

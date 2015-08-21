@@ -41,6 +41,11 @@ var HighchartsView = Backbone.View.extend({
       }else{        
         var opposite_val = false;
       }
+
+      // The fake QAQC series should be hidden on same axis
+      if (model.get('data').length === 0){
+        opposite_val = true;
+      }
       
 
       if(_.isUndefined(axis)) {
@@ -85,7 +90,15 @@ var HighchartsView = Backbone.View.extend({
           },
         },
         alignTicks: false,      
-        zoomType: 'xy'      
+        zoomType: 'xy',
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: 0,
+                y: -30
+            }
+        }     
       },
       credits: {
         enabled: false
@@ -155,10 +168,14 @@ var HighchartsView = Backbone.View.extend({
           data: model.get('data'),
           units: model.get('units'),    
           yAxis: i,                             
-          marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker')}, // only dots are for direction
+          marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker'), "symbol": "circle"}, // only dots are for direction
           states: {hover: {enabled: false}} // no highlighted dots
         };
       }),
+      legend: {
+          symbolWidth: 12,
+          symbolRadius: 6
+      },
       navigation: {
           buttonOptions: {
               enabled: false   // Hide the buttons
