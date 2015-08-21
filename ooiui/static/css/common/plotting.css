@@ -2,15 +2,13 @@
   font-size: 10px !important;
 }
 
-/****************************
- ****** Plotting  *****
- ****************************/
+  /*********************
+  ****** Plotting  *****
+  *********************/
 
   div#plottingBody {
     margin-left: 20px;
-
     padding-right: 50px;
-
     max-height: 700px;
     max-width: 1560px;
   }
@@ -22,10 +20,8 @@
   }
 
   div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
-
     margin-left: 5px !important;
     margin-right: 5px !important;
-
   }
 
   span.filter-option {
@@ -132,7 +128,6 @@
     margin-bottom: 5px;
     line-height: 1;
     font-family: inherit;
-
   }
 
   #plot-btn-group button span[class*="glyphicon"] {
@@ -173,24 +168,28 @@
     display: inline !important;
     list-style-type: none;
     padding-right: 20px;
-}
+  }
 
-/* controls */
-#plotcontrols .label {
-  white-space:nowrap;
-}
+  /* controls */
+  #plotcontrols .label {
+    white-space:nowrap;
+  }
 
+  /**********************
+   *** Event Date/Time ***
+   **********************/
+  div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
+    width: auto;
+    white-space: inherit;
+  }
 
+  div.bootstrap-datetimepicker-widget.dropdown-menu.bottom > ul > li.collapse.in {
+    background: #fff;
+  }
 
-
-
-
-
-
-/**********************
-**** Event Scroll *****
-**********************/
-
+  /**********************
+   **** Event Scroll *****
+   **********************/
   .eventHeight {
     height: 150 px;
     overflow-x: auto;
@@ -263,7 +262,7 @@
     background: linear-gradient(#fff, #7E9CD9);
     background-image: -moz-linear-gradient(#fff, #7E9CD9);
     background-image: -webkit-gradient(#fff, #7E9CD9);
-  
+
     /* text */
     color: #121517;
     font-size: 14px;
@@ -314,11 +313,11 @@
     /* position */
     position: relative;
   }
-  
+
   .fht-table-wrapper .fht-thead {
     border-right: 1px solid #7E9CD9;
   }
-  
+
   .fht-table-wrapper .fht-tbody {
     height: 170px;
   }
@@ -355,34 +354,34 @@
   /*   border-right: 1px solid #D1DAF5; */
   /*   border-bottom: 1px solid #D1DAF5; */
   /* } */
- /* scrollbar styling */
-.fht-tbody::-webkit-scrollbar {
+  /* scrollbar styling */
+  .fht-tbody::-webkit-scrollbar {
     width: 10px;
     background: transparent;
     border: 1px solid #D1DAF5;
-}
+  }
 
-.fht-tbody::-webkit-scrollbar-corner {
-  border: 1px solid #D1DAF5;
-}
- 
-/* Track */
-.fht-tbody::-webkit-scrollbar-track {
+  .fht-tbody::-webkit-scrollbar-corner {
+    border: 1px solid #D1DAF5;
+  }
+
+  /* Track */
+  .fht-tbody::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-}
+  }
 
-.fht-tbody::-webkit-scrollbar-thumb {
+  .fht-tbody::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: #D1DAF5; 
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}
+  }
 
-.fht-tbody::-webkit-scrollbar-thumb:window-inactive {
-	background: #D1DAF5; 
-}
+  .fht-tbody::-webkit-scrollbar-thumb:window-inactive {
+    background: #D1DAF5; 
+  }
 
-table#eventsTable {
-  width: 100% !important;
-}
+  table#eventsTable {
+    width: 100% !important;
+  }
