@@ -338,7 +338,7 @@ var StreamItemView = Backbone.View.extend({
         parameterhtml += "<optgroup label='Non Derived'>"
         for (var i = 0; i < this.model.get('variables').length; i++) {
             if (param_list.indexOf(this.model.get('variables')) == -1){
-                if (shape[i] === "scalar"){
+                if (shape[i] != "function"){
                     var parameterId = this.model.get('parameter_id')[i];
                     var units = this.model.get('units')[i];
                     var variable = this.model.get('variables')[i];
