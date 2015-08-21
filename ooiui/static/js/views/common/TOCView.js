@@ -314,18 +314,43 @@ var StreamItemView = Backbone.View.extend({
 
         var param_list = []
         var parameterhtml = "";
+        var shape = this.model.get('variables_shape');
+
+        //Ok lets start by getting derived parameters
+        parameterhtml += "<optgroup label='Derived'>"
         for (var i = 0; i < this.model.get('variables').length; i++) {
             if (param_list.indexOf(this.model.get('variables')) == -1){
-                var parameterId = this.model.get('parameter_id')[i];
-                var units = this.model.get('units')[i];
-                var variable = this.model.get('variables')[i];
-                if (variable.toLowerCase() != "time"){
-                    parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                    param_list.push(variable);
+                if (shape[i] === "function"){
+                    var parameterId = this.model.get('parameter_id')[i];
+                    var units = this.model.get('units')[i];
+                    var variable = this.model.get('variables')[i];
+                    if (variable.toLowerCase() != "time"){
+                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        param_list.push(variable);
+                    }
                 }
 
             }
         }
+        parameterhtml += "</optgroup>"
+
+        //Now get non derived parameters
+        parameterhtml += "<optgroup label='Non Derived'>"
+        for (var i = 0; i < this.model.get('variables').length; i++) {
+            if (param_list.indexOf(this.model.get('variables')) == -1){
+                if (shape[i] != "function"){
+                    var parameterId = this.model.get('parameter_id')[i];
+                    var units = this.model.get('units')[i];
+                    var variable = this.model.get('variables')[i];
+                    if (variable.toLowerCase() != "time"){
+                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        param_list.push(variable);
+                    }
+                }
+            }
+        }
+        parameterhtml += "</optgroup>"
+
         $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
             $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
             $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
