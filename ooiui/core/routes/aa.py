@@ -102,13 +102,17 @@ def edit_aa_array(id):
     return response.text, response.status_code
 
 
-# currently fitler all alert definiations by one id
+# currently filter all alert definitions by one id
 @app.route('/api/aa/<string:id>', methods=['GET'])
 def get_aa_specific_id(id):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_definition?%s' % (id), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+# Exposes the REDMINE_URL config.yml parameter
+@app.route('/api/aa/redmineurl', methods=['GET'])
+def get_aa_redmine_server():
+    return app.config['REDMINE_URL']
 
 # Get Alerts Options
 #
