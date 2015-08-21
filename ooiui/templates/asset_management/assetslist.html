@@ -158,6 +158,7 @@ var vent = _.extend({}, Backbone.Events);
 
 // Main collection for this page's asset information.
 var collection          = new AssetCollection();
+var assetCollection          = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
@@ -167,10 +168,10 @@ var ooi = new OOI();
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
-var assetFetch = collection.fetch({ data: data, reset: true });
+var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ data: data,  reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
-    $.when( (renderTOCView( arrayCollection, collection, streamCollection )) ).done(function() {
+    $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         focusToItem();
     });
