@@ -25,28 +25,33 @@ def landing_pioneer():
 
 @app.route('/assets/list')
 @app.route('/assets/list/')
+@login_required
 def instr_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassets')
     return render_template('asset_management/assetslist.html')
 
 
 @app.route('/events/list/')
+@login_required
 def event_list():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fevents')
     return render_template('asset_management/eventslist.html')
 
 
 @app.route('/event/<int:id>', methods=['GET'])
+@login_required
 def event_index(id):
     return render_template('asset_management/event.html', id=id)
 
 
 @app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
+@login_required
 def event_new(new, aid, aclass):
     return render_template('asset_management/event.html', id=str(new), assetid=aid, aclass=str(aclass))
 
 
 @app.route('/streams/')
+@login_required
 def streams_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
     return render_template('science/streams.html')
@@ -61,6 +66,7 @@ def show_plotting_no_path():
 
 
 @app.route('/plotting/<path:path>', methods=['GET'])
+@login_required
 def plotting_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     print path
@@ -68,6 +74,7 @@ def plotting_page(path):
 
 
 @app.route('/getdata/')
+@login_required
 def getData():
     '''
     gets data in the google chart format
@@ -82,6 +89,7 @@ def getData():
 
 
 @app.route('/api/get_data', methods=['GET'])
+@login_required
 def getUframeDataProxy():
     '''
     gets data in the google chart format
@@ -106,6 +114,7 @@ def getUframeDataProxy():
 
 
 @app.route('/api/annotation', methods=['GET'])
+@login_required
 def get_annotations():
     try:
         instr = request.args['reference_designator']
@@ -118,6 +127,7 @@ def get_annotations():
 
 
 @app.route('/api/annotation', methods=['POST'])
+@login_required
 def post_annotation():    
     token = get_login()
     response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)
@@ -125,6 +135,7 @@ def post_annotation():
 
 
 @app.route('/api/annotation/<string:id>', methods=['PUT'])
+@login_required
 def put_annotation(id):    
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
@@ -210,18 +221,21 @@ def asset_event_put(id):
 
 
 @app.route('/api/asset_events', methods=['POST'])
+@login_required
 def asset_event_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
     return response.text, response.status_code
 
 
 @app.route('/api/events', methods=['GET'])
+@login_required
 def get_event_by_ref_des():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/events?ref_des=%s' % request.args.get('ref_des'), data=request.args)
     return response.text, response.status_code
 
 
 @app.route('/opLog.html')
+@login_required
 def op_log():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FopLog')
     return render_template("common/opLog.html")
@@ -255,6 +269,7 @@ def metadata_times_proxy(stream_name,reference_designator):
 
 
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
+@login_required
 def get_csv(stream_name, reference_designator,start,end):
     token = get_login()
     dpa = "1"
@@ -264,6 +279,7 @@ def get_csv(stream_name, reference_designator,start,end):
 
 
 @app.route('/api/uframe/get_json/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:provenance>/<string:annotations>')
+@login_required
 def get_json(stream_name, reference_designator, start, end, provenance, annotations):
     token = get_login()
     dpa = "0"
@@ -273,6 +289,7 @@ def get_json(stream_name, reference_designator, start, end, provenance, annotati
 
 
 @app.route('/api/uframe/get_netcdf/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>/<string:provenance>/<string:annotations>')
+@login_required
 def get_netcdf(stream_name, reference_designator, start, end, provenance, annotations):
     token = get_login()
     dpa = "0"
@@ -282,6 +299,7 @@ def get_netcdf(stream_name, reference_designator, start, end, provenance, annota
 
 
 @app.route('/api/uframe/get_profiles/<string:stream_name>/<string:reference_designator>')
+@login_required
 def get_profiles(stream_name, reference_designator):
     token = get_login()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_profiles/%s/%s/%s/%s' % (stream_name, reference_designator), auth=(token, ''), stream=True)
@@ -289,6 +307,7 @@ def get_profiles(stream_name, reference_designator):
 
 
 @app.route('/svg/plot/<string:instrument>/<string:stream>', methods=['GET'])
+@login_required
 def get_plotdemo(instrument, stream):
     token = get_login()
     import time
@@ -302,24 +321,28 @@ def get_plotdemo(instrument, stream):
 
 # C2 Routes
 @app.route('/api/c2/array_display/<string:array_code>', methods=['GET'])
+@login_required
 def get_c2_array_display(array_code):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array_display/%s' % (array_code))
     return response.text, response.status_code
 
 
 @app.route('/api/c2/platform_display/<string:reference_designator>', methods=['GET'])
+@login_required
 def get_c2_platform_display(reference_designator):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform_display/%s' % (reference_designator))
     return response.text, response.status_code
 
 
 @app.route('/api/c2/instrument_display/<string:reference_designator>', methods=['GET'])
+@login_required
 def get_c2_instrument_display(reference_designator):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument_display/%s' % (reference_designator))
     return response.text, response.status_code
 
 
 @app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
+@login_required
 def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
     return response.text, response.status_code
