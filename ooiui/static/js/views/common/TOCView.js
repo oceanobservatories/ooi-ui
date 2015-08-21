@@ -46,7 +46,7 @@ var TOCView = Backbone.View.extend({
                 var arrayTarget = '#array_'+ arrayCode;
                 if ( document.getElementById( model.get('ref_des').substring(0,14)) == null ) {
                     // TODO: Remove this - only for 08/17/2015 demo: M@C
-                    if ( !(model.get('ref_des').indexOf('-000') > -1 ) ) {
+                    if ( !(model.get('ref_des').indexOf('-0000') > -1 ) ) {
                         var assetItemView = new AssetItemView({ model:model });
                         $( arrayTarget ).append( assetItemView.render().el );
                     }
@@ -85,22 +85,23 @@ var TOCView = Backbone.View.extend({
             this.streamCollection.map( function(model) {
                 try {
                     var instrumentCode = model.get('reference_designator');
+                    var streamName = model.get('stream_name');
                     /* Not all streams have physical instruments, so the asset list won't
                      * render the streams.  If there are streams that have been detached
                      * from their instrument / platform, we'll need to append a 'logical'
                      * tree for the streams to live.*/
                     if ( document.getElementById(instrumentCode) == null ){
-                        instrumentCode = model.get('reference_designator').substring(0,2);
-                        var platformHome = model.get('reference_designator').substring(0,14);
-                        if ( document.getElementById(platformHome) == null ) {
+                        var arrayCode = model.get('reference_designator').substring(0,2);
+                        var platformCode = model.get('reference_designator').substring(0,14);
+                        if ( document.getElementById(platformCode) == null ) {
                             //platform
                             model.attributes.asset_class = '.AssetRecord';
                             var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                            $.when( $('ul#array_'+instrumentCode).append( homelessStreamItem.render().el ) ).done( function() {
+                            $.when( $('ul#array_'+arrayCode).append( homelessStreamItem.render().el ) ).done( function() {
                                 //instrument
                                 model.attributes.asset_class = '.InstrumentAssetRecord';
                                 var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                                $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
                                     //stream
                                     var instrumentTarget = 'ul#'+instrumentCode;
                                     var streamItemView = new StreamItemView({ model:model });
@@ -111,7 +112,7 @@ var TOCView = Backbone.View.extend({
                             //instrument
                             model.attributes.asset_class = '.InstrumentAssetRecord';
                             var homelessStreamItem = new HomelessStreamItemView({ model: model });
-                            $.when($('ul#'+platformHome).append( homelessStreamItem.render().el )).done(function() {
+                            $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
                                 //stream
                                 var instrumentTarget = 'ul#'+instrumentCode;
                                 var streamItemView = new StreamItemView({ model:model });
