@@ -107,12 +107,23 @@ var TriggeredView = Backbone.View.extend({
         name: "acknowledged", // The key of the model attribute
         label: "Acknowledged", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-        cell: "string"
-        /*            formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-         fromRaw: function (rawValue, model) {
-         return "5.432"
-         }
-         })*/
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            console.log('Acknowledged Field');
+            console.log(rawValue);
+            //console.log(rawValue);
+            //place holder right now for triggered events
+            if(rawValue == 1){
+              return "Yes";
+            }
+            else {
+              return "<button type=\"button\" id=\"toggleAcknowledgeBtn\" class=\"btn btn-primary\">" +
+                "<i class=\"fa fa-plus-square\"></i> Acknowledge Now" +
+                "</button>";
+            }
+          }
+        })
       },
       {
         name: "event_type",
