@@ -38,9 +38,11 @@
           <div id="aa-panel" class="panel">
             <div id="aa-panel-body" class="panel-body">
               <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
+                Select an instrument data stream from the table of contents to create a new definition.<br/>
+                Currently Selected:&nbsp;
                 <i id="current_selection" style="color:#337ab7"></i>
               </div>
-              <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:35px;'>
+              <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:15px;'>
                 <i id="create_aa_def_btn">
                   <button type="button" id="newAlertAlarmDefinition" class="btn btn-primary" style="display: none;">
                     <i class="fa fa-plus-square"></i> Add Alert/Alarm Definition
@@ -52,6 +54,14 @@
                 <div id='alertslist' class="col-sm-12">
                 </div>
               <div>
+
+                {#<div class="col-sm-12" id="action_buttons" style='font-weight:bold;padding-top:15px;'>
+                <i id="toggle_active_btn">
+                  <button type="button" id="toggleActiveBtn" class="btn btn-primary" style="display: none;">
+                    <i class="fa fa-plus-square"></i> Disable Alert/Alarm
+                  </button>
+                </i>
+              </div>#}
 
               <!--
               <hr width ='80%' style='margin-top:0;'>
@@ -240,7 +250,7 @@
         self.outputInfo('stream',options)        
       });
 
-      //click the add definitation button
+      //click the add definition button
       $('#newAlertAlarmDefinition').on( "click", function(evt) {
         console.log("clicked,show modal");
         //update collection and fetch
@@ -264,6 +274,11 @@
           userModel: self.models.userModel
         });
         
+      });
+
+      $('#toggleActiveBtn').on( "click", function(evt) {
+        console.log("clicked,disable definition");
+        $.post('/aa/api/')
       });
 
       this.listenTo(this.collections.alert_list, 'reset', function(options) {

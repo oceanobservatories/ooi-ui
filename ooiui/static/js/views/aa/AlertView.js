@@ -229,7 +229,78 @@ var AlertFilterView = Backbone.View.extend({
                   }
                 }
               })
-            }
+            },
+          {
+            name: "active",
+            editable: false,
+            label: "Active",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+                fromRaw: function (rawValue, model) {
+                  //console.log(rawValue);
+                  //place holder right now for triggered events
+                  if(rawValue == 1){
+                    //return "Active";
+                    return "<i id='active_def' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'>Active</i>";
+                  }
+                  else if(rawValue == 0){
+                      //return "Disabled";
+                    return "<i id='active_def' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-down'>Disabled</i>";
+                  }
+                }
+              })
+          },
+          {
+            name: "active",
+            editable: false,
+            label: "O/I",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+              fromRaw: function (rawValue, model) {
+                console.log('Active Field');
+                console.log(rawValue);
+                console.log(model.attributes.retired);
+                //place holder right now for triggered events
+                if (model.attributes.retired == 0) {
+                  if (rawValue == 1) {
+                    return "<button type=\"button\" id=\"toggleActiveBtn\" class=\"btn btn-primary\">" +
+                      "<i class=\"fa fa-plus-square\"></i> Disable Alert/Alarm" +
+                      "</button>";
+                  }
+                  else if (rawValue == 0) {
+                    return "<button type=\"button\" id=\"toggleActiveBtn\" class=\"btn btn-primary\">" +
+                      "<i class=\"fa fa-plus-square\"></i> Enable Alert/Alarm" +
+                      "</button>";
+                  }
+                }
+                else {
+                  return "Retired";
+                }
+              }
+            })
+          },
+          {
+            name: "retired",
+            editable: false,
+            label: "Retire",
+            cell: HtmlCell,
+            formatter: _.extend({}, Backgrid.Cell.prototype, {
+              fromRaw: function (rawValue, model) {
+                console.log('Retired Field');
+                console.log(rawValue);
+                //console.log(rawValue);
+                //place holder right now for triggered events
+                if(rawValue == 1){
+                  return "Retired";
+                }
+                else {
+                  return "<button type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
+                    "<i class=\"fa fa-plus-square\"></i> Retire" +
+                    "</button>";
+                }
+              }
+            })
+          }
           ];
 
         //add click event
@@ -259,12 +330,19 @@ var AlertFilterView = Backbone.View.extend({
                   ack: function() { console.log("Closed");}
                 });
             }
+/*            if(e.target.id=='active_def'){
+              console.log('Clicked active thumb');
+              console.log(this.model.attributes.uframe_filter_id);
+              document.getElementById('toggleActiveBtn').innerHTML = '<i class="fa fa-plus-square"></i> Disable Alert/Alarm ' + this.model.attributes.uframe_filter_id;
+              document.getElementById('toggleActiveBtn').style.display = "inline";
+            }*/
           },
           rowFocused: function() {
             this.el.style.backgroundColor = this.highlightColor;
           },
           rowLostFocus: function() {
             this.el.style.backgroundColor = '#FFF';
+            //document.getElementById('toggleActiveBtn').style.display = "none";
           }
         });
 
@@ -343,6 +421,7 @@ var AlertFilterView = Backbone.View.extend({
         //move clicked row to edit panel
         Backbone.on("deployrowclicked", function (model) {
             //self.addConditions(model);
+          console.log('Clicked row');
         });
         
         /*
