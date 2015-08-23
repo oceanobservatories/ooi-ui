@@ -92,6 +92,12 @@ var TriggeredView = Backbone.View.extend({
 
     var columns = [
       {
+        name: "system_event_definition_id", // The key of the definition that triggered the event
+        label: "Definition ID", // The name to display in the header
+        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+        cell: "string"
+      },
+      {
         name: "event_response", // The key of the model attribute
         label: "Event Label", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
@@ -136,10 +142,10 @@ var TriggeredView = Backbone.View.extend({
             //place holder right now for triggered events
             if (rawValue == 'alarm') {
               //fa fa-bullhorn
-              return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
+              return "<i id='condition_met' style='font-size:20px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
             }
             else if (rawValue == 'alert') {
-              return "<i id='condition_met' style='font-size:20px;float:right;padding-right: 20px;color:#E3A615' class='fa fa-flag'> Alert</i>";
+              return "<i id='condition_met' style='font-size:20px;color:#E3A615' class='fa fa-flag'> Alert</i>";
             }
           }
         })
@@ -149,11 +155,11 @@ var TriggeredView = Backbone.View.extend({
         editable: false,
         label: "Redmine Ticket",
         cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
+        formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
           fromRaw: function (rawValue, model) {
             //place holder right now for triggered events
             if (rawValue > 0) {
-              return "<i id='condition_met' style='text-align:center;font-size:20px;float:center;padding-right: 5px;color:#a94442'><a href=\"" + redmineUrl + "/issues/" + rawValue + "\" target=\"_blank\" class='fa fa-ticket'></a></i>";
+              return "<i id='condition_met' style='font-size:20px;color:#a94442'><a href=\"" + redmineUrl + "/issues/" + rawValue + "\" target=\"_blank\" class='fa fa-ticket'></a></i>";
             }
           }
         })
@@ -246,7 +252,7 @@ var TriggeredView = Backbone.View.extend({
     // Render the filter
     $("#triggerlist").before(filter.render().el);
     // Add some space to the filter and move it to the right
-    $(filter.el).css({float: "right", margin: "20px"});
+    $(filter.el).css({float: "right", margin: "0px 0px 25px 0px"});
     $(filter.el).find("input").attr('id', 'trigger_search_box');
 
     pageabletriggers.fetch({

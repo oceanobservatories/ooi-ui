@@ -49,7 +49,6 @@
                 </button>
               </i>
             </div>
-
             <div class="row form-group">
               <div id='alertslist' class="col-sm-12">
               </div>
@@ -243,7 +242,7 @@
         this.listenTo(this, 'toc:selectStream', function(options) {
           //options.model = stream selection model
           self.models.selectedStream = options.model;
-          $('#current_selection').text(options.model.get('reference_designator')+" > "+options.model.get('stream_name'))
+          $('#current_selection').text(options.model.get('reference_designator')+" > "+options.model.get('stream_name'));
           //make visible
           self.setButtonDefinitionVisibility(true);
           //output....just cause.
