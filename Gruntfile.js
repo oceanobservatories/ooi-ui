@@ -156,7 +156,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TriggeredAlertDialog.html",
             "ooiui/static/js/partials/Banner.html",
             "ooiui/static/js/partials/ModalForm.html",
-            "ooiui/static/js/partials/DefinitionModalForm.html"            
+            "ooiui/static/js/partials/DefinitionModalForm.html",
+            "ooiui/static/js/partials/AcknowledgeModalForm.html"
           ],
 
           "ooiui/static/js/partials/compiled/basic.js": [
@@ -853,7 +854,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/aa/AlertView.js",
             "ooiui/static/js/views/aa/TriggeredView.js",
             "ooiui/static/js/views/aa/TriggerAlertDialogView.js",            
-            "ooiui/static/js/views/aa/DefinitionModalFormView.js"
+            "ooiui/static/js/views/aa/DefinitionModalFormView.js",
+            "ooiui/static/js/views/aa/AcknowledgeModalFormView.js"
           ],
 
           'ooiui/static/js/compiled/gridList.js' : [
