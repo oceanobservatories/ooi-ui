@@ -66,6 +66,7 @@
           </div>
         </div>
         <div id="definition-modal"></div>
+        <div id="active-toggle-modal"></div>
       </div>
     </div>
   </div>
@@ -203,6 +204,17 @@
           self.outputInfo('stream',options)
         });
 
+        this.listenTo(this, 'alertToggleActiveFormViewTrigger:onClick', function(options) {
+          self.views.active_toggle.model = options.model;
+          self.views.active_toggle.render();
+          self.views.active_toggle.show();
+        });
+
+        this.views.active_toggle = new AlertToggleActiveModalFormView({
+          el: $('#active-toggle-modal'),
+          model:self.models.alertModel
+        });
+
         //click the add definition button
         $('#newAlertAlarmDefinition').on( "click", function(evt) {
           console.log("clicked,show modal");
@@ -227,11 +239,6 @@
             userModel: self.models.userModel
           });
 
-        });
-
-        $('#toggleActiveBtn').on( "click", function(evt) {
-          console.log("clicked,disable definition");
-          $.post('/aa/api/')
         });
 
         this.listenTo(this.collections.alert_list, 'reset', function(options) {

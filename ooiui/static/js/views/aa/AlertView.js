@@ -310,6 +310,17 @@ var AlertFilterView = Backbone.View.extend({
         
         this.el.style.backgroundColor = this.highlightColor;
 
+        // Clicked the toggle active/inactive button
+        if (e.target.id=='toggleActiveBtn') {
+          console.log('clicked toggle active btn for def id: ' + this.model.attributes.id);
+          ooi.trigger('alertToggleActiveFormViewTrigger:onClick',
+            {
+              model: this.model,
+              active: this.model.attributes.active
+            }
+          );
+        }
+
         //check to see if the condtion met item has ben clicked and open triggered events
         if(e.target.id=='condition_met'){
           this.triggeredalertView = new TriggeredAlertDialogView();

@@ -145,7 +145,7 @@
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"><button type="button" id="newAlertAlarmDefinition" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert/Alarm Definition</button></li>');#}
         });
 
-        this.listenTo(this, 'acknowledgeFormViewTrigger:onClick', function(options) {;
+        this.listenTo(this, 'acknowledgeFormViewTrigger:onClick', function(options) {
           self.views.ack.model = options.model;
           self.views.ack.render();
           self.views.ack.show();
