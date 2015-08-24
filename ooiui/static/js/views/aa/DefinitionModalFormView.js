@@ -95,9 +95,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       });
 
       //TODO UPDATE STATIC
-      this.model.set('user_id',1);   //int
-
-      debugger;
+      this.model.set('user_id',1);   //int     
 
       this.model.save(null,{success: function(model, response, opts) { 
                                               console.log('OK!');
