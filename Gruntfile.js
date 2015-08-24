@@ -154,7 +154,10 @@ module.exports = function(grunt) {
             'ooiui/static/js/partials/LoggedInNavItems.html',
             'ooiui/static/js/partials/MenuToggle.html',
             "ooiui/static/js/partials/TriggeredAlertDialog.html",
-            "ooiui/static/js/partials/Banner.html"
+            "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/ModalForm.html",
+            "ooiui/static/js/partials/DefinitionModalForm.html",
+            "ooiui/static/js/partials/AcknowledgeModalForm.html"
           ],
 
           "ooiui/static/js/partials/compiled/basic.js": [
@@ -811,6 +814,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.js',
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/bootstrap-validator/dist/validator.min.js',
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
@@ -830,17 +834,13 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/science/TocModel.js',
-            //'ooiui/static/js/models/common/TroubleTicketDropdownModel.js',
+            'ooiui/static/js/models/aa/AlertAckModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
             "ooiui/static/js/views/common/NavbarView.js",
             "ooiui/static/js/views/common/BannerView.js",                                       
-            "ooiui/static/js/views/common/TOCView.js",
-            "ooiui/static/js/views/aa/AlertView.js",
-            "ooiui/static/js/views/aa/TriggeredView.js",
-            "ooiui/static/js/views/aa/TriggerAlertDialogView.js",
-            //"ooiui/static/js/views/common/MapView.js",
+            "ooiui/static/js/views/common/TOCView.js",        
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
@@ -849,7 +849,14 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/StatusUIAccordionView.js',
             'ooiui/static/js/views/common/FakeTableView.js',
             'ooiui/static/js/views/common/ChartView.js',
-            'ooiui/static/js/views/common/OrgSidebarView.js'
+            'ooiui/static/js/views/common/OrgSidebarView.js',
+            'ooiui/static/js/views/common/ModalFormView.js',
+
+            "ooiui/static/js/views/aa/AlertView.js",
+            "ooiui/static/js/views/aa/TriggeredView.js",
+            "ooiui/static/js/views/aa/TriggerAlertDialogView.js",            
+            "ooiui/static/js/views/aa/DefinitionModalFormView.js",
+            "ooiui/static/js/views/aa/AcknowledgeModalFormView.js"
           ],
 
           'ooiui/static/js/compiled/gridList.js' : [

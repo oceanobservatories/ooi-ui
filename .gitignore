@@ -13,3 +13,6 @@
 # PyCharm Project
 .idea/
 npm-debug.log
+
+# Project-Specific
+*_local.yml

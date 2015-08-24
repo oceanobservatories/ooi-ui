@@ -7,6 +7,7 @@ COMMON: &common
   UI_API_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   SECRET_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   GOOGLE_ANALYTICS_URL: 'http://www.google-analytics.com/collect?v=1&tid=UA-50606390-3&cid=5555&t=pageview'
+  REDMINE_URL: 'https://localhost'
 
 DEVELOPMENT: &development
   <<: *common
