@@ -304,7 +304,10 @@ var AlertFilterView = Backbone.View.extend({
         mouseout: "rowLostFocus"
       },
       onClick: function (e) {
-        ooi.trigger("deployrowclicked", this.model);
+        if ($(e.target).is('td')){
+          ooi.trigger("deployrowclicked", this.model);  
+        }        
+        
         this.el.style.backgroundColor = this.highlightColor;
 
         //check to see if the condtion met item has ben clicked and open triggered events
