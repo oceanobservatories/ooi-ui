@@ -164,6 +164,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.$el.find('#inputEscalateBoundary').val( this.model.get('escalate_boundary') );
     }
 
+    //operator
     if( this.model.get('operator') ){
       this.$el.find('#operatorSelection [val="'+this.model.get('operator')+'"]').prop("selected", true);
     }    
