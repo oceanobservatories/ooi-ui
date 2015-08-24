@@ -147,16 +147,13 @@
                       <label for="operatorSelection" class="control-label">Operator Selection</label>
                       <select id="operatorSelection" class="selectpicker">     
                           <% if( this.model.get('operator') ){ %>  
-                            <option val="GREATER">GREATER</option>  
-                            <option val="LESS">LESS</option>  
-                            <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
-                            <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>                              
+                            <option val="GREATER">GREATER</option>                                                      
                           <% } else { %>  
-                            <option selected val="GREATER">GREATER</option>  
-                            <option val="LESS">LESS</option>  
-                            <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
-                            <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>                              
+                            <option selected val="GREATER">GREATER</option>                                                         
                           <% } %>
+                          <option val="LESS">LESS</option>  
+                          <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
+                          <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>   
                       </select>
                     </div>
                   </div>    
