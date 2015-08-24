@@ -107,16 +107,8 @@ var AlertFilterView = Backbone.View.extend({
   },
   initialize: function () {
     Backbone.Validation.bind(this);
-    _.bindAll(this, "render","filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );
-
-
-    //this.listenTo(ooi, 'arrayItemView:arraySelect', this.triggerTOCClickA);
-    //this.listenTo(ooi, 'platformDeploymentItemView:platformSelect',this.triggerTOCClickP);
-    //this.listenTo(ooi, 'InstrumentItemView:instrumentSelect', this.triggerTOCClickI);
-    //this.listenTo(ooi, 'streamItemView:streamSelect', this.changeStream);
+    _.bindAll(this, "render","filterOptionsbyInstrument","showtypeoptions","showenabledoptions" );   
     var self = this;
-
-
     self.modalDialog = new ModalDialogView();
     //this.listenTo(this.collection, 'reset', function(){
     self.render();
