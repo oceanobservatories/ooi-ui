@@ -1,0 +1,228 @@
+<!--Modal-->
+<div class="modal fade" id="modal-form" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-form-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div> <!-- modal-form-header -->
+
+      <!--Body-->
+      <div class="modal-form-body main-container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="modal-form-message">    
+              <form data-disable=true data-toggle="validator" role="form" id="addDefinitionForm">          
+                <div class="form-group">
+                  <label for="inputRefDes" class="control-label">Reference Designator</label>
+                  <input type="text" class="form-control" id="inputRefDes" placeholder="<%=model.get('reference_designator')%>" data-error="" required disabled>
+                  <div class="help-block with-errors"></div>
+                </div> 
+
+                <div class="form-group">
+                  <label for="inputStream" class="control-label">Stream Name</label>
+                  <input type="text" class="form-control" id="inputStream" placeholder="<%=model.get('stream')%>" data-error="" required disabled>
+                  <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputDescription" class="control-label">Description</label>
+                  <input type="text" data-minlength="1" class="form-control" id="inputDescription" placeholder="Description" data-error="Minimum of 1 characters required" required 
+                  <% if( this.model.get('description') ){ %>
+                    value="<%=this.model.get('description')%>"
+                  <% } %>
+                  >
+                  <div class="help-block with-errors"></div>
+                </div>      
+
+                <div class="row">
+                  <div class="col-sm-3">                    
+
+                    <div class="form-group has-feedback">
+                      <label for="inputMinVal" class="control-label">Minimum Value</label>
+                      <div class="input-group">
+                        <!--<span class="input-group-addon"></span>-->
+                        <input type="number" minlength="1" maxlength="20" class="form-control" id="inputMinVal" placeholder="0" required>
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors"></span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="form-group has-feedback">
+                      <label for="inputMaxVal" class="control-label">Maximum Value</label>
+                      <div class="input-group">
+                        <!--<span class="input-group-addon"></span>-->
+                        <input type="number" minlength="1" maxlength="20" class="form-control" id="inputMaxVal" placeholder="1" required>
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors"></span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="form-group has-feedback">
+                      <label for="inputSeverityVal" class="control-label">Severity Value</label>
+                      <div class="input-group">
+                        <!--<span class="input-group-addon"></span>-->
+                        <input type="number" minlength="1" maxlength="2" class="form-control" id="inputSeverityVal" placeholder="1" required>
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors"></span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">  
+                      <div class="form-group">
+                        <label for="typeSelection" class="control-label">Alert or Alarm</label>
+                        <div id="typeSelection" class="radio">
+                          <label>
+                            <input type="radio" name="alertalarm" val="alert" required>
+                            Alert
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="alertalarm" val="alarm" required>
+                            Alarm
+                          </label>
+                        </div>
+                      </div> 
+                  </div> 
+                </div>
+
+             
+                <div class="row">
+
+                  <div class="col-sm-6 escalate-field" style="visibility: hidden;">
+                    <div class="form-group has-feedback">
+                      <label for="inputEscalateOn" class="control-label">Escalate On</label>
+                      <div class="input-group">
+                        <!--<span class="input-group-addon"></span>-->
+                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateOn" placeholder="5.0" >
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors">Escalate On: when first red mine ticket is generated</span>
+                    </div>
+                  </div>   
+
+                  <div class="col-sm-6 escalate-field" style="visibility: hidden;">
+                    <div class="form-group has-feedback">
+                      <label for="inputEscalateBoundary" class="control-label">Escalate Boundary</label>
+                      <div class="input-group">
+                        <!--<span class="input-group-addon"></span>-->
+                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateBoundary" placeholder="10.0" >
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors">Escalate Boundary (when exceeded): Forces a new red mine ticket to be generated</span>
+                    </div>
+                  </div>                     
+                  
+                </div><!-- .row -->              
+               
+                <div class="row">
+                    
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="paramSelection" class="control-label">Parameter Selection</label>
+                      <select id="paramSelection" class="selectpicker">
+                        <% metadata_collection.each(function(param,i) {  %>
+                          <% if (i==0){   %>
+                            <option selected param="<%= param.get('particleKey') %>" val="<%= param.get('pdId') %>">
+                                <%= param.get('particleKey') %> - <%= param.get('units') %>
+                            </option>
+                          <% } else { %> 
+                            <option  param="<%= param.get('particleKey') %>" val="<%= param.get('pdId') %>">
+                              <%= param.get('particleKey') %> - <%= param.get('units') %>
+                            </option>
+                          <% } %> 
+                        <%  });  %>
+                      </select>
+                    </div>
+                  </div>    
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="operatorSelection" class="control-label">Operator Selection</label>
+                      <select id="operatorSelection" class="selectpicker">     
+                          <% if( this.model.get('operator') ){ %>  
+                            <option val="GREATER">GREATER</option>                                                      
+                          <% } else { %>  
+                            <option selected val="GREATER">GREATER</option>                                                         
+                          <% } %>
+                          <option val="LESS">LESS</option>  
+                          <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
+                          <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>   
+                      </select>
+                    </div>
+                  </div>    
+                </div> <!-- .row -->              
+
+
+
+                <div class="row">
+                   <div class="col-sm-4"> 
+                    <div class="form-group">
+                      <label for="activeBool" class="control-label">Active Definition</label>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="activeBool">
+                          Active
+                        </label>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                      <span class="help-block with-errors">Is Definition Active On Creation</span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4"> 
+                    <div class="form-group">
+                      <label for="communicationBool" class="control-label">Communication Method</label>
+
+                      <% var data_coms = ['use_email', 'use_redmine', 'use_phone', 'use_log', 'use_sms'] %>
+                      <% _.each(data_coms, function(com_method) { %>
+                        <div class="checkbox">
+                          <label>                            
+                            <input disabled val="<%= com_method %>" type="checkbox" class="com-method">
+                            <%= com_method.replace('_'," ") %>
+                          </label>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      <% }); %>
+                      
+                      <span class="help-block with-errors">Notification context</span>
+                    </div>
+                  </div>
+                   
+                </div> <!-- .row -->  
+
+
+                <!-- FOOTER ROW -->
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">                             
+                      <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">              
+                    <div class="form-group">
+                      <button id="addDef" type="submit" class="btn btn-primary">
+                      <% if( this.model.get('update') && this.model.get('update') == true ){ %>
+                        Update Definition
+                      <% } else { %>
+                        Add Definition
+                      <% } %>                               
+                       </button> 
+                    </div>
+                  </div>
+                </div> <!-- .col-sm-6 -->
+
+              </form>
+            </div> <!-- .row -->              
+          </div> 
+        </div> 
+      </div>        
+    </div> 
+  </div>  
+</div> 

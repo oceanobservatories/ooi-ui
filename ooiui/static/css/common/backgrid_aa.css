@@ -1,0 +1,16 @@
+/* Alerts & Alarms Table Style Overrides*/
+.backgrid th,.backgrid td {
+  display: none;
+  height: 20px;
+  max-width: 250px;
+  padding: 4px 5px;
+  overflow: hidden;
+  line-height: 20px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  cursor: pointer;
+  border-bottom: 1px solid #DDD;
+}
