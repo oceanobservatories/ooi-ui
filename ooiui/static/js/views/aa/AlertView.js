@@ -312,7 +312,7 @@ var AlertFilterView = Backbone.View.extend({
         mouseout: "rowLostFocus"
       },
       onClick: function (e) {
-        Backbone.trigger("deployrowclicked", this.model);
+        ooi.trigger("deployrowclicked", this.model);
         this.el.style.backgroundColor = this.highlightColor;
 
         //check to see if the condtion met item has ben clicked and open triggered events
@@ -416,13 +416,7 @@ var AlertFilterView = Backbone.View.extend({
       complete: (function (e) {
         $('#loading_alerts').html('');
       })
-    });
-
-    //move clicked row to edit panel
-    Backbone.on("deployrowclicked", function (model) {
-      //self.addConditions(model);
-      console.log('Clicked row');
-    });
+    });    
 
     /*
      $('#resetAlarms').click(function(row) {

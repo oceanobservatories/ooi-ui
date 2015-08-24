@@ -208,8 +208,6 @@
 
         $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
-        self.models.alertModel.set('test','test');
-
         this.views.definitionModal = new DefinitionModalFormView({
           el: $('#definition-modal'),
           model:self.models.alertModel
@@ -238,6 +236,41 @@
           self.resetSelection();
         });
 
+        // Alert PAge Row Selected
+        this.listenTo(this, 'deployrowclicked', function(model) {
+          
+
+          if (model.get('retired') == false){
+            //update the model
+            self.models.alertModel = new AlertModel({reference_designator:model.get('reference_designator'), 
+                                                      stream:model.get('stream')});
+
+            //set the model information for the new model
+            self.models.alertModel.set('update',true);
+            //copy the fields across as we dont want to alter the model at this point
+            var fields = ['description','high_value','low_value','active','created_time','escalate_boundary','escalate_on','event_type','id','instrument_name','instrument_parameter','instrument_parameter_pdid','operator','platform_name','retired','severity','uframe_filter_id']
+
+            _.each(fields, function(field) {
+              self.models.alertModel.set(field,model.get(field));                   
+            });
+
+            self.views.definitionModal.model = self.models.alertModel;
+
+            //TODO REPLACE WITH ACTUAL REQUEST
+            self.views.definitionModal.metadata_collection = new AlertMetadataCollection();
+            self.views.definitionModal.render();
+
+            self.views.definitionModal.show({
+              model: self.models.alertModel,
+              userModel: self.models.userModel
+            });
+          }else{
+            console.log('Cant update a retired definition',model);
+          }
+        });
+
+        
+
         // TOC, render out our views:
         this.listenTo(this, 'toc:selectStream', function(options) {
           //options.model = stream selection model
@@ -253,7 +286,7 @@
         $('#newAlertAlarmDefinition').on( "click", function(evt) {
           console.log("clicked,show modal");
           //update collection and fetch
-          self.collections.alert_metadata.stream_model = self.models.selectedStream;
+          self.collections.alert_metadata.stream_model = self.models.selectedStream;          
           self.collections.alert_metadata.fetch({reset: true});
         });
 

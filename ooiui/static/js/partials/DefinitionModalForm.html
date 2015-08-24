@@ -27,7 +27,11 @@
 
                 <div class="form-group">
                   <label for="inputDescription" class="control-label">Description</label>
-                  <input type="text" data-minlength="1" class="form-control" id="inputDescription" placeholder="Description" data-error="Minimum of 1 characters required" required>                 
+                  <input type="text" data-minlength="1" class="form-control" id="inputDescription" placeholder="Description" data-error="Minimum of 1 characters required" required 
+                  <% if( this.model.get('description') ){ %>
+                    value="<%=this.model.get('description')%>"
+                  <% } %>
+                  >
                   <div class="help-block with-errors"></div>
                 </div>      
 
@@ -74,7 +78,7 @@
                         <label for="typeSelection" class="control-label">Alert or Alarm</label>
                         <div id="typeSelection" class="radio">
                           <label>
-                            <input type="radio" name="alertalarm" val="alert"required>
+                            <input type="radio" name="alertalarm" val="alert" required>
                             Alert
                           </label>
                         </div>
@@ -86,7 +90,6 @@
                         </div>
                       </div> 
                   </div> 
-
                 </div>
 
              
@@ -143,10 +146,17 @@
                     <div class="form-group">
                       <label for="operatorSelection" class="control-label">Operator Selection</label>
                       <select id="operatorSelection" class="selectpicker">     
+                          <% if( this.model.get('operator') ){ %>  
+                            <option val="GREATER">GREATER</option>  
+                            <option val="LESS">LESS</option>  
+                            <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
+                            <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>                              
+                          <% } else { %>  
                             <option selected val="GREATER">GREATER</option>  
                             <option val="LESS">LESS</option>  
                             <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
                             <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>                              
+                          <% } %>
                       </select>
                     </div>
                   </div>    
@@ -199,8 +209,14 @@
                     </div>
                   </div>
                   <div class="col-sm-6">              
-                    <div class="form-group">        
-                      <button id="addDef" type="submit" class="btn btn-primary">Add Definition</button>                                 
+                    <div class="form-group">
+                      <button id="addDef" type="submit" class="btn btn-primary"
+                      <% if( this.model.get('update') && this.model.get('update') == true ){ %>
+                         disabled> Update Definition
+                      <% } else { %>
+                        > Add Definition
+                      <% } %>                               
+                       </button> 
                     </div>
                   </div>
                 </div> <!-- .col-sm-6 -->
