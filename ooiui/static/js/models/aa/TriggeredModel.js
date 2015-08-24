@@ -23,7 +23,16 @@ var TriggeredModel = Backbone.Model.extend({
   url:"/api/aa/triggered",
 
   validation: {
-    event_response: {
+    id: {
+      required: false
+    },
+    system_event_definition_id: {
+      required: false
+    },
+    uframe_event_id: {
+      required: false
+    },
+    uframe_filter_id: {
       required: false
     },
     event_time: {
@@ -32,16 +41,37 @@ var TriggeredModel = Backbone.Model.extend({
     event_type:{
       required: false
     },
-    instrument_name: {
+    event_response: {
       required: false
     },
-    system_event_definition_id: {
+    method: {
+      required: false
+    },
+    deployment: {
+      required: false
+    },
+    acknowledged: {
+      required: false
+    },
+    ack_by: {
+      required: false
+    },
+    ts_acknowledged: {
+      required: false
+    },
+    ticket_id: {
       required: false
     },
     escalated: {
       required: false
     },
-    ticket_id: {
+    ts_escalated: {
+      required: false
+    },
+    timestamp: {
+      required: false
+    },
+    ts_start: {
       required: false
     }
   }

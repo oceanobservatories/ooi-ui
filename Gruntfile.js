@@ -834,6 +834,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/MapModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/science/TocModel.js',
+            'ooiui/static/js/models/aa/AlertAckModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',

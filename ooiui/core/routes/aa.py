@@ -114,6 +114,15 @@ def get_aa_specific_id(id):
 def get_aa_redmine_server():
     return app.config['REDMINE_URL']
 
+# acknowledgement
+@app.route('/api/aa/ack_alert_alarm', methods=['PUT'])
+def ack_alert_alarm():
+    token = get_login()
+
+    # data = json.loads(request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/ack_alert_alarm', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
 # Get Alerts Options
 #
 #TODO

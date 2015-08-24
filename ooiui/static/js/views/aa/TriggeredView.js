@@ -178,12 +178,15 @@ var TriggeredView = Backbone.View.extend({
         Backbone.trigger("deployrowclicked", this.model);
         this.el.style.backgroundColor = this.highlightColor;
 
+        // Clicked the ACK button
         if (e.target.id=='toggleAcknowledgeBtn') {
           console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
-          this.ack = new AcknowledgeModalFormView();
-          //$('.container-fluid').first().append(this.ack.el);
-          document.getElementById('container-fluid').append(this.ack.el);
-          this.ack.show();
+          ooi.trigger('acknowledgeFormViewTrigger:onClick',
+            {
+              model: this.model,
+              system_event_definition_id: this.model.attributes.system_event_definition_id
+            }
+          );
         }
 
         //check to see if the condtion met item has ben clicked and open triggered events
