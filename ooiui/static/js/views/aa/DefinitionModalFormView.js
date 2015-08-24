@@ -97,6 +97,8 @@ var DefinitionModalFormView = ModalFormView.extend({
       //TODO UPDATE STATIC
       this.model.set('user_id',1);   //int
 
+      debugger;
+
       this.model.save(null,{success: function(model, response, opts) { 
                                               console.log('OK!');
                                               ooi.trigger('addDefinitionForm:added'); 
@@ -169,6 +171,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.$el.find('#operatorSelection [val="'+this.model.get('operator')+'"]').prop("selected", true);
     }    
 
+    //
     this.$el.find('.selectpicker').selectpicker();
     this.$el.find('#addDefinitionForm').validator();     
     //this.stickit();      

@@ -92,13 +92,13 @@ def create_aa_array():
     response = requests.post(app.config['SERVICES_URL'] + '/alert_alarm_definition', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
-@app.route('/api/aa/alerts/<int:id>', methods=['PUT'])
-def edit_aa_array(id):
+@app.route('/api/aa/alerts', methods=['PUT'])
+def edit_aa_array():    
     token = get_login()
     data = json.loads(request.data)
-    #api_key = app.config['UI_API_KEY']
-    #headers={'X-Csrf-Token' : api_key}
-    response = requests.put(app.config['SERVICES_URL'] + '/alert_alarm_definition/%s' % id, auth=(token, ''), data=request.data)
+    #id needed by the services to get the filter
+    def_id = data['id']
+    response = requests.put(app.config['SERVICES_URL'] + '/alert_alarm_definition/%s' % def_id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 

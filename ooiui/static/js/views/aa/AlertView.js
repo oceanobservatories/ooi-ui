@@ -330,12 +330,6 @@ var AlertFilterView = Backbone.View.extend({
             ack: function() { console.log("Closed");}
           });
         }
-        /*            if(e.target.id=='active_def'){
-         console.log('Clicked active thumb');
-         console.log(this.model.attributes.uframe_filter_id);
-         document.getElementById('toggleActiveBtn').innerHTML = '<i class="fa fa-plus-square"></i> Disable Alert/Alarm ' + this.model.attributes.uframe_filter_id;
-         document.getElementById('toggleActiveBtn').style.display = "inline";
-         }*/
       },
       rowFocused: function() {
         this.el.style.backgroundColor = this.highlightColor;
@@ -418,130 +412,7 @@ var AlertFilterView = Backbone.View.extend({
       })
     });    
 
-    /*
-     $('#resetAlarms').click(function(row) {
-     $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-     self.collection.url = "/api/aa/alerts";
-
-     self.collection.fetch({reset: false,
-     error: (function (e) {
-     self.modalDialog.show({
-     message: "Error Requesting Alerts for this Asset.",
-     type: "danger",
-     });
-     }),
-     complete: (function (e) {
-     $('#loading_alerts').html('');
-     })
-     });
-     });
-     */
-
-    /*
-     //save data
-     $('#saveAlarm').click(function(row) {
-     //get total number or rows in the table - two headers
-     var numofrows = document.getElementById("alert_table").rows.length-2;
-
-     //loop through and save each row
-     //temp -- do more asyncho in future
-     if(numofrows>0){
-     //there also should be a save with ID for the put but it is not inplace
-     $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Saving Changes...');
-     for(var i=0; i<numofrows;i++){
-     var saveModel = new AlertModel();
-     saveModel.set('instrument_name',self.instrumenet_reference);
-     saveModel.set('values',$('#val'+i+'').val());
-     saveModel.set('instrument_parameter',$('#conditions_dd'+i+'').val());
-     var savedate = new Date();
-     saveModel.set('created_time',savedate.toJSON());
-     saveModel.set('priority',$('#type_dd'+i+'').val());
-     saveModel.set('active',$('#enabled_dd'+i+'').val());
-     saveModel.set('description',$('#desc'+i+'').val());
-     saveModel.set('operator',$('#operator_dd'+i+'').val());
-     saveModel.set('reference_designator',self.instrumenet_reference);
-
-     saveModel.set('platform_name','platform a');
-     saveModel.set('array_name','array a');
-     saveModel.set('uframe_definition_id',234);
-
-     //this allows a put to edit the exisitng alerts using reference id
-     if(i==0){
-     saveModel.url = '/api/aa/alerts/'+self.alert_id;
-     saveModel.set('id',self.alert_id);
-     }
-
-     saveModel.save(null, {
-     success: function(model, response) {
-     if(String(response).search('ERROR')>-1||String(response).search('BAD')>-1){
-     $('#loading_alerts').html('Instrument: '+self.instru);
-     self.modalDialog.show({
-     message: "Unable to Save Alert. Make sure all fields are valid.",
-     type: "danger",
-     });
-     }
-     else{
-     $('#alert_table tbody').empty();
-     $('#loading_alerts').html('');
-     $("#delete_row").hide();
-     self.modalDialog.show({
-     message: "Alert Row successfully saved.",
-     type: "success",
-     ack: function() {
-     //refresh()
-     window.location = "/alerts/dashboard/"
-     }
-     });
-     }
-     },
-     error: function(model, response) {
-     $('#loading_alerts').html('Instrument: '+self.instru);
-     self.modalDialog.show({
-     message: "There was a problem with saving the Alert. Make sure all fields are valid.",
-     type: "danger",
-     });
-     }
-     });
-     }
-     }
-     else{
-     self.modalDialog.show({
-     message: "Please Select an Instrument to apply new Alert(s)",
-     type: "danger",
-     });
-     }
-     });
-     */
-
-
     self.rownum = 1;
-    //add row
-    /*
-     $('#newAlert').click(function(row) {
-     //add new line
-     if($('#loading_alerts').html() == ''){
-     self.modalDialog.show({
-     message: "Please Select an Instrument to apply new Alert(s)",
-     type: "danger",
-     });
-     }
-     else{
-     $('#alert_table').append('<tr id="addr'+(self.rownum+1)+'"></tr>');
-     $('#addr'+self.rownum).html("<td>"+self.filterOptionsbyInstrument()+"</td><td>"+self.showenabledoperators()+"</td><td style=''><input id='val"+self.rownum+"' type='text' placeholder='where condition is' class='form-control'></td><td style=''><input type='text' id='desc"+self.rownum+"'  class='form-control'></td><td style=''><input id='owner"+self.rownum+"' class='form-control'></td><td style=''>"+self.showtypeoptions()+"</td><td style=''>"+self.showenabledoptions()+"</td>").attr('data','new');
-
-     $('#conditions_dd'+self.rownum+'').selectpicker();
-     $('#conditions_dd'+self.rownum+'').selectpicker('refresh');
-     $('#type_dd'+self.rownum+'').selectpicker();
-     $('#type_dd'+self.rownum+'').selectpicker('refresh');
-     $('#enabled_dd'+self.rownum+'').selectpicker();
-     $('#enabled_dd'+self.rownum+'').selectpicker('refresh');
-     $('#operator_dd'+self.rownum+'').selectpicker();
-     $('#operator_dd'+self.rownum+'').selectpicker('refresh');
-     self.rownum++;
-     $("#delete_row").show();
-     }
-     });
-     */
 
     //remove row
     $("#delete_row").click(function(){
@@ -558,47 +429,7 @@ var AlertFilterView = Backbone.View.extend({
     //this.stickit();
   },
 
-  /*
-   addConditions: function(val){
-   //backgrid extentsions
-   //https://github.com/twatson83/Backgrid.Extensions
-
-   //could use this for table http://vitalets.github.io/x-editable/
-   this.rownum = 0;
-   this.instrumenet_reference = val.attributes.reference_designator;
-   this.instrument_name = val.attributes.Instrument;
-   this.alert_id = val.attributes.uframe_definition_id;
-
-   $('#loading_alerts').html('Instrument: '+val.attributes.Instrument);
-   $('#alert_table tbody').empty();
-   //$('#alert_table').editableTable();
-   var filteroptions = this.filterOptionsbyInstrument(val.attributes.reference_designator,val.attributes.Instrument);
-   //<td><span id="A3" contenteditable></span></td>
-   $('#alert_table tbody').append("<tr id='addr0' data="+val.attributes.uframe_definition_id+"><td style='max-width:160px'>"+this.filterOptionsbyInstrument()+"</td><td style='max-width:100px'>"+this.showenabledoperators()+"</td><td style=''><input type='text' id='val0' placeholder='"+val.attributes.values+"' value='"+val.attributes.values+"' class='form-control'></td><td style=''><input type='text' id='desc0' placeholder='"+val.attributes.description+"' value='"+val.attributes.description+"' class='form-control'></td><td style=''><input id='owner0' value='John Smith - WHOI'  class='form-control'></td><td style=''>"+this.showtypeoptions()+"</td><td style=''>"+this.showenabledoptions()+"</td></tr><tr id='addr1'></tr>");
-
-   //stupid hack to make the columns match
-   $('.fixed-table-container').css('padding-bottom','0px');
-   $('#alert_table').css('margin-top','0px');
-   $('.fixed-table-header').css('display','none');
-
-   $('#conditions_dd'+this.rownum+'').selectpicker();
-   $('#conditions_dd'+this.rownum+'').selectpicker('val',val.attributes.instrument_parameter);
-   $('#conditions_dd'+this.rownum+'').selectpicker('refresh');
-   $('#type_dd'+this.rownum+'').selectpicker();
-   $('#type_dd'+this.rownum+'').selectpicker('val',val.attributes.priority);
-   $('#type_dd'+this.rownum+'').selectpicker('refresh');
-   $('#enabled_dd'+this.rownum+'').selectpicker();
-   $('#enabled_dd'+this.rownum+'').selectpicker('val',String(val.attributes.active));
-   $('#enabled_dd'+this.rownum+'').selectpicker('refresh');
-   $('#operator_dd'+this.rownum+'').selectpicker();
-   $('#operator_dd'+this.rownum+'').selectpicker('val',String(val.attributes.operator));
-   $('#operator_dd'+this.rownum+'').selectpicker('refresh');
-
-   this.rownum = 1;
-   $('#alert_table tr').click(function(row) {
-   });
-   },
-   */
+ 
 
   filterOptionsbyInstrument: function(instru_id,name){
 
@@ -618,50 +449,4 @@ var AlertFilterView = Backbone.View.extend({
     return "<select data-show-icon='true' data-container='body' class='form-control' id='operator_dd"+this.rownum+"'><option value='>'>></option><option  value='<'> <</option><option  value='='> =</option><option  value='<>'> <></option><option  value='>='> >=</option><option  value='<='> <=</option><option  value='outside'> outside</option><option  value='inside'> inside</option></select>";
   }
 
-
-  /*click on the left hand side of the TOC
-   triggerTOCClickP:function(tocitem){
-   $('#listTitle').html('Showing Alerts for Mooring: <b>'+ tocitem.attributes['mooring_display_name']);
-   //tocitem.attributes.reference_designator
-   $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-   this.triggernewAlertList('platform_name='+tocitem.attributes['reference_designator'],false);
-   },
-   triggerTOCClickI:function(tocitem){
-
-   $('#listTitle').html('Showing Alerts for Platform: <b>'+ tocitem.attributes['platform_display_name']);
-   $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-   this.triggernewAlertList('instrument_name='+tocitem.attributes['reference_designator'],true);
-   },
-   triggerTOCClickA:function(tocitem){
-   $('#listTitle').html('Showing Alerts for Array: <b>'+ tocitem.attributes.display_name);
-   $('#loading_alerts').html('<i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms');
-   this.triggernewAlertList('array_name='+tocitem.attributes['reference_designator'],false)
-   },
-
-   triggernewAlertList:function(id_val,instr){
-   //this is for later for filtering alerts on certain platforms, arrays, instruments
-   var self = this;
-   self.instru = instr;
-   self.name = id_val;
-   this.collection.url = '/api/aa/'+id_val;
-   $('#alert_table tbody').empty();
-
-   this.collection.fetch({reset: false,
-   error: (function (e) {
-   self.modalDialog.show({
-   message: "Error Requesting Alerts for this Asset.",
-   type: "danger",
-   });
-   }),
-   complete: (function (e) {
-   if(self.instru == true){
-   $('#loading_alerts').html(''+ self.name);
-   }
-   else{
-   $('#loading_alerts').html('');
-   }
-   })
-   });
-   }
-   */
 });

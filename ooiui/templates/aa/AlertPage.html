@@ -258,6 +258,12 @@
 
             //TODO REPLACE WITH ACTUAL REQUEST
             self.views.definitionModal.metadata_collection = new AlertMetadataCollection();
+            self.views.definitionModal.metadata_collection.add(new AlertMetadataModel({
+              particleKey: self.models.alertModel.get('instrument_parameter'),
+              pdId: self.models.alertModel.get('instrument_parameter_pdid'),
+              units: ""
+            }));
+ 
             self.views.definitionModal.render();
 
             self.views.definitionModal.show({
@@ -314,7 +320,8 @@
         });
 
         this.listenTo(this.collections.alert_list, 'reset', function(options) {
-          console.log('alert alarm reset complete')
+          console.log('alert alarm reset complete',this.collections.alert_list)
+
         });
 
         //RE-RENDER TABLE
