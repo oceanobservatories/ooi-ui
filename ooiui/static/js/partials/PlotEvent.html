@@ -1,19 +1,16 @@
-<div class="eventHeight">
-  <table class="styleTable" id="eventsTable" cellpadding="0" cellspacing="0">
-    <thead>
-      <tr>
-        <% _.each(columns, function(col) { %>
-        <th>
-          <%= col.label %>
-        </th>
-        <% }); %>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<div class="clear"></div>
-
-
+<!-- <table class="styleTable" id="eventsTable" cellpadding="0" cellspacing="0"> -->
+   
+<table class="tableWithFloatingHeader nasdaq" id="eventsTable">
+      <thead>
+        <tr>
+          <% _.each(columns, function(col) { %>
+          <th>
+            <%= col.label %>
+          </th>
+          <% }); %>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
 

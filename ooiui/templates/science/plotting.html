@@ -16,8 +16,14 @@
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
+           /lib/ScrollToFixed/jquery-scrolltofixed.js
+
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+  
+  <script src="/lib/StickyTableHeaders/js/jquery.stickytableheaders.js" type="text/javascript"></script>
+  <script src="/lib/StickyTableHeaders/js/jquery.stickytableheaders.min.js" type="text/javascript"></script>
+  
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
     {% block link %}
@@ -92,21 +98,25 @@
                 </div> <!-- panel -->
             </div> <!-- .row -->
 
+            <div class="scrollable-block">
+              <div class="scrollable-area">
             <div class="row">
-                    <div id='plot-events-panel' class="panel">
+                    {# <div id='plot-events-panel' class="panel"> #}
 
                         <div class="new-heading">
                             Events
                         </div> <!-- panel-heading -->
 
-                        <div class="panel-body">
+                        {# <div class="panel-body"> #}
                             <div id="events-table">
                                 {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
                                 {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
                                 <img src="/img/plotting/events.png" style="width:100%;">
                             </div> <!-- panel-table -->
-                        </div> <!-- panel-body -->
-                    </div> <!-- panel -->
+                        {# </div> <!-- panel-body --> #}
+                    {# </div> <!-- panel --> #}
+            </div>
+            </div>
             </div>
 
             <div class="row">
@@ -462,9 +472,19 @@ _.extend(OOI.prototype, Backbone.Events, {
     //  
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
+
+      
+      
       $.when(self.views.plotEventListView.render()).done(function() {
-        $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });  
-      });
+
+			$("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
+
+        console.log("made TI");
+          
+        });
+  
+        {# $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });   #}
+      {# }); #}
     });
 
     //
