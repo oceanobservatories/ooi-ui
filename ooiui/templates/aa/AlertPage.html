@@ -60,92 +60,7 @@
                     <i class="fa fa-plus-square"></i> Disable Alert/Alarm
                   </button>
                 </i>
-              </div>#}
-
-                <!--
-                <hr width ='80%' style='margin-top:0;'>
-                <div class="row col-sm-12" id='alert_container'>
-                  <table data-toggle="table" id='alert_table' style='background-color: #fff;' data-cache="false" data-height="186">
-                    <thead>
-                    <tr>
-                      <th data-field="id">Condition</th>
-                      <th data-field="class">Operator</th>
-                      <th data-field="class">Value</th>
-                      <th data-field="sdate">Description</th>
-                      <th data-field="sdate">Owner</th>
-                      <th data-field="more">Type</th>
-                      <th data-field="more">Enabled</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
-
-                <hr width ='80%'>
-                -->
-                <!-- TODO MAKE IN TO VIEW
-                <div class="row col-sm-12">
-                  <div class="form-group">
-                    <div>
-                      <label class="col-sm-2" style='padding-top:18px;'>
-                        Notification:
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label class="col-sm-2">
-                        <input type="checkbox" id="Email" name="Email" checked> Email
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label class="col-sm-2">
-                        <input type="checkbox"id="Redmine" name="Redmine"> Redmine
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label class="col-sm-2">
-                        <input type="checkbox"id="PhoneCall" name="PhoneCall"> Phone Call
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label class="col-sm-2">
-                        <input type="checkbox" id="TextMessage" name="TextMessage"> Text Message
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label class="col-sm-2">
-                        <input type="checkbox" id="LogEvent" name="LogEvent"> LogEvent
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                -->
-
-                <!-- TODO MAKE IN TO VIEW
-                <div class="form-group">
-                  <div align="center">
-                    <div>
-                      <div class="col-sm-12" id="loading_alerts" style='font-weight:bold;padding-top:35px;'>
-                        <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Alerts and Alarms
-                      </div>
-                      <button type="button" style='display:none' id="delete_row" class="btn btn-primary"><i class="fa fa-times-circle"></i> Delete Alert Row</button>
-                      <button type="button" id="newAlert" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Definition</button>
-                      <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>
-                      <button type="button" id="resetAlarms" class="btn btn-primary"><i class="fa fa-list"></i> Show all Alerts</button>
-                    </div>
-                  </div>
-                </div>
-                -->
+              </div>#}                
               </div>
             </div>
           </div>
@@ -208,8 +123,6 @@
 
         $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
-        self.models.alertModel.set('test','test');
-
         this.views.definitionModal = new DefinitionModalFormView({
           el: $('#definition-modal'),
           model:self.models.alertModel
@@ -238,6 +151,47 @@
           self.resetSelection();
         });
 
+        // Alert PAge Row Selected
+        this.listenTo(this, 'deployrowclicked', function(model) {
+          
+
+          if (model.get('retired') == false){
+            //update the model
+            self.models.alertModel = new AlertModel({reference_designator:model.get('reference_designator'), 
+                                                      stream:model.get('stream')});
+
+            //set the model information for the new model
+            self.models.alertModel.set('update',true);
+            //copy the fields across as we dont want to alter the model at this point
+            var fields = ['description','high_value','low_value','active','created_time','escalate_boundary','escalate_on','event_type','id','instrument_name','instrument_parameter','instrument_parameter_pdid','operator','platform_name','retired','severity','uframe_filter_id']
+
+            _.each(fields, function(field) {
+              self.models.alertModel.set(field,model.get(field));                   
+            });
+
+            self.views.definitionModal.model = self.models.alertModel;
+
+            //TODO REPLACE WITH ACTUAL REQUEST
+            self.views.definitionModal.metadata_collection = new AlertMetadataCollection();
+            self.views.definitionModal.metadata_collection.add(new AlertMetadataModel({
+              particleKey: self.models.alertModel.get('instrument_parameter'),
+              pdId: self.models.alertModel.get('instrument_parameter_pdid'),
+              units: ""
+            }));
+ 
+            self.views.definitionModal.render();
+
+            self.views.definitionModal.show({
+              model: self.models.alertModel,
+              userModel: self.models.userModel
+            });
+          }else{
+            console.log('Cant update a retired definition',model);
+          }
+        });
+
+        
+
         // TOC, render out our views:
         this.listenTo(this, 'toc:selectStream', function(options) {
           //options.model = stream selection model
@@ -253,7 +207,7 @@
         $('#newAlertAlarmDefinition').on( "click", function(evt) {
           console.log("clicked,show modal");
           //update collection and fetch
-          self.collections.alert_metadata.stream_model = self.models.selectedStream;
+          self.collections.alert_metadata.stream_model = self.models.selectedStream;          
           self.collections.alert_metadata.fetch({reset: true});
         });
 
@@ -281,11 +235,16 @@
         });
 
         this.listenTo(this.collections.alert_list, 'reset', function(options) {
-          console.log('alert alarm reset complete')
+          console.log('alert alarm reset complete',this.collections.alert_list)          
+          var parent = $('#alertslist').parent();
+          parent.empty();
+          parent.append('<div id="alertslist">');
+          self.views.alertFilterView.render();
         });
 
         //RE-RENDER TABLE
         this.listenTo(this, 'addDefinitionForm:added', function(options) {
+          self.collections.alert_list.fetch({reset: true});                
         });
 
         var arrayFetch = arrayCollection.fetch({ reset: true });

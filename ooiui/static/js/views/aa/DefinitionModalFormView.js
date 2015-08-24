@@ -95,7 +95,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       });
 
       //TODO UPDATE STATIC
-      this.model.set('user_id',1);   //int
+      this.model.set('user_id',1);   //int     
 
       this.model.save(null,{success: function(model, response, opts) { 
                                               console.log('OK!');
@@ -126,6 +126,50 @@ var DefinitionModalFormView = ModalFormView.extend({
       username: this.username
     }));
 
+    //event type
+    if( this.model.get('event_type') && (this.model.get('event_type') == "alert" || this.model.get('event_type') == "alarm")){
+      this.$el.find('input[name="alertalarm"][val="'+this.model.get('event_type')+'"]').prop("checked", true);
+      if (this.model.get('event_type') == 'alert'){
+        this.$el.find('.escalate-field').css('visibility','visible');
+      }
+    }
+
+    //active
+    if( this.model.get('active')){
+      this.$el.find('#activeBool').prop("checked", this.model.get('active'));
+    }
+
+    //min
+    if( this.model.get('low_value') ){
+      this.$el.find('#inputMinVal').val( this.model.get('low_value') );
+    }
+
+    //max
+    if( this.model.get('high_value') ){
+      this.$el.find('#inputMaxVal').val( this.model.get('high_value') );
+    }
+
+    //severity
+    if( this.model.get('severity') ){
+      this.$el.find('#inputSeverityVal').val( this.model.get('severity') );
+    }
+
+    //EscalateOn
+    if( this.model.get('escalate_on') ){
+      this.$el.find('#inputEscalateOn').val( this.model.get('escalate_on') );
+    }
+
+    //EscalateBoundary
+    if( this.model.get('escalate_boundary') ){
+      this.$el.find('#inputEscalateBoundary').val( this.model.get('escalate_boundary') );
+    }
+
+    //operator
+    if( this.model.get('operator') ){
+      this.$el.find('#operatorSelection [val="'+this.model.get('operator')+'"]').prop("selected", true);
+    }    
+
+    //
     this.$el.find('.selectpicker').selectpicker();
     this.$el.find('#addDefinitionForm').validator();     
     //this.stickit();      
