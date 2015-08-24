@@ -50,8 +50,8 @@ var StreamDownloadFormView = Backbone.View.extend({
      */
     var selection = this.$type_select.val();
     var localModel = this.model.clone();
-    var startDate = new Date(this.$start_date.data('date')).toISOString();
-    var endDate = new Date(this.$end_date.data('date')).toISOString();
+    var startDate = moment(this.$start_date.data('date')).toJSON();
+    var endDate = moment(this.$end_date.data('date')).toJSON();
     localModel.set('start', startDate);
     localModel.set('end', endDate);
     // Check for provenance and set the model
