@@ -37,6 +37,7 @@ var AcknowledgeModalFormView = ModalFormView.extend({
     // Sends ack
     ackModel.save(null,{success: function(model, response, opts) {
       console.log('Acknowledged OK!');
+      ooi.trigger('alertAck:success');
     },
       error: function(model, response, opts) {
         console.log('Acknowledge Error!');

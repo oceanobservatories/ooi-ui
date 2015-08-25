@@ -256,7 +256,7 @@ var AlertFilterView = Backbone.View.extend({
             if (model.attributes.retired == 0) {
               if (rawValue == 1) {
                 return "<button type=\"button\" id=\"toggleActiveBtn\" class=\"btn btn-primary\">" +
-                  "<i class=\"fa fa-plus-square\"></i> Disable Alert/Alarm" +
+                  "<i class=\"fa fa-minus-square\"></i> Disable Alert/Alarm" +
                   "</button>";
               }
               else if (rawValue == 0) {
