@@ -606,8 +606,8 @@ var SVGPlotControlView = Backbone.View.extend({
     $("#parameters_id").selectpicker('refresh');
   },
   onResetTime: function(e){
-    this.$start_date.data("DateTimePicker").setDate(moment(this.model.get('start')).format("YYYY-MM-DD HH:mm:ss"));
-    this.$end_date.data("DateTimePicker").setDate(moment(this.model.get('end')).format("YYYY-MM-DD HH:mm:ss"));
+    this.$start_date.data("DateTimePicker").setDate(moment.utc(this.model.get('start')).format("YYYY-MM-DD HH:mm:ss"));
+    this.$end_date.data("DateTimePicker").setDate(moment.utc(this.model.get('end')).format("YYYY-MM-DD HH:mm:ss"));
   },
   onClickPlot: function(e) {
     var data = {};
