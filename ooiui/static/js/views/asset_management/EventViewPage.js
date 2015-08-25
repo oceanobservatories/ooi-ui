@@ -114,7 +114,7 @@ var EventViewPage = Backbone.View.extend({
                 var eventStartDate = event.attributes.startDate;
                 $("#startdate_d" ).val(eventStartDate);
 
-                var s_date = new Date(event.attributes.startDate);
+                var s_date = moment.utc(event.attributes.startDate);
                 $("#startdate_d" ).data("DateTimePicker").setDate(s_date);
               }
               else{
@@ -126,7 +126,7 @@ var EventViewPage = Backbone.View.extend({
                 var eventEndDate = event.attributes.endDate;
                 $("#enddate_d" ).val(eventEndDate);
 
-                var e_date = new Date(Date.parse(event.attributes.endDate));
+                var e_date = moment.utc(event.attributes.endDate);
                 $("#enddate_d" ).data("DateTimePicker").setDate(e_date);
               }
               else{
@@ -193,7 +193,8 @@ var EventViewPage = Backbone.View.extend({
     initializeEvent:function(){
         var self = this;
         
-        $('#enddate_d').datetimepicker();
+        $('#enddate_d').datetimepicker({format: "YYYY-MM-DD HH:mm:ss"});
+        $('#enddate_d').datetimepicker({format: "YYYY-MM-DD HH:mm:ss"});
         $('#startdate_d').datetimepicker();
         $("#enddate_d").on("dp.change", function (e) {
           $('#startdate_d').data("DateTimePicker").setMaxDate(e.date);

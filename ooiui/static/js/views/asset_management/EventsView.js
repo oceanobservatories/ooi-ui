@@ -92,8 +92,7 @@ var EventsView = Backbone.View.extend({
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 if(rawValue !=null){
-                  var sd = new Date(rawValue);
-                  return sd.toDateString();
+                  return moment.utc(rawValue).format("ddd MMM DD YYYY");
                 }
                 else{
                   return 'No Date';
@@ -108,8 +107,7 @@ var EventsView = Backbone.View.extend({
             formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
               fromRaw: function (rawValue, model) {
                 if(rawValue !=null){
-                  var sd = new Date(rawValue);
-                  return sd.toDateString();
+                  return moment.utc(rawValue).format("ddd MMM DD YYYY");
                 }
                 else{
                   return 'No Date';
