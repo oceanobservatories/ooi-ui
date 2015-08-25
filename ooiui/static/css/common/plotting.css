@@ -195,8 +195,6 @@
   }
 
   table {
-    /* border: 0; */
-    padding: 0;
     margin: 0 0 20px 0;
     border-collapse: collapse;
   }
@@ -205,12 +203,12 @@
     background: linear-gradient(#fff, #7E9CD9);
     border-bottom-color: #F09349;
   }
-  
+
   .nasdaq th {
     text-transform: none;
     font-weight: 500;
     text-align: left;
-     background: linear-gradient(#fff, #7E9CD9);
+    background: linear-gradient(#fff, #7E9CD9);
     background-image: -moz-linear-gradient(#fff, #7E9CD9);
     background-image: -webkit-gradient(#fff, #7E9CD9);
     border: 1px solid #D1DAF5;
@@ -222,7 +220,6 @@
   }
 
   tbody td {
-    padding: 5px 5px 20px 5px;
     line-height: 18px;
     border-top: 1px solid #D1DAF5;
   }
@@ -241,25 +238,15 @@
     border: 1px solid #D1DAF5;
   }
 
-  .nasdaq td:first-child, .nasdaq th:first-child {
-    text-align: left;
-  }
-
   div.scrollable-block table {
-    width: 100%;
     margin-top: 2px;
   }
 
-  div.fixed-header,
   div.scrollable-block {
-  padding: 70px 0px;
-  margin-top: -67px;
-  margin-bottom: -60px;
-  margin-left: 3px;
-}
-
-div.scrollable-block table {
-    width: 90%;
+    padding: 70px 0px;
+    margin-top: -67px;
+    margin-bottom: -60px;
+    margin-left: 3px;
   }
 
   .scrollable-area {
@@ -269,33 +256,3 @@ div.scrollable-block table {
     overflow: auto;
   }
 
-  .amount {
-    text-align: left;
-    padding-right: 10px;
-  }
-
-  .stock th {
-    background-color: rgb(252, 110, 15);
-    background-color: rgba(252, 110, 15, 0.8);
-    text-transform: none;
-    text-align: left;
-    padding: 10px;
-  }
-
-  .stock th, .stock td {
-    text-align: left;
-    padding: 5px 20px;
-  }
-
-  .stock td:first-child, .stock th:first-child {
-    text-align: left;
-    font-weight: normal;
-  }
-
-  .uci .age {
-    text-align: center;
-  }
-
-  .uci .result {
-    text-align: left;
-  } 
