@@ -167,7 +167,7 @@
                       <label for="activeBool" class="control-label">Active Definition</label>
                       <div class="checkbox">
                         <label>
-                          <input type="checkbox" id="activeBool">
+                          <input disabled type="checkbox" id="activeBool">
                           Active
                         </label>
                         <div class="help-block with-errors"></div>
@@ -183,9 +183,14 @@
                       <% var data_coms = ['use_email', 'use_redmine', 'use_phone', 'use_log', 'use_sms'] %>
                       <% _.each(data_coms, function(com_method) { %>
                         <div class="checkbox">
-                          <label>                            
-                            <input disabled val="<%= com_method %>" type="checkbox" class="com-method">
-                            <%= com_method.replace('_'," ") %>
+                          <label>
+                            <% if (com_method == 'use_redmine'){ %>
+                              <input disabled checked val="<%= com_method %>" type="checkbox" class="com-method">
+                              <%= com_method.replace('_'," ") %>
+                            <%} else { %>
+                              <input disabled val="<%= com_method %>" type="checkbox" class="com-method">
+                              <%= com_method.replace('_'," ") %>
+                            <% } %>
                           </label>
                           <div class="help-block with-errors"></div>
                         </div>
