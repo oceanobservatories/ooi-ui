@@ -64,7 +64,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.model.set('event_type',this.$el.find('input[name="alertalarm"]:checked').attr('val')); //str
       this.model.set('high_value',this.$el.find('#inputMaxVal').val());  //str
       this.model.set('low_value',this.$el.find('#inputMinVal').val());   //str      
-      this.model.set('severity',this.$el.find('#inputSeverityVal').val());   //str      
+      this.model.set('severity',parseInt(this.$el.find('#inputSeverityVal').val()));   //int      
 
     
       var selected = this.$el.find("#paramSelection option:selected")
