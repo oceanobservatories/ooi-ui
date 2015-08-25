@@ -79,8 +79,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     var selection = options.selection;
     console.log("SHOW", options.model.attributes);
     this.model = model;
-    var startDate = new Date(model.get('start'));
-    var endDate = new Date(model.get('end'));
+    // var startDate = new Date(model.get('start'));
+    var startDate = moment.utc(model.get('start')).toJSON();
+    var endDate = moment.utc(model.get('end')).toJSON();
+    // var endDate = new Date(model.get('end'));
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
     

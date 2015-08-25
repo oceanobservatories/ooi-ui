@@ -33,7 +33,7 @@
                                 data-target="#cal-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
-                                    <td><%= Date(row.startDate) %></td>
+                                    <<td><%= new Date(row.startDate).toUTCString() %></td>
                                 </tr>
                                 <tr class="collapse" id="cal-<%= row.eventId %>">
                                     <td colspan="3">
@@ -67,7 +67,7 @@
                                 <tr>
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
-                                    <td><%= Date(row.startDate) %></td>
+                                    <td><%= new Date(row.startDate).toUTCString() %></td>
                                 </tr>
                             <% } %>
                         <% }); %>
@@ -92,7 +92,7 @@
                                 data-target="#cal-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
-                                    <td><%= Date(row.startDate) %></td>
+                                    <td><%= new Date(row.startDate).toUTCString() %></td>
                                 </tr>
                                 <tr class="collapse" id="cal-<%= row.eventId %>">
                                     <td colspan="3">
@@ -124,7 +124,7 @@
                                 <tr>
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
-                                    <td><%= Date(row.startDate) %></td>
+                                    <td><%= new Date(row.startDate).toUTCString() %></td>
                                 </tr>
                             <% } %>
                         <% }); %>
@@ -146,7 +146,7 @@
                                 <tr>
                                     <td><%= row.eventId  %></td>
                                     <td><%= row.class %></td>
-                                    <td><%= Date(row.startDate) %></td>
+                                    <td><%= new Date(row.startDate).toUTCString() %></td>
                                 </tr>
                             <% } %>
                         <% }); %>
