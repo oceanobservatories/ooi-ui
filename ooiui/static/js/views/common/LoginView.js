@@ -87,6 +87,7 @@ var LoginView = Backbone.View.extend({
     if(this.attempts >= 1) {
       this.$el.find('.lgn-message').html('Username or Password are incorrect');
     }
+    $('#loginModal').on('shown.bs.modal',function(){$('#usrInput').focus();});
     $('#loginModal').modal('show');
     return this;
   },
