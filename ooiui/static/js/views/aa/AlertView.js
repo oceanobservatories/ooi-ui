@@ -286,7 +286,7 @@ var AlertFilterView = Backbone.View.extend({
               return "Retired";
             }
             else {
-              return "<button type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
+              return "<button disabled type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
                 "<i class=\"fa fa-plus-square\"></i> Retire" +
                 "</button>";
             }
