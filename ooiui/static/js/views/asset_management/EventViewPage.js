@@ -193,9 +193,9 @@ var EventViewPage = Backbone.View.extend({
     initializeEvent:function(){
         var self = this;
         
+        $('#startdate_d').datetimepicker({format: "YYYY-MM-DD HH:mm:ss"});
         $('#enddate_d').datetimepicker({format: "YYYY-MM-DD HH:mm:ss"});
-        $('#enddate_d').datetimepicker({format: "YYYY-MM-DD HH:mm:ss"});
-        $('#startdate_d').datetimepicker();
+
         $("#enddate_d").on("dp.change", function (e) {
           $('#startdate_d').data("DateTimePicker").setMaxDate(e.date);
         });
