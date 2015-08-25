@@ -111,7 +111,7 @@ var AlertFilterView = Backbone.View.extend({
     var self = this;
     self.modalDialog = new ModalDialogView();
     //this.listenTo(this.collection, 'reset', function(){
-    self.render();
+    //self.render();
     //});
   },
 
@@ -438,7 +438,6 @@ var AlertFilterView = Backbone.View.extend({
  
 
   filterOptionsbyInstrument: function(instru_id,name){
-
     var self = this;
     return "<select class='form-control' data-container='body' id='conditions_dd"+this.rownum+"'><option value='m_lon'>Longitude</option><option value='m_lat'>Latitude</option><option value='sci_salinity'>Salinity</option><option value='sci_water_temp'>Temperature</option><option  value='sci_water_cond'>Water Speed</option><option value='sci_wave_height'>Wave Height</option><option value='sci_water_pressure'>Water Pressure</option></select>";
   },
