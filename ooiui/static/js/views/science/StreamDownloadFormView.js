@@ -50,8 +50,8 @@ var StreamDownloadFormView = Backbone.View.extend({
      */
     var selection = this.$type_select.val();
     var localModel = this.model.clone();
-    var startDate = moment(this.$start_date.data('date')).toJSON();
-    var endDate = moment(this.$end_date.data('date')).toJSON();
+    var startDate = moment.utc(this.$start_date.data('date')).toJSON();
+    var endDate = moment.utc(this.$end_date.data('date')).toJSON();
     localModel.set('start', startDate);
     localModel.set('end', endDate);
     // Check for provenance and set the model
@@ -79,8 +79,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     var selection = options.selection;
     console.log("SHOW", options.model.attributes);
     this.model = model;
-    var startDate = new Date(model.get('start'));
-    var endDate = new Date(model.get('end'));
+
+    var startDate = moment.utc(model.get('start')).toJSON();
+    var endDate = moment.utc(model.get('end')).toJSON();
+
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
     

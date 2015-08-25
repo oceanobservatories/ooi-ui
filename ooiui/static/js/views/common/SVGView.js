@@ -648,15 +648,15 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$end_date = this.$el.find('#end-date');
 
 
-      this.$start_date.datetimepicker({defaultDate : moment(this.model.get('start')),
-                                       minDate: moment(this.model.get('start')),
-                                       maxDate: moment(this.model.get('end')),
+      this.$start_date.datetimepicker({defaultDate : moment.utc(this.model.get('start')),
+                                       minDate: moment.utc(this.model.get('start')),
+                                       maxDate: moment.utc(this.model.get('end')),
                                        format: "YYYY-MM-DD HH:mm:ss",
                                        sideBySide: true
                                        });
-      this.$end_date.datetimepicker({defaultDate : moment(this.model.get('end')),
-                                     minDate: moment(this.model.get('start')),
-                                     maxDate: moment(this.model.get('end')),
+      this.$end_date.datetimepicker({defaultDate : moment.utc(this.model.get('end')),
+                                     minDate: moment.utc(this.model.get('start')),
+                                     maxDate: moment.utc(this.model.get('end')),
                                      format: "YYYY-MM-DD HH:mm:ss",
                                      sideBySide: true
                                     });
