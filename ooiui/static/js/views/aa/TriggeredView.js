@@ -38,7 +38,7 @@ var TriggeredView = Backbone.View.extend({
 
     self.modalDialog = new ModalDialogView();
     //this.listenTo(this.collection, 'reset', function(){
-    self.render();
+    //self.render();
     //});
   },
 

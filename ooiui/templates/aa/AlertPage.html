@@ -242,7 +242,7 @@
         });
 
         this.listenTo(this.collections.alert_list, 'reset', function(options) {
-          console.log('alert alarm reset complete',this.collections.alert_list)          
+          console.log('alert alarm reset complete',this.collections.alert_list);
           var parent = $('#alertslist').parent();
           parent.empty();
           parent.append('<div id="alertslist">');

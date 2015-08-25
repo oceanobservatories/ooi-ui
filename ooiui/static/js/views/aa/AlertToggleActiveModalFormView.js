@@ -27,9 +27,9 @@ var AlertToggleActiveModalFormView = ModalFormView.extend({
     e.preventDefault();
 
     if (this.model.get('active') == 0) {
-      this.model.set('active', 1);
+      this.model.set('active', true);
     } else {
-      this.model.set('active', 0);
+      this.model.set('active', false);
     }
 
     // Sends ack

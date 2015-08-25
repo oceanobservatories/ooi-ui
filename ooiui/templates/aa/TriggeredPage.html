@@ -103,6 +103,14 @@
           el: $('#navbar')
         });
 
+        //empty table
+        $('#triggerlist').find('tbody').empty();
+
+        this.views.triggeredFilterView = new TriggeredView({
+          collection: this.collections.triggered_alerts_list,
+          el: $('#triggerlist')
+        });
+
         {#        $('.navbar-brand').html('Triggered Alerts & Alarms Dashboard');#}
 
         $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard">Alerts Dashboard</a></li>');
@@ -156,7 +164,21 @@
           model:self.models.ackModel
         });
 
+        this.listenTo(this.collections.triggered_alerts_list, 'reset', function(options) {
+          console.log('triggered alert alarm reset complete',this.collections.triggered_alerts_list);
+          var parent = $('#triggerlist').parent();
+          parent.empty();
+          parent.append('<div id="triggerlist">');
+          this.views.triggeredFilterView.render();
+        });
+
+        //RE-RENDER TABLE
+        this.listenTo(this, 'alertAck:success', function(options) {
+          self.collections.triggered_alerts_list.fetch({reset: true});
+        });
+
         var arrayFetch = arrayCollection.fetch({ reset: true });
+        var trigFetch = self.collections.triggered_alerts_list.fetch({reset: true});
 
         var data = {
           min : 'True'
