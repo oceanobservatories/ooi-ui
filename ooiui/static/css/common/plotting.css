@@ -263,19 +263,19 @@
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.scrollable-area::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+.scrollable-area::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: #D1DAF5; 
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
-::-webkit-scrollbar-thumb:window-inactive {
+.scrollable-area::-webkit-scrollbar-thumb:window-inactive {
 	background: #D1DAF5; 
 }
 
