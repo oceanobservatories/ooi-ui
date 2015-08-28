@@ -312,12 +312,16 @@ function updateCollection( successCallback ){
     // If there is a search term, we need to set the startAt attribute to 0,
     // otherwise the results may not load on the page.
     var startingPoint = "";
-    var target = $( event.target );
-    if ($('#search').is(':focus') || target.is('label') || target.is('span') || target.is('ul')
-            || target.is('th') || target.is('font')) {
-        startingPoint = 0;
-    } else {
-        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
+    try {
+        var target = $( event.target );
+        if ($('#search').is(':focus') || target.is('label') || target.is('span') || target.is('ul')
+                || target.is('th') || target.is('font')) {
+            startingPoint = 0;
+        } else {
+            startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
+        }
+    } catch(e) {
+        console.log(e)
     }
     // Pagination attributes will be passed in using
     // backbone's collection data method.
