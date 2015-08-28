@@ -28,7 +28,7 @@
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="wrapper" class="toggled">
+<div id="wrapper">
   <div id="page-content-wrapper">
     <div class="container-fluid">
         {% block sidebar %}
@@ -138,6 +138,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     // TOC Controls
+    this.listenTo(this, 'toc:selectArray', function(model) {
+        var searchFor = model.get('array_name').substr(0,14);
+        $('#search').val(searchFor);
+        $('#search-clear').show();
+        updateCollection( showAssets );
+    });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
         $('#search').val(searchFor);
@@ -173,6 +179,7 @@ var streamFetch = streamCollection.fetch({ data: data,  reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
+        vent.trigger('toc:hideStreams');
         focusToItem();
     });
 });
@@ -294,7 +301,8 @@ function updateCollection( successCallback ){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : $('#search').val()
+        search : $('#search').val(),
+        sort : 'id'
     };
     collection.fetch({
         data : data,
