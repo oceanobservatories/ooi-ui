@@ -18,3 +18,31 @@
     margin-top: 55px;
 }
 /* end toc styling */
+
+
+#th-plot {
+    width:85px;
+}
+#th-download {
+    width: 145px;
+}
+#th-reference_designator {
+    width: 300px;
+    cursor: pointer;
+}
+#th-display_name {
+    width: 300px;
+    cursor: pointer;
+}
+#th-start {
+    cursor: pointer;
+}
+#th-end {
+    cursor: pointer;
+}
+i {
+    pointer-events: none;
+}
+ul.pagination {
+    min-width: 500px;
+}
