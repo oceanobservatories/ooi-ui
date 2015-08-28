@@ -481,7 +481,7 @@ var MapView = Backbone.View.extend({
                     // Data Catalog
                     popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
                     // Asset Managment
-                    popupContent+='<a href="/assets/list?' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+                    popupContent+='<a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
                   }
 
                   hasDeploymentEvent = true;
