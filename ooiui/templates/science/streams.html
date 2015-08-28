@@ -7,7 +7,7 @@
 {% block head %}
 
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streams.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -46,9 +46,7 @@
           <div id="streamPanel"class="panel">
               <div class="panel-heading">
                   <div class="row">
-                      <div class="col-md-4">
-                      </div>
-                      <div class="col-md-5">
+                      <div class="col-lg-5 col-md-offset-3">
                           <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
                       </div>
                   </div>
@@ -138,7 +136,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     /* Dispatcher Section */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
+    this.listenTo(this, 'StreamTableHeader:sort', function(tableHeaderID) {
+        sortBy = tableHeaderID;
+        if ( order == 'reverse' ) {
+            order = "";
+        } else {
+            order = 'reverse';
+        }
 
+        updateCollection( showStreams );
+
+    });
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
             row.focus();
             console.log(row);
@@ -173,6 +181,12 @@ _.extend(OOI.prototype, Backbone.Events, {
   });
 
     // TOC Controls
+    this.listenTo(this, 'toc:selectArray', function(model) {
+        var searchFor = model.get('array_name');
+        $('#search').val(searchFor);
+        $('#search-clear').show();
+        updateCollection( showStreams );
+    });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
         $('#search').val(searchFor);
@@ -212,6 +226,7 @@ $.when(arrayFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
                 // right now we need to call this twice...not sure why.
                 vent.trigger('toc:cleanUp');
+                vent.trigger('toc:hideStreams');
                 focusToItem();
             });
         });
@@ -226,6 +241,10 @@ var pagination = {
     currentPage : 1, // page to start at, first page is 1, not 0
     maxPages: 10 // max number of pages to show in the pagination element
 }
+
+// Sorting and ordering (ascending / descending)
+var sortBy = "";
+var order = 'reverse';
 
 $(document).ready(function() {
         ooi.start();
@@ -259,13 +278,19 @@ function showStreams( collection, response ){
     var streamTableView = new StreamTableView({
         collection: collection
     });
-
+    var previouslyClickedElement = $('#th-'+sortBy+'>i');
     streamTableView.render();
 
 // Empty the table and append the new results.
         $(".table").find("tbody").remove().end();
         $("#streamSpinner").remove();
         $(".table").append( streamTableView.el );
+
+        if ( !(previouslyClickedElement.hasClass('fa-rotate-180')) ) {
+            $('#th-'+sortBy+'>i').addClass('fa-rotate-180');
+        } else {
+            $('i').removeClass('fa-rotate-180');
+        }
     }
 
 function populate() {
@@ -287,7 +312,9 @@ function updateCollection( successCallback ){
     // If there is a search term, we need to set the startAt attribute to 0,
     // otherwise the results may not load on the page.
     var startingPoint = "";
-    if ($('#search').is(':focus')) {
+    var target = $( event.target );
+    if ($('#search').is(':focus') || target.is('label') || target.is('span') || target.is('ul')
+            || target.is('th') || target.is('font')) {
         startingPoint = 0;
     } else {
         startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
@@ -297,7 +324,9 @@ function updateCollection( successCallback ){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : $('#search').val()
+        search : $('#search').val(),
+        sort : sortBy,
+        order : order
     };
 
     collection.fetch({

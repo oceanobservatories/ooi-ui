@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <% _.each(columns, function(col) { %>
-      <th>
+      <th id="th-<%= col.name %>">
         <%= col.label %>
       </th>
       <% }); %>
