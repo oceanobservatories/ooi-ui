@@ -309,13 +309,16 @@ function updatePagination( details, successCallback ){
         end = details.startAt + details.count,
         totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
         currentPage = details.startAt / details.count + 1;
-
+    
     // Display a "Page 1 of 5" type message on the page
-    if (end >= details.total) {
-        $(".pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    if (end >= details.total && details.total !=0) {
+      $(".pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else if (details.total <= 0) {
+      $(".pagination-info").text("No assets found");
     } else {
-        $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+      $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
     }
+
     // Remove the pagination binding so they don't get called
     // multiple times after they're redrawn.
     $(".pagination-boxes").unbind();
