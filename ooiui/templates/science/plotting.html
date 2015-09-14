@@ -76,9 +76,7 @@
         <div class="panel-body">
           <!--  Plot section NORMAL   -->
           <div id="plot-view">
-            {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-            {# <img src="/img/graph7.png" style="width:100%;"> #}
-            <img src="/img/plotting/graph.png" style="width:100%;">
+            <img id="plottingImg" src="/img/plotting/graph.png">
           </div> <!-- #view -->
 
           <!--  Plot section HIGHCHARTS   -->
@@ -102,9 +100,7 @@
           <div class="scrollable-area">
             <div class="panel-body">
               <div id="events-table">
-                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
-                <img src="/img/plotting/events.png" style="width:100%;">
+                <img id="plottingImg" src="/img/plotting/events.png">
               </div> <!-- panel-table -->
             </div> <!-- panel-body -->
           </div> <!-- panel -->
@@ -119,8 +115,7 @@
         </div>
         <div class="panel-body">
           <div id="annotation-table">
-            {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-            <img src="/img/plotting/anotations.png" style="width:100%;">
+            <img id="plottingImg" src="/img/plotting/anotations.png">
           </div> <!-- annotation-table -->
         </div> <!-- panel-body -->
       </div> <!-- panel -->
@@ -465,19 +460,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     //  
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
-
-
-
       $.when(self.views.plotEventListView.render()).done(function() {
-
         $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
-
-        console.log("made TI");
-
       });
-
-      {# $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });   #}
-      {# }); #}
   });
 
   //

@@ -134,6 +134,10 @@
     background: transparent;
   }
 
+  #plottingImg {
+    width: 100%;
+  }
+
   /***********************
    ****** Tool Tips *******
    ***********************/
@@ -261,3 +265,5 @@
     background: transparent;
     border: 1px solid #D1DAF5;
 }
+
+
