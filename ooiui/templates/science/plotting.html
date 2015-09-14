@@ -267,7 +267,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
-    });    
+    });
 
     //The plotting buttons
     this.views.plottingItemSelection = new PlottingSelectionView({
@@ -353,6 +353,51 @@ _.extend(OOI.prototype, Backbone.Events, {
           reset: true
       });
 
+        var param_list = []
+        var parameterhtml = "";
+        var shape = options.model.get('variables_shape');
+
+        //Ok lets start by getting derived parameters
+        parameterhtml += "<optgroup label='Derived'>"
+        for (var i = 0; i < options.model.get('variables').length; i++) {
+            if (param_list.indexOf(options.model.get('variables')) == -1){
+                if (shape[i] === "function"){
+                    var parameterId = options.model.get('parameter_id')[i];
+                    var units = options.model.get('units')[i];
+                    var variable = options.model.get('variables')[i];
+                    if (variable.toLowerCase() != "time"){
+                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        param_list.push(variable);
+                    }
+                }
+
+            }
+        }
+        parameterhtml += "</optgroup>"
+
+        //Now get non derived parameters
+        parameterhtml += "<optgroup label='Non Derived'>"
+        for (var i = 0; i < options.model.get('variables').length; i++) {
+            if (param_list.indexOf(options.model.get('variables')) == -1){
+                if (shape[i] != "function"){
+                    var parameterId = options.model.get('parameter_id')[i];
+                    var units = options.model.get('units')[i];
+                    var variable = options.model.get('variables')[i];
+                    if (variable.toLowerCase() != "time"){
+                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        param_list.push(variable);
+                    }
+                }
+            }
+        }
+        parameterhtml += "</optgroup>"
+
+        $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
+        $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
+        $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
+        $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
+        $('#parameters_id').removeAttr('disabled');
+        $('.selectpicker').selectpicker('refresh');
     });
 
     //filter selection : listen to the selection of the parameter
@@ -428,21 +473,21 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       }
     });
-    
+
     //render the time series data
     this.listenTo(this.collections.dataseries, 'reset', function(series) {
       this.views.timeseriesView.collection = series;
       this.views.timeseriesView.render();
 
-      self.collections.annotations.each(function(annotation,i) {  
+      self.collections.annotations.each(function(annotation,i) {
         self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
                 from: moment.utc(annotation.get('beginDT')),
                 to: moment.utc(annotation.get('endDT')),
                 color: '#FCFFC5',
-                label: { 
-                  text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label. 
-                  align: 'left', // Positioning of the label. 
-                  x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+                label: {
+                  text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+                  align: 'left', // Positioning of the label.
+                  x: +10 // Amount of pixels the label will be repositioned according to the alignment.
                 },
                 id: 'plot-band-'+annotation.get('ui_id')
         });
@@ -450,20 +495,20 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //render the annotations
       var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
-      
+
     });
 
     //render the annotations
     this.listenTo(self.collections.annotations, 'reset', function(collection) {
       self.views.annotationTableView.collection = collection;
-      self.views.annotationTableView.render();            
+      self.views.annotationTableView.render();
     });
 
-    //  
+    //
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
       $.when(self.views.plotEventListView.render()).done(function() {
-        $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });  
+        $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });
       });
     });
 
@@ -491,8 +536,8 @@ _.extend(OOI.prototype, Backbone.Events, {
       var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
 
       var min = moment.utc(bounds.userMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-      var max = moment.utc(bounds.userMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";   
-      
+      var max = moment.utc(bounds.userMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+
       var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
                                        "beginDT":min,
                                        "endDT":max,
