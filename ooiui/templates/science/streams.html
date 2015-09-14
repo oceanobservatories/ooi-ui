@@ -183,21 +183,39 @@ _.extend(OOI.prototype, Backbone.Events, {
     // TOC Controls
     this.listenTo(this, 'toc:selectArray', function(model) {
         var searchFor = model.get('array_name');
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showStreams );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showStreams );
     });
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
         var searchFor = model.get('ref_des');
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showStreams );
     });
 }

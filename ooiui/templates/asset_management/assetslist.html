@@ -140,21 +140,39 @@ _.extend(OOI.prototype, Backbone.Events, {
     // TOC Controls
     this.listenTo(this, 'toc:selectArray', function(model) {
         var searchFor = model.get('array_name').substr(0,14);
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showAssets );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showAssets );
     });
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
         var searchFor = model.get('ref_des');
-        $('#search').val(searchFor);
-        $('#search-clear').show();
+        if ( searchFor == $('#search').val() ) {
+            $('#search').val('');
+            $('#search-clear').hide();
+            $(".active-toc-item").removeClass("active-toc-item");
+        } else {
+            $('#search').val(searchFor);
+            $('#search-clear').show();
+        }
         updateCollection( showAssets );
     });
     }
@@ -317,7 +335,7 @@ function updatePagination( details, successCallback ){
         end = details.startAt + details.count,
         totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
         currentPage = details.startAt / details.count + 1;
-    
+
     // Display a "Page 1 of 5" type message on the page
     if (end >= details.total && details.total !=0) {
       $(".pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
