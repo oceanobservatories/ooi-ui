@@ -16,11 +16,12 @@
 var TroubleTicketModel = Backbone.Model.extend({
   urlRoot: '/api/ticket',
   defaults: {
-    "project_id": "ooi-ui-api-testing",
+    "project_id": "ocean-observatory",
     "subject": "",
     "due_date": null,
     "description": null,
     "priority_id": null,
+    "assigned": 83,
   },
   validation: {  
     assigned:{
@@ -31,10 +32,10 @@ var TroubleTicketModel = Backbone.Model.extend({
       required:true
     },
     due_date:{
-      required: true
+      required: false
     },
       priority_id:{
-      required: true,
+      required: false,
       msg: 'Priority is required'
 
     },
