@@ -70,7 +70,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/TroubleTicket.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html",
-            "ooiui/static/js/partials/LoggedInNavItems.html"
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/ModalRedmineFail.html",
+            "ooiui/static/js/partials/ModalRedmineSuccess.html",
           ],
           "ooiui/static/js/partials/compiled/userEdit.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -488,6 +490,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserFormModel.js',
             'ooiui/static/js/models/common/RoleModel.js',
             'ooiui/static/js/models/common/OrganizationModel.js',
+            'ooiui/static/js/models/common/OrganizationModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -496,7 +499,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/TroubleTicketView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/common/UserFormView.js'
+            'ooiui/static/js/views/common/UserFormView.js',
+            'ooiui/static/js/views/common/ModalRedmineFailView.js',
+            'ooiui/static/js/views/common/ModalRedmineSuccessView.js'
           ],
           'ooiui/static/js/compiled/userEdit.js' : [
             // Libs

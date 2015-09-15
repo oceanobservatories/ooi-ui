@@ -132,7 +132,7 @@ var TroubleTicketView = Backbone.View.extend({
         success: function(model, response){
 
           console.log('Ticket created');
-
+          ooi.trigger('RedmineModalSuccess:onSuccess', this.model);
           ooi.trigger('TroubleTicketView:submit', this.model);
         },
         error: function(model, response) {
@@ -145,6 +145,7 @@ var TroubleTicketView = Backbone.View.extend({
           }
           // console.error(model);
           console.error(response.responseText);
+          ooi.trigger('RedmineModalFail:onFail', this.model);
         }
       });
     }
