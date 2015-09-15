@@ -134,6 +134,10 @@
     background: transparent;
   }
 
+  div#highcharts-0 {
+    width: auto!important;
+  }
+
   /***********************
    ****** Tool Tips *******
    ***********************/
@@ -175,7 +179,7 @@
     white-space:nowrap;
   }
 
-  /**********************
+  /***********************
    *** Event Date/Time ***
    **********************/
   div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
