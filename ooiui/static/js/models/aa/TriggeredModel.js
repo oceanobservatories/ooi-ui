@@ -20,8 +20,8 @@ var TriggeredModel = Backbone.Model.extend({
     //uframe_event_id: "default",
     //dreference_designator: "default"
   },
-  url:"/api/aa/triggered",
-
+  //url:"/api/aa/triggered",
+  url:"#",
   validation: {
     id: {
       required: false
@@ -81,6 +81,9 @@ var TriggeredModel = Backbone.Model.extend({
 //full collection of triggered alerts
 var TriggeredFullCollection = Backbone.Collection.extend({
   model: TriggeredModel,
-  url:"/api/aa/triggered"
+  url:"/json/sample_alert_from_uframe.json",
+  parse: function(response, options) {            
+    return response.alert_alarm      
+  }
 });
 

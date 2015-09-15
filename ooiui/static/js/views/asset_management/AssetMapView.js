@@ -1,107 +1,105 @@
 "use strict";
 /*
- *
- * ooiui/static/js/models/asset_management/AssetMapView.js
- * Validation model for Alerts and Alarms Page.
- *
- * Dependencies
- * Partials
- * - ooiui/static/js/partials/compiled/alertPage.js
- * Libs
- * - ooiui/static/lib/underscore/underscore.js
- * - ooiui/static/lib/backbone/backbone.js
- * Usage
- * 
+ * ooiui/static/js/models/asset_management/AssetMapView.js 
  */
 
 var AssetMapView = Backbone.View.extend({
   events: {    
   },
   initialize: function() {
-    _.bindAll(this, "render");
-    var self = this;
-    self.render();
+    _.bindAll(this, "render","renderMap","addStation",'clearStation');    
+    this.render();
   },  
   template: JST['ooiui/static/js/partials/AssetMap.html'],
   render: function() {
     this.$el.html(this.template());
+    this.renderMap(null);
   },
-  renderMap: function() {
-    L.Icon.Default.imagePath = '/img';
+  renderMap: function(options) {
+    var self = this;
+
     var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';   
-    var grayscale   = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr});    
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+    var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
 
-    this.map = L.map('map',{
-         center: [20.505, -80.09],
-         zoom: 3,
-         maxZoom: 10,
-         minZoom: 3,
-         layers: [grayscale]
+    var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
+
+    self.map = L.map('map', {
+      center: [39.73, -104.99],
+      zoom: 2,
+      layers: [grayscale]
     });
-        
+
+    
   },
+  clearStation:function(){
 
-  clearContents: function() {
   },
+  renderGeographicStatus:function(model,alert_info){ 
+    //render geographic status for a region, platform, array    
 
-  addStation: function(filtered_model) {
-    var self = this;
-    var map = self.map;
-    if (filtered_model.get('coordinates') !="NA"){
-      if (!isNaN(filtered_model.get('coordinates')[0]) &&  !isNaN(filtered_model.get('coordinates')[1])){
-        var latlong = filtered_model.get('coordinates');
+    var self = this; 
 
-        var circleStyleOptions = {
+    var states = [{
+        "type": "Feature",
+        "properties": {"array": "CE"},
+        "geometry": model.attributes.geo_location
+    }];
+
+    var myStyle = {
+        "color": "yellow",
+        "weight": 5,
+        "opacity": 0.75
+    };   
+
+
+    /*
+    if (alert_info.get('event_type')){
+      if(alert_info.get('event_type')=='alert'){
+        myStyle['color'] = 'yellow';      
+      }else if(alert_info.get('status')=='alarm'){
+        myStyle['color'] = 'red';  
+      }
+    }
+    */
+
+    L.geoJson(states, {
+        style: myStyle
+    }).addTo(self.map);
+
+  },
+  addStation:function(station_model,alert_info){
+    var self = this;    
+    if (station_model.get('reference_designator') == "CE01ISSP-XX099-01-CTDPFJ999"){
+      station_model.set('coordinates',[41,-72]);
+    };
+
+    //TODO GET POSITION
+    if (station_model.get('coordinates') && !_.isUndefined(alert_info)){
+      var circleStyleOptions = {
             radius: 14,
             fillColor: "#5e5e5e",
             color: "#2D2D2D",
             weight: 3,
             opacity: .9,
             fillOpacity: .9
-        };
-        
-        //Not working now but if there were a status in the asset return
-        if(filtered_model.get('status')){
-          if(filtered_model.get('status')=='issue'){
-            circleStyleOptions['fillColor'] = '#FFE944';
-          }
-          else if(filtered_model.get('status')=='ok'){
-            circleStyleOptions['fillColor'] = '#006eff';
-          }
-          else if(filtered_model.get('status')=='error'){
-            circleStyleOptions['fillColor'] = '#E03D2C';
-          }
-        }
-
-        //currently everything is blue ok
-        circleStyleOptions['fillColor'] = '#006eff';
-        var marker = L.circleMarker(latlong, circleStyleOptions);
-
-        marker.bindPopup(self.getPopupContent(filtered_model.get('@class'),filtered_model.get('assetInfo'),filtered_model.get('launch_date_time'),filtered_model.get('water_depth'),filtered_model.get('ref_des')))
-        marker.addTo(map);
       };
-    };
-  },
 
-  getPopupContent: function( classtype,info,launch_date,water_depth,ref_des){
-    
-    var popstr =   '<div class="popup-map-btn">'+
-        "<br><b>"+  info['name']+ 
-        "<br></b><br> <b>Launch Date:</b> "+ launch_date+ 
-        "<br> <b>Class:</b> "+ classtype+ 
-        "<br> <b>Type:</b> "+ info['type'] +
-        "<br> "+ "<b>Depth:</b> "+ water_depth['value'] + " m "+
-        /*'<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
-            '<span class="glyphicon glyphicon-stats"></span> Plot data'+
-        '</button>'+
-        '<button type="button" class="popup-map-btn-download btn btn-default btn-sm">'+                                
-            '<span class="glyphicon glyphicon-save"></span> Download data'+
-        '</button>'+*/
-        "</div>"   
-   
-    return popstr
-  }   
+      if(alert_info.get('event_type')=='alert'){
+        circleStyleOptions['fillColor'] = 'yellow';
+      }else if(alert_info.get('status')=='alarm'){
+        circleStyleOptions['fillColor'] = 'red';
+      }else{
+        circleStyleOptions['fillColor'] = 'gray';
+      }
+
+      var marker = L.circleMarker(station_model.get('coordinates'), circleStyleOptions);
+      //TODO Create marker fucntion
+      marker.bindPopup("<div><br>"+alert_info.get('event_type')+"<br></div>")
+      marker.addTo(self.map);      
+    }else{
+      ooi.trigger('invalidLatLon');
+    }
+  }
 });
