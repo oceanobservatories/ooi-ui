@@ -13,6 +13,8 @@
 <script src="/js/partials/compiled/troubleTicket.js" type="text/javascript"></script>
 <script src="/js/compiled/troubleTicket.js" type="text/javascript"></script>
 <script src="/js/views/common/TroubleTicketView.js" type="text/javascript"></script>
+<script src="/js/views/common/ModalRedmineFailView.js" type="text/javascript"></script>
+<script src="/js/views/common/ModalRedmineSuccessView.js" type="text/javascript"></script>
 <script src="/js/models/common/TroubleTicketModel.js" type="text/javascript"></script>
 
 <script src="/js/models/common/TroubleTicketDropdownModel.js" type="text/javascript"></script>
@@ -32,7 +34,8 @@
     <div id="ticket-view"> 
     </div>
   </div><!-- =page-content-wrapper -->
-
+  <div id='redmine-success-modal'></div>
+  <div id='redmine-fail-modal'></div>
 </div> <!-- wrapper -->
 
 
@@ -65,7 +68,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
     this.collections.troubleticketdropdowncollection.fetch({
       data: $.param({
-        project: "ooinet-user-interface-development"
+        project: "ocean-observatory"
       }),
       reset: true
     });
@@ -76,9 +79,26 @@ _.extend(OOI.prototype, Backbone.Events, {
       el: $("#ticket-view")
     });
 
+    this.views.modalRedmineFailView = new ModalRedmineFailView({
+      el: $('#redmine-fail-modal')
+    });
+
+    this.views.modalRedmineSuccessView = new ModalRedmineSuccessView({
+      el: $('#redmine-success-modal')
+    });
+
     this.views.navbar.sidebarToggle(); // Hide the sidebar
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+
+    this.listenTo(this, 'RedmineModalFail:onFail',function(){
+      this.views.modalRedmineFailView.show();
+    });
+
+    this.listenTo(this, 'RedmineModalSuccess:onSuccess',function(){
+      this.views.modalRedmineSuccessView.show();
+    });
+
     $('#page-content-wrapper').prepend(this.views.ticket.el);
     this.listenTo(this, "TroubleTicketView:submit", function(model) {
       window.location.href = '/';
