@@ -133,10 +133,10 @@
   #plot-btn-group button span[class*="glyphicon"] {
     background: transparent;
   }
-
-  div#highcharts-0 {
-    width: auto!important;
-  }
+  /*  */
+  /* div#highcharts-0 { */
+  /*   width: auto; */
+  /* } */
 
   /***********************
    ****** Tool Tips *******
