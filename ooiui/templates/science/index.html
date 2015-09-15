@@ -159,6 +159,8 @@ var streamFetch = streamCollection.fetch({ data: data,  reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
+        vent.trigger('toc:hideStreams');
+        //vent.trigger('toc:hideInstruments');
         focusToItem();
     });
 });

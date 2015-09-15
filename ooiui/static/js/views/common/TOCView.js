@@ -227,6 +227,11 @@ var AssetItemView = Backbone.View.extend({
                 this.$el.addClass('no-children');
             }
         });
+        this.listenTo(vent, 'toc:hideInstruments', function() {
+            if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
+                this.$el.attr('style','display:none;');
+            }
+        });
     },
     onClickPlatform: function(e) {
         $(".active-toc-item").removeClass("active-toc-item");
@@ -309,60 +314,15 @@ var StreamItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:denrenderItems', function() {
             this.derender();
         });
+        this.listenTo(vent, 'toc:hideStreams', function() {
+            this.$el.attr('style','display:none;');
+        });
     },
     onClick: function(e) {
         $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
         $(e.target).addClass("active-toc-item");
-
-        var param_list = []
-        var parameterhtml = "";
-        var shape = this.model.get('variables_shape');
-
-        //Ok lets start by getting derived parameters
-        parameterhtml += "<optgroup label='Derived'>"
-        for (var i = 0; i < this.model.get('variables').length; i++) {
-            if (param_list.indexOf(this.model.get('variables')) == -1){
-                if (shape[i] === "function"){
-                    var parameterId = this.model.get('parameter_id')[i];
-                    var units = this.model.get('units')[i];
-                    var variable = this.model.get('variables')[i];
-                    if (variable.toLowerCase() != "time"){
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                        param_list.push(variable);
-                    }
-                }
-
-            }
-        }
-        parameterhtml += "</optgroup>"
-
-        //Now get non derived parameters
-        parameterhtml += "<optgroup label='Non Derived'>"
-        for (var i = 0; i < this.model.get('variables').length; i++) {
-            if (param_list.indexOf(this.model.get('variables')) == -1){
-                if (shape[i] != "function"){
-                    var parameterId = this.model.get('parameter_id')[i];
-                    var units = this.model.get('units')[i];
-                    var variable = this.model.get('variables')[i];
-                    if (variable.toLowerCase() != "time"){
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                        param_list.push(variable);
-                    }
-                }
-            }
-        }
-        parameterhtml += "</optgroup>"
-
-        $.when( ooi.trigger('toc:selectStream', { model: this.model }) ).done(function() {
-            $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
-            $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
-            $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
-            $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
-            $('#parameters_id').removeAttr('disabled');
-            $('.selectpicker').selectpicker('refresh');
-        });
-
+        ooi.trigger('toc:selectStream', { model: this.model });
     },
     template: _.template('<a href="#"><%= stream_name %></a>'),
     derender: function() {
