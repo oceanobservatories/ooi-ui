@@ -134,6 +134,15 @@
     background: transparent;
   }
 
+  #select-stream-heading {
+    border: 1px solid #D1DAF5;
+    border-radius: 5px;
+    border-color: #D1DAF5;
+    padding: 5px 0px 0px 0px;
+    margin-bottom: -10px;
+    background-color: #fff;
+  }
+  
   /***********************
    ****** Tool Tips *******
    ***********************/
@@ -158,7 +167,7 @@
 
   /* Download buttons */
   div#download-row {
-    background-color: #E0E0E0;
+    background-color: #fff;
     margin-left: -10px;
     margin-right: -10px;
     padding-top: 5px;
@@ -175,7 +184,7 @@
     white-space:nowrap;
   }
 
-  /**********************
+  /***********************
    *** Event Date/Time ***
    **********************/
   div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
