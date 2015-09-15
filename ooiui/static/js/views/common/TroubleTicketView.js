@@ -72,7 +72,7 @@ var TroubleTicketView = Backbone.View.extend({
      '[name=priority_id]':{
       observe:'priority_id',       
       setOptions:{
-        validate: true
+        validate: false
       },
           
     },
@@ -80,7 +80,7 @@ var TroubleTicketView = Backbone.View.extend({
     '[name=due_date]' :{
       observe:'due_date',
       setOptions:{
-        validate: true
+        validate: false
       }
     },
     '[name=assigned]':{
@@ -124,6 +124,8 @@ var TroubleTicketView = Backbone.View.extend({
   },
   submit: function() {
     console.log(this.model);
+    // THIS IS A HACK TO ALWAYS ASSIGN TO SAGE
+    this.model.set('assigned_to_id', 83);
     if (this.model.isValid(true)) {
       this.model.save(null, {
         
@@ -138,10 +140,10 @@ var TroubleTicketView = Backbone.View.extend({
             var errMessage = JSON.parse(response.responeText).error;
           } 
           catch(err){
-          console.log(err);
-          var errMessage = "Unable to submit ticket";
-        }
-          console.error(model);
+            console.log(err);
+            var errMessage = "Unable to submit ticket";
+          }
+          // console.error(model);
           console.error(response.responseText);
         }
       });
