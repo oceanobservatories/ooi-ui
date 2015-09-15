@@ -42,6 +42,16 @@ var AnnotationModalFormView = ModalFormView.extend({
     event.stopPropagation();
     event.preventDefault();
     this.model.set('annotation',this.$el.find('#comments-input').val());    
+
+    var min = moment.utc(self.model.get('beginDTSafe')).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    var max = moment.utc(self.model.get('endDTSafe')).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+
+    self.model.set('beginDT', min);
+    self.model.set('endDT', max);
+
+    self.model.unset('beginDTSafe', {silent:true}) 
+    self.model.unset('endDTSafe', {silent:true}) 
+
     this.model.save(null, {
       success: function(model,response) {             
         if(model.id) {
@@ -69,8 +79,11 @@ var AnnotationModalFormView = ModalFormView.extend({
 
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
-
     }
+
+    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'DD/MM/YYYY HH:mm'});
+    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'DD/MM/YYYY HH:mm'});
+    
 
   }
 });
