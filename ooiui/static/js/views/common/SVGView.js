@@ -207,17 +207,17 @@ var SVGView = Backbone.View.extend({
         },"xml")
         .fail(function(e) {
            console.log(e);
-           //any plot errors should be handled before we get to here.
+           // any plot errors should be handled before we get to here.
            // this should be uframe alert here.
            self.$el.html(' ');
            if (e.status == 400){
-           $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
            }
            else if (e.status == 500){
-           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
            }
            else{
-           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
            }
           // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
          })
@@ -230,10 +230,11 @@ var SVGView = Backbone.View.extend({
       .on('load', function() { 
         self.$el.html(image); 
       })
-      .on('error', function(e) { 
+      .on('error', function() {
          // this should be uframe alert here.
          self.$el.html(' ');
-         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: Loading image</strong></div>');
+         var error_msg = 'Unexpected uFrame Return. The data provided was not in the form of an array. Please make sure the correct parameter was selected. If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a>';
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: </strong> '+error_msg+'</div>');
          
       });    
       image.src = this.url;
