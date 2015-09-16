@@ -526,6 +526,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
+      
+      var min = moment.utc(model.get('beginDT')).format("DD/MM/YYYY HH:mm");
+      var max = moment.utc(model.get('endDT')).format("DD/MM/YYYY HH:mm");
+
+      model.set('beginDTSafe',min);
+      model.set('endDTSafe',max);
+
       if(self.login.loggedIn()) {
         self.views.annotationModal.show({
           model: model,
@@ -534,16 +541,15 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
 
-    this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
-
-      var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
-
-      var min = moment.utc(bounds.userMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-      var max = moment.utc(bounds.userMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    this.listenTo(this, 'AnnotationTableView:onAddClick', function() {      
+      var min = moment.utc(self.views.svgPlotControlView.model.get('start')).format("DD/MM/YYYY HH:mm");
+      var max = moment.utc(self.views.svgPlotControlView.model.get('end')).format("DD/MM/YYYY HH:mm");
 
       var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
-                                       "beginDT":min,
-                                       "endDT":max,
+                                       "beginDTSafe":min,
+                                       "endDTSafe":max,
+                                       "beginDT":null,
+                                       "endDT":null,
                                        "method":self.models.downloadModel.model.get("stream_name"),
                                        "stream_name":self.models.downloadModel.model.get("stream_name")
                                       });
