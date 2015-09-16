@@ -103,7 +103,7 @@
                         <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateOn" placeholder="5.0" >
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                      <span class="help-block with-errors">Escalate On: when first red mine ticket is generated</span>
+                      <span class="help-block with-errors">Escalate On: Time in seconds after Alert is generated before it is escalated to a Redmine ticket</span>
                     </div>
                   </div>   
 
@@ -115,7 +115,7 @@
                         <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateBoundary" placeholder="10.0" >
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                      <span class="help-block with-errors">Escalate Boundary (when exceeded): Forces a new red mine ticket to be generated</span>
+                      <span class="help-block with-errors">Escalate Boundary: Time in seconds since last Alert added to previous escalation will issue new Redmine ticket</span>
                     </div>
                   </div>                     
                   
