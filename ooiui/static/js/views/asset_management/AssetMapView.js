@@ -44,7 +44,7 @@ var AssetMapView = Backbone.View.extend({
     var states = [{
         "type": "Feature",
         "properties": {"array": "CE"},
-        "geometry": model.attributes.geo_location
+        "geometry": model.get('geo_location')
     }];
 
     var myStyle = {
@@ -97,7 +97,8 @@ var AssetMapView = Backbone.View.extend({
       var marker = L.circleMarker(station_model.get('coordinates'), circleStyleOptions);
       //TODO Create marker fucntion
       marker.bindPopup("<div><br>"+alert_info.get('event_type')+"<br></div>")
-      marker.addTo(self.map);      
+      marker.addTo(self.map);  
+      ooi.trigger('validLatLon');  
     }else{
       ooi.trigger('invalidLatLon');
     }

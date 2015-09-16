@@ -43,10 +43,10 @@
             </div> 
            
             <div class="row form-group">      
-              <div id='statusList' class="col-sm-8">
+              <div id='statusList' class="col-sm-4">
               </div>
 
-              <div id='statusMap' class="col-sm-4">
+              <div id='statusMap' class="col-sm-8" style="">
               </div>              
             </div>
           </div>
@@ -133,6 +133,10 @@
           $('#missingLL').text('missing position/status information')
         });
 
+        this.listenTo(this, 'validLatLon', function(options) {          
+          $('#missingLL').text('valid lat/lon')
+        });
+
 
         var trigAlertsFetch = self.collections.triggeredAlertsList.fetch({reset: true});
         var assetInfoFetch = self.collections.assetInfo.fetch({reset: true});
@@ -197,7 +201,8 @@
           var ref_collection = self.collections.triggeredAlertsList.findWhere({reference_designator: options.get('ref_des')});
           self.views.assetMapView.addStation(options,ref_collection);
         }else if (status_type == "array"){
-
+          //TODO NOT READY YET
+          return;
           var arrayMapping = {"CP":new L.LatLngBounds([[42,-74],[36,-65]]),
                               "CE":new L.LatLngBounds([[48,-133],[42,-123]])     
                               }
@@ -213,7 +218,7 @@
                       ]]
 
 
-          options.attributes.geo_location.coordinates = coors;
+          options.set('geo_location.coordinates', coors);
 
           self.views.assetMapView.renderGeographicStatus(options,ref_collection);
         }
