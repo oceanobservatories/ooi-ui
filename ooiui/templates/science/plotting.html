@@ -421,6 +421,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else if (options.attributes.data.plotType == "Time Series"){
         options.attributes.data.plotType = "timeseries"
         options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+      }else if (options.attributes.data.plotType == "Stacked Time Series"){
+        options.attributes.data.plotType = "stacked"
+        options.attributes.data.xvar = 'time';
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.attributes.data.plotType == "T-S Diagram"){
         options.attributes.data.plotType = "ts_diagram"
         options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
