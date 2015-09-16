@@ -74,6 +74,7 @@ var plotParameters ={
         quiver:{val:2,condition:"=",message:"Must Select U- and V-Components"},
         rose:{val:2,condition:"=",message:"Must Select Magnitude and Direction"},
         scatter:{val:3,condition:"=",message:"Must Select X, Y, and Color Components"},
+        stacked:{val:1,condition:"=",message:"Must Z Component"},
         _validate:function(name,length){return (length==0?false: (this[name].condition=="<="
                                             ? length<=parseInt(this[name].val)
                                             : parseInt(this[name].val)==length));}
@@ -194,33 +195,49 @@ var SVGView = Backbone.View.extend({
     }
     //this.initialRender();
   },
+
   fetch: function() {
     var self = this;
     this.initialRender();
-    $.get(this.url,function(svgDoc) {
-        var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
-        self.$el.html(importedSVGRootElement);
-        self.render();
-      },"xml")
-      .fail(function(e) {
-         console.log(e);
-         //any plot errors should be handled before we get to here.
+    if (this.format === 'svg'){
+      $.get(this.url,function(svgDoc) {
+          var importedSVGRootElement = document.importNode(svgDoc.documentElement,true);
+          self.$el.html(importedSVGRootElement);
+          self.render();
+        },"xml")
+        .fail(function(e) {
+           console.log(e);
+           //any plot errors should be handled before we get to here.
+           // this should be uframe alert here.
+           self.$el.html(' ');
+           if (e.status == 400){
+           $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           }
+           else if (e.status == 500){
+           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           }
+           else{
+           $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
+           }
+          // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
+         })
+        .always(function() {
+
+        });
+    }else{
+      var image = new Image();
+      $(image)
+      .on('load', function() { 
+        self.$el.html(image); 
+      })
+      .on('error', function(e) { 
          // this should be uframe alert here.
          self.$el.html(' ');
-         if (e.status == 400){
-         $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
-         }
-         else if (e.status == 500){
-         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
-         }
-         else{
-         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ '</div>');
-         }
-        // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
-       })
-      .always(function() {
-
-      });
+         $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: Loading image</strong></div>');
+         
+      });    
+      image.src = this.url;
+    }
   },
   initialRender: function() {
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>');
@@ -298,6 +315,7 @@ var SVGPlotView = SVGView.extend({
     this.height = this.width / 3;
     var x_units = "";
     var y_units = "";
+    this.format = "svg";
 
     if(options && options.yvar && options.xvar) {
       if(!plotParameters.validateSelected(options)) return false;
@@ -337,6 +355,12 @@ var SVGPlotView = SVGView.extend({
         this.xvariable = options.xvar;
         this.dpa_flag = this.getDpaFlag(options.yvar)
 
+      }else if (options.attributes.data.plotType == 'stacked'){
+        this.format = "png";
+        this.yvariable = $("#yvar1-select option:selected").val()
+        this.xvariable = options.xvar;
+        this.dpa_flag = this.getDpaFlag(options.yvar)
+
       }else{
         this.yvariable = options.yvar.join();
         this.xvariable = options.xvar;
@@ -352,7 +376,8 @@ var SVGPlotView = SVGView.extend({
       this.st = options.attributes.data.start;
       this.ed = options.attributes.data.end;
 
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({x_units:x_units,
+      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: this.format,
+                                                                                                    x_units:x_units,
                                                                                                     y_units:y_units,
                                                                                                     dpa_flag: this.dpa_flag,
                                                                                                     yvar: this.yvariable ,
@@ -523,6 +548,19 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar1-select-text').text('Select Y');
       this.$el.find('#yvar2-selection').hide();
       this.$el.find('#yvar3-selection').hide();
+
+    }else if(plotType=="Stacked Time Series"){
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The stacked time series plot is a 2D colored plot that plots bins (Y-axis) against time (X-axis) using color spectrum for the value. The user should select just 1 appropriate derived products with 2D data (ie. ADCP, VADCP, and SPKIR) for this plot to work properly.")
+
+      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar0-selection-default').hide();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar1-select-text').text("Select Z");
+      this.$el.find('#yvar2-selection').hide();
+      this.$el.find('#yvar3-selection').hide();
+
     }else if(plotType=="T-S Diagram"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
 
