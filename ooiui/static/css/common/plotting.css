@@ -46,6 +46,7 @@
     margin-bottom: 5px;
     line-height: 1.1;
     font-family: inherit;
+    overflow-y: scroll;
   }
   button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
     background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
@@ -58,11 +59,12 @@
   .dropdown-menu.open {
     /* margin: 2px 170px 0; */
     background-color: rgba(255, 255, 255, 0.87);
-    padding-bottom: 14px;
     border: none;
     position: absolute;
     top: 40px;
     left: 140px;
+    overflow-y: scroll;
+    max-height: 300px;
   }
 
   input.form-control:focus {
