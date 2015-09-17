@@ -16,7 +16,6 @@
   .plotting-selection {
     position: relative;
     width: 100%;
-    /* margin-top: 25px; */
   }
 
   div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
@@ -49,7 +48,6 @@
     margin-bottom: 5px;
     line-height: .9;
     font-family: inherit;
-    /* overflow-y: scroll; */
     height: 27px;
   }
   button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
@@ -61,7 +59,6 @@
   }
 
   .dropdown-menu.open {
-    /* margin: 2px 170px 0; */
     background-color: rgba(255, 255, 255, 0.87);
     border: none;
     position: absolute;
@@ -186,15 +183,11 @@
   /* Plotting sidebar buttons */
   /*space between button group on plotting page*/
   #plot-btn-group button[class*="plot-btn"] {
-    /* margin: 0px 5px; */
-    /* border-top-left-radius: 41px; */
-    /* border-bottom-left-radius: 41px; */<D-d>
     width: auto;
     color: #353840;
     background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
     border-bottom: 1px solid transparent;
     border: 1px solid #7E9CD9;
-    /* border-radius: 4px; */
     font-weight: 300;
     text-decoration: none;
     margin-bottom: 15px;
@@ -257,10 +250,6 @@
 
   /* Download buttons */
   div#download-row {
-    /* background-color: #fff; */
-    /* margin-left: -10px; */
-    /* margin-right: -10px; */
-    /* padding-top: 5px; */
     background-color: #E0E0E0;
     margin-left: -11px;
     margin-right: -11px;
