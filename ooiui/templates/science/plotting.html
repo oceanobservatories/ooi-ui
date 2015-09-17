@@ -42,20 +42,14 @@
   {{ super() }}
   {% endblock %}
   <div id="plottingBody" class="col-sm-12">
-    <div id="download-row" class="row">
+    <div  class="row">
       <div id="download-outline" class="pull-left">
-        <li style="font-weight:bold;padding-left:10px;" id="ref_des_stream_outline"></li>
-      </div>
-      <div id="download-options" class="pull-right">
-        <ul>
-          <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-          <li><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-        </ul>
+        <li id="ref_des_stream_outline"></li>
       </div>
     </div>
     <div class="row">
       <div class="panel">
-        <div class="panel-heading">
+        <div id="control-heading" class="panel-heading">
           <div class="row">
             <div class="col-md-12">
               <div id="plotcontrols">

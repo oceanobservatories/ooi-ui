@@ -32,21 +32,25 @@
     padding-left: 0px;
   }
   /* change for select buttons on plot page */
+  .btn-group.bootstrap-select.form-control {
+    background-color: transparent;
+  }
   button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
     color: #353840;
     background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-    padding: 10px 15px;
+    padding: 5px 30px 10px 10px;
     border-bottom: 1px solid transparent;
     border: 1px solid #7E9CD9;
     border-radius: 4px;
     font-weight: 300;
     text-transform: uppercase;
     text-decoration: none;
-    width: 100%;
+    width: auto;
     margin-bottom: 5px;
-    line-height: 1.1;
+    line-height: .9;
     font-family: inherit;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    height: 27px;
   }
   button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
     background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
@@ -99,12 +103,92 @@
     padding-bottom: 5px;
   }
 
+  /* SVG Controlls */
+  div#control-heading {
+    border: 1px solid #d1daf5;
+    border-radius: 5px;
+    background-color: #fff!important;
+   
+  }
+  label#plot-type,
+  label#yvar0-select-default-text,
+  label#start-time,
+  label#end-time,
+  label#qaqc-test {
+    padding-bottom: 4px;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #121517;    
+  }
+
+  input.form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 27px;
+    color: #004773;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 14px;
+    border: solid #1f628d 1.5px;
+    text-decoration: none;
+    line-height: .9;
+    height: 27px;
+    font-weight: 300;
+  }
+  span.input-group-addon {
+    padding-top: 3px;
+    padding-bottom: 1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 27px;
+    color: #004773;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    font-size: 14px;
+    border-right: solid #1f628d 1.5px;
+    text-decoration: none;
+    line-height: .9;
+    height: 27px;
+    font-weight: 300;
+    border-top: 1px #1f628d solid;
+    border-bottom: 1px #1f628d solid;
+  }
+  /* slider btn */
+  .bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-normal.bootstrap-switch-id-plotting-enable-events.bootstrap-switch-animate.bootstrap-switch-off {
+    height: 27px;
+    color: #004773;
+    border-radius: 5px;
+    font-size: 14px;
+    border: solid #1f628d 1.5px;
+    text-decoration: none;
+    line-height: .9;
+    font-weight: 300;
+    width: 80px;
+  }
+  .bootstrap-switch-container {
+    width: 138;
+  }
+
+  span.bootstrap-switch-label {
+    padding: 3px 12px;
+    width: 38px;
+  } 
+
+  span.bootstrap-switch-handle-on.bootstrap-switch-primary,
+  span.bootstrap-switch-handle-off.bootstrap-switch-default {
+    padding: 3px 12px;
+    width: 38px;
+  }
+  span.bootstrap-switch-handle-on.bootstrap-switch-primary {
+    width: 42px;
+  }  
+
   /* Plotting sidebar buttons */
   /*space between button group on plotting page*/
   #plot-btn-group button[class*="plot-btn"] {
     /* margin: 0px 5px; */
     /* border-top-left-radius: 41px; */
-    /* border-bottom-left-radius: 41px; */
+    /* border-bottom-left-radius: 41px; */<D-d>
     width: auto;
     color: #353840;
     background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
@@ -144,7 +228,7 @@
     margin-bottom: -10px;
     background-color: #fff;
   }
-  
+
   #plottingImg {
     width: 100%;
   }
@@ -173,10 +257,26 @@
 
   /* Download buttons */
   div#download-row {
-    background-color: #fff;
-    margin-left: -10px;
-    margin-right: -10px;
-    padding-top: 5px;
+    /* background-color: #fff; */
+    /* margin-left: -10px; */
+    /* margin-right: -10px; */
+    /* padding-top: 5px; */
+    background-color: #E0E0E0;
+    margin-left: -11px;
+    margin-right: -11px;
+    padding-bottom: 25px;
+    padding-top: 6px;
+    height: 15px;
+    border-bottom-width: 1px;
+    border-bottom-color: #F09349;
+    background: linear-gradient(#fff, #7E9CD9);
+    background-image: -moz-linear-gradient(#fff, #7E9CD9);
+    background-image: -webkit-gradient(#fff, #7E9CD9);
+    color: #121517;
+    font-size: 14px;
+    font-weight: bolder;
+    padding-left: 10px;
+    border: 1px solid #7E9CD9;
   }
 
   div#download-options > ul > li {
@@ -186,6 +286,10 @@
   }
 
   /* controls */
+  div#plotcontrols {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
   #plotcontrols .label {
     white-space:nowrap;
   }
@@ -275,6 +379,16 @@
     width: 1px;
     background: transparent;
     border: 1px solid #D1DAF5;
-}
+  }
 
+  /*************************
+   **** Plotting Controls ***
+   *************************/
+  .control-panel {
+    margin-bottom: 5px;
+  }
 
+  #download-options ul {
+    /* margin-top: 6px; */
+    padding-left: 0px;
+  }
