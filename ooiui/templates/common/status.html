@@ -5,19 +5,17 @@
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="/css/compiled/index.css" type="text/css" />
+  <link rel="stylesheet" href="/css/compiled/status.css" type="text/css" />
 
   <script src="/js/partials/compiled/status.js" type="text/javascript"></script>
   <script src="/js/compiled/status.js" type="text/javascript"></script>
   <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
 
-  <!--
   <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
   <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
-  -->
 
 {% endblock %}
 
@@ -36,18 +34,83 @@
       <div class="col-lg-12">
         <div id="aa-panel" class="panel">
           <div id="aa-panel-body" class="panel-body">
+            <!--
             <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
               Something something dark side.....
               <i id="missingLL">0</i>
               <i id="current_selection" style="color:#337ab7"></i>
             </div> 
-           
-            <div class="row form-group">      
-              <div id='statusList' class="col-sm-4">
+            -->
+            <div class="row" style="">
+
+              <div class="col-md-3">
+                <ul class="nav nav-pills">
+                  <li role="presentation" for="statusListContainer" class="view-option active"><a href="#">Table View</a></li>                  
+                  <li role="presentation" for="statusMap" class="view-option"><a href="#">Map View</a></li>              
+                </ul>
               </div>
 
+              <div class="col-md-4" style="display:none">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                  </span>
+                </div><!-- /input-group -->
+              </div>
+
+              <div class="col-md-9">
+                <ul class="nav nav-pills pull-right">
+                  <li><h5>Filter By Severity:&nbsp;&nbsp;</h5></li>
+                  <li role="presentation" for="all" class="action-option active"><a href="#">All</a></li>
+                  <li role="presentation" for="alert" class="action-option"><a href="#">Alert</a></li> 
+                  <li role="presentation" for="alarm" class="action-option"><a href="#">Alarm</a></li>
+                  <li role="presentation" for="inactive" class="action-option"><a href="#">Healthy</a></li>              
+                  <li role="presentation" for="unknown" class="action-option"><a href="#">Unknown</a></li>              
+                </ul>
+              </div>
+            </div>
+
+            <div id="progress-container">
+              <hr style="margin-bottom:2px; margin-top:10px">
+              <div class="progress status-progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                  <span class="sr-only"></span>
+                </div>
+              </div>
+            </div>
+
+            <hr style="margin-bottom:2px; margin-top:2px">
+
+            <div class="row form-group">   
+              <div id="statusListContainer">   
+                <div id='statusList' class="col-sm-7 ">
+                </div>
+
+                <div class="col-sm-5">                  
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button id="resetStatusIconList" type="button" class="pull-right btn btn-sm btn-warning" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"> Reset</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-right: 5px; margin-top:5px;">
+                  <div id='statusListOutline' class="col-md-12 well">
+                  </div>
+                  </div>
+                </div>
+              </div>              
+
+              <div id='statusMap' class="col-sm-12" style="display:none">
+              </div>
+
+              <!--
               <div id='statusMap' class="col-sm-8" style="">
               </div>              
+              -->
             </div>
           </div>
         </div>
@@ -69,12 +132,14 @@
         selectedStream: null
       },
       collections: {
-        arrays: new ArrayCollection(),
-        triggeredAlertsList: new TriggeredFullCollection(),
+        arrays: new ArrayCollection(),        
+        statusAlertsList:null,
+        selectedStatusAlertsList: new StatusAlertCollection(),
         assetInfo: new AssetCollection()
       },
       views: {
-        statusAlertView : null,
+        statusAlertTableView : null,
+        statusAlertIconView : null,
         assetMapView : null
       },
       start: function() {
@@ -85,31 +150,36 @@
 
         var self = this;
 
+        //get the overview
+        this.collections.statusAlertsList = new StatusAlertCollection();
+        this.collections.selectedStatusAlertsList.reset();
+
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
 
-        self.views.statusAlertView = new StatusAlertView({
+
+        self.views.statusAlertTableView = new StatusAlertTableView({
           el: $('#statusList'),
-          collection: self.collections.triggeredAlertsList
+          collection: null
         });
 
+        self.views.statusAlertIconView = new StatusAlertIconView({
+          el: $('#statusListOutline'),
+          collection: self.collections.selectedStatusAlertsList
+        });
+
+        
         self.views.assetMapView = new AssetMapView({
           el: $('#statusMap'),
-          collection: self.collections.triggeredAlertsList
+          collection: null
         });
 
         // TOC, render out our views:
-        this.listenTo(this, 'toc:selectArray', function(options) {  
-
-          self.getStatusFor('array',options);
-          if (options.get('array_code') == 'CE'){
-            console.log('get Alerts alarms')
-          }else{
-            console.log('i cant do this yes');
-          }
+        this.listenTo(this, 'toc:selectArray', function(options) { 
+          //self.getStatusFor('array',options);
         });
 
         // TOC, render out our views:
@@ -120,54 +190,103 @@
         // TOC, render out our views:
         this.listenTo(this, 'toc:selectInstrument', function(options) {          
           console.log(options.get('coordinates'),'instrument');
-          self.getStatusFor('instrument',options);          
+          //self.getStatusFor('instrument',options);          
         });
 
         // TOC, render out our views:
         this.listenTo(this, 'toc:selectStream', function(options) {          
           //console.log(options);
         });
-
-        // TOC, render out our views:
-        this.listenTo(this, 'invalidLatLon', function(options) {          
-          $('#missingLL').text('missing position/status information')
+        
+        this.listenTo(this, 'progress:update', function(options) {          
+            var progress = $('.status-progress .progress-bar');
+            progress.attr("aria-valuenow",options.progress);
+            progress.css("width",options.progress.toString()+"%");
+            if (options.progress>98){
+              $('#progress-container').fadeOut('fast');
+            }
         });
 
-        this.listenTo(this, 'validLatLon', function(options) {          
-          $('#missingLL').text('valid lat/lon')
+        this.listenTo(this, 'statusTable:rowSelected', function(model) {           
+          self.views.statusAlertIconView.initialRender();          
+          self.collections.selectedStatusAlertsList.add(model);
+          self.views.statusAlertIconView.render();
         });
 
+        $('#resetStatusIconList').click(function(e) {
+          self.views.statusAlertIconView.initialRender();          
+          self.collections.selectedStatusAlertsList.reset();
+          self.views.statusAlertIconView.render();
+        });
 
-        var trigAlertsFetch = self.collections.triggeredAlertsList.fetch({reset: true});
+        this.listenTo(this, 'aafilter:changeTypeFilter', function(evt) { 
+          
+          var newselected = $(evt.target).parent()
+          var currentselected = $('.action-option.active')
+                   
+          if (currentselected.attr('for') != newselected.attr('for')){
+            $('#progress-container').css('display','');
+            $('.status-progress .progress-bar').css('width','0%');
+            $('.status-progress .progress-bar').attr('aria-valuenow','0');
+
+            currentselected.removeClass('active');
+            newselected.addClass('active');
+
+            self.views.statusAlertTableView.initialRender();            
+
+            var filteredList = self.collections.statusAlertsList.sortByStatus(newselected.attr('for'));
+
+            self.views.statusAlertTableView.collection = filteredList;
+            self.views.assetMapView.collection = filteredList;
+            //
+            ooi.trigger("progress:update",{"progress":25});
+            self.views.statusAlertTableView.render();      
+            ooi.trigger("progress:update",{"progress":50});      
+            ooi.trigger("progress:update",{"progress":75});
+            //
+            self.views.assetMapView.clearStations(); 
+            self.views.assetMapView.addStations();
+            ooi.trigger("progress:update",{"progress":100});
+          }
+        });
+
+        //var trigAlertsFetch = self.collections.triggeredAlertsList.fetch({reset: true});
+        var statusAlertsFetch = self.collections.statusAlertsList.fetch({reset: true});
         var assetInfoFetch = self.collections.assetInfo.fetch({reset: true});
 
         //RE-RENDER TABLE and map
-        $.when(assetInfoFetch, trigAlertsFetch).done(function() {
-         
-          //create feature id name
-          // TODO MOVE THIS OUT! need to move the nest attr up one level, so we can WHERE them
-          self.collections.triggeredAlertsList.each(function(model,i) {
-
-            model.set("reference_designator", model.get('alert_alarm_definition').reference_designator);
-            model.set("instrument_parameter", model.get('alert_alarm_definition').instrument_parameter);
-            model.set("aa_def_id", model.get('alert_alarm_definition').id);
-
-            var fields = [  model.get("aa_def_id"),                        
-                            model.get("reference_designator"),
-                            model.get("method"),
-                            model.get("instrument_parameter"),
-                            model.get("event_type")                        
-                         ]
-
-            var feature_id = fields.join("_");
-            model.set('feature_id',feature_id)
-          });
+        $.when(assetInfoFetch, statusAlertsFetch).done(function() {
+          var filteredList = self.collections.statusAlertsList.sortByStatus('all');          
+          self.views.statusAlertTableView.collection = filteredList;
+          self.views.assetMapView.collection = filteredList
           //
-          self.views.statusAlertView.render();
+          self.views.statusAlertTableView.render();
+          //render the stations
+          self.views.assetMapView.clearStations(); 
+          self.views.assetMapView.addStations();          
           //       
+          ooi.trigger("progress:update",{"progress":100});
         });
         
-        
+        $('.view-option').on( "click", function(evt) {
+          var currentVizItem = $('.view-option.active');
+          var visItem = $(evt.target).parent();
+          if (currentVizItem.attr('for') == visItem.attr('for')){
+            //do nothing
+          }else{
+            currentVizItem.removeClass('active');
+            visItem.addClass('active');
+            
+            $('#'+currentVizItem.attr('for')).css('display','none');
+            $('#'+visItem.attr('for')).css('display','');
+
+            if (visItem.attr('for') == 'statusMap'){
+              self.views.assetMapView.updateMap();
+            }
+            
+          }
+          
+        });
 
         var arrayFetch = arrayCollection.fetch({ reset: true });
 
@@ -191,7 +310,8 @@
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
 
-      },
+      }
+      /*
       getStatusFor:function(status_type,options){
         var self = this;
         console.log(status_type,options);
@@ -224,6 +344,7 @@
         }
 
       }
+      */
     });
 
     // controller for our model collections
@@ -274,8 +395,11 @@
     $(document).ready(function() {
       $("body").tooltip({ selector: '[data-toggle=tooltip]' });
       ooi.start();
+
       $('#navbar').prepend(navbar.el);
+      
       $('#search-clear').hide();
+      
       $('#search-clear').click(function(){
         $('#search-filter').val('').focus();
         $(this).hide();
@@ -287,6 +411,10 @@
             vent.trigger('toc:cleanUp');
           });
         });
+      });      
+
+      $('.action-option').click(function(e) {
+          ooi.trigger('aafilter:changeTypeFilter',e);
       });
 
       $('#search-submit').click(function(e) {

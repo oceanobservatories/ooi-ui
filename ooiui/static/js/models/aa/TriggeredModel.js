@@ -81,9 +81,42 @@ var TriggeredModel = Backbone.Model.extend({
 //full collection of triggered alerts
 var TriggeredFullCollection = Backbone.Collection.extend({
   model: TriggeredModel,
-  url:"/json/sample_alert_from_uframe.json",
+  url:"/api/aa/triggered",
   parse: function(response, options) {            
     return response.alert_alarm      
   }
 });
 
+
+var StatusAlertModel = Backbone.Model.extend({
+  defaults: {  
+    count: 0,
+    event_type: "",
+    reference_designator:"",
+    coordinates:[],
+    asset_type:[]
+  },  
+  url:"#"
+});  
+
+//full collection of triggered alerts
+var StatusAlertCollection = Backbone.Collection.extend({
+  model: StatusAlertModel,
+  url:"/api/aa/status",
+  parse: function(response, options) {            
+    return response.alert_alarm      
+  },
+  // in InventoryCollection
+  sortByStatus: function (value) {
+    if (value == "all"){
+      var models = this.filter(function (model) {
+        return model.get('event_type') != "unknown";
+      });  
+    }else{
+      var models = this.filter(function (model) {
+        return model.get('event_type') == value;
+      }); 
+    }
+    return new StatusAlertCollection(models);;
+  }  
+});

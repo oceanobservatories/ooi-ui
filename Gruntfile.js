@@ -156,6 +156,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Banner.html",
             "ooiui/static/js/partials/ModalForm.html",
             "ooiui/static/js/partials/StatusAlert.html",
+            "ooiui/static/js/partials/StatusAlertIconItem.html",
+            "ooiui/static/js/partials/StatusAlertIconContainer.html",
             "ooiui/static/js/partials/AssetMap.html"
           ],
         "ooiui/static/js/partials/compiled/alertPage.js" : [
@@ -935,7 +937,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ChartView.js',
             'ooiui/static/js/views/common/OrgSidebarView.js',
             'ooiui/static/js/views/common/ModalFormView.js',
-            'ooiui/static/js/views/aa/StatusAlertView.js',
+            'ooiui/static/js/views/aa/StatusAlertTableView.js',
+            'ooiui/static/js/views/aa/StatusAlertIconView.js',
             'ooiui/static/js/views/asset_management/AssetMapView.js'
           ],
           'ooiui/static/js/compiled/gridList.js' : [
@@ -1335,6 +1338,34 @@ module.exports = function(grunt) {
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.css",
             "ooiui/static/css/common/annotationModal.css"
           ],
+          "ooiui/static/css/compiled/status.css" : [
+            "ooiui/static/lib/leaflet/dist/leaflet.css",
+            "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.css",
+            "ooiui/static/lib/leaflet.markercluster/dist/MarkerCluster.Default.css",
+            "ooiui/static/lib/Leaflet.EasyButton/src/easy-button.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.css',
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/backgridall.min.css",
+            "ooiui/static/css/filtrify/css/filtrify.css",
+            'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css',
+            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+            "ooiui/static/css/custom/banner.css",             
+            "ooiui/static/css/custom/navbar.css",
+            "ooiui/static/css/custom/sidebar.css",              
+            "ooiui/static/css/custom/custom.css", 
+            "ooiui/static/css/common/plotting.css", 
+            "ooiui/static/css/common/downloadModalForm.css", 
+            "ooiui/static/css/common/assets.css",
+            "ooiui/static/css/common/leaflet/map.css",
+            "ooiui/static/css/common/status.css",
+            "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css",
+            "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.css",
+            "ooiui/static/css/common/annotationModal.css"
+          ],
           "ooiui/static/css/compiled/assets.css" : [
             "ooiui/static/css/common/assets.css"
           ],
@@ -1438,15 +1469,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/timeline.css",
             "ooiui/static/css/common/orgsidebarview.css",
             "ooiui/static/css/common/landingPages.css"
-          ],
-          "ooiui/static/css/compiled/statusUIIcon.css" : [
-            "ooiui/static/css/common/scienceLayout.css",
-            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
-            "ooiui/static/css/common/loginDemo.css",
-            "ooiui/static/css/common/statusUIIcon.css",
-            "ooiui/static/css/common/orgsidebarview.css",
-            "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
-          ],
+          ],          
           "ooiui/static/css/compiled/c2.css" : [
             "ooiui/static/css/common/scienceLayout.css",
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
