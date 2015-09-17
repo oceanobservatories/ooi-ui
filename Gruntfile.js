@@ -995,7 +995,7 @@ module.exports = function(grunt) {
           'ooiui/static/js/compiled/plotting.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
-            'ooiui/static/lib/jquery.fixedheadertable/jquery.fixedheadertable.js',
+            'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",

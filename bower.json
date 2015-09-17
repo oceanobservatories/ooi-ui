@@ -56,8 +56,8 @@
     "highcharts": "4.1.6",
     "highchart-export-csv": "*",
     "Leaflet.EasyButton": "~1.1.0",
-    "jquery.fixedheadertable": "http://github.com/markmalek/Fixed-Header-Table.git#8b8667e86c",
-    "bootstrap-validator": "~0.9.0"
+    "bootstrap-validator": "~0.9.0",
+    "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git"
   },
   "resolutions": {
     "jquery": "~2.1.1",
