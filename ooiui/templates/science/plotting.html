@@ -59,7 +59,6 @@
           <div class="row">
             <div class="col-md-12">
               <div id="plotcontrols">
-
                 <p class="glyphicon glyphicon-hand-left"> Please select a stream </p>
               </div>
             </div>
@@ -90,24 +89,25 @@
         </div>
       </div> <!-- panel -->
     </div> <!-- .row -->
-    <div class="row">
-      {# <div id='plot-events-panel' class="panel"> #}
 
-        {# <div class="new-heading"> #}
-        {#   Events #}
-        {# </div> <!-- panel-heading --> #}
+    <div class="row">
+      <div id='plot-events-panel' class="panel">
+
+        <div class="new-heading">
+          Events
+        </div> <!-- panel-heading -->
 
         <div class="scrollable-block">
           <div class="scrollable-area">
 
-            {# <div class="panel-body"> #}
+            <div class="panel-body">
               <div id="events-table">
                 {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
                 {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
                 <img src="/img/plotting/events.png" style="width:100%;">
               </div> <!-- panel-table -->
-              {# </div> <!-- panel-body --> #}
-            {# </div> <!-- panel --> #}
+            </div> <!-- panel-body -->
+          </div> <!-- panel -->
         </div>
       </div>
     </div>
@@ -356,51 +356,51 @@ _.extend(OOI.prototype, Backbone.Events, {
           reset: true
         });
 
-        var param_list = []
+      var param_list = []
         var parameterhtml = "";
-        var shape = options.model.get('variables_shape');
+      var shape = options.model.get('variables_shape');
 
-        //Ok lets start by getting derived parameters
-        parameterhtml += "<optgroup label='Derived'>"
+      //Ok lets start by getting derived parameters
+      parameterhtml += "<optgroup label='Derived'>"
         for (var i = 0; i < options.model.get('variables').length; i++) {
-            if (param_list.indexOf(options.model.get('variables')) == -1){
-                if (shape[i] === "function"){
-                    var parameterId = options.model.get('parameter_id')[i];
-                    var units = options.model.get('units')[i];
-                    var variable = options.model.get('variables')[i];
-                    if (variable.toLowerCase() != "time"){
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                        param_list.push(variable);
-                    }
-                }
-
+          if (param_list.indexOf(options.model.get('variables')) == -1){
+            if (shape[i] === "function"){
+              var parameterId = options.model.get('parameter_id')[i];
+              var units = options.model.get('units')[i];
+              var variable = options.model.get('variables')[i];
+              if (variable.toLowerCase() != "time"){
+                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                param_list.push(variable);
+              }
             }
+
+          }
         }
-        parameterhtml += "</optgroup>"
+      parameterhtml += "</optgroup>"
 
         //Now get non derived parameters
         parameterhtml += "<optgroup label='Non Derived'>"
         for (var i = 0; i < options.model.get('variables').length; i++) {
-            if (param_list.indexOf(options.model.get('variables')) == -1){
-                if (shape[i] != "function"){
-                    var parameterId = options.model.get('parameter_id')[i];
-                    var units = options.model.get('units')[i];
-                    var variable = options.model.get('variables')[i];
-                    if (variable.toLowerCase() != "time"){
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                        param_list.push(variable);
-                    }
-                }
+          if (param_list.indexOf(options.model.get('variables')) == -1){
+            if (shape[i] != "function"){
+              var parameterId = options.model.get('parameter_id')[i];
+              var units = options.model.get('units')[i];
+              var variable = options.model.get('variables')[i];
+              if (variable.toLowerCase() != "time"){
+                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                param_list.push(variable);
+              }
             }
+          }
         }
-        parameterhtml += "</optgroup>"
+      parameterhtml += "</optgroup>"
 
         $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
-        $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
-        $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
-        $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
-        $('#parameters_id').removeAttr('disabled');
-        $('.selectpicker').selectpicker('refresh');
+      $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
+      $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
+      $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
+      $('#parameters_id').removeAttr('disabled');
+      $('.selectpicker').selectpicker('refresh');
     });
 
     //filter selection : listen to the selection of the parameter
