@@ -42,20 +42,14 @@
   {{ super() }}
   {% endblock %}
   <div id="plottingBody" class="col-sm-12">
-    <div id="download-row" class="row">
+    <div  class="row">
       <div id="download-outline" class="pull-left">
-        <li style="font-weight:bold;padding-left:10px;" id="ref_des_stream_outline"></li>
-      </div>
-      <div id="download-options" class="pull-right">
-        <ul>
-          <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-          <li><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-        </ul>
+        <li id="ref_des_stream_outline"></li>
       </div>
     </div>
     <div class="row">
       <div class="panel">
-        <div class="panel-heading">
+        <div id="control-heading" class="panel-heading">
           <div class="row">
             <div class="col-md-12">
               <div id="plotcontrols">
@@ -68,7 +62,7 @@
     </div>
     <div class="row">
       <div class="panel">
-        <div class="new-heading">
+        <div class="panel-heading ">
           Graph
         </div>
         <div class="panel-body">
@@ -93,14 +87,14 @@
     <div class="row">
       <div id='plot-events-panel' class="panel">
 
-        <div class="new-heading">
+        <div class="panel-heading ">
           Events
         </div> <!-- panel-heading -->
 
         <div class="scrollable-block">
           <div class="scrollable-area">
 
-            <div class="panel-body">
+            <div id="events-scroll-body" class="panel-body">
               <div id="events-table">
                 {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
                 {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">	       	        #}
@@ -114,7 +108,7 @@
 
     <div class="row">
       <div id='annotation-panel' class="panel">
-        <div class="new-heading">
+        <div class="panel-heading">
           Annotations
         </div>
         <div class="panel-body">
@@ -524,9 +518,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         console.log("made TI");
 
       });
-
-      {# $('#eventsTable').fixedHeaderTable({ altClass: 'odd', footer: true, fixedColumns: false, });   #}
-      {# }); #}
   });
 
   //
@@ -572,43 +563,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   });
-  {# ======= #}
-  {#   this.listenTo(this, 'AnnotationModalFormView:onUpdate', function(model) { #}
-      {#     //do nothing as were updating the model #}
-      {#   }); #}
-  {#  #}
-  {#   this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) { #}
-      {#     if(self.login.loggedIn()) { #}
-        {#       self.views.annotationModal.show({ #}
-            {#         model: model, #}
-            {#         userModel: self.models.userModel #}
-            {#       }); #}
-        {#     } #}
-        {#   }); #}
-  {#  #}
-  {#   this.listenTo(this, 'AnnotationTableView:onAddClick', function() { #}
-      {#  #}
-      {#     var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes() #}
-      {#  #}
-      {#       var min = moment.utc(bounds.userMin).format("YYYY-MM-DDTHH:mm:ss.000")+"Z"; #}
-      {# >>>>>>> bad0d61... event-scroll squashed #}
-      {#  #}
-      {#     var max = moment.utc(bounds.userMax).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";    #}
-      {#  #}
-      {#     var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'), #}
-          {#       "beginDT":min, #}
-          {#       "endDT":max, #}
-          {#       "method":self.models.downloadModel.model.get("stream_name"), #}
-          {#       "stream_name":self.models.downloadModel.model.get("stream_name") #}
-          {#     }); #}
-      {#  #}
-      {#     if(self.login.loggedIn()) { #}
-        {#       self.views.annotationModal.show({ #}
-            {#         model: model, #}
-            {#         userModel: self.models.userModel #}
-            {#       }); #}
-        {#     } #}
-      {#   }); #}
 
   this.listenTo(this, 'ooi:downloadPlot', function() {
     self.views.svgplot.download();
@@ -660,22 +614,6 @@ $('#yvar0-selection-default>div>div>button').trigger('click');
 
 $(document).ready(function() {
 ooi.start();
-
-$('#download-plot').click(function(event) {
-event.preventDefault();
-if ($('#highcharts-row-section').css('display')=="block"){
-var chart = $('#highcharts-view').highcharts();
-var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
-chart.exportChart({type: 'image/png', filename: fileName});
-}else{
-ooi.trigger('ooi:downloadPlot');
-}
-});
-
-$('#download-data').click(function(event) {
-event.preventDefault();
-ooi.trigger('ooi:downloadData');
-});
 
 $('#disableSecondView').on('click', function(event){
 event.preventDefault();

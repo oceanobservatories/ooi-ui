@@ -277,7 +277,8 @@ button.btn.btn-success.dropdown-toggle {
   margin: 0px 0px 2px 0px;
 }
 
-.panel > .panel-body {
+.panel > .panel-body,
+div#events-scroll-body {
   border: 1px solid #d1daf5;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
