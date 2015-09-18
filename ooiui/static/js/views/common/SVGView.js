@@ -485,6 +485,8 @@ var SVGPlotView = SVGView.extend({
 
 var SVGPlotControlView = Backbone.View.extend({
   events: {
+    'click #download-data' : 'plotDownloads',
+    'click #download-plot' : 'plotDownloads',
     'click #update-plot' : 'onClickPlot',
     'click #reset-time' : 'onResetTime',
     'change #xvar-select' : 'xVarChange',
@@ -536,6 +538,22 @@ var SVGPlotControlView = Backbone.View.extend({
     this.render(updateTimes);
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
+  plotDownloads: function(e) {
+    $('#download-plot').click(function(event) {
+      event.preventDefault();
+      if ($('#highcharts-row-section').css('display')=="block"){
+        var chart = $('#highcharts-view').highcharts();
+        var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
+        chart.exportChart({type: 'image/png', filename: fileName});
+      }else{
+        ooi.trigger('ooi:downloadPlot');
+      }
+    });
+    $('#download-data').click(function(event) {
+      event.preventDefault();
+      ooi.trigger('ooi:downloadData');
+    });
+  },
   xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();
     if ( plotType == "" ) {
