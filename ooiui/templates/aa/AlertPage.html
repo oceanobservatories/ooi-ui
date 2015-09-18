@@ -67,8 +67,11 @@
         </div>
         <div id="definition-modal"></div>
         <div id="active-toggle-modal"></div>
+        <div id="definition-status"></div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 
   <!-- Menu Toggle Script -->
@@ -251,7 +254,16 @@
 
         //RE-RENDER TABLE
         this.listenTo(this, 'addDefinitionForm:added', function(options) {
+          //TODO: Add modal pop-up
+          $('#definition-status').html('<p>Definition added.</p>');
           self.collections.alert_list.fetch({reset: true});                
+        });
+
+        // Add definition failed, popup message and re-render table
+        this.listenTo(this, 'addDefinitionForm:failed', function(options) {
+          //TODO: Add modal pop-up
+          $('#definition-status').html('<p>There was an error adding the definition.</p>');
+          self.collections.alert_list.fetch({reset: true});
         });
 
         var arrayFetch = arrayCollection.fetch({ reset: true });
