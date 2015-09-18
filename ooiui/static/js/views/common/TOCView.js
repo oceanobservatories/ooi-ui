@@ -237,11 +237,18 @@ var AssetItemView = Backbone.View.extend({
         $(".active-toc-item").removeClass("active-toc-item");
         this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectPlatform', this.model);
+        this.update_url();
     },
     onClickInstrument: function() {
         $(".active-toc-item").removeClass("active-toc-item");
         this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectInstrument', this.model);
+        this.update_url();
+    },
+    update_url:function(){
+        var ref_des = this.model.get('ref_des');
+        var newURL = '#'+ref_des;
+        window.history.pushState(null, null, newURL);
     },
     collapse: function(e) {
         e.stopImmediatePropagation();
