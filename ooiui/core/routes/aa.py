@@ -14,8 +14,8 @@ from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 import json
 import urllib2 
-
 import requests
+import os
 
 
 #main aa page
@@ -59,14 +59,122 @@ def get_instrument_metadata(ref_des,stream_name):
 @app.route('/api/aa/triggered', methods=['GET'])
 def get_aa_triggered_all():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
-    return response.text, response.status_code
+    #response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
+    path = os.path.dirname(os.path.realpath(__file__))
+    path+="/../../"+'/static/json/sample_alert_from_uframe.json'
+    with open(path) as data_file:    
+        data = json.load(data_file)
+    return jsonify(data)
+    #return response.text, response.status_code
 
 @app.route('/api/aa/triggered/<string:id>', methods=['GET'])
 def get_triggered_specific_id(id):
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm?%s' % (id), auth=(token, ''), params=request.args)
-    return response.text, response.status_code
+    #response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm?%s' % (id), auth=(token, ''), params=request.args)
+    #TODO MOVE THIS TO A/A REQUEST, NOT AVAILABLE YET/Populated
+    path = os.path.dirname(os.path.realpath(__file__))
+    path+="/../../"+'/static/json/sample_alert_from_uframe.json'
+    with open(path) as data_file:    
+        data = json.load(data_file)
+    return jsonify(data)
+    #return response.text, response.status_code
+
+
+def get_asset_list():
+    #TODO MOVE TO ASSETS REQUEST
+    #r = requests.get("http://localhost:5000/api/asset_deployment?min=True")
+    #data = (r.json()['assets'])
+    path = os.path.dirname(os.path.realpath(__file__))
+    path+="/../../../../"+"assets.json"
+    with open(path) as data_file:    
+        data = json.load(data_file)
+    data = (data['assets'])
+
+    ref_list = []
+    name_list = []
+    for d in data:
+        split_ref = d['ref_des'].split('-')
+        if d['ref_des'] not in name_list and len(split_ref)>1:
+            ref_list.append(d)
+            name_list.append(d['ref_des'])
+
+    return ref_list,name_list
+
+
+@app.route('/api/aa/status', methods=['GET'])
+def get_aa_triggered_all_status():
+    token = get_login()
+
+    #TODO MOVE THIS TO A/A REQUEST, NOT AVAILABLE YET/Populated
+    path = os.path.dirname(os.path.realpath(__file__))
+    path+="/../../"+'/static/json/sample_alert_from_uframe.json'
+    with open(path) as data_file:    
+        data = json.load(data_file)    
+
+    status_info = []
+    status_outline = {}
+    for d in data['alert_alarm']:        
+        if d["acknowledged"] == False:
+            ref_des = d['alert_alarm_definition']['reference_designator']
+            if ref_des not in status_outline:
+                status_outline[ref_des] = d
+                status_outline[ref_des]['count'] = 0
+            else:
+                count = status_outline[ref_des]['count']                
+                #figure out which one is higher
+                if d["event_type"] == "alarm":
+                    status_outline[ref_des] = d
+                else:
+                    pass
+                status_outline[ref_des]['count'] = count+1
+
+    #get dict of assets available
+    assets_dict, assets_names = get_asset_list()
+
+    #get the list of definitions
+    aa_def = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_definition')
+    aa_def = aa_def.json()
+    aa_def = aa_def['alert_alarm_definition']
+    aa_def_list = []
+    
+    #alerts and alarms
+    for aa_item in aa_def:
+        #get the A/A definitions
+        if aa_item['reference_designator'] not in aa_def_list:
+            #used to identify halth sensors            
+            aa_def_list.append(aa_item['reference_designator'])
+        if aa_item['reference_designator'] not in assets_names:
+            #means an asset was in the A/A definition that was not in the asset list returned            
+            print "Ref-Des not in asset name list: ERROR"
+        
+    #used to create status
+    for asset in assets_dict:
+        d = asset['ref_des']
+        #create inital entry
+        entry = {'reference_designator':d, "count":0,
+                "event_type":'unknown', 
+                'coordinates':asset['coordinates'],
+                'asset_type':asset['assetInfo']['type']}        
+
+        if d in status_outline.keys():
+            entry["count"] = status_outline[d]['count']
+            entry["event_type"] = status_outline[d]["event_type"]
+        elif d in aa_def_list:
+            #used to identify health sensors
+            entry["event_type"] = 'inactive'
+        else:
+            #nothing to do here
+            pass
+
+        status_info.append(entry)
+    return jsonify({'alert_alarm':status_info})
+
+@app.route('/api/aa/status/<string:id>', methods=['GET'])
+def get_triggered_specific_id_status(id):
+    token = get_login()    
+    data={'status':[id]}
+    return jsonify(data)
+
 
 @app.route('/api/aa/triggered', methods=['POST'])
 def post_aa_triggered():
