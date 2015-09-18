@@ -566,8 +566,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/leaflet/dist/leaflet.js",
             "ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js",
             "ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js",
-            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
-            "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",            
             'ooiui/static/lib/backlunr/backlunr.js',
             "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.js",
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.js",
@@ -1261,7 +1260,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/leaflet/map.css",
             "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css",
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.css",
-            "ooiui/static/css/common/annotationModal.css"
+            "ooiui/static/css/common/annotationModal.css",
+             "ooiui/static/css/common/mapLegend.css"
           ],
           "ooiui/static/css/compiled/assets.css" : [
             "ooiui/static/css/common/assets.css"

@@ -93,29 +93,15 @@ var MapView = Backbone.View.extend({
     nearNow.setMinutes(0);
     nearNow.setSeconds(0);
 
-    var layerParams = [
-                        {
-                          url:"http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs",
-                          name:"Precipitation",
-                          layers:"RAS_RIDGE_NEXRAD",
-                          format: "image/png",
-                          transparent: true
-                        },
-                        {
-                          url:"http://gis.srh.noaa.gov/arcgis/services/NDFDTemps/MapServer/WMSServer",
-                          name:"Temperature",
-                          layers:16,
-                          format: "image/png",
-                          transparent: true
-                        },
+    var layerParams = [                        
                         {
                           url:"http://coastmap.com/ecop/wms.aspx",
                           name:"GFS WIND Model",
-                          layers:"NAM_WINDS",
+                          layers:"GFS_WINDS",
                           format: "image/png",
-                          styles : "WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-High",
+                          styles : "WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high",
                           transparent: true,
-                          time: moment(nearNow).format()
+                          time: moment(nearNow).format(),
                         },
                         {
                           url:"http://coastmap.com/ecop/wms.aspx",
@@ -161,7 +147,27 @@ var MapView = Backbone.View.extend({
       return this
     }});
 
+    this.addlegned();
     return this
+  },
+  addlegned:function(){
+    var WMSlegend = L.control({position: 'bottomright'});
+
+    WMSlegend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend');
+        var content = ''
+        content+="<div class='legendContainer'>"
+        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=GFS_WINDS&FORMAT=image/png&TRANSPAREaNT=TRUE&STYLES=WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=GFS_WINDS'>"    
+        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=WW3_WAVE_HEIGHT&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=WAVE_HEIGHT_STYLE-0-3&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=WW3_WAVE_HEIGHT'>"    
+        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=HYCOM_GLOBAL_NAVY_CURRENTS&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=CURRENTS_RAMP-Jet-False-4-True-0-2-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=HYCOM_GLOBAL_NAVY_CURRENTS'>"    
+        content+="</div>"
+        div.innerHTML+=content
+        return div;
+    };
+
+
+    WMSlegend.addTo(this.map);
   },
   add_glider_tracks: function(){
     var self = this;
