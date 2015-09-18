@@ -80,7 +80,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         var gliderFetch = this.collections.gliderCollection.fetch({ reset: true });
 
-        $.when(gliderFetch).done(function() {
+        $.when(gliderFetch).done(function() {           
             //when the glider fetch is done update the map
             self.views.mapView.gliderCollection = self.collections.gliderCollection;
             self.views.mapView.add_glider_tracks();

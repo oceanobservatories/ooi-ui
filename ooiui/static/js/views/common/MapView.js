@@ -172,7 +172,7 @@ var MapView = Backbone.View.extend({
       "opacity": 0.65
     };
 
-    self.gliderCollection.each(function(model) {
+    self.gliderCollection.each(function(model,i) {      
       var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});
       //popup
       var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
