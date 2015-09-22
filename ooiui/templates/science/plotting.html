@@ -51,11 +51,11 @@
       <div class="panel">
         <div id="control-heading" class="panel-heading">
           <div class="row">
-            <div class="col-md-12">
+            {# <div class="col-md-12"> #}
               <div id="plotcontrols">
                 <p class="glyphicon glyphicon-hand-left"> Please select a stream </p>
               </div>
-            </div>
+            {# </div> #}
           </div>
         </div> <!-- panel-heading -->
       </div> <!-- panel -->
@@ -514,8 +514,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       $.when(self.views.plotEventListView.render()).done(function() {
 
         $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
-
-        console.log("made TI");
 
       });
   });

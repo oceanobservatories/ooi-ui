@@ -44,7 +44,7 @@
     font-weight: 300;
     text-transform: uppercase;
     text-decoration: none;
-    width: auto;
+    /* width: auto; */
     margin-bottom: 5px;
     line-height: .9;
     font-family: inherit;
@@ -105,7 +105,7 @@
     border: 1px solid #d1daf5;
     border-radius: 5px;
     background-color: #fff!important;
-   
+
   }
   label#plot-type,
   label#yvar0-select-default-text,
@@ -277,7 +277,6 @@
   /* controls */
   div#plotcontrols {
     margin-top: 5px;
-    margin-bottom: 10px;
   }
   #plotcontrols .label {
     white-space:nowrap;
@@ -382,6 +381,11 @@
     padding-left: 0px;
   }
 
+  .btn-group.bootstrap-select.form-control {  
+    height: 27px;
+  }
+
   #decimatedWarn {
-    /* float: right; */
+    float: right;
+    padding-right: 10px;
   }
