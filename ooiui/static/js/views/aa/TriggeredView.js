@@ -92,7 +92,7 @@ var TriggeredView = Backbone.View.extend({
 
     var columns = [
       {
-        name: "system_event_definition_id", // The key of the definition that triggered the event
+        name: "uframe_filter_id", // The key of the definition that triggered the event
         label: "Definition ID", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
         cell: "string"

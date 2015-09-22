@@ -90,7 +90,7 @@ var DefinitionModalFormView = ModalFormView.extend({
 
       var comMethods = this.$el.find('.com-method');
       _.each(comMethods, function(com_method) { 
-        var name = $(com_method).attr('val')
+        var name = $(com_method).attr('val');
         self.model.set(name,false);   //bool
       });
 
