@@ -3,10 +3,8 @@
 <% var hasDepth = false %>
 
 <div class="row">
-
   <div class="col-md-4">
     <form role="form">
-
       <div class="form-group">
         <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
         <select data-width="100%" id='xvar-select' class="form-control selectpicker">
@@ -19,9 +17,8 @@
           <option value="colorxyz">3D Colored Scatter</option>
         </select>
       </div>
-
-      <div class="form-group">
-        <div id="yvar0-selection-default">
+      <div id="yvar0-selection-default">
+        <div class="form-group">
           <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
           <li> </li>
           <select data-width="100%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
@@ -52,7 +49,6 @@
       </div> <!-- #Yvar0-selection-default -->
     </form>
   </div> <!-- .form-group -->
-
   <div class="col-md-5">
     <form role="form">
       <div class="form-group">
@@ -63,7 +59,6 @@
           </span>
         </div> <!-- .input-group.date #start-date -->
       </div> <!-- .form-group -->
-
       <div class="form-group">
         <label id="end-time" for="end-date">End Time (UTC)</label>
         <div class='input-group date' id='end-date'>
@@ -74,7 +69,6 @@
       </div> <!-- .form-group -->
     </form>
   </div>
-
   <div class="col-md-3">
     <form role="form">
       <div class="form-group" style="margin-bottom:8px;">
@@ -83,7 +77,6 @@
           <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
         </div>
       </div>
-
       <div id="qa-qc" class="row">
         <div class="div-qa-qc" style="display:none">
           <input type="radio" name="radio-qa-qc" value="1"><span>Global Range</span></input>
@@ -98,33 +91,28 @@
           <input type="radio" name="radio-qa-qc" value="10" checked><span>All</span></input>
         </div>
       </div>
-
       <div class="form-group" style="margin-bottom:8px">
         <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
           <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
         </button>
       </div> <!-- .form-group -->
-
       <div class="form-group">
         <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Time Axes">
           <span class="glyphicon glyphicon-refresh"></span> Reset
         </button>
       </div>
-
     </form>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
     <form role="form">
       <div class="form-group">
-
         <div id="download-options">
           <ul>
-            <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-            <li><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-            <h6 id="decimatedWarn"><i class="fa fa-info-circle"></i>&nbsp;Warning: Data is decimated</h6>
+            <li><a id="download-data" role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
+            <li><a id="download-plot" role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
+            <li id="decimatedWarn" role="menuitem" tabindex"-1"><i class="fa fa-info-circle">&nbsp;Warning: Data is decimated</i></li>
           </ul>
         </div> <!-- .form-group -->
       </div>

@@ -2,390 +2,406 @@
   font-size: 10px !important;
 }
 
-/*********************
- ****** Plotting  *****
- *********************/
+/*******************/
+/**** Plotting  ****/
+/*******************/
 
-  div#plottingBody {
-    margin-left: 20px;
-    padding-right: 50px;
-    max-height: 700px;
-    max-width: 1560px;
-  }
-  /* ~vertical buttons on sidebar~ */
-  .plotting-selection {
-    position: relative;
-    width: 100%;
-  }
+div#plottingBody {
+  margin-left: 20px;
+  padding-right: 50px;
+  max-height: 700px;
+  max-width: 1560px;
+}
+/* ~vertical buttons on sidebar~ */
+.plotting-selection {
+  position: relative;
+  width: 100%;
+}
 
-  div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
-    margin-left: 5px !important;
-    margin-right: 5px !important;
-  }
+div#plottingBody > div.row > div.panel > div.panel-heading > div.row {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
 
-  span.filter-option {
-    margin-left: 0px !important;
-  }
+span.filter-option {
+  margin-left: 0px !important;
+}
 
-  #plottingBody > div:nth-child(1) > div > div > div:nth-child(1) > div.col-md-10 {
-    padding-left: 0px;
-  }
-  /* change for select buttons on plot page */
-  .btn-group.bootstrap-select.form-control {
-    background-color: transparent;
-  }
-  button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
-    color: #353840;
-    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-    padding: 5px 30px 10px 10px;
-    border-bottom: 1px solid transparent;
-    border: 1px solid #7E9CD9;
-    border-radius: 4px;
-    font-weight: 300;
-    text-transform: uppercase;
-    text-decoration: none;
-    /* width: auto; */
-    margin-bottom: 5px;
-    line-height: .9;
-    font-family: inherit;
-    height: 27px;
-  }
-  button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
-    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
-  }
+#plottingBody > div:nth-child(1) > div > div > div:nth-child(1) > div.col-md-10 {
+  padding-left: 0px;
+}
+/* change for select buttons on plot page */
+.btn-group.bootstrap-select.form-control {
+  background-color: transparent;
+}
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+  color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+  padding: 5px 30px 10px 10px;
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* width: auto; */
+  margin-bottom: 5px;
+  line-height: .9;
+  font-family: inherit;
+  height: 27px;
+}
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default:hover {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+}
 
-  button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
-    text-transform: uppercase;
-  }
+button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+  text-transform: uppercase;
+}
 
-  .dropdown-menu.open {
-    background-color: rgba(255, 255, 255, 0.87);
-    border: none;
-    position: absolute;
-    top: 40px;
-    left: 140px;
-    overflow-y: scroll;
-    max-height: 300px;
-  }
+.dropdown-menu.open {
+  background-color: rgba(255, 255, 255, 0.87);
+  border: none;
+  position: absolute;
+  top: 40px;
+  left: 140px;
+  overflow-y: scroll;
+  max-height: 300px;
+}
 
-  input.form-control:focus {
-    border-color: #FBB500;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
-  }
-  .dropdown-menu > li > a {
-    margin: 4px;
-  }
-  .dropdown-menu > li > a:hover,
-  .dropdown-menu > li > a:focus {
-    background-color: #FFF;
-    background: #FFF;
-  }
+input.form-control:focus {
+  border-color: #FBB500;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(240, 147, 73, 0.6);
+}
+.dropdown-menu > li > a {
+  margin: 4px;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #FFF;
+  background: #FFF;
+}
 
-  div ul.dropdown-menu.inner.selectpicker {
-    padding: 10px;
-  }
+div ul.dropdown-menu.inner.selectpicker {
+  padding: 10px;
+}
 
-  ul.dropdown-menu.inner.selectpicker > li > a:hover,
-  ul.dropdown-menu.inner.selectpicker > li > a:focus {
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-    box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
-  }
+ul.dropdown-menu.inner.selectpicker > li > a:hover,
+ul.dropdown-menu.inner.selectpicker > li > a:focus {
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+  box-shadow: inset 0 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 108, 222, 1);
+}
 
-  span.filter-option.pull-left {
-    text-transform: capitalize;
-    margin-left: -9px;
-    padding-bottom: 5px;
-  }
+span.filter-option.pull-left {
+  text-transform: capitalize;
+  margin-left: -9px;
+  padding-bottom: 5px;
+}
 
-  /* SVG Controlls */
-  div#control-heading {
-    border: 1px solid #d1daf5;
-    border-radius: 5px;
-    background-color: #fff!important;
+/* SVG Controlls */
+div#control-heading {
+  border: 1px solid #d1daf5;
+  border-radius: 5px;
+  background-color: #fff!important;
 
-  }
-  label#plot-type,
-  label#yvar0-select-default-text,
-  label#start-time,
-  label#end-time,
-  label#qaqc-test {
-    padding-bottom: 4px;
-    font-size: 14px;
-    font-weight: bolder;
-    color: #121517;    
-  }
+}
+label#plot-type,
+label#yvar0-select-default-text,
+label#start-time,
+label#end-time,
+label#qaqc-test {
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-weight: bolder;
+  color: #121517;    
+}
 
-  input.form-control {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    height: 27px;
-    color: #004773;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    font-size: 14px;
-    border: solid #1f628d 1.5px;
-    text-decoration: none;
-    line-height: .9;
-    height: 27px;
-    font-weight: 300;
-  }
-  span.input-group-addon {
-    padding-top: 3px;
-    padding-bottom: 1px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    height: 27px;
-    color: #004773;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    font-size: 14px;
-    border-right: solid #1f628d 1.5px;
-    text-decoration: none;
-    line-height: .9;
-    height: 27px;
-    font-weight: 300;
-    border-top: 1px #1f628d solid;
-    border-bottom: 1px #1f628d solid;
-  }
-  /* slider btn */
-  .bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-normal.bootstrap-switch-id-plotting-enable-events.bootstrap-switch-animate.bootstrap-switch-off {
-    height: 27px;
-    color: #004773;
-    border-radius: 5px;
-    font-size: 14px;
-    border: solid #1f628d 1.5px;
-    text-decoration: none;
-    line-height: .9;
-    font-weight: 300;
-    width: 80px;
-  }
-  .bootstrap-switch-container {
-    width: 138;
-  }
+input.form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 27px;
+  color: #004773;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 14px;
+  border: solid #1f628d 1.5px;
+  text-decoration: none;
+  line-height: .9;
+  height: 27px;
+  font-weight: 300;
+}
+span.input-group-addon {
+  padding-top: 3px;
+  padding-bottom: 1px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 27px;
+  color: #004773;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  font-size: 14px;
+  border-right: solid #1f628d 1.5px;
+  text-decoration: none;
+  line-height: .9;
+  height: 27px;
+  font-weight: 300;
+  border-top: 1px #1f628d solid;
+  border-bottom: 1px #1f628d solid;
+}
+/* slider btn */
+.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-normal.bootstrap-switch-id-plotting-enable-events.bootstrap-switch-animate.bootstrap-switch-off {
+  height: 27px;
+  color: #004773;
+  border-radius: 5px;
+  font-size: 14px;
+  border: solid #1f628d 1.5px;
+  text-decoration: none;
+  line-height: .9;
+  font-weight: 300;
+  width: 80px;
+}
+.bootstrap-switch-container {
+  width: 138;
+}
 
-  span.bootstrap-switch-label {
-    padding: 3px 12px;
-    width: 38px;
-  } 
+span.bootstrap-switch-label {
+  padding: 3px 12px;
+  width: 38px;
+} 
 
-  span.bootstrap-switch-handle-on.bootstrap-switch-primary,
-  span.bootstrap-switch-handle-off.bootstrap-switch-default {
-    padding: 3px 12px;
-    width: 38px;
-  }
-  span.bootstrap-switch-handle-on.bootstrap-switch-primary {
-    width: 42px;
-  }  
+span.bootstrap-switch-handle-on.bootstrap-switch-primary,
+span.bootstrap-switch-handle-off.bootstrap-switch-default {
+  padding: 3px 12px;
+  width: 38px;
+}
+span.bootstrap-switch-handle-on.bootstrap-switch-primary {
+  width: 42px;
+}  
 
-  /* Plotting sidebar buttons */
-  /*space between button group on plotting page*/
-  #plot-btn-group button[class*="plot-btn"] {
-    width: auto;
-    color: #353840;
-    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
-    border-bottom: 1px solid transparent;
-    border: 1px solid #7E9CD9;
-    font-weight: 300;
-    text-decoration: none;
-    margin-bottom: 15px;
-    line-height: 1;
-    font-family: inherit;
-  }
+/* Plotting sidebar buttons */
+/*space between button group on plotting page*/
+#plot-btn-group button[class*="plot-btn"] {
+  width: auto;
+  color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  font-weight: 300;
+  text-decoration: none;
+  margin-bottom: 15px;
+  line-height: 1;
+  font-family: inherit;
+}
 
-  #plot-btn-group button[class*="plot-btn"]:hover {
-    width: auto;
-    color: #353840;
-    background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
-    border-bottom: 1px solid transparent;
-    border: 1px solid #7E9CD9;
-    border-radius: 4px;
-    font-weight: 300;
-    text-decoration: none;
-    margin-bottom: 5px;
-    line-height: 1;
-    font-family: inherit;
-  }
+#plot-btn-group button[class*="plot-btn"]:hover {
+  width: auto;
+  color: #353840;
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+  border-bottom: 1px solid transparent;
+  border: 1px solid #7E9CD9;
+  border-radius: 4px;
+  font-weight: 300;
+  text-decoration: none;
+  margin-bottom: 5px;
+  line-height: 1;
+  font-family: inherit;
+}
 
-  #plot-btn-group button span[class*="glyphicon"] {
-    background: transparent;
-  }
+#plot-btn-group button span[class*="glyphicon"] {
+  background: transparent;
+}
 
-  #select-stream-heading {
-    border: 1px solid #D1DAF5;
-    border-radius: 5px;
-    border-color: #D1DAF5;
-    padding: 5px 0px 0px 0px;
-    margin-bottom: -10px;
-    background-color: #fff;
-  }
+#select-stream-heading {
+  border: 1px solid #D1DAF5;
+  border-radius: 5px;
+  border-color: #D1DAF5;
+  padding: 5px 0px 0px 0px;
+  margin-bottom: -10px;
+  background-color: #fff;
+}
 
-  #plottingImg {
-    width: 100%;
-  }
+#plottingImg {
+  width: 100%;
+}
 
-  /***********************
-   ****** Tool Tips *******
-   ***********************/
-  li#xVarTooltip {
-    z-index: 1000;
-  }
-  div#qa-qc {
-    margin-left: 0px !important;
+/*********************/
+/***** Tool Tips *****/
+/*********************/
+li#xVarTooltip {
+  z-index: 1000;
+}
+div#qa-qc {
+  margin-left: 0px !important;
 
-  }
-  div.div-qa-qc{
-    width:100%;
-    top:-35px;
-    margin-left: 0px !important;
-  }
+}
+div.div-qa-qc{
+  width:100%;
+  top:-35px;
+  margin-left: 0px !important;
+}
 
-  div.div-qa-qc > span {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-right: 5px;
-  }
+div.div-qa-qc > span {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+}
 
-  /* Download buttons */
-  div#download-row {
-    background-color: #E0E0E0;
-    margin-left: -11px;
-    margin-right: -11px;
-    padding-bottom: 25px;
-    padding-top: 6px;
-    height: 15px;
-    border-bottom-width: 1px;
-    border-bottom-color: #F09349;
-    background: linear-gradient(#fff, #7E9CD9);
-    background-image: -moz-linear-gradient(#fff, #7E9CD9);
-    background-image: -webkit-gradient(#fff, #7E9CD9);
-    color: #121517;
-    font-size: 14px;
-    font-weight: bolder;
-    padding-left: 10px;
-    border: 1px solid #7E9CD9;
-  }
+/* Download buttons */
+div#download-row {
+  background-color: #E0E0E0;
+  margin-left: -11px;
+  margin-right: -11px;
+  padding-bottom: 25px;
+  padding-top: 6px;
+  height: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: #F09349;
+  background: linear-gradient(#fff, #7E9CD9);
+  background-image: -moz-linear-gradient(#fff, #7E9CD9);
+  background-image: -webkit-gradient(#fff, #7E9CD9);
+  color: #121517;
+  font-size: 14px;
+  font-weight: bolder;
+  padding-left: 10px;
+  border: 1px solid #7E9CD9;
+}
 
-  div#download-options > ul > li {
-    display: inline !important;
-    list-style-type: none;
-    padding-right: 20px;
-  }
+div#download-options > ul > li {
+  display: inline !important;
+  list-style-type: none;
+  padding-right: 20px;
+}
 
-  /* controls */
-  div#plotcontrols {
-    margin-top: 5px;
-  }
-  #plotcontrols .label {
-    white-space:nowrap;
-  }
+/* controls */
+div#plotcontrols {
+  margin-top: 5px;
+}
+#plotcontrols .label {
+  white-space:nowrap;
+}
 
-  /***********************
-   *** Event Date/Time ***
-   **********************/
-  div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
-    width: auto;
-    white-space: inherit;
-  }
+/*************************/
+/*8** Event Date/Time ****/
+/*************************/
+div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
+  width: auto;
+  white-space: inherit;
+}
 
-  div.bootstrap-datetimepicker-widget.dropdown-menu.bottom > ul > li.collapse.in {
-    background: #fff;
-  }
+div.bootstrap-datetimepicker-widget.dropdown-menu.bottom > ul > li.collapse.in {
+  background: #fff;
+}
 
-  /**********************
-   **** Event Scroll *****
-   **********************/
-  table#eventsTable {
-    width: 100%
-  }
+/**********************/
+/**** Event Scroll ****/
+/**********************/
+table#eventsTable {
+  width: 100%
+}
 
-  table {
-    margin: 0 0 20px 0;
-    border-collapse: collapse;
-  }
+table {
+  margin: 0 0 20px 0;
+  border-collapse: collapse;
+}
 
-  .nasdaq thead tr {
-    background: linear-gradient(#fff, #7E9CD9);
-    border-bottom-color: #F09349;
-  }
+.nasdaq thead tr {
+  background: linear-gradient(#fff, #7E9CD9);
+  border-bottom-color: #F09349;
+}
 
-  .nasdaq th {
-    text-transform: none;
-    font-weight: 500;
-    text-align: left;
-    background: linear-gradient(#fff, #7E9CD9);
-    background-image: -moz-linear-gradient(#fff, #7E9CD9);
-    background-image: -webkit-gradient(#fff, #7E9CD9);
-    border: 1px solid #D1DAF5;
-  }
+.nasdaq th {
+  text-transform: none;
+  font-weight: 500;
+  text-align: left;
+  background: linear-gradient(#fff, #7E9CD9);
+  background-image: -moz-linear-gradient(#fff, #7E9CD9);
+  background-image: -webkit-gradient(#fff, #7E9CD9);
+  border: 1px solid #D1DAF5;
+}
 
-  .nasdaq th, .nasdaq td {
-    padding: 6px 8px;
-    font-size: 8pt;
-  }
+.nasdaq th, .nasdaq td {
+  padding: 6px 8px;
+  font-size: 8pt;
+}
 
-  tbody td {
-    line-height: 18px;
-    border-top: 1px solid #D1DAF5;
-  }
+tbody td {
+  line-height: 18px;
+  border-top: 1px solid #D1DAF5;
+}
 
-  tbody tr:nth-child(2n) {
-    background-color: #F7F7F7;
-    opacity: 0.8;
-    border: 1px solid #D1DAF5;
-  }
+tbody tr:nth-child(2n) {
+  background-color: #F7F7F7;
+  opacity: 0.8;
+  border: 1px solid #D1DAF5;
+}
 
-  tbody tr:hover {
-    background-color: #EEEEEE;
-  }
+tbody tr:hover {
+  background-color: #EEEEEE;
+}
 
-  .nasdaq td {
-    border: 1px solid #D1DAF5;
-  }
+.nasdaq td {
+  border: 1px solid #D1DAF5;
+}
 
-  div.scrollable-block table {
-    margin-top: 2px;
-  }
+div.scrollable-block table {
+  margin-top: 2px;
+}
 
-  div.scrollable-block {
-    padding: 70px 0px;
-    margin-top: -72px;
-    margin-bottom: -72px;
-    margin-left: -2px;
-  }
+div.scrollable-block {
+  padding: 70px 0px;
+  margin-top: -72px;
+  margin-bottom: -72px;
+  margin-left: -2px;
+}
 
-  .scrollable-area {
-    width: 100%;
-    max-height: 305px;
-    border: 2px solid #fff;
-    overflow: auto;
-  }
+.scrollable-area {
+  width: 100%;
+  max-height: 305px;
+  border: 2px solid #fff;
+  overflow: auto;
+}
 
-  .nasdaq tbody::-webkit-scrollbar {
-    width: 1px;
-    background: transparent;
-    border: 1px solid #D1DAF5;
-  }
+.nasdaq tbody::-webkit-scrollbar {
+  width: 1px;
+  background: transparent;
+  border: 1px solid #D1DAF5;
+}
 
-  /*************************
-   **** Plotting Controls ***
-   *************************/
-  .control-panel {
-    margin-bottom: 5px;
-  }
+/***************************/
+/**** Plotting Controls ****/
+/***************************/
+.control-panel {
+  margin-bottom: 5px;
+}
 
-  #download-options ul {
-    /* margin-top: 6px; */
-    padding-left: 0px;
-  }
+#download-options ul {
+  /* margin-top: 6px; */
+  padding-left: 0px;
+}
 
-  .btn-group.bootstrap-select.form-control {  
-    height: 27px;
-  }
+.btn-group.bootstrap-select.form-control {  
+  height: 27px;
+}
 
-  #decimatedWarn {
-    float: right;
-    padding-right: 10px;
+@-webkit-keyframes altrclr{
+  0%{
+    color:red;
   }
+  50%{
+    color:darkred;
+  }
+}
+
+#decimatedWarn {
+  font-style: x-small;
+  /* color: black; */
+  display: none;
+  /* -webkit-animation: altrclr 3s infinite alternate;   */
+  /* -webkit-transform:scale(4); */
+}
+
+#decimatedWarn > i {
+  font-size: small;
+}
