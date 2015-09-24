@@ -2,114 +2,122 @@
 <% var hasTemp = false %>
 <% var hasDepth = false %>
 
-<form class="form-inline">
-
-  <div class="row">
-    <div class="form-group" style="float:left;">
-      <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
-      <select data-width="85%" id='xvar-select' class="form-control selectpicker">
-        <option value="" selected disabled>Select</option>
-        <option value="time">Time Series</option>
-        <option value="ts-diagram">T-S Diagram</option>
-        <option data-subtext="" value="pressure">Depth Profile</option>
-        <option value="quiver">Quiver</option>
-        <option value="rose">Rose</option>
-        <option value="colorxyz">3D Colored Scatter</option>
-      </select>
-    </div> <!-- .form-group -->
-
-    <div id="yvar0-selection-default" style="float:left; padding-left:10px;">
+<div class="row">
+  <div class="col-md-4">
+    <form role="form">
       <div class="form-group">
-        <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
-        <li> </li>
-        <select data-width="85%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
+        <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
+        <select data-width="100%" id='xvar-select' class="form-control selectpicker">
+          <option value="" selected disabled>Select</option>
+          <option value="time">Time Series</option>
+          <option value="ts-diagram">T-S Diagram</option>
+          <option data-subtext="" value="pressure">Depth Profile</option>
+          <option value="quiver">Quiver</option>
+          <option value="rose">Rose</option>
+          <option value="colorxyz">3D Colored Scatter</option>
         </select>
-      </div> <!-- #yvar0-selection-default -->
-      <div style="display: none;" id="yvar1-selection">
+      </div>
+      <div id="yvar0-selection-default">
         <div class="form-group">
-          <label id='yvar1-select-text' for="yvar1-select">Select X</label>
+          <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
           <li> </li>
-          <select data-width="85%" data-hide-disabled=true id="yvar1-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+          <select data-width="100%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
           </select>
-        </div> <!-- .form-group -->
-      </div> <!-- yvar1-selection -->
-      <div style="display: none;" id="yvar2-selection">
-        <div class="form-group">
-          <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
-          <select data-width="85%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
-          </select>
-        </div> <!-- .form-group -->
-      </div> <!-- #yvar2-selection -->
-      <div style="display: none;" id="yvar3-selection">
-        <div class="form-group">
-          <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
-          <select data-width="85%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
-          </select>
-        </div> <!-- .form-group -->
-      </div> <!-- yvar3-selection -->
-    </div> <!-- #Yvar0-selection-default -->
-
-    <div class="form-group" style="padding-left:10px; float:left;">
-      <label id="start-time" for="start-date">Start Time (UTC)</label>
-      <div class='input-group date' id='start-date'>
-        <input type='text' class="form-control" />
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-        </span>
-      </div> <!-- .input-group.date #start-date -->
-    </div> <!-- .form-group -->
-
-    <div class="form-group" style="padding-left:10px; padding-right:10px; float:left;">
-      <label id="end-time" for="end-date">End Time (UTC)</label>
-      <div class='input-group date' id='end-date'>
-        <input type='text' class="form-control" />
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-        </span>
-      </div> <!-- .input-group.date #end-date -->
-    </div> <!-- .form-group -->
-
-    <div class="form-group" style="padding-top:0px; float:left;">
-      <label id="qaqc-test" for="plotting-enable-events">QAQC Test</label>
-      <div>
-        <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
-      </div>
-    </div>
-  </div> <!-- .row -->
-
-  <div id="qa-qc" class="row">
-    <div class="div-qa-qc" style="display:none">
-      <input type="radio" name="radio-qa-qc" value="1"><span>Global Range</span></input>
-      <input type="radio" name="radio-qa-qc" value="2"><span>Local Range</span></input>
-      <input type="radio" name="radio-qa-qc" value="3"><span>Spike</span></input>
-      <input type="radio" name="radio-qa-qc" value="4"><span>Polytrend</span></input>
-      <input type="radio" name="radio-qa-qc" value="5"><span>Stuck Value</span></input>
-      <input type="radio" name="radio-qa-qc" value="6"><span>Gradient</span></input>
-      <input type="radio" name="radio-qa-qc" value="7"><span>Solar Elevation</span></input>
-      <input type="radio" name="radio-qa-qc" value="8"><span>Propagate Flags</span></input>
-      <input type="radio" name="radio-qa-qc" value="9"><span>Cond Compress</span></input>
-      <input type="radio" name="radio-qa-qc" value="10" checked><span>All</span></input>
-    </div>
+        </div> <!-- #yvar0-selection-default -->
+        <div style="display: none;" id="yvar1-selection">
+          <div class="form-group">
+            <label id='yvar1-select-text' for="yvar1-select">Select X</label>
+            <li> </li>
+            <select data-width="100%" data-hide-disabled=true id="yvar1-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+            </select>
+          </div> <!-- .form-group -->
+        </div> <!-- yvar1-selection -->
+        <div style="display: none;" id="yvar2-selection">
+          <div class="form-group">
+            <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
+            <select data-width="100%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+            </select>
+          </div> <!-- .form-group -->
+        </div> <!-- #yvar2-selection -->
+        <div style="display: none;" id="yvar3-selection">
+          <div class="form-group">
+            <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
+            <select data-width="100%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+            </select>
+          </div> <!-- .form-group -->
+        </div> <!-- yvar3-selection -->
+      </div> <!-- #Yvar0-selection-default -->
+    </form>
+  </div> <!-- .form-group -->
+  <div class="col-md-5">
+    <form role="form">
+      <div class="form-group">
+        <label id="start-time" for="start-date">Start Time (UTC)</label>
+        <div class='input-group date' id='start-date'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div> <!-- .input-group.date #start-date -->
+      </div> <!-- .form-group -->
+      <div class="form-group">
+        <label id="end-time" for="end-date">End Time (UTC)</label>
+        <div class='input-group date' id='end-date'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div> <!-- .input-group.date #end-date -->
+      </div> <!-- .form-group -->
+    </form>
   </div>
-
-  <div class="row">
-    <div class="form-group" style="padding-top:10px; padding-left:10px;">
-      <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
-        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
-      </button>
-    </div> <!-- .form-group -->
-
-    <div class="form-group" style="padding-top:10px; padding-left:10px;">
-      <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Time Axes">
-        <span class="glyphicon glyphicon-refresh"></span> Reset
-      </button>
-    </div> <!-- .form-group -->
-
-    <div class="form-group" style="padding-top:10px; float:right;">
-      <div id="download-options">
-        <ul>
-          <li><a id='download-data' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
-          <li><a id='download-plot' role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
-        </ul>
+  <div class="col-md-3">
+    <form role="form">
+      <div class="form-group" style="margin-bottom:8px;">
+        <label id="qaqc-test" for="plotting-enable-events">QAQC Test</label>
+        <div>
+          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
+        </div>
       </div>
-    </div>
+      <div id="qa-qc" class="row">
+        <div class="div-qa-qc" style="display:none">
+          <input type="radio" name="radio-qa-qc" value="1"><span>Global Range</span></input>
+          <input type="radio" name="radio-qa-qc" value="2"><span>Local Range</span></input>
+          <input type="radio" name="radio-qa-qc" value="3"><span>Spike</span></input>
+          <input type="radio" name="radio-qa-qc" value="4"><span>Polytrend</span></input>
+          <input type="radio" name="radio-qa-qc" value="5"><span>Stuck Value</span></input>
+          <input type="radio" name="radio-qa-qc" value="6"><span>Gradient</span></input>
+          <input type="radio" name="radio-qa-qc" value="7"><span>Solar Elevation</span></input>
+          <input type="radio" name="radio-qa-qc" value="8"><span>Propagate Flags</span></input>
+          <input type="radio" name="radio-qa-qc" value="9"><span>Cond Compress</span></input>
+          <input type="radio" name="radio-qa-qc" value="10" checked><span>All</span></input>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:8px">
+        <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
+          <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Update
+        </button>
+      </div> <!-- .form-group -->
+      <div class="form-group">
+        <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Time Axes">
+          <span class="glyphicon glyphicon-refresh"></span> Reset
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form role="form">
+      <div class="form-group">
+        <div id="download-options">
+          <ul>
+            <li><a id="download-data" role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Data</i></a></li>
+            <li><a id="download-plot" role="menuitem" tabindex="-1" href="#"><i class="fa fa-download"> Download Image</i></a></li>
+            <li id="decimatedWarn" role="menuitem" tabindex"-1"><i class="fa fa-info-circle">&nbsp;Warning: Data is decimated</i></li>
+          </ul>
+        </div> <!-- .form-group -->
+      </div>
+    </form>
+  </div>
+</div>
+
+
