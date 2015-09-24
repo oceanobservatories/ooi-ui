@@ -147,10 +147,10 @@ var MapView = Backbone.View.extend({
       return this
     }});
 
-    this.addlegned();
+    this.addlegend();
     return this
   },
-  addlegned:function(){
+  addlegend:function(){
     var WMSlegend = L.control({position: 'bottomright'});
 
     WMSlegend.onAdd = function (map) {
@@ -158,15 +158,13 @@ var MapView = Backbone.View.extend({
         var div = L.DomUtil.create('div', 'info legend');
         var content = ''
         content+="<div class='legendContainer'>"
-        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=GFS_WINDS&FORMAT=image/png&TRANSPAREaNT=TRUE&STYLES=WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=GFS_WINDS'>"    
-        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=WW3_WAVE_HEIGHT&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=WAVE_HEIGHT_STYLE-0-3&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=WW3_WAVE_HEIGHT'>"    
-        content+="<img style='margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=HYCOM_GLOBAL_NAVY_CURRENTS&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=CURRENTS_RAMP-Jet-False-4-True-0-2-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=HYCOM_GLOBAL_NAVY_CURRENTS'>"    
+        content+="<img class='wind' style='display:none;margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=GFS_WINDS&FORMAT=image/png&TRANSPAREaNT=TRUE&STYLES=WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=GFS_WINDS'>"    
+        content+="<img class='waves' style='display:none;margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=WW3_WAVE_HEIGHT&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=WAVE_HEIGHT_STYLE-0-3&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=WW3_WAVE_HEIGHT'>"    
+        content+="<img class='currents' style='display:none;margin-right:10px' src='http://coastmap.com/ecop/wms.aspx?LAYER=HYCOM_GLOBAL_NAVY_CURRENTS&FORMAT=image/png&TRANSPARENT=TRUE&STYLES=CURRENTS_RAMP-Jet-False-4-True-0-2-high&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TIME=&SRS=EPSG:3857&LAYERS=HYCOM_GLOBAL_NAVY_CURRENTS'>"    
         content+="</div>"
         div.innerHTML+=content
         return div;
     };
-
-
     WMSlegend.addTo(this.map);
   },
   add_glider_tracks: function(){
@@ -376,6 +374,16 @@ var MapView = Backbone.View.extend({
       }
     });
 
+
+    map.on('overlayadd', function(e) {
+      self.updateLegendImage(e.name,true);      
+    });
+
+    map.on('overlayremove', function(e) {
+      self.updateLegendImage(e.name,false);
+    });
+
+
     self.markerCluster.on('clustermouseout', function (e) {
         if (popup && map) {
           map.closePopup(popup);
@@ -530,6 +538,20 @@ var MapView = Backbone.View.extend({
     if ( lat_lon != undefined ){
         this.map.setView(new L.LatLng(lat_lon[0], lat_lon[1]),zoom)
     }
+  },
+  updateLegendImage:function(name,visible){
+    var displayStr = ''
+    if (!visible){
+      displayStr = "none"
+    }
+
+    if (name == "GFS WIND Model"){
+      $('.legendContainer .wind').css('display',displayStr);
+    } else if (name == "Wave Watch III Model Waves"){
+      $('.legendContainer .waves').css('display',displayStr);
+    } else if (name == "HYCOM Currents"){
+      $('.legendContainer .currents').css('display',displayStr);     
+    }    
   }
   //end
 });
