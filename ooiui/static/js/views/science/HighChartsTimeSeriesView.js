@@ -105,7 +105,6 @@ var TimeseriesView = Backbone.View.extend({
                         }
 
     self.views.highchartsView.chart.addSeries(newDataSeries,false);    
-    
   },
   updatePlot:function(){    
     //update the plot

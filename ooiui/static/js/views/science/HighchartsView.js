@@ -49,7 +49,8 @@ var HighchartsView = Backbone.View.extend({
       
 
       if(_.isUndefined(axis)) {
-        axis = {          
+        axis = {
+          id:model.get('axisName'),          
           labels: {
             format: '{value}',
             style: {
