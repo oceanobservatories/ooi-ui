@@ -17,7 +17,7 @@
  */
 
 var AnnotationModalFormView = ModalFormView.extend({
-  bindings: {    
+  bindings: {
     '#comments-input' : 'comment'
   },
   events: {
@@ -41,26 +41,26 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     event.stopPropagation();
     event.preventDefault();
-    this.model.set('annotation',this.$el.find('#comments-input').val());    
+    this.model.set('annotation',this.$el.find('#comments-input').val());
 
-    var min = moment.utc(self.model.get('beginDTSafe')).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-    var max = moment.utc(self.model.get('endDTSafe')).format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    var min = moment.utc(self.model.get('beginDTSafe'),'DD/MM/YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    var max = moment.utc(self.model.get('endDTSafe'),'DD/MM/YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
 
     self.model.set('beginDT', min);
     self.model.set('endDT', max);
 
-    self.model.unset('beginDTSafe', {silent:true}) 
-    self.model.unset('endDTSafe', {silent:true}) 
+    self.model.unset('beginDTSafe', {silent:true})
+    self.model.unset('endDTSafe', {silent:true})
 
     this.model.save(null, {
-      success: function(model,response) {             
+      success: function(model,response) {
         if(model.id) {
           ooi.trigger('AnnotationModalFormView:onUpdate', model);
         }else{
           ooi.trigger('AnnotationModalFormView:onSubmit', model);
         }
       },
-      error: function(){            
+      error: function(){
       }
     });
     this.hide();
@@ -83,7 +83,7 @@ var AnnotationModalFormView = ModalFormView.extend({
 
     $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'DD/MM/YYYY HH:mm'});
     $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'DD/MM/YYYY HH:mm'});
-    
+
 
   }
 });
