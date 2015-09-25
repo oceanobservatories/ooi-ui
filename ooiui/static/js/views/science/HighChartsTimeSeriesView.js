@@ -46,6 +46,9 @@ var TimeseriesView = Backbone.View.extend({
   addAdditionalData:function(param,units,data,paramIndex,dataBounds){
     var self = this;
 
+    this.views.highchartsView.chart.setTitle({text:'Multi Station Plot'}, { text: 'Multi Stream' });
+    this.views.highchartsView.chart.setTitle('Multi Station Plot');
+
     if (dataBounds.ymin == dataBounds.ymax){
       dataBounds.ymax +=1 ;
     };
