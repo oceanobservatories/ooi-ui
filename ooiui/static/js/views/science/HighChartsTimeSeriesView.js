@@ -43,6 +43,9 @@ var TimeseriesView = Backbone.View.extend({
   hideLoading:function(){
     this.views.highchartsView.chart.hideLoading();
   },
+  isOdd:function(x) {
+    return ( x & 1 ) ? true : false;
+  },
   addAdditionalData:function(param,units,data,paramIndex,dataBounds){
     var self = this;
 
@@ -72,7 +75,7 @@ var TimeseriesView = Backbone.View.extend({
           title: {
               text: newAxisName
           },                      
-          opposite: true
+          opposite: !self.isOdd(self.views.highchartsView.chart.yAxis.length)
       });
     }
 
