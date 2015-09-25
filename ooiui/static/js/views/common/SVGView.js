@@ -488,6 +488,7 @@ var SVGPlotControlView = Backbone.View.extend({
     'click #download-data' : 'plotDownloads',
     'click #download-plot' : 'plotDownloads',
     'click #update-plot' : 'onClickPlot',
+    'click #add-plot' : 'onAddClickPlot',
     'click #reset-time' : 'onResetTime',
     'change #xvar-select' : 'xVarChange',
     'change #yvar1-select' : 'yVar1Change',
@@ -560,6 +561,7 @@ var SVGPlotControlView = Backbone.View.extend({
         plotType = 'Time Series';
     }
     if (plotType=="Time Series"){
+      this.$el.find('#add-plot').css('display','');
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.");
       this.$el.find('#plotting-enable-events').attr('disabled', true);
       this.$el.find('#yvar0-selection-default').show();
@@ -569,6 +571,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Stacked Time Series"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The stacked time series plot is a 2D colored plot that plots bins (Y-axis) against time (X-axis) using color spectrum for the value. The user should select just 1 appropriate derived products with 2D data (ie. ADCP, VADCP, and SPKIR) for this plot to work properly.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -581,6 +584,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="T-S Diagram"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -594,6 +598,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Depth Profile"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Depth Profile plot uses the Pressure and/or Depth parameter from a data stream, as well as a maxima/minima extrema calculation, to determine singular depth profiles present in the data.  Users should select only a single parameter for this plot type.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -604,6 +609,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Quiver"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Quiver plot is designed to be used with two velocitiy parameters.  This plot is used primarily with the Velocity Meters and the Acoustic Doppler Current Profilers.  This plot will provide an arrow to display the direction of the water movement, as well as a gray shadow to represent the magnitude.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -617,6 +623,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Rose"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Rose Plot is designed to show the magnitude and direction of water currents and wind movement.  The direction should be represented as a value between 0 and 360.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -630,6 +637,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="3D Colored Scatter"){
+      this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The 3D Colored Scatter allows a user to select two parameters as the X and Y axes, then select a 3rd parameter to use as a color map for the plotted points.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -667,6 +675,20 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$end_date.data("DateTimePicker").setDate(moment.utc(this.model.get('end')).format("YYYY-MM-DD HH:mm:ss"));
     this.$el.find("#decimatedWarn").css("color","#767676")
   },
+  onAddClickPlot: function(e) {
+    this.$el.find("#decimatedWarn").css({'-webkit-animation' : 'altrclr 3s 3 alternate','color' : 'red'});
+    var data = {};
+    data.start_date = moment.utc(this.$start_date.data('date'));
+    data.end_date = moment.utc(this.$end_date.data('date'));
+    data.xvar = this.$el.find('#xvar-select').val();
+    //data.yvar = this.$el.find('#yvar-select').val();
+    data.plotType = this.$el.find('#xvar-select option:selected').text();
+    data.useLine = "true"
+    data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
+    data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
+    this.model.set('data',data);
+    ooi.trigger('SVGPlotControlView:onAddClickPlot', this.model);
+  },
   onClickPlot: function(e) {
     this.$el.find("#decimatedWarn").css({'-webkit-animation' : 'altrclr 3s 3 alternate','color' : 'red'});
     var data = {};
@@ -675,17 +697,6 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = this.$el.find('#xvar-select option:selected').text();
-
-    /*
-    if (plotType == "Depth Profile"){
-      data.plotType = "depthprofile"
-      //data.yvar = this.$el.find('#xvar-select').val();
-      data.xvar = this.$el.find('#yvar-select').val();
-
-    }else{
-      data.plotType = "timeseries"
-    }*/
-
     data.useLine = "true"
     data.useScatter = "false"//this.$el.find('#plotting-enable-scatter').bootstrapSwitch('state');
     data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
