@@ -37,6 +37,12 @@ var TimeseriesView = Backbone.View.extend({
     var d = moment.utc(time_sec);        
     return d._i*1000;   
   },
+  showLoading:function(){
+    this.views.highchartsView.chart.showLoading();
+  },
+  hideLoading:function(){
+    this.views.highchartsView.chart.hideLoading();
+  },
   addAdditionalData:function(param,units,data,paramIndex,dataBounds){
     var self = this;
 

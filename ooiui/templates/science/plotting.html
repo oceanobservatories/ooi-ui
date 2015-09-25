@@ -414,7 +414,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'additionalDataAdded', function(options) {
       if (self.collections.additionalDataseries.xparameters[0] == 'time'){
-
+        
         _.each(self.collections.additionalDataseries.yparameters,function(item,i){
           var param = item[0]
           var units = self.collections.additionalDataseries.units[param];
@@ -450,7 +450,7 @@ _.extend(OOI.prototype, Backbone.Events, {
             //data.push({x:time,y:d_item});
             data.push([ time , d_item ]);
           }); 
-          console.log(data.length,data[0]);
+          //console.log(data.length,data[0]);
           if (data.length > 1){
             var dataBounds = {xmin:xmin,ymin:ymin,xmax:xmax,ymax:ymax}
             //add data and or axis if needed
@@ -459,6 +459,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         });  
         //update the plot once all data is added
         self.views.timeseriesView.updatePlot();                 
+        self.views.timeseriesView.hideLoading();
       }
     });
 
@@ -504,7 +505,7 @@ _.extend(OOI.prototype, Backbone.Events, {
             ooi.trigger('httpError', {response:response, error:errorText});
         }
 
-
+        self.views.timeseriesView.showLoading();
         self.collections.additionalDataseries.fetch({error: errorHandler, reset: true,success:function(){
            ooi.trigger('additionalDataAdded', {});
         }});
