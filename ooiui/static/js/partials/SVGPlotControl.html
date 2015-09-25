@@ -4,50 +4,50 @@
 
 <div class="row">
   <div class="col-md-4">
-    <form role="form">
-      <div class="form-group">
-        <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
-        <select data-width="100%" id='xvar-select' class="form-control selectpicker">
-          <option value="" selected disabled>Select</option>
-          <option value="time">Time Series</option>
-          <option value="ts-diagram">T-S Diagram</option>
-          <option data-subtext="" value="pressure">Depth Profile</option>
-          <option value="quiver">Quiver</option>
-          <option value="rose">Rose</option>
-          <option value="colorxyz">3D Colored Scatter</option>
-        </select>
-      </div>
-      <div id="yvar0-selection-default">
-        <div class="form-group">
-          <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
-          <li> </li>
-          <select data-width="100%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
-          </select>
-        </div> <!-- #yvar0-selection-default -->
-        <div style="display: none;" id="yvar1-selection">
+      <form role="form">
           <div class="form-group">
-            <label id='yvar1-select-text' for="yvar1-select">Select X</label>
-            <li> </li>
-            <select data-width="100%" data-hide-disabled=true id="yvar1-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
-            </select>
-          </div> <!-- .form-group -->
-        </div> <!-- yvar1-selection -->
-        <div style="display: none;" id="yvar2-selection">
-          <div class="form-group">
-            <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
-            <select data-width="100%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
-            </select>
-          </div> <!-- .form-group -->
-        </div> <!-- #yvar2-selection -->
-        <div style="display: none;" id="yvar3-selection">
-          <div class="form-group">
-            <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
-            <select data-width="100%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
-            </select>
-          </div> <!-- .form-group -->
-        </div> <!-- yvar3-selection -->
-      </div> <!-- #Yvar0-selection-default -->
-    </form>
+              <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
+              <select data-width="100%" id='xvar-select' class="form-control selectpicker">
+                  <option value="" selected disabled>Select</option>
+                  <option value="time">Time Series</option>
+                  <option value="ts-diagram">T-S Diagram</option>
+                  <option data-subtext="" value="pressure">Depth Profile</option>
+                  <option value="quiver">Quiver</option>
+                  <option value="rose">Rose</option>
+                  <option value="colorxyz">3D Colored Scatter</option>
+              </select>
+          </div>
+          <div id="yvar0-selection-default">
+              <div class="form-group">
+                  <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
+                  <li> </li>
+                  <select data-width="100%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
+                  </select>
+              </div> <!-- .form-group -->
+          </div> <!-- #Yvar0-selection-default -->
+          <div style="display: none;" id="yvar1-selection">
+              <div class="form-group">
+                  <label id='yvar1-select-text' for="yvar1-select">Select X</label>
+                  <li> </li>
+                  <select data-width="100%" data-hide-disabled=true id="yvar1-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+                  </select>
+              </div> <!-- .form-group -->
+          </div> <!-- yvar1-selection -->
+          <div style="display: none;" id="yvar2-selection">
+              <div class="form-group">
+                  <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
+                  <select data-width="100%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+                  </select>
+              </div> <!-- .form-group -->
+          </div> <!-- #yvar2-selection -->
+          <div style="display: none;" id="yvar3-selection">
+              <div class="form-group">
+                  <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
+                  <select data-width="100%" data-hide-disabled=true id="yvar3-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
+                  </select>
+              </div> <!-- .form-group -->
+          </div> <!-- yvar3-selection -->
+      </form>
   </div> <!-- .form-group -->
   <div class="col-md-5">
     <form role="form">
