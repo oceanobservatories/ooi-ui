@@ -108,10 +108,10 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
-@app.route('/statusUI')
+@app.route('/status')
 def statusUI():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FstatusUI')
-    return render_template('common/statusUI.html')
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstatus')
+    return render_template('common/status.html')
 
 
 @app.route('/api/organization', methods=['GET'])

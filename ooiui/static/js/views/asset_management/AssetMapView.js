@@ -1,107 +1,146 @@
 "use strict";
 /*
- *
- * ooiui/static/js/models/asset_management/AssetMapView.js
- * Validation model for Alerts and Alarms Page.
- *
- * Dependencies
- * Partials
- * - ooiui/static/js/partials/compiled/alertPage.js
- * Libs
- * - ooiui/static/lib/underscore/underscore.js
- * - ooiui/static/lib/backbone/backbone.js
- * Usage
- * 
+ * ooiui/static/js/models/asset_management/AssetMapView.js 
  */
 
 var AssetMapView = Backbone.View.extend({
   events: {    
   },
   initialize: function() {
-    _.bindAll(this, "render");
-    var self = this;
-    self.render();
+    _.bindAll(this, "render","renderMap","addStations",'clearStations');    
+    this.render();
   },  
   template: JST['ooiui/static/js/partials/AssetMap.html'],
   render: function() {
     this.$el.html(this.template());
+    this.renderMap(null);
   },
-  renderMap: function() {
-    L.Icon.Default.imagePath = '/img';
-    var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';   
-    var grayscale   = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr});    
-
-    this.map = L.map('map',{
-         center: [20.505, -80.09],
-         zoom: 3,
-         maxZoom: 10,
-         minZoom: 3,
-         layers: [grayscale]
-    });
-        
-  },
-
-  clearContents: function() {
-  },
-
-  addStation: function(filtered_model) {
+  renderMap: function(options) {
     var self = this;
-    var map = self.map;
-    if (filtered_model.get('coordinates') !="NA"){
-      if (!isNaN(filtered_model.get('coordinates')[0]) &&  !isNaN(filtered_model.get('coordinates')[1])){
-        var latlong = filtered_model.get('coordinates');
 
-        var circleStyleOptions = {
-            radius: 14,
-            fillColor: "#5e5e5e",
-            color: "#2D2D2D",
-            weight: 3,
-            opacity: .9,
-            fillOpacity: .9
-        };
-        
-        //Not working now but if there were a status in the asset return
-        if(filtered_model.get('status')){
-          if(filtered_model.get('status')=='issue'){
-            circleStyleOptions['fillColor'] = '#FFE944';
-          }
-          else if(filtered_model.get('status')=='ok'){
-            circleStyleOptions['fillColor'] = '#006eff';
-          }
-          else if(filtered_model.get('status')=='error'){
-            circleStyleOptions['fillColor'] = '#E03D2C';
-          }
-        }
+    var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
+      maxZoom: 13,
+      minZoom: 2
+    });
 
-        //currently everything is blue ok
-        circleStyleOptions['fillColor'] = '#006eff';
-        var marker = L.circleMarker(latlong, circleStyleOptions);
+    self.map = L.map('map', {
+      center: [39.73, -104.99],
+      zoom: 2,
+      layers: [Esri_OceanBasemap]
+    });
 
-        marker.bindPopup(self.getPopupContent(filtered_model.get('@class'),filtered_model.get('assetInfo'),filtered_model.get('launch_date_time'),filtered_model.get('water_depth'),filtered_model.get('ref_des')))
-        marker.addTo(map);
-      };
+    var legend = L.control({position: 'bottomright'});
+    legend.onAdd = function (map) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+              labels = ['Unknown','Healthy','Alert','Alarm'],
+              colors = ['gray','blue','yellow','red'];
+
+          // loop through our density intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < labels.length; i++) {
+              div.innerHTML += '<i style="background:'+colors[i]+'"></i> ' + 
+              labels[i] +'<br><br>';
+          }
+
+      return div;
     };
-  },
+    legend.addTo(self.map);
 
-  getPopupContent: function( classtype,info,launch_date,water_depth,ref_des){
-    
-    var popstr =   '<div class="popup-map-btn">'+
-        "<br><b>"+  info['name']+ 
-        "<br></b><br> <b>Launch Date:</b> "+ launch_date+ 
-        "<br> <b>Class:</b> "+ classtype+ 
-        "<br> <b>Type:</b> "+ info['type'] +
-        "<br> "+ "<b>Depth:</b> "+ water_depth['value'] + " m "+
-        /*'<button type="button" class="popup-map-btn-plot btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">'+                                
-            '<span class="glyphicon glyphicon-stats"></span> Plot data'+
-        '</button>'+
-        '<button type="button" class="popup-map-btn-download btn btn-default btn-sm">'+                                
-            '<span class="glyphicon glyphicon-save"></span> Download data'+
-        '</button>'+*/
-        "</div>"   
-   
-    return popstr
-  }   
+
+
+
+    //self.markers = new L.FeatureGroup();
+    self.markers = new L.MarkerClusterGroup({iconCreateFunction: function (cluster) {
+                      var childCount = cluster.getChildCount();
+                      var childMarkers = cluster.getAllChildMarkers();
+
+                      //get the unique list
+                      var clusterStatus = _.uniq(_.map(childMarkers, function(item){return item.options.data}));
+                      
+                      var c = ' status-marker-cluster-';
+                      if (_.indexOf(clusterStatus, "alarm")>-1){
+                        c += 'alert';
+                      }else if (_.indexOf(clusterStatus, "alarm")>-1){
+                        c += 'alarm';
+                      }else if (_.indexOf(clusterStatus, "healthy")>-1){
+                        c += 'healthy';
+                      }else{
+                        c += 'unknown';
+                      }  
+
+                      return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+                    }, spiderfyDistanceMultiplier:2,showCoverageOnHover: false});
+
+
+    self.map.addLayer(self.markers);
+  },
+  clearStations:function(){
+    this.markers.clearLayers();
+  },
+  updateMap:function(){
+    this.map.invalidateSize(false);  
+  },
+  renderGeographicStatus:function(model,alert_info){ 
+    //render geographic status for a region, platform, array    
+
+    var self = this; 
+
+    var c = [{
+        "type": "Feature",
+        "properties": {"array": "CE"},
+        "geometry": model.get('geo_location')
+    }];
+
+    var myStyle = {
+        "color": "yellow",
+        "weight": 5,
+        "opacity": 0.75
+    };   
+
+    L.geoJson(filteredList, {
+        style: myStyle
+    }).addTo(self.map);
+
+  },
+  getColor:function(event_type){
+    if(event_type=='alert'){
+      return 'yellow';
+    }else if(event_type=='alarm'){
+      return 'red';      
+    }else if (event_type=='inactive'){
+      return 'steelblue';
+    }else{
+      return 'gray';
+    }
+  },
+  addStations:function(){    
+    var self = this;    
+    self.collection.each(function(station_model,i){            
+      if (station_model.get('coordinates') && !_.isUndefined(station_model)){      
+        var circleStyleOptions = {
+              radius: 12,
+              fillColor: "#5e5e5e",
+              color: "#2D2D2D",
+              weight: 3,
+              opacity: .9,
+              fillOpacity: .9,
+              data:station_model.get('event_type')
+        };
+
+        circleStyleOptions['fillColor'] = self.getColor(station_model.get('event_type'));
+
+        var marker = L.circleMarker(station_model.get('coordinates'), circleStyleOptions);
+        marker.bindPopup("<div><br>"+station_model.get('event_type')+"<br></div>")        
+        self.markers.addLayer(marker);
+      }
+      try{
+        self.map.fitBounds(self.markers.getBounds()); 
+      }catch(e){
+
+      }
+      
+    });
+
+  }
 });

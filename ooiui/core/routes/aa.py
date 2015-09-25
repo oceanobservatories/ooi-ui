@@ -14,8 +14,8 @@ from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 import json
 import urllib2 
-
 import requests
+import os
 
 
 #main aa page
@@ -65,8 +65,21 @@ def get_aa_triggered_all():
 @app.route('/api/aa/triggered/<string:id>', methods=['GET'])
 def get_triggered_specific_id(id):
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm?%s' % (id), auth=(token, ''), params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm?%s' % (id), auth=(token, ''), params=request.args)    
     return response.text, response.status_code
+
+@app.route('/api/aa/status', methods=['GET'])
+def get_aa_triggered_all_status():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm/status', auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/aa/status/<string:id>', methods=['GET'])
+def get_triggered_specific_id_status(id):
+    token = get_login()    
+    data={'status':[id]}
+    return jsonify(data)
+
 
 @app.route('/api/aa/triggered', methods=['POST'])
 def post_aa_triggered():

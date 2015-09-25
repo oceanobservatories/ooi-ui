@@ -1,3 +1,162 @@
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+/*
+MAP
+*/
+.status-marker-cluster-healthy {
+    background-color: rgba(131, 177, 89, 0.6);
+}
+.status-marker-cluster-healthy div {
+    background-color: rgba(150, 162, 143, 0.6);
+}
+
+.status-marker-cluster-alarm {
+    background-color: rgba(241, 211, 87, 0.6);
+}
+.status-marker-cluster-alarm div {
+    background-color: rgba(240, 194, 12, 0.6);
+}
+
+.status-marker-cluster-alert {
+    background-color: rgba(253, 156, 115, 0.6);
+}
+.status-marker-cluster-alert div {
+    background-color: rgba(241, 128, 23, 0.6);
+}
+
+.status-marker-cluster-unknown {
+    background-color: lightgray;
+    color: white;
+}
+.status-marker-cluster-unknown div {
+    background-color: gray;
+}
+
+.status-marker-cluster-inactive {
+    background-color: lightblue;
+    color: white;
+}
+.status-marker-cluster-inactive div {
+    background-color: steelblue;
+}
+
+
+/*
+ICON VIEW
+*/
+
+#statusListContainer #assetIconList .status-badge{
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
+    display: block;
+    float: center;
+    margin: 0 10px 0px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 35px;
+    margin-left: 35%;
+}
+/*
+STATUS
+*/
+#statusListContainer #assetIconList.status-badge-unknown{
+    background: #5e5e5e;
+    border: 1px solid #000006;
+}
+#statusListContainer #assetIconList .status-badge-inactive{
+    background: #006eff;
+    border: 1px solid #000006;
+}
+#statusListContainer #assetIconList .status-badge-alert{
+    background: #FFE944;
+    border: 1px solid #000006;
+}
+#statusListContainer #assetIconList .status-badge-alarm{
+    background: #E03D2C;
+    border: 1px solid #000006;
+}
+/*
+BG
+*/
+#statusListContainer #assetIconList .status-panel-alarm{
+    box-shadow: 0 0 10px rgba(250, 128, 128, 1);
+    border: 1px solid rgba(252, 171, 171, 1);
+}
+#statusListContainer #assetIconList .status-panel-alert{
+    box-shadow: 0 0 10px rgba(253, 253, 22, .95);
+    border: 1px solid rgb(231, 230, 100);
+}
+#statusListContainer #assetIconList .status-panel-unknown{
+    box-shadow: 0 0 10px rgba(181, 181, 181, 1);
+    border: 1px solid rgba(181, 181, 181, 1);
+}
+#statusListContainer #assetIconList .status-panel-inactive{
+    box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+
+
+#resetStatusIconList{
+    
+}
+
+#assetIconList .dogTagBtn.well{
+    width: 100%;
+    margin:3px;
+    margin-top:5px;
+    padding: 3px;
+}
+
+#statusListContainer #statusListOutline{
+    padding:5px;
+}
+
+.status-progress{
+    margin:0px;
+    margin-bottom: 2px;
+    height:8px;
+}
+
+
+#statusList .status-table tr:hover {
+    background-color: yellow;
+}
+
+.status-table .html-cell{
+    text-align: center;
+}
+
+#statusList .status-table tr:hover td {
+    background-color: transparent; /* or #000 */
+}
+
 /*
  * Badge Buttons @ Top
  */
