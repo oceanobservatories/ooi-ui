@@ -1,0 +1,432 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>Status Dashboard</title>
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/compiled/status.css" type="text/css" />
+
+  <script src="/js/partials/compiled/status.js" type="text/javascript"></script>
+  <script src="/js/compiled/status.js" type="text/javascript"></script>
+  <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
+
+  <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+  <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+  <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div id="navbar" class="row"></div>
+  </div>
+
+  <div id="wrapper">
+  <div id="page-content-wrapper">
+  <div class="container-fluid">
+    {% block sidebar %}
+      {{ super() }}
+    {% endblock %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="aa-panel" class="panel">
+          <div id="aa-panel-body" class="panel-body">
+            <!--
+            <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
+              Something something dark side.....
+              <i id="missingLL">0</i>
+              <i id="current_selection" style="color:#337ab7"></i>
+            </div> 
+            -->
+            <div class="row" style="">
+
+              <div class="col-md-3">
+                <ul class="nav nav-pills">
+                  <li role="presentation" for="statusListContainer" class="view-option active"><a href="#">Table View</a></li>                  
+                  <li role="presentation" for="statusMap" class="view-option"><a href="#">Map View</a></li>              
+                </ul>
+              </div>
+
+              <div class="col-md-4" style="display:none">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                  </span>
+                </div><!-- /input-group -->
+              </div>
+
+              <div class="col-md-9">
+                <ul class="nav nav-pills pull-right">
+                  <li><h5>Filter By Severity:&nbsp;&nbsp;</h5></li>
+                  <li role="presentation" for="all" class="action-option active"><a href="#">All</a></li>
+                  <li role="presentation" for="alert" class="action-option"><a href="#">Alert</a></li> 
+                  <li role="presentation" for="alarm" class="action-option"><a href="#">Alarm</a></li>
+                  <li role="presentation" for="inactive" class="action-option"><a href="#">Healthy</a></li>              
+                  <li role="presentation" for="unknown" class="action-option"><a href="#">Unknown</a></li>              
+                </ul>
+              </div>
+            </div>
+
+            <div id="progress-container">
+              <hr style="margin-bottom:2px; margin-top:10px">
+              <div class="progress status-progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                  <span class="sr-only"></span>
+                </div>
+              </div>
+            </div>
+
+            <hr style="margin-bottom:2px; margin-top:2px">
+
+            <div class="row form-group">   
+              <div id="statusListContainer">   
+                <div id='statusList' class="col-sm-7 ">
+                </div>
+
+                <div class="col-sm-5">                  
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button id="resetStatusIconList" type="button" class="pull-right btn btn-sm btn-warning" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"> Reset</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-right: 5px; margin-top:5px;">
+                  <div id='statusListOutline' class="col-md-12 well">
+                  </div>
+                  </div>
+                </div>
+              </div>              
+
+              <div id='statusMap' class="col-sm-12" style="display:none">
+              </div>
+
+              <!--
+              <div id='statusMap' class="col-sm-8" style="">
+              </div>              
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Toggle Script -->
+  <script type="text/javascript">
+    var bannerTitle = "Alerts & Alarms";
+
+    var vent = _.extend({}, Backbone.Events);
+
+    _.extend(OOI.prototype, Backbone.Events, {
+      login: new LoginModel(),
+      models: {     
+        trigModel: new TriggeredModel(), 
+        userModel: new UserModel(),
+        selectedStream: null
+      },
+      collections: {
+        arrays: new ArrayCollection(),        
+        statusAlertsList:null,
+        selectedStatusAlertsList: new StatusAlertCollection(),
+        assetInfo: new AssetCollection()
+      },
+      views: {
+        statusAlertTableView : null,
+        statusAlertIconView : null,
+        assetMapView : null
+      },
+      start: function() {
+        this.login.fetch({async:false});
+        navbar = new NavbarView({
+          login: this.login
+        });
+
+        var self = this;
+
+        //get the overview
+        this.collections.statusAlertsList = new StatusAlertCollection();
+        this.collections.selectedStatusAlertsList.reset();
+
+        var banner = new BannerView({ bannerTitle:bannerTitle });
+        $('body').prepend(banner.el);
+        this.views.navbar = new NavbarView({
+          el: $('#navbar')
+        });
+
+
+        self.views.statusAlertTableView = new StatusAlertTableView({
+          el: $('#statusList'),
+          collection: null
+        });
+
+        self.views.statusAlertIconView = new StatusAlertIconView({
+          el: $('#statusListOutline'),
+          collection: self.collections.selectedStatusAlertsList
+        });
+
+        
+        self.views.assetMapView = new AssetMapView({
+          el: $('#statusMap'),
+          collection: null
+        });
+
+        // TOC, render out our views:
+        this.listenTo(this, 'toc:selectArray', function(options) { 
+          //self.getStatusFor('array',options);
+        });
+
+        // TOC, render out our views:
+        this.listenTo(this, 'toc:selectPlatform', function(options) {         
+          //console.log(options);
+        });
+
+        // TOC, render out our views:
+        this.listenTo(this, 'toc:selectInstrument', function(options) {          
+          console.log(options.get('coordinates'),'instrument');
+          //self.getStatusFor('instrument',options);          
+        });
+
+        // TOC, render out our views:
+        this.listenTo(this, 'toc:selectStream', function(options) {          
+          //console.log(options);
+        });
+        
+        this.listenTo(this, 'progress:update', function(options) {          
+            var progress = $('.status-progress .progress-bar');
+            progress.attr("aria-valuenow",options.progress);
+            progress.css("width",options.progress.toString()+"%");
+            if (options.progress>98){
+              $('#progress-container').fadeOut('fast');
+            }
+        });
+
+        this.listenTo(this, 'statusTable:rowSelected', function(model) {           
+          self.views.statusAlertIconView.initialRender();          
+          self.collections.selectedStatusAlertsList.add(model);
+          self.views.statusAlertIconView.render();
+        });
+
+        $('#resetStatusIconList').click(function(e) {
+          self.views.statusAlertIconView.initialRender();          
+          self.collections.selectedStatusAlertsList.reset();
+          self.views.statusAlertIconView.render();
+        });
+
+        this.listenTo(this, 'aafilter:changeTypeFilter', function(evt) { 
+          
+          var newselected = $(evt.target).parent()
+          var currentselected = $('.action-option.active')
+                   
+          if (currentselected.attr('for') != newselected.attr('for')){
+            $('#progress-container').css('display','');
+            $('.status-progress .progress-bar').css('width','0%');
+            $('.status-progress .progress-bar').attr('aria-valuenow','0');
+
+            currentselected.removeClass('active');
+            newselected.addClass('active');
+
+            self.views.statusAlertTableView.initialRender();            
+
+            var filteredList = self.collections.statusAlertsList.sortByStatus(newselected.attr('for'));
+
+            self.views.statusAlertTableView.collection = filteredList;
+            self.views.assetMapView.collection = filteredList;
+            //
+            ooi.trigger("progress:update",{"progress":25});
+            self.views.statusAlertTableView.render();      
+            ooi.trigger("progress:update",{"progress":50});      
+            ooi.trigger("progress:update",{"progress":75});
+            //
+            self.views.assetMapView.clearStations(); 
+            self.views.assetMapView.addStations();
+            ooi.trigger("progress:update",{"progress":100});
+          }
+        });
+
+        //var trigAlertsFetch = self.collections.triggeredAlertsList.fetch({reset: true});
+        var statusAlertsFetch = self.collections.statusAlertsList.fetch({reset: true});
+        var assetInfoFetch = self.collections.assetInfo.fetch({reset: true});
+
+        //RE-RENDER TABLE and map
+        $.when(assetInfoFetch, statusAlertsFetch).done(function() {
+          var filteredList = self.collections.statusAlertsList.sortByStatus('all');          
+          self.views.statusAlertTableView.collection = filteredList;
+          self.views.assetMapView.collection = filteredList
+          //
+          self.views.statusAlertTableView.render();
+          //render the stations
+          self.views.assetMapView.clearStations(); 
+          self.views.assetMapView.addStations();          
+          //       
+          ooi.trigger("progress:update",{"progress":100});
+        });
+        
+        $('.view-option').on( "click", function(evt) {
+          var currentVizItem = $('.view-option.active');
+          var visItem = $(evt.target).parent();
+          if (currentVizItem.attr('for') == visItem.attr('for')){
+            //do nothing
+          }else{
+            currentVizItem.removeClass('active');
+            visItem.addClass('active');
+            
+            $('#'+currentVizItem.attr('for')).css('display','none');
+            $('#'+visItem.attr('for')).css('display','');
+
+            if (visItem.attr('for') == 'statusMap'){
+              self.views.assetMapView.updateMap();
+            }
+            
+          }
+          
+        });
+
+        var arrayFetch = arrayCollection.fetch({ reset: true });
+
+        var data = {
+          min : 'True'
+        };
+
+        $.when(arrayFetch).done(function() {
+          var assetFetch = assetCollection.fetch({ data: data, reset: true });
+          $.when(assetFetch).done(function() {            
+            var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+            $.when(streamFetch).done(function() {
+              $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                vent.trigger('toc:cleanUp');
+                vent.trigger('toc:cleanUp');
+              });
+            });
+          });
+        });
+
+        this.listenTo(this, "login:success", this.onLogin);
+        this.listenTo(this, "login:logout", this.onLogout);
+
+      }
+      /*
+      getStatusFor:function(status_type,options){
+        var self = this;
+        console.log(status_type,options);
+
+        if (status_type == "instrument"){
+          //gets the first one
+          var ref_collection = self.collections.triggeredAlertsList.findWhere({reference_designator: options.get('ref_des')});
+          self.views.assetMapView.addStation(options,ref_collection);
+        }else if (status_type == "array"){
+          //TODO NOT READY YET
+          return;
+          var arrayMapping = {"CP":new L.LatLngBounds([[42,-74],[36,-65]]),
+                              "CE":new L.LatLngBounds([[48,-133],[42,-123]])     
+                              }
+
+
+          var mapping = arrayMapping[options.get('array_code')]
+
+          var coors = [[
+                        [mapping.getNorthWest().lng,mapping.getNorthWest().lat],
+                        [mapping.getNorthEast().lng,mapping.getNorthEast().lat],
+                        [mapping.getSouthEast().lng,mapping.getSouthEast().lat],
+                        [mapping.getSouthWest().lng,mapping.getSouthWest().lat],
+                      ]]
+
+
+          options.set('geo_location.coordinates', coors);
+
+          self.views.assetMapView.renderGeographicStatus(options,ref_collection);
+        }
+
+      }
+      */
+    });
+
+    // controller for our model collections
+    var assetCollection     = new AssetCollection();
+    var arrayCollection     = new ArrayCollection();
+    var streamCollection    = new StreamCollection();
+
+
+    function renderTOCView( container, contents, streams ) {
+      var tocView = new TOCView({
+        arrayCollection:    container,
+        assetCollection:    contents,
+        streamCollection:   streams
+      });
+      tocView.render();
+      // remove the spinner
+      $('i#tocSpinner').remove();
+      // append the toc
+      $('#sidebar-wrapper').append( tocView.el );
+
+      tocView.renderAssets();
+      tocView.renderStreams();
+    }
+
+    function showSearchResults( collection ) {
+      vent.trigger('toc:derenderItems');
+
+      var searchResultView = new SearchResultView({ collection:collection });
+      searchResultView.render();
+
+      $('#assetBrowser').remove();
+
+      $('#sidebar-wrapper').append(searchResultView.el);
+    }
+
+    function updateCollection( assetCallback ){
+      var data = {
+        search : $('#search-filter').val()
+      };
+      assetCollection.fetch({
+        data : data,
+        success : assetCallback
+      });
+    }
+
+    var ooi = new OOI();
+
+    $(document).ready(function() {
+      $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+      ooi.start();
+
+      $('#navbar').prepend(navbar.el);
+      
+      $('#search-clear').hide();
+      
+      $('#search-clear').click(function(){
+        $('#search-filter').val('').focus();
+        $(this).hide();
+        vent.trigger('toc:derenderItems');
+        var assetFetch = assetCollection.fetch();
+        $.when(assetFetch).done(function() {
+          $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+            vent.trigger('toc:cleanUp');
+            vent.trigger('toc:cleanUp');
+          });
+        });
+      });      
+
+      $('.action-option').click(function(e) {
+          ooi.trigger('aafilter:changeTypeFilter',e);
+      });
+
+      $('#search-submit').click(function(e) {
+        $('#search-clear').toggle(Boolean($(this).val()));
+        $('#search-clear').toggle(Boolean($('#search-filter').val()));
+        updateCollection( showSearchResults );
+      });
+
+      $('label.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+      });
+    });
+
+  </script>
+{% endblock %}
