@@ -17,6 +17,7 @@ var AssetModel = Backbone.Model.extend({
   	    assetInfo: {
             description: null,
             name: null,
+            longName: null,
             owner: null,
             type: null
 		},

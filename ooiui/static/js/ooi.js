@@ -139,7 +139,6 @@ function focusToItem(e) {
 
         if ( ref_des.length > 0 ) {
               if (stream_name.length > 0) {
-                  console.log('test');
                   $('#'+ref_des).parents().eq(2).toggle(300);
                   $('#'+ref_des).parents().eq(0).toggle(300);
                   $('#'+ref_des+'> label').trigger('click');
