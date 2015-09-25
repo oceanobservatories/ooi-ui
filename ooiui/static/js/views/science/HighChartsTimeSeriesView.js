@@ -23,7 +23,7 @@ var TimeseriesView = Backbone.View.extend({
         color: "steelblue"
       }
     });
-  },
+  },  
   initialRender: function() {
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
   },
@@ -36,6 +36,79 @@ var TimeseriesView = Backbone.View.extend({
     time_sec -= 2208988800
     var d = moment.utc(time_sec);        
     return d._i*1000;   
+  },
+  showLoading:function(){
+    this.views.highchartsView.chart.showLoading();
+  },
+  hideLoading:function(){
+    this.views.highchartsView.chart.hideLoading();
+  },
+  isOdd:function(x) {
+    return ( x & 1 ) ? true : false;
+  },
+  addAdditionalData:function(param,units,data,paramIndex,dataBounds){
+    var self = this;
+
+    this.views.highchartsView.chart.setTitle({text:'Multi Station Plot'}, { text: 'Multi Stream' });
+    this.views.highchartsView.chart.setTitle('Multi Station Plot');
+
+    if (dataBounds.ymin == dataBounds.ymax){
+      dataBounds.ymax +=1 ;
+    };
+
+    //check the axis are not already available
+    var newAxisName = param+' ('+units+")"
+    var axisAvailable = false;
+    _.each(self.views.highchartsView.chart.yAxis,function(axis){
+      if (axis.axisTitle.textStr == newAxisName){
+        axisAvailable = true;
+      }     
+    });
+
+    //if the axis does not exist
+    if (!axisAvailable){
+      //if param exists in the data
+      self.views.highchartsView.chart.addAxis({ // new axis
+          id:  newAxisName,
+          min: dataBounds.ymin,
+          max: dataBounds.ymax,
+          title: {
+              text: newAxisName
+          },                      
+          opposite: !self.isOdd(self.views.highchartsView.chart.yAxis.length)
+      });
+    }
+
+    //check and update the 
+    var xcur = self.views.highchartsView.chart.xAxis[0].getExtremes();
+    var change = false;
+    if (dataBounds.xmin < xcur.min){
+      xcur.min = dataBounds.xmin;
+      change = true;
+    }
+    if (dataBounds.xmax > xcur.min){
+      xcur.max = dataBounds.xmax;
+      change = true;
+    }
+
+    //get the current xaxis bounds
+    if (change){
+      self.views.highchartsView.chart.xAxis[0].setExtremes(xcur.min,xcur.max);
+    }
+
+    var newDataSeries = {units: units,
+                         name: param,
+                         type: 'scatter',
+                         yaxis: newAxisName,
+                         marker: {enabled:true, "symbol": "circle"},
+                         data: data
+                        }
+
+    self.views.highchartsView.chart.addSeries(newDataSeries,false);    
+  },
+  updatePlot:function(){    
+    //update the plot
+    this.views.highchartsView.chart.redraw();
   },
   getQAQC:function(){
       if($(".div-qa-qc").css("display")=="none") return 0
@@ -135,6 +208,7 @@ var TimeseriesView = Backbone.View.extend({
           }
         } 
       });
+
       if (!addNotify){
         axes_count += 1
         var seriesModel = new SeriesModel({data:series_data})

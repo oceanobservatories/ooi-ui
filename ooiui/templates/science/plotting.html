@@ -145,7 +145,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     tocPlatforms: new TocPlatformsCollection(),
     tocInstruments: new TocInstrumentsCollection(),
     plotEventList: new PlotEventsCollection(),
-    dataseries: new DataSeriesCollection()
+    dataseries: new DataSeriesCollection(),
+    additionalDataseries: new DataSeriesCollection(),
   },
   views: {
     plottingItemSelection : null,
@@ -235,7 +236,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
 
     this.collections.dataseries.fetch({error: errorHandler, reset: true});
-  },
+  },    
   start: function() {
     var self = this;
     this.multiStation = false;
@@ -411,6 +412,113 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
 
+    this.listenTo(this, 'additionalDataAdded', function(options) {
+      if (self.collections.additionalDataseries.xparameters[0] == 'time'){
+        //check that the series length is less than 6
+        if (self.collections.additionalDataseries.yparameters.length+self.views.timeseriesView.views.highchartsView.chart.series.length <= 6){
+
+          _.each(self.collections.additionalDataseries.yparameters,function(item,i){
+            var param = item[0]
+            var units = self.collections.additionalDataseries.units[param];
+
+            var data = [];
+            var xmin = null;
+            var xmax = null;
+            var ymin = null;
+            var ymax = null;
+            self.collections.additionalDataseries.each(function(model,ii) {        
+              var time = self.views.timeseriesView.modifytime(model.get('time'))
+              var d_item = model.get(param);
+              if (!_.isNull(model.get(param))){
+                xmin = time
+                xmax = time
+                ymin = d_item
+                ymax = d_item
+
+              }else{
+                if (time<xmin){
+                  xmin = time;
+                }
+                if (time>xmax){
+                  xmax = time;
+                }
+                if (d_item<ymin){
+                  ymin = d_item;
+                }
+                if (d_item>ymax){
+                  ymax = d_item;
+                }
+              }
+              //data.push({x:time,y:d_item});
+              data.push([ time , d_item ]);
+            }); 
+            
+            if (data.length > 1){
+              var dataBounds = {xmin:xmin,ymin:ymin,xmax:xmax,ymax:ymax}
+              //add data and or axis if needed
+              self.views.timeseriesView.addAdditionalData(param,units,data,i,dataBounds);          
+            };
+          });  
+          //update the plot once all data is added
+          self.views.timeseriesView.updatePlot();                 
+          self.views.timeseriesView.hideLoading();
+        }else{
+          console.log('error:select less please...');
+        }
+      }
+    });
+
+    this.listenTo(this, 'SVGPlotControlView:onAddClickPlot', function(options) {
+
+      if (options.attributes.data.plotType == "Time Series"){
+        options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
+        options.attributes.data.end = moment.utc($('#end-date').data('date')).toISOString();
+
+
+        var p_yvarList = [];
+        var p_xvarList = [];
+        //sort the list of vars and time will always be on the x, duplicated per var
+
+        var selected = [];
+        var selected_ids = [];
+        var selectedParam = $("#yvar0-selection-default option:selected");
+        $(selectedParam).each(function(index){
+          selected.push([$(this).val()]);
+          selected_ids.push([$(this).attr('pid')]);
+        });
+
+        _.each(selected ,function(element){
+          if (element != "time"){
+            p_yvarList.push(element);
+            p_xvarList.push("time")
+          }
+        })        
+
+        self.collections.additionalDataseries = new DataSeriesCollection();
+        //set data series options
+
+        self.collections.additionalDataseries.stream = options.attributes.stream_name;
+        self.collections.additionalDataseries.ref_des = options.attributes.reference_designator;
+        self.collections.additionalDataseries.startdate = options.attributes.data.start;
+        self.collections.additionalDataseries.enddate = options.attributes.data.end;
+        //will always be time
+        self.collections.additionalDataseries.xparameters = p_xvarList;
+        self.collections.additionalDataseries.yparameters = p_yvarList;
+
+        errorHandler = function(collection, response){
+          errorText = response.status+': '+response.statusText
+            ooi.trigger('httpError', {response:response, error:errorText});
+        }
+
+        self.views.timeseriesView.showLoading();
+        self.collections.additionalDataseries.fetch({error: errorHandler, reset: true,success:function(){
+           ooi.trigger('additionalDataAdded', {});
+        }});
+              
+      }
+    });
+
+
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       if (options.attributes.data.plotType == "Depth Profile"){
         options.attributes.data.plotType = "depthprofile";
@@ -418,26 +526,26 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.attributes.data.xvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.attributes.data.plotType == "Time Series"){
         options.attributes.data.plotType = "timeseries"
-          options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.attributes.data.plotType == "Stacked Time Series"){
         options.attributes.data.plotType = "stacked"
-          options.attributes.data.xvar = 'time';
+        options.attributes.data.xvar = 'time';
         options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
       }else if (options.attributes.data.plotType == "T-S Diagram"){
         options.attributes.data.plotType = "ts_diagram"
-          options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
       }else if (options.attributes.data.plotType == "Quiver"){
         options.attributes.data.plotType = "quiver"
-          options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
       }else if (options.attributes.data.plotType == "3D Colored Scatter"){
         options.attributes.data.plotType = "3d_scatter"
-          options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
       }else if (options.attributes.data.plotType == "Rose"){
         options.attributes.data.plotType = "rose"
-          options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
       }
       options.attributes.data.multiStation = this.multiStation;
@@ -463,7 +571,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
-          //set the params and generate the view
+          //set the params and generate the view          
           this.setParams(options);
         }else{
           $('#highcharts-row-section').css('display',"none");
