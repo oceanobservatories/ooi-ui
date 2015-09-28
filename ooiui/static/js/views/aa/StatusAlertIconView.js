@@ -49,7 +49,7 @@ var StatusAlertIconItemView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/StatusAlertIconItem.html'],
   render:function(options){
-    var self = this;
+    var self = this;   
     this.$el.html(this.template({model:self.model}));
 
     /*

@@ -25,25 +25,57 @@
 
 <!-- Dog Tag Buttons -->  
 <div class="<%= panelBG %>" style='cursor:pointer;' data-toggle="modal" data-target="#myModal<%= asset %>">
-    <div class="row" style="display: inline-block;">
-        <div class="col-sm-8">      
+    <div class="row" style="">
+        <div class="col-sm-8">                  
             <h5 class="dogTagHeader"><%= model.get('reference_designator') %></h5>
+            <small><%= model.get('asset_type') %></small>
         </div>
         <div class="col-sm-2 pull-right" style="margin-top:5px; margin-right:20px; padding-right: 0px;padding-left: 0px;">
             <span class="<%= badge %>"></span>
         </div>
     </div>
-    <h5 class="platform-tile-title dogTagBody">something</h5>    
     <div class="row" style="">
-        <div class="col-sm-12" style="">
-            <ul style="list-style-type:none;">                               
-                <li><div class="col-xs-1"></div>
-                    Coordinates:&nbsp;&nbsp;<%= assetCoordinates %></li> 
-                <li><div class="col-xs-1"></div>
-                    Deployment Date:&nbsp;&nbsp;<%= assetLaunchDateTime %></li> 
-            </ul>
+        <div class="col-sm-6" style="">
+
+            <dl class="dl-horizontal">
+              <dt>Asset Name:</dt>
+              <dd><%= assetName %></dd>
+
+              <dt>Asset Owner:</dt>
+              <dd><%= assetOwner %></dd>              
+              
+              <dt>AssetSerialNumber:</dt>
+              <dd><%= assetSerialNumber %></dd>
+              
+              <dt>Asset Model Number:</dt>
+              <dd><%= assetModelNumber %></dd>
+              
+              <dt>Asset Manufacturer:</dt>
+              <dd><%= assetManufacturer %></dd>
+                            
+            </dl>            
+        </div>
+
+        <div class="col-sm-6" style="">
+            <dl class="dl-horizontal">              
+              <dt>Coordinates:</dt>
+              <dd><%= model.get('coordinates') %></dd>
+
+              <dt>Asset Launch Date:</dt>
+              <dd><%= assetLaunchDateTime %></dd>
+
+              <dt>Asset Classification:</dt>
+              <dd><%= assetSeriesClassifiction %></dd>
+
+              <dt>Asset Description:</dt>
+              <dd><%= assetDescription %></dd>
+              
+             
+            </dl>            
         </div>
     </div>
+
+    <h5 class="platform-tile-title dogTagBody"></h5>    
 </div>
 
 <!--Modal-->
