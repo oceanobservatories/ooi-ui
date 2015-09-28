@@ -280,7 +280,7 @@ var AssetItemView = Backbone.View.extend({
         "use strict";
         this.remove();
         this.unbind();
-        this.model.offi();
+        this.model.off();
     },
     render: function() {
         "use strict";
@@ -366,6 +366,7 @@ var StreamItemView = Backbone.View.extend({
         this.remove();
         this.unbind();
         this.model.off();
+
     },
     render: function() {
         "use strict";
