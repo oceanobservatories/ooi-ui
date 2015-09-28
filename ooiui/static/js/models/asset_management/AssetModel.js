@@ -1,4 +1,3 @@
-"use strict";
 /*
  * ooiui/static/js/models/science/AssetModel.js
  * Model definitions for Instrument Deployments
@@ -37,6 +36,7 @@ var AssetModel = Backbone.Model.extend({
         seriesClassification: null
   	},
     toJSON: function() {
+        "use strict";
         var attrs = _.clone(this.attributes);
         attrs.assetId = attrs.id;
         return attrs;
@@ -47,6 +47,7 @@ var AssetCollection = Backbone.Collection.extend({
     url: '/api/asset_deployment',
     model: AssetModel,
     parse: function(response) {
+        "use strict";
         if (response) {
             this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt });
             return response.assets;
@@ -54,8 +55,9 @@ var AssetCollection = Backbone.Collection.extend({
         return [];
     },
     byClass: function(classType) {
+        "use strict";
         var filtered = this.filter(function (asset) {
-            if ( asset.get('ref_des') != "") {
+            if ( asset.get('ref_des') !== "") {
                 return asset.get('asset_class') === classType;
             }
         });
