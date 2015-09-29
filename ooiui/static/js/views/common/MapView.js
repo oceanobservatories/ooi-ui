@@ -170,13 +170,17 @@ var MapView = Backbone.View.extend({
   add_glider_tracks: function(){
     var self = this;
     //this.gliderCollection
+
+
+
     var gliderTrackStyle = {
       "color": "#ff7800",
       "weight": 5,
       "opacity": 0.65
     };
 
-    self.gliderCollection.each(function(model,i) {      
+    self.gliderCollection.each(function(model,i) {  
+      gliderTrackStyle.color = (self.getRandomColor());
       var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});
       //popup
       var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
@@ -187,6 +191,40 @@ var MapView = Backbone.View.extend({
     });
 
 
+  },
+  getRandomColor:function(){
+    
+    var golden_ratio_conjugate = 0.618033988749895;
+    var h = Math.random();
+
+    var hslToRgb = function (h, s, l){
+        var r, g, b;
+
+        if(s == 0){
+            r = g = b = l; // achromatic
+        }else{
+            function hue2rgb(p, q, t){
+                if(t < 0) t += 1;
+                if(t > 1) t -= 1;
+                if(t < 1/6) return p + (q - p) * 6 * t;
+                if(t < 1/2) return q;
+                if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            }
+
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+        }
+
+        return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+    };
+    
+    h += golden_ratio_conjugate;
+    h %= 1;
+    return hslToRgb(h, 0.5, 0.60);
   },
   //deprecated i think
   update_track_glider: function(reference_designator,show_track){
