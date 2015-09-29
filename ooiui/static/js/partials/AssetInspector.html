@@ -17,6 +17,7 @@
             <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
             <li role="presentation"><a href="#metaData" aria-controls="metaData" data-toggle="tab">Metadata</a></li>
             <li role="presentation"><a href="#assetAquisitionInfo" aria-controls="assetAquisitionInfo" data-toggle="tab">Aquisition Data</a></li>
+            <li role="presentation"><a href="#remoteDocuments" aria-controls="assetDocuments" data-toggle="tab">Documents</a></li>
         </ul>
         <!-- tab-panes -->
         <div class="tab-content">
@@ -64,6 +65,26 @@
                         <tr>
                             <td><%= row.key %></td>
                             <td><%= row.value %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="remoteDocuments">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Document</th>
+                            <th id="remoteDocDownload">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(metaData, function(row) { %>
+                        <tr>
+                            <td><%= row.key %></td>
+                            <td><%= row.value %></td>
+                            <td align="center"><a href="#"><i class="fa fa-download"></i></a></td>
                         </tr>
                         <% }); %>
                     </tbody>

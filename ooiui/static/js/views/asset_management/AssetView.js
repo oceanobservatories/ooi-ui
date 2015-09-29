@@ -214,7 +214,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
         manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
         manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
         manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
-
+var remoteDocuments = [];
         // The metaData field is very loosly defined.  These are the only
         // field supported for asset creation at this time.
         var metaData = [
