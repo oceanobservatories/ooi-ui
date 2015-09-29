@@ -104,7 +104,7 @@ color: #000;
 }
 
 .btn-success {
-  background-image: linear-gradient(to bottom, #4fd934, #298c29);
+  background-image: linear-gradient(to bottom, #4fd934, #55D98C);
   background-color: #4fd934;
   color: #FFF;
   line-height: .9;
@@ -116,7 +116,7 @@ color: #000;
   text-decoration: none;
 }
 .btn-success:hover {
-  background-color: #398439;  
+  background-color: #00EA00;  
   background-position: 0 -15px;  
   color: #333;
   text-decoration: none;
@@ -254,7 +254,7 @@ th.picker-switch {
   text-decoration: none;
 }
 button.btn.btn-success.dropdown-toggle {
-  background-image: linear-gradient(to bottom, #4fd934, #298c29);
+  background-image: linear-gradient(to bottom, #4fd934, #55D98C);
   line-height: 1;
 }
 
