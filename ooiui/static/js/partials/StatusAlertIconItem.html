@@ -12,64 +12,56 @@
 <% var badge = 'status-badge status-badge-'+model.get('event_type') %>
 
 <!-- If statement to display Manufacturer Informantion -->
-<% manufacturerInfo = model.get('manufactureInfo') %>
-<% var assetSerialNumber = "N/A" %>
-<% var assetModelNumber = "N/A" %>
-<% var assetManufacturer = "N/A" %>
-<% var assetCoordinates = "N/A" %>
-<% var assetSeriesClassifiction = "N/A" %>
-<% var assetName = "N/A" %>
-<% var assetOwner = "N/A" %>
-<% var assetDescription = "N/A" %>
-<% var assetLaunchDateTime = "N/A" %>
+<% var assetSerialNumber= model.get('serialNumber') || "N/A" %>
+<% var assetModelNumber =  model.get('modelNumber') || "N/A" %>
+<% var assetManufacturer= model.get('macufacturer') || "N/A" %>
+<% var assetClass       = model.get('owner') || "N/A" %>
+<% var assetName        = model.get('name') || "N/A" %>
+<% var assetOwner       = model.get('owner') || "N/A" %>
+<% var assetDescription =  model.get('description') || "N/A" %>
 
 <!-- Dog Tag Buttons -->  
 <div class="<%= panelBG %>" style='cursor:pointer;' data-toggle="modal" data-target="#myModal<%= asset %>">
     <div class="row" style="">
         <div class="col-sm-8">                  
-            <h5 class="dogTagHeader"><%= model.get('reference_designator') %></h5>
-            <small><%= model.get('asset_type') %></small>
+            <h5 class="dogTagHeader"><%= model.get('reference_designator') %><small><%= model.get('asset_type') %></small></h5>            
         </div>
         <div class="col-sm-2 pull-right" style="margin-top:5px; margin-right:20px; padding-right: 0px;padding-left: 0px;">
             <span class="<%= badge %>"></span>
         </div>
     </div>
     <div class="row" style="">
+        <dt>Asset Name:</dt>
+        <dd><%= assetName %></dd>
+
+        <dt>Coordinates:</dt>
+        <dd><%= model.get('coordinates') %></dd>
         <div class="col-sm-6" style="">
 
-            <dl class="dl-horizontal">
-              <dt>Asset Name:</dt>
-              <dd><%= assetName %></dd>
-
+            <dl class="dl-horizontal">              
+              
               <dt>Asset Owner:</dt>
               <dd><%= assetOwner %></dd>              
               
-              <dt>AssetSerialNumber:</dt>
+              <dt>Asset Serial Number:</dt>
               <dd><%= assetSerialNumber %></dd>
-              
-              <dt>Asset Model Number:</dt>
-              <dd><%= assetModelNumber %></dd>
-              
-              <dt>Asset Manufacturer:</dt>
-              <dd><%= assetManufacturer %></dd>
-                            
+    
+              <dt>Asset Description:</dt>
+              <dd><%= assetDescription %></dd>     
             </dl>            
         </div>
 
         <div class="col-sm-6" style="">
             <dl class="dl-horizontal">              
-              <dt>Coordinates:</dt>
-              <dd><%= model.get('coordinates') %></dd>
-
-              <dt>Asset Launch Date:</dt>
-              <dd><%= assetLaunchDateTime %></dd>
-
-              <dt>Asset Classification:</dt>
-              <dd><%= assetSeriesClassifiction %></dd>
-
-              <dt>Asset Description:</dt>
-              <dd><%= assetDescription %></dd>
               
+              <dt>Asset Classification:</dt>
+              <dd><%= assetClass %></dd>      
+
+              <dt>Asset Manufacturer:</dt>
+              <dd><%= assetManufacturer %></dd>
+
+              <dt>Asset Model Number:</dt>
+              <dd><%= assetModelNumber %></dd>
              
             </dl>            
         </div>
@@ -127,11 +119,7 @@
                     <div class="row">
                         <div class="col-md-12">
                            
-                            <ul style="list-style-type:none;">                               
-                                <li><div class="col-xs-1"></div>
-                                    Coordinates:&nbsp;&nbsp;<%= assetCoordinates %></li> 
-                                <li><div class="col-xs-1"></div>
-                                    Deployment Date:&nbsp;&nbsp;<%= assetLaunchDateTime %></li> 
+                            <ul style="list-style-type:none;">                                                              
                             </ul>
                         </div>
                     </div>

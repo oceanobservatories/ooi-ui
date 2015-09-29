@@ -16,6 +16,14 @@
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
   },
   template: JST['ooiui/static/js/partials/StatusAlert.html'],
+  deselectAll:function(){
+    this.pageableGrid.clearSelectedModels();
+    
+    this.pageableGrid.collection.each(function (model, i) {
+      model.trigger("backgrid:select", model, false);
+    });
+    
+  },
   render:function(options){
     var self = this;
 
@@ -38,9 +46,10 @@
 
     var ClickableRow = Backgrid.Row.extend({
       events: {
-        "click": "onClick"
+        "click": "onClick",
       },
-      onClick: function () {
+      onClick: function () {                
+        this.model.trigger("backgrid:select", this.model,true);
         ooi.trigger('statusTable:rowSelected',this.model);
       }
     });
@@ -62,8 +71,13 @@
 
     var columns = [
       {
-        name: "reference_designator",
-        label: "Reference Designator",        
+        name: "Quick View",
+        cell: "select-row",
+        editable: false,
+      },
+      {
+        name: "longName",
+        label: "Name",        
         cell: "string",
         editable: false,
       },
@@ -119,7 +133,7 @@
     */
 
     // Set up a grid to use the pageable collection
-    var pageableGrid = new Backgrid.Grid({
+    self.pageableGrid = new Backgrid.Grid({
       row: ClickableRow,
       columns: columns,
       collection: pageableCollection
@@ -130,12 +144,24 @@
       collection: pageableCollection
     });
 
-    
+    var filter = new Backgrid.Extension.ClientSideFilter({
+      collection: pageableCollection,
+      fields: ['longName']
+    });    
+
+    // Render the filter
+    this.$el.find("#sampleTable").before(filter.render().el);
+
+    // Add some space to the filter and move it to the right
+    $(filter.el).css({float: "right", margin: "20px", "margin-top": "5px"});    
+
+    // Render the paginator    
+    this.$el.find("#sampleTable").before(paginator.render().el);
 
     // Render the grid and attach the root to your HTML document
-    this.$el.find("#sampleTable").append(pageableGrid.render().el);    
-    // Render the paginator    
-    this.$el.find("#sampleTable").append(paginator.render().el);
+    this.$el.find("#sampleTable").append(self.pageableGrid.render().el);  
+    
+    
 
     }     
 });

@@ -24,23 +24,13 @@
     <div id="navbar" class="row"></div>
   </div>
 
-  <div id="wrapper">
+  <div id="wrapper" style="padding-left:0px">
   <div id="page-content-wrapper">
   <div class="container-fluid">
-    {% block sidebar %}
-      {{ super() }}
-    {% endblock %}
     <div class="row">
       <div class="col-lg-12">
         <div id="aa-panel" class="panel">
           <div id="aa-panel-body" class="panel-body">
-            <!--
-            <div class="col-sm-12" id="toc_breadcrumb" style='font-weight:bold;padding-top:35px;'>
-              Something something dark side.....
-              <i id="missingLL">0</i>
-              <i id="current_selection" style="color:#337ab7"></i>
-            </div> 
-            -->
             <div class="row" style="">
 
               <div class="col-md-3">
@@ -50,17 +40,8 @@
                 </ul>
               </div>
 
-              <div class="col-md-4" style="display:none">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                  </span>
-                </div><!-- /input-group -->
-              </div>
-
               <div class="col-md-9">
-                <ul class="nav nav-pills pull-right">
+                <ul class="nav nav-pills pull-left">
                   <li><h5>Filter By Severity:&nbsp;&nbsp;</h5></li>
                   <li role="presentation" for="all" class="action-option active"><a href="#">All</a></li>
                   <li role="presentation" for="alert" class="action-option"><a href="#">Alert</a></li> 
@@ -68,16 +49,6 @@
                   <li role="presentation" for="inactive" class="action-option"><a href="#">Healthy</a></li>              
                   <li role="presentation" for="unknown" class="action-option"><a href="#">Unknown</a></li>              
                 </ul>
-              </div>
-            </div>
-
-            <div id="progress-container">
-              <hr style="margin-bottom:2px; margin-top:10px">
-              <div class="progress status-progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                  <span class="sr-only"></span>
-                </div>
               </div>
             </div>
 
@@ -107,10 +78,6 @@
               <div id='statusMap' class="col-sm-12" style="display:none">
               </div>
 
-              <!--
-              <div id='statusMap' class="col-sm-8" style="">
-              </div>              
-              -->
             </div>
           </div>
         </div>
@@ -197,23 +164,15 @@
         this.listenTo(this, 'toc:selectStream', function(options) {          
           //console.log(options);
         });
-        
-        this.listenTo(this, 'progress:update', function(options) {          
-            var progress = $('.status-progress .progress-bar');
-            progress.attr("aria-valuenow",options.progress);
-            progress.css("width",options.progress.toString()+"%");
-            if (options.progress>98){
-              $('#progress-container').fadeOut('fast');
-            }
-        });
 
-        this.listenTo(this, 'statusTable:rowSelected', function(model) {           
+        this.listenTo(this, 'statusTable:rowSelected', function(model) {         
           self.views.statusAlertIconView.initialRender();          
           self.collections.selectedStatusAlertsList.add(model);
           self.views.statusAlertIconView.render();
         });
 
         $('#resetStatusIconList').click(function(e) {
+          self.views.statusAlertTableView.deselectAll();
           self.views.statusAlertIconView.initialRender();          
           self.collections.selectedStatusAlertsList.reset();
           self.views.statusAlertIconView.render();
@@ -225,9 +184,6 @@
           var currentselected = $('.action-option.active')
                    
           if (currentselected.attr('for') != newselected.attr('for')){
-            $('#progress-container').css('display','');
-            $('.status-progress .progress-bar').css('width','0%');
-            $('.status-progress .progress-bar').attr('aria-valuenow','0');
 
             currentselected.removeClass('active');
             newselected.addClass('active');
@@ -238,15 +194,11 @@
 
             self.views.statusAlertTableView.collection = filteredList;
             self.views.assetMapView.collection = filteredList;
-            //
-            ooi.trigger("progress:update",{"progress":25});
-            self.views.statusAlertTableView.render();      
-            ooi.trigger("progress:update",{"progress":50});      
-            ooi.trigger("progress:update",{"progress":75});
+            //            
+            self.views.statusAlertTableView.render();                            
             //
             self.views.assetMapView.clearStations(); 
-            self.views.assetMapView.addStations();
-            ooi.trigger("progress:update",{"progress":100});
+            self.views.assetMapView.addStations();            
           }
         });
 
@@ -256,16 +208,26 @@
 
         //RE-RENDER TABLE and map
         $.when(assetInfoFetch, statusAlertsFetch).done(function() {
-          var filteredList = self.collections.statusAlertsList.sortByStatus('all');          
+          var filteredList = self.collections.statusAlertsList.sortByStatus('all');
+
+          var resetAvailable = false;
+          if (filteredList.length<2){
+            filteredList = self.collections.statusAlertsList.sortByStatus('unknown');                        
+            resetAvailable = true;
+          }
+                   
           self.views.statusAlertTableView.collection = filteredList;
           self.views.assetMapView.collection = filteredList
           //
           self.views.statusAlertTableView.render();
           //render the stations
           self.views.assetMapView.clearStations(); 
-          self.views.assetMapView.addStations();          
-          //       
-          ooi.trigger("progress:update",{"progress":100});
+          self.views.assetMapView.addStations(); 
+
+          if (resetAvailable){
+            $( ".action-option[for='unknown'] a" ).click();
+          }           
+                           
         });
         
         $('.view-option').on( "click", function(evt) {
@@ -311,40 +273,6 @@
         this.listenTo(this, "login:logout", this.onLogout);
 
       }
-      /*
-      getStatusFor:function(status_type,options){
-        var self = this;
-        console.log(status_type,options);
-
-        if (status_type == "instrument"){
-          //gets the first one
-          var ref_collection = self.collections.triggeredAlertsList.findWhere({reference_designator: options.get('ref_des')});
-          self.views.assetMapView.addStation(options,ref_collection);
-        }else if (status_type == "array"){
-          //TODO NOT READY YET
-          return;
-          var arrayMapping = {"CP":new L.LatLngBounds([[42,-74],[36,-65]]),
-                              "CE":new L.LatLngBounds([[48,-133],[42,-123]])     
-                              }
-
-
-          var mapping = arrayMapping[options.get('array_code')]
-
-          var coors = [[
-                        [mapping.getNorthWest().lng,mapping.getNorthWest().lat],
-                        [mapping.getNorthEast().lng,mapping.getNorthEast().lat],
-                        [mapping.getSouthEast().lng,mapping.getSouthEast().lat],
-                        [mapping.getSouthWest().lng,mapping.getSouthWest().lat],
-                      ]]
-
-
-          options.set('geo_location.coordinates', coors);
-
-          self.views.assetMapView.renderGeographicStatus(options,ref_collection);
-        }
-
-      }
-      */
     });
 
     // controller for our model collections
