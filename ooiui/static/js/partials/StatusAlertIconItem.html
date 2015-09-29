@@ -14,6 +14,7 @@
 <!-- If statement to display Manufacturer Informantion -->
 <% var assetSerialNumber= model.get('serialNumber') || "N/A" %>
 <% var assetModelNumber =  model.get('modelNumber') || "N/A" %>
+<% var longName =  model.get('longName') || "N/A" %>
 <% var assetManufacturer= model.get('macufacturer') || "N/A" %>
 <% var assetClass       = model.get('owner') || "N/A" %>
 <% var assetName        = model.get('name') || "N/A" %>
@@ -24,21 +25,26 @@
 <div class="<%= panelBG %>" style='cursor:pointer;' data-toggle="modal" data-target="#myModal<%= asset %>">
     <div class="row" style="">
         <div class="col-sm-8">                  
-            <h5 class="dogTagHeader"><%= model.get('reference_designator') %><small><%= model.get('asset_type') %></small></h5>            
+            <small><%= model.get('asset_type') %></small>
+            <h5 class="dogTagHeader"><%= model.get('reference_designator') %></h5>            
         </div>
         <div class="col-sm-2 pull-right" style="margin-top:5px; margin-right:20px; padding-right: 0px;padding-left: 0px;">
             <span class="<%= badge %>"></span>
         </div>
     </div>
-    <div class="row" style="">
+    <div class="row" style="margin-left: 0px;margin-right: 0px;">
+        <dt>Long Name:</dt>
+        <dd><%= longName %></dd>
+
         <dt>Asset Name:</dt>
         <dd><%= assetName %></dd>
-
-        <dt>Coordinates:</dt>
-        <dd><%= model.get('coordinates') %></dd>
+       
         <div class="col-sm-6" style="">
 
-            <dl class="dl-horizontal">              
+            <dl class="dl-horizontal dogTagTextSmaller">              
+
+              <dt>Coordinates:</dt>
+              <dd><%= model.get('coordinates') %></dd>  
               
               <dt>Asset Owner:</dt>
               <dd><%= assetOwner %></dd>              
@@ -52,7 +58,7 @@
         </div>
 
         <div class="col-sm-6" style="">
-            <dl class="dl-horizontal">              
+            <dl class="dl-horizontal dogTagTextSmaller">              
               
               <dt>Asset Classification:</dt>
               <dd><%= assetClass %></dd>      

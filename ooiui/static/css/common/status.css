@@ -122,8 +122,6 @@ BG
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
-
-
 #resetStatusIconList{
     
 }
@@ -372,7 +370,7 @@ BG
 .dogTagBtn {
     margin: 10px;
     padding: 0px;
-    height: 200px;
+    /*height: 200px;*/
     width: 160px;
     vertical-align: top;
     text-align: center;
@@ -449,6 +447,10 @@ BG
 .dogTagBody {
     font-size: 10px;
     font-weight: 400;
+}
+
+.dogTagTextSmaller{
+    font-size: 10px;
 }
 
 /*Pop Over*/
