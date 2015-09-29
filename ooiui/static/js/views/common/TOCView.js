@@ -36,44 +36,46 @@ var TOCView = Backbone.View.extend({
         "use strict";
         // create a model for each item in the collection, and based on it's class,
         // render it in the browser as a platform or instrument.
-        var filteredPlatforms = this.assetCollection.byClass('.AssetRecord');
-        var filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord');
-        var log = [];
+        var filteredPlatforms = this.assetCollection.byClass('.AssetRecord'),
+            filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord'),
+            log = [],
+            arrayCode,
+            assetItemView,
+            arrayTarget,
+            platformCode,
+            platformTarget;
         filteredPlatforms.map(function(model) {
             try {
                 // get the array code from the reference designator
-                var arrayCode = model.get('ref_des').substr(0,2);
+                arrayCode = model.get('ref_des').substr(0,2);
                 // set the target to where this item will be inserted.
-                var arrayTarget = '#array_'+ arrayCode;
+                arrayTarget = '#array_'+ arrayCode;
                 if ( document.getElementById( model.get('ref_des').substring(0,14)) === null ) {
-                    // TODO: Remove this - only for 08/17/2015 demo: M@C
-                    if ( model.get('ref_des').indexOf('-0000') < -1 ) {
-                        var assetItemView = new AssetItemView({ model:model });
-                        $( arrayTarget ).append( assetItemView.render().el );
-                    }
+                    assetItemView = new AssetItemView({ model:model });
+                    $( arrayTarget ).append( assetItemView.render().el );
                 }
             } catch(e) {
-                //log.push("Platform with invalid reference designator:" + model.get('id'));
-                //console.log(e);
+                log.push("Platform with invalid reference designator:" + model.get('id'));
+                console.log(e);
             }
         });
 
         filteredInstruments.map(function(model) {
             try {
                 if ( document.getElementById(model.get('ref_des')) === null ) {
-                    var platformCode = model.get('ref_des').substr(0,14);
+                    platformCode = model.get('ref_des').substr(0,14);
                     // set the target to where this item will be inserted.
 
                     if ( document.getElementById(platformCode) === null ) {
                         platformCode = model.get('ref_des').substr(0,8);
                     }
-                    var platformTarget = 'ul#'+platformCode;
-                    var assetItemView = new AssetItemView({ model:model });
+                    platformTarget = 'ul#'+platformCode;
+                    assetItemView = new AssetItemView({ model:model });
                     $( platformTarget ).append( assetItemView.render().el );
                 }
             }catch (e) {
-                //log.push("Instrument with invalid reference designator:" + model.get('id'));
-                //console.log(e);
+                log.push("Instrument with invalid reference designator:" + model.get('id'));
+                console.log(e);
             }
         });
         if (log.length > 0) {
@@ -84,20 +86,18 @@ var TOCView = Backbone.View.extend({
     renderStreams: function(e) {
         "use strict";
         if ( this.streamCollection !== undefined ) {
+            var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode;
             this.streamCollection.map( function(model) {
                 try {
-                    var homelessStreamItem = '';
-                    var instrumentCode = model.get('reference_designator');
-                    var streamName = model.get('stream_name');
-                    var instrumentTarget = '';
-                    var streamItemView = '';
+                    instrumentCode = model.get('reference_designator');
+                    streamName = model.get('stream_name');
                     /* Not all streams have physical instruments, so the asset list won't
                      * render the streams.  If there are streams that have been detached
                      * from their instrument / platform, we'll need to append a 'logical'
                      * tree for the streams to live.*/
                     if ( document.getElementById(instrumentCode) === null ){
-                        var arrayCode = model.get('reference_designator').substring(0,2);
-                        var platformCode = model.get('reference_designator').substring(0,14);
+                        arrayCode = model.get('reference_designator').substring(0,2);
+                        platformCode = model.get('reference_designator').substring(0,14);
                         if ( document.getElementById(platformCode) === null ) {
                             //platform
                             model.attributes.asset_class = '.AssetRecord';
@@ -286,7 +286,7 @@ var AssetItemView = Backbone.View.extend({
         "use strict";
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
-        var assName, platformName, platformId, label, instrumentId = '';
+        var assName, platformName, platformId, label, instrumentId, instrumentName;
         if (this.model.get('asset_class') === '.AssetRecord') {
             platformName = this.model.get('assetInfo').name;
             platformId = this.model.get('ref_des').substr(0,8);
@@ -296,7 +296,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('class', 'platform');
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            label = (platformName === undefined) ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
+            label = (platformName === '') ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assName +'" class="nav nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
@@ -305,7 +305,7 @@ var AssetItemView = Backbone.View.extend({
             instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
-            label = (instrumentName === undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
+            label = (instrumentName === '') ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
@@ -315,14 +315,14 @@ var AssetItemView = Backbone.View.extend({
 var HomelessStreamItemView = AssetItemView.extend({
     render: function() {
         "use strict";
-        var platformId, platformName, label, instrumentId, instrumentName = '';
+        var platformId, platformName, label, instrumentId, instrumentName;
         if ( this.model.get('asset_class') === '.AssetRecord' ) {
             this.model.set('ref_des', this.model.get('reference_designator'));
             platformId = this.model.get('reference_designator').substr(0,14);
             this.$el.attr('id', platformId);
             platformName = this.model.get('platform_name');
             this.$el.attr('class', 'platform detached');
-            label = (platformName === undefined) ? platformId : '<span>' + platformName + '</span> | <font>' + platformId.substr(0,8)+'</span>';
+            label = (platformName === '') ? platformId : '<span>' + platformName + '</span> | <font>' + platformId.substr(0,8)+'</span>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
         }
         if ( this.model.get('asset_class') === '.InstrumentAssetRecord' ) {
@@ -331,7 +331,7 @@ var HomelessStreamItemView = AssetItemView.extend({
             instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
-            label = (instrumentName === undefined) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
+            label = (instrumentName === '') ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
         return this;
