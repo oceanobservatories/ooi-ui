@@ -17,6 +17,10 @@
   },
   template: JST['ooiui/static/js/partials/StatusAlert.html'],
   deselectAll:function(){
+
+    this.filter.searchBox().val("");
+    this.filter.search();
+
     this.pageableGrid.clearSelectedModels();
     
     this.pageableGrid.collection.each(function (model, i) {
@@ -79,6 +83,7 @@
         name: "Quick View",
         cell: "select-row",
         editable: false,
+        headerCell: "select-all",
       },
       {
         name: "longName",
@@ -149,7 +154,7 @@
       collection: pageableCollection
     });
 
-    var filter = new Backgrid.Extension.ClientSideFilter({
+    self.filter = new Backgrid.Extension.ClientSideFilter({
       collection: pageableCollection,
       placeholder: "Search...",
       fields: ['longName'],
@@ -157,10 +162,10 @@
     });    
 
     // Render the filter
-    this.$el.find("#sampleTable").before(filter.render().el);
+    this.$el.find("#sampleTable").before(self.filter.render().el);
 
     // Add some space to the filter and move it to the right
-    $(filter.el).css({float: "right", margin: "20px", "margin-top": "5px"});    
+    $(self.filter.el).css({float: "right", margin: "20px", "margin-top": "5px"});    
 
     // Render the paginator    
     this.$el.find("#sampleTable").before(paginator.render().el);
@@ -168,7 +173,7 @@
     // Render the grid and attach the root to your HTML document
     this.$el.find("#sampleTable").append(self.pageableGrid.render().el);  
     
-    
+    this.$el.find('#sampleTable > table > thead > tr > th.select-all-header-cell').css('visibility','hidden');
 
     }     
 });
