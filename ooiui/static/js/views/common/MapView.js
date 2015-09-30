@@ -37,7 +37,7 @@ var MapView = Backbone.View.extend({
                          "irminger":"Irminger Sea",
                          "argentine":"Argentine Basin",
                          "southern":"Southern Ocean"
-                        }
+                        };
 
     self.arrayCodes =   {
                          "CP":"Coastal Pioneer",
@@ -46,7 +46,7 @@ var MapView = Backbone.View.extend({
                          "GI":"Irminger Sea",
                          "GA":"Argentine Basin",
                          "GS":"Southern Ocean"
-                        }
+                        };
 
     self.arrayLinks =   {
                          "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
@@ -55,7 +55,7 @@ var MapView = Backbone.View.extend({
                          "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
                          "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
                          "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
-                        }
+                        };
 
     self.arrayMapping = {"pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
                          "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
@@ -63,7 +63,7 @@ var MapView = Backbone.View.extend({
                          "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
                          "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
                          "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])
-                        }
+                        };
 
     self.sizeMapping = {"pioneer":[200,300],
                          "endurance":[200,400],
@@ -71,7 +71,7 @@ var MapView = Backbone.View.extend({
                          "irminger":[200,250],
                          "argentine":[200,250],
                          "southern":[200,250]
-                        }
+                        };
 
 
     this.map = L.map(this.el,{
@@ -130,7 +130,7 @@ var MapView = Backbone.View.extend({
                           transparent: true,
                           time: moment(nearNow).format()
                         }
-                      ]
+                      ];
 
     var wmsLayers = {}
     $.each(layerParams, function( index, value ) {
@@ -189,11 +189,11 @@ var MapView = Backbone.View.extend({
       var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});
       //popup
 
-      var glName     = model.get('name').split('-')[1].substring(2)
+      var glName     = model.get('name').split('-')[1].substring(2);
       var glLocation = model.get('name').split('-')[0].substring(0,2);      
-      var gliderText = "Glider " + glName  
+      var gliderText = "Glider " + glName  ;
       
-      var glPosition = model.get('coordinates').slice(-1).pop()
+      var glPosition = model.get('coordinates').slice(-1).pop();
 
       var processedDepths = _.map(model.get('depths'), function(num){ 
                                     if (num == -999){
@@ -227,7 +227,7 @@ var MapView = Backbone.View.extend({
       //bind
       gliderTrackLayer.bindPopup(popupContent);
       //add
-      self.gliderLayers.addLayer(gliderTrackLayer)
+      self.gliderLayers.addLayer(gliderTrackLayer);
     });
 
 
