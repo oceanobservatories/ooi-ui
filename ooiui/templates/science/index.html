@@ -143,11 +143,10 @@ var mapView = new MapView({
     el: $('#map')
 });
 
-//when the glider fetch is done update the map
-mapView.gliderCollection = gliderCollection;
-mapView.add_glider_tracks();
-
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+    //when the glider fetch is done update the map
+    mapView.gliderCollection = gliderCollection;
+    mapView.add_glider_tracks();
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');

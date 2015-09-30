@@ -45,7 +45,6 @@
         longName;
     self.collection.each(function(model,i){
         model.set('longName',  (!_.isUndefined(model.get('longName'))) ? model.get('longName') : model.get('reference_designator'));
-        console.log(model.get('longName'));
         pageableCollection.add(model)
 
     });
