@@ -14,6 +14,7 @@
   <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
   <!-- lunr also requires a script tag -->
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+  <script src="/js/core/table/jquery.tablesorter.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
@@ -51,12 +52,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         userModel: new UserModel(),
         mapModel: new MapModel()
     },
-    collections:{
-        gliderCollection: null
-    },
-    views:{
-        mapView:null
-    },
     start: function() {
         this.login.fetch({async:false});
         navbar = new NavbarView({
@@ -68,32 +63,14 @@ _.extend(OOI.prototype, Backbone.Events, {
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
 
-
-        self.collections.gliderCollection = new GliderTrackCollection();
-
-        // render out our views:
-        self.views.mapView = new MapView({
-            gliderCollection: self.collections.gliderCollection,
-            collection:assetCollection,
-            el: $('#map')
-        });
-
-        var gliderFetch = this.collections.gliderCollection.fetch({ reset: true });
-
-        $.when(gliderFetch).done(function() {           
-            //when the glider fetch is done update the map
-            self.views.mapView.gliderCollection = self.collections.gliderCollection;
-            self.views.mapView.add_glider_tracks();
-        });
-
         this.listenTo(this, "toc:selectArray", function(model) {
             var coors = model.get('geo_location')['coordinates'][0][0]
-            self.views.mapView.setMapView(coors,4); // recenters
+            mapView.setMapView(coors,4); // recenters
         });
 
         this.listenTo(this, "toc:selectPlatform", function(model) {
             var coors = model.get('coordinates');
-            self.views.mapView.setMapView(coors,10); // recenters
+            mapView.setMapView(coors,10); // recenters
 
             var css_display = $($('#'+model.get('ref_des')).find('.nav-list')[0]).css('display');
             var display = true;
@@ -103,7 +80,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 display = false;
             }
             //set the marker popup
-            self.views.mapView.selectMarker(model,"platform",display);
+            mapView.selectMarker(model,"platform",display);
         });
 
         this.listenTo(this, 'toc:selectInstrument', function(model) {
@@ -116,9 +93,10 @@ _.extend(OOI.prototype, Backbone.Events, {
             //self.views.mapView.selectMarker(options,"stream",true)
         });
 
-        this.listenTo(this, 'NavbarView:sidebarToggle', function() {
-            self.views.mapView.render();
-        });
+        //TOOD: Ask Matt C. why this doesn't do what we wanted.
+        //this.listenTo(this, 'NavbarView:sidebarToggle', function() {
+        //    mapView.render();
+        //});
 
         // Login stuff..
         if(!this.login.loggedIn()) {
@@ -148,6 +126,7 @@ var vent = _.extend({}, Backbone.Events);
 var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
+var gliderCollection    = new GliderTrackCollection();
 
 
 // url arguments
@@ -156,11 +135,22 @@ var data = { min : 'True' };
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ data: data,  reset: true });
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+var gliderFetch = gliderCollection.fetch({ reset: true });
+
+var mapView = new MapView({
+    gliderCollection: gliderCollection,
+    collection:assetCollection,
+    el: $('#map')
+});
+
+$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+    //when the glider fetch is done update the map
+    mapView.gliderCollection = gliderCollection;
+    mapView.add_glider_tracks();
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
-        //vent.trigger('toc:hideInstruments');
+        vent.trigger('toc:hideInstruments');
         focusToItem();
     });
 });
@@ -171,12 +161,25 @@ window.onresize = function(event) {
     resizeMap();
 }
 
-function resizeMap() {
+var resizeMap = function() {
     vpw = $(window).width();
     //keep the map the same height as the side bar..?
     vph = $('#sidebar-wrapper').height() - 5;
     $('#map').css({'height': vph + 'px'});
 }
+
+var applyPopupInst = function(){
+    var pageInstruments = assetCollection.byClass('.InstrumentAssetRecord'),
+        popupPlatformCode,
+        popupPlatformTarget,
+        popupAssetItemView;
+    pageInstruments.map(function(model) {
+        popupPlatformCode = model.get('ref_des').substr(0,14);
+        popupPlatformTarget = 'ul#map-'+popupPlatformCode;
+        popupAssetItemView = new AssetItemView({ model:model });
+        $( popupPlatformTarget ).append( popupAssetItemView.render().el );
+    });
+};
 
 // initialize our app object
 var ooi = new OOI();
@@ -194,7 +197,6 @@ $(document).ready(function() {
         var assetFetch = assetCollection.fetch();
         $.when(assetFetch).done(function() {
             $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                console.log('triggered');
                 vent.trigger('toc:cleanUp');
             });
         });
@@ -204,6 +206,10 @@ $(document).ready(function() {
         $('#search-clear').toggle(Boolean($('#search-filter').val()));
         updateCollection( showSearchResults );
     });
+    $('#map').on('popupopen', function() {
+            $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+    });
+
 });
 
 </script>
