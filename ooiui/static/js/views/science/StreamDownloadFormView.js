@@ -77,7 +77,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   show: function(options) {
     var model = options.model;
     var selection = options.selection;
-    console.log("SHOW", options.model.attributes);
+    // console.log("SHOW", options.model.attributes);
     this.model = model;
 
     var startDate = moment.utc(model.get('start')).toJSON();
@@ -93,6 +93,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
     this.$el.find('#type-select').val(selection);
     this.$el.find('#download-modal').modal('show');
+
+    // Update parameters dropdown
+    console.log('update selection tool')
+    $("#download-param-select").html($("#yvar0-select-default").html())
+    $('.selectpicker').selectpicker('refresh');
+
     return this;
   },
   hide: function() {

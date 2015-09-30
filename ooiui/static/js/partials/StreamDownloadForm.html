@@ -52,6 +52,25 @@
       </div> <!-- .col-md-12-->
 
       <div class="col-md-12">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="download-param-select">Select Parameter(s)</label>
+            <!-- <select data-width="100%" data-hide-disabled=true title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple id='download-param-select' class="form-control"> -->
+            <select data-width="100%" id='download-param-select' multiple title="Select" class="selectpicker toc-plotting-text">
+            </select>
+          </div> <!-- .form-group -->
+        </div> <!-- .col-md-6 -->
+        <div class="col-md-3">
+          <form role="form">
+            <div class="form-group">
+              <!-- <label for="plotting-enable-events">Select all</label> -->
+                <label><input style="position: absolute; bottom: 0;" type="checkbox" id="download-all" value="select-all"> Select All </label>
+            </div>
+          </form>
+        </div> <!-- .col-md-3 -->
+      </div> <!-- .col-md-12-->
+
+      <div class="col-md-12">
         <div class="col-md-8">
           <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
           <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
