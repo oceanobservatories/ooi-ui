@@ -83,7 +83,7 @@
         name: "Quick View",
         cell: "select-row",
         editable: false,
-        headerCell: "select-all",
+        headerCell: "select-all"        
       },
       {
         name: "longName",
@@ -154,12 +154,34 @@
       collection: pageableCollection
     });
 
-    self.filter = new Backgrid.Extension.ClientSideFilter({
+    var nameClientFilter = Backgrid.Extension.ClientSideFilter.extend({  
+      makeMatcher: function(query){        
+        var q = query;
+        return function (model) {
+            var toFilter = (_.uniq(model.get('longName').toLowerCase().split(' '))).join(' ');
+            var keys = _.uniq(query.toLowerCase().split(' '));
+            var valid = true;
+            
+            if (query.length > 1){
+              _.each(keys,function(key){
+                var idx = toFilter.indexOf(key);                
+                if (idx == -1){
+                  valid = false;
+                }              
+              });
+            }
+            //console.log(toFilter,keys,valid)
+            return valid;            
+        };        
+      }  
+    });
+
+    self.filter = new nameClientFilter({
       collection: pageableCollection,
       placeholder: "Search...",
       fields: ['longName'],
       wait: 150
-    });    
+    });
 
     // Render the filter
     this.$el.find("#sampleTable").before(self.filter.render().el);
