@@ -48,9 +48,14 @@
       events: {
         "click": "onClick",
       },
-      onClick: function () {                
-        this.model.trigger("backgrid:select", this.model,true);
-        ooi.trigger('statusTable:rowSelected',this.model);
+      onClick: function (ev) {                        
+        if ($(ev.target.parentElement).hasClass('selected')){
+          this.model.trigger("backgrid:select", this.model,false);
+          ooi.trigger('statusTable:rowDeselected',this.model);
+        }else{
+          this.model.trigger("backgrid:select", this.model,true);
+          ooi.trigger('statusTable:rowSelected',this.model);
+        }
       }
     });
 
@@ -146,7 +151,9 @@
 
     var filter = new Backgrid.Extension.ClientSideFilter({
       collection: pageableCollection,
-      fields: ['longName']
+      placeholder: "Search...",
+      fields: ['longName'],
+      wait: 150
     });    
 
     // Render the filter

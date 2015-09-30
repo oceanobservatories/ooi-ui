@@ -165,11 +165,19 @@
           //console.log(options);
         });
 
-        this.listenTo(this, 'statusTable:rowSelected', function(model) {         
+        this.listenTo(this, 'statusTable:rowSelected', function(model) {  
           self.views.statusAlertIconView.initialRender();          
           self.collections.selectedStatusAlertsList.add(model);
           self.views.statusAlertIconView.render();
         });
+
+        this.listenTo(this, 'statusTable:rowDeselected', function(model) {                    
+          self.collections.selectedStatusAlertsList.remove(model);
+          self.views.statusAlertIconView.initialRender();                    
+          self.views.statusAlertIconView.render();
+        });
+
+        
 
         $('#resetStatusIconList').click(function(e) {
           self.views.statusAlertTableView.deselectAll();
@@ -180,7 +188,7 @@
 
         this.listenTo(this, 'aafilter:changeTypeFilter', function(evt) { 
           $('#resetStatusIconList').click();
-          
+
           var newselected = $(evt.target).parent()
           var currentselected = $('.action-option.active')
                    
