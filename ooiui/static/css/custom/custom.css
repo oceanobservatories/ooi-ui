@@ -254,6 +254,7 @@ th.picker-switch {
   text-decoration: none;
 }
 button.btn.btn-success.dropdown-toggle {
+  background-color: #55D98C;
   background-image: linear-gradient(to bottom, #4fd934, #55D98C);
   line-height: 1;
 }
