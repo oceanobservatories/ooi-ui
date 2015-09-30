@@ -18,6 +18,7 @@ var LoginView = Backbone.View.extend({
   events: {
     'click #btnLogin' : "login",
     'keyup #passInput' : "keyUp",
+    'click #btnClose' : "closeBtn",
     'keypress #passInput' : 'keyPress',
     'hidden.bs.modal' : 'hidden'
   },
@@ -49,7 +50,9 @@ var LoginView = Backbone.View.extend({
     }
     this.attempts = 0; // Keep track of attempts
     this.isHidden = false; // Initially keep retrying
+    this.attemptsTotal = 3
   },
+
   login: function(e) {
     var self = this;
     e.preventDefault();
@@ -69,8 +72,18 @@ var LoginView = Backbone.View.extend({
     } else {
       console.log("no bueno amigo");
       this.attempts++;
+      this.attemptsRemaining = this.attemptsTotal - this.attempts;
       this.$el.find('.lgn-message').html('Username or Password are incorrect');
+      this.$el.find('.lgn-warning').html('You have '+this.attemptsRemaining+' attempts remaining.');
+      console.log("atemptRem "+this.attemptsRemaining);
+      console.log("atempt "+this.attempts);
       this.failure();
+
+      if(this.attemptsRemaining === 0) {
+        this.$el.find('#btnLogin').prop('disabled', true);
+      } else {
+        this.$el.find('#btnLogin').prop('disabled', false);
+      }
     }
   },
   hidden: function(e) {
@@ -99,12 +112,16 @@ var LoginView = Backbone.View.extend({
   },
   keyUp: function(e) {
     if($(e.target).val() == '') {
-       //If there is no text within the input then disable the button
-       this.$el.find('.enableOnInput').prop('disabled', true);
-     } else {
-       //If there is text in the input, then enable the button
-       this.$el.find('.enableOnInput').prop('disabled', false);
-     }
+      //If there is no text within the input then disable the button
+      this.$el.find('.enableOnInput').prop('disabled', true);
+    } else {
+      //If there is text in the input, then enable the button
+      this.$el.find('.enableOnInput').prop('disabled', false);
+      console.log("disabledAttempts  " +this.attempts);
+    }
+  },
+  closeBtn: function(e) {
+    this.initialize(); 
   },
   keyPress: function(e) {
     if(e.which == 13) {

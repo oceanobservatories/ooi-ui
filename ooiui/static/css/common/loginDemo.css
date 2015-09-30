@@ -127,7 +127,8 @@ button.question{
   border: 1px solid rgba(81, 203, 238, 1);
   background: 12px 11px no-repeat, #FFF;
 }
-.lgn-message {
+.lgn-message,
+.lgn-warning {
     color: #fd0404;
 }
 .dropdown-menu{
