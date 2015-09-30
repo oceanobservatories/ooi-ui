@@ -179,6 +179,7 @@
         });
 
         this.listenTo(this, 'aafilter:changeTypeFilter', function(evt) { 
+          $('#resetStatusIconList').click();
           
           var newselected = $(evt.target).parent()
           var currentselected = $('.action-option.active')
