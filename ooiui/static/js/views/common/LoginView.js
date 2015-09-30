@@ -52,7 +52,6 @@ var LoginView = Backbone.View.extend({
     this.isHidden = false; // Initially keep retrying
     this.attemptsTotal = 3
   },
-
   login: function(e) {
     var self = this;
     e.preventDefault();
@@ -75,27 +74,30 @@ var LoginView = Backbone.View.extend({
       this.attemptsRemaining = this.attemptsTotal - this.attempts;
       this.$el.find('.lgn-message').html('Username or Password are incorrect');
       this.$el.find('.lgn-warning').html('You have '+this.attemptsRemaining+' attempts remaining.');
-      console.log("atemptRem "+this.attemptsRemaining);
-      console.log("atempt "+this.attempts);
       this.failure();
 
+      if(this.attemptsRemaining === 2) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgba(194, 0, 0, 0.2)');
+      }      
+      if(this.attemptsRemaining === 1) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgba(194, 0, 0, 0.69)');
+      }
       if(this.attemptsRemaining === 0) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgb(228, 1, 1)');        
         this.$el.find('#btnLogin').prop('disabled', true);
         this.$el.find('#usrInput').prop('disabled', true);
         this.$el.find('#passInput').prop('disabled', true);
         this.$el.find('.lgn-message').html('You have exceeded your password attempts.');
         this.$el.find('.lgn-warning').html('');        
-      } else {
-        this.$el.find('#btnLogin').prop('disabled', false);
       }
     }
   },
   hidden: function(e) {
     console.log("hidden");
   },
-  /* Called when the user is successfully authenticated */
+    /* Called when the user is successfully authenticated */
   success: function() {
-    console.log("Success");
+    console.log("Success"); 
   },
   failure: function() {
     console.log("this failure");
