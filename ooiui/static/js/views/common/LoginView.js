@@ -81,6 +81,10 @@ var LoginView = Backbone.View.extend({
 
       if(this.attemptsRemaining === 0) {
         this.$el.find('#btnLogin').prop('disabled', true);
+        this.$el.find('#usrInput').prop('disabled', true);
+        this.$el.find('#passInput').prop('disabled', true);
+        this.$el.find('.lgn-message').html('You have exceeded your password attempts.');
+        this.$el.find('.lgn-warning').html('');        
       } else {
         this.$el.find('#btnLogin').prop('disabled', false);
       }
