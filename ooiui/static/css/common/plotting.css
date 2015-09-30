@@ -283,7 +283,7 @@ div#plotcontrols {
 }
 
 /*************************/
-/*8** Event Date/Time ****/
+/**** Event Date/Time ****/
 /*************************/
 div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
   width: auto;
@@ -331,7 +331,7 @@ tbody td {
   border-top: 1px solid #D1DAF5;
 }
 
-tbody tr:nth-child(2n) {
+tbody#eventScollable tr:nth-child(2n) {
   background-color: #F7F7F7;
   opacity: 0.8;
   border: 1px solid #D1DAF5;

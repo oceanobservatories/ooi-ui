@@ -557,13 +557,16 @@ var SVGPlotControlView = Backbone.View.extend({
   },
   xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();
-    if ( plotType == "" ) {
+    if ( plotType == "Select" ) {
         plotType = 'Time Series';
     }
-    console.log('xvar change')
+    // Hide the add plot button
     this.$el.find('#add-plot').css('display','none');
 
     if (plotType=="Time Series"){
+      if ($.trim($('#highcharts-view').html() ).length){
+        this.$el.find('#add-plot').css('display','');
+      };
       // this.$el.find('#add-plot').css('display','');
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.");
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -700,6 +703,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = this.$el.find('#xvar-select option:selected').text();
+
     if (data.plotType == 'Time Series'){
       this.$el.find('#add-plot').css('display','');
     }
@@ -754,11 +758,10 @@ var SVGPlotControlView = Backbone.View.extend({
 
     // var xvar = "time"
     if (xvar){
-      console.log(xvar)
       this.$el.find('#xvar-select').selectpicker('val', xvar);
     }
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
 
-    // this.xVarChange();
+    this.xVarChange();
   }
 });

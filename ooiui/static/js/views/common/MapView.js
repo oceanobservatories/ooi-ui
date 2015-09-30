@@ -1,106 +1,3 @@
-var TERRAIN = (function() {
-
-    var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-            grayscale   = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr}),
-        Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}),
-        Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13}),
-        Esri_WorldTerrain = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS', maxZoom: 13}),
-        NGDC_WorldTerrain = L.tileLayer('http://maps.ngdc.noaa.gov/arcgis/rest/services/web_mercator/etopo1_hillshade/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Hillshade visualization by J. Varner and E. Lim, CIRES, University of Colorado at Boulder and NOAA/NGDC.', maxZoom: 13}),
-
-        nearNow = new Date(),
-
-            layerParams = [
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"GFS WIND Model",
-                layers:"GFS_WINDS",
-                format: "image/png",
-                styles : "WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high",
-                transparent: true,
-                time: nearNow
-            },
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"Wave Watch III Model Waves",
-                styles: "",
-                layers:"WW3_WAVE_HEIGHT",
-                format: "image/png",
-                transparent: true,
-                time: nearNow
-            },
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"HYCOM Currents",
-                styles: "CURRENTS_RAMP-Jet-False-4-True-0-2-high",
-                layers:"HYCOM_GLOBAL_NAVY_CURRENTS",
-                format: "image/png",
-                transparent: true,
-                time: nearNow
-            }
-        ],
-
-
-        baseLayers = {
-            "ESRI Oceans": Esri_OceanBasemap,
-            "NGDC Bathymetry" : NGDC_WorldTerrain,
-            "ESRI Terrain": Esri_WorldTerrain,
-            "World Imagery" : Esri_WorldImagery,
-        };
-
-    return {
-        getBaseLayers : function(key) { return (key) ? baseLayers[key] : baseLayers; },
-        getLayerParams : function(key) { return (key) ? layerParams[key] : layerParams; }
-    };
-})();
-
-var ASSET_ARRAY = (function() {
-    var arrayTitle =   {
-            "pioneer":"Coastal Pioneer",
-            "endurance":"Endurance & Cabled Array",
-            "papa":"Station Papa",
-            "irminger":"Irminger Sea",
-            "argentine":"Argentine Basin",
-            "southern":"Southern Ocean"
-    },
-        arrayLinks =   {
-            "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
-            "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
-            "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
-            "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
-            "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
-            "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
-        },
-        arrayMapping = {
-            "pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
-            "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
-            "papa": new L.LatLngBounds([[52,-150],[46,-139]]),
-            "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
-            "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
-            "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])
-        },
-        sizeMapping = {
-            "pioneer":[200,300],
-            "endurance":[200,400],
-            "papa":[250,250],
-            "irminger":[200,250],
-            "argentine":[200,250],
-            "southern":[200,250]
-        };
-
-    return {
-        getArrayTitle :     function(key) { return (key) ? arrayTitle[key] : arrayTitle; },
-        getArrayLinks :     function(key) { return (key) ? arrayLinks[key] : arrayLinks; },
-        getArrayMapping :   function(key) { return (key) ? arrayMapping[key] : arrayMapping; },
-        getSizeMapping :    function(key) { return (key) ? sizeMapping[key] : sizeMapping; }
-    };
-})();
 var MapView = Backbone.View.extend({
     gliderCollection:null,
     initialize: function() {
@@ -233,6 +130,40 @@ var MapView = Backbone.View.extend({
         var gliderTrackLayer = L.geoJson(gliderTrackLine, {style: gliderTrackStyle});
         return gliderTrackLayer;
     },
+    getRandomColor:function(){
+
+        var golden_ratio_conjugate = 0.618033988749895;
+        var h = Math.random();
+
+        var hslToRgb = function (h, s, l){
+            var r, g, b;
+
+            if(s == 0){
+                r = g = b = l; // achromatic
+            }else{
+                function hue2rgb(p, q, t){
+                    if(t < 0) t += 1;
+                    if(t > 1) t -= 1;
+                    if(t < 1/6) return p + (q - p) * 6 * t;
+                    if(t < 1/2) return q;
+                    if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                    return p;
+                }
+
+                var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                var p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1/3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1/3);
+            }
+
+            return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+        };
+
+        h += golden_ratio_conjugate;
+        h %= 1;
+        return hslToRgb(h, 0.5, 0.60);
+    },
     //toc selected item
     selectMarker: function(select_model,type,show_popoup){
         var self = this;
@@ -255,7 +186,6 @@ var MapView = Backbone.View.extend({
         _.each(this.markerCluster.getLayers(), function(marker) {
             marker.closePopup();
         });
-
         //we only want to show popups on the expand
         if (show_popoup){
             //initial pass and open spider for popup
@@ -587,94 +517,163 @@ var MapView = Backbone.View.extend({
 });
 
 var OOICustomMarker = L.Marker.extend({
-
     bindPopup: function(htmlContent, options) {
-
         if (options && options.showOnMouseOver) {
-
             // call the super method
             L.Marker.prototype.bindPopup.apply(this, [htmlContent, options]);
-
             // unbind the click event
             this.off("click", this.openPopup, this);
-
             // bind to mouse over
             this.on("mouseover", function(e) {
-
                 // get the element that the mouse hovered onto
                 var target = e.originalEvent.fromElement || e.originalEvent.relatedTarget;
                 var parent = this._getParent(target, "leaflet-popup");
-
                 // check to see if the element is a popup, and if it is this marker's popup
                 if (parent == this._popup._container)
                     return true;
-
                 // show the popup
                 this.openPopup();
-
                 $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
             }, this);
-
             // and mouse out
             this.on("mouseout", function(e) {
-
                 // get the element that the mouse hovered onto
                 var target = e.originalEvent.toElement || e.originalEvent.relatedTarget;
-
                 // check to see if the element is a popup
                 if (this._getParent(target, "leaflet-popup")) {
-
                     L.DomEvent.on(this._popup._container, "mouseout", this._popupMouseOut, this);
                     return true;
-
                 }
-
                 // hide the popup
                 this.closePopup();
-
             }, this);
-
         }
-
     },
-
     _popupMouseOut: function(e) {
-
         // detach the event
         L.DomEvent.off(this._popup, "mouseout", this._popupMouseOut, this);
-
         // get the element that the mouse hovered onto
         var target = e.toElement || e.relatedTarget;
-
         // check to see if the element is a popup
         if (this._getParent(target, "leaflet-popup"))
             return true;
-
         // check to see if the marker was hovered back onto
         if (target == this._icon)
             return true;
-
         // hide the popup
         this.closePopup();
-
     },
-
     _getParent: function(element, className) {
-
         var parent = element.parentNode;
-
         while (parent !== null) {
-
             if (parent.className && L.DomUtil.hasClass(parent, className))
                 return parent;
-
             parent = parent.parentNode;
-
         }
-
         return false;
-
     }
-
 });
 
+var TERRAIN = (function() {
+
+    var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+            grayscale   = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr}),
+        Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}),
+        Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13}),
+        Esri_WorldTerrain = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS', maxZoom: 13}),
+        NGDC_WorldTerrain = L.tileLayer('http://maps.ngdc.noaa.gov/arcgis/rest/services/web_mercator/etopo1_hillshade/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Hillshade visualization by J. Varner and E. Lim, CIRES, University of Colorado at Boulder and NOAA/NGDC.', maxZoom: 13}),
+
+        nearNow = new Date(),
+
+            layerParams = [
+            {
+                url:"http://coastmap.com/ecop/wms.aspx",
+                name:"GFS WIND Model",
+                layers:"GFS_WINDS",
+                format: "image/png",
+                styles : "WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high",
+                transparent: true,
+                time: nearNow
+            },
+            {
+                url:"http://coastmap.com/ecop/wms.aspx",
+                name:"Wave Watch III Model Waves",
+                styles: "",
+                layers:"WW3_WAVE_HEIGHT",
+                format: "image/png",
+                transparent: true,
+                time: nearNow
+            },
+            {
+                url:"http://coastmap.com/ecop/wms.aspx",
+                name:"HYCOM Currents",
+                styles: "CURRENTS_RAMP-Jet-False-4-True-0-2-high",
+                layers:"HYCOM_GLOBAL_NAVY_CURRENTS",
+                format: "image/png",
+                transparent: true,
+                time: nearNow
+            }
+        ],
+
+
+        baseLayers = {
+            "ESRI Oceans": Esri_OceanBasemap,
+            "NGDC Bathymetry" : NGDC_WorldTerrain,
+            "ESRI Terrain": Esri_WorldTerrain,
+            "World Imagery" : Esri_WorldImagery,
+        };
+
+    return {
+        getBaseLayers : function(key) { return (key) ? baseLayers[key] : baseLayers; },
+        getLayerParams : function(key) { return (key) ? layerParams[key] : layerParams; }
+    };
+})();
+
+var ASSET_ARRAY = (function() {
+    var arrayTitle =   {
+            "pioneer":"Coastal Pioneer",
+            "endurance":"Endurance & Cabled Array",
+            "papa":"Station Papa",
+            "irminger":"Irminger Sea",
+            "argentine":"Argentine Basin",
+            "southern":"Southern Ocean"
+    },
+        arrayLinks =   {
+            "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
+            "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
+            "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
+            "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+            "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
+            "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
+        },
+        arrayMapping = {
+            "pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
+            "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
+            "papa": new L.LatLngBounds([[52,-150],[46,-139]]),
+            "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
+            "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
+            "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])
+        },
+        sizeMapping = {
+            "pioneer":[200,300],
+            "endurance":[200,400],
+            "papa":[250,250],
+            "irminger":[200,250],
+            "argentine":[200,250],
+            "southern":[200,250]
+        };
+
+    return {
+        getArrayTitle :     function(key) { return (key) ? arrayTitle[key] : arrayTitle; },
+        getArrayLinks :     function(key) { return (key) ? arrayLinks[key] : arrayLinks; },
+        getArrayMapping :   function(key) { return (key) ? arrayMapping[key] : arrayMapping; },
+        getSizeMapping :    function(key) { return (key) ? sizeMapping[key] : sizeMapping; }
+    };
+})();
