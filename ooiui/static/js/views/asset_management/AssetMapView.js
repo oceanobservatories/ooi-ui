@@ -20,13 +20,15 @@ var AssetMapView = Backbone.View.extend({
 
     var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
-      maxZoom: 13,
+      maxZoom: 10,
       minZoom: 2
     });
 
     self.map = L.map('map', {
       center: [39.73, -104.99],
       zoom: 2,
+      maxZoom: 10,
+      minZoom: 2,
       layers: [Esri_OceanBasemap]
     });
 
@@ -56,18 +58,18 @@ var AssetMapView = Backbone.View.extend({
                       var childMarkers = cluster.getAllChildMarkers();
 
                       //get the unique list
-                      var clusterStatus = _.uniq(_.map(childMarkers, function(item){return item.options.data}));
-                      
+                      var clusterStatus = _.uniq(_.map(childMarkers, function(item){return item.options.data}));                                          
+
                       var c = ' status-marker-cluster-';
                       if (_.indexOf(clusterStatus, "alarm")>-1){
                         c += 'alert';
                       }else if (_.indexOf(clusterStatus, "alarm")>-1){
                         c += 'alarm';
-                      }else if (_.indexOf(clusterStatus, "healthy")>-1){
-                        c += 'healthy';
+                      }else if (_.indexOf(clusterStatus, "inactive")>-1){
+                        c += 'inactive';
                       }else{
                         c += 'unknown';
-                      }  
+                      }                        
 
                       return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
                     }, spiderfyDistanceMultiplier:2,showCoverageOnHover: false});
@@ -135,7 +137,7 @@ var AssetMapView = Backbone.View.extend({
         self.markers.addLayer(marker);
       }
       try{
-        self.map.fitBounds(self.markers.getBounds()); 
+        self.map.fitBounds(self.markers.getBounds(),{maxZoom:10}); 
       }catch(e){
 
       }
