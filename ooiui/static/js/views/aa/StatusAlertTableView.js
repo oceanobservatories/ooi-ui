@@ -164,9 +164,11 @@
             
             if (query.length > 1){
               _.each(keys,function(key){
-                var idx = toFilter.indexOf(key);                
-                if (idx == -1){
-                  valid = false;
+                if (valid){
+                  var idx = toFilter.indexOf(key);                
+                  if (idx == -1){
+                    valid = false;
+                  }
                 }              
               });
             }
