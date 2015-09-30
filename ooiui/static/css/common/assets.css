@@ -113,3 +113,6 @@ div#assetDetailsPlaceholder {
   background-color: #FFF;
   padding: 0px;
 }
+#remoteDocDownload {
+  text-align: center;
+}
