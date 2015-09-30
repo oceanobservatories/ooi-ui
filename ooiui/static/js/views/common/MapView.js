@@ -8,7 +8,6 @@ var MapView = Backbone.View.extend({
             minZoom: 2,
             layers: TERRAIN.getBaseLayers('ESRI Oceans')
         });
-
         this.inititalMapBounds = [[63, -143],[-59, -29]];
 
         L.control.mousePosition().addTo(this.map);
@@ -79,8 +78,6 @@ var MapView = Backbone.View.extend({
             //add
             self.gliderLayers.addLayer(gliderTrackLayer);
         });
-
-
     },
     //deprecated i think
     update_track_glider: function(reference_designator,show_track){
