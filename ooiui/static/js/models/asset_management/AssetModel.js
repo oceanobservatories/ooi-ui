@@ -33,7 +33,8 @@ var AssetModel = Backbone.Model.extend({
         lastModifiedTimestamp: null,
         metaData: [],
         classCode: null,
-        seriesClassification: null
+        seriesClassification: null,
+          remoteDocuments: []
   	},
     toJSON: function() {
         "use strict";
