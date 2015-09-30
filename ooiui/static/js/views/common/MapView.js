@@ -37,7 +37,16 @@ var MapView = Backbone.View.extend({
                          "irminger":"Irminger Sea",
                          "argentine":"Argentine Basin",
                          "southern":"Southern Ocean"
-                        }
+                        };
+
+    self.arrayCodes =   {
+                         "CP":"Coastal Pioneer",
+                         "CE":"Endurance & Cabled Array",
+                         "GP":"Station Papa",
+                         "GI":"Irminger Sea",
+                         "GA":"Argentine Basin",
+                         "GS":"Southern Ocean"
+                        };
 
     self.arrayLinks =   {
                          "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
@@ -46,7 +55,7 @@ var MapView = Backbone.View.extend({
                          "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
                          "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
                          "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
-                        }
+                        };
 
     self.arrayMapping = {"pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
                          "endurance":new L.LatLngBounds([[48,-133],[-42,-123]]),
@@ -54,7 +63,7 @@ var MapView = Backbone.View.extend({
                          "irminger": new L.LatLngBounds([[61,-43],[57,-35]]),
                          "argentine":new L.LatLngBounds([[-40,-46],[-46,-37]]),
                          "southern":new L.LatLngBounds([[-52,-95],[-56,-85]])
-                        }
+                        };
 
     self.sizeMapping = {"pioneer":[200,300],
                          "endurance":[200,400],
@@ -62,7 +71,7 @@ var MapView = Backbone.View.extend({
                          "irminger":[200,250],
                          "argentine":[200,250],
                          "southern":[200,250]
-                        }
+                        };
 
 
     this.map = L.map(this.el,{
@@ -121,7 +130,7 @@ var MapView = Backbone.View.extend({
                           transparent: true,
                           time: moment(nearNow).format()
                         }
-                      ]
+                      ];
 
     var wmsLayers = {}
     $.each(layerParams, function( index, value ) {
@@ -183,11 +192,46 @@ var MapView = Backbone.View.extend({
       gliderTrackStyle.color = (self.getRandomColor());
       var gliderTrackLayer = L.geoJson(model.toJSON(), {style: gliderTrackStyle});
       //popup
-      var popupContent = '<p><strong>' + model.get('name') + '</strong><br>';
+
+      var glName     = model.get('name').split('-')[1].substring(2);
+      var glLocation = model.get('name').split('-')[0].substring(0,2);      
+      var gliderText = "Glider " + glName  ;
+      
+      var glPosition = model.get('coordinates').slice(-1).pop();
+
+      var processedDepths = _.map(model.get('depths'), function(num){ 
+                                    if (num == -999){
+                                      return 0;
+                                    }
+                                    return num; 
+                                  });
+
+      var minDepth = _.min(processedDepths);
+      var maxDepth = _.max(processedDepths);
+
+      var popupContent = '<h4 id="popTitle"><strong>' + gliderText +" : "+ self.arrayCodes[glLocation] + '</strong></h4>';
+      if (!_.isUndefined(glPosition)){
+        popupContent += '<h5 id="latLon">';
+        popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + glPosition[0].toFixed(3) + '</div>';
+        popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + glPosition[1].toFixed(3) + '</div>';
+
+        popupContent += '<br><br><div><a href="/plotting/#'+ model.get('name') +'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+        // Data Catalog
+        popupContent+='<a href="/streams/#'+  model.get('name') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+        // Asset Managment
+        popupContent+='<a href="/assets/list#' +  model.get('name') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+      }
+      popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
+      popupContent += '<div class="map-pop-container">';
+      popupContent +=   '<div class="floatLeft">';
+      popupContent +=   '<h6><strong>Min Depth: </strong>'+ minDepth.toFixed(2)+ " ("+ model.get('units') +')</h6>';
+      popupContent +=   '<h6><strong>Max Depth: </strong>'+ maxDepth.toFixed(2)+ " ("+ model.get('units') +')</h6>';
+      popupContent +=   '</div>';
+      popupContent += '</div>';
       //bind
       gliderTrackLayer.bindPopup(popupContent);
       //add
-      self.gliderLayers.addLayer(gliderTrackLayer)
+      self.gliderLayers.addLayer(gliderTrackLayer);
     });
 
 
