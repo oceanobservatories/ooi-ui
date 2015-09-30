@@ -85,6 +85,7 @@ ICON VIEW
 /*
 STATUS
 */
+
 #statusListContainer #assetIconList.status-badge-unknown{
     background: #5e5e5e;
     border: 1px solid #000006;
@@ -121,8 +122,6 @@ BG
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
-
-
 #resetStatusIconList{
     
 }
@@ -144,9 +143,12 @@ BG
     height:8px;
 }
 
+#sampleTable > table > tbody > tr.selected{
+    background-color: rgba(102, 153, 255,0.3)
+}
 
 #statusList .status-table tr:hover {
-    background-color: yellow;
+    background-color: rgba(255, 255, 153,0.5)
 }
 
 .status-table .html-cell{
@@ -368,7 +370,7 @@ BG
 .dogTagBtn {
     margin: 10px;
     padding: 0px;
-    height: 200px;
+    /*height: 200px;*/
     width: 160px;
     vertical-align: top;
     text-align: center;
@@ -435,12 +437,20 @@ BG
     box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
 }
 .dogTagHeader {
+    float:left;
     font-size: 12px;
     font-weight: 700;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-bottom: 5px;
 }
 .dogTagBody {
     font-size: 10px;
     font-weight: 400;
+}
+
+.dogTagTextSmaller{
+    font-size: 10px;
 }
 
 /*Pop Over*/

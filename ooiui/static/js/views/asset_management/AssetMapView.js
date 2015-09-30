@@ -20,13 +20,15 @@ var AssetMapView = Backbone.View.extend({
 
     var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
-      maxZoom: 13,
+      maxZoom: 10,
       minZoom: 2
     });
 
     self.map = L.map('map', {
       center: [39.73, -104.99],
       zoom: 2,
+      maxZoom: 10,
+      minZoom: 2,
       layers: [Esri_OceanBasemap]
     });
 
@@ -56,18 +58,18 @@ var AssetMapView = Backbone.View.extend({
                       var childMarkers = cluster.getAllChildMarkers();
 
                       //get the unique list
-                      var clusterStatus = _.uniq(_.map(childMarkers, function(item){return item.options.data}));
-                      
+                      var clusterStatus = _.uniq(_.map(childMarkers, function(item){return item.options.data}));                                          
+
                       var c = ' status-marker-cluster-';
                       if (_.indexOf(clusterStatus, "alarm")>-1){
                         c += 'alert';
                       }else if (_.indexOf(clusterStatus, "alarm")>-1){
                         c += 'alarm';
-                      }else if (_.indexOf(clusterStatus, "healthy")>-1){
-                        c += 'healthy';
+                      }else if (_.indexOf(clusterStatus, "inactive")>-1){
+                        c += 'inactive';
                       }else{
                         c += 'unknown';
-                      }  
+                      }                        
 
                       return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
                     }, spiderfyDistanceMultiplier:2,showCoverageOnHover: false});
@@ -131,11 +133,38 @@ var AssetMapView = Backbone.View.extend({
         circleStyleOptions['fillColor'] = self.getColor(station_model.get('event_type'));
 
         var marker = L.circleMarker(station_model.get('coordinates'), circleStyleOptions);
-        marker.bindPopup("<div><br>"+station_model.get('event_type')+"<br></div>")        
+
+        var status = station_model.get('event_type');
+        if (status == 'inactive'){
+          status = "healthy";
+        }
+
+        var popupContent = '<h4 id="popTitle"><strong>' + station_model.get('name') + '</strong></h4>';        
+        popupContent += '<h5 id="latLon">';
+        popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + station_model.get('coordinates')[0].toFixed(3) + '</div>';
+        popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + station_model.get('coordinates')[1].toFixed(3) + '</div>';
+
+        popupContent += '<br><br><div><a href="/plotting/#'+ station_model.get('reference_designator') +'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+        // Data Catalog
+        popupContent+='<a href="/streams/#'+  station_model.get('reference_designator') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+        // Asset Managment
+        popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+        
+        
+        popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
+        popupContent += '<div class="map-pop-container">';
+        popupContent +=   '<div class="floatLeft" style="width:100%">';
+        popupContent +=   '<h6><strong>Reference Designator: </strong>'+ station_model.get('reference_designator') +'</h6>';        
+        popupContent +=   '<h6><strong>Current Status: </strong>'+ status +'</h6>';        
+        popupContent +=   '</div>';
+        popupContent += '</div>';
+        
+
+        marker.bindPopup(popupContent);      
         self.markers.addLayer(marker);
       }
       try{
-        self.map.fitBounds(self.markers.getBounds()); 
+        self.map.fitBounds(self.markers.getBounds(),{maxZoom:10}); 
       }catch(e){
 
       }
