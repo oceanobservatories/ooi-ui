@@ -44,7 +44,15 @@
     var pageableCollection = new PageableModels(),
         longName;
     self.collection.each(function(model,i){
-        model.set('longName',  (!_.isUndefined(model.get('longName'))) ? model.get('longName') : model.get('reference_designator'));
+        longName = model.get('longName');
+        if (_.isUndefined(model.get('longName')) || _.isNull(model.get('longName'))) {
+            if (_.isUndefined(model.get('name')) || _.isNull(model.get('name')) || model.get('name') === "") {
+                longName = model.get('reference_designator');
+            } else {
+                longName = model.get('name');
+            }
+        }
+        model.set('longName', longName);
         pageableCollection.add(model)
 
     });
