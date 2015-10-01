@@ -1341,7 +1341,8 @@ module.exports = function(grunt) {
             "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css",
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.css",
             "ooiui/static/css/common/annotationModal.css",
-             "ooiui/static/css/common/mapLegend.css"
+            "ooiui/static/css/common/mapLegend.css",
+            "ooiui/static/css/common/errorModal.css",
           ],
           "ooiui/static/css/compiled/status.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
