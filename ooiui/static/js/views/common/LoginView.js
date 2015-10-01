@@ -50,7 +50,7 @@ var LoginView = Backbone.View.extend({
     }
     this.attempts = 0; // Keep track of attempts
     this.isHidden = false; // Initially keep retrying
-    this.attemptsTotal = 3
+    this.attemptsTotal = 3;
   },
   login: function(e) {
     var self = this;
