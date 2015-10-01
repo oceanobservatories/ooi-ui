@@ -620,8 +620,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 
       $.when(self.views.plotEventListView.render()).done(function() {
-
-        $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
+        try{
+          $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
+        }catch(Exception){
+          console.log("FIX stickyTableHeaders");
+        }
 
       });
   });
@@ -683,12 +686,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.streamDownloadFormView.show(self.models.downloadModel);
   });
 
-  this.listenTo(this, 'DownloadModal:onHide',function(){
-    self.views.modalDownloadView.show();
+  this.listenTo(this, 'DownloadModal:onSuccess',function(url){
+    self.views.modalDownloadView.show(url);
   });
 
-  this.listenTo(this, 'DownloadModalFail:onFail',function(){
-    self.views.modalDownloadFailView.show();
+  this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
+    self.views.modalDownloadFailView.show(msg);
   });
 }
 });
