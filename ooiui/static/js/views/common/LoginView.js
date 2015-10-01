@@ -73,7 +73,7 @@ var LoginView = Backbone.View.extend({
       this.attempts++;
       this.attemptsRemaining = this.attemptsTotal - this.attempts;
       this.$el.find('.lgn-message').html('Username or Password are incorrect').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-      this.$el.find('.lgn-warning').html('Failed attempts = '+this.attempts);
+      // this.$el.find('.lgn-warning').html('Failed attempts = '+this.attempts);
       // this.$el.find('.lgn-warning').html('You have '+this.attemptsRemaining+' attempts remaining.');
       this.failure();
 
