@@ -887,6 +887,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalFormView.js',
 
             "ooiui/static/js/views/aa/AlertView.js",
+            'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',              
             "ooiui/static/js/views/aa/TriggeredView.js",
             "ooiui/static/js/views/aa/TriggerAlertDialogView.js",            
             "ooiui/static/js/views/aa/DefinitionModalFormView.js",
