@@ -147,14 +147,18 @@ function focusToItem(e) {
                   ref_des = ref_des.substring(0,8);
                   $('#'+ref_des).parents().eq(0).toggle(300);
                   $('#'+ref_des+'> label').trigger('click');
-              } else {
+              } else if ( ref_des.length == 14) {
                   ref_des = ref_des.substring(0,14);
+                  $('#'+ref_des).parents().eq(0).toggle(300);
+                  $('#'+ref_des+'> label').trigger('click');
+              } else {
+                  $('#'+ref_des).parents().eq(2).toggle(300);
                   $('#'+ref_des).parents().eq(0).toggle(300);
                   $('#'+ref_des+'> label').trigger('click');
               }
               $(document).ready(function() {
                   $('#sidebar-wrapper').animate({
-                      'scrollTop':   $('#'+ref_des).position().top
+                      'scrollTop':  ($('#'+ref_des).offset().top - 220)
                   }, 500);
               });
             }

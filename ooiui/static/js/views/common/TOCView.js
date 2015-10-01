@@ -360,7 +360,7 @@ var StreamItemView = Backbone.View.extend({
         $(e.target).addClass("active-toc-item");
         ooi.trigger('toc:selectStream', { model: this.model });
     },
-    template: _.template('<a href="#"><%= stream_name %></a>'),
+    template: _.template('<a href="#<%= reference_designator %>/<%= stream_name %>" title="<%= stream_name %>"><%= stream_name %></a>'),
     derender: function() {
         "use strict";
         this.remove();
