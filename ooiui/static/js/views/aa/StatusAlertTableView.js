@@ -44,7 +44,15 @@
     var pageableCollection = new PageableModels(),
         longName;
     self.collection.each(function(model,i){
-        model.set('longName',  (!_.isUndefined(model.get('longName'))) ? model.get('longName') : model.get('reference_designator'));
+        longName = model.get('longName');
+        if (_.isUndefined(model.get('longName')) || _.isNull(model.get('longName'))) {
+            if (_.isUndefined(model.get('name')) || _.isNull(model.get('name')) || model.get('name') === "") {
+                longName = model.get('reference_designator');
+            } else {
+                longName = model.get('name');
+            }
+        }
+        model.set('longName', longName);
         pageableCollection.add(model)
 
     });
@@ -160,22 +168,27 @@
       makeMatcher: function(query){
         var q = query;
         return function (model) {
-            var toFilter = (_.uniq(model.get('longName').toLowerCase().split(' '))).join(' ');
-            var keys = _.uniq(query.toLowerCase().split(' '));
-            var valid = true;
+            try {
+                var toFilter = (_.uniq(model.get('longName').toLowerCase().split(' '))).join(' ');
+                var keys = _.uniq(query.toLowerCase().split(' '));
+                var valid = true;
 
-            if (query.length > 1){
-              _.each(keys,function(key){
-                if (valid){
-                  var idx = toFilter.indexOf(key);
-                  if (idx == -1){
-                    valid = false;
-                  }
+                if (query.length > 1){
+                  _.each(keys,function(key){
+                    if (valid){
+                      var idx = toFilter.indexOf(key);
+                      if (idx == -1){
+                        valid = false;
+                      }
+                    }
+                  });
                 }
-              });
+                //console.log(toFilter,keys,valid)
+                return valid;
+            } catch(e) {
+                //console.log(e);
+                return false;
             }
-            //console.log(toFilter,keys,valid)
-            return valid;
         };
       }
     });
