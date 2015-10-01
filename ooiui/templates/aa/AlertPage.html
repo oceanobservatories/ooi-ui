@@ -71,6 +71,10 @@
           <div id="active-toggle-modal"></div>
           <div id="definition-status"></div>
         </div>
+        <div id="definition-modal"></div>
+        <div id="active-toggle-modal"></div>
+        <div id="notification-toggle-modal"></div>
+        <div id="definition-status"></div>
       </div>
     </div>
 
@@ -85,12 +89,14 @@
       models: {
         alertModel: new AlertModel(),
         userModel: new UserModel(),
+        userEventNotificationModel: new UserEventNotificationModel(),
         selectedStream: null
       },
       collections: {
         arrays: new ArrayCollection(),
         alert_list: new AlertsFullCollection(),
-        alert_metadata: new AlertMetadataCollection()
+        alert_metadata: new AlertMetadataCollection(),
+        user_event_notifications: new UserEventNotificationFullCollection()
       },
       views: {
         //
@@ -125,7 +131,7 @@
           el: $('#navbar')
         });
 
-        $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
+        //$('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
         this.views.definitionModal = new DefinitionModalFormView({
           el: $('#definition-modal'),
@@ -213,16 +219,37 @@
           self.views.active_toggle.show();
         });
 
+        this.listenTo(this, 'alertToggleNotificationFormViewTrigger:onClick', function(options) {
+          self.views.notification_toggle.model = options.model;
+
+          self.collections.user_event_notifications.fetch({reset: true});
+
+          self.views.notification_toggle.metadata_collection = new UserEventNotificationFullCollection();
+          self.views.notification_toggle.metadata_collection.add(new UserEventNotificationModel({
+            use_redmine: self.models.userEventNotificationModel.get('use_redmine')
+          }));
+
+          self.views.notification_toggle.render();
+          self.views.notification_toggle.show();
+        });
+
         this.views.active_toggle = new AlertToggleActiveModalFormView({
           el: $('#active-toggle-modal'),
           model:self.models.alertModel
         });
 
+        this.views.notification_toggle = new AlertToggleNotificationModalFormView({
+          el: $('#notification-toggle-modal'),
+          model:self.models.userEventNotificationModel
+        });
+
+
+
         //click the add definition button
         $('#newAlertAlarmDefinition').on( "click", function(evt) {
           console.log("clicked,show modal");
           //update collection and fetch
-          self.collections.alert_metadata.stream_model = self.models.selectedStream;          
+          self.collections.alert_metadata.stream_model = self.models.selectedStream;
           self.collections.alert_metadata.fetch({reset: true});
         });
 

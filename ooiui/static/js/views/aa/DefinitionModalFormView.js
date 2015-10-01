@@ -67,14 +67,14 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.model.set('severity',parseInt(this.$el.find('#inputSeverityVal').val()));   //int      
 
     
-      var selected = this.$el.find("#paramSelection option:selected")
+      var selected = this.$el.find("#paramSelection option:selected");
       this.model.set('instrument_name',this.model.get('reference_designator'));   //str
       this.model.set('instrument_parameter',selected.attr('param'));
       this.model.set('instrument_parameter_pdid',selected.attr('val'));   //str      
 
       this.model.set('platform_name',this.model.get('reference_designator').split('-').slice(0, 2).join('-'));   //str
 
-      selected = this.$el.find("#operatorSelection option:selected")
+      selected = this.$el.find("#operatorSelection option:selected");
       this.model.set('operator',selected.attr('val'));   //str
 
       this.model.set('escalate_on',0.0);   //float
@@ -95,7 +95,9 @@ var DefinitionModalFormView = ModalFormView.extend({
       });
 
       //TODO UPDATE STATIC
-      this.model.set('user_id',1);   //int     
+      //this.model.set('user_id',1);   //int
+      var selected_user = this.$el.find("#userSelection option:selected");
+      this.model.set('user_id',selected_user.attr('val'));
 
       this.model.save(null,{success: function(model, response, opts) { 
                                               console.log('OK!');
@@ -118,13 +120,13 @@ var DefinitionModalFormView = ModalFormView.extend({
     if (this.model.get('update') && this.model.get('update') == true){
       //dont do anything special for the update, otherwise the stream gets mangled
     }else{
-      var sample_stream = this.model.get('stream')
+      var sample_stream = this.model.get('stream');
       this.model.set('stream',sample_stream.split('_').slice(1).join('_'))            
     }
 
     
     //Backbone.Validation.bind(this);
-    console.log(this.model,"model")
+    console.log(this.model,"model");
 
     this.$el.html(this.template({
       model: this.model,

@@ -233,11 +233,11 @@ var AlertFilterView = Backbone.View.extend({
             //place holder right now for triggered events
             if(rawValue == 1){
               //return "Active";
-              return "<i id='active_def' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'>Active</i>";
+              return "<i id='active_def' style='font-size:14px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-up'>Active</i>";
             }
             else if(rawValue == 0){
               //return "Disabled";
-              return "<i id='active_def' style='font-size:20px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-down'>Disabled</i>";
+              return "<i id='active_def' style='font-size:14px;float:right;padding-right: 20px;color:#3c763d' class='fa fa-thumbs-down'>Disabled</i>";
             }
           }
         })
@@ -245,7 +245,7 @@ var AlertFilterView = Backbone.View.extend({
       {
         name: "active",
         editable: false,
-        label: "O/I",
+        label: "Enable/Disable",
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
@@ -264,6 +264,28 @@ var AlertFilterView = Backbone.View.extend({
                   "<i class=\"fa fa-plus-square\"></i> Enable Alert/Alarm" +
                   "</button>";
               }
+            }
+            else {
+              return "Retired";
+            }
+          }
+        })
+      },
+      {
+        name: "active",
+        editable: false,
+        label: "Notifications",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            console.log('Notification Field');
+            console.log(rawValue);
+            console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.retired == 0) {
+              return "<button type=\"button\" id=\"toggleNotificationBtn\" class=\"btn btn-primary\">" +
+                "<i class=\"fa fa-minus-square\"></i> Toggle Nofification" +
+                "</button>";
             }
             else {
               return "Retired";
@@ -317,6 +339,17 @@ var AlertFilterView = Backbone.View.extend({
             {
               model: this.model,
               active: this.model.attributes.active
+            }
+          );
+        }
+
+        // Clicked the toggle notification button
+        if (e.target.id=='toggleNotificationBtn') {
+          console.log('clicked toggle notification btn for def id: ' + this.model.attributes.id);
+          ooi.trigger('alertToggleNotificationFormViewTrigger:onClick',
+            {
+              model: this.model,
+              def_id: this.model.attributes.id
             }
           );
         }

@@ -136,6 +136,12 @@ def ack_alert_alarm():
     response = requests.post(app.config['SERVICES_URL'] + '/ack_alert_alarm', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
+# http://localhost:4000/user_event_notifications
+@app.route('/api/aa/user_event_notifications', methods=['GET'])
+def get_user_event_notifications():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/user_event_notifications', auth=(token, ''))
+    return response.text, response.status_code
 # Get Alerts Options
 #
 #TODO
