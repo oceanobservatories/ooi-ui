@@ -42,6 +42,12 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find('#provenance-select').removeAttr("disabled");
       this.$el.find('#annotation-select').removeAttr("disabled");
     }
+
+    if(type == 'json') {
+      this.$el.find('#download-param-select').attr("disabled", false);
+    } else{
+      this.$el.find('#download-param-select').attr("disabled", true);
+    }
   },
   onDownload: function() {
     /*
@@ -67,7 +73,18 @@ var StreamDownloadFormView = Backbone.View.extend({
       localModel.set('annotations', 'false');
     }
     var url = localModel.getURL(selection);
-    window.open(url, '_blank');
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      success: function(data){
+        ooi.trigger('DownloadModal:onSuccess', data['outputURL']);
+      },
+      error: function(msg){
+        ooi.trigger('DownloadModalFail:onFail', msg);
+      }
+    });
+    // window.open(url, '_blank');
 //    window.location.href = url;
     this.hide();
   },
@@ -77,7 +94,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   show: function(options) {
     var model = options.model;
     var selection = options.selection;
-    console.log("SHOW", options.model.attributes);
+    // console.log("SHOW", options.model.attributes);
     this.model = model;
 
     var startDate = moment.utc(model.get('start')).toJSON();
@@ -93,6 +110,13 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
     this.$el.find('#type-select').val(selection);
     this.$el.find('#download-modal').modal('show');
+
+    // Update parameters dropdown
+    // $("#download-param-select").html($("#yvar0-select-default").html())
+    // $('.selectpicker').selectpicker('refresh');
+
+    this.onTypeChange();
+
     return this;
   },
   hide: function() {
