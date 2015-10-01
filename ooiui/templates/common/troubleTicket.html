@@ -100,9 +100,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     $('#page-content-wrapper').prepend(this.views.ticket.el);
-    // this.listenTo(this, "TroubleTicketView:submit", function(model) {
-      // window.location.href = '/';
-    // });
   }
 });
 var ooi = new OOI();
