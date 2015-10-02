@@ -28,10 +28,17 @@ var AssetTableHeaderView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetTableHeader.html'],
     initialize: function() {
-        _.bindAll(this, 'createAsset');
+        _.bindAll(this, 'createAsset','exportAssets');
     },
     events: {
-        "click #assetCreatorBtn" : "createAsset"
+        "click #assetCreatorBtn" : "createAsset", 
+        "click #assetExportBtn" : "exportAssets",       
+    },
+    exportAssets:function(e){        
+    },
+    updateAssetExport:function(search){
+        url = '/api/asset_deployment?search='+search+'&sort=id&export=json'
+        this.$el.find('#assetExportBtn').attr("href", url);      
     },
     createAsset: function() {
         var assetCreatorModal = new AssetCreatorModalView();
@@ -214,7 +221,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
         manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
         manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
         manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
-var remoteDocuments = [];
+        var remoteDocuments = [];
         // The metaData field is very loosly defined.  These are the only
         // field supported for asset creation at this time.
         var metaData = [
