@@ -165,13 +165,14 @@
                     <div class="form-group">
                       <label for="userSelection" class="control-label">User Selection</label>
                       <select id="userSelection" class="selectpicker">
-                          <option val="1">Admin</option>
+                        <% user_list.each(function(model,i) {  %>
+                        <option val="<%= model.get('id') %>"><%= model.get('user_name') %></option>
+                        <% }) %>
                       </select>
                     </div>
                   </div>
                 </div>
 
-                <!--
                 <div class="row">
                    <div class="col-sm-4">
                     <div class="form-group">

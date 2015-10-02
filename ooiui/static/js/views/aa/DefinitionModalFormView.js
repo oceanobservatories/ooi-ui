@@ -131,7 +131,8 @@ var DefinitionModalFormView = ModalFormView.extend({
     this.$el.html(this.template({
       model: this.model,
       metadata_collection: this.metadata_collection,
-      username: this.username
+      username: this.username,
+      user_list: this.user_collection
     }));
 
     //event type

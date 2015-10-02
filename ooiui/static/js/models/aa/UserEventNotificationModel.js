@@ -49,7 +49,10 @@ var UserEventNotificationModel = Backbone.Model.extend({
 //full collection of alerts
 var UserEventNotificationFullCollection = Backbone.Collection.extend({
     model: UserEventNotificationModel,
-    url:"/api/aa/user_event_notifications"
+    url:"/api/aa/user_event_notifications",
+    parse: function(response, options) {
+        return response.notifications
+  }
 });
 
 

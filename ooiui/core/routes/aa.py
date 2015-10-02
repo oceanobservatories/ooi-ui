@@ -142,6 +142,15 @@ def get_user_event_notifications():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/user_event_notifications', auth=(token, ''))
     return response.text, response.status_code
+
+@app.route('/api/aa/user_event_notifications', methods=['PUT'])
+def update_user_event_notification():
+    token = get_login()
+    data = json.loads(request.data)
+    def_id = data['id']
+    response = requests.put(app.config['SERVICES_URL'] + '/user_event_notification/%s' % def_id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
 # Get Alerts Options
 #
 #TODO

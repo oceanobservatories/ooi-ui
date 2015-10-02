@@ -28,6 +28,8 @@ var AlertToggleNotificationModalFormView = ModalFormView.extend({
 
     console.log('id from modal form after submit: ', this.model.get('id'));
 
+    ooi.trigger('alertToggleNotification:update', this.model);
+
 // TODO: Set the redmine ticket field
 /*    if (this.model.get('active') == 0) {
       this.model.set('active', true);

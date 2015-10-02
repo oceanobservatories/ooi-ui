@@ -200,12 +200,6 @@ var AlertFilterView = Backbone.View.extend({
         cell: "string"
       },
       {
-        name: "description",
-        label: "Description",
-        editable: false,
-        cell: "string"
-      },
-      {
         name: "event_type",
         editable: false,
         label: "Type",
@@ -262,6 +256,35 @@ var AlertFilterView = Backbone.View.extend({
               else if (rawValue == 0) {
                 return "<button type=\"button\" id=\"toggleActiveBtn\" class=\"btn btn-primary\">" +
                   "<i class=\"fa fa-plus-square\"></i> Enable Alert/Alarm" +
+                  "</button>";
+              }
+            }
+            else {
+              return "Retired";
+            }
+          }
+        })
+      },
+      {
+        name: "active",
+        editable: false,
+        label: "Clear Notifications",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            console.log('Active Field');
+            console.log(rawValue);
+            console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.retired == 0) {
+              if (rawValue == 1) {
+                return "<button disabled type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Clear All" +
+                  "</button>";
+              }
+              else if (rawValue == 0) {
+                return "<button type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Clear All" +
                   "</button>";
               }
             }
@@ -348,8 +371,7 @@ var AlertFilterView = Backbone.View.extend({
           console.log('clicked toggle notification btn for def id: ' + this.model.attributes.id);
           ooi.trigger('alertToggleNotificationFormViewTrigger:onClick',
             {
-              model: this.model,
-              def_id: this.model.attributes.id
+              model: this.model
             }
           );
         }
