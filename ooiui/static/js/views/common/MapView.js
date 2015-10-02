@@ -35,7 +35,8 @@ var MapView = Backbone.View.extend({
 
         //this.listenTo(ooi.models.mapModel, 'change', this.setMapView);
 
-        this.collection.fetch({success: function(collection, response, options) {
+        var data = { min : 'True', deployments : 'True' };
+        this.collection.fetch({ data: data, success: function(collection, response, options) {
             self.render();
             return this;
         }});
