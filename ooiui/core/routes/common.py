@@ -316,6 +316,7 @@ def put_log_entry_comment(id):
 def delete_log_entry_comment(id):
     token = get_login()
     response = requests.delete(app.config['SERVICES_URL'] + '/log_entry_comment/%s' % id, auth=(token, ''))
+    return response.text, response.status_code
 
 @app.route('/api/uframe/get_toc', methods=['GET'])
 def get_toc_list():  

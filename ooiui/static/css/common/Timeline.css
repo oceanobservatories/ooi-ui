@@ -31,7 +31,7 @@ Modules - reusable parts of our design
 -------------------------------- */
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
-  width: 90%;
+  width: 85%;
   max-width: 1170px;
   margin: 0 auto;
 }
@@ -41,12 +41,24 @@ Modules - reusable parts of our design
   display: table;
   clear: both;
 }
-
 /* -------------------------------- 
 
 Main components 
 
 -------------------------------- */
+.form-group.log-search
+{
+    height:12px;
+}
+.log-search-datepicker
+{
+    position:absolute;
+    top:7px;
+    right:24px;
+        
+}
+
+
 .timeline {
   background-color: #eee;
 }
@@ -120,7 +132,7 @@ Main components
 }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-block {
-    margin: 4em 0;
+    margin: 0 0;
   }
   .cd-timeline-block:first-child {
     margin-top: 0;
@@ -133,9 +145,9 @@ Main components
 .cd-timeline-img {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
+  left: 6px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
 }
@@ -160,30 +172,30 @@ Main components
 }
 .cd-timeline-img .cd-text {
   position: relative;
-  font-size: 40px;
+  font-size: 20px;
   color: white;
   display: block;
   width: 24px;
   height: 24px;
-  left: 13%;
-  top: 4%;
+  left: 23%;
+  top: 20%;
 }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-img .cd-text {
     position: relative;
-    font-size: 40px;
+    font-size: 20px;
     color: white;
     display: block;
     width: 24px;
     height: 24px;
-    left: 25%;
-    top: 22%;
+    left: 7px;
+    top: 6px;
   }
   .cd-timeline-img {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     left: 50%;
-    margin-left: -30px;
+    margin-left: -15px;
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -196,6 +208,10 @@ Main components
     -webkit-animation: cd-bounce-1 0.6s;
     -moz-animation: cd-bounce-1 0.6s;
     animation: cd-bounce-1 0.6s;
+  }
+  .cd-timeline-initial-block
+  {
+      margin-bottom:30px; 
   }
 }
 
@@ -261,7 +277,10 @@ Main components
   margin-left: 60px;
   background: white;
   border-radius: 0.25em;
-  padding: 1em;
+  padding-top: .4em;
+  padding-left:1em;
+  padding-right:1em;
+  padding-bottom:.4em;
   box-shadow: 0 3px 0 #d7e4ed;
 }
 
@@ -293,7 +312,7 @@ Main components
 }
 .cd-timeline-content .cd-read-more {
   float: right;
-  padding: .8em 1em;
+  padding: .4em .5em;
   background: #ced4d8;
   color: #555;
   border-radius: 0.25em;
@@ -325,13 +344,14 @@ Main components
   border-right: 7px solid white;
 }
 .cd-timeline-content a.delete-entry {
-  position: relative;
-  top: -14px;
-  left: 14px;
+  /*position: relative;*/
+  /*top: -14px;
+  left: 14px;*/
   font-size: 15px;
   font-size: 1.5rem;
   float: right;
   color: #777;
+  margin-top:-5px;
 }
 
 .cd-timeline-comment-box {
@@ -389,7 +409,7 @@ Main components
 @media only screen and (min-width: 1170px) {
   .cd-timeline-content {
     margin-left: 0;
-    padding: 1.6em;
+    padding: 5px;
     width: 45%;
   }
   .cd-timeline-content::before {
@@ -415,10 +435,10 @@ Main components
     width: 45%;
   }
   .cd-timeline-block:nth-child(odd) .cd-timeline-content {
-    margin-left: 55%;
+    margin-left: 53%;
   }
   .cd-timeline-block:nth-child(odd) .cd-timeline-comment-box {
-    margin-left: 55%;
+    margin-left: 53%;
   }
   .cd-timeline-block:nth-child(odd) .cd-timeline-content::before {
     top: 24px;

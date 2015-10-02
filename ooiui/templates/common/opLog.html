@@ -105,6 +105,12 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     this.views.timelineView.render();
     
+   $("#calendar-icon").click(function(){
+        $('#startdate').datepicker('setDate',null);
+        $('#enddate').datepicker('setDate',null);
+        self.search($("#log-search").val()) 
+   });
+
     /* Event listeners */
     this.eventListeners();
 
@@ -159,12 +165,16 @@ _.extend(OOI.prototype, Backbone.Events,  {
     var organization_id = this.models.orgModel.get('id');
     if(query == '') {
       this.orgSelection(organization_id);
+      return;
     }
     this.collections.logEntries.reset();
     this.views.timelineView.render();
     this.collections.logEntries.fetch({data: {
       search: query,
-      organization_id: organization_id
+      organization_id: organization_id,
+      daterange:($("#startdate").datepicker("getDate")==null || $("#enddate").datepicker("getDate")==null) 
+        ?""
+        :moment($("#startdate").datepicker("getDate")).format("MM-DD-YYYY") + "_" + moment($("#enddate").datepicker("getDate")).format("MM-DD-YYYY")
     }});
   },
   /*
@@ -175,11 +185,20 @@ _.extend(OOI.prototype, Backbone.Events,  {
    */
   orgSelection: function(organization_id) {
     var self = this;
-    this.models.orgModel.set({id: organization_id});
+    this.models.orgModel.set({
+        id: organization_id,
+        daterange:($("#startdate").datepicker("getDate")==null || $("#enddate").datepicker("getDate")==null) 
+        ?""
+        :moment($("#startdate").datepicker("getDate")).format("MM-DD-YYYY") + "_" + moment($("#enddate").datepicker("getDate")).format("MM-DD-YYYY")
+    });
+    if($("#log-search").val().length>1){
+        this.search($("#log-search").val());
+        return;
+    }
     this.models.orgModel.fetch();
     this.collections.logEntries.reset();
     this.views.timelineView.render();
-    this.collections.logEntries.fetch({data: {organization_id: organization_id, limit: 20, offset: 0}});
+    this.collections.logEntries.fetch({data: {organization_id: organization_id,daterange:this.models.orgModel.attributes.daterange, limit: 20, offset: 0}});
   },
   test: function() {
     var now = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -188,14 +207,37 @@ _.extend(OOI.prototype, Backbone.Events,  {
       entry_description: "This was posted on " + now
     });
     log_entry.save();
+  },
+  doDateSearch:function(){
+    return  ($("#startdate").datepicker("getDate")!=null && $("#enddate").datepicker("getDate")!=null) 
   }
 });
 // Instantiate the application for this page
 var ooi = new OOI();
 
 $(document).ready(function() {
-  // Once the DOM is loaded, we start our application
-  ooi.start();
+    // Once the DOM is loaded, we start our application
+    ooi.start();
+   //datepickers with min/max validation
+    $( "#startdate" ).datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        defaultDate:"-1y",
+        maxDate: "+1m +1w",
+        onClose: function( selectedDate ) {
+        $( "#enddate" ).datepicker( "option", "minDate", selectedDate );
+        if(ooi.doDateSearch()) ooi.search($("#log-search").val());
+        }
+    });
+    $( "#enddate" ).datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        maxDate: "+1m +1w",
+        onClose: function( selectedDate ) {
+        $( "#startdate" ).datepicker( "option", "maxDate", selectedDate );
+        if(ooi.doDateSearch()) ooi.search($("#log-search").val());
+        }
+    });
 });
 
 
