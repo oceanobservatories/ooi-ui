@@ -434,7 +434,7 @@
 }
 
 .map-pop-container {
-  width: 460px;
+  width: auto;
   height: 125px;
   overflow-y: scroll;
   overflow-x: hidden;
