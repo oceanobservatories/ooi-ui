@@ -548,16 +548,6 @@ BG
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
-/************************/
-/****Alerts & Alarms****/
-/**********************/
-div#allerts-scrollable {
-  width: 100%;
-  max-height: 305px;
-  border: 2px solid #fff;
-  overflow: auto;
-}
-
 /*    background-image: radial-gradient( 100% 100%, #fff, rgb(213, 221, 253));
 box-shadow: 0 0 10px rgba(81, 203, 238, 1);
 border: 1px solid rgba(81, 203, 238, 1);
