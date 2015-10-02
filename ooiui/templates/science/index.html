@@ -70,7 +70,6 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(this, "toc:selectPlatform", function(model) {
             var coors = model.get('coordinates');
-            console.log(coors);
             mapView.setMapView(coors,10); // recenters
 
             var css_display = $($('#'+model.get('ref_des')).find('.nav-list')[0]).css('display');
