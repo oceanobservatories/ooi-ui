@@ -32,9 +32,6 @@ div.panel-heading {
     margin-left: 10px;
 }
 
-#search {
-    margin-top: 5px;
-}
 /* helpful formatting classes */
 . {
     min-height: 360px;
@@ -115,4 +112,7 @@ div#assetAttachmentsTable div > div > div.panel-heading {
 div#assetDetailsPlaceholder {
   background-color: #FFF;
   padding: 0px;
+}
+#remoteDocDownload {
+  text-align: center;
 }

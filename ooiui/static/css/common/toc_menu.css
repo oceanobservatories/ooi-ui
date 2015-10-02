@@ -103,6 +103,10 @@ margin: 0 0 10px
     border-bottom-left-radius: 5px;
 }
 
+input#search {
+  line-height: 1.5;
+}
+
 li.highlight-row > label {
 
     color: #fff!important;

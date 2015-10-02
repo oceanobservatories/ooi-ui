@@ -7,7 +7,8 @@ var ModalDownloadView= Backbone.View.extend({
     _.bindAll(this, "render", "show" );
     this.render();
   },
-  show: function() {
+  show: function(url) {
+    this.$el.find('#download-url').html('Your data will be available here:: <a href="http://' + url +'" target="_blank">' + url + '</a>' );
     this.$el.find('#download-ok').modal('show');
   },
   template: JST['ooiui/static/js/partials/ModalDownload.html'],

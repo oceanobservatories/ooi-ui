@@ -485,7 +485,7 @@ var SVGPlotView = SVGView.extend({
 
 var SVGPlotControlView = Backbone.View.extend({
   events: {
-    'click #download-data' : 'plotDownloads',
+    'click #download-data' : 'dataDownloads',
     'click #download-plot' : 'plotDownloads',
     'click #update-plot' : 'onClickPlot',
     'click #add-plot' : 'onAddClickPlot',
@@ -496,11 +496,6 @@ var SVGPlotControlView = Backbone.View.extend({
     'change #yvar3-select' : 'yVar3Change',
     'switchChange.bootstrapSwitch .bootstrap-switch' : 'onSwitchChange',
     'change .div-qa-qc input[type=checkbox]':'onCheckChange'
-    /*
-    "switchChange.bootstrapSwitch .bootstrap-switch" : 'onClickPlot',
-    'dp.change #start-date' : 'onClickPlot',
-    'dp.change #end-date' : 'onClickPlot'
-    */
   },
   initialize: function() {
     //_.bindAll(this,"onSwitchChange");
@@ -539,31 +534,32 @@ var SVGPlotControlView = Backbone.View.extend({
     this.render(updateTimes);
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
-  plotDownloads: function(e) {
-    $('#download-plot').click(function(event) {
-      event.preventDefault();
-      if ($('#highcharts-row-section').css('display')=="block"){
-        var chart = $('#highcharts-view').highcharts();
-        var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
-        chart.exportChart({type: 'image/png', filename: fileName});
-      }else{
-        ooi.trigger('ooi:downloadPlot');
-      }
-    });
-    $('#download-data').click(function(event) {
-      event.preventDefault();
-      ooi.trigger('ooi:downloadData');
-    });
+  plotDownloads: function(e) {    
+    event.preventDefault();
+    if ($('#highcharts-row-section').css('display')=="block"){
+      var chart = $('#highcharts-view').highcharts();
+      var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
+      chart.exportChart({type: 'image/png', filename: fileName});
+    }else{
+      ooi.trigger('ooi:downloadPlot');
+    }    
+  },
+  dataDownloads: function(e) {    
+    event.preventDefault();
+    ooi.trigger('ooi:downloadData');    
   },
   xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();
-    if ( plotType == "" ) {
+    if ( plotType == "Select" ) {
         plotType = 'Time Series';
     }
-    console.log('xvar change')
+    // Hide the add plot button
     this.$el.find('#add-plot').css('display','none');
 
     if (plotType=="Time Series"){
+      if ($.trim($('#highcharts-view').html() ).length){
+        this.$el.find('#add-plot').css('display','');
+      };
       // this.$el.find('#add-plot').css('display','');
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.");
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -700,6 +696,7 @@ var SVGPlotControlView = Backbone.View.extend({
     data.xvar = this.$el.find('#xvar-select').val();
     //data.yvar = this.$el.find('#yvar-select').val();
     data.plotType = this.$el.find('#xvar-select option:selected').text();
+
     if (data.plotType == 'Time Series'){
       this.$el.find('#add-plot').css('display','');
     }
@@ -754,11 +751,10 @@ var SVGPlotControlView = Backbone.View.extend({
 
     // var xvar = "time"
     if (xvar){
-      console.log(xvar)
       this.$el.find('#xvar-select').selectpicker('val', xvar);
     }
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
 
-    // this.xVarChange();
+    this.xVarChange();
   }
 });

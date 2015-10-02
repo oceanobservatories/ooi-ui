@@ -49,7 +49,7 @@
     </div>
     <div class="row">
       <div class="panel">
-        <div id="control-heading" class="panel-heading">
+        <div id="control-heading" class="panel-heading plotting-heading">
           <div class="row">
             {# <div class="col-md-12"> #}
               <div id="plotcontrols">
@@ -62,7 +62,7 @@
     </div>
     <div class="row">
       <div class="panel">
-        <div class="panel-heading ">
+        <div class="panel-heading plotting-heading">
           Graph
         </div>
         <div class="panel-body">
@@ -87,7 +87,7 @@
     <div class="row">
       <div id='plot-events-panel' class="panel">
 
-        <div class="panel-heading ">
+        <div class="panel-heading plotting-heading">
           Events
         </div> <!-- panel-heading -->
 
@@ -108,7 +108,7 @@
 
     <div class="row">
       <div id='annotation-panel' class="panel">
-        <div class="panel-heading">
+        <div class="panel-heading plotting-heading">
           Annotations
         </div>
         <div class="panel-body">
@@ -620,8 +620,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 
       $.when(self.views.plotEventListView.render()).done(function() {
-
-        $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
+        try{
+          $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
+        }catch(Exception){
+          console.log("FIX stickyTableHeaders");
+        }
 
       });
   });
@@ -683,12 +686,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.streamDownloadFormView.show(self.models.downloadModel);
   });
 
-  this.listenTo(this, 'DownloadModal:onHide',function(){
-    self.views.modalDownloadView.show();
+  this.listenTo(this, 'DownloadModal:onSuccess',function(url){
+    self.views.modalDownloadView.show(url);
   });
 
-  this.listenTo(this, 'DownloadModalFail:onFail',function(){
-    self.views.modalDownloadFailView.show();
+  this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
+    self.views.modalDownloadFailView.show(msg);
   });
 }
 });

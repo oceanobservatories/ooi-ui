@@ -18,6 +18,7 @@ var LoginView = Backbone.View.extend({
   events: {
     'click #btnLogin' : "login",
     'keyup #passInput' : "keyUp",
+    'click #btnClose' : "closeBtn",
     'keypress #passInput' : 'keyPress',
     'hidden.bs.modal' : 'hidden'
   },
@@ -49,6 +50,7 @@ var LoginView = Backbone.View.extend({
     }
     this.attempts = 0; // Keep track of attempts
     this.isHidden = false; // Initially keep retrying
+    this.attemptsTotal = 3;
   },
   login: function(e) {
     var self = this;
@@ -69,16 +71,35 @@ var LoginView = Backbone.View.extend({
     } else {
       console.log("no bueno amigo");
       this.attempts++;
-      this.$el.find('.lgn-message').html('Username or Password are incorrect');
+      this.attemptsRemaining = this.attemptsTotal - this.attempts;
+      this.$el.find('.lgn-message').html('Username or Password are incorrect').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+      // this.$el.find('.lgn-warning').html('Failed attempts = '+this.attempts);
+      // this.$el.find('.lgn-warning').html('You have '+this.attemptsRemaining+' attempts remaining.');
       this.failure();
+
+      if(this.attemptsRemaining === 2) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgba(194, 0, 0, 0.2)');
+      }      
+      if(this.attemptsRemaining === 1) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgba(194, 0, 0, 0.69)');
+      }
+      if(this.attemptsRemaining === 0) {
+        this.$el.find('#lgn-modal').css('border-color', 'rgb(228, 1, 1)');        
+       //>>--locks out contols --> 
+        // this.$el.find('#btnLogin').prop('disabled', true);
+        // this.$el.find('#usrInput').prop('disabled', true);
+        // this.$el.find('#passInput').prop('disabled', true);
+        // this.$el.find('.lgn-message').html('You have exceeded your password attempts.');
+        // this.$el.find('.lgn-warning').html('');        
+      }
     }
-  },
+  }, 
   hidden: function(e) {
     console.log("hidden");
   },
-  /* Called when the user is successfully authenticated */
+    /* Called when the user is successfully authenticated */
   success: function() {
-    console.log("Success");
+    console.log("Success"); 
   },
   failure: function() {
     console.log("this failure");
@@ -99,12 +120,16 @@ var LoginView = Backbone.View.extend({
   },
   keyUp: function(e) {
     if($(e.target).val() == '') {
-       //If there is no text within the input then disable the button
-       this.$el.find('.enableOnInput').prop('disabled', true);
-     } else {
-       //If there is text in the input, then enable the button
-       this.$el.find('.enableOnInput').prop('disabled', false);
-     }
+      //If there is no text within the input then disable the button
+      this.$el.find('.enableOnInput').prop('disabled', true);
+    } else {
+      //If there is text in the input, then enable the button
+      this.$el.find('.enableOnInput').prop('disabled', false);
+      console.log("disabledAttempts  " +this.attempts);
+    }
+  },
+  closeBtn: function(e) {
+    this.initialize(); 
   },
   keyPress: function(e) {
     if(e.which == 13) {

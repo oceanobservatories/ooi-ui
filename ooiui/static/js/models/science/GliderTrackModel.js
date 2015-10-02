@@ -9,11 +9,11 @@ var GliderTrackModel = Backbone.Model.extend({
 
 
 var GliderTrackCollection = Backbone.Collection.extend({
-  url: '/json/glider_tracks.json',
+  url: '/api/uframe/glider_tracks',
   model: GliderTrackModel,  
   parse: function(response) {
-    if(response && response.glider) {
-      return response.glider;
+    if(response && response.gliders) {
+      return response.gliders;
     }    
     return [];
   }

@@ -8,13 +8,14 @@
           <div class="form-group">
               <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
               <select data-width="100%" id='xvar-select' class="form-control selectpicker">
-                  <option value="" selected disabled>Select</option>
-                  <option value="time">Time Series</option>
+                  <option value="" disabled>Select</option>
+                  <option value="time" selected >Time Series</option>
                   <option value="ts-diagram">T-S Diagram</option>
-                  <option data-subtext="" value="pressure">Depth Profile</option>
+                  <!-- <option data-subtext="" value="pressure">Depth Profile</option> -->
                   <option value="quiver">Quiver</option>
                   <option value="rose">Rose</option>
                   <option value="colorxyz">3D Colored Scatter</option>
+                  <option value="stacked">Stacked Time Series</option>
               </select>
           </div>
           <div id="yvar0-selection-default">
