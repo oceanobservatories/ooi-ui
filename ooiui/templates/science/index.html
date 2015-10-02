@@ -34,7 +34,13 @@
                 {{ super() }}
             {% endblock %}
             <div class="col-lg-12">
-                <div class="map-view" id='map'></div>
+
+                <div class="map-view" id='map'>
+                    <i class="fa fa-spinner fa-spin map-loading-spinner"></i>
+                    <div id="" class="jumbotron text-center">
+                      <h3>Loading Map, Please Wait...</h3>
+                    </div>
+                </div>
             </div> <!-- col-lg-12 -->
         </div> <!-- row -->
     </div> <!-- container-fluid -->

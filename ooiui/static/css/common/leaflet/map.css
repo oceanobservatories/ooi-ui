@@ -1,3 +1,9 @@
+.map-loading-spinner{
+  font-size:90px;
+  margin-top:20%;
+  margin-left:47%;
+}
+
 .clusterdMarker{
   background-image: url("/img/array.png");
   background-size: 40px 40px;
