@@ -100,22 +100,25 @@ var bannerTitle = "Asset Dashboard";
 
 _.extend(OOI.prototype, Backbone.Events, {
     login: new LoginModel(),
+    views: {
+        headerView: null
+    },
     models: {
         userModel: new UserModel()
     },
     start: function() {
-    this.login.fetch({async:false});
+        this.login.fetch({async:false});
 
-    banner = new BannerView({bannerTitle: bannerTitle});
+        banner = new BannerView({bannerTitle: bannerTitle});
 
-    navbar = new NavbarView({
-    login: this.login
+        navbar = new NavbarView({
+        login: this.login
     });
 
     footer = new AssetTabelFooterView({});
 
     //Render the asset table header
-    renderAssetTableHeader();
+    this.views.headerView = renderAssetTableHeader();
 
     updateCollection( showAssets );
 
@@ -209,9 +212,8 @@ var pagination = {
 };
 
 $(document).ready(function() {
-  ooi.start();
-        populate();
-
+    ooi.start();
+    populate();
 
     $('body').prepend(banner.el);
 
@@ -219,7 +221,7 @@ $(document).ready(function() {
     $('body').find('#search-clear').hide();
     $('navbarOld').find('#search-clear').hide();
     $('#search-clear').click(function(){
-        $('#search').val('').focus();
+    $('#search').val('').focus();
         $(this).hide();
         updateCollection( showAssets);
     });
@@ -261,6 +263,8 @@ function renderAssetTableHeader(collection) {
 
     $('#assetTableHeading').children().remove();
     $('#assetTableHeading').append( assetTableHeaderView.el );
+
+    return assetTableHeaderView;
 }
 
 function renderAssetInspector(model) {
@@ -327,6 +331,8 @@ function updateCollection( successCallback ){
         success : successCallback,
     //    error : showError
     });
+    //update the download link...
+    ooi.views.headerView.updateAssetExport($('#search').val());
 }
 
 function updatePagination( details, successCallback ){
