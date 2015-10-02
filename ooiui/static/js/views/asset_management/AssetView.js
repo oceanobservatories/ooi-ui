@@ -1,4 +1,4 @@
-// Parent class for asset views.
+f// Parent class for asset views.
 var ParentAssetView = Backbone.View.extend({
     /* Parent class for the asset views.
      *  - initialize()
@@ -31,7 +31,11 @@ var AssetTableHeaderView = ParentAssetView.extend({
         _.bindAll(this, 'createAsset');
     },
     events: {
-        "click #assetCreatorBtn" : "createAsset"
+        "click #assetCreatorBtn" : "createAsset",
+        "click #assetExportBtn" : "exportAssets"
+    },
+    exportAssets:function(){
+        console.log('export asset information');
     },
     createAsset: function() {
         var assetCreatorModal = new AssetCreatorModalView();
