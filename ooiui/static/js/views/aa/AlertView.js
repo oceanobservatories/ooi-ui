@@ -268,47 +268,27 @@ var AlertFilterView = Backbone.View.extend({
       {
         name: "active",
         editable: false,
-        label: "Clear Notifications",
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            console.log('Active Field');
-            console.log(rawValue);
-            console.log(model.attributes.retired);
-            //place holder right now for triggered events
-            if (model.attributes.retired == 0) {
-              if (rawValue == 1) {
-                return "<button disabled type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
-                  "<i class=\"fa fa-bolt\"></i> Clear All" +
-                  "</button>";
-              }
-              else if (rawValue == 0) {
-                return "<button type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
-                  "<i class=\"fa fa-bolt\"></i> Clear All" +
-                  "</button>";
-              }
-            }
-            else {
-              return "Retired";
-            }
-          }
-        })
-      },
-      {
-        name: "active",
-        editable: false,
         label: "Notifications",
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
             console.log('Notification Field');
             console.log(rawValue);
+            console.log(model);
+            console.log(model.attributes.user_event_notification.use_redmine);
             console.log(model.attributes.retired);
             //place holder right now for triggered events
             if (model.attributes.retired == 0) {
-              return "<button type=\"button\" id=\"toggleNotificationBtn\" class=\"btn btn-primary\">" +
-                "<i class=\"fa fa-minus-square\"></i> Toggle Nofification" +
-                "</button>";
+              if (model.attributes.user_event_notification.use_redmine) {
+                return "<button type=\"button\" id=\"toggleNotificationBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-minus-square\"></i> Toggle Notifications Off" +
+                  "</button>";
+              }
+              else if (!model.attributes.user_event_notification.use_redmine) {
+                return "<button type=\"button\" id=\"toggleNotificationBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-plus-square\"></i> Toggle Notifications On" +
+                  "</button>";
+              }
             }
             else {
               return "Retired";
@@ -332,8 +312,66 @@ var AlertFilterView = Backbone.View.extend({
             }
             else {
               return "<button disabled type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
-                "<i class=\"fa fa-plus-square\"></i> Retire" +
+                "<i class=\"fa fa-bolt\"></i> Retire" +
                 "</button>";
+            }
+          }
+        })
+      },
+      {
+        name: "active",
+        editable: false,
+        label: "Acknowledge",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            console.log('Active Field');
+            console.log(rawValue);
+            console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.retired == 0) {
+              if (rawValue == 1) {
+                return "<button disabled type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Ack All" +
+                  "</button>";
+              }
+              else if (rawValue == 0) {
+                return "<button type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Ack All" +
+                  "</button>";
+              }
+            }
+            else {
+              return "Retired";
+            }
+          }
+        })
+      },
+      {
+        name: "active",
+        editable: false,
+        label: "Clear",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            console.log('Active Field');
+            console.log(rawValue);
+            console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.retired == 0) {
+              if (rawValue == 1) {
+                return "<button disabled type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Clear All" +
+                  "</button>";
+              }
+              else if (rawValue == 0) {
+                return "<button type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Clear All" +
+                  "</button>";
+              }
+            }
+            else {
+              return "Retired";
             }
           }
         })

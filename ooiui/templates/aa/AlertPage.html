@@ -69,12 +69,9 @@
           </div>
           <div id="definition-modal"></div>
           <div id="active-toggle-modal"></div>
+          <div id="notification-toggle-modal"></div>
           <div id="definition-status"></div>
         </div>
-        <div id="definition-modal"></div>
-        <div id="active-toggle-modal"></div>
-        <div id="notification-toggle-modal"></div>
-        <div id="definition-status"></div>
       </div>
     </div>
 
@@ -227,13 +224,14 @@
           console.log('before bit', selected.get('use_redmine'));
           selected.set('use_redmine', !selected.get('use_redmine'));
           selected.save(null,{success: function(model, response, opts) {
-            console.log('OK!');
+            console.log('Notification Toggled OK!');
           },
             error: function(model, response, opts) {
-              console.log('Error!');
+              console.log('Notification Error!');
             }
           });
           console.log('after bit', selected.get('use_redmine'));
+          self.collections.alert_list.fetch({reset: true});
         });
 
         this.listenTo(this, 'alertToggleNotificationFormViewTrigger:onClick', function(options) {
@@ -289,13 +287,13 @@
 
         });
 
-/*        this.listenTo(this.collections.alert_list, 'reset', function(options) {
+        this.listenTo(this.collections.alert_list, 'reset', function(options) {
           console.log('alert alarm reset complete',this.collections.alert_list);
           var parent = $('#alertslist').parent();
           parent.empty();
           parent.append('<div id="alertslist">');
           self.views.alertFilterView.render();
-        });*/
+        });
 
         //RE-RENDER TABLE
         this.listenTo(this, 'addDefinitionForm:added', function(options) {
