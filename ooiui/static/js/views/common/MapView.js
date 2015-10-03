@@ -244,6 +244,7 @@ var MapView = Backbone.View.extend({
             }
         }
         $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+        
     },
     //renders a simple map view
     render: function() {
@@ -458,8 +459,10 @@ var MapView = Backbone.View.extend({
                                 popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
                                 // Asset Managment
                                 popupContent+='<a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
-                                popupContent+='<div style="max-height: 200px; overflow-y:scroll;"><table id="popupInstrumentTable" class="tablesorter" style="border: solid #aaaaaa 2px; background-color:white; width:460px; margin: 0px; padding: 0px;">';
-                                popupContent+='<thead><tr><th style="padding-left:10px;">Assembly</th><th style="text-align:center">Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<div class="scrollable-block"><div class="scrollable-area">';
+
+                                popupContent+='<table id="popupInstrumentTable" class="tableWithFloatingHeader nasdaq" style="border: solid #aaaaaa 2px; background-color:white; width:460px; margin: 0px; padding: 0px;">';
+                                popupContent+='<thead><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
                                 instrumentName, instrumentRefDes, instrumentAssemblyName,
@@ -486,7 +489,7 @@ var MapView = Backbone.View.extend({
                             }
                             popupContent+=instrumentList.join('');
 
-                            popupContent+='</tbody></table></div>';
+                            popupContent+='</tbody></table></div></div>';
 
                             hasDeploymentEvent = true;
 
@@ -566,6 +569,9 @@ var OOICustomMarker = L.Marker.extend({
                 // show the popup
                 this.openPopup();
                 $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+                $('#popupInstrumentTable').stickyTableHeaders();
+                
+                
             }, this);
             // and mouse out
             this.on("mouseout", function(e) {
