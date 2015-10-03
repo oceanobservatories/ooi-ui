@@ -78,3 +78,45 @@ var DataSeriesCollection = Backbone.Collection.extend({
   }
 
 });
+
+var InterpolatedDataSeriesCollection = Backbone.Collection.extend({  
+  instr1:"telemetered_ctdgv_m_glider_instrument",
+  instr2:"telemetered_flort_m_glider_instrument",
+  ref_des1:"CP05MOAS-GL340-03-CTDGVM000",
+  ref_des2:"CP05MOAS-GL340-02-FLORTM000",
+  startdate:"2015-05-07T02:49:22.745Z",
+  enddate:"2015-06-28T04:00:41.282Z",
+  var1:"sci_water_pressure",
+  var2:"sci_flbbcd_chlor_units",
+  url: function() {
+    var durl = ('/api/get_multistream?instrument1='+ this.instr1 + '&instrument2=' + this.instr2 +
+                "&stream1=" + this.ref_des1 + "&stream2=" + this.ref_des2 + "&var1=" + this.var1 +
+                "&var2=" + this.var2 + "&startdate=" + this.startdate + "&enddate=" + this.enddate);
+    console.log(durl);
+    return durl;
+  },
+  //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',  
+  //used to hold the unit mapping
+  units:null,
+  model: DataSeriesModel,
+  getTitle:function(){
+    return this.ref_des;
+  },
+  getStartDate:function(){
+    return moment.utc(this.startdate).unix()*1000;
+  },
+  getEndDate:function(){
+    return moment.utc(this.enddate).unix()*1000;
+  },
+  getSubtitle:function(){
+    return this.stream;
+  },
+  getUnits:function(param){
+    return this.units[param];
+  },
+  parse: function(response, options) {
+    this.units = response.units;
+    return response.data;
+  }
+
+});

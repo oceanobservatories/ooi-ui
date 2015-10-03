@@ -248,9 +248,9 @@ var SVGView = Backbone.View.extend({
 });
 
 var SVGPlotView = SVGView.extend({
-    setModel: function(options) {
-        this.model = options;
-    },
+  setModel: function(options) {
+      this.model = options;
+  },
   getDpaFlag: function(var_list) {
     var self = this
     var dpa_flag = "0";
@@ -261,48 +261,6 @@ var SVGPlotView = SVGView.extend({
       }
     });
     return dpa_flag
-  },
-  plotMulti: function(options) {
-    //requested plot
-    if(!plotParameters.validateMultiPlot(options)) return false;
-    this.reference_designator = this.model.get('reference_designator') + "," +options.secRef
-    this.stream_name = this.model.get('stream_name') + "," +options.secStream
-    //options.yvar = this.model.get('yvariable')
-    if('xvar' in options){
-    }else{
-      options.xvar = ["time"]
-    }
-
-    //set the width of the plot, 90% width
-    this.width = (this.$el.width()/100)*90;
-
-    if(options && options.yvar && options.xvar) {
-        this.yvariable = options.yvar+","+options.yvar2
-        this.xvariable = options.xvar;
-        this.dpa_flag = true;
-    }
-    if(this.yvariable != null && this.xvariable != null) {
-      this.useLine = options.attributes.data.useLine.toString();
-      this.useScatter = options.attributes.data.useScatter.toString();
-      this.useEvent = options.attributes.data.useEvent.toString();
-      this.plotType = options.attributes.data.plotType;
-      this.st = moment(options.attributes.start).toISOString();
-      this.ed = moment(options.attributes.end).toISOString();
-
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.yvariable ,
-                                                                                                    xvar: this.xvariable,
-                                                                                                    height: this.height,
-                                                                                                    width: this.width,
-                                                                                                    scatter:this.useScatter,
-                                                                                                    lines:this.useLine,
-                                                                                                    event:this.useEvent,
-                                                                                                    plotLayout:this.plotType,
-                                                                                                    startdate:this.st,
-                                                                                                    enddate:this.ed,
-                                                                                                    qaqc:plotParameters.getQAQC()})
-      this.fetch();
-    }
   },
   plot: function(options) {
     //requested plot
@@ -519,7 +477,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find("#yvar3-select").html($("#parameters_id").html());
       this.$el.find('.selectpicker').selectpicker('refresh');
   },
-  setModel: function(model,updateTimes) {
+  setModel: function(model, updateTimes) {
     var self = this;
     this.model = model;
     this.data = null;
@@ -649,6 +607,21 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar2-select-text').text("Y-Component");
       this.$el.find('#yvar3-selection').show();
       this.$el.find('#yvar3-select-text').text("Color");
+
+    }else if(plotType=="Interpolated"){
+      // this.$el.find('#add-plot').css('display','none');
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The Interpolated plot allows a user to select parameters from 2 different streams as the X and Y axes.")
+
+      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar0-selection-default').hide();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar1-select-text').text("X-Component");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar2-select-text').text("Y-Component");
+      this.$el.find('#yvar3-selection').hide();
     }
   },
   yVar1Change: function(e) {
@@ -656,12 +629,20 @@ var SVGPlotControlView = Backbone.View.extend({
     $("#parameters_id").val(selectedParam);
     $("#parameters_id").change();
     $("#parameters_id").selectpicker('refresh');
+    var plotType = this.$el.find('#xvar-select option:selected').text();
+    if(plotType=="Interpolated"){
+      ooi.trigger('SVGPlotControlView:onInterpolatedSelection', this.model);
+    }
   },
   yVar2Change: function(e) {
     var selectedParam = this.$el.find( "#yvar2-select option:selected").val()
     $("#parameters_id").val(selectedParam);
     $("#parameters_id").change();
     $("#parameters_id").selectpicker('refresh');
+    var plotType = this.$el.find('#xvar-select option:selected').text();
+    if(plotType=="Interpolated"){
+      ooi.trigger('SVGPlotControlView:onInterpolatedSelection', this.model);
+    }
   },
   yVar3Change: function(e) {
     var selectedParam = this.$el.find( "#yvar3-select option:selected").val()
@@ -711,9 +692,14 @@ var SVGPlotControlView = Backbone.View.extend({
     var xvar = this.$el.find('#xvar-select').find(":selected").val()
 
     if (updateTimes){
-      this.$el.html(this.template({model: this.model}));
+      if (xvar == 'interpolated'){
+
+      }else{
+        this.$el.html(this.template({model: this.model}));
+        this.$el.find('.bootstrap-switch').bootstrapSwitch();
+      }
       this.$el.find('.selectpicker').selectpicker();
-      this.$el.find('.bootstrap-switch').bootstrapSwitch();
+      
 
       this.$el.find('[data-toggle="tooltip"]').tooltip()
 

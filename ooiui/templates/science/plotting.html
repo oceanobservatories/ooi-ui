@@ -147,6 +147,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     plotEventList: new PlotEventsCollection(),
     dataseries: new DataSeriesCollection(),
     additionalDataseries: new DataSeriesCollection(),
+    interpolatedDataseries: new InterpolatedDataSeriesCollection(),
   },
   views: {
     plottingItemSelection : null,
@@ -199,7 +200,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
     }
   },
-  setParams: function(options) {
+  setTimeSeriesPlot: function(options) {
     //init the timeseries view
     this.views.timeseriesView.initialize();
     var p_yvarList = [];
@@ -236,7 +237,31 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
 
     this.collections.dataseries.fetch({error: errorHandler, reset: true});
-  },    
+  },
+  setInterpolatedPlot: function(options) {
+    //init the timeseries view
+    this.views.timeseriesView.initialize();
+
+    var param1 = $("#yvar1-selection option:selected").val();
+    var param2 = $("#yvar2-selection option:selected").val();
+
+    // set data series options
+    // this.collections.interpolatedDataseries.stream1 = options.attributes.stream_name1;
+    // this.collections.interpolatedDataseries.stream2 = options.attributes.stream_name2;
+    // this.collections.interpolatedDataseries.ref_des1 = options.attributes.reference_designator1;
+    // this.collections.interpolatedDataseries.ref_des2 = options.attributes.reference_designator2;
+    // this.collections.interpolatedDataseries.startdate = options.attributes.data.start;
+    // this.collections.interpolatedDataseries.enddate = options.attributes.data.end;
+    // this.collections.interpolatedDataseries.param1 = param1;
+    // this.collections.interpolatedDataseries.param2 = param2;
+
+    errorHandler = function(collection, response){
+      errorText = response.status+': '+response.statusText
+        ooi.trigger('httpError', {response:response, error:errorText});
+    }
+
+    this.collections.interpolatedDataseries.fetch({error: errorHandler, reset: true});
+  },
   start: function() {
     var self = this;
     this.multiStation = false;
@@ -327,6 +352,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'toc:selectStream', function(options) {
       // TODO: Trigger pop up on map cursor icon.
+      debugger;
       self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true);
 
@@ -390,7 +416,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       parameterhtml += "</optgroup>"
 
-        $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
+      $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
       $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
       $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
       $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
@@ -518,6 +544,12 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
 
+    this.listenTo(this, 'SVGPlotControlView:onInterpolatedSelection', function(options) {
+      debugger;
+      console.log('Interpolated');
+      // Need to remember these selections
+      
+    });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
       if (options.attributes.data.plotType == "Depth Profile"){
@@ -547,39 +579,44 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.attributes.data.plotType = "rose"
         options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
         options.attributes.data.xvar = 'time';
+      }else if (options.attributes.data.plotType == "Interpolated"){
+        options.attributes.data.plotType = "interpolated"
+        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
+        options.attributes.data.xvar = 'time';
       }
-      options.attributes.data.multiStation = this.multiStation;
+
       options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
       options.attributes.data.end = moment.utc($('#end-date').data('date')).toISOString();
-      // console.log(moment.utc(this.$start_date.data('date')));
-      if (options.attributes.data.multiStation){
-        options.attributes.data.xvar = "time,time"
-          options.attributes.data.yvar2 = self.views.plottingItemSelection2.getSelectedVars();
-        options.attributes.data.secRef = self.views.plottingItemSelection2.getSelectedRef();
-        options.attributes.data.secStream = self.views.plottingItemSelection2.getSelectedStream();
 
-        self.views.svgplot.plotMulti(options);
-      }else{
-        if (options.attributes.data.plotType == "timeseries"){
-          //use high charts
-          if(!options.attributes.data.yvar){
-            $('#highcharts-row-section').css('display',"none");
-            $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
-                '</strong> &nbsp;Please select a parameter to plot</div>');
-            return false;
-          }
-
-          $('#highcharts-row-section').css('display',"");
-          $('#plot-view').css('display',"none");
-          //set the params and generate the view          
-          this.setParams(options);
-        }else{
+      if (options.attributes.data.plotType == "timeseries"){
+        //use high charts
+        if(!options.attributes.data.yvar){
           $('#highcharts-row-section').css('display',"none");
-          $('#plot-view').css('display',"");
-          //use default
-          this.views.svgplot.setModel(options);
-          self.views.svgplot.plot(options);
+          $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
+              '</strong> &nbsp;Please select a parameter to plot</div>');
+          return false;
         }
+
+        $('#highcharts-row-section').css('display',"");
+        $('#plot-view').css('display',"none");
+        //set the params and generate the view          
+        this.setTimeSeriesPlot(options);
+
+      }else if (options.attributes.data.plotType == "interpolated"){
+        // This interpolated chart is high charts x-y scatter
+        
+        $('#highcharts-row-section').css('display',"");
+        $('#plot-view').css('display',"none");
+        
+        //set the params and generate the view          
+        this.setInterpolatedPlot(options);
+
+      }else{
+        $('#highcharts-row-section').css('display',"none");
+        $('#plot-view').css('display',"");
+        //use default
+        this.views.svgplot.setModel(options);
+        self.views.svgplot.plot(options);
       }
     });
 
@@ -607,6 +644,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     });
 
+    //render the interpolated data
+    this.listenTo(this.collections.interpolatedDataseries, 'reset', function(series) {
+      console.log('SHIT')
+    });
+
     //render the annotations
     this.listenTo(self.collections.annotations, 'reset', function(collection) {
       self.views.annotationTableView.collection = collection;
@@ -616,9 +658,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     //
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
-
-
-
       $.when(self.views.plotEventListView.render()).done(function() {
         try{
           $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
