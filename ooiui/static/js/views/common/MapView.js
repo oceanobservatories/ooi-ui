@@ -463,8 +463,8 @@ var MapView = Backbone.View.extend({
                                 popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                 // Checkbox
                                 popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" value="">Engineering Instruments</label></stron></li></ul>';
-                                popupContent+='<div><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5></div>'; 
-                                popupContent+='<div style="background-color:white; max-height: 200px; overflow-y:scroll;"><table id="popupInstrumentTable" class="tablesorter" style="border: solid #aaaaaa 2px; background-color:white; width:460px; margin: 0px; padding: 0px;">';
+                                popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>'; 
+                                popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll;"><table id="popupInstrumentTable" class="tablesorter" style="border: solid #aaaaaa 2px; background-color:white; width:460px; margin: 0px; padding: 0px;">';
                                 
                                 popupContent+='<table id="popupInstrumentTable" class="tableWithFloatingHeader nasdaq">';
                                 popupContent+='<thead><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
