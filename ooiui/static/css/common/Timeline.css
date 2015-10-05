@@ -405,6 +405,16 @@ Main components
     font-size: 14px;
     font-size: 1.0rem;
   }
+  .empty-timeline
+{
+    display:none;
+    position:relative ;
+    left:25px;
+    top:-30px;
+    height:25px;
+    width:100px;
+ }
+
 }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-content {
@@ -464,6 +474,16 @@ Main components
     -moz-animation: cd-bounce-2 0.6s;
     animation: cd-bounce-2 0.6s;
   }
+  .empty-timeline
+{
+    display:none;
+    position:relative ;
+    left:50%;
+    margin-left:-44px;
+    height:25px;
+    width:100px;
+ }
+
 }
 
 @media only screen and (min-width: 1170px) {
@@ -588,4 +608,3 @@ Main components
     transform: translateX(0);
   }
 }
-

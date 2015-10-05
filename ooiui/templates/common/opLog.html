@@ -34,9 +34,10 @@
 	</div>
       </div>
       <div class="row">
-	<div id="log-timeline" class="cssanimations timeline col-lg-12"></div>
+	    <div id="log-timeline" class="cssanimations timeline col-lg-12"></div>
+        <div class="empty-timeline">No Items Found</div>
       </div>
-    </div>
+      </div>
   </div>
 </div>
 
@@ -162,6 +163,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
   },
   search: function(query) {
     var self = this;
+    $("#log-search-spinner").css("display","block");
     var organization_id = this.models.orgModel.get('id');
     if(query == '') {
       this.orgSelection(organization_id);
@@ -175,7 +177,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
       daterange:($("#startdate").datepicker("getDate")==null || $("#enddate").datepicker("getDate")==null) 
         ?""
         :moment($("#startdate").datepicker("getDate")).format("MM-DD-YYYY") + "_" + moment($("#enddate").datepicker("getDate")).format("MM-DD-YYYY")
-    }});
+    }})
+    .done(function(){
+       ooi.showEmpty();
+    });
   },
   /*
    * orgSelection is called by the event listener for org:click. The trigger
@@ -185,6 +190,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
    */
   orgSelection: function(organization_id) {
     var self = this;
+    $("#log-search-spinner").css("display","block");
     this.models.orgModel.set({
         id: organization_id,
         daterange:($("#startdate").datepicker("getDate")==null || $("#enddate").datepicker("getDate")==null) 
@@ -198,7 +204,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.models.orgModel.fetch();
     this.collections.logEntries.reset();
     this.views.timelineView.render();
-    this.collections.logEntries.fetch({data: {organization_id: organization_id,daterange:this.models.orgModel.attributes.daterange, limit: 20, offset: 0}});
+    this.collections.logEntries.fetch({data: {organization_id: organization_id,daterange:this.models.orgModel.attributes.daterange, limit: 20, offset: 0}})
+    .done(function(){
+       ooi.showEmpty();
+    });
   },
   test: function() {
     var now = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -207,6 +216,11 @@ _.extend(OOI.prototype, Backbone.Events,  {
       entry_description: "This was posted on " + now
     });
     log_entry.save();
+  },
+  showEmpty:function(){
+    $("#log-search-spinner").css("display","none");
+    if($("#cd-timeline").children().length==1) $(".empty-timeline").show(100);
+    else $(".empty-timeline").hide(100);
   },
   doDateSearch:function(){
     return  ($("#startdate").datepicker("getDate")!=null && $("#enddate").datepicker("getDate")!=null) 
