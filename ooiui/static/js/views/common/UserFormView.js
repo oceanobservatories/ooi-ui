@@ -103,6 +103,12 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
+            '[name=email_opt_in]': {
+            observe: 'email_opt_in',
+            setOptions: {
+                validate: true
+            }
+        }
         
     },
 
@@ -135,7 +141,7 @@ var SignUpForm = Backbone.View.extend({
         if (this.model.isValid(true)) {
             this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
             this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
-            this.model.set('_csrf_token', ooi.csrf_token)
+            this.model.set('_csrf_token', ooi.csrf_token);
             // Needs to be dynamic (update)
             this.model.save(null, {
               success: function(model, response) {
@@ -156,7 +162,7 @@ var SignUpForm = Backbone.View.extend({
                 }
                 self.modalDialog.show({
                   message: errMessage,
-                  type: "danger",
+                  type: "danger"
                 });
                 console.error(model);
                 console.error(response.responseText);
