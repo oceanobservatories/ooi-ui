@@ -25,6 +25,10 @@ var StreamTableView = Backbone.View.extend({
             label : 'Download Data'
         },
         {
+            name : 'reference_designator',
+            label : 'Reference Designator'
+        },
+        {
             name : 'stream_name',
             label : 'Stream Identifier'
         },
