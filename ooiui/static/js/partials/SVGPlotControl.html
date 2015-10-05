@@ -16,6 +16,7 @@
                   <option value="rose">Rose</option>
                   <option value="colorxyz">3D Colored Scatter</option>
                   <option value="stacked">Stacked Time Series</option>
+                  <option value="interpolated">Interpolated</option>
               </select>
           </div>
           <div id="yvar0-selection-default">
@@ -41,6 +42,13 @@
                   </select>
               </div> <!-- .form-group -->
           </div> <!-- #yvar2-selection -->
+          <div style="display: none;" id="clear-interp-params">
+              <div class="form-group">
+                  <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Interpolated X and Y Parameters">
+                    <span class="glyphicon glyphicon-refresh"></span> Clear
+                  </button>
+              </div> <!-- .form-group -->
+          </div> <!-- #yvar2-selection -->
           <div style="display: none;" id="yvar3-selection">
               <div class="form-group">
                   <label id='yvar3-select-text' for="yvar3-select">Select Z</label>
@@ -50,7 +58,7 @@
           </div> <!-- yvar3-selection -->
       </form>
   </div> <!-- .form-group -->
-  <div class="col-md-5">
+  <div class="col-md-4">
     <form role="form">
       <div class="form-group">
         <label id="start-time" for="start-date">Start Time (UTC)</label>
@@ -70,47 +78,53 @@
       </div> <!-- .form-group -->
     </form>
   </div>
-  <div class="col-md-3">
-    <form role="form">
-      <div class="form-group" style="margin-bottom:8px;">
-        <label id="qaqc-test" for="plotting-enable-events">QAQC Test</label>
-        <div>
-          <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
-        </div>
-      </div>
-      <div id="qa-qc" class="row">
-        <div class="div-qa-qc" style="display:none">
-          <input type="radio" name="radio-qa-qc" value="1"><span>Global Range</span></input>
-          <input type="radio" name="radio-qa-qc" value="2"><span>Local Range</span></input>
-          <input type="radio" name="radio-qa-qc" value="3"><span>Spike</span></input>
-          <input type="radio" name="radio-qa-qc" value="4"><span>Polytrend</span></input>
-          <input type="radio" name="radio-qa-qc" value="5"><span>Stuck Value</span></input>
-          <input type="radio" name="radio-qa-qc" value="6"><span>Gradient</span></input>
-          <input type="radio" name="radio-qa-qc" value="7"><span>Solar Elevation</span></input>
-          <input type="radio" name="radio-qa-qc" value="8"><span>Propagate Flags</span></input>
-          <input type="radio" name="radio-qa-qc" value="9"><span>Cond Compress</span></input>
-          <input type="radio" name="radio-qa-qc" value="10" checked><span>All</span></input>
-        </div>
-      </div>
-      <div class="form-group" style="margin-bottom:8px">
-        <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
-          <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Plot
-        </button>
 
-        <button title="Select another stream and variable(s) and press this button to add the data to the chart" id="add-plot" type="button" class="btn btn-default" aria-label="Left Align" style="display:none">
-          <!-- <span class="fa-stack" aria-hidden="true"><i class="fa fa-line-chart fa-stack-2x"></i><i class="fa fa-plus fa-stack-1x fa-inverse"></i></span> Add -->
-          <!-- <span class="fa fa-line-chart" aria-hidden="true"></span> Add -->
-          <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-        </button>
+    <div class="col-md-2">
+      <form role="form">
+        <div class="form-group" style="margin-bottom:8px;">
+          <label id="qaqc-test" for="plotting-enable-events">QAQC Test</label>
+          <div>
+            <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-bottom:8px">
+          <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Plot
+          </button>
 
-      </div> <!-- .form-group -->
-      <div class="form-group">
-        <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Time Axes">
-          <span class="glyphicon glyphicon-refresh"></span> Reset
-        </button>
+          <button title="Select another stream and variable(s) and press this button to add the data to the chart" id="add-plot" type="button" class="btn btn-default" aria-label="Left Align" style="display:none">
+            <!-- <span class="fa-stack" aria-hidden="true"><i class="fa fa-line-chart fa-stack-2x"></i><i class="fa fa-plus fa-stack-1x fa-inverse"></i></span> Add -->
+            <!-- <span class="fa fa-line-chart" aria-hidden="true"></span> Add -->
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+          </button>
+
+        </div> <!-- .form-group -->
+        <div class="form-group">
+          <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Time Axes">
+            <span class="glyphicon glyphicon-refresh"></span> Reset
+          </button>
+        </div>
+      </form>
+    </div>
+      <div class="col-md-2">
+        <form role="form">
+          <div id="qa-qc" class="row">
+            <div class="div-qa-qc" style="display:none">
+              <input type="radio" name="radio-qa-qc" value="1"><span>Global Range</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="2"><span>Local Range</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="3"><span>Spike</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="4"><span>Polytrend</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="5"><span>Stuck Value</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="6"><span>Gradient</span></input><br>
+              <input type="radio" name="radio-qa-qc" value="7" style="display:none"><span style="display:none">Solar Elevation</span></input>
+              <input type="radio" name="radio-qa-qc" value="8" style="display:none"><span style="display:none">Propagate Flags</span></input>
+              <input type="radio" name="radio-qa-qc" value="9" style="display:none"><span style="display:none">Cond Compress</span></input>
+              <input type="radio" name="radio-qa-qc" value="10" checked><span>All</span></input>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
 </div>
 <div class="row">
   <div class="col-md-12">

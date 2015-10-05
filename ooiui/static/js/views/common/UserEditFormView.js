@@ -22,6 +22,7 @@ var UserEditFormView = Backbone.View.extend({
     '#email' : 'email',
     '#organization' : 'organization',
     '#active' : 'active',
+    '#email_opt_in' : 'email_opt_in',
     '.scope_selection' : 'scopes'
   },
   events: {
@@ -46,7 +47,7 @@ var UserEditFormView = Backbone.View.extend({
         self.modalDialog.show({
           message: "User successfully updated",
           type: "success",
-          ack: function() { 
+          ack: function() {
             window.location = "/"
           }
         });
@@ -60,7 +61,7 @@ var UserEditFormView = Backbone.View.extend({
         }
         self.modalDialog.show({
           message: errMessage,
-          type: "danger",
+          type: "danger"
         });
         console.error(model);
         console.error(response.responseText);
@@ -74,4 +75,3 @@ var UserEditFormView = Backbone.View.extend({
     this.stickit();
   }
 });
-

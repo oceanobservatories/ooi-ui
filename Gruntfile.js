@@ -688,7 +688,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
             'ooiui/static/js/views/science/HighchartsView.js',
-            'ooiui/static/js/views/science/HighChartsTimeSeriesView.js'
+            'ooiui/static/js/views/science/HighChartsXYView.js',
+            'ooiui/static/js/views/science/HighChartsTimeSeriesView.js',
+            'ooiui/static/js/views/science/HighChartsXYScatterView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -887,6 +889,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalFormView.js',
 
             "ooiui/static/js/views/aa/AlertView.js",
+            'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',              
             "ooiui/static/js/views/aa/TriggeredView.js",
             "ooiui/static/js/views/aa/TriggerAlertDialogView.js",            
             "ooiui/static/js/views/aa/DefinitionModalFormView.js",
@@ -1117,7 +1120,9 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
             'ooiui/static/js/views/science/PlottingSelectionView.js',
-            'ooiui/static/js/views/science/PlotEventListView.js'
+            'ooiui/static/js/views/science/PlotEventListView.js',
+            'ooiui/static/js/views/science/HighChartsXYScatterView.js',
+            'ooiui/static/js/views/science/HighChartsXYView.js',
             //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'
           ],
           'ooiui/static/js/compiled/landingPages.js' : [

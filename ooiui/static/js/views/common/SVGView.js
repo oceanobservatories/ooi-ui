@@ -74,7 +74,8 @@ var plotParameters ={
         quiver:{val:2,condition:"=",message:"Must Select U- and V-Components"},
         rose:{val:2,condition:"=",message:"Must Select Magnitude and Direction"},
         scatter:{val:3,condition:"=",message:"Must Select X, Y, and Color Components"},
-        stacked:{val:1,condition:"=",message:"Must Z Component"},
+        stacked:{val:1,condition:"=",message:"Must Select Z Component"},
+        interpolated:{val:2,condition:"=",message:"Must X and Y Component"},
         _validate:function(name,length){return (length==0?false: (this[name].condition=="<="
                                             ? length<=parseInt(this[name].val)
                                             : parseInt(this[name].val)==length));}
@@ -82,12 +83,12 @@ var plotParameters ={
 
     _validateNumberOfSelected: function (plottype, selectlist){
         if(!this._selectedPrams._validate(plottype,selectlist.length)){
-          $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
+          $('#plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!</strong> &nbsp;'+
           this._selectedPrams[plottype].message +'</div>');
           this.valid=false;
           return false;
         }else if(selectlist.length==0){
-          $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
+          $('#plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Plot Warning!' +
             '</strong> &nbsp;Please select a parameter to plot</div>');
           this.valid=false;
           return false;
@@ -121,25 +122,25 @@ var plotParameters ={
   },
   invalidParam:function(){return !this._selectedX.valid},
   validateSelected:function(options){
-    var check2yvarplots = ['quiver', 'rose', 'ts_diagram'];
+    var check2yvarplots = ['quiver', 'rose', 'ts_diagram', 'interpolated'];
 
     if(!this._validateTimeSpan(options)) return false;
 
     if (options.attributes.data.plotType.toString().indexOf("_scatter")!=-1){
-      var var1 = $("#yvar1-select :selected").text();
-      var var2 = $("#yvar2-select :selected").text();
-      var var3 = $("#yvar3-select :selected").text();
+      var var1 = $("#yvar1-select :selected").val();
+      var var2 = $("#yvar2-select :selected").val();
+      var var3 = $("#yvar3-select :selected").val();
       var yvar = [];
-      if ( var1 != 'undefined' ) yvar.push(var1);
-      if ( var2 != 'undefined' ) yvar.push(var2);
-      if ( var3 != 'undefined' ) yvar.push(var3);
+      if (typeof var1 != 'undefined') yvar.push(var1);
+      if (typeof var2 != 'undefined') yvar.push(var2);
+      if (typeof var3 != 'undefined') yvar.push(var3);
       return this._selectedX._validateNumberOfSelected("scatter", yvar)
     }else if ($.inArray(options.attributes.data.plotType, check2yvarplots)!=-1) {
-      var var1 = $("#yvar1-select :selected").text();
-      var var2 = $("#yvar2-select :selected").text();
+      var var1 = $("#yvar1-select :selected").val();
+      var var2 = $("#yvar2-select :selected").val();
       var yvar = [];
-      if ( var1 != 'undefined' ) yvar.push(var1);
-      if ( var2 != 'undefined' ) yvar.push(var2);
+      if (typeof var1 != 'undefined') yvar.push(var1);
+      if (typeof var2 != 'undefined')yvar.push(var2);
       return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, yvar)
     }else {
       return this._selectedX._validateNumberOfSelected(options.attributes.data.plotType, options.yvar[0][0])
@@ -248,9 +249,9 @@ var SVGView = Backbone.View.extend({
 });
 
 var SVGPlotView = SVGView.extend({
-    setModel: function(options) {
-        this.model = options;
-    },
+  setModel: function(options) {
+      this.model = options;
+  },
   getDpaFlag: function(var_list) {
     var self = this
     var dpa_flag = "0";
@@ -262,47 +263,8 @@ var SVGPlotView = SVGView.extend({
     });
     return dpa_flag
   },
-  plotMulti: function(options) {
-    //requested plot
-    if(!plotParameters.validateMultiPlot(options)) return false;
-    this.reference_designator = this.model.get('reference_designator') + "," +options.secRef
-    this.stream_name = this.model.get('stream_name') + "," +options.secStream
-    //options.yvar = this.model.get('yvariable')
-    if('xvar' in options){
-    }else{
-      options.xvar = ["time"]
-    }
-
-    //set the width of the plot, 90% width
-    this.width = (this.$el.width()/100)*90;
-
-    if(options && options.yvar && options.xvar) {
-        this.yvariable = options.yvar+","+options.yvar2
-        this.xvariable = options.xvar;
-        this.dpa_flag = true;
-    }
-    if(this.yvariable != null && this.xvariable != null) {
-      this.useLine = options.attributes.data.useLine.toString();
-      this.useScatter = options.attributes.data.useScatter.toString();
-      this.useEvent = options.attributes.data.useEvent.toString();
-      this.plotType = options.attributes.data.plotType;
-      this.st = moment(options.attributes.start).toISOString();
-      this.ed = moment(options.attributes.end).toISOString();
-
-      this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({dpa_flag: this.dpa_flag,
-                                                                                                    yvar: this.yvariable ,
-                                                                                                    xvar: this.xvariable,
-                                                                                                    height: this.height,
-                                                                                                    width: this.width,
-                                                                                                    scatter:this.useScatter,
-                                                                                                    lines:this.useLine,
-                                                                                                    event:this.useEvent,
-                                                                                                    plotLayout:this.plotType,
-                                                                                                    startdate:this.st,
-                                                                                                    enddate:this.ed,
-                                                                                                    qaqc:plotParameters.getQAQC()})
-      this.fetch();
-    }
+  validateSelected: function(options){
+    return plotParameters.validateSelected(options)
   },
   plot: function(options) {
     //requested plot
@@ -319,7 +281,7 @@ var SVGPlotView = SVGView.extend({
     this.format = "svg";
 
     if(options && options.yvar && options.xvar) {
-      if(!plotParameters.validateSelected(options)) return false;
+      if(!this.validateSelected(options)) return false;
       if (options.attributes.data.plotType == 'depthprofile'){
         //Variables are backwards, beware
         this.xvariable = null;
@@ -490,6 +452,7 @@ var SVGPlotControlView = Backbone.View.extend({
     'click #update-plot' : 'onClickPlot',
     'click #add-plot' : 'onAddClickPlot',
     'click #reset-time' : 'onResetTime',
+    'click #clear-interp-params' : 'onClearParams',
     'change #xvar-select' : 'xVarChange',
     'change #yvar1-select' : 'yVar1Change',
     'change #yvar2-select' : 'yVar2Change',
@@ -511,6 +474,17 @@ var SVGPlotControlView = Backbone.View.extend({
         }
 
   },
+  onClearParams: function(){
+    // Remove the saved attributes and update dropdowns
+    delete this.model.attributes.reference_designator1;
+    delete this.model.attributes.reference_designator2;
+    delete this.model.attributes.stream_name1;
+    delete this.model.attributes.stream_name2;
+    this.$el.find('#yvar1-select').val([]);
+    this.$el.find('#yvar2-select').val([]);
+    this.$el.find('#yvar1-select').html(this.$el.find('#yvar2-select').html())
+    this.$el.find('.selectpicker').selectpicker('refresh');
+  },
   updateYVarDropdown: function(){
       // This function copies parameters from parameters_id to the 3 yVar
       // dropdowns for the advanced plots
@@ -519,7 +493,7 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find("#yvar3-select").html($("#parameters_id").html());
       this.$el.find('.selectpicker').selectpicker('refresh');
   },
-  setModel: function(model,updateTimes) {
+  setModel: function(model, updateTimes) {
     var self = this;
     this.model = model;
     this.data = null;
@@ -555,12 +529,13 @@ var SVGPlotControlView = Backbone.View.extend({
     }
     // Hide the add plot button
     this.$el.find('#add-plot').css('display','none');
+    // Hide the clear params button
+    this.$el.find('#clear-interp-params').css('display','none');
 
     if (plotType=="Time Series"){
       if ($.trim($('#highcharts-view').html() ).length){
         this.$el.find('#add-plot').css('display','');
       };
-      // this.$el.find('#add-plot').css('display','');
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.");
       this.$el.find('#plotting-enable-events').attr('disabled', true);
       this.$el.find('#yvar0-selection-default').show();
@@ -570,7 +545,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Stacked Time Series"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The stacked time series plot is a 2D colored plot that plots bins (Y-axis) against time (X-axis) using color spectrum for the value. The user should select just 1 appropriate derived products with 2D data (ie. ADCP, VADCP, and SPKIR) for this plot to work properly.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -583,7 +557,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="T-S Diagram"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -597,7 +570,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Depth Profile"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Depth Profile plot uses the Pressure and/or Depth parameter from a data stream, as well as a maxima/minima extrema calculation, to determine singular depth profiles present in the data.  Users should select only a single parameter for this plot type.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -608,7 +580,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Quiver"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Quiver plot is designed to be used with two velocitiy parameters.  This plot is used primarily with the Velocity Meters and the Acoustic Doppler Current Profilers.  This plot will provide an arrow to display the direction of the water movement, as well as a gray shadow to represent the magnitude.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -622,7 +593,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="Rose"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Rose Plot is designed to show the magnitude and direction of water currents and wind movement.  The direction should be represented as a value between 0 and 360.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -636,7 +606,6 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar3-selection').hide();
 
     }else if(plotType=="3D Colored Scatter"){
-      // this.$el.find('#add-plot').css('display','none');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The 3D Colored Scatter allows a user to select two parameters as the X and Y axes, then select a 3rd parameter to use as a color map for the plotted points.")
 
       this.$el.find('#plotting-enable-events').attr('disabled', true);
@@ -649,6 +618,21 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar2-select-text').text("Y-Component");
       this.$el.find('#yvar3-selection').show();
       this.$el.find('#yvar3-select-text').text("Color");
+
+    }else if(plotType=="Interpolated"){
+      this.$el.find('#clear-interp-params').css('display','');
+      this.$el.find('#xVarTooltip').attr('data-original-title',"The Interpolated plot allows a user to plot parameters from 2 different streams as the X and Y axes on the scatter plot. The Y parameter is interpolated to the same time stamps as the data in the X parameter.")
+
+      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.updateYVarDropdown();
+      this.$el.find('#yvar0-selection-default').hide();
+      this.$el.find('#yvar1-selection').show();
+      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar1-select-text').text("X-Component");
+      this.$el.find('#yvar2-selection').show();
+      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar2-select-text').text("Y-Component");
+      this.$el.find('#yvar3-selection').hide();
     }
   },
   yVar1Change: function(e) {
@@ -656,12 +640,20 @@ var SVGPlotControlView = Backbone.View.extend({
     $("#parameters_id").val(selectedParam);
     $("#parameters_id").change();
     $("#parameters_id").selectpicker('refresh');
+    var plotType = this.$el.find('#xvar-select option:selected').text();
+    if(plotType=="Interpolated"){
+      ooi.trigger('SVGPlotControlView:onInterpolatedSelection1', this.model);
+    }
   },
   yVar2Change: function(e) {
     var selectedParam = this.$el.find( "#yvar2-select option:selected").val()
     $("#parameters_id").val(selectedParam);
     $("#parameters_id").change();
     $("#parameters_id").selectpicker('refresh');
+    var plotType = this.$el.find('#xvar-select option:selected').text();
+    if(plotType=="Interpolated"){
+      ooi.trigger('SVGPlotControlView:onInterpolatedSelection2', this.model);
+    }
   },
   yVar3Change: function(e) {
     var selectedParam = this.$el.find( "#yvar3-select option:selected").val()
@@ -711,9 +703,12 @@ var SVGPlotControlView = Backbone.View.extend({
     var xvar = this.$el.find('#xvar-select').find(":selected").val()
 
     if (updateTimes){
-      this.$el.html(this.template({model: this.model}));
+      if (xvar != 'interpolated'){
+        this.$el.html(this.template({model: this.model}));
+        this.$el.find('.bootstrap-switch').bootstrapSwitch();
+      }
+
       this.$el.find('.selectpicker').selectpicker();
-      this.$el.find('.bootstrap-switch').bootstrapSwitch();
 
       this.$el.find('[data-toggle="tooltip"]').tooltip()
 
@@ -736,6 +731,13 @@ var SVGPlotControlView = Backbone.View.extend({
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
       this.$end_date_picker = this.$end_date.data('DateTimePicker');
+
+      this.$el.find('#start-date').data("DateTimePicker").setDate(this.model.get('start'));
+      this.$el.find('#end-date').data("DateTimePicker").setDate(this.model.get('end'));
+
+      // this.$el.find('#start-date').datepicker('update');
+      // this.$el.find('#end-date').datepicker('update');
+      
     }
 
     this.$type_select = this.$el.find('#type-select');

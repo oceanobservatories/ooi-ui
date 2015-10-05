@@ -10,6 +10,7 @@
   <script src="/js/partials/compiled/alertPage.js" type="text/javascript"></script>
   <script src="/js/compiled/alertPage.js" type="text/javascript"></script>
   <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/alerts_alarms.css" rel="stylesheet" type="text/css" />
 
   <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
   <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
@@ -49,30 +50,29 @@
                 </button>
               </i>
             </div>
-            <div class="row form-group">
-              <div id='alertslist' class="col-sm-12">
-              </div>
-              <div>
-
-                {#<div class="col-sm-12" id="action_buttons" style='font-weight:bold;padding-top:15px;'>
-                <i id="toggle_active_btn">
-                  <button type="button" id="toggleActiveBtn" class="btn btn-primary" style="display: none;">
-                    <i class="fa fa-plus-square"></i> Disable Alert/Alarm
-                  </button>
-                </i>
-              </div>#}                
-              </div>
-            </div>
+            <div class="row form-group" style="width:100%; padding-left:30px;">
+              <div class="row">
+                <div id="alerts-panel" class="panel">
+                  <div id="alerts-search" class="panel-header">
+                    <div class="scrollable-block">
+                      <div id="alerts-scrollable" class="scrollable-area">
+                        <div class="panel-body">
+                          <div id='alertslist' class="col-sm-12">
+                          </div>
+                        </div>
+                      </div> <!-- end scollabel-area -->
+                    </div> <!-- end scollabel-block -->
+                  </div>
+                </div> <!-- end alerts-panel -->
+              </div> <!-- end row -->
+            </div><!-- end row form-group -->
           </div>
+          <div id="definition-modal"></div>
+          <div id="active-toggle-modal"></div>
+          <div id="definition-status"></div>
         </div>
-        <div id="definition-modal"></div>
-        <div id="active-toggle-modal"></div>
-        <div id="definition-status"></div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
 
   <!-- Menu Toggle Script -->
   <script type="text/javascript">
