@@ -13,6 +13,8 @@
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/AlfrescoDocumentModel.js" type="text/javascript"></script>
+<script src="/js/views/asset_management/AlfrescoDocumentView.js" type="text/javascript"></script>
 <script src="/js/core/common/paginate.js" type="text/javascript"></script>
 <script src="/js/compiled/asset_management.js" type="text/javascript"></script>
     {% block link %}
@@ -138,44 +140,30 @@ _.extend(OOI.prototype, Backbone.Events, {
         renderAssetEventsTable(model);
     });
 
+    this.listenTo(vent, "asset:renderDocsTable", function(model) {
+        renderRemoteDocuments(model);
+    });
+
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
     // TOC Controls
     this.listenTo(this, 'toc:selectArray', function(model) {
         var searchFor = model.get('array_name').substr(0,14);
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showAssets );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showAssets );
     });
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
         var searchFor = model.get('ref_des');
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showAssets );
     });
     }
@@ -185,7 +173,7 @@ var vent = _.extend({}, Backbone.Events);
 
 // Main collection for this page's asset information.
 var collection          = new AssetCollection();
-var assetCollection          = new AssetCollection();
+var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
@@ -231,13 +219,13 @@ $(document).ready(function() {
     $('#footer').append(footer.el);
 });
 
-function textInput() {
+var textInput = function() {
         $('#search-clear').toggle(Boolean($(this).val()));
         $('#search-clear').toggle(Boolean($('#search').val()));
         updateCollection( showAssets );
-}
+};
 
-function showAssets( collection, response ){
+var showAssets = function(collection, response){
 
     //Clean up the loading stuff and get ready to show the table
     $('i.fa-spin').remove();
@@ -253,9 +241,9 @@ function showAssets( collection, response ){
     // Empty the table and append the new results.
     $('#assetsTable').find('tbody').remove().end();
     $("#assetsTable").append( assetsTableView.el );
-}
+};
 
-function renderAssetTableHeader(collection) {
+var renderAssetTableHeader = function(collection) {
     //create the table header for the assets table.
     //Will manage the search box, the pagination boxes and the asset creator button.
     var assetTableHeaderView = new AssetTableHeaderView({ collection: collection });
@@ -265,9 +253,9 @@ function renderAssetTableHeader(collection) {
     $('#assetTableHeading').append( assetTableHeaderView.el );
 
     return assetTableHeaderView;
-}
+};
 
-function renderAssetInspector(model) {
+var renderAssetInspector = function(model) {
     //create a new asset inspector (info) panel and render it's view.
     var assetInspectorView = new AssetInspectorView({ model:model });
     assetInspectorView.render();
@@ -277,9 +265,9 @@ function renderAssetInspector(model) {
 
     //Then attach the new one.
     $('#assetInspector').append( assetInspectorView.el );
-}
+};
 
-function renderAssetEventsTable(model) {
+var renderAssetEventsTable = function(model) {
     //create a new event table panel and reder it's view.
     var assetEventsTableView = new AssetEventsTableView({ model:model });
     assetEventsTableView.render();
@@ -289,9 +277,31 @@ function renderAssetEventsTable(model) {
 
     //then put the newly created view into the DOM.
     $('#assetEventsTable').append( assetEventsTableView.el );
+};
+
+var renderRemoteDocuments = function(model) {
+    //clear out the old events table panel DOM
+    $('div#remoteDocuments table tbody').children().remove();
+    $('div#remoteDocuments table tbody').append('<b>Loading...</b><i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:12px;"></i>');
+
+    var ref_des = model.get('ref_des');
+    var data = { 'search': ref_des };
+    var alfrescoDocCollection = new AlfrescoDocumentCollection();
+
+    //create a new table body and render it's view
+    var docFetch = alfrescoDocCollection.fetch({ data: data, async: false});
+    $.when(docFetch).done(function(){
+        $('div#remoteDocuments table tbody i.fa-spinner').remove();
+        $('div#remoteDocuments table tbody b').remove();
+        var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
+        alfrescoTableBodyView.renderRecords();
+
+        // append to the DOM
+        $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
+    });
 }
 
-function populate() {
+var populate = function() {
   // get url
   var newURL = window.location.href;
   // remove the preceding '?' from index
@@ -309,7 +319,7 @@ function populate() {
   }
 }
 
-function updateCollection( successCallback ){
+var updateCollection = function(successCallback){
 
     // If there is a search term, we need to set the startAt attribute to 0,
     // otherwise the results may not load on the page.
@@ -333,9 +343,9 @@ function updateCollection( successCallback ){
     });
     //update the download link...
     ooi.views.headerView.updateAssetExport($('#search').val());
-}
+};
 
-function updatePagination( details, successCallback ){
+var updatePagination = function(details, successCallback){
     // Calculate pagination attributes
     var start = details.startAt + 1,
         end = details.startAt + details.count,
@@ -367,18 +377,18 @@ function updatePagination( details, successCallback ){
             }
         }
     });
-}
+};
 
-function isoToDateTime( strInput ) {
+var isoToDateTime = function(strInput) {
     var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;
     var returnDate = (true) ? new Date(Date.parse(temp[0])) : new Date(temp);
     return returnDate;
-}
-function dateTimeToISO( strInput ) {
+};
+var dateTimeToISO = function(strInput) {
     var temp = Date.parse(strInput);
     var parseDate = new Date(temp);
     var isoDateReturn = parseDate.toISOString();
     return isoDateReturn;
-}
+};
 </script>
 {% endblock %}
