@@ -11,13 +11,13 @@
         </div>
         </span>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="max-height: 440px; min-width: 500px; overflow-x:hidden">
         <!-- tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" role="tablist" >
             <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
             <li role="presentation"><a href="#metaData" aria-controls="metaData" data-toggle="tab">Metadata</a></li>
             <li role="presentation"><a href="#assetAquisitionInfo" aria-controls="assetAquisitionInfo" data-toggle="tab">Aquisition Data</a></li>
-            <li role="presentation"><a href="#remoteDocuments" aria-controls="assetDocuments" data-toggle="tab">Documents</a></li>
+            <li role="presentation" ><a href="#remoteDocuments" aria-controls="assetDocuments" data-toggle="tab">Documents</a></li>
         </ul>
         <!-- tab-panes -->
         <div class="tab-content">
@@ -74,12 +74,12 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID#</th>
-                            <th>Document</th>
                             <th id="remoteDocDownload">Download</th>
+                            <th>Document</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr><td colspan="2"><span id="loadDocs" style="text-decoration:underline; cursor:pointer;">Click to load documents...</span></td></tr>
                         <% _.each(remoteDocuments, function(row) { %>
                         <tr>
                             <td></td>
