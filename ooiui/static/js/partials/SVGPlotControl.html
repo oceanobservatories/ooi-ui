@@ -16,6 +16,7 @@
                   <option value="rose">Rose</option>
                   <option value="colorxyz">3D Colored Scatter</option>
                   <option value="stacked">Stacked Time Series</option>
+                  <option value="interpolated">Interpolated</option>
               </select>
           </div>
           <div id="yvar0-selection-default">
@@ -39,6 +40,13 @@
                   <label id='yvar2-select-text' for="yvar2-select">Select Y</label>
                   <select data-width="100%" data-hide-disabled=true id="yvar2-select" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="1" >
                   </select>
+              </div> <!-- .form-group -->
+          </div> <!-- #yvar2-selection -->
+          <div style="display: none;" id="clear-interp-params">
+              <div class="form-group">
+                  <button id="reset-time" type="button" class="btn btn-default btn-xs" title="Reset Interpolated X and Y Parameters">
+                    <span class="glyphicon glyphicon-refresh"></span> Clear
+                  </button>
               </div> <!-- .form-group -->
           </div> <!-- #yvar2-selection -->
           <div style="display: none;" id="yvar3-selection">
