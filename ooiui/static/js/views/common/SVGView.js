@@ -714,29 +714,28 @@ var SVGPlotControlView = Backbone.View.extend({
 
       this.$start_date = this.$el.find('#start-date');
       this.$end_date = this.$el.find('#end-date');
+      console.log(this.model.get('start'))
+      var startDate = moment.utc(this.model.get('start')).toJSON();
+      var endDate = moment.utc(this.model.get('end')).toJSON();
 
-
-      this.$start_date.datetimepicker({defaultDate : moment.utc(this.model.get('start')),
-                                       minDate: moment.utc(this.model.get('start')),
-                                       maxDate: moment.utc(this.model.get('end')),
+      this.$start_date.datetimepicker({defaultDate : startDate,
+                                       minDate: startDate,
+                                       maxDate: endDate,
                                        format: "YYYY-MM-DD HH:mm:ss",
                                        sideBySide: true
                                        });
-      this.$end_date.datetimepicker({defaultDate : moment.utc(this.model.get('end')),
-                                     minDate: moment.utc(this.model.get('start')),
-                                     maxDate: moment.utc(this.model.get('end')),
+      this.$end_date.datetimepicker({defaultDate : endDate,
+                                     minDate: startDate,
+                                     maxDate: endDate,
                                      format: "YYYY-MM-DD HH:mm:ss",
                                      sideBySide: true
                                     });
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
-      this.$end_date_picker = this.$end_date.data('DateTimePicker');
+      this.$end_date_picker = this.$end_date.data('DateTimePicker'); 
 
-      this.$el.find('#start-date').data("DateTimePicker").setDate(this.model.get('start'));
-      this.$el.find('#end-date').data("DateTimePicker").setDate(this.model.get('end'));
-
-      // this.$el.find('#start-date').datepicker('update');
-      // this.$el.find('#end-date').datepicker('update');
+      this.$el.find('#start-date').data("DateTimePicker").setDate(startDate);
+      this.$el.find('#end-date').data("DateTimePicker").setDate(endDate);
       
     }
 

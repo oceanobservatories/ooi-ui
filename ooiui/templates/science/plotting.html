@@ -760,8 +760,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     // Default to NetCDF download
     self.models.downloadModel.selection = 'netcdf';
     // Get the user selected start and end dates
-    self.models.downloadModel.model.attributes.start = moment($('#start-date').data('date')).format();
-    self.models.downloadModel.model.attributes.end = moment($('#end-date').data('date')).format();
+    self.models.downloadModel.model.attributes.start = moment.utc($('#start-date').data('date')).format();
+    self.models.downloadModel.model.attributes.end = moment.utc($('#end-date').data('date')).format();
+    self.models.downloadModel.model.attributes.email = this.models.userModel.get("email");
+    self.models.downloadModel.model.attributes.user_name = this.models.userModel.get("user_name");
+
     self.views.streamDownloadFormView.show(self.models.downloadModel);
   });
 

@@ -28,16 +28,18 @@ var StreamModel = Backbone.Model.extend({
     preferred_timestamp: "",
     provenance: "",
     annotations: "",
+    email: "",
+    user_name: "",
   },
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
     } else if(type == 'profile_json_download') {
-      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
+      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
     } else if(type == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations');
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
     } else if(type == 'csv') {
-      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end');
+      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
     }
     return url;
   },
