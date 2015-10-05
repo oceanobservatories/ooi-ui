@@ -289,7 +289,11 @@ div.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
   width: auto;
   white-space: inherit;
 }
-
+.nasdaq tbody::-webkit-scrollbar {
+  width: 1px;
+  background: transparent;
+  border: 1px solid #D1DAF5;
+}
 div.bootstrap-datetimepicker-widget.dropdown-menu.bottom > ul > li.collapse.in {
   background: #fff;
 }
