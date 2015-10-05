@@ -389,14 +389,26 @@ _.extend(OOI.prototype, Backbone.Events, {
         });
 
       var param_list = []
-        var parameterhtml = "";
-      var shape = options.model.get('variables_shape');
+      var parameterhtml = "";
+      var shape = options.model.get('variables_shape');      
+      var types = options.model.get('variable_type');     
 
-      //Ok lets start by getting derived parameters
-      parameterhtml += "<optgroup label='Derived'>"
-        for (var i = 0; i < options.model.get('variables').length; i++) {
+      var fieldsList = [{  label:'Derived',shape:['function'] , types:['double','uint','int','float','short','ushort','byte','ubyte'],
+                        },
+                        {
+                           label:'Non Derived',shape:['scalar'], types:['double','uint','int','float','short','ushort','byte','ubyte'],                        
+                        }
+                        /*
+                        {
+                           label:'Array',shape:['array1d'], types:['double','uint','int','float','short','ushort','byte','ubyte'],
+                        }*/]
+
+      _.each(fieldsList, function(dataField) {
+         parameterhtml += "<optgroup label='"+dataField.label+"'>"
+         for (var i = 0; i < options.model.get('variables').length; i++) {
           if (param_list.indexOf(options.model.get('variables')) == -1){
-            if (shape[i] === "function"){
+            //make sure its valid
+            if (($.inArray(shape[i], dataField.shape) > -1) && ($.inArray(types[i], dataField.types) > -1)){
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
@@ -405,27 +417,10 @@ _.extend(OOI.prototype, Backbone.Events, {
                 param_list.push(variable);
               }
             }
-
+           }
           }
-        }
-      parameterhtml += "</optgroup>"
-
-        //Now get non derived parameters
-        parameterhtml += "<optgroup label='Non Derived'>"
-        for (var i = 0; i < options.model.get('variables').length; i++) {
-          if (param_list.indexOf(options.model.get('variables')) == -1){
-            if (shape[i] != "function"){
-              var parameterId = options.model.get('parameter_id')[i];
-              var units = options.model.get('units')[i];
-              var variable = options.model.get('variables')[i];
-              if (variable.toLowerCase() != "time"){
-                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                param_list.push(variable);
-              }
-            }
-          }
-        }
-      parameterhtml += "</optgroup>"
+         parameterhtml += "</optgroup>"
+      });
 
       $("div#yvar0-selection-default > div.form-group > select").html(parameterhtml);
       if (refreshYVar1){
