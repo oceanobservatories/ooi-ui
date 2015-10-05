@@ -30,15 +30,8 @@ tabindex allows the escape key to be used to close the modal -->
                 <input id="username" type="text" class="form-control modal-form-input input" value="<%= username %>" disabled="disabled">
               </div>
 
-              <!--
               <div class="form-group">
-                <label for="datestart">Start Date</label>
-                <input id="datestart" type="text" class="form-control modal-form-input input" value="<%= model.get('beginDT') %>">
-              </div>
-              -->
-
-              <div class="form-group">
-                <label for="startAnnotationDateTime">Start Date</label>
+                <label for="startAnnotationDateTime">Start Date <small>(DD/MM/YYYY HH:mm)</small></label>
                 <div class='input-group date' id='startAnnotationDateTime'>
                     <input type='text' class="form-control" />
                     <span class="input-group-addon">
@@ -48,15 +41,8 @@ tabindex allows the escape key to be used to close the modal -->
               </div>
 
 
-              <!--
               <div class="form-group">
-                <label for="dateend">End Date</label>
-                <input id="dateend" type="text" class="form-control modal-form-input input" value="<%= model.get('endDT') %>">
-              </div>
-              -->
-
-              <div class="form-group">
-                <label for="endAnnotationDateTime">End Date</label>
+                <label for="endAnnotationDateTime">End Date <small>(DD/MM/YYYY HH:mm)</small></label>
                 <div class='input-group date' id='endAnnotationDateTime'>
                     <input type='text' class="form-control" />
                     <span class="input-group-addon">
