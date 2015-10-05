@@ -24,6 +24,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
+          <div class="col-sm-12" id="current_array_con" style='font-weight:bold;padding-top:15px;'>
+            <div id="download-container">
+              <!--<button type="button" id="downloadUsersButton" class="btn btn-primary">
+                <i class="fa fa-bolt"></i> Download All Users
+              </button>
+              <br>-->
+            </div>
+          </div>
           <div class="panel">
             {# <div class="panel-heading"> #}
             {#   Users #}
@@ -74,6 +82,15 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection: this.collections.users,
       el: $('#users-table-view')
     });
+    //click the add definition button
+    //$('#downloadUsersButton').on( "click", function(evt) {
+      //console.log("clicked download users");
+
+      $.get("/api/user", function (data) {
+        var jsonData = "text/json;charset=utf-8," + JSON.stringify(data);
+        $('<a href="data:' + jsonData + '" download="ooi_users.json">Click to Download JSON Format</a>').appendTo('#download-container');
+      });
+    //});
   }
 });
 
