@@ -111,7 +111,7 @@ var AssetMapView = Backbone.View.extend({
     }else if(event_type=='alarm'){
       return 'red';      
     }else if (event_type=='inactive'){
-      return 'steelblue';
+      return 'darkblue';
     }else{
       return 'gray';
     }
@@ -120,19 +120,15 @@ var AssetMapView = Backbone.View.extend({
     var self = this;    
     self.collection.each(function(station_model,i){            
       if (station_model.get('coordinates') && !_.isUndefined(station_model)){      
-        var circleStyleOptions = {
-              radius: 12,
-              fillColor: "#5e5e5e",
-              color: "#2D2D2D",
-              weight: 3,
-              opacity: .9,
-              fillOpacity: .9,
-              data:station_model.get('event_type')
-        };
 
-        circleStyleOptions['fillColor'] = self.getColor(station_model.get('event_type'));
-
-        var marker = L.circleMarker(station_model.get('coordinates'), circleStyleOptions);
+        var statusMarker = L.AwesomeMarkers.icon({
+          icon: 'info',
+          prefix: 'fa',
+          markerColor: self.getColor(station_model.get('event_type')),
+          data:station_model.get('event_type')
+        });
+              
+        var marker = L.marker(station_model.get('coordinates'), {icon: statusMarker});
 
         var status = station_model.get('event_type');
         if (status == 'inactive'){

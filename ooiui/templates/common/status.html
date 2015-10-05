@@ -17,6 +17,10 @@
   <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
 
+  <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+  <script src="/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js" type="text/javascript"></script>  
+
 {% endblock %}
 
 {% block body %}
@@ -75,6 +79,11 @@
 
                   <div class="row" style="margin-right: 5px; margin-top:5px;">
                   <div id='statusListOutline' class="col-md-12 well">
+
+                    <div class="dogTagBtn well status-panel-unknown" style='padding:20px;cursor:pointer; width:97% !important;border:1px dashed !important'>                   
+                        <h3>Please select an item from the left</h3>
+                    </div>
+
                   </div>
                   </div>
                 </div>
@@ -225,7 +234,7 @@
           var filteredList = self.collections.statusAlertsList.sortByStatus('all');
 
           var resetAvailable = false;
-          if (filteredList.length<2){
+          if (filteredList.length==0){
             filteredList = self.collections.statusAlertsList.sortByStatus('unknown');                        
             resetAvailable = true;
           }

@@ -165,10 +165,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
       var base_url = window.location.protocol+"//"+window.location.host+"/"
       var download_link = options.model.get('download');
-      var download_link_url = download_link[options['selection']]
+      var download_link_url = download_link[options['selection']];
 
-      base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end')
+      base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
 
+      options.model.attributes.email = this.models.userModel.get("email");
+      options.model.attributes.user_name = this.models.userModel.get("user_name");
       self.views.streamDownloadFormView.show(options);
       //window.open(base_url, '_blank');
 
@@ -183,39 +185,21 @@ _.extend(OOI.prototype, Backbone.Events, {
     // TOC Controls
     this.listenTo(this, 'toc:selectArray', function(model) {
         var searchFor = model.get('array_name');
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showStreams );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showStreams );
     });
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
         var searchFor = model.get('ref_des');
-        if ( searchFor == $('#search').val() ) {
-            $('#search').val('');
-            $('#search-clear').hide();
-            $(".active-toc-item").removeClass("active-toc-item");
-        } else {
-            $('#search').val(searchFor);
-            $('#search-clear').show();
-        }
+        $('#search').val(searchFor);
+        $('#search-clear').show();
         updateCollection( showStreams );
     });
 }

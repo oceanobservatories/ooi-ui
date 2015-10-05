@@ -31,14 +31,14 @@ var AssetTableHeaderView = ParentAssetView.extend({
         _.bindAll(this, 'createAsset','exportAssets');
     },
     events: {
-        "click #assetCreatorBtn" : "createAsset", 
-        "click #assetExportBtn" : "exportAssets",       
+        "click #assetCreatorBtn" : "createAsset",
+        "click #assetExportBtn" : "exportAssets",
     },
-    exportAssets:function(e){        
+    exportAssets:function(e){
     },
     updateAssetExport:function(search){
         url = '/api/asset_deployment?search='+search+'&sort=id&export=json'
-        this.$el.find('#assetExportBtn').attr("href", url);      
+        this.$el.find('#assetExportBtn').attr("href", url);
     },
     createAsset: function() {
         var assetCreatorModal = new AssetCreatorModalView();
@@ -114,7 +114,7 @@ var AssetInspectorView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetInspector.html'],
     initialize: function() {
-        _.bindAll(this, 'editAsset');
+        _.bindAll(this, 'editAsset', 'loadDocs');
         this.listenToOnce(vent, 'asset:derender', function(model) {
             this.derender();
         });
@@ -122,6 +122,7 @@ var AssetInspectorView = ParentAssetView.extend({
     },
     events: {
         "click #assetEditorBtn": "editAsset",
+        "click #loadDocs": "loadDocs"
     },
     editAsset: function() {
         // before editing the asset, make sure it's up to date.
@@ -129,6 +130,12 @@ var AssetInspectorView = ParentAssetView.extend({
         var assetEditorModal = new AssetEditorModalView({ model:this.model });
         $(assetEditorModal.render().el).appendTo('#assetEditorModal');
         return this;
+    },
+    loadDocs: function() {
+        'use strict';
+        this.model.fetch();
+        console.log('called loadDocs');
+        vent.trigger('asset:renderDocsTable', this.model);
     }
 });
 
