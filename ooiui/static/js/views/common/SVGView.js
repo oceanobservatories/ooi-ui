@@ -714,7 +714,7 @@ var SVGPlotControlView = Backbone.View.extend({
 
       this.$start_date = this.$el.find('#start-date');
       this.$end_date = this.$el.find('#end-date');
-      console.log(this.model.get('start'))
+
       var startDate = moment.utc(this.model.get('start')).toJSON();
       var endDate = moment.utc(this.model.get('end')).toJSON();
 
