@@ -40,5 +40,5 @@ var AlfrescoRecordView = ParentAlfrescoView.extend({
             'style': 'cursor:pointer'
         }
     },
-    template: _.template('<td><a href="<%= url %>" target="_blank" title="<%= url %>">DL</a></td><td title="<%= name %>"><%= name %></td>')
+    template: _.template('<td style="text-align:center"><a href="<%= url %>" target="_blank" title="<%= url %>"><i class="fa fa-download"></i></a></td><td title="<%= name %>"><%= name %></td>')
 });

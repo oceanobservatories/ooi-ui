@@ -289,7 +289,7 @@ var renderRemoteDocuments = function(model) {
     var alfrescoDocCollection = new AlfrescoDocumentCollection();
 
     //create a new table body and render it's view
-    var docFetch = alfrescoDocCollection.fetch({ data: data, async: false});
+    var docFetch = alfrescoDocCollection.fetch({ data: data });
     $.when(docFetch).done(function(){
         $('div#remoteDocuments table tbody i.fa-spinner').remove();
         $('div#remoteDocuments table tbody b').remove();
