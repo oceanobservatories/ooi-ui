@@ -15,10 +15,13 @@
   <!-- lunr also requires a script tag -->
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
   <script src="/js/core/table/jquery.tablesorter.js" type="text/javascript"></script>
+  <script src="/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
   <script src="/lib/leaflet.wms/leaflet.wms.js" type="text/javascript"></script>
+  <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+  
   {% endblock %}
 
 
@@ -213,7 +216,8 @@ $(document).ready(function() {
         updateCollection( showSearchResults );
     });
     $('#map').on('popupopen', function() {
-            $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+      $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+      
     });
 
 });
