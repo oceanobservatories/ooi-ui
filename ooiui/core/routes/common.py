@@ -318,14 +318,20 @@ def delete_log_entry_comment(id):
     response = requests.delete(app.config['SERVICES_URL'] + '/log_entry_comment/%s' % id, auth=(token, ''))
 
 @app.route('/api/uframe/get_toc', methods=['GET'])
-def get_toc_list():  
+def get_toc_list():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_toc')
     return response.text, response.status_code
 
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
-def get_glider_track():  
+def get_glider_track():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_glider_tracks', auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/alfresco/documents', methods=['GET'])
+def get_alfresco_documents():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/alfresco/documents', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/CGSNConfig')
