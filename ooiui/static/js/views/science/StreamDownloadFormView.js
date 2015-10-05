@@ -60,6 +60,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = moment.utc(this.$end_date.data('date')).toJSON();
     localModel.set('start', startDate);
     localModel.set('end', endDate);
+
+    var email = this.$el.find('#dlEmail').val();
+    var user_name = this.model.get('name');
+    localModel.set('email', email);
+    localModel.set('name', user_name);
+
     // Check for provenance and set the model
     if(this.$el.find('#provenance-select').is(':checked')){
       localModel.set('provenance', 'true');
@@ -77,8 +83,10 @@ var StreamDownloadFormView = Backbone.View.extend({
       url: url,
       type: "GET",
       dataType: "json",
-      success: function(data){
-        ooi.trigger('DownloadModal:onSuccess', data['outputURL']);
+      user_email: email, 
+      user_name: user_name,
+      success: function(resp){
+        ooi.trigger('DownloadModal:onSuccess', this.user_email);
       },
       error: function(msg){
         ooi.trigger('DownloadModalFail:onFail', msg);
@@ -92,6 +100,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     console.log("this failure");
   },
   show: function(options) {
+
     var model = options.model;
     var selection = options.selection;
     // console.log("SHOW", options.model.attributes);
@@ -109,6 +118,10 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find('#streamName').text(model.get('stream_name'));
     }
     this.$el.find('#type-select').val(selection);
+
+    var email = model.get('email');
+    this.$el.find('#dlEmail').val(email);
+
     this.$el.find('#download-modal').modal('show');
 
     // Update parameters dropdown
@@ -126,6 +139,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
     this.$el.html(this.template({}));
+
     this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
                                                  sideBySide: true
                                                  });
@@ -137,5 +151,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$type_select = this.$el.find('#type-select');
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
+
   }
 });
