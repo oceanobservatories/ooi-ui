@@ -698,6 +698,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
+
       $.when(self.views.plotEventListView.render()).done(function() {
         try{
           $("table").stickyTableHeaders({ scrollableArea: $(".scrollable-area"), "fixedOffset": 2 });
@@ -716,8 +717,8 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
 
-    var min = moment.utc(model.get('beginDT')).format("DD/MM/YYYY HH:mm");
-    var max = moment.utc(model.get('endDT')).format("DD/MM/YYYY HH:mm");
+    var min = moment.utc(model.get('beginDT')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(model.get('endDT')).format("YYYY-MM-DD HH:mm");
 
     model.set('beginDTSafe',min);
     model.set('endDTSafe',max);
@@ -732,8 +733,8 @@ _.extend(OOI.prototype, Backbone.Events, {
   });
 
   this.listenTo(this, 'AnnotationTableView:onAddClick', function() {      
-    var min = moment.utc(self.views.svgPlotControlView.model.get('start')).format("DD/MM/YYYY HH:mm");
-    var max = moment.utc(self.views.svgPlotControlView.model.get('end')).format("DD/MM/YYYY HH:mm");
+    var min = moment.utc(self.views.svgPlotControlView.model.get('start')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(self.views.svgPlotControlView.model.get('end')).format("YYYY-MM-DD HH:mm");
 
     var model = new AnnotationModel({"referenceDesignator":self.models.downloadModel.model.get('reference_designator'),
       "beginDTSafe":min,

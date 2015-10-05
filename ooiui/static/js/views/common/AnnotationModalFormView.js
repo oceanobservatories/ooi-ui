@@ -46,28 +46,40 @@ var AnnotationModalFormView = ModalFormView.extend({
     event.preventDefault();
     this.model.set('annotation',this.$el.find('#comments-input').val());
 
-    var min = moment.utc(self.model.get('beginDTSafe'),'DD/MM/YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
-    var max = moment.utc(self.model.get('endDTSafe'),'DD/MM/YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    var minDate = moment.utc(self.model.get('beginDTSafe'),'YYYY-MM-DD HH:mm');
+    var maxDate = moment.utc(self.model.get('endDTSafe'),'YYYY-MM-DD HH:mm');
+    var min = minDate.format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
+    var max = maxDate.format("YYYY-MM-DDTHH:mm:ss.000")+"Z";
 
-    self.model.set('beginDT', min);
-    self.model.set('endDT', max);
+    if (maxDate.isAfter(minDate)){
+      $('#startLabel').css('color','#004773');
+      $('#endLabel').css('color','#004773');
 
-    self.model.unset('beginDTSafe', {silent:true})
-    self.model.unset('endDTSafe', {silent:true})
 
-    this.model.save(null, {
-      success: function(model,response) {
-        if(model.id) {
-          ooi.trigger('AnnotationModalFormView:onUpdate', model);
-        }else{
-          ooi.trigger('AnnotationModalFormView:onSubmit', model);
+      self.model.set('beginDT', min);
+      self.model.set('endDT', max);
+
+      self.model.unset('beginDTSafe', {silent:true})
+      self.model.unset('endDTSafe', {silent:true})
+
+      this.model.save(null, {
+        success: function(model,response) {
+          if(model.id) {
+            ooi.trigger('AnnotationModalFormView:onUpdate', model);
+          }else{
+            ooi.trigger('AnnotationModalFormView:onSubmit', model);
+          }
+        },
+        error: function(){
+          console.log('error saving annotation...')
         }
-      },
-      error: function(){
-        console.log('error saving annotation...')
-      }
-    });
-    this.hide();
+      });
+      this.hide();
+    }else{      
+      $('#startLabel').css('color','darkred');
+      $('#endLabel').css('color','darkred');
+      //invalid date
+    }
   },
   template: JST['ooiui/static/js/partials/AnnotationModalForm.html'],
   render: function() {
@@ -86,14 +98,14 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.$el.find('#comments-input').val(this.model.get('annotation'));
     }
 
-    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'DD/MM/YYYY HH:mm'})                                              
+    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm'})                                              
                                               .on('dp.change', function(){
-                                                var min = moment.utc($('#startAnnotationDateTime').data('date'),'DD/MM/YYYY HH:mm').format("DD/MM/YYYY HH:mm");
+                                                var min = moment.utc($('#startAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm').format("YYYY-MM-DD HH:mm");
                                                 self.model.set('beginDTSafe',min)
                                               });
-    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'DD/MM/YYYY HH:mm'})
+    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'YYYY-MM-DD HH:mm'})
                                               .on('dp.change', function(){
-                                                var max = moment.utc($('#endAnnotationDateTime').data('date'),'DD/MM/YYYY HH:mm').format("DD/MM/YYYY HH:mm");
+                                                var max = moment.utc($('#endAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm').format("YYYY-MM-DD HH:mm");
                                                 self.model.set('endDTSafe',max)                                                
                                               });
 
