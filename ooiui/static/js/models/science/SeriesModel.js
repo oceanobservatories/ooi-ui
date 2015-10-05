@@ -15,6 +15,7 @@ var SeriesModel = Backbone.Model.extend({
     type: "scatter",
     name: "",
     axisName: "test",
+    xaxisName: "test",
     showInLegend: true,
     enableMouseTracking: true,
     color: "",
@@ -48,6 +49,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   enddate:"",
   xparameters:[],
   yparameters:[],
+
   url: function() {
     var durl = '/api/get_data?instrument='+ this.ref_des+"&stream="+this.stream+"&xvars="+this.xparameters.join()+"&yvars="+this.yparameters.join()+"&startdate="+this.startdate+"&enddate="+this.enddate
     console.log(durl);
@@ -72,6 +74,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
   getUnits:function(param){
     return this.units[param];
   },
+  getPlotType:function(){
+    return this.plottype;
+  },
   parse: function(response, options) {
     this.units = response.units;
     return response.data;
@@ -88,6 +93,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   enddate:"2015-06-28T04:00:41.282Z",
   var1:"sci_water_pressure",
   var2:"sci_flbbcd_chlor_units",
+
   url: function() {
     var durl = ('/api/get_multistream?instrument1='+ this.instr1 + '&instrument2=' + this.instr2 +
                 "&stream1=" + this.ref_des1 + "&stream2=" + this.ref_des2 + "&var1=" + this.var1 +
@@ -113,6 +119,9 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   },
   getUnits:function(param){
     return this.units[param];
+  },
+  getPlotType:function(){
+    return this.plottype;
   },
   parse: function(response, options) {
     this.units = response.units;

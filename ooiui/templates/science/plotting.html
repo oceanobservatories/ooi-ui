@@ -153,7 +153,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     plottingItemSelection : null,
     plotEventListView: null,
     plottingItemSelection2 : null,
-    timeseriesView: null
+    timeseriesView: null,
+    xyscatterView: null
   },
   models: {
     downloadModel : new StreamModel(),
@@ -240,20 +241,20 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   setInterpolatedPlot: function(options) {
     //init the timeseries view
-    this.views.timeseriesView.initialize();
+    this.views.xyscatterView.initialize();
 
     var param1 = $("#yvar1-selection option:selected").val();
     var param2 = $("#yvar2-selection option:selected").val();
 
     // set data series options
-    // this.collections.interpolatedDataseries.stream1 = options.attributes.stream_name1;
-    // this.collections.interpolatedDataseries.stream2 = options.attributes.stream_name2;
-    // this.collections.interpolatedDataseries.ref_des1 = options.attributes.reference_designator1;
-    // this.collections.interpolatedDataseries.ref_des2 = options.attributes.reference_designator2;
-    // this.collections.interpolatedDataseries.startdate = options.attributes.data.start;
-    // this.collections.interpolatedDataseries.enddate = options.attributes.data.end;
-    // this.collections.interpolatedDataseries.param1 = param1;
-    // this.collections.interpolatedDataseries.param2 = param2;
+    this.collections.interpolatedDataseries.instr1 = options.attributes.stream_name1;
+    this.collections.interpolatedDataseries.instr2 = options.attributes.stream_name2;
+    this.collections.interpolatedDataseries.ref_des1 = options.attributes.reference_designator1;
+    this.collections.interpolatedDataseries.ref_des2 = options.attributes.reference_designator2;
+    this.collections.interpolatedDataseries.startdate = options.attributes.data.start;
+    this.collections.interpolatedDataseries.enddate = options.attributes.data.end;
+    this.collections.interpolatedDataseries.var1 = param1;
+    this.collections.interpolatedDataseries.var2 = param2;
 
     errorHandler = function(collection, response){
       errorText = response.status+': '+response.statusText
@@ -289,6 +290,10 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 
     this.views.timeseriesView = new TimeseriesView({
+      el: $('#highcharts-row-section-panel')
+    });
+
+    this.views.xyscatterView = new XYScatterPlotView({
       el: $('#highcharts-row-section-panel')
     });
 
@@ -352,7 +357,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'toc:selectStream', function(options) {
       // TODO: Trigger pop up on map cursor icon.
-      debugger;
+      var refreshYVar1 = true;
+      if (self.views.svgplot.hasOwnProperty('model') && self.views.svgplot.model.attributes.hasOwnProperty('reference_designator1')){
+        refreshYVar1 = false;
+        options.model.set({"reference_designator1":self.views.svgplot.model.attributes.reference_designator1})
+        options.model.set({"stream_name1":self.views.svgplot.model.attributes.stream_name1})
+      }
+
       self.models.downloadModel.model = options.model;
       self.views.svgPlotControlView.setModel(options.model,true);
 
@@ -361,7 +372,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       if (options.itemid == "plot-item-selection" ){
         options.model.set('units',options.data_units)
-          self.views.svgPlotControlView.setModel(options.model,false);
+        self.views.svgPlotControlView.setModel(options.model,false);
         self.views.svgplot.setModel(options.model);
       }
 
@@ -416,10 +427,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         }
       parameterhtml += "</optgroup>"
 
-      $("div#yvar0-selection-default > div.form-group > select").append(parameterhtml);
-      $("div#yvar1-selection > div.form-group > select").append(parameterhtml);
-      $("div#yvar2-selection > div.form-group > select").append(parameterhtml);
-      $("div#yvar3-selection > div.form-group > select").append(parameterhtml);
+      $("div#yvar0-selection-default > div.form-group > select").html(parameterhtml);
+      if (refreshYVar1){
+        $("div#yvar1-selection > div.form-group > select").html(parameterhtml);
+      }
+      $("div#yvar2-selection > div.form-group > select").html(parameterhtml);
+      $("div#yvar3-selection > div.form-group > select").html(parameterhtml);
       $('#parameters_id').removeAttr('disabled');
       $('.selectpicker').selectpicker('refresh');
     });
@@ -544,10 +557,20 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
     });
 
-    this.listenTo(this, 'SVGPlotControlView:onInterpolatedSelection', function(options) {
-      debugger;
-      console.log('Interpolated');
-      // Need to remember these selections
+    this.listenTo(this, 'SVGPlotControlView:onInterpolatedSelection1', function(options) {
+      // Only update if needed
+      if (!options.attributes.hasOwnProperty('reference_designator1')){
+          options.attributes.reference_designator1 = options.attributes.reference_designator;
+          options.attributes.stream_name1 = options.attributes.stream_name;
+          this.views.svgplot.setModel(options);
+      }
+    });
+
+    this.listenTo(this, 'SVGPlotControlView:onInterpolatedSelection2', function(options) {
+
+      options.attributes.reference_designator2 = options.attributes.reference_designator;
+      options.attributes.stream_name2 = options.attributes.stream_name;
+      this.views.svgplot.setModel(options);
       
     });
 
@@ -581,8 +604,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         options.attributes.data.xvar = 'time';
       }else if (options.attributes.data.plotType == "Interpolated"){
         options.attributes.data.plotType = "interpolated"
-        options.attributes.data.yvar = self.views.plottingItemSelection.getSelectedVars();
-        options.attributes.data.xvar = 'time';
       }
 
       options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
@@ -604,12 +625,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       }else if (options.attributes.data.plotType == "interpolated"){
         // This interpolated chart is high charts x-y scatter
-        
-        $('#highcharts-row-section').css('display',"");
-        $('#plot-view').css('display',"none");
-        
-        //set the params and generate the view          
-        this.setInterpolatedPlot(options);
+        if (self.views.svgplot.validateSelected(options)){
+          $('#highcharts-row-section').css('display',"");
+          $('#plot-view').css('display',"none");
+          //set the params and generate the view          
+          this.setInterpolatedPlot(options);
+        }
+
 
       }else{
         $('#highcharts-row-section').css('display',"none");
@@ -646,7 +668,25 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     //render the interpolated data
     this.listenTo(this.collections.interpolatedDataseries, 'reset', function(series) {
-      console.log('SHIT')
+      this.views.xyscatterView.collection = series;
+      this.views.xyscatterView.render();
+
+      self.collections.annotations.each(function(annotation,i) {
+        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+          from: moment.utc(annotation.get('beginDT')),
+          to: moment.utc(annotation.get('endDT')),
+          color: '#FCFFC5',
+          label: { 
+            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label. 
+            align: 'left', // Positioning of the label. 
+            x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+          },
+          id: 'plot-band-'+annotation.get('ui_id')
+        });
+      });
+
+      // render the annotations
+      var bounds = self.views.xyscatterView.views.highchartsView.chart.xAxis[0].getExtremes()
     });
 
     //render the annotations
