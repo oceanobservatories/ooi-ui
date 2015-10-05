@@ -113,10 +113,10 @@
 
 // render out our views:
         this.listenTo(this, 'toc:selectArray', function(options) {
-          console.log('ARRAY');
-          console.log(options);
-          console.log(options.attributes['display_name']);
-          console.log(options.attributes['array_code']);
+          //console.log('ARRAY');
+          //console.log(options);
+          //console.log(options.attributes['display_name']);
+          //console.log(options.attributes['array_code']);
           {#          $('#current_array').replaceWith('<li id="current_array">' + options.attributes['display_name'] + ' (' + options.attributes['array_code'] + ')</li>');
                     $('#current_platform').replaceWith('<li id="current_platform"></li>');
                     $('#current_instrument').replaceWith('<li id="current_instrument"></li');
@@ -124,27 +124,27 @@
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectPlatform', function(options) {
-          console.log('PLATFORM');
-          console.log(options);
-          console.log(options.attributes.assetInfo['name']);
-          console.log(options.attributes['ref_des']);
+          //console.log('PLATFORM');
+          //console.log(options);
+          //console.log(options.attributes.assetInfo['name']);
+          //console.log(options.attributes['ref_des']);
           {#          $('#current_platform').replaceWith('<li id="current_platform">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
                     $('#current_instrument').replaceWith('<li id="current_instrument"></li');
                     $('#current_stream').replaceWith('<li id="current_stream"></li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectInstrument', function(options) {
-          console.log(options);
-          console.log(options.attributes.assetInfo['name']);
-          console.log(options.attributes['ref_des']);
+          //console.log(options);
+          //console.log(options.attributes.assetInfo['name']);
+          //console.log(options.attributes['ref_des']);
           {#          $('#current_instrument').replaceWith('<li id="current_instrument">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
                     $('#current_stream').replaceWith('<li id="current_stream"></li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectStream', function(options) {
-          console.log(options);
-          console.log(options.model.attributes['display_name']);
-          console.log(options.model.attributes['reference_designator']);
+          //console.log(options);
+          //console.log(options.model.attributes['display_name']);
+          //console.log(options.model.attributes['reference_designator']);
           {#          $('#current_stream').replaceWith('<li id="current_stream">' + options.model.attributes['stream_name'] + '</li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"><button type="button" id="newAlertAlarmDefinition" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert/Alarm Definition</button></li>');#}
         });
@@ -174,7 +174,7 @@
         });
 
         this.listenTo(this.collections.triggered_alerts_list, 'reset', function(options) {
-          console.log('triggered alert alarm reset complete',this.collections.triggered_alerts_list);
+          //console.log('triggered alert alarm reset complete',this.collections.triggered_alerts_list);
           var parent = $('#triggerlist').parent();
           parent.empty();
           parent.append('<div id="triggerlist">');

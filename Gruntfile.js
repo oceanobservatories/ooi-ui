@@ -191,7 +191,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/AcknowledgeModalForm.html",
             "ooiui/static/js/partials/AlertToggleActiveModalForm.html",
             "ooiui/static/js/partials/AlertToggleNotificationModalForm.html",
-            "ooiui/static/js/partials/ClearModalForm.html"
+            "ooiui/static/js/partials/ClearModalForm.html",
+            "ooiui/static/js/partials/ClearAllModalForm.html",
+            "ooiui/static/js/partials/AckAllModalForm.html"
           ],
 
           "ooiui/static/js/partials/compiled/basic.js": [
@@ -875,6 +877,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/aa/AlertAckModel.js',
             'ooiui/static/js/models/aa/UserEventNotificationModel.js',
             'ooiui/static/js/models/aa/AlertClearModel.js',
+            'ooiui/static/js/models/aa/AckAllModel.js',
+            'ooiui/static/js/models/aa/ClearAllModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -900,7 +904,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/aa/AcknowledgeModalFormView.js",
             "ooiui/static/js/views/aa/AlertToggleActiveModalFormView.js",
             "ooiui/static/js/views/aa/AlertToggleNotificationModalFormView.js",
-            "ooiui/static/js/views/aa/ClearModalFormView.js"
+            "ooiui/static/js/views/aa/ClearModalFormView.js",
+            "ooiui/static/js/views/aa/ClearAllModalFormView.js",
+            "ooiui/static/js/views/aa/AckAllModalFormView.js"
           ],
           //alerts
           'ooiui/static/js/compiled/status.js' : [

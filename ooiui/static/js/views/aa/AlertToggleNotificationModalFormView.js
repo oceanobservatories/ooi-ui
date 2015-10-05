@@ -26,7 +26,7 @@ var AlertToggleNotificationModalFormView = ModalFormView.extend({
     //stop the page redirect
     e.preventDefault();
 
-    console.log('id from modal form after submit: ', this.model.get('id'));
+    //console.log('id from modal form after submit: ', this.model.get('id'));
 
     ooi.trigger('alertToggleNotification:update', this.model);
 

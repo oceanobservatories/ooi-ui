@@ -28,15 +28,12 @@ var ClearModalFormView = ModalFormView.extend({
 
     var clearModel = new AlertClearModel();
     clearModel.set('id', this.model.get('id'));
-    clearModel.set('uframe_event_id', this.model.get('uframe_event_id'));
-    clearModel.set('uframe_filter_id', this.model.get('uframe_filter_id'));
-    clearModel.set('system_event_definition_id', this.model.get('system_event_definition_id'));
-    clearModel.set('event_type', this.model.get('event_type'));
-    clearModel.set('ack_by', 1); //TODO Needs a real user here
+    clearModel.set('resolved_comment', this.$el.find('#inputDescription').val()); //str
 
+    //console.log(clearModel);
     // Sends ack
     clearModel.save(null,{success: function(model, response, opts) {
-      console.log('Cleared OK!');
+      //console.log('Cleared OK!');
       ooi.trigger('alertClear:success');
     },
       error: function(model, response, opts) {

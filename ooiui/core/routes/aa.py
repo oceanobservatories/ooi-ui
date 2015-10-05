@@ -127,15 +127,6 @@ def get_aa_specific_id(id):
 def get_aa_redmine_server():
     return app.config['REDMINE_URL']
 
-# acknowledgement
-@app.route('/api/aa/ack_alert_alarm', methods=['PUT'])
-def ack_alert_alarm():
-    token = get_login()
-
-    # data = json.loads(request.data)
-    response = requests.post(app.config['SERVICES_URL'] + '/ack_alert_alarm', auth=(token, ''), data=request.data)
-    return response.text, response.status_code
-
 # http://localhost:4000/user_event_notifications
 @app.route('/api/aa/user_event_notifications', methods=['GET'])
 def get_user_event_notifications():
@@ -151,12 +142,39 @@ def update_user_event_notification():
     response = requests.put(app.config['SERVICES_URL'] + '/user_event_notification/%s' % def_id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
-# Get Alerts Options
-#
-#TODO
-# http://localhost:4000/alert_alarm
-#@app.route('/api/aa/array/', methods=['GET'])
-#def get_aa_aptions(array_code):
-#    token = get_login()
-#    response = requests.get(app.config['SERVICES_URL'] + '/aa/options/%s/abstract' % (array_code), auth=(token, ''), params=request.args)
-#    return response.text, response.status_code
+# acknowledge single alert or alarm
+@app.route('/api/aa/ack_alert_alarm', methods=['PUT'])
+def ack_alert_alarm():
+    token = get_login()
+    response = requests.post(app.config['SERVICES_URL'] + '/ack_alert_alarm', auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+# clear (resolve) single alert or alarm
+@app.route('/api/aa/resolve_alert_alarm', methods=['PUT'])
+def resolve_alert_alarm():
+    token = get_login()
+    data = json.loads(request.data)
+    #id needed by the services to get the filter
+    def_id = data['id']
+    response = requests.put(app.config['SERVICES_URL'] + '/resolve_alert_alarm/%s' % def_id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+# acknowledge all alerts and alarms
+@app.route('/api/aa/ack_alert_alarm_definition', methods=['PUT', 'GET'])
+def ack_all_alert_alarm():
+    token = get_login()
+    data = json.loads(request.data)
+    #id needed by the services to get the filter
+    def_id = data['id']
+    response = requests.get(app.config['SERVICES_URL'] + '/ack_alert_alarm_definition/%s' % def_id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
+
+# clear (resolve) single alert or alarm
+@app.route('/api/aa/resolve_alert_alarm_definition', methods=['PUT'])
+def resolve_all_alert_alarm():
+    token = get_login()
+    data = json.loads(request.data)
+    #id needed by the services to get the filter
+    def_id = data['id']
+    response = requests.put(app.config['SERVICES_URL'] + '/resolve_alert_alarm_definition/%s' % def_id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code

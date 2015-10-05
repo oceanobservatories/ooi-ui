@@ -100,7 +100,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.model.set('user_id',selected_user.attr('val'));
 
       this.model.save(null,{success: function(model, response, opts) { 
-                                              console.log('OK!');
+                                              //console.log('OK!');
                                               ooi.trigger('addDefinitionForm:added'); 
                                             },
                             error: function(model, response, opts) { 
@@ -126,7 +126,7 @@ var DefinitionModalFormView = ModalFormView.extend({
 
     
     //Backbone.Validation.bind(this);
-    console.log(this.model,"model");
+    //console.log(this.model,"model");
 
     this.$el.html(this.template({
       model: this.model,

@@ -73,6 +73,12 @@ var TriggeredModel = Backbone.Model.extend({
     },
     ts_start: {
       required: false
+    },
+    resolved: {
+      required: false
+    },
+    resolved_comment: {
+      required: false
     }
   }
 });
@@ -117,6 +123,6 @@ var StatusAlertCollection = Backbone.Collection.extend({
         return model.get('event_type') == value;
       }); 
     }
-    return new StatusAlertCollection(models);;
+    return new StatusAlertCollection(models);
   }  
 });

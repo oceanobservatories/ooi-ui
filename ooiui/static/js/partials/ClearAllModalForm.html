@@ -17,14 +17,14 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div align="center" class="form-group" style="font-size: 18px; text-align: center;">
-                      <i>Are you sure you want to clear (resolve) the alert?</i><br/>
-                      <i>Definition: <%=model.get('system_event_definition_id')%></i><br/>
+                      <i>Are you sure you want to clear (resolve) all alerts and alarms for this definition?</i><br/>
+                      <i>Definition: <%=model.get('id')%></i><br/>
                       <div class="form-group">
                         <label for="inputDescription" class="control-label">Resolution Comment</label>
                         <input type="text" data-minlength="1" class="form-control" id="inputDescription" placeholder="Resolution Comment" data-error="Minimum of 1 characters required" required>
                         <div class="help-block with-errors"></div>
                       </div>
-                      <button id="addDef" type="submit" class="btn btn-primary">Clear Now!</button>
+                      <button id="addDef" type="submit" class="btn btn-primary">Clear All Now!</button>
                     </div>
                   </div>
                 </div> <!-- .col-sm-6 -->

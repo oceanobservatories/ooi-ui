@@ -2,7 +2,7 @@
 
 /*
  *
- * ooiui/static/js/models/common/AlertClearModel.js
+ * ooiui/static/js/models/common/ClearAllModel.js
  * Validation model for Alerts and Alarms Page.
  *
  * Dependencies
@@ -15,10 +15,10 @@
  *
  */
 
-var AlertClearModel = Backbone.Model.extend({
+var ClearAllModel = Backbone.Model.extend({
   defaults: {
   },
-  url:"/api/aa/resolve_alert_alarm",
+  url:"/api/aa/resolve_alert_alarm_definition",
 
   validation: {
     id: {
@@ -32,8 +32,8 @@ var AlertClearModel = Backbone.Model.extend({
 
 
 // Collection related to the acknowledged A&A in the system
-var AlertClearCollection = Backbone.Collection.extend({
-  model: AlertClearModel,
-  url:"/api/aa/resolve_alert_alarm"
+var ClearAllCollection = Backbone.Collection.extend({
+  model: ClearAllModel,
+  url:"/api/aa/resolve_alert_alarm_definition"
 });
 

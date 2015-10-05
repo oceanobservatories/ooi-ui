@@ -116,8 +116,8 @@ var TriggeredView = Backbone.View.extend({
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
-            console.log('Acknowledged Field');
-            console.log(rawValue);
+            //console.log('Acknowledged Field');
+            //console.log(rawValue);
             //console.log(rawValue);
             //place holder right now for triggered events
             if(rawValue == 1){
@@ -132,23 +132,29 @@ var TriggeredView = Backbone.View.extend({
         })
       },
       {
-        name: "acknowledged", // The key of the model attribute
+        name: "resolved", // The key of the model attribute
         label: "Cleared", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
-            console.log('Cleared Field');
-            console.log(rawValue);
+            //console.log('Cleared Field');
+            //console.log(rawValue);
             //console.log(rawValue);
             //place holder right now for triggered events
-            if(rawValue == 0){
+            if(model.attributes.acknowledged == 0){
               return "Acknowledge First";
             }
             else {
-              return "<button type=\"button\" id=\"toggleClearBtn\" class=\"btn btn-primary\">" +
+              if(rawValue == 0){
+                return "<button type=\"button\" id=\"toggleClearBtn\" class=\"btn btn-primary\">" +
                 "<i class=\"fa fa-plus-square\"></i> Clear Now" +
                 "</button>";
+              }
+              else {
+                return "Yes";
+              }
+
             }
           }
         })
@@ -202,7 +208,7 @@ var TriggeredView = Backbone.View.extend({
 
         // Clicked the ACK button
         if (e.target.id=='toggleAcknowledgeBtn') {
-          console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
+          //console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
           ooi.trigger('acknowledgeFormViewTrigger:onClick',
             {
               model: this.model,
@@ -213,7 +219,7 @@ var TriggeredView = Backbone.View.extend({
 
         // Clicked the Clear button
         if (e.target.id=='toggleClearBtn') {
-          console.log('clicked clear btn for def id: ' + this.model.attributes.system_event_definition_id);
+          //console.log('clicked clear btn for def id: ' + this.model.attributes.system_event_definition_id);
           ooi.trigger('clearFormViewTrigger:onClick',
             {
               model: this.model,
