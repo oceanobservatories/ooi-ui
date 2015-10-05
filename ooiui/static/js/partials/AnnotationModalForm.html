@@ -16,7 +16,7 @@ tabindex allows the escape key to be used to close the modal -->
             <div class="banner-image"></div>
           </div>
           <div class="col-sm-8">
-            <div class="modal-form-message">
+            <div class="modal-form-message">              
               <h1>Annotate Stream</h1>
               <h3><%= model.get('reference_designator') %></h3>              
             </div> <!-- .message -->
@@ -30,15 +30,8 @@ tabindex allows the escape key to be used to close the modal -->
                 <input id="username" type="text" class="form-control modal-form-input input" value="<%= username %>" disabled="disabled">
               </div>
 
-              <!--
               <div class="form-group">
-                <label for="datestart">Start Date</label>
-                <input id="datestart" type="text" class="form-control modal-form-input input" value="<%= model.get('beginDT') %>">
-              </div>
-              -->
-
-              <div class="form-group">
-                <label for="startAnnotationDateTime">Start Date</label>
+                <label id="startLabel" for="startAnnotationDateTime">Start Date <small>(YYYY-MM-DD HH:mm)</small></label>
                 <div class='input-group date' id='startAnnotationDateTime'>
                     <input type='text' class="form-control" />
                     <span class="input-group-addon">
@@ -48,15 +41,8 @@ tabindex allows the escape key to be used to close the modal -->
               </div>
 
 
-              <!--
               <div class="form-group">
-                <label for="dateend">End Date</label>
-                <input id="dateend" type="text" class="form-control modal-form-input input" value="<%= model.get('endDT') %>">
-              </div>
-              -->
-
-              <div class="form-group">
-                <label for="endAnnotationDateTime">End Date</label>
+                <label id="endLabel" for="endAnnotationDateTime">End Date <small>(YYYY-MM-DD HH:mm)</small></label>
                 <div class='input-group date' id='endAnnotationDateTime'>
                     <input type='text' class="form-control" />
                     <span class="input-group-addon">
@@ -84,4 +70,3 @@ tabindex allows the escape key to be used to close the modal -->
     </div>  <!-- modal-content -->
   </div> <!-- modal-dialog -->
 </div> <!-- modal fade -->
-
