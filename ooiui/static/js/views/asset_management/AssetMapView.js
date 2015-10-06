@@ -119,8 +119,13 @@ var AssetMapView = Backbone.View.extend({
   addStations:function(){    
     var self = this;    
     self.collection.each(function(station_model,i){            
-      if (station_model.get('coordinates') && !_.isUndefined(station_model)){      
-        if (station_model.get('coordinates')[0] != 0 && station_model.get('coordinates')[1] != 0){
+      if (station_model.get('coordinates') && !_.isUndefined(station_model)){              
+        var add_marker = true;
+        if (station_model.get('event_type') == "unknown" && station_model.get('coordinates')[0] == 0 && station_model.get('coordinates')[1] == 0){
+          add_marker = false;
+        }
+
+        if (add_marker){
           var statusMarker = L.AwesomeMarkers.icon({
             icon: 'info',
             prefix: 'fa',
