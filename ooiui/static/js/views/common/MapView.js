@@ -481,7 +481,7 @@ var MapView = Backbone.View.extend({
                                         '<td>'+instrumentName+'</td>'+
                                         '<td>' +
                                         '<a href="/plotting/#'+instrumentRefDes+'/'+instrumentStreamName+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
-                                        '<a href="/streams/#'+instrumentRefDes+'/'+instrumentStreamName+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
+                                        '<a href="/streams/#'+instrumentRefDes+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
                                         '<a href="/assets/list#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
                                         '</td>' +
                                         '</tr>';
