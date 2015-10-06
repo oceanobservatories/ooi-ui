@@ -120,51 +120,52 @@ var AssetMapView = Backbone.View.extend({
     var self = this;    
     self.collection.each(function(station_model,i){            
       if (station_model.get('coordinates') && !_.isUndefined(station_model)){      
+        if (station_model.get('coordinates')[0] != 0 && station_model.get('coordinates')[1] != 0){
+          var statusMarker = L.AwesomeMarkers.icon({
+            icon: 'info',
+            prefix: 'fa',
+            markerColor: self.getColor(station_model.get('event_type')),
+            data:station_model.get('event_type')
+          });
+                
+          var marker = L.marker(station_model.get('coordinates'), {icon: statusMarker});
 
-        var statusMarker = L.AwesomeMarkers.icon({
-          icon: 'info',
-          prefix: 'fa',
-          markerColor: self.getColor(station_model.get('event_type')),
-          data:station_model.get('event_type')
-        });
-              
-        var marker = L.marker(station_model.get('coordinates'), {icon: statusMarker});
+          var status = station_model.get('event_type');
+          if (status == 'inactive'){
+            status = "healthy";
+          }
 
-        var status = station_model.get('event_type');
-        if (status == 'inactive'){
-          status = "healthy";
+          var popupContent = "<div style='width:460px'>"
+          popupContent += '<h4 id="popTitle"><strong>' + station_model.get('name') + '</strong></h4>';        
+          popupContent += '<h5 id="latLon">';
+          popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + station_model.get('coordinates')[0].toFixed(3) + '</div>';
+          popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + station_model.get('coordinates')[1].toFixed(3) + '</div>';
+
+          popupContent += '<br><br><div><a href="/plotting/#'+ station_model.get('reference_designator') +'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+          // Data Catalog
+          popupContent+='<a href="/streams/#'+  station_model.get('reference_designator') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+          // Asset Managment
+          popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+          
+        
+          popupContent += "<div style=''>"
+          //popupContent += '<h5 id="deployEvents"></h5>';
+          popupContent += '<div style="" class="map-pop-container">';        
+          popupContent += "<div style='margin-top:30px;'>"
+          popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
+          popupContent +=   '<div class="floatLeft" style="width:100%">';
+          popupContent +=   '<h6><strong>Reference Designator: </strong>'+ station_model.get('reference_designator') +'</h6>';        
+          popupContent +=   '<h6><strong>Current Status: </strong>'+ status +'</h6>';        
+          popupContent +=   '</div>';
+          popupContent +=   '</div>';
+          popupContent += '</div>';
+          popupContent +='</div>';
+          popupContent +='</div>';
+          
+
+          marker.bindPopup(popupContent);      
+          self.markers.addLayer(marker);
         }
-
-        var popupContent = "<div style='width:460px'>"
-        popupContent += '<h4 id="popTitle"><strong>' + station_model.get('name') + '</strong></h4>';        
-        popupContent += '<h5 id="latLon">';
-        popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + station_model.get('coordinates')[0].toFixed(3) + '</div>';
-        popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + station_model.get('coordinates')[1].toFixed(3) + '</div>';
-
-        popupContent += '<br><br><div><a href="/plotting/#'+ station_model.get('reference_designator') +'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
-        // Data Catalog
-        popupContent+='<a href="/streams/#'+  station_model.get('reference_designator') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
-        // Asset Managment
-        popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
-        
-      
-        popupContent += "<div style=''>"
-        //popupContent += '<h5 id="deployEvents"></h5>';
-        popupContent += '<div style="" class="map-pop-container">';        
-        popupContent += "<div style='margin-top:30px;'>"
-        popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
-        popupContent +=   '<div class="floatLeft" style="width:100%">';
-        popupContent +=   '<h6><strong>Reference Designator: </strong>'+ station_model.get('reference_designator') +'</h6>';        
-        popupContent +=   '<h6><strong>Current Status: </strong>'+ status +'</h6>';        
-        popupContent +=   '</div>';
-        popupContent +=   '</div>';
-        popupContent += '</div>';
-        popupContent +='</div>';
-        popupContent +='</div>';
-        
-
-        marker.bindPopup(popupContent);      
-        self.markers.addLayer(marker);
       }
       try{
         self.map.fitBounds(self.markers.getBounds(),{maxZoom:10}); 
