@@ -480,7 +480,7 @@ var MapView = Backbone.View.extend({
                                     y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>' +
                                         '<td>'+instrumentName+'</td>'+
                                         '<td>' +
-                                        '<a href="/plotting/#'+instrumentRefDes+'/'+instrumentStreamName+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
+                                        '<a href="/plotting/#'+instrumentRefDes+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
                                         '<a href="/streams/#'+instrumentRefDes+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
                                         '<a href="/assets/list#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
                                         '</td>' +
