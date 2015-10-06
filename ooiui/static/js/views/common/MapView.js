@@ -380,8 +380,7 @@ var MapView = Backbone.View.extend({
 
             //get the stations
             var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' });
-            var instruments = self.collection.where({ asset_class: '.InstrumentAssetRecord' });
-
+            var instruments = streamCollection;
             var lat_lons = [];
 
             if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){
@@ -444,49 +443,57 @@ var MapView = Backbone.View.extend({
                     lat_lons.push(platform_entry.get('coordinates'));
                     popupInstItem = "";
 
+
                     var events = platform_entry.get('events');
                     _.each(events, function(item) {
                         if (item['class'] == ".DeploymentEvent"){
                             if (!hasDeploymentEvent){
                                 // Name
                                 popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>';
-                                // Lat & Lon
-                                popupContent+= '<h5 id="latLon"><div class="latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</div><div class="lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] + '</div>';
                                 // Plotting
-                                popupContent += '<br><br><div><a href="/plotting/#'+platforms[0].get('ref_des')+'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+                                popupContent += '<ul id="latLon"><li><a href="/plotting/#'+platforms[0].get('ref_des')+'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
                                 // Data Catalog
-                                popupContent+='<a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
+                                popupContent+='<li><a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
                                 // Asset Managment
-                                popupContent+='<a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
-                                popupContent+='<div style="max-height: 200px; overflow-y:scroll;"><table id="popupInstrumentTable" class="tablesorter" style="border: solid #aaaaaa 2px; background-color:white; width:460px; margin: 0px; padding: 0px;">';
-                                popupContent+='<thead><tr><th style="padding-left:10px;">Assembly</th><th style="text-align:center">Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<li><a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>';
+
+                                popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
+                                // Checkbox
+                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments" checked disabled>Engineering Instruments</label></stron></li></ul>';
+                                popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
+                                popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
+
+                                popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
+                                popupContent+='<thead id="header-fixed"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
-                                instrumentName, instrumentRefDes, instrumentAssemblyName,
-                            instrumentList = [];
+                                instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
+                                instrumentList = [];
+
                             for ( var i=0, y = "";  i < instLength; i++ ) {
-                                if(instruments[i] !== undefined &&
-                                   (platforms[0].get('ref_des') === instruments[i].attributes.ref_des.substring(0,8) || platforms[0].get('ref_des') === instruments[i].attributes.ref_des.substring(0,14))) {
-                                    instrumentName = instruments[i].attributes.assetInfo.name;
-                                instrumentRefDes = instruments[i].attributes.ref_des;
-                                instrumentAssemblyName = instruments[i].attributes.ref_des.split('-')[1];
-                                y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>' +
-                                    '<td>'+instrumentName+'</td>'+
-                                    '<td>' +
-                                    '<a href="/plotting/#'+instrumentRefDes+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
-                                    '<a href="/streams/#'+instrumentRefDes+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
-                                    '<a href="/assets/list#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
-                                    '</td>' +
-                                    '</tr>';
-                                if( instrumentList.indexOf(y) < 0 ) {
-                                    instrumentList.push(y);
-                                }
-                                delete instruments[i];
+                                if(instruments.models[i] !== undefined &&
+                                   (platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,8) || platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,14))) {
+                                    instrumentName = instruments.models[i].attributes.display_name;
+                                    instrumentRefDes = instruments.models[i].attributes.reference_designator;
+                                    instrumentStreamName = instruments.models[i].attributes.stream_name;
+                                    instrumentAssemblyName = instruments.models[i].attributes.reference_designator.split('-')[1];
+                                    y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>' +
+                                        '<td>'+instrumentName+'</td>'+
+                                        '<td>' +
+                                        '<a href="/plotting/#'+instrumentRefDes+'/'+instrumentStreamName+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
+                                        '<a href="/streams/#'+instrumentRefDes+'/'+instrumentStreamName+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
+                                        '<a href="/assets/list#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
+                                        '</td>' +
+                                        '</tr>';
+                                    if( instrumentList.indexOf(y) < 0 ) {
+                                        instrumentList.push(y);
+                                    }
+                                    delete instruments.models[i];
                                 }
                             }
                             popupContent+=instrumentList.join('');
 
-                            popupContent+='</tbody></table></div>';
+                            popupContent+='</tbody></table></div></div>';
 
                             hasDeploymentEvent = true;
 
@@ -507,7 +514,6 @@ var MapView = Backbone.View.extend({
                 });
                 eventContent += '</div></div>';
                 popupContent+=eventContent;
-
 
                 //only add the item if there are deployment events
                 if (hasDeploymentEvent){

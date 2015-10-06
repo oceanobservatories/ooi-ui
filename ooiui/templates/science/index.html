@@ -19,6 +19,8 @@
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
   <script src="/lib/leaflet.wms/leaflet.wms.js" type="text/javascript"></script>
+  <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
   {% endblock %}
 
 
@@ -146,6 +148,7 @@ var gliderFetch = gliderCollection.fetch({ reset: true });
 var mapView = new MapView({
     gliderCollection: gliderCollection,
     collection:assetCollection,
+    streamCollection:streamCollection,
     el: $('#map')
 });
 
@@ -213,7 +216,8 @@ $(document).ready(function() {
         updateCollection( showSearchResults );
     });
     $('#map').on('popupopen', function() {
-            $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+      $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+
     });
 
 });
