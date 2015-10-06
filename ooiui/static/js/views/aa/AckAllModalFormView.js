@@ -1,15 +1,15 @@
 "use strict";
 /*
- * ooiui/static/js/views/aa/AlertToggleActiveModalFormView.js
- * View for event acknowledgement modal
+ * ooiui/static/js/views/aa/ClearAllModalFormView.js
+ * View for event clear (resolve) modal
  */
 
-var AlertToggleActiveModalFormView = ModalFormView.extend({
+var AckAllModalFormView = ModalFormView.extend({
   bindings: {
 
   },
   events: {
-    "click #toggleActive": "onSubmit",
+    "click #addDef": "onSubmit",
     "change input[name='alertalarm']": "updatedType"
   },
   initialize: function() {
@@ -19,25 +19,25 @@ var AlertToggleActiveModalFormView = ModalFormView.extend({
   initialRender:function(){
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
   },
-  template: JST['ooiui/static/js/partials/AlertToggleActiveModalForm.html'],
+  template: JST['ooiui/static/js/partials/AckAllModalForm.html'],
   onSubmit: function(e) {
     var self = this;
 
     //stop the page redirect
     e.preventDefault();
 
-    if (this.model.get('active') == 0) {
-      this.model.set('active', true);
-    } else {
-      this.model.set('active', false);
-    }
+    var ackAllModel = new AckAllModel();
+    ackAllModel.set('id', this.model.get('id'));
+    //clearModel.set('resolved_comment', this.$el.find('#inputDescription').val()); //str
 
+    //console.log(ackAllModel);
     // Sends ack
-    this.model.save(null,{success: function(model, response, opts) {
-      //console.log('Alert Toggled OK!');
+    ackAllModel.save(null,{success: function(model, response, opts) {
+      //console.log('Ack All OK!');
+      ooi.trigger('alertAckAll:success');
     },
       error: function(model, response, opts) {
-        console.log('Alert Toggled Error!');
+        console.log('Ack All Error!');
       }
     });
       this.hide();

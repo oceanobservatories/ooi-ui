@@ -69,6 +69,9 @@
           </div>
           <div id="definition-modal"></div>
           <div id="active-toggle-modal"></div>
+          <div id="notification-toggle-modal"></div>
+          <div id="ack-all-toggle-modal"></div>
+          <div id="clear-all-toggle-modal"></div>
           <div id="definition-status"></div>
         </div>
       </div>
@@ -85,12 +88,15 @@
       models: {
         alertModel: new AlertModel(),
         userModel: new UserModel(),
+        userEventNotificationModel: new UserEventNotificationModel(),
         selectedStream: null
       },
       collections: {
         arrays: new ArrayCollection(),
         alert_list: new AlertsFullCollection(),
-        alert_metadata: new AlertMetadataCollection()
+        alert_metadata: new AlertMetadataCollection(),
+        user_event_notifications: new UserEventNotificationFullCollection(),
+        user_collection: new UserCollection()
       },
       views: {
         //
@@ -125,11 +131,12 @@
           el: $('#navbar')
         });
 
-        $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
+        //$('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 
         this.views.definitionModal = new DefinitionModalFormView({
           el: $('#definition-modal'),
-          model:self.models.alertModel
+          model:self.models.alertModel,
+          user_collection: this.collections.user_collection
         });
 
         //empty table
@@ -174,6 +181,7 @@
             });
 
             self.views.definitionModal.model = self.models.alertModel;
+            self.views.definitionModal.user_collection = self.collections.user_collection;
 
             //TODO REPLACE WITH ACTUAL REQUEST
             self.views.definitionModal.metadata_collection = new AlertMetadataCollection();
@@ -213,16 +221,63 @@
           self.views.active_toggle.show();
         });
 
+        this.listenTo(this, 'alertAckAllFormViewTrigger:onClick', function(options) {
+          self.views.ack_all.model = options.model;
+          self.views.ack_all.render();
+          self.views.ack_all.show();
+        });
+
+        this.listenTo(this, 'alertClearAllFormViewTrigger:onClick', function(options) {
+          self.views.clear_all.model = options.model;
+          self.views.clear_all.render();
+          self.views.clear_all.show();
+        });
+
+        this.listenTo(this, 'alertToggleNotification:update', function(model) {
+          var selected = self.collections.user_event_notifications.where({system_event_definition_id: model.get('id')})[0];
+          //console.log('before bit', selected.get('use_redmine'));
+          selected.set('use_redmine', !selected.get('use_redmine'));
+          selected.save(null,{success: function(model, response, opts) {
+            //console.log('Notification Toggled OK!');
+          },
+            error: function(model, response, opts) {
+              console.log('Notification Error!');
+            }
+          });
+          //console.log('after bit', selected.get('use_redmine'));
+          self.collections.alert_list.fetch({reset: true});
+        });
+
+        this.listenTo(this, 'alertToggleNotificationFormViewTrigger:onClick', function(options) {
+          self.views.notification_toggle.model = options.model;
+          self.views.notification_toggle.render();
+          self.views.notification_toggle.show();
+        });
+
         this.views.active_toggle = new AlertToggleActiveModalFormView({
           el: $('#active-toggle-modal'),
           model:self.models.alertModel
         });
 
+        this.views.notification_toggle = new AlertToggleNotificationModalFormView({
+          el: $('#notification-toggle-modal'),
+          model:self.models.userEventNotificationModel
+        });
+
+        this.views.ack_all = new AckAllModalFormView({
+          el: $('#ack-all-toggle-modal'),
+          model:self.models.alertModel
+        });
+
+        this.views.clear_all = new ClearAllModalFormView({
+          el: $('#clear-all-toggle-modal'),
+          model:self.models.alertModel
+        });
+
         //click the add definition button
         $('#newAlertAlarmDefinition').on( "click", function(evt) {
-          console.log("clicked,show modal");
           //update collection and fetch
-          self.collections.alert_metadata.stream_model = self.models.selectedStream;          
+          self.collections.alert_metadata.stream_model = self.models.selectedStream;
           self.collections.alert_metadata.fetch({reset: true});
         });
 
@@ -233,7 +288,7 @@
             stream:self.models.selectedStream.get('stream_name')});
 
           self.views.definitionModal.model = self.models.alertModel;
-
+          self.views.definitionModal.user_collection = self.collections.user_collection;
           self.views.definitionModal.metadata_collection = self.collections.alert_metadata;
           self.views.definitionModal.render();
 
@@ -245,7 +300,7 @@
         });
 
         this.listenTo(this.collections.alert_list, 'reset', function(options) {
-          console.log('alert alarm reset complete',this.collections.alert_list);
+          //console.log('alert alarm reset complete',this.collections.alert_list);
           var parent = $('#alertslist').parent();
           parent.empty();
           parent.append('<div id="alertslist">');
@@ -268,10 +323,21 @@
 
         var arrayFetch = arrayCollection.fetch({ reset: true });
         var alertFetch = self.collections.alert_list.fetch({reset: true});
+        var userEventNotificationFetch = self.collections.user_event_notifications.fetch({reset: true});
+        var userFetch = self.collections.user_collection.fetch({reset: true});
 
         var data = {
           min : 'True'
         };
+
+        $.when(alertFetch, userEventNotificationFetch, userFetch).done(function() {
+          //console.log(self.collections.user_event_notifications);
+          //console.log('alert alarm reset complete',self.collections.alert_list);
+          var parent = $('#alertslist').parent();
+          parent.empty();
+          parent.append('<div id="alertslist">');
+          self.views.alertFilterView.render();
+        });
 
         $.when(arrayFetch).done(function() {
           var assetFetch = assetCollection.fetch({ data: data, reset: true });

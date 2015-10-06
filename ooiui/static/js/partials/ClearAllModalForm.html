@@ -1,0 +1,38 @@
+<!--Modal-->
+<div class="modal fade" id="modal-form" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-form-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div> <!-- modal-form-header -->
+
+      <!--Body-->
+      <div class="modal-form-body main-container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="modal-form-message">
+              <form data-disable=true data-toggle="validator" role="form" id="acknowledgeModalForm">
+                <!-- FOOTER ROW -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div align="center" class="form-group" style="font-size: 18px; text-align: center;">
+                      <i>Are you sure you want to clear (resolve) all alerts and alarms for this definition?</i><br/>
+                      <i>Definition: <%=model.get('id')%></i><br/>
+                      <div class="form-group">
+                        <label for="inputDescription" class="control-label">Resolution Comment</label>
+                        <input type="text" data-minlength="1" class="form-control" id="inputDescription" placeholder="Resolution Comment" data-error="Minimum of 1 characters required" required>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                      <button id="addDef" type="submit" class="btn btn-primary">Clear All Now!</button>
+                    </div>
+                  </div>
+                </div> <!-- .col-sm-6 -->
+              </form>
+            </div> <!-- .row -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
