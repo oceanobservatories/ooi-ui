@@ -29,6 +29,10 @@ var AnnotationModalFormView = ModalFormView.extend({
   },
   show: function(options) {
     //options.model = annotation model
+    if (options && options.showUpdate){
+      this.showUpdate = options.showUpdate;
+    }
+
     if(options && options.model && options.userModel) {
         this.model = options.model;
         this.username = options.userModel.get('user_name');
@@ -37,7 +41,7 @@ var AnnotationModalFormView = ModalFormView.extend({
     } else {
       console.error("Annotation Modal has insufficient information");
     }
-  },
+  },  
   changeEvent:function(ev){   
   },
   onSubmit: function(event) {
@@ -89,10 +93,16 @@ var AnnotationModalFormView = ModalFormView.extend({
       username: this.username
     }));
     this.stickit();
-    if(this.model.id) {
+
+
+    if(self.showUpdate) {
       this.$el.find('#submit-button').text('Update');
       this.$el.find('#reset-button').prop('disabled', 'disabled');
+    }else{
+      this.$el.find('#submit-button').text('Add');
+      this.$el.find('#reset-button').prop('disabled', '');
     }
+
 
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
