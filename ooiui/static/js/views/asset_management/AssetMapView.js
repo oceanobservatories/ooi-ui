@@ -24,11 +24,16 @@ var AssetMapView = Backbone.View.extend({
       minZoom: 2
     });
 
+    var southWest = L.latLng(-80, -170),
+    northEast = L.latLng(80, 170),
+    bounds = L.latLngBounds(southWest, northEast);
+
     self.map = L.map('map', {
       center: [39.73, -104.99],
       zoom: 2,
       maxZoom: 10,
       minZoom: 2,
+      maxBounds: bounds,
       layers: [Esri_OceanBasemap]
     });
 
