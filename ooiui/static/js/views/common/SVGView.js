@@ -484,6 +484,7 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$el.find('#yvar2-select').val([]);
     this.$el.find('#yvar1-select').html(this.$el.find('#yvar2-select').html())
     this.$el.find('.selectpicker').selectpicker('refresh');
+    this.$el.find('#yvar2-select').attr('disabled', true);
   },
   updateYVarDropdown: function(){
       // This function copies parameters from parameters_id to the 3 yVar
@@ -537,7 +538,7 @@ var SVGPlotControlView = Backbone.View.extend({
         this.$el.find('#add-plot').css('display','');
       };
       this.$el.find('#xVarTooltip').attr('data-original-title',"Time Series plot for selected parameter.  You may overlay up to 6 other parameters.");
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.$el.find('#yvar0-selection-default').show();
       this.$el.find('#yvar1-selection').hide();
       this.$el.find('#yvar1-select-text').text('Select Y');
@@ -547,7 +548,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="Stacked Time Series"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The stacked time series plot is a 2D colored plot that plots bins (Y-axis) against time (X-axis) using color spectrum for the value. The user should select just 1 appropriate derived products with 2D data (ie. ADCP, VADCP, and SPKIR) for this plot to work properly.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
@@ -559,7 +560,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="T-S Diagram"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The T-S diagram is a Temperature - Salinity Plot.  The UI uses the density of seawater equation of state to derive the density values.  The density values are shown with gradient lines in the plotting window. The user should select the Temperature and Salinity derived products from a single data stream for this plot to work properly.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
@@ -572,7 +573,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="Depth Profile"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Depth Profile plot uses the Pressure and/or Depth parameter from a data stream, as well as a maxima/minima extrema calculation, to determine singular depth profiles present in the data.  Users should select only a single parameter for this plot type.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
       this.$el.find('#yvar1-select').attr('data-max-options','2');
@@ -582,7 +583,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="Quiver"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Quiver plot is designed to be used with two velocitiy parameters.  This plot is used primarily with the Velocity Meters and the Acoustic Doppler Current Profilers.  This plot will provide an arrow to display the direction of the water movement, as well as a gray shadow to represent the magnitude.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
@@ -595,7 +596,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="Rose"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Rose Plot is designed to show the magnitude and direction of water currents and wind movement.  The direction should be represented as a value between 0 and 360.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
@@ -608,7 +609,7 @@ var SVGPlotControlView = Backbone.View.extend({
     }else if(plotType=="3D Colored Scatter"){
       this.$el.find('#xVarTooltip').attr('data-original-title',"The 3D Colored Scatter allows a user to select two parameters as the X and Y axes, then select a 3rd parameter to use as a color map for the plotted points.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
@@ -623,15 +624,18 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#clear-interp-params').css('display','');
       this.$el.find('#xVarTooltip').attr('data-original-title',"The Interpolated plot allows a user to plot parameters from 2 different streams as the X and Y axes on the scatter plot. The Y parameter is interpolated to the same time stamps as the data in the X parameter.")
 
-      this.$el.find('#plotting-enable-events').attr('disabled', true);
+      this.$el.find('#qaqc-test').attr('disabled', true);
       this.updateYVarDropdown();
       this.$el.find('#yvar0-selection-default').hide();
       this.$el.find('#yvar1-selection').show();
       this.$el.find('#yvar1-select').attr('data-max-options','1');
       this.$el.find('#yvar1-select-text').text("X-Component");
       this.$el.find('#yvar2-selection').show();
-      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar2-select').attr('data-max-options','1');
       this.$el.find('#yvar2-select-text').text("Y-Component");
+      if (!this.model.attributes.hasOwnProperty('reference_designator1')){
+        this.$el.find('#yvar2-select').attr('disabled', true);
+      }
       this.$el.find('#yvar3-selection').hide();
     }
   },
