@@ -160,9 +160,21 @@
                 </div> <!-- .row -->              
 
 
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="userSelection" class="control-label">User Selection</label>
+                      <select id="userSelection" class="selectpicker">
+                        <% user_list.each(function(model,i) {  %>
+                        <option val="<%= model.get('id') %>"><%= model.get('user_name') %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="row">
-                   <div class="col-sm-4"> 
+                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="activeBool" class="control-label">Active Definition</label>
                       <div class="checkbox">
@@ -176,7 +188,7 @@
                     </div>
                   </div>
 
-                  <div class="col-sm-4"> 
+                  <div class="col-sm-4">
                     <div class="form-group">
                       <label for="communicationBool" class="control-label">Communication Method</label>
 
@@ -195,13 +207,12 @@
                           <div class="help-block with-errors"></div>
                         </div>
                       <% }); %>
-                      
+
                       <span class="help-block with-errors">Notification context</span>
                     </div>
                   </div>
-                   
-                </div> <!-- .row -->  
 
+                </div> <!-- .row -->
 
                 <!-- FOOTER ROW -->
                 <div class="row">

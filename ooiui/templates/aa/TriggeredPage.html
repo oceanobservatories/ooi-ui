@@ -11,6 +11,7 @@
   <script src="/js/compiled/alertPage.js" type="text/javascript"></script>
   <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/backgrid_aa.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/alerts_alarms.css" rel="stylesheet" type="text/css" />
 
   <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
   <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
@@ -33,35 +34,29 @@
         {% block sidebar %}
           {{ super() }}
         {% endblock %}
-        <div class="row">
-          <div class="col-lg-12">
-            <div id="aa-trig-panel" class="panel">
-              <div id="aatrig-panel-body" class="panel-body">
-                <div style='color:#337ab7; text-transform:none; position: absolute;margin-left: -2px;' id='triggeredAA'>
-                  <b>Showing All Triggered Alerts and Alarms</b>
-                </div>
-                <div class="row form-group">
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="aa-panel" class="panel">
+          <div id="aa-panel-body" class="panel-body">
+            <div class="row form-group" style="width:100%; padding-left:30px;">
+              <div class="row">
+                <div id="alerts-panel" class="panel">
+                  <div id="alerts-search" class="panel-header">
+                    <div class="scrollable-block">
+                      <div id="alerts-scrollable" class="scrollable-area">
+                        <div class="panel-body">
                   <div id='triggerlist' class="col-sm-12">
+                        </div>
+                          </div>
+                      </div> <!-- end scollabel-area -->
+                    </div> <!-- end scollabel-block -->
                   </div>
-                </div>
-                <hr width ='80%' style='margin-top:0;'>
-                <div class="form-group">
-                  <div align="center">
-                    <div>
-                      <div class="col-sm-12" id="loading_triggers" style='font-weight:bold;padding-top:35px;'>
-                        <i style="color:#337ab7" class="fa fa-spinner fa-spin"></i>  Loading Triggered Alerts and Alarms
-                      </div>
-                      <!--<button type="button" id="saveAlert" class="btn btn-primary">Save Alert</button>
-                      <button type="button" id="saveAlarm" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Save Changes</button>-->
-                      <button type="button" id="resetTriggers" class="btn btn-primary"><i class="fa fa-list"></i> Show all Triggered Alerts and Alarms</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </div> <!-- end alerts-panel -->
+              </div> <!-- end row -->
+            </div><!-- end row form-group -->
           </div>
-        </div>
       <div id="ack-modal"></div>
+      <div id="clear-modal"></div>
       </div>
     </div>
   </div>
@@ -78,7 +73,8 @@
       models: {
         alertModel: new TriggeredModel(),
         userModel: new UserModel(),
-        ackModel: new AlertAckModel()
+        ackModel: new AlertAckModel(),
+        clearModel: new AlertClearModel()
       },
 
       collections: {
@@ -113,14 +109,14 @@
 
         {#        $('.navbar-brand').html('Triggered Alerts & Alarms Dashboard');#}
 
-        $('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard">Alerts Dashboard</a></li>');
+        //$('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard">Alerts Dashboard</a></li>');
 
 // render out our views:
         this.listenTo(this, 'toc:selectArray', function(options) {
-          console.log('ARRAY');
-          console.log(options);
-          console.log(options.attributes['display_name']);
-          console.log(options.attributes['array_code']);
+          //console.log('ARRAY');
+          //console.log(options);
+          //console.log(options.attributes['display_name']);
+          //console.log(options.attributes['array_code']);
           {#          $('#current_array').replaceWith('<li id="current_array">' + options.attributes['display_name'] + ' (' + options.attributes['array_code'] + ')</li>');
                     $('#current_platform').replaceWith('<li id="current_platform"></li>');
                     $('#current_instrument').replaceWith('<li id="current_instrument"></li');
@@ -128,31 +124,32 @@
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectPlatform', function(options) {
-          console.log('PLATFORM');
-          console.log(options);
-          console.log(options.attributes.assetInfo['name']);
-          console.log(options.attributes['ref_des']);
+          //console.log('PLATFORM');
+          //console.log(options);
+          //console.log(options.attributes.assetInfo['name']);
+          //console.log(options.attributes['ref_des']);
           {#          $('#current_platform').replaceWith('<li id="current_platform">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
                     $('#current_instrument').replaceWith('<li id="current_instrument"></li');
                     $('#current_stream').replaceWith('<li id="current_stream"></li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectInstrument', function(options) {
-          console.log(options);
-          console.log(options.attributes.assetInfo['name']);
-          console.log(options.attributes['ref_des']);
+          //console.log(options);
+          //console.log(options.attributes.assetInfo['name']);
+          //console.log(options.attributes['ref_des']);
           {#          $('#current_instrument').replaceWith('<li id="current_instrument">' + options.attributes.assetInfo['name'] + ' (' + options.attributes['ref_des'] + ')</li>');
                     $('#current_stream').replaceWith('<li id="current_stream"></li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"></li>');#}
         });
         this.listenTo(this, 'toc:selectStream', function(options) {
-          console.log(options);
-          console.log(options.model.attributes['display_name']);
-          console.log(options.model.attributes['reference_designator']);
+          //console.log(options);
+          //console.log(options.model.attributes['display_name']);
+          //console.log(options.model.attributes['reference_designator']);
           {#          $('#current_stream').replaceWith('<li id="current_stream">' + options.model.attributes['stream_name'] + '</li>');
                     $('#create_aa_def_btn').replaceWith('<li id="create_aa_def_btn"><button type="button" id="newAlertAlarmDefinition" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add Alert/Alarm Definition</button></li>');#}
         });
 
+        // Acknowledge
         this.listenTo(this, 'acknowledgeFormViewTrigger:onClick', function(options) {
           self.views.ack.model = options.model;
           self.views.ack.render();
@@ -164,8 +161,20 @@
           model:self.models.ackModel
         });
 
+        // Clear (Resolved)
+        this.listenTo(this, 'clearFormViewTrigger:onClick', function(options) {
+          self.views.clear.model = options.model;
+          self.views.clear.render();
+          self.views.clear.show();
+        });
+
+        this.views.clear = new ClearModalFormView({
+          el: $('#clear-modal'),
+          model:self.models.clearModel
+        });
+
         this.listenTo(this.collections.triggered_alerts_list, 'reset', function(options) {
-          console.log('triggered alert alarm reset complete',this.collections.triggered_alerts_list);
+          //console.log('triggered alert alarm reset complete',this.collections.triggered_alerts_list);
           var parent = $('#triggerlist').parent();
           parent.empty();
           parent.append('<div id="triggerlist">');
@@ -174,6 +183,10 @@
 
         //RE-RENDER TABLE
         this.listenTo(this, 'alertAck:success', function(options) {
+          self.collections.triggered_alerts_list.fetch({reset: true});
+        });
+
+        this.listenTo(this, 'alertClear:success', function(options) {
           self.collections.triggered_alerts_list.fetch({reset: true});
         });
 
