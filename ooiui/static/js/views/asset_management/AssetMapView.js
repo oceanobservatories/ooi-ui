@@ -135,7 +135,8 @@ var AssetMapView = Backbone.View.extend({
           status = "healthy";
         }
 
-        var popupContent = '<h4 id="popTitle"><strong>' + station_model.get('name') + '</strong></h4>';        
+        var popupContent = "<div style='width:460px'>"
+        popupContent += '<h4 id="popTitle"><strong>' + station_model.get('name') + '</strong></h4>';        
         popupContent += '<h5 id="latLon">';
         popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + station_model.get('coordinates')[0].toFixed(3) + '</div>';
         popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + station_model.get('coordinates')[1].toFixed(3) + '</div>';
@@ -146,14 +147,20 @@ var AssetMapView = Backbone.View.extend({
         // Asset Managment
         popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
         
-        
+      
+        popupContent += "<div style=''>"
+        //popupContent += '<h5 id="deployEvents"></h5>';
+        popupContent += '<div style="" class="map-pop-container">';        
+        popupContent += "<div style='margin-top:30px;'>"
         popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
-        popupContent += '<div class="map-pop-container">';
         popupContent +=   '<div class="floatLeft" style="width:100%">';
         popupContent +=   '<h6><strong>Reference Designator: </strong>'+ station_model.get('reference_designator') +'</h6>';        
         popupContent +=   '<h6><strong>Current Status: </strong>'+ status +'</h6>';        
         popupContent +=   '</div>';
+        popupContent +=   '</div>';
         popupContent += '</div>';
+        popupContent +='</div>';
+        popupContent +='</div>';
         
 
         marker.bindPopup(popupContent);      
