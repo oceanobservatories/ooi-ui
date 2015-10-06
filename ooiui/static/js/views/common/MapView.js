@@ -3,9 +3,14 @@ var MapView = Backbone.View.extend({
     initialize: function() {
         var self = this;
 
+        var southWest = L.latLng(-80, -170),
+        northEast = L.latLng(80, 170),
+        bounds = L.latLngBounds(southWest, northEast);
+
         this.map = L.map(this.el,{
             maxZoom: 10,
             minZoom: 2,
+            maxBounds: bounds,
             layers: TERRAIN.getBaseLayers('ESRI Oceans')
         });
         this.inititalMapBounds = [[63, -143],[-59, -29]];

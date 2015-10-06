@@ -24,11 +24,16 @@ var AssetMapView = Backbone.View.extend({
       minZoom: 2
     });
 
+    var southWest = L.latLng(-80, -170),
+    northEast = L.latLng(80, 170),
+    bounds = L.latLngBounds(southWest, northEast);
+
     self.map = L.map('map', {
       center: [39.73, -104.99],
       zoom: 2,
       maxZoom: 10,
       minZoom: 2,
+      maxBounds: bounds,
       layers: [Esri_OceanBasemap]
     });
 
@@ -119,8 +124,13 @@ var AssetMapView = Backbone.View.extend({
   addStations:function(){    
     var self = this;    
     self.collection.each(function(station_model,i){            
-      if (station_model.get('coordinates') && !_.isUndefined(station_model)){      
-        if (station_model.get('coordinates')[0] != 0 && station_model.get('coordinates')[1] != 0){
+      if (station_model.get('coordinates') && !_.isUndefined(station_model)){              
+        var add_marker = true;
+        if (station_model.get('event_type') == "unknown" && station_model.get('coordinates')[0] == 0 && station_model.get('coordinates')[1] == 0){
+          add_marker = false;
+        }
+
+        if (add_marker){
           var statusMarker = L.AwesomeMarkers.icon({
             icon: 'info',
             prefix: 'fa',
