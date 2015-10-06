@@ -91,7 +91,8 @@ var MapView = Backbone.View.extend({
             var minDepth = _.min(processedDepths);
             var maxDepth = _.max(processedDepths);
 
-            var popupContent = '<h4 id="popTitle"><strong>' + gliderText +" : "+ ASSET_ARRAY.getArrayCodes[glLocation] + '</strong></h4>';
+            var popupContent = '<div style="width:460px;">';
+                popupContent += '<h4 id="popTitle"><strong>' + gliderText +" : "+ ASSET_ARRAY.getArrayCodes[glLocation] + '</strong></h4>';
             if (!_.isUndefined(glPosition)){
                 popupContent += '<h5 id="latLon">';
                 popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + glPosition[0].toFixed(3) + '</div>';
@@ -103,12 +104,17 @@ var MapView = Backbone.View.extend({
                 // Asset Managment
                 popupContent+='<a href="/assets/list#' +  model.get('name') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
             }
-            popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
+            popupContent += "<div style=''>"
             popupContent += '<div class="map-pop-container">';
+            popupContent += "<div style='margin-top:30px;'>";
+            popupContent += '<h5 id="deployEvents"><strong>Overview'+'</strong></h5>';
             popupContent +=   '<div class="floatLeft">';
             popupContent +=   '<h6><strong>Min Depth: </strong>'+ minDepth.toFixed(2)+ " ("+ model.get('units') +')</h6>';
             popupContent +=   '<h6><strong>Max Depth: </strong>'+ maxDepth.toFixed(2)+ " ("+ model.get('units') +')</h6>';
             popupContent +=   '</div>';
+            popupContent +=   '</div>';
+            popupContent += '</div>';
+            popupContent += '</div>';
             popupContent += '</div>';
             //bind
             gliderTrackLayer.bindPopup(popupContent);
