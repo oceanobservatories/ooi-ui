@@ -61,7 +61,8 @@ var OrgSidebarView = Backbone.View.extend({
     });
   },
   selectOrg: function(org_id) {
-    this.$el.find("[data-id='" + org_id + "']").parent().toggleClass('selected');
+      this.$el.find("[data-id='" + org_id + "']").parent().toggleClass('selected');
+      this.$el.find("[data-id='" + org_id + "']").css("font-weight","bold");
     ooi.trigger('org:click', org_id);
   },
   template: JST['ooiui/static/js/partials/OrgSidebar.html'],
