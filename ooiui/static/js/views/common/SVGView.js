@@ -484,6 +484,7 @@ var SVGPlotControlView = Backbone.View.extend({
     this.$el.find('#yvar2-select').val([]);
     this.$el.find('#yvar1-select').html(this.$el.find('#yvar2-select').html())
     this.$el.find('.selectpicker').selectpicker('refresh');
+    this.$el.find('#yvar2-select').attr('disabled', true);
   },
   updateYVarDropdown: function(){
       // This function copies parameters from parameters_id to the 3 yVar
@@ -630,8 +631,11 @@ var SVGPlotControlView = Backbone.View.extend({
       this.$el.find('#yvar1-select').attr('data-max-options','1');
       this.$el.find('#yvar1-select-text').text("X-Component");
       this.$el.find('#yvar2-selection').show();
-      this.$el.find('#yvar1-select').attr('data-max-options','1');
+      this.$el.find('#yvar2-select').attr('data-max-options','1');
       this.$el.find('#yvar2-select-text').text("Y-Component");
+      if (!this.model.attributes.hasOwnProperty('reference_designator1')){
+        this.$el.find('#yvar2-select').attr('disabled', true);
+      }
       this.$el.find('#yvar3-selection').hide();
     }
   },
