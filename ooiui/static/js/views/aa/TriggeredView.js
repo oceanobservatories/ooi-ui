@@ -116,8 +116,8 @@ var TriggeredView = Backbone.View.extend({
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
-            console.log('Acknowledged Field');
-            console.log(rawValue);
+            //console.log('Acknowledged Field');
+            //console.log(rawValue);
             //console.log(rawValue);
             //place holder right now for triggered events
             if(rawValue == 1){
@@ -127,6 +127,34 @@ var TriggeredView = Backbone.View.extend({
               return "<button type=\"button\" id=\"toggleAcknowledgeBtn\" class=\"btn btn-primary\">" +
                 "<i class=\"fa fa-plus-square\"></i> Acknowledge Now" +
                 "</button>";
+            }
+          }
+        })
+      },
+      {
+        name: "resolved", // The key of the model attribute
+        label: "Cleared", // The name to display in the header
+        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            //console.log('Cleared Field');
+            //console.log(rawValue);
+            //console.log(rawValue);
+            //place holder right now for triggered events
+            if(model.attributes.acknowledged == 0){
+              return "Acknowledge First";
+            }
+            else {
+              if(rawValue == 0){
+                return "<button type=\"button\" id=\"toggleClearBtn\" class=\"btn btn-primary\">" +
+                "<i class=\"fa fa-plus-square\"></i> Clear Now" +
+                "</button>";
+              }
+              else {
+                return "Yes";
+              }
+
             }
           }
         })
@@ -142,10 +170,10 @@ var TriggeredView = Backbone.View.extend({
             //place holder right now for triggered events
             if (rawValue == 'alarm') {
               //fa fa-bullhorn
-              return "<i id='condition_met' style='font-size:20px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
+              return "<i id='condition_met' style='font-size:16px;color:#a94442' class='fa fa-exclamation-circle'> Alarm</i>";
             }
             else if (rawValue == 'alert') {
-              return "<i id='condition_met' style='font-size:20px;color:#E3A615' class='fa fa-flag'> Alert</i>";
+              return "<i id='condition_met' style='font-size:16px;color:#E3A615' class='fa fa-flag'> Alert</i>";
             }
           }
         })
@@ -180,8 +208,19 @@ var TriggeredView = Backbone.View.extend({
 
         // Clicked the ACK button
         if (e.target.id=='toggleAcknowledgeBtn') {
-          console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
+          //console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
           ooi.trigger('acknowledgeFormViewTrigger:onClick',
+            {
+              model: this.model,
+              system_event_definition_id: this.model.attributes.system_event_definition_id
+            }
+          );
+        }
+
+        // Clicked the Clear button
+        if (e.target.id=='toggleClearBtn') {
+          //console.log('clicked clear btn for def id: ' + this.model.attributes.system_event_definition_id);
+          ooi.trigger('clearFormViewTrigger:onClick',
             {
               model: this.model,
               system_event_definition_id: this.model.attributes.system_event_definition_id

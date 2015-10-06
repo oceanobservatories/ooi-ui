@@ -1,15 +1,15 @@
 "use strict";
 /*
- * ooiui/static/js/views/aa/AlertToggleActiveModalFormView.js
+ * ooiui/static/js/views/aa/AlertToggleNotificationModalFormView.js
  * View for event acknowledgement modal
  */
 
-var AlertToggleActiveModalFormView = ModalFormView.extend({
+var AlertToggleNotificationModalFormView = ModalFormView.extend({
   bindings: {
 
   },
   events: {
-    "click #toggleActive": "onSubmit",
+    "click #toggleNotification": "onSubmit",
     "change input[name='alertalarm']": "updatedType"
   },
   initialize: function() {
@@ -19,14 +19,19 @@ var AlertToggleActiveModalFormView = ModalFormView.extend({
   initialRender:function(){
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
   },
-  template: JST['ooiui/static/js/partials/AlertToggleActiveModalForm.html'],
+  template: JST['ooiui/static/js/partials/AlertToggleNotificationModalForm.html'],
   onSubmit: function(e) {
     var self = this;
 
     //stop the page redirect
     e.preventDefault();
 
-    if (this.model.get('active') == 0) {
+    //console.log('id from modal form after submit: ', this.model.get('id'));
+
+    ooi.trigger('alertToggleNotification:update', this.model);
+
+// TODO: Set the redmine ticket field
+/*    if (this.model.get('active') == 0) {
       this.model.set('active', true);
     } else {
       this.model.set('active', false);
@@ -34,19 +39,20 @@ var AlertToggleActiveModalFormView = ModalFormView.extend({
 
     // Sends ack
     this.model.save(null,{success: function(model, response, opts) {
-      //console.log('Alert Toggled OK!');
+      console.log('Notification Toggled OK!');
     },
       error: function(model, response, opts) {
-        console.log('Alert Toggled Error!');
+        console.log('Notification Toggled Error!');
       }
-    });
+    });*/
       this.hide();
   },
   render: function() {
     var self = this;
 
     this.$el.html(this.template({
-      model: this.model
+      model: this.model,
+      metadata_collection: this.metadata_collection
     }));
   }
 });

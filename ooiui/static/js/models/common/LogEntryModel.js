@@ -26,22 +26,22 @@ var LogEntryModel = Backbone.Model.extend({
 });
 
 var LogEntryCollection = Backbone.Collection.extend({
-  url: '/api/log_entry',
-  model: LogEntryModel,
-  offset: 0,
-  limit: 20,
-  endOfCollection: false,
-  reset: function() {
-    this.offset = 0;
-    this.limit = 20;
-    console.log("Custom reset");
-    Backbone.Collection.prototype.reset.apply(this, arguments);
-  },
-  parse: function(response) {
-    if(response && response.log_entries) {
-      return response.log_entries;
+    url: '/api/log_entry',
+    model: LogEntryModel,
+    offset: 0,
+    limit: 20,
+    endOfCollection: false,
+    reset: function () {
+        this.offset = 0;
+        this.limit = 20;
+        console.log("Custom reset");
+        Backbone.Collection.prototype.reset.apply(this, arguments);
+    },
+    parse: function (response) {
+        if (response && response.log_entries) {
+            return response.log_entries;
+        }
+        this.endOfCollection = true;
+        return [];
     }
-    this.endOfCollection = true;
-    return [];
-  }
 });
