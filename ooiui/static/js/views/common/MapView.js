@@ -244,8 +244,6 @@ var MapView = Backbone.View.extend({
             }
         }
         $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
-                $("#popupInstrumentTable").stickyTableHeaders();
-
     },
     //renders a simple map view
     render: function() {
