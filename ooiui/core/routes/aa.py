@@ -50,7 +50,6 @@ def get_instrument_metadata(ref_des,stream_name):
         tmp = stream_name.split('_')[::-1][0]
         method = stream_name.replace('_'+tmp,'')
         text = text['stream_metadata'][method][stream_name]
-        print text
         return jsonify(stream_metadata=text)
     except:
         return response.text, response.status_code
