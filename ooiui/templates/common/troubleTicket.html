@@ -21,7 +21,7 @@
 {% endblock %}
 
 {%block body %}
-<div class="container-fluid"> 
+<div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
 
@@ -31,7 +31,7 @@
   </div>
 
   <div id="page-content-wrapper">
-    <div id="ticket-view"> 
+    <div id="ticket-view">
     </div>
   </div><!-- =page-content-wrapper -->
   <div id='redmine-success-modal'></div>
@@ -52,7 +52,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   collections: {
     troubleticketdropdowncollection: new TroubleTicketDropdownCollection()
-  }, 
+  },
 
   start: function() {
     this.login.fetch({async:false});
@@ -74,7 +74,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.views.ticket = new TroubleTicketView({
-      model: new TroubleTicketModel(), 
+      model: new TroubleTicketModel(),
       collection: this.collections.troubleticketdropdowncollection,
       el: $("#ticket-view")
     });
