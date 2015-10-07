@@ -35,7 +35,7 @@ var AlertMetadataModel = Backbone.Model.extend({
 var AlertMetadataCollection = Backbone.Collection.extend({            
     model:AlertMetadataModel,
     stream_model: null,
-    url: function(){        
+    url: function(){
         return "/alerts/get_instrument_metadata/"+this.stream_model.get('reference_designator')+"/"+this.stream_model.get('stream_name');
     },      
     parse: function(response, options) {            

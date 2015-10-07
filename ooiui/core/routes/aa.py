@@ -47,8 +47,10 @@ def get_instrument_metadata(ref_des,stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm_get_instrument_metadata/'+ref_des, auth=(token, ''))    
     try:
         text =  response.json()
-        method = stream_name.split('_')[0]    
+        tmp = stream_name.split('_')[::-1][0]
+        method = stream_name.replace('_'+tmp,'')
         text = text['stream_metadata'][method][stream_name]
+        print text
         return jsonify(stream_metadata=text)
     except:
         return response.text, response.status_code
