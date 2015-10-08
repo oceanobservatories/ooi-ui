@@ -1,4 +1,3 @@
-"use strict";
 /*
  * ooiui/static/js/views/science/StreamDownloadFormView.js
  * View Definition for DownloadFormView
@@ -22,9 +21,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #annotation-select' : 'onCheckboxSelect',
   },
   initialize: function() {
+    "use strict";
     this.render();
   },
   onCheckboxSelect: function() {
+    "use strict";
     if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
       this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
     }else{
@@ -32,6 +33,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
   },
   onTypeChange: function() {
+    "use strict";
     var type = this.$el.find('#type-select').val();
     if(type == 'csv') {
       this.$el.find('#provenance-select').attr("disabled", true);
@@ -50,6 +52,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
   },
   onDownload: function() {
+    "use strict";
     /*
      * Make a copy of the stream model and then set the start and end dates to
      * the form fields, then grab the URL and send the user to it.
@@ -62,9 +65,25 @@ var StreamDownloadFormView = Backbone.View.extend({
     localModel.set('end', endDate);
 
     var email = this.$el.find('#dlEmail').val();
-    var user_name = this.model.get('name');
+    var user_name = this.model.get('user_name');
     localModel.set('email', email);
-    localModel.set('name', user_name);
+    /* 10/08/2015 @ 9:37am
+     * M@Campbell
+     *
+     * Recipient was trying to create a directory of the user name,
+     * which sometimes could be the user's email address.
+     *
+     * Lets remove the special characters; replace the @ with a - and
+     * completely remove the .
+     */
+    if (user_name.indexOf('.') > -1) { user_name = user_name.replace('.', '-'); }
+    if (user_name.indexOf('@') > -1) { user_name = user_name.replace('@', '-'); }
+
+    if (user_name.indexOf('.') > -1) {
+        var splitUserName = user_name.split('.');
+        user_name = splitUserName[0];
+    }
+    localModel.set('user_name', user_name);
 
     // Check for provenance and set the model
     if(this.$el.find('#provenance-select').is(':checked')){
@@ -83,7 +102,7 @@ var StreamDownloadFormView = Backbone.View.extend({
       url: url,
       type: "GET",
       dataType: "json",
-      user_email: email, 
+      user_email: email,
       user_name: user_name,
       success: function(resp){
         ooi.trigger('DownloadModal:onSuccess', this.user_email);
@@ -97,10 +116,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.hide();
   },
   failure: function() {
+    "use strict";
     console.log("this failure");
   },
   show: function(options) {
-
+    "use strict";
     var model = options.model;
     var selection = options.selection;
     // console.log("SHOW", options.model.attributes);
@@ -111,7 +131,7 @@ var StreamDownloadFormView = Backbone.View.extend({
 
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
-    
+
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
     }else{
@@ -133,11 +153,13 @@ var StreamDownloadFormView = Backbone.View.extend({
     return this;
   },
   hide: function() {
+    "use strict";
     this.$el.find('#download-modal').modal('hide');
     return this;
   },
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
+    "use strict";
     this.$el.html(this.template({}));
 
     this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
