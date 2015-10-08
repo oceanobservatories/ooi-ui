@@ -6,29 +6,43 @@
     <div class="modal-content">
 
       <!--Header-->
-      <div class="col-md-12 dwn-content">        
+      <div class="col-md-12 dwn-content">
+        <img width="50px" src="/img/logos-banners/OOI_Logo.svg">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <!-- </div> <!&#45;&#45; dwn&#45;header &#45;&#45;> -->
     </div> <!-- col-md-12 -->
 
     <!--Body-->
     <div class="col-md-12">
-      <div class="col-md-4">  
-        <img width="150px" src="/img/logos-banners/OOI_Logo.svg">
+      <div class="col-md-4">
+
       </div>
 
-      <div class="col-md-8">
-        <h3>Streams Download</h3>
+      <div class="col-md-12">
+        <h3>Streams being downloaded:</h3>
       </div>
     </div> <!-- .col-md-12 -->
 
-    <div class="col-md-12">
-      <h4 id="streamName" style="padding:15px;">Name</h4>
+    <div class="col-md-12" id="streamName">
+      <h4>Name</h4>
     </div>
 
     <form>
-      <div class="col-md-12">          
-        <div class="col-md-6">
+      <div>
+          <div class="range-fields">
+              <div class="form-group">
+                  <label for="time-range">Time Range</label>
+                  <div id="time-range">
+                      <select class="form-control">
+                          <option value="1">24 Hour</option>
+                          <option value="7">1 Week</option>
+                          <option value="14">2 Weeks</option>
+                          <option value="28">4 Weeks</option>
+                          <option value="">All</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+        <div class="date-fields">
           <div class="form-group">
             <label for="start-date">Start Date</label>
             <div class='input-group date' id='start-date'>
@@ -39,7 +53,7 @@
           </div> <!-- .form-group -->
         </div>
 
-        <div class="col-md-6">
+        <div class="date-fields">
           <div class="form-group">
             <label for="end-date">End Date</label>
             <div class='input-group date' id='end-date'>
@@ -58,20 +72,19 @@
             <label for="download-param-select">Select Parameter(s)</label>
             <select data-width="100%" id='download-param-select' multiple title="Select" class="selectpicker toc-plotting-text">
             </select>
-          </div> 
-        </div> 
+          </div>
+        </div>
         <div class="col-md-3">
           <form role="form">
             <div class="form-group">
                 <label><input style="position: absolute; bottom: 0;" type="checkbox" id="download-all" value="select-all"> Select All </label>
             </div>
           </form>
-        </div> 
+        </div>
       </div>  -->
-      <div class="col-md-12">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="dlEmail">Email</label>
+            <label for="dlEmail">Delivery Email</label>
             <input class="form-control" id="dlEmail" type="text" name="email" size="25" placeholder="Enter Email">
           </div>
         </div>
@@ -79,32 +92,31 @@
           <div class="form-group">
             <label for="type-select">File Type</label>
             <select id='type-select' class="form-control">
-              <option value="" selected disabled>Download Format</option>
-              <option value="netcdf">NetCDF (.nc)</option>
+              <option value="" disabled>Download Format</option>
+              <option value="netcdf" selected>NetCDF (.nc)</option>
               <option value="json">JSON (.json)</option>
               <!-- <option value="profile_json_download">Profile JSON (.json)</option> -->
               <option value="csv">CSV (.csv)</option>
             </select>
           </div> <!-- .form-group -->
         </div> <!-- .col-md-4 -->
-      </div>
 
       <div class="col-md-12">
-        <div class="col-md-8">
-          <input type="checkbox" id="provenance-select" name="provenance" value="provenance"> Include Provenance<br>
-          <input type="checkbox" id="annotation-select" name="annotation" value="annotation"> Include Annotations<br>
-        </div>
+          <div class="download-options">
+              <span>
+                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input> Include Provenance</span>
+              <span>
+                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> Include Annotations</span>
+          </div>
       </div>
 
-      
+
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
+          <button type="button" id="download-btn" >Download</button>
         </div>
-        <div class="col-md-4">
-          <button class="btn btn-default" type="button" id="download-btn" style="margin-left: 65px; margin-bottom: 13px;">Download</button>
-        </div>
-      </div>  
+      </div>
     </form>
 
   </div>

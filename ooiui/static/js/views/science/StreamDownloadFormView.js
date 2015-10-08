@@ -19,9 +19,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     'change #type-select' : 'onTypeChange',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
+    'change #time-range select': 'timeRangeChange'
   },
   initialize: function() {
     "use strict";
+    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange');
+
     this.render();
   },
   onCheckboxSelect: function() {
@@ -31,6 +34,29 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
     }
+  },
+  timeRangeChange: function() {
+    var timeRangeDelta, timeChangedTo, startDate, endDate;
+
+    // get the time in days to subtract from the end date.
+    timeRangeDelta = this.$el.find('#time-range select').val();
+
+    // reset the end date.
+    endDate = moment.utc(this.model.get('end')).toJSON();
+
+    // set the start date to be the time range delta from the selection.
+    if (timeRangeDelta === "") {
+        startDate = moment.utc(this.model.get('start')).toJSON();
+    } else {
+        startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'days').toJSON();
+    }
+
+    // set the fields.
+    this.$start_date_picker.setDate(endDate);
+    this.$start_date_picker.setDate(startDate);
+
+    // dance.
+
   },
   onTypeChange: function() {
     "use strict";
@@ -149,6 +175,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     // $('.selectpicker').selectpicker('refresh');
 
     this.onTypeChange();
+    this.timeRangeChange();
 
     return this;
   },
