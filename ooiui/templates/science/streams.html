@@ -7,7 +7,8 @@
 {% block head %}
 
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/streams.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -324,6 +325,7 @@ function updateCollection( successCallback ){
         }
     } catch(e) {
         console.log(e)
+        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;
     }
     // Pagination attributes will be passed in using
     // backbone's collection data method.
