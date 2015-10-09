@@ -475,7 +475,7 @@ var MapView = Backbone.View.extend({
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
                                 popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
-                                popupContent+='<thead id="header-fixed"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
                                 instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
@@ -487,7 +487,7 @@ var MapView = Backbone.View.extend({
                                     instrumentName = instruments.models[i].attributes.display_name;
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
-                                    instrumentAssemblyName = instruments.models[i].attributes.reference_designator.split('-')[1];
+                                    instrumentAssemblyName = (instruments.models[i].attributes.long_display_name !== null) ? instruments.models[i].attributes.long_display_name.split(' - ')[1] :  instruments.models[i].attributes.reference_designator.split('-')[1];
                                     if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering Data') > -1 || instrumentName.indexOf('ENG000') > -1) {
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {
@@ -514,13 +514,13 @@ var MapView = Backbone.View.extend({
 
                             if (_.isNull(item.endDate)){
                                 eventContent += '<div class="floatLeft">';
-                                eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.deploymentNumber +'</tr>';
+                                eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
                                 eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
                                 eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
 
                             }else{
                                 eventContent += '<div class="floatRight">';
-                                eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.deploymentNumber +'</tr>';
+                                eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
                                 eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
                                 eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item.endDate).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
                             }
