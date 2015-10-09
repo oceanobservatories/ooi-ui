@@ -213,7 +213,7 @@ var TimeseriesView = Backbone.View.extend({
         axes_count += 1
         var seriesModel = new SeriesModel({data:series_data})
         seriesModel.set('units', self.collection.getUnits(yvar));
-        seriesModel.set('name', xvar+' - '+yvar);
+        seriesModel.set('name', yvar);
         seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
         seriesModel.set('xmin',startDate);
         seriesModel.set('xmax',endDate);
