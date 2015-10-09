@@ -86,7 +86,8 @@ var StreamTableItemView = Backbone.View.extend({
     attributes: function() {
         "use strict";
         return {
-            'valign': 'middle'
+            'valign': 'middle',
+            'class': 'stream-row'
         }
     },
     events: {

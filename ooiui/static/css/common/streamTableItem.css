@@ -1,11 +1,10 @@
 td.download, td.plot {
-    color: white;
     text-align: center;
-    background-color: #004773;
     cursor: pointer;
-    transition: all 0.6s;
+    text-decoration: underline;
+    transition: all 0.3s;
 }
 td.download:hover, td.plot:hover {
-    background-color: #338aa6;
-    text-decoration: underline;
+    color:white;
+    background-color: #004773;
 }
