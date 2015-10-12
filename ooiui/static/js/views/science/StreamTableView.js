@@ -83,9 +83,16 @@ model : StreamModel
 */
 var StreamTableItemView = Backbone.View.extend({
     tagName: 'tr',
+    attributes: function() {
+        "use strict";
+        return {
+            'valign': 'middle',
+            'class': 'stream-row'
+        }
+    },
     events: {
-        'click .download-option' : 'onDownload',
-        'click .plotButton' : 'onRowClick'
+        'click .download' : 'onDownload',
+        'click .plot' : 'onRowClick'
     },
     initialize: function(options) {
         if(options && options.columns) {

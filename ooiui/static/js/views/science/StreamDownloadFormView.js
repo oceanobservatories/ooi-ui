@@ -16,25 +16,51 @@
 var StreamDownloadFormView = Backbone.View.extend({
   events: {
     'click #download-btn' : 'onDownload',
-    'change #type-select' : 'onTypeChange',
+    'change #type-select select' : 'onTypeChange',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
+    'change #time-range select': 'timeRangeChange'
   },
   initialize: function() {
     "use strict";
+    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange');
+
     this.render();
   },
   onCheckboxSelect: function() {
     "use strict";
     if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
-      this.$el.find("#type-select option[value*='csv']").prop('disabled',true);
+      this.$el.find("#type-select select option[value*='csv']").prop('disabled',true);
     }else{
-      this.$el.find("#type-select option[value*='csv']").prop('disabled',false);
+      this.$el.find("#type-select select option[value*='csv']").prop('disabled',false);
     }
+  },
+  timeRangeChange: function() {
+    var timeRangeDelta, timeChangedTo, startDate, endDate;
+
+    // get the time in days to subtract from the end date.
+    timeRangeDelta = this.$el.find('#time-range select').val();
+
+    // reset the end date.
+    endDate = moment.utc(this.model.get('end')).toJSON();
+
+    // set the start date to be the time range delta from the selection.
+    if (timeRangeDelta === "") {
+        startDate = moment.utc(this.model.get('start')).toJSON();
+    } else {
+        startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'days').toJSON();
+    }
+
+    // set the fields.
+    this.$start_date_picker.setDate(endDate);
+    this.$start_date_picker.setDate(startDate);
+
+    // dance.
+
   },
   onTypeChange: function() {
     "use strict";
-    var type = this.$el.find('#type-select').val();
+    var type = this.$el.find('#type-select select').val();
     if(type == 'csv') {
       this.$el.find('#provenance-select').attr("disabled", true);
       this.$el.find('#provenance-select').attr('checked', false);
@@ -122,7 +148,6 @@ var StreamDownloadFormView = Backbone.View.extend({
   show: function(options) {
     "use strict";
     var model = options.model;
-    var selection = options.selection;
     // console.log("SHOW", options.model.attributes);
     this.model = model;
 
@@ -137,7 +162,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       this.$el.find('#streamName').text(model.get('stream_name'));
     }
-    this.$el.find('#type-select').val(selection);
 
     var email = model.get('email');
     this.$el.find('#dlEmail').val(email);
@@ -149,6 +173,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     // $('.selectpicker').selectpicker('refresh');
 
     this.onTypeChange();
+    this.timeRangeChange();
 
     return this;
   },
@@ -170,7 +195,7 @@ var StreamDownloadFormView = Backbone.View.extend({
                                                });
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
-    this.$type_select = this.$el.find('#type-select');
+    this.$type_select = this.$el.find('#type-select select');
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
 

@@ -6,6 +6,7 @@
 
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <!-- Partials -->
 <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -358,7 +359,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'toc:selectStream', function(options) {
       // TODO: Trigger pop up on map cursor icon.
       var refreshYVar1 = true;
-      if (self.views.svgplot.hasOwnProperty('model') && self.views.svgplot.model.attributes.hasOwnProperty('reference_designator1')){
+      if (self.views.svgplot.hasOwnProperty('model') && self.views.svgplot.model.attributes.hasOwnProperty('reference_designator')){
         refreshYVar1 = false;
         options.model.set({"reference_designator1":self.views.svgplot.model.attributes.reference_designator1})
         options.model.set({"stream_name1":self.views.svgplot.model.attributes.stream_name1})
@@ -401,8 +402,24 @@ _.extend(OOI.prototype, Backbone.Events, {
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
               if (variable.toLowerCase() != "time"){
-                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                param_list.push(variable);
+                  if (    variable.indexOf('oxygen') > -1 ||
+                          variable.indexOf('temperature') > -1 ||
+                          variable.indexOf('velocity') > -1 ||
+                          variable.indexOf('conductivity') > -1 ||
+                          variable.indexOf('current') > -1 ||
+                          variable.indexOf('voltage') > -1 ||
+                          variable.indexOf('pressure') > -1 ||
+                          variable.indexOf('ang_rate') > -1 ||
+                          variable.indexOf('coefficient') > -1 ||
+                          variable.indexOf('chlorophyll') > -1 ||
+                          variable.indexOf('par') > -1
+                    ) {
+                      parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                  } else {
+                      parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                  }
+
+                  param_list.push(variable);
               }
             }
 
@@ -419,7 +436,22 @@ _.extend(OOI.prototype, Backbone.Events, {
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
               if (variable.toLowerCase() != "time"){
-                parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && (variable.indexOf('oxygen') > -1 ||
+                          variable.indexOf('temperature') > -1 ||
+                          variable.indexOf('velocity') > -1 ||
+                          variable.indexOf('conductivity') > -1 ||
+                          variable.indexOf('current') > -1 ||
+                          variable.indexOf('voltage') > -1 ||
+                          variable.indexOf('pressure') > -1 ||
+                          variable.indexOf('ang_rate') > -1) ||
+                          variable.indexOf('coefficient') > -1 ||
+                          variable.indexOf('chlorophyll') > -1 ||
+                          variable.indexOf('par') > -1
+                    ) {
+                      parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                  } else {
+                      parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                  }
                 param_list.push(variable);
               }
             }
@@ -435,6 +467,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       $("div#yvar3-selection > div.form-group > select").html(parameterhtml);
       $('#parameters_id').removeAttr('disabled');
       $('.selectpicker').selectpicker('refresh');
+        var streamName = options.model.get('stream_name');
+        if ( streamName.indexOf('metadata') < 0 ) {
+            $('#update-plot').trigger('click');
+        }
     });
 
     //filter selection : listen to the selection of the parameter
@@ -465,7 +501,7 @@ _.extend(OOI.prototype, Backbone.Events, {
             var xmax = null;
             var ymin = null;
             var ymax = null;
-            self.collections.additionalDataseries.each(function(model,ii) {        
+            self.collections.additionalDataseries.each(function(model,ii) {
               var time = self.views.timeseriesView.modifytime(model.get('time'))
               var d_item = model.get(param);
               if (!_.isNull(model.get(param))){
@@ -490,16 +526,16 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
               //data.push({x:time,y:d_item});
               data.push([ time , d_item ]);
-            }); 
-            
+            });
+
             if (data.length > 1){
               var dataBounds = {xmin:xmin,ymin:ymin,xmax:xmax,ymax:ymax}
               //add data and or axis if needed
-              self.views.timeseriesView.addAdditionalData(param,units,data,i,dataBounds);          
+              self.views.timeseriesView.addAdditionalData(param,units,data,i,dataBounds);
             };
-          });  
+          });
           //update the plot once all data is added
-          self.views.timeseriesView.updatePlot();                 
+          self.views.timeseriesView.updatePlot();
           self.views.timeseriesView.hideLoading();
         }else{
           console.log('error:select less please...');
@@ -531,7 +567,7 @@ _.extend(OOI.prototype, Backbone.Events, {
             p_yvarList.push(element);
             p_xvarList.push("time")
           }
-        })        
+        })
 
         self.collections.additionalDataseries = new DataSeriesCollection();
         //set data series options
@@ -553,7 +589,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.collections.additionalDataseries.fetch({error: errorHandler, reset: true,success:function(){
            ooi.trigger('additionalDataAdded', {});
         }});
-              
+
       }
     });
 
@@ -572,7 +608,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       options.attributes.reference_designator2 = options.attributes.reference_designator;
       options.attributes.stream_name2 = options.attributes.stream_name;
       this.views.svgplot.setModel(options);
-      
+
     });
 
     this.listenTo(this, 'SVGPlotControlView:onClickPlot', function(options) {
@@ -621,7 +657,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         $('#highcharts-row-section').css('display',"");
         $('#plot-view').css('display',"none");
-        //set the params and generate the view          
+        //set the params and generate the view
         this.setTimeSeriesPlot(options);
 
       }else if (options.attributes.data.plotType == "interpolated"){
@@ -629,7 +665,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         if (self.views.svgplot.validateSelected(options)){
           $('#highcharts-row-section').css('display',"");
           $('#plot-view').css('display',"none");
-          //set the params and generate the view          
+          //set the params and generate the view
           this.setInterpolatedPlot(options);
         }
 
@@ -653,10 +689,10 @@ _.extend(OOI.prototype, Backbone.Events, {
           from: moment.utc(annotation.get('beginDT')),
           to: moment.utc(annotation.get('endDT')),
           color: '#FCFFC5',
-          label: { 
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label. 
-            align: 'left', // Positioning of the label. 
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+          label: {
+            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+            align: 'left', // Positioning of the label.
+            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
           },
           id: 'plot-band-'+annotation.get('ui_id')
         });
@@ -677,10 +713,10 @@ _.extend(OOI.prototype, Backbone.Events, {
           from: moment.utc(annotation.get('beginDT')),
           to: moment.utc(annotation.get('endDT')),
           color: '#FCFFC5',
-          label: { 
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label. 
-            align: 'left', // Positioning of the label. 
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+          label: {
+            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+            align: 'left', // Positioning of the label.
+            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
           },
           id: 'plot-band-'+annotation.get('ui_id')
         });
@@ -716,7 +752,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.annotationTableView.render();
   });
 
-  this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {    
+  this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
     var min = moment.utc(model.get('beginDT')).format("YYYY-MM-DD HH:mm");
     var max = moment.utc(model.get('endDT')).format("YYYY-MM-DD HH:mm");
 
@@ -724,7 +760,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     model.set('endDTSafe',max);
 
     if(self.login.loggedIn()) {
-          
+
       self.views.annotationModal.show({
         model: model,
         userModel: self.models.userModel,
@@ -733,7 +769,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
   });
 
-  this.listenTo(this, 'AnnotationTableView:onAddClick', function() {       
+  this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
     var min = moment.utc(self.views.svgPlotControlView.model.get('start')).format("YYYY-MM-DD HH:mm");
     var max = moment.utc(self.views.svgPlotControlView.model.get('end')).format("YYYY-MM-DD HH:mm");
 
@@ -797,38 +833,37 @@ var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
-$.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-vent.trigger('toc:cleanUp');
-$.when(focusToItem()).done(function() {
-//if the page is loaded, and the instrument defined, auto click the parameter's list.
-$('#yvar0-selection-default>div>div>button').trigger('click');
-});
-});
-});
+        $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+            vent.trigger('toc:cleanUp');
+            $.when(focusToItem()).done(function() {
+
+                });
+            });
+        });
 
 $(document).ready(function() {
-ooi.start();
+        ooi.start();
 
-$('#disableSecondView').on('click', function(event){
-event.preventDefault();
-ooi.multiStation = false;
-$('#plot-item-selection2').hide();
-});
+        $('#disableSecondView').on('click', function(event){
+            event.preventDefault();
+            ooi.multiStation = false;
+            $('#plot-item-selection2').hide();
+            });
 
-$('#enableSecondView').on( "click", function(event) {
-event.preventDefault();
-ooi.multiStation = true;
-$('#plot-item-selection2').show();
-});
-var svgUrl = '/svg/plotdemo';
+        $('#enableSecondView').on( "click", function(event) {
+            event.preventDefault();
+            ooi.multiStation = true;
+            $('#plot-item-selection2').show();
+            });
+        var svgUrl = '/svg/plotdemo';
 
-});
+        });
 
 
 function jump(h){
-var url = location.href;               //Save down the URL without hash.
-location.href = "#"+h;                 //Go to the target element.
-history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
 }
 </script>
 {% endblock %}

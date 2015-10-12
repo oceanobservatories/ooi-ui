@@ -254,7 +254,7 @@ var MapView = Backbone.View.extend({
                 });
             }
         }
-        $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+        bindPopupEvents();
     },
     //renders a simple map view
     render: function() {
@@ -470,12 +470,12 @@ var MapView = Backbone.View.extend({
 
                                 popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                 // Checkbox
-                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments" checked disabled>Engineering Instruments</label></stron></li></ul>';
+                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
                                 popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
                                 popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
-                                popupContent+='<thead id="header-fixed"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
                                 instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
@@ -487,9 +487,13 @@ var MapView = Backbone.View.extend({
                                     instrumentName = instruments.models[i].attributes.display_name;
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
-                                    instrumentAssemblyName = instruments.models[i].attributes.reference_designator.split('-')[1];
-                                    y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>' +
-                                        '<td>'+instrumentName+'</td>'+
+                                    instrumentAssemblyName = (instruments.models[i].attributes.long_display_name !== null) ? instruments.models[i].attributes.long_display_name.split(' - ')[1] :  instruments.models[i].attributes.reference_designator.split('-')[1];
+                                    if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering Data') > -1 || instrumentName.indexOf('ENG000') > -1) {
+                                        y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                    } else {
+                                        y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                    }
+                                    y += '<td>'+instrumentName+'</td>'+
                                         '<td>' +
                                         '<a href="/plotting/#'+instrumentRefDes+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
                                         '<a href="/streams/#'+instrumentRefDes+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
@@ -510,13 +514,13 @@ var MapView = Backbone.View.extend({
 
                             if (_.isNull(item.endDate)){
                                 eventContent += '<div class="floatLeft">';
-                                eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.deploymentNumber +'</tr>';
+                                eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
                                 eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
                                 eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
 
                             }else{
                                 eventContent += '<div class="floatRight">';
-                                eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.deploymentNumber +'</tr>';
+                                eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
                                 eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
                                 eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item.endDate).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
                             }
@@ -582,7 +586,7 @@ var OOICustomMarker = L.Marker.extend({
                     return true;
                 // show the popup
                 this.openPopup();
-                $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+                bindPopupEvents();
             }, this);
             // and mouse out
             this.on("mouseout", function(e) {
@@ -622,6 +626,13 @@ var OOICustomMarker = L.Marker.extend({
         return false;
     }
 });
+
+var bindPopupEvents = function() {
+    $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
+    $('#engChkBox').click(function() {
+        $('.eng-item').toggle();
+    });
+};
 
 var TERRAIN = (function() {
 

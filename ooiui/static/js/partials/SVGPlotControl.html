@@ -7,7 +7,7 @@
       <form role="form">
           <div class="form-group">
               <label id="plot-type" for="xvar-select">Plot Type <span id="xVarTooltip" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Timeseries plot for selected parameter.  You may overlay up to 6 other variables."></span></label>
-              <select data-width="100%" id='xvar-select' class="form-control selectpicker">
+              <select data-width="100%" id='xvar-select' class="form-control selectpicker" required>
                   <option value="" disabled>Select</option>
                   <option value="time" selected >Time Series</option>
                   <option value="ts-diagram">T-S Diagram</option>
@@ -21,7 +21,7 @@
           </div>
           <div id="yvar0-selection-default">
               <div class="form-group">
-                  <label id='yvar0-select-default-text' for="yvar1-select">Select Y</label>
+                  <label id='yvar0-select-default-text' for="yvar1-select" required>Select Y</label>
                   <li> </li>
                   <select data-width="100%" data-hide-disabled=true id="yvar0-select-default" multiple title="Select" class="selectpicker toc-plotting-text" data-live-search="false" multiple data-max-options="6" >
                   </select>
@@ -87,7 +87,7 @@
             <input class="bootstrap-switch btn btn-default" type="checkbox" id="plotting-enable-events" data-size="normal">
           </div>
         </div>
-        
+
         <div class="form-group" style="margin-bottom:8px">
           <button id="update-plot" type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Plot

@@ -115,10 +115,10 @@ label#qaqc-test {
   padding-bottom: 4px;
   font-size: 14px;
   font-weight: bolder;
-  color: #121517;    
+  color: #121517;
 }
 
-input.form-control {
+input.form-control, select.form-control {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   height: 27px;
@@ -131,6 +131,10 @@ input.form-control {
   line-height: .9;
   height: 27px;
   font-weight: 300;
+}
+input.form-control[name="email"] {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 span.input-group-addon {
   padding-top: 3px;
@@ -169,7 +173,7 @@ span.input-group-addon {
 span.bootstrap-switch-label {
   padding: 3px 12px;
   width: 38px;
-} 
+}
 
 span.bootstrap-switch-handle-on.bootstrap-switch-primary,
 span.bootstrap-switch-handle-off.bootstrap-switch-default {
@@ -178,7 +182,7 @@ span.bootstrap-switch-handle-off.bootstrap-switch-default {
 }
 span.bootstrap-switch-handle-on.bootstrap-switch-primary {
   width: 42px;
-}  
+}
 
 /* Plotting sidebar buttons */
 /*space between button group on plotting page*/
@@ -385,7 +389,7 @@ div.scrollable-block {
   padding-left: 0px;
 }
 
-.btn-group.bootstrap-select.form-control {  
+.btn-group.bootstrap-select.form-control {
   height: 27px;
 }
 
