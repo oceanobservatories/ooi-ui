@@ -76,6 +76,7 @@
         </div>
         <div id="data-selection">
             <label><%= model.get('display_name') %><br> <%= model.get('stream_name') %></label>
+                <span style="float:right; position: relative; top: -50px"><i class="fa fa-info-circle">&nbsp;Warning: Data is decimated</i></span>
             <div id="yvar0-selection-default">
                 <div class="form-group">
                     <label id='yvar0-select-default-text' for="yvar0-select-default" required>Select Y</label>
@@ -122,7 +123,6 @@
                     <td class="data-controls" id="download-plot">Download Image</td>
                 </tr>
             </table>
-                <li id="decimatedWarn" role="menuitem" tabindex"-1"><i class="fa fa-info-circle">&nbsp;Warning: Data is decimated</i></li>
         </div>
     </form>
 </div>
