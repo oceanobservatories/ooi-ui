@@ -23,7 +23,7 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   initialize: function() {
     "use strict";
-    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange');
+    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange');
 
     this.render();
   },
@@ -41,8 +41,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     // get the time in days to subtract from the end date.
     timeRangeDelta = this.$el.find('#time-range select').val();
 
-    // reset the end date.
+    // reset the start and end date.
     endDate = moment.utc(this.model.get('end')).toJSON();
+    startDate = moment.utc(this.model.get('start')).toJSON();
 
     // set the start date to be the time range delta from the selection.
     if (timeRangeDelta === "") {
@@ -56,7 +57,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$start_date_picker.setDate(startDate);
 
     // dance.
-
+  },
+  resetTimeRange: function() {
+    "use strict";
+    $("#time-range > select").val("Reset").change();
   },
   onTypeChange: function() {
     "use strict";

@@ -400,6 +400,7 @@ var SVGPlotView = SVGView.extend({
       a.remove();
 
     }
+
   },
   downloadData: function(options) {
     this.reference_designator = this.model.get('reference_designator')
@@ -458,7 +459,9 @@ var SVGPlotControlView = Backbone.View.extend({
     'change #yvar3-select' : 'yVar3Change',
     'switchChange.bootstrapSwitch .bootstrap-switch' : 'onSwitchChange',
     'change .div-qa-qc input[type=checkbox]':'onCheckChange',
-    'change #time-range select': 'timeRangeChange'
+    'change #time-range select': 'timeRangeChange',
+    'click #start-date input': 'resetTimeRange',
+    'click #end-date input': 'resetTimeRange'
   },
   initialize: function() {
     //_.bindAll(this,"onSwitchChange");
@@ -472,19 +475,25 @@ var SVGPlotControlView = Backbone.View.extend({
     // get the time in days to subtract from the end date.
     timeRangeDelta = this.$el.find('#time-range select').val();
 
-    // reset the end date.
+    // reset the start and end date.
     endDate = moment.utc(this.model.get('end')).toJSON();
+    startDate = moment.utc(this.model.get('start')).toJSON();
 
     // set the start date to be the time range delta from the selection.
-    if (timeRangeDelta === "") {
+    if (timeRangeDelta === "all") {
         startDate = moment.utc(this.model.get('start')).toJSON();
     } else {
         startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'hours').toJSON();
     }
 
     // set the fields.
-    this.$start_date_picker.setDate(endDate);
+    this.$end_date_picker.setDate(endDate);
     this.$start_date_picker.setDate(startDate);
+
+  },
+  resetTimeRange: function() {
+    "use strict";
+    $(".plot-range-fields #time-range > select").val("Reset").change();
   },
   //set ony 1 checkbox
   onCheckChange:function(v){
@@ -541,6 +550,14 @@ var SVGPlotControlView = Backbone.View.extend({
   dataDownloads: function(e) {
     event.preventDefault();
     ooi.trigger('ooi:downloadData');
+    var timeRange, startTime, endTime;
+    timeRange = $('.plot-control #time-range > select').val();
+    startTime = $('#start-date > input').val();
+    endTime = $('#end-date > input').val();
+    $('#time-range > select').val(timeRange).change();
+    $('#start-date > input').val(startTime).change();
+    $('#end-date > input').val(endTime).change();
+
   },
   xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();

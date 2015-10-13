@@ -5,9 +5,14 @@ div#plottingBody div.row div.panel div#control-heading {
 
 #plot-options {
     display: block;
-    border-left: solid 5px #004473;
+    border-left: solid 5px lightblue;
     padding-left: 5px;
     margin-bottom: 10px;
+    transition: border-left 0.7s;
+}
+
+#plot-options:hover {
+    border-left: solid 5px #004473;
 }
 #plot-options > label, #data-selection > label {
     color: black;
@@ -17,8 +22,13 @@ div#plottingBody div.row div.panel div#control-heading {
 #data-selection {
     display: block;
     padding-left: 5px;
-    border-left: solid 5px #F09349;
+    border-left: solid 5px lightblue;
+    transition: border-left 0.7s;
 }
+#data-selection:hover {
+    border-left: solid 5px #004473;
+}
+
 #yvar1-selection, #yvar2-selection, #clear-interp-params, #yvar3-selection, .div-qa-qc {
     display:none;
 }
@@ -31,9 +41,11 @@ div#plottingBody div.row div.panel div#control-heading {
     float: left;
 }
 
-.range-fields {
-    display: block;
-    width: 138px;
+.plot-range-fields {
+    display: inline-block;
+    width: 100px;
+    float: left;
+    padding-right: 10px;
 }
 
 #start-time {
@@ -44,7 +56,7 @@ div#plottingBody div.row div.panel div#control-heading {
     float: left;
 }
 
-#start-date input.form-control, #end-date input.form-control {
+#plot-options div #start-date input.form-control, #plot-options div #end-date input.form-control {
     width: 166px;
 }
 
