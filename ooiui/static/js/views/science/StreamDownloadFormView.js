@@ -46,7 +46,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     startDate = moment.utc(this.model.get('start')).toJSON();
 
     // set the start date to be the time range delta from the selection.
-    if (timeRangeDelta === "") {
+    if (timeRangeDelta === "all") {
         startDate = moment.utc(this.model.get('start')).toJSON();
     } else {
         startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'hours').toJSON();
