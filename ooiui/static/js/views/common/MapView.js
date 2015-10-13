@@ -484,7 +484,7 @@ var MapView = Backbone.View.extend({
                             for ( var i=0, y = "";  i < instLength; i++ ) {
                                 if(instruments.models[i] !== undefined &&
                                    (platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,8) || platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,14))) {
-                                    instrumentName = instruments.models[i].attributes.display_name;
+                                    instrumentName = instruments.models[i].attributes.display_name || "";
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
                                     instrumentAssemblyName = (instruments.models[i].attributes.long_display_name !== null) ? instruments.models[i].attributes.long_display_name.split(' - ')[1] :  instruments.models[i].attributes.reference_designator.split('-')[1];

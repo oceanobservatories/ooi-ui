@@ -48,11 +48,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     if (timeRangeDelta === "") {
         startDate = moment.utc(this.model.get('start')).toJSON();
     } else {
-        startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'days').toJSON();
+        startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'hours').toJSON();
     }
 
     // set the fields.
-    this.$start_date_picker.setDate(endDate);
+    this.$end_date_picker.setDate(endDate);
     this.$start_date_picker.setDate(startDate);
 
     // dance.

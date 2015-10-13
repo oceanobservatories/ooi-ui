@@ -196,7 +196,6 @@ var SVGView = Backbone.View.extend({
     }
     //this.initialRender();
   },
-
   fetch: function() {
     var self = this;
     this.initialRender();
@@ -228,16 +227,16 @@ var SVGView = Backbone.View.extend({
     }else{
       var image = new Image();
       $(image)
-      .on('load', function() { 
-        self.$el.html(image); 
+      .on('load', function() {
+        self.$el.html(image);
       })
       .on('error', function() {
          // this should be uframe alert here.
          self.$el.html(' ');
          var error_msg = 'Unexpected uFrame Return. The data provided was not in the form of an array. Please make sure the correct parameter was selected. If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a>';
          $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: </strong> '+error_msg+'</div>');
-         
-      });    
+
+      });
       image.src = this.url;
     }
   },
@@ -458,7 +457,8 @@ var SVGPlotControlView = Backbone.View.extend({
     'change #yvar2-select' : 'yVar2Change',
     'change #yvar3-select' : 'yVar3Change',
     'switchChange.bootstrapSwitch .bootstrap-switch' : 'onSwitchChange',
-    'change .div-qa-qc input[type=checkbox]':'onCheckChange'
+    'change .div-qa-qc input[type=checkbox]':'onCheckChange',
+    'change #time-range select': 'timeRangeChange'
   },
   initialize: function() {
     //_.bindAll(this,"onSwitchChange");
@@ -466,7 +466,26 @@ var SVGPlotControlView = Backbone.View.extend({
   onSwitchChange: function(e,state){
     $(".div-qa-qc").css("display",state?"block":"none")
   },
+  timeRangeChange: function() {
+    var timeRangeDelta, timeChangedTo, startDate, endDate;
 
+    // get the time in days to subtract from the end date.
+    timeRangeDelta = this.$el.find('#time-range select').val();
+
+    // reset the end date.
+    endDate = moment.utc(this.model.get('end')).toJSON();
+
+    // set the start date to be the time range delta from the selection.
+    if (timeRangeDelta === "") {
+        startDate = moment.utc(this.model.get('start')).toJSON();
+    } else {
+        startDate = moment.utc(this.model.get('end')).subtract(timeRangeDelta,'hours').toJSON();
+    }
+
+    // set the fields.
+    this.$start_date_picker.setDate(endDate);
+    this.$start_date_picker.setDate(startDate);
+  },
   //set ony 1 checkbox
   onCheckChange:function(v){
       if (v.currentTarget.checked) {
@@ -509,7 +528,7 @@ var SVGPlotControlView = Backbone.View.extend({
     this.render(updateTimes);
   },
   template: JST['ooiui/static/js/partials/SVGPlotControl.html'],
-  plotDownloads: function(e) {    
+  plotDownloads: function(e) {
     event.preventDefault();
     if ($('#highcharts-row-section').css('display')=="block"){
       var chart = $('#highcharts-view').highcharts();
@@ -517,11 +536,11 @@ var SVGPlotControlView = Backbone.View.extend({
       chart.exportChart({type: 'image/png', filename: fileName});
     }else{
       ooi.trigger('ooi:downloadPlot');
-    }    
+    }
   },
-  dataDownloads: function(e) {    
+  dataDownloads: function(e) {
     event.preventDefault();
-    ooi.trigger('ooi:downloadData');    
+    ooi.trigger('ooi:downloadData');
   },
   xVarChange: function(e) {
     var plotType = $('#xvar-select option:selected').text();
@@ -736,11 +755,11 @@ var SVGPlotControlView = Backbone.View.extend({
                                     });
 
       this.$start_date_picker = this.$start_date.data('DateTimePicker');
-      this.$end_date_picker = this.$end_date.data('DateTimePicker'); 
+      this.$end_date_picker = this.$end_date.data('DateTimePicker');
 
       this.$el.find('#start-date').data("DateTimePicker").setDate(startDate);
       this.$el.find('#end-date').data("DateTimePicker").setDate(endDate);
-      
+
     }
 
     this.$type_select = this.$el.find('#type-select');
@@ -756,10 +775,11 @@ var SVGPlotControlView = Backbone.View.extend({
 
     // var xvar = "time"
     if (xvar){
-      this.$el.find('#xvar-select').selectpicker('val', xvar);
+//      this.$el.find('#xvar-select').selectpick('val', xvar);
     }
     this.$el.find('#yvar-select').selectpicker('val', this.variable);
 
     this.xVarChange();
+    this.timeRangeChange();
   }
 });

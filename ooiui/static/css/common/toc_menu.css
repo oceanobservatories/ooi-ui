@@ -47,7 +47,7 @@ label {
     padding-left: 15px;
     margin-bottom: 0;
 }
-label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+label.platform, label.instrument, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
 }
 #navToc {
