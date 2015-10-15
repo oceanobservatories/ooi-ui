@@ -18,7 +18,9 @@ var AssetModel = Backbone.Model.extend({
             name: null,
             longName: null,
             owner: null,
-            type: null
+            type: null,
+            array: null,
+            assembly: null
 		},
 		attachments: [],
         asset_class: null,
