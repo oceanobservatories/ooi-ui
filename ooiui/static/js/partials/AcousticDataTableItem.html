@@ -1,0 +1,17 @@
+<% _.each(columns, function(col) { %>
+  <% if(col.name == "download") { %>
+    <td class="download">
+        <b>Download</b>
+    </td>
+
+  <%} else if(col.name == "startTime" || col.name == "endTime") { %>
+    <td><%= moment.utc(model.get(col.name)*1000).format('MMMM Do YYYY, h:mm:ss a') %></td>
+  <% } else if(col.name == "json_download" || col.name == "netcdf_download" || col.name == "csv_download" || col.name == "profile_json_download" ) { %>
+  <td><a class="<%= col.name %>" href="#"><span class="fa fa-cloud-download"> Download</span></a></td>
+  <% } else if(col.name == "filename") { %>
+    <td><%= model.get(col.name) || "Not Available" %></td>
+  <% } else { %>
+    <td><%= model.get(col.name) %></td>
+  <% } %>
+
+<% }); %>
