@@ -25,10 +25,11 @@
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
-<div id="wrapper">
-  <!-- Sidebar -->
+<div id="wrapper" style="padding-left:0px;">
+  <!-- Sidebar 
   <div id="sidebar-wrapper" class="navbar-default">
   </div>
+  -->
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
@@ -38,12 +39,44 @@
         </div>
 
       <div class="row">
-        <div class="col-lg-12">          
+        <div class="col-lg-12">
+          <div class="panel panel-default"> 
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">Active</a></li>  
+              <li role="presentation" class=""><a href="#">Inactive</a></li>  
+            </ul>          
+            <div class="panel-body">
+              <div id="missionTable">
+              </div>
+            </div>              
+          </div>              
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
+
+
       <div class="row">
-        <div class="col-lg-12">          
-        </div> <!-- col-lg-12 -->
+        <div class="col-lg-6">                   
+          <div class="panel panel-default">     
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">Mission Script</a></li>  
+            </ul>      
+            <div class="panel-body" id="missionScript">   
+            </div>              
+          </div>              
+        </div> <!-- col-lg-6 -->
+
+
+        <div class="col-lg-6">                    
+          <div class="panel panel-default"> 
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">Log File</a></li>  
+            </ul>          
+            <div class="panel-body" id="missionLog">             
+            </div>                      
+          </div>              
+        </div> <!-- col-lg-6 -->
+
+
       </div> <!-- row -->
     </div> <!-- container-fluid -->
   </div> <!-- page-content-wrapper -->
@@ -56,6 +89,15 @@ var bannerTitle = "Mission Executive";
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  parameters:{
+    columns:null
+  },
+  views: {
+    missionTableView:null,
+  },
+  collections: {
+    missionCollection: null,
+  },
   start: function() {
     this.login.fetch({async:false});
     navbar = new NavbarView({
@@ -63,9 +105,145 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     var self = this;
-
     var banner = new BannerView({ bannerTitle:bannerTitle });
     $('body').prepend(banner.el);
+
+    var HtmlCell = Backgrid.HtmlCell = Backgrid.Cell.extend({
+      className: "html-cell",
+      initialize: function () {
+        Backgrid.Cell.prototype.initialize.apply(this, arguments);
+      },
+      render: function () {
+        this.$el.empty();
+        var rawValue = this.model.get(this.column.get("name"));
+        var formattedValue = this.formatter.fromRaw(rawValue, this.model);
+        this.$el.append(formattedValue);
+        this.delegateEvents();
+        return this;
+      }
+    });
+
+    self.parameters.columns = [ 
+      {
+        name: "",
+        editable: false,
+        label: "Disable",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return '<button id="disableRow" mission_id="'+model.get('mission_id')+'" type="button" class="btn btn-default" aria-label="Left Align">Disable</button>';
+          }
+        })
+      }, 
+      {
+        name: "",
+        editable: false,
+        label: "Stop",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return '<button id="stopRow" mission_id="'+model.get('mission_id')+'" type="button" class="btn btn-default" aria-label="Left Align">Stop</button>';
+          }
+        })
+      },    
+      {
+        name: "mission_id",
+        label: "ID",
+        cell: "string",
+        editable: false,
+      },  
+      {
+        name: "name",
+        label: "Name",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "desc",
+        label: "Mission Description",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "reference_designator",
+        label: "Reference Designator",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "status",
+        label: "Status",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "version",
+        label: "Version",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "schedule",
+        editable: false,
+        label: "Schedule",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return "hour:"+rawValue.hour;
+          }
+        })
+      },      
+      {
+        name: "created_date",
+        label: "Created On",
+        cell: "string",
+        editable: false,
+      },      
+      {
+        name: "runs",
+        editable: false,
+        label: "Last Completed",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return rawValue[1].date;
+          }
+        })
+      }, 
+      {
+        name: "created_by",
+        label: "Created By",
+        cell: "string",
+        editable: false,
+      },   
+    ];
+
+    self.views.missionTableView = new MissionExecutiveTableView({
+      el: $('#missionTable'),
+      columns: self.parameters.columns,
+      collection: self.collections.missionCollection
+    })
+
+    self.collections.missionCollection = new MissionExecutiveCollection();
+    self.collections.missionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.missionCollection, 'reset', function(model) {
+      self.views.missionTableView.collection = self.collections.missionCollection;
+      self.views.missionTableView.columns = self.parameters.columns;
+      self.views.missionTableView.render();
+    });
+
+    this.listenTo(this, 'missionTable:rowSelected', function(model) {
+      console.log('selected');
+
+      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
+
+      var htmlruns = [];      
+      _.each(model.get('runs'),function(run){
+        htmlruns.push(run.date+" : "+ run.status);
+      });
+      $('#missionLog').html("<pre class='pre-scrollable mission-code'>"+htmlruns.join("<br>")+"</pre>");
+    });
+    
   }
 });
 
