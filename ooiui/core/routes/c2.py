@@ -15,6 +15,8 @@ import requests
 
 
 #Mission Executive
+######
+#Mission Executive
 @app.route('/mission/executive')
 @app.route('/mission/executive/')
 def c2_mission_executive():
@@ -48,6 +50,35 @@ def c2_platform_status():
 def c2_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Flanding')
     return render_template('c2/landing.html')
+
+#Mission Executive DATA PATHS
+######
+@app.route('/api/c2/missions', methods=['GET'])
+def get_c2_get_missions():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''))
+    return response.text, response.status_code
+
+@app.route('/api/c2/missions', methods=['POST'])
+def get_c2_add_mission():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/c2/missions', methods=['PUT'])
+def get_c2_update_mission():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/c2/missions', methods=['DELETE'])
+def get_c2_del_mission():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+
 
 # C2 ooi-ui-services Routes
 

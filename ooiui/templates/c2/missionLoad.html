@@ -25,7 +25,7 @@
 <div class="container-fluid">
   <div id="navbar" class="row"></div>
 </div>
-<div id="wrapper">
+<div id="wrapper" style="padding-left:0px;">
   <!-- Sidebar 
   <div id="sidebar-wrapper" class="navbar-default">
   </div>
@@ -35,24 +35,35 @@
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="col-lg-2">          
-        <div class="btn-group-vertical" role="group" aria-label="...">
-          <button type="button" class="btn btn-default">Upload Misson</button>
-          <button type="button" class="btn btn-default">Delete Select Misson</button>
+      <div class="row">
+        <div class="col-sm-2">          
+          <div class="btn-group-vertical" role="group" aria-label="...">
+            <button id="missionLoad" type="button" class="btn btn-sm btn-default">Upload Misson</button>
+            <button id="missionDelete" type="button" class="btn btn-sm btn-default">Delete Select Misson</button>
+          </div>
+        </div>
+
+        <div class="col-lg-10">
+          <div class="panel panel-default">
+            <div class="panel-body">   
+              <div id="missionTable">
+              </div>
+            </div>
+          </div>       
         </div>
       </div>
 
-      <div class="col-lg-10">   
-        <div id="missionTable">
-        </div>       
-      </div>
-        
+              
       <div class="row">
         <div class="col-lg-12">  
-        </div> <!-- col-lg-12 -->
-      </div> <!-- row -->
-      <div class="row">
-        <div class="col-lg-12">          
+          <div class="panel panel-default">
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">Mission Script</a></li>  
+            </ul>
+            <div class="panel-body" id="missionScript">   
+
+            </div>
+          </div>      
         </div> <!-- col-lg-12 -->
       </div> <!-- row -->
     </div> <!-- container-fluid -->
@@ -66,6 +77,15 @@ var bannerTitle = "Mission Load";
 
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
+  parameters:{
+    columns:null,
+  },
+  views: {
+    missionTableView:null,
+  },
+  collections: {
+    missionCollection: null,
+  },
   start: function() {
     this.login.fetch({async:false});
     navbar = new NavbarView({
@@ -73,9 +93,67 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     var self = this;
-
     var banner = new BannerView({ bannerTitle:bannerTitle });
     $('body').prepend(banner.el);
+
+    self.parameters.columns = [    
+      {
+        name: "mission_id",
+        label: "ID",
+        cell: "string",
+        editable: false,
+      },  
+      {
+        name: "name",
+        label: "Name",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "desc",
+        label: "Mission Description",
+        cell: "string",
+        editable: false,
+      },      
+      {
+        name: "status",
+        label: "Status",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "created_date",
+        label: "Created On",
+        cell: "string",
+        editable: false,
+      },
+      {
+        name: "created_by",
+        label: "Created By",
+        cell: "string",
+        editable: false,
+      }    
+    ];
+
+    self.views.missionTableView = new MissionExecutiveTableView({
+      el: $('#missionTable'),
+      columns: self.parameters.columns,
+      collection: self.collections.missionCollection
+    })
+
+    self.collections.missionCollection = new MissionExecutiveCollection();
+    self.collections.missionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.missionCollection, 'reset', function(model) {
+      self.views.missionTableView.collection = self.collections.missionCollection;
+      self.views.missionTableView.columns = self.parameters.columns;
+      self.views.missionTableView.render();
+    });
+
+    this.listenTo(this, 'missionTable:rowSelected', function(model) {
+      console.log('selected');
+      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
+    });
+    
   }
 });
 
@@ -84,6 +162,14 @@ var ooi = new OOI();
 $(document).ready(function() {
     ooi.start();
     $('#navbar').prepend(navbar.el);
+
+    $('#missionLoad').on( "click", function() {
+      alert('Select Mission file to load');
+    });
+
+    $('#missionDelete').on( "click", function() {
+      alert('Delete Selected Mission');
+    });
 });
 </script>
 {% endblock %}
