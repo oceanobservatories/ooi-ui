@@ -26,12 +26,6 @@ var AcousticDataModel = Backbone.Model.extend({
         station: "",
         subsite: "",
     },
-    // toJSON: function() {
-    //     "use strict";
-    //     var attrs = _.clone(this.attributes);
-    //     attrs.assetId = attrs.id;
-    //     return attrs;
-    // }
 });
 
 var AcousticDataCollection = Backbone.Collection.extend({

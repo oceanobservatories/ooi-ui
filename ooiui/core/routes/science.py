@@ -10,7 +10,6 @@ from flask import stream_with_context
 from ooiui.core.routes.common import get_login
 import requests
 import urllib2
-import json
 
 
 @app.route('/')

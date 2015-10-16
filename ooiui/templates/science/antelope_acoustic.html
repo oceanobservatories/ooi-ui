@@ -147,21 +147,6 @@ var data = { min : 'True' };
 
 // Fetch all the available data
 var arrayFetch = acousticDataCollection.fetch({ reset: true });
-// $.when(arrayFetch).done(function() {
-//     var assetFetch = assetCollection.fetch({ data: data, reset: true });
-//     $.when(assetFetch).done(function() {
-//         var streamFetch = streamCollection.fetch({ data: data,  reset: true });
-//         $.when(streamFetch).done(function() {
-//             // $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-//                 // right now we need to call this twice...not sure why.
-//                 vent.trigger('toc:cleanUp');
-//                 vent.trigger('toc:hideStreams');
-//                 focusToItem();
-//             });
-//         });
-//     });
-// });
-
 
 // The pagination object holds information about the current
 // state of the page for us.
