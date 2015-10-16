@@ -61,6 +61,7 @@ var StreamCollection = Backbone.Collection.extend({
   model: StreamModel,
   parse: function(response) {
     if(response) {
+        debugger;
         this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
         return response.streams;
     }

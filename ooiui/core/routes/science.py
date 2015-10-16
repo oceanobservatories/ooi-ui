@@ -10,6 +10,7 @@ from flask import stream_with_context
 from ooiui.core.routes.common import get_login
 import requests
 import urllib2
+import json
 
 
 @app.route('/')
@@ -54,6 +55,12 @@ def streams_page():
     return render_template('science/streams.html')
 
 
+@app.route('/antelope_acoustic/')
+def acoustics_page():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Facoustic-antelope')
+    return render_template('science/antelope_acoustic.html')
+
+
 @app.route('/plotting', methods=['GET'])
 @app.route('/plotting/', methods=['GET'])
 def show_plotting_no_path():
@@ -64,7 +71,6 @@ def show_plotting_no_path():
 @app.route('/plotting/<path:path>', methods=['GET'])
 def plotting_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
-    print path
     return render_template('science/plotting.html')
 
 
@@ -277,6 +283,14 @@ def op_log():
 def stream_proxy():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/antelope_acoustic/list', methods=['GET'])
+def get_acoustic_datalist():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/antelope_acoustic/list', auth=(token, ''), params=request.args)
+
     return response.text, response.status_code
 
 
