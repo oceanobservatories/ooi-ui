@@ -228,6 +228,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/SVGPlotControl.html",
             "ooiui/static/js/partials/StreamTable.html",
             "ooiui/static/js/partials/StreamTableItem.html",
+            "ooiui/static/js/partials/AcousticDataTable.html",
+            "ooiui/static/js/partials/AcousticDataTableItem.html",
             "ooiui/static/js/partials/StreamDownloadForm.html",
             "ooiui/static/js/partials/ModalForm.html",
             "ooiui/static/js/partials/ModalDownloadFail.html",
@@ -673,6 +675,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/AcousticDataModel.js',
             'ooiui/static/js/models/science/SeriesModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -690,6 +693,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/AnnotationModalFormView.js',
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/AcousticDataTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
             'ooiui/static/js/views/science/HighchartsView.js',
             'ooiui/static/js/views/science/HighChartsXYView.js',
@@ -1069,6 +1073,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/AcousticDataModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -1084,6 +1089,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/AnnotationModalFormView.js',
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/AcousticDataTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js'
           ],
           'ooiui/static/js/compiled/plotting.js' : [
