@@ -13,6 +13,22 @@ import urllib2
 
 import requests
 
+
+#Mission Executive
+@app.route('/mission/executive')
+@app.route('/mission/executive/')
+def c2_mission_executive():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fexecutive')
+    return render_template('c2/missionExecutive.html')
+
+#Mission Load
+@app.route('/mission/load')
+@app.route('/mission/load/')
+def c2_mission_load():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fload')
+    return render_template('c2/missionLoad.html')
+
+
 #probably not going to use
 @app.route('/c2/platforms')
 @app.route('/c2/platforms/')
