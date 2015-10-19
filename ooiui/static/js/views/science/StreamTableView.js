@@ -17,24 +17,44 @@
 var StreamTableView = Backbone.View.extend({
     columns: [
         {
-            name : 'plot',
-            label : ' '
+            name : 'array_name',
+            label : 'Array'
         },
         {
-            name : 'download',
-            label : 'Download Data'
+            name : 'site_name',
+            label : 'Site Name'
         },
         {
-            name : 'reference_designator',
-            label : 'Reference Designator'
+            name : 'platform_name',
+            label : 'Platform Name'
+        },
+        {
+            name : 'assembly_name',
+            label : 'Assembly Name'
+        },
+        {
+            name : 'display_name',
+            label : 'Instrument'
         },
         {
             name : 'stream_name',
             label : 'Stream Identifier'
         },
         {
-            name : 'display_name',
-            label : 'Stream Description'
+            name: 'stream_type',
+            label: 'Stream Type'
+        },
+        {
+            name: 'depth',
+            label: 'Depth (m)'
+        },
+        {
+            name: 'lat',
+            label: 'Lat (ddm)'
+        },
+        {
+            name: 'long',
+            label: 'Lon (ddm)'
         },
         {
             name : 'start',
@@ -43,6 +63,22 @@ var StreamTableView = Backbone.View.extend({
         {
             name : 'end',
             label : 'End Time'
+        },
+        {
+            name: 'reference_designator',
+            label: 'Reference Designator'
+        },
+        {
+            name : 'make_model',
+            label : 'Make/Model'
+        },
+        {
+            name: 'plot',
+            label: ''
+        },
+        {
+            name: 'download',
+            label: ''
         }
     ],
     tagName: 'tbody',
@@ -70,10 +106,14 @@ var StreamTableView = Backbone.View.extend({
         this.$el.find('th#th-download > i').remove();
         this.collection.each(function(model) {
             var streamTableItemView = new StreamTableItemView({
-                columns: self.columns,
-                model: model
-            });
+                    columns: self.columns,
+                    model: model
+                }),
+                streamTableItemSubView = new StreamTableItemSubView({
+                    model: model
+                });
             self.$el.append(streamTableItemView.el);
+            self.$el.append(streamTableItemSubView.render().el);
         });
     }
 });
@@ -87,7 +127,9 @@ var StreamTableItemView = Backbone.View.extend({
         "use strict";
         return {
             'valign': 'middle',
-            'class': 'stream-row'
+            'class': 'accordion-toggle stream-row',
+            'data-toggle': 'collapse',
+            'style': 'cursor: pointer;'
         }
     },
     events: {
@@ -108,16 +150,36 @@ var StreamTableItemView = Backbone.View.extend({
         ooi.trigger('StreamTableItemView:onClick', {model: this.model, selection: option});
     },
     focus: function() {
-        console.log("Trying to focus");
         this.$el.addClass('highlight').siblings().removeClass('highlight');
     },
     template: JST['ooiui/static/js/partials/StreamTableItem.html'],
     render: function() {
         var attributes = this.model.toJSON();
         this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns}));
+        this.$el.attr('data-target', '#'+this.model.cid);
     },
     onRowClick: function(event) {
         event.stopPropagation();
         ooi.trigger('StreamTableItemView:onRowClick', this);
     },
+});
+
+var StreamTableItemSubView = Backbone.View.extend({
+    tagName: 'tr',
+    attributes: function() {
+        return {
+            'class': 'collapse'
+        }
+    },
+    initialize: function() {
+        "use strict";
+        this.listenTo(this.model, 'change', this.render);
+    },
+    template: JST['ooiui/static/js/partials/StreamTableItemSubView.html'],
+    render: function() {
+        "use strict";
+        this.$el.attr('id', this.model.cid);
+        this.$el.html(this.template({model: this.model.toJSON()}));
+        return this;
+    }
 });

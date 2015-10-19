@@ -1,25 +1,3 @@
-/* page specific toc styling */
-
-/* formatting for the search field */
-#sidebar-wrapper {
-    padding-top:0px;
-    border-top-width: 22px;
-    border-color: #E9E9E9;
-    -webkit-box-shadow: none;
-}
-
-#search {
-    margin-top:0px;
-}
-#search-clear {
-    margin-top:0px;
-}
-#assetBrowser {
-    margin-top: 55px;
-}
-/* end toc styling */
-
-
 #th-plot {
     width:85px;
 }
@@ -43,6 +21,8 @@
 i {
     pointer-events: none;
 }
-ul.pagination {
-    min-width: 500px;
+.panel-heading {
+   text-align: center;
+   margin: 0 auto 0 auto;
+   position: relative;
 }

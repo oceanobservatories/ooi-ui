@@ -30,6 +30,9 @@ var StreamModel = Backbone.Model.extend({
     annotations: "",
     email: "",
     user_name: "",
+    parameter_display_name: "",
+    site_name: "",
+    assembly_name: ""
   },
   getURL: function(type) {
     if(type == 'json') {

@@ -1,0 +1,12 @@
+<td colspan="16" class="stream-dropdown">
+    <dl>
+        <dt>Parameters:</dt>
+        <dd>
+            <ul>
+            <% _.each(this.model.get('parameter_display_name'), function(param) { %>
+                <li> <%= param %> </li>
+            <% }); %>
+            </ul>
+        </dd>
+    </dl>
+</td>

@@ -1,0 +1,46 @@
+div#page-controls {
+  position: fixed;
+  top: 150px;
+  z-index: 1;
+  width: 100%;
+  padding-left: 30px;
+  background-color: #004773;
+  height: 100px;
+  left: 375px;
+}
+button#search-clear {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+#searchGroup {
+    display: inline-block;
+    padding-top: 30px;
+}
+#search {
+    width: 768px;
+    height: 27px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 10px;
+    display: block;
+}
+input#search {
+  line-height: 1.5;
+}
+
+#scientificConcepts > span {
+    background-color: white;
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.8s;
+}
+#scientificConcepts > span:hover {
+    background-color: orange;
+    color: white;
+}
+#scientificConcepts > span.active {
+    background-color: orange;
+    color: white;
+}

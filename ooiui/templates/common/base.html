@@ -23,6 +23,8 @@
   {% block head %}
     {% block link %}
       <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
+      <link href="/css/common/page_controls.css" rel="stylesheet" type="text/css" />
+      <link href="/css/common/page_content.css" rel="stylesheet" type="text/css" />
     {% endblock %}
     {% block script %}
         <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
@@ -31,14 +33,24 @@
 </head>
 <body>
 {% block body %}
+    {% block page_controls %}
+    <div id="page-controls">
+        <div id="searchGroup" class="page-controls input-group" style="display:none;">
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search">
+            <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
+        </div>
+        <div id="scientificConcepts" class="page-controls">
+            <span>Oxygen</span><span>Nitrage</span><span>Temperature</span><span>Salinity</span><span>Optical</span><span class="active">Currents / Velocities</span>
+        </div>
+    </div>
+    {% endblock %}
     {% block sidebar %}
         <div id="sidebar-wrapper" class="well">
-            <div id="searchGroup" class="input-group" style="display:none;">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search">
-                    <button id="search-clear" class="btn btn-default" ><i class="glyphicon glyphicon-remove-circle"></i></button>
-            </div>
             <i id="tocSpinner" class="fa fa-spinner fa-spin" style="margin-top:15%;margin-left:50%;font-size:90px;"> </i>
         </div>
+    {% endblock %}
+    {% block page_content %}
+        <div id="page-content"></div>
     {% endblock %}
 {% endblock %}
 </body>

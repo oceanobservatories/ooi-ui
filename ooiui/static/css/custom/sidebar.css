@@ -7,7 +7,6 @@
 
 /* @media (min-width: 768px) */
 div#wrapper.btn-wrapper {
-  padding-left: 250px;
   /* margin-left: 50px; */
 }
 div#wrapper.toggled.btn-wrapper {
@@ -15,30 +14,9 @@ div#wrapper.toggled.btn-wrapper {
   /* margin-left: 50px; */
 }
 
-div#wrapper.toggled.btn-wrapper idebar-wrapper.btn-sidebar {
-  width: 275px;
-  /* width: 250px; */
-  /* left: 220px; */
-  /* margin-left: -250px; */
-  /* overflow: visible; */
-}
-div#wrapper.toggled.btn-wrapper #sidebar-wrapper.btn-sidebar {
-  width: 0px;
-  /* width: 250px; */
-  /* left: 220px; */
-  /* margin-left: -250px; */
-  /* overflow: visible; */
-}
-
-div#sidebar-wrapper {
-  border-top-width: 22px;
-  border-color: #E9E9E9;
-  -webkit-box-shadow: none;
-}
-
 .btn.btn-primary.sidebar {
   color: #353840;
-  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));  
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   border: 1px solid #7E9CD9;
@@ -79,7 +57,7 @@ input#search-filter {
   border-left: none;
   border-bottom: 1px solid #FFF;
   border-right: none;
-  background: #F09349;  
+  background: #F09349;
   line-height: 1.5;
 }
 .btn-search:hover,
@@ -92,7 +70,7 @@ input#search-filter {
   padding:0 0 15px 0;
 }
 
-/* 
+/*
 >>-reset btn->
  */
 button.btn.btn-primary.btn-reset.btn-reset{
@@ -111,24 +89,13 @@ button.btn.btn-primary.btn-reset:focus {
   background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.7),  rgba(126, 156, 217,.0));
   color: #F4F4F4;
   font-weight: normal;
-  letter-spacing: 2px; 
+  letter-spacing: 2px;
   border-top: 1px solid #FFF;
   border-bottom: 0px solid #FFF;
   border-right: 1px solid #FFF;
   border-left: none;
 }
 
-/* div#sidebar-wrapper { */
-/*   position: fixed; */
-/*   left: 109px; */
-/*   margin-left: -135px; */
-/*   overflow-y: auto; */
-/*   -webkit-transition: all 0.5s ease; */
-/*   -moz-transition: all 0.5s ease; */
-/*   -o-transition: all 0.5s ease; */
-/*   transition: all 0.5s ease; */
-/* } */
-/*  */
 
 /***********************
  ******* Accordion ******
@@ -151,7 +118,7 @@ div#headingOne.collapsed {
 
 .panel-title > a {
   text-decoration: none;
-  font-weight: 300; 
+  font-weight: 300;
 }
 .panel-title > a:hover {
   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0));
@@ -189,22 +156,14 @@ border: 1px solid #7E9CD9;
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:focus,
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a:active {
   color: #000;
-  font-weight: 300; 
+  font-weight: 300;
 }
-/*.sidebar-nav-first-level {
-background-image:linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
-background-image:-webkit-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
-background-image:-o-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
-background-image:-ms-linear-gradient(right, #353840 0%, #7E9CD9 50%,#353840 100%);
-background-image:-webkit-gradient(linear, right bottom, left bottom, color-stop(0%,#353840), color-stop(50%,#7E9CD9),color-stop(100%,#353840));
-border: 1px solid silver;
-}*/
 
 .sidebar-nav-first-level > ul.nav.sidebar-nav > a {
   color: #FFF;
   font-size: 14px;
-  text-decoration: none;  
-  font-weight: 300; 
+  text-decoration: none;
+  font-weight: 300;
 }
 
 .panel-default > .panel-heading .badge {
@@ -235,7 +194,7 @@ background-color: #E9E9E9;
 color: #353840;
 font-size: 14px;
 text-decoration: none;
-font-weight: 300; 
+font-weight: 300;
 }
 ul.nav.sidebar-nav > div  {
   background: ##E9E9E9;
@@ -245,34 +204,34 @@ ul.nav.sidebar-nav > div  {
  **********************/
 /*
 >>-accordion background->
- */ 
+ */
 .sidebar-nav .sidebar-nav-third-level {
   background: #FFF;
   border: 1px solid silver;
   border-radius: 25px;
-}  
+}
 /*
 >>-accordion text->
- */ 
+ */
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a {
   color: #353840;
   font-size: 14px;
-  text-decoration: none; 
-  font-weight: 300; 
+  text-decoration: none;
+  font-weight: 300;
 }
 /*
 >>-link text->
- */ 
+ */
 .sidebar-nav-third-level > ul.nav.sidebar-nav > a:hover {
   background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
   border-radius: 5px;
   border:1px solid white;
-  color: #000;  
+  color: #000;
 }
 /*dropdown button(caret)
 button.btn.btn-default.btn-xs.dropdown-toggle:hover {
 background: radial-gradient(rgba(255,255,255,0), rgba(126, 156, 217,.2), rgba(255,255,255,0));
-}*/ 
+}*/
 
 /*
 >>-dropdown menu item(plot)->
@@ -295,6 +254,6 @@ ul#plot-dd > a:hover {
   text-decoration: none;
   color: black;
   background-color: transparent;
-  font-weight: 300; 
+  font-weight: 300;
 }
 

@@ -1,4 +1,3 @@
-"use strict";
 /*
  * ooiui/static/js/models/science/ArrayModel.js
  * An extension of Backbone.Model that manages relations with a back-ref id
@@ -15,12 +14,11 @@
  * each page.
  */
 if(typeof(OOI) === "undefined") {
-  var OOI = function() {
-  }
+  var OOI = function() {};
 }
 OOI.Relation = {
   hasMany: 'hasMany'
-}
+};
 
 /*
  * Use the RelationalModel to attach a collection to a Model that has
@@ -28,12 +26,13 @@ OOI.Relation = {
  */
 OOI.RelationalModel = Backbone.Model.extend({
   constructor: function(attributes, options) {
+    "use strict";
     Backbone.Model.apply(this, arguments);
     if(this.relation && this.relation.type === OOI.Relation.hasMany) {
       // bind the actual class to a variable so we can instantiate it.
-      var collection = eval(this.relation.collectionType);
+      var Collection = eval(this.relation.collectionType);
       // Create an instance of the class and bind it to the appropriate key
-      this[this.relation.key] = new collection();
+      this[this.relation.key] = new Collection();
       // We need self in the following function declaration
       var self = this;
       this[this.relation.key].fetch = function(options) {
@@ -59,28 +58,33 @@ OOI.RelationalModel = Backbone.Model.extend({
 /*
  * Logged in returns true if we have identified that the user is logged in.
  */
-OOI.LoggedIn = function() {
+OOI.LoggedIn = (function() {
+    "use strict";
     if($.cookie('ooiusertoken')) {
         return true;
     }
   return false;
-}
+});
 
-OOI.LogOut = function() {
+OOI.LogOut = (function() {
+    "use strict";
   $.removeCookie('ooiusertoken', { path: '/' });
   window.location.replace('/');
-}
+});
 
-OOI.prototype.onLogin = function() {
+OOI.prototype.onLogin = (function() {
+    "use strict";
     window.location.reload();
-}
-OOI.prototype.onLogout = function() {
+});
+OOI.prototype.onLogout = (function() {
+    "use strict";
     window.location.reload();
-}
+});
 
 
 // TOC Functions
-function renderTOCView( container, contents, streams ) {
+var renderTOCView = (function(container, contents, streams) {
+    "use strict";
     var tocView = new TOCView({
         arrayCollection:    container,
         assetCollection:    contents,
@@ -91,15 +95,16 @@ function renderTOCView( container, contents, streams ) {
     $('i#tocSpinner').hide();
     // append the toc
     $('#sidebar-wrapper').append( tocView.el );
-    if ( contents != null ) {
+    if ( contents !== null ) {
         tocView.renderAssets();
     }
-    if ( streams != null ) {
+    if ( streams !== null ) {
         tocView.renderStreams();
     }
-}
+});
 
-function showSearchResults( collection ) {
+var showSearchResults = (function(collection) {
+    "use strict";
     vent.trigger('toc:derenderItems');
 
     var searchResultView = new SearchResultView({ collection:collection });
@@ -109,9 +114,10 @@ function showSearchResults( collection ) {
 
     $('i#tocSpinner').hide();
     $('#sidebar-wrapper').append(searchResultView.el);
-}
+});
 
-function updateCollection( assetCallback ){
+var updateCollection = (function(assetCallback){
+    "use strict";
     var data = {
         search : $('#search-filter').val()
     };
@@ -119,54 +125,58 @@ function updateCollection( assetCallback ){
         data : data,
         success : assetCallback,
     });
-}
-function focusToItem(e) {
+});
+
+var focusToItem = (function(err)  {
+    "use strict";
     //From Dan L. by M@C
-  // get url
-  var newURL = window.location.href;
-  var afterHashTag = newURL.substr(newURL.indexOf('#') + 1);
-  if (newURL != afterHashTag) {
+    // get url
 
-      try {
-          var urlArray = afterHashTag.split('/');
-          if (urlArray.length == 2) {
-              var ref_des  = urlArray[urlArray.length - 2];
-              var stream_name = urlArray[urlArray.length - 1];
-          } else {
-              var ref_des  = afterHashTag;
-              var stream_name = "";
-          }
+    // vars
+    var newURL, afterHashTag, urlArray, ref_des, stream_name;
 
-        if ( ref_des.length > 0 ) {
-              if (stream_name.length > 0) {
-                  $('#'+ref_des).parents().eq(2).toggle(300);
-                  $('#'+ref_des).parents().eq(0).toggle(300);
-                  $('#'+ref_des+'> label').trigger('click');
-                  $('#'+ref_des+'-'+stream_name+' > a').trigger('click');
-              } else if ( ref_des.length == 8) {
-                  ref_des = ref_des.substring(0,8);
-                  $('#'+ref_des).parents().eq(0).toggle(300);
-                  $('#'+ref_des+'> label').trigger('click');
-              } else if ( ref_des.length == 14) {
-                  ref_des = ref_des.substring(0,14);
-                  $('#'+ref_des).parents().eq(0).toggle(300);
-                  $('#'+ref_des+'> label').trigger('click');
-              } else {
-                  $('#'+ref_des).parents().eq(2).toggle(300);
-                  $('#'+ref_des).parents().eq(0).toggle(300);
-                  $('#'+ref_des+'> label').trigger('click');
-              }
-              $(document).ready(function() {
-                  $('#sidebar-wrapper').animate({
-                      'scrollTop':  ($('#'+ref_des).offset().top - 220)
-                  }, 500);
-              });
+    newURL = window.location.href;
+    afterHashTag = newURL.substr(newURL.indexOf('#') + 1);
+    if (newURL != afterHashTag) {
+
+        try {
+            urlArray = afterHashTag.split('/');
+            if (urlArray.length == 2) {
+                ref_des  = urlArray[urlArray.length - 2];
+                stream_name = urlArray[urlArray.length - 1];
+            } else {
+                ref_des = afterHashTag;
+                stream_name = "";
             }
-      } catch(e) {
-        console.log(e);
-      }
-  }
-}
+
+            if ( ref_des.length > 0 ) {
+                if (stream_name.length > 0) {
+                    $('#'+ref_des).parents().eq(2).toggle(300);
+                    $('#'+ref_des).parents().eq(0).toggle(300);
+                    $('#'+ref_des+'> label').trigger('click');
+                    $('#'+ref_des+'-'+stream_name+' > a').trigger('click');
+                } else if ( ref_des.length === 8) {
+                    $('#'+ref_des).parents().eq(0).toggle(300);
+                    $('#'+ref_des+'> label').trigger('click');
+                } else if ( ref_des.length === 14) {
+                    $('#'+ref_des).parents().eq(0).toggle(300);
+                    $('#'+ref_des+'> label').trigger('click');
+                } else {
+                    $('#'+ref_des).parents().eq(2).toggle(300);
+                    $('#'+ref_des).parents().eq(0).toggle(300);
+                    $('#'+ref_des+'> label').trigger('click');
+                }
+                $(document).ready(function() {
+                    $('#sidebar-wrapper').animate({
+                        'scrollTop':  ($('#'+ref_des).offset().top - 220)
+                    }, 500);
+                });
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+});
 
 // global document controller
 

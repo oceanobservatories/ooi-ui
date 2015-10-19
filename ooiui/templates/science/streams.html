@@ -9,6 +9,7 @@
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -33,41 +34,39 @@
   <div id="navbar" class="row"></div>
 </div>
 
+      {% block page_controls %}
+      {{ super() }}
+      {% endblock %}
 <div id="wrapper">
-  {# <div id="sidebar-wrapper" class="hidden navbar-default"> #}
-  {# </div>  #}
-  <!-- #sidebar-wrapper -->
-  <div id="page-content-wrapper">
-      <div class="content-fluid">
-          {% block sidebar %}
-            <!-- common/base.html -->
-              {{ super() }}
-          {% endblock %}
-          <div class="col-lg-12">
-          <div id="streamPanel"class="panel">
-              <div class="panel-heading">
-                  <div class="row">
-                      <div class="col-lg-5 col-md-offset-3">
-                          <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
-                      </div>
-                  </div>
-              </div>
 
-              <div class="panel-body">
-                  <div id="stream-table-view">
-                      <table  class="table table-bordered table-striped table-selectable">
-                          <i  id="streamSpinner" class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
-                          <thead>
-                          </thead>
-                      </table>
-                  </div> <!-- #view -->
-                  <div class="paginator row text-center">
-                      <div class="pagination-info"> </div>
-                  </div>
-              </div> <!-- .panel-body -->
-          </div> <!-- .panel -->
+    <div id="page-content-wrapper">
+
+        <div class="content-fluid">
+            {% block sidebar %}
+            <!-- common/base.html -->
+            {{ super() }}
+            {% endblock %}
+            <div id="page-content">
+                <div id="streamPanel"class="panel">
+                    <div class="panel-heading">
+                        <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="stream-table-view">
+                            <table  class="table table-bordered table-striped table-selectable">
+                                <i  id="streamSpinner" class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>
+                                <thead>
+                                </thead>
+                            </table>
+                        </div> <!-- #view -->
+                        <div class="paginator row text-center">
+                            <div class="pagination-info"> </div>
+                        </div>
+                    </div> <!-- .panel-body -->
+                </div> <!-- .panel -->
+            </div>
       </div>
-      </div> <!-- .content-fluid -->
   </div> <!-- #page-content-wrapper -->
     <div id="stream-download-modal"></div>
     <div id='download-ok-modal'></div>
@@ -240,9 +239,9 @@ $.when(arrayFetch).done(function() {
 // The pagination object holds information about the current
 // state of the page for us.
 var pagination = {
-    itemsPerPage : 15, // how many items per page
+    itemsPerPage : 10, // how many items per page
     currentPage : 1, // page to start at, first page is 1, not 0
-    maxPages: 10 // max number of pages to show in the pagination element
+    maxPages: 4 // max number of pages to show in the pagination element
 }
 
 // Sorting and ordering (ascending / descending)
@@ -262,6 +261,14 @@ $(document).ready(function() {
             });
 
         $('#search').keyup( _.debounce(textInput, 250) );
+        $('#menu-toggle').click(function() {
+            console.log('test');
+            $('#page-controls').toggle(function() {
+                $('#page-controls').css({"left":'0'});
+                }, function() {
+                $('#page-controls').css({"left":'375px'});
+                });
+            });
 });
 
 function textInput() {

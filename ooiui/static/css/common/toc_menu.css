@@ -1,8 +1,10 @@
 #sidebar-wrapper {
-    max-height:80%;
+    max-height:100%;
+    background-color: #eee;
 }
 #assetBrowser {
     margin-top:5px;
+    background-color: #eee;
 }
 
 .toc-header{
@@ -10,17 +12,28 @@
     text-align: left;
 }
 
-#array {
-}
-
 div#assetBrowser {
     overflow-x: hidden;
-    padding-left: 25px;
+    padding-left: 0;
+    margin-top: 0;
 }
-label {
+#tocNav {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    background-color: #eee;
+}
+#tocNav label {
     display: block;
-    margin-bottom: 5px;
     max-width:100%;
+    margin-bottom: 0;
+    transition: background-color 0.2s;
+}
+
+#tocNav a {
+    transition: background-color 0.2s;
+}
+#tocNav label:hover, #tocNav a:hover {
+    background-color: lightblue;
 }
 .nav-list>li>a,.nav-list .nav-header {
     margin-right: -15px;
@@ -30,7 +43,7 @@ label {
 
 
 .active-toc-item{
-    background-color:lightblue !important;
+    background-color:lightskyblue !important;
 }
 
 .nav-header {
@@ -47,7 +60,7 @@ label {
     padding-left: 15px;
     margin-bottom: 0;
 }
-label.platform, label.instrument, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+label.array, label.platform, label.assembly, label.instrument, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
 }
 #navToc {
@@ -94,60 +107,39 @@ margin: 0 0 10px
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(255, 255, 255);
-                            }
-
-#search {
-    width: 275px;
-    height: 27px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
-
-input#search {
-  line-height: 1.5;
-}
-
 li.highlight-row > label {
-
     color: #fff!important;
 }
 
-li.platform {
-    width:300px;
-}
-li.instrument {
-    width:300px;
+li.array, li.platform, li.assembly, li.instrument {
+    width:400px;
 }
 
-label.platform > span  {
-    display:inline;
-    vertical-align: center;
-}
-label.platform > font {
-    font-size: 80%;
-    color: #6E89AB;
-}
-label.instrument > span {
+label.platform > span, label.assembly > span, label.instrument > span {
     display: block;
+    width:350px;
 }
-label.instrument > font {
+label.platform > font, label.assembly > font, label.instrument > font {
     font-size: 80%;
     color: #6E89AB;
 }
-div#searchGroup {
-  margin-left: 30px;
-}
 
-button#search-clear {
-  margin-top: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
 
 #streamPanel {
   padding-left: 15px;
 }
+label.instrument > span {
+    display: block;
+}
 /* styling for items with no children */
 .no-children {
     color: grey;
+}
+#tocNav .tree {
+    border-left: 2px solid #004773;
+    transition: border-left 0.5s;
+}
+#tocNav .tree:hover {
+    border-left: 2px solid orange;
 }
