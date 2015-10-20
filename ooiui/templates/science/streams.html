@@ -235,6 +235,12 @@ $.when(arrayFetch).done(function() {
     });
 });
 
+// Page Controls
+var pageControlModel = new DataCatalogPageControlModel();
+var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});
+
+pageControlView.render();
+
 
 // The pagination object holds information about the current
 // state of the page for us.
@@ -260,15 +266,7 @@ $(document).ready(function() {
             updateCollection( showStreams )
             });
 
-        $('#search').keyup( _.debounce(textInput, 250) );
-        $('#menu-toggle').click(function() {
-            console.log('test');
-            $('#page-controls').toggle(function() {
-                $('#page-controls').css({"left":'0'});
-                }, function() {
-                $('#page-controls').css({"left":'375px'});
-                });
-            });
+        $('#search').change( _.debounce(textInput, 250) );
 });
 
 function textInput() {
@@ -339,7 +337,7 @@ function updateCollection( successCallback ){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : $('#search').val(),
+        search : $('#hiddenSearch').val()+ ' ' +$('#search').val(),
         sort : sortBy,
         order : order
     };

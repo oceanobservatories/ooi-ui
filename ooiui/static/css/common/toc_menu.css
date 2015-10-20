@@ -5,6 +5,8 @@
 #assetBrowser {
     margin-top:5px;
     background-color: #eee;
+    position: relative;
+    width:375px;
 }
 
 .toc-header{
@@ -16,6 +18,7 @@ div#assetBrowser {
     overflow-x: hidden;
     padding-left: 0;
     margin-top: 0;
+    position: absolute;
 }
 #tocNav {
     margin-bottom: 50px;
@@ -113,7 +116,7 @@ li.highlight-row > label {
 }
 
 li.array, li.platform, li.assembly, li.instrument {
-    width:400px;
+    width:375px;
 }
 
 label.platform > span, label.assembly > span, label.instrument > span {
@@ -142,4 +145,30 @@ label.instrument > span {
 }
 #tocNav .tree:hover {
     border-left: 2px solid orange;
+}
+#tocFilterControls {
+    width: 375px;
+    position: fixed;
+    text-align: center;
+    border-top: 1px solid #004472;
+    bottom: 0px;
+}
+#tocFilterControls > span {
+    display: inline-block;
+    background-color: #aaa;
+    margin: 0 2px 0 2px;
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#tocFilterControls > span:hover {
+    background-color: orange;
+    color: white;
+}
+#tocFilterControls > span.active {
+    background-color: orange;
+    color: white;
+}
+.eng-item, .meta-data-item {
+    display: none;
 }

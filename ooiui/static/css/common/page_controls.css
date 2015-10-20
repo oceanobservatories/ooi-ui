@@ -7,6 +7,10 @@ div#page-controls {
   background-color: #004773;
   height: 100px;
   left: 375px;
+  transition: left 0.5s;
+}
+div#page-controls.toggled {
+    left: 0;
 }
 button#search-clear {
     border-top-left-radius: 0px;
@@ -28,7 +32,7 @@ input#search {
   line-height: 1.5;
 }
 
-#scientificConcepts > span {
+#buttons > span {
     background-color: white;
     display: inline-block;
     padding: 0 20px 0 20px;
@@ -36,11 +40,14 @@ input#search {
     cursor: pointer;
     transition: all 0.8s;
 }
-#scientificConcepts > span:hover {
-    background-color: orange;
+#buttons > span:hover {
+    background-color: lightblue;
     color: white;
 }
-#scientificConcepts > span.active {
+#buttons > span:active, #buttons > span.active:active {
     background-color: orange;
+}
+#buttons > span.active {
+    background-color: green;
     color: white;
 }

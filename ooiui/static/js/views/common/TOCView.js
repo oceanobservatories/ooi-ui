@@ -319,7 +319,7 @@ var AssetItemView = Backbone.View.extend({
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
             label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font>' + platformId +'</font>';
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assId +'" class="nav nav-list tree" style="display:none"></ul>');
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assId +'" class="nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
             // of the entire Reference Designator
@@ -327,6 +327,10 @@ var AssetItemView = Backbone.View.extend({
             instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
+            var ref_des = this.model.get('ref_des');
+            if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
+                this.$el.addClass('eng-item');
+            }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(15) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
         }
@@ -346,7 +350,7 @@ var HomelessStreamItemView = AssetItemView.extend({
             this.$el.attr('class', 'platform detached');
             label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font>' + platformId.substr(0,8)+'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label>'+
-                            '<ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+                            '<ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         }
         if ( this.model.get('asset_class') === '.InstrumentAssetRecord' ) {
             this.model.set('ref_des', this.model.get('reference_designator'));
@@ -354,6 +358,10 @@ var HomelessStreamItemView = AssetItemView.extend({
             instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
+            var ref_des = this.model.get('reference_designator');
+            if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
+                this.$el.addClass('eng-item');
+            }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(15) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label>'+
                             '<ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
@@ -373,7 +381,7 @@ var AssemblyItemView = AssetItemView.extend({
         this.$el.attr('class', 'assembly');
         label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font>' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
-                        '<ul id="'+ assemblyCode +'" class="nav nav-list tree" style="display: none"></ul>');
+                        '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
     }
 });
@@ -389,7 +397,7 @@ var HomelessAssemblyItemView = AssetItemView.extend({
         this.$el.attr('class', 'assembly');
         label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font>' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
-                        '<ul id="'+ assemblyCode +'" class="nav nav-list tree" style="display: none"></ul>');
+                        '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
     }
 });
@@ -426,6 +434,9 @@ var StreamItemView = Backbone.View.extend({
     render: function() {
         "use strict";
         this.$el.attr('id', this.model.get('reference_designator') + '-' + this.model.get('stream_name'));
+        if(this.model.get('stream_name').indexOf('metadata') > -1) {
+            this.$el.addClass('meta-data-item');
+        }
         this.$el.html( this.template(this.model.toJSON()) );
         return this;
     }
