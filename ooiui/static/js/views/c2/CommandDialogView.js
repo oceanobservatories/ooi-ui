@@ -105,12 +105,24 @@ var CommandDialogView = Backbone.View.extend({
             if(response.value.metadata.parameters[p].value['units']){
               units = response.value.metadata.parameters[p].value['units'];
             }
+            var cell_value = '';
+            if(response.value.metadata.parameters[p].value['type']){
+              //TODO: Add other types
+              if(response.value.metadata.parameters[p].value['type'] == 'string') {
+                cell_value = '"'+response.value.parameters[p]+'"';
+              }
+              else{
+                cell_value = response.value.parameters[p];
+              }
+            }
+            //console.log('raw_value ', response.value.parameters[p]);
+            //console.log('cell_value ', cell_value);
             if(response.value.metadata.parameters[p].visibility == "READ_WRITE"){
-                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
             } 
             //disable this parameter from editing     
             else{
-                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+response.value.parameters[p]+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");  
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
             }
           }
           that.options['parameter_options'] = parameter_html;
@@ -176,6 +188,7 @@ var CommandDialogView = Backbone.View.extend({
             //todo add validation for date
             else{
               param_list[p]=this.$el.find('#'+p).val();
+              console.log('param', this.$el.find('#'+p).val());
             }
           }
         }
