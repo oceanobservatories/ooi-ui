@@ -26,7 +26,7 @@ def get_data(reference_designator, method, stream, start, end):
 
 
 @app.route('/api/m2m/get_metadata/<string:reference_designator>', methods=['GET'])
-def get_metadata(stream_name, reference_designator):
+def get_metadata(reference_designator):
     '''
     get metadata for a given ref and stream
     '''
