@@ -34,6 +34,7 @@ def science(args):
     import ooiui.core.routes.science
     import ooiui.core.routes.c2
     import ooiui.core.routes.aa
+    import ooiui.core.routes.m2m
 
     if app.config['DEBUG'] == True:
         app.add_url_rule('/site-map', 'site_map', site_map)
