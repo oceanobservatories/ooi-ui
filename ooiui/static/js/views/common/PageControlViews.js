@@ -17,11 +17,21 @@ var ParentPageControlView = Backbone.View.extend({
         'use strict';
         _.bindAll(this, 'render', 'derender', 'click');
     },
-    template: _.template('<h2> You have not defined a template for this page\'s control view! <h2>'),
+    events: {
+        'click span': 'click'
+    },
+    // this template will loop through each of the parameters defined in the
+    // instantiaed model and create a <span> tag with an id of the first index
+    // and a the tag contents with the second index.
+    template: _.template('<% _.each(params, function(span) { %> <span id="<%= span[0] %>"><%= span[1] %></span><% }) %>'),
     render: function() {
         'use strict';
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
+        // for now, this is in the parent view.  If it doesn't seem to be that common
+        // we can move it to a child view's render function.  This is basically
+        // just a place holder for additional searching that isn't added to
+        // the search bar.
         this.$el.prepend('<div id="hiddenSearch" style="display:hidden; visiblity: none;"></div>');
         return this;
     },
@@ -40,13 +50,6 @@ var ParentPageControlView = Backbone.View.extend({
 
 
 var DataCatalogPageControlView = ParentPageControlView.extend({
-    // this template will loop through each of the parameters defined in the
-    // instantiaed model and create a <span> tag with an id of the first index
-    // and a the tag contents with the second index.
-    template: _.template('<% _.each(params, function(span) { %> <span id="<%= span[0] %>"><%= span[1] %></span><% }) %>'),
-    events: {
-        'click span': 'click'
-    },
     click: function(e) {
         'use strict';
 
@@ -78,5 +81,29 @@ var DataCatalogPageControlView = ParentPageControlView.extend({
 
         // we'll need to persist the array, so lets just attach it to this view.
         this.hiddenSearch = hiddenSearch;
+    }
+});
+
+var TocPageControlView = ParentPageControlView.extend({
+    click: function(e) {
+        'use strict';
+
+        // simple toggle of DOM elements.
+        switch(e.target.id) {
+            case 'engToggle':
+                $('.eng-item').toggle();
+                break;
+
+            case 'metaDataToggle':
+                $('.meta-data-item').toggle();
+                break;
+
+            case 'refDesToggle':
+                $('.ref-des-item').toggle();
+                break;
+        }
+
+        // toggle the class.
+        $('#'+e.target.id).toggleClass('active');
     }
 });

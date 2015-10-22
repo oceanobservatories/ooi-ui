@@ -20,7 +20,14 @@
   <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
   <script src="/lib/leaflet.wms/leaflet.wms.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
-
+  {% block link %}
+  <!-- common/base.html -->
+  {{ super() }}
+  {% endblock %}
+  {% block script %}
+  <!-- common/base.html -->
+  {{ super() }}
+  {% endblock %}
   {% endblock %}
 
 
@@ -35,8 +42,7 @@
             {% block sidebar %}
                 {{ super() }}
             {% endblock %}
-            <div class="col-lg-12">
-
+            <div class="page-content">
                 <div class="map-view" id='map'>
                     <i class="fa fa-spinner fa-spin map-loading-spinner"></i>
                     <div id="" class="jumbotron text-center">
@@ -101,10 +107,11 @@ _.extend(OOI.prototype, Backbone.Events, {
             //self.views.mapView.selectMarker(options,"stream",true)
         });
 
-        //TOOD: Ask Matt C. why this doesn't do what we wanted.
-        //this.listenTo(this, 'NavbarView:sidebarToggle', function() {
-        //    mapView.render();
-        //});
+        this.listenTo(this, 'NavbarView:sidebarToggle', function() {
+            var mapWidth = $('.page-content').width - 375;
+            $('.page-content').css({'width': mapWidth + 'px'});
+            reseizeMap();
+        });
 
         // Login stuff..
         if(!this.login.loggedIn()) {
@@ -160,6 +167,8 @@ $.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
         vent.trigger('toc:hideInstruments');
+        $('#engToggle').hide();
+        $('#metaDataToggle').hide();
         focusToItem();
     });
 });
@@ -173,7 +182,7 @@ window.onresize = function(event) {
 var resizeMap = function() {
     vpw = $(window).width();
     //keep the map the same height as the side bar..?
-    vph = $('#sidebar-wrapper').height() - 5;
+    vph = $('#sidebar-wrapper').height() - 100;
     $('#map').css({'height': vph + 'px'});
 }
 
@@ -198,27 +207,12 @@ $(document).ready(function() {
 
     $('#navbar').prepend(navbar.el);
     resizeMap();
-    $('#search-clear').click(function(e){
-        $('i#tocSpinner').show();
-        $('#search-filter').val('').focus();
-        $(this).hide();
-        vent.trigger('toc:derenderItems');
-        var assetFetch = assetCollection.fetch();
-        $.when(assetFetch).done(function() {
-            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                vent.trigger('toc:cleanUp');
-            });
-        });
-    });
-    $('#search-submit').click(function(e) {
-        $('#search-clear').toggle(Boolean($(this).val()));
-        $('#search-clear').toggle(Boolean($('#search-filter').val()));
-        updateCollection( showSearchResults );
-    });
+
     $('#map').on('popupopen', function() {
       $('#popupInstrumentTable').tablesorter({ sortList: [[0,0]]});
 
     });
+
 
 });
 

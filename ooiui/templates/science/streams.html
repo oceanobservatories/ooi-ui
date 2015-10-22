@@ -190,6 +190,13 @@ _.extend(OOI.prototype, Backbone.Events, {
         updateCollection( showStreams );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
+        var searchFor = model.get('ref_des').substr(0,8);
+        $('#search').val(searchFor);
+        $('#search-clear').show();
+        updateCollection( showStreams );
+    });
+
+    this.listenTo(this, 'toc:selectAssembly', function(model) {
         var searchFor = model.get('ref_des').substr(0,14);
         $('#search').val(searchFor);
         $('#search-clear').show();
@@ -223,14 +230,10 @@ var arrayFetch = arrayCollection.fetch({ reset: true });
 $.when(arrayFetch).done(function() {
     var assetFetch = assetCollection.fetch({ data: data, reset: true });
     $.when(assetFetch).done(function() {
-        var streamFetch = streamCollection.fetch({ data: data,  reset: true });
-        $.when(streamFetch).done(function() {
-            $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-                // right now we need to call this twice...not sure why.
-                vent.trigger('toc:cleanUp');
-                vent.trigger('toc:hideStreams');
+            $.when( (renderTOCView( arrayCollection, assetCollection )) ).done(function() {
+                $('#metaDataToggle').hide();
                 focusToItem();
-            });
+
         });
     });
 });
@@ -238,7 +241,6 @@ $.when(arrayFetch).done(function() {
 // Page Controls
 var pageControlModel = new DataCatalogPageControlModel();
 var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});
-
 pageControlView.render();
 
 

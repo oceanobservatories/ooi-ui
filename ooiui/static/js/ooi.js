@@ -85,7 +85,9 @@ OOI.prototype.onLogout = (function() {
 // TOC Functions
 var renderTOCView = (function(container, contents, streams) {
     "use strict";
-    var tocView = new TOCView({
+    var tocControlModel,
+        tocControlView,
+        tocView = new TOCView({
         arrayCollection:    container,
         assetCollection:    contents,
         streamCollection:   streams
@@ -101,6 +103,10 @@ var renderTOCView = (function(container, contents, streams) {
     if ( streams !== null ) {
         tocView.renderStreams();
     }
+
+    tocControlModel = new TocPageControlModel();
+    tocControlView = new TocPageControlView({model: tocControlModel, el: $('#tocFilterControls')});
+    tocControlView.render();
 });
 
 var showSearchResults = (function(collection) {
@@ -150,23 +156,10 @@ var focusToItem = (function(err)  {
             }
 
             if ( ref_des.length > 0 ) {
+                    $('#'+ref_des).parentsUntil('.array','ul').toggle(300);
+                    $('#'+ref_des+'> label').trigger('click');
                 if (stream_name.length > 0) {
-                    $('#'+ref_des).parents().eq(4).toggle(300);
-                    $('#'+ref_des).parents().eq(2).toggle(300);
-                    $('#'+ref_des).parents().eq(0).toggle(300);
-                    $('#'+ref_des+'> label').trigger('click');
                     $('#'+ref_des+'-'+stream_name+' > a').trigger('click');
-                } else if ( ref_des.length === 8) {
-                    $('#'+ref_des).parents().eq(0).toggle(300);
-                    $('#'+ref_des+'> label').trigger('click');
-                } else if ( ref_des.length === 14) {
-                    $('#'+ref_des).parents().eq(0).toggle(300);
-                    $('#'+ref_des+'> label').trigger('click');
-                } else {
-                    $('#'+ref_des).parents().eq(4).toggle(300);
-                    $('#'+ref_des).parents().eq(2).toggle(300);
-                    $('#'+ref_des).parents().eq(0).toggle(300);
-                    $('#'+ref_des+'> label').trigger('click');
                 }
                 $(document).ready(function() {
                     $('#sidebar-wrapper').animate({

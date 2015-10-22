@@ -42,7 +42,7 @@ input#search {
 }
 #buttons > span:hover {
     background-color: lightblue;
-    color: white;
+    color: black;
 }
 #buttons > span:active, #buttons > span.active:active {
     background-color: orange;

@@ -43,6 +43,13 @@ div#assetBrowser {
     margin-left: -15px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
+.nav-list>li>a {
+    padding-left: 10px;
+    font-size: 12px;
+    display: inline-block;
+    width: 305px;
+    color: #004773;
+}
 
 
 .active-toc-item{
@@ -146,29 +153,53 @@ label.instrument > span {
 #tocNav .tree:hover {
     border-left: 2px solid orange;
 }
+/* detached items */
+li.detached > label {
+    display: inline-block;
+}
+li.detached > label:after {
+    font-family: FontAwesome;
+    content:"  \f127";
+}
+
+/* TOC Filter Contols */
 #tocFilterControls {
     width: 375px;
     position: fixed;
     text-align: center;
-    border-top: 1px solid #004472;
+    border-top: 1px solid #004773;
     bottom: 0px;
+    background-color: #004773;
+    padding-bottom: 20px;
+    transition: width 0.5s;
+}
+#tocFilterControls.toggled, #tocFilterControls.toggled > span {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
 }
 #tocFilterControls > span {
     display: inline-block;
-    background-color: #aaa;
-    margin: 0 2px 0 2px;
+    background-color: white;
+    margin: 2px 2px 0 2px;
     padding: 0 10px 0 10px;
     cursor: pointer;
-    transition: all 0.5s;
+    min-width: 83px;
+    opacity: 1;
+    transition: background-color 0.8s, color 0.8s;
 }
 #tocFilterControls > span:hover {
+    background-color: lightblue;
+    color: black;
+}
+#tocFilterControls > span:active, #tocFilterControls > span.active:active {
     background-color: orange;
-    color: white;
 }
 #tocFilterControls > span.active {
-    background-color: orange;
+    background-color: green;
     color: white;
 }
-.eng-item, .meta-data-item {
+.eng-item, .meta-data-item, .ref-des-item {
     display: none;
 }
+/* end TOC filter controls */

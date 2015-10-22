@@ -33,7 +33,9 @@ var NavbarView = Backbone.View.extend({
   },
   sidebarToggle: function() {
 
-    $("#wrapper").toggleClass("toggled");
+    $('#wrapper').toggleClass('toggled');
+    $('#page-controls').toggleClass('toggled');
+    $('#tocFilterControls').toggleClass('toggled');
     if($('#collapse-button').hasClass('fa-caret-left')) {
       $('#collapse-button').removeClass('fa-caret-left');
       $('#collapse-button').addClass('fa-caret-right');
@@ -41,7 +43,6 @@ var NavbarView = Backbone.View.extend({
       $('#collapse-button').removeClass('fa-caret-right');
       $('#collapse-button').addClass('fa-caret-left');
     }
-    $('#page-controls').toggleClass('toggled');
     ooi.trigger('NavbarView:sidebarToggle');
 
     //Remove event listener on menu toggle.

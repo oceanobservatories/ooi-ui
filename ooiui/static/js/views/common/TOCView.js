@@ -304,6 +304,8 @@ var AssetItemView = Backbone.View.extend({
         this.unbind();
         this.model.off();
     },
+    // Watch out, this is render function isn't very DRY.  It's almost completely repeated in the
+    // HomelessStreamItemView, so update each accoridingly.
     render: function() {
         "use strict";
         // If the asset class is an AssetRecord, give the view an ID of the
@@ -318,7 +320,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('class', 'platform');
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font>' + platformId +'</font>';
+            label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font class="ref-des-item">' + platformId +'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assId +'" class="nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
@@ -331,8 +333,8 @@ var AssetItemView = Backbone.View.extend({
             if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
                 this.$el.addClass('eng-item');
             }
-            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(15) + '</font>';
-            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav-list tree" style="display: none"></ul>');
         }
         return this;
     }
@@ -348,7 +350,7 @@ var HomelessStreamItemView = AssetItemView.extend({
             this.$el.attr('id', platformId);
             platformName = this.model.get('long_display_name');
             this.$el.attr('class', 'platform detached');
-            label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font>' + platformId.substr(0,8)+'</font>';
+            label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font class="ref-des-item">' + platformId.substr(0,8)+'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label>'+
                             '<ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         }
@@ -362,9 +364,9 @@ var HomelessStreamItemView = AssetItemView.extend({
             if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
                 this.$el.addClass('eng-item');
             }
-            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(15) + '</font>';
+            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label>'+
-                            '<ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+                            '<ul id="'+ instrumentId +'" class="nav-list tree" style="display: none"></ul>');
         }
         return this;
     }
@@ -379,7 +381,7 @@ var AssemblyItemView = AssetItemView.extend({
 
         this.$el.attr('id', assemblyCode);
         this.$el.attr('class', 'assembly');
-        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font>' + assemblyCode + '</font>';
+        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
                         '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
@@ -395,7 +397,7 @@ var HomelessAssemblyItemView = AssetItemView.extend({
 
         this.$el.attr('id', assemblyCode);
         this.$el.attr('class', 'assembly');
-        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font>' + assemblyCode + '</font>';
+        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
                         '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;

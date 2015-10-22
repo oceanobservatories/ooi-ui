@@ -157,13 +157,6 @@ var StreamTableItemView = Backbone.View.extend({
         var attributes = this.model.toJSON();
         this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns}));
         this.$el.attr('data-target', '#'+this.model.cid);
-        var ref_des = this.model.get('reference_designator');
-        if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
-            this.$el.addClass('eng-item');
-        }
-        if(this.model.get('stream_name').indexOf('metadata') > -1) {
-            this.$el.addClass('meta-data-item');
-        }
     },
     onRowClick: function(event) {
         event.stopPropagation();
