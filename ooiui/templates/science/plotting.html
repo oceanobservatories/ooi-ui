@@ -409,7 +409,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
-              if (variable.toLowerCase().indexOf("sal")){
+              if (variable.toLowerCase().indexOf("sal") > -1){
                 validUnits = true;
               }
 
@@ -454,7 +454,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
-              if (variable.toLowerCase().indexOf("sal")){
+              if (variable.toLowerCase().indexOf("sal") > -1){
                 validUnits = true;
               }
 
