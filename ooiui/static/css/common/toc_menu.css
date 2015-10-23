@@ -196,7 +196,8 @@ li.detached > label:before {
     background-color: green;
     color: white;
 }
-.eng-item, .meta-data-item, .ref-des-item {
+/*.eng-item, .meta-data-item, .ref-des-item {*/
+.ref-des-item {
     display: none;
 }
 /* end TOC filter controls */

@@ -425,7 +425,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('ang_rate') > -1 ||
                             variable.indexOf('coefficient') > -1 ||
                             variable.indexOf('chlorophyll') > -1 ||
-                            variable.indexOf('par') > -1
+                            variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
@@ -472,7 +472,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('ang_rate') > -1) ||
                             variable.indexOf('coefficient') > -1 ||
                             variable.indexOf('chlorophyll') > -1 ||
-                            variable.indexOf('par') > -1
+                            variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";

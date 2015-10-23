@@ -30,13 +30,16 @@
   <div id="navbar" class="row"></div>
 </div>
 
+      {% block page_controls %}
+      {{ super() }}
+      {% endblock %}
 <div id="wrapper">
   <div id="page-content-wrapper">
     <div class="container-fluid">
         {% block sidebar %}
             {{ super() }}
         {% endblock %}
-      <div class="row">
+      <div class="row" style="margin-top: 105px;">
         <div  class="col-sm-12">
           <div id="navbarOld" class="panel">
 
