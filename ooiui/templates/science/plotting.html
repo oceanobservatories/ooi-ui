@@ -403,7 +403,17 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];              
               var variable = options.model.get('variables')[i];
-              if (variable.indexOf("_timestamp") == -1 && units.toLowerCase() != "counts"){
+
+              //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
+              var validUnits = false;              
+              if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
+                validUnits = true
+              }
+              if (variable.toLowerCase().indexOf("sal")){
+                validSal = true;
+              }
+
+              if (variable.indexOf("_timestamp") == -1 && validUnits){
                 if (variable.toLowerCase() != "time"){
                     if (    variable.indexOf('oxygen') > -1 ||
                             variable.indexOf('temperature') > -1 ||
@@ -439,7 +449,16 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
-              if (variable.indexOf("_timestamp") == -1 && units.toLowerCase() != "counts"){
+                            //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
+              var validUnits = false;                            
+              if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
+                validUnits = true
+              }
+              if (variable.toLowerCase().indexOf("sal")){
+                validSal = true;
+              }
+
+              if (variable.indexOf("_timestamp") == -1 && validUnits){
                 if (variable.toLowerCase() != "time"){
                     if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && (variable.indexOf('oxygen') > -1 ||
                             variable.indexOf('temperature') > -1 ||
