@@ -406,7 +406,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;              
-              if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
+              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
               if (variable.toLowerCase().indexOf("sal") > -1){
@@ -451,7 +451,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               var variable = options.model.get('variables')[i];
                             //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;                            
-              if (units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
+              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
               if (variable.toLowerCase().indexOf("sal") > -1){
