@@ -11,6 +11,7 @@ div#plottingBody {
   padding-right: 50px;
   max-height: 700px;
   max-width: 1560px;
+  min-width: 881px;
 }
 /* ~vertical buttons on sidebar~ */
 .plotting-selection {
@@ -104,14 +105,12 @@ span.filter-option.pull-left {
 div#control-heading {
   border: 1px solid #d1daf5;
   border-radius: 5px;
-  background-color: #fff!important;
 
 }
 label#plot-type,
 label#yvar0-select-default-text,
 label#start-time,
-label#end-time,
-label#qaqc-test {
+label#end-time {
   padding-bottom: 4px;
   font-size: 14px;
   font-weight: bolder;
@@ -155,7 +154,7 @@ span.input-group-addon {
   border-bottom: 1px #1f628d solid;
 }
 /* slider btn */
-.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-normal.bootstrap-switch-id-plotting-enable-events.bootstrap-switch-animate.bootstrap-switch-off {
+.bootstrap-switch-off, .bootstrap-switch-on {
   height: 27px;
   color: #004773;
   border-radius: 5px;
@@ -235,21 +234,6 @@ span.bootstrap-switch-handle-on.bootstrap-switch-primary {
 /*********************/
 li#xVarTooltip {
   z-index: 1000;
-}
-div#qa-qc {
-  margin-left: 0px !important;
-
-}
-div.div-qa-qc{
-  width:100%;
-  top:-35px;
-  margin-left: 0px !important;
-}
-
-div.div-qa-qc > span {
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-right: 5px;
 }
 
 /* Download buttons */

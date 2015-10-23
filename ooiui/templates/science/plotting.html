@@ -7,6 +7,7 @@
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
 <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/plotControls.css" rel="stylesheet" type="text/css" />
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <!-- Partials -->
 <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -42,8 +43,8 @@
       <!-- common/base.html -->
   {{ super() }}
   {% endblock %}
-  <div id="plottingBody" class="col-sm-12">
-    <div  class="row">
+  <div id="plottingBody">
+    <div>
       <div id="download-outline" class="pull-left">
         <li id="ref_des_stream_outline"></li>
       </div>
@@ -377,8 +378,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgplot.setModel(options.model);
       }
 
-      $('#ref_des_stream_outline').text(options.model.get('reference_designator')+" > "+ options.model.get('stream_name'))
-
         //ANNOTATIONS
         self.collections.annotations.fetch({
           data: $.param({ startdate: options.model.get('start'),
@@ -389,23 +388,24 @@ _.extend(OOI.prototype, Backbone.Events, {
           reset: true
         });
 
-      var param_list = []
-      var parameterhtml = "";
-      var shape = options.model.get('variables_shape');
+      var param_list = [],
+          parameterhtml = "",
+          shape = options.model.get('variables_shape'),
+          autoPlot = false;
 
       //Ok lets start by getting derived parameters
       parameterhtml += "<optgroup label='Derived'>"
-        for (var i = 0; i < options.model.get('variables').length; i++) {          
+        for (var i = 0; i < options.model.get('variables').length; i++) {
 
 
           if (param_list.indexOf(options.model.get('variables')) == -1){
             if (shape[i] === "function"){
               var parameterId = options.model.get('parameter_id')[i];
-              var units = options.model.get('units')[i];              
+              var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
-              var validUnits = false;              
+              var validUnits = false;
               if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
@@ -425,7 +425,8 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('ang_rate') > -1 ||
                             variable.indexOf('coefficient') > -1 ||
                             variable.indexOf('chlorophyll') > -1 ||
-                            variable.indexOf('par') > -1
+                            variable.indexOf('par') > -1 ||
+                            variable.indexOf('heat') > -1
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
                     } else {
@@ -449,8 +450,9 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
-                            //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
-              var validUnits = false;                            
+
+                //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
+              var validUnits = false;
               if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
@@ -470,7 +472,8 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('ang_rate') > -1) ||
                             variable.indexOf('coefficient') > -1 ||
                             variable.indexOf('chlorophyll') > -1 ||
-                            variable.indexOf('par') > -1
+                            variable.indexOf('par') > -1 ||
+                            variable.indexOf('heat') > -1
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
                     } else {
@@ -493,7 +496,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       $('#parameters_id').removeAttr('disabled');
       $('.selectpicker').selectpicker('refresh');
         var streamName = options.model.get('stream_name');
-        if ( streamName.indexOf('metadata') < 0 ) {
+        if ( streamName.indexOf('metadata') < 0 && autoPlot) {
             $('#update-plot').trigger('click');
         }
     });

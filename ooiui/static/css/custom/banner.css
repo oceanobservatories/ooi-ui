@@ -3,7 +3,7 @@
 ******** Banner ********
 ***********************/
 .banner-image {
-  background: url("/img/logos-banners/ooi-banner-1024.png"); 
+  background: url("/img/logos-banners/ooi-banner-1024.png");
   background-repeat: no-repeat;
   background-position-x: 50%;
   display: block;
@@ -15,9 +15,9 @@
 	background-color: #FFF;
 }
 
-/* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */ 
+/* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */
 div#wrapper {
-  margin-top: 185px;
+  margin-top: 150px;
   padding-left: 375px;
 }
 
@@ -56,7 +56,7 @@ div#wrapper-asset {
 	text-align: right;
 }
 #fadein-left > li {
-	display: table-cell; 
+	display: table-cell;
 	width: 33%;
 }
 

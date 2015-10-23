@@ -24,12 +24,6 @@ html, body {
     pointer-events: none;
 }
 
-@media(min-width:768px) {
-    #wrapper {
-        margin-top: 1px;
-    }
-}
-
 .container-full {
   padding-left:10px;
   padding-right:10px;

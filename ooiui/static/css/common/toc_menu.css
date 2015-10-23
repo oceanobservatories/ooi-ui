@@ -1,8 +1,12 @@
 #sidebar-wrapper {
-    max-height:80%;
+    max-height:100%;
+    background-color: #eee;
 }
 #assetBrowser {
     margin-top:5px;
+    background-color: #eee;
+    position: relative;
+    width:375px;
 }
 
 .toc-header{
@@ -10,27 +14,46 @@
     text-align: left;
 }
 
-#array {
-}
-
 div#assetBrowser {
     overflow-x: hidden;
-    padding-left: 25px;
+    padding-left: 0;
+    margin-top: 0;
+    position: absolute;
 }
-label {
+#tocNav {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    background-color: #eee;
+}
+#tocNav label {
     display: block;
-    margin-bottom: 5px;
     max-width:100%;
+    margin-bottom: 0;
+    transition: background-color 0.2s;
+}
+
+#tocNav a {
+    transition: background-color 0.2s;
+}
+#tocNav label:hover, #tocNav a:hover {
+    background-color: lightblue;
 }
 .nav-list>li>a,.nav-list .nav-header {
     margin-right: -15px;
     margin-left: -15px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
+.nav-list>li>a {
+    padding-left: 10px;
+    font-size: 12px;
+    display: inline-block;
+    width: 305px;
+    color: #004773;
+}
 
 
 .active-toc-item{
-    background-color:lightblue !important;
+    background-color:lightskyblue !important;
 }
 
 .nav-header {
@@ -40,14 +63,13 @@ label {
     font-weight: bold;
     line-height: 20px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    text-transform: uppercase;
 }
 .nav-list {
     padding-right: 15px;
     padding-left: 15px;
     margin-bottom: 0;
 }
-label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+label.array, label.platform, label.assembly, label.instrument, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
 }
 #navToc {
@@ -58,15 +80,14 @@ margin: 0 0 10px
 #navToc > li > a {
     color: #004773;
     font-weight: 300;
+    margin-bottom: 2px
+    color: #999
 }
 
 #navToc>li {
     float: none
 }
 
-#navToc>li>a {
-    margin-bottom: 2px
-}
 
 #navToc .nav-header {
     text-shadow: none
@@ -81,10 +102,6 @@ margin: 0 0 10px
     border-radius: 3px
 }
 
-#navToc>li>a {
-    color: #999
-}
-
 .divider {
     height: 1px;
     margin: 9px 1px;
@@ -94,60 +111,93 @@ margin: 0 0 10px
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(255, 255, 255);
-                            }
-
-#search {
-    width: 275px;
-    height: 27px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
-
-input#search {
-  line-height: 1.5;
-}
-
 li.highlight-row > label {
-
     color: #fff!important;
 }
 
-li.platform {
-    width:300px;
-}
-li.instrument {
-    width:300px;
+li.array, li.platform, li.assembly, li.instrument {
+    width:375px;
 }
 
-label.platform > span  {
-    display:inline;
-    vertical-align: center;
-}
-label.platform > font {
-    font-size: 80%;
-    color: #6E89AB;
-}
-label.instrument > span {
+label.platform > span, label.assembly > span, label.instrument > span {
     display: block;
+    width:350px;
 }
-label.instrument > font {
+label.platform > font, label.assembly > font, label.instrument > font {
     font-size: 80%;
     color: #6E89AB;
 }
-div#searchGroup {
-  margin-left: 30px;
-}
 
-button#search-clear {
-  margin-top: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
 
 #streamPanel {
   padding-left: 15px;
+}
+label.instrument > span {
+    display: block;
 }
 /* styling for items with no children */
 .no-children {
     color: grey;
 }
+#tocNav .tree {
+    border-left: 2px solid #004773;
+    transition: border-left 0.5s;
+}
+#tocNav .tree:hover {
+    border-left: 2px solid orange;
+}
+/* detached items */
+li.detached > label {
+    display: inline-block;
+}
+li.detached > label:before {
+    font-family: FontAwesome;
+    content:"\f127";
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+
+/* TOC Filter Contols */
+#tocFilterControls {
+    width: 375px;
+    position: fixed;
+    text-align: center;
+    border-top: 1px solid #004773;
+    bottom: 0px;
+    background-color: #004773;
+    padding-bottom: 20px;
+    transition: width 0.5s;
+}
+#tocFilterControls.toggled, #tocFilterControls.toggled > span {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+}
+#tocFilterControls > span {
+    display: inline-block;
+    background-color: white;
+    margin: 2px 2px 0 2px;
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    min-width: 83px;
+    opacity: 1;
+    transition: background-color 0.8s, color 0.8s;
+}
+#tocFilterControls > span:hover {
+    background-color: lightblue;
+    color: black;
+}
+#tocFilterControls > span:active, #tocFilterControls > span.active:active {
+    background-color: orange;
+}
+#tocFilterControls > span.active {
+    background-color: green;
+    color: white;
+}
+/*.eng-item, .meta-data-item, .ref-des-item {*/
+.ref-des-item {
+    display: none;
+}
+/* end TOC filter controls */

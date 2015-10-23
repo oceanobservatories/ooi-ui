@@ -33,7 +33,9 @@ var NavbarView = Backbone.View.extend({
   },
   sidebarToggle: function() {
 
-    $("#wrapper").toggleClass("toggled");
+    $('#wrapper').toggleClass('toggled');
+    $('#page-controls').toggleClass('toggled');
+    $('#tocFilterControls').toggleClass('toggled');
     if($('#collapse-button').hasClass('fa-caret-left')) {
       $('#collapse-button').removeClass('fa-caret-left');
       $('#collapse-button').addClass('fa-caret-right');

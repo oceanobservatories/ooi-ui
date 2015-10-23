@@ -40,17 +40,17 @@ var TOCView = Backbone.View.extend({
             filteredInstruments = this.assetCollection.byClass('.InstrumentAssetRecord'),
             log = [],
             arrayCode,
-            assetItemView,
-            arrayTarget,
-            platformCode,
-            platformTarget;
+            assetItemView, arrayTarget,
+            platformCode, platformTarget,
+            assemblyCode, assemblyName, assemblyItemView;
+
         filteredPlatforms.map(function(model) {
             try {
                 // get the array code from the reference designator
                 arrayCode = model.get('ref_des').substr(0,2);
                 // set the target to where this item will be inserted.
                 arrayTarget = '#array_'+ arrayCode;
-                if ( document.getElementById( model.get('ref_des').substring(0,14)) === null ) {
+                if ( document.getElementById( model.get('ref_des').substring(0,8)) === null ) {
                     assetItemView = new AssetItemView({ model:model });
                     $( arrayTarget ).append( assetItemView.render().el );
                 }
@@ -64,29 +64,31 @@ var TOCView = Backbone.View.extend({
             try {
                 if ( document.getElementById(model.get('ref_des')) === null ) {
                     platformCode = model.get('ref_des').substr(0,14);
+                    assemblyCode = model.get('ref_des').substr(9,5);
+                    assemblyName = model.get('assetInfo').assembly || assemblyCode;
                     // set the target to where this item will be inserted.
 
                     if ( document.getElementById(platformCode) === null ) {
                         platformCode = model.get('ref_des').substr(0,8);
                     }
                     platformTarget = 'ul#'+platformCode;
+                    if($(platformTarget+' ul#'+assemblyCode).length === 0) {
+                        assemblyItemView = new AssemblyItemView({ model:model });
+                        $(platformTarget).append(assemblyItemView.render().el);
+                    }
+
                     assetItemView = new AssetItemView({ model:model });
-                    $( platformTarget ).append( assetItemView.render().el );
+                    $(platformTarget+' ul#'+assemblyCode).append(assetItemView.render().el);
                 }
             }catch (e) {
-                log.push("Instrument with invalid reference designator:" + model.get('id'));
                 console.log(e);
             }
         });
-        if (log.length > 0) {
-            var errorObj = { 'TOC error' : log };
-            console.log(errorObj);
-        }
     },
     renderStreams: function(e) {
         "use strict";
         if ( this.streamCollection !== undefined ) {
-            var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode;
+            var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode, platformTarget, assemblyCode, assemblyItemView;
             this.streamCollection.map( function(model) {
                 try {
                     instrumentCode = model.get('reference_designator');
@@ -97,16 +99,23 @@ var TOCView = Backbone.View.extend({
                      * tree for the streams to live.*/
                     if ( document.getElementById(instrumentCode) === null ){
                         arrayCode = model.get('reference_designator').substring(0,2);
-                        platformCode = model.get('reference_designator').substring(0,14);
+                        platformCode = model.get('reference_designator').substring(0,8);
+                        assemblyCode = model.get('reference_designator').substr(9,5);
+                        platformTarget = 'ul#' + platformCode;
                         if ( document.getElementById(platformCode) === null ) {
                             //platform
                             model.attributes.asset_class = '.AssetRecord';
                             homelessStreamItem = new HomelessStreamItemView({ model: model });
                             $.when( $('ul#array_'+arrayCode).append( homelessStreamItem.render().el ) ).done( function() {
+                                if ($(platformTarget+' ul#'+assemblyCode).length === 0) {
+                                    assemblyItemView = new AssemblyItemView({model: model});
+                                    $(platformTarget).append(assemblyItemView.render().el);
+                                }
+
                                 //instrument
                                 model.attributes.asset_class = '.InstrumentAssetRecord';
                                 homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
+                                $.when($(platformTarget+' ul#'+assemblyCode).append( homelessStreamItem.render().el )).done(function() {
                                     //stream
                                     instrumentTarget = 'ul#'+instrumentCode;
                                     streamItemView = new StreamItemView({ model:model });
@@ -114,10 +123,14 @@ var TOCView = Backbone.View.extend({
                                 });
                             });
                         } else {
+                            if ($(platformTarget+' ul#'+assemblyCode).length === 0) {
+                                assemblyItemView = new AssemblyItemView({model: model});
+                                $(platformTarget).append(assemblyItemView.render().el);
+                            }
                             //instrument
                             model.attributes.asset_class = '.InstrumentAssetRecord';
                             homelessStreamItem = new HomelessStreamItemView({ model: model });
-                            $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
+                            $.when($(platformTarget+' ul#'+assemblyCode).append( homelessStreamItem.render().el )).done(function() {
                                 //stream
                                 instrumentTarget = 'ul#'+instrumentCode;
                                 streamItemView = new StreamItemView({ model:model });
@@ -188,7 +201,7 @@ var ArrayContainerView = Backbone.View.extend({
     attributes: function(){
         "use strict";
         return {
-            'style': 'width:100%'
+            'class': 'array'
         };
     },
     events:{
@@ -209,8 +222,8 @@ var ArrayContainerView = Backbone.View.extend({
     },
     onClick: function(e) {
         "use strict";
-                 ooi.trigger('toc:selectArray', this.model);
-             },
+        ooi.trigger('toc:selectArray', this.model);
+    },
     template: JST['ooiui/static/js/partials/ArrayItem.html'],
     render: function(){
         "use strict";
@@ -230,12 +243,13 @@ var AssetItemView = Backbone.View.extend({
     tagName: 'li',
     events: {
         'click label.platform': 'onClickPlatform',
+        'click label.assembly': 'onClickAssembly',
         'click label.instrument': 'onClickInstrument',
         'click label.tree-toggler': 'collapse'
     },
     initialize: function(options) {
         "use strict";
-        _.bindAll(this,'render', 'onClickPlatform', 'onClickInstrument', 'collapse');
+        _.bindAll(this,'render', 'onClickPlatform', 'onClickAssembly', 'onClickInstrument', 'collapse', 'update_url', 'derender');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
         });
@@ -256,18 +270,35 @@ var AssetItemView = Backbone.View.extend({
         $(".active-toc-item").removeClass("active-toc-item");
         this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectPlatform', this.model);
-        this.update_url();
+        this.update_url('platform');
+    },
+    onClickAssembly: function(e) {
+        "use strict";
+        $(".active-toc-item").removeClass("active-toc-item");
+        this.$('label:first').addClass("active-toc-item");
+        ooi.trigger('toc:selectAssembly', this.model);
+        this.update_url('assembly');
     },
     onClickInstrument: function() {
         "use strict";
         $(".active-toc-item").removeClass("active-toc-item");
         this.$('label:first').addClass("active-toc-item");
         ooi.trigger('toc:selectInstrument', this.model);
-        this.update_url();
+        this.update_url('instrument');
     },
-    update_url:function(){
+    update_url:function(assetType){
         "use strict";
         var ref_des = this.model.get('ref_des');
+        switch (assetType) {
+            case 'platform':
+                ref_des = ref_des.substr(0,8);
+                break;
+            case 'assembly':
+                ref_des = ref_des.substr(0,14);
+                break;
+            case 'instrument':
+                break;
+        }
         var newURL = '#'+ref_des;
         window.history.pushState(null, null, newURL);
     },
@@ -282,22 +313,24 @@ var AssetItemView = Backbone.View.extend({
         this.unbind();
         this.model.off();
     },
+    // Watch out, this is render function isn't very DRY.  It's almost completely repeated in the
+    // HomelessStreamItemView, so update each accoridingly.
     render: function() {
         "use strict";
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
-        var assName, platformName, platformId, label, instrumentId, instrumentName;
+        var assName, platformName, platformId, label, instrumentId, instrumentName, assId;
         if (this.model.get('asset_class') === '.AssetRecord') {
             platformName = this.model.get('assetInfo').name;
             platformId = this.model.get('ref_des').substr(0,8);
-            assName = this.model.get('ref_des').substr(9,14);
-            assName = (assName.length > 0) ? '-' + assName : "";
-            this.$el.attr('id', platformId+assName);
+            assId = this.model.get('ref_des').substr(9,14);
+            assId = (assId.length > 0) ? '-' + assId : "";
+            this.$el.attr('id', platformId+assId);
             this.$el.attr('class', 'platform');
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            label = (platformName === '') ? platformId+assName : '<span>' + platformName + '</span> | <font>' + platformId + assName +'</span>';
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assName +'" class="nav nav-list tree" style="display:none"></ul>');
+            label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font class="ref-des-item">' + platformId +'</font>';
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assId +'" class="nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
             // of the entire Reference Designator
@@ -305,8 +338,12 @@ var AssetItemView = Backbone.View.extend({
             instrumentId = this.model.get('ref_des');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
-            label = (instrumentName === '') ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
-            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            var ref_des = this.model.get('ref_des');
+            if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
+                this.$el.addClass('eng-item');
+            }
+            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav-list tree" style="display: none"></ul>');
         }
         return this;
     }
@@ -317,23 +354,43 @@ var HomelessStreamItemView = AssetItemView.extend({
         "use strict";
         var platformId, platformName, label, instrumentId, instrumentName;
         if ( this.model.get('asset_class') === '.AssetRecord' ) {
-            this.model.set('ref_des', this.model.get('reference_designator'));
-            platformId = this.model.get('reference_designator').substr(0,14);
+            this.model.set('ref_des', this.model.get('ref_des'));
+            platformId = this.model.get('ref_des').substr(0,8);
             this.$el.attr('id', platformId);
-            platformName = this.model.get('platform_name');
+            platformName = this.model.get('assetInfo').site + ' ' + this.model.get('assetInfo').platform;
             this.$el.attr('class', 'platform detached');
-            label = (platformName === '') ? platformId : '<span>' + platformName + '</span> | <font>' + platformId.substr(0,8)+'</span>';
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav nav-list tree" style="display:none"></ul>');
+            label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font class="ref-des-item">' + platformId.substr(0,8)+'</font>';
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label>'+
+                            '<ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         }
         if ( this.model.get('asset_class') === '.InstrumentAssetRecord' ) {
-            this.model.set('ref_des', this.model.get('reference_designator'));
             instrumentId = this.model.get('ref_des');
             instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
-            label = (instrumentName === '') ? instrumentId : '<span>' + instrumentName + '</span><font>' + instrumentId.substr(9,27) + '</font>';
-            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label><ul id="'+ instrumentId +'" class="nav nav-list tree" style="display: none"></ul>');
+            if(instrumentId.indexOf('ENG') > -1 || instrumentId.indexOf('0000') > -1) {
+                this.$el.addClass('eng-item');
+            }
+            label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
+            this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label>'+
+                            '<ul id="'+ instrumentId +'" class="nav-list tree" style="display: none"></ul>');
         }
+        return this;
+    }
+});
+
+var AssemblyItemView = AssetItemView.extend({
+    render: function() {
+        "use strict";
+        var assemblyCode = this.model.get('ref_des').substr(9,5) || "",
+            assemblyName = this.model.get('assetInfo').assembly,
+            label;
+
+        this.$el.attr('id', assemblyCode);
+        this.$el.attr('class', 'assembly');
+        label = (assemblyName === '' || assemblyName === null || assemblyName === undefined) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
+        this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
+                        '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
     }
 });
@@ -371,6 +428,9 @@ var StreamItemView = Backbone.View.extend({
     render: function() {
         "use strict";
         this.$el.attr('id', this.model.get('reference_designator') + '-' + this.model.get('stream_name'));
+        if(this.model.get('stream_name').indexOf('metadata') > -1) {
+            this.$el.addClass('meta-data-item');
+        }
         this.$el.html( this.template(this.model.toJSON()) );
         return this;
     }

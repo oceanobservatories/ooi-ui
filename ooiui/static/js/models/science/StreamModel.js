@@ -30,6 +30,9 @@ var StreamModel = Backbone.Model.extend({
     annotations: "",
     email: "",
     user_name: "",
+    parameter_display_name: "",
+    site_name: "",
+    assembly_name: ""
   },
   getURL: function(type) {
     if(type == 'json') {
@@ -52,6 +55,13 @@ var StreamModel = Backbone.Model.extend({
     });
   },
   parse: function(data, options) {
+    data.ref_des = data.reference_designator;
+    data.assetInfo = {  'name' : data.display_name,
+                        'array': data.array_name,
+                        'site' : data.site_name,
+                        'platform': data.platform_name,
+                        'assembly': data.assebly_name
+                    };
     return data;
   }
 });

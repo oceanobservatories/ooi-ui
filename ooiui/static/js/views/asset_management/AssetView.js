@@ -15,7 +15,7 @@ var ParentAssetView = Backbone.View.extend({
     derender: function() {
         this.remove();
         this.unbind();
-        this.model.off;
+        this.model.off();
     }
 });
 
