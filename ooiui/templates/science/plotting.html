@@ -410,7 +410,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 validUnits = true
               }
               if (variable.toLowerCase().indexOf("sal")){
-                validSal = true;
+                validUnits = true;
               }
 
               if (variable.indexOf("_timestamp") == -1 && validUnits){
@@ -455,7 +455,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 validUnits = true
               }
               if (variable.toLowerCase().indexOf("sal")){
-                validSal = true;
+                validUnits = true;
               }
 
               if (variable.indexOf("_timestamp") == -1 && validUnits){
