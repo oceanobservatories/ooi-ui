@@ -50,7 +50,7 @@ var TOCView = Backbone.View.extend({
                 arrayCode = model.get('ref_des').substr(0,2);
                 // set the target to where this item will be inserted.
                 arrayTarget = '#array_'+ arrayCode;
-                if ( document.getElementById( model.get('ref_des').substring(0,14)) === null ) {
+                if ( document.getElementById( model.get('ref_des').substring(0,8)) === null ) {
                     assetItemView = new AssetItemView({ model:model });
                     $( arrayTarget ).append( assetItemView.render().el );
                 }
@@ -88,7 +88,7 @@ var TOCView = Backbone.View.extend({
     renderStreams: function(e) {
         "use strict";
         if ( this.streamCollection !== undefined ) {
-            var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode, assemblyCode, assemblyItemView;
+            var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode, platformTarget, assemblyCode, assemblyItemView;
             this.streamCollection.map( function(model) {
                 try {
                     instrumentCode = model.get('reference_designator');
@@ -99,18 +99,23 @@ var TOCView = Backbone.View.extend({
                      * tree for the streams to live.*/
                     if ( document.getElementById(instrumentCode) === null ){
                         arrayCode = model.get('reference_designator').substring(0,2);
-                        platformCode = model.get('reference_designator').substring(0,14);
+                        platformCode = model.get('reference_designator').substring(0,8);
                         assemblyCode = model.get('reference_designator').substr(9,5);
+                        platformTarget = 'ul#' + platformCode;
                         if ( document.getElementById(platformCode) === null ) {
                             //platform
                             model.attributes.asset_class = '.AssetRecord';
                             homelessStreamItem = new HomelessStreamItemView({ model: model });
                             $.when( $('ul#array_'+arrayCode).append( homelessStreamItem.render().el ) ).done( function() {
+                                if ($(platformTarget+' ul#'+assemblyCode).length === 0) {
+                                    assemblyItemView = new AssemblyItemView({model: model});
+                                    $(platformTarget).append(assemblyItemView.render().el);
+                                }
+
                                 //instrument
                                 model.attributes.asset_class = '.InstrumentAssetRecord';
-                                assemblyItemView = new AssemblyItemView({model: model});
                                 homelessStreamItem = new HomelessStreamItemView({ model: model });
-                                $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
+                                $.when($(platformTarget+' ul#'+assemblyCode).append( homelessStreamItem.render().el )).done(function() {
                                     //stream
                                     instrumentTarget = 'ul#'+instrumentCode;
                                     streamItemView = new StreamItemView({ model:model });
@@ -118,10 +123,14 @@ var TOCView = Backbone.View.extend({
                                 });
                             });
                         } else {
+                            if ($(platformTarget+' ul#'+assemblyCode).length === 0) {
+                                assemblyItemView = new AssemblyItemView({model: model});
+                                $(platformTarget).append(assemblyItemView.render().el);
+                            }
                             //instrument
                             model.attributes.asset_class = '.InstrumentAssetRecord';
                             homelessStreamItem = new HomelessStreamItemView({ model: model });
-                            $.when($('ul#'+platformCode).append( homelessStreamItem.render().el )).done(function() {
+                            $.when($(platformTarget+' ul#'+assemblyCode).append( homelessStreamItem.render().el )).done(function() {
                                 //stream
                                 instrumentTarget = 'ul#'+instrumentCode;
                                 streamItemView = new StreamItemView({ model:model });
@@ -345,23 +354,21 @@ var HomelessStreamItemView = AssetItemView.extend({
         "use strict";
         var platformId, platformName, label, instrumentId, instrumentName;
         if ( this.model.get('asset_class') === '.AssetRecord' ) {
-            this.model.set('ref_des', this.model.get('reference_designator'));
-            platformId = this.model.get('reference_designator').substr(0,14);
+            this.model.set('ref_des', this.model.get('ref_des'));
+            platformId = this.model.get('ref_des').substr(0,8);
             this.$el.attr('id', platformId);
-            platformName = this.model.get('long_display_name');
+            platformName = this.model.get('assetInfo').site + ' ' + this.model.get('assetInfo').platform;
             this.$el.attr('class', 'platform detached');
             label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font class="ref-des-item">' + platformId.substr(0,8)+'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label>'+
                             '<ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         }
         if ( this.model.get('asset_class') === '.InstrumentAssetRecord' ) {
-            this.model.set('ref_des', this.model.get('reference_designator'));
             instrumentId = this.model.get('ref_des');
             instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
-            var ref_des = this.model.get('reference_designator');
-            if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
+            if(instrumentId.indexOf('ENG') > -1 || instrumentId.indexOf('0000') > -1) {
                 this.$el.addClass('eng-item');
             }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
@@ -381,28 +388,13 @@ var AssemblyItemView = AssetItemView.extend({
 
         this.$el.attr('id', assemblyCode);
         this.$el.attr('class', 'assembly');
-        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
+        label = (assemblyName === '' || assemblyName === null || assemblyName === undefined) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
                         '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
     }
 });
 
-var HomelessAssemblyItemView = AssetItemView.extend({
-    render: function() {
-        "use strict";
-        var assemblyCode = this.model.get('reference_designator').substr(9,5) || "",
-            assemblyName = this.model.get('assembly_name'),
-            label;
-
-        this.$el.attr('id', assemblyCode);
-        this.$el.attr('class', 'assembly');
-        label = (assemblyName === '' || assemblyName === null) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
-        this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
-                        '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
-        return this;
-    }
-});
 var StreamItemView = Backbone.View.extend({
     tagName: 'li',
     events: {

@@ -23,7 +23,7 @@ var ParentPageControlView = Backbone.View.extend({
     // this template will loop through each of the parameters defined in the
     // instantiaed model and create a <span> tag with an id of the first index
     // and a the tag contents with the second index.
-    template: _.template('<% _.each(params, function(span) { %> <span id="<%= span[0] %>"><%= span[1] %></span><% }) %>'),
+    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
     render: function() {
         'use strict';
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else

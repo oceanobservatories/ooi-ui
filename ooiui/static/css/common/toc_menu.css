@@ -63,7 +63,6 @@ div#assetBrowser {
     font-weight: bold;
     line-height: 20px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    text-transform: uppercase;
 }
 .nav-list {
     padding-right: 15px;
@@ -81,15 +80,14 @@ margin: 0 0 10px
 #navToc > li > a {
     color: #004773;
     font-weight: 300;
+    margin-bottom: 2px
+    color: #999
 }
 
 #navToc>li {
     float: none
 }
 
-#navToc>li>a {
-    margin-bottom: 2px
-}
 
 #navToc .nav-header {
     text-shadow: none
@@ -102,10 +100,6 @@ margin: 0 0 10px
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px
-}
-
-#navToc>li>a {
-    color: #999
 }
 
 .divider {
@@ -157,9 +151,12 @@ label.instrument > span {
 li.detached > label {
     display: inline-block;
 }
-li.detached > label:after {
+li.detached > label:before {
     font-family: FontAwesome;
-    content:"  \f127";
+    content:"\f127";
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
 }
 
 /* TOC Filter Contols */
