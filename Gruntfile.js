@@ -432,6 +432,36 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/ArraySideBar.html",
             "ooiui/static/js/partials/PlatformStatus.html"
           ],
+          "ooiui/static/js/partials/compiled/missionExecutive.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/StatusAlert.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
+          ],
+          "ooiui/static/js/partials/compiled/missionLoad.js": [
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/StatusAlert.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html"
+          ],
           "ooiui/static/js/partials/compiled/asset_management.js": [
                 "ooiui/static/js/partials/AssetInspector.html",
                 "ooiui/static/js/partials/AssetsTableRow.html",
@@ -1262,6 +1292,56 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/c2/MissionDialogView.js',
             'ooiui/static/js/views/c2/CommandDialogView.js'
           ],
+          'ooiui/static/js/compiled/missionExecutive.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/jqtree/tree.jquery.js",
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/c2/MissionExecutiveModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            "ooiui/static/js/views/common/BannerView.js",
+            "ooiui/static/js/views/c2/MissionTableView.js",      
+          ],
+          'ooiui/static/js/compiled/missionLoad.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            "ooiui/static/lib/underscore/underscore.js",
+            "ooiui/static/lib/backbone/backbone.js",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            "ooiui/static/lib/loremjs/lorem.js",
+            "ooiui/static/lib/jqtree/tree.jquery.js",
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/c2/MissionExecutiveModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            "ooiui/static/js/views/common/BannerView.js",   
+            "ooiui/static/js/views/c2/MissionTableView.js",   
+          ],
           'ooiui/static/js/compiled/asset_management.js' : [
           //   // Libs
           //   'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -1507,6 +1587,22 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/c2.css",
             "ooiui/static/lib/jqtree/jqtree.css"
+          ],
+          "ooiui/static/css/compiled/missionExecutive.css" : [
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/annotationModal.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/lib/jqtree/jqtree.css",
+            "ooiui/static/css/common/missionExecutive.css",
+          ],
+          "ooiui/static/css/compiled/missionLoad.css" : [
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/annotationModal.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/lib/jqtree/jqtree.css",
+            "ooiui/static/css/common/missionExecutive.css",
           ]
         }
       }
