@@ -42,8 +42,8 @@
         <div class="col-lg-12">
           <div class="panel panel-default"> 
             <ul class="nav nav-tabs">
-              <li role="presentation" class="active"><a href="#">Active</a></li>  
-              <li role="presentation" class=""><a href="#">Inactive</a></li>  
+              <li role="presentation" class="active"><a href="#">Missions</a></li>
+              <!-- <li role="presentation" class=""><a href="#">Inactive</a></li>-->
             </ul>          
             <div class="panel-body">
               <div id="missionTable">
@@ -82,6 +82,31 @@
   </div> <!-- page-content-wrapper -->
 </div>
 
+<!--
+      {
+        name: "runs",
+        editable: false,
+        label: "Last Completed",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return rawValue[1].date;
+          }
+        })
+      },
+      {
+        name: "",
+        editable: false,
+        label: "Stop",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            return '<button id="stopRow" mission_id="'+model.get('mission_id')+'" type="button" class="btn btn-default" aria-label="Left Align">Stop</button>';
+          }
+        })
+      },
+
+-->
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
@@ -125,97 +150,53 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     self.parameters.columns = [ 
       {
-        name: "",
+        name: "active",
         editable: false,
-        label: "Disable",
+        label: "Toggle State",
         cell: HtmlCell,
         formatter: _.extend({}, Backgrid.Cell.prototype, {
           fromRaw: function (rawValue, model) {
-            return '<button id="disableRow" mission_id="'+model.get('mission_id')+'" type="button" class="btn btn-default" aria-label="Left Align">Disable</button>';
+            if(model.get('active') == 1){
+                return '<button id="disableRow" mission_id="'+model.get('mission_id')+
+                        '" type="button" class="fa fa-minus-square" aria-label="Left Align"> Disable</button>';
+            }
+            else {
+                return '<button id="disableRow" mission_id="'+model.get('mission_id')+
+                        '" type="button" class="fa fa-plus-square" aria-label="Left Align"> Enable</button>';
+            }
           }
         })
-      }, 
-      {
-        name: "",
-        editable: false,
-        label: "Stop",
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            return '<button id="stopRow" mission_id="'+model.get('mission_id')+'" type="button" class="btn btn-default" aria-label="Left Align">Stop</button>';
-          }
-        })
-      },    
+      },
       {
         name: "mission_id",
         label: "ID",
         cell: "string",
-        editable: false,
+        editable: false
       },  
       {
         name: "name",
         label: "Name",
         cell: "string",
-        editable: false,
+        editable: false
+      },
+      {
+        name: "drivers",
+        label: "Reference Designator(s)",
+        cell: "string",
+        editable: false
       },
       {
         name: "desc",
         label: "Mission Description",
         cell: "string",
-        editable: false,
-      },
-      {
-        name: "reference_designator",
-        label: "Reference Designator",
-        cell: "string",
-        editable: false,
+        editable: false
       },
       {
         name: "status",
         label: "Status",
         cell: "string",
-        editable: false,
+        editable: false
       },
-      {
-        name: "version",
-        label: "Version",
-        cell: "string",
-        editable: false,
-      },
-      {
-        name: "schedule",
-        editable: false,
-        label: "Schedule",
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            return "hour:"+rawValue.hour;
-          }
-        })
-      },      
-      {
-        name: "created_date",
-        label: "Created On",
-        cell: "string",
-        editable: false,
-      },      
-      {
-        name: "runs",
-        editable: false,
-        label: "Last Completed",
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            return rawValue[1].date;
-          }
-        })
-      }, 
-      {
-        name: "created_by",
-        label: "Created By",
-        cell: "string",
-        editable: false,
-      },   
     ];
 
     self.views.missionTableView = new MissionExecutiveTableView({
@@ -237,11 +218,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
 
-      var htmlruns = [];      
+      var htmlruns = [];
+
       _.each(model.get('runs'),function(run){
         htmlruns.push(run.date+" : "+ run.status);
       });
       $('#missionLog').html("<pre class='pre-scrollable mission-code'>"+htmlruns.join("<br>")+"</pre>");
+
     });
     
   }
@@ -252,6 +235,7 @@ var ooi = new OOI();
 $(document).ready(function() {
     ooi.start();
     $('#navbar').prepend(navbar.el);
+
 });
 </script>
 {% endblock %}

@@ -70,6 +70,20 @@
   </div> <!-- page-content-wrapper -->
 </div>
 
+<!--
+  {
+    name: "created_date",
+    label: "Created On",
+    cell: "string",
+    editable: false,
+  },
+  {
+    name: "created_by",
+    label: "Created By",
+    cell: "string",
+    editable: false,
+  }
+-->
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
 
@@ -101,38 +115,27 @@ _.extend(OOI.prototype, Backbone.Events, {
         name: "mission_id",
         label: "ID",
         cell: "string",
-        editable: false,
+        editable: false
       },  
       {
         name: "name",
         label: "Name",
         cell: "string",
-        editable: false,
+        editable: false
       },
       {
         name: "desc",
         label: "Mission Description",
         cell: "string",
-        editable: false,
+        editable: false
       },      
       {
         name: "status",
         label: "Status",
         cell: "string",
-        editable: false,
+        editable: false
       },
-      {
-        name: "created_date",
-        label: "Created On",
-        cell: "string",
-        editable: false,
-      },
-      {
-        name: "created_by",
-        label: "Created By",
-        cell: "string",
-        editable: false,
-      }    
+
     ];
 
     self.views.missionTableView = new MissionExecutiveTableView({

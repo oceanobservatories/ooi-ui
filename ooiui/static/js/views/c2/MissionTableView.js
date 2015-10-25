@@ -36,12 +36,12 @@
   onClickDisable:function(ev){
     console.log("disable");
     var mission_id = $(ev.target).attr('mission_id')
-    alert("Disable:"+ mission_id);
+    alert("Toggle State: "+ mission_id);
   },
   onClickStop:function(ev){
     console.log("stop");
     var mission_id = $(ev.target).attr('mission_id')
-    alert("Stop:"+ mission_id);
+    alert("Stop: "+ mission_id);
   },
   render:function(options){
     var self = this;
@@ -51,7 +51,7 @@
     var PageableModels = Backbone.PageableCollection.extend({
       model: MissionExecutiveModel,
       state: {
-        pageSize: 20
+        pageSize: 10
       },
       mode: "client" // page entirely on the client side
     });
@@ -61,7 +61,6 @@
     self.collection.each(function(model,i){
         console.log(model)        
         pageableCollection.add(model)
-
     });
 
 
@@ -139,7 +138,7 @@
     self.filter = new nameClientFilter({
       collection: pageableCollection,
       placeholder: "Search...",
-      fields: ['name','description'],
+      fields: ['name','desc'],
       wait: 150
     });
 

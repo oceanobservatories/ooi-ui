@@ -59,6 +59,12 @@ def get_c2_get_missions():
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''))
     return response.text, response.status_code
 
+@app.route('/api/c2/missions/<string:mission_id>', methods=['GET'])
+def get_c2_get_mission(mission_id):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s' % (mission_id), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/c2/missions', methods=['POST'])
 def get_c2_add_mission():
     token = get_login()
