@@ -233,6 +233,7 @@ var streamFetch = streamCollection.fetch({ reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
         $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
             focusToItem();
+            vent.trigger('toc:hideStreams');
             });
         });
 

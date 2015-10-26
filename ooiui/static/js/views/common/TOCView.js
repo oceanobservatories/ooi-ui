@@ -395,7 +395,7 @@ var AssemblyItemView = AssetItemView.extend({
 
         this.$el.attr('id', assemblyCode);
         this.$el.attr('class', 'assembly');
-        label = (assemblyName === '' || assemblyName === null || assemblyName === undefined) ? assemblyCode : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
+        label = (assemblyName === '' || assemblyName === null || assemblyName === undefined) ? assemblyCode.replace('GL', 'Glider ') : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
                         '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');
         return this;
