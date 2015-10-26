@@ -322,6 +322,10 @@ var AssetItemView = Backbone.View.extend({
         var assName, platformName, platformId, label, instrumentId, instrumentName, assId;
         if (this.model.get('asset_class') === '.AssetRecord') {
             platformName = this.model.get('assetInfo').name;
+            if (platformName.indexOf('Glider') > -1){
+               platformName = platformName.substring(0, platformName.lastIndexOf(" "))+'s';
+
+            }
             platformId = this.model.get('ref_des').substr(0,8);
             assId = this.model.get('ref_des').substr(9,14);
             assId = (assId.length > 0) ? '-' + assId : "";
@@ -358,6 +362,9 @@ var HomelessStreamItemView = AssetItemView.extend({
             platformId = this.model.get('ref_des').substr(0,8);
             this.$el.attr('id', platformId);
             platformName = this.model.get('assetInfo').site + ' ' + this.model.get('assetInfo').platform;
+            if (platformName.indexOf('Glider') > -1){
+               platformName = platformName.substring(0, platformName.lastIndexOf(" "))+'s';
+            }
             this.$el.attr('class', 'platform detached');
             label = (platformName === '' || platformName === null) ? platformId : '<span>' + platformName + '</span><font class="ref-des-item">' + platformId.substr(0,8)+'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label>'+
