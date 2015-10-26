@@ -329,7 +329,7 @@ var MapView = Backbone.View.extend({
 
         });
         map.on('zoomend', function(e) {
-            if (map.getZoom() === 3 || map.getZoom()==4 ) {
+            if (map.getZoom() > 3 ) {
                 $('.array-title-label').css('display','');
             }else{
                 $('.array-title-label').css('display','none');
@@ -394,7 +394,7 @@ var MapView = Backbone.View.extend({
             var instruments = streamCollection;
             var lat_lons = [];
 
-            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -30){
+            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -10.0){
 
                 //reset the event popup
                 var eventPopup = "";
@@ -533,8 +533,9 @@ var MapView = Backbone.View.extend({
                 if (hasDeploymentEvent){
 
                     platformFeature.bindPopup(popupContent,{offset: new L.Point(0, 0),showOnMouseOver: true});
-
-                    self.markerCluster.addLayer(platformFeature);
+                    if (platformFeature._latlng.lng < -10) {
+                        self.markerCluster.addLayer(platformFeature);
+                    }
                 }
             }
 
