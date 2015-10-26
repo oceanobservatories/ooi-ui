@@ -325,12 +325,12 @@ var AssetItemView = Backbone.View.extend({
             platformId = this.model.get('ref_des').substr(0,8);
             assId = this.model.get('ref_des').substr(9,14);
             assId = (assId.length > 0) ? '-' + assId : "";
-            this.$el.attr('id', platformId+assId);
+            this.$el.attr('id', platformId);
             this.$el.attr('class', 'platform');
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
             label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font class="ref-des-item">' + platformId +'</font>';
-            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId + assId +'" class="nav-list tree" style="display:none"></ul>');
+            this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
             // of the entire Reference Designator
