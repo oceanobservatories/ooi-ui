@@ -214,7 +214,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     var selected_ids = [];
     var selectedParam = $("#yvar0-selection-default option:selected");
     $(selectedParam).each(function(index){
-      selected.push([$(this).val()]);
+      selected.push([$(this).data('params')]);
       selected_ids.push([$(this).attr('pid')]);
     });
 
@@ -402,8 +402,32 @@ _.extend(OOI.prototype, Backbone.Events, {
             if (shape[i] === "function"){
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
-              var variable = options.model.get('variables')[i];
+              var variable = options.model.get('variables')[i];            
+              var display_name;
 
+              try{
+                display_name = options.model.get('parameter_display_name')[i];
+              } catch(err){
+                display_name = variable;
+              }
+              if (variable.toLowerCase() != "time"){
+                  if (    variable.indexOf('oxygen') > -1 ||
+                          variable.indexOf('temperature') > -1 ||
+                          variable.indexOf('velocity') > -1 ||
+                          variable.indexOf('conductivity') > -1 ||
+                          variable.indexOf('current') > -1 ||
+                          variable.indexOf('voltage') > -1 ||
+                          variable.indexOf('pressure') > -1 ||
+                          variable.indexOf('ang_rate') > -1 ||
+                          variable.indexOf('coefficient') > -1 ||
+                          variable.indexOf('chlorophyll') > -1 ||
+                          variable.indexOf('par') > -1
+                    ) {
+                      parameterhtml+= "<option selected pid='"+ parameterId + "' data-params='" + variable + "'data-subtext='"+ units +"' >" + display_name +"</option>";
+                  } else {
+                      parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ display_name +"</option>";
+                  }
+              }
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
               if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
@@ -428,9 +452,9 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
                       ) {
-                        parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ variable +"</option>";
                     } else {
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ variable +"</option>";
                     }
 
                     param_list.push(variable);
@@ -450,37 +474,31 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
-
-                //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
-              var validUnits = false;
-              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
-                validUnits = true
+              var display_name;
+              try{
+                display_name = options.model.get('parameter_display_name')[i];
+              } catch(err){
+                display_name = variable;
               }
-              if (variable.toLowerCase().indexOf("sal") > -1){
-                validUnits = true;
-              }
-
-              if (variable.indexOf("_timestamp") == -1 && validUnits){
-                if (variable.toLowerCase() != "time"){
-                    if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && (variable.indexOf('oxygen') > -1 ||
-                            variable.indexOf('temperature') > -1 ||
-                            variable.indexOf('velocity') > -1 ||
-                            variable.indexOf('conductivity') > -1 ||
-                            variable.indexOf('current') > -1 ||
-                            variable.indexOf('voltage') > -1 ||
-                            variable.indexOf('pressure') > -1 ||
-                            variable.indexOf('ang_rate') > -1) ||
-                            variable.indexOf('coefficient') > -1 ||
-                            variable.indexOf('chlorophyll') > -1 ||
-                            variable.indexOf('par') > -1 ||
-                            variable.indexOf('heat') > -1
-                      ) {
-                        parameterhtml+= "<option selected pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                    } else {
-                        parameterhtml+= "<option pid='"+ parameterId +"' data-subtext='"+ units +"' >"+ variable +"</option>";
-                    }
-                  param_list.push(variable);
-                }
+              
+              if (variable.toLowerCase() != "time"){
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && (variable.indexOf('oxygen') > -1 ||
+                          variable.indexOf('temperature') > -1 ||
+                          variable.indexOf('velocity') > -1 ||
+                          variable.indexOf('conductivity') > -1 ||
+                          variable.indexOf('current') > -1 ||
+                          variable.indexOf('voltage') > -1 ||
+                          variable.indexOf('pressure') > -1 ||
+                          variable.indexOf('ang_rate') > -1) ||
+                          variable.indexOf('coefficient') > -1 ||
+                          variable.indexOf('chlorophyll') > -1 ||
+                          variable.indexOf('par') > -1
+                    ) {
+                      parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ display_name +"</option>";
+                  } else {
+                      parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ display_name +"</option>";
+                  }
+                param_list.push(variable);
               }
             }
           }
