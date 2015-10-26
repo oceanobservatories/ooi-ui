@@ -468,8 +468,7 @@ var MapView = Backbone.View.extend({
 
                                 popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                 // Checkbox
-                                //popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
-                                popupContent+= '</ul>';
+                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
                                 popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
