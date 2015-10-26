@@ -260,9 +260,7 @@ var AssetItemView = Backbone.View.extend({
             }
         });
         this.listenTo(vent, 'toc:hideInstruments', function() {
-            if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
-                this.$el.attr('style','display:none;');
-            }
+            this.$el.find('.instrument').toggle();
         });
     },
     onClickPlatform: function(e) {

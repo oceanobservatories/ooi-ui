@@ -3,13 +3,13 @@ var MapView = Backbone.View.extend({
     initialize: function() {
         var self = this;
 
-        var southWest = L.latLng(-80, -170),
-        northEast = L.latLng(80, 170),
+        var southWest = L.latLng(-60, -260),
+        northEast = L.latLng(80, 100),
         bounds = L.latLngBounds(southWest, northEast);
 
         this.map = L.map(this.el,{
-            maxZoom: 10,
-            minZoom: 2,
+            maxZoom: 9,
+            minZoom: 3,
             maxBounds: bounds,
             layers: TERRAIN.getBaseLayers('ESRI Oceans')
         });
@@ -329,7 +329,7 @@ var MapView = Backbone.View.extend({
 
         });
         map.on('zoomend', function(e) {
-            if (map.getZoom() > 3 ) {
+            if (map.getZoom() > 2 ) {
                 $('.array-title-label').css('display','');
             }else{
                 $('.array-title-label').css('display','none');
@@ -704,7 +704,7 @@ var ASSET_ARRAY = (function() {
             "irminger":"Irminger Sea",
             "argentine":"Argentine Basin",
             "southern":"Southern Ocean"
-    },
+        },
         arrayLinks =   {
             "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
             "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
