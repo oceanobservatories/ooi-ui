@@ -151,13 +151,13 @@ label.instrument > span {
 li.detached > label {
     display: inline-block;
 }
-li.detached > label:before {
+/*li.detached > label:before {
     font-family: FontAwesome;
     content:"\f127";
     display: inline-block;
     float: left;
     padding-right: 5px;
-}
+}*/
 
 /* TOC Filter Contols */
 #tocFilterControls {

@@ -14,7 +14,7 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
 var TocPageControlModel = Backbone.Model.extend({
     defaults : {
         params : [
-            ['refDesToggle', 'Designators'],
+            ['refDesToggle', 'Toggle Reference Designators'],
 //            ['engToggle', 'Engineering Instruments'],
 //            ['metaDataToggle', 'Meta Data']
         ]
