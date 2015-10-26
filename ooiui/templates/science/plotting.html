@@ -403,6 +403,12 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
+              var displayName;
+              try{
+                displayName = options.model.get('parameter_display_name')[i];
+              } catch(err){
+                displayName = variable;
+              }
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
@@ -428,9 +434,9 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
                       ) {
-                        parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     } else {
-                        parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ variable +"</option>";
+                        parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     }
 
                     param_list.push(variable);
@@ -450,11 +456,11 @@ _.extend(OOI.prototype, Backbone.Events, {
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
-              var display_name;
+              var displayName;
               try{
-                display_name = options.model.get('parameter_display_name')[i];
+                displayName = options.model.get('parameter_display_name')[i];
               } catch(err){
-                display_name = variable;
+                displayName = variable;
               }
 
               if (variable.toLowerCase() != "time"){
@@ -470,9 +476,9 @@ _.extend(OOI.prototype, Backbone.Events, {
                           variable.indexOf('chlorophyll') > -1 ||
                           variable.indexOf('par') > -1
                     ) {
-                      parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ display_name +"</option>";
+                      parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   } else {
-                      parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ display_name +"</option>";
+                      parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   }
                 param_list.push(variable);
               }
