@@ -3,13 +3,13 @@ var MapView = Backbone.View.extend({
     initialize: function() {
         var self = this;
 
-        var southWest = L.latLng(-80, -170),
-        northEast = L.latLng(80, 170),
+        var southWest = L.latLng(-60, -260),
+        northEast = L.latLng(80, 100),
         bounds = L.latLngBounds(southWest, northEast);
 
         this.map = L.map(this.el,{
-            maxZoom: 10,
-            minZoom: 2,
+            maxZoom: 9,
+            minZoom: 3,
             maxBounds: bounds,
             layers: TERRAIN.getBaseLayers('ESRI Oceans')
         });
@@ -329,7 +329,7 @@ var MapView = Backbone.View.extend({
 
         });
         map.on('zoomend', function(e) {
-            if (map.getZoom() === 3 || map.getZoom()==4 ) {
+            if (map.getZoom() > 2 ) {
                 $('.array-title-label').css('display','');
             }else{
                 $('.array-title-label').css('display','none');
@@ -394,7 +394,7 @@ var MapView = Backbone.View.extend({
             var instruments = streamCollection;
             var lat_lons = [];
 
-            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -30){
+            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -10.0){
 
                 //reset the event popup
                 var eventPopup = "";
@@ -468,13 +468,12 @@ var MapView = Backbone.View.extend({
 
                                 popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                 // Checkbox
-                                //popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
-                                popupContent+= '</ul>';
+                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
                                 popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
                                 popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
-                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Node</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
                                 instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
@@ -533,8 +532,9 @@ var MapView = Backbone.View.extend({
                 if (hasDeploymentEvent){
 
                     platformFeature.bindPopup(popupContent,{offset: new L.Point(0, 0),showOnMouseOver: true});
-
-                    self.markerCluster.addLayer(platformFeature);
+                    if (platformFeature._latlng.lng < -10) {
+                        self.markerCluster.addLayer(platformFeature);
+                    }
                 }
             }
 
@@ -703,7 +703,7 @@ var ASSET_ARRAY = (function() {
             "irminger":"Irminger Sea",
             "argentine":"Argentine Basin",
             "southern":"Southern Ocean"
-    },
+        },
         arrayLinks =   {
             "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
             "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",

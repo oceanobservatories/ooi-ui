@@ -107,6 +107,10 @@ div#control-heading {
   border-radius: 5px;
 
 }
+
+select.form-control {
+    padding: 0px;
+}
 label#plot-type,
 label#yvar0-select-default-text,
 label#start-time,

@@ -38,7 +38,7 @@ var StreamTableView = Backbone.View.extend({
         },
         {
             name : 'assembly_name',
-            label : 'Assembly Name'
+            label : 'Node'
         },
         {
             name : 'display_name',
