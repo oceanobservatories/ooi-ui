@@ -473,7 +473,7 @@ var MapView = Backbone.View.extend({
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
                                 popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
-                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Assembly</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
+                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Node</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
                             }
                             var instLength = instruments.length,
                                 instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
