@@ -151,6 +151,7 @@ var PlottingSelectionView = Backbone.View.extend({
                                            yvariable : selected,
                                            variables_shape : {filterVal:"float"},
                                            reference_designator:  selectedStream.attr("sensor"),
+                                           paramter_display_name: selectedStream.attr("paramter_display_name")
                                        })
 
         var data_units = {}
