@@ -394,9 +394,7 @@ var MapView = Backbone.View.extend({
             var instruments = streamCollection;
             var lat_lons = [];
 
-            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2){
-
-
+            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -30){
 
                 //reset the event popup
                 var eventPopup = "";
@@ -470,7 +468,8 @@ var MapView = Backbone.View.extend({
 
                                 popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                 // Checkbox
-                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
+                                //popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
+                                popupContent+= '</ul>';
                                 popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
                                 popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
