@@ -57,12 +57,8 @@ var StreamTableView = Backbone.View.extend({
             label: 'Depth (m)'
         },
         {
-            name: 'lat',
-            label: 'Lat (ddm)'
-        },
-        {
-            name: 'long',
-            label: 'Lon (ddm)'
+            name: 'lat_lon',
+            label: 'Lat / Lon (ddm)'
         },
         {
             name : 'start',
@@ -75,10 +71,6 @@ var StreamTableView = Backbone.View.extend({
         {
             name: 'reference_designator',
             label: 'Reference Designator'
-        },
-        {
-            name : 'make_model',
-            label : 'Make/Model'
         }
     ],
     tagName: 'tbody',
