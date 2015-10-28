@@ -262,6 +262,9 @@ var AssetItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:hideInstruments', function() {
             this.$el.find('.instrument').toggle();
         });
+        this.listenTo(vent, 'toc:hideNodes', function() {
+            this.$el.find('.node').hide();
+        });
     },
     onClickPlatform: function(e) {
         "use strict";
@@ -392,7 +395,13 @@ var AssemblyItemView = AssetItemView.extend({
             label;
 
         this.$el.attr('id', assemblyCode);
-        this.$el.attr('class', 'assembly');
+        this.$el.addClass('assembly')
+            .addClass('node');
+
+        if (assemblyCode.indexOf('GL') > -1) {
+            this.$el.removeClass('node').addClass('glider');
+        }
+
         label = (assemblyName === '' || assemblyName === null || assemblyName === undefined) ? assemblyCode.replace('GL', 'Glider ') : '<span>' + assemblyName + '</span><font class="ref-des-item">' + assemblyCode + '</font>';
         this.$el.append('<label class="assembly tree-toggler nav-header">'+ label +'</label>' +
                         '<ul id="'+ assemblyCode +'" class="nav-list tree" style="display: none"></ul>');

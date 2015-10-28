@@ -1,16 +1,23 @@
-/* Navbar */
-@media screen and (max-width: 1040px) {
-    #navbar {
-        max-height: 50px;
-    }
-    #navbar img {
-        visibility: hidden;
-        display: none;
-    }
-    #navbar-right {
-        visibility: hidden;
-        display: none;
-    }
+#assetTableHeader {
+    display: inline-block;
+    text-align:center;
+    vertical-align: center;
+    width: 100%;
+}
+#assetTableHeader div {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+#assetTableHeader > div > a {
+    position: relative;
+    top: 4px;
+}
+#assetTableHeader > div#assetTableLeft {
+    float: left;
+}
+#assetTableHeader > div#assetTableRight {
+    float: right;
 }
 
 tr.highlight-row {
