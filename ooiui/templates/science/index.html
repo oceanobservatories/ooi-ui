@@ -167,15 +167,15 @@ var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ data: data,  reset: true });
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
-var mapView = new MapView({
-    gliderCollection: gliderCollection,
-    collection:assetCollection,
-    streamCollection:streamCollection,
-    el: $('#map')
-});
-
+var mapView;
 $.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
     //when the glider fetch is done update the map
+    mapView = new MapView({
+        gliderCollection: gliderCollection,
+        collection:assetCollection,
+        streamCollection:streamCollection,
+        el: $('#map')
+    });
     mapView.gliderCollection = gliderCollection;
     mapView.add_glider_tracks();
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
