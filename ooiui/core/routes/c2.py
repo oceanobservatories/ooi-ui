@@ -13,6 +13,9 @@ import urllib2
 
 import requests
 
+@app.route('/cameras')
+def c2_cameras():
+    return render_template('science/camera_media.html')
 
 #Mission Executive
 ######
