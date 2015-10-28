@@ -83,6 +83,7 @@
     cell: "string",
     editable: false,
   }
+  $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
 -->
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
@@ -135,6 +136,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         cell: "string",
         editable: false
       },
+      {
+        name: "created",
+        label: "Created",
+        cell: "string",
+        editable: false
+      },
 
     ];
 
@@ -154,7 +161,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'missionTable:rowSelected', function(model) {
       console.log('selected');
-      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
+
+      var scriptlines = [];
+
+      _.each(model.get('mission'),function(scriptline){
+        scriptlines.push(scriptline);
+      });
+      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+scriptlines.join("<br>")+"</pre>");
     });
     
   }

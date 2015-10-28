@@ -69,7 +69,7 @@
         <div class="col-lg-6">                    
           <div class="panel panel-default"> 
             <ul class="nav nav-tabs">
-              <li role="presentation" class="active"><a href="#">Log File</a></li>  
+              <li role="presentation" class="active"><a href="#">Events</a></li>
             </ul>          
             <div class="panel-body" id="missionLog">             
             </div>                      
@@ -105,6 +105,12 @@
           }
         })
       },
+
+      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
+    _.each(model.get('runs'),function(run){
+        htmlruns.push(run.date+" : "+ run.status);
+      });
+      $('#missionLog').html("<pre class='pre-scrollable mission-code'>"+htmlruns.join("<br>")+"</pre>");
 
 -->
 <!-- Menu Toggle Script -->
@@ -192,6 +198,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         editable: false
       },
       {
+        name: "next_run",
+        label: "Next Scheduled Run",
+        cell: "string",
+        editable: false
+      },
+      {
         name: "status",
         label: "Status",
         cell: "string",
@@ -216,14 +228,19 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'missionTable:rowSelected', function(model) {
       console.log('selected');
 
-      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+JSON.stringify(model.get('mission'),null, 2)+"</pre>");
+      var scriptlines = [];
 
-      var htmlruns = [];
-
-      _.each(model.get('runs'),function(run){
-        htmlruns.push(run.date+" : "+ run.status);
+      _.each(model.get('mission'),function(scriptline){
+        scriptlines.push(scriptline);
       });
-      $('#missionLog').html("<pre class='pre-scrollable mission-code'>"+htmlruns.join("<br>")+"</pre>");
+      $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+scriptlines.join("<br>")+"</pre>");
+
+      var htmlevents = [];
+
+      _.each(model.get('events'),function(event){
+        htmlevents.push(event.timestamp+"  event_type: "+ event.event_type+"  "+ event.event_text);
+      });
+      $('#missionLog').html("<pre class='pre-scrollable mission-code'>"+htmlevents.join("<br>")+"</pre>");
 
     });
     
