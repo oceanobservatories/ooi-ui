@@ -297,28 +297,28 @@ var SVGPlotView = SVGView.extend({
                 this.yvariable = not_list.join();
                 this.dpa_flag = "1";     //this.getDpaFlag(options.xvar);
             }else if (options.attributes.data.plotType == 'ts_diagram'){
-                this.yvariable = $("#yvar2-select option:selected").val() + ',' + $("#yvar1-select option:selected").val();
+                this.yvariable = $("#yvar2-select option:selected").data('params') + ',' + $("#yvar1-select option:selected").data('params');
                 this.xvariable = options.xvar;
                 this.dpa_flag = this.getDpaFlag(options.yvar);
             }else if (options.attributes.data.plotType == 'quiver'){
-                this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val();
+                this.yvariable = $("#yvar1-select option:selected").data('params') + ',' + $("#yvar2-select option:selected").data('params');
                 this.xvariable = options.xvar;
                 this.dpa_flag = this.getDpaFlag(options.yvar);
 
             }else if (options.attributes.data.plotType == '3d_scatter'){
-                this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val() + ',' + $("#yvar3-select option:selected").val();
+                this.yvariable = $("#yvar1-select option:selected").data('params') + ',' + $("#yvar2-select option:selected").data('params') + ',' + $("#yvar3-select option:selected").data('params');
                 this.xvariable = options.xvar;
                 this.dpa_flag = this.getDpaFlag(options.yvar);
 
             }else if (options.attributes.data.plotType == 'rose'){
 
-                this.yvariable = $("#yvar1-select option:selected").val() + ',' + $("#yvar2-select option:selected").val();
+                this.yvariable = $("#yvar1-select option:selected").data('params') + ',' + $("#yvar2-select option:selected").data('params');
                 this.xvariable = options.xvar;
                 this.dpa_flag = this.getDpaFlag(options.yvar);
 
             }else if (options.attributes.data.plotType == 'stacked'){
                 this.format = "png";
-                this.yvariable = $("#yvar1-select option:selected").val();
+                this.yvariable = $("#yvar1-select option:selected").data('params');
                 this.xvariable = options.xvar;
                 this.dpa_flag = this.getDpaFlag(options.yvar);
 
@@ -670,7 +670,7 @@ var SVGPlotControlView = Backbone.View.extend({
         }
     },
     yVar1Change: function(e) {
-        var selectedParam = this.$el.find( "#yvar1-select option:selected").val();
+        var selectedParam = this.$el.find( "#yvar1-select option:selected").data('params');
         $("#parameters_id").val(selectedParam);
         $("#parameters_id").change();
         $("#parameters_id").selectpicker('refresh');
@@ -680,7 +680,7 @@ var SVGPlotControlView = Backbone.View.extend({
         }
     },
     yVar2Change: function(e) {
-        var selectedParam = this.$el.find( "#yvar2-select option:selected").val();
+        var selectedParam = this.$el.find( "#yvar2-select option:selected").data('params');
         $("#parameters_id").val(selectedParam);
         $("#parameters_id").change();
         $("#parameters_id").selectpicker('refresh');
@@ -690,7 +690,7 @@ var SVGPlotControlView = Backbone.View.extend({
         }
     },
     yVar3Change: function(e) {
-        var selectedParam = this.$el.find( "#yvar3-select option:selected").val();
+        var selectedParam = this.$el.find( "#yvar3-select option:selected").data('params');
         $("#parameters_id").val(selectedParam);
         $("#parameters_id").change();
         $("#parameters_id").selectpicker('refresh');

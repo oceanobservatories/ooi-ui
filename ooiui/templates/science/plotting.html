@@ -583,7 +583,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'SVGPlotControlView:onAddClickPlot', function(options) {
-
       if (options.attributes.data.plotType == "Time Series"){
         options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
         options.attributes.data.end = moment.utc($('#end-date').data('date')).toISOString();
@@ -597,7 +596,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         var selected_ids = [];
         var selectedParam = $("#yvar0-selection-default option:selected");
         $(selectedParam).each(function(index){
-          selected.push([$(this).val()]);
+          selected.push([$(this).data('params')]);
           selected_ids.push([$(this).attr('pid')]);
         });
 
