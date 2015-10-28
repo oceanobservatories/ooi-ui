@@ -181,6 +181,7 @@ $.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
+        vent.trigger('toc:hideNodes');
         vent.trigger('toc:hideInstruments');
         $('#engToggle').hide();
         $('#metaDataToggle').hide();
