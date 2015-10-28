@@ -4,9 +4,9 @@
  * View definitions to build a table view of streams
  *
  * Dependencies
- * CSS: 
+ * CSS:
  * - ooiui/static/css/common/AnnotationTableView.css
- * Partials: 
+ * Partials:
  * - ooiui/static/js/partials/AnnotationTable.html
  * - ooiui/static/js/partials/AnnotationTableItem.html
  * Libs
@@ -33,7 +33,7 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'referenceDesignator',
         label : 'Reference Designator'
-      },      
+      },
       {
         name : 'beginDT',
         label : 'Date Time (Start)'
@@ -41,21 +41,20 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'endDT',
         label : 'Date Time (End)'
-      }      
+      }
   ],
   initialize: function() {
-    _.bindAll(this, "render");    
+    _.bindAll(this, "render");
   },
   template: JST['ooiui/static/js/partials/AnnotationTable.html'],
   onAddClick: function(event) {
     event.stopPropagation();
     ooi.trigger('AnnotationTableView:onAddClick');
   },
-  render: function() {    
+  render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
     this.collection.each(function(model, i) {
-      console.log(model);
       model.set('ui_id',i)
 
       var streamTableItemView = new AnnotationTableItemView({

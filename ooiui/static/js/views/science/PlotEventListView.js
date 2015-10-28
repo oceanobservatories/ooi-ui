@@ -29,7 +29,7 @@ var PlotEventListView = Backbone.View.extend({
             name: 'event_type',
             label: 'Event Type'
         },
-        {  
+        {
             name: 'start_date',
             label: 'Start Date'
         },
@@ -64,19 +64,12 @@ var PlotEventListView = Backbone.View.extend({
 
 var PlotEventTableItemView = Backbone.View.extend({
     tagName: 'tr',
-    events: {
-        'click': 'onClick'
-    },
     initialize: function(options) {
         if(options && options.columns) {
             this.columns = options.columns;
         }
         this.listenTo(this.model, 'change', this.render);
         this.render();
-    },
-    onClick: function(event) {
-        console.log("SOMETHING");
-        window.open('/event/' + this.model.get('id'), '_blank');
     },
     template: JST['ooiui/static/js/partials/PlotEventTableItem.html'],
     render: function() {
