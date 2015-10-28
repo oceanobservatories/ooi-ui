@@ -1,0 +1,35 @@
+.camera-content-header-row{
+	border-bottom-width: 5px !important;
+    border-bottom-color: #33B5E5 !important;
+    border-bottom-style: solid !important;
+    margin-left: 10px;
+	margin-right: 10px;
+}
+
+.camera-content{
+	min-height:400px;
+	background-color: #282828;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.camera-text{
+	padding-left: 15px;
+	color:white;
+	font-size: 26px;
+}
+
+.camera-controls{
+	border-style:solid;
+	border-radius: 25px !important;
+    background: #ADADAD;
+    height:190px;
+    width:190px;
+    padding: 15px !important; 
+}
+
+.camera-control-button button{
+	border:none;
+	width:50px !important;
+	height:50px !important;
+}

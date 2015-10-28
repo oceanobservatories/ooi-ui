@@ -412,7 +412,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
-              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase() != "seconds since 1970-01-01" && units.toLowerCase() != "bytes"){
+              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
               if (variable.toLowerCase().indexOf("sal") > -1){
@@ -463,8 +463,19 @@ _.extend(OOI.prototype, Backbone.Events, {
                 displayName = variable;
               }
 
-              if (variable.toLowerCase() != "time"){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && (variable.indexOf('oxygen') > -1 ||
+
+              //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
+              var validUnits = false;
+              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
+                validUnits = true
+              }
+              if (variable.toLowerCase().indexOf("sal") > -1){
+                validUnits = true;
+              }
+
+              if (variable.toLowerCase() != "time" && validUnits){
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && 
+                          (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
                           variable.indexOf('conductivity') > -1 ||
@@ -572,7 +583,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'SVGPlotControlView:onAddClickPlot', function(options) {
-
       if (options.attributes.data.plotType == "Time Series"){
         options.attributes.data.start = moment.utc($('#start-date').data('date')).toISOString();
         options.attributes.data.end = moment.utc($('#end-date').data('date')).toISOString();
@@ -586,7 +596,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         var selected_ids = [];
         var selectedParam = $("#yvar0-selection-default option:selected");
         $(selectedParam).each(function(index){
-          selected.push([$(this).val()]);
+          selected.push([$(this).data('params')]);
           selected_ids.push([$(this).attr('pid')]);
         });
 

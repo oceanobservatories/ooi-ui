@@ -28,6 +28,31 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
+          "ooiui/static/js/partials/compiled/camera_media.js" : [
+            "ooiui/static/js/partials/TOC.html",
+            "ooiui/static/js/partials/TOCItem.html",
+            "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/NestedTocItem.html",
+            "ooiui/static/js/partials/TOCParentItem.html",
+            "ooiui/static/js/partials/InstrumentItem.html",
+            "ooiui/static/js/partials/PlatformItem.html",
+            "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/StreamItem.html",
+            "ooiui/static/js/partials/DropdownMessages.html",
+            "ooiui/static/js/partials/DropdownMessage.html",
+            "ooiui/static/js/partials/DropdownUserLoggedIn.html",
+            "ooiui/static/js/partials/DropdownUserLoggedOut.html",
+            "ooiui/static/js/partials/LoginForm.html",
+            "ooiui/static/js/partials/NewEvent.html",
+            "ooiui/static/js/partials/ModalDialog.html",
+            "ooiui/static/js/partials/TermsDialog.html",
+            "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/Navbar.html",
+            "ooiui/static/js/partials/MenuToggle.html",
+            "ooiui/static/js/partials/LoggedInNavItems.html",
+            "ooiui/static/js/partials/CameraPreview.html",
+            "ooiui/static/js/partials/CameraControls.html",
+          ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
             * This is the basic form partial that has the modal dialog
@@ -404,7 +429,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
-          ],
+          ],          
           "ooiui/static/js/partials/compiled/c2.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
@@ -1174,6 +1199,45 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/HighChartsXYView.js',
             //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'
           ],
+          'ooiui/static/js/compiled/camera_media.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/backlunr/backlunr.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/AnnotationModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/FilterSelectionModel.js',
+            'ooiui/static/js/models/science/TocArrayModel.js',
+            'ooiui/static/js/models/science/TocInstrumentsModel.js',
+            'ooiui/static/js/models/science/TocMooringsModel.js',
+            'ooiui/static/js/models/science/TocParametersModel.js',
+            'ooiui/static/js/models/science/TocPlatformsModel.js',
+            'ooiui/static/js/models/science/TocStreamsModel.js',
+            'ooiui/static/js/models/c2/MediaModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/BannerView.js",
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/ModalFormView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/c2/CameraPreviewView.js'
+          ],
           'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
@@ -1418,6 +1482,9 @@ module.exports = function(grunt) {
           "ooiui/static/css/compiled/loginDemo.css" : [
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "ooiui/static/css/common/loginDemo.css"
+          ],
+          "ooiui/static/css/compiled/camera_media.css" : [
+            "ooiui/static/css/common/camera_media.css"
           ],
           "ooiui/static/css/compiled/index.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
