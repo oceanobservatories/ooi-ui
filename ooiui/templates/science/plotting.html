@@ -274,7 +274,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //reset the subscriptions
     self.collections.subscriptionCollection.fetch({ reset: true });
     this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
-      console.log('ready...',self.collections.subscriptionCollection);      
+      //console.log('ready...',self.collections.subscriptionCollection);      
     });
 
     //--------------------------------------------------------------------------------
