@@ -38,7 +38,6 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   onSubscribeSelect:function(ev){
     var self = this;
-    console.log('subscribe select',this.model);
     this.$el.find('#subscription-selection-select').attr('disabled','disabled');
     try{
       var subscribeModel = new DataSubscriptionModel({});
@@ -54,10 +53,10 @@ var StreamDownloadFormView = Backbone.View.extend({
         subscribeModel.attributes.referenceDesignator.sensor = refParts[2] +"-"+ refParts[3];
 
         subscribeModel.save(null, {
-          success: function() {          
-            ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
+          success: function() {                      
             self.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
             self.$el.find('#subscription-selection-icon').addClass('fa-heart');
+            ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
             //SAVED!
           },
           error: function(model, response) {
