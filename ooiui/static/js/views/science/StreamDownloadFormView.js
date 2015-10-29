@@ -19,11 +19,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     'change #type-select select' : 'onTypeChange',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
-    'change #time-range select': 'timeRangeChange'
+    'change #time-range select': 'timeRangeChange',
+    'click #subscription-selection-select': "onSubscribeSelect",
   },
   initialize: function() {
     "use strict";
-    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange');
+    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect');
 
     this.render();
   },
@@ -33,6 +34,44 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find("#type-select select option[value*='csv']").prop('disabled',true);
     }else{
       this.$el.find("#type-select select option[value*='csv']").prop('disabled',false);
+    }
+  },
+  onSubscribeSelect:function(ev){
+    var self = this;
+    console.log('subscribe select',this.model);
+    this.$el.find('#subscription-selection-select').attr('disabled','disabled');
+    try{
+      var subscribeModel = new DataSubscriptionModel({});
+      var stream_names = self.model.get('stream_name').split('_');
+      var refParts = self.model.get('ref_des').split('-');
+      if (stream_names.length == 2 && refParts.length == 4){
+        subscribeModel.set('stream',stream_names[1].replace(/-/g,"_"));      
+        subscribeModel.set('method',stream_names[0]);      
+        subscribeModel.set('email',self.model.get('email'))        
+        
+        subscribeModel.attributes.referenceDesignator.node = refParts[0];
+        subscribeModel.attributes.referenceDesignator.subsite = refParts[1];
+        subscribeModel.attributes.referenceDesignator.sensor = refParts[2] +"-"+ refParts[3];
+
+        subscribeModel.save(null, {
+          success: function() {          
+            ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
+            self.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
+            self.$el.find('#subscription-selection-icon').addClass('fa-heart');
+            //SAVED!
+          },
+          error: function(model, response) {
+            console.error('ERROR:',response);
+            self.$el.find('#subscription-selection-select').attr('disabled',null);
+          }
+        });
+      }else{
+        console.error("ERROR:", "setting model");
+        self.$el.find('#subscription-selection-select').attr('disabled',null);
+      }
+    }catch(e){
+      console.error("ERROR:", e);
+      self.$el.find('#subscription-selection-select').attr('disabled',null);
     }
   },
   timeRangeChange: function() {
@@ -159,7 +198,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = moment.utc(model.get('end')).toJSON();
 
     this.$start_date_picker.setDate(startDate);
-    this.$end_date_picker.setDate(endDate);
+    this.$end_date_picker.setDate(endDate);    
 
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
@@ -169,6 +208,16 @@ var StreamDownloadFormView = Backbone.View.extend({
 
     var email = model.get('email');
     this.$el.find('#dlEmail').val(email);
+
+    //reset it first incase
+    this.$el.find('#subscription-selection-icon').attr('class','fa fa-heart-o');
+    this.$el.find('#subscription-selection-select').attr('disabled',null);
+    if (model.get('subscriptionEnabled')){
+      this.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
+      this.$el.find('#subscription-selection-icon').addClass('fa-heart');
+      this.$el.find('#subscription-selection-select').attr('disabled','disabled');
+    }
+
 
     this.$el.find('#download-modal').modal('show');
 

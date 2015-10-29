@@ -1168,6 +1168,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/LoginModel.js',
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
+            'ooiui/static/js/models/common/DataSubscriptionModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/science/FilterSelectionModel.js',
             'ooiui/static/js/models/science/TocArrayModel.js',

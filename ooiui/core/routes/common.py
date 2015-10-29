@@ -204,6 +204,19 @@ def ticket_roles():
     resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token,''))
     return resp.text, resp.status_code
 
+
+@app.route('/api/subscription', methods=['POST'])
+def subscription_post():    
+    print request.data
+    headers = {'Content-Type': 'application/json','content-type': 'application/json'}
+    response = requests.post('http://uframe-test.ooi.rutgers.edu:12585/subscription', data=request.data, headers=headers)
+    return response.text, response.status_code
+
+@app.route('/api/subscription', methods=['GET'])
+def subscription_get():
+    response = requests.get('http://uframe-test.ooi.rutgers.edu:12585/subscription', params=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/login', methods=['POST'])
 def login():
     local_context = json.loads(request.data)
