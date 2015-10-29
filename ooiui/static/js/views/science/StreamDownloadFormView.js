@@ -209,6 +209,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     var email = model.get('email');
     this.$el.find('#dlEmail').val(email);
 
+    if (!(this.model.get('stream_name').split('_')[0] == 'telemetered')){
+      this.$el.find('#subscription-selection-select').css('visibility','hidden');
+    }else{
+      this.$el.find('#subscription-selection-select').css('visibility','visible');
+    }
     //reset it first incase
     this.$el.find('#subscription-selection-icon').attr('class','fa fa-heart-o');
     this.$el.find('#subscription-selection-select').attr('disabled',null);

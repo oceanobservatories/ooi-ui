@@ -854,12 +854,19 @@ _.extend(OOI.prototype, Backbone.Events, {
       var hasSubscribed = false;
       //for email address
       var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});      
-
-      _.each(availSubs,function(sub){
-        
-        console.log(sub);
-
-      });
+      //for selected item
+      var currentStream = self.models.downloadModel.model.get('stream_name');
+      var currentRef = self.models.downloadModel.model.get('ref_des');      
+      //loop over and compare, only if telemetered
+      if (currentStream.split('_')[0] == 'telemetered'){
+        _.each(availSubs,function(sub){
+          var refDes = sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.sensor;
+          var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+          if (streamName == currentStream && refDes == currentRef){
+            hasSubscribed = true;
+          }
+        });
+      }
 
       if (hasSubscribed){
         self.models.downloadModel.model.set('subscriptionEnabled', true);
