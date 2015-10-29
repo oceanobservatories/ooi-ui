@@ -7,6 +7,7 @@ import urllib
 import urllib2
 from uuid import uuid4
 import sys,os,time,difflib
+
 def get_login():
     token = request.cookies.get('ooiusertoken')
     if not token:
@@ -207,14 +208,13 @@ def ticket_roles():
 
 @app.route('/api/subscription', methods=['POST'])
 def subscription_post():    
-    print request.data
     headers = {'Content-Type': 'application/json','content-type': 'application/json'}
-    response = requests.post('http://uframe-test.ooi.rutgers.edu:12585/subscription', data=request.data, headers=headers)
+    response = requests.post(app.config['SUBSCRIPTION_SERVER']+'/subscription', data=request.data, headers=headers)
     return response.text, response.status_code
 
 @app.route('/api/subscription', methods=['GET'])
 def subscription_get():
-    response = requests.get('http://uframe-test.ooi.rutgers.edu:12585/subscription', params=request.args)
+    response = requests.get(app.config['SUBSCRIPTION_SERVER']+'/subscription', params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/login', methods=['POST'])
