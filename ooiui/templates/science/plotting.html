@@ -840,6 +840,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.svgplot.download();
   });
 
+  this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+    self.collections.subscriptionCollection.fetch({ reset: true });
+  });
+  
+
   this.listenTo(this, 'ooi:downloadData', function() {
     //user needs to be logged in
     if(this.login.loggedIn()) {
