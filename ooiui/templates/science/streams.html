@@ -80,7 +80,8 @@ var userId = parseInt(window.location.href.split('/').pop());
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
-    streams: new StreamCollection()
+    streams: new StreamCollection(),
+    subscriptionCollection: new DataSubscriptionCollection()
   },
   views: {
   },
@@ -90,6 +91,16 @@ _.extend(OOI.prototype, Backbone.Events, {
   start: function() {
     var self = this;
     this.login.fetch({async: false});
+
+    //reset the subscriptions
+    self.collections.subscriptionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+      //console.log('ready...',self.collections.subscriptionCollection);      
+    });
+
+    this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+        self.collections.subscriptionCollection.fetch({ reset: true });
+    });
 
     this.views.banner = new BannerView({bannerTitle : bannerTitle});
     $('body').prepend(this.views.banner.el);
@@ -161,17 +172,42 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-      var base_url = window.location.protocol+"//"+window.location.host+"/"
-      var download_link = options.model.get('download');
-      var download_link_url = download_link[options['selection']];
+        if(this.login.loggedIn()) {
+          var base_url = window.location.protocol+"//"+window.location.host+"/"
+          var download_link = options.model.get('download');
+          var download_link_url = download_link[options['selection']];
 
-      base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
+          base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
 
-      options.model.attributes.email = this.models.userModel.get("email");
-      options.model.attributes.user_name = this.models.userModel.get("user_name");
-      self.views.streamDownloadFormView.show(options);
-      //window.open(base_url, '_blank');
+          options.model.attributes.email = this.models.userModel.get("email");
+          options.model.attributes.user_name = this.models.userModel.get("user_name");
 
+          var hasSubscribed = false;
+        //for email address
+          var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});      
+          //for selected item
+          var currentStream = options.model.get('stream_name');
+          var currentRef = options.model.get('ref_des');      
+          //loop over and compare, only if telemetered
+          if (currentStream.split('_')[0] == 'telemetered'){
+            _.each(availSubs,function(sub){
+              var refDes = sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.sensor;
+              var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+              if (streamName == currentStream && refDes == currentRef){
+                hasSubscribed = true;
+              }
+            });
+          }
+
+          if (hasSubscribed){
+            options.model.set('subscriptionEnabled', true);
+          }else{
+            options.model.set('subscriptionEnabled', false);
+          }
+
+          self.views.streamDownloadFormView.show(options);
+          //window.open(base_url, '_blank');
+        }
     });
     this.listenTo(this, 'DownloadModal:onSuccess',function(url){
       self.views.modalDownloadView.show(url);

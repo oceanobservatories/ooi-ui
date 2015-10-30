@@ -733,6 +733,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/science/AcousticDataModel.js',
             'ooiui/static/js/models/science/SeriesModel.js',
+            'ooiui/static/js/models/common/DataSubscriptionModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -1130,6 +1131,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/science/AcousticDataModel.js',
+            'ooiui/static/js/models/common/DataSubscriptionModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
