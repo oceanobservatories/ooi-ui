@@ -177,110 +177,153 @@ var AssetCreatorModalView = ParentAssetView.extend({
     setupFields: function() {
         this.$el.find('#assetLaunchDate').datepicker();
     },
+
+
+    //Get the values of all of the input fields and return an object representing the data.
+    getFields: function(){
+        var fields = {};
+        var body = this.$el.find('.model-body');
+        var inputs = body.find('input');
+        for (var i = 0; i < inputs.length; i++){
+            var input = inputs[i];
+            fields[input.attr('id')] = input.val();
+        }
+        var selectInputs = body.find('select');
+        for (var i = 0; i < selectInputs.length; i++){
+            var select = selectInputs[i];
+            fields[select.attr('id')] = select.val()
+        }
+        return fields;
+    },
+
     validateFields: function() {
+        var fields = this.getFields();
+        
+        //Given a list of keys, get the corresponding fields.
+        var getFieldsForKeys = function(keys){
+            var resFields = [];
+            for(var i = 0; i < keys.length; i++){
+                resFields.push(fields[keys[i]]);
+            }
+            return resFields;
+        }
+
+         //Given a list and a validation function, this function validates each entry and returns a list of invalid entries. 
+        var validateList = function(list, validationFunction, regex){
+            var invalid = [];
+            for(var i = 0; i < list.length; i++){
+                var validationResult = validationFunction(list[i], regex);
+                if(validationResult === false){
+                    invalid.push(list[i]);
+                }
+            }
+            return invalid;
+         }
+
+        //Fields that need basic string validation. 
+        var basicValidation = getFieldsForKeys(["assetName", "assetOwner", "assetDescripion", "assetType"]); 
+        
+        //Validate the Basic validation fields.
+        validatelist(basicValidation, function(string){
+            if(string===undefined)return false;
+            return !!string.match("[A-Z]|[a-z]|-|[0-9]");
+        });
+
+        var capitol
+
         /* TODO:
-         * 1. assetInfo: Required (all)
-         *      a. name: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      b. owner: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      c. description: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      d. type: Selected
-         * 2. manufactureInfo: Optional (all)
-         *      a. manufacturer: Valid Char ( - , A-Z , a-z )
-         *      b. modelNumber:  Valid Char ( - , A-Z , 0-9 )
-         *      c. serialNumber:  Valid Char ( - , A-Z , 0-9)
-         * 3. metaData: Required (all)
-         *      a. Ref Des: Valid Char ( - , A-Z , 0-9 )
-         *      b. Anchor Launch Date: Not future.
-         *      c. Anchor Launch Time: 24hr format, not future.
-         *      d. Latitude: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
-         *      e. Longitutde: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
-         *          - Actually map the input and return approx location
-         *            below input fields (non modifiable text field).
-         *      f. Water Depth: Valid Char ( m, 0-9 )
-         * 4. assetClassCode: String Length, Valid Char (A-Z, 0-9)
-         * 5. assetNotes: Valid Char (A-Z, a-z, 0-9, . , (comma) , - )
-         * 6. purchaseAndDeliveryInfo: Valid Char (A-Z, a-z, 0-9, . , (comma) , - , $ )
-         * 7. assetClass: Selected
-         * 8. assetSeriesClassification: <Unknown> ... leave out for now.
-         *
-         * Once Complete, change 'events:'
-         *  from:
-         *      "click button#save" : "save"
-         *  to:
-         *      "click button#save" : "validate",
-         *
-         * Then call this.save() at the successful validation.
-         */
+             * 1. assetInfo: Required (all)
+             *      a. name: Valid Char ( - , A-Z , a-z , 0-9 )
+             *      b. owner: Valid Char ( - , A-Z , a-z , 0-9 )
+             *      c. description: Valid Char ( - , A-Z , a-z , 0-9 )
+             *      d. type: Selected
+             * 2. manufactureInfo: Optional (all)
+             *      a. manufacturer: Valid Char ( - , A-Z , a-z )
+             *      b. modelNumber:  Valid Char ( - , A-Z , 0-9 )
+             *      c. serialNumber:  Valid Char ( - , A-Z , 0-9)
+             * 3. metaData: Required (all)
+             *      a. Ref Des: Valid Char ( - , A-Z , 0-9 )
+             *      b. Anchor Launch Date: Not future.
+             *      c. Anchor Launch Time: 24hr format, not future.
+             *      d. Latitude: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
+             *      e. Longitutde: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
+             *          - Actually map the input and return approx location
+             *            below input fields (non modifiable text field).
+             *      f. Water Depth: Valid Char ( m, 0-9 )
+             * 4. assetClassCode: String Length, Valid Char (A-Z, 0-9)
+             * 5. assetNotes: Valid Char (A-Z, a-z, 0-9, . , (comma) , - )
+             * 6. purchaseAndDeliveryInfo: Valid Char (A-Z, a-z, 0-9, . , (comma) , - , $ )
+             * 7. assetClass: Selected
+             * 8. assetSeriesClassification: <Unknown> ... leave out for now.
+             *
+             * Once Complete, change 'events:'
+             *  from:
+             *      "click button#save" : "save"
+             *  to:
+             *      "click button#save" : "validate",
+             *
+             * Then call this.save() at the successful validation.
+             */
     },
     save: function() {
-        // TODO: This entire function should be called
-        // on a successful form validation.  A refactor will be
-        // required to implement.
-        var assetInfo = {};
-        assetInfo.name = this.$el.find('#assetName').val();
-        assetInfo.owner = this.$el.find('#assetOwner').val();
-        assetInfo.description = this.$el.find('#assetDescription').val();
-        assetInfo.type = this.$el.find('#assetType').val();
+        //TODO: make sure that this gets validated.
+        var fields = this.getFields();
 
-        // For now, this dict isn't implemented due to issues with uframe's
-        // acceptance of this data.
-        var manufactureInfo = {};
-        manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
-        manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
-        manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
-        var remoteDocuments = [];
+
         // The metaData field is very loosly defined.  These are the only
         // field supported for asset creation at this time.
         var metaData = [
         {
             "key": "Ref Des",
-            "value": this.$el.find('#assetRefDes').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Anchor Launch Date",
-            "value": this.$el.find('#assetLaunchDate').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Anchor Launch Time",
-            "value": this.$el.find('#assetLaunchTime').val(),
+            "value": fields.assetRefDes,
             "type": "java.lang.String"
         },
         {
             "key": "Latitude",
-            "value": this.$el.find('#assetLatitude').val(),
+            "value": fields.assetLatitude,
             "type": "java.lang.String"
         },
         {
             "key": "Longitude",
-            "value": this.$el.find('#assetLongitude').val(),
+            "value": fields.assetLongitude,
             "type": "java.lang.String"
         },
         {
             "key": "Water Depth",
-            "value": this.$el.find('#assetDepth').val(),
+            "value": fields.assetDepth
             "type": "java.lang.String"
         }];
 
         var coordinates = [
-            this.$el.find('#assetLatitude').val(), this.$el.find('#assetLongitude').val()
+            fields.assetLatitude, fields.assetLongitude
         ]
         // Create the new asset model that will be saved to the collection,
         // and posted to the server.
         var newAsset = new AssetModel({});
-        newAsset.set('assetInfo', assetInfo);
-        newAsset.set('asset_class', this.$el.find('#assetClass').val());
-        newAsset.set('manufactureInfo', manufactureInfo);
-        newAsset.set('notes', [ this.$el.find('#assetNotes').val() ]);
-//        newAsset.set('purchaseAndDeliveryInfo', this.$el.find('#assetPurchaseAndDeliveryInfo').val());
+       
+        newAsset.set('asset_class', fields.assetClass);
+        newAsset.set('assetInfo', {
+            type: fields.assetType,
+            owner: fields.assetOwner,
+            description: fields.assetDescription,
+            instrumentClass: fields.assetInstrumentClass
+        });
+        newAsset.set('manufactureInfo', {
+            serialNumber: fields.serialNumber,
+            manufacturer: fields.manufacturer,
+            modelNumber: fields.modelNumber
+        });
+        newAsset.setPhysicalInfo('physicalInfo', fields.assetPhysicalInfo);
+        newAsset.set('purchaseAndDeliveryInfo' {
+            purchaseOrder: fields.purchaseOrder,
+            purchaseDate: fields.purchaseDate,
+            purchaseCost: fields.purchaseCost,
+            deliveryOrder: fields.deliveryOrder,
+            deliveryDate: fields.deliveryDate
+        });
+        newAsset.set('notes', fields.assetNotes);
 
-        newAsset.set('purchaseAndDeliveryInfo', null);
         newAsset.set('metaData', metaData);
-        newAsset.set('classCode', this.$el.find('#assetClassCode').val());
-        newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
-        newAsset.set('ref_des', this.$el.find('#assetRefDes').val());
-        newAsset.set('coordinates', coordinates);
         newAsset.set('events', []);
         newAsset.save(null, {
             success: function(model, response){
