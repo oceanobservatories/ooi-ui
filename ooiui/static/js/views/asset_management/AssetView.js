@@ -6,13 +6,20 @@ var ParentAssetView = Backbone.View.extend({
      *  - derender()
      */
     initialize: function() {
-        _.bindAll(this, 'render', 'derender');
+        "use strict";
+        _.bindAll(this, 'render', 'derender', 'loadControls');
     },
     render: function() {
+        "use strict";
         if (this.model) { this.$el.html(this.template(this.model.toJSON())) } else { this.$el.html(this.template())};
+        this.loadControls();
         return this;
     },
+    loadControls: function() {
+        "use strict";
+    },
     derender: function() {
+        "use strict";
         this.remove();
         this.unbind();
         this.model.off();
@@ -168,7 +175,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'save', 'cancel', 'setupFields', 'validateFields');
+        _.bindAll(this, 'save', 'cancel', 'setupFields', 'validateFields', 'getFields');
     },
     events: {
         "click button#cancel" : "cancel",
@@ -177,28 +184,34 @@ var AssetCreatorModalView = ParentAssetView.extend({
     setupFields: function() {
         this.$el.find('#assetLaunchDate').datepicker();
     },
-
+    loadControls: function() {
+        this.$el.find('.modal-footer').append('<button id="cancel" type="button" class="btn btn-default">Cancel</button>')
+                                      .append('<button id="save" type="button" class="btn btn-primary">Save</button>');
+    },
 
     //Get the values of all of the input fields and return an object representing the data.
     getFields: function(){
-        var fields = {};
-        var body = this.$el.find('.model-body');
-        var inputs = body.find('input');
-        for (var i = 0; i < inputs.length; i++){
-            var input = inputs[i];
-            fields[input.attr('id')] = input.val();
+        "use strict";
+        var fields = {},
+            inputs = this.$el.find('input'),
+            selectInputs = this.$el.find('select');
+
+        for (var i = 0, input; i < inputs.length; i++){
+            input = $(inputs[i]);
+            fields[$(inputs[i]).attr('id')] = $(inputs[i]).val();
         }
-        var selectInputs = body.find('select');
-        for (var i = 0; i < selectInputs.length; i++){
-            var select = selectInputs[i];
-            fields[select.attr('id')] = select.val()
+
+        for (var i = 0, select; i < selectInputs.length; i++){
+            select = $(selectInputs[i]);
+            fields[select.attr('id')] = select.val();
         }
+
         return fields;
     },
 
     validateFields: function() {
         var fields = this.getFields();
-        
+
         //Given a list of keys, get the corresponding fields.
         var getFieldsForKeys = function(keys){
             var resFields = [];
@@ -208,7 +221,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
             return resFields;
         }
 
-         //Given a list and a validation function, this function validates each entry and returns a list of invalid entries. 
+         //Given a list and a validation function, this function validates each entry and returns a list of invalid entries.
         var validateList = function(list, validationFunction, regex){
             var invalid = [];
             for(var i = 0; i < list.length; i++){
@@ -220,16 +233,14 @@ var AssetCreatorModalView = ParentAssetView.extend({
             return invalid;
          }
 
-        //Fields that need basic string validation. 
-        var basicValidation = getFieldsForKeys(["assetName", "assetOwner", "assetDescripion", "assetType"]); 
-        
+        //Fields that need basic string validation.
+        var basicValidation = getFieldsForKeys(["assetName", "assetOwner", "assetDescripion", "assetType"]);
+
         //Validate the Basic validation fields.
         validatelist(basicValidation, function(string){
             if(string===undefined)return false;
             return !!string.match("[A-Z]|[a-z]|-|[0-9]");
         });
-
-        var capitol
 
         /* TODO:
              * 1. assetInfo: Required (all)
@@ -290,7 +301,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
         },
         {
             "key": "Water Depth",
-            "value": fields.assetDepth
+            "value": fields.assetDepth,
             "type": "java.lang.String"
         }];
 
@@ -300,7 +311,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
         // Create the new asset model that will be saved to the collection,
         // and posted to the server.
         var newAsset = new AssetModel({});
-       
+
         newAsset.set('asset_class', fields.assetClass);
         newAsset.set('assetInfo', {
             type: fields.assetType,
@@ -313,18 +324,16 @@ var AssetCreatorModalView = ParentAssetView.extend({
             manufacturer: fields.manufacturer,
             modelNumber: fields.modelNumber
         });
-        newAsset.setPhysicalInfo('physicalInfo', fields.assetPhysicalInfo);
-        newAsset.set('purchaseAndDeliveryInfo' {
-            purchaseOrder: fields.purchaseOrder,
-            purchaseDate: fields.purchaseDate,
-            purchaseCost: fields.purchaseCost,
-            deliveryOrder: fields.deliveryOrder,
-            deliveryDate: fields.deliveryDate
+        //newAsset.set('physicalInfo', fields.assetPhysicalInfo);
+        newAsset.set('purchaseAndDeliveryInfo', {
+            purchaseOrder: fields.purchaseOrder || null,
+            purchaseDate: fields.purchaseDate || null,
+            purchaseCost: fields.purchaseCost || null,
+            deliveryOrder: fields.deliveryOrder || null,
+            deliveryDate: fields.deliveryDate || null
         });
-        newAsset.set('notes', fields.assetNotes);
-
         newAsset.set('metaData', metaData);
-        newAsset.set('events', []);
+        console.log(newAsset);
         newAsset.save(null, {
             success: function(model, response){
                 vent.trigger('asset:changeCollection');
@@ -355,7 +364,7 @@ var AssetEditorModalView = ParentAssetView.extend({
      * - destory() ... This will delete an asset...beware!
      * - cleanUp()
      */
-    template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
+    template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
         _.bindAll(this, 'cancel', 'submit', 'destroy', 'validateFields');
     },
@@ -367,6 +376,12 @@ var AssetEditorModalView = ParentAssetView.extend({
     validateFields: function() {
 
     },
+    loadControls: function() {
+        "use stict";
+        this.$el.find('.modal-footer').append('<button id="delete" type="button" class="btn btn-danger">Delete</button>')
+                                      .append('<button id="cancelEdit" type="button" class="btn btn-default">Cancel</button>')
+                                      .append('<button id="saveEdit" type="button" class="btn btn-primary">Save</button>');;
+    },
     submit: function() {
         var assetInfo = this.model.get('assetInfo');
         assetInfo.name = this.$el.find('#assetName').val();
@@ -377,7 +392,6 @@ var AssetEditorModalView = ParentAssetView.extend({
         this.model.set('assetId', this.model.get('id'));
         this.model.set('notes', [ this.$el.find('#assetNotes').val() ]);
         this.model.set('asset_class', this.$el.find('#assetClass').val());
-        this.model.set('classCode', this.$el.find('#assetClassCode').val());
         this.model.set('assetInfo', assetInfo);
         this.model.save(null, {
             success: function(model, response){
