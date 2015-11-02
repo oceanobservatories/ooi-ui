@@ -12,32 +12,31 @@
 var AssetModel = Backbone.Model.extend({
   urlRoot: '/api/asset_deployment',
   defaults: {
-        id: null,
-  	    assetInfo: {
-            description: null,
-            name: null,
-            longName: null,
-            owner: null,
-            type: null,
-            array: null,
-            assembly: null
-		},
-		attachments: [],
-        asset_class: null,
-        manufactureInfo: {
-            manufacturer: null,
-            modelNumber: null,
-            serialNumber: ""
-        },
-        notes: [""],
-        physicalInfo: null,
-        purchaseAndDeliveryInfo: null,
-        lastModifiedTimestamp: null,
-        metaData: [],
-        classCode: null,
-        seriesClassification: null,
-          remoteDocuments: []
-  	},
+      asset_class : null,
+      metaData : [],
+      remoteDocuments : [ ],
+      assetInfo : {
+        type : null,
+        owner : null,
+        description : null,
+        instrumentClass : null
+      },
+      manufactureInfo : {
+        serialNumber : null,
+        manufacturer : null,
+        modelNumber : null
+      },
+      physicalInfo : null,
+      purchaseAndDeliveryInfo : {
+        purchaseOrder : null,
+        purchaseDate : null,
+        purchaseCost : null,
+        deliveryOrder : null,
+        deliveryDate : null
+      },
+      dataSource : null,
+      lastModifiedTimestamp : null
+    },
     toJSON: function() {
         "use strict";
         var attrs = _.clone(this.attributes);

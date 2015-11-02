@@ -5,12 +5,6 @@
         </div>
         <form class="form-horizontal">
             <div class="modal-body">
-<!--                <div class="form-group">
-                    <label for="assetName" class="col-md-2 control-label" disabled>Name</label>
-                    <div class="col-md-9">
-                        <input id="assetName" type="text" class="form-control" placeholder="Asset Name">
-                    </div>
-                </div>-->
                 <div class="form-group">
                     <label for="assetDescription" class="col-md-2 control-label">Description</label>
                     <div class="col-md-9">
@@ -44,9 +38,69 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="assetClassCode" class="col-md-2 control-label">Class Code</label>
+                    <label for="assetPhysicalInfo" class="col-md-2 control-label">Physical Info</label>
                     <div class="col-md-4">
-                        <input id="assetClassCode" type="text" class="form-control">
+                        <input id="assetPhysicalInfo" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assetInstrumentClass" class = "col-md-2 control-label">Asset Instrument Class</label>
+                    <div class="col-md-4">
+                        <input id="assetInstrumentClass" type="text" class="form-control">
+                    </div>
+                </div>
+                <div>
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <label for= "serialNumber" class = "col-md-4 control-label">Serial Number</label>
+                    <div class = "col-md-7">
+                        <input id="serialNumber" type = "text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for= "manufacturer" class = "col-md-4 control-label">Manufacturer</label>
+                    <div class = "col-md-7">
+                        <input id="manufacturer" type = "text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for= "modelNumber" class = "col-md-4 control-label">Model Number</label>
+                    <div class = "col-md-7">
+                        <input id="modelNumber" type = "text" class="form-control">
+                    </div>
+                </div>
+                <div>
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseOrder" class = "col-md-4 control-label">Purchase Order</label>
+                    <div class="col-md-7">
+                        <input id="purchaseOrder" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseDate" type="text" class="col-md-4 control-label">Purchase Date</label>
+                    <div class="col-md-7">
+                        <input id="purchaseDate" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class = "form-group">
+                    <label for="purchaseCost" type="text" class="col-md-4 control-label">Purchase Cost</label>
+                    <div class="col-md-7">
+                        <input id="purchaseCost" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryOrder" type="text" class="col-md-4 control-label">Delivery Order</label>
+                    <div class="col-md-7">
+                        <input id="deliveryOrder" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryDate" type="text" class="col-md-4 control-label">Delivery Date</label>
+                    <div class="col-md-7">
+                        <input id="deliveryDate" type="text" class="form-control">
                     </div>
                 </div>
                 <div>
@@ -108,8 +162,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="cancel" type="button" class="btn btn-default">Cancel</button>
-                <button id="save" type="button" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
