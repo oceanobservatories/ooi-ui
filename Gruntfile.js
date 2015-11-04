@@ -429,7 +429,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
-          ],          
+          ],
           "ooiui/static/js/partials/compiled/c2.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
@@ -1379,7 +1379,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             "ooiui/static/js/views/common/BannerView.js",
-            "ooiui/static/js/views/c2/MissionTableView.js",      
+            "ooiui/static/js/views/c2/MissionTableView.js",
           ],
           'ooiui/static/js/compiled/missionLoad.js' : [
             // Libs
@@ -1403,15 +1403,15 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/NavbarView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            "ooiui/static/js/views/common/BannerView.js",   
-            "ooiui/static/js/views/c2/MissionTableView.js",   
+            "ooiui/static/js/views/common/BannerView.js",
+            "ooiui/static/js/views/c2/MissionTableView.js",
           ],
           'ooiui/static/js/compiled/asset_management.js' : [
           //   // Libs
           //   'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
           //   'ooiui/static/lib/underscore/underscore.js',
           //   'ooiui/static/lib/backbone/backbone.js',
-          //   'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+          'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
           //   'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
           //   'ooiui/static/lib/moment/moment.js',
           //   // App

@@ -42,6 +42,16 @@ var AssetModel = Backbone.Model.extend({
         var attrs = _.clone(this.attributes);
         attrs.assetId = attrs.id;
         return attrs;
+    },
+    validation: {
+      "asset_class": { required: true },
+      "assetInfo.type" : { required: true },
+      "assetInfo.owner" : { required: true },
+      "assetInfo.description" : { required: true },
+      "assetInfo.instrumentClass" : { required: true },
+      "manufactureInfo.serialNumber" : { required: true },
+      "manufactureInfo.manufacturer" : { required: true },
+      "manufactureInfo.modelNumber" : { required: true }
     }
 });
 

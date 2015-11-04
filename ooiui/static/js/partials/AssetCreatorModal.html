@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label for="assetDescription" class="col-md-2 control-label">Description</label>
                     <div class="col-md-9">
-                        <input id="assetDescription" type="text" class="form-control" placeholder="Asset Description">
+                        <input id="assetDescription" type="text" minlength="2" class="form-control" placeholder="Asset Description">
                     </div>
                 </div>
                 <div class="form-group">
@@ -24,8 +24,8 @@
                             <option value="" selected>--</option>
                             <option value="Sensor">Sensor</option>
                             <option value="Mooring">Mooring</option>
-                            <option value="Wind Turbine">Wind Turbine</option>
-                            <option value="XEOS">XEOS</option>
+                            <option value="Node">Node</option>
+                            <ooption value="Other">Other</option>
                         </select>
                     </div>
                     <label for="assetClass" class="col-md-2 control-label">Class</label>
@@ -35,12 +35,6 @@
                             <option value=".AssetRecord">Asset Record</option>
                             <option value=".InstrumentAssetRecord">Instrument Asset Record</option>
                         </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetPhysicalInfo" class="col-md-2 control-label">Physical Info</label>
-                    <div class="col-md-4">
-                        <input id="assetPhysicalInfo" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,37 +67,19 @@
                 <div>
                     <hr/>
                 </div>
-                <div class="form-group">
-                    <label for="purchaseOrder" class = "col-md-4 control-label">Purchase Order</label>
+                <div class="form-group po-item">
+                    <label for="purchaseOrder" class="col-md-4 control-label">Purchase Order</label>
                     <div class="col-md-7">
-                        <input id="purchaseOrder" type="text" class="form-control">
+                        <textarea disabled id="purchaseOrder" type="text" class="form-control"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="purchaseDate" type="text" class="col-md-4 control-label">Purchase Date</label>
-                    <div class="col-md-7">
-                        <input id="purchaseDate" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class = "form-group">
-                    <label for="purchaseCost" type="text" class="col-md-4 control-label">Purchase Cost</label>
-                    <div class="col-md-7">
-                        <input id="purchaseCost" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
+                <div class="form-group po-item">
                     <label for="deliveryOrder" type="text" class="col-md-4 control-label">Delivery Order</label>
                     <div class="col-md-7">
-                        <input id="deliveryOrder" type="text" class="form-control">
+                        <textarea disabled id="deliveryOrder" type="text" class="form-control"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="deliveryDate" type="text" class="col-md-4 control-label">Delivery Date</label>
-                    <div class="col-md-7">
-                        <input id="deliveryDate" type="text" class="form-control">
-                    </div>
-                </div>
-                <div>
+                <div class="po-item">
                     <hr/>
                 </div>
                 <div class="form-group">
@@ -114,24 +90,6 @@
                 </div>
                 <div>
                     <hr/>
-                </div>
-                <div class="form-group">
-                    <label for="assetLaunchDate" class="col-md-3 control-label">Launch Date</label>
-                    <div class="col-md-6">
-                        <input id="assetLaunchDate" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetLaunchTime" class="col-md-3 control-label">Launch Time</label>
-                    <div class="col-md-6">
-                        <input id="assetLaunchTime" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetDeploymentNum" class="col-md-3 control-label">Deployment#</label>
-                    <div class="col-md-3">
-                        <input id="assetDeploymentNum" type="text" class="form-control">
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="assetLatitude" class="col-md-3 control-label">Latitude</labeL>
@@ -153,12 +111,6 @@
                 </div>
                 <div>
                     <hr/>
-                </div>
-                <div class="form-group">
-                    <label for="assetNotes" class="col-md-3 control-label">Notes</label>
-                    <div class="col-md-6">
-                        <textarea id="assetNotes" class="form-control" rows="3"></textarea>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
