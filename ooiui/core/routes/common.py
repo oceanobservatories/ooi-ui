@@ -207,14 +207,21 @@ def ticket_roles():
 
 
 @app.route('/api/subscription', methods=['POST'])
-def subscription_post():    
-    headers = {'Content-Type': 'application/json','content-type': 'application/json'}
-    response = requests.post(app.config['SUBSCRIPTION_SERVER']+'/subscription', data=request.data, headers=headers)
+def subscription_post():
+    headers = {'Content-Type': 'application/json'}
+    token = get_login()
+    response = requests.post(app.config['SERVICES_URL']+'/uframe/subscription', data=request.data, headers=headers,auth=(token,''))
     return response.text, response.status_code
 
 @app.route('/api/subscription', methods=['GET'])
 def subscription_get():
-    response = requests.get(app.config['SUBSCRIPTION_SERVER']+'/subscription', params=request.args)
+    response = requests.get(app.config['SERVICES_URL']+'/uframe/subscription', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/subscription/<int:id>', methods=['DELETE'])
+def subscription_delete(id):
+    token = get_login()
+    response = requests.delete(app.config['SERVICES_URL']+'/uframe/subscription/'+str(id), params=request.args,auth=(token,''))
     return response.text, response.status_code
 
 @app.route('/api/login', methods=['POST'])

@@ -95,7 +95,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //reset the subscriptions
     self.collections.subscriptionCollection.fetch({ reset: true });
     this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
-      //console.log('ready...',self.collections.subscriptionCollection);      
+      //console.log('ready...',self.collections.subscriptionCollection);
     });
 
     this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
@@ -184,10 +184,10 @@ _.extend(OOI.prototype, Backbone.Events, {
 
           var hasSubscribed = false;
         //for email address
-          var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});      
+          var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
           //for selected item
           var currentStream = options.model.get('stream_name');
-          var currentRef = options.model.get('ref_des');      
+          var currentRef = options.model.get('ref_des');
           //loop over and compare, only if telemetered
           if (currentStream.split('_')[0] == 'telemetered'){
             _.each(availSubs,function(sub){
@@ -195,6 +195,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
               if (streamName == currentStream && refDes == currentRef){
                 hasSubscribed = true;
+                options.model.set('subscriptionModel',sub);
               }
             });
           }

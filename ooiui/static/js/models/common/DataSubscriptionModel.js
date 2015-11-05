@@ -12,18 +12,22 @@ var DataSubscriptionModel = Backbone.Model.extend({
     "@class" : ".SensorSubscriptionRecord",
     "method" : null,
     "format" : "application/netcdf",
-    "enabled" : true,    
+    "enabled" : true,
     "userName" : "subscription",
     "stream" : null,
     "interval" : 24,
+    "subscriptionId":null,
     "referenceDesignator" : {
         "node" : null,
         "full" : true,
         "subsite" : null,
         "sensor" : null
-    },    
+    },
     "email" : null,
     "lastrun" : null
+    },
+    initialize: function () {
+        this.set('id', this.attributes.subscriptionId);
     }
 });
 

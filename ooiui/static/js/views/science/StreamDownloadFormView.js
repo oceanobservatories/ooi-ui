@@ -38,39 +38,61 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   onSubscribeSelect:function(ev){
     var self = this;
+    //disable it
     this.$el.find('#subscription-selection-select').attr('disabled','disabled');
-    try{
-      var subscribeModel = new DataSubscriptionModel({});
-      var stream_names = self.model.get('stream_name').split('_');
-      var refParts = self.model.get('ref_des').split('-');
-      if (stream_names.length == 2 && refParts.length == 4){
-        subscribeModel.set('stream',stream_names[1].replace(/-/g,"_"));      
-        subscribeModel.set('method',stream_names[0]);      
-        subscribeModel.set('email',self.model.get('email'))        
-        
-        subscribeModel.attributes.referenceDesignator.node = refParts[0];
-        subscribeModel.attributes.referenceDesignator.subsite = refParts[1];
-        subscribeModel.attributes.referenceDesignator.sensor = refParts[2] +"-"+ refParts[3];
+    if (!this.model.get('subscriptionEnabled')){
+      //try and add subscription
+      try{
+        var subscribeModel = new DataSubscriptionModel({});
+        var stream_names = self.model.get('stream_name').split('_');
+        var refParts = self.model.get('ref_des').split('-');
+        if (stream_names.length == 2 && refParts.length == 4){
+          subscribeModel.set('stream',stream_names[1].replace(/-/g,"_"));
+          subscribeModel.set('method',stream_names[0]);
+          subscribeModel.set('email',self.model.get('email'))
 
-        subscribeModel.save(null, {
-          success: function() {                      
-            self.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
-            self.$el.find('#subscription-selection-icon').addClass('fa-heart');
-            ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
-            //SAVED!
-          },
-          error: function(model, response) {
-            console.error('ERROR:',response);
-            self.$el.find('#subscription-selection-select').attr('disabled',null);
-          }
-        });
-      }else{
-        console.error("ERROR:", "setting model");
+          subscribeModel.attributes.referenceDesignator.node = refParts[0];
+          subscribeModel.attributes.referenceDesignator.subsite = refParts[1];
+          subscribeModel.attributes.referenceDesignator.sensor = refParts[2] +"-"+ refParts[3];
+
+          subscribeModel.save(null, {
+            success: function() {
+              self.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
+              self.$el.find('#subscription-selection-icon').addClass('fa-heart');
+              self.model.set('subscriptionModel',subscribeModel);
+              self.model.set('subscriptionEnabled',true);
+              self.$el.find('#subscription-selection-select').attr('disabled',null);
+              ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
+            },
+            error: function(model, response) {
+              console.error('ERROR:',response);
+              self.$el.find('#subscription-selection-select').attr('disabled',null);
+            }
+          });
+        }else{
+          console.error("ERROR:", "setting model");
+          self.$el.find('#subscription-selection-select').attr('disabled',null);
+        }
+      }catch(e){
+        console.error("ERROR:", e);
         self.$el.find('#subscription-selection-select').attr('disabled',null);
       }
-    }catch(e){
-      console.error("ERROR:", e);
-      self.$el.find('#subscription-selection-select').attr('disabled',null);
+    }else{
+      //remove subscription
+      self.model.get('subscriptionModel').destroy({
+        success: function() {
+          self.$el.find('#subscription-selection-icon').removeClass('fa-heart');
+          self.$el.find('#subscription-selection-icon').addClass('fa-heart-o');
+          self.model.set('subscriptionEnabled',false);
+          self.$el.find('#subscription-selection-select').attr('disabled',null);
+          ooi.trigger('StreamDownloadFormView:resetSubscriptionCollection', null);
+        },
+        error: function(model, response) {
+          console.error('ERROR:',response);
+          //once its set, re-enable it
+          self.$el.find('#subscription-selection-select').attr('disabled',null);
+        }
+      });
     }
   },
   timeRangeChange: function() {
@@ -197,7 +219,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = moment.utc(model.get('end')).toJSON();
 
     this.$start_date_picker.setDate(startDate);
-    this.$end_date_picker.setDate(endDate);    
+    this.$end_date_picker.setDate(endDate);
 
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
@@ -219,7 +241,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     if (model.get('subscriptionEnabled')){
       this.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
       this.$el.find('#subscription-selection-icon').addClass('fa-heart');
-      this.$el.find('#subscription-selection-select').attr('disabled','disabled');
+      //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
     }
 
 

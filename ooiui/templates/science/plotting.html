@@ -274,7 +274,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //reset the subscriptions
     self.collections.subscriptionCollection.fetch({ reset: true });
     this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
-      //console.log('ready...',self.collections.subscriptionCollection);      
+      //console.log('ready...',self.collections.subscriptionCollection);
     });
 
     //--------------------------------------------------------------------------------
@@ -481,7 +481,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
 
               if (variable.toLowerCase() != "time" && validUnits){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && 
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
@@ -843,7 +843,6 @@ _.extend(OOI.prototype, Backbone.Events, {
   this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
     self.collections.subscriptionCollection.fetch({ reset: true });
   });
-  
 
   this.listenTo(this, 'ooi:downloadData', function() {
     //user needs to be logged in
@@ -858,10 +857,10 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       var hasSubscribed = false;
       //for email address
-      var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});      
+      var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
       //for selected item
       var currentStream = self.models.downloadModel.model.get('stream_name');
-      var currentRef = self.models.downloadModel.model.get('ref_des');      
+      var currentRef = self.models.downloadModel.model.get('ref_des');
       //loop over and compare, only if telemetered
       if (currentStream.split('_')[0] == 'telemetered'){
         _.each(availSubs,function(sub){
@@ -869,6 +868,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
           if (streamName == currentStream && refDes == currentRef){
             hasSubscribed = true;
+            self.models.downloadModel.model.set('subscriptionModel',sub);
           }
         });
       }
@@ -878,10 +878,9 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else{
         self.models.downloadModel.model.set('subscriptionEnabled', false);
       }
-    
       self.views.streamDownloadFormView.show(self.models.downloadModel);
     }
-    
+
   });
 
   this.listenTo(this, 'DownloadModal:onSuccess',function(url){
