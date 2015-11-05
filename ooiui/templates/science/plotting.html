@@ -411,12 +411,9 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
-              var validUnits = false;
-              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
-                validUnits = true
-              }
-              if (variable.toLowerCase().indexOf("sal") > -1){
-                validUnits = true;
+              var validUnits = true;
+              if (units.toLowerCase().indexOf("seconds since") > -1){
+                validUnits = false
               }
 
               if (variable.indexOf("_timestamp") == -1 && validUnits){
@@ -465,16 +462,13 @@ _.extend(OOI.prototype, Backbone.Events, {
 
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
-              var validUnits = false;
-              if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
-                validUnits = true
-              }
-              if (variable.toLowerCase().indexOf("sal") > -1){
-                validUnits = true;
+              var validUnits = true;
+              if (units.toLowerCase().indexOf("seconds since") > -1){
+                validUnits = false
               }
 
               if (variable.toLowerCase() != "time" && validUnits){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && 
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
