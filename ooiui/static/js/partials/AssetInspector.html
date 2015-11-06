@@ -38,8 +38,8 @@
                     <dd><%= assetInfo.type %></dd>
                 </dl>
                 <dl class="dl-horizontal">
-                    <dt>Class</dt>
-                    <dd><%= asset_class %></dd>
+                    <dt>Instrument Class</dt>
+                    <dd><%= assetInfo.instrumentClass %></dd>
                 </dl>
             </div>
             <div role="tabpanel" class="tab-pane" id="metaData">
@@ -83,84 +83,85 @@
             <div role="tabpanel" class="tab-pane" id="assetAquisitionInfo">
                 <dl>
                     <dt>Manufacture Information</dt>
-                    <dd>
-                        <% if ( manufactureInfo.manufacturer ) { %>
+                    <% if (manufactureInfo !== null) { %>
+                        <dd>
+                            <% if ( manufactureInfo.manufacturer ) { %>
+                                <dl class="dl-horizontal">
+                                    <dt> Manufacturer: </dt>
+                                    <dd>
+                                    <%=  manufactureInfo.manufacturer %>
+                                    </dd>
+                                </dl>
+                            <% } %>
+                            <% if ( manufactureInfo.modelNumber ) { %>
+                                <dl class="dl-horizontal">
+                                    <dt> Model #: </dt>
+                                    <dd>
+                                    <%=  manufactureInfo.modelNumber %>
+                                    </dd>
+                                </dl>
+                            <% } %>
+                            <% if ( manufactureInfo.serialNumber ) { %>
+                                <dl class="dl-horizontal">
+                                    <dt> S/N : </dt>
+                                    <dd>
+                                    <%=  manufactureInfo.serialNumber %>
+                                    </dd>
+                                </dl>
+                            <% } %>
+                        </dd>
+                        <% } else { %>
                             <dl class="dl-horizontal">
-                                <dt> Manufacturer: </dt>
-                                <dd>
-                                <%=  manufactureInfo.manufacturer %>
-                                </dd>
+                                Data source does not contain manufacture information.
                             </dl>
                         <% } %>
-                        <% if ( manufactureInfo.modelNumber ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> Model #: </dt>
-                                <dd>
-                                <%=  manufactureInfo.modelNumber %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                        <% if ( manufactureInfo.serialNumber ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> S/N : </dt>
-                                <dd>
-                                <%=  manufactureInfo.serialNumber %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                    </dd>
                 </dl>
                 <dl>
-                    <dt>Purchase and Delivery Information</dt>
-                    <dd>
-                        <% if (purchaseAndDeliveryInfo.purchaseOrderNumber ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> PO #: </dt>
-                                <dd>
-                                <%= purchaseAndDeliveryInfo.purchaseOrderNumber %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                        <% if (purchaseAndDeliveryInfo.purchaseCost ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> Cost: </dt>
-                                <dd>
-                                <%= purchaseAndDeliveryInfo.purchaseCost %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                        <% if (purchaseAndDeliveryInfo.purchaseDate ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> PO Date: </dt>
-                                <dd>
-                                <%= purchaseAndDeliveryInfo.purchaseDate %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                        <% if (purchaseAndDeliveryInfo.deliveryOrderNumber || purchaseAndDeliveryInfo.deliveryDat) { %>
-                        <hr>
-                        <% } %>
-                        <% if (purchaseAndDeliveryInfo.deliveryOrderNumber ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> Delivery Order #: </dt>
-                                <dd>
-                                <%= purchaseAndDeliveryInfo.deliveryOrderNumber %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                        <% if (purchaseAndDeliveryInfo.deliveryDate ) { %>
-                            <dl class="dl-horizontal">
-                                <dt> Delivery Date: </dt>
-                                <dd>
-                                <%= Date(purchaseAndDeliveryInfo.deliveryDate) %>
-                                </dd>
-                            </dl>
-                        <% } %>
-                    </dd>
+                    <dt>Purchase Information</dt>
+                    <% if (purchaseAndDeliveryInfo.purchaseOrder) { %>
+                        <dd>
+                        <% var poInfo = (function() {
+                           var tempArray = [
+                                'Label: ' + purchaseAndDeliveryInfo.purchaseOrder.label,
+                                'Remote Resource ID: ' + purchaseAndDeliveryInfo.purchaseOrder.remoteResourceId,
+                                'Resouce #:' + purchaseAndDeliveryInfo.purchaseOrder.resourceNumber,
+                                'URL: ' + purchaseAndDeliveryInfo.purchaseOrder.url,
+                                'Data Source: ' + purchaseAndDeliveryInfo.purchaseOrder.dataSource,
+                                'PO Date: ' + purchaseAndDeliveryInfo.purchaseDate,
+                                'PO Cost: ' + purchaseAndDeliveryInfo.purchaseCost
+                            ];
+                                return tempArray.join('<br>');
+                        })()%>
+                        <%= poInfo %>
+                        </dd>
+                    <% } else { %>
+                        <dl class="dl-horizontal">
+                            Data source does not contain purchase order information.
+                        </dl>
+                    <% } %>
                 </dl>
                 <dl>
-                    <dt>Physical Information</dt>
-                    <dd><%= physicalInfo %></dd>
+                    <dt>Delivery Information</dt>
+                    <% if (purchaseAndDeliveryInfo.deliveryOrder) { %>
+                        <dd>
+                        <% var doInfo = (function() {
+                           var tempArray = [
+                                'Label: ' + purchaseAndDeliveryInfo.deliveryOrder.label,
+                                'Remote Resource ID: ' + purchaseAndDeliveryInfo.deliveryOrder.remoteResourceId,
+                                'Resouce #:' + purchaseAndDeliveryInfo.deliveryOrder.resourceNumber,
+                                'URL: ' + purchaseAndDeliveryInfo.deliveryOrder.url,
+                                'Data Source: ' + purchaseAndDeliveryInfo.deliveryOrder.dataSource,
+                                'DO Date: ' + purchaseAndDeliveryInfo.deliveryDate,
+                            ];
+                                return tempArray.join('<br>');
+                        })()%>
+                        <%= doInfo %>
+                        </dd>
+                    <% } else { %>
+                        <dl class="dl-horizontal">
+                            Data source does not contain delivery order information.
+                        </dl>
+                    <% } %>
                 </dl>
             </div>
         </div>

@@ -44,7 +44,6 @@ var AssetModel = Backbone.Model.extend({
         return attrs;
     },
     validation: {
-      "asset_class": { required: true },
       "assetInfo.type" : { required: true },
       "assetInfo.owner" : { required: true },
       "assetInfo.description" : { required: true },

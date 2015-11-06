@@ -1,3 +1,4 @@
+"use strict";
 // Parent class for asset views.
 var ParentAssetView = Backbone.View.extend({
     /* Parent class for the asset views.
@@ -6,16 +7,13 @@ var ParentAssetView = Backbone.View.extend({
      *  - derender()
      */
     initialize: function() {
-        "use strict";
         _.bindAll(this, 'render', 'derender');
     },
     render: function() {
-        "use strict";
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
         return this;
     },
     derender: function() {
-        "use strict";
         this.remove();
         this.unbind();
         this.model.off();
@@ -24,15 +22,36 @@ var ParentAssetView = Backbone.View.extend({
 
 var ParentAssetModalView = ParentAssetView.extend({
     initialize: function() {
-        "use strict";
-        _.bindAll(this, 'save', 'loadControls', 'getFields');
+        _.bindAll(this, 'save', 'addMetaData', 'loadControls', 'getFields');
     },
     loadControls: function() {
-        "use strict";
+    },
+    render: function() {
+        if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
+        this.metaData = [];
+        this.metaDataCount = 0;
+        this.metaItemList = [['assetRefDes', 'Ref Des'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
+            ['anchorLaunchDate', 'Anchor Launch Date'], ['assetLat', 'Latitude'], ['assetLon', 'Longitude'],
+            ['deploymentNum', 'Deployment Number'], ['waterDepth', 'Water Depth'], ['assetWeight', 'Weight'],
+            ['assetLength', 'Length'], ['assetHeight', 'Height'], ['assetWidth', 'Width'], ['assetVoltage', 'Voltage'],
+            ['assetWatts', 'Watts'], ['firmwareVer', 'Firmware Version'], ['storageLoc', 'Storage Location'],
+            ['docURL', 'Document URL(s)'], ['ooiDocs', 'OOI Document #(s)'], ['assetNotes', 'Notes'], ['assetDOI', 'DOI']];
+        return this;
+    },
+    addMetaData: function() {
+        var metaItems = [];
+        $.each(this.metaItemList, function(index, item) {
+            metaItems.push('<div class="row meta-input">' +
+                '<label class="col-md-4 meta-key">'+item[1]+'</label>' +
+                '<div class="col-md-7">' +
+                '<input id="'+item[0]+'" class="meta-val form-control" type="text" placeholder="Value" for="'+item[1]+'">' +
+                '</div>' +
+            '</div>');
+        });
+        $('#metaDataList').append(metaItems.join(""));
     },
     //Get the values of all of the input fields and return an object representing the data.
     getFields: function(){
-        "use strict";
         var fields = {},
             inputs = this.$el.find('input'),
             selectInputs = this.$el.find('select'),
@@ -50,37 +69,13 @@ var ParentAssetModalView = ParentAssetView.extend({
 
         return fields;
     },
-    save: function() {
+    save: function(e) {
+        e.stopImmediatePropagation();
         //TODO: make sure that this gets validated.
         var fields = this.getFields();
-
-        // The metaData field is very loosly defined.  These are the only
-        // field supported for asset creation at this time.
-        this.metaData.push({
-            "key": "Ref Des",
-            "value": fields.assetRefDes,
-            "type": "java.lang.String"
-        });
-        this.metaData.push({
-            "key": "Latitude",
-            "value": fields.assetLatitude,
-            "type": "java.lang.String"
-        });
-        this.metaData.push({
-            "key": "Longitude",
-            "value": fields.assetLongitude,
-            "type": "java.lang.String"
-        });
-        this.metaData.push({
-            "key": "Water Depth",
-            "value": fields.assetDepth,
-            "type": "java.lang.String"
-        });
-
         // Create the new asset model that will be saved to the collection,
         // and posted to the server.
-
-        this.model.set('asset_class', fields.assetClass);
+        this.model.set('asset_class', '.AssetRecord');
         this.model.set('assetInfo', {
             type: fields.assetType,
             owner: fields.assetOwner,
@@ -92,49 +87,43 @@ var ParentAssetModalView = ParentAssetView.extend({
             manufacturer: fields.manufacturer,
             modelNumber: fields.modelNumber
         });
-        //newAsset.set('physicalInfo', fields.assetPhysicalInfo);
-        this.model.set('purchaseAndDeliveryInfo', {
-            purchaseOrder: fields.purchaseOrder || null,
-            purchaseDate: fields.purchaseDate || null,
-            purchaseCost: fields.purchaseCost || null,
-            deliveryOrder: fields.deliveryOrder || null,
-            deliveryDate: fields.deliveryDate || null
-        });
+        var metaItems = this.$el.find('.meta-input input');
+        for (var i=0; i < metaItems.length; i++) {
+            var metaKey = $(metaItems[i]).attr('for'),
+                metaVal = $(metaItems[i]).val();
+            this.metaData.push({
+                "key": metaKey,
+                "value": metaVal,
+                "type": "java.lang.String"
+            });
+        }
         this.model.set('metaData', this.metaData);
 
-
-        var isValid = this.model.isValid(true),
-            validateMsg = [];
-        this.model.bind('validated:invalid', function(model, errors) {
-            for(var key in errors){
-                validateMsg.push(errors[key]);
-            }
-        });
+        var isValid = this.model.isValid(true);
         if (isValid){
             this.model.save(null, {
                 success: function(model, response){
-                    alert('Asset Created!');
+                    alert('Success!');
                     vent.trigger('asset:changeCollection');
                 },
                 error: function(response) {
                     alert("Sorry, there was an unexpected error: " + response);
+                    vent.trigger('asset:changeCollection');
                 }
             });
             this.cleanUp();
             this.model.off();
         } else {
-            alert("Missing the following required fields:\n" + validateMsg.join("\n"));
-            this.model.unset('metaData');
-            this.metaData = [];
+            alert('Please fill in all fields');
             var missingFields = this.$el.find('input');
                 missingFields.push(this.$el.find('select'));
 
             $.each(missingFields, function(index, item) {
-                if ($(missingFields[index]).val() === "" || "--") {
-                    $(missingFields[index]).closest('.form-group').addClass('has-error');
+                if ($(missingFields[index]).val() === "") {
+                    $(missingFields[index]).closest('.row').addClass('has-error');
                 } else {
 
-                    $(missingFields[index]).closest('.form-group').removeClass('has-error');
+                    $(missingFields[index]).closest('.row').removeClass('has-error');
                 }
             });
         }
@@ -159,7 +148,7 @@ var AssetTableHeaderView = ParentAssetView.extend({
     exportAssets:function(e){
     },
     updateAssetExport:function(search){
-        url = '/api/asset_deployment?search='+search+'&sort=id&export=json';
+        var url = '/api/asset_deployment?search='+search+'&sort=id&export=json';
         this.$el.find('#assetExportBtn').attr("href", url);
     },
     createAsset: function() {
@@ -168,6 +157,7 @@ var AssetTableHeaderView = ParentAssetView.extend({
         $(assetCreatorModal.render().el).appendTo('#assetCreatorModal');
         assetCreatorModal.setupFields();
         assetCreatorModal.loadControls();
+        assetCreatorModal.addMetaData();
         return this;
     }
 
@@ -211,18 +201,18 @@ var AssetsTableRowView = ParentAssetView.extend({
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click .view" : "renderSubViews",
+        "click" : "renderSubViews",
         "click .edit": "editAsset"
     },
     editAsset: function() {
-        "use strict";
         // before editing the asset, make sure it's up to date.
         this.model.fetch();
         var assetEditorModal = new AssetEditorModalView({ model:this.model });
-        console.log(assetEditorModal);
         $(assetEditorModal.render().el).appendTo('#assetEditorModal');
-        assetEditorModal.populateFields();
         assetEditorModal.loadControls();
+        assetEditorModal.addMetaData();
+        assetEditorModal.populateFields();
+        return this;
     },
     renderSubViews: function() {
         $('#assetDetailsPlaceholder').remove();
@@ -260,7 +250,6 @@ var AssetInspectorView = ParentAssetView.extend({
         "click #loadDocs": "loadDocs"
     },
     loadDocs: function() {
-        'use strict';
         this.model.fetch();
         vent.trigger('asset:renderDocsTable', this.model);
     }
@@ -296,7 +285,6 @@ var AssetCreatorModalView = ParentAssetModalView.extend({
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
         _.bindAll(this, 'save', 'cancel', 'setupFields');
-        this.metaData = [];
         Backbone.Validation.bind(this);
     },
     events: {
@@ -336,7 +324,6 @@ var AssetEditorModalView = ParentAssetModalView.extend({
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
         _.bindAll(this, 'cancel', 'destroy', 'populateFields');
-        this.metaData = [];
         Backbone.Validation.bind(this);
     },
     events: {
@@ -345,14 +332,11 @@ var AssetEditorModalView = ParentAssetModalView.extend({
         "click button#delete" : "destroy"
     },
     loadControls: function() {
-        "use strict";
         this.$el.find('.modal-footer').append('<button id="delete" type="button" class="btn btn-danger">Delete</button>')
                                       .append('<button id="cancelEdit" type="button" class="btn btn-default">Cancel</button>')
                                       .append('<button id="saveEdit" type="button" class="btn btn-primary">Save</button>');
     },
     populateFields: function() {
-        "use strict";
-        $('#asset_class').val(this.model.get('asset_class'));
 
         $('#assetType').val(this.model.get('assetInfo').type);
         $('#assetOwner').val(this.model.get('assetInfo').owner);
@@ -397,23 +381,9 @@ var AssetEditorModalView = ParentAssetModalView.extend({
             }
         }
 
-        var metaDataLength = this.model.get('metaData').length;
-        for (var i=0; i < metaDataLength; i++){
-            switch(this.model.get('metaData')[i].key) {
-                case "Ref Des":
-                    $('#assetRefDes').val(this.model.get('metaData')[i].value);
-                    break;
-                case "Latitude":
-                    $('#assetLatitude').val(this.model.get('metaData')[i].value);
-                    break;
-                case "Longitude":
-                    $('#assetLongitude').val(this.model.get('metaData')[i].value);
-                    break;
-                case "Water Depth":
-                    $('#assetDepth').val(this.model.get('metaData')[i].value);
-                    break;
-            }
-        }
+        $.each(this.model.get('metaData'), function(index, item) {
+            $('input[for="'+item.key+'"]').val(item.value);
+        });
 
     },
     cancel: function() {
@@ -433,5 +403,6 @@ var AssetEditorModalView = ParentAssetModalView.extend({
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         this.derender();
+        this.unbind();
     }
 });
