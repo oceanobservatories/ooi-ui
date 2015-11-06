@@ -16,6 +16,7 @@
 <!-- TODO MOVE TO GRUNT FILE  -->
 <script src="/lib/d3/d3.min.js"></script>
 <script src="/lib/highcharts/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script src="/lib/highcharts/modules/exporting.js"></script>
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
@@ -79,6 +80,10 @@
           <div style="display:none" id='highcharts-row-section' class="row">
             <div class="col-sm-12">
               <div class="panel" id="highcharts-row-section-panel">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="panel" id="highcharts-buttons-section-panel">
               </div>
             </div>
           </div>
@@ -156,7 +161,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     plotEventListView: null,
     plottingItemSelection2 : null,
     timeseriesView: null,
-    xyscatterView: null
+    xyscatterView: null,
+    eventplotView: null
   },
   models: {
     downloadModel : new StreamModel(),
@@ -245,8 +251,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     //init the timeseries view
     this.views.xyscatterView.initialize();
 
-    var param1 = $("#yvar1-selection option:selected").val();
-    var param2 = $("#yvar2-selection option:selected").val();
+    var param1 = $("#yvar1-selection option:selected").attr('data-params');
+    var param2 = $("#yvar2-selection option:selected").attr('data-params');
 
     // set data series options
     this.collections.interpolatedDataseries.instr1 = options.attributes.stream_name1;
@@ -290,7 +296,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       el: $('#plot-view')
     });
 
-
+    // Plot areas
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
     });
@@ -330,6 +336,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.views.plotEventListView = new PlotEventListView({
       el: $('#events-table')
+    });
+    this.views.plotAnnotationsEvents = new PlotAnnotationsEvents({
+      el: $('#highcharts-buttons-section-panel')
     });
 
     /* Dispatcher Sectiion */
@@ -436,6 +445,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     } else {
+
                         parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     }
 
@@ -716,52 +726,103 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgplot.plot(options);
       }
     });
+    
+    var hasAnnotations = false;
+    var hasPlotBand = false;
 
     //render the time series data
     this.listenTo(this.collections.dataseries, 'reset', function(series) {
       this.views.timeseriesView.collection = series;
       this.views.timeseriesView.render();
 
-      self.collections.annotations.each(function(annotation,i) {
-        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
-          from: moment.utc(annotation.get('beginDT')),
-          to: moment.utc(annotation.get('endDT')),
-          color: '#FCFFC5',
-          label: {
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
-            align: 'left', // Positioning of the label.
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
-          },
-          id: 'plot-band-'+annotation.get('ui_id')
-        });
-      });
-
       //render the annotations
-      var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      // var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      hasAnnotations = false;
+      hasPlotBand = false;
+      $('#plot-annotations').html('Plot Annotations');
+      $('#plot-events').html('Plot Events');
+    });
+    
+    //plot the annotations
+    this.listenTo(this, 'PlotAnnotations', function(){
+      self.collections.annotations.each(function(annotation,i) {
+        if (!hasAnnotations){
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+            from: moment.utc(annotation.get('beginDT')),
+            to: moment.utc(annotation.get('endDT')),
+            color: '#FCFFC5',
+            label: {
+              text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+              align: 'left', // Positioning of the label.
+              x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+            },
+            id: 'plot-band-'+annotation.get('ui_id')
+          });
+          $('#plot-annotations').html('Remove Annotations');
+        }else{
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].removePlotLine('plot-band-'+annotation.get('ui_id'));
+          $('#plot-annotations').html('Plot Annotations');
+        }
+      });
+      hasAnnotations = !hasAnnotations;
+    });
 
+    //plot the events
+    this.listenTo(this, 'PlotEvents', function(){
+      self.collections.plotEventList.each(function(plotevent,i) {
+        if (!hasPlotBand){
+            if (plotevent.get('class')=='.CalibrationEvent'){
+              var bandcolor = '#CC6666';
+              var linecolor = '#FF0000';
+            }else if(plotevent.get('class')=='.DeploymentEvent'){
+              var bandcolor = '#CCEEFF';
+              var linecolor = '#0088CC';
+            }else{
+              var bandcolor = '#BBFF99';
+              var linecolor = '#226600';
+            }
+
+            // Add plot bands
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+              from: moment.utc(plotevent.get('start_date')).unix()*1000,
+              to: moment.utc(plotevent.get('end_date')).unix()*1000,
+              color: bandcolor,
+              label: {
+                text: 'Event ID:'+plotevent.get('id'), // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10, // Amount of pixels the label will be repositioned according to the alignment.
+              },
+              id: 'plot-event-band-'+plotevent.get('id')
+            });
+
+            // Add plot lines @ start and end
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotLine({
+              value: moment.utc(plotevent.get('start_date')).unix()*1000,
+              color: linecolor,
+              width: 2,
+              id: 'plot-event-band-'+plotevent.get('id'),
+              dashStyle: 'longdashdot'
+            });
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotLine({
+              value: moment.utc(plotevent.get('end_date')).unix()*1000,
+              color: linecolor,
+              width: 2,
+              id: 'plot-event-band-'+plotevent.get('id'),
+              dashStyle: 'longdashdot'
+            });
+            $('#plot-events').html('Remove Events');
+        }else{
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].removePlotLine('plot-event-band-'+plotevent.get('id'));
+          $('#plot-events').html('Plot Events');
+        }
+      });
+      hasPlotBand = !hasPlotBand;
     });
 
     //render the interpolated data
     this.listenTo(this.collections.interpolatedDataseries, 'reset', function(series) {
       this.views.xyscatterView.collection = series;
       this.views.xyscatterView.render();
-
-      self.collections.annotations.each(function(annotation,i) {
-        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
-          from: moment.utc(annotation.get('beginDT')),
-          to: moment.utc(annotation.get('endDT')),
-          color: '#FCFFC5',
-          label: {
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
-            align: 'left', // Positioning of the label.
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
-          },
-          id: 'plot-band-'+annotation.get('ui_id')
-        });
-      });
-
-      // render the annotations
-      var bounds = self.views.xyscatterView.views.highchartsView.chart.xAxis[0].getExtremes()
     });
 
     //render the annotations
@@ -770,7 +831,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.annotationTableView.render();
     });
 
-    //
+    // render the events
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
 

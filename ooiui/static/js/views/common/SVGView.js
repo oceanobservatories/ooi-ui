@@ -577,8 +577,8 @@ var SVGPlotControlView = Backbone.View.extend({
 
         }else if(plotType=="Stacked Time Series"){
             this.$el.find('#xVarTooltip').attr('data-original-title',"The stacked time series plot is a 2D colored plot that plots bins (Y-axis) against time (X-axis) using color spectrum for the value. The user should select just 1 appropriate derived products with 2D data (ie. ADCP, VADCP, and SPKIR) for this plot to work properly.");
-
-            this.$el.find('#plotting-enable-events').attr('disabled', true);
+            debugger;
+            this.$el.find('#qaqc-test').attr('disabled', true);
             this.updateYVarDropdown();
             this.$el.find('#yvar0-selection-default').hide();
             this.$el.find('#yvar1-selection').show();

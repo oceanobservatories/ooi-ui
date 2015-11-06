@@ -15,6 +15,10 @@
         <td>
             <%= model.get(col.name) %>
         </td>
+    <% } else if(col.name == "end_date") { %>
+        <td>
+            <%= model.get(col.name) %>
+        </td>
     <% } else if(col.name == "notes") { %>
         <td>
             <%= model.get(col.name) %>
