@@ -123,7 +123,6 @@ var TimeseriesView = Backbone.View.extend({
     this.$el.append(notifydiv);
   },
   render: function() {
-
     var self = this;
     this.$el.html(this.template());
 
@@ -209,7 +208,7 @@ var TimeseriesView = Backbone.View.extend({
           }
         } 
       });
-      
+
       if (!addNotify){
         axes_count += 1
         var seriesModel = new SeriesModel({data:series_data})

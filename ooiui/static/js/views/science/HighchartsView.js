@@ -18,47 +18,7 @@ var HighchartsView = Backbone.View.extend({
   onClick: function(e, point) {
     this.trigger('onClick', e, point);
   },
-  /**
-   * Synchronize zooming through the setExtremes event handler.
-   */
-  syncExtremes: function(e) {
-      var thisChart = this.chart;
-
-      Highcharts.each(Highcharts.charts, function (chart) {
-          if (chart !== thisChart) {
-              if (chart.xAxis[0].setExtremes) { // It is null while updating
-                  chart.xAxis[0].setExtremes(e.min, e.max);
-              }
-          }
-      });
-  },
-
   render: function() {
-    $('#highcharts-row-section').bind('mousemove touchmove', function (e) {
-        var chart,
-            point,
-            i;
-
-        for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-            chart = Highcharts.charts[i];
-            e = chart.pointer.normalize(e); // Find coordinates within the chart
-            point = chart.series[0].searchPoint(e, true); // Get the hovered point
-
-            if (point) {
-                point.onMouseOver(); // Show the hover marker
-                chart.tooltip.refresh(point); // Show the tooltip
-                chart.xAxis[0].drawCrosshair(e, point); // Show the crosshair
-            }
-        }
-    });
-    /**
-     * Override the reset function, we don't need to hide the tooltips and crosshairs.
-     */
-    Highcharts.Pointer.prototype.reset = function () {
-        return undefined;
-    };
-
-
     var self = this;
     /* We use the d3 formatter because it's easy */
     var formatter = d3.format(".2f");
@@ -163,10 +123,7 @@ var HighchartsView = Backbone.View.extend({
               text: 'Date (UTC)'
           },
           min : defaultsDates[0],
-          max : defaultsDates[1],
-          events: {
-              setExtremes: this.syncExtremes
-          },
+          max : defaultsDates[1]
       },
       yAxis: uniqAxis,
       tooltip: {
