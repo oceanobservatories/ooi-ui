@@ -8,6 +8,15 @@
       <!--Header-->
       <div class="col-md-12 dwn-content">
         <img width="50px" src="/img/logos-banners/OOI_Logo.svg">
+
+
+          <span style="margin-left:25%">
+              <button style="padding-top:5px;" id="subscription-selection-select" type="button" class="btn btn-default btn-xs">
+                <span id="subscription-selection-icon" class="fa fa-heart-o" aria-hidden="true"></span> Enable Subscription
+              </button>
+          </span>
+
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div> <!-- col-md-12 -->
 
@@ -66,24 +75,6 @@
           </div> <!-- .form-group -->
         </div> <!-- .col-md-6 -->
       </div> <!-- .col-md-12-->
-
-      <!-- NOT SUPPORTED YET! -->
-      <!-- <div class="col-md-12">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="download-param-select">Select Parameter(s)</label>
-            <select data-width="100%" id='download-param-select' multiple title="Select" class="selectpicker toc-plotting-text">
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <form role="form">
-            <div class="form-group">
-                <label><input style="position: absolute; bottom: 0;" type="checkbox" id="download-all" value="select-all"> Select All </label>
-            </div>
-          </form>
-        </div>
-      </div>  -->
         <div class="col-md-6">
           <div class="form-group">
             <label for="dlEmail">Delivery Email</label>
@@ -101,16 +92,20 @@
           </div> <!-- .form-group -->
         </div> <!-- .col-md-4 -->
 
-      <div class="col-md-12">
-          <div class="download-options">
+     <div class="col-md-12">
+        <div class="download-options">
+          <div class="row">
+            <div class="col-md-12">
               <span>
-                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input> Include Provenance</span>
+                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input> Include Provenance
+              </span>
               <span>
-                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> Include Annotations</span>
-          </div>
-      </div>
-
-
+                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> Include Annotations
+              </span>
+            </div>
+         </div>
+        </div>
+     </div>
 
       <div class="row">
         <div class="col-md-12">

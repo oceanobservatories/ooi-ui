@@ -150,6 +150,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     dataseries: new DataSeriesCollection(),
     additionalDataseries: new DataSeriesCollection(),
     interpolatedDataseries: new InterpolatedDataSeriesCollection(),
+    subscriptionCollection :  new DataSubscriptionCollection()
   },
   views: {
     plottingItemSelection : null,
@@ -269,6 +270,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     var self = this;
     this.multiStation = false;
     this.login.fetch({async: false});
+
+    //reset the subscriptions
+    self.collections.subscriptionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+      //console.log('ready...',self.collections.subscriptionCollection);
+    });
 
     //--------------------------------------------------------------------------------
     // Views
@@ -474,7 +481,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
 
               if (variable.toLowerCase() != "time" && validUnits){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && 
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
@@ -833,16 +840,47 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.svgplot.download();
   });
 
-  this.listenTo(this, 'ooi:downloadData', function() {
-    // Default to NetCDF download
-    self.models.downloadModel.selection = 'netcdf';
-    // Get the user selected start and end dates
-    self.models.downloadModel.model.attributes.start = moment.utc($('#start-date').data('date')).format();
-    self.models.downloadModel.model.attributes.end = moment.utc($('#end-date').data('date')).format();
-    self.models.downloadModel.model.attributes.email = this.models.userModel.get("email");
-    self.models.downloadModel.model.attributes.user_name = this.models.userModel.get("user_name");
+  this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+    self.collections.subscriptionCollection.fetch({ reset: true });
+  });
 
-    self.views.streamDownloadFormView.show(self.models.downloadModel);
+  this.listenTo(this, 'ooi:downloadData', function() {
+    //user needs to be logged in
+    if(this.login.loggedIn()) {
+      // Default to NetCDF download
+      self.models.downloadModel.selection = 'netcdf';
+      // Get the user selected start and end dates
+      self.models.downloadModel.model.attributes.start = moment.utc($('#start-date').data('date')).format();
+      self.models.downloadModel.model.attributes.end = moment.utc($('#end-date').data('date')).format();
+      self.models.downloadModel.model.attributes.email = this.models.userModel.get("email");
+      self.models.downloadModel.model.attributes.user_name = this.models.userModel.get("user_name");
+
+      var hasSubscribed = false;
+      //for email address
+      var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
+      //for selected item
+      var currentStream = self.models.downloadModel.model.get('stream_name');
+      var currentRef = self.models.downloadModel.model.get('ref_des');
+      //loop over and compare, only if telemetered
+      if (currentStream.split('_')[0] == 'telemetered'){
+        _.each(availSubs,function(sub){
+          var refDes = sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.sensor;
+          var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+          if (streamName == currentStream && refDes == currentRef){
+            hasSubscribed = true;
+            self.models.downloadModel.model.set('subscriptionModel',sub);
+          }
+        });
+      }
+
+      if (hasSubscribed){
+        self.models.downloadModel.model.set('subscriptionEnabled', true);
+      }else{
+        self.models.downloadModel.model.set('subscriptionEnabled', false);
+      }
+      self.views.streamDownloadFormView.show(self.models.downloadModel);
+    }
+
   });
 
   this.listenTo(this, 'DownloadModal:onSuccess',function(url){
@@ -863,39 +901,38 @@ var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
-
 // url arguments
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ reset: true });
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
-        $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-            vent.trigger('toc:cleanUp');
-            $.when(focusToItem()).done(function() {
 
-                });
-            });
-        });
+$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+  $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+      vent.trigger('toc:cleanUp');
+      $.when(focusToItem()).done(function() {
+      });
+  });
+});
 
 $(document).ready(function() {
-        ooi.start();
+  ooi.start();
 
-        $('#disableSecondView').on('click', function(event){
-            event.preventDefault();
-            ooi.multiStation = false;
-            $('#plot-item-selection2').hide();
-            });
+  $('#disableSecondView').on('click', function(event){
+      event.preventDefault();
+      ooi.multiStation = false;
+      $('#plot-item-selection2').hide();
+      });
 
-        $('#enableSecondView').on( "click", function(event) {
-            event.preventDefault();
-            ooi.multiStation = true;
-            $('#plot-item-selection2').show();
-            });
-        var svgUrl = '/svg/plotdemo';
+  $('#enableSecondView').on( "click", function(event) {
+      event.preventDefault();
+      ooi.multiStation = true;
+      $('#plot-item-selection2').show();
+      });
+  var svgUrl = '/svg/plotdemo';
 
-        });
+});
 
 
 function jump(h){
