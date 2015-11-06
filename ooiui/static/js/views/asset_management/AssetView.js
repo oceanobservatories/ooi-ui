@@ -36,7 +36,7 @@ var ParentAssetModalView = ParentAssetView.extend({
             ['assetLength', 'Length'], ['assetHeight', 'Height'], ['assetWidth', 'Width'], ['assetVoltage', 'Voltage'],
             ['assetWatts', 'Watts'], ['firmwareVer', 'Firmware Version'], ['storageLoc', 'Storage Location'],
             ['docURL', 'Document URL'], ['ooiDocs', 'OOI Document No'], ['assetNotes', 'Notes'], ['assetDOI', 'DOI'],
-            ['ooiPartNum', 'OOI Part No'], ['ooiPropNum', 'OOI Property No'], ['instPropNum', 'Institution Property No']];
+            ['ooiPartNum', 'OOI Part No'], ['ooiPropNum', 'OOI Property No'], ['instPropNum', 'Institution Property No'], ['platType', 'Platform Type']];
         return this;
     },
     addMetaData: function() {
