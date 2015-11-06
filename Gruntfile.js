@@ -267,6 +267,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/PlotEvent.html",
             "ooiui/static/js/partials/PlotEventTableItem.html",
             "ooiui/static/js/partials/Timeseries.html",
+            "ooiui/static/js/partials/PlotAnnotationsEventsButtons.html",
           ],
           "ooiui/static/js/partials/compiled/plotsDemo.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -755,7 +756,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/HighchartsView.js',
             'ooiui/static/js/views/science/HighChartsXYView.js',
             'ooiui/static/js/views/science/HighChartsTimeSeriesView.js',
-            'ooiui/static/js/views/science/HighChartsXYScatterView.js'
+            'ooiui/static/js/views/science/HighChartsXYScatterView.js',
+            'ooiui/static/js/views/science/PlotAnnotationsEventsButtonView.js'
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
@@ -1200,6 +1202,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/PlotEventListView.js',
             'ooiui/static/js/views/science/HighChartsXYScatterView.js',
             'ooiui/static/js/views/science/HighChartsXYView.js',
+            'ooiui/static/js/views/science/PlotAnnotationsEventsButtonView.js',
             //'ooiui/static/js/views/science/FilterPlottingSelectionView.js'
           ],
           'ooiui/static/js/compiled/camera_media.js' : [

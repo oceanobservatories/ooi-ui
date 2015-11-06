@@ -36,11 +36,11 @@ var AnnotationTableView = Backbone.View.extend({
       },
       {
         name : 'beginDT',
-        label : 'Date Time (Start)'
+        label : 'Start Date'
       },
       {
         name : 'endDT',
-        label : 'Date Time (End)'
+        label : 'End Date'
       }
   ],
   initialize: function() {
