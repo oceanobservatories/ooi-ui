@@ -293,7 +293,6 @@ var AssetCreatorModalView = ParentAssetModalView.extend({
     },
     setupFields: function() {
         this.$el.find('#assetLaunchDate').datepicker();
-        this.$el.find('.po-item').hide();
     },
     loadControls: function() {
         this.$el.find('.modal-footer').append('<button id="cancel" type="button" class="btn btn-default">Cancel</button>')
@@ -348,39 +347,6 @@ var AssetEditorModalView = ParentAssetModalView.extend({
             $('#modelNumber').val(this.model.get('manufactureInfo').modelNumber);
             $('#manufacturer').val(this.model.get('manufactureInfo').manufacturer);
         }
-
-        if (this.model.get('purchaseAndDeliveryInfo')) {
-            if (this.model.get('purchaseAndDeliveryInfo').purchaseOrder) {
-                var nullReplace = 'Not Provided',
-                    poArray = [
-                        'Label: ' + this.model.get('purchaseAndDeliveryInfo').purchaseOrder.label || nullReplace,
-                        'Remote Resource ID: ' + this.model.get('purchaseAndDeliveryInfo').purchaseOrder.remoteResourceId,
-                        'Resouce #:' + this.model.get('purchaseAndDeliveryInfo').purchaseOrder.resourceNumber,
-                        'URL: ' + this.model.get('purchaseAndDeliveryInfo').purchaseOrder.url,
-                        'Data Source: ' + this.model.get('purchaseAndDeliveryInfo').purchaseOrder.dataSource,
-                        'PO Date: ' + this.model.get('purchaseAndDeliveryInfo').purchaseDate,
-                        'PO Cost: ' + this.model.get('purchaseAndDeliveryInfo').purchaseCost
-                ];
-                $('#purchaseOrder').val(poArray.join("\n"));
-            } else {
-                $('#purchaseOrder').val('Data Source does not have purchase order data');
-            }
-            if (this.model.get('purchaseAndDeliveryInfo').deliveryOrder) {
-                var doArray = [
-                        'Label: ' + this.model.get('purchaseAndDeliveryInfo').deliveryOrder.label,
-                        'Remote Resource ID: ' + this.model.get('purchaseAndDeliveryInfo').deliveryOrder.remoteResourceId,
-                        'Resource #: ' + this.model.get('purchaseAndDeliveryInfo').deliveryOrder.resourceNumber,
-                        'URL: ' + this.model.get('purchaseAndDeliveryInfo').deliveryOrder.url,
-                        'Data Source: ' + this.model.get('purchaseAndDeliveryInfo').deliveryOrder.dataSource,
-                        'DO Date :' + this.model.get('purchaseAndDeliveryInfo').deliveryDate
-                ];
-                $('#deliveryOrder').val(doArray.join("\n"));
-            } else {
-
-                $('#deliveryOrder').val('Data source does not have delivery order data');
-            }
-        }
-
         $.each(this.model.get('metaData'), function(index, item) {
             $('input[for="'+item.key+'"]').val(item.value);
         });
