@@ -116,7 +116,6 @@ model : StreamModel
 var StreamTableItemView = Backbone.View.extend({
     tagName: 'tr',
     attributes: function() {
-        "use strict";
         return {
             'valign': 'middle',
             'class': 'accordion-toggle stream-row',

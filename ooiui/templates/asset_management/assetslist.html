@@ -90,10 +90,10 @@
   </div><!-- #page-content-wrapper -->
 
   <!-- modal needs to me outside or it will be behind banner/navbar -->
-  <div class="modal fade" id="assetEditorModal" tabindex="-1" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
+  <div class="modal fade" id="assetEditorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">
     <!-- ooiui/static/js/partials/AssetEditorModal.html -->
   </div>
-  <div class="modal fade" id="assetCreatorModal" tabindex="-1" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
+  <div class="modal fade" id="assetCreatorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
     <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
   </div>
 </div><!-- #wrapper -->
@@ -220,6 +220,7 @@ $(document).ready(function() {
     $('#navbar').append(navbar.el);
     $('.navbar-brand').html('OOI Assets and Configuration');
     $('#footer').append(footer.el);
+    $('#menu-toggle').trigger('click');
 });
 
 var textInput = function() {

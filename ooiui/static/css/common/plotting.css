@@ -122,8 +122,6 @@ label#end-time {
 }
 
 input.form-control, select.form-control {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
   height: 27px;
   color: #004773;
   border-top-left-radius: 5px;

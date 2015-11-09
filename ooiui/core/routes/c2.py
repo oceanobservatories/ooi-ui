@@ -71,7 +71,7 @@ def get_c2_get_mission(mission_id):
 @app.route('/api/c2/missions', methods=['POST'])
 def get_c2_add_mission():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions', methods=['PUT'])
@@ -80,13 +80,23 @@ def get_c2_update_mission():
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
-@app.route('/api/c2/missions', methods=['DELETE'])
-def get_c2_del_mission():
+@app.route('/api/c2/missions/<string:mission_id>/delete', methods=['GET'])
+def get_c2_del_mission(mission_id):
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/delete' % (mission_id), auth=(token, ''), params=request.data)
     return response.text, response.status_code
 
+@app.route('/api/c2/missions/<string:mission_id>/activate', methods=['GET'])
+def get_c2_activate_mission(mission_id):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/activate' % (mission_id), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
 
+@app.route('/api/c2/missions/<string:mission_id>/deactivate', methods=['GET'])
+def get_c2_deactivate_mission(mission_id):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/deactivate' % (mission_id), auth=(token, ''), params=request.data)
+    return response.text, response.status_code
 
 
 # C2 ooi-ui-services Routes

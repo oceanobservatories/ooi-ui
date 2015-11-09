@@ -8,7 +8,8 @@
   },
   events: {
     "click #disableRow": "onClickDisable",
-    "click #stopRow": "onClickStop",
+    "click #enableRow": "onClickEnable",
+    "click #stopRow": "onClickStop"
   },
   initialize: function(options) {
     _.bindAll(this, "render","onClickStop","onClickDisable");
@@ -34,14 +35,26 @@
 
   },
   onClickDisable:function(ev){
-    console.log("disable");
-    var mission_id = $(ev.target).attr('mission_id')
-    alert("Toggle State: "+ mission_id);
+    var mission_id = $(ev.target).attr('mission_id');
+
+    $.get("/api/c2/missions/" + mission_id + "/deactivate")
+      .done(function (data) {
+        alert("Deactivated " + mission_id);
+        ooi.views.missionTableView.collection.fetch({reset:true});
+      });
+  },
+  onClickEnable:function(ev){
+    var mission_id = $(ev.target).attr('mission_id');
+    $.get("/api/c2/missions/" + mission_id + "/activate")
+      .done(function (data) {
+        alert("Activated " + mission_id);
+        ooi.views.missionTableView.collection.fetch({reset:true});
+      });
   },
   onClickStop:function(ev){
-    console.log("stop");
-    var mission_id = $(ev.target).attr('mission_id')
-    alert("Stop: "+ mission_id);
+    var mission_id = $(ev.target).attr('mission_id');
+    alert("Stopped: "+ mission_id);
+    ooi.views.missionTableView.collection.fetch({reset:true});
   },
   render:function(options){
     var self = this;
@@ -59,14 +72,13 @@
     var pageableCollection = new PageableModels(),
         longName;
     self.collection.each(function(model,i){
-        console.log(model)        
         pageableCollection.add(model)
     });
 
 
     var ClickableRow = Backgrid.Row.extend({
       events: {
-        "click": "onClick",
+        "click": "onClick"
       },
       onClick: function (ev) {
         if ($(ev.target.parentElement).hasClass('selected')){
@@ -125,10 +137,8 @@
                     }
                   });
                 }
-                //console.log(toFilter,keys,valid)
                 return valid;
             } catch(e) {
-                //console.log(e);
                 return false;
             }
         };
