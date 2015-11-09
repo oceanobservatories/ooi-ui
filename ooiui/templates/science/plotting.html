@@ -81,6 +81,10 @@
               <div class="panel" id="highcharts-row-section-panel">
               </div>
             </div>
+            <div class="col-sm-12">
+              <div class="panel" id="highcharts-buttons-section-panel">
+              </div>
+            </div>
           </div>
         </div>
       </div> <!-- panel -->
@@ -150,13 +154,15 @@ _.extend(OOI.prototype, Backbone.Events, {
     dataseries: new DataSeriesCollection(),
     additionalDataseries: new DataSeriesCollection(),
     interpolatedDataseries: new InterpolatedDataSeriesCollection(),
+    subscriptionCollection :  new DataSubscriptionCollection()
   },
   views: {
     plottingItemSelection : null,
     plotEventListView: null,
     plottingItemSelection2 : null,
     timeseriesView: null,
-    xyscatterView: null
+    xyscatterView: null,
+    eventplotView: null
   },
   models: {
     downloadModel : new StreamModel(),
@@ -245,8 +251,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     //init the timeseries view
     this.views.xyscatterView.initialize();
 
-    var param1 = $("#yvar1-selection option:selected").val();
-    var param2 = $("#yvar2-selection option:selected").val();
+    var param1 = $("#yvar1-selection option:selected").attr('data-params');
+    var param2 = $("#yvar2-selection option:selected").attr('data-params');
 
     // set data series options
     this.collections.interpolatedDataseries.instr1 = options.attributes.stream_name1;
@@ -270,6 +276,12 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.multiStation = false;
     this.login.fetch({async: false});
 
+    //reset the subscriptions
+    self.collections.subscriptionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+      //console.log('ready...',self.collections.subscriptionCollection);
+    });
+
     //--------------------------------------------------------------------------------
     // Views
     //--------------------------------------------------------------------------------
@@ -290,7 +302,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       el: $('#plot-view')
     });
 
-
+    // Plot areas
     this.views.timeseriesView = new TimeseriesView({
       el: $('#highcharts-row-section-panel')
     });
@@ -330,6 +342,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.views.plotEventListView = new PlotEventListView({
       el: $('#events-table')
+    });
+    this.views.plotAnnotationsEvents = new PlotAnnotationsEvents({
+      el: $('#highcharts-buttons-section-panel')
     });
 
     /* Dispatcher Sectiion */
@@ -436,6 +451,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                       ) {
                         parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     } else {
+
                         parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     }
 
@@ -474,7 +490,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
 
               if (variable.toLowerCase() != "time" && validUnits){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && 
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
@@ -716,52 +732,103 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgplot.plot(options);
       }
     });
+    
+    var hasAnnotations = false;
+    var hasPlotBand = false;
 
     //render the time series data
     this.listenTo(this.collections.dataseries, 'reset', function(series) {
       this.views.timeseriesView.collection = series;
       this.views.timeseriesView.render();
 
-      self.collections.annotations.each(function(annotation,i) {
-        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
-          from: moment.utc(annotation.get('beginDT')),
-          to: moment.utc(annotation.get('endDT')),
-          color: '#FCFFC5',
-          label: {
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
-            align: 'left', // Positioning of the label.
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
-          },
-          id: 'plot-band-'+annotation.get('ui_id')
-        });
-      });
-
       //render the annotations
-      var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      // var bounds = self.views.timeseriesView.views.highchartsView.chart.xAxis[0].getExtremes()
+      hasAnnotations = false;
+      hasPlotBand = false;
+      $('#plot-annotations').html('Plot Annotations');
+      $('#plot-events').html('Plot Events');
+    });
+    
+    //plot the annotations
+    this.listenTo(this, 'PlotAnnotations', function(){
+      self.collections.annotations.each(function(annotation,i) {
+        if (!hasAnnotations){
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+            from: moment.utc(annotation.get('beginDT')),
+            to: moment.utc(annotation.get('endDT')),
+            color: '#FCFFC5',
+            label: {
+              text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+              align: 'left', // Positioning of the label.
+              x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+            },
+            id: 'plot-band-'+annotation.get('ui_id')
+          });
+          $('#plot-annotations').html('Remove Annotations');
+        }else{
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].removePlotLine('plot-band-'+annotation.get('ui_id'));
+          $('#plot-annotations').html('Plot Annotations');
+        }
+      });
+      hasAnnotations = !hasAnnotations;
+    });
 
+    //plot the events
+    this.listenTo(this, 'PlotEvents', function(){
+      self.collections.plotEventList.each(function(plotevent,i) {
+        if (!hasPlotBand){
+            if (plotevent.get('class')=='.CalibrationEvent'){
+              var bandcolor = '#CC6666';
+              var linecolor = '#FF0000';
+            }else if(plotevent.get('class')=='.DeploymentEvent'){
+              var bandcolor = '#CCEEFF';
+              var linecolor = '#0088CC';
+            }else{
+              var bandcolor = '#BBFF99';
+              var linecolor = '#226600';
+            }
+
+            // Add plot bands
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
+              from: moment.utc(plotevent.get('start_date')).unix()*1000,
+              to: moment.utc(plotevent.get('end_date')).unix()*1000,
+              color: bandcolor,
+              label: {
+                text: 'Event ID:'+plotevent.get('id'), // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10, // Amount of pixels the label will be repositioned according to the alignment.
+              },
+              id: 'plot-event-band-'+plotevent.get('id')
+            });
+
+            // Add plot lines @ start and end
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotLine({
+              value: moment.utc(plotevent.get('start_date')).unix()*1000,
+              color: linecolor,
+              width: 2,
+              id: 'plot-event-band-'+plotevent.get('id'),
+              dashStyle: 'longdashdot'
+            });
+            self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotLine({
+              value: moment.utc(plotevent.get('end_date')).unix()*1000,
+              color: linecolor,
+              width: 2,
+              id: 'plot-event-band-'+plotevent.get('id'),
+              dashStyle: 'longdashdot'
+            });
+            $('#plot-events').html('Remove Events');
+        }else{
+          self.views.timeseriesView.views.highchartsView.chart.xAxis[0].removePlotLine('plot-event-band-'+plotevent.get('id'));
+          $('#plot-events').html('Plot Events');
+        }
+      });
+      hasPlotBand = !hasPlotBand;
     });
 
     //render the interpolated data
     this.listenTo(this.collections.interpolatedDataseries, 'reset', function(series) {
       this.views.xyscatterView.collection = series;
       this.views.xyscatterView.render();
-
-      self.collections.annotations.each(function(annotation,i) {
-        self.views.timeseriesView.views.highchartsView.chart.xAxis[0].addPlotBand({
-          from: moment.utc(annotation.get('beginDT')),
-          to: moment.utc(annotation.get('endDT')),
-          color: '#FCFFC5',
-          label: {
-            text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
-            align: 'left', // Positioning of the label.
-            x: +10 // Amount of pixels the label will be repositioned according to the alignment.
-          },
-          id: 'plot-band-'+annotation.get('ui_id')
-        });
-      });
-
-      // render the annotations
-      var bounds = self.views.xyscatterView.views.highchartsView.chart.xAxis[0].getExtremes()
     });
 
     //render the annotations
@@ -770,7 +837,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.annotationTableView.render();
     });
 
-    //
+    // render the events
     this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
       self.views.plotEventListView.collection = collection;
 
@@ -833,16 +900,47 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.svgplot.download();
   });
 
-  this.listenTo(this, 'ooi:downloadData', function() {
-    // Default to NetCDF download
-    self.models.downloadModel.selection = 'netcdf';
-    // Get the user selected start and end dates
-    self.models.downloadModel.model.attributes.start = moment.utc($('#start-date').data('date')).format();
-    self.models.downloadModel.model.attributes.end = moment.utc($('#end-date').data('date')).format();
-    self.models.downloadModel.model.attributes.email = this.models.userModel.get("email");
-    self.models.downloadModel.model.attributes.user_name = this.models.userModel.get("user_name");
+  this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+    self.collections.subscriptionCollection.fetch({ reset: true });
+  });
 
-    self.views.streamDownloadFormView.show(self.models.downloadModel);
+  this.listenTo(this, 'ooi:downloadData', function() {
+    //user needs to be logged in
+    if(this.login.loggedIn()) {
+      // Default to NetCDF download
+      self.models.downloadModel.selection = 'netcdf';
+      // Get the user selected start and end dates
+      self.models.downloadModel.model.attributes.start = moment.utc($('#start-date').data('date')).format();
+      self.models.downloadModel.model.attributes.end = moment.utc($('#end-date').data('date')).format();
+      self.models.downloadModel.model.attributes.email = this.models.userModel.get("email");
+      self.models.downloadModel.model.attributes.user_name = this.models.userModel.get("user_name");
+
+      var hasSubscribed = false;
+      //for email address
+      var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
+      //for selected item
+      var currentStream = self.models.downloadModel.model.get('stream_name');
+      var currentRef = self.models.downloadModel.model.get('ref_des');
+      //loop over and compare, only if telemetered
+      if (currentStream.split('_')[0] == 'telemetered'){
+        _.each(availSubs,function(sub){
+          var refDes = sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.sensor;
+          var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+          if (streamName == currentStream && refDes == currentRef){
+            hasSubscribed = true;
+            self.models.downloadModel.model.set('subscriptionModel',sub);
+          }
+        });
+      }
+
+      if (hasSubscribed){
+        self.models.downloadModel.model.set('subscriptionEnabled', true);
+      }else{
+        self.models.downloadModel.model.set('subscriptionEnabled', false);
+      }
+      self.views.streamDownloadFormView.show(self.models.downloadModel);
+    }
+
   });
 
   this.listenTo(this, 'DownloadModal:onSuccess',function(url){
@@ -863,39 +961,38 @@ var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
-
 // url arguments
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ reset: true });
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
-        $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-            vent.trigger('toc:cleanUp');
-            $.when(focusToItem()).done(function() {
 
-                });
-            });
-        });
+$.when(arrayFetch, assetFetch, streamFetch).done(function() {
+  $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+      vent.trigger('toc:cleanUp');
+      $.when(focusToItem()).done(function() {
+      });
+  });
+});
 
 $(document).ready(function() {
-        ooi.start();
+  ooi.start();
 
-        $('#disableSecondView').on('click', function(event){
-            event.preventDefault();
-            ooi.multiStation = false;
-            $('#plot-item-selection2').hide();
-            });
+  $('#disableSecondView').on('click', function(event){
+      event.preventDefault();
+      ooi.multiStation = false;
+      $('#plot-item-selection2').hide();
+      });
 
-        $('#enableSecondView').on( "click", function(event) {
-            event.preventDefault();
-            ooi.multiStation = true;
-            $('#plot-item-selection2').show();
-            });
-        var svgUrl = '/svg/plotdemo';
+  $('#enableSecondView').on( "click", function(event) {
+      event.preventDefault();
+      ooi.multiStation = true;
+      $('#plot-item-selection2').show();
+      });
+  var svgUrl = '/svg/plotdemo';
 
-        });
+});
 
 
 function jump(h){

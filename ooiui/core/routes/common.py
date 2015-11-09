@@ -7,6 +7,7 @@ import urllib
 import urllib2
 from uuid import uuid4
 import sys,os,time,difflib
+
 def get_login():
     token = request.cookies.get('ooiusertoken')
     if not token:
@@ -203,6 +204,25 @@ def ticket_roles():
     token = get_login()
     resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token,''))
     return resp.text, resp.status_code
+
+
+@app.route('/api/subscription', methods=['POST'])
+def subscription_post():
+    headers = {'Content-Type': 'application/json'}
+    token = get_login()
+    response = requests.post(app.config['SERVICES_URL']+'/uframe/subscription', data=request.data, headers=headers,auth=(token,''))
+    return response.text, response.status_code
+
+@app.route('/api/subscription', methods=['GET'])
+def subscription_get():
+    response = requests.get(app.config['SERVICES_URL']+'/uframe/subscription', params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/subscription/<int:id>', methods=['DELETE'])
+def subscription_delete(id):
+    token = get_login()
+    response = requests.delete(app.config['SERVICES_URL']+'/uframe/subscription/'+str(id), params=request.args,auth=(token,''))
+    return response.text, response.status_code
 
 @app.route('/api/login', methods=['POST'])
 def login():

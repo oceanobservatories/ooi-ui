@@ -34,6 +34,10 @@ var PlotEventListView = Backbone.View.extend({
             label: 'Start Date'
         },
         {
+            name: 'end_date',
+            label: 'End Date'
+        },
+        {
             name: 'notes',
             label: 'Notes'
         },
