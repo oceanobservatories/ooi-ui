@@ -1,19 +1,13 @@
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify, session,make_response
 from werkzeug.exceptions import Unauthorized
+from ooiui.core.routes.decorators import login_required, get_login
 import requests
 import json
 import urllib
 import urllib2
 from uuid import uuid4
 import sys,os,time,difflib
-
-def get_login():
-    token = request.cookies.get('ooiusertoken')
-    if not token:
-        return None
-    token = urllib.unquote(token).decode('utf8')
-    return token
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -27,14 +21,17 @@ def user_signup():
     return render_template('common/signup.html')
 
 @app.route('/user/edit/<int:id>')
+@login_required()
 def user_edit(id):
     return render_template('common/userEdit.html')
 
 @app.route('/users/')
+@login_required()
 def users():
     return render_template('common/users.html')
 
 @app.route('/troubleTicket')
+@login_required()
 def create_ticket():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FtroubleTicket')
     return render_template('common/troubleTicket.html')
@@ -76,6 +73,7 @@ def infrastructure():
     return render_template('common/infrastructure.html')
 
 @app.route('/NewEvent')
+@login_required()
 def new_event():
     return render_template('common/newEvent.html')
 

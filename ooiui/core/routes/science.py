@@ -7,11 +7,9 @@ Defines the application routes
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
 from flask import stream_with_context
-from ooiui.core.routes.common import get_login
+from ooiui.core.routes.common import get_login, login_required
 import requests
 import urllib2
-
-
 @app.route('/')
 def new_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fscience%2Fworld')
@@ -19,30 +17,35 @@ def new_index():
 
 
 @app.route('/landing/pioneer')
+@login_required()
 def landing_pioneer():
     return render_template('landing/pioneer.html')
 
 
 @app.route('/assets/list')
 @app.route('/assets/list/')
+@login_required()
 def instr_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassets')
     return render_template('asset_management/assetslist.html')
 
 
 @app.route('/events/list/')
+@login_required()
 def event_list():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fevents')
     return render_template('asset_management/eventslist.html')
 
 
 @app.route('/event/<int:id>', methods=['GET'])
+@login_required()
 def event_index(id):
     #?id=%s' % id
     return render_template('asset_management/event.html',id=id)
 
 
 @app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
+@login_required()
 def event_new(new,aid,aclass):
     #?id=%s' % id
     return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
@@ -55,6 +58,7 @@ def streams_page():
 
 
 @app.route('/antelope_acoustic/')
+@login_required()
 def acoustics_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Facoustic-antelope')
     return render_template('science/antelope_acoustic.html')
@@ -62,12 +66,14 @@ def acoustics_page():
 
 @app.route('/plotting', methods=['GET'])
 @app.route('/plotting/', methods=['GET'])
+@login_required()
 def show_plotting_no_path():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return plotting_page(None)
 
 
 @app.route('/plotting/<path:path>', methods=['GET'])
+@login_required()
 def plotting_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return render_template('science/plotting.html')
