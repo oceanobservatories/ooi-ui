@@ -251,8 +251,8 @@ var AssetInspectorView = ParentAssetView.extend({
         "click #loadDocs": "loadDocs"
     },
     loadDocs: function() {
-        this.model.fetch();
         vent.trigger('asset:renderDocsTable', this.model);
+        //this.model.fetch();
     }
 });
 

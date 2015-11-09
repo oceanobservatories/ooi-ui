@@ -289,7 +289,19 @@ var renderRemoteDocuments = function(model) {
     $('div#remoteDocuments table tbody').append('<b>Loading...</b><i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:12px;"></i>');
 
     var ref_des = model.get('ref_des');
-    var data = { 'search': ref_des };
+    var cruise = null;
+    var array = model.get('assetInfo').array;
+
+     _.each( model.attributes.metaData, function(item){
+        if (item.key == "Cruise Number"){
+            console.log(item['value']);
+            cruise = item['value'];
+        }
+        //console.log(item);
+    })
+
+    var data = { 'search': ref_des,'cruise': cruise,'array':array};
+
     var alfrescoDocCollection = new AlfrescoDocumentCollection();
 
     //create a new table body and render it's view
