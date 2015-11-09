@@ -38,8 +38,17 @@
       <div class="row">
         <div class="col-sm-2">          
           <div class="btn-group-vertical" role="group" aria-label="...">
-            <button id="missionLoad" type="button" class="btn btn-sm btn-default">Upload Misson</button>
-            <button id="missionDelete" type="button" class="btn btn-sm btn-default">Delete Select Misson</button>
+            <div id="missionLoadFile" class="col-lg-2">
+              <br/>
+              <input type="file" id="missionLoad">
+              <br/>
+              <button id="missionUpLoad" disabled type="button" class="btn btn-sm btn-default">Load & Review Mission</button>
+              <br/>
+              <div id="uploadNow"></div>
+              <br/>
+              <div id="missionDelete"></div>
+            </div>
+
           </div>
         </div>
 
@@ -60,8 +69,8 @@
             <ul class="nav nav-tabs">
               <li role="presentation" class="active"><a href="#">Mission Script</a></li>  
             </ul>
-            <div class="panel-body" id="missionScript">   
-
+            <div class="panel-body" id="missionScript">
+              <p>Select a mission to view here...</p>
             </div>
           </div>      
         </div> <!-- col-lg-12 -->
@@ -93,13 +102,13 @@ var bannerTitle = "Mission Load";
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   parameters:{
-    columns:null,
+    columns:null
   },
   views: {
-    missionTableView:null,
+    missionTableView:null
   },
   collections: {
-    missionCollection: null,
+    missionCollection: null
   },
   start: function() {
     this.login.fetch({async:false});
@@ -141,7 +150,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         label: "Created",
         cell: "string",
         editable: false
-      },
+      }
 
     ];
 
@@ -149,7 +158,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       el: $('#missionTable'),
       columns: self.parameters.columns,
       collection: self.collections.missionCollection
-    })
+    });
 
     self.collections.missionCollection = new MissionExecutiveCollection();
     self.collections.missionCollection.fetch({ reset: true });
@@ -160,32 +169,72 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'missionTable:rowSelected', function(model) {
-      console.log('selected');
-
       var scriptlines = [];
 
       _.each(model.get('mission'),function(scriptline){
         scriptlines.push(scriptline);
       });
       $('#missionScript').html("<pre class='pre-scrollable mission-code'>"+scriptlines.join("<br>")+"</pre>");
+      $('#missionDelete').html("<button id='missionDelete' value='"+model.get('mission_id')+"' type='button' class='btn btn-sm btn-default'>Delete Selected Mission</button>");
+      $('#missionUpLoadNow').remove();
+      $('#missionUpLoad').attr('disabled', true);
+      document.getElementById("missionLoad").value='';
     });
-    
   }
 });
 
 var ooi = new OOI();
 
 $(document).ready(function() {
-    ooi.start();
-    $('#navbar').prepend(navbar.el);
+  ooi.start();
+  $('#navbar').prepend(navbar.el);
 
-    $('#missionLoad').on( "click", function() {
-      alert('Select Mission file to load');
-    });
+  $('#missionLoad').on( "change", function(selector) {
+    if(document.getElementById("missionLoad").value.length>5) {
+      $('#missionUpLoad').removeAttr('disabled');
+      $('#missionDelete').html('');
+    }
+  });
+  $('#missionUpLoad').on( "click", function() {
+    $('#missionScript').html('<p>Select a mission to view here...</p>');
+    var input_file = document.getElementById("missionLoad");
+    var reader = new FileReader();
+    var base64;
+    reader.onload = function (e) {
+      base64 = e.target.result;
+      $('#missionScript').html(base64);
+      $('#uploadNow').html("<br/><button id='missionUpLoadNow' value='"+base64+"' type='button' class='btn btn-sm btn-default'>Load Mission to Server</button>");
+      $('#missionUpLoadNow').on( "click", function(ev) {
+        var mission_text = $(ev.target).attr('value');
+        $.ajax({
+          url: '/api/c2/missions',
+          type: 'POST',
+          data: mission_text,
+          contentType: 'text/plain; charset=utf-8',
+          dataType: 'text',
+          success: function(msg) {
+            alert(msg);
+            ooi.views.missionTableView.collection.fetch({reset:true});
+            $('#missionScript').html('');
+            $('#missionUpLoadNow').remove();
+            $('#missionUpLoad').attr('disabled', true);
+          }
+        });
+      });
+    };
+    reader.readAsText(input_file.files[0]);
+  });
 
-    $('#missionDelete').on( "click", function() {
-      alert('Delete Selected Mission');
-    });
+  $('#missionDelete').on( "click", function(ev) {
+    var mission_id = $(ev.target).attr('value');
+    $.get("/api/c2/missions/" + mission_id + "/delete")
+      .done(function (data) {
+        alert("Deleted " + mission_id);
+        ooi.views.missionTableView.collection.fetch({reset:true});
+        $('#missionScript').html('<p>Select a mission to view here...</p>');
+        $('#missionDelete').html('');
+      });
+  });
 });
 </script>
 {% endblock %}
