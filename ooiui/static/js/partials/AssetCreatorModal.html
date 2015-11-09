@@ -1,115 +1,82 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Create Asset: </h4>
+            <h3 class="modal-title" id="exampleModalLabel">Asset:</h3>
+            <h4 class="modal-title"> <%= assetInfo.longName || assetInfo.name ||  "New" %> </h4>
         </div>
         <form class="form-horizontal">
             <div class="modal-body">
-<!--                <div class="form-group">
-                    <label for="assetName" class="col-md-2 control-label" disabled>Name</label>
-                    <div class="col-md-9">
-                        <input id="assetName" type="text" class="form-control" placeholder="Asset Name">
-                    </div>
-                </div>-->
-                <div class="form-group">
-                    <label for="assetDescription" class="col-md-2 control-label">Description</label>
-                    <div class="col-md-9">
-                        <input id="assetDescription" type="text" class="form-control" placeholder="Asset Description">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetOwner" class="col-md-2 control-label">Owner</label>
-                    <div class="col-md-9">
-                        <input id="assetOwner" type="text" class="form-control"i placeholder="Asset Owner Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetType" class="col-md-2 control-label">Type</label>
-                    <div class="col-md-3">
-                        <select id="assetType" class="form-control">
-                            <option value="" selected>--</option>
-                            <option value="Sensor">Sensor</option>
-                            <option value="Mooring">Mooring</option>
-                            <option value="Wind Turbine">Wind Turbine</option>
-                            <option value="XEOS">XEOS</option>
-                        </select>
-                    </div>
-                    <label for="assetClass" class="col-md-2 control-label">Class</label>
-                    <div class="col-md-4">
-                        <select id="assetClass" class="form-control">
-                            <option value="" selected>--</option>
-                            <option value=".AssetRecord">Asset Record</option>
-                            <option value=".InstrumentAssetRecord">Instrument Asset Record</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetClassCode" class="col-md-2 control-label">Class Code</label>
-                    <div class="col-md-4">
-                        <input id="assetClassCode" type="text" class="form-control">
-                    </div>
-                </div>
-                <div>
-                    <hr/>
-                </div>
-                <div class="form-group">
-                    <label for="assetRefDes" class="col-md-4 control-label">Reference Designator</label>
+                <h4>Asset Info</h4>
+                <div class="row">
+                    <label for="assetDescription" class="col-md-4">Description</label>
                     <div class="col-md-7">
-                        <input id="assetRefDes" type="text" class="form-control">
+                        <input id="assetDescription" type="text" minlength="2" class="form-control" placeholder="Asset Description">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="assetOwner" class="col-md-4">Owner</label>
+                    <div class="col-md-7">
+                        <input id="assetOwner" type="text" class="form-control" placeholder="Asset Owner Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="assetType" class="col-md-4">Type</label>
+                    <div class="col-md-7">
+                        <select id="assetType" class="form-control">
+                            <option selected></option>
+                            <option>Instrument</option>
+                            <option>Platform</option>
+                            <option>Mooring</option>
+                            <option>RSN Primary Cable</option>
+                            <option>RSN Extension Cable</option>
+                            <option>Mooring Riser Component</option>
+                            <option>Telemetry Component</option>
+                            <option>Power System Component</option>
+                            <option>Platform Control Component</option>
+                            <option>SIM Card</option>
+                            <option>Crusie Kit</option>
+                            <option>Winch</option>
+                            <option>Wire Following Profiler</option>
+                            <option>Sensor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="assetInstrumentClass" class = "col-md-4">Asset Instrument Class</label>
+                    <div class="col-md-7">
+                        <input id="assetInstrumentClass" type="text" class="form-control">
                     </div>
                 </div>
                 <div>
                     <hr/>
                 </div>
-                <div class="form-group">
-                    <label for="assetLaunchDate" class="col-md-3 control-label">Launch Date</label>
-                    <div class="col-md-6">
-                        <input id="assetLaunchDate" type="text" class="form-control">
+                <h4>Manufacture Info</h4>
+                <div class="row">
+                    <label for= "serialNumber" class = "col-md-4">Serial Number</label>
+                    <div class = "col-md-7">
+                        <input id="serialNumber" type = "text" class="form-control">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="assetLaunchTime" class="col-md-3 control-label">Launch Time</label>
-                    <div class="col-md-6">
-                        <input id="assetLaunchTime" type="text" class="form-control">
+                <div class="row">
+                    <label for= "manufacturer" class = "col-md-4">Manufacturer</label>
+                    <div class = "col-md-7">
+                        <input id="manufacturer" type = "text" class="form-control">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="assetDeploymentNum" class="col-md-3 control-label">Deployment#</label>
-                    <div class="col-md-3">
-                        <input id="assetDeploymentNum" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetLatitude" class="col-md-3 control-label">Latitude</labeL>
-                    <div class="col-md-6">
-                        <input id="assetLatitude" class="form-control" type="text">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetLongitude" class="col-md-3 control-label">Longitude</labeL>
-                    <div class="col-md-6">
-                        <input id="assetLongitude" class="form-control" type="text">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assetDepth" class="col-md-3 control-label">Water Depth</label>
-                    <div class="col-md-6">
-                        <input id="assetDepth" class="form-control" type="text">
+                <div class="row">
+                    <label for= "modelNumber" class = "col-md-4">Model Number</label>
+                    <div class = "col-md-7">
+                        <input id="modelNumber" type = "text" class="form-control">
                     </div>
                 </div>
                 <div>
                     <hr/>
                 </div>
-                <div class="form-group">
-                    <label for="assetNotes" class="col-md-3 control-label">Notes</label>
-                    <div class="col-md-6">
-                        <textarea id="assetNotes" class="form-control" rows="3"></textarea>
-                    </div>
+                <h4>Meta Data</h4>
+                <div id="metaDataList">
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="cancel" type="button" class="btn btn-default">Cancel</button>
-                <button id="save" type="button" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>

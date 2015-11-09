@@ -1,3 +1,4 @@
+"use strict";
 // Parent class for asset views.
 var ParentAssetView = Backbone.View.extend({
     /* Parent class for the asset views.
@@ -9,7 +10,7 @@ var ParentAssetView = Backbone.View.extend({
         _.bindAll(this, 'render', 'derender');
     },
     render: function() {
-        if (this.model) { this.$el.html(this.template(this.model.toJSON())) } else { this.$el.html(this.template())};
+        if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
         return this;
     },
     derender: function() {
@@ -17,6 +18,117 @@ var ParentAssetView = Backbone.View.extend({
         this.unbind();
         this.model.off();
     }
+});
+
+var ParentAssetModalView = ParentAssetView.extend({
+    initialize: function() {
+        _.bindAll(this, 'save', 'addMetaData', 'loadControls', 'getFields');
+    },
+    loadControls: function() {
+    },
+    render: function() {
+        if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
+        this.metaData = [];
+        this.metaDataCount = 0;
+        this.metaItemList = [['assetRefDes', 'Ref Des'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
+            ['anchorLaunchDate', 'Anchor Launch Date'], ['assetLat', 'Latitude'], ['assetLon', 'Longitude'],
+            ['deploymentNum', 'Deployment Number'], ['waterDepth', 'Water Depth'], ['assetWeight', 'Weight'],
+            ['assetLength', 'Length'], ['assetHeight', 'Height'], ['assetWidth', 'Width'], ['assetVoltage', 'Voltage'],
+            ['assetWatts', 'Watts'], ['firmwareVer', 'Firmware Version'], ['storageLoc', 'Storage Location'],
+            ['docURL', 'Document URL'], ['ooiDocs', 'OOI Document No'], ['assetNotes', 'Notes'], ['assetDOI', 'DOI'],
+            ['ooiPartNum', 'OOI Part No'], ['ooiPropNum', 'OOI Property No'], ['instPropNum', 'Institution Property No'], ['platType', 'Platform Type']];
+        return this;
+    },
+    addMetaData: function() {
+        var metaItems = [];
+        $.each(this.metaItemList, function(index, item) {
+            metaItems.push('<div class="row meta-input">' +
+                '<label class="col-md-4 meta-key">'+item[1]+'</label>' +
+                '<div class="col-md-7">' +
+                '<input id="'+item[0]+'" class="meta-val form-control" type="text" placeholder="Value" for="'+item[1]+'">' +
+                '</div>' +
+            '</div>');
+        });
+        $('#metaDataList').append(metaItems.join(""));
+    },
+    //Get the values of all of the input fields and return an object representing the data.
+    getFields: function(){
+        var fields = {},
+            inputs = this.$el.find('input'),
+            selectInputs = this.$el.find('select'),
+            i, input, select;
+
+        for (i = 0, input; i < inputs.length; i++){
+            input = $(inputs[i]);
+            fields[input.attr('id')] = input.val();
+        }
+
+        for (i = 0, select; i < selectInputs.length; i++){
+            select = $(selectInputs[i]);
+            fields[select.attr('id')] = select.val();
+        }
+
+        return fields;
+    },
+    save: function(e) {
+        e.stopImmediatePropagation();
+        //TODO: make sure that this gets validated.
+        var fields = this.getFields();
+        // Create the new asset model that will be saved to the collection,
+        // and posted to the server.
+        this.model.set('asset_class', '.AssetRecord');
+        this.model.set('assetInfo', {
+            type: fields.assetType,
+            owner: fields.assetOwner,
+            description: fields.assetDescription,
+            instrumentClass: fields.assetInstrumentClass
+        });
+        this.model.set('manufactureInfo', {
+            serialNumber: fields.serialNumber,
+            manufacturer: fields.manufacturer,
+            modelNumber: fields.modelNumber
+        });
+        var metaItems = this.$el.find('.meta-input input');
+        for (var i=0; i < metaItems.length; i++) {
+            var metaKey = $(metaItems[i]).attr('for'),
+                metaVal = $(metaItems[i]).val();
+            this.metaData.push({
+                "key": metaKey,
+                "value": metaVal,
+                "type": "java.lang.String"
+            });
+        }
+        this.model.set('metaData', this.metaData);
+
+        var isValid = this.model.isValid(true);
+        if (isValid){
+            this.model.save(null, {
+                success: function(model, response){
+                    alert('Success!');
+                    vent.trigger('asset:changeCollection');
+                },
+                error: function(response) {
+                    alert("Sorry, there was an unexpected error: " + response);
+                    vent.trigger('asset:changeCollection');
+                }
+            });
+            this.cleanUp();
+            this.model.off();
+        } else {
+            alert('Please fill in all fields');
+            var missingFields = this.$el.find('input');
+                missingFields.push(this.$el.find('select'));
+
+            $.each(missingFields, function(index, item) {
+                if ($(missingFields[index]).val() === "") {
+                    $(missingFields[index]).closest('.row').addClass('has-error');
+                } else {
+
+                    $(missingFields[index]).closest('.row').removeClass('has-error');
+                }
+            });
+        }
+    },
 });
 
 //Header for the asset table.
@@ -37,13 +149,16 @@ var AssetTableHeaderView = ParentAssetView.extend({
     exportAssets:function(e){
     },
     updateAssetExport:function(search){
-        url = '/api/asset_deployment?search='+search+'&sort=id&export=json'
+        var url = '/api/asset_deployment?search='+search+'&sort=id&export=json';
         this.$el.find('#assetExportBtn').attr("href", url);
     },
     createAsset: function() {
-        var assetCreatorModal = new AssetCreatorModalView();
+        var assetModel = new AssetModel();
+        var assetCreatorModal = new AssetCreatorModalView({ model: assetModel });
         $(assetCreatorModal.render().el).appendTo('#assetCreatorModal');
         assetCreatorModal.setupFields();
+        assetCreatorModal.loadControls();
+        assetCreatorModal.addMetaData();
         return this;
     }
 
@@ -76,18 +191,29 @@ var AssetsTableRowView = ParentAssetView.extend({
     attributes: function(){
         return {
             'style': 'cursor:pointer'
-        }
+        };
     },
     template: JST['ooiui/static/js/partials/AssetsTableRow.html'],
     initialize: function() {
-        _.bindAll(this, 'renderSubViews');
+        _.bindAll(this, 'editAsset',  'renderSubViews');
         this.listenToOnce(vent, 'asset:tableDerender', function(model) {
             this.derender();
         });
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click" : "renderSubViews"
+        "click" : "renderSubViews",
+        "click .edit": "editAsset"
+    },
+    editAsset: function() {
+        // before editing the asset, make sure it's up to date.
+        this.model.fetch();
+        var assetEditorModal = new AssetEditorModalView({ model:this.model });
+        $(assetEditorModal.render().el).appendTo('#assetEditorModal');
+        assetEditorModal.loadControls();
+        assetEditorModal.addMetaData();
+        assetEditorModal.populateFields();
+        return this;
     },
     renderSubViews: function() {
         $('#assetDetailsPlaceholder').remove();
@@ -96,7 +222,8 @@ var AssetsTableRowView = ParentAssetView.extend({
         // the scope of this view, otherwise we have to put it in
         // strange places.
         $('#assetsTable tr').removeClass('highlight-row');
-        if ( !( this.$el.attr('class') == 'highlight-row' )  ) {
+
+        if ( this.$el.attr('class') !== 'highlight-row' ) {
             this.$el.toggleClass('highlight-row');
         }
     }
@@ -114,27 +241,17 @@ var AssetInspectorView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetInspector.html'],
     initialize: function() {
-        _.bindAll(this, 'editAsset', 'loadDocs');
+        _.bindAll(this, 'loadDocs');
         this.listenToOnce(vent, 'asset:derender', function(model) {
             this.derender();
         });
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click #assetEditorBtn": "editAsset",
         "click #loadDocs": "loadDocs"
     },
-    editAsset: function() {
-        // before editing the asset, make sure it's up to date.
-        this.model.fetch();
-        var assetEditorModal = new AssetEditorModalView({ model:this.model });
-        $(assetEditorModal.render().el).appendTo('#assetEditorModal');
-        return this;
-    },
     loadDocs: function() {
-        'use strict';
         this.model.fetch();
-        console.log('called loadDocs');
         vent.trigger('asset:renderDocsTable', this.model);
     }
 });
@@ -155,7 +272,7 @@ var AssetEventsTableView = ParentAssetView.extend({
 });
 
 //Asset creator modal view
-var AssetCreatorModalView = ParentAssetView.extend({
+var AssetCreatorModalView = ParentAssetModalView.extend({
     /* Renders out a modal window, which contains a form for
      * creating a new asset.
      * TODO: create field validations for each of the inputs.
@@ -168,7 +285,8 @@ var AssetCreatorModalView = ParentAssetView.extend({
      */
     template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'save', 'cancel', 'setupFields', 'validateFields');
+        _.bindAll(this, 'save', 'cancel', 'setupFields');
+        Backbone.Validation.bind(this);
     },
     events: {
         "click button#cancel" : "cancel",
@@ -177,118 +295,9 @@ var AssetCreatorModalView = ParentAssetView.extend({
     setupFields: function() {
         this.$el.find('#assetLaunchDate').datepicker();
     },
-    validateFields: function() {
-        /* TODO:
-         * 1. assetInfo: Required (all)
-         *      a. name: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      b. owner: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      c. description: Valid Char ( - , A-Z , a-z , 0-9 )
-         *      d. type: Selected
-         * 2. manufactureInfo: Optional (all)
-         *      a. manufacturer: Valid Char ( - , A-Z , a-z )
-         *      b. modelNumber:  Valid Char ( - , A-Z , 0-9 )
-         *      c. serialNumber:  Valid Char ( - , A-Z , 0-9)
-         * 3. metaData: Required (all)
-         *      a. Ref Des: Valid Char ( - , A-Z , 0-9 )
-         *      b. Anchor Launch Date: Not future.
-         *      c. Anchor Launch Time: 24hr format, not future.
-         *      d. Latitude: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
-         *      e. Longitutde: Decimal Degree, DegreeMinutes, Degree Minutes Seconds
-         *          - Actually map the input and return approx location
-         *            below input fields (non modifiable text field).
-         *      f. Water Depth: Valid Char ( m, 0-9 )
-         * 4. assetClassCode: String Length, Valid Char (A-Z, 0-9)
-         * 5. assetNotes: Valid Char (A-Z, a-z, 0-9, . , (comma) , - )
-         * 6. purchaseAndDeliveryInfo: Valid Char (A-Z, a-z, 0-9, . , (comma) , - , $ )
-         * 7. assetClass: Selected
-         * 8. assetSeriesClassification: <Unknown> ... leave out for now.
-         *
-         * Once Complete, change 'events:'
-         *  from:
-         *      "click button#save" : "save"
-         *  to:
-         *      "click button#save" : "validate",
-         *
-         * Then call this.save() at the successful validation.
-         */
-    },
-    save: function() {
-        // TODO: This entire function should be called
-        // on a successful form validation.  A refactor will be
-        // required to implement.
-        var assetInfo = {};
-        assetInfo.name = this.$el.find('#assetName').val();
-        assetInfo.owner = this.$el.find('#assetOwner').val();
-        assetInfo.description = this.$el.find('#assetDescription').val();
-        assetInfo.type = this.$el.find('#assetType').val();
-
-        // For now, this dict isn't implemented due to issues with uframe's
-        // acceptance of this data.
-        var manufactureInfo = {};
-        manufactureInfo.manufacturer = this.$el.find('#assetManufacturer').val();
-        manufactureInfo.modelNumber = this.$el.find('#assetModelNumber').val();
-        manufactureInfo.serialNumber = this.$el.find('#assetSerialNumber').val();
-        var remoteDocuments = [];
-        // The metaData field is very loosly defined.  These are the only
-        // field supported for asset creation at this time.
-        var metaData = [
-        {
-            "key": "Ref Des",
-            "value": this.$el.find('#assetRefDes').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Anchor Launch Date",
-            "value": this.$el.find('#assetLaunchDate').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Anchor Launch Time",
-            "value": this.$el.find('#assetLaunchTime').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Latitude",
-            "value": this.$el.find('#assetLatitude').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Longitude",
-            "value": this.$el.find('#assetLongitude').val(),
-            "type": "java.lang.String"
-        },
-        {
-            "key": "Water Depth",
-            "value": this.$el.find('#assetDepth').val(),
-            "type": "java.lang.String"
-        }];
-
-        var coordinates = [
-            this.$el.find('#assetLatitude').val(), this.$el.find('#assetLongitude').val()
-        ]
-        // Create the new asset model that will be saved to the collection,
-        // and posted to the server.
-        var newAsset = new AssetModel({});
-        newAsset.set('assetInfo', assetInfo);
-        newAsset.set('asset_class', this.$el.find('#assetClass').val());
-        newAsset.set('manufactureInfo', manufactureInfo);
-        newAsset.set('notes', [ this.$el.find('#assetNotes').val() ]);
-//        newAsset.set('purchaseAndDeliveryInfo', this.$el.find('#assetPurchaseAndDeliveryInfo').val());
-
-        newAsset.set('purchaseAndDeliveryInfo', null);
-        newAsset.set('metaData', metaData);
-        newAsset.set('classCode', this.$el.find('#assetClassCode').val());
-        newAsset.set('seriesClassification', this.$el.find('#assetSeriesClassification').val());
-        newAsset.set('ref_des', this.$el.find('#assetRefDes').val());
-        newAsset.set('coordinates', coordinates);
-        newAsset.set('events', []);
-        newAsset.save(null, {
-            success: function(model, response){
-                vent.trigger('asset:changeCollection');
-            }
-        });
-        this.cleanUp();
-        newAsset.off();
+    loadControls: function() {
+        this.$el.find('.modal-footer').append('<button id="cancel" type="button" class="btn btn-default">Cancel</button>')
+                                      .append('<button id="save" type="button" class="btn btn-primary">Save</button>');
     },
     cancel: function() {
         this.cleanUp();
@@ -302,7 +311,7 @@ var AssetCreatorModalView = ParentAssetView.extend({
     }
 });
 //Asset editor modal view.
-var AssetEditorModalView = ParentAssetView.extend({
+var AssetEditorModalView = ParentAssetModalView.extend({
     /* This will render out a asset editor modal window.
      * Only certain fields are editable to date, noteably
      * the fields omitted are the reference designator.
@@ -312,39 +321,37 @@ var AssetEditorModalView = ParentAssetView.extend({
      * - destory() ... This will delete an asset...beware!
      * - cleanUp()
      */
-    template: JST['ooiui/static/js/partials/AssetEditorModal.html'],
+    template: JST['ooiui/static/js/partials/AssetCreatorModal.html'],
     initialize: function() {
-        _.bindAll(this, 'cancel', 'submit', 'destroy', 'validateFields');
+        _.bindAll(this, 'cancel', 'destroy', 'populateFields');
+        Backbone.Validation.bind(this);
     },
     events: {
         "click button#cancelEdit" : "cancel",
-        "click button#saveEdit" : "submit",
+        "click button#saveEdit" : "save",
         "click button#delete" : "destroy"
     },
-    validateFields: function() {
-
+    loadControls: function() {
+        this.$el.find('.modal-footer').append('<button id="delete" type="button" class="btn btn-danger">Delete</button>')
+                                      .append('<button id="cancelEdit" type="button" class="btn btn-default">Cancel</button>')
+                                      .append('<button id="saveEdit" type="button" class="btn btn-primary">Save</button>');
     },
-    submit: function() {
-        var assetInfo = this.model.get('assetInfo');
-        assetInfo.name = this.$el.find('#assetName').val();
-        assetInfo.owner = this.$el.find('#assetOwner').val(),
-        assetInfo.description = this.$el.find('#assetDescription').val();
-        assetInfo.type = this.$el.find('#assetType').val();
+    populateFields: function() {
 
-        this.model.set('assetId', this.model.get('id'));
-        this.model.set('notes', [ this.$el.find('#assetNotes').val() ]);
-        this.model.set('asset_class', this.$el.find('#assetClass').val());
-        this.model.set('classCode', this.$el.find('#assetClassCode').val());
-        this.model.set('assetInfo', assetInfo);
-        this.model.save(null, {
-            success: function(model, response){
-                vent.trigger('asset:modelChange', model);
-            },
-            error: function(model, response){
-            }
+        $('#assetType').val(this.model.get('assetInfo').type);
+        $('#assetOwner').val(this.model.get('assetInfo').owner);
+        $('#assetDescription').val(this.model.get('assetInfo').description);
+        $('#assetInstrumentClass').val(this.model.get('assetInfo').instrumentClass);
+
+        if (this.model.get('manufactureInfo')) {
+            $('#serialNumber').val(this.model.get('manufactureInfo').serialNumber);
+            $('#modelNumber').val(this.model.get('manufactureInfo').modelNumber);
+            $('#manufacturer').val(this.model.get('manufactureInfo').manufacturer);
+        }
+        $.each(this.model.get('metaData'), function(index, item) {
+            $('input[for="'+item.key+'"]').val(item.value);
         });
 
-        this.cleanUp();
     },
     cancel: function() {
         this.cleanUp();
@@ -363,5 +370,6 @@ var AssetEditorModalView = ParentAssetView.extend({
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         this.derender();
+        this.unbind();
     }
 });
