@@ -109,6 +109,17 @@ div#assetEventsTable > div > div > div.panel-heading {
     height: 40px;
     margin-bottom: 5px;
 }
+.event-dropdown div label {
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+    float: left;
+    width: 33%;
+}
+.event-dropdown div p {
+    padding-left: 200px;
+}
+
 
 /* Attachments Table */
 div#assetAttachmentsTable div > div > div.panel-heading {
