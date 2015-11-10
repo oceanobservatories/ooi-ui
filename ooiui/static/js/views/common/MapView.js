@@ -22,14 +22,7 @@ var MapView = Backbone.View.extend({
         },"Reset Zoom Level").addTo( this.map );
 
         var wmsLayers = {};
-        $.each(TERRAIN.getLayerParams(), function( index, value ) {
-            var params = _.clone(value);
-            var new_layer = L.WMS.overlay(value.url, params);
-            wmsLayers[value.name] = new_layer;
-        });
-        //wmsLayers['Glider Track'] = this.generate_glider_layer();
-        this.wmsLayers = wmsLayers;
-
+       
         //glider layer
         this.gliderLayers = L.layerGroup();
         this.arrayLayers = L.layerGroup();
@@ -651,37 +644,6 @@ var TERRAIN = (function() {
 
         nearNow = new Date(),
 
-            layerParams = [
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"GFS WIND Model",
-                layers:"GFS_WINDS",
-                format: "image/png",
-                styles : "WINDS_VERY_SPARSE_GRADIENT-False-2-0-45-high",
-                transparent: true,
-                time: nearNow
-            },
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"Wave Watch III Model Waves",
-                styles: "",
-                layers:"WW3_WAVE_HEIGHT",
-                format: "image/png",
-                transparent: true,
-                time: nearNow
-            },
-            {
-                url:"http://coastmap.com/ecop/wms.aspx",
-                name:"HYCOM Currents",
-                styles: "CURRENTS_RAMP-Jet-False-4-True-0-2-high",
-                layers:"HYCOM_GLOBAL_NAVY_CURRENTS",
-                format: "image/png",
-                transparent: true,
-                time: nearNow
-            }
-        ],
-
-
         baseLayers = {
             "ESRI Oceans": Esri_OceanBasemap,
             "NGDC Bathymetry" : NGDC_WorldTerrain,
@@ -691,7 +653,6 @@ var TERRAIN = (function() {
 
     return {
         getBaseLayers : function(key) { return (key) ? baseLayers[key] : baseLayers; },
-        getLayerParams : function(key) { return (key) ? layerParams[key] : layerParams; }
     };
 })();
 
