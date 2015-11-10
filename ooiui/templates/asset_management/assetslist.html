@@ -285,8 +285,7 @@ var renderAssetEventsTable = function(model) {
 
 var renderRemoteDocuments = function(model) {
     //clear out the old events table panel DOM
-    $('div#remoteDocuments table tbody').children().remove();
-    $('div#remoteDocuments table tbody').append('<b>Loading...</b><i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:12px;"></i>');
+    $('div#remoteDocuments table tbody').remove();
 
     var ref_des = model.get('ref_des');
     var cruise = null;
@@ -294,10 +293,8 @@ var renderRemoteDocuments = function(model) {
 
      _.each( model.attributes.metaData, function(item){
         if (item.key == "Cruise Number"){
-            console.log(item['value']);
             cruise = item['value'];
         }
-        //console.log(item);
     })
 
     var data = { 'search': ref_des,'cruise': cruise,'array':array};
@@ -307,8 +304,8 @@ var renderRemoteDocuments = function(model) {
     //create a new table body and render it's view
     var docFetch = alfrescoDocCollection.fetch({ data: data });
     $.when(docFetch).done(function(){
-        $('div#remoteDocuments table tbody i.fa-spinner').remove();
-        $('div#remoteDocuments table tbody b').remove();
+        $('div#remoteDocuments table tbody').remove();
+        $('div#remoteDocuments table #loadDocs').remove();
         var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
         alfrescoTableBodyView.renderRecords();
 
