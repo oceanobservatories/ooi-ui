@@ -6,7 +6,7 @@
 
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-{# <link rel="stylesheet" type="text/css" href="/css/common/assets.css"> #}
+<link rel="stylesheet" type="text/css" href="/css/common/assets.css">
 
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
@@ -55,6 +55,7 @@
                       <th id="assetTableIdCol">ID#</th>
                       <th>Name</th>
                       <th>Type</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -393,6 +394,20 @@ var dateTimeToISO = function(strInput) {
     var parseDate = new Date(temp);
     var isoDateReturn = parseDate.toISOString();
     return isoDateReturn;
+};
+
+var documentDef = function(obj) {
+    var planDoc = [];
+    if (obj) {
+        planDoc = [
+            'Data Source: ' + obj.dataSource,
+            'Label: ' + obj.label,
+            'Remote Resource ID: ' + obj.remoteResourceId,
+            'Resource Number: ' + obj.resourceNumber];
+    } else {
+        planDoc = ["Plan not provided"];
+    }
+    return planDoc;
 };
 </script>
 {% endblock %}

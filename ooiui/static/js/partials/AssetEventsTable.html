@@ -16,35 +16,88 @@
         <!-- tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="deploymentEvent">
+                <div class="tab-controls">
+                    <div class="small-table-button">Create Deployment Event</div>
+                </div>
                 <table class="table table-bordered table-striped table-selectable">
                     <thead>
                         <tr>
                             <th>ID#</th>
-                            <th>Class</th>
-                            <th>Date</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Event</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% _.each(events, function(row) { %>
-                            <% if (row.class == '.DeploymentEvent') { %>
+                            <% if (row.class == '.DeploymentEvent') {
+                                var cruisePlanDoc = documentDef(row.cruisePlanDocument);
+                                var recoveryPlanDoc = documentDef(row.recoveryPlanDocument);
+                            %>
+
                             <tr class="accordion-toggle"
                                 style="cursor: pointer;"
                                 data-toggle="collapse"
-                                data-target="#cal-<%= row.eventId %>">
+                                data-target="#dep-<%= row.eventId %>">
                                     <td><%= row.eventId  %></td>
-                                    <td><%= row.class %></td>
                                     <td><%= new Date(row.startDate).toUTCString() %></td>
+                                    <% if (row.endDate !== null) { %>
+                                        <td><%= new Date(row.endDate).toUTCString() %></td>
+                                    <% } else { %>
+                                        <td>--</td>
+                                    <% } %>
+                                    <td><%= row.tense %></td>
                                 </tr>
-                                <tr class="collapse" id="cal-<%= row.eventId %>">
-                                    <td colspan="3">
-                                        <dl class="dl-horizontal">
-                                            <dt>Deployment Location</dt>
-                                            <dd colspan="2"><%= row.locationLonLat %></dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt>Deployment Depth</dt>
-                                            <dd colspan="2"><%= row.deploymentDepth %></dd>
-                                        </dl>
+                                <tr class="collapse" id="dep-<%= row.eventId %>">
+                                    <td class="event-dropdown"  colspan="4">
+                                        <h4>Deployment Info:</h4>
+                                        <div>
+                                            <label>Deployment Ship Name</label><p><%= row.deploymentShipName || "Ship name not provided" %></p>
+                                        </div>
+                                        <div>
+                                            <label>Deployment Number</label><p><%= row.deploymentNumber || "Deployment number not provided" %></p>
+                                        </div>
+                                        <div>
+                                            <label>Cruise Number</label><p><%= row.cruiseNumber || "Cruise number not provided" %></p>
+                                        </div>
+                                        <div>
+                                            <label>Crusie Plan Document</label><p><%= cruisePlanDoc.join('<br>') %></p>
+                                        </div>
+                                        <h4>Location Info:</h4>
+                                        <% if (row.tense === 'PRESENT') { %>
+                                        <div>
+                                            <label>Lat / Lon</label>
+                                            <% if (row.locationLonLat.length === 2) { %>
+                                                <p><%= row.locationLonLat %></p>
+                                            <% } else { %>
+                                                <p>Currently deployed, however no Lat / Lon was provided</p>
+                                            <% } %>
+                                            <div>
+                                            <label>Depth</label>
+                                            <% if (row.deploymentDepth !== null && !isNaN(row.deploymentDepth)) { %>
+                                                <div><%= row.deploymentDepth %> m</div>
+                                            <% } else { %>
+                                                <div>Currently deployed, however no depth was provided</div>
+                                            <% } %>
+                                            </div>
+                                        <% } else { %>
+                                            <div>Asset has been flagged as 'PAST' and not  presenly deployed; lat/lon and depth not applicable.</div>
+                                        <% } %>
+                                        <h4>Recovery Info:</h4>
+                                        <div>
+                                            <label>Recovery Ship Name</label><p><%= row.recoveryShipName || "No recovery ship name provided" %></p>
+                                        </div>
+                                        <div>
+                                            <label>Recovery Plan Document</label><p><%= recoveryPlanDoc %></p>
+                                        </div>
+                                        <div>
+                                            <label>Recovery Cruise Number</label><p><%= row.recoveryCruiseNumber %></p>
+                                        </div>
+                                        <div>
+                                            <label>Recovery Location</label><p><%= row.recoveryLocationLonLat || "Recovery location not provided" %></p>
+                                        </div>
+
+                                        <div class="edit-event-btn">Edit Event</div>
                                     </td>
                                 </tr>
                             <% } %>
