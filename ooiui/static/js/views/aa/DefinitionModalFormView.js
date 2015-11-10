@@ -88,6 +88,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.model.set('low_value',this.$el.find('#inputMinVal').val());   //str      
       this.model.set('severity',parseInt(this.$el.find('#inputSeverityVal').val()));   //int      
 
+      this.model.set('event_receipt_delta',parseInt(this.$el.find('#inputEventReceiptDelta').val()));   //int
     
       var selected = this.$el.find("#paramSelection option:selected");
       this.model.set('instrument_name',this.model.get('reference_designator'));   //str
@@ -179,6 +180,11 @@ var DefinitionModalFormView = ModalFormView.extend({
     //max
     if( this.model.get('high_value') ){
       this.$el.find('#inputMaxVal').val( this.model.get('high_value') );
+    }
+
+    //event_receipt_delta
+    if( this.model.get('event_receipt_delta') ){
+      this.$el.find('#inputEventReceiptDelta').val( this.model.get('event_receipt_delta') );
     }
 
     //severity

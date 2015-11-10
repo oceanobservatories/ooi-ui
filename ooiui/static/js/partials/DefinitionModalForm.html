@@ -198,7 +198,7 @@
 
 
                 <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     <div class="form-group">
                       <label for="userSelection" class="control-label">User Selection</label>
                       <select id="userSelection" class="selectpicker">
@@ -206,6 +206,17 @@
                         <option val="<%= model.get('id') %>"><%= model.get('user_name') %></option>
                         <% }) %>
                       </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6" style="visibility: visible;">
+                    <div class="form-group has-feedback">
+                      <label for="inputEventReceiptDelta" class="control-label">Event Sample Rate</label>
+                      <div class="input-group">
+                        <input type="number" minlength="4" class="form-control" id="inputEventReceiptDelta" placeholder="5000" required>
+                      </div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <span class="help-block with-errors">Time in milliseconds to sample events, 5000 = 5 seconds</span>
                     </div>
                   </div>
                 </div>
