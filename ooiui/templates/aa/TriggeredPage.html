@@ -45,9 +45,9 @@
                     <div class="scrollable-block">
                       <div id="alerts-scrollable" class="scrollable-area">
                         <div class="panel-body">
-                  <div id='triggerlist' class="col-sm-12">
-                        </div>
+                          <div id='triggerlist' class="col-sm-12">
                           </div>
+                        </div>
                       </div> <!-- end scollabel-area -->
                     </div> <!-- end scollabel-block -->
                   </div>
@@ -55,8 +55,8 @@
               </div> <!-- end row -->
             </div><!-- end row form-group -->
           </div>
-      <div id="ack-modal"></div>
-      <div id="clear-modal"></div>
+          <div id="ack-all-toggle-modal"></div>
+          <div id="clear-all-toggle-modal"></div>
       </div>
     </div>
   </div>
@@ -171,6 +171,30 @@
         this.views.clear = new ClearModalFormView({
           el: $('#clear-modal'),
           model:self.models.clearModel
+        });
+
+
+
+        this.listenTo(this, 'alertAckAllFormViewTrigger:onClick', function(options) {
+          self.views.ack_all.model = options.model;
+          self.views.ack_all.render();
+          self.views.ack_all.show();
+        });
+
+        this.listenTo(this, 'alertClearAllFormViewTrigger:onClick', function(options) {
+          self.views.clear_all.model = options.model;
+          self.views.clear_all.render();
+          self.views.clear_all.show();
+        });
+
+        this.views.ack_all = new AckAllModalFormView({
+          el: $('#ack-all-toggle-modal'),
+          model:self.models.alertModel
+        });
+
+        this.views.clear_all = new ClearAllModalFormView({
+          el: $('#clear-all-toggle-modal'),
+          model:self.models.alertModel
         });
 
         this.listenTo(this.collections.triggered_alerts_list, 'reset', function(options) {

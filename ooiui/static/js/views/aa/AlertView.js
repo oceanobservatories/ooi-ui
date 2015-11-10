@@ -155,8 +155,14 @@ var AlertFilterView = Backbone.View.extend({
     });
 
     var columns = [
-      {
+/*      {
         name: "uframe_filter_id", // The key of the model attribute
+        label: "ID", // The name to display in the header
+        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+        cell: "string"
+      },*/
+      {
+        name: "id", // The key of the model attribute
         label: "ID", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
         cell: "string"
@@ -179,6 +185,18 @@ var AlertFilterView = Backbone.View.extend({
       {
         name: "stream",
         label: "Stream",
+        editable: false,
+        cell: "string"
+      },
+      {
+        name: "instrument_parameter",
+        label: "Parameter",
+        editable: false,
+        cell: "string"
+      },
+      {
+        name: "instrument_parameter_pdid",
+        label: "PDID",
         editable: false,
         cell: "string"
       },
@@ -317,7 +335,8 @@ var AlertFilterView = Backbone.View.extend({
             }
           }
         })
-      },
+      }
+      /*,
       {
         name: "active",
         editable: false,
@@ -375,7 +394,7 @@ var AlertFilterView = Backbone.View.extend({
             }
           }
         })
-      }
+      }*/
     ];
 
     //add click event
@@ -414,7 +433,7 @@ var AlertFilterView = Backbone.View.extend({
           );
         }
 
-        // Clicked the ack all instances button
+/*        // Clicked the ack all instances button
         if (e.target.id=='ackAllInstancesBtn') {
           //console.log('clicked ack all instances btn for def id: ' + this.model.attributes.id);
           ooi.trigger('alertAckAllFormViewTrigger:onClick',
@@ -432,7 +451,7 @@ var AlertFilterView = Backbone.View.extend({
               model: this.model
             }
           );
-        }
+        }*/
 
         //check to see if the condition met item has ben clicked and open triggered events
         if(e.target.id=='condition_met'){

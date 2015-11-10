@@ -36,25 +36,31 @@
                 </div>      
 
                 <div class="row">
-                  <div class="col-sm-3">                    
+                  <div class="col-sm-3 minval" style="visibility: visible;">
 
                     <div class="form-group has-feedback">
                       <label for="inputMinVal" class="control-label">Minimum Value</label>
                       <div class="input-group">
-                        <!--<span class="input-group-addon"></span>-->
-                        <input type="text" minlength="3" maxlength="255" pattern="[0-9]+([.][0-9]+)" class="form-control" id="inputMinVal" placeholder="0.0" required>
+                        <% if( this.model.get('operator') && this.model.get('operator') == "LESS" ){ %>
+                        <input type="text" minlength="3" maxlength="255" pattern="-?[0-9]+([.][0-9]+)" class="form-control" id="inputMinVal" placeholder="0.0" required>
+                        <% } else { %>
+                        <input type="text" minlength="3" maxlength="255" pattern="-?[0-9]+([.][0-9]+)" class="form-control" id="inputMinVal" placeholder="0.0">
+                        <% } %>
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <span class="help-block with-errors"></span>
                     </div>
                   </div>
 
-                  <div class="col-sm-3">
+                  <div class="col-sm-3 maxval" style="visibility: visible;">
                     <div class="form-group has-feedback">
                       <label for="inputMaxVal" class="control-label">Maximum Value</label>
                       <div class="input-group">
-                        <!--<span class="input-group-addon"></span>-->
-                        <input type="text" minlength="3" maxlength="255" pattern="[0-9]+([.][0-9]+)" class="form-control" id="inputMaxVal" placeholder="1.0" required>
+                        <% if( this.model.get('operator') && this.model.get('operator') == "GREATER" ){ %>
+                        <input type="text" minlength="3" maxlength="255" pattern="-?[0-9]+([.][0-9]+)" class="form-control" id="inputMaxVal" placeholder="1.0" required>
+                        <% } else { %>
+                        <input type="text" minlength="3" maxlength="255" pattern="-?[0-9]+([.][0-9]+)" class="form-control" id="inputMaxVal" placeholder="1.0">
+                        <% } %>
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <span class="help-block with-errors"></span>
@@ -100,7 +106,7 @@
                       <label for="inputEscalateOn" class="control-label">Escalate On</label>
                       <div class="input-group">
                         <!--<span class="input-group-addon"></span>-->
-                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateOn" placeholder="5.0" >
+                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateOn" placeholder="1200.0" >
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <span class="help-block with-errors">Escalate On: Time in seconds after Alert is generated before it is escalated to a Redmine ticket</span>
@@ -112,15 +118,15 @@
                       <label for="inputEscalateBoundary" class="control-label">Escalate Boundary</label>
                       <div class="input-group">
                         <!--<span class="input-group-addon"></span>-->
-                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateBoundary" placeholder="10.0" >
+                        <input type="text" pattern="^\d+(\.\d{1,2})?$" class="form-control" id="inputEscalateBoundary" placeholder="2400.0" >
                       </div>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <span class="help-block with-errors">Escalate Boundary: Time in seconds since last Alert added to previous escalation will issue new Redmine ticket</span>
                     </div>
                   </div>                     
                   
-                </div><!-- .row -->              
-               
+                </div><!-- .row -->
+
                 <div class="row">
                     
                   <div class="col-sm-6">
@@ -140,23 +146,54 @@
                         <%  });  %>
                       </select>
                     </div>
-                  </div>    
+                  </div>
 
                   <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="opSelection" class="control-label">Operator Selection</label>
+                        <div id="opSelection" class="radio">
+                          <label>
+                            <input type="radio" name="operator-selection" val="GREATER" required>
+                            GREATER
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="operator-selection" val="LESS" required>
+                            LESS
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="operator-selection" val="BETWEEN_EXCLUSIVE" required>
+                            BETWEEN EXCLUSIVE
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="operator-selection" val="OUTSIDE_EXCLUSIVE" required>
+                            OUTSIDE EXCLUSIVE
+                          </label>
+                        </div>
+                      </div>
+                  </div>
+
+                  <!--<div class="col-sm-6">
                     <div class="form-group">
                       <label for="operatorSelection" class="control-label">Operator Selection</label>
-                      <select id="operatorSelection" class="selectpicker">     
-                          <% if( this.model.get('operator') ){ %>  
-                            <option val="GREATER">GREATER</option>                                                      
-                          <% } else { %>  
-                            <option selected val="GREATER">GREATER</option>                                                         
+                      <select id="operatorSelection" class="selectpicker">
+                          <% if( this.model.get('operator') ){ %>
+                            <option val="GREATER">GREATER</option>
+                          <% } else { %>
+                            <option selected val="GREATER">GREATER</option>
                           <% } %>
-                          <option val="LESS">LESS</option>  
-                          <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>  
-                          <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>   
+                          <option val="LESS">LESS</option>
+                          <option val="BETWEEN_EXCLUSIVE">BETWEEN EXCLUSIVE</option>
+                          <option val="OUTSIDE_EXCLUSIVE">OUTSIDE EXCLUSIVE</option>
                       </select>
                     </div>
-                  </div>    
+                  </div>-->
+
                 </div> <!-- .row -->              
 
 
@@ -217,19 +254,21 @@
                 <!-- FOOTER ROW -->
                 <div class="row">
                   <div class="col-sm-6">
-                    <div class="form-group">                             
-                      <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
+                    <div class="form-group">
+                      <% if( this.model.get('update') && this.model.get('update') == true ){ %>
+                        <button class="btn btn-default" disabled type="reset" id="reset-button">Reset</button>
+                      <% } else { %>
+                        <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
+                      <% } %>
                     </div>
                   </div>
                   <div class="col-sm-6">              
                     <div class="form-group">
-                      <button id="addDef" type="submit" class="btn btn-primary">
                       <% if( this.model.get('update') && this.model.get('update') == true ){ %>
-                        Update Definition
+                        <button id="addDef" type="submit" disabled class="btn btn-primary">Update Definition</button>
                       <% } else { %>
-                        Add Definition
-                      <% } %>                               
-                       </button> 
+                        <button id="addDef" type="submit" class="btn btn-primary">Add Definition</button>
+                      <% } %>
                     </div>
                   </div>
                 </div> <!-- .col-sm-6 -->
