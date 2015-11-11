@@ -60,7 +60,7 @@ def get_instrument_metadata(ref_des,stream_name):
 @app.route('/api/aa/triggered', methods=['GET'])
 def get_aa_triggered_all():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarm', auth=(token, ''))
+    response = requests.get(app.config['SERVICES_URL'] + '/alert_alarms', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/aa/triggered/<string:id>', methods=['GET'])

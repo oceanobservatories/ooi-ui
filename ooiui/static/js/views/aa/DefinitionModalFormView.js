@@ -10,10 +10,11 @@ var DefinitionModalFormView = ModalFormView.extend({
   },
   events: {
     "click #addDef": "onSubmit",
-    "change input[name='alertalarm']": "updatedType"
+    "change input[name='alertalarm']": "updatedType",
+    "click input[name='operator-selection']": "updatedOperator"
   },
   initialize: function() {
-    _.bindAll(this, "render","onSubmit","form_validate","updatedType");
+    _.bindAll(this, "render","onSubmit","form_validate","updatedType","updatedOperator");
     // Intentionally left blank to override parent
   },
   initalRender:function(){
@@ -33,6 +34,27 @@ var DefinitionModalFormView = ModalFormView.extend({
       //this.$el.find('#inputEscalateBoundary').removeAttr('required')
       //this.$el.find('#inputEscalateOn').removeAttr('required')
     }    
+  },
+  updatedOperator : function(evt){
+    var operatorval = this.$el.find('input[name="operator-selection"]:checked').attr('val');
+    if (operatorval == "GREATER"){
+      this.$el.find('.maxval').css('visibility','hidden');
+      this.$el.find('.minval').css('visibility','visible');
+      this.$el.find('#inputMinVal')[0].setAttribute('required','required');
+      this.$el.find('#inputMaxVal')[0].removeAttribute('required');
+    }
+    if (operatorval == "LESS"){
+      this.$el.find('.maxval').css('visibility','visible');
+      this.$el.find('.minval').css('visibility','hidden');
+      this.$el.find('#inputMaxVal')[0].setAttribute('required','required');
+      this.$el.find('#inputMinVal')[0].removeAttribute('required');
+    }
+    if (operatorval == "BETWEEN_EXCLUSIVE" || operatorval == "OUTSIDE_EXCLUSIVE") {
+      this.$el.find('.maxval').css('visibility','visible');
+      this.$el.find('.minval').css('visibility','visible');
+      this.$el.find('#inputMinVal')[0].setAttribute('required','required');
+      this.$el.find('#inputMaxVal')[0].setAttribute('required','required');
+    }
   },
   form_validate:function(attr_id){
     var result = true;
@@ -66,6 +88,7 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.model.set('low_value',this.$el.find('#inputMinVal').val());   //str      
       this.model.set('severity',parseInt(this.$el.find('#inputSeverityVal').val()));   //int      
 
+      this.model.set('event_receipt_delta',parseInt(this.$el.find('#inputEventReceiptDelta').val()));   //int
     
       var selected = this.$el.find("#paramSelection option:selected");
       this.model.set('instrument_name',this.model.get('reference_designator'));   //str
@@ -74,8 +97,9 @@ var DefinitionModalFormView = ModalFormView.extend({
 
       this.model.set('platform_name',this.model.get('reference_designator').split('-').slice(0, 2).join('-'));   //str
 
-      selected = this.$el.find("#operatorSelection option:selected");
-      this.model.set('operator',selected.attr('val'));   //str
+      //selected = this.$el.find("#operatorSelection option:selected");
+      //this.model.set('operator',selected.attr('val'));   //str
+      this.model.set('operator',this.$el.find('input[name="operator-selection"]:checked').attr('val')); //str
 
       this.model.set('escalate_on',0.0);   //float
 
@@ -158,6 +182,11 @@ var DefinitionModalFormView = ModalFormView.extend({
       this.$el.find('#inputMaxVal').val( this.model.get('high_value') );
     }
 
+    //event_receipt_delta
+    if( this.model.get('event_receipt_delta') ){
+      this.$el.find('#inputEventReceiptDelta').val( this.model.get('event_receipt_delta') );
+    }
+
     //severity
     if( this.model.get('severity') ){
       this.$el.find('#inputSeverityVal').val( this.model.get('severity') );
@@ -174,9 +203,20 @@ var DefinitionModalFormView = ModalFormView.extend({
     }
 
     //operator
+    //if( this.model.get('operator') ){
+    //  this.$el.find('#operatorSelection [val="'+this.model.get('operator')+'"]').prop("selected", true);
+    //}
     if( this.model.get('operator') ){
-      this.$el.find('#operatorSelection [val="'+this.model.get('operator')+'"]').prop("selected", true);
-    }    
+      this.$el.find('input[name="operator-selection"][val="'+this.model.get('operator')+'"]').prop("checked", true);
+      if (this.model.get('operator') == 'GREATER'){
+        this.$el.find('.maxval').css('visibility','hidden');
+        this.$el.find('.minval').css('visibility','visible');
+      }
+      if (this.model.get('operator') == 'LESS'){
+        this.$el.find('.maxval').css('visibility','visible');
+        this.$el.find('.minval').css('visibility','hidden');
+      }
+    }
 
     //
     this.$el.find('.selectpicker').selectpicker();

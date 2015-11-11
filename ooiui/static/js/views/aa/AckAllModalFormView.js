@@ -27,7 +27,7 @@ var AckAllModalFormView = ModalFormView.extend({
     e.preventDefault();
 
     var ackAllModel = new AckAllModel();
-    ackAllModel.set('id', this.model.get('id'));
+    ackAllModel.set('id', this.model.get('system_event_definition_id'));
     //clearModel.set('resolved_comment', this.$el.find('#inputDescription').val()); //str
 
     //console.log(ackAllModel);

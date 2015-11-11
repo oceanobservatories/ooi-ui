@@ -92,72 +92,10 @@ var TriggeredView = Backbone.View.extend({
 
     var columns = [
       {
-        name: "uframe_filter_id", // The key of the definition that triggered the event
+        name: "system_event_definition_id", // The key of the definition that triggered the event
         label: "Definition ID", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
         cell: "string"
-      },
-      {
-        name: "event_response", // The key of the model attribute
-        label: "Event Label", // The name to display in the header
-        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-        cell: "string"
-      },
-      {
-        name: "event_time",
-        label: "Event Time",
-        editable: false,
-        cell: "string"
-      },
-      {
-        name: "acknowledged", // The key of the model attribute
-        label: "Acknowledged", // The name to display in the header
-        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            //console.log('Acknowledged Field');
-            //console.log(rawValue);
-            //console.log(rawValue);
-            //place holder right now for triggered events
-            if(rawValue == 1){
-              return "Yes";
-            }
-            else {
-              return "<button type=\"button\" id=\"toggleAcknowledgeBtn\" class=\"btn btn-primary\">" +
-                "<i class=\"fa fa-plus-square\"></i> Acknowledge Now" +
-                "</button>";
-            }
-          }
-        })
-      },
-      {
-        name: "resolved", // The key of the model attribute
-        label: "Cleared", // The name to display in the header
-        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-        cell: HtmlCell,
-        formatter: _.extend({}, Backgrid.Cell.prototype, {
-          fromRaw: function (rawValue, model) {
-            //console.log('Cleared Field');
-            //console.log(rawValue);
-            //console.log(rawValue);
-            //place holder right now for triggered events
-            if(model.attributes.acknowledged == 0){
-              return "Acknowledge First";
-            }
-            else {
-              if(rawValue == 0){
-                return "<button type=\"button\" id=\"toggleClearBtn\" class=\"btn btn-primary\">" +
-                "<i class=\"fa fa-plus-square\"></i> Clear Now" +
-                "</button>";
-              }
-              else {
-                return "Yes";
-              }
-
-            }
-          }
-        })
       },
       {
         name: "event_type",
@@ -174,6 +112,130 @@ var TriggeredView = Backbone.View.extend({
             }
             else if (rawValue == 'alert') {
               return "<i id='condition_met' style='font-size:16px;color:#E3A615' class='fa fa-flag'> Alert</i>";
+            }
+          }
+        })
+      },
+      {
+        name: "count",
+        label: "Count",
+        editable: false,
+        cell: "string"
+      },
+      {
+        name: "event_response", // The key of the model attribute
+        label: "Event Label", // The name to display in the header
+        editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+        cell: "string"
+      },
+      {
+        name: "event_time",
+        label: "Event Time",
+        editable: false,
+        cell: "string"
+      },
+      //{
+      //  name: "acknowledged", // The key of the model attribute
+      //  label: "Acknowledged", // The name to display in the header
+      //  editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+      //  cell: HtmlCell,
+      //  formatter: _.extend({}, Backgrid.Cell.prototype, {
+      //    fromRaw: function (rawValue, model) {
+      //      //console.log('Acknowledged Field');
+      //      //console.log(rawValue);
+      //      //console.log(rawValue);
+      //      //place holder right now for triggered events
+      //      if(rawValue == 1){
+      //        return "Yes";
+      //      }
+      //      else {
+      //        return "<button type=\"button\" id=\"toggleAcknowledgeBtn\" class=\"btn btn-primary\">" +
+      //          "<i class=\"fa fa-plus-square\"></i> Acknowledge Now" +
+      //          "</button>";
+      //      }
+      //    }
+      //  })
+      //},
+      //{
+      //  name: "resolved", // The key of the model attribute
+      //  label: "Cleared", // The name to display in the header
+      //  editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+      //  cell: HtmlCell,
+      //  formatter: _.extend({}, Backgrid.Cell.prototype, {
+      //    fromRaw: function (rawValue, model) {
+      //      //console.log('Cleared Field');
+      //      //console.log(rawValue);
+      //      //console.log(rawValue);
+      //      //place holder right now for triggered events
+      //      if(model.attributes.acknowledged == 0){
+      //        return "Acknowledge First";
+      //      }
+      //      else {
+      //        if(rawValue == 0){
+      //          return "<button type=\"button\" id=\"toggleClearBtn\" class=\"btn btn-primary\">" +
+      //          "<i class=\"fa fa-plus-square\"></i> Clear Now" +
+      //          "</button>";
+      //        }
+      //        else {
+      //          return "Yes";
+      //        }
+      //
+      //      }
+      //    }
+      //  })
+      //},
+      {
+        name: "acknowledged",
+        editable: false,
+        label: "Acknowledge",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            //.log('Active Field');
+            //console.log(rawValue);
+            //console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.alert_alarm_definition.retired == 0) {
+              if (model.attributes.alert_alarm_definition.active == 1) {
+                return "<div style='text-align: center'><button disabled type=\"button\" id=\"ackAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Ack All" +
+                  "</button></div>";
+              }
+              else if (model.attributes.alert_alarm_definition.active == 0) {
+                return "<div style='text-align: center'><button type=\"button\" id=\"ackAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Ack All" +
+                  "</button></div>";
+              }
+            }
+            else {
+              return "Retired";
+            }
+          }
+        })
+      },
+      {
+        name: "resolved",
+        editable: false,
+        label: "Clear",
+        cell: HtmlCell,
+        formatter: _.extend({}, Backgrid.Cell.prototype, {
+          fromRaw: function (rawValue, model) {
+            //console.log('Active Field');
+            //console.log(rawValue);
+            //console.log(model.attributes.retired);
+            //place holder right now for triggered events
+            if (model.attributes.alert_alarm_definition.retired == 0) {
+              if (model.attributes.acknowledged == 0) {
+                return "Acknowledge First";
+              }
+              else if (rawValue == 0) {
+                return "<div style='text-align: center'><button type=\"button\" id=\"clearAllInstancesBtn\" class=\"btn btn-primary\">" +
+                  "<i class=\"fa fa-bolt\"></i> Clear All" +
+                  "</button></div>";
+              }
+            }
+            else {
+              return "Retired";
             }
           }
         })
@@ -206,7 +268,7 @@ var TriggeredView = Backbone.View.extend({
         Backbone.trigger("deployrowclicked", this.model);
         this.el.style.backgroundColor = this.highlightColor;
 
-        // Clicked the ACK button
+/*        // Clicked the ACK button
         if (e.target.id=='toggleAcknowledgeBtn') {
           //console.log('clicked ack btn for def id: ' + this.model.attributes.system_event_definition_id);
           ooi.trigger('acknowledgeFormViewTrigger:onClick',
@@ -224,6 +286,26 @@ var TriggeredView = Backbone.View.extend({
             {
               model: this.model,
               system_event_definition_id: this.model.attributes.system_event_definition_id
+            }
+          );
+        }*/
+
+        // Clicked the ack all instances button
+        if (e.target.id=='ackAllInstancesBtn') {
+          //console.log('clicked ack all instances btn for def id: ' + this.model.attributes.id);
+          ooi.trigger('alertAckAllFormViewTrigger:onClick',
+            {
+              model: this.model
+            }
+          );
+        }
+
+        // Clicked the clear all instances button
+        if (e.target.id=='clearAllInstancesBtn') {
+          //console.log('clicked clear all instances btn for def id: ' + this.model.attributes.id);
+          ooi.trigger('alertClearAllFormViewTrigger:onClick',
+            {
+              model: this.model
             }
           );
         }
