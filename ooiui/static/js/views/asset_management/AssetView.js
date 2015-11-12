@@ -246,13 +246,13 @@ var AssetInspectorView = ParentAssetView.extend({
             this.derender();
         });
         this.listenTo(vent, 'asset:modelChange', this.render);
+        vent.trigger('asset:renderDocsTable', this.model);
     },
     events: {
         "click #loadDocs": "loadDocs"
     },
     loadDocs: function() {
-        this.model.fetch();
-        vent.trigger('asset:renderDocsTable', this.model);
+        //vent.trigger('asset:renderDocsTable', this.model);
     }
 });
 
