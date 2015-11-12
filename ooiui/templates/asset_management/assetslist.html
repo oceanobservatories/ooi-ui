@@ -13,6 +13,7 @@
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/AssetEventsModel.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AlfrescoDocumentModel.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AlfrescoDocumentView.js" type="text/javascript"></script>
 <script src="/js/core/common/paginate.js" type="text/javascript"></script>
@@ -274,7 +275,8 @@ var renderAssetInspector = function(model) {
 
 var renderAssetEventsTable = function(model) {
     //create a new event table panel and reder it's view.
-    var assetEventsTableView = new AssetEventsTableView({ model:model });
+    var assetEventsTableView = new AssetEventsTableView();
+
     assetEventsTableView.render();
 
     //clear out the old events table panel DOM
@@ -282,6 +284,26 @@ var renderAssetEventsTable = function(model) {
 
     //then put the newly created view into the DOM.
     $('#assetEventsTable').append( assetEventsTableView.el );
+
+    //once the table is created, populate each tab with
+    var assetEventsCollection = new AssetEventsCollection({id: model.id});
+    var eventsFetch = assetEventsCollection.fetch({reset: true});
+    $.when(eventsFetch).done(function() {
+        var deploymentCollection = assetEventsCollection.where({'class': '.DeploymentEvent'});
+        var deploymentEventItemView = deploymentCollection.map(function(model) {
+            return (new AssetDeploymentEventItemView({ model:model })).render().el;
+        });
+
+        $('#deploymentEvent').find('table').append(deploymentEventItemView)
+
+        var calibrationCollection = assetEventsCollection.where({'class': '.CalibrationEvent'}),
+            calibrationEventItemView = calibrationCollection.map(function(model) {
+            return (new AssetCalibrationEventItemView({ model:model })).render().el;
+        });
+
+        $('#calibrationEvent').find('table').append(calibrationEventItemView);
+    });
+
 };
 
 var renderRemoteDocuments = function(model) {

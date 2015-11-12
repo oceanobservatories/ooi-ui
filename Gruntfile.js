@@ -492,6 +492,8 @@ module.exports = function(grunt) {
                 "ooiui/static/js/partials/AssetInspector.html",
                 "ooiui/static/js/partials/AssetsTableRow.html",
                 "ooiui/static/js/partials/AssetEventsTable.html",
+                "ooiui/static/js/partials/AssetDeploymentEventItem.html",
+                "ooiui/static/js/partials/AssetCalibrationEventItem.html",
                 "ooiui/static/js/partials/AssetTableHeader.html",
                 "ooiui/static/js/partials/AssetTableFooter.html",
                 "ooiui/static/js/partials/AssetEditorModal.html",

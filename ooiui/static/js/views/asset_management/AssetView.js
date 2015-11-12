@@ -16,7 +16,8 @@ var ParentAssetView = Backbone.View.extend({
     derender: function() {
         this.remove();
         this.unbind();
-        this.model.off();
+        if (this.model)
+            this.model.off();
     }
 });
 
@@ -202,7 +203,7 @@ var AssetsTableRowView = ParentAssetView.extend({
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click" : "renderSubViews",
+        "click": "renderSubViews",
         "click .edit": "editAsset"
     },
     editAsset: function() {
@@ -264,6 +265,25 @@ var AssetEventsTableView = ParentAssetView.extend({
      * - initialize()
      */
     template: JST['ooiui/static/js/partials/AssetEventsTable.html'],
+    initialize: function() {
+        this.listenToOnce(vent, 'asset:derender', function(model) {
+            this.derender();
+        });
+    }
+});
+
+var AssetDeploymentEventItemView = ParentAssetView.extend({
+    tagName: 'tbody',
+    template: JST['ooiui/static/js/partials/AssetDeploymentEventItem.html'],
+    initialize: function() {
+        this.listenToOnce(vent, 'asset:derender', function(model) {
+            this.derender();
+        });
+    }
+});
+var AssetCalibrationEventItemView = ParentAssetView.extend({
+    tagName: 'tbody',
+    template: JST['ooiui/static/js/partials/AssetCalibrationEventItem.html'],
     initialize: function() {
         this.listenToOnce(vent, 'asset:derender', function(model) {
             this.derender();

@@ -1,0 +1,70 @@
+<%
+var cruisePlanDoc = documentDef(cruisePlanDocument);
+var recoveryPlanDoc = documentDef(recoveryPlanDocument);
+%>
+<tr class="accordion-toggle"
+    style="cursor: pointer;"
+    data-toggle="collapse"
+    data-target="#dep-<%= eventId %>">
+    <td><%= eventId  %></td>
+    <td><%= new Date(startDate).toUTCString() %></td>
+    <% if (endDate !== null) { %>
+    <td><%= new Date(endDate).toUTCString() %></td>
+    <% } else { %>
+    <td>--</td>
+    <% } %>
+    <td><%= tense %></td>
+    <td class="event-edit">Edit</td>
+</tr>
+<tr class="collapse" id="dep-<%= eventId %>">
+    <td class="event-dropdown"  colspan="5">
+        <h4>Deployment Info:</h4>
+        <div>
+            <label>Deployment Ship Name</label><p><%= deploymentShipName || "Ship name not provided" %></p>
+        </div>
+        <div>
+            <label>Deployment Number</label><p><%= deploymentNumber || "Deployment number not provided" %></p>
+        </div>
+        <div>
+            <label>Cruise Number</label><p><%= cruiseNumber || "Cruise number not provided" %></p>
+        </div>
+        <div>
+            <label>Crusie Plan Document</label><p><%= cruisePlanDoc.join('<br>') %></p>
+        </div>
+        <h4>Location Info:</h4>
+        <% if (tense === 'PRESENT') { %>
+        <div>
+            <label>Lat / Lon</label>
+            <% if (locationLonLat) { %>
+            <p><%= locationLonLat %></p>
+            <% } else { %>
+            <p>Currently deployed, however no Lat / Lon was provided</p>
+            <% } %>
+            <div>
+                <label>Depth</label>
+                <% if (depth !== null && !isNaN(depth)) { %>
+                <div><%= depth %> m</div>
+                <% } else { %>
+                <div>Currently deployed, however no depth was provided</div>
+                <% } %>
+            </div>
+            <% } else { %>
+            <div>Asset has been flagged as 'PAST' and not  presenly deployed; lat/lon and depth not applicable.</div>
+            <% } %>
+            <h4>Recovery Info:</h4>
+            <div>
+                <label>Recovery Ship Name</label><p><%= recoveryShipName || "No recovery ship name provided" %></p>
+            </div>
+            <div>
+                <label>Recovery Plan Document</label><p><%= recoveryPlanDoc %></p>
+            </div>
+            <div>
+                <label>Recovery Cruise Number</label><p><%= recoveryCruiseNumber %></p>
+            </div>
+            <div>
+                <label>Recovery Location</label><p><%= recoveryLocationLonLat || "Recovery location not provided" %></p>
+            </div>
+
+            <div class="edit-event-btn">Edit Event</div>
+    </td>
+</tr>

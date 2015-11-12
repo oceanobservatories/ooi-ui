@@ -1,5 +1,3 @@
-<!-- wrapped in a .row -->
-<% try { %>
 <div class="panel">
     <div class="panel-heading">
         <div class="glyphicon glyphicon-warning-sign col-md-4" aria-hidden="true"> Events</div>
@@ -8,17 +6,14 @@
         <!-- tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#deploymentEvent" aria-controls="deploymentEvent" data-toggle="tab">Deployment</a></li>
-            <li role="presentation"><a href="#storageEvent" aria-controls="storageEvent" role="tab" data-toggle="tab">Storage</a></li>
+            <!-- <li role="presentation"><a href="#storageEvent" aria-controls="storageEvent" role="tab" data-toggle="tab">Storage</a></li>-->
             <li role="presentation"><a href="#calibrationEvent" aria-controls="calibrationEvent" data-toggle="tab">Calibration</a></li>
-            <li role="presentation"><a href="#integrationEvent" aria-controls="integrationEvent" data-toggle="tab">Integration</a></li>
-            <li role="presentation"><a href="#serviceEvent" aria-controls="serviceEvent" data-toggle="tab">Service</a></li>
+            <!-- <li role="presentation"><a href="#integrationEvent" aria-controls="integrationEvent" data-toggle="tab">Integration</a></li>-->
+            <!-- <li role="presentation"><a href="#serviceEvent" aria-controls="serviceEvent" data-toggle="tab">Service</a></li>-->
         </ul>
         <!-- tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="deploymentEvent">
-                <div class="tab-controls">
-                    <div class="small-table-button">Create Deployment Event</div>
-                </div>
                 <table class="table table-bordered table-striped table-selectable">
                     <thead>
                         <tr>
@@ -26,188 +21,30 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Event</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <% _.each(events, function(row) { %>
-                            <% if (row.class == '.DeploymentEvent') {
-                                var cruisePlanDoc = documentDef(row.cruisePlanDocument);
-                                var recoveryPlanDoc = documentDef(row.recoveryPlanDocument);
-                            %>
-
-                            <tr class="accordion-toggle"
-                                style="cursor: pointer;"
-                                data-toggle="collapse"
-                                data-target="#dep-<%= row.eventId %>">
-                                    <td><%= row.eventId  %></td>
-                                    <td><%= new Date(row.startDate).toUTCString() %></td>
-                                    <% if (row.endDate !== null) { %>
-                                        <td><%= new Date(row.endDate).toUTCString() %></td>
-                                    <% } else { %>
-                                        <td>--</td>
-                                    <% } %>
-                                    <td><%= row.tense %></td>
-                                </tr>
-                                <tr class="collapse" id="dep-<%= row.eventId %>">
-                                    <td class="event-dropdown"  colspan="4">
-                                        <h4>Deployment Info:</h4>
-                                        <div>
-                                            <label>Deployment Ship Name</label><p><%= row.deploymentShipName || "Ship name not provided" %></p>
-                                        </div>
-                                        <div>
-                                            <label>Deployment Number</label><p><%= row.deploymentNumber || "Deployment number not provided" %></p>
-                                        </div>
-                                        <div>
-                                            <label>Cruise Number</label><p><%= row.cruiseNumber || "Cruise number not provided" %></p>
-                                        </div>
-                                        <div>
-                                            <label>Crusie Plan Document</label><p><%= cruisePlanDoc.join('<br>') %></p>
-                                        </div>
-                                        <h4>Location Info:</h4>
-                                        <% if (row.tense === 'PRESENT') { %>
-                                        <div>
-                                            <label>Lat / Lon</label>
-                                            <% if (row.locationLonLat.length === 2) { %>
-                                                <p><%= row.locationLonLat %></p>
-                                            <% } else { %>
-                                                <p>Currently deployed, however no Lat / Lon was provided</p>
-                                            <% } %>
-                                            <div>
-                                            <label>Depth</label>
-                                            <% if (row.deploymentDepth !== null && !isNaN(row.deploymentDepth)) { %>
-                                                <div><%= row.deploymentDepth %> m</div>
-                                            <% } else { %>
-                                                <div>Currently deployed, however no depth was provided</div>
-                                            <% } %>
-                                            </div>
-                                        <% } else { %>
-                                            <div>Asset has been flagged as 'PAST' and not  presenly deployed; lat/lon and depth not applicable.</div>
-                                        <% } %>
-                                        <h4>Recovery Info:</h4>
-                                        <div>
-                                            <label>Recovery Ship Name</label><p><%= row.recoveryShipName || "No recovery ship name provided" %></p>
-                                        </div>
-                                        <div>
-                                            <label>Recovery Plan Document</label><p><%= recoveryPlanDoc %></p>
-                                        </div>
-                                        <div>
-                                            <label>Recovery Cruise Number</label><p><%= row.recoveryCruiseNumber %></p>
-                                        </div>
-                                        <div>
-                                            <label>Recovery Location</label><p><%= row.recoveryLocationLonLat || "Recovery location not provided" %></p>
-                                        </div>
-
-                                        <div class="edit-event-btn">Edit Event</div>
-                                    </td>
-                                </tr>
-                            <% } %>
-                        <% }); %>
-                    </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="storageEvent">
-                <table class="table table-bordered table-striped table-selectable">
-                    <thead>
-                        <tr>
-                            <th>ID#</th>
-                            <th>Class</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% _.each(events, function(row) { %>
-                            <% if (row.class == '.StorageEvent') { %>
-                                <tr>
-                                    <td><%= row.eventId  %></td>
-                                    <td><%= row.class %></td>
-                                    <td><%= new Date(row.startDate).toUTCString() %></td>
-                                </tr>
-                            <% } %>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="calibrationEvent">
-                <table class="table table-bordered table-striped table-selectable">
-                    <thead>
-                        <tr>
-                            <th>ID#</th>
-                            <th>Class</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% _.each(events, function(row) { %>
-                            <% if (row.class == '.CalibrationEvent') { %>
-                            <tr class="accordion-toggle"
-                                style="cursor: pointer;"
-                                data-toggle="collapse"
-                                data-target="#cal-<%= row.eventId %>">
-                                    <td><%= row.eventId  %></td>
-                                    <td><%= row.class %></td>
-                                    <td><%= new Date(row.startDate).toUTCString() %></td>
-                                </tr>
-                                <tr class="collapse" id="cal-<%= row.eventId %>">
-                                    <td colspan="3">
-                                        <% _.each(row.calibrationCoefficient, function(subRow) { %>
-                                            <dl class="dl-horizontal">
-                                                <dt><%= subRow.name %></dt>
-                                                <dd colspan="2"><%= subRow.values %></dd>
-                                            </dl>
-                                        <% }); %>
-                                    </td>
-                                </tr>
-                            <% } %>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="integrationEvent">
-                <table class="table table-bordered table-striped table-selectable">
-                    <thead>
-                        <tr>
-                            <th>ID#</th>
-                            <th>Class</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% _.each(events, function(row) { %>
-                            <% if (row.class == '.IntegrationEvent') { %>
-                                <tr>
-                                    <td><%= row.eventId  %></td>
-                                    <td><%= row.class %></td>
-                                    <td><%= new Date(row.startDate).toUTCString() %></td>
-                                </tr>
-                            <% } %>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="serviceEvent">
-                <table class="table table-bordered table-striped table-selectable">
-                    <thead>
-                        <tr>
-                            <th>ID#</th>
-                            <th>Class</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% _.each(events, function(row) { %>
-                            <% if (row.class == '.ServiceEvent') { %>
-                                <tr>
-                                    <td><%= row.eventId  %></td>
-                                    <td><%= row.class %></td>
-                                    <td><%= new Date(row.startDate).toUTCString() %></td>
-                                </tr>
-                            <% } %>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
+            <!--<div role="tabpanel" class="tab-pane" id="storageEvent">
+                </div>-->
+                <div role="tabpanel" class="tab-pane" id="calibrationEvent">
+                    <table class="table table-bordered table-striped table-selectable">
+                        <thead>
+                            <tr>
+                                <th>ID#</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Event</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!--<div role="tabpanel" class="tab-pane" id="integrationEvent">
+                    </div>-->
+                    <!--<div role="tabpanel" class="tab-pane" id="serviceEvent">
+                        </div>-->
         </div>
     </div>
 </div>
-<% } catch(err) { console.log(err) } %>
-<!-- .row -->

@@ -210,12 +210,12 @@ def display_name():
 # Assets
 @app.route('/api/asset_deployment', methods=['GET'])
 def instrument_deployment_proxy():
-    
-        
+
+
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
 
     if 'export' in request.args:
-        return Response(response.text, 
+        return Response(response.text,
             mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=filtered_assets.json'})
     else:
@@ -256,7 +256,7 @@ def event_deployments_proxy():
 
 @app.route('/api/asset_events/<int:id>', methods=['GET'])
 def event_deployment_get(id):
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/%s/events' % id, params=request.args)
     return response.text, response.status_code
 
 
