@@ -27,7 +27,7 @@ var ClearAllModalFormView = ModalFormView.extend({
     e.preventDefault();
 
     var clearModel = new ClearAllModel();
-    clearModel.set('id', this.model.get('id'));
+    clearModel.set('id', this.model.get('system_event_definition_id'));
     clearModel.set('resolved_comment', this.$el.find('#inputDescription').val()); //str
 
     //console.log(clearModel);
