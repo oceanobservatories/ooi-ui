@@ -122,7 +122,9 @@ var AlertFilterView = Backbone.View.extend({
       model: AlertModel,
       url:"/api/aa/alerts",
       state: {
-        pageSize: 20
+        pageSize: 15,
+        sortKey: "id",
+        order: -1
       },
       mode: "client",
       parse: function(response, options) {
@@ -165,6 +167,7 @@ var AlertFilterView = Backbone.View.extend({
         name: "id", // The key of the model attribute
         label: "ID", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
+        sortable: true,
         cell: "string"
       },
       {
@@ -490,6 +493,7 @@ var AlertFilterView = Backbone.View.extend({
 
     // Initialize the paginator
     var paginator = new Backgrid.Extension.Paginator({
+      goBackFirstOnSort: false, // Default is true
       collection: pageablealerts
     });
 

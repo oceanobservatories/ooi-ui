@@ -48,7 +48,9 @@ var TriggeredView = Backbone.View.extend({
       model: TriggeredModel,
       url: "/api/aa/triggered",
       state: {
-        pageSize: 16
+        pageSize: 15,
+        sortKey: "system_event_definition_id",
+        order: -1
       },
       mode: "client",
       parse: function (response, options) {
@@ -95,7 +97,8 @@ var TriggeredView = Backbone.View.extend({
         name: "system_event_definition_id", // The key of the definition that triggered the event
         label: "Definition ID", // The name to display in the header
         editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-        cell: "string"
+        cell: "string",
+        sortable: true
       },
       {
         name: "event_type",
@@ -347,6 +350,7 @@ var TriggeredView = Backbone.View.extend({
 
     // Initialize the paginator
     var paginator = new Backgrid.Extension.Paginator({
+      goBackFirstOnSort: false, // Default is true
       collection: pageabletriggers
     });
 
