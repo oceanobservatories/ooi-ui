@@ -25,6 +25,8 @@
 <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
 <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
 
+<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/14f8cea978/latest/bitdash.min.js"></script>
+
 {% block link %}
 <!-- common/base.html -->
 {{ super() }}
@@ -50,19 +52,19 @@
     </div>
   </div> <!-- #page-content-wrapper -->
    <div class="row">
-     <div class="col-sm-9" > 
+     <div class="col-sm-9" >
         <div class="panel panel-default">
           <div class="panel-body">
             <div id="cameraPreview">
-            </div>  
+            </div>
           </div>
         </div>
      </div>
-     <div class="col-sm-3" id="cameraControls">    
+     <div class="col-sm-3" id="cameraControls">
      </div>
   </div> <!-- #page-content-wrapper -->
 
-  <div style="padding-top:20px">   
+  <div style="padding-top:20px">
       <div class="row">
         <div class="col-sm-9">
         <div class="panel panel-default">
@@ -101,7 +103,7 @@ var userId = parseInt(window.location.href.split('/').pop());
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
-    
+
   },
   views: {
    banner: null,
@@ -128,7 +130,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.views.camera = new CameraPreviewView({
-      el: $('#cameraPreview')
+      el: $('#cameraPreview'),
+      url: "http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8"
     });
     this.views.camera.render();
 
