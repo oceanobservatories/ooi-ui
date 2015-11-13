@@ -1,0 +1,127 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Event: <%= eventId %> </h3>
+        </div>
+        <form class="form-horizontal">
+            <div class="modal-body">
+                <h4>Event Info</h4>
+                <div class="row">
+                    <label for="eventClass" class="col-md-5">Event Class</label>
+                    <div class="col-md-6">
+                        <select disabled id="eventClass" class="form-control">
+                            <option selected></option>
+                            <option value=".DeploymentEvent">Deployment Event</option>
+                            <option value=".CalibrationEvent">Calibration Event</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="eventStartDate" class="col-md-5">Start Date</label>
+                    <div class="col-md-6">
+                        <input id="eventStartDate" type="datetime" class="form-control" value="<%= new Date(startDate).toUTCString() || "" %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="eventEndDate" class="col-md-5">End Date</label>
+                    <div class="col-md-6">
+                        <% if (endDate !== null) { %>
+                        <input id="eventEndDate" type="datetime" class="form-control" value="<%= new Date(endDate).toUTCString() %>">
+                        <% } else {  %>
+                        <input id="eventEndDate" type="datetime" class="form-control" >
+                        <% } %>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="eventDescription" class="col-md-5">Description</label>
+                    <div class="col-md-6">
+                        <input id="eventDescription" type="text" class="form-control" value="<%= eventDescription %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="eventNotes" class="col-md-5">Notes</label>
+                    <div class="col-md-6">
+                        <input id="eventNotes" type="text" class="form-control" value="<%= notes %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="eventTense" class="col-md-5">Status</label>
+                    <div class="col-md-6">
+                        <select id="eventTense" class="form-control">
+                            <option selected></option>
+                            <option value="PAST">Past Event</option>
+                            <option value="PRESENT">Current Event</option>
+                        </select>
+                    </div>
+                </div>
+                <% switch(eventClass) {
+                case '.CalibrationEvent': %>
+                <h4>Calibration Info</h4>
+                <div id="calibrationCoeff"></div>
+
+                <%  break;
+                 case '.DeploymentEvent': %>
+                 <h4>Deployment Info</h4>
+                 <div class="row">
+                    <label for="deploymentShipName" class="col-md-5">Deployment Ship Name</label>
+                    <div class="col-md-6">
+                        <input id="deploymentShipName" type="text" class="form-control" value="<% (deploymentShipName) ? deploymentShipName : ""%>">
+                    </div>
+                 </div>
+                 <div class="row">
+                     <label for="cruiseNumber" class="col-md-5">Cruise Number</label>
+                     <div class="col-md-6">
+                         <input id="cruiseNumber" type="date" class="form-control" value="<%= cruiseNumber %>">
+                     </div>
+                 </div>
+                 <div class="row">
+                     <label for="deploymentNumber" class="col-md-5">Deployment Number</label>
+                     <div class="col-md-6">
+                         <input id="deploymentNumber" type="date" class="form-control" value="<%= deploymentNumber  %>">
+                     </div>
+                 </div>
+                 <div class="row">
+                     <label for="deploymentDepth" class="col-md-5">Deployment Depth</label>
+                     <div class="col-md-6">
+                         <input id="deploymentDepth" type="date" class="form-control" value="<%= depth %>">
+                     </div>
+                 </div>
+                 <div class="row">
+                     <label for="locationLonLat" class="col-md-5">Deployment Location</label>
+                     <div class="col-md-6">
+                         <label>Latitude</label>
+                         <input id="locationLat" type="date" class="form-control" value="<%= (locationLonLat) ? locationLonLat[1] : ""%>">
+                         <label>Longitude</label>
+                         <input id="locationLon" type="date" class="form-control" value="<%= (locationLonLat) ? locationLonLat[0] : "" %>">
+                     </div>
+                 </div>
+                 <h4>Recovery Info</h4>
+                 <div class="row">
+                    <label for="recoveryShipName" class="col-md-5">Recovery Ship Name</label>
+                    <div class="col-md-6">
+                        <input id="recoveryShipName" type="text" class="form-control" value="<% (recoveryShipName) ? recoveryShipName : ""%>">
+                    </div>
+                 </div>
+                <div class="row">
+                    <label for="recoveryCruiseNumber" class="col-md-5">Recovery Cruise Number</label>
+                    <div class="col-md-6">
+                        <input id="recoveryCruiseNumber" type="text" class="form-control" value="<% (recoveryCruiseNumber) ? recoveryCruiseNumber : ""%>">
+                    </div>
+                </div>
+                 <div class="row">
+                     <label for="recoveryLocationLonLat" class="col-md-5">Recovery Location</label>
+                     <div class="col-md-6">
+                         <label>Latitude</label>
+                         <input id="recoveryLocationLat" type="date" class="form-control" value="<%= (recoveryLocationLonLat) ? reocveryLocationLonLat[1] : ""%>">
+                         <label>Longitude</label>
+                         <input id="recoveryLocationLon" type="date" class="form-control" value="<%= (recoveryLocationLonLat) ? recoveryLocationLonLat[0] : "" %>">
+                     </div>
+                 </div>
+                 <%  break;
+                 } %>
+             <div class="modal-footer">
+             </div>
+            </div>
+        </form>
+    </div>
+</div>

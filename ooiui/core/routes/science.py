@@ -260,15 +260,17 @@ def event_deployment_get(id):
     return response.text, response.status_code
 
 
-@app.route('/api/asset_events/<int:id>', methods=['PUT'])
-def asset_event_put(id):
-    response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, data=request.data)
+@app.route('/api/asset_events/<int:assetId>/<int:id>', methods=['PUT'])
+def asset_event_put(id, assetId):
+    token = get_login()
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 
 @app.route('/api/asset_events', methods=['POST'])
 def asset_event_post():
-    response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', data=request.data)
+    token = get_login()
+    response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 

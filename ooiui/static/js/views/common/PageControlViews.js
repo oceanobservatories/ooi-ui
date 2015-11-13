@@ -1,3 +1,5 @@
+'use strict';
+
 /* author: M@Campbell
  * 10/20/2015
  *
@@ -14,7 +16,6 @@ var ParentPageControlView = Backbone.View.extend({
      * - loadControls() : Customize this function for each page if you want.
      */
     initialize: function() {
-        'use strict';
         _.bindAll(this, 'render', 'derender', 'click');
     },
     events: {
@@ -25,7 +26,6 @@ var ParentPageControlView = Backbone.View.extend({
     // and a the tag contents with the second index.
     template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
     render: function() {
-        'use strict';
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
         // for now, this is in the parent view.  If it doesn't seem to be that common
@@ -36,57 +36,35 @@ var ParentPageControlView = Backbone.View.extend({
         return this;
     },
     derender: function() {
-        'use strict';
         this.remove();
         this.unbind();
         this.model.off();
     },
-    click: function() {
-
-        // placeholder for children
-        alert("You have not defined the click method yet for this page\'s controls!");
-    }
-});
-
-
-var DataCatalogPageControlView = ParentPageControlView.extend({
     click: function(e) {
-        'use strict';
-
-        // define variables up top for SPEED.
-        var index, hiddenSearch = this.hiddenSearch || [];
-
-        // lets start by figuring out of the button has already be activated
-        // or not . . .
-        if (!$('#'+e.target.id).hasClass('active')) {
-
-            // if the target isn't active lets push the search criteria to the
-            // hidden search container.
-            hiddenSearch.push(e.target.id);
+        if ($('#'+e.target.id).hasClass('active')) {
+            $('#'+e.target.id).removeClass('active');
+            $('#hiddenSearch').val('');
         } else {
-
-            // if the target is already active, lets find it in the hiddenSearch
-            // array and then remove it.
-            index = hiddenSearch.indexOf(e.target.id);
-            if (index > -1) {
-                hiddenSearch.splice(index, 1);
-            }
+            $('.active').removeClass('active');
+            $('#'+e.target.id).toggleClass('active');
+            $('#hiddenSearch').val(e.target.id);
         }
 
         // once that array is all sorted out, lets stick it in the hidden search field that
-        // hass been appended to the page.
-        $('#hiddenSearch').val(hiddenSearch.join(' '));
-        $('#search').trigger('change');
-        $('#'+e.target.id).toggleClass('active');
-
-        // we'll need to persist the array, so lets just attach it to this view.
-        this.hiddenSearch = hiddenSearch;
+        // has been appended to the page.
+        $('#search').trigger('keyup');
     }
 });
 
+
+var DataCatalogPageControlView = ParentPageControlView.extend({});
+
+
+var AssetManagementPageControlView = ParentPageControlView.extend({});
+
+
 var TocPageControlView = ParentPageControlView.extend({
     click: function(e) {
-        'use strict';
 
         // simple toggle of DOM elements.
         switch(e.target.id) {

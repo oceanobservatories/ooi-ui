@@ -12,7 +12,7 @@
 
 var AssetEventsModel = Backbone.Model.extend({
     defaults: {
-        class: null,
+        eventClass: null,
         eventType: "ACTUAL",
         metaData: [ ],
         eventId: null,

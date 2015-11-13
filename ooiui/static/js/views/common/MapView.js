@@ -22,7 +22,7 @@ var MapView = Backbone.View.extend({
         },"Reset Zoom Level").addTo( this.map );
 
         var wmsLayers = {};
-       
+
         //glider layer
         this.gliderLayers = L.layerGroup();
         this.arrayLayers = L.layerGroup();
@@ -448,7 +448,7 @@ var MapView = Backbone.View.extend({
 
                     var events = platform_entry.get('events');
                     _.each(events, function(item) {
-                        if (item['class'] == ".DeploymentEvent"){
+                        if (item['eventClass'] == ".DeploymentEvent"){
                             if (!hasDeploymentEvent){
                                 // Name
                                 popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>';

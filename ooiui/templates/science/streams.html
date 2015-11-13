@@ -302,7 +302,7 @@ $(document).ready(function() {
             updateCollection( showStreams )
             });
 
-        $('#search').change( _.debounce(textInput, 250) );
+        $('#search').keyup( _.debounce(textInput, 250) );
 });
 
 function textInput() {
