@@ -73,6 +73,7 @@
           <div id="ack-all-toggle-modal"></div>
           <div id="clear-all-toggle-modal"></div>
           <div id="definition-status"></div>
+          <div id="retire-toggle-modal"></div>
         </div>
       </div>
     </div>
@@ -89,14 +90,16 @@
         alertModel: new AlertModel(),
         userModel: new UserModel(),
         userEventNotificationModel: new UserEventNotificationModel(),
-        selectedStream: null
+        selectedStream: null,
+        retireModel: new RetireModel()
       },
       collections: {
         arrays: new ArrayCollection(),
         alert_list: new AlertsFullCollection(),
         alert_metadata: new AlertMetadataCollection(),
         user_event_notifications: new UserEventNotificationFullCollection(),
-        user_collection: new UserCollection()
+        user_collection: new UserCollection(),
+        retire_collection: new RetireCollection()
       },
       views: {
         //
@@ -252,6 +255,17 @@
           self.views.notification_toggle.model = options.model;
           self.views.notification_toggle.render();
           self.views.notification_toggle.show();
+        });
+
+        this.listenTo(this, 'alertToggleRetireFormViewTrigger:onClick', function(options) {
+          self.views.retired_toggle.model = options.model;
+          self.views.retired_toggle.render();
+          self.views.retired_toggle.show();
+        });
+
+        this.views.retired_toggle = new AlertToggleRetireModalFormView({
+          el: $('#retire-toggle-modal'),
+          model:self.models.alertModel
         });
 
         this.views.active_toggle = new AlertToggleActiveModalFormView({
