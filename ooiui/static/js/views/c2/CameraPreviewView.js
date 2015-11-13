@@ -7,9 +7,12 @@ var CameraPreviewView = Backbone.View.extend({
   bindings: {
   },
   events: {
-    
+
   },
   initialize: function(options) {
+    if ('url' in options){
+      this.url = options.url;
+    }
     _.bindAll(this, "render");
     this.initialRender();
   },
@@ -20,6 +23,17 @@ var CameraPreviewView = Backbone.View.extend({
   render:function(options){
     var self = this;
     this.$el.html(this.template());
+
+    var conf = {
+        key:       "252fb957b2c0548a7f8fe25c575c42b7",
+        source: {
+          hls:         this.url,
+          poster:      'http://policy.oceanleadership.org/wp-content/uploads/OceanLeadershipLogo_NoTagline_CMYK.jpg'
+        }
+    };
+    var player = bitdash("player").setup(conf);
+
+
   }
 });
 
@@ -30,7 +44,7 @@ var CameraControlsView = Backbone.View.extend({
   bindings: {
   },
   events: {
-    
+
   },
   initialize: function(options) {
     _.bindAll(this, "render");
