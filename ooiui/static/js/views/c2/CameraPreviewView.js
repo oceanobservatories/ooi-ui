@@ -25,7 +25,7 @@ var CameraPreviewView = Backbone.View.extend({
     this.$el.html(this.template());
 
     var conf = {
-        key:       "252fb957b2c0548a7f8fe25c575c42b7",
+        key:       "0b4de3d21001075717cd59494ae84e5a",
         source: {
           hls:         this.url,
           poster:      'http://policy.oceanleadership.org/wp-content/uploads/OceanLeadershipLogo_NoTagline_CMYK.jpg'
