@@ -179,3 +179,13 @@ def resolve_all_alert_alarm():
     def_id = data['id']
     response = requests.put(app.config['SERVICES_URL'] + '/resolve_alert_alarm_definition/%s' % def_id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
+
+# clear (resolve) single alert or alarm
+@app.route('/api/aa/delete_alert_alarm_definition', methods=['PUT'])
+def retire_all_alert_alarm():
+    token = get_login()
+    data = json.loads(request.data)
+    #id needed by the services to get the filter
+    def_id = data['id']
+    response = requests.delete(app.config['SERVICES_URL'] + '/delete_alert_alarm_definition/%s' % def_id, auth=(token, ''), data=request.data)
+    return response.text, response.status_code
