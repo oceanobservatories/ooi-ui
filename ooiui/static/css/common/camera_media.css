@@ -25,11 +25,16 @@
     background: #ADADAD;
     height:190px;
     width:190px;
-    padding: 15px !important; 
+    padding: 15px !important;
 }
 
 .camera-control-button button{
 	border:none;
 	width:50px !important;
 	height:50px !important;
+}
+
+
+.bitdash-vc{
+  width:100% !important;
 }

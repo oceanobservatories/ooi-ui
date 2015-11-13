@@ -332,7 +332,7 @@ var AlertFilterView = Backbone.View.extend({
               return "Retired";
             }
             else {
-              return "<div style='text-align: center'><button disabled type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
+              return "<div style='text-align: center'><button type=\"button\" id=\"toggleRetireBtn\" class=\"btn btn-primary\">" +
                 "<i class=\"fa fa-bolt\"></i> Retire" +
                 "</button></div>";
             }
@@ -430,6 +430,16 @@ var AlertFilterView = Backbone.View.extend({
         if (e.target.id=='toggleNotificationBtn') {
           //console.log('clicked toggle notification btn for def id: ' + this.model.attributes.id);
           ooi.trigger('alertToggleNotificationFormViewTrigger:onClick',
+            {
+              model: this.model
+            }
+          );
+        }
+
+        // Clicked the toggle notification button
+        if (e.target.id=='toggleRetireBtn') {
+          //console.log('clicked toggle notification btn for def id: ' + this.model.attributes.id);
+          ooi.trigger('alertToggleRetireFormViewTrigger:onClick',
             {
               model: this.model
             }
