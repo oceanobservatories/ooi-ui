@@ -297,8 +297,9 @@ var renderAssetEventsTable = _.debounce(function(model) {
     $('#assetEventsTable').find('table').append('<tbody class="loading-spinner"><tr><td colspan="5">Loading . . . <i class="fa fa-spinner fa-spin"></i></td></tr></tbody>');
     //once the table is created, populate each tab with
     var assetEventsCollection = new AssetEventsCollection({id: model.id});
-    var eventsFetch = assetEventsCollection.fetch({reset: true});
+    var eventsFetch = assetEventsCollection.fetch();
     $.when(eventsFetch).done(function() {
+        $('div.events table tbody').remove();
         $('.loading-spinner').remove();
         var deploymentCollection = assetEventsCollection.where({'eventClass': '.DeploymentEvent'});
         var deploymentEventItemView = deploymentCollection.map(function(model) {
