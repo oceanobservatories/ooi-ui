@@ -101,8 +101,8 @@ var ParentEventModalView = ParentView.extend({
         // and posted to the server.
 
         this.model.set('eventClass', fields.eventClass);
-        this.model.set('startDate', fields.eventStartDate);
-        this.model.set('endDate', fields.eventEndDate);
+        this.model.set('startDate', Date.parse(fields.eventStartDate));
+        this.model.set('endDate', Date.parse(fields.eventEndDate));
         this.model.set('eventDescription', fields.eventDescription);
         this.model.set('notes', fields.eventNotes);
         this.model.set('tense', fields.eventTense);
@@ -135,7 +135,6 @@ var ParentEventModalView = ParentView.extend({
         this.model.set('asset', this.model.get('asset'));
         this.model.set('referenceDesignator', this.model.get('referenceDesignator'));
 
-        console.log(this.model);
         var isValid = this.model.isValid(true);
         if (isValid){
             this.model.save(null, {
