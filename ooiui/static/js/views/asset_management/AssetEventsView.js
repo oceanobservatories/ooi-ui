@@ -100,8 +100,42 @@ var ParentEventModalView = ParentView.extend({
         // Create the new asset model that will be saved to the collection,
         // and posted to the server.
 
+        this.model.set('eventClass', fields.eventClass);
+        this.model.set('startDate', fields.eventStartDate);
+        this.model.set('endDate', fields.eventEndDate);
+        this.model.set('eventDescription', fields.eventDescription);
+        this.model.set('notes', fields.eventNotes);
+        this.model.set('tense', fields.eventTense);
 
+        if (this.model.get('eventClass') === '.CalibrationEvent') {
+            var calibrationCoeff = [];
+            var calItems = this.$el.find('#calibrationCoeff input');
+            for (var i=0; i < calItems.length; i++) {
+                var calKey = $(calItems[i]).attr('id'),
+                    calVal = $(calItems[i]).val(),
+                    calCoeff = {};
 
+                calCoeff[calKey] = calVal;
+                calibrationCoeff.push(calCoeff);
+            }
+        this.model.set('metaData', calibrationCoeff);
+        }
+
+        if (this.model.get('eventClass') === '.DeploymentEvent') {
+            this.model.set('deploymentShipName', fields.deploymentShipName);
+            this.model.set('cruiseNumber', fields.cruise);
+            this.model.set('deploymentNumber', fields.deploymentNumber);
+            this.model.set('depth', fields.deploymentDepth);
+            this.model.set('locationLonLat', [fields.locationLon, fields.locationLat]);
+            this.model.set('recoveryShipName', fields.recoveryShipName);
+            this.model.set('recoveryCruiseNumber', fields.recoveryCruiseNumber);
+            this.model.set('recoveryLocationLonLat', [fields.recoveryLocationLon, fields.recoveryLocationLat]);
+        }
+
+        this.model.set('asset', this.model.get('asset'));
+        this.model.set('referenceDesignator', this.model.get('referenceDesignator'));
+
+        console.log(this.model);
         var isValid = this.model.isValid(true);
         if (isValid){
             this.model.save(null, {
@@ -110,7 +144,7 @@ var ParentEventModalView = ParentView.extend({
                     vent.trigger('asset:changeCollection');
                 },
                 error: function(response) {
-                    alert("Sorry, there was an unexpected error: " + response);
+                    alert("Sorry, this action is not currently supported by the data infrastructure. Please contact your system admin. " + response.responseText);
                     vent.trigger('asset:changeCollection');
                 }
             });

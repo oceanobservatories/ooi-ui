@@ -59,12 +59,11 @@ var recoveryPlanDoc = documentDef(recoveryPlanDocument);
                 <label>Recovery Plan Document</label><p><%= recoveryPlanDoc %></p>
             </div>
             <div>
-                <label>Recovery Cruise Number</label><p><%= recoveryCruiseNumber %></p>
+                <label>Recovery Cruise Number</label><p><%= recoveryCruiseNumber || "Recovery cruise number not provided" %></p>
             </div>
             <div>
                 <label>Recovery Location</label><p><%= recoveryLocationLonLat || "Recovery location not provided" %></p>
             </div>
 
-            <div class="edit-event-btn">Edit Event</div>
     </td>
 </tr>

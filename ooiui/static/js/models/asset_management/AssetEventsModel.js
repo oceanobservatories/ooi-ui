@@ -54,6 +54,11 @@ var AssetEventsModel = Backbone.Model.extend({
         attrs.assetId = attrs.id;
         return attrs;
     },
+    validation: {
+        "eventClass"        : { required: true },
+        "startDate"         : { required: true },
+        "tense"             : { required: true }
+    }
 });
 
 
