@@ -71,28 +71,28 @@
                  <div class="row">
                      <label for="cruiseNumber" class="col-md-5">Cruise Number</label>
                      <div class="col-md-6">
-                         <input id="cruiseNumber" type="date" class="form-control" value="<%= cruiseNumber %>">
+                         <input id="cruiseNumber" type="text" class="form-control" value="<%= cruiseNumber %>">
                      </div>
                  </div>
                  <div class="row">
                      <label for="deploymentNumber" class="col-md-5">Deployment Number</label>
                      <div class="col-md-6">
-                         <input id="deploymentNumber" type="date" class="form-control" value="<%= deploymentNumber  %>">
+                         <input id="deploymentNumber" type="number" class="form-control" value="<%= deploymentNumber  %>">
                      </div>
                  </div>
                  <div class="row">
                      <label for="deploymentDepth" class="col-md-5">Deployment Depth</label>
                      <div class="col-md-6">
-                         <input id="deploymentDepth" type="date" class="form-control" value="<%= depth %>">
+                         <input id="deploymentDepth" type="number" class="form-control" value="<%= depth %>">
                      </div>
                  </div>
                  <div class="row">
                      <label for="locationLonLat" class="col-md-5">Deployment Location</label>
                      <div class="col-md-6">
                          <label>Latitude</label>
-                         <input id="locationLat" type="date" class="form-control" value="<%= (locationLonLat) ? locationLonLat[1] : ""%>">
+                         <input id="locationLat" type="number" class="form-control" value="<%= (locationLonLat) ? locationLonLat[1] : ""%>">
                          <label>Longitude</label>
-                         <input id="locationLon" type="date" class="form-control" value="<%= (locationLonLat) ? locationLonLat[0] : "" %>">
+                         <input id="locationLon" type="number" class="form-control" value="<%= (locationLonLat) ? locationLonLat[0] : "" %>">
                      </div>
                  </div>
                  <h4>Recovery Info</h4>
@@ -112,9 +112,9 @@
                      <label for="recoveryLocationLonLat" class="col-md-5">Recovery Location</label>
                      <div class="col-md-6">
                          <label>Latitude</label>
-                         <input id="recoveryLocationLat" type="date" class="form-control" value="<%= (recoveryLocationLonLat) ? reocveryLocationLonLat[1] : ""%>">
+                         <input id="recoveryLocationLat" type="number" class="form-control" value="<%= (recoveryLocationLonLat) ? reocveryLocationLonLat[1] : ""%>">
                          <label>Longitude</label>
-                         <input id="recoveryLocationLon" type="date" class="form-control" value="<%= (recoveryLocationLonLat) ? recoveryLocationLonLat[0] : "" %>">
+                         <input id="recoveryLocationLon" type="number" class="form-control" value="<%= (recoveryLocationLonLat) ? recoveryLocationLonLat[0] : "" %>">
                      </div>
                  </div>
                  <%  break;

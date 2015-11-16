@@ -199,6 +199,7 @@ $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
+        $('#menu-toggle').trigger('click');
         focusToItem();
     });
 });
@@ -232,7 +233,6 @@ $(document).ready(function() {
     $('#navbar').append(navbar.el);
     $('.navbar-brand').html('OOI Assets and Configuration');
     $('#footer').append(footer.el);
-    $('#menu-toggle').trigger('click');
     $('tr:first').trigger('click');
 });
 
