@@ -21,8 +21,7 @@
 }
 
 tr.highlight-row {
-    background-color: #004773 !important;
-    color: #fff!important;
+    background-color: lightskyblue !important;
 }
 
 div.panel {
@@ -114,7 +113,6 @@ div#assetEventsTable > div > div > div.panel-heading {
     position: relative;
     padding-right: 20px;
     float: left;
-    width: 33%;
 }
 .event-dropdown div p {
     padding-left: 200px;

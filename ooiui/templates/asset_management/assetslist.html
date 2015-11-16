@@ -233,7 +233,6 @@ $(document).ready(function() {
     $('#navbar').append(navbar.el);
     $('.navbar-brand').html('OOI Assets and Configuration');
     $('#footer').append(footer.el);
-    $('tr:first').trigger('click');
 });
 
 var textInput = function() {
@@ -285,21 +284,22 @@ var renderAssetInspector = function(model) {
 };
 
 var renderAssetEventsTable = _.debounce(function(model) {
+    $('div.events table tbody').remove();
     //create a new event table panel and reder it's view.
     var assetEventsTableView = new AssetEventsTableView();
 
     assetEventsTableView.render();
-
     //clear out the old events table panel DOM
     $('#assetEventsTable').children().remove();
 
     //then put the newly created view into the DOM.
     $('#assetEventsTable').append( assetEventsTableView.el );
-
+    $('#assetEventsTable').find('table').append('<tbody class="loading-spinner"><tr><td colspan="5">Loading . . . <i class="fa fa-spinner fa-spin"></i></td></tr></tbody>');
     //once the table is created, populate each tab with
     var assetEventsCollection = new AssetEventsCollection({id: model.id});
     var eventsFetch = assetEventsCollection.fetch({reset: true});
     $.when(eventsFetch).done(function() {
+        $('.loading-spinner').remove();
         var deploymentCollection = assetEventsCollection.where({'eventClass': '.DeploymentEvent'});
         var deploymentEventItemView = deploymentCollection.map(function(model) {
             return (new AssetDeploymentEventItemView({ model:model })).render().el;

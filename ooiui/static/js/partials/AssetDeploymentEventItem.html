@@ -18,7 +18,7 @@ var recoveryPlanDoc = documentDef(recoveryPlanDocument);
 </tr>
 <tr class="collapse" id="dep-<%= eventId %>">
     <td class="event-dropdown"  colspan="5">
-        <h4>Deployment Info:</h4>
+        <h4><u>Deployment Info:</u></h4>
         <div>
             <label>Deployment Ship Name</label><p><%= deploymentShipName || "Ship name not provided" %></p>
         </div>
@@ -31,7 +31,10 @@ var recoveryPlanDoc = documentDef(recoveryPlanDocument);
         <div>
             <label>Crusie Plan Document</label><p><%= cruisePlanDoc.join('<br>') %></p>
         </div>
-        <h4>Location Info:</h4>
+        <div>
+            <label>Deployment Description</label><p><%= eventDescription || "No description"  %></p>
+        </div>
+        <h4><u>Location Info:</u></h4>
         <% if (tense === 'PRESENT') { %>
         <div>
             <label>Lat / Lon</label>
@@ -43,20 +46,20 @@ var recoveryPlanDoc = documentDef(recoveryPlanDocument);
             <div>
                 <label>Depth</label>
                 <% if (depth !== null && !isNaN(depth)) { %>
-                <div><%= depth %> m</div>
+                <p><%= depth %> m</p>
                 <% } else { %>
-                <div>Currently deployed, however no depth was provided</div>
+                <p>Currently deployed, however no depth was provided</p>
                 <% } %>
             </div>
             <% } else { %>
             <div>Asset has been flagged as 'PAST' and not  presenly deployed; lat/lon and depth not applicable.</div>
             <% } %>
-            <h4>Recovery Info:</h4>
+            <h4><u>Recovery Info:</u></h4>
             <div>
                 <label>Recovery Ship Name</label><p><%= recoveryShipName || "No recovery ship name provided" %></p>
             </div>
             <div>
-                <label>Recovery Plan Document</label><p><%= recoveryPlanDoc %></p>
+                <label>Recovery Plan Document</label><p><%= recoveryPlanDoc.join('<br>') %></p>
             </div>
             <div>
                 <label>Recovery Cruise Number</label><p><%= recoveryCruiseNumber || "Recovery cruise number not provided" %></p>

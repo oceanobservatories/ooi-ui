@@ -13,12 +13,14 @@
     <td class="edit-event">Edit</td>
 </tr>
 <tr class="collapse" id="cal-<%= eventId %>">
-    <td colspan="5">
+    <td class="event-dropdown" colspan="5">
+        <div>
+            <label>Calibration Description</label><p><%= eventDescription || "No description" %></p>
+        </div>
         <% _.each(calibrationCoefficient, function(subRow) { %>
-        <dl class="dl-horizontal">
-            <dt><%= subRow.name %></dt>
-            <dd colspan="2"><%= subRow.values %></dd>
-        </dl>
+        <div><label><%= subRow.name %></label>
+            <p><%= subRow.values %><p>
+        </div>
         <% }); %>
     </td>
 </tr>

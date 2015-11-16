@@ -48,7 +48,9 @@ var AssetEventItemParentView = ParentView.extend({
     events: {
         "click .edit-event": "edit"
     },
-    edit: function() {
+    edit: function(e) {
+        e.preventDefault();
+
         // before editing the asset, make sure it's up to date.
         this.model.fetch();
         var eventEditorModal = new EventEditorModalView({ model:this.model });
