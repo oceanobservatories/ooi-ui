@@ -1,3 +1,10 @@
+#search, input.form-control, select.form-control {
+    height: 35px;
+}
+#search-clear {
+    height: 35px;
+
+}
 #assetTableHeader {
     display: inline-block;
     text-align:center;
@@ -21,8 +28,7 @@
 }
 
 tr.highlight-row {
-    background-color: #004773 !important;
-    color: #fff!important;
+    background-color: lightskyblue !important;
 }
 
 div.panel {
@@ -109,6 +115,16 @@ div#assetEventsTable > div > div > div.panel-heading {
     height: 40px;
     margin-bottom: 5px;
 }
+.event-dropdown div label {
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+    float: left;
+}
+.event-dropdown div p {
+    padding-left: 200px;
+}
+
 
 /* Attachments Table */
 div#assetAttachmentsTable div > div > div.panel-heading {

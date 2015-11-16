@@ -1,0 +1,26 @@
+<tr class="accordion-toggle"
+    style="cursor: pointer;"
+    data-toggle="collapse"
+    data-target="#cal-<%= eventId %>">
+    <td><%= eventId  %></td>
+    <td><%= new Date(startDate).toUTCString() %></td>
+    <% if (endDate !== null) { %>
+    <td><%= new Date(endDate).toUTCString() %></td>
+    <% } else { %>
+    <td>--</td>
+    <% } %>
+    <td><%= tense %></td>
+    <td class="edit-event">Edit</td>
+</tr>
+<tr class="collapse" id="cal-<%= eventId %>">
+    <td class="event-dropdown" colspan="5">
+        <div>
+            <label>Calibration Description</label><p><%= eventDescription || "No description" %></p>
+        </div>
+        <% _.each(calibrationCoefficient, function(subRow) { %>
+        <div><label><%= subRow.name %></label>
+            <p><%= subRow.values %><p>
+        </div>
+        <% }); %>
+    </td>
+</tr>

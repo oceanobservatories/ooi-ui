@@ -1,3 +1,12 @@
+var AssetManagementPageControlModel = Backbone.Model.extend({
+    defaults : {
+        params : [
+            ['past', 'Recovered'],
+            ['present', 'Deployed']
+        ]
+    }
+});
+
 var DataCatalogPageControlModel = Backbone.Model.extend({
     defaults : {
         params : [

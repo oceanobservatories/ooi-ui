@@ -6,13 +6,16 @@
 
 {% block head %}
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-{# <link rel="stylesheet" type="text/css" href="/css/common/assets.css"> #}
+<link rel="stylesheet" type="text/css" href="/css/common/assets.css">
+
 
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
 <script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
 <script src="/js/compiled/index.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
+<script src="/js/views/asset_management/AssetEventsView.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/AssetEventsModel.js" type="text/javascript"></script>
 <script src="/js/models/asset_management/AlfrescoDocumentModel.js" type="text/javascript"></script>
 <script src="/js/views/asset_management/AlfrescoDocumentView.js" type="text/javascript"></script>
 <script src="/js/core/common/paginate.js" type="text/javascript"></script>
@@ -55,6 +58,7 @@
                       <th id="assetTableIdCol">ID#</th>
                       <th>Name</th>
                       <th>Type</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -95,6 +99,9 @@
   </div>
   <div class="modal fade" id="assetCreatorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">
     <!-- ooiui/static/js/partials/AssetCreatorModal.html -->
+  </div>
+  <div class="modal fade" id="eventEditorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="eventEditorModalLabel" data-backdrop="static">
+    <!-- ooiui/static/js/partials/EventEditorModal.html -->
   </div>
 </div><!-- #wrapper -->
 
@@ -192,9 +199,15 @@ $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
+        $('#menu-toggle').trigger('click');
         focusToItem();
     });
 });
+
+// Page Controls
+var pageControlModel = new AssetManagementPageControlModel();
+var pageControlView = new AssetManagementPageControlView({model: pageControlModel, el: $('#buttons')});
+pageControlView.render();
 
 var pagination = {
     itemsPerPage: 10,
@@ -209,8 +222,6 @@ $(document).ready(function() {
     $('body').prepend(banner.el);
 
     $('#searchGroup').attr('style','');
-    $('body').find('#search-clear').hide();
-    $('navbarOld').find('#search-clear').hide();
     $('#search-clear').click(function(){
     $('#search').val('').focus();
         $(this).hide();
@@ -220,7 +231,6 @@ $(document).ready(function() {
     $('#navbar').append(navbar.el);
     $('.navbar-brand').html('OOI Assets and Configuration');
     $('#footer').append(footer.el);
-    $('#menu-toggle').trigger('click');
 });
 
 var textInput = function() {
@@ -271,17 +281,40 @@ var renderAssetInspector = function(model) {
     $('#assetInspector').append( assetInspectorView.el );
 };
 
-var renderAssetEventsTable = function(model) {
+var renderAssetEventsTable = _.debounce(function(model) {
+    $('div.events table tbody').remove();
     //create a new event table panel and reder it's view.
-    var assetEventsTableView = new AssetEventsTableView({ model:model });
-    assetEventsTableView.render();
+    var assetEventsTableView = new AssetEventsTableView();
 
+    assetEventsTableView.render();
     //clear out the old events table panel DOM
     $('#assetEventsTable').children().remove();
 
     //then put the newly created view into the DOM.
     $('#assetEventsTable').append( assetEventsTableView.el );
-};
+    $('#assetEventsTable').find('table').append('<tbody class="loading-spinner"><tr><td colspan="5">Loading . . . <i class="fa fa-spinner fa-spin"></i></td></tr></tbody>');
+    //once the table is created, populate each tab with
+    var assetEventsCollection = new AssetEventsCollection({id: model.id});
+    var eventsFetch = assetEventsCollection.fetch();
+    $.when(eventsFetch).done(function() {
+        $('div.events table tbody').remove();
+        $('.loading-spinner').remove();
+        var deploymentCollection = assetEventsCollection.where({'eventClass': '.DeploymentEvent'});
+        var deploymentEventItemView = deploymentCollection.map(function(model) {
+            return (new AssetDeploymentEventItemView({ model:model })).render().el;
+        });
+
+        $('#deploymentEvent').find('table').append(deploymentEventItemView)
+
+        var calibrationCollection = assetEventsCollection.where({'eventClass': '.CalibrationEvent'}),
+            calibrationEventItemView = calibrationCollection.map(function(model) {
+            return (new AssetCalibrationEventItemView({ model:model })).render().el;
+        });
+
+        $('#calibrationEvent').find('table').append(calibrationEventItemView);
+    });
+
+}, 400);
 
 var renderRemoteDocuments = function(model) {
     //clear out the old events table panel DOM
@@ -323,12 +356,8 @@ var populate = function() {
   var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);
   // put last index in search box...
   if(assetLink.length  >= 1) {
-    console.log(">>--URL-contains-assetLink-"+assetLink+"-->");
     $('#search').val(assetLink);
     updateCollection( showAssets );
-  }
-  else {
-    console.log("<--URL-contains-no-assetLink--<<");
   }
 }
 
@@ -346,7 +375,7 @@ var updateCollection = function(successCallback){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : $('#search').val(),
+        search : $('#hiddenSearch').val()+ ' ' +$('#search').val(),
         sort : 'id'
     };
     collection.fetch({
@@ -402,6 +431,20 @@ var dateTimeToISO = function(strInput) {
     var parseDate = new Date(temp);
     var isoDateReturn = parseDate.toISOString();
     return isoDateReturn;
+};
+
+var documentDef = function(obj) {
+    var planDoc = [];
+    if (obj) {
+        planDoc = [
+            'Data Source: ' + obj.dataSource,
+            'Label: ' + obj.label,
+            'Remote Resource ID: ' + obj.remoteResourceId,
+            'Resource Number: ' + obj.resourceNumber];
+    } else {
+        planDoc = ["Plan not provided"];
+    }
+    return planDoc;
 };
 </script>
 {% endblock %}

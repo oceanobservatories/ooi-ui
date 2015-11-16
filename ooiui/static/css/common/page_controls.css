@@ -18,11 +18,10 @@ button#search-clear {
 }
 #searchGroup {
     display: inline-block;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 #search {
     width: 768px;
-    height: 27px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     margin-bottom: 10px;
@@ -35,6 +34,8 @@ input#search {
     background-color: white;
     display: inline-block;
     padding: 0 20px 0 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
     margin-right: 10px;
     cursor: pointer;
     transition: all 0.8s;

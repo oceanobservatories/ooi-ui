@@ -1,6 +1,6 @@
 "use strict";
 // Parent class for asset views.
-var ParentAssetView = Backbone.View.extend({
+var ParentView = Backbone.View.extend({
     /* Parent class for the asset views.
      *  - initialize()
      *  - render()
@@ -16,11 +16,12 @@ var ParentAssetView = Backbone.View.extend({
     derender: function() {
         this.remove();
         this.unbind();
-        this.model.off();
+        if (this.model)
+            this.model.off();
     }
 });
 
-var ParentAssetModalView = ParentAssetView.extend({
+var ParentAssetModalView = ParentView.extend({
     initialize: function() {
         _.bindAll(this, 'save', 'addMetaData', 'loadControls', 'getFields');
     },
@@ -132,7 +133,7 @@ var ParentAssetModalView = ParentAssetView.extend({
 });
 
 //Header for the asset table.
-var AssetTableHeaderView = ParentAssetView.extend({
+var AssetTableHeaderView = ParentView.extend({
     /* This will render the search field, pagination boxes,
      * and the 'create asset' link button.
      * - initialize()
@@ -165,7 +166,7 @@ var AssetTableHeaderView = ParentAssetView.extend({
 });
 
 //Container for the list of all assets.
-var AssetsTableView = ParentAssetView.extend({
+var AssetsTableView = ParentView.extend({
     /* This is the meat and potatoes of the page;
      * all the assets in the collection are rendered
      * out through this view.
@@ -182,7 +183,7 @@ var AssetsTableView = ParentAssetView.extend({
 });
 
 //Asset item subview, as a table row.
-var AssetsTableRowView = ParentAssetView.extend({
+var AssetsTableRowView = ParentView.extend({
     /* Each asset is itemized in it's own row for display.
      * - initialize()
      * - renderSubViews()
@@ -202,7 +203,7 @@ var AssetsTableRowView = ParentAssetView.extend({
         this.listenTo(vent, 'asset:modelChange', this.render);
     },
     events: {
-        "click" : "renderSubViews",
+        "click": "renderSubViews",
         "click .edit": "editAsset"
     },
     editAsset: function() {
@@ -230,7 +231,7 @@ var AssetsTableRowView = ParentAssetView.extend({
 });
 
 //Asset inspector panel.
-var AssetInspectorView = ParentAssetView.extend({
+var AssetInspectorView = ParentView.extend({
     /* This will display the details of the asset after it's row item
      * has been clicked.  It will live below the list of assets, on the left.
      * It contains 3 tabs, 'Overview', 'Meta Data', and 'Aquision Data'.
@@ -256,20 +257,6 @@ var AssetInspectorView = ParentAssetView.extend({
     }
 });
 
-//Asset event detail view.
-var AssetEventsTableView = ParentAssetView.extend({
-    /* This view lists out all the events associated with the asset.
-     * A special note: when clicking the Calibration Event, the calibration
-     * coeffcients will display.
-     * - initialize()
-     */
-    template: JST['ooiui/static/js/partials/AssetEventsTable.html'],
-    initialize: function() {
-        this.listenToOnce(vent, 'asset:derender', function(model) {
-            this.derender();
-        });
-    }
-});
 
 //Asset creator modal view
 var AssetCreatorModalView = ParentAssetModalView.extend({

@@ -1,0 +1,41 @@
+var DeploymentEventModel = Backbone.Model.extend({
+    urlRoot: '/api/asset_events',
+    defaults: {
+        class: null,
+        eventType: "ACTUAL",
+        metaData: [ ],
+        eventId: null,
+        eventDescription: null,
+        recordedBy: null,
+        asset: {},
+        notes: [ ],
+        tense: null,
+        startDate: null,
+        endDate: null,
+        attachments: [ ],
+        remoteDocuments: [ ],
+        dataSource: null,
+        recordedBy: null,
+        locationChangeNotes: null,
+        locationType: null,
+        locationName: null,
+        locationLonLat: [],
+        depth: 0,
+        recoveryLocationLonLat: [],
+        recoveryShipName: [],
+        deploymentShipName: [],
+        mooring: null,
+        recoveryPlanDocument: null,
+        recoveryCruiseNumber: null,
+        cruisePlanDocument: null,
+        cruise: null,
+        deploymentDocUrls: null,
+        deploymentNumber: null,
+        referenceDesignator: {
+            node: null,
+            subsite: null,
+            sensor: null,
+            full: false
+        }
+    }
+});
