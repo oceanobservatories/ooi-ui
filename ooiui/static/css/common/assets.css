@@ -1,3 +1,7 @@
+input.form-control, select.form-control {
+    height: 32px;
+    margin: 2px 0 2px 0;
+}
 #assetTableHeader {
     display: inline-block;
     text-align:center;
