@@ -1,6 +1,9 @@
-input.form-control, select.form-control {
-    height: 32px;
-    margin: 2px 0 2px 0;
+#search, input.form-control, select.form-control {
+    height: 35px;
+}
+#search-clear {
+    height: 35px;
+
 }
 #assetTableHeader {
     display: inline-block;
