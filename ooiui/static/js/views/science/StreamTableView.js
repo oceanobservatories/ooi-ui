@@ -157,6 +157,8 @@ var StreamTableItemView = Backbone.View.extend({
             endColumn.addClass('bg-warn');
         } else if(timeSinceEndDate >= 1000*60*60*24){
             endColumn.addClass('bg-danger');
+        } else if(this.model.get('tense') === 'PAST'){
+            endColumn.attr('style', 'background-color: lightblue;');
         }
     },
     onRowClick: function(event) {
@@ -167,7 +169,7 @@ var StreamTableItemView = Backbone.View.extend({
 
 var StreamTableItemSubView = Backbone.View.extend({
     tagName: 'tr',
-    attributes: function() {
+   attributes: function() {
         return {
             'class': 'collapse'
         }
