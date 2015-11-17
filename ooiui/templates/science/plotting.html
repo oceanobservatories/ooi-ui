@@ -217,11 +217,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     //sort the list of vars and time will always be on the x, duplicated per var
 
     var selected = [];
-    var selected_ids = [];
+    var selected_name = [];
     var selectedParam = $("#yvar0-selection-default option:selected");
     $(selectedParam).each(function(index){
       selected.push([$(this).data('params')]);
-      selected_ids.push([$(this).attr('pid')]);
+      // Now get the display name for the axis
+      if ($(this).text().indexOf(",") > -1){
+        var spliton = ',';
+      }else{
+        var spliton = '(';
+      }
+      selected_name.push([$(this).text().split(spliton)[0]]);
     });
 
     _.each(selected ,function(element){
@@ -239,6 +245,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //will always be time
     this.collections.dataseries.xparameters = p_xvarList;
     this.collections.dataseries.yparameters = p_yvarList;
+    this.collections.dataseries.axis_name = selected_name;
 
     errorHandler = function(collection, response){
       errorText = response.status+': '+response.statusText
@@ -410,15 +417,15 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //Ok lets start by getting derived parameters
       parameterhtml += "<optgroup label='Derived'>"
-        for (var i = 0; i < options.model.get('variables').length; i++) {
-
-
+        // for (var i = 0; i < options.model.get('variables').length; i++) {
+        for (var i = 0; i < _.uniq(options.model.get('variables')).length; i++) {
           if (param_list.indexOf(options.model.get('variables')) == -1){
             if (shape[i] === "function"){
               var parameterId = options.model.get('parameter_id')[i];
               var units = options.model.get('units')[i];
               var variable = options.model.get('variables')[i];
               var displayName;
+
               try{
                 displayName = options.model.get('parameter_display_name')[i];
               } catch(err){
@@ -466,7 +473,8 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         //Now get non derived parameters
         parameterhtml += "<optgroup label='Non Derived'>"
-        for (var i = 0; i < options.model.get('variables').length; i++) {
+        // for (var i = 0; i < options.model.get('variables').length; i++) {
+        for (var i = 0; i < _.uniq(options.model.get('variables')).length; i++) {
           if (param_list.indexOf(options.model.get('variables')) == -1){
             if (shape[i] != "function"){
               var parameterId = options.model.get('parameter_id')[i];
@@ -478,7 +486,6 @@ _.extend(OOI.prototype, Backbone.Events, {
               } catch(err){
                 displayName = variable;
               }
-
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
@@ -544,57 +551,39 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'additionalDataAdded', function(options) {
       if (self.collections.additionalDataseries.xparameters[0] == 'time'){
-        //check that the series length is less than 6
-        if (self.collections.additionalDataseries.yparameters.length+self.views.timeseriesView.views.highchartsView.chart.series.length <= 6){
+        _.each(self.collections.additionalDataseries.yparameters,function(item,i){
+          var param = item[0]
+          var units = self.collections.additionalDataseries.units[param];
+          var data = [];
+          var xmin = null;
+          var xmax = null;
+          var title = self.collections.additionalDataseries.title;
 
-          _.each(self.collections.additionalDataseries.yparameters,function(item,i){
-            var param = item[0]
-            var units = self.collections.additionalDataseries.units[param];
-
-            var data = [];
-            var xmin = null;
-            var xmax = null;
-            var ymin = null;
-            var ymax = null;
-            self.collections.additionalDataseries.each(function(model,ii) {
-              var time = self.views.timeseriesView.modifytime(model.get('time'))
-              var d_item = model.get(param);
-              if (!_.isNull(model.get(param))){
-                xmin = time
-                xmax = time
-                ymin = d_item
-                ymax = d_item
-
-              }else{
-                if (time<xmin){
-                  xmin = time;
-                }
-                if (time>xmax){
-                  xmax = time;
-                }
-                if (d_item<ymin){
-                  ymin = d_item;
-                }
-                if (d_item>ymax){
-                  ymax = d_item;
-                }
+          self.collections.additionalDataseries.each(function(model,ii) {
+            var time = self.views.timeseriesView.modifytime(model.get('time'))
+            var d_item = model.get(param);
+            if (ii == 0){
+              xmin = time;
+              xmax = time;
+            }else{
+              if (time<xmin){
+                xmin = time;
+              }else if (time>xmax){
+                xmax = time;
               }
-              //data.push({x:time,y:d_item});
-              data.push([ time , d_item ]);
-            });
-
-            if (data.length > 1){
-              var dataBounds = {xmin:xmin,ymin:ymin,xmax:xmax,ymax:ymax}
-              //add data and or axis if needed
-              self.views.timeseriesView.addAdditionalData(param,units,data,i,dataBounds);
-            };
+            }
+            data.push([ time , d_item ]);
           });
-          //update the plot once all data is added
-          self.views.timeseriesView.updatePlot();
-          self.views.timeseriesView.hideLoading();
-        }else{
-          console.log('error:select less please...');
-        }
+
+          if (data.length > 1){
+            var dataBounds = {xmin:xmin,xmax:xmax}
+            //add data/axis if needed
+            param = self.collections.additionalDataseries.axis_name[i];
+            self.views.timeseriesView.addAdditionalData(param, units, data, dataBounds, title);
+          };
+        });
+        self.views.timeseriesView.hideLoading();
+
       }
     });
 
@@ -609,11 +598,17 @@ _.extend(OOI.prototype, Backbone.Events, {
         //sort the list of vars and time will always be on the x, duplicated per var
 
         var selected = [];
-        var selected_ids = [];
+        var selected_name = [];
         var selectedParam = $("#yvar0-selection-default option:selected");
         $(selectedParam).each(function(index){
           selected.push([$(this).data('params')]);
-          selected_ids.push([$(this).attr('pid')]);
+          // Now get the display name for the axis
+          if ($(this).text().indexOf(",") > -1){
+            var spliton = ',';
+          }else{
+            var spliton = '(';
+          }
+          selected_name.push([$(this).text().split(spliton)[0]]);
         });
 
         _.each(selected ,function(element){
@@ -633,6 +628,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         //will always be time
         self.collections.additionalDataseries.xparameters = p_xvarList;
         self.collections.additionalDataseries.yparameters = p_yvarList;
+        self.collections.additionalDataseries.axis_name = selected_name;
 
         errorHandler = function(collection, response){
           errorText = response.status+': '+response.statusText

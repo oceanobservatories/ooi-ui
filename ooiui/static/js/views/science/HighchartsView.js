@@ -46,7 +46,6 @@ var HighchartsView = Backbone.View.extend({
       if (model.get('data').length === 0){
         opposite_val = true;
       }
-      
 
       if(_.isUndefined(axis)) {
         axis = {
