@@ -46,41 +46,18 @@ var TimeseriesView = Backbone.View.extend({
   isOdd:function(x) {
     return ( x & 1 ) ? true : false;
   },
-  addAdditionalData:function(param,units,data,paramIndex,dataBounds){
+  addAdditionalData:function(param, units, data, dataBounds, title){
     var self = this;
 
-    this.views.highchartsView.chart.setTitle({text:'Multi Station Plot'}, { text: 'Multi Stream' });
-    this.views.highchartsView.chart.setTitle('Multi Station Plot');
-
-    if (dataBounds.ymin == dataBounds.ymax){
-      dataBounds.ymax +=1 ;
-    };
+    this.views.highchartsView.chart.setTitle(null, { text: title });
 
     //check the axis are not already available
     var newAxisName = param+' ('+units+")"
-    var axisAvailable = false;
-    _.each(self.views.highchartsView.chart.yAxis,function(axis){
-      if (axis.axisTitle.textStr == newAxisName){
-        axisAvailable = true;
-      }     
-    });
 
-    //if the axis does not exist
-    if (!axisAvailable){
-      //if param exists in the data
-      self.views.highchartsView.chart.addAxis({ // new axis
-          id:  newAxisName,
-          min: dataBounds.ymin,
-          max: dataBounds.ymax,
-          title: {
-              text: newAxisName
-          },                      
-          opposite: !self.isOdd(self.views.highchartsView.chart.yAxis.length)
-      });
-    }
+    var i = this.views.highchartsView.chart.series.length+1;
 
-    //check and update the 
-    var xcur = self.views.highchartsView.chart.xAxis[0].getExtremes();
+    //check and update the x axis
+    var xcur = this.views.highchartsView.chart.xAxis[0].getExtremes();
     var change = false;
     if (dataBounds.xmin < xcur.min){
       xcur.min = dataBounds.xmin;
@@ -93,18 +70,33 @@ var TimeseriesView = Backbone.View.extend({
 
     //get the current xaxis bounds
     if (change){
-      self.views.highchartsView.chart.xAxis[0].setExtremes(xcur.min,xcur.max);
+      this.views.highchartsView.chart.xAxis[0].setExtremes(xcur.min,xcur.max);
     }
 
-    var newDataSeries = {units: units,
-                         name: param,
-                         type: 'scatter',
-                         yaxis: newAxisName,
-                         marker: {enabled:true, "symbol": "circle"},
-                         data: data
-                        }
-
-    self.views.highchartsView.chart.addSeries(newDataSeries,false);    
+    this.views.highchartsView.chart.addAxis({ // Secondary yAxis
+        id: newAxisName,
+        title: {
+            text: newAxisName,
+            style: {
+                color: Highcharts.getOptions().colors[i]
+            }
+        },
+        labels: {
+          style: {
+            color: Highcharts.getOptions().colors[i]
+          }
+        },
+        opposite: !this.isOdd(this.views.highchartsView.chart.yAxis.length)
+    });
+    this.views.highchartsView.chart.addSeries({
+        units: units,
+        name: param,
+        type: 'scatter',
+        marker: {"symbol": "circle"},
+        color: Highcharts.getOptions().colors[i],
+        yAxis: newAxisName,
+        data: data
+    });
   },
   updatePlot:function(){    
     //update the plot
@@ -140,12 +132,14 @@ var TimeseriesView = Backbone.View.extend({
 
     var xvars = self.collection.xparameters;
     var yvars = self.collection.yparameters;
+    var axis_names = self.collection.axis_name;
     var axes_count = 0;
     var notifyList = []
 
     _.each(xvars, function(param,index) { 
       var xvar = xvars[index]
       var yvar = yvars[index]
+      var axis_name = axis_names[index]
       var series_data = [];
       //reset for each series
       var addNotify = false;
@@ -213,8 +207,9 @@ var TimeseriesView = Backbone.View.extend({
         axes_count += 1
         var seriesModel = new SeriesModel({data:series_data})
         seriesModel.set('units', self.collection.getUnits(yvar));
-        seriesModel.set('name', yvar);
-        seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
+        seriesModel.set('name', axis_name);
+        seriesModel.set('axisName', axis_name + " ("+self.collection.getUnits(yvar) + ")");
+        // seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
         seriesModel.set('xmin',startDate);
         seriesModel.set('xmax',endDate);
         seriesCollection.add(seriesModel);

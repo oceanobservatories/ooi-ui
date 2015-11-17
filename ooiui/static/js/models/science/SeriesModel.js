@@ -23,7 +23,8 @@ var SeriesModel = Backbone.Model.extend({
     enableMarker: true,
     units:"",
     xmin:0,
-    xmax:0
+    xmax:0,
+    title:""
   }
 });
 
@@ -31,7 +32,6 @@ var SeriesCollection = Backbone.Collection.extend({
   url: '#',
   model: SeriesModel
 });
-
 
 /*
   Data structures that come from uframe
@@ -49,6 +49,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   enddate:"",
   xparameters:[],
   yparameters:[],
+  axis_name:[],
 
   url: function() {
     var durl = '/api/get_data?instrument='+ this.ref_des+"&stream="+this.stream+"&xvars="+this.xparameters.join()+"&yvars="+this.yparameters.join()+"&startdate="+this.startdate+"&enddate="+this.enddate
@@ -60,7 +61,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   units:null,
   model: DataSeriesModel,
   getTitle:function(){
-    return this.ref_des;
+    return this.title;
   },
   getStartDate:function(){
     return moment.utc(this.startdate).unix()*1000;
@@ -79,6 +80,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   },
   parse: function(response, options) {
     this.units = response.units;
+    this.title = response.title;
     return response.data;
   }
 
