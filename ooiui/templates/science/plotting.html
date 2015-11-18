@@ -447,7 +447,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
               if (variable.indexOf("_timestamp") == -1){
                 if (variable.toLowerCase() != "time"){
-                    if (    variable.indexOf('oxygen') > -1 ||
+                    if ( validUnits &&   (variable.indexOf('oxygen') > -1 ||
                             variable.indexOf('temperature') > -1 ||
                             variable.indexOf('velocity') > -1 ||
                             variable.indexOf('conductivity') > -1 ||
@@ -459,7 +459,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('chlorophyll') > -1 ||
                             variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
-                      ) {
+                      )){
                         parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     } else {
 
@@ -505,7 +505,7 @@ _.extend(OOI.prototype, Backbone.Events, {
               }
 
               if (variable.toLowerCase() != "time"){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
+                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && validUnits &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
@@ -513,10 +513,10 @@ _.extend(OOI.prototype, Backbone.Events, {
                           variable.indexOf('current') > -1 ||
                           variable.indexOf('voltage') > -1 ||
                           variable.indexOf('pressure') > -1 ||
-                          variable.indexOf('ang_rate') > -1) ||
+                          variable.indexOf('ang_rate') > -1 ||
                           variable.indexOf('coefficient') > -1 ||
                           variable.indexOf('chlorophyll') > -1 ||
-                          variable.indexOf('par') > -1
+                          variable.indexOf('par') > -1)
                     ) {
                       parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   } else {
