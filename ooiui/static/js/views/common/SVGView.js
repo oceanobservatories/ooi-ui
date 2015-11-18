@@ -460,13 +460,28 @@ var SVGPlotControlView = Backbone.View.extend({
         'change .div-qa-qc input[type=checkbox]':'onCheckChange',
         'change #time-range select': 'timeRangeChange',
         'click #start-date input': 'resetTimeRange',
-        'click #end-date input': 'resetTimeRange'
+        'click #end-date input': 'resetTimeRange',
+        'change #paramVizCheck': 'onParamVizCheck'
     },
     initialize: function() {
-        //_.bindAll(this,"onSwitchChange");
+        _.bindAll(this,"onParamVizCheck");
     },
     onSwitchChange: function(e,state){
         $(".div-qa-qc").css("display",state?"block":"none");
+    },
+    onParamVizCheck: function(e,state){
+        var items = this.$el.find('.selectpicker');
+        var paramBool = !(this.$el.find('#paramVizCheck').is(':checked'))
+
+        _.each(items,function(item){
+            if (!paramBool){
+                $(item).find('.invalidParam').removeAttr('disabled','disabled');
+            }else{
+                $(item).find('.invalidParam').attr('disabled','disabled');
+            }
+        })
+
+        this.$el.find('.selectpicker').selectpicker('refresh');
     },
     timeRangeChange: function() {
         // M@Campbell 10/09/2015

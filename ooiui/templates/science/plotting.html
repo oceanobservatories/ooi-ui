@@ -433,6 +433,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
+              var validUnitsClass = "class=invalidParam"
               if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
@@ -440,7 +441,11 @@ _.extend(OOI.prototype, Backbone.Events, {
                 validUnits = true;
               }
 
-              if (variable.indexOf("_timestamp") == -1 && validUnits){
+              if (validUnits){
+                validUnitsClass = 'class=validParam'
+              }
+
+              if (variable.indexOf("_timestamp") == -1){
                 if (variable.toLowerCase() != "time"){
                     if (    variable.indexOf('oxygen') > -1 ||
                             variable.indexOf('temperature') > -1 ||
@@ -455,10 +460,10 @@ _.extend(OOI.prototype, Backbone.Events, {
                             variable.indexOf('par') > -1 ||
                             variable.indexOf('heat') > -1
                       ) {
-                        parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                        parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     } else {
 
-                        parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                        parameterhtml+= "<option "+validUnitsClass+" pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                     }
 
                     param_list.push(variable);
@@ -487,6 +492,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
               //for the case when we have "sal"inity in the variable nanem but we want to remove units of "1"
               var validUnits = false;
+              var validUnitsClass = "class=invalidParam";
               if (units.toLowerCase() != "s" && units.toLowerCase() != "1" && units.toLowerCase() != "counts" && units.toLowerCase().indexOf("seconds since") == -1 && units.toLowerCase() != "bytes"){
                 validUnits = true
               }
@@ -494,7 +500,11 @@ _.extend(OOI.prototype, Backbone.Events, {
                 validUnits = true;
               }
 
-              if (variable.toLowerCase() != "time" && validUnits){
+              if (validUnits){
+                validUnitsClass = 'class=validParam'
+              }
+
+              if (variable.toLowerCase() != "time"){
                   if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
@@ -508,9 +518,9 @@ _.extend(OOI.prototype, Backbone.Events, {
                           variable.indexOf('chlorophyll') > -1 ||
                           variable.indexOf('par') > -1
                     ) {
-                      parameterhtml+= "<option selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                      parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   } else {
-                      parameterhtml+= "<option pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                      parameterhtml+= "<option "+validUnitsClass+" pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   }
                 param_list.push(variable);
               }
@@ -726,7 +736,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.views.svgplot.plot(options);
       }
     });
-    
+
     var hasAnnotations = false;
     var hasPlotBand = false;
 
@@ -742,7 +752,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       $('#plot-annotations').html('Plot Annotations');
       $('#plot-events').html('Plot Events');
     });
-    
+
     //plot the annotations
     this.listenTo(this, 'PlotAnnotations', function(){
       self.collections.annotations.each(function(annotation,i) {
