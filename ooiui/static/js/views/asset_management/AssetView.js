@@ -31,13 +31,16 @@ var ParentAssetModalView = ParentView.extend({
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
         this.metaData = [];
         this.metaDataCount = 0;
-        this.metaItemList = [['assetRefDes', 'Ref Des'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
+        this.metaItemList = [['assetRefDes', 'Reference Designator'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
             ['anchorLaunchDate', 'Anchor Launch Date'], ['assetLat', 'Latitude'], ['assetLon', 'Longitude'],
             ['deploymentNum', 'Deployment Number'], ['waterDepth', 'Water Depth'], ['assetWeight', 'Weight'],
             ['assetLength', 'Length'], ['assetHeight', 'Height'], ['assetWidth', 'Width'], ['assetVoltage', 'Voltage'],
             ['assetWatts', 'Watts'], ['firmwareVer', 'Firmware Version'], ['storageLoc', 'Storage Location'],
-            ['docURL', 'Document URL'], ['ooiDocs', 'OOI Document No'], ['assetNotes', 'Notes'], ['assetDOI', 'DOI'],
-            ['ooiPartNum', 'OOI Part No'], ['ooiPropNum', 'OOI Property No'], ['instPropNum', 'Institution Property No'], ['platType', 'Platform Type']];
+            ['docURL', 'Document URL'], ['ooiDocs', 'OOI Document No.'], ['assetNotes', 'Notes'], ['assetDOI', 'DOI'],
+            ['ooiPartNum', 'OOI Part No.'], ['ooiPropNum', 'OOI Property No.'], ['instPropNum', 'Institution Property No.'],
+            ['platType', 'Platform Type'], ['poNum', 'Institution PO No.'], ['delOrderNum', 'Delivery Order No.'],
+            ['softwareVer', 'Software Version No.'],['shelfLife', 'Shelf Life Expiration'], ['ooiSerNum', 'OOI Serial No.']
+        ];
         return this;
     },
     addMetaData: function() {
