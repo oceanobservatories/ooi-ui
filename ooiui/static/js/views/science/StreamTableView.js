@@ -97,7 +97,7 @@ var StreamTableView = Backbone.View.extend({
         this.$el.find('th#th-plot > i').remove();
         this.$el.find('th#th-download > i').remove();
         this.collection.each(function(model) {
-            var streamTableItemView = new StreamTableItemView({
+           var streamTableItemView = new StreamTableItemView({
                     columns: self.columns,
                     model: model
                 }),
@@ -148,6 +148,16 @@ var StreamTableItemView = Backbone.View.extend({
         var attributes = this.model.toJSON();
         this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns}));
         this.$el.attr('data-target', '#'+this.model.cid);
+        var endDate = new Date(this.model.attributes.end);
+        var timeSinceEndDate = new Date().getTime()-endDate.getTime();
+        var endColumn = this.$el.find('.stream-end');
+        if(timeSinceEndDate <= 1000*60*60*12){
+            endColumn.addClass('bg-success');
+        } else if(timeSinceEndDate < 1000*60*60*24){
+            endColumn.addClass('bg-warn');
+        } else if(timeSinceEndDate >= 1000*60*60*24){
+            endColumn.addClass('bg-danger');
+        }
     },
     onRowClick: function(event) {
         event.stopPropagation();
