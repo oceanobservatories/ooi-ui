@@ -42,10 +42,10 @@ div.twelve-hours, div.twenty-four-hours, div.older {
     margin-right: 5px;
 }
 .twelve-hours {
-    background-color: lightskyblue;
+    background-color: lightblue;
 }
 .twenty-four-hours {
-    background-color: lightblue;
+    background-color: lightskyblue;
 }
 .older {
     background-color: blue;
