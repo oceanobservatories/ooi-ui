@@ -77,6 +77,12 @@
         <div id="data-selection">
             <label><%= model.get('display_name') %><br> <%= model.get('stream_name') %></label>
                 <span style="float:right; position: relative;"><i class="fa fa-info-circle">&nbsp;Warning: Data are decimated</i></span>
+                <br>
+                <div class="checkbox">
+                    <label>
+                        <input id="paramVizCheck" type="checkbox"> Include Additional Parameters
+                    </label>
+                </div>
             <div id="yvar0-selection-default">
                 <div class="form-group">
                     <label id='yvar0-select-default-text' for="yvar0-select-default" required>Select Y</label>
