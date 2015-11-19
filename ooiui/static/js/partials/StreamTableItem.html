@@ -9,7 +9,7 @@
   	</td>
 
   <% } else if(col.name === "start" || col.name === "end") { %>
-    <td><%= moment.utc(model.get(col.name)).format("MMMM Do YYYY, h:mm:ss a") %></td>
+  <td class ="stream-<%= col.name %>" ><%= moment.utc(model.get(col.name)).format("MMMM Do YYYY, h:mm:ss a") %></td>
   <% } else if(col.name == "json_download" || col.name == "netcdf_download" || col.name == "csv_download" || col.name == "profile_json_download" ) { %>
   <td><a class="<%= col.name %>" href="#"><span class="fa fa-cloud-download"> Download</span></a></td>
   <% } else if(col.name == "display_name") { %>
