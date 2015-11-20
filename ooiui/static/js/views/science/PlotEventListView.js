@@ -22,7 +22,7 @@ var PlotEventListView = Backbone.View.extend({
             label: 'ID'
         },
         {
-            name: 'class',
+            name: 'eventClass',
             label: 'Event Class',
         },
         {

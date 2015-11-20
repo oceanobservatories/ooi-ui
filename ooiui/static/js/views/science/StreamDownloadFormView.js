@@ -1,4 +1,6 @@
+"use strict";
 /*
+ *
  * ooiui/static/js/views/science/StreamDownloadFormView.js
  * View Definition for DownloadFormView
  *
@@ -20,23 +22,25 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
     'change #time-range select': 'timeRangeChange',
-    'click #subscription-selection-select': "onSubscribeSelect",
+    'click #subscription-selection-select': 'onSubscribeSelect',
+    'click .subscribe-info': 'clickSubscribeInfo'
   },
   initialize: function() {
-    "use strict";
-    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect');
+    _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');
 
     this.render();
   },
   onCheckboxSelect: function() {
-    "use strict";
     if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
       this.$el.find("#type-select select option[value*='csv']").prop('disabled',true);
     }else{
       this.$el.find("#type-select select option[value*='csv']").prop('disabled',false);
     }
   },
-  onSubscribeSelect:function(ev){
+  clickSubscribeInfo: function() {
+      alert(this.$el.find('.subscribe-info .fa').data('title'));
+  },
+  onSubscribeSelect: function(ev){
     var self = this;
     //disable it
     this.$el.find('#subscription-selection-select').attr('disabled','disabled');
@@ -119,11 +123,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     // dance.
   },
   resetTimeRange: function() {
-    "use strict";
     $("#time-range > select").val("Reset").change();
   },
   onTypeChange: function() {
-    "use strict";
     var type = this.$el.find('#type-select select').val();
     if(type == 'csv') {
       this.$el.find('#provenance-select').attr("disabled", true);
@@ -142,7 +144,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
   },
   onDownload: function() {
-    "use strict";
     /*
      * Make a copy of the stream model and then set the start and end dates to
      * the form fields, then grab the URL and send the user to it.
@@ -206,11 +207,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.hide();
   },
   failure: function() {
-    "use strict";
     console.log("this failure");
   },
   show: function(options) {
-    "use strict";
     var model = options.model;
     // console.log("SHOW", options.model.attributes);
     this.model = model;
@@ -231,9 +230,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$el.find('#dlEmail').val(email);
 
     if (!(this.model.get('stream_name').split('_')[0] == 'telemetered')){
-      this.$el.find('#subscription-selection-select').css('visibility','hidden');
+      this.$el.find('.subscription-selection').css('visibility','hidden');
     }else{
-      this.$el.find('#subscription-selection-select').css('visibility','visible');
+      this.$el.find('.subscription-selection').css('visibility','visible');
     }
     //reset it first incase
     this.$el.find('#subscription-selection-icon').attr('class','fa fa-heart-o');
@@ -257,13 +256,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     return this;
   },
   hide: function() {
-    "use strict";
     this.$el.find('#download-modal').modal('hide');
     return this;
   },
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
-    "use strict";
     this.$el.html(this.template({}));
 
     this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",

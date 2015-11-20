@@ -152,11 +152,11 @@ var StreamTableItemView = Backbone.View.extend({
         var timeSinceEndDate = new Date().getTime()-endDate.getTime();
         var endColumn = this.$el.find('.stream-end');
         if(timeSinceEndDate <= 1000*60*60*12){
-            endColumn.addClass('bg-success');
+            endColumn.addClass('twelve-hours');
         } else if(timeSinceEndDate < 1000*60*60*24){
-            endColumn.addClass('bg-warn');
+            endColumn.addClass('twenty-four-hours');
         } else if(timeSinceEndDate >= 1000*60*60*24){
-            endColumn.addClass('bg-danger');
+            endColumn.addClass('older');
         }
     },
     onRowClick: function(event) {

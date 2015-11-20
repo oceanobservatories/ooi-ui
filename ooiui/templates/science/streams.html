@@ -48,6 +48,11 @@
                 <div id="streamPanel"class="panel">
                     <div class="panel-heading">
                         <div class="pagination pagination-sm pagination-right pagination-boxes"></div>
+                        <div class="color-index">
+                            <div class="twelve-hours"></div><b> 12 Hours </b>
+                            <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                            <div class="older"></div><b> Older than 24 hours </b>
+                        </div>
                     </div>
 
                     <div class="panel-body">
@@ -268,6 +273,7 @@ var streamFetch = streamCollection.fetch({ reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
         $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
             focusToItem();
+            $('#menu-toggle').trigger('click');
             vent.trigger('toc:hideStreams');
             });
         });

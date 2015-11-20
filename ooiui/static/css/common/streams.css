@@ -26,3 +26,28 @@ i {
    margin: 0 auto 0 auto;
    position: relative;
 }
+
+.color-index > span {
+    width: 10px;
+    background-color:
+}
+div.twelve-hours, div.twenty-four-hours, div.older {
+    display: inline-block;
+
+    height: 10px;
+    width: 10px;
+}
+
+.color-index b {
+    margin-right: 5px;
+}
+.twelve-hours {
+    background-color: lightblue;
+}
+.twenty-four-hours {
+    background-color: lightskyblue;
+}
+.older {
+    background-color: blue;
+    color: white;
+}
