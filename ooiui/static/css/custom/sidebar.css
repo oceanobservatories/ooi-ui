@@ -8,6 +8,7 @@
 /* @media (min-width: 768px) */
 div#wrapper.btn-wrapper {
   /* margin-left: 50px; */
+  padding-left: 250px;
 }
 div#wrapper.toggled.btn-wrapper {
   padding-left: 0px;
