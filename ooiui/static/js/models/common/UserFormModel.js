@@ -5,11 +5,10 @@
  
 _.extend(Backbone.Validation.patterns, {
         phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/,
-
 });
 
 _.extend(Backbone.Validation.messages, {
-        usPhone: 'Invalid US phone number'
+        usPhone: 'Invalid US phone number',
 });
 
 // Define a model with some validation rules
@@ -22,8 +21,10 @@ var SignUpModel = Backbone.Model.extend({
     url: "/api/user/",
     
     validation: {
-        username: {
-            required: true
+        username: function(value){
+           if(/\s/.exec(value) !== null || value === null || value === ''){
+                return "Invalid username";
+           } 
         },
          first_name: {
             required: true
