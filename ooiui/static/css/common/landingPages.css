@@ -46,8 +46,9 @@ dd:nth-of-type(6) { background: #a2c8f0; }
 .curCol { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(89, 102, 242, 0.2); z-index: 1; position: relative; }
 
 div#wrapper {
+    margin-top: 185px !important;
   padding-left: 170px;
-	padding-left: 138px;	
+	padding-left: 138px;
 }
 
 .sidebar-nav {
@@ -105,7 +106,7 @@ img.aligncenter, img.alignright, img.alignleft  {
 }
 
 #infrastructure-TOC > li.sidebar-search {
-  padding: 5px 0 5px 0;	
+  padding: 5px 0 5px 0;
 	/* border-bottom: 1px solid #7E9CD9; */
   /* border-right: 1px solid #7E9CD9; */
 }
