@@ -1,3 +1,7 @@
+.well {
+    border-radius: 0px;
+}
+
 #sidebar-wrapper {
     max-height:100%;
     background-color: #eee;
@@ -184,6 +188,7 @@ li.detached > label {
     min-width: 83px;
     opacity: 1;
     transition: background-color 0.8s, color 0.8s;
+    border-radius: 2px;
 }
 #tocFilterControls > span:hover {
     background-color: lightblue;
