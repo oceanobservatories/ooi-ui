@@ -1,79 +1,80 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Asset:</h3>
-            <h4 class="modal-title"> <%= assetInfo.longName || assetInfo.name ||  "New" %> </h4>
+            <h3 class="modal-title" id="exampleModalLabel">Asset: <%= assetInfo.longName || assetInfo.name ||  "New" %> </h3>
         </div>
         <form class="form-horizontal">
             <div class="modal-body">
-                <h4>Asset Info</h4>
                 <div class="row">
-                    <label for="assetDescription" class="col-md-4">Description</label>
-                    <div class="col-md-7">
-                        <input id="assetDescription" type="text" minlength="2" class="form-control" placeholder="Asset Description">
+                    <div class="col-md-6 section">
+                        <h4>Asset Info</h4>
+                        <div class="row">
+                            <label for="assetDescription" class="col-md-5">Description</label>
+                            <div class="col-md-7">
+                                <input id="assetDescription" type="text" minlength="2" class="form-control" placeholder="Asset Description">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="assetOwner" class="col-md-5">Owner</label>
+                            <div class="col-md-7">
+                                <input id="assetOwner" type="text" class="form-control" placeholder="Asset Owner Name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="assetType" class="col-md-5">Type</label>
+                            <div class="col-md-7">
+                                <select id="assetType" class="form-control">
+                                    <option selected></option>
+                                    <option>Instrument</option>
+                                    <option>Platform</option>
+                                    <option>Mooring</option>
+                                    <option>RSN Primary Cable</option>
+                                    <option>RSN Extension Cable</option>
+                                    <option>Mooring Riser Component</option>
+                                    <option>Telemetry Component</option>
+                                    <option>Power System Component</option>
+                                    <option>Platform Control Component</option>
+                                    <option>SIM Card</option>
+                                    <option>Crusie Kit</option>
+                                    <option>Winch</option>
+                                    <option>Wire Following Profiler</option>
+                                    <option>Sensor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="assetInstrumentClass" class = "col-md-5">Asset Instrument Class</label>
+                            <div class="col-md-7">
+                                <input id="assetInstrumentClass" type="text" class="form-control">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <label for="assetOwner" class="col-md-4">Owner</label>
-                    <div class="col-md-7">
-                        <input id="assetOwner" type="text" class="form-control" placeholder="Asset Owner Name">
+                    <div class="col-md-6 section">
+                        <h4>Manufacture Info</h4>
+                        <div class="row">
+                            <label for= "serialNumber" class = "col-md-5">Serial Number</label>
+                            <div class = "col-md-7">
+                                <input id="serialNumber" type = "text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for= "manufacturer" class = "col-md-5">Manufacturer</label>
+                            <div class = "col-md-7">
+                                <input id="manufacturer" type = "text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for= "modelNumber" class = "col-md-5">Model Number</label>
+                            <div class = "col-md-7">
+                                <input id="modelNumber" type = "text" class="form-control">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <label for="assetType" class="col-md-4">Type</label>
-                    <div class="col-md-7">
-                        <select id="assetType" class="form-control">
-                            <option selected></option>
-                            <option>Instrument</option>
-                            <option>Platform</option>
-                            <option>Mooring</option>
-                            <option>RSN Primary Cable</option>
-                            <option>RSN Extension Cable</option>
-                            <option>Mooring Riser Component</option>
-                            <option>Telemetry Component</option>
-                            <option>Power System Component</option>
-                            <option>Platform Control Component</option>
-                            <option>SIM Card</option>
-                            <option>Crusie Kit</option>
-                            <option>Winch</option>
-                            <option>Wire Following Profiler</option>
-                            <option>Sensor</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="assetInstrumentClass" class = "col-md-4">Asset Instrument Class</label>
-                    <div class="col-md-7">
-                        <input id="assetInstrumentClass" type="text" class="form-control">
-                    </div>
-                </div>
-                <div>
-                    <hr/>
-                </div>
-                <h4>Manufacture Info</h4>
-                <div class="row">
-                    <label for= "serialNumber" class = "col-md-4">Serial Number</label>
-                    <div class = "col-md-7">
-                        <input id="serialNumber" type = "text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <label for= "manufacturer" class = "col-md-4">Manufacturer</label>
-                    <div class = "col-md-7">
-                        <input id="manufacturer" type = "text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <label for= "modelNumber" class = "col-md-4">Model Number</label>
-                    <div class = "col-md-7">
-                        <input id="modelNumber" type = "text" class="form-control">
-                    </div>
-                </div>
-                <div>
-                    <hr/>
                 </div>
                 <h4>Metadata</h4>
-                <div id="metaDataList">
+                <div class="section">
+                    <div id="metaDataList" class="row">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

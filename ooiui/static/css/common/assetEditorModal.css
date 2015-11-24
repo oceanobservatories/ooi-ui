@@ -1,0 +1,44 @@
+/* Created by M@Campbell
+ * 11/24/2015
+ */
+
+.modal-dialog {
+    width: 80%;
+}
+
+.modal-header {
+    padding-left: 0;
+}
+
+.modal-title {
+    padding-left: 5px;
+}
+
+.modal-header h3 {
+    display: inline-block;
+}
+.modal-title {
+    display: inline-block;
+    border-left: 5px solid #004773;
+}
+
+.modal-body h4 {
+    background-color: #eee;
+}
+
+.meta-input, .section .row {
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.section {
+    height: 300px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.section h4 {
+    margin-top: 0px;
+
+}
