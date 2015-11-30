@@ -111,8 +111,8 @@ var XYScatterPlotView = Backbone.View.extend({
       seriesModel.set('yunits', self.collection.getUnits(yvar));
       seriesModel.set('xname', yvar);
       seriesModel.set('yname', yvar);
-      seriesModel.set('axisName', yvar+" ("+self.collection.getUnits(yvar)+")");
-      seriesModel.set('xaxisName', xvar+" ("+self.collection.getUnits(xvar)+")");
+      seriesModel.set('axisName', self.collection.yaxislabel);
+      seriesModel.set('xaxisName', self.collection.xaxislabel);
       seriesCollection.add(seriesModel);
       
     }
