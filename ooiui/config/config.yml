@@ -4,8 +4,8 @@ COMMON: &common
   SERVICES_URL: http://localhost:4000
   DEBUG: False
   CACHE_TYPE: simple
-  UI_API_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  SECRET_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  UI_API_KEY: 'test'
+  SECRET_KEY: 'test'
   GOOGLE_ANALYTICS_URL: 'http://www.google-analytics.com/collect?v=1&tid=UA-50606390-3&cid=5555&t=pageview'
   REDMINE_URL: 'https://localhost'
   SUBSCRIPTION_SERVER: 'http://localhost:12585'
