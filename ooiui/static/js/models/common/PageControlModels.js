@@ -13,13 +13,17 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             "General":[
                 ["temperature", "Temperature"],
                 ["pressure", "Pressure"],
-                ["co2", "CO2"]
+                ["co2", "CO2"],
+                ['antelope', 'Acoustic'],
+                ['camds', 'Images'],
+                ['camhd', 'Video'],
+                ['zplsc', 'Echograms']
             ],
             "Air Sea Interface":[
                 ['humidity', 'Humidity'],
                 ['wind_velocity', 'Wind Velocity'],
                 ['precipitation', 'Precipitation'],
-                ['air_sea_co2_flux', 'Air Sea CO2 Flux'],
+                ['airn_sea_co2_flux', 'Air Sea CO2 Flux'],
                 ['air_sea_heat_flux', 'Air Sea Heat Flux'],
                 ['wave_properties', 'Wave Properties']
             ],
@@ -47,6 +51,7 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['salinity', 'Salinity']
             ]
         }
+
     }
 });
 
