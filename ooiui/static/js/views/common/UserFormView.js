@@ -93,15 +93,6 @@ var SignUpForm = Backbone.View.extend({
             setOptions: {
                 validate: true
             }
-        },     
-            '[name=role_name]': {
-            observe: 'role_name',
-            selectOptions: {
-                collection: []
-            },
-            setOptions: {
-                validate: true
-            }
         },
             '[name=email_opt_in]': {
             observe: 'email_opt_in',
@@ -126,7 +117,6 @@ var SignUpForm = Backbone.View.extend({
     },
 
     render: function () {
-        this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
         this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
         this.stickit();
         this.$el.append(this.modalDialog.el);
@@ -139,14 +129,13 @@ var SignUpForm = Backbone.View.extend({
         // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
         //  on submit check for the role then change the role_id to the correct int
         if (this.model.isValid(true)) {
-            this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
             this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
             this.model.set('_csrf_token', ooi.csrf_token);
             // Needs to be dynamic (update)
             this.model.save(null, {
               success: function(model, response) {
                 self.modalDialog.show({
-                  message: "User successfully registered",
+                  message: "New user successfully sent for processing. You will receive an email confirmation shortly.",
                   type: "success",
                   ack: function() { 
                     window.location = "/"
