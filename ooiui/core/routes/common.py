@@ -31,7 +31,6 @@ def users():
     return render_template('common/users.html')
 
 @app.route('/troubleTicket')
-@login_required()
 def create_ticket():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FtroubleTicket')
     return render_template('common/troubleTicket.html')
@@ -39,6 +38,10 @@ def create_ticket():
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html')
+
+@app.route('/help')
+def help_page():
+    return render_template('common/help.html')
 
 @app.route('/pioneer-array')
 def pioneer_array():
