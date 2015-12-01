@@ -260,6 +260,9 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     var param1 = $("#yvar1-selection option:selected").attr('data-params');
     var param2 = $("#yvar2-selection option:selected").attr('data-params');
+    var xaxislabel = $("#yvar1-selection option:selected").val();
+    var yaxislabel = $("#yvar2-selection option:selected").val();
+
 
     // set data series options
     this.collections.interpolatedDataseries.instr1 = options.attributes.stream_name1;
@@ -270,6 +273,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.collections.interpolatedDataseries.enddate = options.attributes.data.end;
     this.collections.interpolatedDataseries.var1 = param1;
     this.collections.interpolatedDataseries.var2 = param2;
+    this.collections.interpolatedDataseries.xaxislabel = xaxislabel;
+    this.collections.interpolatedDataseries.yaxislabel = yaxislabel;
 
     errorHandler = function(collection, response){
       errorText = response.status+': '+response.statusText

@@ -666,7 +666,7 @@ var SVGPlotControlView = Backbone.View.extend({
             this.$el.find('#yvar3-select-text').text("Color");
 
         }else if(plotType=="Interpolated"){
-            this.$el.find('#clear-interp-params').css('display','');
+            this.$el.find('#clear-interp-params').show()
             this.$el.find('#xVarTooltip').attr('data-original-title',"The Interpolated plot allows a user to plot parameters from 2 different streams as the X and Y axes on the scatter plot. The Y parameter is interpolated to the same time stamps as the data in the X parameter.");
 
             this.$el.find('#plotting-enable-events').attr('disabled', true);
