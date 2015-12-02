@@ -1,3 +1,4 @@
+"use strict";
 /*
  * ooiui/static/js/models/science/ArrayModel.js
  * An extension of Backbone.Model that manages relations with a back-ref id
@@ -26,7 +27,6 @@ OOI.Relation = {
  */
 OOI.RelationalModel = Backbone.Model.extend({
   constructor: function(attributes, options) {
-    "use strict";
     Backbone.Model.apply(this, arguments);
     if(this.relation && this.relation.type === OOI.Relation.hasMany) {
       // bind the actual class to a variable so we can instantiate it.
@@ -59,7 +59,6 @@ OOI.RelationalModel = Backbone.Model.extend({
  * Logged in returns true if we have identified that the user is logged in.
  */
 OOI.LoggedIn = (function() {
-    "use strict";
     if($.cookie('ooiusertoken')) {
         return true;
     }
@@ -67,24 +66,20 @@ OOI.LoggedIn = (function() {
 });
 
 OOI.LogOut = (function() {
-    "use strict";
   $.removeCookie('ooiusertoken', { path: '/' });
   window.location.replace('/');
 });
 
 OOI.prototype.onLogin = (function() {
-    "use strict";
     window.location.reload();
 });
 OOI.prototype.onLogout = (function() {
-    "use strict";
     window.location.reload();
 });
 
 
 // TOC Functions
 var renderTOCView = (function(container, contents, streams) {
-    "use strict";
     var tocControlModel,
         tocControlView,
         tocView = new TOCView({
@@ -110,7 +105,6 @@ var renderTOCView = (function(container, contents, streams) {
 });
 
 var showSearchResults = (function(collection) {
-    "use strict";
     vent.trigger('toc:derenderItems');
 
     var searchResultView = new SearchResultView({ collection:collection });
@@ -123,7 +117,6 @@ var showSearchResults = (function(collection) {
 });
 
 var updateCollection = (function(assetCallback){
-    "use strict";
     var data = {
         search : $('#search-filter').val()
     };
@@ -134,7 +127,6 @@ var updateCollection = (function(assetCallback){
 });
 
 var focusToItem = (function(err)  {
-    "use strict";
     //From Dan L. by M@C
     // get url
 
