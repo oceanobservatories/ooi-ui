@@ -7,6 +7,7 @@ Defines the application routes
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
+from ooiui.core.routes.decorators import login_required, scope_required
 from ooiui.core.routes.common import get_login
 import json
 import urllib2
@@ -22,6 +23,8 @@ def c2_cameras():
 #Mission Executive
 @app.route('/mission/executive')
 @app.route('/mission/executive/')
+@scope_required('command_control')
+@login_required()
 def c2_mission_executive():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fexecutive')
     return render_template('c2/missionExecutive.html')
@@ -29,6 +32,8 @@ def c2_mission_executive():
 #Mission Load
 @app.route('/mission/load')
 @app.route('/mission/load/')
+@scope_required('command_control')
+@login_required()
 def c2_mission_load():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fload')
     return render_template('c2/missionLoad.html')
@@ -37,12 +42,16 @@ def c2_mission_load():
 #probably not going to use
 @app.route('/c2/platforms')
 @app.route('/c2/platforms/')
+@scope_required('command_control')
+@login_required()
 def c2_platforms():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Fplatforms')
     return render_template('c2/platforms.html')
 
 @app.route('/c2/instrument')
 @app.route('/c2/instrument/')
+@scope_required('command_control')
+@login_required()
 def c2_platform_status():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Finstrument')
     return render_template('c2/instrument.html')
@@ -50,6 +59,8 @@ def c2_platform_status():
 #arrays list
 @app.route('/c2')
 @app.route('/c2/')
+@scope_required('command_control')
+@login_required()
 def c2_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Flanding')
     return render_template('c2/landing.html')
@@ -57,42 +68,56 @@ def c2_index():
 #Mission Executive DATA PATHS
 ######
 @app.route('/api/c2/missions', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_get_missions():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/c2/missions/<string:mission_id>', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_get_mission(mission_id):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s' % (mission_id), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions', methods=['POST'])
+@scope_required('command_control')
+@login_required()
 def get_c2_add_mission():
     token = get_login()
     response = requests.post(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), data=request.data)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions', methods=['PUT'])
+@scope_required('command_control')
+@login_required()
 def get_c2_update_mission():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions', auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions/<string:mission_id>/delete', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_del_mission(mission_id):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/delete' % (mission_id), auth=(token, ''), params=request.data)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions/<string:mission_id>/activate', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_activate_mission(mission_id):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/activate' % (mission_id), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/missions/<string:mission_id>/deactivate', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_deactivate_mission(mission_id):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/missions/%s/deactivate' % (mission_id), auth=(token, ''), params=request.data)
@@ -105,6 +130,8 @@ def get_c2_deactivate_mission(mission_id):
 #
 # http://localhost:4000/c2/arrays
 @app.route('/api/c2/arrays', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_arrays_all():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/arrays', auth=(token, ''))
@@ -112,6 +139,8 @@ def get_c2_arrays_all():
 
 # http://localhost:4000/c2/array/CP/abstract
 @app.route('/api/c2/array/<string:array_code>/abstract', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_array_abstract(array_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/abstract' % (array_code), auth=(token, ''), params=request.args)
@@ -119,12 +148,17 @@ def get_c2_array_abstract(array_code):
 
 # http://localhost:4000/c2/array/CP/current_status_display
 @app.route('/api/c2/array/<string:array_code>/current_status_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_array_current_status_display(array_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/current_status_display' % (array_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
+
 # http://localhost:4000/c2/array/CP/history
 @app.route('/api/c2/array/<string:array_code>/history', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_array_history(array_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/history' % (array_code), auth=(token, ''), params=request.args)
@@ -132,6 +166,8 @@ def get_c2_array_history(array_code):
 
 # http://localhost:4000/c2/array/CP/status_display
 @app.route('/api/c2/array/<string:array_code>/status_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_array_status_display(array_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/status_display' % (array_code), auth=(token, ''), params=request.args)
@@ -139,6 +175,8 @@ def get_c2_array_status_display(array_code):
 
 # http://localhost:4000/c2/array/CP/mission_display
 @app.route('/api/c2/array/<string:array_code>/mission_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_array_mission_display(array_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/array/%s/mission_display' % (array_code), auth=(token, ''), params=request.args)
@@ -149,6 +187,8 @@ def get_c2_array_mission_display(array_code):
 #
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/abstract
 @app.route('/api/c2/platform/<string:platform_code>/abstract', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_abstract(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/abstract' % (platform_code), auth=(token, ''), params=request.args)
@@ -156,6 +196,8 @@ def get_c2_platform_abstract(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/current_status_display
 @app.route('/api/c2/platform/<string:platform_code>/current_status_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_current_status_display(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/current_status_display' % (platform_code), auth=(token, ''), params=request.args)
@@ -163,6 +205,8 @@ def get_c2_platform_current_status_display(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/history
 @app.route('/api/c2/platform/<string:platform_code>/history', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_history(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/history' % (platform_code), auth=(token, ''), params=request.args)
@@ -170,6 +214,8 @@ def get_c2_platform_history(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/status_display
 @app.route('/api/c2/platform/<string:platform_code>/status_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_status_display(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/status_display' % (platform_code), auth=(token, ''), params=request.args)
@@ -177,6 +223,8 @@ def get_c2_platform_status_display(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01-05-PARADK000/commands
 @app.route('/api/c2/platform/<string:platform_code>/commands', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_commands(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/commands' % (platform_code), auth=(token, ''), params=request.args)
@@ -184,6 +232,8 @@ def get_c2_platform_commands(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/mission_display
 @app.route('/api/c2/platform/<string:platform_code>/mission_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_mission_display(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/mission_display' % (platform_code), auth=(token, ''), params=request.args)
@@ -191,12 +241,16 @@ def get_c2_platform_mission_display(platform_code):
 
 # http://localhost:4000/c2/platform/CP02PMCO-WFP01/ports_display
 @app.route('/api/c2/platform/<string:platform_code>/ports_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_platform_portsdisplay(platform_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/platform/%s/ports_display' % (platform_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/platform/<string:platform_code>/execute', methods=['POST'])
+@scope_required('command_control')
+@login_required()
 def c2_execute_command_plat(platform_code):
     token = get_login()
     data = request.json
@@ -205,6 +259,8 @@ def c2_execute_command_plat(platform_code):
     return response.text, response.status_code
 
 @app.route('/api/c2/platform/<string:platform_code>/parameters', methods=['POST'])
+@scope_required('command_control')
+@login_required()
 def c2_edit_plat_params(platform_code):
     token = get_login()
     data = request.json
@@ -216,6 +272,8 @@ def c2_edit_plat_params(platform_code):
 #
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/abstract
 @app.route('/api/c2/instrument/<string:instrument_code>/abstract', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_abstract(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/abstract' % (instrument_code), auth=(token, ''), params=request.args)
@@ -223,6 +281,8 @@ def get_c2_instrument_abstract(instrument_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/streams
 @app.route('/api/c2/instrument/<string:instrument_code>/streams', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_streams(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/streams' % (instrument_code), auth=(token, ''), params=request.args)
@@ -230,6 +290,8 @@ def get_c2_instrument_streams(instrument_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/commands
 @app.route('/api/c2/instrument/<string:instrument_code>/commands', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_commands(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/commands' % (instrument_code), auth=(token, ''), params=request.args)
@@ -237,6 +299,8 @@ def get_c2_instrument_commands(instrument_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/history
 @app.route('/api/c2/instrument/<string:instrument_code>/history', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_history(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/history' % (instrument_code), auth=(token, ''), params=request.args)
@@ -244,6 +308,8 @@ def get_c2_instrument_history(instrument_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/status_display
 @app.route('/api/c2/instrument/<string:instrument_code>/status_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_status_display(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/status_display' % (instrument_code), auth=(token, ''), params=request.args)
@@ -251,6 +317,8 @@ def get_c2_instrument_status_display(instrument_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/mission_display
 @app.route('/api/c2/instrument/<string:instrument_code>/mission_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_mission_display(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/mission_display' % (instrument_code), auth=(token, ''), params=request.args)
@@ -259,6 +327,8 @@ def get_c2_instrument_mission_display(instrument_code):
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-02-DOFSTK000/dofst_k_wfp_metadata/fields
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/parad_k_stc_imodem_instrument/fields
 @app.route('/api/c2/instrument/<string:instrument_code>/<string:stream_code>/fields', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_stream_fields(instrument_code, stream_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (instrument_code, stream_code), auth=(token, ''), params=request.args)
@@ -266,12 +336,16 @@ def get_c2_instrument_stream_fields(instrument_code, stream_code):
 
 # http://localhost:4000/c2/instrument/CP02PMCO-WFP01-05-PARADK000/parad_k_stc_imodem_instrument/fields
 @app.route('/api/c2/instrument/<string:instrument_code>/ports_display', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_ports_display(instrument_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (instrument_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/instrument/<string:instrument_ref>/execute', methods=['POST'])
+@scope_required('command_control')
+@login_required()
 def c2_execute_command(instrument_ref):
     token = get_login()
     data = request.json
@@ -280,6 +354,8 @@ def c2_execute_command(instrument_ref):
     return response.text, response.status_code
 
 @app.route('/api/c2/instrument/<string:instrument_ref>/parameters', methods=['POST'])
+@scope_required('command_control')
+@login_required()
 def c2_edit_instr_params(instrument_ref):
     token = get_login()
     data = request.json
@@ -291,12 +367,16 @@ def c2_edit_instr_params(instrument_ref):
 # STATUS and SAMPLE GET
 #
 @app.route('/api/c2/sample/<string:ref_code>', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_sample(ref_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
 @app.route('/api/c2/status/<string:ref_code>', methods=['GET'])
+@scope_required('command_control')
+@login_required()
 def get_c2_instrument_status(ref_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
