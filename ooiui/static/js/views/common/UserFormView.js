@@ -146,7 +146,7 @@ var SignUpForm = Backbone.View.extend({
             this.model.save(null, {
               success: function(model, response) {
                 self.modalDialog.show({
-                  message: "User successfully registered",
+                  message: "New user successfully sent for processing. You will receive an email confirmation shortly.",
                   type: "success",
                   ack: function() { 
                     window.location = "/"
