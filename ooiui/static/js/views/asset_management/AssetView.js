@@ -112,7 +112,7 @@ var ParentAssetModalView = ParentView.extend({
                     vent.trigger('asset:changeCollection');
                 },
                 error: function(model, error) {
-                    alert("Sorry, there was an unexpected error: " + error.responseJSON.statusCode + " - " + error.responseJSON.message);
+                    alert("Sorry, there was an error: " + error.responseText);
                     vent.trigger('asset:changeCollection');
                 }
             });
