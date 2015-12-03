@@ -10,6 +10,8 @@ from flask import stream_with_context
 from ooiui.core.routes.common import get_login, login_required
 import requests
 import urllib2
+from ooiui.core.routes.decorators import login_required, scope_required
+
 @app.route('/')
 def new_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fscience%2Fworld')
@@ -229,12 +231,16 @@ def instrument_deployment_get(id):
 
 
 @app.route('/api/asset_deployment/<int:id>', methods=['PUT'])
+@scope_required('asset_manager')
+@login_required()
 def instrument_deployment_put(id):
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
 
 
 @app.route('/api/asset_deployment', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
 def instrument_deployment_post():
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
@@ -242,6 +248,8 @@ def instrument_deployment_post():
 
 # not working/using now
 @app.route('/api/asset_deployment/<int:id>', methods=['DELETE'])
+@scope_required('asset_manager')
+@login_required()
 def instrument_deployment_delete(id):
     response = requests.delete(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
@@ -261,6 +269,8 @@ def event_deployment_get(id):
 
 
 @app.route('/api/asset_events/<int:assetId>/<int:id>', methods=['PUT'])
+@scope_required('asset_manager')
+@login_required()
 def asset_event_put(id, assetId):
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, auth=(token, ''), data=request.data)
@@ -268,6 +278,8 @@ def asset_event_put(id, assetId):
 
 
 @app.route('/api/asset_events', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
 def asset_event_post():
     token = get_login()
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=request.data)
