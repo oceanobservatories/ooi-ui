@@ -33,8 +33,12 @@ var StreamModel = Backbone.Model.extend({
     user_name: "",
     parameter_display_name: "",
     site_name: "",
-    assembly_name: ""
+    assembly_name: "",
+    lat_lon: "",
+    depth: "",
+    freshness: ""
   },
+
   getURL: function(type) {
     if(type == 'json') {
       var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
@@ -76,5 +80,21 @@ var StreamCollection = Backbone.Collection.extend({
         return response.streams;
     }
     return [];
+  },
+  byArray: function(array) {
+      var filtered = this.filter(function (model) {
+          return model.get('reference_designator').substring(0,2) === array;
+      });
+      return new StreamCollection(filtered);
+  },
+  byEng: function(bool) {
+      if (!bool) {
+          var filtered = this.filter(function (model) {
+              return model.get('reference_designator').indexOf('ENG') === -1;
+          });
+          return new StreamCollection(filtered);
+      } else {
+          return this;
+      }
   }
 });

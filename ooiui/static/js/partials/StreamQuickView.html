@@ -1,0 +1,51 @@
+<div id="streamStatus" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4>Data Stream Quick View</h4>
+                <div><input id="isEngChkBox"
+                            type="checkbox"> Engineering streams</input></div>
+                <div class="array-select">
+                    <span data-value="CE" class="active">Endurance</span>
+                    <span data-value="GP">Station Papa</span>
+                    <span data-value="CP">Pioneer</span>
+                    <span data-value="GA">Argentine Basin</span>
+                    <span data-value="GI">Irminger Sea</span>
+                    <span data-value="GS">Southern Ocean</span>
+                    <span data-value="RS">Cabled Array</span>
+                </div>
+            </div>
+            <div class="color-index">
+                <div class="twelve-hours"></div><b>Recent 12 Hours</b>
+                <div class="twenty-four-hours"></div><b>12 - 24 Hours</b>
+                <div class="older"></div><b>Older than 24 Hours</b>
+            </div>
+            <div class="modal-body">
+                <div class="stream-table">
+                    <table align="center">
+                        <thead>
+                            <tr>
+                                <th width="150px">Name</th>
+                                <th width="200px">Stream</th>
+                                <th>Location</th>
+                                <th>Depth</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-rows">
+                            <!-- insert the details of the stream here. color coded. -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

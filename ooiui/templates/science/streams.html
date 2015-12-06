@@ -163,7 +163,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
             row.focus();
-            console.log(row);
 
             //get the model
             var ref_des = row.model.get('reference_designator');
