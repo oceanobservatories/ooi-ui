@@ -98,13 +98,10 @@ var StreamCollection = Backbone.Collection.extend({
       }
   },
   byEndTime: function(binary) {
-
-
-
       var filtered = this.filter(function (model) {
           var time = new Date(model.get('end')),
               timeSinceEnd = new Date().getTime() - time.getTime(),
-              twentyFour = 1000*60*60*24,
+              twentyFour = 86400000,
               allTime = 3,
               recent24 = 1,
               older = 2;

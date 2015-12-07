@@ -180,20 +180,5 @@ var StreamQuickViewItem = ParentView.extend({
     /*  each stream is handled with this view.
      */
     tagName: 'tr',
-    template: _.template('<td><%= display_name %></td>' +
-                         '<td><%= stream_name %></td>' +
-                         '<td><%= lat_lon || "N/A" %></td>' +
-                         '<td><%= depth || "N/A" %></td>' +
-                         '<td><%= moment.utc(start)' +
-                         '              .format("MMMM Do YYYY, h:mm:ss a") %></td>' +
-                         '<td class="<%= freshness %> item"><%= moment.utc(end)' +
-                         '              .format("MMMM Do YYYY, h:mm:ss a") %></td>' +
-                         '<td><a href="/plotting/#<%= reference_designator %>/<%= stream_name %>"' +
-                         '       title="Plotting"><i class="fa fa-bar-chart">&nbsp</i></a>' +
-                         '    <a href="/streams/#<%= reference_designator %>/<%= stream_name %>"' +
-                         '       title="Data Catalog"><i class="fa fa-database">&nbsp</i>' +
-                         '    </a>' +
-                         '    <a href="/assets/list/#<%= reference_designator %>"' +
-                         '       title="Asset Management"><i class="fa fa-sitemap">&nbsp</i>' +
-                         '    </a></td>')
+    template: JST["ooiui/static/js/partials/StreamQuickViewItem.html"]
 });

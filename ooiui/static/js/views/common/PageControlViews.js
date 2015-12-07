@@ -62,7 +62,7 @@ var DataCatalogPageControlView = ParentPageControlView.extend({
     events: {
         'change select#search-param': 'click'
     },
-    template: _.template('<select id="search-param"><option selected>None</selected><% _.each(Object.keys(params), function(key) { %> <optgroup label="<%=key%>"> <% _.each(params[key], function(item){ %> <option id="<%= item[0]  %>"><%= item[1] %></option><% })%></optgroup> <%;}); %></select>'),
+    template: JST['ooiui/static/js/partials/DataCatalogPageControlView.html'],
     click: function(e) {
         $('#hiddenSearch').val(e.currentTarget.selectedOptions[0].id);
 
