@@ -141,7 +141,8 @@ var StreamQuickView = ParentView.extend({
     renderEach: function(array) {
         /*
          * 0b0011: all time
-         * 0b0010: recent 24 hours
+         * 0b0001: recent 24 hours
+         * 0b0010: older than 24
          */
 
         var binTimeFilter = 0b0000,
