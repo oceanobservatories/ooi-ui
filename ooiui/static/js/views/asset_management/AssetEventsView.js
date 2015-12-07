@@ -144,8 +144,8 @@ var ParentEventModalView = ParentView.extend({
                     alert('Success!');
                     vent.trigger('asset:changeCollection');
                 },
-                error: function(model, error) {
-                    alert("Sorry, there was an error. " + error.responseText);
+                error: function(response) {
+                    alert("Sorry, this action is not currently supported by the data infrastructure. Please contact your system admin. " + response.responseText);
                     vent.trigger('asset:changeCollection');
                 }
             });

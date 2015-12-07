@@ -95,9 +95,6 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   enddate:"2015-06-28T04:00:41.282Z",
   var1:"sci_water_pressure",
   var2:"sci_flbbcd_chlor_units",
-  xaxislabel: "",
-  yaxislabel: "",
-  subtitle: "",
 
   url: function() {
     var durl = ('/api/get_multistream?instrument1='+ this.instr1 + '&instrument2=' + this.instr2 +
@@ -111,7 +108,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   units:null,
   model: DataSeriesModel,
   getTitle:function(){
-    return this.title;
+    return this.ref_des;
   },
   getStartDate:function(){
     return moment.utc(this.startdate).unix()*1000;
@@ -120,7 +117,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
     return moment.utc(this.enddate).unix()*1000;
   },
   getSubtitle:function(){
-    return this.subtitle;
+    return this.stream;
   },
   getUnits:function(param){
     return this.units[param];
@@ -130,8 +127,6 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   },
   parse: function(response, options) {
     this.units = response.units;
-    this.title = response.title;
-    this.subtitle = response.subtitle;
     return response.data;
   }
 
