@@ -31,21 +31,17 @@ var ParentView = Backbone.View.extend({
         } else {
             this.$el.html(this.template());
         }
-        var self = this;
-        setTimeout(function() {
-            self.$el.css({
-                'opacity': 1
-            });
-        }, 0);
-
+        this.$el.css({
+            'opacity': 1
+        });
         return this;
     },
     colorTime: function() {
         // add a 'freshness' property to the model for easy styling.
         var time = new Date(this.model.get('end')),
             timeSinceEnd = new Date().getTime() - time.getTime(),
-            twelve = 1000*60*60*12,
-            twentyFour = 1000*60*60*24;
+            twelve = 43200000,
+            twentyFour = 86400000;
         if (timeSinceEnd <= twelve) {
             this.model.set({'freshness': 'twelve-hours'});
         } else if (timeSinceEnd < twentyFour) {
