@@ -26,6 +26,7 @@ var HighchartsScatterView = Backbone.View.extend({
       // var axis = _.find(uniqAxis, function(item) {
       //   return item.title.text == model.get('axisName');
       // });
+
     /* Actually produce the chart */
     this.chart = new Highcharts.Chart({
       chart: {
@@ -56,11 +57,7 @@ var HighchartsScatterView = Backbone.View.extend({
           style: self.title_style
       },
       subtitle: {
-          text: self.subtitle,
-          style: {
-                  color: "steelblue", 
-                  fontSize: "18px"
-                }
+          text: self.subtitle
       },
       xAxis: {
             id: self.collection.models[0].get('xaxisName'),          
