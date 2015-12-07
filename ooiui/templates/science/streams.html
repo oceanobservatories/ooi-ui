@@ -52,6 +52,7 @@
                             <div class="twelve-hours"></div><b> 12 Hours </b>
                             <div class="twenty-four-hours"></div><b> 24 Hours </b>
                             <div class="older"></div><b> Older than 24 hours </b>
+                            <em>Data are sorted by end date, most recent first</em>
                         </div>
                     </div>
 
@@ -163,7 +164,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
             row.focus();
-            console.log(row);
 
             //get the model
             var ref_des = row.model.get('reference_designator');
@@ -405,6 +405,7 @@ function updatePagination( details, successCallback ){
     } else {
         $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
     }
+    // Remove the pagination binding so they don't get called
     // Remove the pagination binding so they don't get called
     // multiple times after they're redrawn.
     $(".pagination-boxes").unbind();
