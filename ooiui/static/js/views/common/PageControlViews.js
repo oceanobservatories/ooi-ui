@@ -22,9 +22,9 @@ var ParentPageControlView = Backbone.View.extend({
         'change select#search-param': 'click'
     },
     // this template will loop through each of the parameters defined in the
-    // instantiaed model and create a <span> tag with an id of the first index
-    // and a the tag contents with the second index.
-    template: _.template('<select id="search-param"><% _.each(params, function(item) { %> <option id="<%= item[0] %>"><%= item[1] %></option><% }) %></select>'),
+    // instantiaed model and create a <option> tag in the select element with
+    // an id of the actual search term. 
+template: _.template('<select id="search-param"><option selected>None</selected><% _.each(Object.keys(params), function(key) { %> <optgroup label="<%=key%>"> <% _.each(params[key], function(item){ %> <option id="<%= item[0]  %>"><%= item[1] %></option><% })%></optgroup> <%;}); %></select>'),
     render: function() {
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
