@@ -12,24 +12,31 @@
 #streamStatus .modal-header {
     padding-top: 2px;
     overflow-x: hidden;
-    height: 100px;
-    border-bottom: 0;
+    height: 120px;
+    border-bottom: 2px solid orange;
     overflow-y: hidden;
+}
+
+#streamStatus .time-filter div {
+    display: inline-block;
+    padding: 0 10px 0 10px;
+    margin: 0 5px 0 5px;
+}
+
+#streamStatus .time-filter {
+    display: relative;
+    text-align: center;
 }
 
 #streamStatus .time-legend {
     text-align: center;
     margin: 10px 0 20px 0;
 }
-#streamStatus .time-select > span {
-    padding: 0 20px 0px 20px;
-    border: 1px solid #004773;
-}
 
 #streamStatus .array-select {
     text-align: center;
     font-size: 14px;
-    margin: 10px 0 20px 0;
+    margin: 10px 0 5px 0;
     padding: 5px 0 5px 0;
     background-color: #eee;
     position: relative;
@@ -93,13 +100,14 @@
     left: 10px;
 }
 .twelve-hours {
-    background-color: lightblue;
+    background-color: blue;
+    color: white;
 }
 .twenty-four-hours {
-    background-color: lightskyblue;
+    background-color: yellow;
 }
 .older {
-    background-color: blue;
+    background-color: red;
     color: white;
 }
 .color-index {

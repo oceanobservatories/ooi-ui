@@ -96,5 +96,37 @@ var StreamCollection = Backbone.Collection.extend({
       } else {
           return this;
       }
+  },
+  byEndTime: function(binary) {
+
+
+
+      var filtered = this.filter(function (model) {
+          var time = new Date(model.get('end')),
+              timeSinceEnd = new Date().getTime() - time.getTime(),
+              twentyFour = 1000*60*60*24,
+              allTime = 3,
+              recent24 = 1,
+              older = 2;
+
+          switch (true) {
+
+            case (binary === recent24):
+                return timeSinceEnd <= twentyFour;
+                break;
+
+            case (binary === older):
+                return timeSinceEnd > twentyFour;
+                break;
+
+            case (binary === allTime):
+                return true;
+                break;
+
+            default:
+                return false;
+          }
+      });
+      return new StreamCollection(filtered);
   }
 });

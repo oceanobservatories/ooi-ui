@@ -121,12 +121,12 @@ var StreamQuickView = ParentView.extend({
     events: {
         'click .btn-close': 'close',
         'click .array-select > span': 'filterBy',
-        'click [type="checkbox"]': 'toggleEng'
+        'click [type="checkbox"]': 'clickChkBox'
     },
     template: JST["ooiui/static/js/partials/StreamQuickView.html"],
-    toggleEng: function() {
-        this.renderEach(this.$el.find('.active').data('value'),
-                        this.$el.find('#isEngChkBox').is(':checked'));
+    clickChkBox: function() {
+        // yeah...just what it says.  Will re-render the streams when a checkbox is clicked.
+        this.renderEach(null);
     },
     filterBy: function(e) {
         e.preventDefault();
@@ -135,19 +135,31 @@ var StreamQuickView = ParentView.extend({
         var target = e.target;
 
         // re-render the table filtered by the targets data-value.
-        this.renderEach($(target).data('value'), this.$el.find('#isEngChkBox').is(':checked'));
+        this.renderEach($(target).data('value'));
 
         // remove the 'active' class from any other button, and give this
         // target a new 'active' class.
         this.$el.find('.active').removeClass('active');
         $(target).addClass('active');
     },
-    renderEach: function(array, isEng) {
+    renderEach: function(array) {
+        /*
+         * 0b0011: all time
+         * 0b0010: recent 24 hours
+         */
+
+        var binTimeFilter = 0b0000,
+            isEng = this.$el.find('#isEngChkBox').is(':checked');
+
         if (!array)
-            array = 'CE';
+            array = this.$el.find('.active').data('value') || 'CE';
+
+        // we'll need to only show 24 hours or earlier, older than 24 hours, or both.
+        binTimeFilter = (this.$el.find('#is24HrChkBox').is(':checked') && binTimeFilter < 1) ? binTimeFilter+0b0001 : binTimeFilter;
+        binTimeFilter = (this.$el.find('#isOldChkBox').is(':checked') && binTimeFilter < 2) ? binTimeFilter+0b0010 : binTimeFilter;
 
         // map the streams in the collection to their own view.
-        var streamItems = this.collection.byArray(array).byEng(isEng).map(function(model) {
+        var streamItems = this.collection.byArray(array).byEng(isEng).byEndTime(binTimeFilter).map(function(model) {
             return (new StreamQuickViewItem({model:model})).render().el;
         });
 

@@ -12,8 +12,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4>Data Stream Quick View</h4>
-                <div><input id="isEngChkBox"
-                            type="checkbox"> Engineering streams</input></div>
                 <div class="array-select">
                     <span data-value="CE" class="active">Endurance</span>
                     <span data-value="GP">Station Papa</span>
@@ -23,11 +21,16 @@
                     <span data-value="GS">Southern Ocean</span>
                     <span data-value="RS">Cabled Array</span>
                 </div>
-            </div>
-            <div class="color-index">
-                <div class="twelve-hours"></div><b>Recent 12 Hours</b>
-                <div class="twenty-four-hours"></div><b>12 - 24 Hours</b>
-                <div class="older"></div><b>Older than 24 Hours</b>
+                <div class="time-filter">
+                    <div><input id="isEngChkBox"
+                                type="checkbox"> Engineering streams</input></div>
+                    <div><input id="is24HrChkBox"
+                                type="checkbox" checked> Recent 24 Hours</input></div>
+                    <!--<div><input id="isBetween12and24"
+                        type="checkbox"> 12 - 24 Hours</input></div>-->
+                    <div><input id="isOldChkBox"
+                                type="checkbox" checked> Older than 24 Hours</input></div>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="stream-table">
@@ -48,6 +51,13 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="modal-footer">
+            <div class="color-index">
+                <div class="twelve-hours"></div><b>Recent 12 Hours</b>
+                <div class="twenty-four-hours"></div><b>12 - 24 Hours</b>
+                <div class="older"></div><b>Older than 24 Hours</b>
+            </div>
             </div>
         </div>
     </div>

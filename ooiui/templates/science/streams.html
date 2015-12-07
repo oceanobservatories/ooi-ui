@@ -405,6 +405,7 @@ function updatePagination( details, successCallback ){
         $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
     }
     // Remove the pagination binding so they don't get called
+    // Remove the pagination binding so they don't get called
     // multiple times after they're redrawn.
     $(".pagination-boxes").unbind();
 
