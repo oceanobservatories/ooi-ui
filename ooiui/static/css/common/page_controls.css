@@ -30,6 +30,10 @@ button#search-clear {
 input#search {
   line-height: 1.5;
 }
+#buttons > select {
+    margin-top: 10px;
+}
+
 #buttons > span {
     background-color: white;
     display: inline-block;

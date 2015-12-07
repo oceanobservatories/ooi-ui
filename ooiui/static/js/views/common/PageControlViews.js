@@ -19,12 +19,12 @@ var ParentPageControlView = Backbone.View.extend({
         _.bindAll(this, 'render', 'derender', 'click');
     },
     events: {
-        'change select#search-param': 'click'
+        'click span': 'click'
     },
     // this template will loop through each of the parameters defined in the
     // instantiaed model and create a <option> tag in the select element with
-    // an id of the actual search term. 
-template: _.template('<select id="search-param"><option selected>None</selected><% _.each(Object.keys(params), function(key) { %> <optgroup label="<%=key%>"> <% _.each(params[key], function(item){ %> <option id="<%= item[0]  %>"><%= item[1] %></option><% })%></optgroup> <%;}); %></select>'),
+    // an id of the actual search term.
+    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
     render: function() {
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
@@ -42,7 +42,14 @@ template: _.template('<select id="search-param"><option selected>None</selected>
         this.model.off();
     },
     click: function(e) {
-        $('#hiddenSearch').val(e.currentTarget.selectedOptions[0].id);
+        if ($('#'+e.target.id).hasClass('active')) {
+            $('#'+e.target.id).removeClass('active');
+            $('#hiddenSearch').val('');
+        } else {
+            $('.active').removeClass('active');
+            $('#'+e.target.id).toggleClass('active');
+            $('#hiddenSearch').val(e.target.id);
+        }
 
         // once that array is all sorted out, lets stick it in the hidden search field that
         // has been appended to the page.
@@ -51,7 +58,19 @@ template: _.template('<select id="search-param"><option selected>None</selected>
 });
 
 
-var DataCatalogPageControlView = ParentPageControlView.extend({});
+var DataCatalogPageControlView = ParentPageControlView.extend({
+    events: {
+        'change select#search-param': 'click'
+    },
+    template: _.template('<select id="search-param"><option selected>None</selected><% _.each(Object.keys(params), function(key) { %> <optgroup label="<%=key%>"> <% _.each(params[key], function(item){ %> <option id="<%= item[0]  %>"><%= item[1] %></option><% })%></optgroup> <%;}); %></select>'),
+    click: function(e) {
+        $('#hiddenSearch').val(e.currentTarget.selectedOptions[0].id);
+
+        // once that array is all sorted out, lets stick it in the hidden search field that
+        // has been appended to the page.
+        $('#search').trigger('keyup');
+    }
+});
 
 
 var AssetManagementPageControlView = ParentPageControlView.extend({});
