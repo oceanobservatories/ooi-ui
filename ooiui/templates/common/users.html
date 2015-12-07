@@ -82,15 +82,11 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection: this.collections.users,
       el: $('#users-table-view')
     });
-    //click the add definition button
-    //$('#downloadUsersButton').on( "click", function(evt) {
-      //console.log("clicked download users");
 
-      $.get("/api/user", function (data) {
-        var jsonData = "text/json;charset=utf-8," + JSON.stringify(data);
-        $('<a href="data:' + jsonData + '" download="ooi_users.json">Click to Download JSON Format</a>').appendTo('#download-container');
-      });
-    //});
+    $.get("/api/user", function (data) {
+      var jsonData = "text/json;charset=utf-8," + encodeURIComponent(data);
+      $('<a href="data:' + jsonData + '" download="ooi_users.json">Click to Download JSON Format</a>').appendTo('#download-container');
+    });
   }
 });
 

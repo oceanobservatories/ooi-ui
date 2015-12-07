@@ -1,0 +1,93 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>OOI User Interface - Help</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+  <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" style="padding-left: 0px">
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="text-center jumbotron">
+                    <p> For all issues, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></p>
+                    <p> Access trouble tickets at <a href="https://uframe-cm.ooi.rutgers.edu/login">https://uframe-cm.ooi.rutgers.edu/login</a></p>
+                </div><!-- col-md-12 -->
+            </div><!-- row -->
+        </div><!--container-fluid -->
+    </div><!-- page-content-wrapper -->
+</div><!-- wrapper -->
+
+<!-- fade in image -->
+<script>
+$(document).ready(function() {
+$(".delayImg").each(function() {
+this.onload = function() {
+$(this).animate({opacity: 1}, 2000);
+};
+this.src = this.getAttribute("delayedSrc");
+});
+});
+</script>
+
+<script type="text/javascript">
+
+var bannerTitle = "Redmine Help";
+
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  views: {},
+  collections: {
+    organizations: new Organizations(),
+  },
+  models: {},
+
+  start: function() {
+    var self = this;
+    this.login.fetch({async:false});
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+      collection: this.collections.organizations,
+    });
+    $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
+  }
+});
+
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+// Once the DOM is loaded, we start our application
+ooi.start();
+});
+</script>
+
+{% endblock %}
