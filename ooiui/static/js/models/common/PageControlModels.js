@@ -23,7 +23,7 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['humidity', 'Humidity'],
                 ['wind_velocity', 'Wind Velocity'],
                 ['precipitation', 'Precipitation'],
-                ['airn_sea_co2_flux', 'Air Sea CO2 Flux'],
+                ['air_sea_co2_flux', 'Air Sea CO2 Flux'],
                 ['air_sea_heat_flux', 'Air Sea Heat Flux'],
                 ['wave_properties', 'Wave Properties']
             ],

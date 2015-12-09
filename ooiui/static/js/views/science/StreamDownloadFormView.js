@@ -218,7 +218,7 @@ var StreamDownloadFormView = Backbone.View.extend({
           window.open(url, '_blank');
         },
         error: function(){
-          msg = 'Error getting Data URL!'
+          var msg = 'Error getting Data URL!'
           ooi.trigger('DownloadModalFail:onFail', msg);
         }
       });
