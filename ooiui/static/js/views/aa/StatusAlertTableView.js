@@ -124,11 +124,11 @@
             //place holder right now for triggered events
             if(rawValue == "alert"){
               //return "Active";
-              return "<i id='event_type_def' style='font-size:20px;padding-right: 0px;color:#004773;' class='fa fa-circle'> Alert</i>";
+              return "<i id='event_type_def' style='font-size:20px;padding-right: 0px;color:orange;' class='fa fa-circle'> Alert</i>";
             }
             else if(rawValue == "alarm"){
               //return "Disabled";
-              return "<i id='event_type_def' style='font-size:20px;padding-right: 0px;color:#004773;' class='fa fa-circle'> Alarm</i>";
+              return "<i id='event_type_def' style='font-size:20px;padding-right: 0px;color:red;' class='fa fa-circle'> Alarm</i>";
             }
             else if(rawValue == "inactive"){
               //return "Disabled";

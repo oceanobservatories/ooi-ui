@@ -26,25 +26,32 @@
 /*
 MAP
 */
+
+/*green*/
 .status-marker-cluster-healthy {
     background-color: rgba(131, 177, 89, 0.6);
 }
+/*green*/
 .status-marker-cluster-healthy div {
     background-color: rgba(150, 162, 143, 0.6);
 }
 
-.status-marker-cluster-alarm {
+/*yellow*/
+.status-marker-cluster-alert {
     background-color: rgba(241, 211, 87, 0.6);
 }
-.status-marker-cluster-alarm div {
+/*yellow*/
+.status-marker-cluster-alert div {
     background-color: rgba(240, 194, 12, 0.6);
 }
 
-.status-marker-cluster-alert {
-    background-color: rgba(253, 156, 115, 0.6);
+/*red*/
+.status-marker-cluster-alarm {
+    background-color: rgba(255,102,102, 0.6);
 }
-.status-marker-cluster-alert div {
-    background-color: rgba(241, 128, 23, 0.6);
+/*red*/
+.status-marker-cluster-alarm div {
+    background-color: rgba(255, 51, 51, 0.6);
 }
 
 .status-marker-cluster-unknown {
@@ -123,7 +130,7 @@ BG
 }
 
 #resetStatusIconList{
-    
+
 }
 
 #assetIconList .dogTagBtn.well{
@@ -197,7 +204,7 @@ BG
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
     border-radius: 50%;
-    color: #000000; 
+    color: #000000;
 }
 .issueIssueBtn {
     background: #FFE944;
@@ -207,7 +214,7 @@ BG
     border: 1px solid #6E6E6C;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
     border-radius: 50%;
-    color: #000000; 
+    color: #000000;
 }
 .errorIssueBtn {
     background: #E03D2C;
@@ -217,7 +224,7 @@ BG
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
     border-radius: 50%;
-    color: #000000; 
+    color: #000000;
 }
 .unknownIssueBtn {
     background: #5e5e5e;
@@ -227,10 +234,10 @@ BG
     border: 1px solid #000006;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.50), inset 0px 1px 1px 0px rgba(0,0,0,0.50), inset 0px 0px 8px 1px rgba(0,0,0,0.50);
     border-radius: 50%;
-    color: #000000; 
-} 
+    color: #000000;
+}
 /*
- * Badge 
+ * Badge
  */
 .badge-ok {
     background: #006eff;
@@ -246,7 +253,7 @@ BG
     vertical-align: middle;
     text-align: center;
     font-size: 35px;
-    margin-left: 35%    
+    margin-left: 35%
 }
 .badge-issue {
     background: #FFE944;
@@ -388,22 +395,22 @@ BG
 .blue-backgroud-gradiant:hover {
     border:  1px solid;
     border-color: rgba(0, 118, 253, 0.75);
-    /*Glow*/ 
-    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1)); 
+    /*Glow*/
+    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1));
     -moz-box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
     box-shadow: 0px 0px 20px rgba(81, 203, 238, 1);
 }
 .red-backgroud-gradiant {
     background-color: #fff;
-    background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .30));	
+    background-image: radial-gradient(100% 100%, #fff, rgba(253, 196, 196, .30));
     box-shadow: 0 0 10px rgba(250, 128, 128, 1);
     border: 1px solid rgba(252, 171, 171, 1);
 }
 .red-backgroud-gradiant:hover {
     border:  1px solid;
     border-color: rgb(255, 50, 50);
-    /*Glow*/ 
-    -webkit-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1); 
+    /*Glow*/
+    -webkit-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
     -moz-box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
     box-shadow: 0px 0px 20px rgba(252, 171, 171, 1);
 }
@@ -416,8 +423,8 @@ BG
 .yellow-backgroud-gradiant:hover {
     border:  1px solid;
     border-color: rgb(210, 209, 78);
-    /*Glow*/ 
-    -webkit-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95); 
+    /*Glow*/
+    -webkit-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
     -moz-box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
     box-shadow: 0px 0px 20px rgba(253, 253, 22, .95);
 }
@@ -431,8 +438,8 @@ BG
 .unknown-backgroud-gradiant:hover {
     border:  1px solid;
     border-color: rgba(136, 137, 137, 0.75);
-    /*Glow*/ 
-    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1)); 
+    /*Glow*/
+    -webkit-box-shadow: 0px 0px 20px rgba((81, 203, 238, 1));
     -moz-box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
     box-shadow: 0px 0px 20px rgba(160, 160, 160, 1);
 }
@@ -527,7 +534,7 @@ BG
     overflow-y: hidden;
 }
 
-.new-line { 
+.new-line {
     margin: 10px 0;
     height: 1px;
     border: 0;
@@ -622,7 +629,7 @@ border: 1px solid rgba(81, 203, 238, 1);*/
      border-radius: 50%;
      text-align: center;
      font-size: 25px;
-     margin-left: 0%; 
+     margin-left: 0%;
      margin-top: 15%;
      margin-left: auto;
      padding: 0px 0px;
@@ -643,7 +650,7 @@ border: 1px solid rgba(81, 203, 238, 1);*/
      border-radius: 50%;
      text-align: center;
      font-size: 25px;
-     margin-left: 0%; 
+     margin-left: 0%;
      margin-top: 15%;
      margin-left: auto;
      padding: 0px 0px;
@@ -651,7 +658,7 @@ border: 1px solid rgba(81, 203, 238, 1);*/
      color: #000000;
      white-space: nowrap;
      vertical-align: baseline;
- } 
+ }
 
 */
 
