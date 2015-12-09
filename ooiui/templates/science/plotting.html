@@ -535,11 +535,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       parameterhtml += "</optgroup>"
 
       $("div#yvar0-selection-default > div.form-group > select").html(parameterhtml);
-      if (refreshYVar1){
-        $("div#yvar1-selection > div.form-group > select").html(parameterhtml);
-      }
+      $("div#yvar1-selection > div.form-group > select").html(parameterhtml);
       $("div#yvar2-selection > div.form-group > select").html(parameterhtml);
       $("div#yvar3-selection > div.form-group > select").html(parameterhtml);
+
       $('#parameters_id').removeAttr('disabled');
       $('.selectpicker').selectpicker('refresh');
 
