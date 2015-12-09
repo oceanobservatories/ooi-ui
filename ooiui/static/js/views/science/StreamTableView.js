@@ -158,10 +158,21 @@ var StreamTableItemView = Backbone.View.extend({
         } else if(timeSinceEndDate >= 1000*60*60*24){
             endColumn.addClass('older');
         }
+        if (attributes.variables.indexOf("filepath") > -1) {
+            // debugger;
+            var plotColumn = this.$el.find('.plot');
+            // plotColumn.addClass('disabled');
+            plotColumn.removeClass('td.download');
+        }
+        
     },
     onRowClick: function(event) {
         event.stopPropagation();
-        ooi.trigger('StreamTableItemView:onRowClick', this);
+        if (this.model.attributes.variables.indexOf("filepath") > -1) {
+            console.log('WOOHOOO');
+        }else{
+            ooi.trigger('StreamTableItemView:onRowClick', this);
+        }
     },
 });
 
