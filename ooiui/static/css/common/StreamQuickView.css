@@ -99,6 +99,9 @@
     bottom: 40px;
     left: 10px;
 }
+.btnContainer > button {
+    background-color: white;
+}
 .twelve-hours {
     background-color: blue;
     color: white;

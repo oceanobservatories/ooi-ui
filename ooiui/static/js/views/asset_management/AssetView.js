@@ -31,7 +31,7 @@ var ParentAssetModalView = ParentView.extend({
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
         this.metaData = [];
         this.metaDataCount = 0;
-        this.metaItemList = [['assetRefDes', 'Reference Designator'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
+        this.metaItemList = [['assetRefDes', 'Ref Des'], ['cruiseNumber', 'Cruise Number'], ['anchorLaunchTime', 'Anchor Launch Time'],
             ['anchorLaunchDate', 'Anchor Launch Date'], ['assetLat', 'Latitude'], ['assetLon', 'Longitude'],
             ['deploymentNum', 'Deployment Number'], ['waterDepth', 'Water Depth'], ['assetWeight', 'Weight'],
             ['assetLength', 'Length'], ['assetHeight', 'Height'], ['assetWidth', 'Width'], ['assetVoltage', 'Voltage'],
