@@ -102,7 +102,7 @@ STATUS
     border: 1px solid #000006;
 }
 #statusListContainer #assetIconList .status-badge-alert{
-    background: #FFE944;
+    background: #FFA500;
     border: 1px solid #000006;
 }
 #statusListContainer #assetIconList .status-badge-alarm{
@@ -117,8 +117,8 @@ BG
     border: 1px solid rgba(252, 171, 171, 1);
 }
 #statusListContainer #assetIconList .status-panel-alert{
-    box-shadow: 0 0 10px rgba(253, 253, 22, .95);
-    border: 1px solid rgb(231, 230, 100);
+    box-shadow: 0 0 10px rgba(255, 174, 26, .95);
+    border: 1px solid rgb(255, 174, 26);
 }
 #statusListContainer #assetIconList .status-panel-unknown{
     box-shadow: 0 0 10px rgba(181, 181, 181, 1);
