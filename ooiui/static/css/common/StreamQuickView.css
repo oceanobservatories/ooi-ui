@@ -103,14 +103,14 @@
     background-color: white;
 }
 .twelve-hours {
-    background-color: blue;
-    color: white;
+    background-color: deepskyblue;
+    color: black;
 }
 .twenty-four-hours {
-    background-color: yellow;
+    background-color: gold;
 }
 .older {
-    background-color: red;
+    background-color: firebrick;
     color: white;
 }
 .color-index {
