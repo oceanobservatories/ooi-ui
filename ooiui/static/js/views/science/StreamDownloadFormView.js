@@ -188,22 +188,58 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('annotations', 'false');
     }
-    var url = localModel.getURL(selection);
-    $.ajax({
-      url: url,
-      type: "GET",
-      dataType: "json",
-      user_email: email,
-      user_name: user_name,
-      success: function(resp){
-        ooi.trigger('DownloadModal:onSuccess', this.user_email);
-      },
-      error: function(msg){
-        ooi.trigger('DownloadModalFail:onFail', msg);
-      }
-    });
-    // window.open(url, '_blank');
-//    window.location.href = url;
+    
+    if (this.model.attributes.variables.indexOf("filepath") > -1) {
+      // This is a large file format. Navigate to the download directory
+      // But first we need to get the config file to get the base URL
+      $.ajax({
+        url: '/get_config',
+        type: "GET",
+        dataType: "json",
+        model: this.model,
+        success: function(resp){
+          var base = resp.COMMON.SAN_DATA_SERVER;
+          // Determine the type (acoustic, image, video, or echogram)
+          var type;
+          if (this.model.attributes.reference_designator.indexOf("HYD") > -1){
+            type = 'antelope';
+          }else if(this.model.attributes.reference_designator.indexOf("CAMHD") > -1){
+            type = 'video';
+          }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
+            type = 'camds';
+          }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
+            type = 'echogram';
+          }else{
+            var msg = 'Error getting Data URL!'
+            ooi.trigger('DownloadModalFail:onFail', msg);
+            return;
+          }
+          var url = base + type + '/' + this.model.attributes.reference_designator + '/';
+          window.open(url, '_blank');
+        },
+        error: function(){
+          var msg = 'Error getting Data URL!'
+          ooi.trigger('DownloadModalFail:onFail', msg);
+        }
+      });
+      
+    }else{
+      // Create the typical download AJAX request
+      var url = localModel.getURL(selection);
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        user_email: email,
+        user_name: user_name,
+        success: function(resp){
+          ooi.trigger('DownloadModal:onSuccess', this.user_email);
+        },
+        error: function(msg){
+          ooi.trigger('DownloadModalFail:onFail', msg);
+        }
+      });
+    }
     this.hide();
   },
   failure: function() {
@@ -226,24 +262,51 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find('#streamName').text(model.get('stream_name'));
     }
 
-    var email = model.get('email');
-    this.$el.find('#dlEmail').val(email);
-
-    if (!(this.model.get('stream_name').split('_')[0] == 'telemetered')){
+    if (this.model.attributes.variables.indexOf("filepath") > -1) {
+      // This is a large file format!
+      // Remove all the unecessary inputs
       this.$el.find('.subscription-selection').css('visibility','hidden');
+      this.$el.find('#dlEmail').hide()
+      $('label[for="dlEmail"]').hide();
+      this.$el.find('#download-time-options').hide()
+      this.$el.find('#type-select').hide()
+      $('label[for="type-select"]').hide();
+      this.$el.find('#provenance-select').hide()
+      $('label[for="provenance-select"]').hide();
+      this.$el.find('#annotation-select').hide()
+      $('label[for="annotation-select"]').hide();
+      // Display the explanation
+      this.$el.find('#sans-data-text').show()
     }else{
-      this.$el.find('.subscription-selection').css('visibility','visible');
-    }
-    //reset it first incase
-    this.$el.find('#subscription-selection-icon').attr('class','fa fa-heart-o');
-    this.$el.find('#subscription-selection-select').attr('disabled',null);
-    if (model.get('subscriptionEnabled')){
-      this.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
-      this.$el.find('#subscription-selection-icon').addClass('fa-heart');
-      //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
-    }
+      // Add back all the unecessary inputs!
+      this.$el.find('#dlEmail').show()
+      $('label[for="dlEmail"]').show();
+      this.$el.find('#download-time-options').show()
+      this.$el.find('#type-select').show()
+      $('label[for="type-select"]').show();
+      this.$el.find('#provenance-select').show()
+      $('label[for="provenance-select"]').show();
+      this.$el.find('#annotation-select').show()
+      $('label[for="annotation-select"]').show();
+      this.$el.find('#sans-data-text').hide()
 
+      var email = model.get('email');
+      this.$el.find('#dlEmail').val(email);
 
+      if (!(this.model.get('stream_name').split('_')[0] == 'telemetered')){
+        this.$el.find('.subscription-selection').css('visibility','hidden');
+      }else{
+        this.$el.find('.subscription-selection').css('visibility','visible');
+      }
+      //reset it first incase
+      this.$el.find('#subscription-selection-icon').attr('class','fa fa-heart-o');
+      this.$el.find('#subscription-selection-select').attr('disabled',null);
+      if (model.get('subscriptionEnabled')){
+        this.$el.find('#subscription-selection-icon').removeClass('fa-heart-o');
+        this.$el.find('#subscription-selection-icon').addClass('fa-heart');
+        //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
+      }
+    }
     this.$el.find('#download-modal').modal('show');
 
     // Update parameters dropdown

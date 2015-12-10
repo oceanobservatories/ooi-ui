@@ -7,7 +7,8 @@ import json
 import urllib
 import urllib2
 from uuid import uuid4
-import sys,os,time,difflib
+import sys, os, time, difflib
+import yaml
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -15,6 +16,15 @@ def generate_csrf_token():
     return session['_csrf_token']
 
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
+
+
+@app.route('/get_config', methods=['GET'])
+def read_config():
+    basedir = 'ooiui/config'
+    config_file = os.path.join(basedir, 'config.yml')
+    with open(config_file) as f:
+        c = yaml.load(f)
+    return jsonify(c)
 
 @app.route('/signup')
 def user_signup():

@@ -45,8 +45,15 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['bethnic_fluid_flow_rate', 'Bethnic Fluid Flow Rate'],
                 ['density', 'Density'],
                 ['salinity', 'Salinity']
+            ],
+            "Large Format Data":[
+                ['antelope', 'Acoustic'],
+                ['camds', 'Images'],
+                ['camhd', 'Video'],
+                ['zplsc', 'Echograms']
             ]
         }
+
     }
 });
 

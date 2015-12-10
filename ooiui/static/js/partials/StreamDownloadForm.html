@@ -29,7 +29,7 @@
 
       </div>
 
-      <div class="col-md-12">
+      <div class="col-md-12" id="dlModalTitle">
         <h3>Streams being downloaded:</h3>
       </div>
     </div> <!-- .col-md-12 -->
@@ -100,16 +100,20 @@
           <div class="row">
             <div class="col-md-12">
               <span>
-                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input> Include Provenance
+                  <label for="provenance-select">Include Provenance</label>
+                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input>
               </span>
               <span>
-                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> Include Annotations
+                  <label for="provenance-select">Include Annotations</label>
+                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> 
               </span>
             </div>
          </div>
         </div>
      </div>
-
+     <div class="col-md-12" id="sans-data-text">
+      <h3> Clicking Download will redirect you to the data server.</h3>
+     </div>
       <div class="row">
         <div class="col-md-12">
           <button type="button" id="download-btn" >Download</button>

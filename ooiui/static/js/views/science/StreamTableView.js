@@ -158,10 +158,13 @@ var StreamTableItemView = Backbone.View.extend({
         } else if(timeSinceEndDate >= 1000*60*60*24){
             endColumn.addClass('older');
         }
+        
     },
     onRowClick: function(event) {
         event.stopPropagation();
-        ooi.trigger('StreamTableItemView:onRowClick', this);
+        if (this.model.attributes.variables.indexOf("filepath") == -1) {
+            ooi.trigger('StreamTableItemView:onRowClick', this);
+        }
     },
 });
 

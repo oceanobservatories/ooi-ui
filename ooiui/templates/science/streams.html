@@ -178,12 +178,15 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
         if(this.login.loggedIn()) {
-          var base_url = window.location.protocol+"//"+window.location.host+"/"
-          var download_link = options.model.get('download');
-          var download_link_url = download_link[options['selection']];
+          if (options.model.attributes.variables.indexOf("filepath") > -1) {
 
-          base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
+          }else{
+              var base_url = window.location.protocol+"//"+window.location.host+"/"
+              var download_link = options.model.get('download');
+              var download_link_url = download_link[options['selection']];
 
+              // base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
+          }
           options.model.attributes.email = this.models.userModel.get("email");
           options.model.attributes.user_name = this.models.userModel.get("user_name");
 
@@ -405,7 +408,6 @@ function updatePagination( details, successCallback ){
     } else {
         $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
     }
-    // Remove the pagination binding so they don't get called
     // Remove the pagination binding so they don't get called
     // multiple times after they're redrawn.
     $(".pagination-boxes").unbind();
