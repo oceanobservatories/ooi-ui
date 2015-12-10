@@ -207,7 +207,7 @@ var StreamDownloadFormView = Backbone.View.extend({
             type = 'video';
           // }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
           //   type = 'image';
-          // }else if(this.model.attributes.reference_designator.indexOf("ECHO") > -1){
+          // }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
           //   type = 'echogram';
           }else{
             var msg = 'Error getting Data URL!'
