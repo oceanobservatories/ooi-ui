@@ -205,10 +205,10 @@ var StreamDownloadFormView = Backbone.View.extend({
             type = 'antelope';
           }else if(this.model.attributes.reference_designator.indexOf("CAMHD") > -1){
             type = 'video';
-          // }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
-          //   type = 'image';
-          // }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
-          //   type = 'echogram';
+          }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
+            type = 'image';
+          }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
+            type = 'echogram';
           }else{
             var msg = 'Error getting Data URL!'
             ooi.trigger('DownloadModalFail:onFail', msg);

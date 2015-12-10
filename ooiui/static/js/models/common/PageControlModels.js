@@ -13,11 +13,7 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             "General":[
                 ["temperature", "Temperature"],
                 ["pressure", "Pressure"],
-                ["co2", "CO2"],
-                ['antelope', 'Acoustic'],
-                ['camds', 'Images'],
-                ['camhd', 'Video'],
-                ['zplsc', 'Echograms']
+                ["co2", "CO2"]
             ],
             "Air Sea Interface":[
                 ['humidity', 'Humidity'],
@@ -49,6 +45,12 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['bethnic_fluid_flow_rate', 'Bethnic Fluid Flow Rate'],
                 ['density', 'Density'],
                 ['salinity', 'Salinity']
+            ],
+            "Large Format Data":[
+                ['antelope', 'Acoustic'],
+                ['camds', 'Images'],
+                ['camhd', 'Video'],
+                ['zplsc', 'Echograms']
             ]
         }
 
