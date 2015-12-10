@@ -96,16 +96,24 @@ _.extend(OOI.prototype, Backbone.Events, {
   },
   start: function() {
     var self = this;
+
     this.login.fetch({async: false});
 
-    //reset the subscriptions
-    self.collections.subscriptionCollection.fetch({ reset: true });
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
     this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
       //console.log('ready...',self.collections.subscriptionCollection);
     });
 
+    this.listenTo(self.models.userModel, 'change', function(options) {
+      //reset the subscriptions, once loaded
+      self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
+    });
+
     this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
-        self.collections.subscriptionCollection.fetch({ reset: true });
+        self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
     });
 
     this.views.banner = new BannerView({bannerTitle : bannerTitle});
@@ -114,10 +122,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.navbar = new NavbarView({
         el: $('#navbar')
     });
-
-    if(this.login.loggedIn()) {
-      this.models.userModel.fetch({url: '/api/current_user'});
-    }
 
     this.views.navbar = new NavbarView();
     $('body').prepend(this.views.navbar.el);
@@ -196,7 +200,8 @@ _.extend(OOI.prototype, Backbone.Events, {
           //loop over and compare, only if telemetered
           if (currentStream.split('_')[0] == 'telemetered'){
             _.each(availSubs,function(sub){
-              var refDes = sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.sensor;
+              var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
+
               var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
               if (streamName == currentStream && refDes == currentRef){
                 hasSubscribed = true;
