@@ -206,7 +206,7 @@ var StreamDownloadFormView = Backbone.View.extend({
           }else if(this.model.attributes.reference_designator.indexOf("CAMHD") > -1){
             type = 'video';
           }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
-            type = 'image';
+            type = 'camds';
           }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
             type = 'echogram';
           }else{
