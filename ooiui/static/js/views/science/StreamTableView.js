@@ -145,8 +145,13 @@ var StreamTableItemView = Backbone.View.extend({
     },
     template: JST['ooiui/static/js/partials/StreamTableItem.html'],
     render: function() {
+        var plotDisabled = false;
+        if (this.model.attributes.variables.indexOf("filepath") != -1) {
+            plotDisabled = true
+        }
+
         var attributes = this.model.toJSON();
-        this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns}));
+        this.$el.html(this.template({attributes: this.attributes, model: this.model, columns: this.columns,plotDisabled:plotDisabled}));
         this.$el.attr('data-target', '#'+this.model.cid);
         var endDate = new Date(this.model.attributes.end);
         var timeSinceEndDate = new Date().getTime()-endDate.getTime();
@@ -158,7 +163,7 @@ var StreamTableItemView = Backbone.View.extend({
         } else if(timeSinceEndDate >= 1000*60*60*24){
             endColumn.addClass('older');
         }
-        
+
     },
     onRowClick: function(event) {
         event.stopPropagation();

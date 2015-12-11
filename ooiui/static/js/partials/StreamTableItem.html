@@ -1,8 +1,13 @@
 <% _.each(columns, function(col) { %>
   <% if(col.name === "plot") { %>
-  	<td class="plot">
-        <b>Plot</b>
-	</td>
+    <% if(plotDisabled) { %>
+  	<td class="plot plot-disabled">
+	  </td>
+    <% } else { %>
+      <td class="plot">
+      <b>Plot</b>
+      </td>
+    <% } %>
   <% } else if(col.name === "download") { %>
   	<td class="download">
 	    <b>Download</b>
