@@ -55,6 +55,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html",
             "ooiui/static/js/partials/CameraPreview.html",
             "ooiui/static/js/partials/CameraControls.html",
+            "ooiui/static/js/partials/CamImageItem.html"
           ],
           "ooiui/static/js/partials/compiled/loginDemo.js": [
             /*
@@ -1220,12 +1221,10 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
-            "ooiui/static/lib/loremjs/lorem.js",
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
-            'ooiui/static/lib/backlunr/backlunr.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -1242,6 +1241,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/TocPlatformsModel.js',
             'ooiui/static/js/models/science/TocStreamsModel.js',
             'ooiui/static/js/models/c2/MediaModel.js',
+            'ooiui/static/js/models/common/CamImagesModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -1251,7 +1251,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/ModalFormView.js',
             'ooiui/static/js/views/common/PanelView.js',
-            'ooiui/static/js/views/c2/CameraPreviewView.js'
+            'ooiui/static/js/views/c2/CameraPreviewView.js',
+            'ooiui/static/js/views/common/CamImageView.js'
           ],
           'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
