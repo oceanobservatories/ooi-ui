@@ -527,8 +527,8 @@ var SVGPlotControlView = Backbone.View.extend({
         this.$el.find('#yvar1-select').val([]);
         this.$el.find('#yvar2-select').val([]);
         this.$el.find('#yvar1-select').html(this.$el.find('#yvar2-select').html());
-        this.$el.find('.selectpicker').selectpicker('refresh');
         this.$el.find('#yvar2-select').attr('disabled', true);
+        this.$el.find('.selectpicker').selectpicker('refresh');
     },
     //DEPRECATED
     updateYVarDropdown: function(){
@@ -573,7 +573,8 @@ var SVGPlotControlView = Backbone.View.extend({
     },
     xVarChange: function(e) {
         var plotType = $('#xvar-select option:selected').text();
-
+        $('#yvar2-select').attr('disabled', false);
+        this.$el.find('.selectpicker').selectpicker('refresh');
         if ( plotType == "Select" ) {
             plotType = 'Time Series';
         }
