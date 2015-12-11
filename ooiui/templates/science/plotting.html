@@ -387,11 +387,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'toc:selectStream', function(options) {
       // TODO: Trigger pop up on map cursor icon.
       var refreshYVar1 = true;
-      if(self.views.svgPlotControlView.getPlotType()=="Interpolated"){
-        refreshYVar1 = false;
-      }
 
-      if (self.views.svgplot.hasOwnProperty('model') && self.views.svgplot.model.attributes.hasOwnProperty('reference_designator')){
+      if (self.views.svgPlotControlView.getPlotType()=="Interpolated" && self.views.svgplot.hasOwnProperty('model') && self.views.svgplot.model.attributes.hasOwnProperty('reference_designator')){
         refreshYVar1 = false;
         options.model.set({"reference_designator1":self.views.svgplot.model.attributes.reference_designator1})
         options.model.set({"stream_name1":self.views.svgplot.model.attributes.stream_name1})
