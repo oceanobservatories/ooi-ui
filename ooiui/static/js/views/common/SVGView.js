@@ -517,7 +517,6 @@ var SVGPlotControlView = Backbone.View.extend({
         if (v.currentTarget.checked) {
             $('.div-qa-qc input[type=checkbox]').not($(v.currentTarget)).prop('checked', false);
         }
-
     },
     onClearParams: function(){
         // Remove the saved attributes and update dropdowns
@@ -569,8 +568,12 @@ var SVGPlotControlView = Backbone.View.extend({
         $('#end-date > input').val(endTime).change();
 
     },
+    getPlotType: function() {
+        return $('#xvar-select option:selected').text();
+    },
     xVarChange: function(e) {
         var plotType = $('#xvar-select option:selected').text();
+
         if ( plotType == "Select" ) {
             plotType = 'Time Series';
         }
