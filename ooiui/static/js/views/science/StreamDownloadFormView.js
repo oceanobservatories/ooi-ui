@@ -199,22 +199,7 @@ var StreamDownloadFormView = Backbone.View.extend({
         model: this.model,
         success: function(resp){
           var base = resp.COMMON.SAN_DATA_SERVER;
-          // Determine the type (acoustic, image, video, or echogram)
-          var type;
-          if (this.model.attributes.reference_designator.indexOf("HYD") > -1){
-            type = 'antelope';
-          }else if(this.model.attributes.reference_designator.indexOf("CAMHD") > -1){
-            type = 'video';
-          }else if(this.model.attributes.reference_designator.indexOf("CAMDS") > -1){
-            type = 'camds';
-          }else if(this.model.attributes.reference_designator.indexOf("ZPLSCB") > -1){
-            type = 'echogram';
-          }else{
-            var msg = 'Error getting Data URL!'
-            ooi.trigger('DownloadModalFail:onFail', msg);
-            return;
-          }
-          var url = base + type + '/' + this.model.attributes.reference_designator + '/';
+          var url = base + 'large_format/' + this.model.attributes.reference_designator + '/';
           window.open(url, '_blank');
         },
         error: function(){
