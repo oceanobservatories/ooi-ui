@@ -60,6 +60,7 @@ button#btnLogin {
 }
 div.image {
  content: url(/img/modal/OOI_Banner.svg);
+ height: 160px;
  margin-left: auto;
  margin-right: auto;
  margin-top: -60px;
@@ -67,7 +68,7 @@ div.image {
 }
   /*
    * ~ .water-image ~
-   * Source: http://pixabay.com/en/abstract-blue-bubble-clean-drop-72288/ 
+   * Source: http://pixabay.com/en/abstract-blue-bubble-clean-drop-72288/
    * License: CC0 Public Domain - http://creativecommons.org/publicdomain/zero/1.0/deed.en
    * */
 div.water-image {
@@ -133,4 +134,23 @@ button.question{
 }
 .dropdown-menu{
   min-width: 200px !important;
+}
+
+.lgn-body #icoCILogon:before {
+   content: url(../static/img/ciLogon.png);
+}
+
+.lgn-body #orDiv {
+    height: 1px;
+    background-color: grey;
+    position: relative;
+    top: -0.5em;
+    margin: 20px 0 20px 0;
+}
+
+.lgn-body #orDiv > span {
+    background-color: white;
+    position: relative;
+    top: -0.5em;
+    padding: 0 10px;
 }

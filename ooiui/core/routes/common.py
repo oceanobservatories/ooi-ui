@@ -1,5 +1,5 @@
 from ooiui.core.app import app
-from flask import request, render_template, Response, jsonify, session,make_response
+from flask import request, render_template, Response, jsonify, session,make_response, redirect, url_for
 from werkzeug.exceptions import Unauthorized
 from ooiui.core.routes.decorators import login_required, get_login
 import requests
@@ -142,6 +142,7 @@ def get_users():
     response = requests.get(app.config['SERVICES_URL'] + '/user', auth=(token, ''))
     return response.text, response.status_code
 
+
 @app.route('/api/current_user', methods=['GET'])
 def get_current_user():
     token = get_login()
@@ -242,6 +243,30 @@ def login():
     password = local_context['password']
     response = requests.get(app.config['SERVICES_URL'] + '/token', auth=(username, password))
     return response.text, response.status_code
+
+
+@app.route('/api/cilogon', methods=['GET'])
+def ci_logon():
+    return redirect(app.config['SERVICES_URL'] + '/authorize/cilogon')
+
+
+@app.route('/callback/cilogon', methods=['GET'])
+def ci_logon_callback():
+    # begin 2 step oauth
+    try:
+        # first, get the uuid and email
+        ci_callback_res = requests.get(app.config['SERVICES_URL'] + '/callback/cilogon', params=request.args)
+        json_response = json.loads(ci_callback_res.text)
+
+        # use the response to simulate a login, and get a token back.
+        login_res = requests.get(app.config['SERVICES_URL'] + '/token', auth=(json_response['username'], json_response['uuid']))
+        json_login_res = json.loads(login_res.text)
+
+        # reload the home page and pass the token.
+        return redirect(url_for('.new_index', token=json_login_res['token'], expiration=json_login_res['expiration']))
+    except ValueError:
+        return redirect(url_for('.new_index'))
+
 
 @app.route('/api/watch', methods=['GET'])
 def get_watch():
