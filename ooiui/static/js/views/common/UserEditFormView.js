@@ -35,12 +35,6 @@ var UserEditFormView = Backbone.View.extend({
     this.scopes = new UserScopeCollection();
     this.scopes.fetch({
       success: function(collection, response, options) {
-        console.log("Collection:");
-        console.log(collection);
-        console.log("response");
-        console.log(response);
-        console.log("Self:");
-        console.log(self.model.get('scopes'));
         self.render();
       }
     });
