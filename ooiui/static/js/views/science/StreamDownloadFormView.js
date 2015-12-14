@@ -55,8 +55,8 @@ var StreamDownloadFormView = Backbone.View.extend({
           subscribeModel.set('method',stream_names[0]);
           subscribeModel.set('email',self.model.get('email'))
 
-          subscribeModel.attributes.referenceDesignator.node = refParts[0];
-          subscribeModel.attributes.referenceDesignator.subsite = refParts[1];
+          subscribeModel.attributes.referenceDesignator.node = refParts[1];
+          subscribeModel.attributes.referenceDesignator.subsite = refParts[0];
           subscribeModel.attributes.referenceDesignator.sensor = refParts[2] +"-"+ refParts[3];
 
           subscribeModel.save(null, {
