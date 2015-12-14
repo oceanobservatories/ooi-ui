@@ -188,7 +188,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('annotations', 'false');
     }
-    
+
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
       // This is a large file format. Navigate to the download directory
       // But first we need to get the config file to get the base URL
@@ -207,11 +207,12 @@ var StreamDownloadFormView = Backbone.View.extend({
           ooi.trigger('DownloadModalFail:onFail', msg);
         }
       });
-      
+
     }else{
       // Create the typical download AJAX request
       var url = localModel.getURL(selection);
-      $.ajax({
+      ooi.trigger('DownloadModalFail:onFail', msg);
+      /*$.ajax({
         url: url,
         type: "GET",
         dataType: "json",
@@ -223,7 +224,7 @@ var StreamDownloadFormView = Backbone.View.extend({
         error: function(msg){
           ooi.trigger('DownloadModalFail:onFail', msg);
         }
-      });
+      });*/
     }
     this.hide();
   },
@@ -262,7 +263,24 @@ var StreamDownloadFormView = Backbone.View.extend({
       $('label[for="annotation-select"]').hide();
       // Display the explanation
       this.$el.find('#sans-data-text').show()
-    }else{
+    } else {
+
+      this.$el.find('.subscription-selection').css('visibility','hidden');
+      this.$el.find('#dlEmail').hide()
+      $('label[for="dlEmail"]').hide();
+      this.$el.find('#download-time-options').hide()
+      this.$el.find('#type-select').hide()
+      $('label[for="type-select"]').hide();
+      this.$el.find('#provenance-select').hide()
+      $('label[for="provenance-select"]').hide();
+      this.$el.find('#annotation-select').hide()
+      $('label[for="annotation-select"]').hide();
+      this.$el.find('#download-btn').hide();
+      this.$el.find('#sans-data-text h3').html('Sorry, these data are not available at this time.');
+
+    }
+
+    /*else{
       // Add back all the unecessary inputs!
       this.$el.find('#dlEmail').show()
       $('label[for="dlEmail"]').show();
@@ -291,7 +309,7 @@ var StreamDownloadFormView = Backbone.View.extend({
         this.$el.find('#subscription-selection-icon').addClass('fa-heart');
         //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
       }
-    }
+    }*/
     this.$el.find('#download-modal').modal('show');
 
     // Update parameters dropdown
