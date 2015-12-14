@@ -2,7 +2,7 @@
  * with 'x' or 'X' and the extension number.  Also, we're not an automated
  * dialing service, but I'll reckon your phone number doesn't start with 911,
  * 411, 0, or 1 so exclude numbers like that. */
- 
+
 _.extend(Backbone.Validation.patterns, {
         phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/,
 });
@@ -19,13 +19,8 @@ var SignUpModel = Backbone.Model.extend({
         role_id: 0
     },
     url: "/api/user/",
-    
+
     validation: {
-        username: function(value){
-           if(/\s/.exec(value) !== null || value === null || value === ''){
-                return "Invalid username";
-           } 
-        },
          first_name: {
             required: true
         },
