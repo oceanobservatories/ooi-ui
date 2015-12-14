@@ -174,4 +174,5 @@ $(document).ready(function () {
         e.stopImmediatePropagation();
         $(this).parent().children('ul.tree').toggle(300);
     });
+
 });
