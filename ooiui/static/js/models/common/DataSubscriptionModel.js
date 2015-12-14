@@ -36,6 +36,6 @@ var DataSubscriptionCollection = Backbone.Collection.extend({
   url: '/api/subscription',
   model: DataSubscriptionModel,
   parse: function(response) {
-    return response;
+    return response.data;
   }
 });

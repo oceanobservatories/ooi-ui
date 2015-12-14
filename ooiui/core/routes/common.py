@@ -216,7 +216,7 @@ def ticket_roles():
     resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token,''))
     return resp.text, resp.status_code
 
-
+@login_required()
 @app.route('/api/subscription', methods=['POST'])
 def subscription_post():
     headers = {'Content-Type': 'application/json'}
@@ -224,11 +224,32 @@ def subscription_post():
     response = requests.post(app.config['SERVICES_URL']+'/uframe/subscription', data=request.data, headers=headers,auth=(token,''))
     return response.text, response.status_code
 
+@login_required()
 @app.route('/api/subscription', methods=['GET'])
 def subscription_get():
-    response = requests.get(app.config['SERVICES_URL']+'/uframe/subscription', params=request.args)
-    return response.text, response.status_code
+    token = get_login()
+    if 'email' not in request.args:
+        return jsonify(error="email address not set"),401
+    try:
+        if token:
+            email = request.args['email']
 
+            response = requests.get(app.config['SERVICES_URL']+'/uframe/subscription', params=request.args)
+            data = response.json()
+
+            ret_data = []
+            for d in data:
+                if d['email'] == email:
+                    ret_data.append(d)
+
+            return jsonify(data=ret_data)
+        else:
+            return jsonify(error="user not logged in"),401
+    except Exception,e:
+        return jsonify(error="email address not set"),401
+
+
+@login_required()
 @app.route('/api/subscription/<int:id>', methods=['DELETE'])
 def subscription_delete(id):
     token = get_login()
