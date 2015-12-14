@@ -218,6 +218,8 @@ def subscription_post():
 @app.route('/api/subscription', methods=['GET'])
 def subscription_get():
     token = get_login()
+    if 'email' not in request.args:
+        return jsonify(error="email address not set"),401
     try:
         if token:
             email = request.args['email']
