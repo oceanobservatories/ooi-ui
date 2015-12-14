@@ -35,6 +35,12 @@ var UserEditFormView = Backbone.View.extend({
     this.scopes = new UserScopeCollection();
     this.scopes.fetch({
       success: function(collection, response, options) {
+        console.log("Collection:");
+        console.log(collection);
+        console.log("response");
+        console.log(response);
+        console.log("Self:");
+        console.log(self.model.get('scopes'));
         self.render();
       }
     });
@@ -71,7 +77,38 @@ var UserEditFormView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/UserEditForm.html'],
   render: function() {
     this.$el.html(this.template({scopes: this.scopes}));
+
+    //Grey out portions that the user should not be able to edit.
+    //Grey out the scope selection boxes.
+    var user_scopes = this.model.get('scopes');
+    for(var i = 0; i < user_scopes.length; i++){    
+        var userScopeName = user_scopes[i]
+        for(var j = 0; j < this.scopes.models.length; j++){
+            if(userScopeName == this.scopes.models[j].get('scope_name')){
+                //Here we know that the user has the required scope, so we will make sure it is not greyed out.
+               this.$el.find('input.scope_selection').removeAttr('disabled', 'false');
+            }
+        };
+    }
+    //Grey out the username and admin role inputs
+    var userHasAdmin = false;
+    for(var i = 0; i < user_scopes.length; i++){
+        console.log(user_scopes[i])
+        if(user_scopes[i] == "user_admin"){
+            userHasAdmin = true;
+        }
+    }i
+    if(userHasAdmin == false){
+        console.log('false');
+        this.$el.find('input#account_enabled').attr('disabled', 'disabled');
+        this.$el.find('input#username').attr('disabled', 'disabled');
+    }
+
+
+    this.model.attributes.scopes
     this.$el.append(this.modalDialog.el);
     this.stickit();
   }
 });
+
+
