@@ -136,10 +136,6 @@ button.question{
   min-width: 200px !important;
 }
 
-.lgn-body #icoCILogon:before {
-   content: url(../static/img/ciLogon.png);
-}
-
 .lgn-body #orDiv {
     height: 1px;
     background-color: grey;
