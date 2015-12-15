@@ -268,7 +268,8 @@ def login():
 
 @app.route('/api/cilogon', methods=['GET'])
 def ci_logon():
-    return redirect(app.config['SERVICES_URL'] + '/authorize/cilogon')
+    response = requests.get(app.config['SERVICES_URL'] + '/authorize/cilogon')
+    return redirect(str(response.url))
 
 
 @app.route('/callback/cilogon', methods=['GET'])
