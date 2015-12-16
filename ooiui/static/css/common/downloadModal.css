@@ -20,7 +20,7 @@ div#streamName {
     padding-top: 10px;
 
 }
-#download-btn {
+#download-btn, #download-btn2 {
     border-radius: 0px;
     background-color: #004773;
     color: #fff;
@@ -36,7 +36,7 @@ div#streamName {
 
 }
 
-#download-btn:hover {
+#download-btn:hover, #download-btn2:hover {
     background-color: #115884;
     font-size: 16px;
 }
@@ -89,4 +89,8 @@ div#streamName {
     background-color: #fff;
     color: #004773;
     font-size: 25px;
+}
+
+#sans-data-text {
+    text-align: center;
 }

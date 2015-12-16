@@ -30,14 +30,11 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['chlorophyll', 'Chlorophyll'],
                 ['dissolved_o2', 'Dissolved O2'],
                 ['water_velocity', 'Water Velocity'],
-                ['hd_video', 'HD Video'],
-                ['still_images', 'Still Images'],
                 ['no3-', 'NO3-'],
                 ['microbial_dna', 'Microbial DNA'],
                 ['depth', 'Depth'],
                 ['turbidity', 'Turbidity'],
                 ['seismic_activity', 'Seismic Activity'],
-                ['acoustics', 'Acoustics']
             ],
             "Seafloor": [
                 ['seafloor_movement', 'Seafloor Movement'],
@@ -48,8 +45,8 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             ],
             "Large Format Data":[
                 ['antelope', 'Acoustic'],
-                ['camds', 'Images'],
-                ['camhd', 'Video'],
+                ['camds', 'Still Images'],
+                ['camhd', 'HD Video'],
                 ['zplsc', 'Echograms']
             ]
         }
