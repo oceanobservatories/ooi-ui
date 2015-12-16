@@ -1,43 +1,51 @@
-
-
 <div class="lgn btn-launch">
-  <!--Modal-->
-  <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
-  tabindex allows the escape key to be used to close the modal -->
-  <div class="modal fade" id="loginModal" data-backdrop="static" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content" id="lgn-modal">
-        <!--Header-->
-        <div class="lgn-header">
-          <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <!-- <button type="button" class="close" data&#45;dismiss="modal" aria&#45;label="Close"><span aria&#45;hidden="true">&#38;quest;</span></button> -->
+    <!--Modal-->
+    <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
+        tabindex allows the escape key to be used to close the modal -->
+        <div class="modal fade" id="loginModal" data-backdrop="static" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content" id="lgn-modal">
+                    <!--Header-->
+                    <div class="lgn-header">
+                        <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <!-- <button type="button" class="close" data&#45;dismiss="modal" aria&#45;label="Close"><span aria&#45;hidden="true">&#38;quest;</span></button> -->
 
-        </div> <!-- lgn-header -->
+                    </div> <!-- lgn-header -->
 
-        <!--Body-->
-        <div class="lgn-body">
-          <div class="lgn-center">
-             <div class="image"></div>
-             <div class="lgn-message"></div>
-             <div class="lgn-warning"></div>
-             <br>
-             <div class="water-image"></div>
-             <input class="lgn-input" id="usrInput" type="text" name="username" size="25" placeholder="&#xf007; Email/Username">
-             <input class="lgn-input" id="passInput" type="password" name="password" size="25" placeholder="&#xf023; Password" />
-             <button class="btn btn-primary btn-logIn enableOnInput" type="button" id="btnLogin">Log In</button>
-          </div> <!-- lgn-center -->
-        </div> <!-- lgn-body -->
+                    <!--Body-->
+                    <div class="lgn-body">
+                        <div class="lgn-center">
+                            <div class="image"></div>
+                            <div class="lgn-message"></div>
+                            <div class="lgn-warning"></div>
+                            <br>
+                            <div class="water-image"></div>
+                            <input type="image" name="cisubmit2" id="btnCILogon"
+                            src="https://cilogon.org/images/cilogon-ci-32-g.png"
+                            alt="CILogon Service"
+                            title="Click to get a certificate via the CILogon Service."
+                            style="cursor:pointer;" />
+                            <div id="orDiv">
+                                <span>
+                                    OR
+                                </span>
+                            </div>
+                            <input class="lgn-input" id="usrInput" type="text" name="username" placeholder="&#xf007; Email">
+                            <input class="lgn-input" id="passInput" type="password" name="password" placeholder="&#xf023; Password" />
+                            <button class="btn btn-primary btn-logIn enableOnInput" type="button" id="btnLogin">Log In</button>
+                        </div> <!-- lgn-center -->
+                    </div> <!-- lgn-body -->
 
-        <!--Footer-->
-        <div class="lgn-footer">
-          <div class="lgn-footerPass">
-            <!-- <a href="#" data&#45;toggle="modal">Forgot Password</a> -->
-          </div> <!-- lgn-footerPass -->
-          <div class="lgn-footerNewUser">
-            <a href="/signup" data-toggle="modal">New User</a>
-          </div> <!-- lgn-footerNewUser -->
-        </div> <!-- lgn-footer -->
-      </div>  <!-- modal-content -->
-    </div> <!-- modal-dialog -->
-  </div> <!-- modal fade -->
+                    <!--Footer-->
+                    <div class="lgn-footer">
+                        <div class="lgn-footerPass">
+                            <!-- <a href="#" data&#45;toggle="modal">Forgot Password</a> -->
+                        </div> <!-- lgn-footerPass -->
+                        <div class="lgn-footerNewUser">
+                            <a href="/signup" data-toggle="modal">New User</a>
+                        </div> <!-- lgn-footerNewUser -->
+                    </div> <!-- lgn-footer -->
+                </div>  <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+        </div> <!-- modal fade -->
 </div> <!-- lgn btn-launch -->

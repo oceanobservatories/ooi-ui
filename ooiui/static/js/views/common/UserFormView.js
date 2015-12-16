@@ -28,7 +28,7 @@ var SignUpForm = Backbone.View.extend({
             this.submit();
         },
         'click #resetButton': function (e){
-            
+
             this.reset();
         }
     },
@@ -37,12 +37,6 @@ var SignUpForm = Backbone.View.extend({
     // the model and the view
     // See: https://github.com/NYTimes/backbone.stickit
     bindings: {
-        '[name=username]': {
-            observe: 'username',
-            setOptions: {
-                validate: true
-            }
-        },
         '[name=first_name]': {
             observe: 'first_name',
             setOptions: {
@@ -93,7 +87,7 @@ var SignUpForm = Backbone.View.extend({
             setOptions: {
                 validate: true
             }
-        },     
+        },
             '[name=role_name]': {
             observe: 'role_name',
             selectOptions: {
@@ -109,7 +103,7 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         }
-        
+
     },
 
     initialize: function () {
@@ -148,7 +142,7 @@ var SignUpForm = Backbone.View.extend({
                 self.modalDialog.show({
                   message: "New user request successfully sent for processing. You will receive an email confirmation after review and activation.",
                   type: "success",
-                  ack: function() { 
+                  ack: function() {
                     window.location = "/"
                   }
                 });
@@ -171,7 +165,7 @@ var SignUpForm = Backbone.View.extend({
         }
     },
     reset: function(){
-        // resests the page. Not sure it's the correct procedure?? 
+        // resests the page. Not sure it's the correct procedure??
         this.$el.find("input[type=text], textarea").val("");
         this.$el.find("input[type=password], textarea").val("");
         this.$el.find("input[type=email], textarea").val("");
