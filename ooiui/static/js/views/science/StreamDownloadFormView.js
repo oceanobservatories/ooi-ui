@@ -18,6 +18,7 @@
 var StreamDownloadFormView = Backbone.View.extend({
   events: {
     'click #download-btn' : 'onDownload',
+    'click #download-btn2' : 'onDownloadLargeFormat',
     'change #type-select select' : 'onTypeChange',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
@@ -143,6 +144,40 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find('#download-param-select').attr("disabled", true);
     }
   },
+  onDownloadLargeFormat: function() {
+    /*
+     * Redirect the user to the HYRAX server
+     */
+    var selection = this.$type_select.val();
+    var localModel = this.model.clone();
+    var startDate = moment.utc(this.$start_date.data('date')).toJSON();
+    var endDate = moment.utc(this.$end_date.data('date')).toJSON();
+    localModel.set('start', startDate);
+    localModel.set('end', endDate);
+
+    var email = this.$el.find('#dlEmail').val();
+    var user_name = this.model.get('user_name');
+    localModel.set('email', email);
+
+    // This is a large file format. Navigate to the download directory
+    // But first we need to get the config file to get the base URL
+    $.ajax({
+      url: '/get_config',
+      type: "GET",
+      dataType: "json",
+      model: this.model,
+      success: function(resp){
+        var base = resp.COMMON.SAN_DATA_SERVER;
+        var url = base + 'large_format/' + this.model.attributes.reference_designator + '/';
+        window.open(url, '_blank');
+      },
+      error: function(){
+        var msg = 'Error getting Data URL!'
+        ooi.trigger('DownloadModalFail:onFail', msg);
+      }
+    });
+    this.hide();
+  },
   onDownload: function() {
     /*
      * Make a copy of the stream model and then set the start and end dates to
@@ -189,42 +224,22 @@ var StreamDownloadFormView = Backbone.View.extend({
       localModel.set('annotations', 'false');
     }
     
-    if (this.model.attributes.variables.indexOf("filepath") > -1) {
-      // This is a large file format. Navigate to the download directory
-      // But first we need to get the config file to get the base URL
-      $.ajax({
-        url: '/get_config',
-        type: "GET",
-        dataType: "json",
-        model: this.model,
-        success: function(resp){
-          var base = resp.COMMON.SAN_DATA_SERVER;
-          var url = base + 'large_format/' + this.model.attributes.reference_designator + '/';
-          window.open(url, '_blank');
-        },
-        error: function(){
-          var msg = 'Error getting Data URL!'
-          ooi.trigger('DownloadModalFail:onFail', msg);
-        }
-      });
-      
-    }else{
-      // Create the typical download AJAX request
-      var url = localModel.getURL(selection);
-      $.ajax({
-        url: url,
-        type: "GET",
-        dataType: "json",
-        user_email: email,
-        user_name: user_name,
-        success: function(resp){
-          ooi.trigger('DownloadModal:onSuccess', this.user_email);
-        },
-        error: function(msg){
-          ooi.trigger('DownloadModalFail:onFail', msg);
-        }
-      });
-    }
+    // Create the typical download AJAX request
+    var url = localModel.getURL(selection);
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      user_email: email,
+      user_name: user_name,
+      success: function(resp){
+        ooi.trigger('DownloadModal:onSuccess', this.user_email);
+      },
+      error: function(msg){
+        ooi.trigger('DownloadModalFail:onFail', msg);
+      }
+    });
+
     this.hide();
   },
   failure: function() {
@@ -249,31 +264,19 @@ var StreamDownloadFormView = Backbone.View.extend({
 
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
       // This is a large file format!
-      // Remove all the unecessary inputs
-      this.$el.find('.subscription-selection').css('visibility','hidden');
-      this.$el.find('#dlEmail').hide()
-      $('label[for="dlEmail"]').hide();
-      this.$el.find('#download-time-options').hide()
-      this.$el.find('#type-select').hide()
-      $('label[for="type-select"]').hide();
-      this.$el.find('#provenance-select').hide()
-      $('label[for="provenance-select"]').hide();
-      this.$el.find('#annotation-select').hide()
-      $('label[for="annotation-select"]').hide();
+
       // Display the explanation
       this.$el.find('#sans-data-text').show()
+      this.$el.find('#dlModalTitle').html("<h3>Metadata Stream being downloaded:</h3>")
+      // Display the second download
+      this.$el.find('#download-btn2').show()
+      this.$el.find('#download2-row').show()
     }else{
-      // Add back all the unecessary inputs!
-      this.$el.find('#dlEmail').show()
-      $('label[for="dlEmail"]').show();
-      this.$el.find('#download-time-options').show()
-      this.$el.find('#type-select').show()
-      $('label[for="type-select"]').show();
-      this.$el.find('#provenance-select').show()
-      $('label[for="provenance-select"]').show();
-      this.$el.find('#annotation-select').show()
-      $('label[for="annotation-select"]').show();
+      // Hide the stuff that only applies to Large Format Downloads
       this.$el.find('#sans-data-text').hide()
+      this.$el.find('#dlModalTitle').html("<h3>Streams being downloaded:</h3>")
+      this.$el.find('#download-btn2').hide()
+      this.$el.find('#download2-row').hide()
 
       var email = model.get('email');
       this.$el.find('#dlEmail').val(email);
