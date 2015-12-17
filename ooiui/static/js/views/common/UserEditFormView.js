@@ -14,7 +14,6 @@
 
 var UserEditFormView = Backbone.View.extend({
   bindings: {
-    '#username' : 'user_name',
     '#first_name' : 'first_name',
     '#last_name' : 'last_name',
     '#primary_phone' : 'phone_primary',

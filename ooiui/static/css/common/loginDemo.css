@@ -88,6 +88,9 @@ button.question{
   font-family: Arial;
   font-size: 20px;
 }
+.lgn input[type=text], .lgn input[type=password] {
+  width: 80%;
+}
 .lgn input[type=text]{
   font-family: FontAwesome;
   background: 1px 1px no-repeat, linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);

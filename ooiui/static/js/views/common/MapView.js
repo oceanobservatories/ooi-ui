@@ -387,6 +387,7 @@ var MapView = Backbone.View.extend({
             var instruments = streamCollection;
             var lat_lons = [];
 
+            try {
             if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -10.0){
 
                 //reset the event popup
@@ -530,6 +531,9 @@ var MapView = Backbone.View.extend({
                     }
                 }
             }
+        } catch(e){
+            console.log(e);
+        }
 
         });
 

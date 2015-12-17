@@ -223,7 +223,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('annotations', 'false');
     }
-
     // Create the typical download AJAX request
     var url = localModel.getURL(selection);
     $.ajax({

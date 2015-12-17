@@ -1,10 +1,10 @@
 <form id="user-edit-form" class="form-horizontal" role="form">
-  <h3>Profile</h3> 
+  <h3>Profile</h3>
   <hr width="80%">
-  <div class="form-group ">
-    <label for="username" class="col-sm-3 control-label">User Name</label>
+  <div class="form-group">
+    <label for="email" class="col-sm-3 control-label">Email</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="username" name="username" />
+      <input disabled="disabled" type="email" class="form-control" id="email" name="email" />
       <span class="help-block hidden"></span>
     </div>
   </div>
@@ -39,7 +39,7 @@
     <div class="col-sm-6">
       <input disabled="disabled" type="text" class="form-control" id="primary_phone" name="primary_phone" />
       <span class="help-block hidden"></span>
-    </div> 
+    </div>
 
   </div>
   <div class="form-group">
@@ -47,16 +47,10 @@
     <div class="col-sm-6">
       <input disabled="disabled" type="text" class="form-control" id="secondary_phone" name="secondary_phone" />
       <span class="help-block hidden"></span>
-    </div>   
-  </div>
-
-  <div class="form-group">
-    <label for="email" class="col-sm-3 control-label">Email</label>
-    <div class="col-sm-6">
-      <input disabled="disabled" type="email" class="form-control" id="email" name="email" />
-      <span class="help-block hidden"></span>
     </div>
   </div>
+
+
   <div class="form-group ">
     <label class="col-sm-3 control-label">Email Opt-In</label>
     <div class="col-sm-6">
@@ -83,13 +77,13 @@
     </div>
     <% }); %>
   </div>
-  <hr width="80%">    
+  <hr width="80%">
 
   <div class="form-group">
     <div class="col-sm-12">
       <button type="button" id="submitButton" class="btn btn-success">Submit</button>
       <button type="button" id="resetButton" class="btn btn-reset">Reset</button>
 
-    </div>                 
+    </div>
   </div>
 </form>

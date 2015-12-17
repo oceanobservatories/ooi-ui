@@ -4,7 +4,7 @@
  * View definitions to build a table view of users
  *
  * Dependencies
- * Partials: 
+ * Partials:
  * - ooiui/static/js/partials/UserTable.html
  * - ooiui/static/js/partials/UserTableItem.html
  * Libs
@@ -18,8 +18,8 @@
 var UserTableView = Backbone.View.extend({
   columns: [
       {
-        name : 'user_name',
-        label : 'User Name'
+        name : 'email',
+        label : 'Email'
       },
       {
         name : 'first_name',
@@ -28,10 +28,6 @@ var UserTableView = Backbone.View.extend({
       {
         name : 'last_name',
         label : 'Last Name'
-      },
-      {
-        name : 'email',
-        label : 'Email'
       },
       {
         name : 'organization',
