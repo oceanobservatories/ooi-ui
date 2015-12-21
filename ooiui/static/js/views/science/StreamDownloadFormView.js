@@ -148,6 +148,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     /*
      * Redirect the user to the HYRAX server
      */
+    var self = this;
     var selection = this.$type_select.val();
     var localModel = this.model.clone();
     var startDate = moment.utc(this.$start_date.data('date')).toJSON();
@@ -169,7 +170,8 @@ var StreamDownloadFormView = Backbone.View.extend({
       success: function(resp){
         var base = resp.COMMON.SAN_DATA_SERVER;
         var url = base + 'large_format/' + this.model.attributes.reference_designator + '/';
-        window.open(url, '_blank');
+        var popup = window.open(url, '_blank');
+        self.popupBlockerChecker(popup);
       },
       error: function(){
         var msg = 'Error getting Data URL!'
@@ -177,6 +179,13 @@ var StreamDownloadFormView = Backbone.View.extend({
       }
     });
     this.hide();
+  },
+  popupBlockerChecker: function(popup){
+      setTimeout( function() {
+          if(!popup || popup.outerHeight === 0) {
+              alert("Popup Blocker is enabled! Please add this site to your exception list.");
+          }
+      }, 300);
   },
   onDownload: function() {
     /*
@@ -223,7 +232,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('annotations', 'false');
     }
-    
+
     // Create the typical download AJAX request
     var url = localModel.getURL(selection);
     $.ajax({
