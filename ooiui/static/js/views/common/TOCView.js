@@ -67,7 +67,6 @@ var TOCView = Backbone.View.extend({
                     assemblyCode = model.get('ref_des').substr(9,5);
                     assemblyName = model.get('assetInfo').assembly || assemblyCode;
                     // set the target to where this item will be inserted.
-
                     if ( document.getElementById(platformCode) === null ) {
                         platformCode = model.get('ref_des').substr(0,8);
                     }
@@ -395,7 +394,6 @@ var AssemblyItemView = AssetItemView.extend({
         var assemblyCode = this.model.get('ref_des').substr(9,5) || "",
             assemblyName = this.model.get('assetInfo').assembly || this.model.get('assembly_name') || assemblyCode,
             label;
-
         this.$el.attr('id', assemblyCode);
         this.$el.addClass('assembly')
             .addClass('node');
