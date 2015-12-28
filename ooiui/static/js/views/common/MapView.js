@@ -298,7 +298,7 @@ var MapView = Backbone.View.extend({
                 //generate array popup
                 popup = L.popup({offset: new L.Point(0, -20)})
                 .setLatLng(a.latlng)
-                .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+                .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0] * 1.3 +'" src="'+url+'">')
 
                 .openOn(map);
             }else{
@@ -479,7 +479,7 @@ var MapView = Backbone.View.extend({
                                     instrumentName = instruments.models[i].attributes.display_name || "";
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
-                                    instrumentAssemblyName = (instruments.models[i].attributes.long_display_name !== null) ? instruments.models[i].attributes.long_display_name.split(' - ')[1] :  instruments.models[i].attributes.reference_designator.split('-')[1];
+                                    instrumentAssemblyName = (instruments.models[i].attributes.assembly_name !== null) ? instruments.models[i].attributes.assembly_name :  instruments.models[i].attributes.reference_designator.split('-')[1];
                                     if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering') > -1 || instrumentName.indexOf('ENG000') > -1) {
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {

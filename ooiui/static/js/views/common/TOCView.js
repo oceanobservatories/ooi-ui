@@ -361,10 +361,9 @@ var HomelessStreamItemView = AssetItemView.extend({
             this.model.set('ref_des', this.model.get('ref_des'));
             platformId = this.model.get('ref_des').substr(0,8);
             this.$el.attr('id', platformId);
-
             var assetSite = this.model.get('assetInfo').site,
                 assetPlatform = this.model.get('assetInfo').platform;
-            platformName = ((assetSite) ? assetSite : '') + ((assetPlatform) ? ' ' +  assetPlatform : '');
+            platformName = ((assetSite) ? assetSite : '');
             if (platformName.indexOf('Glider') > -1){
                platformName = platformName.substring(0, platformName.lastIndexOf(" "))+'s';
             }
@@ -393,7 +392,7 @@ var AssemblyItemView = AssetItemView.extend({
     render: function() {
         "use strict";
         var assemblyCode = this.model.get('ref_des').substr(9,5) || "",
-            assemblyName = this.model.get('assetInfo').assembly || this.model.get('assetInfo').name || assemblyCode,
+            assemblyName = this.model.get('assetInfo').assembly || this.model.get('assembly_name') || assemblyCode,
             label;
         this.$el.attr('id', assemblyCode);
         this.$el.addClass('assembly')
