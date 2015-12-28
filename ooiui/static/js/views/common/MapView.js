@@ -670,12 +670,12 @@ var ASSET_ARRAY = (function() {
             "southern":"Southern Ocean"
         },
         arrayLinks =   {
-            "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
-            "endurance":"http://oceanobservatories.org/wp-content/uploads/2011/04/Endurance-Array-Map_2013_04-17_ver_0-02-206x250.jpg",
-            "papa":"http://oceanobservatories.org/wp-content/uploads/2015/09/PioneerArray_2015-10-07_ver_3-00.png",
-            "irminger":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Irminger_2015-10-07_ver_5-00.png",
-            "argentine":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Argentine_2015-10-07_ver_5-00.png",
-            "southern":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Southern_2015-10-07_ver_5-00.png"
+            "pioneer":"/img/PioneerArray_2015-10-07_ver_3-00.png",
+            "endurance":"/img/Cabled_Array_Map_2014-12-021.jpg",
+            "papa":"/img/StationPapa_labeled_2015-10-07_ver_3-00.png",
+            "irminger":"/img/Global_Irminger_2015-10-07_ver_5-00-441x350.png",
+            "argentine":"/img/Global_Argentine_2015-10-07_ver_5-00-441x350.png",
+            "southern":"/img/Global_Southern_2015-10-07_ver_5-00-441x350.png"
         },
         arrayMapping = {
             "pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
