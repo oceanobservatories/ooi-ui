@@ -298,7 +298,7 @@ var MapView = Backbone.View.extend({
                 //generate array popup
                 popup = L.popup({offset: new L.Point(0, -20)})
                 .setLatLng(a.latlng)
-                .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0]+'" width="'+size[1]+'" src="'+url+'">')
+                .setContent('<h4 id="arrayPopup">'+title+'</h4><br><img id="arrayImg" height="'+size[0] * 1.3 +'" src="'+url+'">')
 
                 .openOn(map);
             }else{
@@ -479,7 +479,7 @@ var MapView = Backbone.View.extend({
                                     instrumentName = instruments.models[i].attributes.display_name || "";
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
-                                    instrumentAssemblyName = (instruments.models[i].attributes.long_display_name !== null) ? instruments.models[i].attributes.long_display_name.split(' - ')[1] :  instruments.models[i].attributes.reference_designator.split('-')[1];
+                                    instrumentAssemblyName = (instruments.models[i].attributes.assembly_name !== null) ? instruments.models[i].attributes.assembly_name :  instruments.models[i].attributes.reference_designator.split('-')[1];
                                     if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering') > -1 || instrumentName.indexOf('ENG000') > -1) {
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {
@@ -671,11 +671,11 @@ var ASSET_ARRAY = (function() {
         },
         arrayLinks =   {
             "pioneer":"http://oceanobservatories.org/wp-content/uploads/2011/04/PioneerArray_2013-03-20_ver_1-03.png",
-            "endurance":"http://oceanobservatories.org/wp-content/uploads/Cabled_Array_Map_2014-12-02.jpg",
-            "papa":"http://oceanobservatories.org/wp-content/uploads/StationPapa_labeled_2015-02-05.jpg",
-            "irminger":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
-            "argentine":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg",
-            "southern":"http://oceanobservatories.org/wp-content/uploads/southern-ocean-instruments-503x350.jpg"
+            "endurance":"http://oceanobservatories.org/wp-content/uploads/2011/04/Endurance-Array-Map_2013_04-17_ver_0-02-206x250.jpg",
+            "papa":"http://oceanobservatories.org/wp-content/uploads/2015/09/PioneerArray_2015-10-07_ver_3-00.png",
+            "irminger":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Irminger_2015-10-07_ver_5-00.png",
+            "argentine":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Argentine_2015-10-07_ver_5-00.png",
+            "southern":"http://oceanobservatories.org/wp-content/uploads/2015/09/Global_Southern_2015-10-07_ver_5-00.png"
         },
         arrayMapping = {
             "pioneer":new L.LatLngBounds([[42,-74],[36,-65]]),
