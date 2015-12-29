@@ -1225,6 +1225,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models

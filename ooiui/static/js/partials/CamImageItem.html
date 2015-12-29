@@ -1,7 +1,7 @@
 <div>
   <h5><%=model.get("reference_designator")%></h5>
-  <small><%=model.get("datetime")%></small>
+  <small><%= moment().utc(model.get("datetime")).format('YYYY-MM-DD')%></small>
   <a href="#" class="thumbnail">
-    <img class="slick-loading" height="200" width="200" data-lazy="<%=model.get('baseUrl')+model.get('filename')%>">
+    <img link='<%=model.get("url")%>' class="slick-loading" height="200" width="200" data-lazy="<%=model.get('baseUrl')+model.get('filename')%>">
   </a>
 </div>

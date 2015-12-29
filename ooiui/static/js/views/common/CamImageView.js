@@ -49,10 +49,22 @@ var CamImageView = Backbone.View.extend({
 var CamImageItemView = Backbone.View.extend({
   className: 'cam-image-item',
   events: {
+    "click a" : "itemClick"
   },
   initialize: function() {
-    _.bindAll(this, "render");
+    _.bindAll(this, "render","itemClick");
     this.render();
+  },
+  itemClick:function(evt){
+    var self = this;
+    evt.preventDefault();
+    if (!_.isUndefined(self.model.get('url'))){
+      var text = "<h5>"+self.model.get("reference_designator")+"</h5>"
+      text += "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>"
+      bootbox.alert(text+"</br>"+"<img height='100%' width='100%' src='" + self.model.get('url') + "'>", function() {
+        //nothing right now
+      }).find("div.modal-dialog").addClass("modal-lg");
+    }
   },
   template: JST['ooiui/static/js/partials/CamImageItem.html'],
   render: function(options) {
