@@ -59,11 +59,28 @@ var CamImageItemView = Backbone.View.extend({
     var self = this;
     evt.preventDefault();
     if (!_.isUndefined(self.model.get('url'))){
-      var text = "<h5>"+self.model.get("reference_designator")+"</h5>"
-      text += "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>"
-      bootbox.alert(text+"</br>"+"<img height='100%' width='100%' src='" + self.model.get('url') + "'>", function() {
-        //nothing right now
-      }).find("div.modal-dialog").addClass("modal-lg");
+      var text = "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>"
+      bootbox.dialog({
+        title: "<h5>"+self.model.get("reference_designator")+"</h5>"+text,
+        size:'large',
+        message: "<a class='download-full-image' href='"+ self.model.get('url') +"' download='" + self.model.get('filename') +"' title='"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"'><img height='100%' width='100%' src='" + self.model.get('url') + "'></a>",
+        buttons: {
+          success: {
+            label: "Download Image",
+            className: "btn-success",
+            callback: function() {
+              $(this).find('.download-full-image img').click();
+              }
+            },
+          main: {
+            label: "Close",
+            className: "btn-default",
+            callback: function() {
+              //nothing and close
+              }
+            }
+          }
+      });
     }
   },
   template: JST['ooiui/static/js/partials/CamImageItem.html'],
