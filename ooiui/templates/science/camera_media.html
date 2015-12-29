@@ -158,7 +158,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     }
 
     this.listenTo(self.collections.camImages, 'reset', function(options) {
-      console.log('ready...',self.collections.camImages);
       self.views.camImages.collection = self.collections.camImages;
       self.views.camImages.render();
     });
