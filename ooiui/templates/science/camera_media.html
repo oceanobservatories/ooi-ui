@@ -47,14 +47,6 @@
 </div>
 
 <div id="wrapper" style="padding-left:15px;padding-top:15px">
-  <div class="row">
-    <div class="col-sm-12" >
-       <div class="panel panel-default">
-          <div class="panel-body" id="cameraTable">
-          </div>
-        </div>
-    </div>
-  </div> <!-- #page-content-wrapper -->
    <div class="row">
      <div class="col-sm-9" >
         <div class="panel panel-default">
@@ -64,6 +56,7 @@
           </div>
         </div>
      </div>
+
      <div class="col-sm-3" id="cameraControls">
      </div>
   </div> <!-- #page-content-wrapper -->
@@ -170,43 +163,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.camImages.render();
     });
 
-    var cameraList = new MediaCollection();
-
-    var columns = [
-    {
-      name: "name",
-      label: "Name",
-      // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-      cell: "string" // This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
-    }, {
-      name: "cameraId",
-      label: "Camera",
-      cell: "string" // An integer cell is a number cell that displays humanized integers
-    }, {
-      name: "fileSize",
-      label: "File Size (mb)",
-      cell: "number" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-    }, {
-      name: "date",
-      label: "Date",
-      cell: "date"
-    }, {
-      name: "url",
-      label: "Download Video",
-      cell: "uri" // Renders the value in an HTML anchor element
-  }];
-
-  // Initialize a new Grid instance
-  var grid = new Backgrid.Grid({
-    columns: columns,
-    collection: cameraList
-  });
-
-  // Render the grid and attach the root to your HTML document
-  $("#cameraTable").append(grid.render().el);
-
-  // Fetch some countries from the url
-  cameraList.fetch({reset: true});
   self.collections.camImages.fetch({reset: true});
 
 }
