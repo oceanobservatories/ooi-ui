@@ -383,100 +383,94 @@ var MapView = Backbone.View.extend({
         _.each(unique_res_des, function(platform_id) {
 
             //get the stations
-            var platforms = self.collection.where({ ref_des:platform_id , asset_class: '.AssetRecord' });
+            var moorings = self.collection.where({ ref_des:platform_id, asset_class: '.AssetRecord' });
+            var gliders = self.collection.where({ ref_des:platform_id, asset_class: '.NodeAssetRecord' });
+            var platforms = moorings.concat(gliders);
             var instruments = streamCollection;
             var lat_lons = [];
 
             try {
-            if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -10.0){
+                if (platforms.length > 0 && platforms[0].get('coordinates').length == 2 && platforms[0].get('coordinates')[1] < -10.0){
 
-                //reset the event popup
-                var eventPopup = "";
-                var name = platforms[0].get('assetInfo').name;
+                    //reset the event popup
+                    var eventPopup = "",
+                        name = platforms[0].get('assetInfo').name || platforms[0].get('ref_des');
 
-                if (name === null){
-                    name = platforms[0].get('ref_des');
-                }
+                    // Plotting
+                    var platformFeature = null;
+                    if (typeof(platform_id) != "undefined" || platform_id.indexOf('MOAS') > -1){
+                        var ref_des_split = platform_id.split("-");
+                        //get the current location
+                        if (!location.origin)
+                            location.origin = location.protocol + "//" + location.host;
 
+                        //get the parts
+                        var array = platform_id.substring(0, 2);
+                        var mooring = ref_des_split[0];
+                        var platform_val = ref_des_split[1];
 
-                // Plotting
-                var platformFeature = null;
-                if (typeof(platform_id) != "undefined"){
-                    var ref_des_split = platform_id.split("-");
-                    //get the current location
-                    if (!location.origin)
-                        location.origin = location.protocol + "//" + location.host;
+                        if (name.indexOf("Glider") > -1){
+                            platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
+                        }else{
+                            //itemType = "platform"
+                            platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
+                        }
 
-                    //get the parts
-                    var array = platform_id.substring(0, 2);
-                    var mooring = ref_des_split[0];
-                    var platform_val = ref_des_split[1];
+                        platformFeature.options.alt = platforms[0].get('ref_des');
 
-                    if (_.isUndefined(platform_val)){
-                        //itemType = "mooring"
-                        platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: mooringIcon});
-                    }else if (name.toLowerCase().indexOf("glider") > -1){
-                        platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: gliderIcon});
+                        var instrument, instrument_url;
+                        if (ref_des_split.length > 2){
+                            instrument = platform_id;
+                            instrument_url = [array, mooring, platform_val , instrument].join("/");
+                        }else{
+                            instrument_url = [array, mooring, platform_val].join("/");
+                        }
+                        //          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
                     }else{
-                        //itemType = "platform"
-                        platformFeature = new OOICustomMarker(platforms[platforms.length -1].get('coordinates'),{icon: platformIcon});
+                        var instrument_plot = "";
                     }
 
-                    platformFeature.options.alt = platforms[0].get('ref_des');
+                    var eventContent = '<h5 id="deployEvents"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">',
+                        popupContent = "",
+                        hasDeploymentEvent = false,
+                        popupInstItem;
 
-                    var instrument, instrument_url;
-                    if (ref_des_split.length > 2){
-                        instrument = platform_id;
-                        instrument_url = [array, mooring, platform_val , instrument].join("/");
-                    }else{
-                        instrument_url = [array, mooring, platform_val].join("/");
-                    }
-                    //          var instrument_plot = '</div><br><br><div><a href="/plotting/' + instrument_url + '"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;'
-                }else{
-                    var instrument_plot = "";
-                }
-
-                var eventContent = '<h5 id="deployEvents"><strong>Deployment Event(s)</strong></h5><div class="map-pop-container">',
-                    popupContent = "",
-                    hasDeploymentEvent = false,
-                    popupInstItem;
-
-                //loop through each to create the popup
-                _.each(platforms, function(platform_entry) {
-                    lat_lons.push(platform_entry.get('coordinates'));
-                    popupInstItem = "";
+                    //loop through each to create the popup
+                    _.each(platforms, function(platform_entry) {
+                        lat_lons.push(platform_entry.get('coordinates'));
+                        popupInstItem = "";
 
 
-                    var events = platform_entry.get('events');
-                    _.each(events, function(item) {
-                        if (item['eventClass'] == ".DeploymentEvent"){
-                            if (!hasDeploymentEvent){
-                                // Name
-                                popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>';
-                                // Plotting
-                                popupContent += '<ul id="latLon"><li><a href="/plotting/#'+platforms[0].get('ref_des')+'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
-                                // Data Catalog
-                                popupContent+='<li><a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
-                                // Asset Managment
-                                popupContent+='<li><a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>';
+                        var events = platform_entry.get('events');
+                        _.each(events, function(item) {
+                            if (item['eventClass'] == ".DeploymentEvent"){
+                                if (!hasDeploymentEvent){
+                                    // Name
+                                    popupContent = '<h4 id="popTitle"><strong>' + name + '</strong></h4>';
+                                    // Plotting
+                                    popupContent += '<ul id="latLon"><li><a href="/plotting/#'+platforms[0].get('ref_des')+'"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
+                                    // Data Catalog
+                                    popupContent+='<li><a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
+                                    // Asset Managment
+                                    popupContent+='<li><a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>';
 
-                                popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
-                                // Checkbox
-                                popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
-                                popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
-                                popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
+                                    popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
+                                    // Checkbox
+                                    popupContent+= '<li engInst"><strong><label class="checkbox-inline"><input id="engChkBox" type="checkbox" title="hide or show engineering instruments">Engineering Instruments</label></stron></li></ul>';
+                                    popupContent+='<div style="background-color:white; border:solid 1px white;"><h5 id="latLon"><strong style="float:left;">Instruments</strong></h5>';
+                                    popupContent+='<div id="assembly-pop-container" style="max-height: 200px; overflow-y:scroll; overflow-x: hidden;">';
 
-                                popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
-                                popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Node</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
-                            }
-                            var instLength = instruments.length,
-                                instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
+                                    popupContent+='<table id="popupInstrumentTable" class="tablesorter nasdaq">';
+                                    popupContent+='<thead id="header-fixed" style="line-height: .5em"><tr><th>Node</th><th>Name</th><th>Controls</th></tr></thead><tbody>';
+                                }
+                                var instLength = instruments.length,
+                                    instrumentName, instrumentRefDes, instrumentAssemblyName, instrumentStreamName,
                                 instrumentList = [];
 
-                            for ( var i=0, y = "";  i < instLength; i++ ) {
-                                if(instruments.models[i] !== undefined &&
-                                   (platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,8) || platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,14))) {
-                                    instrumentName = instruments.models[i].attributes.display_name || "";
+                                for ( var i=0, y = "";  i < instLength; i++ ) {
+                                    if(instruments.models[i] !== undefined &&
+                                       (platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,8) || platforms[0].get('ref_des') === instruments.models[i].attributes.reference_designator.substring(0,14))) {
+                                        instrumentName = instruments.models[i].attributes.display_name || "";
                                     instrumentRefDes = instruments.models[i].attributes.reference_designator;
                                     instrumentStreamName = instruments.models[i].attributes.stream_name;
                                     instrumentAssemblyName = (instruments.models[i].attributes.assembly_name !== null) ? instruments.models[i].attributes.assembly_name :  instruments.models[i].attributes.reference_designator.split('-')[1];
@@ -496,41 +490,41 @@ var MapView = Backbone.View.extend({
                                         instrumentList.push(y);
                                     }
                                     delete instruments.models[i];
+                                    }
+                                }
+                                popupContent+=instrumentList.join('');
+
+                                popupContent+='</tbody></table></div></div>';
+
+                                hasDeploymentEvent = true;
+
+                                if (_.isNull(item.endDate)){
+                                    eventContent += '<div class="floatLeft">';
+                                    eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
+                                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
+                                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
+
+                                }else{
+                                    eventContent += '<div class="floatRight">';
+                                    eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
+                                    eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
+                                    eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item.endDate).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
                                 }
                             }
-                            popupContent+=instrumentList.join('');
-
-                            popupContent+='</tbody></table></div></div>';
-
-                            hasDeploymentEvent = true;
-
-                            if (_.isNull(item.endDate)){
-                                eventContent += '<div class="floatLeft">';
-                                eventContent += '<h6><strong>Current</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
-                                eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
-                                eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ "Still Deployed"+'</td></tr></table></div>';
-
-                            }else{
-                                eventContent += '<div class="floatRight">';
-                                eventContent += '<h6><strong>Previous</strong></h6><table><tr><td><strong>ID:&nbsp;</strong>'+ item.eventId +'</tr>';
-                                eventContent += '<tr><td><strong>Start:&nbsp;</strong>'+ moment(item.startDate).utc().format("YYYY-MM-DD")+'</td></tr>';
-                                eventContent +='<tr><td><strong>End:&nbsp;</strong>'+ moment(item.endDate).utc().format("YYYY-MM-DD")+'</td></tr></table></div>';
-                            }
-                        }
+                        });
                     });
-                });
-                eventContent += '</div></div>';
-                popupContent+=eventContent;
+                    eventContent += '</div></div>';
+                    popupContent+=eventContent;
 
-                //only add the item if there are deployment events
-                if (hasDeploymentEvent){
+                    //only add the item if there are deployment events
+                    if (hasDeploymentEvent){
 
-                    platformFeature.bindPopup(popupContent,{offset: new L.Point(0, 0),showOnMouseOver: true});
-                    if (platformFeature._latlng.lng < -10) {
-                        self.markerCluster.addLayer(platformFeature);
+                        platformFeature.bindPopup(popupContent,{offset: new L.Point(0, 0),showOnMouseOver: true});
+                        if (platformFeature._latlng.lng < -10) {
+                            self.markerCluster.addLayer(platformFeature);
+                        }
                     }
                 }
-            }
         } catch(e){
             console.log(e);
         }
