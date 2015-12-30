@@ -13,7 +13,11 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             "General":[
                 ["temperature", "Temperature"],
                 ["pressure", "Pressure"],
-                ["co2", "CO2"]
+                ['ph', 'pH'],
+                ['no3-', 'Nitrate'],
+                ["co2", "CO2"],
+                ['density', 'Density'],
+                ['salinity', 'Salinity']
             ],
             "Air Sea Interface":[
                 ['humidity', 'Humidity'],
@@ -25,12 +29,10 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             ],
             "Water Column": [    
                 ['downwelling_irradiance', 'Downwelling Irradiance'],
-                ['ph', 'PH'],
                 ['par', 'PAR'],
                 ['chlorophyll', 'Chlorophyll'],
                 ['dissolved_o2', 'Dissolved O2'],
                 ['water_velocity', 'Water Velocity'],
-                ['no3-', 'NO3-'],
                 ['microbial_dna', 'Microbial DNA'],
                 ['depth', 'Depth'],
                 ['turbidity', 'Turbidity'],
@@ -39,15 +41,13 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
             "Seafloor": [
                 ['seafloor_movement', 'Seafloor Movement'],
                 ['hydrothermal_vent_fluid_chemistry', 'Hydrothermal Vent Fluid Chemistry'],
-                ['bethnic_fluid_flow_rate', 'Bethnic Fluid Flow Rate'],
-                ['density', 'Density'],
-                ['salinity', 'Salinity']
+                ['bethnic_fluid_flow_rate', 'Benthic Fluid Flow Rate'],
             ],
             "Large Format Data":[
-                ['antelope', 'Acoustic'],
+                ['antelope', 'Hydrophone'],
                 ['camds', 'Still Images'],
                 ['camhd', 'HD Video'],
-                ['zplsc', 'Echograms']
+                ['zplsc', 'Bioacoustic Sonar']
             ]
         }
 
