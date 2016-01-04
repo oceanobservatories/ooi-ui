@@ -232,7 +232,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('annotations', 'false');
     }
-
     // Create the typical download AJAX request
     var url = localModel.getURL(selection);
     $.ajax({
@@ -280,6 +279,14 @@ var StreamDownloadFormView = Backbone.View.extend({
       // Display the second download
       this.$el.find('#download-btn2').show()
       this.$el.find('#download2-row').show()
+      /* M@Campbell 12/17/2015
+       * the following are only to add back download options for large file type
+       * data sets temporarily.
+       */
+            $('#stream-download-modal .form-group, .download-options, #download-btn, .subscription-selection').show();
+      /*
+       *    End temporary code.
+       */
     }else{
       // Hide the stuff that only applies to Large Format Downloads
       this.$el.find('#sans-data-text').hide()
@@ -287,6 +294,16 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.$el.find('#download-btn2').hide()
       this.$el.find('#download2-row').hide()
 
+      /* M@Campbell 12/17/2015
+       * the following are only to remove downloading of non-large file type
+       * data sets temporarily.
+       */
+            $('#stream-download-modal .form-group, .download-options, #download-btn, .subscription-selection').hide();
+            this.$el.find('#streamName').html('Sorry, data are not available for download');
+
+      /*
+       *    End temporary code
+       */
       var email = model.get('email');
       this.$el.find('#dlEmail').val(email);
 
