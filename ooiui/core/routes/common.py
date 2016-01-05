@@ -24,6 +24,16 @@ def read_config():
     config_file = os.path.join(basedir, 'config.yml')
     with open(config_file) as f:
         c = yaml.load(f)
+    del c['COMMON']['SECRET_KEY']
+    del c['COMMON']['UI_API_KEY']
+    del c['COMMON']['CACHE_TYPE']
+    del c['COMMON']['DEBUG']
+    del c['COMMON']['GOOGLE_ANALYTICS_URL']
+    del c['DEVELOPMENT']['SECRET_KEY']
+    del c['DEVELOPMENT']['UI_API_KEY']
+    del c['DEVELOPMENT']['CACHE_TYPE']
+    del c['DEVELOPMENT']['DEBUG']
+    del c['DEVELOPMENT']['GOOGLE_ANALYTICS_URL']
     return jsonify(c)
 
 @app.route('/signup')

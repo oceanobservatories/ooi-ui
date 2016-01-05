@@ -336,15 +336,22 @@ var renderRemoteDocuments = function(model) {
     var alfrescoDocCollection = new AlfrescoDocumentCollection();
 
     //create a new table body and render it's view
-    var docFetch = alfrescoDocCollection.fetch({ data: data });
-    $.when(docFetch).done(function(){
-        $('div#remoteDocuments table tbody').remove();
-        $('div#remoteDocuments table #loadDocs').remove();
-        var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
-        alfrescoTableBodyView.renderRecords();
+    alfrescoDocCollection.fetch({
+        data: data,
+        success: function() {
+            $('div#remoteDocuments table tbody').remove();
+            $('div#remoteDocuments table #loadDocs').remove();
+            var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
+            alfrescoTableBodyView.renderRecords();
 
-        // append to the DOM
-        $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
+            // append to the DOM
+            $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
+        },
+        error: function(e) {
+            $('div#remoteDocuments table tbody').remove();
+            $('div#remoteDocuments table #loadDocs').remove();
+            $('div#remoteDocuments table').append('<p>Cound not find any associated documents</p>');
+        }
     });
 }
 
