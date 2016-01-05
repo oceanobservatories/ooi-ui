@@ -411,6 +411,21 @@ def get_toc_list():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_toc')
     return response.text, response.status_code
 
+@app.route('/api/uframe/get_cam_image/<string:image_id>.png', methods=['GET'])
+def get_cam_image(image_id):
+    token = get_login()
+    r = requests.get(app.config['SERVICES_URL'] + '/uframe/get_cam_image/'+image_id+'.png', auth=(token, ''), data=request.args)
+    #make pass through
+    response = make_response(r.content)
+    response.headers['Content-Type'] = 'image/png'
+    return response
+
+@app.route('/api/uframe/cam_images', methods=['GET'])
+def get_cam_images():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_cam_images', auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
 def get_glider_track():
     token = get_login()

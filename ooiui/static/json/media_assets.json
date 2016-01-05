@@ -1,14 +1,11 @@
 {
     "media":[
-    {        
+    {
         "name":"camera_test.avi",
         "cameraId":"Undersea Camera (sample)",
         "url":"ERROR",
-        "fileSize":1243,      
+        "fileSize":1243,
         "date":"2015-10-01",
-        "im1":"test",
-        "im2":"test",
-        "im3":"test"
     }
     ]
 }
