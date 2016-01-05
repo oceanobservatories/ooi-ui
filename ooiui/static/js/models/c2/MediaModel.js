@@ -12,15 +12,12 @@ var MediaModel = Backbone.Model.extend({
     "name":"",
     "cameraId":"",
     "url":"",
-    "fileSize":"",    
-    "date":"",
-    "im1":"",
-    "im2":"",
-    "im3":"",
+    "fileSize":"",
+    "date":""
   }
 });
 
-var MediaCollection = Backbone.Collection.extend({  
+var MediaCollection = Backbone.Collection.extend({
   url: '/json/media_assets.json',
   model: MediaModel,
   parse: function(response) {

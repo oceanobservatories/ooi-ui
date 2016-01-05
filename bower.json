@@ -57,7 +57,9 @@
     "highchart-export-csv": "*",
     "Leaflet.EasyButton": "~1.1.0",
     "bootstrap-validator": "~0.9.0",
-    "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git"
+    "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git",
+    "slick-carousel": "~1.5.9",
+    "bootbox.js": "bootbox#~4.4.0"
   },
   "resolutions": {
     "jquery": "~2.1.1",
