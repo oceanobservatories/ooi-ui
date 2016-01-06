@@ -21,7 +21,7 @@
 
 .camera-controls{
 	border-style:solid;
-	border-radius: 25px !important;
+	/*border-radius: 25px !important;*/
     background: #ADADAD;
     height:190px;
     width:190px;
@@ -37,4 +37,5 @@
 
 .bitdash-vc{
   width:100% !important;
+  z-index:0 !important;
 }
