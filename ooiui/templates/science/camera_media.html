@@ -25,6 +25,10 @@
 <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
 <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
 
+<script src="/lib/slick-carousel/slick/slick.js" type="text/javascript"></script>
+<link href="/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" type="text/css" />
+<link href="/lib/slick-carousel/slick/slick.css" rel="stylesheet" type="text/css" />
+
 <script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>
 
 {% block link %}
@@ -43,14 +47,6 @@
 </div>
 
 <div id="wrapper" style="padding-left:15px;padding-top:15px">
-  <div class="row">
-    <div class="col-sm-12" >
-       <div class="panel panel-default">
-          <div class="panel-body" id="cameraTable">
-          </div>
-        </div>
-    </div>
-  </div> <!-- #page-content-wrapper -->
    <div class="row">
      <div class="col-sm-9" >
         <div class="panel panel-default">
@@ -60,41 +56,51 @@
           </div>
         </div>
      </div>
+
      <div class="col-sm-3" id="cameraControls">
      </div>
   </div> <!-- #page-content-wrapper -->
 
   <div style="padding-top:20px">
-      <div class="row">
-        <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-12" style="padding-right: 30px;">
         <div class="panel panel-default">
-        <div class="panel-body">
-
-
-        <div class="col-xs-2 col-md-2">
-          <a href="#" class="thumbnail">
-            <img height="100" width="100%" src="http://oceanobservatories.org/wp-content/uploads/Fitbit.jpg" alt="not available">
-          </a>
+          <div class="panel-body">
+            <div style="margin-left:50px;margin-right:50px"class="cam-image-panel">
+            </div>
+          </div>
         </div>
-        <div class="col-xs-2 col-md-2">
-          <a href="#" class="thumbnail">
-            <img height="100" width="100%" src="http://oceanobservatories.org/wp-content/uploads/Fitbit.jpg" alt="not available">
-          </a>
-        </div>
-        <div class="col-xs-2 col-md-2">
-          <a href="#" class="thumbnail">
-            <img height="100" width="100%" src="http://oceanobservatories.org/wp-content/uploads/Fitbit.jpg" alt="not available">
-          </a>
-        </div>
-     </div>
       </div>
     </div>
-   </div>
   </div>
 
 
 </div> <!-- #wrapper -->
 
+<style>
+  .slick-prev{
+    left:-35px !important;
+  }
+
+  .slick-prev:before {
+    color: steelblue;
+    font-size: 20px;
+  }
+
+  .slick-next{
+    right:-35px !important;
+  }
+
+  .slick-next:before {
+    color: steelblue;
+    font-size: 20px;
+  }
+
+  .cam-image-item {
+    padding-left:3px;
+    padding-right:3px;
+  }
+</style>
 
 <script type="text/javascript">
 var bannerTitle = "Camera Media";
@@ -103,7 +109,7 @@ var userId = parseInt(window.location.href.split('/').pop());
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
-
+    camImages:null
   },
   views: {
    banner: null,
@@ -118,6 +124,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     var self = this;
     this.multiStation = false;
     this.login.fetch({async: false});
+
+    self.collections.camImages = new CamImageCollection();
 
     //--------------------------------------------------------------------------------
     // Views
@@ -140,48 +148,21 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
     this.views.cameraControls.render();
 
+    this.views.camImages = new CamImageView({
+      el: $('.cam-image-panel')
+    });
+
+
     if(this.login.loggedIn()) {
       this.models.userModel.fetch({url: '/api/current_user'});
     }
 
-    var cameraList = new MediaCollection();
+    this.listenTo(self.collections.camImages, 'reset', function(options) {
+      self.views.camImages.collection = self.collections.camImages;
+      self.views.camImages.render();
+    });
 
-    var columns = [
-    {
-      name: "name",
-      label: "Name",
-      // The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-      cell: "string" // This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
-    }, {
-      name: "cameraId",
-      label: "Camera",
-      cell: "string" // An integer cell is a number cell that displays humanized integers
-    }, {
-      name: "fileSize",
-      label: "File Size (mb)",
-      cell: "number" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-    }, {
-      name: "date",
-      label: "Date",
-      cell: "date"
-    }, {
-      name: "url",
-      label: "Download Video",
-      cell: "uri" // Renders the value in an HTML anchor element
-  }];
-
-  // Initialize a new Grid instance
-  var grid = new Backgrid.Grid({
-    columns: columns,
-    collection: cameraList
-  });
-
-  // Render the grid and attach the root to your HTML document
-  $("#cameraTable").append(grid.render().el);
-
-  // Fetch some countries from the url
-  cameraList.fetch({reset: true});
-
+  self.collections.camImages.fetch({reset: true});
 
 }
 });
