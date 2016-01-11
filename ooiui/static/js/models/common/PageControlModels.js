@@ -58,7 +58,7 @@ var TocPageControlModel = Backbone.Model.extend({
     defaults : {
         params : [
             ['refDesToggle', 'Toggle Reference Designators'],
-//            ['engToggle', 'Engineering Instruments'],
+            ['engToggle', 'Engineering Instruments'],
 //            ['metaDataToggle', 'Meta Data']
         ]
     }
