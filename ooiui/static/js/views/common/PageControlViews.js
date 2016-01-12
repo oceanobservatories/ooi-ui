@@ -78,7 +78,6 @@ var AssetManagementPageControlView = ParentPageControlView.extend({});
 
 var TocPageControlView = ParentPageControlView.extend({
     click: function(e) {
-
         // simple toggle of DOM elements.
         switch(e.target.id) {
             case 'engToggle':
@@ -96,5 +95,14 @@ var TocPageControlView = ParentPageControlView.extend({
 
         // toggle the class.
         $('#'+e.target.id).toggleClass('active');
+    },
+    render: function(){
+        if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
+        { this.$el.html(this.template()); }
+        this.$el.prepend('<div id="hiddenSearch" style="display:hidden; visiblity: none;"></div>');
+       // $('.eng-item').toggle();
+        $('#engToggle').toggleClass('active');
+        
+        return this;
     }
 });
