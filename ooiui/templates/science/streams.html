@@ -269,6 +269,8 @@ _.extend(OOI.prototype, Backbone.Events, {
                 vent.trigger('toc:hideStreams');
                 $('#hiddenSearch').val(option);
                 $('#search-param').val(option);
+                $('#search').val('');
+                updateCollection( showStreams );
             });
         });
     });
