@@ -100,9 +100,9 @@ var TocPageControlView = ParentPageControlView.extend({
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
         { this.$el.html(this.template()); }
         this.$el.prepend('<div id="hiddenSearch" style="display:hidden; visiblity: none;"></div>');
-       // $('.eng-item').toggle();
         $('#engToggle').toggleClass('active');
-        
+        $('#engToggle').trigger('click');
+
         return this;
     }
 });
