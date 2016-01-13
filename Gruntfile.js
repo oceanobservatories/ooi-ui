@@ -29,6 +29,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/LoggedInNavItems.html",
             "ooiui/static/js/partials/StreamQuickView.html",
             'ooiui/static/js/partials/DataCatalogPageControlView.html',
+            'ooiui/static/js/partials/TocPageControlView.html',
             'ooiui/static/js/partials/StreamQuickViewItem.html'
           ],
           "ooiui/static/js/partials/compiled/camera_media.js" : [

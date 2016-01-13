@@ -23,6 +23,7 @@ div#assetBrowser {
     padding-left: 0;
     margin-top: 0;
     position: absolute;
+    top: 72px;
 }
 #tocNav {
     margin-bottom: 50px;
@@ -166,13 +167,16 @@ li.detached > label {
 /* TOC Filter Contols */
 #tocFilterControls {
     width: 375px;
-    position: fixed;
     text-align: center;
     border-top: 1px solid #004773;
-    bottom: 0px;
+    top: 150px;
     background-color: #004773;
     padding-bottom: 20px;
+    position: fixed;
     transition: width 0.5s;
+    height:72px;
+    padding-top: 8px;
+    z-index: 100;
 }
 #tocFilterControls.toggled, #tocFilterControls.toggled > span {
     visibility: hidden;
@@ -201,6 +205,11 @@ li.detached > label {
     background-color: green;
     color: white;
 }
+#search-param {
+    margin-top: 10px;
+    width: 90%;
+}
+
 /*.eng-item, .meta-data-item, .ref-des-item {*/
 .ref-des-item {
     display: none;

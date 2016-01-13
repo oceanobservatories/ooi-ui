@@ -167,10 +167,33 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
+
+        this.listenTo(vent, 'toc:paramFilter', function(option) {
+            $.when(vent.trigger('toc:derenderItems')).done(function() {
+                var paramSearch = { search: option };
+                // I'm so ashamed.
+                var streamCollectionAgain    = new StreamCollection();
+                var streamFetchAgain = streamCollectionAgain.fetch({ data: paramSearch });
+                $.when(streamFetchAgain).done(function() {
+                    renderTOCView(arrayCollection, null, streamCollectionAgain);
+                    vent.trigger('toc:noKids');
+                    vent.trigger('toc:hideStreams');
+                    vent.trigger('toc:hideNodes');
+                    vent.trigger('toc:hideInstruments');
+                    $('#engToggle').hide();
+                    $('#metaDataToggle').hide();
+                    focusToItem();
+                    $('#search-param').val(option);
+                });
+            });
+        });
     }
+
 });
 
 
+// initialize our app object
+var ooi = new OOI();
 var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
@@ -185,7 +208,7 @@ var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
-var streamFetch = streamCollection.fetch({});
+var streamFetch = streamCollection.fetch({ reset: true });
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
 var mapView, streamQuickView;
@@ -203,9 +226,7 @@ $.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
     // this is really strange, but the normal streamCol instance isn't working
     // quite rite.
     // TODO: Find out why already defined streamCollection isn't usable here.
-    var streamCol = new StreamCollection();
-    streamCol.fetch();
-    streamStatusBtn = new StreamStatusBtnView({collection: streamCol});
+    streamStatusBtn = new StreamStatusBtnView({collection: streamCollection});
     streamStatusBtn.render();
     $('#map').append(streamStatusBtn.el);
 
@@ -245,9 +266,6 @@ var applyPopupInst = function(){
         $( popupPlatformTarget ).append( popupAssetItemView.render().el );
     });
 };
-
-// initialize our app object
-var ooi = new OOI();
 
 $(document).ready(function() {
     ooi.start();

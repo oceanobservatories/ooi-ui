@@ -16,10 +16,11 @@ var ParentPageControlView = Backbone.View.extend({
      * - loadControls() : Customize this function for each page if you want.
      */
     initialize: function() {
-        _.bindAll(this, 'render', 'derender', 'click');
+        _.bindAll(this, 'render', 'derender', 'click', 'change');
     },
     events: {
-        'click span': 'click'
+        'click span': 'click',
+        'change select': 'change'
     },
     // this template will loop through each of the parameters defined in the
     // instantiaed model and create a <option> tag in the select element with
@@ -54,6 +55,9 @@ var ParentPageControlView = Backbone.View.extend({
         // once that array is all sorted out, lets stick it in the hidden search field that
         // has been appended to the page.
         $('#search').trigger('keyup');
+    },
+    change: function(e) {
+        // not implemented
     }
 });
 
@@ -64,10 +68,6 @@ var DataCatalogPageControlView = ParentPageControlView.extend({
     },
     template: JST['ooiui/static/js/partials/DataCatalogPageControlView.html'],
     click: function(e) {
-        $('#hiddenSearch').val(e.currentTarget.selectedOptions[0].id);
-
-        // once that array is all sorted out, lets stick it in the hidden search field that
-        // has been appended to the page.
         $('#search').trigger('keyup');
     }
 });
@@ -77,6 +77,7 @@ var AssetManagementPageControlView = ParentPageControlView.extend({});
 
 
 var TocPageControlView = ParentPageControlView.extend({
+    template: JST['ooiui/static/js/partials/TocPageControlView.html'],
     click: function(e) {
         // simple toggle of DOM elements.
         switch(e.target.id) {
@@ -95,6 +96,9 @@ var TocPageControlView = ParentPageControlView.extend({
 
         // toggle the class.
         $('#'+e.target.id).toggleClass('active');
+    },
+    change: function(e) {
+        vent.trigger('toc:paramFilter', e.currentTarget.selectedOptions[0].id);
     },
     render: function(){
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else

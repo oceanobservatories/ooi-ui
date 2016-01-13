@@ -1,0 +1,12 @@
+<% _.each(toggles, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>
+
+<select id="search-param">
+    <option selected>None</option>
+        <% _.each(Object.keys(params), function(key) { %>
+            <optgroup label="<%=key%>">
+                <% _.each(params[key], function(item){ %>
+                    <option id="<%= item[0]  %>" value="<%= item[0]  %>"><%= item[1] %></option>
+                <% })%>
+            </optgroup>
+        <%;}); %>
+</select>

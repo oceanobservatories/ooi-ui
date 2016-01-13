@@ -38,7 +38,7 @@ def science(args):
 
     if app.config['DEBUG'] == True:
         app.add_url_rule('/site-map', 'site_map', site_map)
-    app.run(host='localhost', debug=True)
+    app.run(host='0.0.0.0', debug=True)
 
 
 def main(args):

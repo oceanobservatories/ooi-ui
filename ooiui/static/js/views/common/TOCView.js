@@ -163,38 +163,6 @@ var TOCView = Backbone.View.extend({
     },
 });
 
-var SearchResultView = Backbone.View.extend({
-    tagName: 'ul',
-    initialize: function() {
-        "use strict";
-        _.bindAll(this, 'render', 'derender', 'onClick');
-        this.listenTo(vent, 'toc:derenderItems', function() {
-            this.derender();
-        });
-
-    },
-    onClick: function() {
-        "use strict";
-        ooi.trigger('toc:selectItem', this.model);
-    },
-    render: function(){
-        "use strict";
-        var assetItemView = this.collection.map(function(model) {
-            var coord = model.get('coordinates');
-            if (coord) {
-                return(new AssetItemView({ model:model }).render().el);
-            }
-        });
-        this.$el.html(assetItemView);
-        return this;
-    },
-    derender: function() {
-        "use strict";
-        this.remove();
-        this.unbind();
-    },
-});
-
 var ArrayContainerView = Backbone.View.extend({
     tagName: 'li',
     attributes: function(){
@@ -212,6 +180,12 @@ var ArrayContainerView = Backbone.View.extend({
         _.bindAll(this, 'render', 'onClick', 'collapse');
         this.listenTo(vent, 'toc:derenderItems', function() {
             this.derender();
+        });
+        this.listenTo(vent, 'toc:noKids', function() {
+            // if the item doesn't have any children, grey it out.
+            if ( this.$el.find('ul.tree').children().length === 0 ) {
+                this.$el.addClass('no-children');
+            }
         });
     },
     collapse: function(e) {
@@ -256,6 +230,12 @@ var AssetItemView = Backbone.View.extend({
             // if the item doesn't have any children, grey it out.
             if ( this.$el.find('ul.tree').children().length === 0 ) {
                 this.$el.addClass('no-children');
+            }
+        });
+        this.listenTo(vent, 'toc:filter', function() {
+            // if the item doesn't have any children, grey it out.
+            if ( this.$el.find('ul.tree').children().length === 0 ) {
+                this.$el.remove();
             }
         });
         this.listenTo(vent, 'toc:hideInstruments', function() {
@@ -422,6 +402,12 @@ var StreamItemView = Backbone.View.extend({
         });
         this.listenTo(vent, 'toc:hideStreams', function() {
             this.$el.attr('style','display:none;');
+        });
+        this.listenTo(vent, 'toc:filter', function() {
+            // if the item doesn't have any children, grey it out.
+            if ( this.$el.find('ul.tree').children().length === 0 ) {
+                this.$el.remove();
+            }
         });
     },
     onClick: function(e) {
