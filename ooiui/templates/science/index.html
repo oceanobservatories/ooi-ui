@@ -175,6 +175,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         this.listenTo(vent, 'toc:paramFilter', function(option) {
             $.when(vent.trigger('toc:derenderItems')).done(function() {
                 mapView.derender();
+                $('#map-container').hide();
                 $('#map-container').html('<div class="map-view" id="map"></div>');
                 var paramSearch = { search: option };
                 // I'm so ashamed.
@@ -187,6 +188,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 $.when(streamFetchAgain).done(function() {
                     renderMap(gliderCollection, assetCollection, streamCollectionAgain);
                     renderTOCView(arrayCollection, null, streamCollectionAgain);
+                    $('#map-container').show();
                     vent.trigger('toc:noKids');
                     vent.trigger('toc:hideStreams');
                     vent.trigger('toc:hideNodes');
@@ -197,11 +199,10 @@ _.extend(OOI.prototype, Backbone.Events, {
                     $('#search-param').val(option);
                 });
             });
-
             setTimeout(function() {
                 mapView.map.removeLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
                 mapView.map.addLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
-            }, 2000);
+            }, 2500);
         });
     }
 
