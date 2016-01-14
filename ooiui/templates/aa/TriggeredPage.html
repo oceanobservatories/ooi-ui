@@ -238,6 +238,7 @@
             var streamFetch = streamCollection.fetch({ data: data,  reset: true });
             $.when(streamFetch).done(function() {
               $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                  $('#search-param').remove();
                 vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
               });
