@@ -44,8 +44,8 @@
             {% block sidebar %}
                 {{ super() }}
             {% endblock %}
-            <div class="col-lg-12">
-                <div class="map-view" id='map'>
+            <div id="map-container" class="col-lg-12">
+                <div class="map-view" id="map">
                     <i class="fa fa-spinner fa-spin map-loading-spinner"></i>
                     <div id="" class="jumbotron text-center">
                       <h3>Loading Map, Please Wait...</h3>
@@ -146,7 +146,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         this.listenTo(this, 'NavbarView:sidebarToggle', function() {
             var mapWidth = $('.page-content').width - 375;
             $('.page-content').css({'width': mapWidth + 'px'});
-            reseizeMap();
+            setTimeout(function(){
+                resizeMap();
+                mapView.showLayers();
+            }, 500);
+
         });
 
         // Login stuff..
@@ -170,11 +174,18 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(vent, 'toc:paramFilter', function(option) {
             $.when(vent.trigger('toc:derenderItems')).done(function() {
+                mapView.derender();
+                $('#map-container').html('<div class="map-view" id="map"></div>');
                 var paramSearch = { search: option };
                 // I'm so ashamed.
                 var streamCollectionAgain    = new StreamCollection();
+                // somehow, the mapview is accessing this collection DIRECTLY.
+                // won't be able to find where it is w/o a major refactor . . .
+                // soooo, we need to provide the updated collection to the streamCollection
+                streamCollection = streamCollectionAgain;
                 var streamFetchAgain = streamCollectionAgain.fetch({ data: paramSearch });
                 $.when(streamFetchAgain).done(function() {
+                    renderMap(gliderCollection, assetCollection, streamCollectionAgain);
                     renderTOCView(arrayCollection, null, streamCollectionAgain);
                     vent.trigger('toc:noKids');
                     vent.trigger('toc:hideStreams');
@@ -186,6 +197,11 @@ _.extend(OOI.prototype, Backbone.Events, {
                     $('#search-param').val(option);
                 });
             });
+
+            setTimeout(function() {
+                mapView.map.removeLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
+                mapView.map.addLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
+            }, 2000);
         });
     }
 
@@ -212,24 +228,30 @@ var streamFetch = streamCollection.fetch({ reset: true });
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
 var mapView, streamQuickView;
-$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+var renderMap = (function(gliders, assets, streams) {
     //when the glider fetch is done update the map
     mapView = new MapView({
-        gliderCollection: gliderCollection,
-        collection:assetCollection,
-        streamCollection:streamCollection,
+        gliderCollection: gliders,
+        collection:assets,
+        streamCollection:streams,
         el: $('#map')
     });
-    mapView.gliderCollection = gliderCollection;
+
+    mapView.gliderCollection = gliders;
     mapView.add_glider_tracks();
 
-    // this is really strange, but the normal streamCol instance isn't working
-    // quite rite.
-    // TODO: Find out why already defined streamCollection isn't usable here.
-    streamStatusBtn = new StreamStatusBtnView({collection: streamCollection});
+    streamStatusBtn = new StreamStatusBtnView({collection: streams});
     streamStatusBtn.render();
     $('#map').append(streamStatusBtn.el);
+    resizeMap();
 
+    setTimeout(function(){
+        mapView.showLayers();
+    }, 300);
+});
+
+$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+    renderMap(gliderCollection, assetCollection, streamCollection);
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
@@ -249,12 +271,11 @@ window.onresize = function(event) {
 
 var resizeMap = function() {
     vpw = $(window).width();
-    //keep the map the same height as the side bar..?
     vph = $('#sidebar-wrapper').height() - 100;
     $('#map').css({'height': vph + 'px'});
 }
 
-var applyPopupInst = function(){
+var applyPopupInst = (function(){
     var pageInstruments = assetCollection.byClass('.InstrumentAssetRecord'),
         popupPlatformCode,
         popupPlatformTarget,
@@ -265,7 +286,7 @@ var applyPopupInst = function(){
         popupAssetItemView = new AssetItemView({ model:model });
         $( popupPlatformTarget ).append( popupAssetItemView.render().el );
     });
-};
+});
 
 $(document).ready(function() {
     ooi.start();
