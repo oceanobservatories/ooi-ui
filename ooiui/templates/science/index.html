@@ -186,7 +186,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 streamCollection = streamCollectionAgain;
                 var streamFetchAgain = streamCollectionAgain.fetch({ data: paramSearch });
                 $.when(streamFetchAgain).done(function() {
-                    renderMap(gliderCollection, assetCollection, streamCollectionAgain);
+                    renderMap(gliderCollection, assetCollection, streamCollectionAgain, option);
                     renderTOCView(arrayCollection, null, streamCollectionAgain);
                     $('#map-container').show();
                     vent.trigger('toc:noKids');
@@ -225,11 +225,11 @@ var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
-var streamFetch = streamCollection.fetch({ reset: true });
+var streamFetch = streamCollection.fetch();
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
 var mapView, streamQuickView;
-var renderMap = (function(gliders, assets, streams) {
+var renderMap = (function(gliders, assets, streams, option) {
     //when the glider fetch is done update the map
     mapView = new MapView({
         gliderCollection: gliders,
@@ -241,7 +241,11 @@ var renderMap = (function(gliders, assets, streams) {
     mapView.gliderCollection = gliders;
     mapView.add_glider_tracks();
 
-    streamStatusBtn = new StreamStatusBtnView({collection: streams});
+
+    var paramSearch = (option) ? { search: option } : '';
+    var newCollection = new StreamCollection();
+    newCollection.fetch({data: paramSearch});
+    streamStatusBtn = new StreamStatusBtnView({collection: newCollection});
     streamStatusBtn.render();
     $('#map').append(streamStatusBtn.el);
     resizeMap();
