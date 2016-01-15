@@ -205,20 +205,12 @@ var SVGView = Backbone.View.extend({
                 self.render();
             },"xml")
             .fail(function(e) {
-                console.log(e);
                 // any plot errors should be handled before we get to here.
                 // this should be uframe alert here.
                 self.$el.html(' ');
-                if (e.status == 400){
-                    $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                else if (e.status == 500){
-                    $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                else{
-                    $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
+                var response = JSON.parse(e.responseText);
+                $('#plot-view').append('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div></div>');
+
             })
             .always(function() {
 
