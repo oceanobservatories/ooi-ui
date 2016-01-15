@@ -1,5 +1,3 @@
-<% _.each(toggles, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>
-
 <select id="search-param">
     <option selected>Select a parameter to filter table of contents</option>
     <option>None</option>
@@ -11,3 +9,6 @@
             </optgroup>
         <%;}); %>
 </select>
+<div class="toggle-btns">
+    <% _.each(toggles, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>
+</div>

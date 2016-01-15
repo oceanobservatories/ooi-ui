@@ -5,13 +5,18 @@ div#page-controls {
   width: 100%;
   padding-left: 30px;
   background-color: #004773;
-  height: 72px;
+  height: 43px;
   left: 375px;
   border-left: #F09349 solid 2px;
   transition: left 0.5s;
 }
 div#page-controls.toggled {
     left: 0;
+}
+#page-controls #buttons {
+    display: inline-block;
+    bottom: 15px;
+    position: relative;
 }
 #search-clear {
     z-index: 100;
@@ -42,6 +47,7 @@ div#page-controls.toggled {
 input#search {
   line-height: 1.456;
 }
+
 #buttons > select {
     margin-top: 10px;
 }
