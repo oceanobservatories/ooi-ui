@@ -29,7 +29,7 @@ var TimeseriesView = Backbone.View.extend({
   },
   errorRender: function(options) {
     var response = JSON.parse(options.response.responseText);
-    this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div></div>');
+    this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
     
   },
   template: JST['ooiui/static/js/partials/Timeseries.html'],

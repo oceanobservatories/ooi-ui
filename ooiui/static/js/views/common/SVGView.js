@@ -209,8 +209,7 @@ var SVGView = Backbone.View.extend({
                 // this should be uframe alert here.
                 self.$el.html(' ');
                 var response = JSON.parse(e.responseText);
-                $('#plot-view').append('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div></div>');
-
+                $('#plot-view').append('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
             })
             .always(function() {
 
@@ -224,8 +223,8 @@ var SVGView = Backbone.View.extend({
             .on('error', function() {
                 // this should be uframe alert here.
                 self.$el.html(' ');
-                var error_msg = 'Unexpected uFrame Return. The data provided was not in the form of an array. Please make sure the correct parameter was selected. If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a>';
-                $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: </strong> '+error_msg+'</div>');
+                var error_msg = 'If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a>';
+                $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Unexpected uFrame Return</strong><br>'+error_msg+'</div>');
 
             });
             image.src = this.url;
