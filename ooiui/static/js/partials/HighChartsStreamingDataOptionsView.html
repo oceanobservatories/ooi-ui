@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="pull-right">
+      <div id='streamingDataViewControls'>
+        <div class="btn-group" role="group" aria-label="...">
+          <button id='playStream' type="button" class="btn btn-default btn-lg">
+            <span class="fa fa-play" aria-hidden="true"></span> Start
+          </button>
+          <button id='pauseStream' disabled type="button" class="btn btn-default btn-lg">
+            <span class="fa fa-pause" aria-hidden="true"></span> Stop
+          </button>
+        </div>
+      </div>
+    </div>
+    <label>Streaming For: <%= streamModel.get('long_display_name') %></label>
+    <br>
+    <small><%=streamModel.get('stream_name')%></small>
+
+    <div id='streamingDataOptions'>
+      <label>Parameter Selection</label>
+      <select data-hide-disabled=true multiple data-max-options="4" data-live-search="false" id="paramSelection" class="selectpicker">
+      </select>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class='row plot-row'>
+
+    </div>
+
+    <div class="row plot-row">
+      <div id='streamingDataPlot' style="height:300px;width:100%;margin: 0 auto">
+      </div>
+    </div>
+  </div>
+</div>
