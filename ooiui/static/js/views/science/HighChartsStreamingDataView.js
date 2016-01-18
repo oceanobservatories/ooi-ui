@@ -127,7 +127,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
         parameterhtml = "",
         shape = self.model.get('variables_shape'),
         autoPlot = false;
-
+        var paramCount = 0;
         parameterhtml += "<optgroup label='Derived'>"
         for (var i = 0; i < _.uniq(self.model.get('variables')).length; i++) {
           if (param_list.indexOf(self.model.get('variables')) == -1){
@@ -159,7 +159,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
 
               if (variable.indexOf("_timestamp") == -1){
                 if (variable.toLowerCase() != "time"){
-                    if ( validUnits &&   (variable.indexOf('oxygen') > -1 ||
+                    if ( paramCount < 4 && validUnits &&   (variable.indexOf('oxygen') > -1 ||
                             variable.indexOf('temperature') > -1 ||
                             variable.indexOf('velocity') > -1 ||
                             variable.indexOf('conductivity') > -1 ||
@@ -173,6 +173,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
                             variable.indexOf('heat') > -1
                       )){
                         parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                      paramCount++;
                     } else {
 
                         parameterhtml+= "<option "+validUnitsClass+" pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
@@ -216,7 +217,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
               }
 
               if (variable.toLowerCase() != "time"){
-                  if (   ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && validUnits &&
+                  if (  paramCount < 4 &&  ( parameterhtml.indexOf("<optgroup label='Derived'></optgroup>") > -1 ) && validUnits &&
                           (variable.indexOf('oxygen') > -1 ||
                           variable.indexOf('temperature') > -1 ||
                           variable.indexOf('velocity') > -1 ||
@@ -230,6 +231,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
                           variable.indexOf('par') > -1)
                     ) {
                       parameterhtml+= "<option "+validUnitsClass+" selected pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
+                    paramCount++;
                   } else {
                       parameterhtml+= "<option "+validUnitsClass+" pid='"+ parameterId +"'data-params='" + variable + "' data-subtext='"+ units +"' >"+ displayName +"</option>";
                   }
@@ -336,7 +338,6 @@ var HighchartsStreamingDataView = Backbone.View.extend({
         url: self.getUrl(),
         cache: false,
         success: function(points) {
-            console.log(points)
             if (self.multiRequest){
               if (self.isLoading){
                 self.chart.hideLoading();
@@ -360,8 +361,11 @@ var HighchartsStreamingDataView = Backbone.View.extend({
               self.chart.legend.render();
 
               _.each(self.variable,function(data_variable,vv){
-                var series = self.chart.series[vv],
-                  shift = series.data.length > 200;
+                var series = self.chart.series[vv];
+                var shift = false;
+
+                var shift = self.chart.series[vv].data.length > 200;
+
                 if (self.resetAxis){
                   //reset the axis and some of the contents
                   series.name = data_variable;
