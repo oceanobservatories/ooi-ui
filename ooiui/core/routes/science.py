@@ -60,7 +60,7 @@ def streams_page():
 
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
-def streamsing_data_page():
+def streaming_data_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreamingdata')
     return render_template('science/streaming_data.html')
 
