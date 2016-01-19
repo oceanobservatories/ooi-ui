@@ -28,7 +28,8 @@ var XYScatterPlotView = Backbone.View.extend({
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
   },
   errorRender: function(options) {
-    this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>error:'+options.error+'</strong>:<br> '+ options.response.responseText +'</div>  </div>');
+    var response = JSON.parse(options.response.responseText);
+    this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
     
   },
   template: JST['ooiui/static/js/partials/Timeseries.html'],
