@@ -43,13 +43,14 @@ var ParentPageControlView = Backbone.View.extend({
         this.model.off();
     },
     click: function(e) {
-        if ($('#'+e.target.id).hasClass('active')) {
-            $('#'+e.target.id).removeClass('active');
+        var target = e.target.value;
+        if ($('#'+target).hasClass('active')) {
+            $('#'+target).removeClass('active');
             $('#hiddenSearch').val('');
         } else {
             $('.active').removeClass('active');
-            $('#'+e.target.id).toggleClass('active');
-            $('#hiddenSearch').val(e.target.id);
+            $('#'+target).toggleClass('active');
+            $('#hiddenSearch').val(target);
         }
 
         // once that array is all sorted out, lets stick it in the hidden search field that
