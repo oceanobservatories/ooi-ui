@@ -30,11 +30,31 @@ var BannerView = Backbone.View.extend({
   },
   
   templates: {
-    banner: JST['ooiui/static/js/partials/Banner.html']
+    banner: JST['ooiui/static/js/partials/Banner.html'],
+    newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
+
   },
 
   render: function() {
     this.$el.html(this.templates.banner());
+    if (this.checkStreaming()){
+      this.$el.find('#news-banner').append(this.templates.newsBanner());
+    }
+  },
+
+  checkStreaming: function() {
+    var streaming = false;
+    // Let's see what time it is
+    var currentTime = moment.utc();
+    // Compare to the time that streaming is on
+    var hoursOn = [1, 4, 7, 10, 13, 16, 19, 22];
+    if (hoursOn.indexOf(currentTime.hour()) > -1){
+      // Now check if the time falls within the 14 minute duration that video is on
+      if (currentTime.minute() < 15){
+        streaming = true;
+      }
+    }
+    return streaming
   }
 });
 
