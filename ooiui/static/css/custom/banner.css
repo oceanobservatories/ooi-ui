@@ -145,6 +145,8 @@ div#wrapper-asset {
   color: white;
   margin-left: 25%;
   padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
 }
 
 .breaking-news-headline2 {
@@ -156,6 +158,8 @@ div#wrapper-asset {
   color: white;
   margin-left: 75%;
   padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
 }
 
 .breaking-news-headline3 {
@@ -167,6 +171,8 @@ div#wrapper-asset {
   color: white;
   margin-left: 125%;
   padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
 }
 
 .breaking-news-title:after{
