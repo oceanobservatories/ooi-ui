@@ -76,9 +76,20 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
         'click #removePanel': 'onRemoveClick',
         'click #playStream': 'onPlayClick',
         'click #pauseStream': 'onPauseClick',
+        'click #download-plot' : 'plotDownloads',
     },
     onRemoveClick:function(){
       //NOT IMPLEMENTED
+    },
+    plotDownloads: function(e) {
+        event.preventDefault();
+        var self = this;
+        self.onPauseClick();
+        if ( self.streamingDataView ){
+          var chart = self.streamingDataView.chart;
+          var fileName = chart.title.textStr + '_' + chart.subtitle.textStr;
+          chart.exportChart({type: 'image/png', filename: fileName});
+        }
     },
     onPlayClick:function(){
       var self = this;
@@ -491,6 +502,33 @@ var HighchartsStreamingDataView = Backbone.View.extend({
         },
         subtitle: {
           text: self.model.get('stream_name')
+        },
+        legend: {
+            align: 'left'
+        },
+        exporting: { //Enable exporting images
+          enabled: true,
+          scale: 1,
+          enableImages: true,
+          legend:{
+            enabled:true
+          },
+          chartOptions: {
+              chart: {
+                  width: 1400,
+                  height: 400,
+                  events: {
+                    load: function () {
+                      var chart = this;
+                      $.each(chart.series,function(i,series) {
+                        series.name = self.chart.series[i].name
+                        chart.legend.renderItem(series);
+                      });
+                      chart.legend.render();
+                    }
+                  }
+              },
+          }
         },
         xAxis: [{
             type: 'datetime',
