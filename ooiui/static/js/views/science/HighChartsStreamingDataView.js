@@ -498,6 +498,13 @@ var HighchartsStreamingDataView = Backbone.View.extend({
             hideDuration: 500,
             showDuration: 1000,
         },
+        plotOptions: {
+            line: {
+                marker: {
+                    enabled: false
+                }
+            }
+        },
         title: {
           text: self.model.get('display_name')
         },
