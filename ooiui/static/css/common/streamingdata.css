@@ -94,7 +94,7 @@
 
 .leaflet-popup-content td.popup-instrument-item .pulsor {
     padding-left:2px;
-    padding-:2px;
+    padding-right:5px;
     cursor: auto;
     border-radius: 8px;
     color:green;
