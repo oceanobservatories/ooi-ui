@@ -323,7 +323,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
   updateDateTimes:function(){
     var self = this;
     //update datetime using new moment dates
-    var dt = moment();
+    var dt = moment().utc();
     var dt2Str = dt.format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
     var dt1Str = dt.subtract(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
     this.ds.startdate = dt1Str;
@@ -408,7 +408,8 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                     var x = points['data'][i]['time'];
                     var y = points['data'][i][self.variable_list[vv]];
                     x -= 2208988800;
-                    x *= 1000
+                    var dx= moment.utc(x);
+                    x =  dx._i*1000;
                     point = [x,y]
 
                     if (i < points['data'].length-1){
