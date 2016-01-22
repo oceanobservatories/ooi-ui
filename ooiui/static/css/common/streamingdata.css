@@ -92,11 +92,12 @@
   font-size: 52px;
 }
 
-.pulsor {
-    padding-left:3px;
+.leaflet-popup-content td.popup-instrument-item .pulsor {
+    padding-left:2px;
+    padding-:2px;
     cursor: auto;
     border-radius: 8px;
-    box-shadow: 0 0 12px #ff0000;
+    color:green;
     -webkit-animation: flash 3s infinite alternate;
     -moz-animation: flash 3s infinite alternate;
     -animation: flash 3s infinite alternate;
@@ -109,11 +110,11 @@
 
 @-webkit-keyframes flash {
     50%, 75%, 100% {opacity: 1;}
-    25%, 75% {opacity: 0.5;}
+    25%, 75% {opacity: 0.3;}
 }
 @keyframes flash {
     50%, 75%, 100% {opacity: 1;}
-    25%, 75% {opacity: 0.5;}
+    25%, 75% {opacity: 0.3;}
 }
 .flash {
     -webkit-animation-name: flash;
