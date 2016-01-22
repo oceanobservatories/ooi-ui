@@ -84,9 +84,6 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
       var self = this;
       if (self.getVariableList().length>0){
         this.$el.find('#playStream').prop('disabled', true);
-
-
-
         if (self.streamingDataView.isRendered){
           self.streamingDataView.chart.showLoading();
           self.streamingDataView.chart.isLoading=true;
@@ -119,7 +116,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
       var selectedItem =  self.$el.find("#paramSelection option:selected");
       var selected = [];
       $(selectedItem).each(function(index){
-        selected.push($(this).data('params'));
+        selected.push({'variable':$(this).data('params'),'prettyname':$(this).text()});
       });
       return selected;
     },
@@ -296,12 +293,20 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     var dt2Str = dt.format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
     var dt1Str = dt.subtract(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
     self.variable = options.variable;
-    this.ds = new DataSeriesCollection([],{'stream':this.model.get('stream_name'),'ref_des':this.model.get('ref_des'), 'xparameters':['time'],'yparameters':self.variable, 'startdate':dt1Str,'enddate':dt2Str});
+    self.variable_list = [];
+    _.each(self.variable,function(data_variable,vv){
+      self.variable_list.push(data_variable['variable']);
+    });
+    this.ds = new DataSeriesCollection([],{'stream':this.model.get('stream_name'),'ref_des':this.model.get('ref_des'), 'xparameters':['time'],'yparameters':self.variable_list, 'startdate':dt1Str,'enddate':dt2Str});
   },
   updateVariable:function(variable){
     var self = this;
     self.variable = variable;
-    self.ds.yparameters = [variable];
+    self.variable_list = [];
+    _.each(self.variable,function(data_variable,vv){
+      self.variable_list.push(data_variable['variable']);
+    });
+    self.ds.yparameters = [variable_list];
     self.resetAxis = true;
   },
   updateDateTimes:function(){
@@ -373,14 +378,14 @@ var HighchartsStreamingDataView = Backbone.View.extend({
 
                 if (self.resetAxis){
                   //reset the axis and some of the contents
-                  series.name = data_variable;
+                  series.name = data_variable['prettyname'];
                   //self.chart.legend.allItems[vv].update({name:series.name});
                   series.options.showInLegend = true;
                   self.chart.yAxis[vv].update({
                     labels: {enabled: true},
-                    title: {text:points['units'][self.variable[vv]]}
+                    title: {text:points['units'][self.variable_list[vv]]}
                   });
-                  series.options.units = points['units'][self.variable[vv]];
+                  series.options.units = points['units'][self.variable_list[vv]];
                   self.chart.series[vv].show();
                   self.chart.redraw();
 
@@ -390,7 +395,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
 
                 for (var i = 0; i < points['data'].length; i++) {
                     var x = points['data'][i]['time'];
-                    var y = points['data'][i][self.variable[vv]];
+                    var y = points['data'][i][self.variable_list[vv]];
                     x -= 2208988800;
                     x *= 1000
                     point = [x,y]
@@ -507,7 +512,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                       // Assume the data is ordered by time.  Find the 1st value that is >= x.
                       var xy = _.find(series.data,function(o){return o.x >= x});
                       if (xy) {
-                        s += '<span style="color: ' + series.color + ';">' + series.name + '</span>' + ': ' + formatter(xy.y) + ' ' + series.options.units + '</p>';
+                        s += '<span style="color: ' + series.color + ';">' + series.name + '</span>' + ': ' + formatter(xy.y)+ '</p>';
                       }
                     }
                   });
