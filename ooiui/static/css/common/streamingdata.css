@@ -91,3 +91,31 @@
   z-index: 100;
   font-size: 52px;
 }
+
+.pulsor {
+    padding-left:3px;
+    cursor: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 12px #ff0000;
+    -webkit-animation: flash 3s infinite alternate;
+    -moz-animation: flash 3s infinite alternate;
+    -animation: flash 3s infinite alternate;
+    text-shadow: 0 0 2px #fff;
+}
+
+/*
+ * Flash animation
+*/
+
+@-webkit-keyframes flash {
+    50%, 75%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.5;}
+}
+@keyframes flash {
+    50%, 75%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.5;}
+}
+.flash {
+    -webkit-animation-name: flash;
+    animation-name: flash;
+}

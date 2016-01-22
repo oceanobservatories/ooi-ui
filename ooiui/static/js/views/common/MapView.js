@@ -478,7 +478,7 @@ var MapView = Backbone.View.extend({
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {
                                         if (instrumentStreamName.indexOf('streamed') > -1){
-                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+' <a  href="javascript:void(0);" data-streamid="'+instruments.models[i].cid+'"" class="popup-streaming-item" title="Streaming Data View"><i class="fa fa-rss">&nbsp;</i></a></td>';
+                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+' <a  class="pulsor popup-streaming-item" href="javascript:void(0);" data-streamid="'+instruments.models[i].cid+'"" title="Streaming Data View"><i class="fa fa-rss">&nbsp;</i></a></td>';
                                         }else{
                                             y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                         }
