@@ -82,19 +82,24 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
     },
     onPlayClick:function(){
       var self = this;
-      this.$el.find('#playStream').prop('disabled', true);
-      if (self.streamingDataView.isRendered){
-        self.streamingDataView.chart.showLoading();
-        self.streamingDataView.chart.isLoading=true;
-        self.streamingDataView.updateVariable(self.getVariableList());
-        self.streamingDataView.resume();
-      }else{
-        self.streamingDataView.updateVariable(self.getVariableList());
-        self.streamingDataView.render();
+      if (self.getVariableList().length>0){
+        this.$el.find('#playStream').prop('disabled', true);
+
+
+
+        if (self.streamingDataView.isRendered){
+          self.streamingDataView.chart.showLoading();
+          self.streamingDataView.chart.isLoading=true;
+          self.streamingDataView.updateVariable(self.getVariableList());
+          self.streamingDataView.resume();
+        }else{
+          self.streamingDataView.updateVariable(self.getVariableList());
+          self.streamingDataView.render();
+        }
+        this.$el.find('#pauseStream').prop('disabled', false);
+        this.$el.find('#paramSelection').attr('disabled',true);
+        this.$el.find('.selectpicker').selectpicker('refresh');
       }
-      this.$el.find('#pauseStream').prop('disabled', false);
-      this.$el.find('#paramSelection').attr('disabled',true);
-      this.$el.find('.selectpicker').selectpicker('refresh');
     },
     onPauseClick:function(){
       var self = this
