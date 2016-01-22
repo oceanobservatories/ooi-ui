@@ -375,6 +375,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                     labels: {enabled: true},
                     title: {text:points['units'][self.variable[vv]]}
                   });
+                  series.options.units = points['units'][self.variable[vv]];
                   self.chart.series[vv].show();
                   self.chart.redraw();
 
@@ -417,7 +418,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     self.isRendered = true;
     self.resetAxis = true;
     self.isLoading = true;
-
+    var formatter = d3.format(".2f");
     var yAxisList = [];
     var seriesList = [];
     for (var i = 0; i < 4; i++) {
@@ -476,7 +477,10 @@ var HighchartsStreamingDataView = Backbone.View.extend({
             showDuration: 1000,
         },
         title: {
-            text: self.model.get('display_name')
+          text: self.model.get('display_name')
+        },
+        subtitle: {
+          text: self.model.get('stream_name')
         },
         xAxis: [{
             type: 'datetime',
@@ -487,7 +491,25 @@ var HighchartsStreamingDataView = Backbone.View.extend({
             }
         }],
         tooltip: {
-            shared: true
+          useHTML: true,
+              formatter: function() {
+                  var x = this.x;
+                  var s = '';
+                  s+='<p><b>Time: '+Highcharts.dateFormat('%Y-%m-%d %H:%M:%S UTC',  this.x) +'</b></p><p>';
+
+                  _.each(self.chart.series,function(series) {
+                    if (series.visible) {
+                      // Assume the data is ordered by time.  Find the 1st value that is >= x.
+                      var xy = _.find(series.data,function(o){return o.x >= x});
+                      if (xy) {
+                        s += '<span style="color: ' + series.color + ';">' + series.name + '</span>' + ': ' + formatter(xy.y) + ' ' + series.options.units + '</p>';
+                      }
+                    }
+                  });
+                  return s;
+              },
+          shared: true,
+          crosshairs : [true,false]
         },
         yAxis: yAxisList,
         series: seriesList
