@@ -55,7 +55,7 @@
           <div class="row">
             {# <div class="col-md-12"> #}
               <div id="plotcontrols">
-                <p class="glyphicon glyphicon-hand-left"> Please select a stream </p>
+                <p> Please select a stream from the Table of Contents. </p>
               </div>
             {# </div> #}
           </div>
@@ -382,6 +382,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       }else{
         self.views.plottingItemSelection2.filterItems(options);
       }
+    });
+
+    this.listenTo(this, 'toc:paramFilter', function(option) {
+
     });
 
     this.listenTo(this, 'toc:selectStream', function(options) {
@@ -967,6 +971,21 @@ _.extend(OOI.prototype, Backbone.Events, {
   this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
     self.views.modalDownloadFailView.show(msg);
   });
+
+  this.listenTo(vent, 'toc:paramFilter', function(option) {
+      $.when(vent.trigger('toc:derenderItems')).done(function() {
+            var paramSearch = { search: option };
+            streamFetch = streamCollection.fetch({ data: paramSearch });
+            $.when(streamFetch).done(function() {
+                $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
+//                vent.trigger('toc:filter');
+                vent.trigger('toc:noKids');
+                $('#search-param').val(option);
+                focusToItem();
+                });
+            });
+      });
+  });
 }
 });
 
@@ -974,7 +993,6 @@ var ooi = new OOI();
 var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
-var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
@@ -982,16 +1000,17 @@ var streamCollection    = new StreamCollection();
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
-var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ reset: true });
 
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
-  $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+$.when(arrayFetch, streamFetch).done(function() {
+  $.when( (renderTOCView( arrayCollection, null, streamCollection )) ).done(function() {
       vent.trigger('toc:cleanUp');
       $.when(focusToItem()).done(function() {
       });
   });
 });
+
+
 
 $(document).ready(function() {
   ooi.start();
