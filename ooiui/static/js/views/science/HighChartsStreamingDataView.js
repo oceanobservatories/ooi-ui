@@ -359,11 +359,14 @@ var HighchartsStreamingDataView = Backbone.View.extend({
         cache: false,
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           //
-          self.$el.parent().parent().parent().find('#pauseStream').click();
-          bootbox.dialog({
-            title: "Error Getting Data From Stream",
-            message: "There was an error obtaining the stream data from uframe",
-          });
+          if (errorThrown!="abort"){
+            self.$el.parent().parent().parent().find('#pauseStream').click();
+            self.$el.find('.highcharts-container .highcharts-loading span').text('Error Loading...');
+            bootbox.dialog({
+              title: "Error Getting Data From Stream",
+              message: "There was an error obtaining the stream data from uframe",
+            });
+          }
         },
         success: function(points) {
             if (self.multiRequest){
