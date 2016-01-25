@@ -35,6 +35,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html'
           ],
           "ooiui/static/js/partials/compiled/streamingdata.js" : [
+            "ooiui/static/js/partials/NewsBanner.html",
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
