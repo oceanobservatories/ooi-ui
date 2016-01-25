@@ -201,6 +201,8 @@ $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     streamCollection.showIcons = true;
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
+        //hide the non streaming streams
+        vent.trigger('toc:showStreamingStreams');
         focusToItem();
     });
 });

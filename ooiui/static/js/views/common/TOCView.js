@@ -428,6 +428,12 @@ var StreamItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:hideStreams', function() {
             this.$el.attr('style','display:none;');
         });
+        this.listenTo(vent, 'toc:showStreamingStreams', function() {
+            //only shows the streaming data items in the toc
+            if (this.model.get('stream_name').indexOf('streamed') == -1){
+                this.$el.attr('style','display:none;');
+            }
+        });
     },
     onMarkerClick: function(e) {
         var self = this;
