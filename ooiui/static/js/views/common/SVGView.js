@@ -1,5 +1,3 @@
-"use strict";
-
 //--------------- validation
 var plotParameters ={
 
@@ -477,6 +475,8 @@ var SVGPlotControlView = Backbone.View.extend({
         this.$el.find('.selectpicker').selectpicker('refresh');
     },
     timeRangeChange: function() {
+        // M@Campbell 10/09/2015
+        "use strict";
         var timeRangeDelta, timeChangedTo, startDate, endDate;
 
         // get the time in days to subtract from the end date.
@@ -499,6 +499,8 @@ var SVGPlotControlView = Backbone.View.extend({
 
     },
     resetTimeRange: function() {
+        // M@Campbell 10/09/2015
+        "use strict";
         $(".plot-range-fields #time-range > select").val("Reset").change();
     },
     //set ony 1 checkbox
