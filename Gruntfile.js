@@ -763,7 +763,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/science/TocModel.js',
             'ooiui/static/js/models/science/GliderTrackModel.js',
-            'ooiui/static/js/models/science/SeriesModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -774,7 +773,6 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
-            'ooiui/static/js/views/science/HighchartsStreamingDataView.js'
           ],
           'ooiui/static/js/compiled/basic.js' : [
             // Libs
