@@ -9,6 +9,9 @@
     min-height:200px;
 }
 
+div#plotcontrols{
+  text-transform: none;
+}
 
 #tocNav .instrument ul.nav-list.tree li a{
   margin-left:-1px;
@@ -32,7 +35,6 @@
   content: "\f146";
   color:darkred;
 }
-
 
 .plot-row{
   margin:0px;

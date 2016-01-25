@@ -264,6 +264,16 @@ var AssetItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:hideInstruments', function() {
             this.$el.find('.instrument').toggle();
         });
+        this.listenTo(vent, 'toc:hideNoStreamingInstruments', function() {
+            var selector = (this.$el.find('li.instrument'));
+            _.each(selector,function(instrument){
+                var results = $(instrument).find('li.row[id*="streamed"]');
+                //display if for engineering streams
+                if (results.length < 1 && !($(instrument).css('display') == 'none')){
+                    $(instrument).trigger('toc:noKids');
+                }
+            });
+        });
         this.listenTo(vent, 'toc:hideNodes', function() {
             this.$el.find('.node').hide();
         });
@@ -431,7 +441,7 @@ var StreamItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:showStreamingStreams', function() {
             //only shows the streaming data items in the toc
             if (this.model.get('stream_name').indexOf('streamed') == -1){
-                this.$el.attr('style','display:none;');
+                this.$el.remove();
             }
         });
     },

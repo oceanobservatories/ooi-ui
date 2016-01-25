@@ -42,6 +42,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/InstrumentItem.html",
             "ooiui/static/js/partials/PlatformItem.html",
             "ooiui/static/js/partials/ArrayItem.html",
+            "ooiui/static/js/partials/NewsBanner.html",
             "ooiui/static/js/partials/StreamItem.html",
             "ooiui/static/js/partials/DropdownMessages.html",
             "ooiui/static/js/partials/DropdownMessage.html",
@@ -712,6 +713,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/backbone/backbone.js",
             'ooiui/static/lib/moment/moment.js',
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             // App
             'ooiui/static/js/ooi.js',
@@ -749,6 +751,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/Leaflet.Label/dist/leaflet.label.js",
             "ooiui/static/lib/Leaflet.EasyButton/src/easy-button.js",
             'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
             // App
             'ooiui/static/js/ooi.js',

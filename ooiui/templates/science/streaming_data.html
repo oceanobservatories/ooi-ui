@@ -45,8 +45,12 @@
                     <div id="control-heading" class="panel-heading plotting-heading">
                       <div class="row">
                         {# <div class="col-md-12"> #}
-                          <div id="plotcontrols">
-                            <p style="padding-left:15px"class="glyphicon glyphicon-hand-left"> Please select a stream </p>
+                          <div style="display:none;" id="plotcontrols">
+                            <p style="padding-left:15px"class="glyphicon glyphicon-hand-left"> Please use the TOC located on the left to find a desired streaming dataset to plot<br>
+                            Use the <i style="font-size: 16px;color: green;font-style: italic;" class="fa fa-plus-square"></i> icon to add the dataset to the plotting section below<br>
+                            Use the <i style="font-size: 16px;color: darkred;font-style: italic;" class="fa fa-minus-square"></i> to remove the dataset<br>
+                            </p>
+
                           </div>
                         {# </div> #}
                         </div>
@@ -139,7 +143,10 @@ _.extend(OOI.prototype, Backbone.Events, {
           if (self.views.streamingDataView.add(streamSelect.model)){
             streamSelect.toc.removeClass('toc-icon-marker-unselected').addClass('toc-icon-marker-selected');
           }
+        });
 
+        this.listenTo(this, 'toc:ready', function() {
+          $('#plotcontrols').css('display','inline-block');
         });
 
         this.listenTo(this, 'toc:removeStream', function(streamSelect) {
@@ -203,8 +210,11 @@ $.when(arrayFetch, assetFetch, streamFetch).done(function() {
         vent.trigger('toc:cleanUp');
         //hide the non streaming streams
         vent.trigger('toc:showStreamingStreams');
+        //hide the instruments
+        vent.trigger('toc:hideNoStreamingInstruments');
         focusToItem();
     });
+    ooi.trigger('toc:ready');
 });
 
 // Takes care of the strange size of the map
