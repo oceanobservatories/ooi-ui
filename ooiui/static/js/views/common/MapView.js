@@ -1,6 +1,6 @@
 var MapView = Backbone.View.extend({
     derender: function() {
-        this.map = '';
+        this.map = null;
 
         this.remove();
         this.unbind();
