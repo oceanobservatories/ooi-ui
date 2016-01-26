@@ -320,7 +320,7 @@ var AssetItemView = Backbone.View.extend({
         "use strict";
         // If the asset class is an AssetRecord, give the view an ID of the
         // first 8 characters of the Reference Designator
-        var assName, platformName, platformId, label, instrumentId, instrumentName, assId, refDes;
+        var platformName, platformId, label, instrumentId, instrumentName, assetId, refDes;
         if (this.model.get('asset_class') === '.AssetRecord') {
             platformName = this.model.get('assetInfo').name;
             if (platformName.indexOf('Glider') > -1){
@@ -329,13 +329,13 @@ var AssetItemView = Backbone.View.extend({
             }
             refDes = this.model.get('ref_des');
             platformId = refDes.substr(0,8);
-            assId = (refDes.indexOf('GL') !== -1) ? refDes.substr(9,14) : refDes.substr(9,11);
-            assId = (assId.length > 0) ? '-' + assId : "";
+            assetId = (refDes.indexOf('GL') !== -1) ? refDes.substr(9,14) : refDes.substr(9,11);
+            assetId = (assetId.length > 0) ? '-' + assetId : "";
             this.$el.attr('id', platformId);
             this.$el.attr('class', 'platform');
             // since this is an AssetRecord (platform / glider) lets assume
             // it'll need to have instruments attached to it...so create a container!
-            label = (platformName === '' || platformName === null) ? platformId+assId : '<span>' + platformName + '</span> <font class="ref-des-item">' + platformId +'</font>';
+            label = (platformName === '' || platformName === null) ? platformId+assetId : '<span>' + platformName + '</span> <font class="ref-des-item">' + platformId +'</font>';
             this.$el.append('<label class="platform tree-toggler nav-header">'+ label + '</label><ul id="'+ platformId +'" class="nav-list tree" style="display:none"></ul>');
         } else if(this.model.get('asset_class') == '.InstrumentAssetRecord') {
             // otherwise, if it's an InstrumentAssetRecord then give the view an ID
