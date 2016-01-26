@@ -43,6 +43,14 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
         }
         return streamPlotAdded
     },
+    getSelectedStreams : function(){
+      var self = this;
+      var selectedStreamModelCollection = new StreamCollection();
+      _.each(self.subviews,function(currentView,i){
+        selectedStreamModelCollection.add(currentView.model);
+      });
+      return selectedStreamModelCollection;
+    },
     remove: function(streamModel) {
         var self = this;
         var streamPlotRemoved = false;

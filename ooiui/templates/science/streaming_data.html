@@ -109,8 +109,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         });
         self.views.streamingDataView.render();
 
-
-
         this.listenTo(this, "toc:selectArray", function(model) {
         });
 
@@ -175,22 +173,25 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
 
       this.listenTo(vent, 'toc:paramFilter', function(option) {
-          $.when(vent.trigger('toc:derenderItems')).done(function() {
-              var paramSearch = { search: option };
-              streamFetch = streamCollection.fetch({ data: paramSearch });
-
-              streamCollection.showIcons = true;
-              $.when(streamFetch).done(function() {
-                  $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
-                      //hide the non streaming streams
-                      vent.trigger('toc:showStreamingStreams');
-                      //hide the instruments
-                      vent.trigger('toc:hideNoStreamingInstruments');
-                      vent.trigger('toc:noKids');
-                      focusToItem();
-                  });
-              });
-          });
+        //get currently selected stream/reference designators
+        streamCollection.selectedStreams = null;
+        var selectedStreamModels = self.views.streamingDataView.getSelectedStreams();
+        $.when(vent.trigger('toc:derenderItems')).done(function() {
+            var paramSearch = { search: option };
+            streamFetch = streamCollection.fetch({ data: paramSearch });
+            streamCollection.selectedStreams = selectedStreamModels;
+            streamCollection.showIcons = true;
+            $.when(streamFetch).done(function() {
+                $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
+                    //hide the non streaming streams
+                    vent.trigger('toc:showStreamingStreams');
+                    //hide the instruments
+                    vent.trigger('toc:hideNoStreamingInstruments');
+                    vent.trigger('toc:noKids');
+                    focusToItem();
+                });
+            });
+        });
   });
       this.listenTo(this, "login:success", this.onLogin);
       this.listenTo(this, "login:logout", this.onLogout);

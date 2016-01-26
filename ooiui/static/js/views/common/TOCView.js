@@ -94,6 +94,14 @@ var TOCView = Backbone.View.extend({
                     if ("showIcons" in self.streamCollection){
                         model.set('showIcons',self.streamCollection.showIcons);
                     }
+                    if ("selectedStreams" in self.streamCollection){
+                        //see if the model has already been selected
+                        var alreadySelected = self.streamCollection.selectedStreams.where({reference_designator:model.get('reference_designator'),stream_name:model.get('stream_name')});
+                        //if so set the model attribute
+                        if (alreadySelected.length == 1){
+                            model.set('isSelectedStream',true);
+                        }
+                    }
                     instrumentCode = model.get('reference_designator');
                     streamName = model.get('stream_name');
                     /* Not all streams have physical instruments, so the asset list won't
@@ -459,8 +467,12 @@ var StreamItemView = Backbone.View.extend({
         this.$el.html( this.template(this.model.toJSON()) );
 
         if ('showIcons' in this.model.attributes && this.model.get('showIcons') && this.model.get('stream_name').indexOf('streamed') > -1){
-            //shows the icon if a stream is available
-            this.$el.append('<i class="toc-icon-marker toc-icon-marker-unselected pull-left"></i>')
+            //check to see if it was already selected, if so change the call
+            if ('isSelectedStream' in this.model.attributes && this.model.get('isSelectedStream')){
+                this.$el.append('<i class="toc-icon-marker toc-icon-marker-selected pull-left"></i>')
+            }else{
+                this.$el.append('<i class="toc-icon-marker toc-icon-marker-unselected pull-left"></i>')
+            }
         }else{
             this.$el.append('<i style="" class="pull-left"></i>')
         }
