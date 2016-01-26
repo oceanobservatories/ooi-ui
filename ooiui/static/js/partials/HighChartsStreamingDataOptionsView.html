@@ -1,4 +1,11 @@
 <div class="panel panel-default">
+  <% if (showControls) { %>
+  <div id="streamingDataOptions" class="streaming-data-view-icon pull-right">
+      <i id="streamingHide"class="fa fa-chevron-circle-down"></i>
+      <i id="streamingClose" class="fa fa-times-circle"></i>
+  </div>
+  <% } %>
+
   <div class="panel-heading">
     <div class="pull-right">
       <div id='streamingDataViewControls'>

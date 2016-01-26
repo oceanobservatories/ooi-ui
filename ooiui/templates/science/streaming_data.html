@@ -85,6 +85,14 @@ _.extend(OOI.prototype, Backbone.Events, {
             }
         }
     },
+    showStreamingTitle:function(){
+      var self = this;
+      //show is nothing there
+      if (self.views.streamingDataView.subviews.length == 0){
+        $('#streaming-data').css('display','none');
+        $('#useOutline').css('display','block');
+      }
+    },
     start: function() {
       var ciLogonToken = this.getURLParameter('token'),
             ciLogonTimeout = this.getURLParameter('expiration');
@@ -144,16 +152,27 @@ _.extend(OOI.prototype, Backbone.Events, {
           $('#plotcontrols').css('display','inline-block');
         });
 
+        this.listenTo(this, 'streamPlot:removeStream', function(streamModelSelect) {
+          //remove from the container
+          if (self.views.streamingDataView.remove(streamModelSelect)){
+            console.log('remove');
+            //remove from the toc selection
+            var selectedOnToc = $('#tocNav').find('.toc-icon-marker.toc-icon-marker-selected').parent();
+            _.each(selectedOnToc,function(tocItem){
+              if ($(tocItem).attr('id') == (streamModelSelect.get('reference_designator')+"-"+streamModelSelect.get('stream_name'))){
+                $(tocItem).find('.toc-icon-marker').removeClass('toc-icon-marker-selected').addClass('toc-icon-marker-unselected');
+              }
+            });
+
+          };
+          self.showStreamingTitle();
+        });
+
         this.listenTo(this, 'toc:removeStream', function(streamSelect) {
           if (self.views.streamingDataView.remove(streamSelect.model)){
             streamSelect.toc.removeClass('toc-icon-marker-selected').addClass('toc-icon-marker-unselected');
           }
-          //show is nothing there
-          if (self.views.streamingDataView.subviews.length == 0){
-            $('#streaming-data').css('display','none');
-            $('#useOutline').css('display','block');
-          }
-
+          self.showStreamingTitle();
         });
 
       // Login stuff..
