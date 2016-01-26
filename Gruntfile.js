@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/UserTable.html",
             "ooiui/static/js/partials/UserTableItem.html",
             "ooiui/static/js/partials/LoggedInNavItems.html",
-            "ooiui/static/js/partials/Banner.html"
+            "ooiui/static/js/partials/Banner.html",
           ],
 
           "ooiui/static/js/partials/compiled/FAQ.js" : [
@@ -689,6 +689,7 @@ module.exports = function(grunt) {
 
             // App
             'ooiui/static/js/ooi.js',
+            'ooiui/static/lib/moment/moment.js',
             // Models
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -1464,6 +1465,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/jqtree/tree.jquery.js",
             // App
             'ooiui/static/js/ooi.js',
+            'ooiui/static/lib/moment/moment.js',
             // Models
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
@@ -1511,7 +1513,7 @@ module.exports = function(grunt) {
           //   'ooiui/static/lib/backbone/backbone.js',
           'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
           //   'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
-          //   'ooiui/static/lib/moment/moment.js',
+             'ooiui/static/lib/moment/moment.js',
           //   // App
           //   'ooiui/static/js/ooi.js',
           //   // Models
