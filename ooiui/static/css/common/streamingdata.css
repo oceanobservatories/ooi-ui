@@ -1,0 +1,124 @@
+.streaming-plot-container-header{
+    border: 3px solid #D1DAF5;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-color: #D1DAF5;
+    margin-bottom: 4px;
+    background-color: #fff!important;
+    margin: 2px 2px 2px 2px;
+    min-height:200px;
+}
+
+div#plotcontrols{
+  text-transform: none;
+}
+
+#tocNav .instrument ul.nav-list.tree li a{
+  margin-left:-1px;
+}
+
+#tocNav .instrument ul.nav-list.tree li .toc-icon-marker{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#tocNav .instrument ul.nav-list.tree li .toc-icon-marker.toc-icon-marker-unselected:before {
+  font-size:20px;
+  font-family: FontAwesome;
+  content: "\f0fe";
+  color:green;
+}
+
+#tocNav .instrument ul.nav-list.tree li .toc-icon-marker.toc-icon-marker-selected:before {
+  font-size:20px;
+  font-family: FontAwesome;
+  content: "\f146";
+  color:darkred;
+}
+
+.plot-row{
+  margin:0px;
+}
+
+
+.highcharts-container{
+  width:100% !important;
+}
+
+.streamingDataContainer{
+  position: fixed;
+  left: 402px;
+  height: 400px;
+  z-index: 1000;
+  width: calc(100% - 430px);;
+  opacity: 0.84;
+  bottom:0px;
+}
+
+#streamingDataViewControls{
+  margin-right:15px;
+  margin-top:15px;
+}
+
+.streamingDataOptions{
+  margin-right:100px;
+}
+
+.streamingDataOptions label{
+  padding-right:5px;
+}
+
+.streaming-data-view-icon{
+  margin-right: 15px;
+  margin-top: 15px;
+  font-size: 25px;
+}
+
+.streaming-data-view-show-icon{
+  padding:5px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100;
+  font-size: 35px;
+}
+
+.streaming-data-view-show-icon2{
+  display:none;
+  color: #004773;
+  padding: 0px;
+  position: absolute;
+  bottom: 46px;
+  right: 45px;
+  z-index: 100;
+  font-size: 52px;
+}
+
+.leaflet-popup-content td.popup-instrument-item .pulsor {
+    padding-left:2px;
+    padding-right:5px;
+    cursor: auto;
+    border-radius: 8px;
+    color:green;
+    -webkit-animation: flash 3s infinite alternate;
+    -moz-animation: flash 3s infinite alternate;
+    -animation: flash 3s infinite alternate;
+    text-shadow: 0 0 2px #fff;
+}
+
+/*
+ * Flash animation
+*/
+
+@-webkit-keyframes flash {
+    50%, 75%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.3;}
+}
+@keyframes flash {
+    50%, 75%, 100% {opacity: 1;}
+    25%, 75% {opacity: 0.3;}
+}
+.flash {
+    -webkit-animation-name: flash;
+    animation-name: flash;
+}

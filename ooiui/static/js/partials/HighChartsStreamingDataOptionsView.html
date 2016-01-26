@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="pull-right">
+      <div id='streamingDataViewControls'>
+        <div class="asset-streaming-links btn-group" role="group" aria-label="...">
+          <a class="btn btn-default" href="/plotting/#<%= streamModel.get('ref_des') %>" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>
+          <a class="btn btn-default" href="/streams/#<%= streamModel.get('ref_des') %>" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>
+          <a class="btn btn-default" href="/assets/list#<%= streamModel.get('ref_des') %>" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+          <button id='playStream' type="button" class="btn btn-default btn-lg">
+            <span class="fa fa-play" aria-hidden="true"></span> Start
+          </button>
+          <button id='pauseStream' disabled type="button" class="btn btn-default btn-lg">
+            <span class="fa fa-stop" aria-hidden="true"></span> Stop
+          </button>
+          <button id='download-plot' type="button" class="btn btn-default btn-lg">
+            <span class="fa fa-download" aria-hidden="true"></span> Download Plot
+          </button>
+        </div>
+      </div>
+    </div>
+    <label>Streaming For: <%= streamModel.get('long_display_name') %></label>
+    <br>
+
+    <div id='streamingDataOptions'>
+      <label>Parameter Selection</label>
+      <select data-hide-disabled=true multiple data-max-options="4" data-live-search="false" id="paramSelection" class="selectpicker">
+      </select>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class='row plot-row'>
+
+    </div>
+
+    <div class="row plot-row">
+      <div id='streamingDataPlot' style="height:300px;width:100%;margin: 0 auto">
+      </div>
+    </div>
+  </div>
+</div>

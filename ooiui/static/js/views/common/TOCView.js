@@ -8,7 +8,7 @@
  * - ooiui/static/lib/backbone/backbone.js
  * - ooiui/static/js/ooi.js
  */
-
+"use strict";
 
 var TOCView = Backbone.View.extend({
     id: 'assetBrowser',
@@ -85,11 +85,14 @@ var TOCView = Backbone.View.extend({
         });
     },
     renderStreams: function(e) {
-        "use strict";
+        var self = this;
         if ( this.streamCollection !== undefined ) {
             var homelessStreamItem, instrumentCode, streamName, instrumentTarget, streamItemView, arrayCode, platformCode, platformTarget, assemblyCode, assemblyItemView;
             this.streamCollection.map( function(model) {
                 try {
+                    if ("showIcons" in self.streamCollection){
+                        model.set('showIcons',self.streamCollection.showIcons);
+                    }
                     instrumentCode = model.get('reference_designator');
                     streamName = model.get('stream_name');
                     /* Not all streams have physical instruments, so the asset list won't
@@ -261,6 +264,16 @@ var AssetItemView = Backbone.View.extend({
         this.listenTo(vent, 'toc:hideInstruments', function() {
             this.$el.find('.instrument').toggle();
         });
+        this.listenTo(vent, 'toc:hideNoStreamingInstruments', function() {
+            var selector = (this.$el.find('li.instrument'));
+            _.each(selector,function(instrument){
+                var results = $(instrument).find('li.row[id*="streamed"]');
+                //display if for engineering streams
+                if (results.length < 1 && !($(instrument).css('display') == 'none')){
+                    $(instrument).trigger('toc:noKids');
+                }
+            });
+        });
         this.listenTo(vent, 'toc:hideNodes', function() {
             this.$el.find('.node').hide();
         });
@@ -381,6 +394,8 @@ var HomelessStreamItemView = AssetItemView.extend({
                 this.$el.addClass('eng-item');
             }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(15) + '</font>';
+
+
             this.$el.append('<label class="instrument tree-toggler nav-header">'+ label + '</label>'+
                             '<ul id="'+ instrumentId +'" class="nav-list tree" style="display: none"></ul>');
         }
@@ -390,7 +405,6 @@ var HomelessStreamItemView = AssetItemView.extend({
 
 var AssemblyItemView = AssetItemView.extend({
     render: function() {
-        "use strict";
         var assemblyCode = this.model.get('ref_des').substr(9,5) || "",
             assemblyName = this.model.get('assetInfo').assembly || this.model.get('assembly_name') || assemblyCode,
             label;
@@ -411,21 +425,38 @@ var AssemblyItemView = AssetItemView.extend({
 
 var StreamItemView = Backbone.View.extend({
     tagName: 'li',
+    className: "row",
     events: {
-        'click a': 'onClick'
+        'click a': 'onClick',
+        'click .toc-icon-marker': 'onMarkerClick'
     },
     initialize: function(options) {
-        "use strict";
-        _.bindAll(this, 'render', 'derender', 'onClick');
+        _.bindAll(this, 'render', 'derender', 'onClick','onMarkerClick');
         this.listenTo(vent, 'toc:denrenderItems', function() {
             this.derender();
         });
         this.listenTo(vent, 'toc:hideStreams', function() {
             this.$el.attr('style','display:none;');
         });
+        this.listenTo(vent, 'toc:showStreamingStreams', function() {
+            //only shows the streaming data items in the toc
+            if (this.model.get('stream_name').indexOf('streamed') == -1){
+                this.$el.remove();
+            }
+        });
+    },
+    onMarkerClick: function(e) {
+        var self = this;
+        e.stopImmediatePropagation();
+
+        var marker = self.$el.find('.toc-icon-marker')
+        if (marker.hasClass('toc-icon-marker-unselected')){
+            ooi.trigger('toc:addStream', { model: this.model,toc:marker });
+        }else{
+            ooi.trigger('toc:removeStream', { model: this.model,toc:marker });
+        }
     },
     onClick: function(e) {
-        "use strict";
         $(".active-toc-item").removeClass("active-toc-item");
         e.stopImmediatePropagation();
         $(e.target).addClass("active-toc-item");
@@ -433,19 +464,23 @@ var StreamItemView = Backbone.View.extend({
     },
     template: _.template('<a href="#<%= reference_designator %>/<%= stream_name %>" title="<%= stream_name %>"><%= stream_name %></a>'),
     derender: function() {
-        "use strict";
         this.remove();
         this.unbind();
         this.model.off();
-
     },
     render: function() {
-        "use strict";
         this.$el.attr('id', this.model.get('reference_designator') + '-' + this.model.get('stream_name'));
         if(this.model.get('stream_name').indexOf('metadata') > -1) {
             this.$el.addClass('meta-data-item');
         }
         this.$el.html( this.template(this.model.toJSON()) );
+
+        if ('showIcons' in this.model.attributes && this.model.get('showIcons') && this.model.get('stream_name').indexOf('streamed') > -1){
+            //shows the icon if a stream is available
+            this.$el.append('<i class="toc-icon-marker toc-icon-marker-unselected pull-left"></i>')
+        }else{
+            this.$el.append('<i style="" class="pull-left"></i>')
+        }
         return this;
     }
 });
