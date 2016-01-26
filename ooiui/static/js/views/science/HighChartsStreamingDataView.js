@@ -5,7 +5,11 @@
 
 var HighchartsStreamingContainerView = Backbone.View.extend({
     subviews : [],
+    showControls: true,
     initialize: function(options) {
+        if (options && 'showControls' in options){
+          this.showControls = options.showControls;
+        }
         _.bindAll(this, "render", "add","remove");
         this.render();
     },
@@ -34,6 +38,7 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
         if (!refExists){
             var subview = new HighchartsStreamingDataOptionsView({
               model: streamModel,
+              showControls: self.showControls
             });
 
             subview.render();
@@ -42,6 +47,14 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
             streamPlotAdded = true;
         }
         return streamPlotAdded
+    },
+    getSelectedStreams : function(){
+      var self = this;
+      var selectedStreamModelCollection = new StreamCollection();
+      _.each(self.subviews,function(currentView,i){
+        selectedStreamModelCollection.add(currentView.model);
+      });
+      return selectedStreamModelCollection;
     },
     remove: function(streamModel) {
         var self = this;
@@ -66,20 +79,34 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
 });
 
 var HighchartsStreamingDataOptionsView = Backbone.View.extend({
+    showControls: true,
     initialize: function(options) {
         if (options && options.model){
             this.model = options.model;
         }
-        _.bindAll(this,'render','onPlayClick','onRemoveClick','onPauseClick');
+        if (options && 'showControls' in options){
+          this.showControls = options.showControls;
+        }
+        _.bindAll(this,'render','onPlayClick','onRemoveClick','onPauseClick','onHideChart');
     },
     events:{
-        'click #removePanel': 'onRemoveClick',
+        'click #streamingClose': 'onRemoveClick',
         'click #playStream': 'onPlayClick',
         'click #pauseStream': 'onPauseClick',
         'click #download-plot' : 'plotDownloads',
+        'click #streamingHide' : 'onHideChart'
+    },
+    onHideChart:function(){
+      if (this.$el.find("#streamingHide").hasClass('fa-chevron-circle-down')){
+        this.$el.find("#streamingHide").removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+      }else{
+        this.$el.find("#streamingHide").removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+      }
+      this.$el.find('#streamingDataPlot').toggle( "slow");
+
     },
     onRemoveClick:function(){
-      //NOT IMPLEMENTED
+      ooi.trigger('streamPlot:removeStream',this.model);
     },
     plotDownloads: function(e) {
         event.preventDefault();
@@ -133,8 +160,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
     },
     render: function() {
         var self = this;
-
-        this.$el.html(this.template({streamModel:self.model}));
+        this.$el.html(this.template({streamModel:self.model,showControls:self.showControls}));
 
         var param_list = [],
         parameterhtml = "",

@@ -85,6 +85,14 @@ _.extend(OOI.prototype, Backbone.Events, {
             }
         }
     },
+    showStreamingTitle:function(){
+      var self = this;
+      //show if nothing is there
+      if (self.views.streamingDataView.subviews.length == 0){
+        $('#streaming-data').css('display','none');
+        $('#useOutline').css('display','block');
+      }
+    },
     start: function() {
       var ciLogonToken = this.getURLParameter('token'),
             ciLogonTimeout = this.getURLParameter('expiration');
@@ -108,8 +116,6 @@ _.extend(OOI.prototype, Backbone.Events, {
           el: $('#streaming-data')
         });
         self.views.streamingDataView.render();
-
-
 
         this.listenTo(this, "toc:selectArray", function(model) {
         });
@@ -146,16 +152,26 @@ _.extend(OOI.prototype, Backbone.Events, {
           $('#plotcontrols').css('display','inline-block');
         });
 
+        this.listenTo(this, 'streamPlot:removeStream', function(streamModelSelect) {
+          //remove from the container
+          if (self.views.streamingDataView.remove(streamModelSelect)){
+            //remove from the toc selection
+            var selectedOnToc = $('#tocNav').find('.toc-icon-marker.toc-icon-marker-selected').parent();
+            _.each(selectedOnToc,function(tocItem){
+              if ($(tocItem).attr('id') == (streamModelSelect.get('reference_designator')+"-"+streamModelSelect.get('stream_name'))){
+                $(tocItem).find('.toc-icon-marker').removeClass('toc-icon-marker-selected').addClass('toc-icon-marker-unselected');
+              }
+            });
+
+          };
+          self.showStreamingTitle();
+        });
+
         this.listenTo(this, 'toc:removeStream', function(streamSelect) {
           if (self.views.streamingDataView.remove(streamSelect.model)){
             streamSelect.toc.removeClass('toc-icon-marker-selected').addClass('toc-icon-marker-unselected');
           }
-          //show is nothing there
-          if (self.views.streamingDataView.subviews.length == 0){
-            $('#streaming-data').css('display','none');
-            $('#useOutline').css('display','block');
-          }
-
+          self.showStreamingTitle();
         });
 
       // Login stuff..
@@ -175,22 +191,25 @@ _.extend(OOI.prototype, Backbone.Events, {
       }
 
       this.listenTo(vent, 'toc:paramFilter', function(option) {
-          $.when(vent.trigger('toc:derenderItems')).done(function() {
-              var paramSearch = { search: option };
-              streamFetch = streamCollection.fetch({ data: paramSearch });
-
-              streamCollection.showIcons = true;
-              $.when(streamFetch).done(function() {
-                  $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
-                      //hide the non streaming streams
-                      vent.trigger('toc:showStreamingStreams');
-                      //hide the instruments
-                      vent.trigger('toc:hideNoStreamingInstruments');
-                      vent.trigger('toc:noKids');
-                      focusToItem();
-                  });
-              });
-          });
+        //get currently selected stream/reference designators
+        streamCollection.selectedStreams = null;
+        var selectedStreamModels = self.views.streamingDataView.getSelectedStreams();
+        $.when(vent.trigger('toc:derenderItems')).done(function() {
+            var paramSearch = { search: option };
+            streamFetch = streamCollection.fetch({ data: paramSearch });
+            streamCollection.selectedStreams = selectedStreamModels;
+            streamCollection.showIcons = true;
+            $.when(streamFetch).done(function() {
+                $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
+                    //hide the non streaming streams
+                    vent.trigger('toc:showStreamingStreams');
+                    //hide the instruments
+                    vent.trigger('toc:hideNoStreamingInstruments');
+                    vent.trigger('toc:noKids');
+                    focusToItem();
+                });
+            });
+        });
   });
       this.listenTo(this, "login:success", this.onLogin);
       this.listenTo(this, "login:logout", this.onLogout);
