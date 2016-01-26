@@ -6,7 +6,7 @@
     margin-bottom: 4px;
     background-color: #fff!important;
     margin: 2px 2px 2px 2px;
-    min-height:200px;
+    min-height:100px;
 }
 
 div#plotcontrols{
@@ -39,7 +39,6 @@ div#plotcontrols{
 .plot-row{
   margin:0px;
 }
-
 
 .highcharts-container{
   width:100% !important;
