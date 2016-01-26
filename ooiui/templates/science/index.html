@@ -193,7 +193,8 @@ _.extend(OOI.prototype, Backbone.Events, {
             }
 
             self.views.streamingDataView = new HighchartsStreamingContainerView({
-              el: $('#streaming-data')
+              el: $('#streaming-data'),
+              showControls: false
             });
             self.views.streamingDataView.render();
 
