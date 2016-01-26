@@ -739,7 +739,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/common/TOCView.js",
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
-            'ooiui/static/js/views/science/HighchartsStreamingDataView.js'
+            'ooiui/static/js/views/science/HighChartsStreamingDataView.js'
           ],
           'ooiui/static/js/compiled/index.js' : [
             // Libs
