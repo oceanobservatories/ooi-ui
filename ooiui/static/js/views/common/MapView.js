@@ -49,8 +49,7 @@ var MapView = Backbone.View.extend({
             return this;
         }});
 
-        this.mapInit();
-
+        //this.addlegend();
         return this;
     },
     addlegend:function(){
@@ -483,7 +482,11 @@ var MapView = Backbone.View.extend({
                                     if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering') > -1 || instrumentName.indexOf('ENG000') > -1) {
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {
-                                        y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                        if (instrumentStreamName.indexOf('streamed') > -1){
+                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;"><a  class="pulsor popup-streaming-item" href="javascript:void(0);" data-streamid="'+instruments.models[i].cid+'"" title="Streaming Data View"><i class="fa fa-rss">&nbsp;</i></a>'+instrumentAssemblyName+'</td>';
+                                        }else{
+                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                        }
                                     }
                                     y += '<td>'+instrumentName+'</td>'+
                                         '<td>' +
@@ -541,6 +544,10 @@ var MapView = Backbone.View.extend({
         L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
 
         applyPopupInst();
+
+        $(document).on("click", "a.popup-streaming-item" , function(evt) {
+            ooi.trigger('map:streamingStationSelected',{'streamId':$(this).data('streamid')});
+        });
     },
     setMapView: function(lat_lon,zoom){
         if ( lat_lon !== undefined ){

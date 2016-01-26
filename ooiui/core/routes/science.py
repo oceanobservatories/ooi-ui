@@ -58,6 +58,12 @@ def streams_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
     return render_template('science/streams.html')
 
+@app.route('/streamingdata/')
+@app.route('/streamingdata')
+def streaming_data_page():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreamingdata')
+    return render_template('science/streaming_data.html')
+
 
 @app.route('/antelope_acoustic/')
 @login_required()

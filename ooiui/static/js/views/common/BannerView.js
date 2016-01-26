@@ -28,7 +28,7 @@ var BannerView = Backbone.View.extend({
     _.bindAll(this, "render");
     this.render();
   },
-  
+
   templates: {
     banner: JST['ooiui/static/js/partials/Banner.html'],
     newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
@@ -47,7 +47,7 @@ var BannerView = Backbone.View.extend({
     // Let's see what time it is
     var currentTime = moment.utc();
     // Compare to the time that streaming is on
-    var hoursOn = [1, 4, 7, 10, 13, 16, 19, 22];
+    var hoursOn = [2, 5, 8, 11, 14, 17, 20, 23];
     if (hoursOn.indexOf(currentTime.hour()) > -1){
       // Now check if the time falls within the 14 minute duration that video is on
       if (currentTime.minute() < 15){
