@@ -87,7 +87,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     },
     showStreamingTitle:function(){
       var self = this;
-      //show is nothing there
+      //show if nothing is there
       if (self.views.streamingDataView.subviews.length == 0){
         $('#streaming-data').css('display','none');
         $('#useOutline').css('display','block');
