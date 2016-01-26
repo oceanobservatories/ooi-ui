@@ -39,7 +39,7 @@ var MapView = Backbone.View.extend({
         this.mapLayerControl = L.control.layers(TERRAIN.getBaseLayers(),wmsLayers).addTo(this.map);
         this.addlegend();
 
-        return this
+        return this;
     },
     initialize: function() {
         var self = this;
@@ -48,6 +48,8 @@ var MapView = Backbone.View.extend({
             self.render();
             return this;
         }});
+
+        this.mapInit();
 
         //this.addlegend();
         return this;

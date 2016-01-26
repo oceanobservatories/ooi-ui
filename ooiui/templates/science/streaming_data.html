@@ -7,7 +7,6 @@
 {% block head %}
   <link href="/css/compiled/streamingdata.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/toc_menu.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/StreamQuickView.css" rel="stylesheet" type="text/css" />
   <!-- partials -->
   <script src="/js/partials/compiled/streamingdata.js" type="text/javascript"></script>
   <!-- d3 can't be concatenated easily:-->
@@ -15,8 +14,6 @@
   <script src="/lib/highcharts/highcharts.js"></script>
   <script src="/lib/highcharts/modules/exporting.js"></script>
   <script src="/js/compiled/streamingdata.js" type="text/javascript"></script>
-  <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
-  <script src="/js/views/common/StreamQuickView.js"></script>
   {% block link %}
   <!-- common/base.html -->
   {{ super() }}
@@ -177,6 +174,24 @@ _.extend(OOI.prototype, Backbone.Events, {
         });
       }
 
+      this.listenTo(vent, 'toc:paramFilter', function(option) {
+          $.when(vent.trigger('toc:derenderItems')).done(function() {
+              var paramSearch = { search: option };
+              streamFetch = streamCollection.fetch({ data: paramSearch });
+
+              streamCollection.showIcons = true;
+              $.when(streamFetch).done(function() {
+                  $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
+                      //hide the non streaming streams
+                      vent.trigger('toc:showStreamingStreams');
+                      //hide the instruments
+                      vent.trigger('toc:hideNoStreamingInstruments');
+                      vent.trigger('toc:noKids');
+                      focusToItem();
+                  });
+              });
+          });
+  });
       this.listenTo(this, "login:success", this.onLogin);
       this.listenTo(this, "login:logout", this.onLogout);
     }
@@ -185,7 +200,6 @@ _.extend(OOI.prototype, Backbone.Events, {
 var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
-var assetCollection     = new AssetCollection();
 var arrayCollection     = new ArrayCollection();
 var streamCollection    = new StreamCollection();
 
@@ -193,25 +207,17 @@ var streamCollection    = new StreamCollection();
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
-var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({});
 
 var streamQuickView;
-$.when(arrayFetch, assetFetch, streamFetch).done(function() {
-    // this is really strange, but the normal streamCol instance isn't working
-    // quite rite.
-    // TODO: Find out why already defined streamCollection isn't usable here.
-    var streamCol = new StreamCollection();
-    streamCol.fetch();
-    streamStatusBtn = new StreamStatusBtnView({collection: streamCol});
-    streamStatusBtn.render();
+$.when(arrayFetch, streamFetch).done(function() {
     streamCollection.showIcons = true;
-    $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
-        vent.trigger('toc:cleanUp');
+    $.when( (renderTOCView( arrayCollection, null, streamCollection )) ).done(function() {
         //hide the non streaming streams
         vent.trigger('toc:showStreamingStreams');
         //hide the instruments
         vent.trigger('toc:hideNoStreamingInstruments');
+        vent.trigger('toc:noKids');
         focusToItem();
     });
     ooi.trigger('toc:ready');

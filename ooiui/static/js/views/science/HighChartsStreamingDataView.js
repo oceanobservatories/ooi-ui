@@ -22,10 +22,10 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
         var refExists = false;
         var streamPlotAdded = false;
         _.each(self.subviews,function(currentView){
-            var currntRef = currentView.model.get('reference_designator');
-            var currntStrm = currentView.model.get('stream_name');
+            var currentRef = currentView.model.get('reference_designator');
+            var currentStream = currentView.model.get('stream_name');
 
-            if (currntRef == streamModel.get('reference_designator') && currntStrm == streamModel.get('stream_name') ){
+            if (currentRef == streamModel.get('reference_designator') && currentStream == streamModel.get('stream_name') ){
                 //check to see if the reference designator already exists
                 refExists= true;
             }
@@ -47,10 +47,10 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
         var self = this;
         var streamPlotRemoved = false;
         _.each(self.subviews,function(currentView,i){
-            var currntRef = currentView.model.get('reference_designator');
-            var currntStrm = currentView.model.get('stream_name');
+            var currentRef = currentView.model.get('reference_designator');
+            var currentStream = currentView.model.get('stream_name');
 
-            if (currntRef == streamModel.get('reference_designator') && currntStrm == streamModel.get('stream_name')){
+            if (currentRef == streamModel.get('reference_designator') && currentStream == streamModel.get('stream_name')){
                 //check to see if the reference designator already exists
                 if (i > -1) {
                     //de render and remove for the list

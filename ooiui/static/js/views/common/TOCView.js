@@ -243,6 +243,12 @@ var AssetItemView = Backbone.View.extend({
                 this.$el.remove();
             }
         });
+        this.listenTo(vent, 'toc:showStreamingStreams', function() {
+            //only shows the streaming data items in the toc
+            if (this.model.get('stream_name').indexOf('streamed') == -1){
+                this.$el.remove();
+            }
+        });
         this.listenTo(vent, 'toc:hideInstruments', function() {
             this.$el.find('.instrument').toggle();
         });
@@ -420,18 +426,6 @@ var StreamItemView = Backbone.View.extend({
         });
         this.listenTo(vent, 'toc:hideStreams', function() {
             this.$el.attr('style','display:none;');
-        });
-        this.listenTo(vent, 'toc:filter', function() {
-            // if the item doesn't have any children, grey it out.
-            if ( this.$el.find('ul.tree').children().length === 0 ) {
-                this.$el.remove();
-            }
-        });
-        this.listenTo(vent, 'toc:showStreamingStreams', function() {
-            //only shows the streaming data items in the toc
-            if (this.model.get('stream_name').indexOf('streamed') == -1){
-                this.$el.remove();
-            }
         });
     },
     onMarkerClick: function(e) {
