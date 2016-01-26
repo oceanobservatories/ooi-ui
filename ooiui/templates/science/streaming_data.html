@@ -238,6 +238,7 @@ $.when(arrayFetch, streamFetch).done(function() {
         vent.trigger('toc:hideNoStreamingInstruments');
         vent.trigger('toc:noKids');
         focusToItem();
+        $('#search-param').val(option);
     });
     ooi.trigger('toc:ready');
 });
