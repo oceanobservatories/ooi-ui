@@ -155,7 +155,6 @@ _.extend(OOI.prototype, Backbone.Events, {
         this.listenTo(this, 'streamPlot:removeStream', function(streamModelSelect) {
           //remove from the container
           if (self.views.streamingDataView.remove(streamModelSelect)){
-            console.log('remove');
             //remove from the toc selection
             var selectedOnToc = $('#tocNav').find('.toc-icon-marker.toc-icon-marker-selected').parent();
             _.each(selectedOnToc,function(tocItem){

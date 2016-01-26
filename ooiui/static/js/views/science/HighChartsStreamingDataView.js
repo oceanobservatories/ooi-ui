@@ -160,7 +160,6 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
     },
     render: function() {
         var self = this;
-        console.log(self.showControls);
         this.$el.html(this.template({streamModel:self.model,showControls:self.showControls}));
 
         var param_list = [],
