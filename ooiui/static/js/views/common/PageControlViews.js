@@ -25,7 +25,7 @@ var ParentPageControlView = Backbone.View.extend({
     // this template will loop through each of the parameters defined in the
     // instantiaed model and create a <option> tag in the select element with
     // an id of the actual search term.
-    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
+    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>" value="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
     render: function() {
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
@@ -43,7 +43,7 @@ var ParentPageControlView = Backbone.View.extend({
         this.model.off();
     },
     click: function(e) {
-        var target = e.target.value;
+        var target = e.target.value || e.target.id;
         if ($('#'+target).hasClass('active')) {
             $('#'+target).removeClass('active');
             $('#hiddenSearch').val('');
@@ -74,7 +74,8 @@ var DataCatalogPageControlView = ParentPageControlView.extend({
 });
 
 
-var AssetManagementPageControlView = ParentPageControlView.extend({});
+var AssetManagementPageControlView = ParentPageControlView.extend({
+});
 
 
 var TocPageControlView = ParentPageControlView.extend({
