@@ -5,31 +5,49 @@ div#page-controls {
   width: 100%;
   padding-left: 30px;
   background-color: #004773;
-  height: 100px;
+  height: 43px;
   left: 375px;
+  border-left: #F09349 solid 2px;
   transition: left 0.5s;
 }
 div#page-controls.toggled {
     left: 0;
 }
-button#search-clear {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+#page-controls #buttons {
+    display: inline-block;
+    bottom: 15px;
+    position: relative;
+}
+#search-clear {
+    z-index: 100;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #aaa;
 }
 #searchGroup {
     display: inline-block;
     padding-top: 10px;
 }
 #search {
-    width: 768px;
+    width: 300px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     margin-bottom: 10px;
     display: block;
+    height: 20px;
 }
 input#search {
-  line-height: 1.5;
+  line-height: 1.456;
 }
+
 #buttons > select {
     margin-top: 10px;
 }
@@ -42,6 +60,7 @@ input#search {
     margin-bottom: 0;
     margin-right: 10px;
     cursor: pointer;
+    border-radius: 2px;
     transition: all 0.8s;
 }
 #buttons > span:hover {

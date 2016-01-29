@@ -83,11 +83,15 @@ span.bootstrap-switch-handle-on.bootstrap-switch-primary,
 span.bootstrap-switch-handle-off.bootstrap-switch-default {
     position: relative;
     padding: 6px 12px;
+    top: -3px;
 }
 .bootstrap-switch-on,
 .bootstrap-switch-off {
 
-    height: 35px;
+    height: 27px;
+}
+.bootstra-switch-container {
+
 }
 #plot-type, #start-time, #end-time, #qaqc-test, #qa-qc {
     position: relative;

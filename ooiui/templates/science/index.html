@@ -47,8 +47,8 @@
             {% block sidebar %}
                 {{ super() }}
             {% endblock %}
-            <div class="col-lg-12">
-                <div class="map-view" id='map'>
+            <div id="map-container" class="col-lg-12">
+                <div class="map-view" id="map">
                     <i class="fa fa-spinner fa-spin map-loading-spinner"></i>
                     <div id="" class="jumbotron text-center">
                       <h3>Loading Map, Please Wait...</h3>
@@ -170,7 +170,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         this.listenTo(this, 'NavbarView:sidebarToggle', function() {
             var mapWidth = $('.page-content').width - 375;
             $('.page-content').css({'width': mapWidth + 'px'});
-            reseizeMap();
+            setTimeout(function(){
+                resizeMap();
+                mapView.showLayers();
+            }, 500);
+
         });
 
         this.listenTo(this, 'map:streamingStationSelected', function(options) {
@@ -189,7 +193,8 @@ _.extend(OOI.prototype, Backbone.Events, {
             }
 
             self.views.streamingDataView = new HighchartsStreamingContainerView({
-              el: $('#streaming-data')
+              el: $('#streaming-data'),
+              showControls: false
             });
             self.views.streamingDataView.render();
 
@@ -224,10 +229,46 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
+
+        this.listenTo(vent, 'toc:paramFilter', function(option) {
+            $.when(vent.trigger('toc:derenderItems')).done(function() {
+                mapView.derender();
+                $('#map-container').hide();
+                $('#map-container').html('<div class="map-view" id="map"></div>');
+                var paramSearch = { search: option };
+                // I'm so ashamed.
+                var streamCollectionAgain    = new StreamCollection();
+                // somehow, the mapview is accessing this collection DIRECTLY.
+                // won't be able to find where it is w/o a major refactor . . .
+                // soooo, we need to provide the updated collection to the streamCollection
+                streamCollection = streamCollectionAgain;
+                var streamFetchAgain = streamCollectionAgain.fetch({ data: paramSearch });
+                $.when(streamFetchAgain).done(function() {
+                    renderMap(gliderCollection, assetCollection, streamCollectionAgain, option);
+                    renderTOCView(arrayCollection, null, streamCollectionAgain);
+                    $('#map-container').show();
+                    vent.trigger('toc:noKids');
+                    vent.trigger('toc:hideStreams');
+                    vent.trigger('toc:hideNodes');
+                    vent.trigger('toc:hideInstruments');
+                    $('#engToggle').hide();
+                    $('#metaDataToggle').hide();
+                    focusToItem();
+                    $('#search-param').val(option);
+                });
+            });
+            setTimeout(function() {
+                mapView.map.removeLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
+                mapView.map.addLayer(TERRAIN.getBaseLayers('ESRI Oceans'));
+            }, 2500);
+        });
     }
+
 });
 
 
+// initialize our app object
+var ooi = new OOI();
 var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
@@ -242,30 +283,38 @@ var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
 var arrayFetch = arrayCollection.fetch({ reset: true });
 var assetFetch = assetCollection.fetch({ data: data, reset: true });
-var streamFetch = streamCollection.fetch({});
+var streamFetch = streamCollection.fetch();
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
 var mapView, streamQuickView;
-$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+var renderMap = (function(gliders, assets, streams, option) {
     //when the glider fetch is done update the map
     mapView = new MapView({
-        gliderCollection: gliderCollection,
-        collection:assetCollection,
-        streamCollection:streamCollection,
+        gliderCollection: gliders,
+        collection:assets,
+        streamCollection:streams,
         el: $('#map')
     });
-    mapView.gliderCollection = gliderCollection;
+
+    mapView.gliderCollection = gliders;
     mapView.add_glider_tracks();
 
-    // this is really strange, but the normal streamCol instance isn't working
-    // quite rite.
-    // TODO: Find out why already defined streamCollection isn't usable here.
-    var streamCol = new StreamCollection();
-    streamCol.fetch();
-    streamStatusBtn = new StreamStatusBtnView({collection: streamCol});
+
+    var paramSearch = (option) ? { search: option } : '';
+    var newCollection = new StreamCollection();
+    newCollection.fetch({data: paramSearch});
+    streamStatusBtn = new StreamStatusBtnView({collection: newCollection});
     streamStatusBtn.render();
     $('#map').append(streamStatusBtn.el);
+    resizeMap();
 
+    setTimeout(function(){
+        mapView.showLayers();
+    }, 300);
+});
+
+$.when(arrayFetch, assetFetch, streamFetch, gliderFetch).done(function() {
+    renderMap(gliderCollection, assetCollection, streamCollection);
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
@@ -285,12 +334,11 @@ window.onresize = function(event) {
 
 var resizeMap = function() {
     vpw = $(window).width();
-    //keep the map the same height as the side bar..?
     vph = $('#sidebar-wrapper').height() - 100;
     $('#map').css({'height': vph + 'px'});
 }
 
-var applyPopupInst = function(){
+var applyPopupInst = (function(){
     var pageInstruments = assetCollection.byClass('.InstrumentAssetRecord'),
         popupPlatformCode,
         popupPlatformTarget,
@@ -301,10 +349,7 @@ var applyPopupInst = function(){
         popupAssetItemView = new AssetItemView({ model:model });
         $( popupPlatformTarget ).append( popupAssetItemView.render().el );
     });
-};
-
-// initialize our app object
-var ooi = new OOI();
+});
 
 $(document).ready(function() {
     ooi.start();
