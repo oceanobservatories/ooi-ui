@@ -37,12 +37,12 @@ var SeriesCollection = Backbone.Collection.extend({
   Data structures that come from uframe
 */
 var DataSeriesModel = Backbone.Model.extend({
-  urlRoot: '#',    
+  urlRoot: '#',
   initialize: function(){
   }
 });
 
-var DataSeriesCollection = Backbone.Collection.extend({  
+var DataSeriesCollection = Backbone.Collection.extend({
   stream:"",
   ref_des:"",
   startdate:"",
@@ -50,13 +50,36 @@ var DataSeriesCollection = Backbone.Collection.extend({
   xparameters:[],
   yparameters:[],
   axis_name:[],
+  initialize: function(models,options) {
+    if (options && options.stream){
+      this.stream = options.stream;
+    }
+    if (options && options.ref_des){
+      this.ref_des = options.ref_des;
+    }
+    if (options && options.startdate){
+      this.startdate = options.startdate;
+    }
+    if (options && options.enddate){
+      this.enddate = options.enddate;
+    }
+    if (options && options.xparameters){
+      this.xparameters = options.xparameters;
+    }
+    if (options && options.yparameters){
+      this.yparameters = options.yparameters;
+    }
+    if (options && options.axis_name){
+      this.axis_name = options.axis_name;
+    }
 
+  },
   url: function() {
     var durl = '/api/get_data?instrument='+ this.ref_des+"&stream="+this.stream+"&xvars="+this.xparameters.join()+"&yvars="+this.yparameters.join()+"&startdate="+this.startdate+"&enddate="+this.enddate
     console.log(durl);
     return durl;
   },
-  //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',  
+  //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',
   //used to hold the unit mapping
   units:null,
   model: DataSeriesModel,
@@ -86,7 +109,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
 
 });
 
-var InterpolatedDataSeriesCollection = Backbone.Collection.extend({  
+var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
   instr1:"telemetered_ctdgv_m_glider_instrument",
   instr2:"telemetered_flort_m_glider_instrument",
   ref_des1:"CP05MOAS-GL340-03-CTDGVM000",
@@ -106,7 +129,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
     console.log(durl);
     return durl;
   },
-  //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',  
+  //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',
   //used to hold the unit mapping
   units:null,
   model: DataSeriesModel,

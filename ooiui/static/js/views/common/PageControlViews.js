@@ -16,15 +16,16 @@ var ParentPageControlView = Backbone.View.extend({
      * - loadControls() : Customize this function for each page if you want.
      */
     initialize: function() {
-        _.bindAll(this, 'render', 'derender', 'click');
+        _.bindAll(this, 'render', 'derender', 'click', 'change');
     },
     events: {
-        'click span': 'click'
+        'click span': 'click',
+        'change select': 'change'
     },
     // this template will loop through each of the parameters defined in the
     // instantiaed model and create a <option> tag in the select element with
     // an id of the actual search term.
-    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
+    template: _.template('<% _.each(params, function(item) { %> <span id="<%= item[0] %>" value="<%= item[0] %>"><%= item[1] %></span><% }) %>'),
     render: function() {
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
             { this.$el.html(this.template()); }
@@ -42,18 +43,22 @@ var ParentPageControlView = Backbone.View.extend({
         this.model.off();
     },
     click: function(e) {
-        if ($('#'+e.target.id).hasClass('active')) {
-            $('#'+e.target.id).removeClass('active');
+        var target = e.target.value || e.target.id;
+        if ($('#'+target).hasClass('active')) {
+            $('#'+target).removeClass('active');
             $('#hiddenSearch').val('');
         } else {
             $('.active').removeClass('active');
-            $('#'+e.target.id).toggleClass('active');
-            $('#hiddenSearch').val(e.target.id);
+            $('#'+target).toggleClass('active');
+            $('#hiddenSearch').val(target);
         }
 
         // once that array is all sorted out, lets stick it in the hidden search field that
         // has been appended to the page.
         $('#search').trigger('keyup');
+    },
+    change: function(e) {
+        // not implemented
     }
 });
 
@@ -64,19 +69,17 @@ var DataCatalogPageControlView = ParentPageControlView.extend({
     },
     template: JST['ooiui/static/js/partials/DataCatalogPageControlView.html'],
     click: function(e) {
-        $('#hiddenSearch').val(e.currentTarget.selectedOptions[0].id);
-
-        // once that array is all sorted out, lets stick it in the hidden search field that
-        // has been appended to the page.
         $('#search').trigger('keyup');
     }
 });
 
 
-var AssetManagementPageControlView = ParentPageControlView.extend({});
+var AssetManagementPageControlView = ParentPageControlView.extend({
+});
 
 
 var TocPageControlView = ParentPageControlView.extend({
+    template: JST['ooiui/static/js/partials/TocPageControlView.html'],
     click: function(e) {
         // simple toggle of DOM elements.
         switch(e.target.id) {
@@ -95,6 +98,9 @@ var TocPageControlView = ParentPageControlView.extend({
 
         // toggle the class.
         $('#'+e.target.id).toggleClass('active');
+    },
+    change: function(e) {
+        vent.trigger('toc:paramFilter', e.currentTarget.selectedOptions[0].id);
     },
     render: function(){
         if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else
