@@ -27,6 +27,9 @@
     {% block script %}
         {{ super() }}
     {% endblock %}
+<style>
+    #search-param: { display: none; }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -165,7 +168,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         updateCollection( showAssets );
     });
     this.listenTo(this, 'toc:selectPlatform', function(model) {
-        var searchFor = model.get('ref_des').substr(0,14);
+        var searchFor = model.get('ref_des').substr(0,8);
         $('#search').val(searchFor);
         $('#search-clear').show();
         updateCollection( showAssets );
@@ -173,6 +176,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'toc:selectInstrument', function(model) {
         var searchFor = model.get('ref_des');
+        $('#search').val(searchFor);
+        $('#search-clear').show();
+        updateCollection( showAssets );
+    });
+    this.listenTo(this, 'toc:selectAssembly', function(model) {
+        var searchFor = model.get('ref_des').substr(0,11);
         $('#search').val(searchFor);
         $('#search-clear').show();
         updateCollection( showAssets );
@@ -198,6 +207,8 @@ var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch({ data: data,  reset: true });
 $.when(arrayFetch, assetFetch, streamFetch).done(function() {
     $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+        $('#search-param').remove();
+        $('.detached').remove();
         vent.trigger('toc:cleanUp');
         vent.trigger('toc:hideStreams');
         $('#menu-toggle').trigger('click');

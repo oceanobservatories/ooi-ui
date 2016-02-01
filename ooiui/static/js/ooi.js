@@ -95,7 +95,7 @@ var renderTOCView = (function(container, contents, streams) {
     if ( contents !== null ) {
         tocView.renderAssets();
     }
-    if ( streams !== null ) {
+    if ( streams !== null) {
         tocView.renderStreams();
     }
 

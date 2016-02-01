@@ -18,6 +18,12 @@
   <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
   <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
 
+    {% block link %}
+        {{ super() }}
+    {% endblock %}
+    {% block script %}
+        {{ super() }}
+    {% endblock %}
   <!--
   <script src="/js/views/aa/AlertView.js" type="text/javascript"></script>
   <script src="/js/views/common/TOCView.js" type="text/javascript"></script>-->
@@ -167,11 +173,11 @@
 
         // Alert PAge Row Selected
         this.listenTo(this, 'deployrowclicked', function(model) {
-          
+
 
           if (model.get('retired') == false){
             //update the model
-            self.models.alertModel = new AlertModel({reference_designator:model.get('reference_designator'), 
+            self.models.alertModel = new AlertModel({reference_designator:model.get('reference_designator'),
                                                       stream:model.get('stream')});
 
             //set the model information for the new model
@@ -180,7 +186,7 @@
             var fields = ['description','high_value','low_value','active','created_time','escalate_boundary','escalate_on','event_type','id','instrument_name','instrument_parameter','instrument_parameter_pdid','operator','platform_name','retired','severity','uframe_filter_id']
 
             _.each(fields, function(field) {
-              self.models.alertModel.set(field,model.get(field));                   
+              self.models.alertModel.set(field,model.get(field));
             });
 
             self.views.definitionModal.model = self.models.alertModel;
@@ -193,7 +199,7 @@
               pdId: self.models.alertModel.get('instrument_parameter_pdid'),
               units: ""
             }));
- 
+
             self.views.definitionModal.render();
 
             self.views.definitionModal.show({
@@ -205,7 +211,7 @@
           }
         });
 
-        
+
 
         // TOC, render out our views:
         this.listenTo(this, 'toc:selectStream', function(options) {
@@ -325,7 +331,7 @@
         this.listenTo(this, 'addDefinitionForm:added', function(options) {
           //TODO: Add modal pop-up
           $('#definition-status').html('<p>Definition added.</p>');
-          self.collections.alert_list.fetch({reset: true});                
+          self.collections.alert_list.fetch({reset: true});
         });
 
         // Add definition failed, popup message and re-render table
@@ -359,6 +365,7 @@
             var streamFetch = streamCollection.fetch({ data: data,  reset: true });
             $.when(streamFetch).done(function() {
               $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {
+                  $('#search-param').remove();
                 vent.trigger('toc:cleanUp');
                 vent.trigger('toc:cleanUp');
               });
@@ -376,23 +383,6 @@
     var assetCollection     = new AssetCollection();
     var arrayCollection     = new ArrayCollection();
     var streamCollection    = new StreamCollection();
-
-
-    function renderTOCView( container, contents, streams ) {
-      var tocView = new TOCView({
-        arrayCollection:    container,
-        assetCollection:    contents,
-        streamCollection:   streams
-      });
-      tocView.render();
-      // remove the spinner
-      $('i#tocSpinner').remove();
-      // append the toc
-      $('#sidebar-wrapper').append( tocView.el );
-
-      tocView.renderAssets();
-      tocView.renderStreams();
-    }
 
     function showSearchResults( collection ) {
       vent.trigger('toc:derenderItems');

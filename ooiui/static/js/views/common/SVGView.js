@@ -1,3 +1,5 @@
+"use strict";
+
 //--------------- validation
 var plotParameters ={
 
@@ -205,20 +207,11 @@ var SVGView = Backbone.View.extend({
                 self.render();
             },"xml")
             .fail(function(e) {
-                console.log(e);
                 // any plot errors should be handled before we get to here.
                 // this should be uframe alert here.
                 self.$el.html(' ');
-                if (e.status == 400){
-                    $('#plot-view').append('<div id="warning" class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                else if (e.status == 500){
-                    $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                else{
-                    $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error:' + e.status +' </strong>' +e.responseText+ ' If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a></div>');
-                }
-                // self.$el.html('<i class="fa fa-exclamation-triangle" style="margin-left:50%;font-size:90px;"> </i>');
+                var response = JSON.parse(e.responseText);
+                $('#plot-view').append('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
             })
             .always(function() {
 
@@ -232,8 +225,8 @@ var SVGView = Backbone.View.extend({
             .on('error', function() {
                 // this should be uframe alert here.
                 self.$el.html(' ');
-                var error_msg = 'Unexpected uFrame Return. The data provided was not in the form of an array. Please make sure the correct parameter was selected. If the problem persists, please file a <a href="/troubleTicket">trouble ticket</a>';
-                $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Error: </strong> '+error_msg+'</div>');
+                var error_msg = 'If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a>';
+                $('#plot-view').append('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong> Unexpected uFrame Return</strong><br>'+error_msg+'</div>');
 
             });
             image.src = this.url;
@@ -484,8 +477,6 @@ var SVGPlotControlView = Backbone.View.extend({
         this.$el.find('.selectpicker').selectpicker('refresh');
     },
     timeRangeChange: function() {
-        // M@Campbell 10/09/2015
-        "use strict";
         var timeRangeDelta, timeChangedTo, startDate, endDate;
 
         // get the time in days to subtract from the end date.
@@ -508,8 +499,6 @@ var SVGPlotControlView = Backbone.View.extend({
 
     },
     resetTimeRange: function() {
-        // M@Campbell 10/09/2015
-        "use strict";
         $(".plot-range-fields #time-range > select").val("Reset").change();
     },
     //set ony 1 checkbox

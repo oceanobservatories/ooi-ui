@@ -1,8 +1,14 @@
 var MapView = Backbone.View.extend({
-    gliderCollection:null,
-    initialize: function() {
-        var self = this;
+    derender: function() {
+        this.map = null;
 
+        this.remove();
+        this.unbind();
+        if(this.model)
+            this.model.off();
+    },
+    gliderCollection:null,
+    mapInit: function() {
         var southWest = L.latLng(-60, -260),
         northEast = L.latLng(80, 100),
         bounds = L.latLngBounds(southWest, northEast);
@@ -14,6 +20,7 @@ var MapView = Backbone.View.extend({
             layers: TERRAIN.getBaseLayers('ESRI Oceans')
         });
         this.inititalMapBounds = [[63, -143],[-59, -29]];
+
 
         L.control.mousePosition().addTo(this.map);
 
@@ -30,16 +37,21 @@ var MapView = Backbone.View.extend({
         wmsLayers['Array Titles'] = this.arrayLayers;
         wmsLayers['Glider Tracks'] = this.gliderLayers;
         this.mapLayerControl = L.control.layers(TERRAIN.getBaseLayers(),wmsLayers).addTo(this.map);
+        this.addlegend();
 
-        //this.listenTo(ooi.models.mapModel, 'change', this.setMapView);
-
+        return this;
+    },
+    initialize: function() {
+        var self = this;
         var data = { min : 'True', deployments : 'True' };
         this.collection.fetch({ data: data, success: function(collection, response, options) {
             self.render();
             return this;
         }});
 
-        this.addlegend();
+        this.mapInit();
+
+        //this.addlegend();
         return this;
     },
     addlegend:function(){
@@ -140,12 +152,7 @@ var MapView = Backbone.View.extend({
         }
     },
     showLayers:function(){
-        /*
-           test function to list the layers
-           */
-        this.map.eachLayer(function (layer) {
-            //console.log(layer.options.color);
-        });
+        this.map.invalidateSize();
     },
     //deprecated i think
     generate_glider_layer:function(geojson){
@@ -477,7 +484,11 @@ var MapView = Backbone.View.extend({
                                     if(instrumentName.indexOf('0000') > -1 || instrumentName.indexOf('Engineering') > -1 || instrumentName.indexOf('ENG000') > -1) {
                                         y = '<tr class="eng-item" style="display:none;"><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
                                     } else {
-                                        y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                        if (instrumentStreamName.indexOf('streamed') > -1){
+                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;"><a  class="pulsor popup-streaming-item" href="javascript:void(0);" data-streamid="'+instruments.models[i].cid+'"" title="Streaming Data View"><i class="fa fa-rss">&nbsp;</i></a>'+instrumentAssemblyName+'</td>';
+                                        }else{
+                                            y = '<tr><td class="popup-instrument-item" style="padding-left:10px;">'+instrumentAssemblyName+'</td>';
+                                        }
                                     }
                                     y += '<td>'+instrumentName+'</td>'+
                                         '<td>' +
@@ -535,6 +546,10 @@ var MapView = Backbone.View.extend({
         L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
 
         applyPopupInst();
+
+        $(document).on("click", "a.popup-streaming-item" , function(evt) {
+            ooi.trigger('map:streamingStationSelected',{'streamId':$(this).data('streamid')});
+        });
     },
     setMapView: function(lat_lon,zoom){
         if ( lat_lon !== undefined ){
