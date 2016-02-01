@@ -10,11 +10,25 @@ var AssetManagementPageControlModel = Backbone.Model.extend({
 var DataCatalogPageControlModel = Backbone.Model.extend({
     defaults : {
         params : {
+        }
+
+    }
+});
+
+var TocPageControlModel = Backbone.Model.extend({
+    defaults : {
+        toggles : [
+            ['refDesToggle', 'Reference Designators'],
+            ['engToggle', 'Engineering Instruments'],
+//            ['metaDataToggle', 'Meta Data']
+        ],
+
+        params : {
             "General":[
                 ["temperature", "Temperature"],
                 ["pressure", "Pressure"],
                 ['ph', 'pH'],
-                ['no3-', 'Nitrate'],
+                ['nitrate', 'Nitrate'],
                 ["co2", "CO2"],
                 ['density', 'Density'],
                 ['salinity', 'Salinity']
@@ -27,7 +41,7 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['air_sea_heat_flux', 'Air Sea Heat Flux'],
                 ['wave_properties', 'Wave Properties']
             ],
-            "Water Column": [    
+            "Water Column": [
                 ['downwelling_irradiance', 'Downwelling Irradiance'],
                 ['par', 'PAR'],
                 ['chlorophyll', 'Chlorophyll'],
@@ -50,16 +64,5 @@ var DataCatalogPageControlModel = Backbone.Model.extend({
                 ['zplsc', 'Bioacoustic Sonar']
             ]
         }
-
-    }
-});
-
-var TocPageControlModel = Backbone.Model.extend({
-    defaults : {
-        params : [
-            ['refDesToggle', 'Toggle Reference Designators'],
-//            ['engToggle', 'Engineering Instruments'],
-//            ['metaDataToggle', 'Meta Data']
-        ]
     }
 });

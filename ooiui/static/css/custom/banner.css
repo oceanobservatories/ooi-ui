@@ -136,5 +136,225 @@ div#wrapper-asset {
 	position: relative;
 	left: 50%;
 }*/
+.breaking-news-headline {
+  display: block;
+  position: absolute;
+  font-family: arial;
+  font-size: 13px;
+  margin-top: -22px;
+  color: white;
+  margin-left: 25%;
+  padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
+}
+
+.breaking-news-headline2 {
+  display: block;
+  position: absolute;
+  font-family: arial;
+  font-size: 13px;
+  margin-top: -22px;
+  color: white;
+  margin-left: 75%;
+  padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
+}
+
+.breaking-news-headline3 {
+  display: block;
+  position: absolute;
+  font-family: arial;
+  font-size: 13px;
+  margin-top: -22px;
+  color: white;
+  margin-left: 125%;
+  padding-top: 3px;
+  overflow : hidden;
+  white-space: nowrap;
+}
+
+.breaking-news-title:after{
+  content:"";
+  position: absolute;
+  display: block;
+  width: 0px;
+  height: 0px;
+  right: -12px;
+  top: 0;
+  border-right:12px solid transparent;
+  border-left: 0px solid transparent;
+  border-top: 30px solid #05A9E1;
+}
+
+.breaking-news-title:before{
+  content:"";
+  position: absolute;
+  display: block;
+  width: 0px;
+  height: 0px;
+  top: 0;
+  left: -12px;
+  border-left:12px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 30px solid #05A9E1;
+}
+.breaking-news-title {
+  background-color: #05A9E1;
+  display: block;
+  height: 20px;  
+  width: 10%;
+  color: white;
+  font-family: arial;
+  font-size: 13px;
+  position: absolute; 
+  top: 0px;
+  margin-top: -22px;
+  margin-left: 20px;
+  padding-left: 10px;
+  z-index: 3;
+}
+#breaking-news-colour {
+  top: 0px;
+  height: 20px;
+  width: 100%;
+  background-color: #004773;
+}
+
+#breaking-news-container {
+  top: 0px;
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+#breaking-news-container:before {
+    content: "";
+    width: 30px;
+    height: 20px;
+    background-color: #004773;
+    position: absolute;
+    left: 0px;
+    z-index: 2;
+}
+
+.animated {
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-duration: 0.2s;
+  -moz-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+  -moz-animation-iteration-count: 1;
+}
+
+.delay-animated {
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-duration: 0.4s;
+  -moz-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+  -moz-animation-iteration-count: 1;
+  -webkit-animation-delay: 0.3s; 
+  animation-delay: 0.3s;
+}
+
+.scroll-animated {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-duration: 3s;
+  -moz-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1; 
+  -moz-animation-iteration-count: 1;
+  -webkit-animation-delay: 0.5s; 
+  animation-delay: 0.5s;
+}
+
+.delay-animated2 {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-duration: 3s;
+  -moz-animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1; 
+  -moz-animation-iteration-count: 1;
+  -webkit-animation-delay: 0.5s; 
+  animation-delay: 0.5s;
+}
+
+.fadein {
+  -webkit-animation-name: fadein;
+  -moz-animation-name: fadein;
+  -o-animation-name: fadein;
+  animation-name: fadein;
+}
+
+.slidein {
+  -webkit-animation-name: slidein;
+  -moz-animation-name: slidein;
+  -o-animation-name: slidein;
+  animation-name: slidein;
+}
+
+@keyframes marquee {
+  0% { 
+    left: 0;
+  }
+  20% { 
+    left: 0; 
+  }
+  100% { left: -80%; }
+}
+
+.marquee {
+  animation: marquee 30s linear infinite;
+  -webkit-animation-duration: 30s;
+  -moz-animation-duration: 30s;
+  -webkit-animation-delay: 0.5s; 
+  animation-delay: 0.5s;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 8000px
+  }
+  to {
+    margin-top: 0px
+  } 
+}  
+@-moz-keyframes slidein {
+  from {
+    margin-left: 8000px
+  }
+  to {
+    margin-top: 0px
+  }  
+}
+
+.slideup {
+  -webkit-animation-name: slideup;
+  -moz-animation-name: slideup;
+  -o-animation-name: slideup;
+  animation-name: slideup;
+}
+@-webkit-keyframes slideup {
+  from {
+    margin-top: 30px
+  }
+  to {
+    margin-top: 0;
+  } 
+}  
+@-moz-keyframes slideup {
+  from {
+    margin-top: 30px
+  }
+  to {
+    margin-top: 0;
+  } 
+}
+
+
+
 
 
