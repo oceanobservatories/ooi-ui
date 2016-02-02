@@ -35,7 +35,7 @@ var SignUpForm = Backbone.View.extend({
 
             this.show_other_organization();
         },
-        'change #countries': function (e){
+        'change #country': function (e){
 
             this.show_states();
         }
@@ -104,6 +104,12 @@ var SignUpForm = Backbone.View.extend({
         },
             '[name=vocation]': {
             observe: 'vocation',
+            setOptions: {
+                validate: true
+            }
+        },
+            '[name=country]': {
+            observe: 'country',
             selectOptions: {
               collection: []
             },
@@ -111,17 +117,8 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=countries]': {
-            observe: 'countries',
-            selectOptions: {
-              collection: []
-            },
-            setOptions: {
-                validate: true
-            }
-        },
-            '[name=states]': {
-            observe: 'states',
+            '[name=state]': {
+            observe: 'state',
             selectOptions: {
               collection: []
             },
@@ -157,15 +154,17 @@ var SignUpForm = Backbone.View.extend({
         this.roles = ooi.collections.roles;
         this.orgs = ooi.collections.orgs;
         this.countries = ooi.collections.countries;
-        this.states = ooi.models.states;
+        this.states = ooi.collections.states;
         this.modalDialog = new ModalDialogView();
+        this.stateModel = new StateModel();
         this.render();
     },
 
     render: function () {
         this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
         this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
-        this.bindings["[name=countries]"].selectOptions.collection = this.countries.pluck('country_code');
+        this.bindings["[name=country]"].selectOptions.collection = this.countries.pluck('country_name');
+        this.bindings["[name=state]"].selectOptions.collection = this.states.pluck('state_name');
         this.stickit();
         this.$el.append(this.modalDialog.el);
         return this;
@@ -218,9 +217,8 @@ var SignUpForm = Backbone.View.extend({
 
     show_other_organization: function() {
         var val = this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id');
-        //var val = this.$el.find("organization").val();
         var element=document.getElementById('other_org_div');
-        console.log('val' + val);
+
         if(val=='9')
             element.style.display='block';
         else
@@ -228,13 +226,13 @@ var SignUpForm = Backbone.View.extend({
     },
 
     show_states: function() {
-        console.log('show_states');
-        console.log(this.model);
-        console.log(this.model.get('countries'));
-        this.states.fetchCurrent(this.model.get('countries'));
-        this.bindings["[name=states]"].selectOptions.collection = this.states.pluck('state_name');
-        //var val = this.countries.findWhere({countries: this.model.get('countries')}).get('country_code');
-        //console.log('cc: '+ val)
+        var val = this.model.get('country');
+        var element=document.getElementById('state_div');
+
+        if(val=='United States')
+            element.style.display='block';
+        else
+            element.style.display='none';
     },
 
     remove: function () {
