@@ -17,6 +17,51 @@
 * }
 */
 
+var CountryModel = Backbone.Model.extend({
+  urlRoot: '/api/countries',
+  defaults: {
+    country_code: "",
+    country_name: ""
+  }
+});
+
+var CountryCollection = Backbone.Collection.extend({
+  url: '/api/countries',
+  model: CountryModel,
+  parse: function(response) {
+    if(response) {
+      return response;
+    }
+    return [];
+  }
+});
+
+var StateModel = Backbone.Model.extend({
+  urlRoot: '/api/states',
+  defaults: {
+    state_code: "",
+    state_name: ""
+  },
+  fetchCurrent: function (country_code, options) {
+    options = options || {};
+    if (options.url === undefined) {
+        options.url = this.urlRoot + "/" + country_code;
+    }
+    return Backbone.Model.prototype.fetch.call(this, options);
+  }
+});
+
+var StateCollection = Backbone.Collection.extend({
+  url: '/api/states',
+  model: StateModel,
+  parse: function(response) {
+    if(response) {
+      return response;
+    }
+    return [];
+  }
+});
+
 var UserModel = Backbone.Model.extend({
   urlRoot: '/api/user',
   getFullName: function() {
@@ -29,6 +74,7 @@ var UserModel = Backbone.Model.extend({
     id: null,
     last_name: "",
     organization_id: null,
+    other_organization: null,
     phone_alternate: null,
     phone_primary: null,
     role: null,

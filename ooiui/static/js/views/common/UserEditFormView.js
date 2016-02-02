@@ -22,7 +22,11 @@ var UserEditFormView = Backbone.View.extend({
     '#organization' : 'organization',
     '#active' : 'active',
     '#email_opt_in' : 'email_opt_in',
-    '.scope_selection' : 'scopes'
+    '.scope_selection' : 'scopes',
+    '#other_organization' : 'other_organization',
+    '#vocation' : 'vocation',
+    '.country_selection' : 'country',
+    '.state_selection' : 'state'
   },
   events: {
    'click #submitButton' : 'submit'

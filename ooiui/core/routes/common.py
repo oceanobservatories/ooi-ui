@@ -464,3 +464,15 @@ def post_config():
 @app.route('/notsupported')
 def not_supported():
     return render_template("/common/notsupported.html")
+
+@app.route('/api/countries', methods=['GET'])
+def get_countries():
+    response = requests.get(app.config['SERVICES_URL']+'/countries')
+    #data = response.json()
+    return response.text, response.status_code
+
+@app.route('/api/states/<string:country_code>', methods=['GET'])
+def get_states(country_code):
+    response = requests.get(app.config['SERVICES_URL']+'/states/'+country_code, params=request.args)
+    #data = response.json()
+    return response.text, response.status_code

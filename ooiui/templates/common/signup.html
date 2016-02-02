@@ -81,21 +81,46 @@
           <label for="organization" class="col-sm-3 control-label">Organization</label>
           <div class="col-sm-6">
             <select class="form-control" id="organization" name="organization">
-              <option>WHOI</option>
-              <option>OSU</option>
-              <option>Rutgers</option>
-              <option>UW</option>
-              <option>Scripps</option>
-              <option>Raytheon</option>
-              <option>ASA</option>
-              <option>Ocean Leadership</option>
-              <option>NSF</option>
-              <option>Other</option>
-
             </select>
             <span class="help-block hidden"></span>
           </div>
         </div>
+
+        <div id="other_org_div" class="form-group" style='display:none;'>
+          <label for="other_organization" class="col-sm-3 control-label">Other Organization</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="other_organization" name="other_organization" />
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="vocation" class="col-sm-3 control-label">Vocation/Discipline</label>
+          <div class="col-sm-6 ">
+            <select class="form-control" id="vocation" name="vocation">
+            </select>
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="countries" class="col-sm-3 control-label">Country</label>
+          <div class="col-sm-6 ">
+            <select class="form-control" id="countries" name="countries">
+            </select>
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="states" class="col-sm-3 control-label">State</label>
+          <div class="col-sm-6 ">
+            <select class="form-control" id="states" name="states">
+            </select>
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
         <hr width="80%">
         <div class="form-group">
           <label for="role" class="col-sm-3 control-label">Role</label>
@@ -132,9 +157,14 @@ var csrf_token = "{{ csrf_token() }}";
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {},
+  models: {
+    stateModel: new StateModel()
+  },
   collections: {
     roles: new Roles(),
-    orgs: new Organizations()
+    orgs: new Organizations(),
+    countries: new CountryCollection(),
+    states: new StateCollection()
   },
   csrf_token: csrf_token,
   initViews: function() {
@@ -152,12 +182,14 @@ _.extend(OOI.prototype, Backbone.Events, {
   initEvents: function() {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
+    this.listenTo(this, "countries:onchange", this.countrySelection);
   },
   start: function() {
     var self = this;
     this.initEvents();
     this.login.fetch({async:false});
-    var complete = _.invoke([this.collections.roles, this.collections.orgs], 'fetch');
+{#    this.models.stateModel.fetchCurrent('US');#}
+    var complete = _.invoke([this.collections.roles, this.collections.orgs, this.collections.countries, this.collections.states], 'fetch');
     $.when.apply($, complete).then(function() {
       //console.log("DONE");
       self.initViews();
@@ -165,6 +197,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     }, function() {
       self.initViews();
     });
+  },
+  countrySelection: function(country_code) {
+    console.log('country_code: ' + country_code);
+    this.models.stateModel.fetchCurrent(country_code);
+    this.collections.states.fetch({url: '/api/states/' + country_code});
   }
 });
 
