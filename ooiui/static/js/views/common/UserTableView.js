@@ -38,6 +38,18 @@ var UserTableView = Backbone.View.extend({
         label : 'Other Organization'
       },
       {
+        name : 'vocation',
+        label : 'Vocation'
+      },
+      {
+        name : 'country',
+        label : 'Country'
+      },
+      {
+        name : 'state',
+        label : 'State'
+      },
+      {
         name : 'role',
         label : 'Role'
       },

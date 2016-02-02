@@ -98,24 +98,32 @@
           <label for="vocation" class="col-sm-3 control-label">Vocation/Discipline</label>
           <div class="col-sm-6 ">
             <select class="form-control" id="vocation" name="vocation">
+              <option value="Researcher" >Researcher</option>
+              <option value="Educator" >Educator</option>
+              <option value="Student" >Student</option>
+              <option value="Commercial" >Commercial</option>
+              <option value="Government" >Government</option>
+              <option value="Nonprofit" >Nonprofit</option>
+              <option value="Cyberinfrastructure" >Cyberinfrastructure</option>
+              <option value="Other" >Other</option>
             </select>
             <span class="help-block hidden"></span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="countries" class="col-sm-3 control-label">Country</label>
+          <label for="country" class="col-sm-3 control-label">Country</label>
           <div class="col-sm-6 ">
-            <select class="form-control" id="countries" name="countries">
+            <select class="form-control" id="country" name="country">
             </select>
             <span class="help-block hidden"></span>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="states" class="col-sm-3 control-label">State</label>
+        <div id='state_div' class="form-group" style='display:none;'>
+          <label for="state" class="col-sm-3 control-label">State</label>
           <div class="col-sm-6 ">
-            <select class="form-control" id="states" name="states">
+            <select class="form-control" id="state" name="state">
             </select>
             <span class="help-block hidden"></span>
           </div>
@@ -182,7 +190,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   initEvents: function() {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "countries:onchange", this.countrySelection);
+    this.listenTo(this, "country:onchange", this.countrySelection);
   },
   start: function() {
     var self = this;
