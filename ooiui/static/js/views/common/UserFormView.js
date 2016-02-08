@@ -30,14 +30,6 @@ var SignUpForm = Backbone.View.extend({
         'click #resetButton': function (e){
 
             this.reset();
-        },
-        'change #organization': function (e){
-
-            this.show_other_organization();
-        },
-        'change #country': function (e){
-
-            this.show_states();
         }
     },
 
@@ -96,36 +88,6 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=other_organization]': {
-            observe: 'other_organization',
-            setOptions: {
-                validate: true
-            }
-        },
-            '[name=vocation]': {
-            observe: 'vocation',
-            setOptions: {
-                validate: true
-            }
-        },
-            '[name=country]': {
-            observe: 'country',
-            selectOptions: {
-              collection: []
-            },
-            setOptions: {
-                validate: true
-            }
-        },
-            '[name=state]': {
-            observe: 'state',
-            selectOptions: {
-              collection: []
-            },
-            setOptions: {
-                validate: true
-            }
-        },
             '[name=role_name]': {
             observe: 'role_name',
             selectOptions: {
@@ -148,23 +110,18 @@ var SignUpForm = Backbone.View.extend({
         // This hooks up the validation
         // See: http://thedersen.com/projects/backbone-validation/#using-form-model-validation/validation-binding
         Backbone.Validation.bind(this);
-        _.bindAll(this, "render", "submit", "reset", "remove", "show_other_organization", "show_states");
+        _.bindAll(this, "render", "submit", "reset", "remove");
         // functions defined within a function, need to be able to set attributes of "this"
         // so in order to do that, we define "self" which currently points to this, in this case the UserFormView
         this.roles = ooi.collections.roles;
         this.orgs = ooi.collections.orgs;
-        this.countries = ooi.collections.countries;
-        this.states = ooi.collections.states;
         this.modalDialog = new ModalDialogView();
-        this.stateModel = new StateModel();
         this.render();
     },
 
     render: function () {
         this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
         this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
-        this.bindings["[name=country]"].selectOptions.collection = this.countries.pluck('country_name');
-        this.bindings["[name=state]"].selectOptions.collection = this.states.pluck('state_name');
         this.stickit();
         this.$el.append(this.modalDialog.el);
         return this;
@@ -213,26 +170,6 @@ var SignUpForm = Backbone.View.extend({
         this.$el.find("input[type=password], textarea").val("");
         this.$el.find("input[type=email], textarea").val("");
         // maybe this?? this.model.set({name: "","email":""})
-    },
-
-    show_other_organization: function() {
-        var val = this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id');
-        var element=document.getElementById('other_org_div');
-
-        if(val=='9')
-            element.style.display='block';
-        else
-            element.style.display='none';
-    },
-
-    show_states: function() {
-        var val = this.model.get('country');
-        var element=document.getElementById('state_div');
-
-        if(val=='United States')
-            element.style.display='block';
-        else
-            element.style.display='none';
     },
 
     remove: function () {

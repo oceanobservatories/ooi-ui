@@ -81,54 +81,21 @@
           <label for="organization" class="col-sm-3 control-label">Organization</label>
           <div class="col-sm-6">
             <select class="form-control" id="organization" name="organization">
+              <option>WHOI</option>
+              <option>OSU</option>
+              <option>Rutgers</option>
+              <option>UW</option>
+              <option>Scripps</option>
+              <option>Raytheon</option>
+              <option>ASA</option>
+              <option>Ocean Leadership</option>
+              <option>NSF</option>
+              <option>Other</option>
+
             </select>
             <span class="help-block hidden"></span>
           </div>
         </div>
-
-        <div id="other_org_div" class="form-group" style='display:none;'>
-          <label for="other_organization" class="col-sm-3 control-label">Other Organization</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" id="other_organization" name="other_organization" />
-            <span class="help-block hidden"></span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="vocation" class="col-sm-3 control-label">Vocation/Discipline</label>
-          <div class="col-sm-6 ">
-            <select class="form-control" id="vocation" name="vocation">
-              <option value="Researcher" >Researcher</option>
-              <option value="Educator" >Educator</option>
-              <option value="Student" >Student</option>
-              <option value="Commercial" >Commercial</option>
-              <option value="Government" >Government</option>
-              <option value="Nonprofit" >Nonprofit</option>
-              <option value="Cyberinfrastructure" >Cyberinfrastructure</option>
-              <option value="Other" >Other</option>
-            </select>
-            <span class="help-block hidden"></span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="country" class="col-sm-3 control-label">Country</label>
-          <div class="col-sm-6 ">
-            <select class="form-control" id="country" name="country">
-            </select>
-            <span class="help-block hidden"></span>
-          </div>
-        </div>
-
-        <div id='state_div' class="form-group" style='display:none;'>
-          <label for="state" class="col-sm-3 control-label">State</label>
-          <div class="col-sm-6 ">
-            <select class="form-control" id="state" name="state">
-            </select>
-            <span class="help-block hidden"></span>
-          </div>
-        </div>
-
         <hr width="80%">
         <div class="form-group">
           <label for="role" class="col-sm-3 control-label">Role</label>
@@ -165,14 +132,9 @@ var csrf_token = "{{ csrf_token() }}";
 _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {},
-  models: {
-    stateModel: new StateModel()
-  },
   collections: {
     roles: new Roles(),
-    orgs: new Organizations(),
-    countries: new CountryCollection(),
-    states: new StateCollection()
+    orgs: new Organizations()
   },
   csrf_token: csrf_token,
   initViews: function() {
@@ -190,14 +152,12 @@ _.extend(OOI.prototype, Backbone.Events, {
   initEvents: function() {
     this.listenTo(this, "login:success", this.onLogin);
     this.listenTo(this, "login:logout", this.onLogout);
-    this.listenTo(this, "country:onchange", this.countrySelection);
   },
   start: function() {
     var self = this;
     this.initEvents();
     this.login.fetch({async:false});
-{#    this.models.stateModel.fetchCurrent('US');#}
-    var complete = _.invoke([this.collections.roles, this.collections.orgs, this.collections.countries, this.collections.states], 'fetch');
+    var complete = _.invoke([this.collections.roles, this.collections.orgs], 'fetch');
     $.when.apply($, complete).then(function() {
       //console.log("DONE");
       self.initViews();
@@ -205,11 +165,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     }, function() {
       self.initViews();
     });
-  },
-  countrySelection: function(country_code) {
-    console.log('country_code: ' + country_code);
-    this.models.stateModel.fetchCurrent(country_code);
-    this.collections.states.fetch({url: '/api/states/' + country_code});
   }
 });
 
