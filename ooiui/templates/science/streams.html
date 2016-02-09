@@ -87,7 +87,8 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   collections: {
     streams: new StreamCollection(),
-    subscriptionCollection: new DataSubscriptionCollection()
+    subscriptionCollection: new DataSubscriptionCollection(),
+    largeFormatFiles: new LargeDataFormatCollection()
   },
   views: {
   },
@@ -134,13 +135,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.streamDownloadFormView = new StreamDownloadFormView({
       el: $('#stream-download-modal')
     });
+    this.views.largeFileFormatView = new LargeDataTableView({
+      collection: this.collections.largeFormatFiles,
+      el: $('#large-format-file-view')
+    });
+
     this.views.modalDownloadView = new ModalDownloadView({
       el: $('#download-ok-modal')
       });
     this.views.modalDownloadFailView = new ModalDownloadFailView({
       el: $('#download-fail-modal')
       });
-
 
     // Get the list of streams from the API
     updateCollection( showStreams );
@@ -182,15 +187,15 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
         if(this.login.loggedIn()) {
-          if (options.model.attributes.variables.indexOf("filepath") > -1) {
+          // if (options.model.attributes.variables.indexOf("filepath") > -1) {
 
-          }else{
-              var base_url = window.location.protocol+"//"+window.location.host+"/"
-              var download_link = options.model.get('download');
-              var download_link_url = download_link[options['selection']];
+          // }else{
+          //     var base_url = window.location.protocol+"//"+window.location.host+"/"
+          //     var download_link = options.model.get('download');
+          //     var download_link_url = download_link[options['selection']];
 
-              // base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
-          }
+          //     // base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
+          // }
           options.model.attributes.email = this.models.userModel.get("email");
           options.model.attributes.user_name = this.models.userModel.get("user_name");
 
@@ -227,8 +232,21 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.modalDownloadView.show(url);
     });
     this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
-        self.views.modalDownloadFailView.show(msg);
-  });
+      self.views.modalDownloadFailView.show(msg);
+    });
+
+    this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
+      var onErrorHandler = function(collection, response, options) {
+        self.views.largeFileFormatView.showError(response.responseText);
+      };
+      var data = {
+        ref_des: options.ref_des,
+        date: options.date
+      };
+      $.when(this.collections.largeFormatFiles.fetch({data : data, reset: true, error: onErrorHandler})).done(function() {
+        self.views.largeFileFormatView.render();
+      });
+    });
 
     // TOC Controls
     this.listenTo(this, 'toc:selectArray', function(model) {

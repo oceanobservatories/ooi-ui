@@ -24,109 +24,144 @@
     </div> <!-- col-md-12 -->
 
     <!--Body-->
-    <div class="col-md-12">
-      <div class="col-md-4">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#data" data-toggle="tab">Data</a></li>
+        <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
+    </ul>
+    <div id="dl-tab-content" class="tab-content">
+      <div class="tab-pane" id="metadata">
+        <div class="col-md-12">
+          <div class="col-md-4">
 
-      </div>
+          </div>
 
-      <div class="col-md-12" id="dlModalTitle">
-        <h3>Streams being downloaded:</h3>
-      </div>
-    </div> <!-- .col-md-12 -->
+          <div class="col-md-12" id="dlModalTitle">
+            <h3>Streams being downloaded:</h3>
+          </div>
+        </div> <!-- .col-md-12 -->
 
-    <div class="col-md-12" id="streamName">
-      <h4>Name</h4>
-    </div>
+        <div class="col-md-12" class="streamName" id="streamName">
+          <h4>Name</h4>
+        </div>
 
-    <form>
-      <div id="download-time-options">
-          <div class="range-fields">
-              <div class="form-group">
-                  <label for="time-range">Previous</label>
-                  <div id="time-range">
-                      <select class="form-control">
-                          <option value="6">6 Hours</option>
-                          <option value="12">12 Hours</option>
-                          <option value="24">24 Hours</option>
-                          <option value="168">1 Week</option>
-                          <option value="336">2 Weeks</option>
-                          <option value="672">4 Weeks</option>
-                          <option value="all">All</option>
-                      </select>
+        <form>
+          <div id="download-time-options">
+              <div class="range-fields">
+                  <div class="form-group">
+                      <label for="time-range">Previous</label>
+                      <div id="time-range">
+                          <select class="form-control">
+                              <option value="6">6 Hours</option>
+                              <option value="12">12 Hours</option>
+                              <option value="24">24 Hours</option>
+                              <option value="168">1 Week</option>
+                              <option value="336">2 Weeks</option>
+                              <option value="672">4 Weeks</option>
+                              <option value="all">All</option>
+                          </select>
+                      </div>
                   </div>
               </div>
-          </div>
-        <div class="date-fields">
-          <div class="form-group">
-            <label for="start-date">Start Date</label>
-            <div class='input-group date' id='start-date'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div> <!-- .input-group.date #start-date -->
-          </div> <!-- .form-group -->
-        </div>
+            <div class="date-fields">
+              <div class="form-group">
+                <label for="start-date">Start Date</label>
+                <div class='input-group date' id='start-date'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div> <!-- .input-group.date #start-date -->
+              </div> <!-- .form-group -->
+            </div>
 
-        <div class="date-fields">
-          <div class="form-group">
-            <label for="end-date">End Date</label>
-            <div class='input-group date' id='end-date'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div> <!-- .input-group.date #start-date -->
-          </div> <!-- .form-group -->
-        </div> <!-- .col-md-6 -->
-      </div> <!-- .col-md-12-->
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="dlEmail">Delivery Email</label>
-            <input class="form-control" id="dlEmail" type="text" name="email" size="25" placeholder="Enter Email">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group" id="type-select">
-            <label for="type-select">File Type</label>
-            <select class="form-control">
-              <option value="netcdf" selected>NetCDF (.nc)</option>
-              <option value="json">JSON (.json)</option>
-              <option value="csv">CSV (.csv)</option>
-            </select>
-          </div> <!-- .form-group -->
-        </div> <!-- .col-md-4 -->
+            <div class="date-fields">
+              <div class="form-group">
+                <label for="end-date">End Date</label>
+                <div class='input-group date' id='end-date'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div> <!-- .input-group.date #start-date -->
+              </div> <!-- .form-group -->
+            </div> <!-- .col-md-6 -->
+          </div> <!-- .col-md-12-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="dlEmail">Delivery Email</label>
+                <input class="form-control" id="dlEmail" type="text" name="email" size="25" placeholder="Enter Email">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" id="type-select">
+                <label for="type-select">File Type</label>
+                <select class="form-control">
+                  <option value="netcdf" selected>NetCDF (.nc)</option>
+                  <option value="json">JSON (.json)</option>
+                  <option value="csv">CSV (.csv)</option>
+                </select>
+              </div> <!-- .form-group -->
+            </div> <!-- .col-md-4 -->
 
-     <div class="col-md-12">
-        <div class="download-options">
-          <div class="row">
-            <div class="col-md-12">
-              <span>
-                  <label for="provenance-select">Include Provenance</label>
-                  <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input>
-              </span>
-              <span>
-                  <label for="provenance-select">Include Annotations</label>
-                  <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> 
-              </span>
+         <div class="col-md-12">
+            <div class="download-options">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>
+                      <label for="provenance-select">Include Provenance</label>
+                      <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input>
+                  </span>
+                  <span>
+                      <label for="provenance-select">Include Annotations</label>
+                      <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> 
+                  </span>
+                </div>
+             </div>
             </div>
          </div>
-        </div>
-     </div>
-     
-      <div class="row">
-        <div class="col-md-12">
-          <button type="button" id="download-btn" >Download</button>
-        </div>
+         
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" id="download-btn" >Download</button>
+            </div>
+          </div>
+          <!-- <div class="col-md-12" id="sans-data-text">
+            <h3> Clicking Download above will download metadata only.</h3>
+          </div> -->
+        </form>
       </div>
-      <div class="col-md-12" id="sans-data-text">
-        <h3> Clicking Download above will download metadata only.</h3>
-      </div>
-      <div class="row" id="download2-row">
-        <div class="col-md-12">
-          <button type="button" id="download-btn2" >Go to Data Server</button>
-        </div>
-      </div>
-    </form>
+      <div class="tab-pane active" id="data">
+        <div class="row" id="download2-row">
+          <div class="col-md-12">
+            <div class="col-md-4">
 
+            </div>
+
+            <div class="col-md-12" id="dlModalTitle">
+              <h3>Streams being downloaded:</h3>
+            </div>
+
+
+            <div class="col-md-12" class="streamName" id="streamName2">
+              <h4>Name</h4>
+            </div>
+            <div class="date-fields">
+              <div class="form-group">
+                <label for="data-date">Select a Date</label>
+                <div class='input-group date' id='data-date'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div> <!-- .input-group.date #start-date -->
+              </div> <!-- .form-group -->
+            </div>
+
+            <div id="large-format-file-view">
+            </div> <!-- #view -->
+
+            <button type="button" id="download-btn2" >Go to Data Server</button>
+          </div>
+        </div>
+      </div>  <!-- tab-pane active -->
+    </div>
   </div>
 </div> <!-- modal-dialog -->
 </div> <!-- modal fade -->

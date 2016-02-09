@@ -6,7 +6,17 @@
 #download-modal {
     min-width: 588px;
 }
-div#streamName {
+/*div#streamName{
+    font-size: 14px;
+    background-color: #eee;
+    overflow-x: hidden
+    display: inline-block;
+    margin: 10px 0 10px 0;
+    padding: 10px 20px 10px 20px;
+    text-align: left;
+    border-left: solid 5px #004773;
+}*/
+#streamName, #streamName2{
     font-size: 14px;
     background-color: #eee;
     overflow-x: hidden

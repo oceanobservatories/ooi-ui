@@ -24,11 +24,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #annotation-select' : 'onCheckboxSelect',
     'change #time-range select': 'timeRangeChange',
     'click #subscription-selection-select': 'onSubscribeSelect',
-    'click .subscribe-info': 'clickSubscribeInfo'
+    'click .subscribe-info': 'clickSubscribeInfo',
+    'change #data-date' : 'onChangeDataDate'
   },
   initialize: function() {
     _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');
-
+    this.largeFileFormatView = null;
     this.render();
   },
   onCheckboxSelect: function() {
@@ -125,6 +126,13 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   resetTimeRange: function() {
     $("#time-range > select").val("Reset").change();
+  },
+  onChangeDataDate: function() {
+    // Go request the new date
+    ooi.trigger('GetLargeFormatFiles:fetch', {
+      ref_des: this.model.attributes.reference_designator,
+      date: moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")
+    });
   },
   onTypeChange: function() {
     var type = this.$el.find('#type-select select').val();
@@ -264,28 +272,47 @@ var StreamDownloadFormView = Backbone.View.extend({
 
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
+    this.$data_date_picker.setDate(endDate);
 
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
+      this.$el.find('#streamName2').text(model.get('long_display_name'));
     }else{
       this.$el.find('#streamName').text(model.get('stream_name'));
+      this.$el.find('#streamName2').text(model.get('stream_name'));
     }
 
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
       // This is a large file format!
-
+      $("#large-format-file-view").find("tbody").remove().end();
+      var date = moment.utc(model.get('end')).format("YYYY-MM-DD");
+      // Go get the files
+      ooi.trigger('GetLargeFormatFiles:fetch', {
+        ref_des: this.model.attributes.reference_designator,
+        date: date
+      });
       // Display the explanation
       this.$el.find('#sans-data-text').show()
       this.$el.find('#dlModalTitle').html("<h3>Metadata Stream being downloaded:</h3>")
       // Display the second download
       this.$el.find('#download-btn2').show()
       this.$el.find('#download2-row').show()
+
+      $('#tabs a:first').show()
+      $('#tabs a[href="#data"]').tab('show') // Select tab by name
+      $('#tabs li:eq(1) a').html('Metadata')
+
+
     }else{
       // Hide the stuff that only applies to Large Format Downloads
       this.$el.find('#sans-data-text').hide()
       this.$el.find('#dlModalTitle').html("<h3>Streams being downloaded:</h3>")
       this.$el.find('#download-btn2').hide()
       this.$el.find('#download2-row').hide()
+
+      $('#tabs a:first').hide()
+      $('#tabs a[href="#metadata"]').tab('show') // Select tab by name
+      $('#tabs li:eq(1) a').html('Data')
 
       var email = model.get('email');
       this.$el.find('#dlEmail').val(email);
@@ -319,6 +346,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$el.find('#download-modal').modal('hide');
     return this;
   },
+
   template: JST["ooiui/static/js/partials/StreamDownloadForm.html"],
   render: function() {
     this.$el.html(this.template({}));
@@ -329,11 +357,15 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$el.find('#end-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
                                                sideBySide: true
                                                });
+    this.$el.find('#data-date').datetimepicker({format: "YYYY-MM-DD"});
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');
+    this.$data_date = this.$el.find('#data-date');
     this.$type_select = this.$el.find('#type-select select');
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
+    this.$data_date_picker = this.$data_date.data('DateTimePicker');
+    
 
   }
 });

@@ -162,6 +162,28 @@ def getUframeMultiStreamInterp():
         return jsonify(error=str(e))
 
 
+@app.route('/api/get_large_format_data', methods=['GET'])
+def get_uframe_large_format_data():
+    '''
+    Make a request to the services to get the listing of large format data
+    Example request:
+        /uframe/get_large_format_files_by_ref/RS03ASHS-MJ03B-05-OBSSPA302/2015-11-30
+    '''
+    try:
+        # Parse the parameters
+        ref_des = request.args['ref_des']
+        date = request.args['date']  # Expecting ISO format <yyyy-mm-dd>
+
+        # Build the URL
+        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_ref', ref_des, date])
+
+        # Get the response
+        response = requests.get(data_url)
+        return response.text, response.status_code, dict(response.headers)
+    except Exception, e:
+        return jsonify(error=str(e))
+
+
 @app.route('/api/annotation', methods=['GET'])
 def get_annotations():
     try:
