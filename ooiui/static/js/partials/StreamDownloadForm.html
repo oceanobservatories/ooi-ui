@@ -143,19 +143,32 @@
             <div class="col-md-12" class="streamName" id="streamName2">
               <h4>Name</h4>
             </div>
-            <div class="date-fields">
-              <div class="form-group">
-                <label for="data-date">Select a Date</label>
-                <div class='input-group date' id='data-date'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div> <!-- .input-group.date #start-date -->
-              </div> <!-- .form-group -->
+            <div class="col-md-12">
+              <div class="date-fields">
+                <div class="form-group">
+                  <label for="data-date">Select a Date</label>
+                  <div class='input-group date' id='data-date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div> <!-- .input-group.date #start-date -->
+                </div> <!-- .form-group -->
+              </div>
             </div>
-
-            <div id="large-format-file-view">
-            </div> <!-- #view -->
+            <div class="col-md-12">
+                <div id="streamDownloadPanel"class="panel">
+                  <div class="panel-heading">
+                    <div class="pagination pagination-sm pagination-right pagination-boxes" id="dl-pagination-boxes"></div>
+                  </div>
+                  <div class="panel-body">
+                    <div id="large-format-file-view">
+                    </div> <!-- #view -->
+                    <div class="paginator row text-center">
+                        <div class="pagination-info" id="dl-pagination-info"> </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
 
             <button type="button" id="download-btn2" >Go to Data Server</button>
           </div>

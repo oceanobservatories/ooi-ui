@@ -178,7 +178,7 @@ def get_uframe_large_format_data():
         data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_ref', ref_des, date])
 
         # Get the response
-        response = requests.get(data_url)
+        response = requests.get(data_url, params=request.args)
         return response.text, response.status_code, dict(response.headers)
     except Exception, e:
         return jsonify(error=str(e))

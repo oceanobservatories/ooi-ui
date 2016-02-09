@@ -272,7 +272,6 @@ var StreamDownloadFormView = Backbone.View.extend({
 
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
-    this.$data_date_picker.setDate(endDate);
 
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
@@ -285,12 +284,20 @@ var StreamDownloadFormView = Backbone.View.extend({
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
       // This is a large file format!
       $("#large-format-file-view").find("tbody").remove().end();
+      
       var date = moment.utc(model.get('end')).format("YYYY-MM-DD");
-      // Go get the files
-      ooi.trigger('GetLargeFormatFiles:fetch', {
-        ref_des: this.model.attributes.reference_designator,
-        date: date
-      });
+      
+      // Go get the files (set the date to trigger the request!)
+      if (date == moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")){
+        // Trigger the request becasue the date is already set correctly
+        ooi.trigger('GetLargeFormatFiles:fetch', {
+          ref_des: this.model.attributes.reference_designator,
+          date: date
+        });
+      }else{
+        this.$data_date_picker.setDate(date);
+      }
+
       // Display the explanation
       this.$el.find('#sans-data-text').show()
       this.$el.find('#dlModalTitle').html("<h3>Metadata Stream being downloaded:</h3>")

@@ -17,6 +17,7 @@ var LargeDataFormatCollection = Backbone.Collection.extend({
  model: LargeDataFormatModel,
  parse: function(response) {
    if(response && response.data) {
+     ooi.trigger("LargeDataCollection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
      return response.data;
    }
    return [];
