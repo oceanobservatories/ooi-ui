@@ -34,6 +34,7 @@ def get_login():
         token = urllib.unquote(token).decode('utf8')
     return token
 
+
 def get_scope(scope):
     token = get_login()
 
@@ -46,9 +47,9 @@ def get_scope(scope):
     # create list to hold a flat list of scopes
     scope_list = json_res['scopes']
 
-    # lastly, check that the scope being passed in is in the list of granted scopes.
+    # lastly, check that the scope being passed in
+    # is in the list of granted scopes.
     if scope in scope_list:
         return True
     else:
         return False
-

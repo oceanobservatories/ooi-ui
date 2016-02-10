@@ -1,0 +1,20 @@
+{
+  "cache_list": [
+    {
+      "TTL": "169519",
+      "key": "flask_cache_glider_tracks"
+    },
+    {
+      "TTL": "51394",
+      "key": "flask_cache_event_list"
+    },
+    {
+      "TTL": "138048",
+      "key": "flask_cache_stream_list"
+    },
+    {
+      "TTL": "137768",
+      "key": "flask_cache_asset_list"
+    }
+  ]
+}

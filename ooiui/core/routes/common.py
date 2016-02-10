@@ -481,21 +481,20 @@ def get_states(country_code):
 @app.route('/sysAdmin')
 @scope_required('sys_admin')
 def sys_admin_template():
-    render_template('common/sysAdmin.html')
+    return render_template('common/sysAdmin.html')
 
 
-@app.route('/api/cache_keys', methods=['GET'])
+@app.route('/api/cache_keys', methods=['GET', 'POST'])
 @scope_required('sys_admin')
-def get_cache_keys():
+def cache_keys():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', auth=(token, ''), params=request.args)
-    return response.text, response.status_code
+    if request.method == 'GET':
+        response = requests.get(app.config['SERVICES_URL'] + '/cache_keys',
+                                auth=(token, ''), params=request.args)
+        return response.text, response.status_code
 
-
-@app.route('/api/delete_cache', methods=['POST'])
-@scope_required('sys_admin')
-def delete_cache():
-    token = get_login()
-    data = json.loads(request.data)
-    response = requests.post(app.config['SERVICES_URL'] + '/delete_cache', auth=(token, ''), data=data)
-    return response.text, response.status_code
+    elif request.method == 'POST':
+        data = json.loads(request.data)
+        response = requests.post(app.config['SERVICES_URL'] + '/cache_keys',
+                                 auth=(token, ''), data=data)
+        return response.text, response.status_code
