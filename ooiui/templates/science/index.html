@@ -305,7 +305,7 @@ var renderMap = (function(gliders, assets, streams, option) {
 
     // so we can sort the list by end date, extend the search for the
     // Stream Quick View.
-    $.extend(paramSearch, { sort: 'end', order: 'reverse' });
+    //$.extend(paramSearch, { sort: 'end', order: 'reverse' });
     var newCollection = new StreamCollection();
     newCollection.fetch({data: paramSearch});
     streamStatusBtn = new StreamStatusBtnView({collection: newCollection});
