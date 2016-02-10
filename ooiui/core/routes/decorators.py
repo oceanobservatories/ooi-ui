@@ -44,12 +44,13 @@ def get_scope(scope):
 
     json_res = response.json()
 
-    # create list to hold a flat list of scopes
-    scope_list = json_res['scopes']
+    if 'error' not in json_res:
+        # create list to hold a flat list of scopes
+        scope_list = json_res['scopes']
 
-    # lastly, check that the scope being passed in
-    # is in the list of granted scopes.
-    if scope in scope_list:
-        return True
-    else:
-        return False
+        # lastly, check that the scope being passed in
+        # is in the list of granted scopes.
+        if scope in scope_list:
+            return True
+        else:
+            return False

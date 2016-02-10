@@ -31,10 +31,17 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h3>OOI System cache deletion table</h3>
+                    <p>Use of the cache deletion feature will impact the global system responsiveness
+                    and potentially slow down global loading. <br></br>
+                    Please use responsibly.</p>
+                </div>
                 <div id="jsCacheTableContainer" class="col-md-6 col-sm-12">
                     <!-- CacheTableView rendered here -->
                 </div>
             </div><!-- row -->
+            <div class="col-md-12"><hr/></div>
         </div><!--container-fluid -->
     </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
@@ -53,7 +60,7 @@ this.src = this.getAttribute("delayedSrc");
 
 <script type="text/javascript">
 
-var bannerTitle = "Redmine Help";
+var bannerTitle = "System Admin";
 
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
@@ -82,11 +89,22 @@ _.extend(OOI.prototype, Backbone.Events,  {
     $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
 
 
+    var renderCacheTable = (function() {
+        self.collections.cacheTable = new CacheTableCollection();
+        $.when(self.collections.cacheTable.fetch({reset: true})).done(function() {
+            self.views.cacheTable = new CacheTableView({collection: self.collections.cacheTable});
+            $('#jsCacheTableContainer').html(self.views.cacheTable.render().el);
+        });
+    });
+    renderCacheTable();
+    setInterval(function() { renderCacheTable() }, 30000);
   }
 });
 
 // Instantiate the application for this page
 var ooi = new OOI();
+
+var vent = _.extend({}, Backbone.Events);
 
 $(document).ready(function() {
 // Once the DOM is loaded, we start our application

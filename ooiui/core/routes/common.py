@@ -484,17 +484,17 @@ def sys_admin_template():
     return render_template('common/sysAdmin.html')
 
 
-@app.route('/api/cache_keys', methods=['GET', 'POST'])
+@app.route('/api/cache_keys', methods=['GET'])
+@app.route('/api/cache_keys/<string:key>', methods=['DELETE'])
 @scope_required('sys_admin')
-def cache_keys():
+def cache_keys(key=None):
     token = get_login()
     if request.method == 'GET':
         response = requests.get(app.config['SERVICES_URL'] + '/cache_keys',
                                 auth=(token, ''), params=request.args)
         return response.text, response.status_code
 
-    elif request.method == 'POST':
-        data = json.loads(request.data)
-        response = requests.post(app.config['SERVICES_URL'] + '/cache_keys',
-                                 auth=(token, ''), data=data)
+    elif request.method == 'DELETE':
+        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key,
+                                 auth=(token, ''))
         return response.text, response.status_code

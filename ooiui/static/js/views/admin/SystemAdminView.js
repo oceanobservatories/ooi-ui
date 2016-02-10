@@ -12,14 +12,11 @@ var ParentView = Backbone.View.extend({
      * @method: derender()
      */
     initialize: function() {
-        _.bindAll(this, 'render', 'derender');
+        _.bindAll(this, 'render', 'derender', 'renderEach');
         this.$el.css({
             'opacity': 0,
             'transition': 'opacity .2s'
         });
-        if(this.model) {
-            this.colorTime();
-        }
     },
     render: function() {
         // if there isn't an underlying model, just render the template w/o it.
@@ -31,7 +28,11 @@ var ParentView = Backbone.View.extend({
         this.$el.css({
             'opacity': 1
         });
+        this.renderEach();
         return this;
+    },
+    renderEach: function() {
+        // Implement Me!
     },
     derender: function() {
         this.remove();
@@ -47,5 +48,27 @@ var SystemAdminView = ParentView.extend({
 });
 
 var CacheTableView = ParentView.extend({
-    template: _.template('<table class="table"><thead><th><td>Select</td><td>Key</td><td>TTL</td></thead><tbody></table>')
+    initialize: function() {
+        var initContext = this;
+    },
+    template: _.template('<table class="table"><thead><tr><th>Delete</th><th>Key</th><th>TTL</th></tr></thead><tbody></tbody></table>'),
+    renderEach: function() {
+        var cacheTableItem = this.collection.map(function(model) {
+            return (new CacheTableItemView({model: model})).render().el;
+        });
+        this.$el.find('tbody').append(cacheTableItem);
+    }
+});
+
+var CacheTableItemView = ParentView.extend({
+    tagName: 'tr',
+    events: {
+        'click .delete-item': 'clickDelete'
+    },
+    template: _.template('<td><div class="btn btn-danger delete-item" data-target="<%= key %>">Delete</div></td><td><%= key %></td><td><%= Math.round(TTL/3600)  %> min remaining</td>'),
+    clickDelete: function(e) {
+        var key = this.$el.find(e.target).data('target');
+        this.model.deleteCache({key: key});
+        this.remove();
+    }
 });
