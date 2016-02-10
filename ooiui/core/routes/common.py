@@ -1,7 +1,7 @@
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify, session,make_response, redirect, url_for
 from werkzeug.exceptions import Unauthorized
-from ooiui.core.routes.decorators import login_required, get_login
+from ooiui.core.routes.decorators import login_required, get_login, scope_required
 import requests
 import json
 import urllib
@@ -9,6 +9,7 @@ import urllib2
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
+import json
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -475,4 +476,26 @@ def get_countries():
 def get_states(country_code):
     response = requests.get(app.config['SERVICES_URL']+'/states/'+country_code, params=request.args)
     #data = response.json()
+    return response.text, response.status_code
+
+@app.route('/sysAdmin')
+@scope_required('sys_admin')
+def sys_admin_template():
+    render_template('common/sysAdmin.html')
+
+
+@app.route('/api/cache_keys', methods=['GET'])
+@scope_required('sys_admin')
+def get_cache_keys():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/delete_cache', methods=['POST'])
+@scope_required('sys_admin')
+def delete_cache():
+    token = get_login()
+    data = json.loads(request.data)
+    response = requests.post(app.config['SERVICES_URL'] + '/delete_cache', auth=(token, ''), data=data)
     return response.text, response.status_code
