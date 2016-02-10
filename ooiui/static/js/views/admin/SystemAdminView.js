@@ -15,7 +15,7 @@ var ParentView = Backbone.View.extend({
         _.bindAll(this, 'render', 'derender', 'renderEach');
         this.$el.css({
             'opacity': 0,
-            'transition': 'opacity .2s'
+            'transition': 'opacity .3s'
         });
     },
     render: function() {
@@ -51,7 +51,7 @@ var CacheTableView = ParentView.extend({
     initialize: function() {
         var initContext = this;
     },
-    template: _.template('<table class="table"><thead><tr><th>Delete</th><th>Key</th><th>TTL</th></tr></thead><tbody></tbody></table>'),
+    template: _.template('<table class="table"><thead><tr><th>Delete</th><th>Cache Type</th><th>TTL</th></tr></thead><tbody></tbody></table>'),
     renderEach: function() {
         var cacheTableItem = this.collection.map(function(model) {
             return (new CacheTableItemView({model: model})).render().el;
@@ -65,7 +65,7 @@ var CacheTableItemView = ParentView.extend({
     events: {
         'click .delete-item': 'clickDelete'
     },
-    template: _.template('<td><div class="btn btn-danger delete-item" data-target="<%= key %>">Delete</div></td><td><%= key %></td><td><%= Math.round(TTL/3600)  %> min remaining</td>'),
+    template: _.template('<td><div class="btn btn-danger delete-item" data-target="<%= key %>">Delete</div></td><td><%= name %>s</td><td><%= Math.round(TTL/3600)  %> min remaining</td>'),
     clickDelete: function(e) {
         var key = this.$el.find(e.target).data('target');
         this.model.deleteCache({key: key});
