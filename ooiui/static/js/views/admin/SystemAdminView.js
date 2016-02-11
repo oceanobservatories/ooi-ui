@@ -56,6 +56,9 @@ var CacheTableView = ParentView.extend({
         var cacheTableItem = this.collection.map(function(model) {
             return (new CacheTableItemView({model: model})).render().el;
         });
+        if (cacheTableItem.length === 0) {
+            cacheTableItem = '<tr><td colspan="3">The cache is currently empty.</td></tr>';
+        }
         this.$el.find('tbody').append(cacheTableItem);
     }
 });
@@ -63,13 +66,13 @@ var CacheTableView = ParentView.extend({
 var CacheTableItemView = ParentView.extend({
     tagName: 'tr',
     events: {
-        'click .delete-item': 'clickDelete'
+        'click .js-delete-item': 'clickDelete'
     },
-    template: _.template('<td><div class="btn btn-danger delete-item" data-target="<%= key %>">Delete</div></td><td><%= name %>s</td><td><%= Math.round(TTL/3600)  %> min remaining</td>'),
+    template: _.template('<td><div class="btn btn-danger js-delete-item" data-target="<%= key %>">Delete</div></td><td><%= name %>s</td><td><%= Math.round(TTL/3600)  %> hours remaining</td>'),
     clickDelete: function(e) {
         var key = this.$el.find(e.target).data('target');
         this.model.deleteCache({key: key});
         this.remove();
-        ooi.trigger('cache:load');
+        ooi.trigger('cache:load', key);
     }
 });
