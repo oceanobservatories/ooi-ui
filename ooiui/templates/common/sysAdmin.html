@@ -107,13 +107,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     setInterval(function() { renderCacheTable() }, 30000);
 
     this.listenTo(this, 'cache:load', function(key) {
-        var reloadingCache = confirm("Cache Cleared! Would you like to issue a cache reload for: " + key + "? The site be unresponsive for your session for a few minutes during this time.")
-            if (reloadingCache) {
-                this.collections.assets.fetch({async: true});
-                this.collections.streams.fetch({async: true});
-                this.collections.gliders.fetch({async: true});
-                this.collections.events.fetch({async: true});
-            }
+        this.collections.assets.fetch({async: true});
+        this.collections.streams.fetch({async: true});
+        this.collections.gliders.fetch({async: true});
+        this.collections.events.fetch({async: true});
     });
   }
 });
