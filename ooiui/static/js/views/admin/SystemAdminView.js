@@ -70,5 +70,6 @@ var CacheTableItemView = ParentView.extend({
         var key = this.$el.find(e.target).data('target');
         this.model.deleteCache({key: key});
         this.remove();
+        ooi.trigger('cache:load');
     }
 });

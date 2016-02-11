@@ -20,6 +20,10 @@
   <!-- Models and Views -->
   <script src="/js/models/admin/SystemAdminModel.js" type="text/javascript"></script>
   <script src="/js/views/admin/SystemAdminView.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/EventModel.js" type="text/javascript"></script>
+  <script src="/js/models/science/StreamModel.js" type="text/javascript"></script>
+  <script src="/js/models/science/GliderTrackModel.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
@@ -67,6 +71,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
   views: {},
   collections: {
     organizations: new Organizations(),
+    assets: new AssetCollection(),
+    streams: new StreamCollection(),
+    gliders: new GliderTrackCollection(),
+    events: new EventsCollection()
   },
   models: {},
 
@@ -98,6 +106,16 @@ _.extend(OOI.prototype, Backbone.Events,  {
     });
     renderCacheTable();
     setInterval(function() { renderCacheTable() }, 30000);
+
+    this.listenTo(this, 'cache:load', function() {
+        var reloadingCache = confirm("Would you like to issue a cache reload? The site be unresponsive for your session for a few minutes during this time.")
+            if (reloadingCache) {
+                this.collections.assets.fetch({async: true});
+                this.collections.streams.fetch({async: true});
+                this.collections.gliders.fetch({async: true});
+                this.collections.events.fetch({async: true});
+            }
+    });
   }
 });
 
