@@ -154,7 +154,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     dataseries: new DataSeriesCollection(),
     additionalDataseries: new DataSeriesCollection(),
     interpolatedDataseries: new InterpolatedDataSeriesCollection(),
-    subscriptionCollection :  new DataSubscriptionCollection()
+    subscriptionCollection :  new DataSubscriptionCollection(),
+    largeFormatFiles: new LargeDataFormatCollection()
   },
   views: {
     plottingItemSelection : null,
@@ -346,6 +347,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.streamDownloadFormView = new StreamDownloadFormView({
       el: $('#stream-download-modal')
     });
+    this.views.largeFileFormatView = new LargeDataTableView({
+      collection: this.collections.largeFormatFiles,
+      el: $('#large-format-file-view')
+    });
     this.views.modalDownloadView = new ModalDownloadView({
       el: $('#download-ok-modal')
     });
@@ -358,6 +363,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.views.plotAnnotationsEvents = new PlotAnnotationsEvents({
       el: $('#highcharts-buttons-section-panel')
     });
+
 
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
@@ -964,6 +970,29 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   });
 
+  this.listenTo(this, "LargeDataCollection:updated", function(details){
+        updateDownloadPagination(details);
+  });
+
+  this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
+      updateDownloadCollection(options);
+    });
+
+  this.listenTo(this, 'LargeFormatFileTable:update',function(options){
+    var onErrorHandler = function(collection, response, options) {
+      self.views.largeFileFormatView.showError(response.responseText);
+      var details = {startAt: 0,
+                     count: 1,
+                     total: 0
+      };
+      updateDownloadPagination(details);
+    };
+
+    $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
+      self.views.largeFileFormatView.render();
+    });
+  });
+
   this.listenTo(this, 'DownloadModal:onSuccess',function(url){
     self.views.modalDownloadView.show(url);
   });
@@ -1010,6 +1039,15 @@ $.when(arrayFetch, streamFetch).done(function() {
   });
 });
 
+// The download pagination object holds information about the current
+// state of the page for us.
+var dlPagination = {
+    itemsPerPage : 8, // how many items per page
+    currentPage : 1, // page to start at, first page is 1, not 0
+    maxPages: 4, // max number of pages to show in the pagination element
+    date: '',
+    ref_des: ''
+}
 
 
 $(document).ready(function() {
@@ -1035,6 +1073,69 @@ function jump(h){
     var url = location.href;               //Save down the URL without hash.
     location.href = "#"+h;                 //Go to the target element.
     history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
+
+function updateDownloadCollection( options ){
+
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    var startingPoint = "";
+    try {
+        var target = $( event.target );
+        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
+                || target.is('th') || target.is('font') || target.is('input')) {
+            startingPoint = 0;
+        } else {
+            startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+        }
+    } catch(e) {
+        console.log(e)
+        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+    }
+    // Pagination attributes will be passed in using
+    // backbone's collection data method.
+
+    var data = {
+        startAt : startingPoint,
+        count : dlPagination.itemsPerPage,  
+        ref_des: options.ref_des,
+        date: options.date
+    };
+    dlPagination.ref_des = options.ref_des;
+    dlPagination.date = options.date;
+
+    ooi.trigger('LargeFormatFileTable:update', data);
+}
+
+function updateDownloadPagination( details ){
+    // This is pagination for the Large File format download list
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $("#dl-pagination-boxes").unbind();
+    // Redraw the jquery pagination boxes
+    $("#dl-pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: dlPagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                dlPagination.currentPage = page;
+                updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
+            }
+        }
+    });
 }
 </script>
 {% endblock %}

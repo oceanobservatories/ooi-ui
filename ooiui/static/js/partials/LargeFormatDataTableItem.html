@@ -1,0 +1,9 @@
+<% _.each(columns, function(col) { %>
+  <% if(col.name === "download") { %>
+    <td class="download">
+      <a href="<%=model.get('url')%>"> <b>Download</b></a>
+    </td>
+  <% } else { %>
+    <td><%= model.get(col.name) %></td>
+  <% } %>
+<% }); %>
