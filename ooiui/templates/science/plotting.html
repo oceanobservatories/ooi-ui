@@ -1003,7 +1003,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
   this.listenTo(vent, 'toc:paramFilter', function(option) {
       $.when(vent.trigger('toc:derenderItems')).done(function() {
-            var paramSearch = { search: option };
+            var paramSearch = { concepts: option };
             streamFetch = streamCollection.fetch({ data: paramSearch });
             $.when(streamFetch).done(function() {
                 $.when(renderTOCView(arrayCollection, null, streamCollection)).done(function() {
@@ -1097,7 +1097,7 @@ function updateDownloadCollection( options ){
 
     var data = {
         startAt : startingPoint,
-        count : dlPagination.itemsPerPage,  
+        count : dlPagination.itemsPerPage,
         ref_des: options.ref_des,
         date: options.date
     };

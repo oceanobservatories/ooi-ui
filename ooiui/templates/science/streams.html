@@ -288,7 +288,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(vent, 'toc:paramFilter', function(option) {
         $.when(vent.trigger('toc:derenderItems')).done(function() {
-            var paramSearch = { search: option };
+            var paramSearch = { concepts: option };
             streamFetch = streamCollection.fetch({ data: paramSearch });
             updateCollection(showStreams);
             $.when(streamFetch).done(function() {
@@ -334,7 +334,7 @@ var pageControlView = new DataCatalogPageControlView({model: pageControlModel, e
 
 
 // The pagination object holds information about the current
-// state of the page for us. There's one for streams and one for 
+// state of the page for us. There's one for streams and one for
 // download elements
 var pagination = {
     itemsPerPage : 10, // how many items per page
@@ -438,7 +438,8 @@ function updateCollection( successCallback ){
     var data = {
         startAt : startingPoint,
         count : pagination.itemsPerPage,
-        search : paramSearch+ ' ' +$('#search').val(),
+        search : $('#search').val(),
+        concepts : paramSearch,
         sort : sortBy,
         order : order
     };
@@ -504,7 +505,7 @@ function updateDownloadCollection( options ){
 
     var data = {
         startAt : startingPoint,
-        count : dlPagination.itemsPerPage,  
+        count : dlPagination.itemsPerPage,
         ref_des: options.ref_des,
         date: options.date
     };
