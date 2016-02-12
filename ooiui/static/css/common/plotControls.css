@@ -1,3 +1,11 @@
+#plottingBody #plotcontrols #plot-options .plot-tool-tip-icon{
+    color:#004773;
+}
+
+ #plottingBody #plotcontrols #plot-options .tooltip {
+  width: 250px;
+}
+
 div#plottingBody div.row div.panel div#control-heading {
     padding: 0;
     border-collapse: collapse;
