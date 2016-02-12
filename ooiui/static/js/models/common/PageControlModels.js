@@ -26,11 +26,13 @@ var TocPageControlModel = Backbone.Model.extend({
         params : {
             "General":[
                 ["CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL", "Water Temperature"],
-                ["CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL", "Pressure"],
+                ["PRESFA PRESFB PRESFC PRESTA PRESTB CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL", "Pressure"],
                 ['PHSENA PHSENB PHSEND PHSENE PHSENF', 'pH'],
                 ['NUTNRB NUTNRA NUTNRM', 'Nitrate'],
                 ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL', 'Density'],
                 ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL', 'Salinity']
+                ['OPTAAC OPTAAD OPTAAJ FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM', 'Chlorophyll'],
+                ['OPTAAC OPTAAD OPTAAJ', 'Turbidity']
             ],
             "Air Sea Interface":[
                 ['FDCHPA METBKA', 'Air Temperature'],
@@ -49,36 +51,26 @@ var TocPageControlModel = Backbone.Model.extend({
                 ['WAVSSA', 'Wave Properties']
             ],
             "Water Column": [
-                ['SPKIRA SPKIRB SPKIRJ', 'Downwelling Irradiance'],
+                ['SPKIRA SPKIRB SPKIRJ', 'Spectral Irradiance'],
                 ['PARADA PARADJ PARADK PARADM', 'PAR'],
-                ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM', 'Chlorophyll'],
-                ["DOFSTK DOSTAD DOSTAJ DOSTAL DOSTAM", "Dissolved O2"],
                 ['VADCPA VEL3DB VEL3DC VEL3DD VEL3DK VEL3DL VELPTA VELPTB VELPTD VELPTJ ADCPAM ADCPSI ADCPSJ ADCPSK ADCPSL ADCPSN ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM', 'Water Velocity'],
-                ['ADCPAM ADCPSI ADCPSJ ADCPSK ADCPSL ADCPSN ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM', 'Acoustics'],
+                ['ZPLSCB ZPLSCC', 'Bioacoustic Sonar'],
                 ['ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM', 'Wave Properties'],
-                ['microbial_dna', 'Microbial DNA'],
-                ['depth', 'Depth'],
-                ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM', 'Turbidity'],
+                ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM', 'Turbidity']
             ],
             "Seafloor": [
                 ['HPIESA', 'Water Velocity'],
-                ['HPIESA', 'Acoustics'],
-                ['HYDBBA HYDBBA', 'Acoustics'],
+                ['HYDBBA HYDLFA', 'Hydrophone'],
                 ['MASSPA THSPHA TRHPHA TMPSFA', 'Hydrothermal Vent Chemistry'],
                 ['TMPSFA HPIESA', 'Water Temperature'],
-                ['OBSBBA OBSSPA', 'Seafloor Movement'],
                 ['OBSBBA OBSSPA', 'Seismic Activity'],
-                ['OPTAAC OPTAAD OPTAAJ', 'Chlorophyll'],
-                ['OPTAAC OPTAAD OPTAAJ', 'Turbidity'],
-                ['PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA', 'Seafloor Pressure'],
-                ['benthic_fluid_flow_rate', 'Benthic Fluid Flow Rate'],
+                ['PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA', 'Seafloor Pressure']
             ],
             "Large Format Data":[
-                ['antelope', 'Hydrophone'],
+                ['HYDBBA HYDLFA', 'Hydrophone'],
                 ['CAMDSC CAMDSB', 'Still Images'],
                 ['CAMHDA', 'HD Video'],
-                ['ZPLSCB ZPLSCC', 'Acoustics'],
-                ['BOTPTA', 'Seafloor Movement'],
+                ['ZPLSCB ZPLSCC', 'Bioacoustic Sonar'],
                 ['BOTPTA', 'Seafloor Pressure'],
                 ['BOTPTA', 'Seismic Activity']
             ]
