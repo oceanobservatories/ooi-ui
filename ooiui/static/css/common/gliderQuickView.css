@@ -1,0 +1,52 @@
+.gliderBtnContainer {
+    z-index: 100;
+    position: absolute;
+    top: 11px;
+    right: 60px;
+}
+
+.gliderBtnContainer > button {
+    background-color: white;
+}
+
+.glider-quick-view-panel{
+  right: 200px;
+  width: 600px;
+  height: 400px;
+  max-height: 400px;
+  min-height: 400px;
+  top: 11px;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+}
+
+.glider-quick-view-panel table{
+  width: 100%;
+}
+
+
+.glider-quick-view-panel .table-rows td {
+    text-align: center;
+}
+
+
+.glider-quick-view-panel .glider-table {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display:block;
+  height:390px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}

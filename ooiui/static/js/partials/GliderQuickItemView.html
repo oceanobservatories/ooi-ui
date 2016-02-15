@@ -1,0 +1,4 @@
+<td><%=model.get('track')['name']%></td>
+<td><%=model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][0].toFixed(2)%>,<%=model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][1].toFixed(2)%></td>
+<td><%=moment(model.get('times')['last_requested']*1000).format('MMMM Do YYYY, h:mm:ss a') %></td>
+<td><input type="checkbox" name="showTrack" />&nbsp;</td>

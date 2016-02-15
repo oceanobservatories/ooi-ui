@@ -286,7 +286,7 @@ var assetFetch = assetCollection.fetch({ data: data, reset: true });
 var streamFetch = streamCollection.fetch();
 var gliderFetch = gliderCollection.fetch({ reset: true });
 
-var mapView, streamQuickView;
+var mapView, streamQuickView, GliderQuickView;
 var renderMap = (function(gliders, assets, streams, option) {
     //when the glider fetch is done update the map
     mapView = new MapView({
@@ -297,7 +297,8 @@ var renderMap = (function(gliders, assets, streams, option) {
     });
 
     mapView.gliderCollection = gliders;
-    mapView.add_glider_tracks();
+    //TODO: FIX
+    //mapView.add_glider_tracks();
 
     // grab the search option, if there is any.  If not just
     // return an empty object.
@@ -311,6 +312,11 @@ var renderMap = (function(gliders, assets, streams, option) {
     streamStatusBtn = new StreamStatusBtnView({collection: newCollection});
     streamStatusBtn.render();
     $('#map').append(streamStatusBtn.el);
+
+    gliderQuickView = new GliderQuickBtnView({collection: gliders});
+    gliderQuickView.render();
+    $('#map').append(gliderQuickView.el);
+
     resizeMap();
 
     setTimeout(function(){
