@@ -55,10 +55,10 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   views: {},
   models: {
-      userModel: new UserModel(),
+      userModel: new UserModel()
   },
   collections: {
-    users: new UserCollection(),
+    users: new UserCollection()
   },
   start: function() {
     this.login.fetch({async: false});

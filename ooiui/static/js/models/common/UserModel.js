@@ -28,7 +28,7 @@ var UserModel = Backbone.Model.extend({
     first_name: "",
     id: null,
     last_name: "",
-    organization_id: null,
+    organization_id: 9,
     other_organization: null,
     phone_alternate: null,
     phone_primary: null,

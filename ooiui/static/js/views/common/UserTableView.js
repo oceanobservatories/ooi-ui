@@ -30,12 +30,8 @@ var UserTableView = Backbone.View.extend({
         label : 'Last Name'
       },
       {
-        name : 'organization',
-        label : 'Organization'
-      },
-      {
         name : 'other_organization',
-        label : 'Other Organization'
+        label : 'Organization'
       },
       {
         name : 'vocation',

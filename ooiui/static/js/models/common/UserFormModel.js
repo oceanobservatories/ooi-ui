@@ -15,7 +15,7 @@ _.extend(Backbone.Validation.messages, {
 var SignUpModel = Backbone.Model.extend({
     defaults: {
         role_name: "Administrator",
-        organization: "ASA",
+        organization: "Other",
         role_id: 0
     },
     url: "/api/user/",
@@ -39,6 +39,9 @@ var SignUpModel = Backbone.Model.extend({
             msg: 'The passwords does not match'
         },
         organization:{
+            required: false
+        },
+        other_organization:{
             required: true
         },
         primary_phone: {
