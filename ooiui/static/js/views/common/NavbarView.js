@@ -60,8 +60,19 @@ var NavbarView = Backbone.View.extend({
     this.$el.html(this.templates.navbar());
     this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     // Messages only appear to logged in users
-    if(ooi.login.loggedIn()) {
-        this.$el.find('#navbar-menus').append(this.templates.logged_in_nav_items());
+    if(ooi.login.loggedIn()){
+        //Here we will get the user so that we can access the scope and only show items they can access.
+        var userModel = new UserModel();
+        var self = this;
+        userModel.fetch({
+            url: '/api/current_user',
+            success: function() {
+               self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
+            },
+            error: function() {
+              self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:null}));
+            }
+        });
         this.$el.find('#current').hide();
         this.$el.find('#world-map').hide();
         //this.$el.find('#navbar-menus').append(this.messageView.el);
