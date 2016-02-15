@@ -235,7 +235,7 @@ _.extend(OOI.prototype, Backbone.Events, {
                 mapView.derender();
                 $('#map-container').hide();
                 $('#map-container').html('<div class="map-view" id="map"></div>');
-                var paramSearch = { search: option };
+                var paramSearch = { concepts: option };
                 // I'm so ashamed.
                 var streamCollectionAgain    = new StreamCollection();
                 // somehow, the mapview is accessing this collection DIRECTLY.
@@ -301,7 +301,7 @@ var renderMap = (function(gliders, assets, streams, option) {
 
     // grab the search option, if there is any.  If not just
     // return an empty object.
-    var paramSearch = (option) ? { search: option } : {};
+    var paramSearch = (option) ? { concepts: option } : {};
 
     // so we can sort the list by end date, extend the search for the
     // Stream Quick View.
