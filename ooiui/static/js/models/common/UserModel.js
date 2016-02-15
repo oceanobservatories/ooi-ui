@@ -29,6 +29,7 @@ var UserModel = Backbone.Model.extend({
     id: null,
     last_name: "",
     organization_id: null,
+    other_organization: null,
     phone_alternate: null,
     phone_primary: null,
     role: null,
@@ -45,6 +46,40 @@ var UserCollection = Backbone.Collection.extend({
   parse: function(response) {
     if(response) {
       return response.users;
+    }
+    return [];
+  }
+});
+
+var CountryModel = Backbone.Model.extend({
+  urlRoot: '/api/countries',
+  defaults: {
+  }
+});
+
+var CountryCollection = Backbone.Collection.extend({
+  url: '/api/countries',
+  model: CountryModel,
+  parse: function(response) {
+    if(response) {
+      return response;
+    }
+    return [];
+  }
+});
+
+var StateModel = Backbone.Model.extend({
+  urlRoot: '/api/states/US',
+  defaults: {
+  }
+});
+
+var StateCollection = Backbone.Collection.extend({
+  url: '/api/states/US',
+  model: StateModel,
+  parse: function(response) {
+    if(response) {
+      return response;
     }
     return [];
   }

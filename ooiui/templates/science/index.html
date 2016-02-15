@@ -299,8 +299,13 @@ var renderMap = (function(gliders, assets, streams, option) {
     mapView.gliderCollection = gliders;
     mapView.add_glider_tracks();
 
+    // grab the search option, if there is any.  If not just
+    // return an empty object.
+    var paramSearch = (option) ? { search: option } : {};
 
-    var paramSearch = (option) ? { search: option } : '';
+    // so we can sort the list by end date, extend the search for the
+    // Stream Quick View.
+    //$.extend(paramSearch, { sort: 'end', order: 'reverse' });
     var newCollection = new StreamCollection();
     newCollection.fetch({data: paramSearch});
     streamStatusBtn = new StreamStatusBtnView({collection: newCollection});
@@ -309,6 +314,8 @@ var renderMap = (function(gliders, assets, streams, option) {
     resizeMap();
 
     setTimeout(function(){
+        // showLayers will force the map to render after it's been reloaded.
+        // sometimes it won't unless you give it a kick.
         mapView.showLayers();
     }, 300);
 });

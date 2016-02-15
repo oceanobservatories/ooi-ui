@@ -301,6 +301,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/AnnotationTableItem.html",
             "ooiui/static/js/partials/SVGPlotControl.html",
             "ooiui/static/js/partials/StreamTable.html",
+            "ooiui/static/js/partials/LargeFormatDataTable.html",
+            "ooiui/static/js/partials/LargeFormatDataTableItem.html",
             "ooiui/static/js/partials/StreamTableItem.html",
             "ooiui/static/js/partials/StreamTableItemSubView.html",
             "ooiui/static/js/partials/AcousticDataTable.html",
@@ -825,6 +827,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/LargeDataFormatModel.js',
             'ooiui/static/js/models/science/AcousticDataModel.js',
             'ooiui/static/js/models/science/SeriesModel.js',
             'ooiui/static/js/models/common/DataSubscriptionModel.js',
@@ -846,6 +849,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/AcousticDataTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js',
             'ooiui/static/js/views/science/HighchartsView.js',
             'ooiui/static/js/views/science/HighChartsXYView.js',
             'ooiui/static/js/views/science/HighChartsTimeSeriesView.js',
@@ -1227,6 +1231,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/common/AnnotationModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/LargeDataFormatModel.js',
             'ooiui/static/js/models/science/AcousticDataModel.js',
             'ooiui/static/js/models/common/DataSubscriptionModel.js',
             // Views
@@ -1245,7 +1250,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/AcousticDataTableView.js',
-            'ooiui/static/js/views/science/StreamDownloadFormView.js'
+            'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js',
           ],
           'ooiui/static/js/compiled/plotting.js' : [
             // Libs
@@ -1277,6 +1283,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/TocPlatformsModel.js',
             'ooiui/static/js/models/science/TocStreamsModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/LargeDataFormatModel.js',
             'ooiui/static/js/models/science/PlotEventModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
@@ -1293,6 +1300,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/AnnotationModalFormView.js',
             'ooiui/static/js/views/science/AnnotationTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js',
             'ooiui/static/js/views/science/PlottingSelectionView.js',
             'ooiui/static/js/views/science/PlotEventListView.js',
             'ooiui/static/js/views/science/HighChartsXYScatterView.js',

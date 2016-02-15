@@ -1,7 +1,7 @@
 from ooiui.core.app import app
 from flask import request, render_template, Response, jsonify, session,make_response, redirect, url_for
 from werkzeug.exceptions import Unauthorized
-from ooiui.core.routes.decorators import login_required, get_login
+from ooiui.core.routes.decorators import login_required, get_login, scope_required
 import requests
 import json
 import urllib
@@ -9,6 +9,7 @@ import urllib2
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
+import json
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -464,3 +465,36 @@ def post_config():
 @app.route('/notsupported')
 def not_supported():
     return render_template("/common/notsupported.html")
+
+@app.route('/api/countries', methods=['GET'])
+def get_countries():
+    response = requests.get(app.config['SERVICES_URL']+'/countries')
+    #data = response.json()
+    return response.text, response.status_code
+
+@app.route('/api/states/<string:country_code>', methods=['GET'])
+def get_states(country_code):
+    response = requests.get(app.config['SERVICES_URL']+'/states/'+country_code, params=request.args)
+    #data = response.json()
+    return response.text, response.status_code
+
+@app.route('/sysAdmin')
+@scope_required('sys_admin')
+def sys_admin_template():
+    return render_template('common/sysAdmin.html')
+
+
+@app.route('/api/cache_keys', methods=['GET'])
+@app.route('/api/cache_keys/<string:key>', methods=['DELETE'])
+@scope_required('sys_admin')
+def cache_keys(key=None):
+    token = get_login()
+    if request.method == 'GET':
+        response = requests.get(app.config['SERVICES_URL'] + '/cache_keys',
+                                auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+
+    elif request.method == 'DELETE':
+        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key,
+                                 auth=(token, ''))
+        return response.text, response.status_code
