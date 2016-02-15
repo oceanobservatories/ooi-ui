@@ -59,10 +59,11 @@ var TocPageControlModel = Backbone.Model.extend({
                 ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM', 'Turbidity']
             ],
             "Seafloor": [
-                ['HPIESA', 'Water Velocity'],
                 ['HYDBBA HYDLFA', 'Hydrophone'],
                 ['MASSPA THSPHA TRHPHA TMPSFA', 'Hydrothermal Vent Chemistry'],
+                ['HPIESA', 'Water Velocity'],
                 ['TMPSFA HPIESA', 'Water Temperature'],
+                ['BOTPTA', 'Seafloor Pressure'],
                 ['OBSBBA OBSSPA', 'Seismic Activity'],
                 ['PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA', 'Seafloor Pressure']
             ],
@@ -71,8 +72,7 @@ var TocPageControlModel = Backbone.Model.extend({
                 ['CAMDSC CAMDSB', 'Still Images'],
                 ['CAMHDA', 'HD Video'],
                 ['ZPLSCB ZPLSCC', 'Bioacoustic Sonar'],
-                ['BOTPTA', 'Seafloor Pressure'],
-                ['BOTPTA', 'Seismic Activity']
+                ['OBSBBA OBSSPA', 'Seismic Activity']
             ]
         }
     }
