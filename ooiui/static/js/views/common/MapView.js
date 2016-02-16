@@ -97,7 +97,7 @@ var MapView = Backbone.View.extend({
         _.each(params,function(param){
             selected = model.get('metadata')[param]
             if(!_.isUndefined(selected['value'])){
-                popupContent +=   '<h6><strong>'+selected['particleKey']+': </strong>'+ selected['value'].toFixed(2)+ " ("+ selected['units'] +')</h6>';
+                popupContent +=   '<h6><strong>'+selected['particleKey'].replace('m_',"").replace(/_/g,' ')+': </strong>'+ selected['value'].toFixed(2)+ " ("+ selected['units'] +')</h6>';
             }
         })
 
