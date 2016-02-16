@@ -82,14 +82,35 @@ var MapView = Backbone.View.extend({
         var gliderTrackLayer = L.geoJson(model.toJSON()['track'], {style: gliderTrackStyle});
 
         var array = model.get('track')['name'][0]+model.get('track')['name'][1]
-        var title = model.get('arrayCodes')[array]+" - Glider "+ model.get('track')['name'].split("-")[1].split('GL')[1]
+
+
+        var name = model.get('track')['name'].split("-")[1];
+        if (name.indexOf("GL")>-1){
+            name = name.split('GL')[1];
+        }else if (name.indexOf("PG")>-1){
+            name = name.split('PG')[1];
+        }
+
+        var title = model.get('arrayCodes')[array]+" - Glider "+ name
 
         var popupContent = '<h4 style="min-width:400px" id="popTitle"><strong>' + title + '</strong></h4>';
-        popupContent += '<h5 id="latLon">';
-        popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][1].toFixed(2) + '</div>';
-        popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][0].toFixed(2) + '</div>';
-        popupContent += '<h5 id="deployEvents"><strong>Overview: '+ moment((model.get('metadata')['time']-2208988800)*1000).format('MMMM Do YYYY, h:mm:ss a') +'</strong></h5>';
-        popupContent += '<div style="padding-left:10px" class="map-pop-container">';
+        popupContent += '<div><h5 id="deployEvents"><strong></strong></h5></div>';
+        popupContent += '<div style="height:250px;padding-left:10px" class="map-pop-container">';
+
+
+        popupContent += '<ul><li style="margin-left: 60px;"><strong>Last Communication: </strong>'+moment((model.get('metadata')['time']-2208988800)*1000).format('MMMM Do YYYY, h:mm:ss a')+'</li></ul>';
+        popupContent += '<ul id="latLon"><li latfloat"=""><strong>Latitude: </strong>'+ model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][1].toFixed(2)
+        popupContent += '</li><li lonfloat"=""><strong>Longitude: </strong>'+ model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][0].toFixed(2)+'</li></ul>'
+        popupContent += '<div id="glider-pop-container" style="height: 200px; overflow-y:scroll; overflow-x: hidden;">'
+
+        popupContent += '<table id="popupInstrumentTable" class="tablesorter nasdaq">'
+        popupContent += '<thead id="header-fixed" style="line-height: .5em">'
+        popupContent += '<tr>'
+        popupContent += '<th class="header headerSortDown">Name</th>'
+        popupContent += '<th class="header">Value</th>'
+        popupContent += '</tr>'
+        popupContent += '</thead>'
+        popupContent += '<tbody>'
 
         var item = null;
         var selected = null;
@@ -97,7 +118,19 @@ var MapView = Backbone.View.extend({
         _.each(params,function(param){
             selected = model.get('metadata')[param]
             if(!_.isUndefined(selected['value'])){
-                popupContent +=   '<h6><strong>'+selected['particleKey'].replace('m_',"").replace(/_/g,' ')+': </strong>'+ selected['value'].toFixed(2)+ " ("+ selected['units'] +')</h6>';
+                popupContent += '<tr>'
+                if (selected['particleKey'] == 'm_lithium_battery_relative_charge'){
+                    popupContent +=   '<td>'+'Battery Charge'+' </td><td>'+ selected['value'].toFixed(2)+ " ("+ selected['units'] +')</td>';
+                }else{
+                    var units=null;
+                    if (selected['units'] == "m s-1"){
+                        units = "m/s"
+                    }else{
+                        units = selected['units']
+                    }
+                popupContent +=   '<td style="text-transform: capitalize;">'+selected['particleKey'].replace('m_',"").replace(/_/g,' ')+' </td><td>'+ selected['value'].toFixed(2)+ " ("+ units +')</td>';
+                }
+                popupContent += '</tr>'
             }
         })
 

@@ -1,5 +1,13 @@
 <% var array = model.get('track')['name'][0]+model.get('track')['name'][1] %>
 <% var name = model.get('track')['name'].split("-")[1].split('GL')[1] %>
+<% if(_.isUndefined(name)){ %>
+<%   name = model.get('track')['name'].split("-")[1].split('PG')[1] %>
+<% } %>
+
+<% if(_.isUndefined(name)){ %>
+<% name = model.get('track')['name'].split("-")[1] %>
+<% } %>
+
 <td><%= model.get('arrayCodes')[array]+ " - Glider "+ name %></td>
 <td><%=model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][1].toFixed(2)%>,<%=model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][0].toFixed(2)%></td>
 <td class="<%= model.get('freshness') %>"><%=moment(model.get('times')['last_requested']*1000).format('MMMM Do YYYY, h:mm:ss a') %></td>

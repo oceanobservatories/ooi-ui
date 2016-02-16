@@ -4,7 +4,8 @@ var GliderTrackModel = Backbone.Model.extend({
         enabled: false,
         arrayCodes:{
             "CP":"Coastal Pioneer",
-            "CE":"Endurance & Cabled Array",
+            "CE":"Coastal Endurance",
+            "RS":"Cabled Array",
             "GP":"Station Papa",
             "GI":"Irminger Sea",
             "GA":"Argentine Basin",
