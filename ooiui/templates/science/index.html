@@ -177,6 +177,22 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         });
 
+        this.listenTo(this, "glider:showGliderTrack", function(o){
+            if (o.model.get('enabled')){
+                mapView.add_selected_glider_track(o.model);
+            }else{
+                mapView.remove_selected_glider_track(o.model);
+            }
+
+        });
+
+        this.listenTo(this, "glider:zoomToGliderTrack", function(o){
+            var ll = o.model.get('track')['coordinates'];
+            var boundsSt = [ll[0][1],ll[0][0]];
+            var boundsEd = [ll[ll.length-1][1],ll[ll.length-1][0]];
+            mapView.map.fitBounds([boundsSt,boundsEd]);
+        });
+
         this.listenTo(this, 'map:streamingStationSelected', function(options) {
             if ($('#streamingDataContainer').css('display') == 'none'){
                 $('#streamingDataContainer').slideToggle();
@@ -297,8 +313,6 @@ var renderMap = (function(gliders, assets, streams, option) {
     });
 
     mapView.gliderCollection = gliders;
-    //TODO: FIX
-    //mapView.add_glider_tracks();
 
     // grab the search option, if there is any.  If not just
     // return an empty object.

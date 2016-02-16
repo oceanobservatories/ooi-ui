@@ -71,7 +71,55 @@ var MapView = Backbone.View.extend({
         };
         WMSlegend.addTo(this.map);
     },
+    add_selected_glider_track: function(model){
+        var self = this;
+        var gliderTrackStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65
+        };
+        gliderTrackStyle.color = (self.getRandomColor());
+        var gliderTrackLayer = L.geoJson(model.toJSON()['track'], {style: gliderTrackStyle});
+
+        var array = model.get('track')['name'][0]+model.get('track')['name'][1]
+        var title = model.get('arrayCodes')[array]+" - Glider "+ model.get('track')['name'].split("-")[1].split('GL')[1]
+
+        var popupContent = '<h4 style="min-width:400px" id="popTitle"><strong>' + title + '</strong></h4>';
+        popupContent += '<h5 id="latLon">';
+        popupContent += '<div class="latFloat">'+ '<strong>Latitude:</strong> ' + model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][1].toFixed(2) + '</div>';
+        popupContent += '<div class="lonFloat">'+ '<strong>Longitude:</strong> ' + model.get('track')['coordinates'][model.get('track')['coordinates'].length-1][0].toFixed(2) + '</div>';
+        popupContent += '<h5 id="deployEvents"><strong>Overview: '+ moment((model.get('metadata')['time']-2208988800)*1000).format('MMMM Do YYYY, h:mm:ss a') +'</strong></h5>';
+        popupContent += '<div style="padding-left:10px" class="map-pop-container">';
+
+        var item = null;
+        var selected = null;
+        var params = Object.keys(model.get('metadata'));
+        _.each(params,function(param){
+            selected = model.get('metadata')[param]
+            if(!_.isUndefined(selected['value'])){
+                popupContent +=   '<h6><strong>'+selected['particleKey']+': </strong>'+ selected['value'].toFixed(2)+ " ("+ selected['units'] +')</h6>';
+            }
+        })
+
+        popupContent += '</div>';
+
+        gliderTrackLayer.bindPopup(popupContent);
+        self.gliderLayers.addLayer(gliderTrackLayer);
+
+    },
+    remove_selected_glider_track: function(model){
+        var self = this;
+        _.each(self.gliderLayers.getLayers(),function(layer){
+            if (layer.getLayers()[0]['feature']['geometry']['reference_designator'] == model.attributes.track.reference_designator){
+                self.gliderLayers.removeLayer(layer);
+            }
+        })
+    },
+    /*
     add_glider_tracks: function(){
+        //DEPRECATED
+
+
         var self = this;
         //this.gliderCollection
         var gliderTrackStyle = {
@@ -127,11 +175,12 @@ var MapView = Backbone.View.extend({
             popupContent += '</div>';
             popupContent += '</div>';
             //bind
-            gliderTrackLayer.bindPopup(popupContent);
+            //gliderTrackLayer.bindPopup(popupContent);
             //add
-            self.gliderLayers.addLayer(gliderTrackLayer);
+            //self.gliderLayers.addLayer(gliderTrackLayer);
         });
     },
+    */
     //deprecated i think
     update_track_glider: function(reference_designator,show_track){
         var self = this;
@@ -277,6 +326,7 @@ var MapView = Backbone.View.extend({
         });
 
         self.arrayLayers.addTo(map);
+        self.gliderLayers.addTo(map);
 
 
 

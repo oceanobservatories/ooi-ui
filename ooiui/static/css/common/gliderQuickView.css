@@ -9,6 +9,21 @@
     background-color: white;
 }
 
+/*
+.gliderBtnContainer .glider-table .close {
+  background-color: #004773;
+  color: white;
+  padding-left: 7px;
+  padding-right: 8px;
+  opacity: 1;
+  border: none;
+  transform-origin: top left;
+  transition: all 0.9s;
+}
+*/
+
+
+
 .glider-quick-view-panel{
   right: 200px;
   width: 600px;
@@ -39,6 +54,22 @@
   overflow-x: hidden;
   display:block;
   height:390px;
+}
+
+.glider-quick-view-panel .glider-table td .zoom-to-glider:hover{
+  cursor:zoom-in;
+}
+
+.glider-quick-view-panel .glider-table .twelve-hours {
+    background-color: deepskyblue;
+    color: black;
+}
+.glider-quick-view-panel .glider-table .twenty-four-hours {
+    background-color: gold;
+}
+.glider-quick-view-panel .glider-table .older {
+    background-color: firebrick;
+    color: white;
 }
 
 ::-webkit-scrollbar {

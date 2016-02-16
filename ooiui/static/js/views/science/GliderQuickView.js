@@ -23,6 +23,9 @@ var GliderQuickParentView = Backbone.View.extend({
           'opacity': 0,
           'transition': 'opacity .2s'
       });
+      if (this.model) {
+        this.colorTime();
+      }
   },
   render: function() {
         // if there isn't an underlying model, just render the template w/o it.
@@ -36,11 +39,25 @@ var GliderQuickParentView = Backbone.View.extend({
         });
         return this;
   },
+  colorTime: function() {
+        // add a 'freshness' property to the model for easy styling.
+        var time = new Date(this.model.get('end')),
+            timeSinceEnd = new Date().getTime() - time.getTime(),
+            twelve = 43200000,
+            twentyFour = 86400000;
+        if (timeSinceEnd <= twelve) {
+            this.model.set({'freshness': 'twelve-hours'});
+        } else if (timeSinceEnd < twentyFour) {
+            this.model.set({'freshness': 'twenty-four-hours'});
+        } else {
+            this.model.set({'freshness': 'older'});
+        }
+    },
   derender: function() {
-        this.remove();
-        this.unbind();
-        if (this.model)
-            this.model.off();
+      this.remove();
+      this.unbind();
+      if (this.model)
+          this.model.off();
     }
 });
 
@@ -58,11 +75,16 @@ var GliderQuickBtnView = GliderQuickParentView.extend({
     click: function(e) {
         e.preventDefault();
         L.DomEvent.disableClickPropagation(this.el);
-        //console.log(this.gliderQuickView);
-        this.gliderQuickView = new GliderQuickView({collection: this.collection});
-        // render out this entire view.
-        this.gliderQuickView.render();
-        this.gliderQuickView.renderEach();
+        if (_.isNull(this.gliderQuickView) || this.gliderQuickView.rendered == false){
+          //console.log(this.gliderQuickView);
+          this.gliderQuickView = new GliderQuickView({collection: this.collection});
+          // render out this entire view.
+          this.gliderQuickView.render();
+          this.gliderQuickView.renderEach();
+          this.gliderQuickView.rendered = true;
+        }else{
+          this.gliderQuickView.close();
+        }
     }
 });
 
@@ -76,6 +98,7 @@ var GliderQuickView = GliderQuickParentView.extend({
     template: JST["ooiui/static/js/partials/GliderQuickView.html"],
     renderEach: function() {
       var self = this;
+
       self.collection.each(function(gliderModel) {
         if (gliderModel.get('track')){
           self.$el.find('.table-rows').append((new GliderQuickItemView({model:gliderModel})).render().el);
@@ -89,6 +112,7 @@ var GliderQuickView = GliderQuickParentView.extend({
     },
     close: function() {
         this.derender();
+        this.rendered = false;
     },
     render: function() {
       var self = this;
@@ -105,6 +129,18 @@ var GliderQuickView = GliderQuickParentView.extend({
 var GliderQuickItemView = GliderQuickParentView.extend({
     /*  each stream is handled with this view.
      */
+    events: {
+        'click input.show-track-line': 'showTrackLine',
+        'click .zoom-to-glider': 'zoomToGlider',
+
+    },
+    showTrackLine:function(e){
+      this.model.set('enabled',$(e.target).is(":checked"));
+      ooi.trigger('glider:showGliderTrack',{model:this.model});
+    },
+    zoomToGlider:function(e){
+      ooi.trigger('glider:zoomToGliderTrack',{model:this.model});
+    },
     tagName: 'tr',
     template: JST["ooiui/static/js/partials/GliderQuickItemView.html"]
 });
