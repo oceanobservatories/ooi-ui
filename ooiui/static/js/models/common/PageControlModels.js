@@ -25,43 +25,53 @@ var TocPageControlModel = Backbone.Model.extend({
 
         params : {
             "General":[
-                ["temperature", "Temperature"],
-                ["pressure", "Pressure"],
-                ['ph', 'pH'],
-                ['nitrate', 'Nitrate'],
-                ["co2", "CO2"],
-                ['density', 'Density'],
-                ['salinity', 'Salinity']
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDWaterTempGen', 'Water Temperature'],
+                ['PRESFA PRESFB PRESFC PRESTA PRESTB CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDPress', 'Pressure'],
+                ['PHSENA PHSENB PHSEND PHSENE PHSENF PHpH', 'pH'],
+                ['NUTNRB NUTNRA NUTNRM NUTNRNitrate', 'Nitrate'],
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDDensity', 'Density'],
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDSalinGen', 'Salinity'],
+                ['OPTAAC OPTAAD OPTAAJ FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTChloro', 'Chlorophyll'],
+                ['OPTAAC OPTAAD OPTAAJ OPTAATurbid', 'Turbidity']
             ],
             "Air Sea Interface":[
-                ['humidity', 'Humidity'],
-                ['wind_velocity', 'Wind Velocity'],
-                ['precipitation', 'Precipitation'],
-                ['air_sea_co2_flux', 'Air Sea CO2 Flux'],
-                ['air_sea_heat_flux', 'Air Sea Heat Flux'],
-                ['wave_properties', 'Wave Properties']
+                ['FDCHPA METBKA FDCMETAirTemp', 'Air Temperature'],
+                ['FDCHPA METBKA FDCMETHumid', 'Humidity'],
+                ['FDCHPA METBKA FDCMETWindVelo', 'Wind Velocity'],
+                ['METBKA METBKAPrecip', 'Precipitation'],
+                ['PC02AA PC02Atmo', 'Atmospheric CO2'],
+                ['PC02AA PC02Air-Sea', 'Air-Sea CO2 Flux'],
+                ['PC02WA PC02WB PC02WC PC02AA PC02Sea', 'Seawater CO2'],
+                ['FDCHPA METBKA FDCMETAir-SeaHeat', 'Air-Sea Heat Flux'],
+                ['METBKA METBKADownIrrad', 'Downwelling Irradiance'],
+                ['METBKA METBKAAtmoPress', 'Atmospheric Pressure'],
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL METBKA CTDWaterTempAir-Sea', 'Water Temperature'],
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL METBKA CTDSalinAir-Sea', 'Salinity'],
+                ['METBKA METBKAHumid', 'Humidity'],
+                ['WAVSSA WAVSSAWave', 'Wave Properties']
             ],
             "Water Column": [
-                ['downwelling_irradiance', 'Downwelling Irradiance'],
-                ['par', 'PAR'],
-                ['chlorophyll', 'Chlorophyll'],
-                ['dissolved_o2', 'Dissolved O2'],
-                ['water_velocity', 'Water Velocity'],
-                ['microbial_dna', 'Microbial DNA'],
-                ['depth', 'Depth'],
-                ['turbidity', 'Turbidity'],
-                ['seismic_activity', 'Seismic Activity'],
+                ['SPKIRA SPKIRB SPKIRJ SPIKRSpectral', 'Spectral Irradiance'],
+                ['PARADA PARADJ PARADK PARADM PARADPAR', 'PAR'],
+                ['VADCPA VEL3DB VEL3DC VEL3DD VEL3DK VEL3DL VELPTA VELPTB VELPTD VELPTJ ADCPAM ADCPSI ADCPSJ ADCPSK ADCPSL ADCPSN ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCWaterVelo', 'Water Velocity'],
+                ['ZPLSCB ZPLSCC ZPLSCBioacoustic', 'Bioacoustic Sonar'],
+                ['ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCPWaveProps', 'Wave Properties'],
+                ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTTurbid', 'Turbidity']
             ],
             "Seafloor": [
-                ['seafloor_movement', 'Seafloor Movement'],
-                ['hydrothermal_vent_fluid_chemistry', 'Hydrothermal Vent Fluid Chemistry'],
-                ['bethnic_fluid_flow_rate', 'Benthic Fluid Flow Rate'],
+                ['HYDBBA HYDLFA HYDHydroFloor', 'Hydrophone'],
+                ['MASSPA THSPHA TRHPHA TMPSFA TMPHydroThermal', 'Hydrothermal Vent Chemistry'],
+                ['HPIESA HPIESWaterVelo', 'Water Velocity'],
+                ['TMPSFA HPIESA TMPPIEWaterTemp', 'Water Temperature'],
+                ['OBSBBA OBSSPA OBSSeismic', 'Seismic Activity'],
+                ['BOTPTA PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA PRESSeaFloorPress', 'Seafloor Pressure']
             ],
             "Large Format Data":[
-                ['antelope', 'Hydrophone'],
-                ['camds', 'Still Images'],
-                ['camhd', 'HD Video'],
-                ['zplsc', 'Bioacoustic Sonar']
+                ['HYDBBA HYDLFA HYDHydrophoneLarge', 'Hydrophone'],
+                ['CAMDSC CAMDSB CAMLarge', 'Still Images'],
+                ['CAMHDA HDLarge', 'HD Video'],
+                ['ZPLSCB ZPLSCC ZPLBioacousticLarge', 'Bioacoustic Sonar'],
+                ['OBSBBA OBSSPA OBSSeismicLarge', 'Seismic Activity']
             ]
         }
     }

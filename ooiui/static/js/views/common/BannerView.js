@@ -47,7 +47,7 @@ var BannerView = Backbone.View.extend({
     // Let's see what time it is
     var currentTime = moment.utc();
     // Compare to the time that streaming is on
-    var hoursOn = [2, 5, 8, 11, 14, 17, 20, 23];
+    var hoursOn = [3, 6, 9, 12, 15, 18, 21, 24];
     if (hoursOn.indexOf(currentTime.hour()) > -1){
       // Now check if the time falls within the 14 minute duration that video is on
       if (currentTime.minute() < 15){
