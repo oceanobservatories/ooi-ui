@@ -132,14 +132,11 @@ td.data-controls {
     padding: 5px 20px 5px 20px;
     position: relative;
     text-align:center;
-    border-right: solid 5px white;
+    border: solid 2px #004773;
     cursor: pointer;
     transition: all 0.7s;
 }
 td.data-controls:hover {
     background-color: #004473;
     color: white;
-}
-td.data-controls:last-of-type {
-    border-right: none;
 }
