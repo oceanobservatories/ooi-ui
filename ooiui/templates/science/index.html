@@ -247,7 +247,6 @@ _.extend(OOI.prototype, Backbone.Events, {
                     renderMap(gliderCollection, assetCollection, streamCollectionAgain, option);
                     renderTOCView(arrayCollection, null, streamCollectionAgain);
                     $('#map-container').show();
-                    vent.trigger('toc:noKids');
                     vent.trigger('toc:hideStreams');
                     vent.trigger('toc:hideNodes');
                     vent.trigger('toc:hideInstruments');

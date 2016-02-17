@@ -68,7 +68,7 @@ var CacheTableItemView = ParentView.extend({
     events: {
         'click .js-delete-item': 'clickDelete'
     },
-    template: _.template('<td><div class="btn btn-danger js-delete-item" data-target="<%= key %>">Delete</div></td><td><%= name %>s</td><td><%= Math.round(TTL/3600)  %> hours remaining</td>'),
+    template: _.template('<td><div class="btn btn-danger js-delete-item" data-target="<%= key %>">Delete</div></td><td><%= key %></td><td><%= Math.round(TTL/3600)  %> hours remaining</td>'),
     clickDelete: function(e) {
         var key = this.$el.find(e.target).data('target');
         this.model.deleteCache({key: key});
