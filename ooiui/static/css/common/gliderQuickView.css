@@ -1,0 +1,85 @@
+.gliderBtnContainer {
+    z-index: 100;
+    position: absolute;
+    top: 11px;
+    right: 60px;
+}
+
+.gliderBtnContainer > button {
+    background-color: white;
+}
+
+/*
+.gliderBtnContainer .glider-table .close {
+  background-color: #004773;
+  color: white;
+  padding-left: 7px;
+  padding-right: 8px;
+  opacity: 1;
+  border: none;
+  transform-origin: top left;
+  transition: all 0.9s;
+}
+*/
+
+
+
+.glider-quick-view-panel{
+  right: 200px;
+  width: 600px;
+  height: 400px;
+  max-height: 400px;
+  min-height: 400px;
+  top: 11px;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+}
+
+.glider-quick-view-panel table{
+  width: 100%;
+}
+
+
+.glider-quick-view-panel .table-rows td {
+    text-align: center;
+    padding-left:3px;
+    padding-right:3px;
+}
+
+
+.glider-quick-view-panel .glider-table {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display:block;
+  height:390px;
+}
+
+.glider-quick-view-panel .glider-table td .zoom-to-glider:hover{
+  cursor:zoom-in;
+}
+
+.glider-quick-view-panel .glider-table .twelve-hours {
+    background-color: deepskyblue;
+    color: black;
+}
+.glider-quick-view-panel .glider-table .twenty-four-hours {
+    background-color: gold;
+}
+.glider-quick-view-panel .glider-table .older {
+    background-color: firebrick;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}

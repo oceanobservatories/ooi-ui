@@ -32,6 +32,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/partials/DataCatalogPageControlView.html',
             'ooiui/static/js/partials/TocPageControlView.html',
             'ooiui/static/js/partials/StreamQuickViewItem.html',
+            'ooiui/static/js/partials/GliderQuickView.html',
+            'ooiui/static/js/partials/GliderQuickItemView.html',
             'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html'
           ],
           "ooiui/static/js/partials/compiled/streamingdata.js" : [
@@ -782,6 +784,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
+            'ooiui/static/js/views/science/GliderQuickView.js',
           ],
           'ooiui/static/js/compiled/basic.js' : [
             // Libs
@@ -1646,7 +1649,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/annotationModal.css",
             "ooiui/static/css/common/mapLegend.css",
             "ooiui/static/css/common/errorModal.css",
-            "ooiui/static/css/common/streamingdata.css"
+            "ooiui/static/css/common/streamingdata.css",
+            "ooiui/static/css/common/gliderQuickView.css",
           ],
           "ooiui/static/css/compiled/status.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",

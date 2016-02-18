@@ -1,20 +1,27 @@
 var GliderTrackModel = Backbone.Model.extend({
   urlRoot: '#',
   defaults: {
-        reference_designator: "",
-        type: "LineString",
-        coordinates:[[]],
+        enabled: false,
+        arrayCodes:{
+            "CP":"Coastal Pioneer",
+            "CE":"Coastal Endurance",
+            "RS":"Cabled Array",
+            "GP":"Station Papa",
+            "GI":"Irminger Sea",
+            "GA":"Argentine Basin",
+            "GS":"Southern Ocean"
+        }
   }
 });
 
 
 var GliderTrackCollection = Backbone.Collection.extend({
   url: '/api/uframe/glider_tracks',
-  model: GliderTrackModel,  
+  model: GliderTrackModel,
   parse: function(response) {
     if(response && response.gliders) {
       return response.gliders;
-    }    
+    }
     return [];
   }
 });
