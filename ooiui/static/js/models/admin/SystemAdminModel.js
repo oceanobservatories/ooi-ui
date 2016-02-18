@@ -4,9 +4,7 @@
 /*
  * CacheTableModel && Collection
  * @method GET: returns a list with key 'cache_list'
- * @method POST: submit a json with a list of keys
- *               to delete.
- *               Ex: {delete: ['<flask_cache_<name1>', ...]}
+ * @method DELETE: provide a key name as and ID to delete
  */
 
 var CacheTableModel = Backbone.Model.extend({

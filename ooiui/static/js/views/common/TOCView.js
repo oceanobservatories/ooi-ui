@@ -353,7 +353,7 @@ var AssetItemView = Backbone.View.extend({
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument');
             var ref_des = this.model.get('ref_des');
-            if(ref_des.indexOf('ENG') > -1 || ref_des.indexOf('0000') > -1) {
+            if(ref_des.indexOf('ENG') > -1) {
                 this.$el.addClass('eng-item');
             }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(11) + '</font>';
@@ -387,7 +387,7 @@ var HomelessStreamItemView = AssetItemView.extend({
             instrumentName = this.model.get('display_name');
             this.$el.attr('id', instrumentId);
             this.$el.attr('class', 'instrument detached');
-            if(instrumentId.indexOf('ENG') > -1 || instrumentId.indexOf('0000') > -1) {
+            if(instrumentId.indexOf('ENG') > -1) {
                 this.$el.addClass('eng-item');
             }
             label = (instrumentName === '' || instrumentName === null) ? instrumentId : '<span>' + instrumentName + '</span><font class="ref-des-item">' + instrumentId.substr(11) + '</font>';

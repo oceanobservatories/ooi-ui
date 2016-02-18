@@ -1,0 +1,193 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>OOI User Interface - System Admin</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+  <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+  <!-- Models and Views -->
+  <script src="/js/models/admin/DataAdminModel.js" type="text/javascript"></script>
+  <script src="/js/views/admin/DataAdminView.js" type="text/javascript"></script>
+  <script src="/js/models/science/StreamModel.js" type="text/javascript"></script>
+    {% block link %}
+        {{ super() }}
+    {% endblock %}
+    {% block script %}
+        {{ super() }}
+    {% endblock %}
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+      {% block page_controls %}
+      {{ super() }}
+      {% endblock %}
+<div id="wrapper">
+    <div id="page-content-wrapper">
+            {% block sidebar %}
+            <!-- common/base.html -->
+            {{ super() }}
+            {% endblock %}
+        <div class="container-fluid">
+            <div id="page-content">
+                <div id="streamPanel" class="panel">
+                    <div id="jsDisableStream">
+                        <!-- DisableStreamView rendered here -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br/>
+                            <i>Disabled Streams</i>
+                            <p>Below is a list of all disabled streams.  You may re-enable them by clicking "Enable Stream".<p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="jsDisabledStreamsTableContainer" class="col-md-12 col-sm-12">
+                            <!-- DisabledStreamsTableView rendered here -->
+                        </div>
+                    </div><!-- row -->
+                </div>
+            </div>
+        </div><!--container-fluid -->
+    </div><!-- page-content-wrapper -->
+</div><!-- wrapper -->
+
+<!-- fade in image -->
+<script>
+$(document).ready(function() {
+    $(".delayImg").each(function() {
+    this.onload = function() {
+    $(this).animate({opacity: 1}, 2000);
+    };
+    this.src = this.getAttribute("delayedSrc");
+    });
+});
+</script>
+
+<script type="text/javascript">
+
+var bannerTitle = "Data Admin";
+
+_.extend(OOI.prototype, Backbone.Events,  {
+  login: new LoginModel(),
+  views: {},
+  collections: {
+    organizations: new Organizations(),
+    streams: new StreamCollection(),
+    arrays: new ArrayCollection()
+  },
+  models: {},
+
+  start: function() {
+    var self = this;
+    this.login.fetch({async:false});
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+      collection: this.collections.organizations,
+    });
+
+    // Render the interaction for the user to disable the stream
+    var disabledStream = new DisabledStreamsModel();
+    this.views.disableStream = new DisableStreamView({model: disabledStream});
+    $('#jsDisableStream').html(this.views.disableStream.render().el);
+
+    // Render the table that will list all the streams that have been disabled
+    var renderDisabledStreamsTable = (function() {
+        self.collections.disabledStreamsTable = new DisabledStreamsCollection();
+        $.when(self.collections.disabledStreamsTable.fetch({reset: true})).done(function() {
+            self.views.disabledStreamsTable = new DisabledStreamsTableView({collection: self.collections.disabledStreamsTable});
+            $('#jsDisabledStreamsTableContainer').html(self.views.disabledStreamsTable.render().el);
+        });
+    });
+    renderDisabledStreamsTable();
+
+    // lets poll to make sure the list stays updated, every 30 seconds
+    setInterval(function() { renderDisabledStreamsTable() }, 5000);
+
+    // lets get the TOC loaded
+    var renderTOC = (function() {
+        var arraysFetched = self.collections.arrays.fetch({reset: true});
+        var streamsFetched = self.collections.streams.fetch({reset: true});
+
+        $.when(arraysFetched, streamsFetched).done(function() {
+            $.when(renderTOCView(self.collections.arrays, null, self.collections.streams))
+             .done(function() {
+                //hide the instruments
+                vent.trigger('toc:noKids');
+                vent.trigger('toc:hideStreams');
+            });
+            ooi.trigger('toc:ready');
+        });
+    });
+    renderTOC();
+    this.listenTo(this, 'toc:render', function() {
+        $('#assetBrowser').remove();
+        renderTOC();
+    });
+    // TOC Controls
+    this.listenTo(this, 'toc:selectArray', function(model) {
+        var arrayName = model.get('array_name');
+        var refDes = model.get('array_code');
+        $('#jsDisableGroup > h3').html(arrayName);
+        $('#jsDisableGroup em').html(refDes);
+    });
+    this.listenTo(this, 'toc:selectPlatform', function(model) {
+        var displayName = model.get('site_name');
+        var refDes = model.get('ref_des').substr(0,8);
+        $('#jsDisableGroup > h3').html(displayName);
+        $('#jsDisableGroup em').html(refDes);
+    });
+
+    this.listenTo(this, 'toc:selectAssembly', function(model) {
+        var displayName = model.get('assembly_name');
+        var refDes = model.get('ref_des').substr(0,11);
+        $('#jsDisableGroup > h3').html(displayName);
+        $('#jsDisableGroup em').html(refDes);
+    });
+
+    this.listenTo(this, 'toc:selectInstrument', function(model) {
+        var displayName = model.get('display_name');
+        var refDes = model.get('ref_des');
+        $('#jsDisableGroup > h3').html(displayName);
+        $('#jsDisableGroup em').html(refDes);
+    });
+  }
+});
+
+// Instantiate the application for this page
+var ooi = new OOI();
+
+var vent = _.extend({}, Backbone.Events);
+
+$(document).ready(function() {
+// Once the DOM is loaded, we start our application
+ooi.start();
+});
+</script>
+
+{% endblock %}

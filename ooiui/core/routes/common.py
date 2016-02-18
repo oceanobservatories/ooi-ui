@@ -478,10 +478,36 @@ def get_states(country_code):
     #data = response.json()
     return response.text, response.status_code
 
-@app.route('/sysAdmin')
+@app.route('/sysadmin')
 @scope_required('sys_admin')
 def sys_admin_template():
-    return render_template('common/sysAdmin.html')
+    return render_template('admin/sysAdmin.html')
+
+@app.route('/dataadmin')
+@scope_required('data_manager')
+def data_admin_template():
+    return render_template('admin/dataAdmin.html')
+
+@app.route('/api/disabled_streams', methods=['GET', 'POST'])
+@app.route('/api/disabled_streams/<int:id>', methods=['DELETE'])
+@scope_required('data_manager')
+def disabled_streams(id=None):
+    token = get_login()
+    END_POINT = '/uframe/disabled_streams'
+    if request.method == 'GET':
+        response = requests.get(app.config['SERVICES_URL'] + END_POINT,
+                                auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+
+    elif request.method == 'POST':
+        response = requests.post(app.config['SERVICES_URL'] + END_POINT,
+                                auth=(token, ''), data=request.data)
+        return response.text, response.status_code
+
+    elif request.method == 'DELETE':
+        response = requests.delete(app.config['SERVICES_URL'] + END_POINT + '/' + str(id),
+                                auth=(token, ''))
+        return response.text, response.status_code
 
 
 @app.route('/api/cache_keys', methods=['GET'])

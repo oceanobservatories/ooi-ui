@@ -31,6 +31,14 @@
             <i class="fa fa-rss" style='padding-right: 10px;'> </i>  Streaming Data
       </a>
     </li>
+
+    <% if(user !== null && user.get('scopes').indexOf('data_manager') !== -1){ %>
+    <li>
+        <a href="/dataadmin">
+            <i class="fa fa-gear" style='padding-right: 10px;'> </i>Data Admin
+        </a>
+    </li>
+    <% } %>
 	</ul>
 </li>
 
