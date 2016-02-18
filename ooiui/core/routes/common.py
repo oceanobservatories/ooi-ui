@@ -481,12 +481,12 @@ def get_states(country_code):
 @app.route('/sysadmin')
 @scope_required('sys_admin')
 def sys_admin_template():
-    return render_template('admin/sysadmin.html')
+    return render_template('admin/sysAdmin.html')
 
 @app.route('/dataadmin')
 @scope_required('data_manager')
 def data_admin_template():
-    return render_template('admin/dataadmin.html')
+    return render_template('admin/dataAdmin.html')
 
 @app.route('/api/disabled_streams', methods=['GET', 'POST'])
 @app.route('/api/disabled_streams/<int:id>', methods=['DELETE'])
