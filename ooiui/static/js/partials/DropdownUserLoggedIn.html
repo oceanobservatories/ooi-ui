@@ -25,11 +25,12 @@
     <!-- mail envelope -->
      <i class="fa fa-envelope fa-fw" style='padding-right: 27px;'> </i>   Operator Logs</a>
     </li>
-
+    <% if(user.get('scopes').indexOf('sys_admin') !== -1){ %>
     <li id="js-sysAdminPageBtn">
      <a href="/sysAdmin">
      <i class="fa fa-gear fa-fw" style='padding-right: 27px;'> </i>   System Admin</a>
     </li>
+    <% } %>
     <li class="divider"></li>
     <li><a id="logout" href="#"><i style='padding-right: 27px;' class="fa fa-sign-out fa-fw"> </i>   Logout</a>
     </li>
