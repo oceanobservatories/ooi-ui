@@ -524,3 +524,10 @@ def cache_keys(key=None):
         response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key,
                                  auth=(token, ''))
         return response.text, response.status_code
+
+
+# Exposes the RESET_LOGIN_URL config.yml parameter
+@app.route('/api/resetlogin', methods=['GET'])
+def get_reset_login_url():
+    reset_login_url = app.config['RESET_LOGIN_URL']
+    return redirect(reset_login_url)
