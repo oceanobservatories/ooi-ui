@@ -11,6 +11,7 @@ COMMON: &common
   SUBSCRIPTION_SERVER: 'http://localhost:12585'
   SAN_DATA_SERVER: 'http://opendap-devel.ooi.rutgers.edu:8080/opendap/hyrax/'
   TROUBLE_TICKETS: 'https://uframe-cm.ooi.rutgers.edu/login'
+  RESET_LOGIN_URL: 'http://localhost:5001/admin/reset'
 
 DEVELOPMENT: &development
   <<: *common
