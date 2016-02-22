@@ -1,0 +1,131 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Landing</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/landingPages.css" rel="stylesheet" type="text/css" />
+<!-- Partials -->
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<script src="/js/compiled/index.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<script src="js/landingPagesJS.js" type="text/javascript"></script>
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid"> 
+    <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" class="btn-wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" class="btn-sidebar">
+    </div>
+
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <!-- Accordian -->
+                <div id="accordian-view-wrapper" class="col-md-12">
+                </div><!-- col-sm-12 -->
+
+            </div><!-- row -->
+        </div><!--container-fluid -->
+    </div><!-- page-content-wrapper -->
+</div><!-- wrapper -->
+
+<script type="text/javascript">
+
+    //Gets the url that the window is currently viewing. Seems somewhat hack-y
+var currentUrl = window.location.pathname;
+var titleList = {"/cabled-array" : "Cabled Array", "/argentine-basin" : "Argentine Basin", "/endurance-array" : "Endurance Array", "/irminger-sea" : "Irminger Sea", "/pioneer-array" : "Pioneer Array", "/southern-ocean" : "Southern Ocean", "/station-papa" : "Station Papa"};
+var pageTitle = titleList[currentUrl];
+
+var bannerTitle = pageTitle;
+
+_.extend(OOI.prototype, Backbone.Events,  {
+login: new LoginModel(),
+views: {},
+collections: {
+organizations: new Organizations(),
+},
+models: {},
+
+start: function() {
+    this.login.fetch({async: false}); // Doesn't actually make an ajax request    
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({pageTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+    el: $('#navbar')
+    });
+
+    this.views.landingPagesTOC = new LandingPagesTOC({
+    collection: this.collections.organizations,
+    });
+    $('#sidebar-wrapper').html(this.views.landingPagesTOC.el);
+
+    //This view should render a bunch of subviews to fill the content of the page.
+    switch(pageTitle){
+        case "Cabled Array":
+            this.views.cabledArrayView = new CabledArrayView({
+                el: $('#accordian-view-wrapper')
+            });
+        break;
+        case "Argentine Basin":
+            this.views.argentineBasinView = new ArgentineBasinView({
+                 el: $("#accordian-view-wrapper")
+            });
+        break;
+        case "Endurance Array":
+            new EnduranceArrayView({
+                el: $("#accordian-view-wrapper")
+            });
+        break;
+        case "Irminger Sea":
+            new IrmingerSeaView({
+                el: $("#accordian-view-wrapper")        
+            });
+        break;
+        case "Pioneer Array":
+            new PioneerArrayView({
+                el: $("#accordian-view-wrapper")        
+            });
+        break;
+        case "Southern Ocean":
+            new SouthernOceanView({
+                el: $("#accordian-view-wrapper")     
+            });
+        break;
+        case "Station Papa":
+            new StationPapaView({
+                el: $("#accordian-view-wrapper")     
+            });
+        break;
+    }
+}
+});
+// Instantiate the application for this page
+var ooi = new OOI();
+
+$(document).ready(function() {
+        document.title = pageTitle; 
+        // Once the DOM is loaded, we start our application
+        ooi.start();
+        });
+    </script>
+
+    {% endblock %}

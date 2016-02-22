@@ -64,33 +64,15 @@ def user_login():
 def help_page():
     return render_template('common/help.html')
 
-@app.route('/pioneer-array')
-def pioneer_array():
-    return render_template('landing/pioneerArray.html')
-
-@app.route('/endurance-array')
-def endurance_array():
-    return render_template('landing/enduranceArray.html')
-
-@app.route('/cabled-array')
-def cabled_array():
-    return render_template('landing/cabledArray.html')
-
-@app.route('/station-papa')
-def station_papa():
-    return render_template('landing/stationPapa.html')
-
-@app.route('/irminger-sea')
-def irminger_sea():
-    return render_template('landing/irmingerSea.html')
-
 @app.route('/argentine-basin')
-def argentine_basin():
-    return render_template('landing/argentineBasin.html')
-
+@app.route('/cabled-array')
+@app.route('/endurance-array')
+@app.route('/irminger-sea')
+@app.route('/pioneer-array')
 @app.route('/southern-ocean')
-def southern_ocean():
-    return render_template('landing/southernOcean.html')
+@app.route('/station-papa')
+def renderLanding():
+    return render_template('landing/landingTemplate.html')
 
 @app.route('/infrastructure')
 def infrastructure():
