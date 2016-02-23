@@ -319,6 +319,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
   multiRequest: true,
   isRendered:false,
   initialize: function(options) {
+    var self = this;
     this.title = options && options.title || "Chart";
     this.title_style = options && options.title_style || {
     };
@@ -326,15 +327,23 @@ var HighchartsStreamingDataView = Backbone.View.extend({
 
     _.bindAll(this, "onClick",'requestData','abort','updateDateTimes','getUrl','updateVariable','resume');
 
-    var dt = moment();
-    var dt2Str = dt.format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
-    var dt1Str = dt.subtract(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
+    var dt = moment().utc();
+    var dt2Str = self.getEndDate(dt,0);
+    var dt1Str = self.getStartDate(dt,11);
     self.variable = options.variable;
     self.variable_list = [];
     _.each(self.variable,function(data_variable,vv){
       self.variable_list.push(data_variable['variable']);
     });
     this.ds = new DataSeriesCollection([],{'stream':this.model.get('stream_name'),'ref_des':this.model.get('ref_des'), 'xparameters':['time'],'yparameters':self.variable_list, 'startdate':dt1Str,'enddate':dt2Str});
+  },
+  getStartDate:function(dt,rm_seconds){
+    //start date
+    return dt.subtract(rm_seconds, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
+  },
+  getEndDate:function(dt,rm_seconds){
+    //needs to be first, previous 10 seconds
+    return dt.subtract(rm_seconds, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
   },
   updateVariable:function(variable){
     var self = this;
@@ -343,16 +352,19 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     _.each(self.variable,function(data_variable,vv){
       self.variable_list.push(data_variable['variable']);
     });
-    self.ds.yparameters = [variable_list];
+    self.ds.yparameters = [self.variable_list];
     self.resetAxis = true;
   },
   updateDateTimes:function(){
     var self = this;
     //update datetime using new moment dates
     var dt = moment().utc();
-    var dt2Str = dt.format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
-    var dt1Str = dt.subtract(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
-    this.ds.startdate = dt1Str;
+    var dt2Str = self.getEndDate(dt,0);
+    if (self.overrideStDate){
+      //override start date if data points exceed 0, this should be the majority of cases...
+      var dt1Str = self.getStartDate(dt,10);
+      this.ds.startdate = dt1Str;
+    }
     this.ds.enddate = dt2Str;
   },
   onClick: function(e, point) {
@@ -440,27 +452,33 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                   self.chart.legend.render();
                 }
 
-                for (var i = 0; i < points['data'].length; i++) {
+                //only override the data if their are points available
+                self.overrideStDate = false;
+                if (points['data'].length > 0){
+                  var dx= null;
+                  self.overrideStDate = true;
+                  console.log(points['data'].length);
+                  for (var i = 0; i < points['data'].length; i++) {
                     var x = points['data'][i]['time'];
                     var y = points['data'][i][self.variable_list[vv]];
                     x -= 2208988800;
-                    var dx= moment.utc(x);
-                    x =  dx._i*1000;
-                    point = [x,y]
+                    dx= moment.utc(x);
+                    point = [dx._i*1000,y]
 
                     if (i < points['data'].length-1){
                         self.chart.series[vv].addPoint(point, false, shift);
                     }else{
                         self.chart.series[vv].addPoint(point, true, shift);
                     }
+                  }
                 }
+
               });
 
               if (self.resetAxis){
                 self.chart.redraw();
                 self.resetAxis = false;
               }
-
 
               if (self.multiRequest){
                   // call it again after (X) seconds
@@ -537,7 +555,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
         plotOptions: {
             line: {
                 marker: {
-                    enabled: false
+                    enabled: false,
                 }
             }
         },
