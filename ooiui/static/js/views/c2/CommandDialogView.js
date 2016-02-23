@@ -193,33 +193,55 @@ var CommandDialogView = Backbone.View.extend({
       var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
       console.log(particle_url);
 
-      $.getJSON(particle_url)
-        .success(function(data) {
-          console.log(data);
-          that.options['last_particle'] = data;
-          console.log(that.options['last_particle']);
+      var processParticle = function(data) {
+        console.log(data);
+        that.options['last_particle'] = data;
+        console.log(that.options['last_particle']);
 
-          var html_sample = "<div><h4>Last Particle</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+        var html_sample = "<div><h4>Last Particle</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
 
-          var data_sample = that.options['last_particle'];
-          for(var a in data_sample){
-            if(!(data_sample[a] instanceof Object)&&a.search('timestamp')<0){
-              var val_data = data_sample[a];
-              if(a=='time'){
-                val_data = new Date(data_sample[a]).toJSON();
-              }
-              html_sample+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(a).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+val_data+"</div></div>";
+        var data_sample = that.options['last_particle'];
+        for (var a in data_sample) {
+          console.log('a: ' + a);
+          console.log('data_sample[a]: ' + data_sample[a]);
+          if (!(data_sample[a] instanceof Object) && a.search('timestamp') < 0) {
+            var val_data = data_sample[a];
+            if (a == 'time') {
+              console.log('data_sample: ' + data_sample[a]);
+              console.log('data_sample json: ' + data_sample[a].toJSON());
+              val_data = new Date(data_sample[a]).toJSON();
+              console.log('data_sample json date: ' + val_data);
             }
+            html_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
           }
-
-          var m = new ModalDialogView();
-          m.show({
-            message: html_sample,
-            type: "info"
-          });
+        }
+        console.log(html_sample);
+        var m = new ModalDialogView();
+        m.show({
+          message: html_sample,
+          type: "success"
         });
+      };
 
-
+      $.ajax( particle_url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+          console.log('success: '+ resp);
+          processParticle( resp );
+        },
+        error: function( req, status, err ) {
+          var errorMessage = '<div><h4>An error occured processing the returned JSON object</h4></div>';
+          errorMessage += '<div>' + status + '</div>';
+          errorMessage += '<div>' + err + '</div>';
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+          console.log( 'something went wrong', status, err );
+        }
+      });
     }
     else if(button.target.id =='submit_win_param'){
         //execute parameter changes

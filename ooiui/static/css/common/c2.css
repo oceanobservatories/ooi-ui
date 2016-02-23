@@ -32,6 +32,18 @@
   overflow-y: scroll;
 }
 
+.alert-dange{
+  overflow-y: scroll;
+}
+
+.alert-success{
+  overflow-y: scroll;
+}
+
+.alert-warning{
+  overflow-y: scroll;
+}
+
 /* .modal-backdrop {background: none;} */
 
 .modal.fade.in {
