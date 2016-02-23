@@ -329,7 +329,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
 
     var dt = moment().utc();
     var dt2Str = self.getEndDate(dt,0);
-    var dt1Str = self.getStartDate(dt,11);
+    var dt1Str = self.getStartDate(dt,300);
     self.variable = options.variable;
     self.variable_list = [];
     _.each(self.variable,function(data_variable,vv){
@@ -361,8 +361,8 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     var dt = moment().utc();
     var dt2Str = self.getEndDate(dt,0);
     if (self.overrideStDate){
-      //override start date if data points exceed 0, this should be the majority of cases...
-      var dt1Str = self.getStartDate(dt,10);
+      //override start date if data points exceed 0
+      var dt1Str = self.getStartDate(dt,300);
       this.ds.startdate = dt1Str;
     }
     this.ds.enddate = dt2Str;
