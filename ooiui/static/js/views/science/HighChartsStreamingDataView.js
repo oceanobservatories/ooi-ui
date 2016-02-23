@@ -457,7 +457,6 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                 if (points['data'].length > 0){
                   var dx= null;
                   self.overrideStDate = true;
-                  console.log(points['data'].length);
                   for (var i = 0; i < points['data'].length; i++) {
                     var x = points['data'][i]['time'];
                     var y = points['data'][i][self.variable_list[vv]];
