@@ -17,7 +17,13 @@ var CommandDialogView = Backbone.View.extend({
   
   events: {
     'hidden.bs.modal' : 'hidden',
-    'click button': 'executeCommand'
+    'click button': 'executeCommand',
+    'change #available_streams': 'getParticle'
+  },
+
+  getParticle: function(event) {
+    this.options['selected_stream_method'] = event.target.selectedOptions[0].value;
+    this.options['selected_stream_name'] = event.target.selectedOptions[0].text;
   },
   
   hide: function() {
@@ -32,7 +38,7 @@ var CommandDialogView = Backbone.View.extend({
   },
   
   initialize: function() {
-    _.bindAll(this, "render", "hidden");
+    _.bindAll(this, "render", "hidden", "getParticle");
   },
   
   show: function(options) {
@@ -73,7 +79,7 @@ var CommandDialogView = Backbone.View.extend({
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
         else{
-          var buttons = '<div  style="margin-bottom: 9px;"><i>Click to Execute Command</i></div>';
+          var buttons = '<div style="margin-bottom: 9px;"><i>Click to Execute Command</i></div>';
           var theCommands = response.value.capabilities[0];
 
           for(var c in theCommands){
@@ -126,6 +132,15 @@ var CommandDialogView = Backbone.View.extend({
             }
           }
           that.options['parameter_options'] = parameter_html;
+
+          // Get the available streams and put in drop-down list
+          var theStreams = that.options['model'].streams;
+          var stream_select = '';
+          for(var stream in theStreams) {
+            var streamValue = theStreams[stream];
+            stream_select+="<option value="+streamValue+">"+stream+"</option>";
+          }
+          that.options['available_streams'] = stream_select;
         }
         
         that.$el.html(that.template(that.options));
@@ -170,6 +185,41 @@ var CommandDialogView = Backbone.View.extend({
 
       //plotting/CP/CP05MOAS/GL001/CP05MOAS-GL001-05-PARADM000
       window.open(plot_url,'_blank');
+    }
+    // Get the last particle
+    else if(button.target.id =='get_particle'){
+      console.log('clicked get_particle');
+
+      var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
+      console.log(particle_url);
+
+      $.getJSON(particle_url)
+        .success(function(data) {
+          console.log(data);
+          that.options['last_particle'] = data;
+          console.log(that.options['last_particle']);
+
+          var html_sample = "<div><h4>Last Particle</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+
+          var data_sample = that.options['last_particle'];
+          for(var a in data_sample){
+            if(!(data_sample[a] instanceof Object)&&a.search('timestamp')<0){
+              var val_data = data_sample[a];
+              if(a=='time'){
+                val_data = new Date(data_sample[a]).toJSON();
+              }
+              html_sample+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(a).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+val_data+"</div></div>";
+            }
+          }
+
+          var m = new ModalDialogView();
+          m.show({
+            message: html_sample,
+            type: "info"
+          });
+        });
+
+
     }
     else if(button.target.id =='submit_win_param'){
         //execute parameter changes
@@ -219,10 +269,11 @@ var CommandDialogView = Backbone.View.extend({
                 that.render(that.options);
               }  
             },
-            error: function(){
+            error: function(response){
+              console.log(response);
               var m = new ModalDialogView();
               m.show({
-                message: "Error Saving Settings",
+                message: "Error Saving Settings (dict here):  ",
                 type: "danger"
               });
               that.render(that.options);
@@ -269,6 +320,7 @@ var CommandDialogView = Backbone.View.extend({
                 if(response.changed.acquire_result){
                   //get the latest sample
                   var data_status = response.changed.acquire_result[response.changed.acquire_result.length-1];
+                  console.log(data_status);
                   for(var a in data_status){
                     var val_data = data_status[a];
                     if(a=='time'){
@@ -290,8 +342,10 @@ var CommandDialogView = Backbone.View.extend({
               var html_sample = "<div><h4>Current Sample Values</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
 
               if(response.changed.acquire_result){
+                console.log(response.changed.acquire_result);
                 //get the latest sample
                 var data_sample = response.changed.acquire_result[response.changed.acquire_result.length-1];
+                console.log(data_sample);
                 for(var a in data_sample){
                   if(!(data_sample[a] instanceof Object)&&a.search('timestamp')<0){
                     var val_data = data_sample[a];

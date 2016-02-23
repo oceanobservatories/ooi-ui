@@ -11,8 +11,15 @@ from ooiui.core.routes.decorators import login_required, scope_required
 from ooiui.core.routes.common import get_login
 import json
 import urllib2
-
 import requests
+
+
+def is_json(input_json):
+  try:
+    json_object = json.loads(input_json)
+  except ValueError, e:
+    return False
+  return True
 
 @app.route('/cameras')
 def c2_cameras():
@@ -381,3 +388,16 @@ def get_c2_instrument_status(ref_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/ports_display' % (ref_code), auth=(token, ''), params=request.args)
     return response.text, response.status_code
+
+@app.route('/api/c2/instrument/<string:ref_code>/get_last_particle/<string:stream_method>/<string:stream_name>', methods=['GET'])
+@scope_required('command_control')
+@login_required()
+def get_c2_instrument_last_particle(ref_code, stream_method, stream_name):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/get_last_particle/%s/%s' % (ref_code, stream_method, stream_name), auth=(token, ''), params=request.args)
+    if is_json(response.text):
+        print 'good json'
+        return response.text, response.status_code
+    else:
+        print 'bad json'
+        return '{"error": "bad json data"}'

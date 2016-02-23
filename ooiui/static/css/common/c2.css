@@ -28,6 +28,10 @@
   /*width: 700px;*/
 }
 
+.alert-info{
+  overflow-y: scroll;
+}
+
 /* .modal-backdrop {background: none;} */
 
 .modal.fade.in {
