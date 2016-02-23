@@ -383,6 +383,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
   resume:function(){
     //kill the request
     this.multiRequest = true;
+    this.overrideStDate = true;
     this.requestData();
   },
   getUrl:function(){
