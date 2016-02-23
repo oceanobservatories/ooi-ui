@@ -453,16 +453,17 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                 }
 
                 //only override the data if their are points available
-                self.overrideStDate = false;
+                self.overrideStDate = true;
                 if (points['data'].length > 0){
                   var dx= null;
-                  self.overrideStDate = true;
+                  self.overrideStDate = false;
                   for (var i = 0; i < points['data'].length; i++) {
                     var x = points['data'][i]['time'];
                     var y = points['data'][i][self.variable_list[vv]];
                     x -= 2208988800;
+                    x = x*1000;
                     dx= moment.utc(x);
-                    point = [dx._i*1000,y]
+                    point = [dx._i,y]
 
                     if (i < points['data'].length-1){
                         self.chart.series[vv].addPoint(point, false, shift);
@@ -470,6 +471,8 @@ var HighchartsStreamingDataView = Backbone.View.extend({
                         self.chart.series[vv].addPoint(point, true, shift);
                     }
                   }
+                  //fix start date
+                  self.ds.startdate = moment.utc(x).format("YYYY-MM-DDTHH:mm:ss.000")+"Z"
                 }
 
               });
