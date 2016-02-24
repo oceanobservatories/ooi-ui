@@ -188,33 +188,42 @@ var CommandDialogView = Backbone.View.extend({
     }
     // Get the last particle
     else if(button.target.id =='get_particle'){
-      console.log('clicked get_particle');
+      //console.log('clicked get_particle');
 
       var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
       console.log(particle_url);
 
       var processParticle = function(data) {
-        console.log(data);
+        //console.log(data);
         that.options['last_particle'] = data;
-        console.log(that.options['last_particle']);
+        //console.log(that.options['last_particle']);
 
-        var html_sample = "<div><h4>Last Particle</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+        var html_header = "<div><h3>Last Particle</h3></div><hr>";
+        var html_particle_header = "<div><h4>Particle Data</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+        var html_parameter_header = "</br><div><h4>Particle Parameters</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+        var particle_sample = "";
+        var parameter_sample = "";
 
         var data_sample = that.options['last_particle'];
         for (var a in data_sample) {
-          console.log('data_sample[a]: ' + data_sample[a]);
-          if (!(data_sample[a] instanceof Object) && a.search('timestamp') < 0) {
+          if ((data_sample[a] instanceof Object) && (a=='pk')) {
+            // it is pk so expand the object
+            for (var b in data_sample[a]) {
+              var pk_data = data_sample[a][b];
+              particle_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(b).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pk_data + "</div></div>";
+            }
+          }
+          else {
             var val_data = data_sample[a];
-            //if (a == 'time') {
-            //  val_data = new Date(data_sample[a]).toJSON();
-            //}
-            html_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
+            parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
           }
         }
-        console.log(html_sample);
+
+        var combined_sample = html_header + html_particle_header + particle_sample + html_parameter_header + parameter_sample;
+
         var m = new ModalDialogView();
         m.show({
-          message: html_sample,
+          message: combined_sample,
           type: "success"
         });
       };
@@ -223,13 +232,15 @@ var CommandDialogView = Backbone.View.extend({
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
-          console.log('success: '+ resp);
+          //console.log('success: '+ resp);
           processParticle( resp );
         },
         error: function( req, status, err ) {
-          var errorMessage = '<div><h4>An error occured processing the returned JSON object</h4></div>';
-          errorMessage += '<div>' + status + '</div>';
-          errorMessage += '<div>' + err + '</div>';
+          console.log(req);
+          var errorMessage = '<div><h3>An error occured:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
           var errorModal = new ModalDialogView();
           errorModal.show({
             message: errorMessage,

@@ -30,18 +30,21 @@
 
 .alert-info{
   overflow-y: scroll;
+  height: 600px;
 }
 
-.alert-dange{
-  overflow-y: scroll;
+.alert-danger{
+  height: 600px;
 }
 
 .alert-success{
   overflow-y: scroll;
+  height: 600px;
 }
 
 .alert-warning{
   overflow-y: scroll;
+  height: 600px;
 }
 
 /* .modal-backdrop {background: none;} */
