@@ -202,16 +202,12 @@ var CommandDialogView = Backbone.View.extend({
 
         var data_sample = that.options['last_particle'];
         for (var a in data_sample) {
-          console.log('a: ' + a);
           console.log('data_sample[a]: ' + data_sample[a]);
           if (!(data_sample[a] instanceof Object) && a.search('timestamp') < 0) {
             var val_data = data_sample[a];
-            if (a == 'time') {
-              console.log('data_sample: ' + data_sample[a]);
-              console.log('data_sample json: ' + data_sample[a].toJSON());
-              val_data = new Date(data_sample[a]).toJSON();
-              console.log('data_sample json date: ' + val_data);
-            }
+            //if (a == 'time') {
+            //  val_data = new Date(data_sample[a]).toJSON();
+            //}
             html_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
           }
         }
