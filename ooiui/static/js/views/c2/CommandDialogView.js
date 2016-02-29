@@ -416,7 +416,7 @@ var CommandDialogView = Backbone.View.extend({
                   that.$el.find('#refresh_win_param').click();
 
                   m.show({
-                    message: "Async Sample acquired.  You can request the last particle of data in the Stream Actions section of this page.",
+                    message: "<div><h3>Async Sample Acquired</h3></div><div style='padding-top: 30px;'><hr>You can request the last particle of data in the Stream Actions section of this page.</div>",
                     type: "success"
                   });
 
