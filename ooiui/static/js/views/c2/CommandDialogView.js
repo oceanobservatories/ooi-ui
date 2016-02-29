@@ -24,6 +24,8 @@ var CommandDialogView = Backbone.View.extend({
   getParticle: function(event) {
     this.options['selected_stream_method'] = event.target.selectedOptions[0].value;
     this.options['selected_stream_name'] = event.target.selectedOptions[0].text;
+    this.$el.find('#get_particle').prop('disabled', false);
+    this.$el.find('#plot_c2').prop('disabled', false);
   },
 
   hide: function() {
@@ -135,7 +137,7 @@ var CommandDialogView = Backbone.View.extend({
 
           // Get the available streams and put in drop-down list
           var theStreams = that.options['model'].streams;
-          var stream_select = '';
+          var stream_select = '<option selected disabled="disabled">Select Stream</option>';
           for(var stream in theStreams) {
             var streamValue = theStreams[stream];
             stream_select+="<option value="+streamValue+">"+stream+"</option>";
@@ -183,9 +185,10 @@ var CommandDialogView = Backbone.View.extend({
 
     var ref_des = that.options.variable;
 
+    // Process particle (status, sample, particle) response to html
     var processParticle = function(response, title) {
-      console.log(response);
-      console.log(title);
+      //console.log(response);
+      //console.log(title);
       var m = new ModalDialogView();
       var html_header = "<div><h3>"+title+"</h3></div><hr>";
       var html_parameter_header = "<hr style='margin-top:28px'>STREAM_TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
@@ -194,8 +197,8 @@ var CommandDialogView = Backbone.View.extend({
       var combined_html = html_header;
 
       if(response.changed.acquire_result){
-        console.log('acquire_result: ');
-        console.log(response.changed.acquire_result);
+        //console.log('acquire_result: ');
+        //console.log(response.changed.acquire_result);
 
         // Iterate over the status particles
         for(var data_status in response.changed.acquire_result){
@@ -262,45 +265,9 @@ var CommandDialogView = Backbone.View.extend({
     }
     // Get the last particle
     else if(button.target.id =='get_particle'){
-      //console.log('clicked get_particle');
-
+      // Build the particle url
       var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
       console.log(particle_url);
-
-      //var processParticle = function(data) {
-      //  //console.log(data);
-      //  that.options['last_particle'] = data;
-      //  //console.log(that.options['last_particle']);
-      //
-      //  var html_header = "<div><h3>Last Particle</h3></div><hr>";
-      //  var html_particle_header = "<div><h4>Particle Data</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-      //  var html_parameter_header = "</br><hr><div><h4>Particle Parameters</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-      //  var particle_sample = "";
-      //  var parameter_sample = "";
-      //
-      //  var data_sample = that.options['last_particle'];
-      //  for (var a in data_sample) {
-      //    if ((data_sample[a] instanceof Object) && (a=='pk')) {
-      //      // it is pk so expand the object
-      //      for (var b in data_sample[a]) {
-      //        var pk_data = data_sample[a][b];
-      //        particle_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(b).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pk_data + "</div></div>";
-      //      }
-      //    }
-      //    else {
-      //      var val_data = data_sample[a];
-      //      parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
-      //    }
-      //  }
-      //
-      //  var combined_sample = html_header + html_particle_header + particle_sample + html_parameter_header + parameter_sample;
-      //
-      //  var m = new ModalDialogView();
-      //  m.show({
-      //    message: combined_sample,
-      //    type: "success"
-      //  });
-      //};
 
       $.ajax( particle_url, {
         type: 'GET',
@@ -428,63 +395,13 @@ var CommandDialogView = Backbone.View.extend({
           //STATUS
           else if(that.command=='status'){
             processParticle(response, 'Current Status');
-            //var html_header = "<div><h3>Current Status</h3></div><hr>";
-            //var html_parameter_header = "<hr style='margin-top:28px'>TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-            //var parameter_sample = "";
-            //
-            //var combined_html = html_header;
-            //
-            //if(response.changed.acquire_result){
-            //  console.log('acquire_result: ');
-            //  console.log(response.changed.acquire_result);
-            //
-            //  // Iterate over the status particles
-            //  for(var data_status in response.changed.acquire_result){
-            //    // particle_metadata
-            //    var particle_metadata = response.changed.acquire_result[data_status]['particle_metadata'];
-            //
-            //    // particle_values
-            //    var particle_values = response.changed.acquire_result[data_status]['particle_values'];
-            //
-            //    // Get the stream_name from the particle_metadata
-            //    var stream_title="<div><h4>"+particle_metadata['stream_name'].split('_').join(' ')+" (metadata)</h4></div>";
-            //    combined_html+=html_parameter_header.replace(/TITLE/g, stream_title);
-            //
-            //    // Iterate over the attributes in particle_metadata
-            //    for(var pm in particle_metadata){
-            //      var pm_data = particle_metadata[pm];
-            //      if(pm!='stream_name'){
-            //        parameter_sample+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(pm).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+pm_data+"</div></div>";
-            //      }
-            //    }
-            //    combined_html+=parameter_sample;
-            //    stream_title="<div><h4>"+particle_metadata['stream_name'].split('_').join(' ')+" (values)</h4></div>";
-            //    combined_html+=html_parameter_header.replace(/TITLE/g, stream_title);
-            //    parameter_sample = "";
-            //
-            //    // Iterate over the attributes in particle_values
-            //    for(var pv in particle_values){
-            //      var pv_data = particle_values[pv];
-            //      if(pv!='stream_name'){
-            //        parameter_sample+="<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>"+String(pv).split('_').join(' ')+"</div><div style='' class='col-md-6'>"+pv_data+"</div></div>";
-            //      }
-            //    }
-            //    combined_html+=parameter_sample;
-            //  }
-            //}
-            //// Display the results in modal popup
-            //m.show({
-            //  message: combined_html,
-            //  type: "success"
-            //});
           }
           //sample data
           else if(that.command=='sample'){
-            var html_sample = "<div><h4>Current Sample Values</h4></div><hr><div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-
-            console.log('Acquire Sample: ' + response);
+            console.log('Acquire Sample: ');
+            console.log(response);
             // Check is async
-            if(response.changed.status.type=="DRIVER_ASYNC_RESULT") {
+            if(response.changed.acquire_result.length==0) {
               console.log('Waiting for async result');
               // Wait for async response for drive state change
               var doneProcessingParticle = false;
@@ -495,143 +412,13 @@ var CommandDialogView = Backbone.View.extend({
                   console.log(response);
                   console.log('now we need to somehow get the data without causing another command state change');
 
-                  //var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
-                  //$.ajax( particle_url, {
-                  //  type: 'GET',
-                  //  dataType: 'json',
-                  //  success: function( resp ) {
-                  //    //console.log('success: '+ resp);
-                  //    processParticle( resp );
-                  //  },
-                  //  error: function( req, status, err ) {
-                  //    console.log(req);
-                  //    var errorMessage = '<div><h3>An error occured:</h3></div>';
-                  //    errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
-                  //    errorMessage += '</br>';
-                  //    errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
-                  //    var errorModal = new ModalDialogView();
-                  //    errorModal.show({
-                  //      message: errorMessage,
-                  //      type: "danger"
-                  //    });
-                  //    console.log( 'something went wrong', status, err );
-                  //  }
-                  //});
+                  // Refresh the modal
+                  that.$el.find('#refresh_win_param').click();
 
-                  //var html_header = "<div><h3>Current Sample</h3></div><hr>";
-                  //var html_parameter_header = "<hr style='margin-top:28px'>TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-                  //var parameter_sample = "";
-                  //
-                  //var combined_html = html_header;
-                  //
-                  //if (response.changed.acquire_result) {
-                  //  console.log('we never get here I think');
-                  //  console.log('acquire_result: ');
-                  //  console.log(response.changed.acquire_result);
-                  //
-                  //  // Iterate over the status particles
-                  //  for (var data_status in response.changed.acquire_result) {
-                  //    // particle_metadata
-                  //    var particle_metadata = response.changed.acquire_result[data_status]['particle_metadata'];
-                  //
-                  //    // particle_values
-                  //    var particle_values = response.changed.acquire_result[data_status]['particle_values'];
-                  //
-                  //    // Get the stream_name from the particle_metadata
-                  //    var stream_title = "<div><h4>" + particle_metadata['stream_name'].split('_').join(' ') + " (metadata)</h4></div>";
-                  //    combined_html += html_parameter_header.replace(/TITLE/g, stream_title);
-                  //
-                  //    // Iterate over the attributes in particle_metadata
-                  //    for (var pm in particle_metadata) {
-                  //      var pm_data = particle_metadata[pm];
-                  //      if (pm != 'stream_name') {
-                  //        parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(pm).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pm_data + "</div></div>";
-                  //      }
-                  //    }
-                  //    combined_html += parameter_sample;
-                  //    stream_title = "<div><h4>" + particle_metadata['stream_name'].split('_').join(' ') + " (values)</h4></div>";
-                  //    combined_html += html_parameter_header.replace(/TITLE/g, stream_title);
-                  //    parameter_sample = "";
-                  //
-                  //    // Iterate over the attributes in particle_values
-                  //    for (var pv in particle_values) {
-                  //      var pv_data = particle_values[pv];
-                  //      if (pv != 'stream_name') {
-                  //        parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(pv).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pv_data + "</div></div>";
-                  //      }
-                  //    }
-                  //    combined_html += parameter_sample;
-                  //  }
-                  //}
-                  //console.log('show the modal');
-                  //m.show({
-                  //  message: combined_html,
-                  //  type: "info"
-                  //});
-
-
-                  console.log(response.changed.acquire_result);
-                  processParticle(response, 'Current Sample');
-
-                  //command_model.save({}, {
-                  //  success: function (response) {
-                  //    var html_header = "<div><h3>Current Sample</h3></div><hr>";
-                  //    var html_parameter_header = "<hr style='margin-top:28px'>TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-                  //    var parameter_sample = "";
-                  //
-                  //    var combined_html = html_header;
-                  //
-                  //    if (response.changed.acquire_result) {
-                  //      console.log('we never get here I think');
-                  //      console.log('acquire_result: ');
-                  //      console.log(response.changed.acquire_result);
-                  //
-                  //      // Iterate over the status particles
-                  //      for (var data_status in response.changed.acquire_result) {
-                  //        // particle_metadata
-                  //        var particle_metadata = response.changed.acquire_result[data_status]['particle_metadata'];
-                  //
-                  //        // particle_values
-                  //        var particle_values = response.changed.acquire_result[data_status]['particle_values'];
-                  //
-                  //        // Get the stream_name from the particle_metadata
-                  //        var stream_title = "<div><h4>" + particle_metadata['stream_name'].split('_').join(' ') + " (metadata)</h4></div>";
-                  //        combined_html += html_parameter_header.replace(/TITLE/g, stream_title);
-                  //
-                  //        // Iterate over the attributes in particle_metadata
-                  //        for (var pm in particle_metadata) {
-                  //          var pm_data = particle_metadata[pm];
-                  //          if (pm != 'stream_name') {
-                  //            parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(pm).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pm_data + "</div></div>";
-                  //          }
-                  //        }
-                  //        combined_html += parameter_sample;
-                  //        stream_title = "<div><h4>" + particle_metadata['stream_name'].split('_').join(' ') + " (values)</h4></div>";
-                  //        combined_html += html_parameter_header.replace(/TITLE/g, stream_title);
-                  //        parameter_sample = "";
-                  //
-                  //        // Iterate over the attributes in particle_values
-                  //        for (var pv in particle_values) {
-                  //          var pv_data = particle_values[pv];
-                  //          if (pv != 'stream_name') {
-                  //            parameter_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(pv).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + pv_data + "</div></div>";
-                  //          }
-                  //        }
-                  //        combined_html += parameter_sample;
-                  //      }
-                  //    }
-                  //    //console.log('reset the form');
-                  //    //that.render(that.options);
-                  //    //that.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
-                  //    //that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
-                  //    //that.$el.html(that.template(that.options));
-                  //    console.log('show the modal');
-                  //    m.show({
-                  //      message: combined_html,
-                  //      type: "info"
-                  //    });
-                  //  }
-                  //});
+                  m.show({
+                    message: "Async Sample acquired.  You can request the last particle of data in the Stream Actions section of this page.",
+                    type: "success"
+                  });
 
                   // Done processing retrieved sample data, return from function
                   return 'done';
@@ -645,6 +432,8 @@ var CommandDialogView = Backbone.View.extend({
                     console.log(resp);
                     console.log(resp.value.state);
 
+                    command_model.set('driver_state', resp.value.state);
+
                     if (resp.value.state == "DRIVER_STATE_COMMAND") {
                       doneProcessingParticle = true;
                     }
@@ -655,47 +444,16 @@ var CommandDialogView = Backbone.View.extend({
                   error: function (xhr) {
                     setTimeout(pollStatus, 5000);
                   }
-                  //error: function (req, status, err) {
-                  //  console.log(req);
-                  //  var errorMessage = '<div><h3>An error occured:</h3></div>';
-                  //  errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
-                  //  errorMessage += '</br>';
-                  //  errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
-                  //  var errorModal = new ModalDialogView();
-                  //  errorModal.show({
-                  //    message: errorMessage,
-                  //    type: "danger"
-                  //  });
-                  //  console.log('something went wrong', status, err);
-                  //}
                 });
-              }
+              };
+              // Poll for state change after submitting acquire sample request
+              pollStatus();
             }
-            pollStatus();
+            else {
+              processParticle(response, 'Current Sample');
+            }
+
           }
-          //else {
-          //  console.log('SYNC result: ' + response);
-          //  if (response.changed.acquire_result) {
-          //    console.log(response.changed.acquire_result);
-          //    //get the latest sample
-          //    var data_sample = response.changed.acquire_result[response.changed.acquire_result.length - 1];
-          //    console.log(data_sample);
-          //    for (var a in data_sample) {
-          //      if (!(data_sample[a] instanceof Object) && a.search('timestamp') < 0) {
-          //        var val_data = data_sample[a];
-          //        if (a == 'time') {
-          //          val_data = new Date(data_sample[a]).toJSON();
-          //        }
-          //        html_sample += "<div style='' class='row' ><div style='font-weight:bold;' class='col-md-6'>" + String(a).split('_').join(' ') + "</div><div style='' class='col-md-6'>" + val_data + "</div></div>";
-          //      }
-          //    }
-          //  }
-          //}
-          //m.show({
-          //  message: html_sample,
-          //  type: "info"
-          //});
-          //}
           // All other commands
           else{
             m.show({
