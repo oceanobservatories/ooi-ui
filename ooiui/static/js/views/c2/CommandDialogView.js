@@ -331,8 +331,11 @@ var CommandDialogView = Backbone.View.extend({
 
       param_model.save({},{
         success: function(response){
+          console.log('param save response');
+          console.log(response);
+
           var m = new ModalDialogView();
-          if(response.attributes.response.message == ''){
+          if(response.attributes.response.status_code == 200){
             m.show({
               message: "Settings Saved Successfully",
               type: "success"
@@ -341,8 +344,13 @@ var CommandDialogView = Backbone.View.extend({
             that.render(that.options);
           }
           else{
+            // Generate the error message from the message, status_code and range_errors
+            var error_response="<table><tr><td class='error_message_header'>Parameter</td><td class='error_message_header'>Error Message</td></tr>";
+            for(var re in response.attributes.response.range_errors){
+              error_response+="<tr><td class='error_message_column_desc'>"+re+":</td><td class='error_message_column_text'>"+response.attributes.response.range_errors[re]+"</td></tr>";
+            }
             m.show({
-              message: "Error Saving Settings:  "+response.attributes.response.message,
+              message: "Error Saving Settings: "+response.attributes.response.message+"</br><hr><div>"+error_response+"</div>",
               type: "danger"
             });
             that.render(that.options);
