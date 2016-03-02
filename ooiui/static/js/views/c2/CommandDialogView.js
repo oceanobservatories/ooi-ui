@@ -176,15 +176,18 @@ var CommandDialogView = Backbone.View.extend({
         console.log(response);
         console.log(options);
         var errorMessage = '<div><h3>An error occured:</h3></div>';
-        //errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
-        //errorMessage += '</br>';
-        //errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+        errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+        errorMessage += '</br>';
+        if(req.responseJSON){
+          errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+        }
+
         var errorModal = new ModalDialogView();
         errorModal.show({
           message: errorMessage,
           type: "danger"
         });
-        console.log( 'something went wrong', status, err );
+        console.log( 'something went wrong', errorMessage );
       }
     });
 
@@ -479,7 +482,7 @@ var CommandDialogView = Backbone.View.extend({
                     if(req.responseJSON){
                       errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
                     }
-                    
+
                     var errorModal = new ModalDialogView();
                     errorModal.show({
                       message: errorMessage,
