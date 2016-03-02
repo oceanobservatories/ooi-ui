@@ -95,6 +95,15 @@ var CommandDialogView = Backbone.View.extend({
             }
           }
           that.options['command_options'] = buttons;
+
+          console.log('trying to set submit param button state');
+          console.log(response);
+          if(response.value.state=='DRIVER_STATE_COMMAND' || response.value.state=='DRIVER_STATE_UNKNOWN'){
+            that.options['processing_state'] = '<div><i>Processing Offline</i></div>';
+          }
+          else{
+            that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
+          }
         }
 
         //Parameter Options and values
@@ -146,9 +155,11 @@ var CommandDialogView = Backbone.View.extend({
         }
 
         that.$el.html(that.template(that.options));
-        if(parameter_html !=''){
+        if((parameter_html !='') && (response.value.state=='DRIVER_STATE_COMMAND')){
           that.$el.find('.submitparam').show();
+          that.$el.find('.refreshparam').show();
           that.$el.find('.submitparam').prop('disabled', false);
+          that.$el.find('#available_streams').prop('disabled', false);
         }
 
         that.$el.find('.modal-title').html("<b>"+that.options.title);
@@ -247,6 +258,9 @@ var CommandDialogView = Backbone.View.extend({
         message: combined_html,
         type: "success"
       });
+      //that.options['processing_state'] = '<div><i>Processing Offline</i></div>';
+      //that.$el.html(that.template(that.options));
+      that.$el.find('#refresh_win_param').click();
     };
 
     // Refresh dialog
@@ -254,6 +268,7 @@ var CommandDialogView = Backbone.View.extend({
       that.render(that.options);
       that.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
     }
     // Plotting redirect
@@ -268,6 +283,9 @@ var CommandDialogView = Backbone.View.extend({
       // Build the particle url
       var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
       console.log(particle_url);
+
+      that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
+      that.$el.html(that.template(that.options));
 
       $.ajax( particle_url, {
         type: 'GET',
@@ -389,6 +407,7 @@ var CommandDialogView = Backbone.View.extend({
       command_model.set('command',command);
 
       this.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      this.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       this.$el.html(this.template(this.options));
 
       command_model.save({},{
@@ -447,10 +466,26 @@ var CommandDialogView = Backbone.View.extend({
                     }
                   },
                   complete: pollStatus,
-                  timeout: 5000,
+                  timeout: 50000,
                   async: true,
                   error: function (xhr) {
-                    setTimeout(pollStatus, 5000);
+                    setTimeout(pollStatus, 50000);
+                  },
+                  error: function( req, status, err ) {
+                    console.log(req);
+                    var errorMessage = '<div><h3>An error occured:</h3></div>';
+                    errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+                    errorMessage += '</br>';
+                    if(req.responseJSON){
+                      errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+                    }
+                    
+                    var errorModal = new ModalDialogView();
+                    errorModal.show({
+                      message: errorMessage,
+                      type: "danger"
+                    });
+                    console.log(errorMessage);
                   }
                 });
               };

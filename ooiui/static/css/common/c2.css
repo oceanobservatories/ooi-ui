@@ -36,6 +36,7 @@
 }
 
 .alert-danger{
+    overflow-y: scroll;
     height: 600px;
     color: #D8000C;
     background-color: #FFBABA;

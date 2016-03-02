@@ -10,8 +10,8 @@
       <!-- <div><h3>Pending Messages</h3></div>
         <%= message%> -->
       <div><h3>Parameter Settings</h3></div>
-      <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='submit_win_param'><i class="fa fa-floppy-o"> </i> Apply Settings</button>
-      <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='refresh_win_param'><i class="fa fa-refresh"> </i> Refresh</button>
+      <button type="button" class="submitparam btn btn-primary" style='margin-top:2px;display:none' id='submit_win_param'><i class="fa fa-floppy-o"> </i> Apply Settings</button>
+      <button type="button" class="refreshparam btn btn-primary" style='margin-top:2px;display:none' id='refresh_win_param'><i class="fa fa-refresh"> </i> Refresh</button>
       <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><div style='right:-25px' class='col-md-2'>Units</div></div>
       <hr>
       <div style='max-height:255px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
@@ -21,13 +21,16 @@
       <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
         <%= command_options%>
       </div>
-      <div style='padding-top: 20px;'>
+      <div>
         <hr>
         <h3>Stream Actions</h3>
         <label for="available_streams">Available Streams</label>
-        <select id="available_streams"><%= available_streams%></select>
+        <select id="available_streams" disabled><%= available_streams%></select>
         <button type="button" class="submitparticle btn btn-primary" style="padding-left: 10px;" id='get_particle' disabled><i class="fa fa-bolt"> </i> Get Particle</button>
         <button type="button" class="btn btn-primary" style="padding-left: 10px;" id='plot_c2' disabled><i class="fa fa-bar-chart"> </i> Plot</button>
+      </div>
+      <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
+        <%= processing_state%>
       </div>
     </div>
     <div class="modal-footer">
