@@ -81,12 +81,22 @@ var CommandDialogView = Backbone.View.extend({
           that.options['command_options'] = '<div><i>No Commands available at this time.</i></div>';
         }
         else{
-          var buttons = '<div style="margin-bottom: 9px;"><i>Click to Execute Command</i></div>';
-          var theCommands = response.value.capabilities[0];
-
-          for(var c in theCommands){
-            if(response.value.metadata.commands[theCommands[c]]){
-              buttons = buttons.concat("<button style='margin-left: 7px;' type='button' data="+theCommands[c]+" class='btn btn-default' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button>");
+          var buttons = '<div style="margin-bottom: 5px;"><i>Click to Execute Command</i></div>';
+          //var theCommands = response.value.capabilities[0];
+          var theCommands = response.value.metadata.commands;
+          // Sort those commands
+          var keys = Object.keys(theCommands);
+          keys.sort();
+          console.log(keys);
+          for (var i=0; i<keys.length; i++) {
+            var key = keys[i];
+            console.log(key);
+            var value = theCommands[key];
+            console.log(value);
+            console.log(response.value.capabilities[0]);
+            console.log(response.value.capabilities[0].includes('"'+key+'"'));
+            if(response.value.capabilities[0].includes(key)){
+              buttons = buttons.concat("<button style='margin-left: 7px; padding-bottom: 3px;' type='button' data="+key+" class='btn btn-default' id="+key+" aria-pressed='false' autocomplete='off'>"+value.display_name+"</button>");
               //data-toggle='button'
             }
             else{
@@ -94,6 +104,16 @@ var CommandDialogView = Backbone.View.extend({
               //buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><button type='button' id="+theCommands[c]+" data="+theCommands[c]+" class='btn btn-primary'  aria-pressed='false' autocomplete='off'>"+theCommands[c]+"</button></div>");
             }
           }
+          //for(var c in theCommands){
+          //  if(response.value.metadata.commands[theCommands[c]]){
+          //    buttons = buttons.concat("<button style='margin-left: 7px; padding-bottom: 3px;' type='button' data="+theCommands[c]+" class='btn btn-default' id="+theCommands[c]+" aria-pressed='false' autocomplete='off'>"+response.value.metadata.commands[theCommands[c]].display_name+"</button>");
+          //    //data-toggle='button'
+          //  }
+          //  else{
+          //    //other none listed capabilities
+          //    //buttons = buttons.concat("<div style='padding-top:12px;padding-left:15px;'><button type='button' id="+theCommands[c]+" data="+theCommands[c]+" class='btn btn-primary'  aria-pressed='false' autocomplete='off'>"+theCommands[c]+"</button></div>");
+          //  }
+          //}
           that.options['command_options'] = buttons;
 
           console.log('trying to set submit param button state');
