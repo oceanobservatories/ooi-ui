@@ -87,14 +87,14 @@ var CommandDialogView = Backbone.View.extend({
           // Sort those commands
           var keys = Object.keys(theCommands);
           keys.sort();
-          console.log(keys);
+          //console.log(keys);
           for (var i=0; i<keys.length; i++) {
             var key = keys[i];
-            console.log(key);
+            //console.log(key);
             var value = theCommands[key];
-            console.log(value);
-            console.log(response.value.capabilities[0]);
-            console.log(response.value.capabilities[0].includes('"'+key+'"'));
+            //console.log(value);
+            //console.log(response.value.capabilities[0]);
+            //console.log(response.value.capabilities[0].includes('"'+key+'"'));
             if(response.value.capabilities[0].includes(key)){
               buttons = buttons.concat("<button style='margin-left: 7px; padding-bottom: 3px;' type='button' data="+key+" class='btn btn-default' id="+key+" aria-pressed='false' autocomplete='off'>"+value.display_name+"</button>");
               //data-toggle='button'
@@ -116,8 +116,8 @@ var CommandDialogView = Backbone.View.extend({
           //}
           that.options['command_options'] = buttons;
 
-          console.log('trying to set submit param button state');
-          console.log(response);
+          //console.log('trying to set submit param button state');
+          //console.log(response);
           if(response.value.state=='DRIVER_STATE_COMMAND' || response.value.state=='DRIVER_STATE_UNKNOWN'){
             that.options['processing_state'] = '<div><i>Processing Offline</i></div>';
           }
@@ -136,30 +136,68 @@ var CommandDialogView = Backbone.View.extend({
         }
         else{
           var theParameters = response.value.metadata.parameters;
+          //console.log('theParameters');
+          //console.log(theParameters);
 
-          for(var p in theParameters){
+          // Sort those commands
+          keys = Object.keys(theParameters);
+          keys.sort();
+          //console.log(keys);
+          for (var i=0; i<keys.length; i++) {
+            key = keys[i];
+            //console.log(key);
+            var vmpValue = theParameters[key];
+            var vpValue = response.value.parameters[key];
+
+          //for(var p in theParameters){
             var units = '';
-            if(response.value.metadata.parameters[p].value['units']){
-              units = response.value.metadata.parameters[p].value['units'];
+            if(vmpValue.value['units']){
+              units = vmpValue.value['units'];
             }
             var cell_value = '';
-            if(response.value.metadata.parameters[p].value['type']){
+            if(vmpValue.value['type']){
               //TODO: Add other types
-              if(response.value.metadata.parameters[p].value['type'] == 'string') {
-                cell_value = '"'+response.value.parameters[p]+'"';
+              if(vmpValue.value['type'] == 'string') {
+                cell_value = '"'+vpValue+'"';
               }
               else{
-                cell_value = response.value.parameters[p];
+                cell_value = vpValue;
               }
             }
             //console.log('raw_value ', response.value.parameters[p]);
             //console.log('cell_value ', cell_value);
-            if(response.value.metadata.parameters[p].visibility == "READ_WRITE"){
-              parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
+            if(vmpValue.visibility == "READ_WRITE"){
+              //parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><input id="+key+" value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
+              // Add drop-down parameter display values
+              console.log(response.parameter_display_values);
+              console.log(key);
+              if(key in response.parameter_display_values){
+                console.log(response.parameter_display_values[key]);
+                var display_values = response.parameter_display_values[key];
+                var drop_down = "";
+
+                // Check value against display options
+                for(var dv in display_values){
+                  console.log(dv);
+                  console.log(vpValue);
+                  console.log(display_values[dv]==vpValue);
+                  if(display_values[dv]==vpValue){
+                    drop_down+="<option value='"+dv+"' selected>"+display_values[dv]+"</option>";
+                  }
+                  else{
+                    drop_down+="<option value='"+dv+"'>"+display_values[dv]+"</option>";
+                  }
+                }
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><select id="+key+" value="+cell_value+">"+drop_down+"</select></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
+              }
+              else{
+                // It's not a drop-down, but still editable
+                parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><input id="+key+" value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
+              }
             }
             //disable this parameter from editing     
             else{
-              parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+response.value.metadata.parameters[p].display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+response.value.metadata.parameters[p].description+"</div><div class='col-md-2'><input id="+p+" disabled value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
+              parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><input id="+key+" disabled value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
             }
           }
           that.options['parameter_options'] = parameter_html;
@@ -192,9 +230,9 @@ var CommandDialogView = Backbone.View.extend({
       error:function(collection, response, options) {
         that.$el.modal('hide');
         var req = response;
-        console.log(collection);
-        console.log(response);
-        console.log(options);
+        //console.log(collection);
+        //console.log(response);
+        //console.log(options);
         var errorMessage = '<div><h3>An error occured:</h3></div>';
         errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
         errorMessage += '</br>';
@@ -207,7 +245,7 @@ var CommandDialogView = Backbone.View.extend({
           message: errorMessage,
           type: "danger"
         });
-        console.log( 'something went wrong', errorMessage );
+        //console.log( 'something went wrong', errorMessage );
       }
     });
 
@@ -221,21 +259,22 @@ var CommandDialogView = Backbone.View.extend({
 
     // Process particle (status, sample, particle) response to html
     var processParticle = function(response, title) {
-      //console.log(response);
-      //console.log(title);
+      ////console.log(response);
+      ////console.log(title);
       var m = new ModalDialogView();
-      var html_header = "<div><h3>"+title+"</h3></div><hr>";
-      var html_parameter_header = "<hr style='margin-top:28px'>STREAM_TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
-      var parameter_sample = "";
+      var html_header = "<div><h3>"+title+"</h3></div>";
 
       var combined_html = html_header;
 
       if(response.changed.acquire_result){
-        //console.log('acquire_result: ');
-        //console.log(response.changed.acquire_result);
+        ////console.log('acquire_result: ');
+        ////console.log(response.changed.acquire_result);
 
         // Iterate over the status particles
         for(var data_status in response.changed.acquire_result){
+          var html_parameter_header = "<hr style='margin-top:28px'>STREAM_TITLE<div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-6'>Parameter Name</div><div style='' class='col-md-6'>Value</div><hr style='margin-bottom:28px'></div>";
+          var parameter_sample = "";
+
           // particle_metadata
           var particle_metadata = response.changed.acquire_result[data_status]['particle_metadata'];
 
@@ -305,7 +344,7 @@ var CommandDialogView = Backbone.View.extend({
     else if(button.target.id =='get_particle'){
       // Build the particle url
       var particle_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'get_last_particle'+'/'+that.options.selected_stream_method+'/'+that.options.selected_stream_name;
-      console.log(particle_url);
+      //console.log(particle_url);
 
       that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
       that.$el.html(that.template(that.options));
@@ -314,19 +353,19 @@ var CommandDialogView = Backbone.View.extend({
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
-          console.log('success retrieving particle: ');
-          console.log(resp);
+          //console.log('success retrieving particle: ');
+          //console.log(resp);
           // response.changed.acquire_result
           var particleResponse = {};
           particleResponse['changed'] = {};
           particleResponse['changed']['acquire_result'] = [];
           particleResponse['changed']['acquire_result'][0]= resp;
-          console.log('particleResponse');
-          console.log(particleResponse);
+          //console.log('particleResponse');
+          //console.log(particleResponse);
           processParticle(particleResponse, 'Last Particle');
         },
         error: function( req, status, err ) {
-          console.log(req);
+          //console.log(req);
           var errorMessage = '<div><h3>An error occured:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
@@ -336,7 +375,7 @@ var CommandDialogView = Backbone.View.extend({
             message: errorMessage,
             type: "danger"
           });
-          console.log( 'something went wrong', status, err );
+          //console.log( 'something went wrong', status, err );
         }
       });
     }
@@ -358,7 +397,7 @@ var CommandDialogView = Backbone.View.extend({
           //todo add validation for date
           else{
             param_list[p]=this.$el.find('#'+p).val();
-            console.log('param', this.$el.find('#'+p).val());
+            //console.log('param', this.$el.find('#'+p).val());
           }
         }
       }
@@ -372,8 +411,8 @@ var CommandDialogView = Backbone.View.extend({
 
       param_model.save({},{
         success: function(response){
-          console.log('param save response');
-          console.log(response);
+          //console.log('param save response');
+          //console.log(response);
 
           var m = new ModalDialogView();
           if(response.attributes.response.status_code == 200){
@@ -386,22 +425,28 @@ var CommandDialogView = Backbone.View.extend({
           }
           else{
             // Generate the error message from the message, status_code and range_errors
-            var error_response="<table><tr><td class='error_message_header'>Parameter</td><td class='error_message_header'>Error Message</td></tr>";
-            for(var re in response.attributes.response.range_errors){
-              error_response+="<tr><td class='error_message_column_desc'>"+re+":</td><td class='error_message_column_text'>"+response.attributes.response.range_errors[re]+"</td></tr>";
+            var range_error_response = "";
+            var error_response_header="<table><tr><td class='error_message_header'>Parameter</td><td class='error_message_header'>Error Message</td></tr>";
+            if(response.attributes.response.range_errors!=""){
+              var range_error_rows = "";
+              for(var re in response.attributes.response.range_errors){
+                range_error_rows+="<tr><td class='error_message_column_desc'>"+response.attributes.response.range_errors[re].display_name+":</td><td class='error_message_column_text'>"+response.attributes.response.range_errors[re].message+"</td></tr>";
+              }
+              var range_error_response="</br><hr><div>"+error_response_header+range_error_rows+"</div>";
             }
+
             m.show({
-              message: "Error Saving Settings: "+response.attributes.response.message+"</br><hr><div>"+error_response+"</div>",
+              message: "Error Saving Settings: "+response.attributes.response.message+range_error_response,
               type: "danger"
             });
             that.render(that.options);
           }
         },
         error: function(response){
-          console.log(response);
+          //console.log(response);
           var m = new ModalDialogView();
           m.show({
-            message: "Error Saving Settings (dict here):  ",
+            message: "Error Saving Settings:  ",
             type: "danger"
           });
           that.render(that.options);
@@ -437,8 +482,16 @@ var CommandDialogView = Backbone.View.extend({
         success: function(response){
           var m = new ModalDialogView();
           if(response.attributes.response.message != ''){
+            console.log('Error Executing Command:');
+            console.log(response);
+            var errorMessage = '<div><h3>Error Executing Command:</h3></div>';
+            errorMessage += '<div><h4>' + response.attributes.response.message + '</h4></div>';
+            errorMessage += '</br>';
+            if(response.responseJSON){
+              errorMessage += '<div><h4>' + response.responseJSON['message'] + '</h4></div>';
+            }
             m.show({
-              message: "Error Executing Command:  "+response.attributes.response.message,
+              message: errorMessage,
               type: "danger"
             });
           }
@@ -448,19 +501,19 @@ var CommandDialogView = Backbone.View.extend({
           }
           //sample data
           else if(that.command=='sample'){
-            console.log('Acquire Sample: ');
-            console.log(response);
+            //console.log('Acquire Sample: ');
+            //console.log(response);
             // Check is async
             if(response.changed.acquire_result.length==0) {
-              console.log('Waiting for async result');
+              //console.log('Waiting for async result');
               // Wait for async response for drive state change
               var doneProcessingParticle = false;
 
               var pollStatus = function () {
                 if (doneProcessingParticle) {
-                  console.log('get out of here!!!!');
-                  console.log(response);
-                  console.log('now we need to somehow get the data without causing another command state change');
+                  //console.log('get out of here!!!!');
+                  //console.log(response);
+                  //console.log('now we need to somehow get the data without causing another command state change');
 
                   // Refresh the modal
                   that.$el.find('#refresh_win_param').click();
@@ -478,9 +531,9 @@ var CommandDialogView = Backbone.View.extend({
                   type: 'GET',
                   dataType: 'json',
                   success: function (resp) {
-                    console.log('success waiting for async particle: ');
-                    console.log(resp);
-                    console.log(resp.value.state);
+                    //console.log('success waiting for async particle: ');
+                    //console.log(resp);
+                    //console.log(resp.value.state);
 
                     command_model.set('driver_state', resp.value.state);
 
@@ -495,7 +548,7 @@ var CommandDialogView = Backbone.View.extend({
                     setTimeout(pollStatus, 50000);
                   },
                   error: function( req, status, err ) {
-                    console.log(req);
+                    //console.log(req);
                     var errorMessage = '<div><h3>An error occured:</h3></div>';
                     errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
                     errorMessage += '</br>';
@@ -508,7 +561,7 @@ var CommandDialogView = Backbone.View.extend({
                       message: errorMessage,
                       type: "danger"
                     });
-                    console.log(errorMessage);
+                    //console.log(errorMessage);
                   }
                 });
               };
