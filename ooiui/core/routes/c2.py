@@ -401,3 +401,42 @@ def get_c2_instrument_last_particle(ref_code, stream_method, stream_name):
     else:
         print 'bad json'
         return '{"error": "bad json data"}'
+
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/start', methods=['GET'])
+@scope_required('command_control')
+@login_required()
+def c2_direct_access_start(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/start' % (ref_code), auth=(token, ''), params=request.args)
+    if is_json(response.text):
+        print 'good json'
+        return response.text, response.status_code
+    else:
+        print 'bad json'
+        return '{"error": "bad json data"}'
+
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/execute', methods=['GET'])
+@scope_required('command_control')
+@login_required()
+def c2_direct_access_execute(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/execute' % (ref_code), auth=(token, ''), params=request.args)
+    if is_json(response.text):
+        print 'good json'
+        return response.text, response.status_code
+    else:
+        print 'bad json'
+        return '{"error": "bad json data"}'
+
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/exit', methods=['GET'])
+@scope_required('command_control')
+@login_required()
+def c2_direct_access_exit(ref_code):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/exit' % (ref_code), auth=(token, ''), params=request.args)
+    if is_json(response.text):
+        print 'good json'
+        return response.text, response.status_code
+    else:
+        print 'bad json'
+        return '{"error": "bad json data"}'

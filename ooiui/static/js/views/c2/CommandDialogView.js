@@ -124,6 +124,11 @@ var CommandDialogView = Backbone.View.extend({
           else{
             that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
           }
+
+          // Direct Access
+          if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS'){
+            console.log('in direct access mode');
+          }
         }
 
         //Parameter Options and values
@@ -169,8 +174,8 @@ var CommandDialogView = Backbone.View.extend({
             if(vmpValue.visibility == "READ_WRITE"){
               //parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><input id="+key+" value="+cell_value+"></input></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
               // Add drop-down parameter display values
-              console.log(response.parameter_display_values);
-              console.log(key);
+              //console.log(response.parameter_display_values);
+              //console.log(key);
               if(key in response.parameter_display_values){
                 console.log(response.parameter_display_values[key]);
                 var display_values = response.parameter_display_values[key];
@@ -218,6 +223,11 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('.refreshparam').show();
           that.$el.find('.submitparam').prop('disabled', false);
           that.$el.find('#available_streams').prop('disabled', false);
+        }
+
+        // Direct Access
+        if((parameter_html !='') && (response.value.capabilities[0].includes('DRIVER_EVENT_START_DIRECT'))){
+          that.$el.find('#c2_direct_access').prop('disabled', false);
         }
 
         that.$el.find('.modal-title').html("<b>"+that.options.title);
@@ -340,6 +350,123 @@ var CommandDialogView = Backbone.View.extend({
       //plotting/#CP05MOAS-GL001-05-PARADM000/<steam_method>_<stream-name>
       window.open(plot_url,'_blank');
     }
+    // Direct Access - Start
+    else if(button.target.id =='c2_direct_access'){
+      // Build the direct access
+      var direct_access_start_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/start';
+
+      $.ajax( direct_access_start_url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+          that.$el.find('#c2_direct_access').prop('disabled', true);
+          that.$el.find('#c2_direct_access_launch').prop('disabled', false);
+          that.$el.find('#c2_direct_access_exit').prop('disabled', false);
+          console.log('success starting direct access: ');
+          console.log(resp);
+          var m = new ModalDialogView();
+
+          m.show({
+            message: "Started Direct Access Successfully",
+            type: "success"
+          });
+
+        },
+        error: function( req, status, err ) {
+          //console.log(req);
+          var errorMessage = '<div><h3>An error occurred starting direct access:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+        }
+      });
+    }
+    // Direct Access - Launch
+    else if(button.target.id =='c2_direct_access_launch'){
+// Build the direct access
+      var direct_access_execute_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/execute';
+
+      $.ajax( direct_access_execute_url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+          that.$el.find('#c2_direct_access').prop('disabled', true);
+          that.$el.find('#c2_direct_access_launch').prop('disabled', false);
+          that.$el.find('#c2_direct_access_exit').prop('disabled', false);
+          console.log('success starting direct access: ');
+          console.log(resp);
+          var m = new ModalDialogView();
+
+          m.show({
+            message: "Launched (executed) Direct Access Successfully",
+            type: "success"
+          });
+
+        },
+        error: function( req, status, err ) {
+          //console.log(req);
+          var errorMessage = '<div><h3>An error occurred starting direct access:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+        }
+      });
+    }
+    // Direct Access - Exit
+    else if(button.target.id =='c2_direct_access_exit'){
+      // Build the direct access
+      var direct_access_exit_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/exit';
+
+      $.ajax( direct_access_exit_url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+          that.$el.find('#c2_direct_access').prop('disabled', false);
+          that.$el.find('#c2_direct_access_launch').prop('disabled', true);
+          that.$el.find('#c2_direct_access_exit').prop('disabled', true);
+          console.log('success starting direct access: ');
+          console.log(resp);
+          var m = new ModalDialogView();
+
+          m.show({
+            message: "Exited Direct Access Successfully",
+            type: "success"
+          });
+
+        },
+        error: function( req, status, err ) {
+          //console.log(req);
+          var errorMessage = '<div><h3>An error occurred exiting direct access:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+        }
+      });
+    }
     // Get the last particle
     else if(button.target.id =='get_particle'){
       // Build the particle url
@@ -369,7 +496,10 @@ var CommandDialogView = Backbone.View.extend({
           var errorMessage = '<div><h3>An error occured:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
-          errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
           var errorModal = new ModalDialogView();
           errorModal.show({
             message: errorMessage,
