@@ -187,10 +187,10 @@ var CommandDialogView = Backbone.View.extend({
                   console.log(vpValue);
                   console.log(display_values[dv]==vpValue);
                   if(display_values[dv]==vpValue){
-                    drop_down+="<option value='"+dv+"' selected>"+display_values[dv]+"</option>";
+                    drop_down+="<option value='"+display_values[dv]+"' selected>"+dv+"</option>";
                   }
                   else{
-                    drop_down+="<option value='"+dv+"'>"+display_values[dv]+"</option>";
+                    drop_down+="<option value='"+display_values[dv]+"'>"+dv+"</option>";
                   }
                 }
                 parameter_html = parameter_html.concat("<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-4'>"+vmpValue.display_name+"</div><div style='font-style: italic;' class='col-md-4'>"+vmpValue.description+"</div><div class='col-md-2'><select id="+key+" value="+cell_value+">"+drop_down+"</select></div><div style='font-style: italic;right:-55px' class='col-md-2'>"+units+"</div></div>");
