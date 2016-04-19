@@ -1,0 +1,44 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>CHANGE ME</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+  <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
+  <link href="/data_catalog.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" class="data-catalog-page" style="padding-left: 0px">
+    <div id="page-content-wrapper">
+            <h2>Find Me in /ooiui/templates/data_catalog</h2>
+    </div><!-- page-content-wrapper -->
+</div><!-- wrapper -->
+
+<!-- fade in image -->
+<!-- Page Resources -->
+<script src="data_catalog.js" type="text/javascript"></script>
+<!-- Partials -->
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<script src="/js/compiled/index.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+<script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+<!-- Models and Views -->
+<script src="/js/models/admin/SystemAdminModel.js" type="text/javascript"></script>
+<script src="/js/views/admin/SystemAdminView.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+<script src="/js/models/asset_management/EventModel.js" type="text/javascript"></script>
+<script src="/js/models/science/StreamModel.js" type="text/javascript"></script>
+<script src="/js/models/science/GliderTrackModel.js" type="text/javascript"></script>
+{% endblock %}
