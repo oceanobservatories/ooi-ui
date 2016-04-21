@@ -1,30 +1,45 @@
 <!-- set up the modal to start hidden and fade in and out -->
-  <div class="modal-dialog"  style='width:840px'>
-    <div class="modal-content" style='width:840px'>
-      <!-- dialog body -->
-      <div class="modal-header">
-        <h3 class="modal-title"  id="missionModalLabel">Commands: </h3>
-        <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: Unknown</h4>      
+<div class="modal-dialog"  style='width:840px'>
+  <div class="modal-content" style='width:840px'>
+    <!-- dialog body -->
+    <div class="modal-header">
+      <div style="text-align:right;">
+        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access" disabled>Start Direct Access</button>
+        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_launch" disabled>Launch Direct Access</button>
+        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_exit" disabled>Exit Direct Access</button>
       </div>
-      <div class="modal-body mission-modal" style='margin-top:-17px'>
-        <!-- <div><h3>Pending Messages</h3></div>
-          <%= message%> -->
-          <div><h3>Parameter Settings</h3></div>
-          <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='submit_win_param'><i class="fa fa-floppy-o"> </i> Apply Settings</button>
-          <button type="button" class="submitparam btn btn-primary" disabled style='margin-top:2px;display:none' id='refresh_win_param'><i class="fa fa-refresh"> </i> Refresh</button>
-          <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><div style='right:-25px' class='col-md-2'>Units</div></div>
-          <hr>
-          <div style='max-height:255px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
-            <%= parameter_options%>
-          </div>
-          <div><h3>Command List</h3></div>
-          <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
-            <%= command_options%>
-          </div>
+      <h3 class="modal-title"  id="missionModalLabel">Commands: </h3>
+      <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: Unknown</h4>
+    </div>
+    <div class="modal-body mission-modal" style='margin-top:-17px'>
+      <!-- <div><h3>Pending Messages</h3></div>
+        <%= message%> -->
+      <div><h3>Parameter Settings</h3></div>
+      <button type="button" class="submitparam btn btn-primary" style='margin-top:2px;display:none' id='submit_win_param'><i class="fa fa-floppy-o"> </i> Apply Settings</button>
+      <button type="button" class="refreshparam btn btn-primary" style='margin-top:2px;display:none' id='refresh_win_param'><i class="fa fa-refresh"> </i> Refresh</button>
+      <div style='font-size:12px;font-weight:bold;margin-bottom: -17px;font-style: italic;margin-top: 12px;' class='row' ><div class='col-md-4'>Parameter Name</div><div class='col-md-4'>Description</div><div style='right:25px' class='col-md-2'>Value</div><div style='right:-25px' class='col-md-2'>Units</div></div>
+      <hr>
+      <div style='max-height:255px;overflow-y: auto;overflow-x: hidden; padding-right:15px;'>
+        <%= parameter_options%>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id='plot_c2'><i class="fa fa-bar-chart">  </i>  Plot</button>
-        <button type="button" class="btn btn-primary" id='close_win_command' data-dismiss="modal">Close</button>
+      <div><h3>Command List</h3></div>
+      <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;padding: 3px;'>
+        <%= command_options%>
+      </div>
+      <div>
+        <hr>
+        <h3>Stream Actions</h3>
+        <label for="available_streams">Available Streams</label>
+        <select id="available_streams" disabled><%= available_streams%></select>
+        <button type="button" class="submitparticle btn btn-primary" style="padding-left: 10px;" id='get_particle' disabled><i class="fa fa-bolt"> </i> Get Particle</button>
+        <button type="button" class="btn btn-primary" style="padding-left: 10px;" id='plot_c2' disabled><i class="fa fa-bar-chart"> </i> Plot</button>
+      </div>
+      <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
+        <%= processing_state%>
       </div>
     </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" id='close_win_command' data-dismiss="modal">Close</button>
+    </div>
   </div>
+</div>

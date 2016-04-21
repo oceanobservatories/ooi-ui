@@ -171,7 +171,7 @@ def put_user(id):
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/user/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
-print "More routes"
+
 
 @app.route('/api/user', methods=['POST'])
 @app.route('/api/user/', methods=['POST'])
