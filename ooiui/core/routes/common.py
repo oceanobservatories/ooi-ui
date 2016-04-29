@@ -139,9 +139,9 @@ def home():
 def station():
     return render_template('common/station.html')
 
-@app.route('/instrument')
-def instrument():
-    return render_template('common/instrument.html')
+@app.route('/platform')
+def platform():
+    return render_template('common/platform.html')
 
 @app.route('/data_catalog')
 def data_catalog():
