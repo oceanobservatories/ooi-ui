@@ -131,6 +131,22 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html')
 
+@app.route('/home')
+def home():
+    return render_template('common/home.html')
+
+@app.route('/station')
+def station():
+    return render_template('common/station.html')
+
+@app.route('/platform')
+def platform():
+    return render_template('common/platform.html')
+
+@app.route('/data_catalog')
+def data_catalog():
+    return render_template('common/data_catalog.html')
+
 @app.route('/status')
 def statusUI():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstatus')
