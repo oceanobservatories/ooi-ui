@@ -11,7 +11,7 @@
  * - ooiui/static/lib/backbone/backbone.js
  * Usage
  */
-
+var socket;
 var CommandDialogView = Backbone.View.extend({
   className: 'modal fade',
 
@@ -68,6 +68,9 @@ var CommandDialogView = Backbone.View.extend({
     commandist.url='/api/c2/'+options.ctype+'/'+options.variable+'/commands';
 
     this.$el.html(this.template(options));
+
+    that.$el.find("#main_div").prop('hidden', true);
+    that.$el.find("#direct_access_div").prop('hidden', true);
 
     commandist.fetch({
       success: function(collection, response, options) {
@@ -126,8 +129,73 @@ var CommandDialogView = Backbone.View.extend({
           }
 
           // Direct Access
+          that.options['refresh_state'] = "";
+          console.log(response.value.state);
           if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS'){
             console.log('in direct access mode');
+            // Hide the main_div and just show the direct access div
+            //that.$el.find("#main_div").prop('hidden', true);
+            //that.$el.find("#direct_access_div").prop('hidden', false);
+
+            var theInstruments = response.value.direct_config;
+            console.log(theInstruments);
+            var theTabs = "";
+            for (var ti=0; ti<theInstruments.length; ti++) {
+              var theTab=theInstruments[ti];
+              console.log(theTab.title);
+              if(ti==0){
+                theTabs += "<li class=\"active\"><a href=\"#tc\">"+theTab.title+"</a></li>";
+              }else{
+                theTabs += "<li><a href=\"#tc\">"+theTab.title+"</a></li>";
+              }
+            }
+
+            that.options['direct_access_tabs'] = theTabs;
+
+            // Direct Access Output
+            var namespace = '/test'; // change to an empty string to use the global namespace
+            socket = io.connect('http://' + '10.0.0.14' + ':' + '5002' + namespace);
+            // the socket.io documentation recommends sending an explicit package upon connection
+            // this is specially important when using the global namespace
+            socket.emit('get sniffer', {data: 'ip:port'});
+
+
+            // event handler for new connections
+            socket.on('connect', function() {
+                socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
+            });
+
+            socket.on('my response', function(msg) {
+              console.log('got a msg: ');
+              console.log(msg);
+              that.$el.find('#direct-output-ta').append('Received #' + msg.count + ': ' + msg.data);
+              //that.options['direct_access_output'] += 'Received #' + msg.count + ': ' + msg.data;
+            });
+
+            //that.options['direct_access_output'] = 'Sniffer output';
+
+
+            //console.log(response.value.direct_config[0].input_dict);
+            var theButtons = response.value.direct_config[0].input_dict;
+            var btnKeys = Object.keys(theButtons);
+
+            btnKeys.sort();
+            console.log(btnKeys);
+
+            var daButtons = "";
+            for (var ii=0; ii<btnKeys.length; ii++) {
+              var btnKey = btnKeys[ii];
+              var btnKeyValue = theButtons[btnKey];
+              //console.log(btnKey);
+              //console.log(btnKeyValue);
+              daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKeyValue+"\"><i class=\"fa fa-floppy-o\"> </i>"+btnKey+"</button>";
+            }
+            that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
+          } else {
+            console.log('not in direct access');
+            //console.log(that);
+            //that.$el.find("#direct_access_div").prop('hidden', true);
+            //that.$el.find("#main_div").prop('hidden', false);
           }
         }
 
@@ -154,7 +222,7 @@ var CommandDialogView = Backbone.View.extend({
             var vmpValue = theParameters[key];
             var vpValue = response.value.parameters[key];
 
-          //for(var p in theParameters){
+            //for(var p in theParameters){
             var units = '';
             if(vmpValue.value['units']){
               units = vmpValue.value['units'];
@@ -223,6 +291,8 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('.refreshparam').show();
           that.$el.find('.submitparam').prop('disabled', false);
           that.$el.find('#available_streams').prop('disabled', false);
+          that.$el.find('#c2_direct_access').prop('disabled', false);
+          that.$el.find('#c2_direct_access_exit').prop('disabled', true);
         }
 
         // Direct Access
@@ -230,11 +300,26 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('#c2_direct_access').prop('disabled', false);
         }
 
+        if((parameter_html !='') && (response.value.state=='DRIVER_STATE_DIRECT_ACCESS')){
+          that.$el.find('#c2_direct_access').prop('disabled', true);
+          that.$el.find('#c2_direct_access_exit').prop('disabled', false);
+        }
+
         that.$el.find('.modal-title').html("<b>"+that.options.title);
         if(response.value){
           that.$el.find('.modal-subtitle').html("State: "+String(response.value.state).split('_').join(' '));
         }
         that.$el.find('.modal-content').resizable();
+
+        if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS') {
+          console.log('in direct access mode');
+          that.$el.find("#direct_access_div").prop('hidden', false);
+          that.$el.find("#main_div").prop('hidden', true);
+        }else{
+          console.log('not in direct access mode');
+          that.$el.find("#direct_access_div").prop('hidden', true);
+          that.$el.find("#main_div").prop('hidden', false);
+        }
       },
 
       error:function(collection, response, options) {
@@ -341,6 +426,7 @@ var CommandDialogView = Backbone.View.extend({
       that.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      that.options.refresh_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
     }
     // Plotting redirect
@@ -355,12 +441,16 @@ var CommandDialogView = Backbone.View.extend({
       // Build the direct access
       var direct_access_start_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/start';
 
+      that.options['refresh_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
+      that.$el.html(that.template(that.options));
+      that.$el.find("#direct_access_div").prop('hidden', true);
+      that.$el.find("#main_div").prop('hidden', true);
+
       $.ajax( direct_access_start_url, {
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
           that.$el.find('#c2_direct_access').prop('disabled', true);
-          that.$el.find('#c2_direct_access_launch').prop('disabled', false);
           that.$el.find('#c2_direct_access_exit').prop('disabled', false);
           console.log('success starting direct access: ');
           console.log(resp);
@@ -370,6 +460,8 @@ var CommandDialogView = Backbone.View.extend({
             message: "Started Direct Access Successfully",
             type: "success"
           });
+
+          that.$el.find('#refresh_win_param').click();
 
         },
         error: function( req, status, err ) {
@@ -386,34 +478,38 @@ var CommandDialogView = Backbone.View.extend({
             message: errorMessage,
             type: "danger"
           });
+          that.$el.find('#refresh_win_param').click();
         }
       });
     }
     // Direct Access - Launch
-    else if(button.target.id =='c2_direct_access_launch'){
+    else if(button.target.id=='send_da_command'){
 // Build the direct access
       var direct_access_execute_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/execute';
+      var commandData = {
+        "command": "Print Metadata",
+        "title": "FLOR"
+      };
 
       $.ajax( direct_access_execute_url, {
-        type: 'GET',
+        type: "POST",
         dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(commandData),
         success: function( resp ) {
-          that.$el.find('#c2_direct_access').prop('disabled', true);
-          that.$el.find('#c2_direct_access_launch').prop('disabled', false);
-          that.$el.find('#c2_direct_access_exit').prop('disabled', false);
-          console.log('success starting direct access: ');
+          console.log('sending direct access command: ' + JSON.stringify(commandData));
           console.log(resp);
           var m = new ModalDialogView();
 
           m.show({
-            message: "Launched (executed) Direct Access Successfully",
+            message: "Sent Direct Access Command Successfully"+"<br>"+JSON.stringify(commandData),
             type: "success"
           });
 
         },
         error: function( req, status, err ) {
           //console.log(req);
-          var errorMessage = '<div><h3>An error occurred starting direct access:</h3></div>';
+          var errorMessage = '<div><h3>An error occurred sendint the command:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
           if(req.responseJSON){
@@ -433,12 +529,16 @@ var CommandDialogView = Backbone.View.extend({
       // Build the direct access
       var direct_access_exit_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/exit';
 
+      that.options['refresh_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
+      that.$el.html(that.template(that.options));
+      that.$el.find("#direct_access_div").prop('hidden', true);
+      that.$el.find("#main_div").prop('hidden', true);
+
       $.ajax( direct_access_exit_url, {
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
           that.$el.find('#c2_direct_access').prop('disabled', false);
-          that.$el.find('#c2_direct_access_launch').prop('disabled', true);
           that.$el.find('#c2_direct_access_exit').prop('disabled', true);
           console.log('success starting direct access: ');
           console.log(resp);
@@ -448,6 +548,8 @@ var CommandDialogView = Backbone.View.extend({
             message: "Exited Direct Access Successfully",
             type: "success"
           });
+
+          that.$el.find('#refresh_win_param').click();
 
         },
         error: function( req, status, err ) {
@@ -464,6 +566,7 @@ var CommandDialogView = Backbone.View.extend({
             message: errorMessage,
             type: "danger"
           });
+          that.$el.find('#refresh_win_param').click();
         }
       });
     }
@@ -505,7 +608,8 @@ var CommandDialogView = Backbone.View.extend({
             message: errorMessage,
             type: "danger"
           });
-          //console.log( 'something went wrong', status, err );
+
+          that.$el.find('#refresh_win_param').click();
         }
       });
     }
@@ -583,6 +687,9 @@ var CommandDialogView = Backbone.View.extend({
         }
       });
     }
+    else if(button.target.id=='close_win_command'){
+      socket.emit('disconnect request');
+    }
     // Clicked a command button
     else if(button.target.id !='close_win_command'){
       //execute a command from the button
@@ -606,6 +713,7 @@ var CommandDialogView = Backbone.View.extend({
 
       this.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       this.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      //this.options.refresh_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       this.$el.html(this.template(this.options));
 
       command_model.save({},{
@@ -713,6 +821,7 @@ var CommandDialogView = Backbone.View.extend({
 
           //refresh
           that.render(that.options);
+          that.$el.find('#refresh_win_param').click();
         },
         error: function(){
           var m = new ModalDialogView();
@@ -721,6 +830,7 @@ var CommandDialogView = Backbone.View.extend({
             type: "danger"
           });
           that.render(that.options);
+          that.$el.find('#refresh_win_param').click();
         }
       });
     }

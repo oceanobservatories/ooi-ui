@@ -292,3 +292,7 @@ tr.selected:hover {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+.hidden {
+  visibility: hidden;
+  display: none;
+}

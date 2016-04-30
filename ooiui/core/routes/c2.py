@@ -415,12 +415,14 @@ def c2_direct_access_start(ref_code):
         print 'bad json'
         return '{"error": "bad json data"}'
 
-@app.route('/api/c2/instrument/<string:ref_code>/direct_access/execute', methods=['GET'])
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/execute', methods=['POST'])
 @scope_required('command_control')
 @login_required()
 def c2_direct_access_execute(ref_code):
+    print request.data
+    print request.json
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/execute' % (ref_code), auth=(token, ''), params=request.args)
+    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/execute' % (ref_code), auth=(token, ''), data=request.data)
     if is_json(response.text):
         print 'good json'
         return response.text, response.status_code

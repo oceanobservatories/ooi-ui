@@ -89,9 +89,13 @@ var PlatformInstrumentsView = Backbone.View.extend({
           cell: HtmlCell,
           formatter: _.extend({}, Backgrid.Cell.prototype, {
             fromRaw: function (rawValue, model) {
-               return "<button type='button' style='float:right' id='inst_mission_icon' class='btn btn-default'><i style='font-size:19px;color:#A9A9A9;float:right;pointer-events: none;' class='fa fa-toggle-off'></i></button>";
+              if(rawValue=='Online') {
+                return "<button type='button' style='float:right' id='inst_mission_icon' class='btn btn-default'><i style='font-size:19px;color:#A9A9A9;float:right;pointer-events: none;' class='fa fa-toggle-off'></i></button>";
+              }else{
+                return "<button type='button' style='float:right' id='inst_mission_icon' class='btn btn-default' disabled><i style='font-size:19px;color:#A9A9A9;float:right;pointer-events: none;' class='fa fa-toggle-off'></i></button>";
+              }
             }
-          }),
+          })
       }];
 
       //add click event
@@ -116,6 +120,10 @@ var PlatformInstrumentsView = Backbone.View.extend({
 
               this.CommandView.show({
                 message: "<i>None at this time</i>",
+                direct_access_output: "",
+                direct_access_buttons: "",
+                direct_access_tabs: "",
+                refresh_state: "",
                 parameter_options: "",
                 available_streams: "",
                 processing_state: "",

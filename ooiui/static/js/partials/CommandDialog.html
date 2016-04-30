@@ -1,17 +1,44 @@
 <!-- set up the modal to start hidden and fade in and out -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
 <div class="modal-dialog"  style='width:840px'>
   <div class="modal-content" style='width:840px'>
     <!-- dialog body -->
     <div class="modal-header">
       <div style="text-align:right;">
         <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access" disabled>Start Direct Access</button>
-        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_launch" disabled>Launch Direct Access</button>
         <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_exit" disabled>Exit Direct Access</button>
       </div>
       <h3 class="modal-title"  id="missionModalLabel">Commands: </h3>
       <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: Unknown</h4>
     </div>
-    <div class="modal-body mission-modal" style='margin-top:-17px'>
+    <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
+        <%= refresh_state%>
+      </div>
+    <div id="direct_access_div" class="modal-body mission-modal" style='margin-top:-17px'>
+      <ul class="nav nav-pills" style="margin-top:5px">
+          <%= direct_access_tabs%>
+      </ul>
+      <div id="empty"></div>
+      <div id="tc">
+      <div>
+        <h3>Command Output Window</h3>
+        <div style='padding: 3px; border: 1px;'>
+          <div><textarea id='direct-output-ta' cols='100' rows='15'></textarea><br></div>
+          <%= direct_access_output%>
+        </div>
+      </div>
+      <div>
+
+        <input id="da_custom_command" type="text" width="80px" title="Custom Command">
+        <button type="button" class="btn btn-primary" style='margin-top:2px' id="send_da_command"><i class="fa fa-floppy-o"> </i> Send Command</button><br>
+
+
+        <%= direct_access_buttons%>
+
+      </div>
+      </div>
+    </div>
+    <div id="main_div" class="modal-body mission-modal" style='margin-top:-17px'>
       <!-- <div><h3>Pending Messages</h3></div>
         <%= message%> -->
       <div><h3>Parameter Settings</h3></div>
