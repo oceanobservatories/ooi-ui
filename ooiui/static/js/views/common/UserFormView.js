@@ -180,21 +180,7 @@ var SignUpForm = Backbone.View.extend({
 
     submit: function () {
         var self = this;
-        if (!(self.$el.find('input[type="checkbox"]#terms_agree').is(":checked"))){
-            bootbox.dialog({
-              message: "I am a custom dialog",
-              title: "Custom title",
-              buttons: {
-                success: {
-                  label: "Success!",
-                  className: "btn-success",
-                  callback: function() {
-                    Example.show("great success");
-                  }
-                }
-              }
-            });
-        }else{
+        if ((self.$el.find('input[type="checkbox"]#terms_agree').is(":checked"))){
             // Check if the model is valid before saving
             // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
             //  on submit check for the role then change the role_id to the correct int
