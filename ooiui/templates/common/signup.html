@@ -142,14 +142,22 @@
         <div class="form-group">
           <label for="email_opt_in" class="col-sm-3 control-label">Send me important OOI updates via email.</label>
           <div class="col-sm-6">
-            <input type="checkbox" value="true" checked class="form-control" id="email_opt_in" name="email_opt_in" />
+            <input type="checkbox" value="true" class="form-control" id="email_opt_in" name="email_opt_in" />
+            <span class="help-block hidden"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">I Agree To The <a class="terms-link">Terms and Conditions</a></label>
+          <div class="col-sm-6">
+            <input type="checkbox" value="false" class="form-control" id="terms_agree" name="terms_agree" />
             <span class="help-block hidden"></span>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-12">
-            <button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+            <button type="button" disabled id="submitButton" class="btn btn-primary">Submit</button>
             <button type="button" id="resetButton" class="btn btn-primary">Reset</button>
 
           </div>
@@ -186,6 +194,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         el: 'form',
         model: new SignUpModel()
     });
+
   },
   initEvents: function() {
     this.listenTo(this, "login:success", this.onLogin);
@@ -207,7 +216,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
   },
   countrySelection: function(country_code) {
-    console.log('country_code: ' + country_code);
     this.models.stateModel.fetchCurrent(country_code);
     this.collections.states.fetch({url: '/api/states/' + country_code});
   }
