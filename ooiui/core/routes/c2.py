@@ -22,7 +22,7 @@ def is_json(input_json):
 
 @app.route('/cameras')
 def c2_cameras():
-    return render_template('science/camera_media.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive
 ######
@@ -32,7 +32,7 @@ def c2_cameras():
 @scope_required('command_control')
 @login_required()
 def c2_mission_executive():
-    return render_template('c2/missionExecutive.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('c2/missionExecutive.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Load
 @app.route('/mission/load')
@@ -40,7 +40,7 @@ def c2_mission_executive():
 @scope_required('command_control')
 @login_required()
 def c2_mission_load():
-    return render_template('c2/missionLoad.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('c2/missionLoad.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 #probably not going to use
@@ -49,14 +49,14 @@ def c2_mission_load():
 @scope_required('command_control')
 @login_required()
 def c2_platforms():
-    return render_template('c2/platforms.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('c2/platforms.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/c2/instrument')
 @app.route('/c2/instrument/')
 @scope_required('command_control')
 @login_required()
 def c2_platform_status():
-    return render_template('c2/instrument.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('c2/instrument.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #arrays list
 @app.route('/c2')
@@ -64,7 +64,7 @@ def c2_platform_status():
 @scope_required('command_control')
 @login_required()
 def c2_index():
-    return render_template('c2/landing.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('c2/landing.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive DATA PATHS
 ######

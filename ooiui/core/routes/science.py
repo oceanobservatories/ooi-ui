@@ -13,54 +13,54 @@ from ooiui.core.routes.decorators import login_required, scope_required
 
 @app.route('/')
 def new_index():
-    return render_template('science/index.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/landing/pioneer')
 @login_required()
 def landing_pioneer():
-    return render_template('landing/pioneer.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('landing/pioneer.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/assets/list')
 @app.route('/assets/list/')
 @login_required()
 def instr_index():
-    return render_template('asset_management/assetslist.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
 @login_required()
 def event_list():
-    return render_template('asset_management/eventslist.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('asset_management/eventslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/event/<int:id>', methods=['GET'])
 @login_required()
 def event_index(id):
-    return render_template('asset_management/event.html',id=id,tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('asset_management/event.html', id=id, tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
 @login_required()
-def event_new(new,aid,aclass):
-    return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass),tracking=app.config['GOOGLE_ANALYTICS'])
+def event_new(new, aid, aclass):
+    return render_template('asset_management/event.html', id=str(new), assetid=aid, aclass=str(aclass), tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/streams/')
 def streams_page():
-    return render_template('science/streams.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
 def streaming_data_page():
-    return render_template('science/streaming_data.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/streaming_data.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/antelope_acoustic/')
 @login_required()
 def acoustics_page():
-    return render_template('science/antelope_acoustic.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/plotting', methods=['GET'])
@@ -73,7 +73,7 @@ def show_plotting_no_path():
 @app.route('/plotting/<path:path>', methods=['GET'])
 @login_required()
 def plotting_page(path):
-    return render_template('science/plotting.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('science/plotting.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/getdata/')
@@ -234,8 +234,8 @@ def instrument_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
 
     if 'export' in request.args:
-        return Response(response.text,
-            mimetype='application/json',
+        return Response(response.text, 
+            mimetype='application/json', 
             headers={'Content-Disposition':'attachment;filename=filtered_assets.json'})
     else:
         return response.text, response.status_code
@@ -311,7 +311,7 @@ def get_event_by_ref_des():
 
 @app.route('/opLog.html')
 def op_log():
-    return render_template('common/opLog.html',tracking=app.config['GOOGLE_ANALYTICS'])
+    return render_template('common/opLog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/api/uframe/stream')
