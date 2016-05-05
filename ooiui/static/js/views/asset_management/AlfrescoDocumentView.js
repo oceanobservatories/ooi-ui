@@ -51,7 +51,6 @@ var AlfrescoTableBodyView = ParentAlfrescoView.extend({
             this.$el.append('<td colspan="3" style="text-align:center"><em>No documents found</em></td>');
         }
 
-
     }
 });
 

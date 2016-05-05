@@ -1,11 +1,9 @@
 /* Created by M@Campbell
  *
- * This model holds the response to a query on any document in the repository
- *
  * @defaults
  *      id: The full object identification path. may be left out in response.
  *      name: The name of the document
- *      url: The downlaod URL of the ojbect, contains auth ticket (token).
+ *      url: The downlaod URL of the ojbect.
  *
  */
 
@@ -34,21 +32,25 @@ var PlatformModel = Backbone.Model.extend({
             newArray[1] = -1 * newArray[1];
         }
 
+        // the icons stack on top of each other, this give a slight offset so they can be
+        // seen easier.
         if (attrs.reference_designator.indexOf('GL') > -1 ) {
+            // for gliders, lets spread them out a bit more.
             newArray = [newArray[0]-(Math.random()*.3), newArray[1]-(Math.random()*.3)];
             color = 'blue';
-        } else {
+        }
+        else {
+            // for moorings, lets make sure they are still very close
             newArray = [newArray[0]-(Math.random()*.05), newArray[1]-(Math.random()*.05)];
         }
 
-
-
-        var mapBoxSource = {
+        var geoJSON = {
             "type": "Feature",
             "properties": {
                 "description": "<span>"+attrs.display_name+"</span>",
                 "code": attrs.reference_designator,
-                "color": color
+                "title": attrs.display_name,
+                "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon'
             },
             "geometry": {
                 "type": "Point",
@@ -56,7 +58,7 @@ var PlatformModel = Backbone.Model.extend({
             }
 
         }
-        return mapBoxSource;
+        return geoJSON;
     }
 });
 
@@ -91,9 +93,9 @@ var PlatformCollection = Backbone.Collection.extend({
         return new PlatformCollection(filtered);
     },
     byArray: function(array) {
-        var filtered = this.filter(function (array) {
+        var filtered = this.filter(function (platform) {
             if (platform.get('reference_designator') !== "") {
-                return platform.get('reference_designator').subStr(0,2) === array;
+                return platform.get('reference_designator').substr(0,2) === array;
             }
         });
         return new PlatformCollection(filtered);

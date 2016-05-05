@@ -1,0 +1,46 @@
+<div id="<%= properties.code %>" class="js-array">
+    <div class="panel-body">
+        <h4><%= properties.description %></h4>
+        <% if (properties.code === 'CE') { %>
+        <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
+        <p>
+        The Endurance Array is a multi-scaled array utilizing fixed and mobile assets.
+        </p>
+        <% } %>
+
+        <% if (properties.code === 'GP') { %>
+        <div><img src="/img/StationPapa_labeled_2015-10-07_ver_3-00.png"></div>
+        <p>
+        The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific.</p>
+        <% } %>
+
+        <% if (properties.code === 'CP') { %>
+        <div><img src="/img/PioneerArray_2015-10-07_ver_3-00.png"></div>
+        <p>
+        The first phase of the Pioneer Array deployment took place
+        in November 2013, with the installation of three moorings – a
+        surface mooring at the central site.</p>
+        <% } %>
+
+        <% if (properties.code === 'GA') { %>
+        <div><img src="/img/Global_Argentine_2015-10-07_ver_5-00-441x350.png" ></div>
+        <p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Argentine Basin in the South Atlantic. </p>
+        <% } %>
+
+        <% if (properties.code === 'GI') { %>
+        <div><img src="/img/Global_Irminger_2015-10-07_ver_5-00-441x350.png"></div>
+        <p></p>
+        <% } %>
+
+        <% if (properties.code === 'GS') { %>
+        <div><img src="/img/Global_Southern_2015-10-07_ver_5-00-441x350.png"></div>
+        <p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Southern Ocean, southwest of Chile. </p>
+        <% } %>
+
+        <% if (properties.code === 'RS') { %>
+        <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
+        <p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p>
+        <% } %>
+    </div>
+    <table class="table table-stripped"></table>
+</div>
