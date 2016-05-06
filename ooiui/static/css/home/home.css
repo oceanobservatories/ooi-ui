@@ -34,11 +34,9 @@ body, html {
 }
 
 .home-page .js-array:hover{
-    background-color: #eee;
 }
 
 .home-page .js-array.active {
-    background-color: #eee;
 }
 
 .home-page .js-array h4 {

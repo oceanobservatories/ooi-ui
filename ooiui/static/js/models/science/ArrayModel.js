@@ -40,6 +40,8 @@ var ArrayModel = OOI.RelationalModel.extend({
             newArray = [coorArray[0][0][1], coorArray[0][0][0]],
             polyArray = [];
 
+
+
         // mapbox GL expects lng, lat
         if (coorArray[0][0].length > 0) {
             _.each(coorArray[0], function(item) {
@@ -51,13 +53,22 @@ var ArrayModel = OOI.RelationalModel.extend({
             newArray = [-128.7533, 45.8305];
         }
 
+        if (!attrs.platforms) {
+            attrs.platforms = [];
+        } else {
+            _.each(attrs.platforms, function(platform) {
+                platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
+            });
+        }
+
         var geoJSON = {
             "type": "Feature",
             "properties": {
                 "description": "<span>"+attrs.display_name+"</span>",
                 "code": attrs.array_code,
                 "title": attrs.display_name,
-                "marker-symbol": 'dot'
+                "marker-symbol": 'dot',
+                "platforms": attrs.platforms
             },
             "geometry": {
                 "type": "Point",

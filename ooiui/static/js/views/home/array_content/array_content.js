@@ -9,7 +9,15 @@ var ParentView = Backbone.View.extend({
         _.bindAll(this, 'render', 'derender');
     },
     render: function() {
-        if (this.model) { this.$el.html(this.template(this.model.toJSON())); } else { this.$el.html(this.template()); }
+        if (this.model) {
+            // we're using geoJSON here.  Make sure when you access the
+            // object in the partial you are referencing the ArrayModel's .toJSON() method
+            // return, and not the actual model.
+            // e.g. properties.description NOT this.model.attributes. . .
+            this.$el.html(this.template(this.model.toJSON()));
+        } else {
+            this.$el.html(this.template());
+        }
 
         return this;
     },
@@ -25,17 +33,23 @@ var ArrayContentSummary = ParentView.extend({
         var arrayContentContext = this;
 
         var arrayContentSummaryItem = this.collection.arrayCollection.map(function(model) {
+            // lets get all the platforms for this particular array...
+            var platforms = arrayContentContext
+                                .collection
+                                .platformCollection
+                                .byArray(model.attributes.array_code);
+
+            // then we can set an object on the array model, so we have a geoJSON
+            // representation of all of the array's platforms, with lng/lat
+            model.set({platforms: platforms.toJSON()});
+
+            // finally, return the array content summary, which will also contain
+            // it's platforms to be displayed after the array is inspected.
             return (new ArrayContentSummaryItem({model: model})).render().el;
         });
-        this.$el.prepend(arrayContentSummaryItem);
 
-        this.listenTo(vent, 'home-page:showArrayDetails', function(el) {
-            var arrayCode = $(el).attr('id');
-            var platformTable = new PlatformContentTable({collection: arrayContentContext.collection.platformCollection.byArray(arrayCode)});
-            platformTable.render();
-            // TODO: keep working to get this loaded as a platform table list.
-            //this.$el.find('table').append(platformTable.el);
-        });
+        // prepend the arrays to the page.
+        this.$el.prepend(arrayContentSummaryItem);
     }
 });
 
@@ -59,7 +73,10 @@ var ArrayContentSummaryItem = ParentView.extend({
             arrayEl = $('.js-array');
 
         _.each(arrayEl, function(item) {
-            if ($(item).attr('id') !== el.attr('id')) {
+            var id = $(item).attr('id'),
+                elId = el.attr('id');
+
+            if (id !== elId) {
                 $(item).animate({
                     opacity: 'toggle',
                     height: 'toggle'
@@ -67,36 +84,46 @@ var ArrayContentSummaryItem = ParentView.extend({
             }
         });
     },
-    _renderArrayDetails: function(event) {
-        var el = $('#'+this.model.attributes.array_code);
-        vent.trigger('home-page:showArrayDetails', el);
-    },
     _flyBye: function(event) {
         map.flyTo({center: [-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
         map._setArrayView();
-
         $('.js-array').removeClass('active');
         popup.remove();
     },
     _flyFly: _.debounce(function(event) {
         var flyFlyContext = this;
         event.stopImmediatePropagation();
+        console.log(event);
 
         $.when(this._toggleActive(event)).done(function() {
-            flyFlyContext._toggleOthers(event);
-            flyFlyContext._renderArrayDetails(event);
+            $.when(flyFlyContext._toggleOthers(event)).done(function() {
+                var el = $('#'+flyFlyContext.model.attributes.array_code),
+                    table = '#' + el.attr('id') + ' > .js-platform-table';
+                $(table).toggle(1000);
+            });
         });
 
         // helper monkies
+
+        /* @private _compareGeoLoc
+         * Given Point 1 (pt1), return bool if between a RANGE centered at Point 2 (pt2).
+         *
+         * @private _addPopup
+         * Adds the global popup variable with HTML to the global map variable.
+         */
+
         var _compareGeoLoc = (function (pt1, pt2) {
             var RANGE = 10;
 
-            if (((Math.round(pt1.lng) > Math.round(pt2[0]) - RANGE) && (Math.round(pt1.lng) < Math.round(pt2[0]) + RANGE))
-                  && ((Math.round(pt1.lat) > Math.round(pt2[1]) - RANGE) && (Math.round(pt1.lat) < Math.round(pt2[1]) + RANGE))) {
-                return true;
-            } else {
-                return false;
-            }
+            var isLngGreater = Math.round(pt1.lng) > Math.round(pt2[0]) - RANGE;
+            var isLngLess = Math.round(pt1.lng) < Math.round(pt2[0]) + RANGE;
+            var isPt1LngBetweenPt2Lng = isLngGreater && isLngLess;
+
+            var isLatGreater = Math.round(pt1.lat) > Math.round(pt2[1]) - RANGE;
+            var isLatLess = Math.round(pt1.lat) < Math.round(pt2[1]) + RANGE;
+            var isPt1LatBetweenPt2Lat = isLatGreater && isLatLess;
+
+            return ((isPt1LngBetweenPt2Lng) && (isPt1LatBetweenPt2Lat)) ? true : false;
         });
 
         var _addPopup = (function(loc, name) {
@@ -108,8 +135,10 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         map._setPlatformView();
 
-
-        var loc = [this.model.attributes.geo_location.coordinates[0][0][1], this.model.attributes.geo_location.coordinates[0][0][0]],
+        var loc = [
+                this.model.attributes.geo_location.coordinates[0][0][1],
+                this.model.attributes.geo_location.coordinates[0][0][0]
+            ],
             code = this.model.attributes.array_code,
             name = this.model.attributes.array_name;
 
@@ -168,7 +197,7 @@ var ArrayContentSummaryItem = ParentView.extend({
 });
 
 var PlatformContentTable = ParentView.extend({
-    tagName: 'table',
+    el: 'table',
     render: function() {
         var platformContentItem = this.collection.byMoorings().map(function(model) {
             return (new PlatformContentItem({model: model})).render().el;

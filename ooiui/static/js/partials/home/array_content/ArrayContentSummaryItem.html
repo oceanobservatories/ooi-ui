@@ -42,5 +42,13 @@
         <p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p>
         <% } %>
     </div>
-    <table class="table table-stripped"></table>
+    <div class="js-platform-table" style="display: none">
+        <table class="table table-stripped">
+            <tbody>
+            <% _.each(properties.platforms, function(platform) { %>
+                <tr><td><%= platform.properties.title %></td></tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
 </div>
