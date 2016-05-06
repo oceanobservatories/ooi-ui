@@ -11,14 +11,15 @@
  * - ooiui/static/lib/backbone/backbone.js
  * Usage
  */
-var socket;
+
 var CommandDialogView = Backbone.View.extend({
   className: 'modal fade',
 
   events: {
     'hidden.bs.modal' : 'hidden',
     'click button': 'executeCommand',
-    'change #available_streams': 'getParticle'
+    'change #available_streams': 'getParticle',
+    'change #instrument_select': 'selectInstrument'
   },
 
   getParticle: function(event) {
@@ -26,6 +27,61 @@ var CommandDialogView = Backbone.View.extend({
     this.options['selected_stream_name'] = event.target.selectedOptions[0].text;
     this.$el.find('#get_particle').prop('disabled', false);
     this.$el.find('#plot_c2').prop('disabled', false);
+  },
+
+  selectInstrument: function(event) {
+    var that = this;
+    console.log('event');
+    console.log(event);
+    console.log('options');
+    console.log(that.options);
+    that.options['selected_instrument'] = event.target.selectedOptions[0].value;
+    that.options['selected_instrument_index'] = event.target.selectedIndex;
+
+
+    // Commands buttons
+    //var theButtons = response.value.direct_config[0].input_dict;
+    var theButtons = $.grep(that.options['direct_config'], function(e) { return e.title == event.target.selectedOptions[0].value })[0].input_dict;
+    var btnKeys = Object.keys(theButtons);
+
+    btnKeys.sort();
+    //console.log(btnKeys);
+
+    var daButtons = "";
+    for (var ii=0; ii<btnKeys.length; ii++) {
+      var btnKey = btnKeys[ii];
+      var btnKeyValue = theButtons[btnKey];
+      //console.log(btnKey);
+      //console.log(btnKeyValue);
+      daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKeyValue+"\"><i class=\"fa fa-floppy-o\"> </i>"+btnKey+"</button>";
+    }
+    that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
+    //this.render(this.options);
+
+    that.$el.html(that.template(that.options));
+    //that.$el.find('#refresh_win_param').click();
+    that.$el.find("#main_div").prop('hidden', true);
+    that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
+    that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
+    if((that.options.model.value.state=='DRIVER_STATE_DIRECT_ACCESS')){
+      that.$el.find('#c2_direct_access').prop('disabled', true);
+      that.$el.find('#c2_direct_access_exit').prop('disabled', false);
+    }
+
+    //console.log('selected_index');
+    //console.log(event.target.selectedIndex);
+    //console.log('current_index');
+    //console.log(that.$el.find("#instrument_select").selectedIndex);
+    //console.log(that.$el.find("#instrument_select"));
+    //that.$el.find("#instrument_select")[0].selectedIndex = event.target.selectedIndex;
+    //console.log('SELECTED OPTION');
+    //console.log(that.$el.find("#instrument_select")[0].options[event.target.selectedIndex].selected);
+    //that.$el.find("#instrument_select")[0].options[event.target.selectedIndex].selected = true;
+    //this.options['selected_instrument_index'] = event.target.selectedIndex;
+    //console.log('BAAAAAAAAAAAAAAAAAAAAAAAA');
+    //console.log(that.$el.find("#instrument_select")[0]);
+    //that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
+    //that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
   },
 
   hide: function() {
@@ -40,7 +96,7 @@ var CommandDialogView = Backbone.View.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, "render", "hidden", "getParticle");
+    _.bindAll(this, "render", "hidden", "getParticle", "selectInstrument");
   },
 
   show: function(options) {
@@ -71,9 +127,13 @@ var CommandDialogView = Backbone.View.extend({
 
     that.$el.find("#main_div").prop('hidden', true);
     that.$el.find("#direct_access_div").prop('hidden', true);
-
+    var socket = "";
     commandist.fetch({
       success: function(collection, response, options) {
+        console.log(response);
+
+        that.options['instrument_state'] = response.value.state;
+        that.options['title'] = "<b>"+that.options.title+"</b>";
 
         that.options['model'] = response;
         //Command Options
@@ -130,31 +190,16 @@ var CommandDialogView = Backbone.View.extend({
 
           // Direct Access
           that.options['refresh_state'] = "";
-          console.log(response.value.state);
+          //console.log(response.value.state);
           if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS'){
             console.log('in direct access mode');
             // Hide the main_div and just show the direct access div
             //that.$el.find("#main_div").prop('hidden', true);
             //that.$el.find("#direct_access_div").prop('hidden', false);
-
-            var theInstruments = response.value.direct_config;
-            console.log(theInstruments);
-            var theTabs = "";
-            for (var ti=0; ti<theInstruments.length; ti++) {
-              var theTab=theInstruments[ti];
-              console.log(theTab.title);
-              if(ti==0){
-                theTabs += "<li class=\"active\"><a href=\"#tc\">"+theTab.title+"</a></li>";
-              }else{
-                theTabs += "<li><a href=\"#tc\">"+theTab.title+"</a></li>";
-              }
-            }
-
-            that.options['direct_access_tabs'] = theTabs;
-
             // Direct Access Output
             var namespace = '/test'; // change to an empty string to use the global namespace
             socket = io.connect('http://' + '10.0.0.14' + ':' + '5002' + namespace);
+            //console.log(socket);
             // the socket.io documentation recommends sending an explicit package upon connection
             // this is specially important when using the global namespace
             socket.emit('get sniffer', {data: 'ip:port'});
@@ -162,35 +207,66 @@ var CommandDialogView = Backbone.View.extend({
 
             // event handler for new connections
             socket.on('connect', function() {
-                socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
+              socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
             });
+            //socket.on('connect', function(socket) {
+            //  // every socket gets a closure
+            //  // and a distinct onUpdate function object
+            //  function onUpdate(data) {
+            //    socket.emit('update', data);
+            //  }
+            //  ee.on('update', onUpdate);
+            //
+            //  socket.on('disconnect', function() {
+            //    // removes the handler for this specific socket,
+            //    // leaving the others intact
+            //    ee.removeListener('update', onUpdate);
+            //  });
+            //});
 
             socket.on('my response', function(msg) {
-              console.log('got a msg: ');
-              console.log(msg);
-              that.$el.find('#direct-output-ta').append('Received #' + msg.count + ': ' + msg.data);
-              //that.options['direct_access_output'] += 'Received #' + msg.count + ': ' + msg.data;
+              //console.log('got a msg: ');
+              //console.log(msg);
+              that.$el.find('#direct-output-ta').append(msg.data);
             });
 
-            //that.options['direct_access_output'] = 'Sniffer output';
-
-
-            //console.log(response.value.direct_config[0].input_dict);
-            var theButtons = response.value.direct_config[0].input_dict;
-            var btnKeys = Object.keys(theButtons);
-
-            btnKeys.sort();
-            console.log(btnKeys);
-
-            var daButtons = "";
-            for (var ii=0; ii<btnKeys.length; ii++) {
-              var btnKey = btnKeys[ii];
-              var btnKeyValue = theButtons[btnKey];
-              //console.log(btnKey);
-              //console.log(btnKeyValue);
-              daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKeyValue+"\"><i class=\"fa fa-floppy-o\"> </i>"+btnKey+"</button>";
+            // Tabbed instruments
+            var theInstruments = response.value.direct_config;
+            //console.log(theInstruments);
+            var theTabs = "";
+            var tabHtml = "";
+            for (var ti=0; ti<theInstruments.length; ti++) {
+              var theTab=theInstruments[ti];
+              //console.log(theTab.title);
+              if(ti==0){
+                //theTabs += "<li class=\"active\"><a href=\"#\" id='"+theTab.title+"'>"+theTab.title+"</a></li>";
+                theTabs += "<option value='"+theTab.title+"'>"+theTab.title+"</option>";
+              }else{
+                //theTabs += "<li><a href=\"#\" id='"+theTab.title+"'>"+theTab.title+"</a></li>";
+                theTabs += "<option value='"+theTab.title+"'>"+theTab.title+"</option>";
+              }
             }
-            that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
+            tabHtml += "<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-2'><select id='instrument_select'>"+theTabs+"</select></div></div>";
+
+            that.options['direct_access_tabs'] = tabHtml;
+
+            that.options['direct_config'] = response.value.direct_config;
+            //// Commands buttons
+            //var theButtons = response.value.direct_config[0].input_dict;
+            //var btnKeys = Object.keys(theButtons);
+            //
+            //btnKeys.sort();
+            //console.log(btnKeys);
+            //
+            //var daButtons = "";
+            //for (var ii=0; ii<btnKeys.length; ii++) {
+            //  var btnKey = btnKeys[ii];
+            //  var btnKeyValue = theButtons[btnKey];
+            //  //console.log(btnKey);
+            //  //console.log(btnKeyValue);
+            //  daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKeyValue+"\"><i class=\"fa fa-floppy-o\"> </i>"+btnKey+"</button>";
+            //}
+            //that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
           } else {
             console.log('not in direct access');
             //console.log(that);
@@ -245,15 +321,15 @@ var CommandDialogView = Backbone.View.extend({
               //console.log(response.parameter_display_values);
               //console.log(key);
               if(key in response.parameter_display_values){
-                console.log(response.parameter_display_values[key]);
+                //console.log(response.parameter_display_values[key]);
                 var display_values = response.parameter_display_values[key];
                 var drop_down = "";
 
                 // Check value against display options
                 for(var dv in display_values){
-                  console.log(dv);
-                  console.log(vpValue);
-                  console.log(display_values[dv]==vpValue);
+                  //console.log(dv);
+                  //console.log(vpValue);
+                  //console.log(display_values[dv]==vpValue);
                   if(display_values[dv]==vpValue){
                     drop_down+="<option value='"+display_values[dv]+"' selected>"+dv+"</option>";
                   }
@@ -305,9 +381,11 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('#c2_direct_access_exit').prop('disabled', false);
         }
 
-        that.$el.find('.modal-title').html("<b>"+that.options.title);
+        //that.$el.find('.modal-title').html("<b>"+that.options.title);
+
         if(response.value){
-          that.$el.find('.modal-subtitle').html("State: "+String(response.value.state).split('_').join(' '));
+          that.options['instrument_state'] = String(response.value.state).split('_').join(' ');
+          //that.$el.find('.modal-subtitle').html("State: "+String(response.value.state).split('_').join(' '));
         }
         that.$el.find('.modal-content').resizable();
 
@@ -351,6 +429,7 @@ var CommandDialogView = Backbone.View.extend({
     var that = this;
 
     var ref_des = that.options.variable;
+    console.log(that);
 
     // Process particle (status, sample, particle) response to html
     var processParticle = function(response, title) {
@@ -422,12 +501,16 @@ var CommandDialogView = Backbone.View.extend({
 
     // Refresh dialog
     if(button.target.id =='refresh_win_param'){
+      that.$el.find("#direct_access_div").prop('hidden', true);
+      that.$el.find("#main_div").prop('hidden', true);
       that.render(that.options);
       that.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.command_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.refresh_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
+      that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
+      that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
     }
     // Plotting redirect
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
@@ -453,7 +536,7 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('#c2_direct_access').prop('disabled', true);
           that.$el.find('#c2_direct_access_exit').prop('disabled', false);
           console.log('success starting direct access: ');
-          console.log(resp);
+          //console.log(resp);
           var m = new ModalDialogView();
 
           m.show({
@@ -483,12 +566,58 @@ var CommandDialogView = Backbone.View.extend({
       });
     }
     // Direct Access - Launch
+    else if(button.target.id=='send_custom_command'){
+      // Build the direct access
+      var direct_access_execute_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/execute';
+      //console.log(that.$el.find('#da_custom_command'));
+      var da_custom_command = that.$el.find('#da_custom_command')[0].value;
+      //console.log('da_custom_command:');
+      //console.log(da_custom_command);
+      var commandData = {
+        "command_text": decodeURIComponent(da_custom_command),
+        "title": that.options.selected_instrument
+      };
+
+      $.ajax( direct_access_execute_url, {
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(commandData),
+        success: function( resp ) {
+          console.log('sending custom direct access command: ' + JSON.stringify(commandData));
+          console.log(resp);
+          //var m = new ModalDialogView();
+          //
+          //m.show({
+          //  message: "Sent Direct Access Command Successfully"+"<br>"+JSON.stringify(commandData),
+          //  type: "success"
+          //});
+
+        },
+        error: function( req, status, err ) {
+          //console.log(req);
+          var errorMessage = '<div><h3>An error occurred sendint the command:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+        }
+      });
+    }
+    // Direct Access - Launch
     else if(button.target.id=='send_da_command'){
-// Build the direct access
+      // Build the direct access
       var direct_access_execute_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/execute';
       var commandData = {
         "command": "Print Metadata",
-        "title": "FLOR"
+        "title": that.options.selected_instrument
       };
 
       $.ajax( direct_access_execute_url, {
@@ -499,12 +628,12 @@ var CommandDialogView = Backbone.View.extend({
         success: function( resp ) {
           console.log('sending direct access command: ' + JSON.stringify(commandData));
           console.log(resp);
-          var m = new ModalDialogView();
-
-          m.show({
-            message: "Sent Direct Access Command Successfully"+"<br>"+JSON.stringify(commandData),
-            type: "success"
-          });
+          //var m = new ModalDialogView();
+          //
+          //m.show({
+          //  message: "Sent Direct Access Command Successfully"+"<br>"+JSON.stringify(commandData),
+          //  type: "success"
+          //});
 
         },
         error: function( req, status, err ) {
@@ -614,42 +743,42 @@ var CommandDialogView = Backbone.View.extend({
       });
     }
     // Submit form parameter(s)
-    else if(button.target.id =='submit_win_param'){
+    else if(button.target.id =='submit_win_param') {
       //execute parameter changes
       var param_model = new ParameterModel();
-      param_model.url = '/api/c2/'+this.options.ctype+'/'+ref_des+'/parameters';
+      param_model.url = '/api/c2/' + this.options.ctype + '/' + ref_des + '/parameters';
 
       //loop through and get all the parameters
       var theParameters = this.options['model'].value.metadata.parameters;
       var param_list = {};
 
-      for(var p in theParameters){
-        if(theParameters[p].visibility == "READ_WRITE"){
-          if(theParameters[p].value.type == 'int'){
-            param_list[p]=parseInt(this.$el.find('#'+p).val());
+      for (var p in theParameters) {
+        if (theParameters[p].visibility == "READ_WRITE") {
+          if (theParameters[p].value.type == 'int') {
+            param_list[p] = parseInt(this.$el.find('#' + p).val());
           }
           //todo add validation for date
-          else{
-            param_list[p]=this.$el.find('#'+p).val();
+          else {
+            param_list[p] = this.$el.find('#' + p).val();
             //console.log('param', this.$el.find('#'+p).val());
           }
         }
       }
 
-      param_model.set('resource',param_list);
+      param_model.set('resource', param_list);
       /*var post_data_param = {'resource':param_list,'timeout':60000};
        var data_param  = JSON.stringify(post_data_param, null, '\t');*/
 
-      this.options.parameter_options= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
+      this.options.parameter_options = "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       this.$el.html(this.template(this.options));
 
-      param_model.save({},{
-        success: function(response){
+      param_model.save({}, {
+        success: function (response) {
           //console.log('param save response');
           //console.log(response);
 
           var m = new ModalDialogView();
-          if(response.attributes.response.status_code == 200){
+          if (response.attributes.response.status_code == 200) {
             m.show({
               message: "Settings Saved Successfully",
               type: "success"
@@ -657,26 +786,26 @@ var CommandDialogView = Backbone.View.extend({
 
             that.render(that.options);
           }
-          else{
+          else {
             // Generate the error message from the message, status_code and range_errors
             var range_error_response = "";
-            var error_response_header="<table><tr><td class='error_message_header'>Parameter</td><td class='error_message_header'>Error Message</td></tr>";
-            if(response.attributes.response.range_errors!=""){
+            var error_response_header = "<table><tr><td class='error_message_header'>Parameter</td><td class='error_message_header'>Error Message</td></tr>";
+            if (response.attributes.response.range_errors != "") {
               var range_error_rows = "";
-              for(var re in response.attributes.response.range_errors){
-                range_error_rows+="<tr><td class='error_message_column_desc'>"+response.attributes.response.range_errors[re].display_name+":</td><td class='error_message_column_text'>"+response.attributes.response.range_errors[re].message+"</td></tr>";
+              for (var re in response.attributes.response.range_errors) {
+                range_error_rows += "<tr><td class='error_message_column_desc'>" + response.attributes.response.range_errors[re].display_name + ":</td><td class='error_message_column_text'>" + response.attributes.response.range_errors[re].message + "</td></tr>";
               }
-              var range_error_response="</br><hr><div>"+error_response_header+range_error_rows+"</div>";
+              var range_error_response = "</br><hr><div>" + error_response_header + range_error_rows + "</div>";
             }
 
             m.show({
-              message: "Error Saving Settings: "+response.attributes.response.message+range_error_response,
+              message: "Error Saving Settings: " + response.attributes.response.message + range_error_response,
               type: "danger"
             });
             that.render(that.options);
           }
         },
-        error: function(response){
+        error: function (response) {
           //console.log(response);
           var m = new ModalDialogView();
           m.show({
@@ -687,9 +816,16 @@ var CommandDialogView = Backbone.View.extend({
         }
       });
     }
-    else if(button.target.id=='close_win_command'){
-      socket.emit('disconnect request');
-    }
+    //// Close form and sniffer socket
+    //else if((button.target.id=='close_win_command') && (that.options.model.value.state=='DRIVER_STATE_DIRECT_ACCESS')){
+    //  //if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS') {
+    //    console.log('Disconnect socket in direct access mode');
+    //    //var namespace = '/test'; // change to an empty string to use the global namespace
+    //    //socket = io.connect('http://' + '10.0.0.14' + ':' + '5002' + namespace);
+    //    socket.emit('disconnect request');
+    //    that.$el.find('#close_win_command').click();
+    //  //}
+    //}
     // Clicked a command button
     else if(button.target.id !='close_win_command'){
       //execute a command from the button

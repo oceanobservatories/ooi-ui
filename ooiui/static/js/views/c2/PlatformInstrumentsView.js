@@ -123,6 +123,10 @@ var PlatformInstrumentsView = Backbone.View.extend({
                 direct_access_output: "",
                 direct_access_buttons: "",
                 direct_access_tabs: "",
+                selected_instrument: "",
+                selected_instrument_index: "",
+                direct_config: "",
+                instrument_state: "",
                 refresh_state: "",
                 parameter_options: "",
                 available_streams: "",
@@ -133,7 +137,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
                 title: this.model.attributes.display_name,
                 ack: function() { console.log("Closed");}
               });
-              $('.modal-title').html("<b>"+this.model.attributes.display_name);
+              //$('.modal-title').html("<b>"+this.model.attributes.display_name);
           }
           else{
             //clear other panels

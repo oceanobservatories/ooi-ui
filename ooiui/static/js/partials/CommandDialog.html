@@ -8,8 +8,8 @@
         <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access" disabled>Start Direct Access</button>
         <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_exit" disabled>Exit Direct Access</button>
       </div>
-      <h3 class="modal-title"  id="missionModalLabel">Commands: </h3>
-      <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: Unknown</h4>
+      <h3 class="modal-title"  id="missionModalLabel"><%= title%></h3>
+      <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: <%= instrument_state%></h4>
     </div>
     <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
         <%= refresh_state%>
@@ -30,7 +30,7 @@
       <div>
 
         <input id="da_custom_command" type="text" width="80px" title="Custom Command">
-        <button type="button" class="btn btn-primary" style='margin-top:2px' id="send_da_command"><i class="fa fa-floppy-o"> </i> Send Command</button><br>
+        <button type="button" class="btn btn-primary" style='margin-top:2px' id="send_custom_command"><i class="fa fa-floppy-o"> </i> Send Command</button><br>
 
 
         <%= direct_access_buttons%>
