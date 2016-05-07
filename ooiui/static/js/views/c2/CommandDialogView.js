@@ -12,6 +12,8 @@
  * Usage
  */
 
+var socket = "";
+
 var CommandDialogView = Backbone.View.extend({
   className: 'modal fade',
 
@@ -35,9 +37,50 @@ var CommandDialogView = Backbone.View.extend({
     console.log(event);
     console.log('options');
     console.log(that.options);
-    that.options['selected_instrument'] = event.target.selectedOptions[0].value;
-    that.options['selected_instrument_index'] = event.target.selectedIndex;
+    if(event.target.selectedOptions[0].value!='empty'){
+      that.$el.find("#da_command_buttons").prop('hidden', false);
+      that.options['selected_instrument'] = event.target.selectedOptions[0].value;
+      that.options['selected_instrument_index'] = event.target.selectedIndex;
+    }else{
+      //that.$el.find("#direct_access_div").prop('hidden', true);
+      that.$el.find("#da_command_buttons").prop('hidden', true);
+      that.options['selected_instrument'] = 'empty';
+      that.options['selected_instrument_index'] = 0;
+    }
 
+    // Sniffer stuff
+    that.options['selected_instrument_ip'] = that.options.direct_config[0].ip;
+    that.options['selected_instrument_data_port'] = that.options.direct_config[0].data;
+    that.options['selected_instrument_sniffer_port'] = that.options.direct_config[0].sniffer;
+
+    var namespace = '/test'; // change to an empty string to use the global namespace
+    if(socket.connected){
+      socket.close();
+    }
+
+    socket = io.connect('http://' + '10.0.0.14:5002' + namespace);
+    //console.log(socket);
+    // the socket.io documentation recommends sending an explicit package upon connection
+    // this is specially important when using the global namespace
+    socket.on('connect', function() {
+      //socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
+    });
+
+    socket.emit('get sniffer', {"ip": that.options.selected_instrument_ip + '.ooi.rutgers.edu', "port": that.options.selected_instrument_sniffer_port});
+
+    socket.on('my response', function(msg) {
+      //console.log('got a msg: ');
+      //console.log(msg);
+      that.$el.find('#direct-output-ta').append(msg.data);
+      that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
+    });
+
+    socket.on('disconnect', function() {
+      // removes the handler for this specific socket,
+      // leaving the others intact
+      //ee.removeListener('update', onUpdate);
+      socket.close();
+    });
 
     // Commands buttons
     //var theButtons = response.value.direct_config[0].input_dict;
@@ -53,7 +96,7 @@ var CommandDialogView = Backbone.View.extend({
       var btnKeyValue = theButtons[btnKey];
       //console.log(btnKey);
       //console.log(btnKeyValue);
-      daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKeyValue+"\"><i class=\"fa fa-floppy-o\"> </i>"+btnKey+"</button>";
+      daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKey+"\" value='preset_button'><i class=\"fa fa-chevron-circle-right\"> </i>"+btnKey+"</button>";
     }
     that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
     //this.render(this.options);
@@ -127,13 +170,14 @@ var CommandDialogView = Backbone.View.extend({
 
     that.$el.find("#main_div").prop('hidden', true);
     that.$el.find("#direct_access_div").prop('hidden', true);
-    var socket = "";
+    //var socket = "";
     commandist.fetch({
       success: function(collection, response, options) {
         console.log(response);
 
         that.options['instrument_state'] = response.value.state;
         that.options['title'] = "<b>"+that.options.title+"</b>";
+        that.options['refresh_state'] = "";
 
         that.options['model'] = response;
         //Command Options
@@ -189,26 +233,32 @@ var CommandDialogView = Backbone.View.extend({
           }
 
           // Direct Access
-          that.options['refresh_state'] = "";
-          //console.log(response.value.state);
           if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS'){
             console.log('in direct access mode');
             // Hide the main_div and just show the direct access div
             //that.$el.find("#main_div").prop('hidden', true);
             //that.$el.find("#direct_access_div").prop('hidden', false);
             // Direct Access Output
-            var namespace = '/test'; // change to an empty string to use the global namespace
-            socket = io.connect('http://' + '10.0.0.14' + ':' + '5002' + namespace);
-            //console.log(socket);
-            // the socket.io documentation recommends sending an explicit package upon connection
-            // this is specially important when using the global namespace
-            socket.emit('get sniffer', {data: 'ip:port'});
+            //var namespace = '/test'; // change to an empty string to use the global namespace
+            //socket = io.connect('http://' + that.options.selected_instrument_ip + 'ooi.rutgers.edu:' + that.options.selected_instrument_sniffer_port + namespace);
+            ////console.log(socket);
+            //// the socket.io documentation recommends sending an explicit package upon connection
+            //// this is specially important when using the global namespace
+            //socket.emit('get sniffer', {data: 'ip:port'});
 
 
-            // event handler for new connections
-            socket.on('connect', function() {
-              socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
-            });
+            //// event handler for new connections
+            //socket.on('connect', function() {
+            //  socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
+            //});
+            //
+            //socket.on('my response', function(msg) {
+            //  //console.log('got a msg: ');
+            //  //console.log(msg);
+            //  that.$el.find('#direct-output-ta').append(msg.data);
+            //  that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
+            //});
+
             //socket.on('connect', function(socket) {
             //  // every socket gets a closure
             //  // and a distinct onUpdate function object
@@ -224,16 +274,10 @@ var CommandDialogView = Backbone.View.extend({
             //  });
             //});
 
-            socket.on('my response', function(msg) {
-              //console.log('got a msg: ');
-              //console.log(msg);
-              that.$el.find('#direct-output-ta').append(msg.data);
-            });
-
             // Tabbed instruments
             var theInstruments = response.value.direct_config;
             //console.log(theInstruments);
-            var theTabs = "";
+            var theTabs = "<option value='empty' disabled selected>Select Instrument</option>";;
             var tabHtml = "";
             for (var ti=0; ti<theInstruments.length; ti++) {
               var theTab=theInstruments[ti];
@@ -247,6 +291,7 @@ var CommandDialogView = Backbone.View.extend({
               }
             }
             tabHtml += "<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-2'><select id='instrument_select'>"+theTabs+"</select></div></div>";
+            //tabHtml += "<div style='font-size:12px;height:inherit;' class='row' ><div class='col-md-2'>"+theTabs+"</div></div>";
 
             that.options['direct_access_tabs'] = tabHtml;
 
@@ -391,8 +436,9 @@ var CommandDialogView = Backbone.View.extend({
 
         if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS') {
           console.log('in direct access mode');
-          that.$el.find("#direct_access_div").prop('hidden', false);
+          //that.$el.find("#direct_access_div").prop('hidden', false);
           that.$el.find("#main_div").prop('hidden', true);
+          that.$el.find("#da_command_buttons").prop('hidden', true);
         }else{
           console.log('not in direct access mode');
           that.$el.find("#direct_access_div").prop('hidden', true);
@@ -427,6 +473,9 @@ var CommandDialogView = Backbone.View.extend({
   executeCommand:function(button)
   {
     var that = this;
+
+    console.log('button');
+    console.log(button);
 
     var ref_des = that.options.variable;
     console.log(that);
@@ -596,7 +645,7 @@ var CommandDialogView = Backbone.View.extend({
         },
         error: function( req, status, err ) {
           //console.log(req);
-          var errorMessage = '<div><h3>An error occurred sendint the command:</h3></div>';
+          var errorMessage = '<div><h3>An error occurred sending the command:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
           if(req.responseJSON){
@@ -612,11 +661,11 @@ var CommandDialogView = Backbone.View.extend({
       });
     }
     // Direct Access - Launch
-    else if(button.target.id=='send_da_command'){
+    else if(button.target.value=='preset_button'){
       // Build the direct access
       var direct_access_execute_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/execute';
       var commandData = {
-        "command": "Print Metadata",
+        "command": button.target.id,
         "title": that.options.selected_instrument
       };
 
@@ -626,7 +675,7 @@ var CommandDialogView = Backbone.View.extend({
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(commandData),
         success: function( resp ) {
-          console.log('sending direct access command: ' + JSON.stringify(commandData));
+          console.log('sending preset direct access command: ' + JSON.stringify(commandData));
           console.log(resp);
           //var m = new ModalDialogView();
           //
@@ -638,7 +687,7 @@ var CommandDialogView = Backbone.View.extend({
         },
         error: function( req, status, err ) {
           //console.log(req);
-          var errorMessage = '<div><h3>An error occurred sendint the command:</h3></div>';
+          var errorMessage = '<div><h3>An error occurred sending the command:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
           if(req.responseJSON){

@@ -12,29 +12,27 @@
       <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: <%= instrument_state%></h4>
     </div>
     <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
-        <%= refresh_state%>
-      </div>
+      <%= refresh_state%>
+    </div>
     <div id="direct_access_div" class="modal-body mission-modal" style='margin-top:-17px'>
-      <ul class="nav nav-pills" style="margin-top:5px">
+      <label for="instrument_select">Selected Instrument: <%= selected_instrument%></label>
+      <div><%= direct_access_tabs%></div>
+      <!--<ul id="instrument_listing" class="nav nav-pills" style="margin-top:5px">
           <%= direct_access_tabs%>
-      </ul>
+      </ul>-->
       <div id="empty"></div>
       <div id="tc">
       <div>
         <h3>Command Output Window</h3>
         <div style='padding: 3px; border: 1px;'>
-          <div><textarea id='direct-output-ta' cols='100' rows='15'></textarea><br></div>
+          <div><textarea id='direct-output-ta' cols='100' rows='15' title='Sniffer Output Window'></textarea><br></div>
           <%= direct_access_output%>
         </div>
       </div>
-      <div>
-
+      <div id="da_command_buttons">
         <input id="da_custom_command" type="text" width="80px" title="Custom Command">
-        <button type="button" class="btn btn-primary" style='margin-top:2px' id="send_custom_command"><i class="fa fa-floppy-o"> </i> Send Command</button><br>
-
-
+        <button type="button" class="btn btn-primary" style='margin-top:2px' id="send_custom_command"><i class="fa fa-chevron-circle-right"> </i> Send Command</button><br>
         <%= direct_access_buttons%>
-
       </div>
       </div>
     </div>
