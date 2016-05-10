@@ -296,3 +296,34 @@ tr.selected:hover {
   visibility: hidden;
   display: none;
 }
+
+.btn-primary {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+  /* background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  border: solid #5578D9 1.5px;
+  text-decoration: none;
+  line-height: .9;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.5));
+  text-decoration: none;
+}
+.btn-primary-stop .btn-primary {
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,0,0,.5));
+}
+.btn-primary[disabled] {
+  background-color: #EDF5FC;
+}

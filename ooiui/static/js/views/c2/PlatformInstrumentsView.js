@@ -128,6 +128,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
                 selected_instrument_ip: "",
                 selected_instrument_data_port: "",
                 selected_instrument_sniffer_port: "",
+                sniffer_loop: "",
                 direct_config: "",
                 instrument_state: "",
                 refresh_state: "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-3x'></i>",

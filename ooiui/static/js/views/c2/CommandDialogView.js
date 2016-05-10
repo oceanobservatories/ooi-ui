@@ -33,54 +33,82 @@ var CommandDialogView = Backbone.View.extend({
 
   selectInstrument: function(event) {
     var that = this;
-    console.log('event');
-    console.log(event);
-    console.log('options');
-    console.log(that.options);
-    if(event.target.selectedOptions[0].value!='empty'){
+    //console.log('event');
+    //console.log(event);
+    //console.log('options1111');
+    //console.log(that.options);
+    //console.log('options1111');
+    if(event.target.options[event.target.selectedIndex].value!='empty'){
       that.$el.find("#da_command_buttons").prop('hidden', false);
-      that.options['selected_instrument'] = event.target.selectedOptions[0].value;
       that.options['selected_instrument_index'] = event.target.selectedIndex;
+      that.options['selected_instrument'] = event.target.options[that.options.selected_instrument_index].value;
+
+      // Sniffer stuff
+      var returnedData = $.grep(that.options.direct_config, function (element) {
+        return element.title.indexOf(that.options.selected_instrument) >= 0;
+      });
+      //console.log('returned data');
+      //console.log(returnedData);
+      that.options['selected_instrument_ip'] = returnedData[0].ip;
+      that.options['selected_instrument_data_port'] = returnedData[0].data;
+      that.options['selected_instrument_sniffer_port'] = returnedData[0].sniffer;
+
+      that.$el.find('#start_sniffer').prop('disabled', false);
+      that.$el.find("#stop_sniffer").prop('disabled', true);
+
+      //console.log('options');
+      //console.log(that.options);
     }else{
-      //that.$el.find("#direct_access_div").prop('hidden', true);
       that.$el.find("#da_command_buttons").prop('hidden', true);
       that.options['selected_instrument'] = 'empty';
       that.options['selected_instrument_index'] = 0;
     }
 
-    // Sniffer stuff
-    that.options['selected_instrument_ip'] = that.options.direct_config[0].ip;
-    that.options['selected_instrument_data_port'] = that.options.direct_config[0].data;
-    that.options['selected_instrument_sniffer_port'] = that.options.direct_config[0].sniffer;
 
-    var namespace = '/test'; // change to an empty string to use the global namespace
-    if(socket.connected){
-      socket.close();
-    }
 
-    socket = io.connect('http://' + '10.0.0.14:5002' + namespace);
-    //console.log(socket);
-    // the socket.io documentation recommends sending an explicit package upon connection
-    // this is specially important when using the global namespace
-    socket.on('connect', function() {
-      //socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
-    });
+    //var namespace = '/test'; // change to an empty string to use the global namespace
+    //if(socket.connected){
+    //  socket.close();
+    //}
+    //
+    //socket = io.connect('http://' + '10.0.0.14:5005' + namespace);
+    ////console.log(socket);
+    //// the socket.io documentation recommends sending an explicit package upon connection
+    //// this is specially important when using the global namespace
+    //socket.on('connect', function() {
+    //  //socket.emit('my event', {data: 'I\'m connected from ooi-ui!'});
+    //});
+    //
+    ////socket.emit('get sniffer', JSON.stringify({"ip": that.options.selected_instrument_ip, "port": that.options.selected_instrument_sniffer_port}));
+    //
+    //socket.on('my result', function(msg) {
+    //  //console.log('got a msg: ');
+    //  //console.log(msg);
+    //  that.$el.find('#direct-output-ta').append(msg.data);
+    //  that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
+    //});
+    //
+    //socket.on('disconnect', function() {
+    //  // removes the handler for this specific socket,
+    //  // leaving the others intact
+    //  //ee.removeListener('update', onUpdate);
+    //  socket.close();
+    //});
 
-    socket.emit('get sniffer', {"ip": that.options.selected_instrument_ip + '.ooi.rutgers.edu', "port": that.options.selected_instrument_sniffer_port});
-
-    socket.on('my response', function(msg) {
-      //console.log('got a msg: ');
-      //console.log(msg);
-      that.$el.find('#direct-output-ta').append(msg.data);
-      that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
-    });
-
-    socket.on('disconnect', function() {
-      // removes the handler for this specific socket,
-      // leaving the others intact
-      //ee.removeListener('update', onUpdate);
-      socket.close();
-    });
+    //var namespace = '/c2_direct_access'; // change to an empty string to use the global namespace
+    //
+    //socket = io.connect('http://' + '10.0.0.14:5000' + namespace);
+    ////var theRoom = {"room": snifferRoom};
+    ////socket.emit('join', JSON.stringify({"room": snifferRoom}));
+    ////socket.join(snifferRoom); // Not supported on client side
+    //
+    //socket.on('my result', function(msg) {
+    //  console.log('got a msg: ');
+    //  console.log(msg);
+    //  that.$el.find('#direct-output-ta').append('emit message');
+    //  that.$el.find('#direct-output-ta').append(msg);
+    //  that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
+    //});
 
     // Commands buttons
     //var theButtons = response.value.direct_config[0].input_dict;
@@ -99,32 +127,16 @@ var CommandDialogView = Backbone.View.extend({
       daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKey+"\" value='preset_button'><i class=\"fa fa-chevron-circle-right\"> </i>"+btnKey+"</button>";
     }
     that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
-    //this.render(this.options);
 
     that.$el.html(that.template(that.options));
-    //that.$el.find('#refresh_win_param').click();
-    that.$el.find("#main_div").prop('hidden', true);
     that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
     that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
     if((that.options.model.value.state=='DRIVER_STATE_DIRECT_ACCESS')){
       that.$el.find('#c2_direct_access').prop('disabled', true);
       that.$el.find('#c2_direct_access_exit').prop('disabled', false);
+      this.$el.find("#main_div").prop('hidden', true);
+      that.$el.find("#direct_access_div").prop('hidden', false);
     }
-
-    //console.log('selected_index');
-    //console.log(event.target.selectedIndex);
-    //console.log('current_index');
-    //console.log(that.$el.find("#instrument_select").selectedIndex);
-    //console.log(that.$el.find("#instrument_select"));
-    //that.$el.find("#instrument_select")[0].selectedIndex = event.target.selectedIndex;
-    //console.log('SELECTED OPTION');
-    //console.log(that.$el.find("#instrument_select")[0].options[event.target.selectedIndex].selected);
-    //that.$el.find("#instrument_select")[0].options[event.target.selectedIndex].selected = true;
-    //this.options['selected_instrument_index'] = event.target.selectedIndex;
-    //console.log('BAAAAAAAAAAAAAAAAAAAAAAAA');
-    //console.log(that.$el.find("#instrument_select")[0]);
-    //that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
-    //that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
   },
 
   hide: function() {
@@ -170,10 +182,11 @@ var CommandDialogView = Backbone.View.extend({
 
     that.$el.find("#main_div").prop('hidden', true);
     that.$el.find("#direct_access_div").prop('hidden', true);
+    that.$el.find('#start_sniffer').prop('disabled', true);
     //var socket = "";
     commandist.fetch({
       success: function(collection, response, options) {
-        console.log(response);
+        //console.log(response);
 
         that.options['instrument_state'] = response.value.state;
         that.options['title'] = "<b>"+that.options.title+"</b>";
@@ -234,7 +247,7 @@ var CommandDialogView = Backbone.View.extend({
 
           // Direct Access
           if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS'){
-            console.log('in direct access mode');
+            //console.log('in direct access mode');
             // Hide the main_div and just show the direct access div
             //that.$el.find("#main_div").prop('hidden', true);
             //that.$el.find("#direct_access_div").prop('hidden', false);
@@ -313,7 +326,7 @@ var CommandDialogView = Backbone.View.extend({
             //}
             //that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
           } else {
-            console.log('not in direct access');
+            //console.log('not in direct access');
             //console.log(that);
             //that.$el.find("#direct_access_div").prop('hidden', true);
             //that.$el.find("#main_div").prop('hidden', false);
@@ -414,6 +427,7 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('#available_streams').prop('disabled', false);
           that.$el.find('#c2_direct_access').prop('disabled', false);
           that.$el.find('#c2_direct_access_exit').prop('disabled', true);
+          //that.$el.find("#direct_access_div").prop('hidden', true);
         }
 
         // Direct Access
@@ -426,21 +440,20 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find('#c2_direct_access_exit').prop('disabled', false);
         }
 
-        //that.$el.find('.modal-title').html("<b>"+that.options.title);
-
         if(response.value){
           that.options['instrument_state'] = String(response.value.state).split('_').join(' ');
-          //that.$el.find('.modal-subtitle').html("State: "+String(response.value.state).split('_').join(' '));
         }
         that.$el.find('.modal-content').resizable();
 
         if(response.value.state=='DRIVER_STATE_DIRECT_ACCESS') {
-          console.log('in direct access mode');
-          //that.$el.find("#direct_access_div").prop('hidden', false);
+          //console.log('in direct access mode');
+          that.$el.find("#direct_access_div").prop('hidden', false);
           that.$el.find("#main_div").prop('hidden', true);
           that.$el.find("#da_command_buttons").prop('hidden', true);
+          that.$el.find("#start_sniffer").prop('disabled', true);
+          that.$el.find("#stop_sniffer").prop('disabled', true);
         }else{
-          console.log('not in direct access mode');
+          //console.log('not in direct access mode');
           that.$el.find("#direct_access_div").prop('hidden', true);
           that.$el.find("#main_div").prop('hidden', false);
         }
@@ -474,24 +487,20 @@ var CommandDialogView = Backbone.View.extend({
   {
     var that = this;
 
-    console.log('button');
-    console.log(button);
-
     var ref_des = that.options.variable;
-    console.log(that);
 
     // Process particle (status, sample, particle) response to html
     var processParticle = function(response, title) {
-      ////console.log(response);
-      ////console.log(title);
+      //console.log(response);
+      //console.log(title);
       var m = new ModalDialogView();
       var html_header = "<div><h3>"+title+"</h3></div>";
 
       var combined_html = html_header;
 
       if(response.changed.acquire_result){
-        ////console.log('acquire_result: ');
-        ////console.log(response.changed.acquire_result);
+        //console.log('acquire_result: ');
+        //console.log(response.changed.acquire_result);
 
         // Iterate over the status particles
         for(var data_status in response.changed.acquire_result){
@@ -568,6 +577,64 @@ var CommandDialogView = Backbone.View.extend({
       //plotting/#CP05MOAS-GL001-05-PARADM000/<steam_method>_<stream-name>
       window.open(plot_url,'_blank');
     }
+    else if(button.target.id=='start_sniffer'){
+      that.options.sniffer_loop = 1;
+      button.target.blur();
+      that.$el.find("#start_sniffer").prop('disabled', true);
+      that.$el.find("#stop_sniffer").prop('disabled', false);
+
+      var snifferRoom = that.options.selected_instrument.replace(/\s+/g, '');
+      var snifferData = {"ip": that.options.selected_instrument_ip, "port": that.options.selected_instrument_sniffer_port, "title": snifferRoom};
+
+      var direct_access_sniffer_url = '/api/c2/'+that.options.ctype+'/'+that.options.variable+'/'+'direct_access/sniffer';
+
+      //that.options.sniffer_loop = setInterval(function() {
+        $.ajax(direct_access_sniffer_url, {
+          type: "POST",
+          dataType: 'json',
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(snifferData),
+          success: function (resp) {
+            //console.log('sending custom direct access command: ');
+            //console.log(JSON.stringify(snifferData));
+            //console.log(resp);
+
+            that.$el.find('#direct-output-ta').append(resp['msg']);
+            that.$el.find('#direct-output-ta').scrollTop(that.$el.find('#direct-output-ta')[0].scrollHeight);
+
+            // Click the button to simulate a loop until "Stop Sniffer" is clicked
+            if(that.options.sniffer_loop==1){
+              that.$el.find("#start_sniffer").prop('disabled', false);
+              that.$el.find("#start_sniffer").click();
+              that.$el.find("#start_sniffer").prop('disabled', true);
+            }
+          },
+          error: function (req, status, err) {
+            //console.log(req);
+            var errorMessage = '<div><h3>An error occurred sending the command:</h3></div>';
+            errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+            errorMessage += '</br>';
+            if (req.responseJSON) {
+              errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+            }
+            //console.log(req.responseJSON['message']);
+            //var errorModal = new ModalDialogView();
+            //errorModal.show({
+            //  message: errorMessage,
+            //  type: "danger"
+            //});
+          }
+        });
+      //}, 9900);
+    }
+    else if(button.target.id=='stop_sniffer') {
+      //console.log(button);
+      that.options.sniffer_loop = 0;
+      button.target.blur();
+      clearInterval(that.options.sniffer_loop);
+      that.$el.find("#start_sniffer").prop('disabled', false);
+      that.$el.find("#stop_sniffer").prop('disabled', true);
+    }
     // Direct Access - Start
     else if(button.target.id =='c2_direct_access'){
       // Build the direct access
@@ -584,7 +651,7 @@ var CommandDialogView = Backbone.View.extend({
         success: function( resp ) {
           that.$el.find('#c2_direct_access').prop('disabled', true);
           that.$el.find('#c2_direct_access_exit').prop('disabled', false);
-          console.log('success starting direct access: ');
+          //console.log('success starting direct access: ');
           //console.log(resp);
           var m = new ModalDialogView();
 
@@ -633,8 +700,8 @@ var CommandDialogView = Backbone.View.extend({
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(commandData),
         success: function( resp ) {
-          console.log('sending custom direct access command: ' + JSON.stringify(commandData));
-          console.log(resp);
+          //console.log('sending custom direct access command: ' + JSON.stringify(commandData));
+          //console.log(resp);
           //var m = new ModalDialogView();
           //
           //m.show({
@@ -675,8 +742,8 @@ var CommandDialogView = Backbone.View.extend({
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(commandData),
         success: function( resp ) {
-          console.log('sending preset direct access command: ' + JSON.stringify(commandData));
-          console.log(resp);
+          //console.log('sending preset direct access command: ' + JSON.stringify(commandData));
+          //console.log(resp);
           //var m = new ModalDialogView();
           //
           //m.show({
@@ -718,8 +785,8 @@ var CommandDialogView = Backbone.View.extend({
         success: function( resp ) {
           that.$el.find('#c2_direct_access').prop('disabled', false);
           that.$el.find('#c2_direct_access_exit').prop('disabled', true);
-          console.log('success starting direct access: ');
-          console.log(resp);
+          //console.log('success starting direct access: ');
+          //console.log(resp);
           var m = new ModalDialogView();
 
           m.show({
@@ -875,6 +942,9 @@ var CommandDialogView = Backbone.View.extend({
     //    that.$el.find('#close_win_command').click();
     //  //}
     //}
+    else if(button.target.id =='close_win_command'){
+      that.options.sniffer_loop = 0;
+    }
     // Clicked a command button
     else if(button.target.id !='close_win_command'){
       //execute a command from the button
@@ -905,8 +975,8 @@ var CommandDialogView = Backbone.View.extend({
         success: function(response){
           var m = new ModalDialogView();
           if(response.attributes.response.message != ''){
-            console.log('Error Executing Command:');
-            console.log(response);
+            //console.log('Error Executing Command:');
+            //console.log(response);
             var errorMessage = '<div><h3>Error Executing Command:</h3></div>';
             errorMessage += '<div><h4>' + response.attributes.response.message + '</h4></div>';
             errorMessage += '</br>';

@@ -12,6 +12,8 @@ COMMON: &common
   SAN_DATA_SERVER: 'http://opendap-devel.ooi.rutgers.edu:8080/opendap/hyrax/'
   TROUBLE_TICKETS: 'https://uframe-cm.ooi.rutgers.edu/login'
   RESET_LOGIN_URL: 'http://localhost:5001/admin/reset'
+  UI_APP_IP: 'localhost'
+  UI_APP_PORT: 5000
 
 DEVELOPMENT: &development
   <<: *common

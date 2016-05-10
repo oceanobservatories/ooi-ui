@@ -14,16 +14,17 @@
     <div style='max-height:160px;overflow-y: auto;overflow-x: hidden;'>
       <%= refresh_state%>
     </div>
-    <div id="direct_access_div" class="modal-body mission-modal" style='margin-top:-17px'>
+    <div id="direct_access_div" class="modal-body mission-modal" style='margin-top:-17px' hidden>
       <label for="instrument_select">Selected Instrument: <%= selected_instrument%></label>
       <div><%= direct_access_tabs%></div>
-      <!--<ul id="instrument_listing" class="nav nav-pills" style="margin-top:5px">
-          <%= direct_access_tabs%>
-      </ul>-->
       <div id="empty"></div>
       <div id="tc">
       <div>
         <h3>Command Output Window</h3>
+        <button type="button" class="btn btn-primary" style='margin-left:5px' id="start_sniffer"><i class="fa fa-chevron-circle-down"> </i> Start Sniffer</button>
+        <button type="button" class="btn btn-primary" style='margin-left:5px' id="stop_sniffer" disabled><i class="fa fa-chevron-circle-up"> </i> Stop Sniffer</button>
+        <button type="button" class="btn btn-primary" style='margin-left:5px' id="pause_sniffer" disabled><i class="fa fa-chevron-circle-left"> </i> Pause Sniffer</button>
+        <br>
         <div style='padding: 3px; border: 1px;'>
           <div><textarea id='direct-output-ta' cols='100' rows='15' title='Sniffer Output Window'></textarea><br></div>
           <%= direct_access_output%>
