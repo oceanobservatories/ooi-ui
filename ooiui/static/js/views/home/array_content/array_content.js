@@ -55,7 +55,7 @@ var ArrayContentSummary = ParentView.extend({
 
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
-        'click .js-array': '_flyFly',
+        'click .js-expand': '_flyFly',
     },
     // _flyBye and flyFly are controls that interact directly with the global map variable.
     // because of this, the ArrayContentSummary Item is tightly coupled to the VectorMap
@@ -93,7 +93,6 @@ var ArrayContentSummaryItem = ParentView.extend({
     _flyFly: _.debounce(function(event) {
         var flyFlyContext = this;
         event.stopImmediatePropagation();
-        console.log(event);
 
         $.when(this._toggleActive(event)).done(function() {
             $.when(flyFlyContext._toggleOthers(event)).done(function() {

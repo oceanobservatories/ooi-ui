@@ -1,3 +1,49 @@
-.js-platform-table {
+.array-content {
+    padding: 0;
+}
+
+.array-content .js-array {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid black;
+}
+
+.array-content .panel-heading {
+    padding: 0;
+    margin: 0;
+}
+
+.array-content .panel-heading h4 {
+    margin: 0;
+}
+
+.array-content .panel-body {
+}
+
+.array-content .panel-body img {
+    float: left;
+    padding-bottom: 20px;
+    width: 150px;
+}
+
+.array-content .panel-body div {
+    display: inline-block;
+}
+
+.array-content .panel-body p {
+    width: 80%;
+    padding: 0 10px 0 10px;
+    display: inline-block;
+    float: left;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.array-content .js-platform-table {
     z-index: 10000;
+}
+
+.array-content .js-platform-table tr td {
+    font-size: 12px;
+    cursor: pointer;
 }

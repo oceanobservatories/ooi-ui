@@ -37,11 +37,19 @@ var PlatformModel = Backbone.Model.extend({
         if (attrs.reference_designator.indexOf('GL') > -1 ) {
             // for gliders, lets spread them out a bit more.
             newArray = [newArray[0]-(Math.random()*.3), newArray[1]-(Math.random()*.3)];
-            color = 'blue';
+
+            // and we don't know their depth, so set it to 'various'
+            attrs.depth = 'Various';
         }
         else {
             // for moorings, lets make sure they are still very close
             newArray = [newArray[0]-(Math.random()*.05), newArray[1]-(Math.random()*.05)];
+
+            // TODO: We need to get the depths of the moorings into the database.
+            //       There are several changes we need to make to the platforms so this
+            //       should be noted as one of them.  If there is no value, just provide
+            //       any number . . .
+            attrs.depth = (attrs.depth) ? attrs.depth : 'Unknown';
         }
 
         var geoJSON = {
@@ -50,7 +58,8 @@ var PlatformModel = Backbone.Model.extend({
                 "description": "<span>"+attrs.display_name+"</span>",
                 "code": attrs.reference_designator,
                 "title": attrs.display_name,
-                "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon'
+                "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
+                "depth": attrs.depth
             },
             "geometry": {
                 "type": "Point",

@@ -1,46 +1,55 @@
-<div id="<%= properties.code %>" class="js-array">
-    <div class="panel-body">
+<div id="<%= properties.code %>" class="js-array panel-group">
+    <div class="panel-heading">
         <h4><%= properties.description %></h4>
+    </div>
+    <div class="panel-body">
         <% if (properties.code === 'CE') { %>
         <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
-        <p>
+        <div><p>
         The Endurance Array is a multi-scaled array utilizing fixed and mobile assets.
-        </p>
+            </p></div>
         <% } %>
 
         <% if (properties.code === 'GP') { %>
         <div><img src="/img/StationPapa_labeled_2015-10-07_ver_3-00.png"></div>
-        <p>
-        The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific.</p>
+        <div><p>
+            The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific.</p></div>
         <% } %>
 
         <% if (properties.code === 'CP') { %>
         <div><img src="/img/PioneerArray_2015-10-07_ver_3-00.png"></div>
-        <p>
+        <div><p>
         The first phase of the Pioneer Array deployment took place
         in November 2013, with the installation of three moorings – a
-        surface mooring at the central site.</p>
+        surface mooring at the central site.</p></div>
         <% } %>
 
         <% if (properties.code === 'GA') { %>
         <div><img src="/img/Global_Argentine_2015-10-07_ver_5-00-441x350.png" ></div>
-        <p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Argentine Basin in the South Atlantic. </p>
+        <div><p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Argentine Basin in the South Atlantic. </p></div>
         <% } %>
 
         <% if (properties.code === 'GI') { %>
         <div><img src="/img/Global_Irminger_2015-10-07_ver_5-00-441x350.png"></div>
-        <p></p>
+        <div><p></p></div>
         <% } %>
 
         <% if (properties.code === 'GS') { %>
         <div><img src="/img/Global_Southern_2015-10-07_ver_5-00-441x350.png"></div>
-        <p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Southern Ocean, southwest of Chile. </p>
+        <div><p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Southern Ocean, southwest of Chile. </p></div>
         <% } %>
 
         <% if (properties.code === 'RS') { %>
         <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
-        <p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p>
+        <div><p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p></div>
         <% } %>
+    </div>
+    <div class="panel-footer text-center">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default js-expand">Assets</button>
+            <button type="button" class="btn btn-default">Data Catalog</button>
+            <button type="button" class="btn btn-default">Plotting</button>
+        </div>
     </div>
     <div class="js-platform-table" style="display: none">
         <table class="table table-stripped">
