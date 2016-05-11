@@ -1,0 +1,54 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+
+<div id="platfor-view-content"> 
+  <h2> Global Station Papa, Apex Profiler Mooring (GP02HYPM)</h2>  
+    <p>
+The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific. Moorings located at Station Papa support sensors for measurement of air-sea fluxes of heat, moisture and momentum, and physical, biological and chemical properties throughout the water column.
+
+The Global Station Papa Array is a combination of fixed platforms (moorings) with moored profilers to address the requirement to sample the full water column and mobile platforms (gliders) that provide simultaneous spatial and temporal sampling capabilities. The array is composed of a subsurface Global Profiler Mooring made up of two wire-following profilers, one operating from ~300 m to 2200 m and the second from ~2200 m to 4000 m. Two Flanking Moorings form a triangular array ~40 km on a side. These flanking Moorings have their uppermost flotation at ~20 m depth and instruments at discrete depths along the mooring line to a depth of 1500 m.
+
+Open-Ocean Gliders sample within and around the triangular array equipped with acoustic modems to relay data from the Flanking Moorings to shore via satellite telemetry. Profiling Gliders sample the upper water column near the Apex Profiler Mooring.
+
+The array at Station Papa is occupied in coordination with the National Oceanic and Atmospheric Administration (NOAA), which maintains a surface mooring there. As one of the oldest oceanic time series sites, with surveying conducted in the area since 1949, Station Papa has been an important location in the global network of OceanSITES.
+    </p> 
+    <h2> Instruments</h2> 
+
+    <!-- <div id="platform-table-content"> </div>!-->
+
+  <% collection.each(function(model) { %>
+
+  <div><%= model.get("display_name")%> 
+  
+  
+  <table id= <%= model.get("reference_designator")%> >
+  <thead>
+  <tr>
+    <th>Instrument</th>
+    <th>Design Depth</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Plot</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  </tbody>
+</table>  
+  
+  
+  </div>
+
+  <% }); %>
+
+  
+</div>
+

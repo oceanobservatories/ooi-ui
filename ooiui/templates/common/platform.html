@@ -18,6 +18,10 @@
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+
+
+  <script src="/js/partials/compiled/genericPlatForms.js" type="text/javascript"></script>
+  <script src="/js/compiled/genericPlatForms.js" type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
@@ -30,7 +34,8 @@
         <h2>Find Me in /ooiui/templates/common/platform</h2>
         <h2>Create Views in /ooiui/static/js/views/platforms/  (You'll need to make the folder)</h2>
         <h2>Create css in /ooiui/static/css/platforms/ (You'll need to make the folder)</h2>
-    </div><!-- page-content-wrapper -->
+    </div><!-- page-content-wrapper --> 
+
 </div><!-- wrapper -->
 
 <!-- fade in image -->
@@ -55,7 +60,8 @@ var bannerTitle = "CHANGE ME";
 
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
-    views: {},
+    views: {
+    },
     collections: {
         organizations: new Organizations(),
     },
@@ -66,6 +72,12 @@ _.extend(OOI.prototype, Backbone.Events,  {
         this.login.fetch({async:false});
         //--------------------------------------------------------------------------------
         // Views
+        console.log('views');
+        this.views.platform = new GenericPlatForm({
+          options: "GP02HYPM",
+          el: $('#page-content-wrapper')
+          });
+
         //--------------------------------------------------------------------------------
         this.views.banner = new BannerView({bannerTitle});
         $('body').prepend(this.views.banner.el);
