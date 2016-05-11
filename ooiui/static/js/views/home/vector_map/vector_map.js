@@ -8,9 +8,11 @@
  */
 
 var VectorMap = Backbone.View.extend({
+    cameraControls: {resetZoom:1.3,resetPitch:0,resetBearing:0},
+
     initialize: function() {
         'use strict';
-        this.listenTo(this.collection, 'change', this.render);
+        //this.listenTo(this.collection, 'change', this.render);
         return this;
     },
     _onBeforeRender: function() {
@@ -295,26 +297,54 @@ var VectorMap = Backbone.View.extend({
                             map._setPlatformView();
 
                             if (features[0].properties.code.indexOf('CE') > -1) {
-                                map.flyTo({center: features[0].geometry.coordinates, zoom: 9, pitch: 20, bearing: -60});
+                                map.flyTo({center: features[0].geometry.coordinates, zoom: 7.5, pitch: 50, bearing: 50});
+                                renderContext.cameraControls.resetZoom = 6.5;
+                                renderContext.cameraControls.resetPitch = 50;
+                                renderContext.cameraControls.resetBearing = 50;
                             } else if (features[0].properties.code.indexOf('RS') > -1) {
-                                map.flyTo({center: features[0].geometry.coordinates, zoom: 7, pitch: 20, bearing: 10});
-                            } else if (features[0].properties.code === 'CP') {
-                                map.flyTo({zoom: 15, pitch: 10, bearing: -20});
-                            } else if (features[0].properties.code === 'GS') {
-                                map.flyTo({zoom: 7, pitch: 10, bearing: 50});
+                                map.flyTo({center: features[0].geometry.coordinates, zoom: 6.75, pitch: 60, bearing: 10});
+                                renderContext.cameraControls.resetZoom = 6.25;
+                                renderContext.cameraControls.resetPitch = 60;
+                                renderContext.cameraControls.resetBearing = 10;
+                            } else if (features[0].properties.code.indexOf('CP') > -1) {
+                                map.flyTo({zoom: 8.25, pitch: 0, bearing: -10});
+                                renderContext.cameraControls.resetZoom = 8.;
+                                renderContext.cameraControls.resetPitch = 55;
+                                renderContext.cameraControls.resetBearing = -10;
+                            } else if (features[0].properties.code.indexOf('GS') > -1) {
+                                map.flyTo({zoom: 6.75, pitch: 60, bearing: 50});
+                                renderContext.cameraControls.resetZoom = 6.;
+                                renderContext.cameraControls.resetPitch = 60;
+                                renderContext.cameraControls.resetBearing = 50;
+                            } else if (features[0].properties.code.indexOf('GI') > -1) {
+                                map.flyTo({zoom: 8., pitch: 40, bearing: -30});
+                                renderContext.cameraControls.resetZoom = 7.25;
+                                renderContext.cameraControls.resetPitch = 40;
+                                renderContext.cameraControls.resetBearing = -30;
+                            } else if (features[0].properties.code.indexOf('GA') > -1) {
+                                map.flyTo({zoom: 7., pitch: 30, bearing: -30});
+                                renderContext.cameraControls.resetZoom = 6.;
+                                renderContext.cameraControls.resetPitch = 60;
+                                renderContext.cameraControls.resetBearing = -30;
                             } else {
-                                map.flyTo({zoom: 8, pitch: 10, bearing: -10});
+                                map.flyTo({zoom: 7.5, pitch: 60, bearing: -20});
+                                renderContext.cameraControls.resetZoom = 6.5;
+                                renderContext.cameraControls.resetPitch = 50;
+                                renderContext.cameraControls.resetBearing = -20;
                             }
 
                         }
                     } else {
-                        if (map.getZoom() > 6) {
-                            map.flyTo({zoom: 6, pitch: map.getPitch() + 10});
+                        if (map.getZoom() != renderContext.cameraControls.resetZoom) {
+                            map.flyTo({zoom: renderContext.cameraControls.resetZoom, pitch: renderContext.cameraControls.resetPitch, bearing: renderContext.cameraControls.resetBearing});
                         } else {
                             map._setArrayView();
                             map.flyTo({center:[-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
                             $('.js-array').removeClass('active');
                             $('.js-array').fadeIn();
+                            renderContext.cameraControls.resetZoom = 1.3;
+                            renderContext.cameraControls.resetPitch = 0;
+                            renderContext.cameraControls.resetBearing = 0;
                         }
                     }
                 });
