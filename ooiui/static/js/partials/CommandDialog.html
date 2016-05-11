@@ -4,9 +4,12 @@
   <div class="modal-content" style='width:840px'>
     <!-- dialog body -->
     <div class="modal-header">
-      <div style="text-align:right;">
-        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access" disabled>Start Direct Access</button>
-        <button type="button" class="btn btn-primary" style="margin-top:2px;" id="c2_direct_access_exit" disabled>Exit Direct Access</button>
+      <div style="text-align: right;">
+        <button type="button" class="btn btn-primary" style="margin-top:2px;text-align:right;" id="c2_direct_access" disabled>Start Direct Access</button>
+        <button type="button" class="btn btn-primary" style="margin-top:2px;text-align:right;" id="c2_direct_access_exit" disabled>Exit Direct Access</button>
+      </div>
+      <div style="text-align:left;">
+        <button type="button" class="btn btn-primary fa fa-unlock-alt" title="Unlocked" style="margin-left:5px;margin-top:-25px;text-align:left;font-size:40px;" id="c2_locked_by"></button>
       </div>
       <h3 class="modal-title"  id="missionModalLabel"><%= title%></h3>
       <h4 style='margin-bottom: -10px;' class="modal-subtitle">State: <%= instrument_state%></h4>

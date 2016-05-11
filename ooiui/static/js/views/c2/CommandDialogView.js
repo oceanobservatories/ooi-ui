@@ -124,7 +124,7 @@ var CommandDialogView = Backbone.View.extend({
       var btnKeyValue = theButtons[btnKey];
       //console.log(btnKey);
       //console.log(btnKeyValue);
-      daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKey+"\" value='preset_button'><i class=\"fa fa-chevron-circle-right\"> </i>"+btnKey+"</button>";
+      daButtons += "<button type=\"button\" class=\"btn btn-primary\" style='margin-top:2px; margin-left:1px;' id=\""+btnKey+"\" value='preset_button' title='"+btnKeyValue+"'><i class=\"fa fa-chevron-circle-right\"> </i>"+btnKey+"</button>";
     }
     that.options['direct_access_buttons'] = "<div style='margin-top:4px;'>"+daButtons+"</div>";
 
@@ -457,6 +457,14 @@ var CommandDialogView = Backbone.View.extend({
           that.$el.find("#direct_access_div").prop('hidden', true);
           that.$el.find("#main_div").prop('hidden', false);
         }
+
+        if(that.options.locked_by==null){
+          that.$el.find("#c2_locked_by")[0].className = 'btn btn-primary fa fa-unlock-alt';
+          that.$el.find("#c2_locked_by")[0].title = 'Unlocked';
+        }else{
+          that.$el.find("#c2_locked_by")[0].className = 'btn btn-primary fa fa-lock';
+          that.$el.find("#c2_locked_by")[0].title = 'Locked by: '+that.options.locked_by;
+        }
       },
 
       error:function(collection, response, options) {
@@ -567,8 +575,60 @@ var CommandDialogView = Backbone.View.extend({
       that.options.processing_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.options.refresh_state= "<i style='margin-left:20px' class='fa fa-spinner fa-spin fa-4x'></i>";
       that.$el.html(this.template(this.options));
-      that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
-      that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
+      if(that.options.selected_instrument_index > 0){
+        that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
+        that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
+      }
+    }
+    // Locked By
+    else if(button.target.id=='c2_locked_by'){
+      //console.log(button);
+      var userModel = new UserModel();
+      userModel.url = '/api/current_user';
+
+
+      var userInfo = "empty";
+      userModel.fetch({
+        success: function(collection, response, options) {
+          that.options.current_user_info = response;
+
+          userInfo = "<div>"+response.email+"</div>";
+          userInfo += "<div>"+response.first_name+"</div>";
+          userInfo += "<div>"+response.last_name+"</div>";
+          userInfo += "<div>"+response.phone_primary+"</div>";
+          that.options.current_user_id = response.user_id;
+
+          if(button.target.className.search('fa-lock')>-1){
+            var theMessage="This instrument is currently locked by: <br>";
+            theMessage += userInfo;
+            theMessage += "Do you wish to override this lockout?<br>";
+            theMessage += "Note that overriding a mission execution lockout will interrupt the mission and may cause it to fail.<br>";
+            theMessage += "If the instrument is locked by another user, please check with them before releasing the lock.<br>";
+            theMessage += "Are you sure you wish to release the lock?<br>";
+
+            var lockWarningModal = new ModalDialogView();
+            lockWarningModal.show({
+              message: "<div style='color:red;font-size: 16px;text-align:center;'>"+theMessage+"</div>",
+              type: "danger"
+            });
+            button.target.className = 'btn btn-primary fa fa-unlock-alt';
+            button.target.title = "";
+            // TODO: Send to route to unlock
+            button.target.blur();
+            that.options.locked_by = null;
+          }else{
+            button.target.className = 'btn btn-primary fa fa-lock';
+            that.options.locked_by = that.options.current_user_id;
+            button.target.title = 'Locked by: ' + that.options.locked_by;
+            // TODO: Send to route to lock
+            button.target.blur();
+          }
+        },
+        error:function(collection, response, options) {
+          console.log('Error getting user data');
+        }
+      });
+      //that.render(that.options);
     }
     // Plotting redirect
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
