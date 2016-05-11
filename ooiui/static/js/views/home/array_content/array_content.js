@@ -144,49 +144,49 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 6, pitch: 50, bearing: -40});
+                map.flyTo({center: [loc[0] - .3 , loc[1] + .75], zoom: 7.5, pitch: 50, bearing: 50});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'RS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 6, pitch: 50, bearing: 10});
+                map.flyTo({center: [loc[0] + 1 , loc[1] - 1.5], zoom: 6.25, pitch: 60, bearing: 20});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'CP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 7, pitch: 60, bearing: -20});
+                map.flyTo({center: [loc[0] + 0, loc[1] - 0.25], zoom: 8.25, pitch: 55, bearing: -10});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] + .5, loc[1] -.1], zoom: 5, pitch: 60, bearing: 50});
+                map.flyTo({center: [loc[0] + 0.5, loc[1] - 1], zoom: 6.25, pitch: 60, bearing: 50});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 6, pitch: 60, bearing: -20});
+                map.flyTo({center: loc, zoom: 7.75, pitch: 60, bearing: -30});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 5, pitch: 40, bearing: -20});
+                map.flyTo({center: [loc[0] + 0, loc[1] -1], zoom: 6.25, pitch: 65, bearing: -30});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 5, pitch: 30, bearing: -10});
+                map.flyTo({center: loc, zoom: 6, pitch: 60, bearing: -20});
                 _addPopup(loc, name);
             } else {
                 this._flyBye();
