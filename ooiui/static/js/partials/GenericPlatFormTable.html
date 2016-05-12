@@ -1,6 +1,7 @@
 <% collection.each(function(model) { %>
-  <tr>
+<tr id= <%= model.get("reference_designator") %>  >
     <td><%= model.get("display_name") %></td>
+    <td>design depth</td>
     <td><%= model.get("start") %></td>
     <td><%= model.get("end") %></td>
     <td>plot</td>

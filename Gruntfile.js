@@ -566,7 +566,6 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/compiled/genericPlatForms.js": [
                 "ooiui/static/js/partials/GenericPlatForm.html",
                 "ooiui/static/js/partials/GenericPlatFormTable.html",
-                "ooiui/static/js/partials/GenericPlatFormTableRow.html",
             ]
 
         }
@@ -1585,7 +1584,6 @@ module.exports = function(grunt) {
           'ooiui/static/js/compiled/genericPlatForms.js' : [
             'ooiui/static/js/views/platforms/GenericPlatFormView.js',
             'ooiui/static/js/views/platforms/GenericPlatFormTableView.js',
-            'ooiui/static/js/views/platforms/GenericPlatFormTableRowView.js',
             ]
         
         }

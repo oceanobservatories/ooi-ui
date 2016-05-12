@@ -6,11 +6,40 @@ table, th, td {
 th, td {
     padding: 5px;
 }
+
+#img_platform {
+
+    width:441px; 
+    height:350px;
+    float: right;
+
+}
 </style>
 
 <div id="platfor-view-content"> 
+
+  <% if( platform == "endurance") { %>
+
+  <h2> Coastal Endurance</h2>  
+
+    <p> <img id="img_platform"    src ="img/Endurance-OR.png" /> The Endurance Array is a multi-scaled array utilizing fixed and mobile assets to observe cross-shelf and along-shelf variability in the coastal upwelling region of the Oregon and Washington coasts. The array also provides an extensive spatial footprint that encompasses a prototypical eastern boundary current regime and connectivity with the Cabled Array.
+
+The backbone of the Endurance Array includes two cross-shelf moored array lines, the Oregon Line (also called the Newport Line) and the Washington Line (also known as the Grays Harbor Line). Nominally, the Oregon Line is located at 44o 35’N, -125oW to coast. The Washington Line is nominally located at 47oN, 125oW.
+
+Each of these lines contain three fixed sites spanning the slope (~500-600 m), shelf (~80-90 m) and inner-shelf (~25-30 m). The three sites across the shelf and slope are associated with unique physical, geological, and biological processes. All six sites contain fixed sensors at the top and bottom of the water column paired with an adjacent water column profiler.
+
+The Oregon and Washington Lines are both affected by wind-driven upwelling and downwelling, but shelf stratification and upper-ocean properties are influenced differently at each location by the Columbia River outflow. The Washington Line is North of the Columbia River outflow and the Oregon Line is South of it. Observations at both locations allow for a greater understanding of coastal ocean ecosystem responses to climate variability. Mooring lines provide synoptic, multi-scale observations of the eastern boundary current regime. Coastal Gliders bridge the distances between the fixed sites and to allow for adaptive sampling.
+
+**Note: The Oregon Shelf Surface Piercing Profiler Mooring (CE02SHSP, OR-D) has been removed from the Endurance Array.
+</p>
+  <% } %> 
+
+
+  <% if( platform == "papa") { %>
+  
   <h2> Global Station Papa, Apex Profiler Mooring (GP02HYPM)</h2>  
-    <p>
+ 
+    <p> <img id="img_platform" src ="img/Station-Papa.png" />
 The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific. Moorings located at Station Papa support sensors for measurement of air-sea fluxes of heat, moisture and momentum, and physical, biological and chemical properties throughout the water column.
 
 The Global Station Papa Array is a combination of fixed platforms (moorings) with moored profilers to address the requirement to sample the full water column and mobile platforms (gliders) that provide simultaneous spatial and temporal sampling capabilities. The array is composed of a subsurface Global Profiler Mooring made up of two wire-following profilers, one operating from ~300 m to 2200 m and the second from ~2200 m to 4000 m. Two Flanking Moorings form a triangular array ~40 km on a side. These flanking Moorings have their uppermost flotation at ~20 m depth and instruments at discrete depths along the mooring line to a depth of 1500 m.
@@ -19,9 +48,86 @@ Open-Ocean Gliders sample within and around the triangular array equipped with a
 
 The array at Station Papa is occupied in coordination with the National Oceanic and Atmospheric Administration (NOAA), which maintains a surface mooring there. As one of the oldest oceanic time series sites, with surveying conducted in the area since 1949, Station Papa has been an important location in the global network of OceanSITES.
     </p> 
+  <% } %> 
+
+  <% if( platform == "cabled") { %>
+  
+  <h2> Cabled Array </h2>  
+ 
+    <p> <img id="img_platform" src="img/Cabled-Array.png" />
+
+The Cabled Array provides unprecedented power (10 kV, 8 kW) and bandwidth (10 GbE), and two-way communication to scientific sensor arrays on the seafloor and throughout the water column. A shore station in Pacific City, Oregon includes two cable landings serving key sites on the Cabled Array: 1) Slope Base, Southern Hydrate Ridge, and the Endurance Array Oregon Line; and 2) Axial Seamount, and Axial Base. The ~ 900 km of modified telecommunications cable (installed in 2012) provides high power and bandwidth to seven Primary Nodes: PN1A (Slope Base), PN1B (Southern Hydrate Ridge), PN3A (Axial Base), PN3B (Axial Summit), PN5A (Mid-Plate), PN1C (Oregon Offshore), and PN1D (Oregon Shelf).
+
+As the first U.S. ocean observatory to span a tectonic plate, the OOI Cabled Array provides a constant stream of near-real time data from the seafloor and through the water column across the Juan de Fuca plate. The network of three instrumented cabled mooring sites (Axial Base, Slope Base, and Oregon Offshore) with complementary sensors on the Cabled Array and shared Endurance Array enable interdisciplinary observations of water-column processes that span >300 miles offshore of the continental margin to across the shelf. The water column sensors are deployed on 1) moorings with instrumented wire-following profilers, and 2) two-legged moorings that provide 3 kW power and 1 GB communication to 200-m deep instrumented platforms, and instrumented winched profilers. These provide key insights into a region that is strongly forced by air-sea interaction, shelf-slope interactions with the deep sea, and coupled atmospheric/oceanic phenomena acting to produce variations in North Pacific circulation over gyre scales.
+
+Two other sites within the Cabled Array house cable seafloor instruments exclusively: Southern Hydrate Ridge and Axial Summit. Infrastructure on the Southern Hydrate Ridge provides important insight into actively venting methane hydrate systems, including: defining the temporal evolution of methane hydrate systems in response to seismic events; determining chemical fluxes from the seafloor and impacts on overlying ocean chemistry; and understanding biogeochemical coupling associated with gas-hydrate formation and dissolution. Axial Summit is the most advanced underwater volcanic observatory in the worlds oceans. This site is the most magmatically robust volcano on the Juan de Fuca Ridge, having erupted in 1998, April 2011, and again in April 2015 (link to story). It hosts numerous active hydrothermal fields (e.g., ASHES and the International District) and abundant sites of diffuse flow. A diverse array of geophysical chemical, and biological sensors, as well as an HD camera and digital still camera provide real-time information on linkages between seismic activity, fluid flow.
+    </p> 
+  <% } %> 
+
+
+
+  <% if( platform == "pioneer") {%>
+  
+  <h2> Coastal Pioneer</h2>  
+ 
+    <p> <img id="img_platform" src ="img/Pioneer-Array.png" />
+
+The Pioneer Array is located off the coast of New England, south of Martha’s Vineyard. The Continental Shelf-Slope area off the New England coast is a highly productive area and one that is located at a dynamic intersection where ocean currents meet in weather-like “fronts,” and where nutrients, pollutants, and other properties are exchanged between the coast and the deep ocean. Data from the inshore, shelf area helps to examine exchanges between the shelf and slope and the shelf ecosystem, as well as provide broader insight into the issues of air-sea gas exchange, including Carbon Dioxide.
+
+The backbone of the Pioneer Array is a frontal-scale moored array with three electro-mechanical surface moorings and seven profiler moorings. Each surface mooring incorporates a surface buoy with multiple sources of power generation and multiple surface and subsurface communications systems. Each surface mooring is anchored by a Multi-Function Node (MFN) on the seafloor. Two MFNs incorporate docking stations for AUVs. All three MFNs are capable of supporting multiple onboard (e.g., frame-mounted) sensors as well as external sensor packages connected by wet-mateable connectors. Five profiler moorings with surface expressions for data telemetry support wire-following profiling packages with a multidisciplinary sensor suite. Two surface-piercing profiler moorings use a buoyant instrument package capable of profiling from a few meters above the bottom up to the air-sea interface.
+
+In order to provide synoptic, multi-scale observations of the outer continental shelf, shelf break region, and continental slope, the moored array is supplemented by nine mobile platforms – six Coastal Gliders and three AUVs. The role of the Coastal Gliders is to monitor the mesoscale field of the slope sea and outer shelf, resolving rings, eddies and meanders from the Gulf Stream as they impinge on the shelf break front. The AUVs are the primary tools for resolving cross- and along-front “eddy fluxes” due to frontal instabilities, wind forcing, and mesoscale variability.
+    </p> 
+  <% } %> 
+
+
+<% if( platform == "argentine") {%>
+  
+  <h2> Global Argentine Basin </h2>  
+ 
+    <p> <img id="img_platform" src="img/Global-Argentine.png" />
+
+The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as the Argentine Basin in the South Atlantic. Moorings located in the Argentine Basin support sensors for measurement of air-sea fluxes of heat, moisture and momentum, and physical, biological and chemical properties throughout the water column.
+
+The Global Argentine Basin Array is a combination of fixed platforms (moorings) with moored profilers to address the requirement to sample the full water column and mobile platforms (gliders) that provide simultaneous spatial and temporal sampling capabilities. The array is composed of an Surface Mooring containing fixed instruments situated on the buoy and through the top 1500 m of the water column. A subsurface Global Profiler Mooring made up of two wire-following profilers, one operating from ~300 m to 2500 m and the second from ~2500 m to 4600 m. Two Flanking Moorings form a triangular array ~62 km on a side. These flanking Moorings have their uppermost flotation at ~30 m depth and instruments at discrete depths along the mooring line to a depth of 1500 m.
+
+Open-Ocean Gliders sample within and around the triangular array equipped with acoustic modems to relay data from the Flanking Moorings to shore via satellite telemetry. Profiling Gliders sample the upper water column near the Apex Profiler Mooring.
+
+    </p> 
+  <% } %> 
+
+<% if( platform == "irminger") {%>
+  
+  <h2> Global Irminger Sea</h2>  
+ 
+    <p> <img id="img_platform" src ="img/Global-Irminger-OLD.png"/>
+
+The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as within the Irminger Sea in the North Atlantic. Moorings located in the Irminger Sea supports sensors for measurement of air-sea fluxes of heat, moisture and momentum, and physical, biological and chemical properties throughout the water column.
+
+The Global Irminger Sea Array is a combination of fixed platforms (moorings) with moored profilers to address the requirement to sample the full water column and mobile platforms (gliders) that provide simultaneous spatial and temporal sampling capabilities. The array is composed of an Surface Mooring containing fixed instruments situated on the buoy and through the top 1500 m of the water column. A subsurface Global Profiler Mooring made up of one wire-following profiler operating from ~240 m to 2400 m. Two Flanking Moorings form a triangular array ~20 km on a side. These flanking Moorings have their uppermost flotation at ~40 m depth and instruments at discrete depths along the mooring line to a depth of 2700 m.
+
+Open-Ocean Gliders sample within and around the triangular array equipped with acoustic modems to relay data from the Flanking Moorings to shore via satellite telemetry. Profiling Gliders sample the upper water column near the Apex Profiler Mooring.
+    </p> 
+  <% } %> 
+
+
+<% if( platform == "southern") {%>
+  
+  <h2> Global Southern Ocean</h2>  
+ 
+    <p> <img id="img_platform" src="img/Global-Southern-OLD.png" />
+The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as within the Southern Ocean, SW of Chile. Moorings located in the Southern Ocean support sensors for measurement of air-sea fluxes of heat, moisture and momentum, and physical, biological and chemical properties throughout the water column.
+
+The Global Southern Ocean Array is a combination of fixed platforms (moorings) with moored profilers to address the requirement to sample the full water column and mobile platforms (gliders) that provide simultaneous spatial and temporal sampling capabilities. The array is composed of an Surface Mooring containing fixed instruments situated on the buoy and through the top 1500 m of the water column. A subsurface Global Profiler Mooring made up of two wire-following profilers, one operating from ~300 m to 2500 m and the second from ~2500 m to 4600 m. Two Flanking Moorings form a triangular array ~50 km on a side. These flanking Moorings have their uppermost flotation at ~30 m depth and instruments at discrete depths along the mooring line to a depth of 1500 m.
+
+Open-Ocean Gliders sample within and around the triangular array equipped with acoustic modems to relay data from the Flanking Moorings to shore via satellite telemetry. Profiling Gliders sample the upper water column near the Apex Profiler Mooring.
+
+    </p> 
+  <% } %> 
+
+
     <h2> Instruments</h2> 
 
-    <!-- <div id="platform-table-content"> </div>!-->
 
   <% collection.each(function(model) { %>
 
@@ -39,9 +145,7 @@ The array at Station Papa is occupied in coordination with the National Oceanic 
   </tr>
   </thead>
 
-  <tbody>
 
-  </tbody>
 </table>  
   
   

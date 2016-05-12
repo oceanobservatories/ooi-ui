@@ -72,7 +72,9 @@ _.extend(OOI.prototype, Backbone.Events,  {
         this.login.fetch({async:false});
         //--------------------------------------------------------------------------------
         // Views
-        console.log('views');
+        //http://localhost:5000/platforms?id=CP01CSNM
+        //var platformID = location.search.split('id=')[1]
+
         this.views.platform = new GenericPlatForm({
           options: "GP02HYPM",
           el: $('#page-content-wrapper')
