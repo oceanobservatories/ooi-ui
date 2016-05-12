@@ -2,6 +2,8 @@
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+    float: center;
+    
 }
 th, td {
     padding: 5px;
@@ -12,11 +14,16 @@ th, td {
     width:441px; 
     height:350px;
     float: right;
+    padding-left:20px;
 
+}
+p {
+    text-align: justify;
+    width: 80%;
 }
 </style>
 
-<div id="platfor-view-content"> 
+<div align="center" id="platfor-view-content"> 
 
   <% if( platform == "endurance") { %>
 
@@ -125,13 +132,20 @@ Open-Ocean Gliders sample within and around the triangular array equipped with a
     </p> 
   <% } %> 
 
-
-    <h2> Instruments</h2> 
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+    <h2 align="center"> Instruments</h2> 
 
 
   <% collection.each(function(model) { %>
 
-  <div><%= model.get("display_name")%> 
+  <div ><%= model.get("display_name")%> 
   
   
   <table id= <%= model.get("reference_designator")%> >

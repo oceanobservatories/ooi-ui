@@ -14,6 +14,9 @@
  * - ooiui/static/js/ooi.js
  * Usage
  */
+
+
+
 var TableRowStreamCollection = Backbone.Collection.extend()
 
 var Row = Backbone.View.extend({
@@ -27,10 +30,16 @@ var Row = Backbone.View.extend({
     _.bindAll(this, "render");
     var self = this; 
 
-   // append the instrument to url to fetch collections 
-    if(options && options.instrument){ 
-      var instrument = options.instrument;
-    }
+    //if(options && options.instrument){ 
+
+    //  var instrument = options.instrument;
+
+    //  var streamCollection = new StreamCollection();
+
+    //  $.when(streamCollection.fetch({data: instrument})).done(function(){
+    //    self.render(streamCollection);     
+    //  });
+    //} 
 
     this.collection = new TableRowStreamCollection();
     this.collection.url ='../json/GP02HYPM.json';
@@ -67,7 +76,19 @@ var GenericPlatForm = Backbone.View.extend({
   initialize: function(options) {
     _.bindAll(this, "render","addTableRows");
     var self = this;
-    this.options = options;
+
+   // if(options && options.instruments){
+   //   var instrument = options.instrument;
+   //   var PlatformCollection = new PlatformCollection();  
+   //   platformCollection.fetch({
+   //     success:function(collection,response, options){
+   //       self.render();
+   //     }
+   //   });
+   //   $.when(platformCollection).done(function(){
+   //     self.addTableRows();
+   //   });
+   // }
 
     this.collection = new PlatformCollection();
     this.collection.url ='json/sample_platform.json';
@@ -109,7 +130,7 @@ var GenericPlatForm = Backbone.View.extend({
      var array = getRandomInt(0, platforms.length-1); 
 
      console.log(array); 
-
+    // pass in the option instead of array
     this.$el.html(this.template({collection: this.collection, platform: array}));
 
   }
