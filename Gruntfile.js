@@ -5,6 +5,11 @@ module.exports = function(grunt) {
     jst: {
       compile: {
         files: {
+          "ooiui/static/js/partials/compiled/home.js": [
+            "ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html",
+            "ooiui/static/js/partials/home/array_content/PlatformTable.html",
+            "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
+          ],
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",

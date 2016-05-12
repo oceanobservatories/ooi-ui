@@ -1,11 +1,9 @@
 /* Created by M@Campbell
  *
- * This model holds the response to a query on any document in the repository
- *
  * @defaults
  *      id: The full object identification path. may be left out in response.
  *      name: The name of the document
- *      url: The downlaod URL of the ojbect, contains auth ticket (token).
+ *      url: The downlaod URL of the ojbect.
  *
  */
 
@@ -34,21 +32,34 @@ var PlatformModel = Backbone.Model.extend({
             newArray[1] = -1 * newArray[1];
         }
 
+        // the icons stack on top of each other, this give a slight offset so they can be
+        // seen easier.
         if (attrs.reference_designator.indexOf('GL') > -1 ) {
-            newArray = [newArray[0]-(Math.random()*.3), newArray[1]-(Math.random()*.3)];
-            color = 'blue';
-        } else {
-            newArray = [newArray[0]-(Math.random()*.05), newArray[1]-(Math.random()*.05)];
+            // for gliders, lets spread them out a bit more.
+            newArray = [newArray[0]-(Math.random()*0.09), newArray[1]-(Math.random()*0.09)];
+
+            // and we don't know their depth, so set it to 'various'
+            attrs.depth = 'Various';
+        }
+        else {
+            // for moorings, lets make sure they are still very close
+            newArray = [newArray[0]-(Math.random()*0.05), newArray[1]-(Math.random()*0.05)];
+
+            // TODO: We need to get the depths of the moorings into the database.
+            //       There are several changes we need to make to the platforms so this
+            //       should be noted as one of them.  If there is no value, just provide
+            //       any number . . .
+            attrs.depth = (attrs.depth) ? attrs.depth : 'Unknown';
         }
 
-
-
-        var mapBoxSource = {
+        var geoJSON = {
             "type": "Feature",
             "properties": {
                 "description": "<span>"+attrs.display_name+"</span>",
                 "code": attrs.reference_designator,
-                "color": color
+                "title": attrs.display_name,
+                "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
+                "depth": attrs.depth
             },
             "geometry": {
                 "type": "Point",
@@ -56,7 +67,7 @@ var PlatformModel = Backbone.Model.extend({
             }
 
         }
-        return mapBoxSource;
+        return geoJSON;
     }
 });
 
@@ -91,9 +102,10 @@ var PlatformCollection = Backbone.Collection.extend({
         return new PlatformCollection(filtered);
     },
     byArray: function(array) {
-        var filtered = this.filter(function (array) {
-            if (platform.get('reference_designator') !== "") {
-                return platform.get('reference_designator').subStr(0,2) === array;
+        var filtered = this.filter(function (platform) {
+            if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 8 ||
+                platform.get('reference_designator').indexOf('GL') > -1) {
+                return platform.get('reference_designator').substr(0,2) === array;
             }
         });
         return new PlatformCollection(filtered);

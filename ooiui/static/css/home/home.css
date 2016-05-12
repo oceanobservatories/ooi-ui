@@ -1,0 +1,52 @@
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+#element::-webkit-scrollbar {
+    display: none;
+}
+
+#left {
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    border-right: 4px solid #555;
+}
+
+#right {
+    padding: 0;
+}
+
+
+.home-page .panel-body {
+    cursor: pointer;
+}
+
+.home-page .js-array:hover{
+}
+
+.home-page .js-array.active {
+}
+
+.home-page .js-array h4 {
+    background-color: #004773;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin-top: 0;
+    color: white;
+
+    background: #1e5799; /* Old browsers */
+    background: -moz-linear-gradient(left,  #1e5799 20%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #1e5799 20%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #1e5799 20%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+
+}
+
+.home-page .fade {
+    opacity: 0;
+    transition: all 1;
+}

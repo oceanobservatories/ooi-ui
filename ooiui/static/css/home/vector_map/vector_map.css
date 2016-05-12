@@ -1,0 +1,38 @@
+.home-page #map {
+    width: 100%;
+    height: 1000px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+}
+div#wrapper.home-page {
+    width: 100%;
+}
+
+.home-page #info {
+    display: block;
+    position: relative;
+    width: 104%;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+    opacity: .7;
+}
+
+.home-page .legend label,
+.home-page .legend span {
+  display:block;
+  float:left;
+  height:15px;
+  width:20%;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+}
+
+.mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
+  display: none !important;
+}

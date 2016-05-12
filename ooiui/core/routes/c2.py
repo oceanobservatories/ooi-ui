@@ -12,6 +12,29 @@ from ooiui.core.routes.common import get_login
 import json
 import urllib2
 import requests
+from threading import Thread
+from flask_socketio import SocketIO
+
+
+thread = None
+
+namespace = '/c2_direct_access'
+
+async_mode = None
+
+if async_mode is None:
+    try:
+        from gevent import monkey
+        async_mode = 'gevent'
+    except ImportError:
+        pass
+
+    if async_mode is None:
+        async_mode = 'threading'
+
+    # print('\n ***** async_mode is: ' + async_mode)
+
+sio = SocketIO(app, async_mode=async_mode)
 
 
 def is_json(input_json):
@@ -396,10 +419,10 @@ def get_c2_instrument_last_particle(ref_code, stream_method, stream_name):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/get_last_particle/%s/%s' % (ref_code, stream_method, stream_name), auth=(token, ''), params=request.args)
     if is_json(response.text):
-        print 'good json'
+        # print 'good json'
         return response.text, response.status_code
     else:
-        print 'bad json'
+        # print 'bad json'
         return '{"error": "bad json data"}'
 
 @app.route('/api/c2/instrument/<string:ref_code>/direct_access/start', methods=['GET'])
@@ -409,23 +432,26 @@ def c2_direct_access_start(ref_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/start' % (ref_code), auth=(token, ''), params=request.args)
     if is_json(response.text):
-        print 'good json'
+        # print 'good json'
         return response.text, response.status_code
     else:
-        print 'bad json'
+        # print 'bad json'
         return '{"error": "bad json data"}'
 
-@app.route('/api/c2/instrument/<string:ref_code>/direct_access/execute', methods=['GET'])
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/execute', methods=['POST'])
 @scope_required('command_control')
 @login_required()
 def c2_direct_access_execute(ref_code):
+    # print request.data
+    # print request.json
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/execute' % (ref_code), auth=(token, ''), params=request.args)
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/execute' % (ref_code), auth=(token, ''), data=request.data)
     if is_json(response.text):
-        print 'good json'
+        # print 'good json'
         return response.text, response.status_code
     else:
-        print 'bad json'
+        # print 'bad json'
+        # print response.text
         return '{"error": "bad json data"}'
 
 @app.route('/api/c2/instrument/<string:ref_code>/direct_access/exit', methods=['GET'])
@@ -435,8 +461,75 @@ def c2_direct_access_exit(ref_code):
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/exit' % (ref_code), auth=(token, ''), params=request.args)
     if is_json(response.text):
-        print 'good json'
+        # print 'good json'
+        return response.text, response.status_code
+    else:
+        # print 'bad json'
+        return '{"error": "bad json data"}'
+
+@app.route('/api/c2/instrument/<string:ref_code>/direct_access/sniffer', methods=['POST'])
+@scope_required('command_control')
+@login_required()
+def c2_direct_access_sniffer(ref_code):
+    # print request.data
+    # print request.json
+    token = get_login()
+
+    debug = False
+
+    result = start_thread()
+    if result is None:
+        # print '\n ***** error: thread was not set (None)...'
+        message = 'Unable to start_thread (%s).' % rd
+        raise Exception(message)
+
+    response = requests.post(app.config['SERVICES_URL'] + '/c2/instrument/%s/direct_access/sniffer' % (ref_code), auth=(token, ''), data=request.data)
+    if is_json(response.text):
+        if debug:
+            print 'good json'
+            print (json.loads(response.text))['msg']
+        # do_emmit(namespace, (json.loads(response.text))['msg'])
         return response.text, response.status_code
     else:
         print 'bad json'
+        print response.text
         return '{"error": "bad json data"}'
+
+
+def do_emmit(namespace, data, room=None):
+    """ emit to client, no broadcast, and, if room is provided then send it also. room is title (minus spaces).
+    """
+    debug = False
+    if debug:
+        print 'this will be the data'
+        print data
+        print 'this will be sio'
+        print sio
+    try:
+        if room is None:
+            if namespace is not None:
+                sio.emit('my result', {'data': data}, namespace=namespace, broadcast=False)
+            else:
+                sio.emit('my result', {'data': data}, broadcast=False)
+        else:
+            if debug: print '\n send to room: ', room
+            if namespace is not None:
+                sio.emit('my result', {'data': data}, room=room, namespace=namespace, broadcast=False)
+            else:
+                sio.emit('my result', {'data': data}, room=room, broadcast=False)
+
+    except Exception as err:
+        if debug: print '\n exception in do_emmit: %s' % str(err)
+        pass
+
+def start_thread():
+    debug = False
+    global thread
+    if thread is None:
+        if debug: print '\n Started thread...'
+        thread = Thread() #target=background_thread)
+        thread.daemon = True
+        thread.start()
+    else:
+        if debug: print '\n already have thread....'
+    return thread

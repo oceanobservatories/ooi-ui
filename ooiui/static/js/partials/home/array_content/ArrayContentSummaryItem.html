@@ -1,0 +1,68 @@
+<div id="<%= properties.code %>" class="js-array panel-group">
+    <div class="panel-heading ">
+        <h4><%= properties.description %></h4>
+    <ul>
+        <li><a href="/plotting/#<%= properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+        <li><a href="/streams/#<%= properties.code %>"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+        <li><a href="/assets/list#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>
+    </ul>
+    </div>
+    <div class="panel-body js-expand">
+        <% if (properties.code === 'CE') { %>
+        <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
+        <div><p>
+        The Endurance Array is a multi-scaled array utilizing fixed and mobile assets.
+            </p></div>
+        <% } %>
+
+        <% if (properties.code === 'GP') { %>
+        <div><img src="/img/StationPapa_labeled_2015-10-07_ver_3-00.png"></div>
+        <div><p>
+            The global component of the OOI design includes a network of moorings at critical, yet under-sampled, high-latitude locations such as Station Papa in the North Pacific.</p></div>
+        <% } %>
+
+        <% if (properties.code === 'CP') { %>
+        <div><img src="/img/PioneerArray_2015-10-07_ver_3-00.png"></div>
+        <div><p>
+        The first phase of the Pioneer Array deployment took place
+        in November 2013, with the installation of three moorings – a
+        surface mooring at the central site.</p></div>
+        <% } %>
+
+        <% if (properties.code === 'GA') { %>
+        <div><img src="/img/Global_Argentine_2015-10-07_ver_5-00-441x350.png" ></div>
+        <div><p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Argentine Basin in the South Atlantic. </p></div>
+        <% } %>
+
+        <% if (properties.code === 'GI') { %>
+        <div><img src="/img/Global_Irminger_2015-10-07_ver_5-00-441x350.png"></div>
+        <div><p></p></div>
+        <% } %>
+
+        <% if (properties.code === 'GS') { %>
+        <div><img src="/img/Global_Southern_2015-10-07_ver_5-00-441x350.png"></div>
+        <div><p>The global component of the OOI design includes a network of moorings at critical, yet under sampled, high-latitude locations such as within the Southern Ocean, southwest of Chile. </p></div>
+        <% } %>
+
+        <% if (properties.code === 'RS') { %>
+        <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
+        <div><p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p></div>
+        <% } %>
+    </div>
+    <!-- <div class="panel&#45;footer text&#45;center"> -->
+    <!--     <div class="btn&#45;group" role="group" aria&#45;label="..."> -->
+    <!--         <button type="button" class="btn btn&#45;default js&#45;expand">Zoom</button> -->
+    <!--         <!&#45;&#45; <button type="button" class="btn btn&#38;#45;default">Data Catalog</button> &#45;&#45;> -->
+    <!--         <!&#45;&#45; <button type="button" class="btn btn&#38;#45;default">Plotting</button> &#45;&#45;> -->
+    <!--     </div> -->
+    <!-- </div> -->
+    <div class="js-platform-table" style="display: none">
+        <table class="table table-stripped">
+            <tbody>
+            <% _.each(properties.platforms, function(platform) { %>
+            <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>"><td><%= platform.properties.title %></td></tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
