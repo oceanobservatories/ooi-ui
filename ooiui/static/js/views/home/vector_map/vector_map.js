@@ -336,6 +336,7 @@ var VectorMap = Backbone.View.extend({
                         }
                     } else {
                         if (map.getZoom() != renderContext.cameraControls.resetZoom) {
+                        if (map.getZoom() != renderContext.cameraControls.resetZoom && renderContext.cameraControls.resetZoom > 1.4) {
                             map.flyTo({zoom: renderContext.cameraControls.resetZoom, pitch: renderContext.cameraControls.resetPitch, bearing: renderContext.cameraControls.resetBearing});
                         } else {
                             map._setArrayView();
