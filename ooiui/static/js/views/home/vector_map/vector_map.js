@@ -9,7 +9,6 @@
 
 var VectorMap = Backbone.View.extend({
     cameraControls: {resetZoom:1.3,resetPitch:0,resetBearing:0},
-
     initialize: function() {
         'use strict';
         //this.listenTo(this.collection, 'change', this.render);
@@ -82,7 +81,7 @@ var VectorMap = Backbone.View.extend({
              * @global popup
              */
             popup = new mapboxgl.Popup({
-                closeButton: true,
+                closeButton: false,
                 closeOnClick: false
             });
 
@@ -279,20 +278,20 @@ var VectorMap = Backbone.View.extend({
                     // if there are features within the given radius of the click event,
                     // fly to the location of the click event
                     if (features.length) {
-                        if (features[0].layer.id === 'arrays') {
+                        if (features[0].layer.id === 'arrays' || features[0].layer.id === 'rsArray' || features[0].layer.id === 'ceArray') {
                             // Get coordinates from the symbol and center the map on those coordinates
                             // show the layer
                             map._setPlatformView();
-
 
                             // We need to tightly couple the array_content view in order to cause the
                             // array list to move when a map point is clicked.
                             //
                             // Simulate a click on the array_content.
-                            $('#'+features[0].properties.code).trigger('click');
+                            $('#'+features[0].properties.code + ' .js-expand').trigger('click');
 
 
-                        } else if (features[0].layer.id === 'platforms' || 'gliders') {
+                        } else if (features[0].layer.id === 'moorings' || 'gliders') {
+                            console.log('platforms');
                             // show the layer
                             map._setPlatformView();
 
@@ -335,13 +334,14 @@ var VectorMap = Backbone.View.extend({
 
                         }
                     } else {
-                        if (map.getZoom() != renderContext.cameraControls.resetZoom) {
+                        if (map.getZoom() != renderContext.cameraControls.resetZoom && renderContext.cameraControls.resetZoom > 1.4) {
                             map.flyTo({zoom: renderContext.cameraControls.resetZoom, pitch: renderContext.cameraControls.resetPitch, bearing: renderContext.cameraControls.resetBearing});
                         } else {
                             map._setArrayView();
                             map.flyTo({center:[-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
                             $('.js-array').removeClass('active');
                             $('.js-array').fadeIn();
+                            $('.js-platform-table').css('display', 'none');
                             renderContext.cameraControls.resetZoom = 1.3;
                             renderContext.cameraControls.resetPitch = 0;
                             renderContext.cameraControls.resetBearing = 0;
@@ -362,6 +362,8 @@ var VectorMap = Backbone.View.extend({
                         }
 
                         var feature = features[0];
+
+                        console.log(feature);
 
                         // Populate the popup and set its coordinates
                         // based on the feature found.

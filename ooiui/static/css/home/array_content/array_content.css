@@ -9,8 +9,9 @@
 }
 
 .array-content .panel-heading {
-    padding: 0;
+    padding: 0 0 5px 0;
     margin: 0;
+    background: linear-gradient(to right, #EEEEEE 20%, #ffffff 100%);
 }
 
 .array-content .panel-heading h4 {
@@ -46,4 +47,18 @@
 .array-content .js-platform-table tr td {
     font-size: 12px;
     cursor: pointer;
+}
+
+.array-content ul {
+    padding: 5px 0 10px 3px;
+    margin-left: 3px;
+    margin-bottom: 10px;
+
+}
+
+.array-content ul li {
+    padding-left: 0;
+    margin-left: 0;
+    font-size: 12px;
+    float: left;
 }

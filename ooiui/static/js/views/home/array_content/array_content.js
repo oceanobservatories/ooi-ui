@@ -56,6 +56,58 @@ var ArrayContentSummary = ParentView.extend({
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
         'click .js-expand': '_flyFly',
+        'mouseover .js-platform-table tr': '_popUpForPlatform',
+        'click .js-platform-table tr': '_goToPlatform',
+    },
+    _popUpForPlatform: _.debounce(function(event) {
+        event.stopImmediatePropagation;
+        var title = $(event.target).parent().data('title'),
+            lat = $(event.target).parent().data('lat'),
+            lon = $(event.target).parent().data('lon');
+
+
+        // CE
+        if ($(event.target).parent().data('title').indexOf('OR ') > -1 || $(event.target).parent().data('code').indexOf('CE05MOAS') > -1) {
+            map.flyTo({
+                center: [-124.6133, 44.6499],
+                speed: 0.3, // make the flying slow
+                curve: 1, // change the speed at which it zooms out
+            });
+        }
+
+        if ($(event.target).parent().data('title').indexOf('WA ') > -1) {
+            map.flyTo({
+                center: [-124.6269, 46.9798],
+                speed: 0.3, // make the flying slow
+                curve: 1, // change the speed at which it zooms out
+            });
+        }
+
+        // RS
+        if ($(event.target).parent().data('title').indexOf('Axial') > -1) {
+            map.flyTo({
+                center: [-130.055, 45.900],
+                speed: 0.4, // make the flying slow
+                curve: 1, // change the speed at which it zooms out
+            });
+        }
+
+        if ($(event.target).parent().data('title').indexOf('Continental') > -1) {
+            map.flyTo({
+                center: [-125.3707, 44.5028],
+                speed: 0.4, // make the flying slow
+                curve: 1, // change the speed at which it zooms out
+            });
+        }
+
+        this._addPopup([lon, lat], title);
+    }, 100),
+    _goToPlatform: function(event) {
+        event.stopImmediatePropagation;
+
+        var code = $(event.target).parent().data('code');
+        window.open("/platform?id="+code);
+
     },
     // _flyBye and flyFly are controls that interact directly with the global map variable.
     // because of this, the ArrayContentSummary Item is tightly coupled to the VectorMap
@@ -90,6 +142,11 @@ var ArrayContentSummaryItem = ParentView.extend({
         $('.js-array').removeClass('active');
         popup.remove();
     },
+    _addPopup: function(loc, name) {
+        popup.setLngLat(loc)
+        .setHTML('<span>' +name+'</span>')
+        .addTo(map);
+    },
     _flyFly: _.debounce(function(event) {
         var flyFlyContext = this;
         event.stopImmediatePropagation();
@@ -98,7 +155,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             $.when(flyFlyContext._toggleOthers(event)).done(function() {
                 var el = $('#'+flyFlyContext.model.attributes.array_code),
                     table = '#' + el.attr('id') + ' > .js-platform-table';
-                $(table).toggle(1000);
+                $(table).toggle(2000);
             });
         });
 
@@ -125,11 +182,6 @@ var ArrayContentSummaryItem = ParentView.extend({
             return ((isPt1LngBetweenPt2Lng) && (isPt1LatBetweenPt2Lat)) ? true : false;
         });
 
-        var _addPopup = (function(loc, name) {
-            popup.setLngLat(loc)
-            .setHTML('<span>' +name+'</span>')
-            .addTo(map);
-        });
         // end helper monkies
 
         map._setPlatformView();
@@ -144,49 +196,49 @@ var ArrayContentSummaryItem = ParentView.extend({
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: [loc[0] - .3 , loc[1] + .75], zoom: 7.5, pitch: 50, bearing: 50});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'RS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: [loc[0] + 1 , loc[1] - 1.5], zoom: 6.25, pitch: 60, bearing: 20});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'CP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: [loc[0] + 0, loc[1] - 0.25], zoom: 8.25, pitch: 55, bearing: -10});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: [loc[0] + 0.5, loc[1] - 1], zoom: 6.25, pitch: 60, bearing: 50});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: loc, zoom: 7.75, pitch: 60, bearing: -30});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: [loc[0] + 0, loc[1] -1], zoom: 6.25, pitch: 65, bearing: -30});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
         } else {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 map.flyTo({center: loc, zoom: 6, pitch: 60, bearing: -20});
-                _addPopup(loc, name);
+                flyFlyContext._addPopup(loc, name);
             } else {
                 this._flyBye();
             }
@@ -207,8 +259,7 @@ var PlatformContentTable = ParentView.extend({
     template: JST['ooiui/static/js/partials/home/array_content/PlatformTable.html']
 });
 
-var PlatformContentItem = ParentView.extend({
-    tagName: 'tr',
-    template: JST['ooiui/static/js/partials/home/array_content/PlatformTableItem.html']
-});
-
+// var PlatformContentItem = ParentView.extend({
+//     tagName: 'tr',
+//     template: JST['ooiui/static/js/partials/home/array_content/PlatformTableItem.html']
+// });

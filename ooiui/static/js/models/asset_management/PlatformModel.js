@@ -36,14 +36,14 @@ var PlatformModel = Backbone.Model.extend({
         // seen easier.
         if (attrs.reference_designator.indexOf('GL') > -1 ) {
             // for gliders, lets spread them out a bit more.
-            newArray = [newArray[0]-(Math.random()*.3), newArray[1]-(Math.random()*.3)];
+            newArray = [newArray[0]-(Math.random()*0.09), newArray[1]-(Math.random()*0.09)];
 
             // and we don't know their depth, so set it to 'various'
             attrs.depth = 'Various';
         }
         else {
             // for moorings, lets make sure they are still very close
-            newArray = [newArray[0]-(Math.random()*.05), newArray[1]-(Math.random()*.05)];
+            newArray = [newArray[0]-(Math.random()*0.05), newArray[1]-(Math.random()*0.05)];
 
             // TODO: We need to get the depths of the moorings into the database.
             //       There are several changes we need to make to the platforms so this

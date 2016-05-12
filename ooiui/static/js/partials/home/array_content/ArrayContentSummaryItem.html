@@ -1,8 +1,13 @@
 <div id="<%= properties.code %>" class="js-array panel-group">
-    <div class="panel-heading">
+    <div class="panel-heading ">
         <h4><%= properties.description %></h4>
+    <ul>
+        <li><a href="/plotting/#<%= properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+        <li><a href="/streams/#<%= properties.code %>"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+        <li><a href="/assets/list#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>
+    </ul>
     </div>
-    <div class="panel-body">
+    <div class="panel-body js-expand">
         <% if (properties.code === 'CE') { %>
         <div><img src="/img/Cabled_Array_Map_2014-12-021.jpg"></div>
         <div><p>
@@ -44,18 +49,18 @@
         <div><p>The Cabled Array provides unprecedented power and bandwidth to scientific sensor arrays on the seafloor and throughout the water column.</p></div>
         <% } %>
     </div>
-    <div class="panel-footer text-center">
-        <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default js-expand">Assets</button>
-            <button type="button" class="btn btn-default">Data Catalog</button>
-            <button type="button" class="btn btn-default">Plotting</button>
-        </div>
-    </div>
+    <!-- <div class="panel&#45;footer text&#45;center"> -->
+    <!--     <div class="btn&#45;group" role="group" aria&#45;label="..."> -->
+    <!--         <button type="button" class="btn btn&#45;default js&#45;expand">Zoom</button> -->
+    <!--         <!&#45;&#45; <button type="button" class="btn btn&#38;#45;default">Data Catalog</button> &#45;&#45;> -->
+    <!--         <!&#45;&#45; <button type="button" class="btn btn&#38;#45;default">Plotting</button> &#45;&#45;> -->
+    <!--     </div> -->
+    <!-- </div> -->
     <div class="js-platform-table" style="display: none">
         <table class="table table-stripped">
             <tbody>
             <% _.each(properties.platforms, function(platform) { %>
-                <tr><td><%= platform.properties.title %></td></tr>
+            <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>"><td><%= platform.properties.title %></td></tr>
             <% }); %>
             </tbody>
         </table>
