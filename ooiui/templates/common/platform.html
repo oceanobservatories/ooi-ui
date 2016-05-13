@@ -30,7 +30,7 @@
 </div>
 
 <div id="wrapper" class="home-page" style="padding-left: 0px">
-    <div id="page-content-wrapper">
+    <div align="center" id="page-content-wrapper">
         <h2>Find Me in /ooiui/templates/common/platform</h2>
         <h2>Create Views in /ooiui/static/js/views/platforms/  (You'll need to make the folder)</h2>
         <h2>Create css in /ooiui/static/css/platforms/ (You'll need to make the folder)</h2>
@@ -76,7 +76,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
         //var platformID = location.search.split('id=')[1]
 
         this.views.platform = new GenericPlatForm({
-          options: "GP02HYPM",
+          instrument: "GP02HYPM",
           el: $('#page-content-wrapper')
           });
 

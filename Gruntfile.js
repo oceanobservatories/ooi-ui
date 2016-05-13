@@ -1587,6 +1587,11 @@ module.exports = function(grunt) {
            // 'ooiui/static/js/views/common/UserFormView.js'
         ],
           'ooiui/static/js/compiled/genericPlatForms.js' : [
+
+            'ooiui/static/js/models/asset_management/PlatformModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+
+
             'ooiui/static/js/views/platforms/GenericPlatFormView.js',
             'ooiui/static/js/views/platforms/GenericPlatFormTableView.js',
             ]
