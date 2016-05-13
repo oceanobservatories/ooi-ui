@@ -75,8 +75,19 @@ _.extend(OOI.prototype, Backbone.Events,  {
         //http://localhost:5000/platforms?id=CP01CSNM
         //var platformID = location.search.split('id=')[1]
 
+//------------------------- EXAMPLE ONLY---------------------
+        function getRandomInt(min, max){
+          var ind =  Math.floor(Math.random() * (max-min+ 1)) + min;
+          return platforms[ind];
+        }
+       
+        var platforms = ["endurance", "papa", "cabled", "pioneer","argentine","irminger", "southern"];
+
+        var platform = getRandomInt(0, platforms.length-1); 
+
+//------------------------- EXAMPLE ONLY---------------------
         this.views.platform = new GenericPlatForm({
-          instrument: "GP02HYPM",
+          platform: platform ,
           el: $('#page-content-wrapper')
           });
 
