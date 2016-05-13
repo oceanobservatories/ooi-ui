@@ -1,0 +1,65 @@
+<div class='plot-tab-view plot-control-view'>
+  <div class="row">
+    <div class="col-sm-8 plot-instrument-column">
+    <!-- instrument parameter listing -->
+      <div class="instrument-content">
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <form class="plot-control-select-form" >
+
+        <div id="reportrange" class="pull-right" style="margin-top:10px;margin-bottom:10px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+            <span></span> <b class="caret"></b>
+        </div>
+
+        <hr>
+
+        <div class="row plot-control-section">
+          <label>Plot Type:</label>
+          <select id="plotTypeSelect" class="selectpicker" style="">
+            <% _.each(plotModel.get('plotTypeOptions'),function(option){ %>
+              <option value="<%=option.value%>" <%= option.value == plotModel.get('plotStyle') ? 'selected' : ''%>><%= option.name %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="row plot-control-section">
+          <label>Plot Style:</label>
+          <div class="btn-group plot-style-select" role="group" aria-label="..." style="">
+            <% _.each(plotModel.get('plotStyleOptions'),function(option){ %>
+              <button data-value="<%= option.value%>" type="button" class="btn <%= option.value == plotModel.get('plotStyle') ? 'btn-primary' : 'btn-default'%>"><%= option.name %></button>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="row plot-control-section">
+          <label>Orientation:</label>
+          <div class="btn-group plot-orientation-select" role="group" aria-label="...">
+            <button type="button" data-value="horizontal" class="btn <%= plotModel.get('plotOrientation') == "horizontal" ? "btn-primary" : "btn-default"%>">Horizontal</button>
+            <button type="button" data-value="vertical" class="btn <%= plotModel.get('plotOrientation') == "vertical" ? "btn-primary" : "btn-default"%>">Vertical</button>
+          </div>
+        </div>
+
+        <div class="row plot-control-section">
+          <label>Options:</label>
+          <div class="btn-group plot-options-select">
+            <div class="checkbox">
+              <label><input type="checkbox" value="invertY">Invert Y-Axis</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="invertX">Invert X-Axis</label>
+            </div>
+            <div class="checkbox">
+              <label><input disabled type="checkbox" value="">Show Annotations</label>
+            </div>
+            <div class="checkbox">
+              <label><input disabled type="checkbox" value="">Show Events</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

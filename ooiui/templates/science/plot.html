@@ -1,0 +1,664 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Data Catalog</title>
+{% endblock %}
+
+{% block head %}
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<link href="/css/compiled/plotting.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/plotControls.css" rel="stylesheet" type="text/css" />
+<link href='/lib/bootstrap-daterangepicker/daterangepicker.css' rel="stylesheet" type="text/css" />
+
+<!-- Partials
+<script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+ -->
+<script src="/js/partials/compiled/plotting.js" type="text/javascript"></script>
+
+<!-- lunr needs to be imported by a script tag -->
+
+<!-- TODO MOVE TO GRUNT FILE  -->
+<script src="/lib/d3/d3.min.js"></script>
+
+<script src="/lib/highcharts/highcharts.js"></script>
+<script src="/lib/highcharts/modules/exporting.js"></script>
+
+<!--
+<script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+<script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+-->
+<script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
+{% block link %}
+<!-- common/base.html -->
+{{ super() }}
+{% endblock %}
+{% block script %}
+<!-- common/base.html -->
+{{ super() }}
+{% endblock %}
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid">
+  <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" >
+  <div id="page-content-wrapper">
+    <div class="content-fluid">
+
+  <div id="plottingBody">
+    <div>
+      <div id="download-outline" class="pull-left">
+        <li id="ref_des_stream_outline"></li>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-11">
+
+      <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
+        <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
+        <li><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
+        <li><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
+        <li><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
+      </ul>
+
+      <div id="plot-tab-content" class="tab-content">
+        <div class="tab-pane active" id="plot-tool-tab">
+            <div class="row">
+              <div id='tools-panel' class="panel">
+                <div class="panel-heading plotting-heading">
+                  Plot Tools
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    {# <div class="col-md-12"> #}
+                      <div id="plot-controls">
+                        <p> Please select a stream from the Table of Contents. </p>
+                      </div>
+                    {# </div> #}
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="plot-tool-instruments">
+          <div class="row">
+              <div id='plot-events-panel' class="panel">
+                <div class="panel-heading plotting-heading">
+                  Instruments
+                </div> <!-- panel-heading -->
+                <div class="scrollable-block">
+                  <div class="scrollable-area">
+                    <div id="instruments-scroll-body" class="panel-body">
+                      <div id="instruments-table">
+                        {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                        {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
+                        <img src="/img/plotting/events.png" style="width:100%;">
+                      </div> <!-- panel-table -->
+                    </div> <!-- panel-body -->
+                  </div> <!-- panel -->
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="plot-tool-events">
+            <div class="row">
+              <div id='plot-events-panel' class="panel">
+
+                <div class="panel-heading plotting-heading">
+                  Events
+                </div> <!-- panel-heading -->
+                <div class="scrollable-block">
+                  <div class="scrollable-area">
+
+                    <div id="events-scroll-body" class="panel-body">
+                      <div id="events-table">
+                        {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                        {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
+                        <img src="/img/plotting/events.png" style="width:100%;">
+                      </div> <!-- panel-table -->
+                    </div> <!-- panel-body -->
+                  </div> <!-- panel -->
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="plot-tool-annotations">
+            <div class="row">
+              <div id='annotation-panel' class="panel">
+                <div class="panel-heading plotting-heading">
+                  Annotations
+                </div>
+                <div class="panel-body">
+                  <div id="annotation-table">
+                    {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
+                    <img src="/img/plotting/anotations.png" style="width:100%;">
+                  </div> <!-- annotation-table -->
+                </div> <!-- panel-body -->
+              </div> <!-- panel -->
+            </div>  <!-- .row -->
+        </div>
+      </div>
+      </div>
+
+      <div class="col-sm-1 plot-button-column" style="">
+        <button style="" id="updatePlot" type="button" class="btn btn-primary btn-lg" style="padding:15px">PLOT</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="panel">
+        <div class="panel-heading plotting-heading">
+          Graph
+        </div>
+        <div class="panel-body">
+          <!--  Plot section NORMAL   -->
+          <div id="plot-view">
+            {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+            {# <img src="/img/graph7.png" style="width:100%;"> #}
+            <img src="/img/plotting/graph.png" style="width:100%;">
+          </div> <!-- #view -->
+        </div>
+      </div> <!-- panel -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="panel">
+        <div class="panel-heading plotting-heading">
+          Catlalog
+        </div>
+        <div class="panel-body">
+          <!-- REMOVE THIS -->
+          <h5> this is where the catalog goes....REMOVE THIS SECTION!</h5>
+          <button style="display:none" id="add_catalog_button" type="button" class="btn btn-primary">Add Random Catalog Entry...</button>
+          <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Catalog List...</button>
+        </div>
+      </div> <!-- panel -->
+    </div> <!-- .row -->
+
+
+  </div>
+  <div id="annotation-modal"></div>
+  <div id="stream-download-modal"></div>
+  <div id='download-ok-modal'></div>
+  <div id='download-fail-modal'></div>
+  <div id='plot-params-modal'></div>
+    </div> <!-- #content-fluid -->
+  </div> <!-- #page-content-wrapper -->
+</div> <!-- #wrapper -->
+
+
+<script type="text/javascript">
+var bannerTitle = "Plotting";
+var userId = parseInt(window.location.href.split('/').pop());
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  collections: {
+    annotations: new AnnotationCollection(),
+    plotEventList: new PlotEventsCollection(),
+    //interpolatedDataseries: new InterpolatedDataSeriesCollection(),
+    subscriptionCollection :  new DataSubscriptionCollection(),
+    largeFormatFiles: new LargeDataFormatCollection(),
+    selectedStreamCollection: new StreamCollection(), //collection of stream models
+    defaultPlotTypes : new DefaultPlotCollection()
+  },
+  views: {
+    plotControls: null, //holds the view, plot controls for the plot tools tab
+    plotInstruments: null, //holds the view, list of selected instruments
+    plotContainer  : null,  //hold the plot content, either image or highcharts plot
+
+    plotEventListView: null,
+    annotationTableView: null
+  },
+  models: {
+    plotTimeModel : new PlotTimeModel(),
+    downloadModel : new StreamModel(),
+    userModel: new UserModel()
+  },
+
+
+  start: function() {
+    var self = this;
+    this.login.fetch({async: false});
+
+    //reset the subscriptions
+    self.collections.subscriptionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+    });
+
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle: bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
+    //INITIALIZE TABS
+    //PLOT CONTROLS
+
+    this.views.plotControls = new PlotControlView({
+      el: $('#plot-controls'),
+      collection: self.collections.selectedStreamCollection
+    });
+
+    this.views.plotInstruments = new PlotInstrumentView({
+      el: $('#instruments-table'),
+      collection: self.collections.selectedStreamCollection
+    });
+
+    this.views.plotContainer = new PlotView({
+      el: $('#plot-view')
+    });
+
+    this.views.annotationTableView = new AnnotationTableView({
+      collection: self.collections.annotations,
+      el: $('#annotation-table')
+    });
+
+    this.views.annotationModal = new AnnotationModalFormView({
+      el: $('#annotation-modal')
+    });
+
+    this.views.streamDownloadFormView = new StreamDownloadFormView({
+      el: $('#stream-download-modal')
+    });
+
+    this.views.largeFileFormatView = new LargeDataTableView({
+      collection: this.collections.largeFormatFiles,
+      el: $('#large-format-file-view')
+    });
+
+    this.views.modalDownloadView = new ModalDownloadView({
+      el: $('#download-ok-modal')
+    });
+
+    this.views.modalDownloadFailView = new ModalDownloadFailView({
+      el: $('#download-fail-modal')
+    });
+
+    this.views.plotEventListView = new PlotEventListView({
+      el: $('#events-table'),
+      collection : self.collections.plotEventList
+    });
+
+    /* Dispatcher Sectiion */
+    this.listenTo(this, "login:success", function() { location.reload(); });
+    this.listenTo(this, "login:logout", function() { location.reload(); });
+
+
+    //MAIN ADDITION OF A STREAM
+    this.listenTo(this, "add_catalog_model", function(o) {
+      //o.model = selected stream model
+      //ONLY ALLOW ONE instrument selection
+      if (self.collections.selectedStreamCollection.length == 0){
+        console.log('add catalog entry','idx"',GLOBAL_COUNT);
+        self.collections.selectedStreamCollection.add(o.model);
+        self.trigger('update_catalog_list',{});
+      };
+    });
+
+    this.listenTo(this, "reset_catalog_list", function(o) {
+      //listen to change events
+      self.collections.selectedStreamCollection.reset();
+      self.trigger('update_catalog_list',{});
+      //reset annotations
+    });
+
+    this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
+      console.log('update');
+      self.views.plotContainer.updateChart(o.model);
+    });
+
+    this.listenTo(this, "update_catalog_list", function(o) {
+      //listen to change events, should really be a change listener
+      console.log(self.collections.selectedStreamCollection,'change');
+      //render the controls
+      self.views.plotControls.render();
+      self.views.plotInstruments.render();
+
+      if (self.collections.selectedStreamCollection.length > 0){
+        //EVENTS
+        self.collections.plotEventList.fetch({
+          reset: true,
+          data: $.param({
+            ref_des: self.collections.selectedStreamCollection.models[0].get('reference_designator')
+          })
+        });
+
+        //ANNOTATIONS
+        self.collections.annotations.fetch({
+            data: $.param({
+              startdate: self.collections.selectedStreamCollection.models[0].get('start'),
+              enddate:  self.collections.selectedStreamCollection.models[0].get('end'),
+              reference_designator: self.collections.selectedStreamCollection.models[0].get('reference_designator'),
+              stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name')
+            }),
+          reset: true
+        });
+      }else{
+        //reset is empty
+        self.collections.annotations.reset();
+        self.views.annotationTableView.emptyRender();
+
+        self.collections.plotEventList.reset();
+        self.views.plotEventListView.emptyRender();
+      }
+    });
+
+    this.listenTo(this, "update_plot", function(o) {
+      //update the plot when "plot" is clicked
+      //get the plot control model and create the
+      self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
+
+      //get the selected parameters, only plot is they meet the criteria
+      //will be null if the inputs dont conform
+      var parameterCollection = this.views.plotControls.getSelectedParameters();
+      if (!_.isNull(parameterCollection)){
+
+        self.views.plotContainer.showLoading();
+
+        var xParams = []
+        var yParams = []
+        var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
+        var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
+        parameterCollection.each(function(model){
+          if (model.get('is_selected')){
+            //double check the selected field and add the parameter name to the list
+            if (model.get('is_x')){
+              xParams.push(model.get('short_name'));
+            }
+            if (model.get('is_y')){
+              yParams.push(model.get('short_name'));
+            }
+          }
+        });
+
+        // update time
+
+        self.views.plotContainer.plotParameters = parameterCollection;
+        //get the data
+        self.views.plotContainer.plotData = new DataSeriesCollection({},
+                                                                     {
+                                                                      stream: streamName,
+                                                                      ref_des: referenceDesignator,
+                                                                      startdate : this.collections.selectedStreamCollection.models[0].get('start'), //should be picker start
+                                                                      enddate: this.collections.selectedStreamCollection.models[0].get('end'),      //should be picler end
+                                                                      xparameters : xParams,
+                                                                      yparameters : yParams
+                                                                    });
+
+
+        var onDataHandler = function(collection, response, options) {
+          self.views.plotContainer.hideLoading();
+          self.views.plotContainer.render(parameterCollection);
+        };
+
+        var errorHandler = function(collection, response,options){
+          var errorText = response.status+': '+response.statusText
+          ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+        }
+
+        //fetch the data
+        self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+      }
+    });
+
+    this.listenTo(this, "plot:error", function(o) {
+      console.log('ERROR: Reason:',o.message);
+
+      bootbox.dialog({
+        message: o.message,
+        title: o.title,
+        buttons: {
+          success: {
+            label: "OK",
+            className: "btn-primary",
+            callback: function() {
+            }
+          }
+        }
+      });
+
+    });
+
+    //render the annotations
+    this.listenTo(self.collections.annotations, 'reset', function(collection) {
+      self.views.annotationTableView.render();
+    });
+
+    // render the events
+    this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
+      self.views.plotEventListView.render()
+  });
+
+  //
+  this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
+    self.collections.annotations.add(model);
+    self.views.annotationTableView.render();
+  });
+
+  this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
+    var min = moment.utc(model.get('beginDT')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(model.get('endDT')).format("YYYY-MM-DD HH:mm");
+
+    model.set('beginDTSafe',min);
+    model.set('endDTSafe',max);
+
+    if(self.login.loggedIn()) {
+      self.views.annotationModal.show({
+        model: model,
+        userModel: self.models.userModel,
+        showUpdate: true
+      });
+    }
+  });
+
+  this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
+    var model = self.collections.selectedStreamCollection.models[0];
+    var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm");
+
+    var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
+      "beginDTSafe": min,
+      "endDTSafe": max,
+      "beginDT": null,
+      "endDT": null,
+      "method": model.get("stream_name"),
+      "stream_name": model.get("stream_name")
+    });
+
+    if(self.login.loggedIn()) {
+      self.views.annotationModal.show({
+        model: model,
+        userModel: self.models.userModel,
+        showUpdate: false
+      });
+    }
+
+  });
+
+  this.listenTo(this, 'ooi:downloadPlot', function() {
+    //self.views.svgplot.download();
+  });
+
+  this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+    self.collections.subscriptionCollection.fetch({ reset: true });
+  });
+
+  this.listenTo(this, 'ooi:downloadData', function() {
+  });
+
+  this.listenTo(this, "LargeDataCollection:updated", function(details){
+        updateDownloadPagination(details);
+  });
+
+  this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
+      updateDownloadCollection(options);
+    });
+
+  this.listenTo(this, 'LargeFormatFileTable:update',function(options){
+    var onErrorHandler = function(collection, response, options) {
+      self.views.largeFileFormatView.showError(response.responseText);
+      var details = {startAt: 0,
+                     count: 1,
+                     total: 0
+      };
+      updateDownloadPagination(details);
+    };
+
+    $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
+      self.views.largeFileFormatView.render();
+    });
+  });
+
+  this.listenTo(this, 'DownloadModal:onSuccess',function(url){
+    self.views.modalDownloadView.show(url);
+  });
+
+  this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
+    self.views.modalDownloadFailView.show(msg);
+  });
+
+  }
+});
+
+var ooi = new OOI();
+var vent = _.extend({}, Backbone.Events);
+
+// controller for our model collections
+var streamCollection = new StreamCollection();
+
+// url arguments
+var data = { min : 'True' };
+// begin the iterative fetching of arrays, assets, and streams.
+//var arrayFetch = arrayCollection.fetch({ reset: true });
+var streamFetch = streamCollection.fetch({ reset: true });
+
+$.when(streamFetch).done(function() {
+  $('#add_catalog_button').css('display','inline-block') //TODO REMOVE LINE
+  $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
+});
+
+// The download pagination object holds information about the current
+// state of the page for us.
+var dlPagination = {
+    itemsPerPage : 8, // how many items per page
+    currentPage : 1, // page to start at, first page is 1, not 0
+    maxPages: 4, // max number of pages to show in the pagination element
+    date: '',
+    ref_des: ''
+}
+
+// TODO REMOVE GLOBAL_COUNT, ONLY FOR TESTING!
+var GLOBAL_COUNT = 0
+
+$(document).ready(function() {
+  ooi.start();
+
+
+  $('#add_catalog_button').on('click', function(event){
+    event.preventDefault();
+    ooi.trigger('add_catalog_model',{model:streamCollection.models[GLOBAL_COUNT]});
+    GLOBAL_COUNT = GLOBAL_COUNT+1;
+  });
+
+  $('#reset_catalog_button').on('click', function(event){
+    event.preventDefault();
+    ooi.trigger('reset_catalog_list',{});
+    //GLOBAL_COUNT = 0;
+  });
+
+
+  $('#updatePlot').on('click', function(event){
+    event.preventDefault();
+    ooi.trigger('update_plot',{});
+  });
+
+});
+
+function jump(h){
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
+
+function updateDownloadCollection( options ){
+
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    var startingPoint = "";
+    try {
+        var target = $( event.target );
+        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
+                || target.is('th') || target.is('font') || target.is('input')) {
+            startingPoint = 0;
+        } else {
+            startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+        }
+    } catch(e) {
+        console.log(e)
+        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+    }
+    // Pagination attributes will be passed in using
+    // backbone's collection data method.
+
+    var data = {
+        startAt : startingPoint,
+        count : dlPagination.itemsPerPage,
+        ref_des: options.ref_des,
+        date: options.date
+    };
+    dlPagination.ref_des = options.ref_des;
+    dlPagination.date = options.date;
+
+    ooi.trigger('LargeFormatFileTable:update', data);
+}
+
+function updateDownloadPagination( details ){
+    // This is pagination for the Large File format download list
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $("#dl-pagination-boxes").unbind();
+    // Redraw the jquery pagination boxes
+    $("#dl-pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: dlPagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                dlPagination.currentPage = page;
+                updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
+            }
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -84,7 +84,7 @@ def show_plotting_no_path():
 @login_required()
 def plotting_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
-    return render_template('science/plotting.html')
+    return render_template('science/plot.html')
 
 
 @app.route('/getdata/')

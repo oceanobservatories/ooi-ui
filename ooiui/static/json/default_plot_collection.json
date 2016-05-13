@@ -1,0 +1,249 @@
+{
+  "defaults" : [
+  {
+    "instrument": "ADCPA ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " Velocity Profiler for Mobile Assets - Short Range"
+  },
+  {
+    "instrument": "ADCPS ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " Velocity Profiler - Long Range"
+  },
+  {
+    "instrument": "ADCPT ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " Velocity Profiler - Short Range"
+  },
+  {
+    "instrument": "BOTPT ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Bottom Pressure and Tilt"
+  },
+  {
+    "instrument": "CTDBP ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " CTD Pumped"
+  },
+  {
+    "instrument": "CTDGV ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " CTD Glider"
+  },
+  {
+    "instrument": "CTDMO ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " CTD Mooring Inductive"
+  },
+  {
+    "instrument": "CTDPF ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " CTD Profiler"
+  },
+  {
+    "instrument": "DOFST ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Dissolved Oxygen Fast Response"
+  },
+  {
+    "instrument": "DOSTA ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Dissolved Oxygen Stable Response"
+  },
+  {
+    "instrument": "FDCHP ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Direct Covariance Flux"
+  },
+  {
+    "instrument": "FLCDR ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " 3-Wavelength Fluorometer"
+  },
+  {
+    "instrument": "FLNTU ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " 3-Wavelength Fluorometer"
+  },
+  {
+    "instrument": "FLOBN ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Benthic Fluid Flow"
+  },
+  {
+    "instrument": "FLORD ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " 2-Wavelength Fluorometer"
+  },
+  {
+    "instrument": "FLORT ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " 3-Wavelength Fluorometer"
+  },
+  {
+    "instrument": "HPIES ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Horizontal Electric Field - Pressure and Inverted Echo Sounder"
+  },
+  {
+    "instrument": "METBK ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Bulk Meteorology Instrument Package"
+  },
+  {
+    "instrument": "MOPAK ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Motion Pack"
+  },
+  {
+    "instrument": "NUTNR ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Nitrate"
+  },
+  {
+    "instrument": "PARAD ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Photosynthetically Available Radiation"
+  },
+  {
+    "instrument": "PCO2A ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " pCO2 Air-Sea"
+  },
+  {
+    "instrument": "PCO2W ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " pCO2 Water"
+  },
+  {
+    "instrument": "PHSEN ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Seawater pH"
+  },
+  {
+    "instrument": "PPSDN ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Hydrothermal Vent Fluid Interactive Sampler"
+  },
+  {
+    "instrument": "PRESF ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Seafloor Pressure"
+  },
+  {
+    "instrument": "PREST ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Tidal Seafloor Pressure"
+  },
+  {
+    "instrument": "SPKIR ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Spectral Irradiance"
+  },
+  {
+    "instrument": "THSPH ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Hydrothermal Vent Fluid In-situ Chemistry"
+  },
+  {
+    "instrument": "TMPSF ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Diffuse Vent Fluid 3-D Temperature Array"
+  },
+  {
+    "instrument": "TRHPH ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Hydrothermal Vent Fluid Temperature and Resistivity"
+  },
+  {
+    "instrument": "VADCP ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " 5-Beam - 600 kHz Acoustic Doppler Current Profiler"
+  },
+  {
+    "instrument": "VEL3D ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " 3-D Single Point Velocity Meter"
+  },
+  {
+    "instrument": "VELPT ",
+    "plotType": [
+      "pcolor"
+    ],
+    "title": " Single Point Velocity Meter"
+  },
+  {
+    "instrument": "WAVSS ",
+    "plotType": [
+      "xy"
+    ],
+    "title": " Surface Wave Spectra"
+  }
+]
+}

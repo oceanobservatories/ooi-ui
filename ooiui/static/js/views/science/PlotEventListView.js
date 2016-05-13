@@ -51,19 +51,25 @@ var PlotEventListView = Backbone.View.extend({
     },
     initialize: function(options) {
                 _.bindAll(this, "render");
-            },
-            template: JST['ooiui/static/js/partials/PlotEvent.html'],
-            render: function() {
-                var self = this;
-                this.$el.html(this.template({collection: this.collection, columns: this.columns}));
-                this.collection.each(function(eventModel){
-                    var plotEventTableItemView = new PlotEventTableItemView({
-                        columns: self.columns,
-                        model: eventModel
-                    });
-                    self.$el.find('tbody').append(plotEventTableItemView.el);
-                });
-            }
+    },
+    template: JST['ooiui/static/js/partials/PlotEvent.html'],
+    emptyRender:function(){
+        this.$el.html('<h5>Please Select an instrument</h5>');
+    },
+    render: function() {
+        var self = this;
+        this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+
+
+        this.collection.each(function(eventModel){
+            var plotEventTableItemView = new PlotEventTableItemView({
+                columns: self.columns,
+                model: eventModel
+            });
+            self.$el.find('tbody').append(plotEventTableItemView.el);
+        });
+
+    }
 });
 
 var PlotEventTableItemView = Backbone.View.extend({
