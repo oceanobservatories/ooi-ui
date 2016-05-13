@@ -36,7 +36,8 @@ var StreamModel = Backbone.Model.extend({
     assembly_name: "",
     lat_lon: "",
     depth: "",
-    freshness: ""
+    freshness: "",
+    reference_designator_first14chars:""
   },
 
   getURL: function(type) {
@@ -61,6 +62,7 @@ var StreamModel = Backbone.Model.extend({
   },
   parse: function(data, options) {
     data.ref_des = data.reference_designator;
+    data.reference_designator_first14chars = data.reference_designator.substring(0,14);
     data.assetInfo = {  'name' : data.display_name,
                         'array': data.array_name,
                         'site' : data.site_name,

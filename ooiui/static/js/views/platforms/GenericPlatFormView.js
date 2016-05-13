@@ -29,23 +29,7 @@ var Row = Backbone.View.extend({
   initialize: function(options){
     _.bindAll(this, "render");
     var self = this; 
-
-    //if(options && options.instrument){ 
-
-    //  var instrument = options.instrument;
-
-    //  var streamCollection = new StreamCollection();
-
-    //  $.when(streamCollection.fetch({data: instrument})).done(function(){
-    //    self.render(streamCollection);     
-    //  });
-    //} 
-
-    this.collection = new TableRowStreamCollection();
-    this.collection.url ='../json/GP02HYPM.json';
-    $.when(this.collection.fetch()).done(function(){
-      self.render(self.collection);     
-    });
+    this.render();
   },
 
   onClick: function(event){
@@ -62,14 +46,13 @@ var Row = Backbone.View.extend({
 
   template: JST['ooiui/static/js/partials/GenericPlatFormTable.html'],
   
-  render: function(streams){
-
-    this.$el.html(this.template({collection:streams}));
+  render: function(){
+    this.$el.html(this.template({model:this.model}));
   }
 
 });
 
-var PlatformCollection = Backbone.Collection.extend()
+var FilteredCollection = Backbone.Collection.extend()
 
 var GenericPlatForm = Backbone.View.extend({
   
@@ -77,24 +60,19 @@ var GenericPlatForm = Backbone.View.extend({
     _.bindAll(this, "render","addTableRows");
     var self = this;
 
-   // if(options && options.instruments){
-   //   var instrument = options.instrument;
-   //   var PlatformCollection = new PlatformCollection();  
-   //   platformCollection.fetch({
-   //     success:function(collection,response, options){
-   //       self.render();
-   //     }
-   //   });
-   //   $.when(platformCollection).done(function(){
-   //     self.addTableRows();
-   //   });
-   // }
+    if(options && options.platform){
+      this.platform = options.platform;
+    }
 
-    this.collection = new PlatformCollection();
-    this.collection.url ='json/sample_platform.json';
+    this.collection = new StreamCollection();
+
+//------------------------- EXAMPLE ONLY---------------------
+    this.collection.url ='/api/uframe/stream?search=GP02HYPM';
+//------------------------- EXAMPLE ONLY---------------------
 
     var platforms = this.collection.fetch({
       success:function(collection,response, options){
+        console.log('success');
         self.render();
       }
     });
@@ -108,10 +86,12 @@ var GenericPlatForm = Backbone.View.extend({
       this.collection.each(function(model){
 
         var row = new Row({
-          instrument : model.get("reference_designator")
+          model : model
         });
 
-        self.$el.find("#"+ model.get("reference_designator")).append(row.el);
+        var tableID = model.get("reference_designator").substring(0,14);
+
+        self.$el.find("#"+ tableID).append(row.el);
       });
   },
     
@@ -120,18 +100,17 @@ var GenericPlatForm = Backbone.View.extend({
   render: function() {
     var self = this;
 
-     var platforms = ["endurance", "papa", "cabled", "pioneer","argentine","irminger", "southern"];
+     var instrumentTableNames = _.uniq(this.collection.pluck("reference_designator_first14chars"));
 
-     function getRandomInt(min, max){
-       var ind =  Math.floor(Math.random() * (max-min+ 1)) + min;
-       return platforms[ind];
+     var filtered = new FilteredCollection;
+
+     for( var i = 0 ; i < instrumentTableNames.length ; i++){
+      var instrument = this.collection.findWhere({ reference_designator_first14chars : instrumentTableNames[i]});
+       
+      filtered.add(instrument);
      }
-    
-     var array = getRandomInt(0, platforms.length-1); 
-
-     console.log(array); 
-    // pass in the option instead of array
-    this.$el.html(this.template({collection: this.collection, platform: array}));
+     
+    this.$el.html(this.template({collection:filtered, platform: this.platform}));
 
   }
 });
