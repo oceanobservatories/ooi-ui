@@ -71,18 +71,17 @@ def acoustics_page():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Facoustic-antelope')
     return render_template('science/antelope_acoustic.html')
 
-
-@app.route('/plotting', methods=['GET'])
-@app.route('/plotting/', methods=['GET'])
+@app.route('/plot', methods=['GET'])
+@app.route('/plot/', methods=['GET'])
 @login_required()
-def show_plotting_no_path():
+def show_plot_no_path():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
-    return plotting_page(None)
+    return plot_page(None)
 
 
-@app.route('/plotting/<path:path>', methods=['GET'])
+@app.route('/plot/<path:path>', methods=['GET'])
 @login_required()
-def plotting_page(path):
+def plot_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return render_template('science/plot.html')
 

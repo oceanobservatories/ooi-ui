@@ -21,7 +21,11 @@ var PlotControlView = Backbone.View.extend({
     this.initialRender();
   },
   initialRender: function() {
-    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
+    //this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
+    this.emptyRender();
+  },
+  emptyRender:function(){
+    this.$el.html('<h5>Please Select an instrument</h5>');
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotControls.html'],
   render:function(){
@@ -53,8 +57,13 @@ var PlotControlView = Backbone.View.extend({
               moment(this.collection.models[0].get('end')));
 
       this.$el.find('#reportrange').daterangepicker({
+          locale: {
+            format: 'YYYY-MM-DD HH:mm'
+          },
           timePicker: true,
           timePickerIncrement: 30,
+          startDate: moment.utc(self.collection.models[0].get('start')).format('YYYY-MM-DD HH:mm'),
+          endDate: moment.utc(self.collection.models[0].get('end')).format('YYYY-MM-DD HH:mm'),
           ranges: {
              'Yesterday - Today': [moment().subtract(1, 'days'), moment()]
           }
@@ -73,6 +82,16 @@ var PlotControlView = Backbone.View.extend({
     }else{
       this.$el.find('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
+  },
+  updateDateTimeRange: function(st,ed){
+    //update the selected date range
+    $('#reportrange').data('daterangepicker').setStartDate(st);
+    $('#reportrange').data('daterangepicker').setEndDate(ed);
+  },
+  getDateTimeRange: function(){
+    //update the selected date range
+    var picker = $('#reportrange').data('daterangepicker')
+    return {startDate:picker.startDate, endDate:picker.endDate};
   },
   onPlotStyleSelect: function(e){
     this.plotModel.set('plotStyle',$(e.target).data('value'));

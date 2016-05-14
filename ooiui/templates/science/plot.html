@@ -389,19 +389,19 @@ _.extend(OOI.prototype, Backbone.Events, {
           }
         });
 
+        var selectDt = this.views.plotControls.getDateTimeRange();
         // update time
-
         self.views.plotContainer.plotParameters = parameterCollection;
         //get the data
         self.views.plotContainer.plotData = new DataSeriesCollection({},
-                                                                     {
-                                                                      stream: streamName,
-                                                                      ref_des: referenceDesignator,
-                                                                      startdate : this.collections.selectedStreamCollection.models[0].get('start'), //should be picker start
-                                                                      enddate: this.collections.selectedStreamCollection.models[0].get('end'),      //should be picler end
-                                                                      xparameters : xParams,
-                                                                      yparameters : yParams
-                                                                    });
+           {
+            stream      : streamName,
+            ref_des     : referenceDesignator,
+            startdate   : selectDt.startDate.toISOString(),
+            enddate     : selectDt.endDate.toISOString(),
+            xparameters : xParams,
+            yparameters : yParams
+          });
 
 
         var onDataHandler = function(collection, response, options) {

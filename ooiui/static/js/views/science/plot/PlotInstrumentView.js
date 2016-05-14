@@ -15,7 +15,8 @@ var PlotInstrumentView = Backbone.View.extend({
     this.initialRender();
   },
   initialRender: function() {
-    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
+    //this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
+    this.emptyRender();
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotInstruments.html'],
   render:function(){
