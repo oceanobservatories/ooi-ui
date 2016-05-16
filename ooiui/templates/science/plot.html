@@ -332,10 +332,6 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //get plot defaults for instrument
       //TODO MOVE this somewhere else
-      var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
-      var item = items[items.length-1];
-      var new_item = item.replace(/\d+/g, '');
-      console.log(new_item, defaultPlotTypes);
 
       console.log(self.collections.selectedStreamCollection,'change');
       //render the controls
@@ -343,6 +339,11 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.plotInstruments.render();
 
       if (self.collections.selectedStreamCollection.length > 0){
+        var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
+        var item = items[items.length-1];
+        var new_item = item.replace(/\d+/g, '');
+        console.log("DEFAULT Instrument Plot OPTION",new_item, defaultPlotTypes);
+
         //EVENTS
         self.collections.plotEventList.fetch({
           reset: true,
@@ -382,9 +383,10 @@ _.extend(OOI.prototype, Backbone.Events, {
       if (!_.isNull(parameterCollection)){
 
         self.views.plotContainer.showLoading();
-
+        //get the params
         var xParams = []
         var yParams = []
+        var zParams = []
         var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
         var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
@@ -396,36 +398,45 @@ _.extend(OOI.prototype, Backbone.Events, {
             if (model.get('is_y')){
               yParams.push(model.get('short_name'));
             }
+            if (model.get('is_z')){
+              zParams.push(model.get('short_name'));
+            }
           }
         });
 
         var selectDt = this.views.plotControls.getDateTimeRange();
         // update time
         self.views.plotContainer.plotParameters = parameterCollection;
-        //get the data
-        self.views.plotContainer.plotData = new DataSeriesCollection({},
-           {
-            stream      : streamName,
-            ref_des     : referenceDesignator,
-            startdate   : selectDt.startDate.toISOString(),
-            enddate     : selectDt.endDate.toISOString(),
-            xparameters : xParams,
-            yparameters : yParams
-          });
+        if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
+          //ONLY DO this for XY plot as it uses highcharts
+          //get the data
+          self.views.plotContainer.plotData = new DataSeriesCollection({},
+             {
+              stream      : streamName,
+              ref_des     : referenceDesignator,
+              startdate   : selectDt.startDate.toISOString(),
+              enddate     : selectDt.endDate.toISOString(),
+              xparameters : xParams,
+              yparameters : yParams
+            });
 
 
-        var onDataHandler = function(collection, response, options) {
-          self.views.plotContainer.hideLoading();
-          self.views.plotContainer.render(parameterCollection);
-        };
+          var onDataHandler = function(collection, response, options) {
+            self.views.plotContainer.hideLoading();
+            self.views.plotContainer.render(parameterCollection);
+          };
 
-        var errorHandler = function(collection, response,options){
-          var errorText = response.status+': '+response.statusText
-          ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+          var errorHandler = function(collection, response,options){
+            var errorText = response.status+': '+response.statusText
+            ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+          }
+
+          //fetch the data
+          self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+
+        }else{
+          //IMAGE PLOT generation
         }
-
-        //fetch the data
-        self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
       }
     });
 
