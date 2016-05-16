@@ -9,7 +9,7 @@
 
 var PlotControlView = Backbone.View.extend({
   subviews: [],
-  plotModel : new PlotControlModel({}), //plot style model containing the attributes
+  plotModel : null, //plot style model containing the attributes
   events: {
     "click .plot-style-select" : "onPlotStyleSelect",  //on plot style change
     "click .plot-orientation-select" : "onPlotOrientationSelect",  //on plot oritentation change
@@ -17,7 +17,10 @@ var PlotControlView = Backbone.View.extend({
     "change .plot-control-select-form .selectpicker" : "onPlotTypeSelect" //on plot type change
   },
 
-  initialize: function() {
+  initialize: function(options) {
+    if ("plotModel" in options){
+      this.plotModel = options.plotModel;
+    }
     this.initialRender();
   },
   initialRender: function() {
@@ -46,7 +49,8 @@ var PlotControlView = Backbone.View.extend({
       this.collection.each(function(model) {
         var subview = new PlotInstrumentControlItem({
           model: model,
-          isInterpolated: isInterpolated
+          isInterpolated: isInterpolated,
+          plotModel: self.plotModel
         });
         //add the content
         self.$el.find('.instrument-content').append(subview.$el);
@@ -110,7 +114,7 @@ var PlotControlView = Backbone.View.extend({
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotTypeSelect: function(e){
-    this.plotModel.set('plotType',$(e.target).data('value'));
+    this.plotModel.set('plotType',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   getSelectedParameters: function(){
@@ -128,6 +132,7 @@ var PlotControlView = Backbone.View.extend({
     //check that only 1 x/y is selected
     var xLen = selectedParameterCollection.where({'is_x':true})
     var yLen = selectedParameterCollection.where({'is_y':true})
+    var zLen = selectedParameterCollection.where({'is_z':true})
 
     if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
       ooi.trigger('plot:error', {title: "incorrect inputs", message:"incorrect inputs selected, please select x or y for parameter"} );
@@ -154,6 +159,9 @@ var PlotInstrumentControlItem = Backbone.View.extend({
   events: {
   },
   initialize: function(options) {
+    if ( "plotModel" in options){
+      this.plotModel = options.plotModel;
+    }
     this.isInterpolated = options.isInterpolated;
     this.render();
   },
@@ -162,21 +170,27 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     //base render class
     var self = this;
     self.subviews = [];
-    this.$el.html(this.template({model:this.model}));
 
+    var selectedPlotType = self.plotModel.get('plotTypeOptions').where({value:self.plotModel.get('plotType')})[0]
+
+    console.log("here",selectedPlotType);
+
+    this.$el.html(this.template({ model:this.model, plotTypeModel: selectedPlotType }));
     self.$el.find('.table-content').empty();
+    //gets the selected plot type configuration
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < selectedPlotType.get('num_inputs'); i++) {
       //adds the parameter dropdowns to the object
       var paramControl = new PlotInstrumentParameterControl({
         model: self.model,
         parameter_id: i,
+        plotTypeModel : selectedPlotType
         //count : this.isInterpolated ? 1 : 1  //add one if interpolated else make it 6 data series available
       })
       self.subviews.push(paramControl);
       self.$el.find('.table-content').append(paramControl.$el);
     }
-    console.log(self.subviews.length);
+
   }
 });
 
@@ -192,7 +206,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   selectedParameter: null,
   tagName: "<tr>",
   parameter_id: null,
-  count : 1,
+  plotTypeModel: null,
+  count : 0,
   events: {
     "change .selectpicker" : "onPlotParameterSelect", //on plot type change
     "click input" : "onInputChange"
@@ -201,6 +216,11 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     if ("parameter_id" in options){
       this.parameter_id = options.parameter_id;
     }
+
+    if ("plotTypeModel" in options){
+      this.plotTypeModel = options.plotTypeModel;
+    }
+
     if ("count" in options){
       this.count  = options.count;
     }
@@ -213,6 +233,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var isDerived = false;
     if (self.model.get("variables_shape")[i] == "function"){
       isDerived = true;
+    }else{
+
     }
     return isDerived;
   },
@@ -258,6 +280,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 is_derived: self.isParameterDerived(i),
                                                 is_x: false,
                                                 is_y: false,
+                                                is_z: false,
                                                 original_model: self.model,
                                                 index_used: i
                                            }));
@@ -269,7 +292,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     this.$el.html(this.template({model:this.model,
                                  options:self.collection,
                                  id: this.parameter_id,
-                                 parameterCount: this.count
+                                 parameterCount: this.count,
+                                 plotTypeModel : this.plotTypeModel
                                  }));
 
     this.$el.find('.selectpicker').selectpicker({
@@ -282,7 +306,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var self = this;
     //updates on radio select
     this.selectedParameter.set({is_x: $(e.target).hasClass('x-select'),
-                                is_y: $(e.target).hasClass('y-select')})
+                                is_y: $(e.target).hasClass('y-select'),
+                                is_z: $(e.target).hasClass('z-select')
+                              })
   },
   onPlotParameterSelect:function(e){
     //
@@ -301,7 +327,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       this.$el.find('input').prop("disabled", true);
       this.$el.find('input').prop('checked', false);
       //
-      this.selectedParameter.set({is_x:false, is_selected:true, is_y:false});
+      this.selectedParameter.set({is_x:false, is_selected:true, is_y:false, is_z:false});
       this.selectedParameter = null;
     }
     //parameter has been update

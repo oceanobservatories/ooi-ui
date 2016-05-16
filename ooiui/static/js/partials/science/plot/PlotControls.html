@@ -19,8 +19,8 @@
         <div class="row plot-control-section">
           <label>Plot Type:</label>
           <select id="plotTypeSelect" class="selectpicker" style="">
-            <% _.each(plotModel.get('plotTypeOptions'),function(option){ %>
-              <option value="<%=option.value%>" <%= option.value == plotModel.get('plotStyle') ? 'selected' : ''%>><%= option.name %></option>
+            <% plotModel.get('plotTypeOptions').each(function(option){ %>
+              <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
             <% }); %>
           </select>
         </div>

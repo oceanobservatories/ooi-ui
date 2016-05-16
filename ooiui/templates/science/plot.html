@@ -209,7 +209,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     subscriptionCollection :  new DataSubscriptionCollection(),
     largeFormatFiles: new LargeDataFormatCollection(),
     selectedStreamCollection: new StreamCollection(), //collection of stream models
-    defaultPlotTypes : new DefaultPlotCollection()
   },
   views: {
     plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -220,9 +219,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     annotationTableView: null
   },
   models: {
-    plotTimeModel : new PlotTimeModel(),
+    //plotTimeModel : new PlotTimeModel(),
+    plotModel     : new PlotControlModel(),
     downloadModel : new StreamModel(),
-    userModel: new UserModel()
+    userModel     : new UserModel()
   },
 
 
@@ -254,7 +254,8 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.plotControls = new PlotControlView({
       el: $('#plot-controls'),
-      collection: self.collections.selectedStreamCollection
+      collection: self.collections.selectedStreamCollection,
+      plotModel : self.models.plotModel
     });
 
     this.views.plotInstruments = new PlotInstrumentView({
@@ -322,11 +323,20 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
       console.log('update');
+      self.views.plotControls.render();
       self.views.plotContainer.updateChart(o.model);
     });
 
     this.listenTo(this, "update_catalog_list", function(o) {
       //listen to change events, should really be a change listener
+
+      //get plot defaults for instrument
+      //TODO MOVE this somewhere else
+      var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
+      var item = items[items.length-1];
+      var new_item = item.replace(/\d+/g, '');
+      console.log(new_item, defaultPlotTypes);
+
       console.log(self.collections.selectedStreamCollection,'change');
       //render the controls
       self.views.plotControls.render();
@@ -543,14 +553,15 @@ var vent = _.extend({}, Backbone.Events);
 
 // controller for our model collections
 var streamCollection = new StreamCollection();
+var defaultPlotTypes = new DefaultPlotCollection();
 
 // url arguments
 var data = { min : 'True' };
 // begin the iterative fetching of arrays, assets, and streams.
-//var arrayFetch = arrayCollection.fetch({ reset: true });
 var streamFetch = streamCollection.fetch({ reset: true });
+var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
 
-$.when(streamFetch).done(function() {
+$.when(streamFetch, defaultPlotFetch).done(function() {
   $('#add_catalog_button').css('display','inline-block') //TODO REMOVE LINE
   $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
 });

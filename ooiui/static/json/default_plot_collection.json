@@ -1,245 +1,245 @@
 {
   "defaults" : [
   {
-    "instrument": "ADCPA ",
+    "instrument": "ADCPA",
     "plotType": [
       "pcolor"
     ],
     "title": " Velocity Profiler for Mobile Assets - Short Range"
   },
   {
-    "instrument": "ADCPS ",
+    "instrument": "ADCPS",
     "plotType": [
       "pcolor"
     ],
     "title": " Velocity Profiler - Long Range"
   },
   {
-    "instrument": "ADCPT ",
+    "instrument": "ADCPT",
     "plotType": [
       "pcolor"
     ],
     "title": " Velocity Profiler - Short Range"
   },
   {
-    "instrument": "BOTPT ",
+    "instrument": "BOTPT",
     "plotType": [
       "xy"
     ],
     "title": " Bottom Pressure and Tilt"
   },
   {
-    "instrument": "CTDBP ",
+    "instrument": "CTDBP",
     "plotType": [
       "xy"
     ],
     "title": " CTD Pumped"
   },
   {
-    "instrument": "CTDGV ",
+    "instrument": "CTDGV",
     "plotType": [
       "xy"
     ],
     "title": " CTD Glider"
   },
   {
-    "instrument": "CTDMO ",
+    "instrument": "CTDMO",
     "plotType": [
       "xy"
     ],
     "title": " CTD Mooring Inductive"
   },
   {
-    "instrument": "CTDPF ",
+    "instrument": "CTDPF",
     "plotType": [
       "xy"
     ],
     "title": " CTD Profiler"
   },
   {
-    "instrument": "DOFST ",
+    "instrument": "DOFST",
     "plotType": [
       "xy"
     ],
     "title": " Dissolved Oxygen Fast Response"
   },
   {
-    "instrument": "DOSTA ",
+    "instrument": "DOSTA",
     "plotType": [
       "xy"
     ],
     "title": " Dissolved Oxygen Stable Response"
   },
   {
-    "instrument": "FDCHP ",
+    "instrument": "FDCHP",
     "plotType": [
       "xy"
     ],
     "title": " Direct Covariance Flux"
   },
   {
-    "instrument": "FLCDR ",
+    "instrument": "FLCDR",
     "plotType": [
       "xy"
     ],
     "title": " 3-Wavelength Fluorometer"
   },
   {
-    "instrument": "FLNTU ",
+    "instrument": "FLNTU",
     "plotType": [
       "xy"
     ],
     "title": " 3-Wavelength Fluorometer"
   },
   {
-    "instrument": "FLOBN ",
+    "instrument": "FLOBN",
     "plotType": [
       "xy"
     ],
     "title": " Benthic Fluid Flow"
   },
   {
-    "instrument": "FLORD ",
+    "instrument": "FLORD",
     "plotType": [
       "xy"
     ],
     "title": " 2-Wavelength Fluorometer"
   },
   {
-    "instrument": "FLORT ",
+    "instrument": "FLORT",
     "plotType": [
       "xy"
     ],
     "title": " 3-Wavelength Fluorometer"
   },
   {
-    "instrument": "HPIES ",
+    "instrument": "HPIES",
     "plotType": [
       "xy"
     ],
     "title": " Horizontal Electric Field - Pressure and Inverted Echo Sounder"
   },
   {
-    "instrument": "METBK ",
+    "instrument": "METBK",
     "plotType": [
       "xy"
     ],
     "title": " Bulk Meteorology Instrument Package"
   },
   {
-    "instrument": "MOPAK ",
+    "instrument": "MOPAK",
     "plotType": [
       "xy"
     ],
     "title": " Motion Pack"
   },
   {
-    "instrument": "NUTNR ",
+    "instrument": "NUTNR",
     "plotType": [
       "xy"
     ],
     "title": " Nitrate"
   },
   {
-    "instrument": "PARAD ",
+    "instrument": "PARAD",
     "plotType": [
       "xy"
     ],
     "title": " Photosynthetically Available Radiation"
   },
   {
-    "instrument": "PCO2A ",
+    "instrument": "PCO2A",
     "plotType": [
       "xy"
     ],
     "title": " pCO2 Air-Sea"
   },
   {
-    "instrument": "PCO2W ",
+    "instrument": "PCO2W",
     "plotType": [
       "xy"
     ],
     "title": " pCO2 Water"
   },
   {
-    "instrument": "PHSEN ",
+    "instrument": "PHSEN",
     "plotType": [
       "xy"
     ],
     "title": " Seawater pH"
   },
   {
-    "instrument": "PPSDN ",
+    "instrument": "PPSDN",
     "plotType": [
       "xy"
     ],
     "title": " Hydrothermal Vent Fluid Interactive Sampler"
   },
   {
-    "instrument": "PRESF ",
+    "instrument": "PRESF",
     "plotType": [
       "xy"
     ],
     "title": " Seafloor Pressure"
   },
   {
-    "instrument": "PREST ",
+    "instrument": "PREST",
     "plotType": [
       "xy"
     ],
     "title": " Tidal Seafloor Pressure"
   },
   {
-    "instrument": "SPKIR ",
+    "instrument": "SPKIR",
     "plotType": [
       "xy"
     ],
     "title": " Spectral Irradiance"
   },
   {
-    "instrument": "THSPH ",
+    "instrument": "THSPH",
     "plotType": [
       "xy"
     ],
     "title": " Hydrothermal Vent Fluid In-situ Chemistry"
   },
   {
-    "instrument": "TMPSF ",
+    "instrument": "TMPSF",
     "plotType": [
       "xy"
     ],
     "title": " Diffuse Vent Fluid 3-D Temperature Array"
   },
   {
-    "instrument": "TRHPH ",
+    "instrument": "TRHPH",
     "plotType": [
       "xy"
     ],
     "title": " Hydrothermal Vent Fluid Temperature and Resistivity"
   },
   {
-    "instrument": "VADCP ",
+    "instrument": "VADCP",
     "plotType": [
       "pcolor"
     ],
     "title": " 5-Beam - 600 kHz Acoustic Doppler Current Profiler"
   },
   {
-    "instrument": "VEL3D ",
+    "instrument": "VEL3D",
     "plotType": [
       "pcolor"
     ],
     "title": " 3-D Single Point Velocity Meter"
   },
   {
-    "instrument": "VELPT ",
+    "instrument": "VELPT",
     "plotType": [
       "pcolor"
     ],
     "title": " Single Point Velocity Meter"
   },
   {
-    "instrument": "WAVSS ",
+    "instrument": "WAVSS",
     "plotType": [
       "xy"
     ],
