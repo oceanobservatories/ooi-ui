@@ -74,7 +74,15 @@ var StreamModel = Backbone.Model.extend({
 });
 
 var StreamCollection = Backbone.Collection.extend({
-  url: '/api/uframe/stream',
+    initialize: function(options) {
+        this.options = options || {};
+        return this;
+    },
+  url: function() {
+      // if the constructor contains a searchId, modify the url.
+      var url = '/api/uframe/stream';
+      return (this.options) ?url +  '?search=' + this.options.searchId : url;
+  },
   model: StreamModel,
   parse: function(response) {
     if(response) {

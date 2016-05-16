@@ -16,106 +16,111 @@
  */
 
 
-
-var TableRowStreamCollection = Backbone.Collection.extend()
-
 var Row = Backbone.View.extend({
-  tagName:'tbody', 
-  events: {
-    'click': 'onClick'
+    tagName:'tbody',
+    events: {
+        'click ': 'onClick'
 
-  },
+    },
+    initialize: function(options){
+        _.bindAll(this, "render");
+        var self = this;
+        this.render();
+    },
+    onClick: function(event){
 
-  initialize: function(options){
-    _.bindAll(this, "render");
-    var self = this; 
-    this.render();
-  },
+        var reference_designator = $(event.target.parentNode.id);
+        var innerText = $(event.target);
+        var isPlot = innerText.context.innerText;
 
-  onClick: function(event){
+        if(isPlot == "plot"){
+            console.log(reference_designator.selector);
+        }
 
-    var reference_designator = $(event.target.parentNode.id);
-    var innerText = $(event.target);
-    var isPlot = innerText.context.innerText;
-
-    if(isPlot == "plot"){
-      console.log(reference_designator.selector);
+    },
+    template: JST['ooiui/static/js/partials/GenericPlatFormTable.html'],
+    render: function(){
+        this.$el.html(this.template({model:this.model}));
     }
 
-  },
-
-  template: JST['ooiui/static/js/partials/GenericPlatFormTable.html'],
-  
-  render: function(){
-    this.$el.html(this.template({model:this.model}));
-  }
-
 });
-
-var FilteredCollection = Backbone.Collection.extend()
 
 var GenericPlatForm = Backbone.View.extend({
-  
-  initialize: function(options) {
-    _.bindAll(this, "render","addTableRows");
-    var self = this;
 
-    if(options && options.platform){
-      this.platform = options.platform;
-    }
+    initialize: function(options) {
+        _.bindAll(this, "render","addTableRows");
+        var self = this;
 
-    this.collection = new StreamCollection();
+        if(options && options.platform){
+            this.platform = options.platform;
+        }
 
-//------------------------- EXAMPLE ONLY---------------------
-    this.collection.url ='/api/uframe/stream?search=GP02HYPM';
-//------------------------- EXAMPLE ONLY---------------------
+        var platforms = this.collection.fetch({
+            success:function(collection, response, options){
 
-    var platforms = this.collection.fetch({
-      success:function(collection,response, options){
-        console.log('success');
-        self.render();
-      }
-    });
-    $.when(platforms).done(function(){
-      self.addTableRows();
-    });
-  },
+                // first, lets identify only unique reference designators.
+                var uniqueRefDes = _.uniq(collection.pluck('reference_designator'));
 
-  addTableRows: function(){
-      var self = this;
-      this.collection.each(function(model){
+                // and identify the index of the model's reference designator in
+                // the list of unique items.
+                var filtered = collection.filter(function (model) {
+                    var index = _.indexOf(uniqueRefDes, model.get('reference_designator'));
 
-        var row = new Row({
-          model : model
+                    // if the item DOES exist in the list, lets get into this if ...
+                    if (index !== -1) {
+
+                        // once the item is rendered on the page, remove the reference
+                        // designator from the unique list, thereby preventing a duplicate
+                        // instrument from showing up on the page.
+                        uniqueRefDes.splice(index, 1);
+
+                        // and return the model.
+                        return model;
+                    }
+                });
+
+                // I don't really like doing this here...but lets refresh the collection
+                // to only what we need.
+                self.collection = new StreamCollection(filtered);
+                self.collection.fetch();
+
+                self.render();
+            }
+        });
+        $.when(platforms).done(function(){
+            self.addTableRows();
+        });
+    },
+
+    addTableRows: function(){
+        var self = this;
+
+        this.collection.each(function(model){
+            var row = new Row({
+                model : model
+            });
+
+            var tableID = model.get("reference_designator").substring(0,14);
+
+            self.$el.find("#"+ tableID).append(row.el);
+
+        });
+    },
+    template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
+    render: function() {
+
+        var platformList = this.collection.map(function(model) {
+            return  {
+                name: model.get('assembly_name'),
+                refDes: model.get('reference_designator').substr(0,14)
+            };
         });
 
-        var tableID = model.get("reference_designator").substring(0,14);
+        var uniqueList = _.uniq(platformList, function(item, key, a) {
+            console.log(item);
+            return item.refDes;
+        });
 
-        self.$el.find("#"+ tableID).append(row.el);
-      });
-  },
-    
-  template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
-
-  render: function() {
-    var self = this;
-
-     var instrumentTableNames = _.uniq(this.collection.pluck("reference_designator_first14chars"));
-
-     var filtered = new FilteredCollection;
-
-     for( var i = 0 ; i < instrumentTableNames.length ; i++){
-      var instrument = this.collection.findWhere({ reference_designator_first14chars : instrumentTableNames[i]});
-       
-      filtered.add(instrument);
-     }
-     
-    this.$el.html(this.template({collection:filtered, platform: this.platform}));
-
-  }
+        this.$el.html(this.template({collection: uniqueList, platform: this.platform}));
+    }
 });
-
-
-
-
-
