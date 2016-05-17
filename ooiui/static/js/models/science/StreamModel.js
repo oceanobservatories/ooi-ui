@@ -78,62 +78,62 @@ var StreamCollection = Backbone.Collection.extend({
         this.options = options || {};
         return this;
     },
-  url: function() {
-      // if the constructor contains a searchId, modify the url.
-      var url = '/api/uframe/stream';
-      return (this.options) ?url +  '?search=' + this.options.searchId : url;
-  },
-  model: StreamModel,
-  parse: function(response) {
-    if(response) {
-        this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-        return response.streams;
+    url: function() {
+        // if the constructor contains a searchId, modify the url.
+        var url = '/api/uframe/stream';
+        return (this.options.searchId) ? url +  '?search=' + this.options.searchId || "" : url;
+    },
+    model: StreamModel,
+    parse: function(response) {
+        if(response) {
+            this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
+            return response.streams;
+        }
+        return [];
+    },
+    byArray: function(array) {
+        var filtered = this.filter(function (model) {
+            return model.get('reference_designator').substring(0,2) === array;
+        });
+        return new StreamCollection(filtered);
+    },
+    byEng: function(bool) {
+        if (!bool) {
+            var filtered = this.filter(function (model) {
+                return model.get('reference_designator').indexOf('ENG') === -1;
+            });
+            return new StreamCollection(filtered);
+        } else {
+            return this;
+        }
+    },
+    byEndTime: function(binary) {
+        var filtered = this.filter(function (model) {
+            var time = new Date(model.get('end')),
+                timeSinceEnd = new Date().getTime() - time.getTime(),
+                twentyFour = 86400000,
+                allTime = 3,
+                recent24 = 1,
+                older = 2;
+
+            switch (true) {
+
+                case (binary === recent24):
+                    return timeSinceEnd <= twentyFour;
+                break;
+
+                case (binary === older):
+                    return timeSinceEnd > twentyFour;
+                break;
+
+                case (binary === allTime):
+                    return true;
+                break;
+
+                default:
+                    return false;
+            }
+        });
+        return new StreamCollection(filtered);
     }
-    return [];
-  },
-  byArray: function(array) {
-      var filtered = this.filter(function (model) {
-          return model.get('reference_designator').substring(0,2) === array;
-      });
-      return new StreamCollection(filtered);
-  },
-  byEng: function(bool) {
-      if (!bool) {
-          var filtered = this.filter(function (model) {
-              return model.get('reference_designator').indexOf('ENG') === -1;
-          });
-          return new StreamCollection(filtered);
-      } else {
-          return this;
-      }
-  },
-  byEndTime: function(binary) {
-      var filtered = this.filter(function (model) {
-          var time = new Date(model.get('end')),
-              timeSinceEnd = new Date().getTime() - time.getTime(),
-              twentyFour = 86400000,
-              allTime = 3,
-              recent24 = 1,
-              older = 2;
-
-          switch (true) {
-
-            case (binary === recent24):
-                return timeSinceEnd <= twentyFour;
-                break;
-
-            case (binary === older):
-                return timeSinceEnd > twentyFour;
-                break;
-
-            case (binary === allTime):
-                return true;
-                break;
-
-            default:
-                return false;
-          }
-      });
-      return new StreamCollection(filtered);
-  }
 });

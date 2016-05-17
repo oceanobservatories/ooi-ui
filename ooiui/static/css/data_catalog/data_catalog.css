@@ -1,0 +1,19 @@
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+#element::-webkit-scrollbar {
+    display: none;
+}
+
+#left {
+    overflow-y: auto;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 0px;
+}
+
+#right {
+    padding-right: 50px;
+}

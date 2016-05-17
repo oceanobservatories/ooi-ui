@@ -10,6 +10,12 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/home/array_content/PlatformTable.html",
             "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
           ],
+          "ooiui/static/js/partials/compiled/data_catalog.js": [
+            "ooiui/static/js/partials/data_catalog/search_results/SearchResults.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/SearchSidebar.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/SearchInput.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/FilterInput.html",
+          ],
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
@@ -39,7 +45,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/partials/StreamQuickViewItem.html',
             'ooiui/static/js/partials/GliderQuickView.html',
             'ooiui/static/js/partials/GliderQuickItemView.html',
-            'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html',
+            'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html'
           ],
           "ooiui/static/js/partials/compiled/streamingdata.js" : [
             'ooiui/static/js/partials/TocPageControlView.html',
@@ -567,12 +573,7 @@ module.exports = function(grunt) {
                 "ooiui/static/js/partials/EventEditorModal.html",
                 "ooiui/static/js/partials/Banner.html",
                 "ooiui/static/js/partials/AssetTabelFooter.html"
-            ],
-            "ooiui/static/js/partials/compiled/genericPlatForms.js": [
-                "ooiui/static/js/partials/GenericPlatForm.html",
-                "ooiui/static/js/partials/GenericPlatFormTable.html",
             ]
-
         }
       }
     },
@@ -586,6 +587,16 @@ module.exports = function(grunt) {
           }
         },
         files: {
+          "ooiui/static/js/compiled/data_catalog.js": [
+            "ooiui/static/js/views/data_catalog/DataCatalog.js",
+            "ooiui/static/js/views/data_catalog/search_results/SearchResults.js",
+            "ooiui/static/js/views/data_catalog/search_results/components/ResultsTable.js",
+            "ooiui/static/js/views/data_catalog/search_results/components/ResultsTableRow.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/SearchSidebar.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/SearchInput.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/FilterInput.js",
+            "ooiui/static/js/models/science/StreamModel.js"
+          ],
           'ooiui/static/js/compiled/science.js' : [
             // Libs
             'ooiui/static/lib/leaflet/dist/leaflet.js',
@@ -1586,7 +1597,7 @@ module.exports = function(grunt) {
            // 'ooiui/static/js/views/common/TermsDialogView.js',
            // 'ooiui/static/js/views/common/UserFormView.js'
         ],
-          'ooiui/static/js/compiled/genericPlatForms.js' : [
+        "ooiui/static/js/compiled/genericPlatForms.js": [
 
             'ooiui/static/js/models/asset_management/PlatformModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
@@ -1594,8 +1605,8 @@ module.exports = function(grunt) {
 
             'ooiui/static/js/views/platforms/GenericPlatFormView.js',
             'ooiui/static/js/views/platforms/GenericPlatFormTableView.js',
-            ]
-        
+        ]
+
         }
       },
       css: {
