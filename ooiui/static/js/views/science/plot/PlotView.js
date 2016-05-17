@@ -50,11 +50,13 @@ var PlotView = BasePlot.extend({
       }
 
     }else{
+      //do nothing for the Image Chart
       //derender the hightcharts plot
+      /*
       if ( !_.isNull(this.xyPlot.chart) ){
         this.xyPlot.getChart().destroy();
         this.xyPlot.chart = null;
-      }
+      }*/
 
     }
   },
@@ -76,17 +78,10 @@ var PlotView = BasePlot.extend({
       this.xyPlot.render(self.plotParameters, self.plotModel, self.plotData);
     }else{
       //image plot
-      //this.xyPlot = new XYPlotView();
-      //this.xyPlot.render();
+      this.imagePlot = new ImagePlotView();
+      this.imagePlot.render(self.plotParameters, self.plotModel);
 
-
-      /* USED TO BE
-      this.views.svgplot = new SVGPlotView({
-        height: 400,
-        width: 500,
-        el: $('#plot-view')
-      });
-      */
+      this.$el.find('#plotContainer').append(this.imagePlot.el);
 
     }
   }

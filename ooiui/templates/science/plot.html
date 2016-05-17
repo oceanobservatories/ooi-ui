@@ -423,7 +423,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
           var onDataHandler = function(collection, response, options) {
             self.views.plotContainer.hideLoading();
-            self.views.plotContainer.render(parameterCollection);
+            self.views.plotContainer.render();
           };
 
           var errorHandler = function(collection, response,options){
@@ -436,6 +436,8 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         }else{
           //IMAGE PLOT generation
+          self.views.plotContainer.render();
+          self.views.plotContainer.hideLoading();
         }
       }
     });

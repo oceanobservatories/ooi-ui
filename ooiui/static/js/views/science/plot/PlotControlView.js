@@ -24,7 +24,6 @@ var PlotControlView = Backbone.View.extend({
     this.initialRender();
   },
   initialRender: function() {
-    //this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
     this.emptyRender();
   },
   emptyRender:function(){
@@ -36,13 +35,11 @@ var PlotControlView = Backbone.View.extend({
     var self = this;
     self.subviews = [];
 
-
     this.$el.html(this.template({plotModel:self.plotModel}));
 
     if (this.collection.length == 0){
       self.$el.find('.instrument-content').append('<h5>Please Select an instrument</h5>');
     }else{
-
       //setup instrument parameter selection
       var isInterpolated = this.collection.length == 2 ? true : false;
       //this.collection = selected stream collection
@@ -116,6 +113,7 @@ var PlotControlView = Backbone.View.extend({
   onPlotTypeSelect: function(e){
     this.plotModel.set('plotType',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
+    //ooi.trigger('update_plot',{model:this.plotModel});
   },
   getSelectedParameters: function(){
     var self = this;

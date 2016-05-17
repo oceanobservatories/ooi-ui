@@ -1334,6 +1334,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/PlotControlModel.js',
             'ooiui/static/js/models/science/PlotTimeModel.js',
             'ooiui/static/js/models/science/DefaultPlotModel.js',
+
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -1359,6 +1360,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/plot/BasePlot.js',
             'ooiui/static/js/views/science/plot/PlotView.js',
             'ooiui/static/js/views/science/plot/XYPlotView.js',
+            'ooiui/static/js/views/science/plot/ImagePlotView.js',
           ],
           'ooiui/static/js/compiled/camera_media.js' : [
             // Libs
