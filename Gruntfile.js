@@ -15,6 +15,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/data_catalog/search_sidebar/SearchSidebar.html",
             "ooiui/static/js/partials/data_catalog/search_sidebar/components/SearchInput.html",
             "ooiui/static/js/partials/data_catalog/search_sidebar/components/FilterInput.html",
+            "ooiui/static/js/views/data_catalog/search_results/SearchResults.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/SearchSidebar.js",
+            'ooiui/static/js/models/science/StreamModel.js',
           ],
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
