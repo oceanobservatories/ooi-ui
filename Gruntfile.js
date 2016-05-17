@@ -10,6 +10,13 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/home/array_content/PlatformTable.html",
             "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
           ],
+          "ooiui/static/js/partials/compiled/data_catalog.js": [
+            "ooiui/static/js/partials/data_catalog/search_results/SearchResults.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/SearchSidebar.html",
+            "ooiui/static/js/views/data_catalog/search_results/SearchResults.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/SearchSidebar.js",
+            'ooiui/static/js/models/science/StreamModel.js',
+          ],
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
             "ooiui/static/js/partials/TOCItem.html",
@@ -1581,6 +1588,16 @@ module.exports = function(grunt) {
            // 'ooiui/static/js/views/common/TermsDialogView.js',
            // 'ooiui/static/js/views/common/UserFormView.js'
         ],
+        "ooiui/static/js/compiled/genericPlatForms.js": [
+
+            'ooiui/static/js/models/asset_management/PlatformModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+
+
+            'ooiui/static/js/views/platforms/GenericPlatFormView.js',
+            'ooiui/static/js/views/platforms/GenericPlatFormTableView.js',
+        ]
+
         }
       },
       css: {
