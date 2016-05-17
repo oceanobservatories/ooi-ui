@@ -1,3 +1,65 @@
+#plot-tab-content.tab-content .panel{
+}
+
+#plot-tab-content.tab-content .row{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#plottingBody .plot-tool-tabs li.active a{
+    background-color:#004773;
+    color: white;
+}
+
+#plottingBody #updatePlot{
+    padding:20px;
+}
+
+#plottingBody .plot-tab-view{
+    min-height:100px;
+}
+
+#plottingBody .parameter-field-select{
+    width:50px;
+}
+
+#plottingBody .parameter-select-form{
+
+}
+
+#plottingBody .parameter-select-radio input{
+    margin:0px;
+}
+
+#plottingBody .plot-control-section{
+    margin-top: 10px;
+}
+
+#plottingBody form.plot-control-select-form .checkbox{
+}
+
+#plottingBody form.plot-control-select-form hr{
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    border-top: 1px solid red;
+}
+
+#plottingBody .plot-control-view .plot-instrument-column{
+    border-right: 1px solid red;
+    min-height:300px;
+}
+
+#plottingBody .plot-button-column{
+    margin-top:50px;
+    padding:15px;
+    min-height: 325px;
+    background-color: #EAEAEA;
+}
+/*
+old below....
+
 #plottingBody #plotcontrols #plot-options .plot-tool-tip-icon{
     color:#004773;
 }
@@ -140,3 +202,5 @@ td.data-controls:hover {
     background-color: #004473;
     color: white;
 }
+*/
+

@@ -37,7 +37,7 @@ var HighchartsScatterView = Backbone.View.extend({
             self.onClick(e, this);
           },
         },
-        alignTicks: false,      
+        alignTicks: false,
         zoomType: 'xy',
         resetZoomButton: {
             position: {
@@ -46,7 +46,7 @@ var HighchartsScatterView = Backbone.View.extend({
                 x: 0,
                 y: -30
             }
-        }     
+        }
       },
       credits: {
         enabled: false
@@ -58,12 +58,12 @@ var HighchartsScatterView = Backbone.View.extend({
       subtitle: {
           text: self.subtitle,
           style: {
-                  color: "steelblue", 
+                  color: "steelblue",
                   fontSize: "18px"
                 }
       },
       xAxis: {
-            id: self.collection.models[0].get('xaxisName'),          
+            id: self.collection.models[0].get('xaxisName'),
             labels: {
               format: '{value}',
             },
@@ -72,7 +72,7 @@ var HighchartsScatterView = Backbone.View.extend({
             }
       },
       yAxis: {
-          id:self.collection.models[0].get('axisName'),          
+          id:self.collection.models[0].get('axisName'),
           labels: {
             format: '{value}',
           },
@@ -95,11 +95,11 @@ var HighchartsScatterView = Backbone.View.extend({
                   return s;
               },
           shared: true,
-          crosshairs : [true,false]  
+          crosshairs : [true,false]
         // headerFormat: '<b>{series.name}</b><br>',
         // pointFormat: '{point.x} {series.options.units}, {point.y} {series.options.units}'
       },
-      plotOptions: {        
+      plotOptions: {
         scatter: {
             marker: {
                 radius: 5,
@@ -109,20 +109,20 @@ var HighchartsScatterView = Backbone.View.extend({
                         lineColor: 'rgb(100,100,100)'
                     }
                 }
-            }            
+            }
         }
       },
       series: self.collection.map(function(model, i) {
         return {
-          type: model.get('type'),
+          //type: model.get('type'),
           name: model.get('name'),
-          showInLegend: model.get('showInLegend'),
-          color: model.get('color'),
+          //showInLegend: model.get('showInLegend'),
+          //color: model.get('color'),
           data: model.get('data'),
-          units: model.get('units'),    
-          yAxis: i,                             
-          marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker'), "symbol": "circle"}, // only dots are for direction
-          states: {hover: {enabled: true}} // no highlighted dots
+          //units: model.get('units'),
+          yAxis: 0, //i ?
+          //marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker'), "symbol": "circle"}, // only dots are for direction
+          //states: {hover: {enabled: true}} // no highlighted dots
         };
       }),
       legend: {
