@@ -51,9 +51,13 @@ var AnnotationTableView = Backbone.View.extend({
     event.stopPropagation();
     ooi.trigger('AnnotationTableView:onAddClick');
   },
+  emptyRender:function(){
+    this.$el.html('<h5>Please Select an instrument</h5>');
+  },
   render: function() {
     var self = this;
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+
     this.collection.each(function(model, i) {
       model.set('ui_id',i)
 
