@@ -493,7 +493,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             //"ooiui/static/css/common/ModalForm.css",
-            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css"
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css'
           ],
           "ooiui/static/css/compiled/plotting.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
@@ -1320,15 +1321,24 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jqgrid/js/grid.grouping.js',
             'ooiui/static/lib/jqgrid/js/grid.import.js',
             'ooiui/static/lib/jqgrid/js/grid.inlinedit.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/grid.jqueryui.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/grid.pivot.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/grid.subgrid.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/grid.treegrid.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/jqDnR.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/jqModal.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/jquery.fmatter.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/grid.utils.js',
-            'ooiui/static/lib/jqgrid/js/jqgrid/addons/ui.multiselect.js',
+            'ooiui/static/lib/jqgrid/js/grid.jqueryui.js',
+            'ooiui/static/lib/jqgrid/js/grid.pivot.js',
+            'ooiui/static/lib/jqgrid/js/grid.subgrid.js',
+            'ooiui/static/lib/jqgrid/js/grid.treegrid.js',
+            'ooiui/static/lib/jqgrid/js/grid.utils.js',
+            'ooiui/static/lib/jqgrid/js/jqDnR.js',
+            'ooiui/static/lib/jqgrid/js/jqModal.js',
+            'ooiui/static/lib/jqgrid/js/jquery.fmatter.js',
+            'ooiui/static/lib/jqgrid/js/jquery.jqGrid.js',
+            'ooiui/static/lib/jqgrid/js/jquery.sortable.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.addons.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.postext.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.setcolumns.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.tbltogrid.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.contextmenu.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.searchFilter.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.tablednd.js',
+            'ooiui/static/lib/jqgrid/js/addons/ui.multiselect.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -1887,7 +1897,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             //"ooiui/static/css/common/ModalForm.css",
-            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css"
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css'
           ],
           "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
