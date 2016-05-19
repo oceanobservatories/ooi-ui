@@ -52,7 +52,13 @@ module.exports = function(grunt) {
             'ooiui/static/js/partials/StreamQuickViewItem.html',
             'ooiui/static/js/partials/GliderQuickView.html',
             'ooiui/static/js/partials/GliderQuickItemView.html',
-            'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html'
+            'ooiui/static/js/partials/HighChartsStreamingDataOptionsView.html',
+            "ooiui/static/js/partials/StreamDownloadForm.html",
+            "ooiui/static/js/partials/ModalDownload.html",
+            "ooiui/static/js/partials/ModalDownloadFail.html",
+            "ooiui/static/js/partials/StreamTable.html",
+            "ooiui/static/js/partials/StreamTableItem.html",
+            "ooiui/static/js/partials/StreamTableItemSubView.html"
           ],
           "ooiui/static/js/partials/compiled/streamingdata.js" : [
             'ooiui/static/js/partials/TocPageControlView.html',
@@ -540,6 +546,18 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
           ],
+          "ooiui/static/css/compiled/data_catalog.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            //"ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/css/common/data_catalog.css'
+          ],
           "ooiui/static/css/compiled/plotting.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
             "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
@@ -831,6 +849,25 @@ module.exports = function(grunt) {
             'ooiui/static/lib/moment/moment.js',
             'ooiui/static/lib/bootbox.js/bootbox.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/js/core/common/paginate.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/jqgrid/js/grid.base.js',
+            'ooiui/static/lib/jqgrid/js/grid.celledit.js',
+            'ooiui/static/lib/jqgrid/js/grid.common.js',
+            'ooiui/static/lib/jqgrid/js/grid.filter.js',
+            'ooiui/static/lib/jqgrid/js/grid.formedit.js',
+            'ooiui/static/lib/jqgrid/js/grid.grouping.js',
+            'ooiui/static/lib/jqgrid/js/grid.import.js',
+            'ooiui/static/lib/jqgrid/js/grid.inlinedit.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/grid.jqueryui.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/grid.pivot.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/grid.subgrid.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/grid.treegrid.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/jqDnR.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/jqModal.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/jquery.fmatter.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/grid.utils.js',
+            'ooiui/static/lib/jqgrid/js/jqgrid/addons/ui.multiselect.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -844,6 +881,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/common/UserModel.js',
             'ooiui/static/js/models/science/TocModel.js',
             'ooiui/static/js/models/science/GliderTrackModel.js',
+            'ooiui/static/js/models/common/DataSubscriptionModel.js',
+            'ooiui/static/js/models/science/LargeDataFormatModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -855,6 +894,11 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/TermsDialogView.js',
             'ooiui/static/js/views/science/GliderQuickView.js',
+            'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js',
+            'ooiui/static/js/views/common/ModalDownloadView.js',
+            'ooiui/static/js/views/common/ModalDownloadFailView.js'
           ],
           'ooiui/static/js/compiled/basic.js' : [
             // Libs
@@ -1324,7 +1368,77 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/science/StreamTableView.js',
             'ooiui/static/js/views/science/AcousticDataTableView.js',
             'ooiui/static/js/views/science/StreamDownloadFormView.js',
-            'ooiui/static/js/views/science/LargeDataTableView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js'
+          ],
+          'ooiui/static/js/compiled/data_catalog.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            "ooiui/static/lib/loremjs/lorem.js",
+            'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
+            'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            //'ooiui/static/lib/lunr.js/lunr.js',
+            'ooiui/static/lib/backlunr/backlunr.js',
+            'ooiui/static/lib/jquery-ui/jquery-ui.min.js',
+            'ooiui/static/lib/jqgrid/js/i18n/grid.locale-en.js',
+            'ooiui/static/lib/jqgrid/js/grid.base.js',
+            'ooiui/static/lib/jqgrid/js/grid.celledit.js',
+            'ooiui/static/lib/jqgrid/js/grid.common.js',
+            'ooiui/static/lib/jqgrid/js/grid.filter.js',
+            'ooiui/static/lib/jqgrid/js/grid.formedit.js',
+            'ooiui/static/lib/jqgrid/js/grid.grouping.js',
+            'ooiui/static/lib/jqgrid/js/grid.import.js',
+            'ooiui/static/lib/jqgrid/js/grid.inlinedit.js',
+            'ooiui/static/lib/jqgrid/js/grid.jqueryui.js',
+            'ooiui/static/lib/jqgrid/js/grid.pivot.js',
+            'ooiui/static/lib/jqgrid/js/grid.subgrid.js',
+            'ooiui/static/lib/jqgrid/js/grid.treegrid.js',
+            'ooiui/static/lib/jqgrid/js/grid.utils.js',
+            'ooiui/static/lib/jqgrid/js/jqDnR.js',
+            'ooiui/static/lib/jqgrid/js/jqModal.js',
+            'ooiui/static/lib/jqgrid/js/jquery.fmatter.js',
+            'ooiui/static/lib/jqgrid/js/jquery.jqGrid.js',
+            'ooiui/static/lib/jqgrid/js/jquery.sortable.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.addons.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.postext.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.setcolumns.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.tbltogrid.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.contextmenu.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.searchFilter.js',
+            'ooiui/static/lib/jqgrid/js/plugins/grid.tablednd.js',
+            'ooiui/static/lib/jqgrid/js/addons/ui.multiselect.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/MessageModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            'ooiui/static/js/models/common/UserModel.js',
+            'ooiui/static/js/models/common/AnnotationModel.js',
+            'ooiui/static/js/models/science/StreamModel.js',
+            'ooiui/static/js/models/science/LargeDataFormatModel.js',
+            'ooiui/static/js/models/science/AcousticDataModel.js',
+            'ooiui/static/js/models/common/DataSubscriptionModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownMessagesView.js',
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/BannerView.js",
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/LoginView.js',
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js',
+            'ooiui/static/js/views/common/ModalFormView.js',
+            'ooiui/static/js/views/common/PanelView.js',
+            'ooiui/static/js/views/common/WatchView.js',
+            'ooiui/static/js/views/common/SVGView.js',
+            'ooiui/static/js/views/common/AnnotationModalFormView.js',
+            'ooiui/static/js/views/science/AnnotationTableView.js',
+            'ooiui/static/js/views/science/StreamTableView.js',
+            'ooiui/static/js/views/science/AcousticDataTableView.js',
+            'ooiui/static/js/views/science/StreamDownloadFormView.js',
+            'ooiui/static/js/views/science/LargeDataTableView.js'
           ],
           'ooiui/static/js/compiled/plotting.js' : [
             // Libs
@@ -1672,7 +1786,7 @@ module.exports = function(grunt) {
             "ooiui/static/lib/fancytree/dist/skin-bootstrap/ui.fancytree.css" ,
             "ooiui/static/css/common/toc_menu.css",
             "ooiui/static/css/common/leaflet/map.css",
-            "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css",
+            "ooiui/static/lib/Leaflet.MousePosition/src/L.Control.MousePosition.css"
           ],
           "ooiui/static/css/compiled/loginDemo.css" : [
             "ooiui/static/lib/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
@@ -1731,7 +1845,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/mapLegend.css",
             "ooiui/static/css/common/errorModal.css",
             "ooiui/static/css/common/streamingdata.css",
-            "ooiui/static/css/common/gliderQuickView.css",
+            "ooiui/static/css/common/gliderQuickView.css"
           ],
           "ooiui/static/css/compiled/status.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
@@ -1856,6 +1970,18 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/css/common/newEvent.css",
             "ooiui/static/css/common/ModalForm.css"
+          ],
+          "ooiui/static/css/compiled/data_catalog.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            //"ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/css/common/data_catalog.css'
           ],
           "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
