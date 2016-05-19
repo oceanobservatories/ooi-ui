@@ -67,6 +67,7 @@ var StreamModel = Backbone.Model.extend({
                         'platform': data.platform_name,
                         'assembly': data.assebly_name
                     };
+    data.unique_id = data.reference_designator + data.stream_name;
     return data;
   }
 });

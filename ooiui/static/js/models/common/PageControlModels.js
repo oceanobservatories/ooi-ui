@@ -9,9 +9,9 @@ var AssetManagementPageControlModel = Backbone.Model.extend({
 
 var DataCatalogPageControlModel = Backbone.Model.extend({
     defaults : {
-        params : {
-        }
-
+        params : [
+            ['clearFilters', 'Clear Search']
+        ]
     }
 });
 
