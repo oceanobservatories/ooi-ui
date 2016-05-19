@@ -64,13 +64,13 @@ var ParentPageControlView = Backbone.View.extend({
 
 
 var DataCatalogPageControlView = ParentPageControlView.extend({
-    events: {
-        'change select#search-param': 'click'
-    },
-    template: JST['ooiui/static/js/partials/DataCatalogPageControlView.html'],
-    click: function(e) {
-        $('#search').trigger('keyup');
-    }
+    //events: {
+    //    'change select#search-param': 'click'
+    //},
+    //template: JST['ooiui/static/js/partials/DataCatalogPageControlView.html'],
+    //click: function(e) {
+    //    $('#search').trigger('keyup');
+    //}
 });
 
 
