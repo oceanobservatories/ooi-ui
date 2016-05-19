@@ -35,8 +35,9 @@
     $.jgrid.useJSON = true;
   </script>
 
-
-
+{#  <style type="text/css">#}
+{#    .ui-jqgrid-btable .ui-state-highlight { background: lightskyblue; color: #000000; font-weight: 600;}#}
+{#  </style>#}
 
 
   {% block link %}
@@ -64,30 +65,15 @@
         {% endblock %}
         <div id="page-content">
           <div id="streamPanel" class="panel">
-            {#            <div class="panel-heading">#}
-            {#              <div class="pagination pagination-sm pagination-right pagination-boxes" id="pagination-boxes"></div>#}
+
             <div class="color-index" align="right">
               <div class="twelve-hours"></div><b> 12 Hours </b>
               <div class="twenty-four-hours"></div><b> 24 Hours </b>
               <div class="older"></div><b> Older than 24 hours </b>
               <em>Data are sorted by end date, most recent first</em>
             </div>
-            {#            </div>#}
 
-            {#            <div class="panel-body">#}
-            {#              <div id="stream-table-view">#}
-            {#                <table  class="table table-bordered table-striped table-selectable">#}
-            {#                  <i  id="streamSpinner" class="fa fa-spinner fa-spin" style="margin-left:50%;font-size:90px;"> </i>#}
-            {#                  <thead>#}
-            {#                  </thead>#}
-            {#                </table>#}
-            {#              </div> <!-- #view -->#}
-            {#              <div class="paginator row text-center">#}
-            {#                <div class="pagination-info" id="pagination-info"> </div>#}
-            {#              </div>#}
-            {#            </div> <!-- .panel-body -->#}
-
-            <!-- jqGrid Test -->
+            <!-- jqGrid -->
             <div class="panel-body">
               <div id="navGrid"></div>
               <table id="grid"></table>
@@ -105,7 +91,7 @@
 
 
   <script type="text/javascript">
-    var $grid;
+
     var bannerTitle = "Data Catalog";
 
     var userId = parseInt(window.location.href.split('/').pop());
@@ -154,11 +140,6 @@
         this.views.navbar = new NavbarView();
         $('body').prepend(this.views.navbar.el);
 
-        {#        this.views.streamTableView = new StreamTableView({#}
-        {#          collection: this.collections.streams,#}
-        {#          el: $('#stream-table-view')#}
-        {#        });#}
-        {##}
         this.views.streamDownloadFormView = new StreamDownloadFormView({
           el: $('#stream-download-modal')
         });
@@ -177,58 +158,14 @@
         // Get the list of streams from the API
         updateCollection( showStreams );
 
-        {#        // When the custom event fires, update the pagination#}
-        {#        this.listenTo(collection, "collection:updated", function(details){#}
-        {#          updatePagination(details, showStreams);#}
-        {#        });#}
-        {##}
-        {#        this.listenTo(this, "LargeDataCollection:updated", function(details){#}
-        {#          updateDownloadPagination(details);#}
-        {#        });#}
-
-        //this.collections.streams.fetch({reset:true});
-
         /* Dispatcher Section */
         this.listenTo(this, "login:success", function() { location.reload(); });
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
-        this.listenTo(this, 'StreamTableHeader:sort', function(tableHeaderID) {
-          sortBy = tableHeaderID;
-          if ( order == 'reverse' ) {
-            order = "";
-          } else {
-            order = 'reverse';
-          }
-
-          updateCollection( showStreams );
-
-        });
-
-        this.listenTo(this, 'StreamTableItemView:onRowClick', function(row) {
-          row.focus();
-
-          //get the model
-          var ref_des = row.model.get('reference_designator');
-          var stream_name = row.model.get('stream_name');
-          //get the current location
-          if (!location.origin);
-          location.origin = location.protocol + "//" + location.host;
-
-          var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
-          win.focus();
-        });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
           if(this.login.loggedIn()) {
-            // if (options.model.attributes.variables.indexOf("filepath") > -1) {
 
-            // }else{
-            //     var base_url = window.location.protocol+"//"+window.location.host+"/"
-            //     var download_link = options.model.get('download');
-            //     var download_link_url = download_link[options['selection']];
-
-            //     // base_url+=download_link_url+"/"+options.model.get('start')+"/"+ options.model.get('end');
-            // }
             options.model.attributes.email = this.models.userModel.get("email");
             options.model.attributes.user_name = this.models.userModel.get("user_name");
 
@@ -258,9 +195,9 @@
             }
 
             self.views.streamDownloadFormView.show(options);
-            //window.open(base_url, '_blank');
           }
         });
+
         this.listenTo(this, 'DownloadModal:onSuccess',function(url){
           self.views.modalDownloadView.show(url);
         });
@@ -272,67 +209,67 @@
           updateDownloadCollection(options);
         });
 
-        this.listenTo(this, 'LargeFormatFileTable:update',function(options){
-          var onErrorHandler = function(collection, response, options) {
-            self.views.largeFileFormatView.showError(response.responseText);
-            var details = {startAt: 0,
-              count: 1,
-              total: 0
-            };
-            updateDownloadPagination(details);
-          };
-
-          $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
-            self.views.largeFileFormatView.render();
-          });
-        });
-
         // TOC Controls
         this.listenTo(this, 'toc:selectArray', function(model) {
           var searchFor = model.get('array_name');
-          $('#search').val(searchFor);
-          $('#search-clear').show();
-          updateCollection( showStreams );
+          var searchFiler = searchFor, grid = $("#grid"), f;
+
+          if (searchFiler.length === 0) {
+            grid[0].p.search = false;
+            $.extend(grid[0].p.postData,{filters:""});
+          }
+          f = {groupOp:"OR",rules:[]};
+          f.rules.push({field:"array_name",op:"cn",data:searchFiler});
+          grid[0].p.search = true;
+          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+          grid.trigger("reloadGrid",[{page:1,current:true}]);
         });
         this.listenTo(this, 'toc:selectPlatform', function(model) {
           var searchFor = model.get('ref_des').substr(0,8);
-          $('#search').val(searchFor);
-          $('#search-clear').show();
-          updateCollection( showStreams );
+          var searchFiler = searchFor, grid = $("#grid"), f;
+
+          if (searchFiler.length === 0) {
+            grid[0].p.search = false;
+            $.extend(grid[0].p.postData,{filters:""});
+          }
+          f = {groupOp:"OR",rules:[]};
+          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
+          grid[0].p.search = true;
+          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+          grid.trigger("reloadGrid",[{page:1,current:true}]);
         });
 
         this.listenTo(this, 'toc:selectAssembly', function(model) {
           var searchFor = model.get('ref_des').substr(0,11);
-          $('#search').val(searchFor);
-          $('#search-clear').show();
-          updateCollection( showStreams );
+          var searchFiler = searchFor, grid = $("#grid"), f;
+
+          if (searchFiler.length === 0) {
+            grid[0].p.search = false;
+            $.extend(grid[0].p.postData,{filters:""});
+          }
+          f = {groupOp:"OR",rules:[]};
+          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
+          grid[0].p.search = true;
+          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+          grid.trigger("reloadGrid",[{page:1,current:true}]);
         });
 
         this.listenTo(this, 'toc:selectInstrument', function(model) {
           var searchFor = model.get('ref_des');
-          $('#search').val(searchFor);
-          $('#search-clear').show();
-          updateCollection( showStreams );
-        });
+          var searchFiler = searchFor, grid = $("#grid"), f;
 
-        this.listenTo(vent, 'toc:paramFilter', function(option) {
-          $.when(vent.trigger('toc:derenderItems')).done(function() {
-            var paramSearch = { concepts: option };
-            streamFetch = streamCollection.fetch({ data: paramSearch });
-            updateCollection(showStreams);
-            $.when(streamFetch).done(function() {
-              renderTOCView(arrayCollection, null, streamCollection);
-              vent.trigger('toc:noKids');
-              vent.trigger('toc:hideStreams');
-              $('#hiddenSearch').val(option);
-              $('#search-param').val(option);
-              $('#search').val('');
-              updateCollection( showStreams );
-            });
-          });
+          if (searchFiler.length === 0) {
+            grid[0].p.search = false;
+            $.extend(grid[0].p.postData,{filters:""});
+          }
+          f = {groupOp:"OR",rules:[]};
+          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
+          grid[0].p.search = true;
+          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+          grid.trigger("reloadGrid",[{page:1,current:true}]);
         });
-      }
-    });
+      } // start
+    }); // extend
 
     var ooi = new OOI();
     var collection = new StreamCollection();
@@ -352,150 +289,50 @@
     var streamFetch = streamCollection.fetch({ reset: true });
     $.when(arrayFetch, streamFetch).done(function() {
       $.when( (renderTOCView( arrayCollection, null, streamCollection )) ).done(function() {
-        focusToItem();
-        vent.trigger('toc:noKids');
-        vent.trigger('toc:hideStreams');
+{#        focusToItem();#}
+{#        vent.trigger('toc:noKids');#}
+{#        vent.trigger('toc:hideStreams');#}
       });
     });
 
-    // Page Controls
-    var pageControlModel = new DataCatalogPageControlModel();
-    var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});
-
-
-    // The pagination object holds information about the current
-    // state of the page for us. There's one for streams and one for
-    // download elements
-    var pagination = {
-      itemsPerPage : 10, // how many items per page
-      currentPage : 1, // page to start at, first page is 1, not 0
-      maxPages: 4 // max number of pages to show in the pagination element
-    };
-
-    var dlPagination = {
-      itemsPerPage : 8, // how many items per page
-      currentPage : 1, // page to start at, first page is 1, not 0
-      maxPages: 4, // max number of pages to show in the pagination element
-      date: '',
-      ref_des: ''
-    };
-
     // Sets up the action buttons in the jqGrid table
-    var goPlot = function(cellvalue, options, rowObject){
-      {#      console.log(cellvalue);#}
-      {#      console.log(options);#}
-      {#      console.log(rowObject);#}
-
+    var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-line-chart'></i></button>";
-      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download'></i></button>";
+      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-line-chart' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
       actionButtons += "</div>";
       return actionButtons;
     };
 
+    // Opens the plotting page
     var openPlot = function(ref_des, stream_name){
-      {#      console.log('open plot');#}
-      {#      console.log(ref_des);#}
-      {#      console.log(stream_name);#}
-      //get the model
-      {#            var ref_des = row.model.get('reference_designator');#}
-      {#            var stream_name = row.model.get('stream_name');#}
-      //get the current location
-      {#      if (!location.origin);#}
       location.origin = location.protocol + "//" + location.host;
-
       var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
       win.focus();
     };
 
+    // Opens the download modal
     var openDownload = function(ref_des, stream_name) {
-      {#      console.log('open download');#}
-      {#      console.log(ref_des);#}
-      {#      console.log(stream_name);#}
-      {#      console.log(this);#}
-{#      console.log(ooi);#}
-      {#      this.streamDownloadFormView.show(options);#}
-      {#      var option = $(event.currentTarget).attr("download-type");#}
-      ooi.trigger('StreamTableItemView:onClick', {model: collection.model});
+      var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+      dlModel.attributes.email = ooi.models.userModel.attributes.email;
+      ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
     };
 
     var openAssetManagement = function(ref_des, stream_name) {
-      {#      console.log('open download');#}
-      {#      console.log(ref_des);#}
-      {#      console.log(stream_name);#}
-      {#      console.log(this);#}
-{#      console.log(ooi);#}
-      {#      this.streamDownloadFormView.show(options);#}
-      {#      var option = $(event.currentTarget).attr("download-type");#}
-{#      ooi.trigger('StreamTableItemView:onClick', {model: collection.model});#}
+      //assets/list/#CE01ISSP
+      location.origin = location.protocol + "//" + location.host;
+      var win = window.open(location.origin+"/assets/list/#"+ref_des.substr(0,8), '_blank');
+      win.focus();
     };
 
-    {#    var goPlot = function(rowId, val, rawObject, cm, rdata){#}
-    {#      console.log(rowId);#}
-    {#      console.log(val);#}
-    {#      console.log(rawObject);#}
-    {#      console.log(cm);#}
-    {#      console.log(rdata);#}
-    {##}
-    {#      console.log(collection);#}
-    {#      var rowData = $("#grid").jqGrid('getRowData', rowId);#}
-    {#      var rowData = rdata;#}
-    {#      console.log(rowData);#}
-    {#      var streamName = rowData.stream_name;#}
-    {#      console.log(streamName);#}
-    {#      var rowModel = collection.where({ref_des:rowId,stream_name:streamName})[0];#}
-    {#      console.log(rowModel);#}
-    {#      var hasFilePath = rowModel.attributes.variables.indexOf("filepath");#}
-    {#      var hasFilePath = rawObject.variables.indexOf("filepath");#}
-    {#      console.log('hasFilePath' + hasFilePath);#}
-    {#      cm['label'] = "<button><i class='fa fa-line-chart'></i></button>";#}
-    {#    };#}
-
-    var colorTime = function(rowId, val, rawObject, cm, rdata){
-      {#      console.log(rowId);#}
-      {#      console.log(val);#}
-      {#      console.log(rawObject);#}
-            console.log(cm);
-      {#      console.log(rdata);#}
-      {#      console.log(rowId);#}
+    // Colors the end time
+    var colorTime = function(cellvalue, options, rowObject) {
       var currentDate = new Date();
-      {#      console.log(currentDate);#}
-      var endDate = new Date(val);
-      {#      console.log(endDate);#}
-      var currentTime = new Date().getTime();
-      {#      console.log(currentTime);#}
-      var endTime = endDate.getTime();
-      {#      console.log(endTime);#}
-      var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
-            console.log(timeSinceEndDate);
-
-      if(timeSinceEndDate <= 1000*60*60*12){
-        cm.classes = 'twelve-hours';
-        {#        endColumn.addClass('twelve-hours');#}
-      } else if(timeSinceEndDate < 1000*60*60*24){
-        cm.classes = 'twenty-four-hours';
-        {#        endColumn.addClass('twenty-four-hours');#}
-      } else if(timeSinceEndDate >= 1000*60*60*24){
-        cm.classes = 'older';
-        {#        endColumn.addClass('older');#}
-      } else {
-        cm.classes = '';
-      }
-    };
-
-    var colorTime1 = function(cellvalue, options, rowObject) {
-      var currentDate = new Date();
-      {#      console.log(currentDate);#}
       var endDate = new Date(cellvalue);
-      {#      console.log(endDate);#}
-      var currentTime = new Date().getTime();
-      {#      console.log(currentTime);#}
-      var endTime = endDate.getTime();
-      {#      console.log(endTime);#}
       var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
-            console.log(timeSinceEndDate);
 
+      // Base cell output is no background
       var cellOutput = '<i>'+cellvalue+'</i>';
       if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
         cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
@@ -507,57 +344,32 @@
       return cellOutput;
     };
 
-
-    // Sorting and ordering (ascending / descending)
-    var sortBy = "";
-    var order = 'reverse';
-
     $(document).ready(function() {
       ooi.start();
-      {#      populate();#}
-      {#      $('#searchGroup').attr('style','');#}
-      {#      $('body').find('#search-clear').hide();#}
-      {#      $('div#search-submit > button').toggle();#}
-      {#      $("#search-clear").click(function(){#}
-      {#        $("#search").val('').focus();#}
-      {#        $(this).hide();#}
-      {#        updateCollection( showStreams );#}
-      {#      });#}
-      {##}
-      {#      $('#search').keyup( _.debounce(textInput, 250) );#}
     });
 
-    {#    console.log(collection);#}
-    {#    console.log(collection.models['length']);#}
-    {#    var totalRecords = collection.length;#}
-    {#    console.log(totalRecords);#}
-    var recordsPerPage = 15;
-    var totalPageViews = [-1, 15, 30, 45, 60];
-    {#    var count;#}
-    {#    for(count=0;count<totalRecords;count=count+recordsPerPage){#}
-    {#      console.log(count);#}
-    {#      totalPageViews.append(count);#}
-    {#    }#}
-    {#    console.log(totalPageViews);#}
+    var numberTemplate = {
+      formatter : 'number',
+      align : 'right',
+      sorttype : 'number',
+      editable : true,
+      searchoptions : { sopt : ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+    };
 
-    var numberTemplate = {formatter: 'number', align: 'right', sorttype: 'number', editable: true,
-      searchoptions: { sopt: ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }};
     var defaultFilters = {
-        "groupOp": "AND",
-        "rules": [
-                        { "field": "All", "op": "cn", "data": ""}
-                    ]
-                };
+      "groupOp" : "AND",
+      "rules" : [
+        { "field" : "All", "op" : "cn", "data" : ""}
+      ]
+    };
 
+    var $dcGrid = $("#grid");
 
-
-
+    // Loads the jqGrid into
     function placeJqGrid(collection) {
-      console.log(collection);
-      $("#grid").jqGrid({
+      $dcGrid.jqGrid({
         datatype : "local",
         data : collection.toJSON(),
-        {#        editurl : "clientArray",#}
         colNames: [
           'Actions',
           'Array',
@@ -571,17 +383,17 @@
           'Lat / Lon (ddm)',
           'Start Time',
           'End Time',
-          'Reference Designator'],
+          'Reference Designator',
+          'Unique ID'],
 
         colModel : [
           { name : 'actions',
             caption : 'Plot/Download',
-            {#            cellattr : function(rowId, val, rawObject, cm, rdata) { goPlot(rowId, val, rawObject, cm, rdata); },#}
             width : 110,
             sortable : false,
             search : false,
             align : 'center',
-            formatter : goPlot
+            formatter : createActionButtons
           },
           {
             name : 'array_name',
@@ -723,32 +535,47 @@
             sorttype : 'date',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
-            formatter : colorTime1,
+            formatter : colorTime,
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
-{#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
           },
           {
-            name : 'reference_designator',
-            index : 'reference_designator',
-            key : true, // rowID = reference_designator
+            name: 'reference_designator',
+            index: 'reference_designator',
+            key: false, // rowID = reference_designator
+            editable: false,
+            width: 165,
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'unique_id',
+            index : 'unique_id',
+            key : true, // rowID = unique_id = ref_des+stream_name
+            hidden : true,
             editable : false,
             width : 165,
-            sortable : true,
+            sortable : false,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align: 'center',
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
-            },
+            }
           }
         ],
         ondblClickRow: function (id) { alert("You double click row with id: " + id); },
-        {#        onSelectRow: function (id, status, e) { goPlot(id, status, e); },#}
+        loadComplete : function(data) { $("#navGrid").find("option[value=\"50000\"]").text('All');},
         gridview : true,
-        rowNum : recordsPerPage,
-        rowList : totalPageViews,
+        rowNum : 15,
+        rowList : [15, 30, 45, 60, 50000],
         {#        width: 1500,#}
         autowidth : true,
         height : 'auto',
@@ -791,22 +618,22 @@
           onInitializeSearch: function ($form) {
             $form.jqFilter('addFilter', defaultFilters);
           },
-{#          afterRedraw: function (p) {#}
-{#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
-{#              p.columns.push({#}
-{#                name: 'All',#}
-{#                label: 'Any Field',#}
-{#                searchoptions: {},#}
-{#                searchrules: {},#}
-{#                searchtype: 'string',#}
-{#                inputtype: 'text'#}
-{#              });#}
-{#            }#}
-{#            //$(this).find('.delete-rule:first').hide();#}
-{#          }#}
+          {#          afterRedraw: function (p) {#}
+          {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+          {#              p.columns.push({#}
+          {#                name: 'All',#}
+          {#                label: 'Any Field',#}
+          {#                searchoptions: {},#}
+          {#                searchrules: {},#}
+          {#                searchtype: 'string',#}
+          {#                inputtype: 'text'#}
+          {#              });#}
+          {#            }#}
+          {#            //$(this).find('.delete-rule:first').hide();#}
+          {#          }#}
         });
 
-      $("#grid").jqGrid('filterToolbar',
+      $dcGrid.jqGrid('filterToolbar',
         {
           autosearch : true,
           searchOperators : false,
@@ -814,9 +641,9 @@
         }
       );
 
-{#      $("#grid").jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+      {#      $("#grid").jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
 
-      $("#grid").jqGrid('navButtonAdd', '#navGrid', {
+      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
         caption: "showcolumns",
         buttonicon: "ui-icon-calculator",
         title: "Choose columns",
@@ -833,194 +660,22 @@
 
         }
       });
-
-    }
-
-    {#    function textInput() {#}
-    {#      $('#search-clear').toggle(Boolean($(this).val()));#}
-    {#      $('#search-clear').toggle(Boolean($('#search').val()));#}
-    {#      updateCollection( showStreams );#}
-    {#    }#}
-
-    {#    function jump(h){#}
-    {#      var url = location.href;               //Save down the URL without hash.#}
-    {#      location.href = "#"+h;                 //Go to the target element.#}
-    {#      history.replaceState(null,null,url);   //Don't like hashes. Changing it back.#}
-    {#    }#}
-
+    } // placeJqGrid
 
     function showStreams( collection, response ){
-
-      {#      var streamTableView = new StreamTableView({#}
-      {#        collection: collection#}
-      {#      });#}
-      {#      var previouslyClickedElement = $('#th-'+sortBy+'>i');#}
-      {#      streamTableView.render();#}
-      {##}
-      {#// Empty the table and append the new results.#}
-      {#      $(".table").find("tbody").remove().end();#}
-      {#      $("#streamSpinner").remove();#}
-      {#      $(".table").append( streamTableView.el );#}
-      {##}
-      {#      if ( !(previouslyClickedElement.hasClass('fa-rotate-180')) ) {#}
-      {#        $('#th-'+sortBy+'>i').addClass('fa-rotate-180');#}
-      {#      } else {#}
-      {#        $('i').removeClass('fa-rotate-180');#}
-      {#      }#}
-
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
-      {#      jqCollection['jqId'] = jqCollection.#}
       placeJqGrid(jqCollection);
-
-
     }
 
-    {#    function populate() {#}
-    {#      // get url#}
-    {#      var newURL = window.location.href;#}
-    {#      // remove the preceding '?' from index#}
-    {#      newURL = newURL.split('#').pop().split('?').pop();#}
-    {#      // get last index of url#}
-    {#      var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);#}
-    {#      // put last index in search box...box#}
-    {#      if(assetLink.length  >= 1) {#}
-    {#        $('#search').val(assetLink);#}
-    {#        updateCollection( showStreams );#}
-    {#      }#}
-    {#    }#}
-
     function updateCollection( successCallback ){
-
-      {#      // If there is a search term, we need to set the startAt attribute to 0,#}
-      {#      // otherwise the results may not load on the page.#}
-      {#      var startingPoint = "";#}
-      {#      try {#}
-      {#        var target = $( event.target );#}
-      {#        if ($('#search').is(':focus') || target.is('label') || target.is('span') || target.is('ul')#}
-      {#          || target.is('th') || target.is('font')) {#}
-      {#          startingPoint = 0;#}
-      {#        } else {#}
-      {#          startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;#}
-      {#        }#}
-      {#      } catch(e) {#}
-      {#        console.log(e)#}
-      {#        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;#}
-      {#      }#}
-      {#      // Pagination attributes will be passed in using#}
-      {#      // backbone's collection data method.#}
-      {#      var paramSearch = $('#hiddenSearch').val() || '';#}
-      {#      var data = {#}
-      {#        startAt : startingPoint,#}
-      {#        count : pagination.itemsPerPage,#}
-      {#        search : $('#search').val(),#}
-      {#        concepts : paramSearch,#}
-      {#        sort : sortBy,#}
-      {#        order : order#}
-      {#      };#}
-
       collection.fetch({
         {#        data : data,#}
         success : successCallback
         //    error : showError
       });
     }
-
-    {#    function updatePagination( details, successCallback ){#}
-    {##}
-    {#      // Calculate pagination attributes#}
-    {#      var start = details.startAt + 1,#}
-    {#        end = details.startAt + details.count,#}
-    {#        totalPages = Math.ceil( details.total / pagination.itemsPerPage ),#}
-    {#        currentPage = details.startAt / details.count + 1;#}
-    {##}
-    {#      // Display a "Page 1 of 5" type message on the page#}
-    {#      if (end >= details.total) {#}
-    {#        $("#pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );#}
-    {#      } else {#}
-    {#        $("#pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );#}
-    {#      }#}
-    {#      // Remove the pagination binding so they don't get called#}
-    {#      // multiple times after they're redrawn.#}
-    {#      $("#pagination-boxes").unbind();#}
-    {##}
-    {#      // Redraw the jquery pagination boxes#}
-    {#      $("#pagination-boxes").pagination({#}
-    {#        total_pages: totalPages,#}
-    {#        display_max: pagination.maxPages,#}
-    {#        current_page: currentPage,#}
-    {#        callback: function(event, page) {#}
-    {#          if ( page ){#}
-    {#            pagination.currentPage = page;#}
-    {#            updateCollection( successCallback );#}
-    {#          }#}
-    {#        }#}
-    {#      });#}
-    {#    }#}
-    {##}
-    {#    function updateDownloadCollection( options ){#}
-    {##}
-    {#      // If there is a search term, we need to set the startAt attribute to 0,#}
-    {#      // otherwise the results may not load on the page.#}
-    {#      var startingPoint = "";#}
-    {#      try {#}
-    {#        var target = $( event.target );#}
-    {#        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')#}
-    {#          || target.is('th') || target.is('font') || target.is('input')) {#}
-    {#          startingPoint = 0;#}
-    {#        } else {#}
-    {#          startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;#}
-    {#        }#}
-    {#      } catch(e) {#}
-    {#        console.log(e)#}
-    {#        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;#}
-    {#      }#}
-    {#      // Pagination attributes will be passed in using#}
-    {#      // backbone's collection data method.#}
-    {##}
-    {#      var data = {#}
-    {#        startAt : startingPoint,#}
-    {#        count : dlPagination.itemsPerPage,#}
-    {#        ref_des: options.ref_des,#}
-    {#        date: options.date#}
-    {#      };#}
-    {#      dlPagination.ref_des = options.ref_des;#}
-    {#      dlPagination.date = options.date;#}
-    {##}
-    {#      ooi.trigger('LargeFormatFileTable:update', data);#}
-    {#    }#}
-    {##}
-    {#    function updateDownloadPagination( details ){#}
-    {#      // This is pagination for the Large File format download list#}
-    {#      // Calculate pagination attributes#}
-    {#      var start = details.startAt + 1,#}
-    {#        end = details.startAt + details.count,#}
-    {#        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),#}
-    {#        currentPage = details.startAt / details.count + 1;#}
-    {##}
-    {#      // Display a "Page 1 of 5" type message on the page#}
-    {#      if (end >= details.total) {#}
-    {#        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );#}
-    {#      } else {#}
-    {#        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );#}
-    {#      }#}
-    {#      // Remove the pagination binding so they don't get called#}
-    {#      // multiple times after they're redrawn.#}
-    {#      $("#dl-pagination-boxes").unbind();#}
-    {#      // Redraw the jquery pagination boxes#}
-    {#      $("#dl-pagination-boxes").pagination({#}
-    {#        total_pages: totalPages,#}
-    {#        display_max: dlPagination.maxPages,#}
-    {#        current_page: currentPage,#}
-    {#        callback: function(event, page) {#}
-    {#          if ( page ){#}
-    {#            dlPagination.currentPage = page;#}
-    {#            updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );#}
-    {#          }#}
-    {#        }#}
-    {#      });#}
-    {#    }#}
 
   </script>
 {% endblock %}

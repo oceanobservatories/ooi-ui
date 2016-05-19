@@ -494,7 +494,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             //"ooiui/static/css/common/ModalForm.css",
             "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
-            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css'
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/css/common/data_catalog.css'
           ],
           "ooiui/static/css/compiled/plotting.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
@@ -1898,7 +1899,8 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/newEvent.css",
             //"ooiui/static/css/common/ModalForm.css",
             "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
-            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css'
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/css/common/data_catalog.css'
           ],
           "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",

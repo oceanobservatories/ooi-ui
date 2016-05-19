@@ -1,0 +1,9 @@
+.ui-jqgrid-btable .ui-state-highlight { background: lightskyblue; color: #000000; font-weight: bold;}
+
+.ui-jqgrid-title { font-size: 14px; font-weight: bold; text-align: center;}
+
+.ui-jqgrid .ui-jqgrid-caption { text-align: center; }
+
+.ui-jqgrid .ui-jqgrid-titlebar { height: 30px;}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div { font-size: 11px; font-weight: bold;}
