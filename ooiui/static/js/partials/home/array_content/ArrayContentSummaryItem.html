@@ -3,16 +3,16 @@
         <h4><%= properties.description %></h4>
     <ul>
         <li><a href="/plotting/#<%= properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
-        <li><a href="/streams/#<%= properties.code %>"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+        <li><a href="/datacatalog/#<%= properties.code %>"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
         <li><a href="/assets/list#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>
     </ul>
     </div>
     <div class="panel-body js-expand">
         <% if (properties.code === 'CE') { %>
-        <div><img src="/img/Cabled-Array.png"></div>
-        <div><p>
+        <img src="/img/Cabled-Array.png">
+        <p>
         The Endurance Array is a multi-scaled array utilizing fixed and mobile assets.
-            </p></div>
+        </p>
         <% } %>
 
         <% if (properties.code === 'GP') { %>

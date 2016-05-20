@@ -56,11 +56,11 @@ $(document).ready(function() {
         this.src = this.getAttribute("delayedSrc");
     });
 
-    streamCollection = new StreamCollection();
+    var streamCollection = new StreamCollection();
 
-    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar'});
+    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
     searchSidebarView.render();
-    searchSidebarView.renderSearchInput();
+    //searchSidebarView.renderSearchInput();
     searchSidebarView.renderFilterInput();
 
     var searchResultView = new SearchResultView({el: '.search-result', collection: streamCollection});
