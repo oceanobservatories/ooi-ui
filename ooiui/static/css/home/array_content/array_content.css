@@ -22,7 +22,6 @@
 }
 
 .array-content .panel-body img {
-    float: left;
     padding-bottom: 20px;
     width: 150px;
 }
@@ -35,7 +34,6 @@
     width: 80%;
     padding: 0 10px 0 10px;
     display: inline-block;
-    float: left;
     position: relative;
     padding-bottom: 20px;
 }

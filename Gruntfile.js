@@ -10,11 +10,21 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/home/array_content/PlatformTable.html",
             "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
           ],
-          "ooiui/static/js/partials/compiled/data_catalog.js": [
+          "ooiui/static/js/partials/compiled/data_catalog_sidebar.js": [
             "ooiui/static/js/partials/data_catalog/search_results/SearchResults.html",
             "ooiui/static/js/partials/data_catalog/search_sidebar/SearchSidebar.html",
             "ooiui/static/js/partials/data_catalog/search_sidebar/components/SearchInput.html",
             "ooiui/static/js/partials/data_catalog/search_sidebar/components/FilterInput.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/AssetFilters.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/asset_filters/ArrayFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/asset_filters/InstrumentFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/asset_filters/NodeFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/asset_filters/PlatformFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/range_filters/DepthRangeFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/range_filters/TimeRangeFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/stream_filters/StreamDeliveryFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/stream_filters/StreamParameterFilter.html",
+            "ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/stream_filters/StreamTypeFilter.html",
             "ooiui/static/js/views/data_catalog/search_results/SearchResults.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/SearchSidebar.js",
             'ooiui/static/js/models/science/StreamModel.js',
@@ -654,7 +664,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          "ooiui/static/js/compiled/data_catalog.js": [
+          "ooiui/static/js/compiled/data_catalog_sidebar.js": [
             "ooiui/static/js/views/data_catalog/DataCatalog.js",
             "ooiui/static/js/views/data_catalog/search_results/SearchResults.js",
             "ooiui/static/js/views/data_catalog/search_results/components/ResultsTable.js",
@@ -662,6 +672,11 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/data_catalog/search_sidebar/SearchSidebar.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/SearchInput.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/FilterInput.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/AssetFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/ArrayFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/PlatformFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/NodeFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/InstrumentFilter.js",
             "ooiui/static/js/models/science/StreamModel.js"
           ],
           'ooiui/static/js/compiled/science.js' : [

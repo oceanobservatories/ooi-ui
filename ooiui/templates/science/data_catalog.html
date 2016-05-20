@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-  <title>Data Catalog</title>
+<title>Data Catalog</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -10,143 +10,143 @@
 
 {% block head %}
 
-  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
-  <link href="/css/compiled/data_catalog.css" rel="stylesheet" type="text/css"/>
-  <!-- partials -->
-  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
+<link href="/css/compiled/data_catalog.css" rel="stylesheet" type="text/css"/>
+<!-- partials -->
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
 
-  <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+<script src="/lib/d3/d3.min.js" type="text/javascript"></script>
 
-  <!-- lunr needs to be imported by a script tag -->
-  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
-  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+<!-- lunr needs to be imported by a script tag -->
+<script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+<script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 
-  <script src="/js/compiled/index.js" type="text/javascript"></script>
+<script src="/js/compiled/index.js" type="text/javascript"></script>
 
-  <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
+<script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/data_catalog.js" type="text/javascript"</script>
 
-  <script type="text/javascript">
-    $.jgrid.no_legacy_api = true;
-    $.jgrid.useJSON = true;
-  </script>
+<script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"</script>
+<script type="text/javascript">
+$.jgrid.no_legacy_api = true;
+$.jgrid.useJSON = true;
+</script>
 
 
-  {% block link %}
-    {{ super() }}
-  {% endblock %}
-  {% block script %}
-    {{ super() }}
-  {% endblock %}
+{% block link %}
+{{ super() }}
+{% endblock %}
+{% block script %}
+{{ super() }}
+{% endblock %}
 {% endblock %}
 
 {%block body %}
-  <div class="container-fluid">
+<div class="container-fluid">
     <div id="navbar" class="row"></div>
-  </div>
+</div>
 
-  {% block page_controls %}
-    {{ super() }}
-  {% endblock %}
-  <div id="wrapper">
+<div id="wrapper" style="padding-left: 0">
     <div id="page-content-wrapper">
-      <div class="content-fluid">
-        {% block sidebar %}
-          <!-- common/base.html -->
-          {{ super() }}
-        {% endblock %}
-        <div id="page-content">
-          <div id="streamPanel" class="panel">
+        <div class="content-fluid">
+            <div id="page-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="search-sidebar"></div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="streamPanel" class="panel">
+                            <div class="color-index" align="right">
+                                <div class="twelve-hours"></div><b> 12 Hours </b>
+                                <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                                <div class="older"></div><b> Older than 24 hours </b>
+                                <em>Data are sorted by end date, most recent first</em>
+                            </div>
 
-            <div class="color-index" align="right">
-              <div class="twelve-hours"></div><b> 12 Hours </b>
-              <div class="twenty-four-hours"></div><b> 24 Hours </b>
-              <div class="older"></div><b> Older than 24 hours </b>
-              <em>Data are sorted by end date, most recent first</em>
+                            <!-- jqGrid -->
+                            <div class="panel-body">
+                                <div id="navGrid"></div>
+                                <table id="grid"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .panel -->
             </div>
-
-            <!-- jqGrid -->
-            <div class="panel-body">
-              <div id="navGrid"></div>
-              <table id="grid"></table>
-            </div>
-
-          </div> <!-- .panel -->
         </div>
-      </div>
     </div> <!-- #page-content-wrapper -->
     <div id="stream-download-modal"></div>
     <div id='download-ok-modal'></div>
     <div id='download-fail-modal'></div>
-  </div> <!-- #wrapper -->
+</div> <!-- #wrapper -->
 
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var bannerTitle = "Data Catalog";
+var bannerTitle = "Data Catalog";
 
-    var userId = parseInt(window.location.href.split('/').pop());
+var userId = parseInt(window.location.href.split('/').pop());
 
-    _.extend(OOI.prototype, Backbone.Events, {
-      login: new LoginModel(),
-      collections: {
+_.extend(OOI.prototype, Backbone.Events, {
+    login: new LoginModel(),
+    collections: {
         streams: new StreamCollection(),
         subscriptionCollection: new DataSubscriptionCollection(),
         largeFormatFiles: new LargeDataFormatCollection()
-      },
-      views: {
-      },
-      models: {
+    },
+    views: {
+    },
+    models: {
         userModel: new UserModel()
-      },
-      start: function() {
+    },
+    start: function() {
         var self = this;
 
         this.login.fetch({async: false});
 
         if(this.login.loggedIn()) {
-          this.models.userModel.fetch({url: '/api/current_user'});
+            this.models.userModel.fetch({url: '/api/current_user'});
         }
 
         this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
-          //console.log('ready...',self.collections.subscriptionCollection);
+            //console.log('ready...',self.collections.subscriptionCollection);
         });
 
         this.listenTo(self.models.userModel, 'change', function(options) {
-          //reset the subscriptions, once loaded
-          self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
+            //reset the subscriptions, once loaded
+            self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
         });
 
         this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
-          self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
+            self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
         });
 
         this.views.banner = new BannerView({bannerTitle : bannerTitle});
         $('body').prepend(this.views.banner.el);
 
         this.views.navbar = new NavbarView({
-          el: $('#navbar')
+            el: $('#navbar')
         });
 
         this.views.navbar = new NavbarView();
         $('body').prepend(this.views.navbar.el);
 
         this.views.streamDownloadFormView = new StreamDownloadFormView({
-          el: $('#stream-download-modal')
+            el: $('#stream-download-modal')
         });
         this.views.largeFileFormatView = new LargeDataTableView({
-          collection: this.collections.largeFormatFiles,
-          el: $('#large-format-file-view')
+            collection: this.collections.largeFormatFiles,
+            el: $('#large-format-file-view')
         });
 
         this.views.modalDownloadView = new ModalDownloadView({
-          el: $('#download-ok-modal')
+            el: $('#download-ok-modal')
         });
         this.views.modalDownloadFailView = new ModalDownloadFailView({
-          el: $('#download-fail-modal')
+            el: $('#download-fail-modal')
         });
 
         // Get the list of streams from the API
@@ -157,527 +157,463 @@
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-          if(this.login.loggedIn()) {
+            if(this.login.loggedIn()) {
 
-            options.model.attributes.email = this.models.userModel.get("email");
-            options.model.attributes.user_name = this.models.userModel.get("user_name");
+                options.model.attributes.email = this.models.userModel.get("email");
+                options.model.attributes.user_name = this.models.userModel.get("user_name");
 
-            var hasSubscribed = false;
-            //for email address
-            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
-            //for selected item
-            var currentStream = options.model.get('stream_name');
-            var currentRef = options.model.get('ref_des');
-            //loop over and compare, only if telemetered
-            if (currentStream.split('_')[0] == 'telemetered'){
-              _.each(availSubs,function(sub){
-                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
+                var hasSubscribed = false;
+                //for email address
+                var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
+                //for selected item
+                var currentStream = options.model.get('stream_name');
+                var currentRef = options.model.get('ref_des');
+                //loop over and compare, only if telemetered
+                if (currentStream.split('_')[0] == 'telemetered'){
+                    _.each(availSubs,function(sub){
+                        var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
 
-                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
-                if (streamName == currentStream && refDes == currentRef){
-                  hasSubscribed = true;
-                  options.model.set('subscriptionModel',sub);
+                        var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+                        if (streamName == currentStream && refDes == currentRef){
+                            hasSubscribed = true;
+                            options.model.set('subscriptionModel',sub);
+                        }
+                    });
                 }
-              });
-            }
 
-            if (hasSubscribed){
-              options.model.set('subscriptionEnabled', true);
-            }else{
-              options.model.set('subscriptionEnabled', false);
-            }
+                if (hasSubscribed){
+                    options.model.set('subscriptionEnabled', true);
+                }else{
+                    options.model.set('subscriptionEnabled', false);
+                }
 
-            self.views.streamDownloadFormView.show(options);
-          }
+                self.views.streamDownloadFormView.show(options);
+            }
         });
 
         this.listenTo(this, 'DownloadModal:onSuccess',function(url){
-          self.views.modalDownloadView.show(url);
+            self.views.modalDownloadView.show(url);
         });
         this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
-          self.views.modalDownloadFailView.show(msg);
+            self.views.modalDownloadFailView.show(msg);
         });
 
         this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
-          updateDownloadCollection(options);
+            updateDownloadCollection(options);
         });
 
-        // TOC Controls
-        this.listenTo(this, 'toc:selectArray', function(model) {
-          var searchFor = model.get('array_name');
-          var searchFiler = searchFor, grid = $("#grid"), f;
+    } // start
+}); // extend
 
-          if (searchFiler.length === 0) {
-            grid[0].p.search = false;
-            $.extend(grid[0].p.postData,{filters:""});
-          }
-          f = {groupOp:"OR",rules:[]};
-          f.rules.push({field:"array_name",op:"cn",data:searchFiler});
-          grid[0].p.search = true;
-          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-          grid.trigger("reloadGrid",[{page:1,current:true}]);
-        });
-        this.listenTo(this, 'toc:selectPlatform', function(model) {
-          var searchFor = model.get('ref_des').substr(0,8);
-          var searchFiler = searchFor, grid = $("#grid"), f;
+var ooi = new OOI();
+var collection = new StreamCollection();
 
-          if (searchFiler.length === 0) {
-            grid[0].p.search = false;
-            $.extend(grid[0].p.postData,{filters:""});
-          }
-          f = {groupOp:"OR",rules:[]};
-          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
-          grid[0].p.search = true;
-          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-          grid.trigger("reloadGrid",[{page:1,current:true}]);
-        });
-
-        this.listenTo(this, 'toc:selectAssembly', function(model) {
-          var searchFor = model.get('ref_des').substr(0,11);
-          var searchFiler = searchFor, grid = $("#grid"), f;
-
-          if (searchFiler.length === 0) {
-            grid[0].p.search = false;
-            $.extend(grid[0].p.postData,{filters:""});
-          }
-          f = {groupOp:"OR",rules:[]};
-          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
-          grid[0].p.search = true;
-          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-          grid.trigger("reloadGrid",[{page:1,current:true}]);
-        });
-
-        this.listenTo(this, 'toc:selectInstrument', function(model) {
-          var searchFor = model.get('ref_des');
-          var searchFiler = searchFor, grid = $("#grid"), f;
-
-          if (searchFiler.length === 0) {
-            grid[0].p.search = false;
-            $.extend(grid[0].p.postData,{filters:""});
-          }
-          f = {groupOp:"OR",rules:[]};
-          f.rules.push({field:"reference_designator",op:"cn",data:searchFiler});
-          grid[0].p.search = true;
-          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-          grid.trigger("reloadGrid",[{page:1,current:true}]);
-        });
-      } // start
-    }); // extend
-
-    var ooi = new OOI();
-    var collection = new StreamCollection();
-
-    var vent = _.extend({}, Backbone.Events);
-
-    // controller for our model collections
-    var arrayCollection     = new ArrayCollection();
-    var streamCollection    = new StreamCollection();
+var vent = _.extend({}, Backbone.Events);
+var vobj = {}
+// controller for our model collections
+var arrayCollection     = new ArrayCollection();
+var streamCollection    = new StreamCollection();
 
 
-    // url arguments
-    var data = { min : 'True' };
-    // begin the iterative fetching of arrays, assets, and streams.
-    // begin the iterative fetching of arrays, assets, and streams.
-    var arrayFetch = arrayCollection.fetch({ reset: true });
-    var streamFetch = streamCollection.fetch({ reset: true });
-    $.when(arrayFetch, streamFetch).done(function() {
-      $.when( (renderTOCView( arrayCollection, null, streamCollection )) ).done(function() {
-{#        focusToItem();#}
-{#        vent.trigger('toc:noKids');#}
-{#        vent.trigger('toc:hideStreams');#}
-      });
-    });
+// Sets up the action buttons in the jqGrid table
+var createActionButtons = function(cellvalue, options, rowObject){
+    var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+    actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-line-chart' aria-hidden='true'></i></button>";
+    actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+    actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
+    actionButtons += "</div>";
+    return actionButtons;
+};
 
-    // Sets up the action buttons in the jqGrid table
-    var createActionButtons = function(cellvalue, options, rowObject){
-      var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-line-chart' aria-hidden='true'></i></button>";
-      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
-      actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
-      actionButtons += "</div>";
-      return actionButtons;
-    };
+// Opens the plotting page
+var openPlot = function(ref_des, stream_name){
+    location.origin = location.protocol + "//" + location.host;
+    var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
+    win.focus();
+};
 
-    // Opens the plotting page
-    var openPlot = function(ref_des, stream_name){
-      location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
-      win.focus();
-    };
+// Opens the download modal
+var openDownload = function(ref_des, stream_name) {
+    var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+    dlModel.attributes.email = ooi.models.userModel.attributes.email;
+    ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+};
 
-    // Opens the download modal
-    var openDownload = function(ref_des, stream_name) {
-      var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
-      dlModel.attributes.email = ooi.models.userModel.attributes.email;
-      ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
-    };
+var openAssetManagement = function(ref_des, stream_name) {
+    //assets/list/#CE01ISSP
+    location.origin = location.protocol + "//" + location.host;
+    var win = window.open(location.origin+"/assets/list/#"+ref_des.substr(0,8), '_blank');
+    win.focus();
+};
 
-    var openAssetManagement = function(ref_des, stream_name) {
-      //assets/list/#CE01ISSP
-      location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/assets/list/#"+ref_des.substr(0,8), '_blank');
-      win.focus();
-    };
+// Colors the end time
+var colorTime = function(cellvalue, options, rowObject) {
+    var currentDate = new Date();
+    var endDate = new Date(cellvalue);
+    var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
 
-    // Colors the end time
-    var colorTime = function(cellvalue, options, rowObject) {
-      var currentDate = new Date();
-      var endDate = new Date(cellvalue);
-      var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
-
-      // Base cell output is no background
-      var cellOutput = '<i>'+cellvalue+'</i>';
-      if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
+    // Base cell output is no background
+    var cellOutput = '<i>'+cellvalue+'</i>';
+    if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
         cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
-      } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
+    } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
         cellOutput = '<i class="twenty-four-hours">'+cellvalue+'</i>';
-      } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
+    } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
         cellOutput = '<i class="older">'+cellvalue+'</i>';
-      }
-      return cellOutput;
-    };
+    }
+    return cellOutput;
+};
 
 {#    var pageControlModel = new DataCatalogPageControlModel();#}
 {#    var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});#}
 {#    pageControlView.render();#}
 
-    $(document).ready(function() {
-      $(".delayImg").each(function() {
+$(document).ready(function() {
+    $(".delayImg").each(function() {
         this.onload = function() {
-          $(this).animate({opacity: 1}, 2000);
+            $(this).animate({opacity: 1}, 2000);
         };
         this.src = this.getAttribute("delayedSrc");
-      });
-      ooi.start();
     });
 
-    var numberTemplate = {
-      formatter : 'number',
-      align : 'right',
-      sorttype : 'number',
-      editable : true,
-      searchoptions : { sopt : ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
-    };
+    _.extend(vobj, {hash: location.hash.split('#')[1]});
 
-    var defaultFilters = {
-      "groupOp" : "AND",
-      "rules" : [
-        { "field" : "All", "op" : "cn", "data" : ""}
-      ]
-    };
+    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
+    searchSidebarView.render();
+    //searchSidebarView.renderSearchInput();
+    searchSidebarView.renderFilterInput();
 
-    var $dcGrid = $("#grid");
+    ooi.start();
+});
 
-    // Loads the jqGrid into
-    function placeJqGrid(collection) {
-      $dcGrid.jqGrid({
+var numberTemplate = {
+    formatter : 'number',
+    align : 'right',
+    sorttype : 'number',
+    editable : true,
+    searchoptions : { sopt : ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+};
+
+var defaultFilters = {
+    "groupOp" : "AND",
+    "rules" : [
+    { "field" : "All", "op" : "cn", "data" : ""}
+    ]
+};
+
+var $dcGrid = $("#grid");
+
+// Loads the jqGrid into
+function placeJqGrid(collection) {
+    $dcGrid.jqGrid({
         datatype : "local",
         data : collection.toJSON(),
         colNames: [
-          'Actions',
-          'Array',
-          'Site Name',
-          'Platform Name',
-          'Node',
-          'Instrument',
-          'Stream Identifier',
-          'Stream Type',
-          'Depth (m)',
-          'Lat / Lon (ddm)',
-          'Start Time',
-          'End Time',
-          'Reference Designator',
-          'Unique ID'],
+            'Actions',
+            'Array',
+            'Site Name',
+            'Platform Name',
+            'Node',
+            'Instrument',
+            'Stream Identifier',
+            'Stream Type',
+            'Depth (m)',
+            'Lat / Lon (ddm)',
+            'Start Time',
+            'End Time',
+            'Reference Designator',
+            'Unique ID'],
 
-        colModel : [
-          { name : 'actions',
-            caption : 'Plot/Download',
-            width : 110,
-            sortable : false,
-            search : false,
-            align : 'center',
-            formatter : createActionButtons
-          },
-          {
-            name : 'array_name',
-            index : 'array_name',
-            editable : false,
-            width : 100,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
+            colModel : [
+            { name : 'actions',
+                caption : 'Plot/Download',
+                width : 110,
+                sortable : false,
+                search : false,
+                align : 'center',
+                formatter : createActionButtons
+            },
+            {
+                name : 'array_name',
+                index : 'array_name',
+                editable : false,
+                width : 100,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'site_name',
+                index : 'site_name',
+                editable : false,
+                width : 150,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'platform_name',
+                index : 'platform_name',
+                editable : false,
+                width : 150,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'assembly_name',
+                index : 'assembly_name',
+                editable : false,
+                width : 150,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'display_name',
+                index : 'display_name',
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                editable : false,
+                width : 150,
+                sortable : true,
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'stream_name',
+                index : 'stream_name',
+                key : true,
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'stream_type',
+                index : 'stream_type',
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'depth',
+                index : 'depth',
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'number',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'lat_lon',
+                index : 'lat_lon',
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'start',
+                index : 'start',
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'date',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'end',
+                index : 'end',
+                editable : false,
+                width : 85,
+                sortable : true,
+                sorttype : 'date',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align : 'center',
+                formatter : colorTime,
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+                {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+            },
+            {
+                name: 'reference_designator',
+                index: 'reference_designator',
+                key: false, // rowID = reference_designator
+                editable: false,
+                width: 165,
+                sortable: true,
+                sorttype: 'string',
+                searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+                align: 'center',
+                unformat: function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
+            },
+            {
+                name : 'unique_id',
+                index : 'unique_id',
+                key : true, // rowID = unique_id = ref_des+stream_name
+                hidden : true,
+                editable : false,
+                width : 165,
+                sortable : false,
+                sorttype : 'string',
+                searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                align: 'center',
+                unformat : function (cellvalue, options, cell) {
+                    return $('input', cell).val() || cellvalue;
+                }
             }
-          },
-          {
-            name : 'site_name',
-            index : 'site_name',
-            editable : false,
-            width : 150,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'platform_name',
-            index : 'platform_name',
-            editable : false,
-            width : 150,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assembly_name',
-            index : 'assembly_name',
-            editable : false,
-            width : 150,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'display_name',
-            index : 'display_name',
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            editable : false,
-            width : 150,
-            sortable : true,
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_name',
-            index : 'stream_name',
-            key : true,
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_type',
-            index : 'stream_type',
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'depth',
-            index : 'depth',
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'number',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'lat_lon',
-            index : 'lat_lon',
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'start',
-            index : 'start',
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'end',
-            index : 'end',
-            editable : false,
-            width : 85,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            formatter : colorTime,
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
-          },
-          {
-            name: 'reference_designator',
-            index: 'reference_designator',
-            key: false, // rowID = reference_designator
-            editable: false,
-            width: 165,
-            sortable: true,
-            sorttype: 'string',
-            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
-            align: 'center',
-            unformat: function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'unique_id',
-            index : 'unique_id',
-            key : true, // rowID = unique_id = ref_des+stream_name
-            hidden : true,
-            editable : false,
-            width : 165,
-            sortable : false,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align: 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          }
-        ],
-{#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
-        loadComplete : function(data) { $("#navGrid").find("option[value=\"50000\"]").text('All');},
-        gridview : true,
-        rowNum : 15,
-        rowList : [15, 30, 45, 60, 50000],
-        autowidth : true,
-        height : 'auto',
-        pager : '#navGrid',
-        sortname : 'end',
-        viewrecords : true,
-        sortorder : 'desc',
-        caption : 'Data Catalog',
-        altRows: false,
-        {#        altclass:'myAltRowClass',#}
-        {#        classes: 'table table-bordered table-striped table-selectable',#}
-        ignoreCase: true,
-        shrinkToFit : false,
-        multiselect: false,
-        multiboxonly: false
-      }).jqGrid('navGrid',
+            ],
+            {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+            loadComplete : function(data) { $("#navGrid").find("option[value=\"50000\"]").text('All');},
+            gridview : true,
+            rowNum : 15,
+            rowList : [15, 30, 45, 60, 50000],
+            autowidth : true,
+            height : 'auto',
+            pager : '#navGrid',
+            sortname : 'end',
+            viewrecords : true,
+            sortorder : 'desc',
+            caption : 'Data Catalog',
+            altRows: false,
+            {#        altclass:'myAltRowClass',#}
+            {#        classes: 'table table-bordered table-striped table-selectable',#}
+            ignoreCase: true,
+            shrinkToFit : false,
+            multiselect: false,
+            multiboxonly: false
+    }).jqGrid('navGrid',
         '#navGrid',
         {
-          edit : false,
-          add : false,
-          del : false,
+            edit : false,
+            add : false,
+            del : false,
 
-          // beforeRefresh:
-          // Set the latest data from collection before refreshing grid
-          {#          beforeRefresh : function () {#}
-          {#            $("#grid").jqGrid('setGridParam', {#}
-          {#              datatype : 'local',#}
-          {#              data : collection.toJSON()#}
-          {#            });#}
-          {#          }#}
+            // beforeRefresh:
+            // Set the latest data from collection before refreshing grid
+            {#          beforeRefresh : function () {#}
+                {#            $("#grid").jqGrid('setGridParam', {#}
+                        {#              datatype : 'local',#}
+                        {#              data : collection.toJSON()#}
+                        {#            });#}
+                {#          }#}
         },
         {},
         {},
         {},
         {
-          cloneToTop : true,
-          closeOnEscape : true,
-          multipleSearch : true,
-          overlay: 0,
-          onInitializeSearch: function ($form) {
-            $form.jqFilter('addFilter', defaultFilters);
-          },
-          {#          afterRedraw: function (p) {#}
-          {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
-          {#              p.columns.push({#}
-          {#                name: 'All',#}
-          {#                label: 'Any Field',#}
-          {#                searchoptions: {},#}
-          {#                searchrules: {},#}
-          {#                searchtype: 'string',#}
-          {#                inputtype: 'text'#}
-          {#              });#}
-          {#            }#}
-          {#            //$(this).find('.delete-rule:first').hide();#}
-          {#          }#}
+            cloneToTop : true,
+            closeOnEscape : true,
+            multipleSearch : true,
+            overlay: 0,
+            onInitializeSearch: function ($form) {
+                $form.jqFilter('addFilter', defaultFilters);
+            },
+            {#          afterRedraw: function (p) {#}
+                {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+                    {#              p.columns.push({#}
+                            {#                name: 'All',#}
+                            {#                label: 'Any Field',#}
+                            {#                searchoptions: {},#}
+                            {#                searchrules: {},#}
+                            {#                searchtype: 'string',#}
+                            {#                inputtype: 'text'#}
+                            {#              });#}
+                    {#            }#}
+                {#            //$(this).find('.delete-rule:first').hide();#}
+                {#          }#}
         });
 
-      $dcGrid.jqGrid('filterToolbar',
-        {
-          autosearch : true,
-          searchOperators : false,
-          searchOnEnter : false
-        }
-      );
+            $dcGrid.jqGrid('filterToolbar',
+                    {
+                        autosearch : true,
+                        searchOperators : false,
+                        searchOnEnter : false
+                    }
+                    );
 
-{#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+            {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
 
-      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
-        caption: "showcolumns",
-        buttonicon: "ui-icon-calculator",
-        title: "Choose columns",
-        onClickButton: function () {
-          $(this).jqGrid('columnChooser');
-          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
-            .bind("sortreceive", function (event, ui) {
-              alert('column "' + ui.item.text() + '" is chosen');
+            $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+                caption: "showcolumns",
+                buttonicon: "ui-icon-calculator",
+                title: "Choose columns",
+                onClickButton: function () {
+                    $(this).jqGrid('columnChooser');
+                    $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+                        .bind("sortreceive", function (event, ui) {
+                            alert('column "' + ui.item.text() + '" is chosen');
+                        });
+                    $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+                        .click(function () {
+                            alert('column "' + $(this).parent().text() + '" is chosen');
+                        });
+
+                }
             });
-          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
-            .click(function () {
-              alert('column "' + $(this).parent().text() + '" is chosen');
-            });
+} // placeJqGrid
 
-        }
-      });
-    } // placeJqGrid
+function showStreams( collection, response ){
+    //jqGrid
+    var jqCollection = collection;
+    jqCollection['actions'] = '';
+    placeJqGrid(jqCollection);
+}
 
-    function showStreams( collection, response ){
-      //jqGrid
-      var jqCollection = collection;
-      jqCollection['actions'] = '';
-      placeJqGrid(jqCollection);
-    }
-
-    function updateCollection( successCallback ){
-      collection.fetch({
+function updateCollection( successCallback ){
+    collection.fetch({
         {#        data : data,#}
         success : successCallback
-        //    error : showError
-      });
-    }
+            //    error : showError
+    });
+}
 
-  </script>
+</script>
+<script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
 {% endblock %}
