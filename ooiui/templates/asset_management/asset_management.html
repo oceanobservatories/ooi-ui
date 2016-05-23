@@ -1,0 +1,1196 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>Asset Management</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/css/common/assets.css">
+  <link rel="stylesheet" type="text/css" href="/css/common/assetEditorModal.css">
+  <link href="/css/compiled/asset_management.css" rel="stylesheet" type="text/css"/>
+
+
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/asset_management.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/views/asset_management/AssetView.js" type="text/javascript"></script>
+  <script src="/js/views/asset_management/AssetEventsView.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/AssetEventsModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/AlfrescoDocumentModel.js" type="text/javascript"></script>
+  <script src="/js/views/asset_management/AlfrescoDocumentView.js" type="text/javascript"></script>
+  <script src="/js/core/common/paginate.js" type="text/javascript"></script>
+  <script src="/js/compiled/asset_management.js" type="text/javascript"></script>
+  <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
+
+  {% block link %}
+    {{ super() }}
+  {% endblock %}
+  {% block script %}
+    {{ super() }}
+  {% endblock %}
+  <style>
+    #search-param: { display: none; }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div id="navbar" class="row"></div>
+  </div>
+
+  {#  {% block page_controls %}#}
+  {#    {{ super() }}#}
+  {#  {% endblock %}#}
+  <div id="wrapper" style="padding-left: 0">
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        {#        {% block sidebar %}#}
+        {#          {{ super() }}#}
+        {#        {% endblock %}#}
+        <div id="page-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="width:100%;">
+                <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Filters</span>
+              </div>
+              <div id="dcGroupings">
+                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='dcScienceFilter' class='btn btn-default' onclick='setScienceFilter("","");'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
+{#                <button type='button' title='Show Mobile Assets' style='float:left;margin-bottom:15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-default' onclick='setScienceFilter("platform_name","Mobile Asset");'><i style='font-size:14px;float:left;pointer-events: none;'>Mobile Assets</i></button>#}
+              </div>
+          </div>
+            <div class="col-md-12">
+{#              <div id="streamPanel" class="panel">#}
+{#              </div>#}
+
+
+            <!-- jqGrid -->
+            <div>
+              <div id="navGrid" class="redmond"></div>
+              <table id="grid" class="redmond"></table>
+            </div>
+</div>
+          </div> <!-- .panel -->
+        </div>
+        {#        <div class="row" style="margin-top: 105px;">#}
+        {#          <div  class="col-sm-12">#}
+        {#            <div id="navbarOld" class="panel">#}
+        {##}
+        {#              <div id="assetTableHeading" class="panel-heading hidden">#}
+        {#                <!-- ooiui/static/js/partials/AssetTableHeader.html -->#}
+        {#              </div>#}
+        {#              <!--<i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:90px;"></i>-->#}
+        {#              <div id="assetPanelBody" class="panel-body hidden">#}
+        {#                <div id="asset-table-view">#}
+        {#                  <table class="table table-bordered table-striped table-selectable table-hover" id="assetsTable">#}
+        {#                    <thead>#}
+        {#                    <tr>#}
+        {#                      <th id="assetTableIdCol">ID#</th>#}
+        {#                      <th>Name</th>#}
+        {#                      <th>Type</th>#}
+        {#                      <th></th>#}
+        {#                    </tr>#}
+        {#                    </thead>#}
+        {#                    <tbody>#}
+        {#                    <!-- ooiui/static/js/partials/AssetTableRow.html -->#}
+        {#                    </tbody>#}
+        {#                  </table>#}
+        {#                </div><!-- #asset-table-view -->#}
+        {#                <div id="footer">#}
+        {#                  <!-- ooiui/static/js/partials/AssetTableFooter.html -->#}
+        {#                </div>#}
+        {#              </div><!-- .panel-body -->#}
+        {#            </div>#}
+        {#          </div><!-- .col-sm-12 -->#}
+        {#        </div><!-- .row -->#}
+
+        {#        <div class="row">#}
+        {#          <div id="assetDetailsPlaceholder" class="jumbotron text-center hidden">#}
+        {#            <h3>Please click an asset to view details</h3>#}
+        {#          </div>#}
+        {#          <div id="assetLoadingPlaceholder" class="jumbotron text-center">#}
+        {#            <h3>Loading Assets, please wait...</h3>#}
+        {#          </div>#}
+        {#        </div>#}
+        {#        <div class="row">#}
+        {#          <div id="assetInspector" class="col-md-6">#}
+        {#            <!-- ooiui/static/js/partials/AssetInspectorForm.html -->#}
+        {#          </div>#}
+        {#          <div id="assetEventsTable" class="col-md-6">#}
+        {#            <!-- ooiui/static/js/partials/AssetEventTable.html -->#}
+        {#          </div>#}
+        {#        </div><!-- .row -->#}
+      </div><!-- .content-fluid -->
+    </div><!-- #page-content-wrapper -->
+
+    {#    <!-- modal needs to me outside or it will be behind banner/navbar -->#}
+    {#    <div class="modal fade" id="assetEditorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="assetEditorModalLabel" data-backdrop="static">#}
+    {#      <!-- ooiui/static/js/partials/AssetEditorModal.html -->#}
+    {#    </div>#}
+    {#    <div class="modal fade" id="assetCreatorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="assetCreatorModalLabel" data-backdrop="static">#}
+    {#      <!-- ooiui/static/js/partials/AssetCreatorModal.html -->#}
+    {#    </div>#}
+    {#    <div class="modal fade" id="eventEditorModal" tabindex="-1" data-keyboard="false" role="dialog" aria-labeledby="eventEditorModalLabel" data-backdrop="static">#}
+    {#      <!-- ooiui/static/js/partials/EventEditorModal.html -->#}
+    {#    </div>#}
+  </div><!-- #wrapper -->
+
+  <!-- Menu Toggle Script -->
+  <script type="text/javascript">
+
+    var bannerTitle = "Asset Management";
+
+    _.extend(OOI.prototype, Backbone.Events, {
+      login: new LoginModel(),
+      views: {
+        headerView: null
+      },
+      models: {
+        userModel: new UserModel()
+      },
+      start: function() {
+        this.login.fetch({async:false});
+
+        banner = new BannerView({bannerTitle: bannerTitle});
+
+        navbar = new NavbarView({
+          login: this.login
+        });
+
+        this.views.banner = new BannerView({bannerTitle : bannerTitle});
+        $('body').prepend(this.views.banner.el);
+
+        this.views.navbar = new NavbarView({
+          el: $('#navbar')
+        });
+
+        this.views.navbar = new NavbarView();
+        $('body').prepend(this.views.navbar.el);
+
+        {#        footer = new AssetTabelFooterView({});#}
+        {##}
+        {#        //Render the asset table header#}
+        {#        this.views.headerView = renderAssetTableHeader();#}
+        {##}
+        {#        updateCollection( showAssets );#}
+        {##}
+        {#        this.listenTo(collection, "collection:updated", function(details){#}
+        {#          vent.trigger('asset:tableDerender');#}
+        {#          updatePagination(details, showAssets);#}
+        {#        });#}
+        {##}
+        {#        this.listenTo(vent, 'asset:changeCollection', function() {#}
+        {#          vent.trigger('asset:tableDerender');#}
+        {#          updateCollection( showAssets );#}
+        {#        });#}
+        {##}
+        {#        this.listenTo(vent, "asset:renderSubViews", function(model) {#}
+        {#          vent.trigger('asset:derender');#}
+        {#          renderAssetInspector(model);#}
+        {#          renderAssetEventsTable(model);#}
+        {#        });#}
+        {##}
+        {#        this.listenTo(vent, "asset:renderDocsTable", function(model) {#}
+        {#          renderRemoteDocuments(model);#}
+        {#        });#}
+
+        this.listenTo(this, "login:success", this.onLogin);
+        this.listenTo(this, "login:logout", this.onLogout);
+        // TOC Controls
+        this.listenTo(this, 'toc:selectArray', function(model) {
+          {#          var searchFor = model.get('array_name').substr(0,14);#}
+          {#          $('#search').val(searchFor);#}
+          {#          $('#search-clear').show();#}
+          {#          updateCollection( showAssets );#}
+        });
+        this.listenTo(this, 'toc:selectPlatform', function(model) {
+          {#          var searchFor = model.get('ref_des').substr(0,8);#}
+          {#          $('#search').val(searchFor);#}
+          {#          $('#search-clear').show();#}
+          {#          updateCollection( showAssets );#}
+        });
+
+        this.listenTo(this, 'toc:selectInstrument', function(model) {
+          {#          var searchFor = model.get('ref_des');#}
+          {#          $('#search').val(searchFor);#}
+          {#          $('#search-clear').show();#}
+          {#          updateCollection( showAssets );#}
+        });
+        this.listenTo(this, 'toc:selectAssembly', function(model) {
+          {#          var searchFor = model.get('ref_des').substr(0,11);#}
+          {#          $('#search').val(searchFor);#}
+          {#          $('#search-clear').show();#}
+          {#          updateCollection( showAssets );#}
+        });
+      }
+    });
+
+    var vent = _.extend({}, Backbone.Events);
+
+    // Main collection for this page's asset information.
+    var collection          = new AssetCollection();
+    var assetCollection     = new AssetCollection();
+    var arrayCollection     = new ArrayCollection();
+    var streamCollection    = new StreamCollection();
+
+    var ooi = new OOI();
+
+    // url arguments
+    var data = { min : 'True' };
+    // begin the iterative fetching of arrays, assets, and streams.
+    var arrayFetch = arrayCollection.fetch({ reset: true });
+    var assetFetch = assetCollection.fetch({ data: data, reset: true });
+    var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+    {#    $.when(arrayFetch, assetFetch, streamFetch).done(function() {#}
+    {#      $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {#}
+    {#        $('#search-param').remove();#}
+    {#        $('.detached').remove();#}
+    {#        vent.trigger('toc:cleanUp');#}
+    {#        vent.trigger('toc:hideStreams');#}
+    {#        $('#menu-toggle').trigger('click');#}
+    {#        focusToItem();#}
+    {#      });#}
+    {#    });#}
+
+    // Page Controls
+    {#    var pageControlModel = new AssetManagementPageControlModel();#}
+    {#    var pageControlView = new AssetManagementPageControlView({model: pageControlModel, el: $('#buttons')});#}
+    {#    pageControlView.render();#}
+    {##}
+    {#    var pagination = {#}
+    {#      itemsPerPage: 10,#}
+    {#      currentPage: 1,#}
+    {#      maxPages: 10#}
+    {#    };#}
+
+    // Sets up the action buttons in the jqGrid table
+    var createActionButtons = function(cellvalue, options, rowObject){
+      var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Data Catalog' style='float:right' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
+      actionButtons += "</div>";
+      return actionButtons;
+    };
+
+    // Opens the plotting page
+    var openPlot = function(ref_des, stream_name){
+      location.origin = location.protocol + "//" + location.host;
+      var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
+      win.focus();
+    };
+
+    // Opens the download modal
+    var openDownload = function(ref_des, stream_name) {
+      var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+      dlModel.attributes.email = ooi.models.userModel.attributes.email;
+      ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+    };
+
+    var openDataCatalog = function(ref_des, stream_name) {
+      location.origin = location.protocol + "//" + location.host;
+      var win = window.open(location.origin+"/datacatalog/#"+ref_des.substr(0,2), '_blank');
+      win.focus();
+    };
+
+    var getEditUrl = function() {
+      console.log(lastsel2);
+      location.origin = location.protocol + "//" + location.host;
+      return location.origin+"/api/asset_deployment/"+lastsel2;
+    };
+
+    // Colors the end time
+    var colorTime = function(cellvalue, options, rowObject) {
+      var currentDate = new Date();
+      var endDate = new Date(cellvalue);
+      var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
+
+      // Base cell output is no background
+      var cellOutput = '<i>'+cellvalue+'</i>';
+      if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
+      } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="twenty-four-hours">'+cellvalue+'</i>';
+      } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="older">'+cellvalue+'</i>';
+      }
+      return cellOutput;
+    };
+
+    $(document).ready(function() {
+      $(".delayImg").each(function() {
+        this.onload = function() {
+          $(this).animate({opacity: 1}, 2000);
+        };
+        this.src = this.getAttribute("delayedSrc");
+      });
+      ooi.start();
+
+      populate();
+      {##}
+      {#      $('body').prepend(banner.el);#}
+      {##}
+      {#      $('#searchGroup').attr('style','');#}
+      {#      $('#search-clear').click(function(){#}
+      {#        $('#search').val('').focus();#}
+      {#        $(this).hide();#}
+      {#        updateCollection( showAssets);#}
+      {#      });#}
+      {#      $('#search').keyup( _.debounce(textInput, 250) );#}
+      {#      $('#navbar').append(navbar.el);#}
+      {#      $('.navbar-brand').html('OOI Assets and Configuration');#}
+      {#      $('#footer').append(footer.el);#}
+    });
+
+
+    var setScienceFilter = function(searchColumn, searchParam){
+      console.log(event);
+      var searchFiler = searchParam, grid = $("#grid"), f;
+      if (searchFiler.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      f.rules.push({field:searchColumn,op:"cn",data:searchFiler});
+      grid[0].p.search = true;
+      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+      grid.trigger("reloadGrid",[{page:1,current:true}]);
+    };
+
+    var numberTemplate = {
+      formatter : 'number',
+      align : 'right',
+      sorttype : 'number',
+      editable : true,
+      searchoptions : { sopt : ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+    };
+
+    var defaultFilters = {
+      "groupOp" : "AND",
+      "rules" : [
+        { "field" : "All", "op" : "cn", "data" : ""}
+      ]
+    };
+
+    var $dcGrid = $("#grid");
+    var lastsel2;
+
+    var getUniqueNames = function(columnName) {
+        var texts = $dcGrid[0].p.data, uniqueTexts = [],
+          textsLength = texts.length, text, textsMap = {}, i;
+        for (i=0;i<textsLength;i++) {
+          text = texts[i][columnName];
+          if (text !== undefined && textsMap[text] === undefined) {
+            // to test whether the texts is unique we place it in the map.
+            textsMap[text] = true;
+            uniqueTexts.push(text);
+          }
+        }
+        console.log(uniqueTexts);
+        return uniqueTexts;
+      },
+      buildSearchSelect = function(uniqueNames) {
+        var values=":All";
+        $.each (uniqueNames, function() {
+          values += ";" + this + ":" + this;
+        });
+        return values;
+      },
+      setSearchSelect = function(columnName) {
+        $dcGrid.jqGrid('setColProp', columnName,
+          {
+            stype: 'select',
+            searchoptions: {
+              value:buildSearchSelect(getUniqueNames(columnName)),
+              sopt:['eq']
+            }
+          }
+        );
+      };
+
+    // Loads the jqGrid into
+    function placeJqGrid(collection) {
+      console.log(collection);
+      $dcGrid.jqGrid({
+        datatype : "local",
+        data : collection.toJSON(),
+        editurl : "/api/asset_deployment/ajax",
+        colNames: [
+          'Actions',
+          'Array',
+          'Assembly',
+          'Description',
+          'Instrument Class',
+          'Long Name',
+          'Name',
+          'Owner',
+          'Type',
+          'Coordinates',
+          'Data Source',
+          'Deployment Number',
+          'Unique ID',
+          'Last Modified',
+          'Manufacturer',
+          'Model Number',
+          'Serial Number',
+          'Depth Rating (m)',
+          'Height (cm)',
+          'Length (cm)',
+          'Required Power (Watts)',
+          'Weight (Oz)',
+          'Width (cm)',
+          'Delivery Date',
+          'Purchase Cost',
+          'Purchase Date',
+          'Tense',
+          'Reference Designator'
+          ],
+
+        colModel : [
+                    { name : 'actions',
+                      caption : 'Plot/Download',
+                      width : 110,
+                      sortable : false,
+                      search : false,
+                      align : 'center',
+                      formatter : createActionButtons
+                    },
+                    {
+                      name : 'assetInfo.array',
+                      index : 'assetInfo.array',
+                      editable : true,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.assembly',
+                      index : 'assetInfo.assembly',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.description',
+                      index : 'assetInfo.description',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.instrumentClass',
+                      index : 'assetInfo.instrumentClass',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.longName',
+                      index : 'assetInfo.longName',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.name',
+                      index : 'assetInfo.name',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.owner',
+                      index : 'assetInfo.owner',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'assetInfo.type',
+                      index : 'assetInfo.type',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'coordinates',
+                      index : 'coordinates',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'dataSource',
+                      index : 'assetInfo.dataSource',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'deployment_number',
+                      index : 'deployment_number',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'number',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+            name : 'id',
+            index : 'id',
+            key : true, // rowID = unique_id = ref_des+stream_name
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'lastModifiedTimestamp',
+            index : 'lastModifiedTimestamp',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+                    {
+                      name : 'manufactureInfo.manufacturer',
+                      index : 'manufactureInfo.manufacturer',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'manufactureInfo.modelNumber',
+                      index : 'manufactureInfo.modelNumber',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+                      name : 'manufactureInfo.serialNumber',
+                      index : 'manufactureInfo.serialNumber',
+                      editable : false,
+{#                      width : 100,#}
+                      sortable : true,
+                      sorttype : 'string',
+                      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+                      align : 'center',
+                      unformat : function (cellvalue, options, cell) {
+                        return $('input', cell).val() || cellvalue;
+                      }
+                    },
+          {
+            name : 'physicalInfo.depthRatingM',
+            index : 'physicalInfo.depthRatingM',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'physicalInfo.heightCm',
+            index : 'physicalInfo.heightCm',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'physicalInfo.lengthCm',
+            index : 'physicalInfo.lengthCm',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'physicalInfo.requiredPowerW',
+            index : 'physicalInfo.requiredPowerW',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'physicalInfo.weightOz',
+            index : 'physicalInfo.weightOz',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'physicalInfo.widthCm',
+            index : 'physicalInfo.widthCm',
+            hidden : false,
+            editable : false,
+{#            width : 165,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+{
+            name : 'purchaseAndDeliveryInfo.deliveryDate',
+            index : 'purchaseAndDeliveryInfo.deliveryDate',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'purchaseAndDeliveryInfo.purchaseCost',
+            index : 'purchaseAndDeliveryInfo.purchaseCost',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'purchaseAndDeliveryInfo.purchaseDate',
+            index : 'purchaseAndDeliveryInfo.purchaseDate',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'tense',
+            index: 'tense',
+            key: false, // rowID = reference_designator
+            editable: false,
+{#            width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'ref_des',
+            index: 'ref_des',
+            key: false, // rowID = reference_designator
+            editable: false,
+{#            width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
+        ],
+        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        loadComplete : function(data) {
+          $("#navGrid").find("option[value=\"50000\"]").text('All');
+          {#          setArrayButtonState();#}
+        },
+        onSelectRow: function(id){
+          if(id && id!==lastsel2){
+            $dcGrid.restoreRow(lastsel2);
+            $dcGrid.editRow(id,true);
+            lastsel2=id;
+          }
+        },
+        ajaxRowOptions : {
+          type :"POST",
+          contentType :"application/json; charset=utf-8",
+          dataType :"json"
+        },
+        serializeRowData: function(postdata){
+          console.log(postdata);
+          return JSON.stringify(postdata);
+        },
+        gridview : true,
+        rowNum : 15,
+        rowList : [15, 30, 45, 60, 50000],
+        autowidth : true,
+        height : 'auto',
+        pager : '#navGrid',
+        sortname : 'end',
+        viewrecords : true,
+        sortorder : 'desc',
+        caption : 'Asset Management',
+        altRows: false,
+        {#        altclass:'myAltRowClass',#}
+        {#        classes: 'table table-bordered table-striped table-selectable',#}
+        ignoreCase: true,
+        shrinkToFit : false,
+        multiselect: false,
+        multiboxonly: false,
+        reloadAfterSubmit : false,
+        loadOnce : false
+      }).jqGrid('navGrid',
+        '#navGrid',
+        {
+          edit : true,
+          add : false,
+          del : false,
+
+          // beforeRefresh:
+          // Set the latest data from collection before refreshing grid
+          {#            beforeRefresh : function () {#}
+          {#              $("#grid").jqGrid('setGridParam', {#}
+          {#                datatype : 'local',#}
+          {#                data : ooi.collections.streams.toJSON()#}
+          {#              });#}
+          {#            }#}
+        },
+        {serializeEditData: function (postdata) {console.log(postdata);}},
+        {serializeEditData: function (postdata) {}},
+        {},
+        {
+          cloneToTop : true,
+          closeOnEscape : true,
+          multipleSearch : true,
+          overlay: 0,
+          onInitializeSearch: function ($form) {
+            $form.jqFilter('addFilter', defaultFilters);
+          },
+          {#          afterRedraw: function (p) {#}
+          {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+          {#              p.columns.push({#}
+          {#                name: 'All',#}
+          {#                label: 'Any Field',#}
+          {#                searchoptions: {},#}
+          {#                searchrules: {},#}
+          {#                searchtype: 'string',#}
+          {#                inputtype: 'text'#}
+          {#              });#}
+          {#            }#}
+          {#            //$(this).find('.delete-rule:first').hide();#}
+          {#          }#}
+        });
+
+
+
+      {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+
+      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+        caption: "showcolumns",
+        buttonicon: "ui-icon-calculator",
+        title: "Choose columns",
+        onClickButton: function () {
+          $(this).jqGrid('columnChooser',{
+            {#						width: 700,#}
+            {#						dialog_opts: {#}
+            {#							modal: true,#}
+            {#							minWidth: 470,#}
+            {#							height: 470,#}
+            {#							show: 'blind',#}
+            {#							hide: 'explode',#}
+            {#							dividerLocation: 0.5#}
+            {#						}#}
+          });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+            .bind("sortreceive", function (event, ui) {
+              alert('column "' + ui.item.text() + '" is chosen');
+            });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+            .click(function () {
+              alert('column "' + $(this).parent().text() + '" is chosen');
+            });
+
+        }
+      });
+
+
+      setSearchSelect('assetInfo.array');
+      {#setSearchSelect('site_name');#}
+
+      $dcGrid.jqGrid('setColProp', 'assetInfo.array',
+        {
+          searchoptions: {
+            sopt:['cn'],
+            dataInit: function(elem) {
+              $(elem).autocomplete({
+                source:getUniqueNames('assetInfo.array'),
+                delay:0,
+                minLength:0
+              });
+            }
+          }
+        });
+
+      $dcGrid.jqGrid('filterToolbar',
+        {
+          autosearch : true,
+          searchOperators : false,
+          searchOnEnter : false,
+          stringResult : true,
+          defaultSearch : "cn"
+        }
+      );
+    } // placeJqGrid
+
+
+    {#    var textInput = function() {#}
+    {#      $('#search-clear').toggle(Boolean($(this).val()));#}
+    {#      $('#search-clear').toggle(Boolean($('#search').val()));#}
+    {#      updateCollection( showAssets );#}
+    {#    };#}
+
+    var showAssets = function(collection, response){
+
+      //Clean up the loading stuff and get ready to show the table
+      {#      $('i.fa-spin').remove();#}
+      {#      $('div#assetPanelBody').removeClass('hidden');#}
+      {#      $('div#assetLoadingPlaceholder').remove();#}
+      {#      $('#assetDetailsPlaceholder').removeClass('hidden');#}
+      {#      $('#assetTableHeading').removeClass('hidden');#}
+      {##}
+      {#      // Create the view that will hold the list of assets.#}
+      {#      var assetsTableView = new AssetsTableView({ collection: collection });#}
+      {#      assetsTableView.render();#}
+      {##}
+      {#      // Empty the table and append the new results.#}
+      {#      $('#assetsTable').find('tbody').remove().end();#}
+      {#      $("#assetsTable").append( assetsTableView.el );#}
+
+      //jqGrid
+      var jqCollection = collection;
+      jqCollection['actions'] = '';
+      placeJqGrid(jqCollection);
+    };
+
+    var renderAssetTableHeader = function(collection) {
+      //create the table header for the assets table.
+      //Will manage the search box, the pagination boxes and the asset creator button.
+      var assetTableHeaderView = new AssetTableHeaderView({ collection: collection });
+      assetTableHeaderView.render();
+
+      $('#assetTableHeading').children().remove();
+      $('#assetTableHeading').append( assetTableHeaderView.el );
+
+      return assetTableHeaderView;
+    };
+
+    var renderAssetInspector = function(model) {
+      //create a new asset inspector (info) panel and render it's view.
+      var assetInspectorView = new AssetInspectorView({ model:model });
+      assetInspectorView.render();
+
+      //Clear out the old asset inspector panel DOM
+      $('#assetInspector').children().remove();
+
+      //Then attach the new one.
+      $('#assetInspector').append( assetInspectorView.el );
+    };
+
+    var renderAssetEventsTable = _.debounce(function(model) {
+      $('div.events table tbody').remove();
+      //create a new event table panel and reder it's view.
+      var assetEventsTableView = new AssetEventsTableView();
+
+      assetEventsTableView.render();
+      //clear out the old events table panel DOM
+      $('#assetEventsTable').children().remove();
+
+      //then put the newly created view into the DOM.
+      $('#assetEventsTable').append( assetEventsTableView.el );
+      $('#assetEventsTable').find('table').append('<tbody class="loading-spinner"><tr><td colspan="5">Loading . . . <i class="fa fa-spinner fa-spin"></i></td></tr></tbody>');
+      //once the table is created, populate each tab with
+      var assetEventsCollection = new AssetEventsCollection({id: model.id});
+      var eventsFetch = assetEventsCollection.fetch();
+      $.when(eventsFetch).done(function() {
+        $('div.events table tbody').remove();
+        $('.loading-spinner').remove();
+        var deploymentCollection = assetEventsCollection.where({'eventClass': '.DeploymentEvent'});
+        var deploymentEventItemView = deploymentCollection.map(function(model) {
+          return (new AssetDeploymentEventItemView({ model:model })).render().el;
+        });
+
+        $('#deploymentEvent').find('table').append(deploymentEventItemView)
+
+        var calibrationCollection = assetEventsCollection.where({'eventClass': '.CalibrationEvent'}),
+          calibrationEventItemView = calibrationCollection.map(function(model) {
+            return (new AssetCalibrationEventItemView({ model:model })).render().el;
+          });
+
+        $('#calibrationEvent').find('table').append(calibrationEventItemView);
+      });
+
+    }, 400);
+
+    var renderRemoteDocuments = function(model) {
+      //clear out the old events table panel DOM
+      $('div#remoteDocuments table tbody').remove();
+
+      var ref_des = model.get('ref_des');
+      var cruise = null;
+      var array = model.get('assetInfo').array;
+
+      _.each( model.attributes.metaData, function(item){
+        if (item.key == "Cruise Number"){
+          cruise = item['value'];
+        }
+      });
+
+      var data = { 'search': ref_des,'cruise': cruise,'array':array};
+
+      var alfrescoDocCollection = new AlfrescoDocumentCollection();
+
+      //create a new table body and render it's view
+      alfrescoDocCollection.fetch({
+        data: data,
+        success: function() {
+          $('div#remoteDocuments table tbody').remove();
+          $('div#remoteDocuments table #loadDocs').remove();
+          var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
+          alfrescoTableBodyView.renderRecords();
+
+          // append to the DOM
+          $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
+        },
+        error: function(e) {
+          $('div#remoteDocuments table tbody').remove();
+          $('div#remoteDocuments table #loadDocs').remove();
+          $('div#remoteDocuments table').append('<p>Cound not find any associated documents</p>');
+        }
+      });
+    };
+
+    var populate = function() {
+      // get url
+      {#      var newURL = window.location.href;#}
+      {#      // remove the preceding '?' from index#}
+      {#      newURL = newURL.split('#').pop().split('?').pop();#}
+      {#      // get last index of url#}
+      {#      var assetLink = newURL.substring(newURL.lastIndexOf('/') + 1);#}
+      {#      // put last index in search box...#}
+      {#      if(assetLink.length  >= 1) {#}
+      {#        $('#search').val(assetLink);#}
+      updateCollection( showAssets );
+      {#      }#}
+    };
+
+    var updateCollection = function(successCallback){
+
+      // If there is a search term, we need to set the startAt attribute to 0,
+      // otherwise the results may not load on the page.
+      {#      if ($('#search').is(':focus')) {#}
+      {#        startingPoint = 0;#}
+      {#      } else {#}
+      {#        startingPoint = ( pagination.currentPage - 1) *  pagination.itemsPerPage;#}
+      {#      }#}
+      // Pagination attributes will be passed in using
+      // backbone's collection data method.
+      var data = {
+        {#        startAt : startingPoint,#}
+        {#        count : pagination.itemsPerPage,#}
+        {#        search : $('#hiddenSearch').val()+ ' ' +$('#search').val(),#}
+        {#        sort : 'id'#}
+      };
+      collection.fetch({
+        data : data,
+        success : successCallback
+        //    error : showError
+      });
+      //update the download link...
+      {#      ooi.views.headerView.updateAssetExport($('#search').val());#}
+    };
+
+    {#    var updatePagination = function(details, successCallback){#}
+    {#      // Calculate pagination attributes#}
+    {#      var start = details.startAt + 1,#}
+    {#        end = details.startAt + details.count,#}
+    {#        totalPages = Math.ceil( details.total / pagination.itemsPerPage ),#}
+    {#        currentPage = details.startAt / details.count + 1;#}
+    {##}
+    {#      // Display a "Page 1 of 5" type message on the page#}
+    {#      if (end >= details.total && details.total !=0) {#}
+    {#        $(".pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );#}
+    {#      } else if (details.total <= 0) {#}
+    {#        $(".pagination-info").text("No assets found");#}
+    {#      } else {#}
+    {#        $(".pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );#}
+    {#      }#}
+    {##}
+    {#      // Remove the pagination binding so they don't get called#}
+    {#      // multiple times after they're redrawn.#}
+    {#      $(".pagination-boxes").unbind();#}
+    {##}
+    {#      // Redraw the jquery pagination boxes#}
+    {#      $(".pagination-boxes").pagination({#}
+    {#        total_pages: totalPages,#}
+    {#        display_max: pagination.maxPages,#}
+    {#        current_page: currentPage,#}
+    {#        callback: function(event, page) {#}
+    {#          if ( page ){#}
+    {#            pagination.currentPage = page;#}
+    {#            updateCollection( successCallback );#}
+    {#          }#}
+    {#        }#}
+    {#      });#}
+    {#    };#}
+
+    var isoToDateTime = function(strInput) {
+      var temp = (String(strInput).search('Z') > 1) ? String(strInput).split('Z') : false;
+      var returnDate = (true) ? new Date(Date.parse(temp[0])) : new Date(temp);
+      return returnDate;
+    };
+    var dateTimeToISO = function(strInput) {
+      var temp = Date.parse(strInput);
+      var parseDate = new Date(temp);
+      var isoDateReturn = parseDate.toISOString();
+      return isoDateReturn;
+    };
+
+    var documentDef = function(obj) {
+      var planDoc = [];
+      if (obj) {
+        planDoc = [
+          'Data Source: ' + obj.dataSource,
+          'Label: ' + obj.label,
+          'Remote Resource ID: ' + obj.remoteResourceId,
+          'Resource Number: ' + obj.resourceNumber];
+      } else {
+        planDoc = ["Plan not provided"];
+      }
+      return planDoc;
+    };
+  </script>
+{% endblock %}

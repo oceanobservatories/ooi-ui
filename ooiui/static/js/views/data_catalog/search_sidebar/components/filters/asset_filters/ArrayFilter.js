@@ -7,7 +7,7 @@
 
 var ArrayFilterView = FilterParentView.extend({
     events: {
-        'change [type="checkbox"]': '_arrayChecked',
+        'change [type="checkbox"]': '_arrayChecked'
     },
     _arrayChecked: function(event) {
         event.preventDefault();
@@ -19,6 +19,7 @@ var ArrayFilterView = FilterParentView.extend({
             this.removeFromFilters(target.val());
             this.collection.fetch({data: {search: this.getFilters()}});
         }
+        ooi.trigger('ArrayFilterView:addToFilters', this.getFilters());
     },
     onAfterRender: function() {
         var initialFilter = vobj.hash;

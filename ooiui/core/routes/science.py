@@ -11,6 +11,7 @@ from ooiui.core.routes.common import get_login, login_required
 import requests
 import urllib2
 from ooiui.core.routes.decorators import login_required, scope_required
+import json
 
 @app.route('/')
 def new_index():
@@ -30,6 +31,13 @@ def landing_pioneer():
 def instr_index():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassets')
     return render_template('asset_management/assetslist.html')
+
+@app.route('/assets/management')
+@app.route('/assets/management/')
+@login_required()
+def assets_management():
+    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassetsmanagament')
+    return render_template('asset_management/asset_management.html')
 
 
 @app.route('/events/list/')
@@ -266,7 +274,20 @@ def instrument_deployment_get(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put(id):
+    print request.data
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
+    return response.text, response.status_code
+
+
+@app.route('/api/asset_deployment/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def instrument_deployment_put_ajax():
+    print request.data
+    json_data = json.loads(request.data)
+    print json_data
+    print json_data["id"]
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % json_data["id"], data=request.data)
     return response.text, response.status_code
 
 
@@ -274,6 +295,7 @@ def instrument_deployment_put(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_post():
+    print request.data
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 
