@@ -56,7 +56,7 @@ var ArrayContentSummary = ParentView.extend({
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
         'click .js-expand': '_flyFly',
-        'mouseover .js-platform-table tr': '_popUpForPlatform',
+        //'mouseover .js-platform-table tr': '_popUpForPlatform',
         'click .js-platform-table tr': '_goToPlatform',
     },
     _popUpForPlatform: _.debounce(function(event) {
@@ -136,8 +136,11 @@ var ArrayContentSummaryItem = ParentView.extend({
             }
         });
     },
-    _flyBye: function(event) {
-        map.flyTo({center: [-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
+    _flyBye: function(originalZoom) {
+        console.log(originalZoom)
+        map.flyTo({center: [-90, 5], zoom: originalZoom, pitch: 0, bearing: 0});
+        map.setLayoutProperty('rsArray', 'visibility', 'visible');
+        map.setLayoutProperty('eaArray', 'visibility', 'visible');
         map._setArrayView();
         $('.js-array').removeClass('active');
         popup.remove();
@@ -154,6 +157,7 @@ var ArrayContentSummaryItem = ParentView.extend({
     _flyFly: _.debounce(function(event) {
         var flyFlyContext = this;
         event.stopImmediatePropagation();
+        flyFlyContext.originalZoom;
 
         $.when(this._toggleActive(event)).done(function() {
             $.when(flyFlyContext._toggleOthers(event)).done(function() {
@@ -193,7 +197,6 @@ var ArrayContentSummaryItem = ParentView.extend({
         // end helper monkies
 
         map._setPlatformView();
-
         var loc = [
                 this.model.attributes.geo_location.coordinates[0][0][1],
                 this.model.attributes.geo_location.coordinates[0][0][0]
@@ -203,52 +206,56 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0], loc[1]], zoom: 7.5, pitch: 50, bearing: 50});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.setLayoutProperty('rsArray', 'visibility', 'none');
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'RS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] , loc[1]], zoom: 6.25, pitch: 60, bearing: 20});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.setLayoutProperty('ceArray', 'visibility', 'none');
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'CP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0], loc[1]], zoom: 8.25, pitch: 55, bearing: -10});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 5});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0], loc[1]], zoom: 6.25, pitch: 60, bearing: 50});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 7.75, pitch: 60, bearing: -30});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0], loc[1]], zoom: 6.25, pitch: 65, bearing: -30});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 6.5});
-                flyFlyContext._addPopup(loc, name);
+                flyFlyContext.originalZoom = map.getZoom();
+                map.setLayoutProperty('rsArray', 'visibility', 'none');
+                map.setLayoutProperty('ceArray', 'visibility', 'none');
+                map.flyTo({center: loc, zoom: 4});
             } else {
-                this._flyBye();
+                this._flyBye(flyFlyContext.originalZoom);
             }
         }
     }, 500, true),

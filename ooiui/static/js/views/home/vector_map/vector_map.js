@@ -8,7 +8,7 @@
  */
 
 var VectorMap = Backbone.View.extend({
-    cameraControls: {resetZoom:1.3,resetPitch:0,resetBearing:0},
+    cameraControls: {resetZoom:1.,resetPitch:0,resetBearing:0},
     initialize: function() {
         'use strict';
         //this.listenTo(this.collection, 'change', this.render);
@@ -23,7 +23,7 @@ var VectorMap = Backbone.View.extend({
                 container: this.id,
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
                 center: [-90, 5],
-                zoom: 1.3,
+                maxBounds: [[-179,-70],[0,70]],
                 interactive: true
             });
 
@@ -62,11 +62,11 @@ var VectorMap = Backbone.View.extend({
     _setPlatformView: function() {
         'use strict';
         // When we're in the platform view, we don't want to see any array icons.
-        map.setLayoutProperty('moorings', 'visibility', 'visible');
-        map.setLayoutProperty('gliders', 'visibility', 'visible');
-        map.setLayoutProperty('arrays', 'visibility', 'none');
-        map.setLayoutProperty('ceArray', 'visibility', 'none');
-        map.setLayoutProperty('rsArray', 'visibility', 'none');
+        map.setLayoutProperty('moorings', 'visibility', 'none');
+        map.setLayoutProperty('gliders', 'visibility', 'none');
+        map.setLayoutProperty('arrays', 'visibility', 'visible');
+        map.setLayoutProperty('ceArray', 'visibility', 'visible');
+        map.setLayoutProperty('rsArray', 'visibility', 'visible');
     },
     render: function() {
         try {
@@ -76,7 +76,7 @@ var VectorMap = Backbone.View.extend({
              * @global map
              */
             map = this._onBeforeRender();
-
+            var originalZoom = map.getZoom();
             /* Initialize the popup singleton to be used whenever we need a popup.
              * @global popup
              */
@@ -174,10 +174,10 @@ var VectorMap = Backbone.View.extend({
                             'icon-image': '{marker-symbol}',
                             'text-field': '{title}',
                             'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                            'text-offset': [0, 0.6],
-                            'text-anchor': 'top',
-                            'text-size': 10,
-                            'icon-size': 0.5,
+                            'text-offset': [0, -1],
+                            'text-anchor': 'bottom',
+                            'text-size': 14,
+                            'icon-size': 1.0,
                             'icon-allow-overlap': true
                         }
                     }).addLayer({
@@ -191,8 +191,8 @@ var VectorMap = Backbone.View.extend({
                             'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
                             'text-offset': [0.5, -1],
                             'text-anchor': 'left',
-                            'text-size': 10,
-                            'icon-size': 0.5,
+                            'text-size': 14,
+                            'icon-size': 1.0,
                             'icon-allow-overlap': true
                         }
                     }).addLayer({
@@ -204,10 +204,10 @@ var VectorMap = Backbone.View.extend({
                             'icon-image': '{marker-symbol}',
                             'text-field': '{title}',
                             'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                            'text-offset': [0.5, 1],
+                            'text-offset': [-0.5, 1],
                             'text-anchor': 'left',
-                            'text-size': 10,
-                            'icon-size': 0.5,
+                            'text-size': 14,
+                            'icon-size': 1.0,
                             'icon-allow-overlap': true
                         }
                     }).addLayer({
@@ -234,7 +234,17 @@ var VectorMap = Backbone.View.extend({
                             'visibility': 'none'
                         }
                     });
-
+                    map.addLayer({
+                        "id": "route-hover",
+                        "type": "fill",
+                        "source": "arrays",
+                        "layout": {},
+                        "paint": {
+                            "fill-color": "#627BC1",
+                            "fill-opacity": 1
+                        },
+                        "filter": ["==", "name", ""]
+                    });
                     /*
                      * At some point, we'll need to get the icons loaded.  For now, overlap/clustering
                      * will cause some discomfort.  Painting is far more accurate, but is not ideal.
@@ -295,104 +305,73 @@ var VectorMap = Backbone.View.extend({
                             // show the layer
                             map._setPlatformView();
 
-                            if (features[0].properties.code.indexOf('CE') > -1) {
-                                map.flyTo({center: features[0].geometry.coordinates, zoom: 7.5, pitch: 50, bearing: 50});
-                                renderContext.cameraControls.resetZoom = 6.5;
-                                renderContext.cameraControls.resetPitch = 50;
-                                renderContext.cameraControls.resetBearing = 50;
-                            } else if (features[0].properties.code.indexOf('RS') > -1) {
-                                map.flyTo({center: features[0].geometry.coordinates, zoom: 6.75, pitch: 60, bearing: 10});
-                                renderContext.cameraControls.resetZoom = 6.25;
-                                renderContext.cameraControls.resetPitch = 60;
-                                renderContext.cameraControls.resetBearing = 10;
-                            } else if (features[0].properties.code.indexOf('CP') > -1) {
-                                map.flyTo({zoom: 8.25, pitch: 0, bearing: -10});
-                                renderContext.cameraControls.resetZoom = 8.;
-                                renderContext.cameraControls.resetPitch = 55;
-                                renderContext.cameraControls.resetBearing = -10;
-                            } else if (features[0].properties.code.indexOf('GS') > -1) {
-                                map.flyTo({zoom: 6.75, pitch: 60, bearing: 50});
-                                renderContext.cameraControls.resetZoom = 6.;
-                                renderContext.cameraControls.resetPitch = 60;
-                                renderContext.cameraControls.resetBearing = 50;
-                            } else if (features[0].properties.code.indexOf('GI') > -1) {
-                                map.flyTo({zoom: 8., pitch: 40, bearing: -30});
-                                renderContext.cameraControls.resetZoom = 7.25;
-                                renderContext.cameraControls.resetPitch = 40;
-                                renderContext.cameraControls.resetBearing = -30;
-                            } else if (features[0].properties.code.indexOf('GA') > -1) {
-                                map.flyTo({zoom: 7., pitch: 30, bearing: -30});
-                                renderContext.cameraControls.resetZoom = 6.;
-                                renderContext.cameraControls.resetPitch = 60;
-                                renderContext.cameraControls.resetBearing = -30;
-                            } else {
-                                map.flyTo({zoom: 7.5, pitch: 60, bearing: -20});
-                                renderContext.cameraControls.resetZoom = 6.5;
-                                renderContext.cameraControls.resetPitch = 50;
-                                renderContext.cameraControls.resetBearing = -20;
-                            }
-
                         }
                     } else {
-                        if (map.getZoom() != renderContext.cameraControls.resetZoom && renderContext.cameraControls.resetZoom > 1.4) {
-                            map.flyTo({zoom: renderContext.cameraControls.resetZoom, pitch: renderContext.cameraControls.resetPitch, bearing: renderContext.cameraControls.resetBearing});
-                        } else {
+                            map.setLayoutProperty('ceArray', 'visibility', 'visible');
+                            map.setLayoutProperty('rsArray', 'visibility', 'visible');
                             map._setArrayView();
-                            map.flyTo({center:[-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
+                            map.flyTo({center:[-90, 5],
+                                uaxBounds: [[-179,-70],[0,70]],
+                                speed: 1.,
+                                zoom: originalZoom,
+                                pitch: 0, 
+                                bearing: 0});
                             $('.js-array').removeClass('active');
                             $('.js-array').fadeIn();
                             $('.js-platform-table').css('display', 'none');
-                            renderContext.cameraControls.resetZoom = 1.3;
+                            renderContext.cameraControls.resetZoom = 1.;
                             renderContext.cameraControls.resetPitch = 0;
                             renderContext.cameraControls.resetBearing = 0;
-                        }
+                       
                     }
                 });
 
                 // When we're zoomed in, click to open a popup, this will give us some ability to interact with
                 // the popup for navigation to other pages.
-                // map.on('click', function(e) {
-                //     if (map.getZoom() > 6.5) {
-                //         var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
-                //         // Change the cursor style as a UI indicator.
-                //         map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-                //
-                //         if (!features.length) {
-                //             return;
-                //         }
-                //
-                //         var feature = features[0];
-                //
-                //         console.log(feature);
-                //
-                //         // Populate the popup and set its coordinates
-                //         // based on the feature found.
-                //         popup.setLngLat(feature.geometry.coordinates)
-                //         .setHTML(feature.properties.description)
-                //         .addTo(map);
-                //     }
-                // });
+                map.on('click', function(e) {
+                    if (map.getZoom() > 2.2) {
+                        var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
+                        // Change the cursor style as a UI indicator.
+                        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+                        if (!features.length) {
+                            return;
+                        }
+
+                        var feature = features[0];
+
+                        console.log(feature);
+
+                        // Populate the popup and set its coordinates
+                        // based on the feature found.
+                        popup.setLngLat(feature.geometry.coordinates)
+                        .setHTML(feature.properties.description)
+                        .addTo(map);
+                    }
+                });
 
                 // Only listen to the mouse move event for popups at predefined zoom levels.  That way we won't
                 // have popups being left behind when icons are close together.
                 map.on('mousemove', function(e) {
-                    var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
-                    // Change the cursor style as a UI indicator.
-                    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+                    if (map.getZoom() <= 2.2) {
+                        var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
+                        // Change the cursor style as a UI indicator.
+                        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-                    if (!features.length) {
-                        popup.remove();
-                        return;
+                        if (!features.length) {
+                            popup.remove();
+                            return;
+                        }
+
+                        var feature = features[0];
+
+                        // Populate the popup and set its coordinates
+                        // based on the feature found.
+                        popup.setLngLat(feature.geometry.coordinates)
+                        .setHTML(feature.properties.description)
+                        .addTo(map);
+
                     }
-
-                    var feature = features[0];
-
-                    // Populate the popup and set its coordinates
-                    // based on the feature found.
-                    popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML(feature.properties.description)
-                    .addTo(map);
-
                 });
 
                 // This listener simply sets the cursor to 'pointer' for any feature in the layer list.
@@ -402,17 +381,17 @@ var VectorMap = Backbone.View.extend({
                 });
 
                 // This listener will update the overlay with lat/lng and the name of the feature under cursor.
-                map.on('mousemove', function (e) {
+                //map.on('mousemove', function (e) {
 
-                    var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
-                    if (features.length) {
-                        feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
-                    } else {
-                        feature = "Mouse over icon to inspect";
-                    }
+                    //var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
+                    //if (features.length) {
+                    //    feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
+                    //} else {
+                    //    feature = "Mouse over icon to inspect";
+                    //}
 
-                    document.getElementById('info').innerHTML = feature;
-                });
+                    //document.getElementById('info').innerHTML = feature;
+                //});
                /* ****************************************************
                 * End Map Events
                 * ***************************************************/
