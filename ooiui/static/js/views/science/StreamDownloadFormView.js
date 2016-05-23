@@ -177,10 +177,7 @@ var StreamDownloadFormView = Backbone.View.extend({
       model: this.model,
       success: function(resp){
         var base = resp.COMMON.SAN_DATA_SERVER;
-        var site = this.model.attributes.reference_designator.substring(0,8);
-        var assembly = this.model.attributes.reference_designator.substring(9,14);
-        var instrument = this.model.attributes.reference_designator.substring(15);
-        var url = base + site + '/' + assembly + '/' + instrument ;
+        var url = base + 'large_format/' + this.model.attributes.reference_designator + '/';
         var popup = window.open(url, '_blank');
         self.popupBlockerChecker(popup);
       },
