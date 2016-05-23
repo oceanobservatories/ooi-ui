@@ -234,17 +234,6 @@ var VectorMap = Backbone.View.extend({
                             'visibility': 'none'
                         }
                     });
-                    map.addLayer({
-                        "id": "route-hover",
-                        "type": "fill",
-                        "source": "arrays",
-                        "layout": {},
-                        "paint": {
-                            "fill-color": "#627BC1",
-                            "fill-opacity": 1
-                        },
-                        "filter": ["==", "name", ""]
-                    });
                     /*
                      * At some point, we'll need to get the icons loaded.  For now, overlap/clustering
                      * will cause some discomfort.  Painting is far more accurate, but is not ideal.
@@ -328,50 +317,48 @@ var VectorMap = Backbone.View.extend({
 
                 // When we're zoomed in, click to open a popup, this will give us some ability to interact with
                 // the popup for navigation to other pages.
-                map.on('click', function(e) {
-                    if (map.getZoom() > 2.2) {
-                        var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
-                        // Change the cursor style as a UI indicator.
-                        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-
-                        if (!features.length) {
-                            return;
-                        }
-
-                        var feature = features[0];
-
-                        console.log(feature);
-
-                        // Populate the popup and set its coordinates
-                        // based on the feature found.
-                        popup.setLngLat(feature.geometry.coordinates)
-                        .setHTML(feature.properties.description)
-                        .addTo(map);
-                    }
-                });
+                // map.on('click', function(e) {
+                //     if (map.getZoom() > 6.5) {
+                //         var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
+                //         // Change the cursor style as a UI indicator.
+                //         map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+                //
+                //         if (!features.length) {
+                //             return;
+                //         }
+                //
+                //         var feature = features[0];
+                //
+                //         console.log(feature);
+                //
+                //         // Populate the popup and set its coordinates
+                //         // based on the feature found.
+                //         popup.setLngLat(feature.geometry.coordinates)
+                //         .setHTML(feature.properties.description)
+                //         .addTo(map);
+                //     }
+                // });
 
                 // Only listen to the mouse move event for popups at predefined zoom levels.  That way we won't
                 // have popups being left behind when icons are close together.
                 map.on('mousemove', function(e) {
-                    if (map.getZoom() <= 2.2) {
-                        var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
-                        // Change the cursor style as a UI indicator.
-                        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+                    var features = map.queryRenderedFeatures(e.point, { layers: ['moorings', 'gliders'] });
+                    // Change the cursor style as a UI indicator.
+                    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-                        if (!features.length) {
-                            popup.remove();
-                            return;
-                        }
-
-                        var feature = features[0];
-
-                        // Populate the popup and set its coordinates
-                        // based on the feature found.
-                        popup.setLngLat(feature.geometry.coordinates)
-                        .setHTML(feature.properties.description)
-                        .addTo(map);
-
+                    if (!features.length) {
+                        popup.remove();
+                        return;
                     }
+
+                    var feature = features[0];
+
+                    // Populate the popup and set its coordinates
+                    // based on the feature found.
+                    popup.setLngLat(feature.geometry.coordinates)
+                    .setHTML(feature.properties.description)
+                    .addTo(map);
+
                 });
 
                 // This listener simply sets the cursor to 'pointer' for any feature in the layer list.
@@ -381,17 +368,17 @@ var VectorMap = Backbone.View.extend({
                 });
 
                 // This listener will update the overlay with lat/lng and the name of the feature under cursor.
-                //map.on('mousemove', function (e) {
+                map.on('mousemove', function (e) {
 
-                    //var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
-                    //if (features.length) {
-                    //    feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
-                    //} else {
-                    //    feature = "Mouse over icon to inspect";
-                    //}
+                    var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
+                    if (features.length) {
+                        feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
+                    } else {
+                        feature = "Mouse over icon to inspect";
+                    }
 
-                    //document.getElementById('info').innerHTML = feature;
-                //});
+                    document.getElementById('info').innerHTML = feature;
+                });
                /* ****************************************************
                 * End Map Events
                 * ***************************************************/
