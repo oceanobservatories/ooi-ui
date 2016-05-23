@@ -566,7 +566,25 @@ module.exports = function(grunt) {
             //"ooiui/static/css/common/ModalForm.css",
             "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
             'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
-            'ooiui/static/css/common/data_catalog.css'
+            'ooiui/static/lib/jqgrid/css/addons/ui-multiselect.css',
+            'ooiui/static/css/common/data_catalog.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css'
+          ],
+          "ooiui/static/css/compiled/asset_management.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            //"ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/lib/jqgrid/css/addons/ui-multiselect.css',
+            'ooiui/static/css/common/asset_management.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css'
           ],
           "ooiui/static/css/compiled/plotting.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",
@@ -1996,7 +2014,25 @@ module.exports = function(grunt) {
             //"ooiui/static/css/common/ModalForm.css",
             "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
             'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
-            'ooiui/static/css/common/data_catalog.css'
+            'ooiui/static/lib/jqgrid/css/addons/ui-multiselect.css',
+            'ooiui/static/css/common/data_catalog.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css'
+          ],
+          "ooiui/static/css/compiled/asset_management.css" : [
+            "ooiui/static/css/common/AnnotationTableView.css",
+            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            "ooiui/static/css/common/scienceLayout.css",
+            "ooiui/static/lib/metis-menu/dist/metisMenu.css",
+            "ooiui/static/css/common/loginDemo.css",
+            "ooiui/static/css/common/newEvent.css",
+            //"ooiui/static/css/common/ModalForm.css",
+            "ooiui/static/lib/jqgrid/css/ui.jqgrid.css",
+            'ooiui/static/lib/jqgrid/js/plugins/searchFilter.css',
+            'ooiui/static/lib/jqgrid/css/addons/ui-multiselect.css',
+            'ooiui/static/css/common/asset_management.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
+            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css'
           ],
           "ooiui/static/css/compiled/landingPages.css" : [
             "ooiui/static/lib/metis-menu/dist/metisMenu.css",
