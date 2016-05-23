@@ -46,12 +46,15 @@
 <div id="wrapper" class="home-page" style="padding-left: 0px">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4" id="left">
+            <div class="col-md-8" id="left">
+                <div class="text-center">
+                    <h3><small>Select an array on the map or choose from the list.</small></h3>
+                </div>
                 <div class="array-content"></div>
             </div>
-            <div class="col-md-8 visible-lg visible-md" id="right">
+            <div class="col-md-4 visible-lg visible-md" id="right">
                 <div id="map"></div>
-                <pre id="info"></pre>
+                {# <pre id="info"></pre> #}
             </div>
         </div>
     </div>
@@ -106,6 +109,8 @@ $(document).ready(function() {
 });
 
 var bannerTitle = "Home";
+var banner = new BannerView({bannerTitle});
+$('body').prepend(banner.el);
 
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
@@ -121,8 +126,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
         //--------------------------------------------------------------------------------
         // Views
         //--------------------------------------------------------------------------------
-        this.views.banner = new BannerView({bannerTitle});
-        $('body').prepend(this.views.banner.el);
 
         this.views.navbar = new NavbarView({
             el: $('#navbar')

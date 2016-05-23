@@ -5,7 +5,10 @@
 .array-content .js-array {
     padding-bottom: 0px;
     margin-bottom: 0px;
-    border-bottom: 1px solid black;
+}
+
+.array-content .js-expand {
+    cursor: pointer;
 }
 
 .array-content .panel-heading {
@@ -14,25 +17,32 @@
     background: linear-gradient(to right, #EEEEEE 20%, #ffffff 100%);
 }
 
-.array-content .panel-heading h4 {
+
+.array-content .img-container {
+    overflow: hidden;
+    max-height: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+.array-content .img-container > div {
+    display: inline-block;
+    padding: 0;
     margin: 0;
 }
 
-.array-content .panel-body {
-}
-
 .array-content .panel-body img {
-    padding-bottom: 20px;
-    width: 150px;
+    width: 32%;
+    padding: 0;
+    margin: 0;
 }
 
 .array-content .panel-body div {
     display: inline-block;
 }
 
-.array-content .panel-body p {
-    width: 80%;
-    padding: 0 10px 0 10px;
+.array-content  p {
+    padding: 0 15px 0 15px;
     display: inline-block;
     position: relative;
     padding-bottom: 20px;
@@ -48,7 +58,7 @@
 }
 
 .array-content ul {
-    padding: 5px 0 10px 3px;
+    padding: 5px 0 10px 13px;
     margin-left: 3px;
     margin-bottom: 10px;
 
