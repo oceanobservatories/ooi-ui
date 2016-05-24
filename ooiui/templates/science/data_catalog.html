@@ -144,20 +144,17 @@
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
-          console.log(options);
-          console.log('some click yo.');
-
-          var searchFiler = options, grid = $("#grid"), f;
-          if (searchFiler.length === 0) {
-            grid[0].p.search = false;
-            $.extend(grid[0].p.postData,{filters:""});
-          }
-          f = {groupOp:"OR",rules:[]};
-          f.rules.push({field:"reference_designator",op:"bw",data:searchFiler});
-          console.log(f.rules);
-          grid[0].p.search = true;
-          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-          grid.trigger("reloadGrid",[{page:1,current:true}]);
+          applyFilters(options);
+{#          var searchFiler = options, grid = $("#grid"), f;#}
+{#          if (searchFiler.length === 0) {#}
+{#            grid[0].p.search = false;#}
+{#            $.extend(grid[0].p.postData,{filters:""});#}
+{#          }#}
+{#          f = {groupOp:"OR",rules:[]};#}
+{#          f.rules.push({field:"reference_designator",op:"bw",data:searchFiler});#}
+{#          grid[0].p.search = true;#}
+{#          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#          grid.trigger("reloadGrid",[{page:1,current:true}]);#}
         });
         {#      this.listenTo(self.collections.streams, 'update change', function(options){#}
         {#        console.log('streams collection changed');#}
@@ -284,6 +281,20 @@
     var arrayCollection     = new ArrayCollection();
     var streamCollection    = new StreamCollection();
 
+    var applyFilters = function(options){
+      console.log(options);
+      console.log(options.length);
+      var searchFiler = options, grid = $("#grid"), f;
+      if (searchFiler.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      f.rules.push({field:"reference_designator",op:"bw",data:searchFiler});
+      grid[0].p.search = true;
+      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+      grid.trigger("reloadGrid",[{page:1,current:true}]);
+    };
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
@@ -346,22 +357,19 @@
         this.src = this.getAttribute("delayedSrc");
       });
 
-      console.log(location);
       if(location.hash!=""){
         _.extend(vobj, {hash: location.hash.split('#')[1]});
       }else{
         _.extend(vobj, {hash: ""});
       }
 
+      updateCollection( showStreams );
+
       var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: ooi.collections.streams});
       searchSidebarView.render();
       //searchSidebarView.renderSearchInput();
       searchSidebarView.renderFilterInput();
 
-      console.log('searchSidebarView.options');
-      console.log(searchSidebarView.options);
-
-      updateCollection( showStreams );
       ooi.start();
     });
 
@@ -373,7 +381,7 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-      console.log(event);
+{#      console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -414,7 +422,7 @@
             uniqueTexts.push(text);
           }
         }
-        console.log(uniqueTexts);
+{#        console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -645,6 +653,10 @@
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
+
+{#          applyFilters(vobj.hash);#}
+          setScienceFilter('reference_designator', vobj.hash);
+
 {#          setArrayButtonState();#}
         },
         gridview : true,
@@ -691,7 +703,8 @@
           multipleSearch : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
-            $form.jqFilter('addFilter', defaultFilters);
+{#            $form.jqFilter('addFilter', defaultFilters);#}
+            setScienceFilter('reference_designator', vobj.hash);
           },
           {#          afterRedraw: function (p) {#}
           {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
