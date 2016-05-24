@@ -25,7 +25,7 @@ var PlatformModel = Backbone.Model.extend({
     toJSON: function() {
         var attrs = _.clone(this.attributes),
             coorArray = attrs.geo_location.coordinates,
-            newArray = [coorArray[0], coorArray[1]],
+            newArray = [coorArray[0].toFixed(3), coorArray[1].toFixed(3)],
             color = 'yellow';
 
 
@@ -36,15 +36,12 @@ var PlatformModel = Backbone.Model.extend({
         // the icons stack on top of each other, this give a slight offset so they can be
         // seen easier.
         if (attrs.reference_designator.indexOf('GL') > -1 ) {
-            // for gliders, lets spread them out a bit more.
-            newArray = [newArray[0]-(Math.random()*0.09), newArray[1]-(Math.random()*0.09)];
 
             // and we don't know their depth, so set it to 'various'
             attrs.geo_location.depth = 'Various';
         }
         else {
             // for moorings, lets make sure they are still very close
-            newArray = [newArray[0]-(Math.random()*0.05), newArray[1]-(Math.random()*0.05)];
 
             // TODO: We need to get the depths of the moorings into the database.
             //       There are several changes we need to make to the platforms so this
