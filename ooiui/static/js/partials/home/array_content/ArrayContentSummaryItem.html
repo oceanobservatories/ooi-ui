@@ -137,13 +137,28 @@
         </div>
 
 
-        <div style="text-align:center; width: 100%;"><h3><small> Mouse over a platform to view on the map, click to open it's contents.</small></h3></div>
+        <div style="text-align:center; width: 100%;"><h3><small> Select a Site Name to Find Out More.</small></h3></div>
 
         <table class="table table-stripped">
-            <thead><tr><th>Key</th><th>Site Name</th><th>Depth</th></tr></thead>
+            <thead><tr><th>Navigation</th><th>Site Name</th><th>Depth</th><th>Latitude</th><th>Longitude</th></tr></thead>
             <tbody>
                 <% _.each(properties.platforms, function(platform) { %>
-                <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>"><td></td><td><%= platform.properties.title %></td><td></td></tr>
+                <% console.log(platform) %>
+                <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
+                  <td>
+                    <ul class"align-center" >
+                        <li><a href="/plotting/#<%= platform.properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                        <li><a href="/datacatalog/#<%= platform.properties.code %>"><i class="fa fa-database">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                        <li><a href="/assets/list#<%= platform.properties.code %>"><i class="fa fa-sitemap">&nbsp;</i></a></li></ul>
+                    </td>
+                <td>
+                  <ul class"align-center">
+                    <li><a href="/platform?id=<%= platform.properties.code %>"><%= platform.properties.title %></a></li>
+                  </ul>
+                </td>
+              <td><%= platform.properties.depth %></td>
+              <td><%= platform.geometry.coordinates[1] %></td>
+              <td><%= platform.geometry.coordinates[0] %></td></tr>
                 <% }); %>
             </tbody>
             <tfoot colspan="1"></tfoot>

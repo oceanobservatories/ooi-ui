@@ -55,9 +55,9 @@ var ArrayContentSummary = ParentView.extend({
 
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
-        'click .js-expand': '_flyFly',
+        'click .js-expand': '_flyFly'
         //'mouseover .js-platform-table tr': '_popUpForPlatform',
-        'click .js-platform-table tr': '_goToPlatform',
+        //'click .js-platform-table tr': '_goToPlatform',
     },
     _popUpForPlatform: _.debounce(function(event) {
         event.stopImmediatePropagation;
@@ -140,7 +140,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         console.log(originalZoom)
         map.flyTo({center: [-90, 5], zoom: originalZoom, pitch: 0, bearing: 0});
         map.setLayoutProperty('rsArray', 'visibility', 'visible');
-        map.setLayoutProperty('eaArray', 'visibility', 'visible');
+        map.setLayoutProperty('ceArray', 'visibility', 'visible');
         map._setArrayView();
         $('.js-array').removeClass('active');
         popup.remove();
