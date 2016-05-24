@@ -7,7 +7,7 @@ var SearchSidebarView = DataCatalogParentView.extend({
         searchInputView.render();
     },
     renderFilterInput: function(options) {
-        var _self = this;
+        var _this = this;
 
         var filterInputView = new FilterInputView({
             el: this.$el.find('#filterInput'),

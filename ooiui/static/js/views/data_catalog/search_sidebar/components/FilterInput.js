@@ -55,8 +55,12 @@ var FilterParentView = SearchSidebarView.extend({
 // Main view for the filters.
 var FilterInputView = FilterParentView.extend({
     onAfterRender: function() {
+
         var assetFilterView = new AssetFilterView({el: '#assetFilters', collection: this.collection});
         this.$el.find('#assetFilters').append(assetFilterView.render().el);
+
+        var rangeFilterView = new RangeFilterView({el: '#rangeFilters', collection: this.collection});
+        this.$el.find('#rangeFilters').append(rangeFilterView.render().el);
     },
     template: JST['ooiui/static/js/partials/data_catalog/search_sidebar/components/FilterInput.html']
 });

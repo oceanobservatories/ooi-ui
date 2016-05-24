@@ -1,9 +1,11 @@
 // Parent class for asset views.
 var DataCatalogParentView = Backbone.View.extend({
     /* Parent class for views.
-     *  - initialize()
-     *  - render()
-     *  - derender()
+     *  @method initialize()
+     *  @method render()
+     *  @method derender()
+     *  @method onBeforeRender(callback)
+     *  @method onAfterRender(callback)
      */
     initialize: function(options) {
         _.bindAll(this, 'render', 'derender', 'onBeforeRender', 'onAfterRender');
@@ -32,7 +34,7 @@ var DataCatalogParentView = Backbone.View.extend({
             return this;
 
         } catch (exception) {
-            throw ('Unhandled Exception: ' + exception);
+            console.log(exception, 'That suuuuucks...good luck');
         }
     },
     onAfterRender: function(callback) {

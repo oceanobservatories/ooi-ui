@@ -104,7 +104,6 @@ var GenericPlatForm = Backbone.View.extend({
     },
     template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
     render: function() {
-        console.log(this.collection.models[0].attributes);
         var siteInfo = {
             site: this.collection.models[0].attributes.assetInfo.site,
             refDes: this.collection.models[0].attributes.ref_des.substr(0,8),

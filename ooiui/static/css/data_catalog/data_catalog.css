@@ -17,3 +17,12 @@ body, html {
 #right {
     padding-right: 50px;
 }
+
+#timeRangeFilter {
+    width       : 680px;
+    margin-left : 23px;
+}
+
+#timeRangeFilter #slider .ui-rangeSlider-label-value {
+    font-size : 12px !important;
+}
