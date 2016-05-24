@@ -6,7 +6,7 @@
         <div >
             <div style="width: 100%">
                 <ul class"align-center" >
-                    <li><a href="/plotting/#<%= properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                    <li><a href="/plot/#<%= properties.code %>"><i class="fa fa-bar-chart">&nbsp;</i>Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                     <li><a href="/datacatalog/#<%= properties.code %>"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                     <li><a href="/assets/list#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>
                 </ul>
@@ -144,7 +144,7 @@
             <thead><tr><th>Key</th><th>Site Name</th><th>Depth</th></tr></thead>
             <tbody>
                 <% _.each(properties.platforms, function(platform) { %>
-                <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>"><td></td><td><%= platform.properties.title %></td><td></td></tr>
+                <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>"><td></td><td><%= platform.properties.title %></td><td><%= platform.properties.depth %></td></tr>
                 <% }); %>
             </tbody>
             <tfoot colspan="1"></tfoot>

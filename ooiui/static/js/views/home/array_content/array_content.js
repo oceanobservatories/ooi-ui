@@ -264,7 +264,6 @@ var ArrayContentSummaryItem = ParentView.extend({
 var PlatformContentTable = ParentView.extend({
     el: 'table',
     render: function() {
-        console.log(this);
         var platformContentItem = this.collection.byMoorings().map(function(model) {
             return (new PlatformContentItem({model: model})).render().el;
         });

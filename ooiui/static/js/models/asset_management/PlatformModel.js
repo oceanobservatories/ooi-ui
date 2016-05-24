@@ -15,7 +15,8 @@ var PlatformModel = Backbone.Model.extend({
         end_date: null,
         geo_location: {
             coordinates: [],
-            type: null
+            type: null,
+            depth: null
         },
         id: null,
         reference_designator: null,
@@ -39,7 +40,7 @@ var PlatformModel = Backbone.Model.extend({
             newArray = [newArray[0]-(Math.random()*0.09), newArray[1]-(Math.random()*0.09)];
 
             // and we don't know their depth, so set it to 'various'
-            attrs.depth = 'Various';
+            attrs.geo_location.depth = 'Various';
         }
         else {
             // for moorings, lets make sure they are still very close
@@ -49,7 +50,7 @@ var PlatformModel = Backbone.Model.extend({
             //       There are several changes we need to make to the platforms so this
             //       should be noted as one of them.  If there is no value, just provide
             //       any number . . .
-            attrs.depth = (attrs.depth) ? attrs.depth : 'Unknown';
+            attrs.geo_location.depth = (attrs.geo_location.depth) ? attrs.geo_location.depth + ' ft' : 'Unknown';
         }
 
         var geoJSON = {
@@ -59,7 +60,7 @@ var PlatformModel = Backbone.Model.extend({
                 "code": attrs.reference_designator,
                 "title": attrs.display_name,
                 "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
-                "depth": attrs.depth
+                "depth": attrs.geo_location.depth
             },
             "geometry": {
                 "type": "Point",
