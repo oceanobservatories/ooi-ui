@@ -1481,6 +1481,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/bootbox.js/bootbox.js',
             'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/moment-range/dist/moment-range.js',
             'ooiui/static/lib/bootstrap-daterangepicker/daterangepicker.js',
             'ooiui/static/lib/bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker.js',
             'ooiui/static/lib/bootstrap-select/dist/js/bootstrap-select.js',

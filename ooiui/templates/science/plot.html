@@ -224,8 +224,146 @@ _.extend(OOI.prototype, Backbone.Events, {
     downloadModel : new StreamModel(),
     userModel     : new UserModel()
   },
+  plotSingleInstrument:function(parameterCollection){
+    var self = this;
+    //NORMAL PLOT
+    //get the params
+    var xParams = []
+    var yParams = []
+    var zParams = []
+    var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
+    var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams.push(model.get('short_name'));
+        }
+      }
+    });
+
+    var selectDt = this.views.plotControls.getDateTimeRange();
+    // update time
+    self.views.plotContainer.plotParameters = parameterCollection;
+    if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
+      //ONLY DO this for XY plot as it uses highcharts
+      //get the data
+      self.views.plotContainer.plotData = new DataSeriesCollection({},
+         {
+          stream      : streamName,
+          ref_des     : referenceDesignator,
+          startdate   : selectDt.startDate.toISOString(),
+          enddate     : selectDt.endDate.toISOString(),
+          xparameters : xParams,
+          yparameters : yParams
+      });
 
 
+      var onDataHandler = function(collection, response, options) {
+        self.views.plotContainer.hideLoading();
+        self.views.plotContainer.render();
+      };
+
+      var errorHandler = function(collection, response,options){
+        var errorText = response.status+': '+response.statusText
+        ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+        self.views.plotContainer.hideLoading();
+      }
+
+      //fetch the data
+      self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+
+    }else{
+      self.views.plotContainer.plotDates = selectDt;
+      //IMAGE PLOT generation
+      self.views.plotContainer.render();
+      //self.views.plotContainer.hideLoading();
+    }
+  },
+  plotInterpolatedData: function(parameterCollection) {
+    var self = this;
+    var selectDt = this.views.plotControls.getDateTimeRange();
+
+    //INTERPOLATED PLOT 1)
+    //get the params
+    var xParams1 = []
+    var yParams1 = []
+    var streamName1 = parameterCollection.models[0].get('original_model').get('stream_name');
+    var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      console.log(model)
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams1.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams1.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams1.push(model.get('short_name'));
+        }
+      }
+    });
+
+
+    //INTERPOLATED PLOT 2)
+    //get the params
+    var xParams2 = []
+    var yParams2 = []
+    var streamName2 = parameterCollection.models[1].get('original_model').get('stream_name');
+    var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      console.log(model)
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams2.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams2.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams2.push(model.get('short_name'));
+        }
+      }
+    });
+
+    //create the interpolated data series collection
+    self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
+      {
+        ref_des1  : referenceDesignator1,
+        ref_des2  : referenceDesignator2,
+        instr1    : streamName1,
+        instr2    : streamName2,
+        startdate : selectDt.startDate.toISOString(),
+        enddate   : selectDt.endDate.toISOString(),
+        var1      : xParams1.concat(yParams1),
+        var2      : xParams2.concat(yParams2)
+    });
+
+    var onDataHandler = function(collection, response, options) {
+        self.views.plotContainer.hideLoading();
+        self.views.plotContainer.render();
+    };
+
+    var errorHandler = function(collection, response,options){
+      var errorText = response.status+': '+response.statusText
+      ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+      self.views.plotContainer.hideLoading();
+    }
+
+    //fetch the data
+    self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+
+
+  },
   start: function() {
     var self = this;
     this.login.fetch({async: false});
@@ -306,8 +444,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     //MAIN ADDITION OF A STREAM
     this.listenTo(this, "add_catalog_model", function(o) {
       //o.model = selected stream model
-      //ONLY ALLOW ONE instrument selection
-      if (self.collections.selectedStreamCollection.length == 0){
+      //ONLY ALLOW TWO instruments selected
+      if (self.collections.selectedStreamCollection.length < 2){
         console.log('add catalog entry','idx"',GLOBAL_COUNT);
         self.collections.selectedStreamCollection.add(o.model);
         self.trigger('update_catalog_list',{});
@@ -322,9 +460,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
-      console.log('update');
-      self.views.plotControls.render();
+      //renders the xy chart
       self.views.plotContainer.updateChart(o.model);
+    });
+
+    this.listenTo(this, "plotControlView:change_plot_type", function(o) {
+      //changes the plot type
+      self.views.plotControls.render();
     });
 
     this.listenTo(this, "update_catalog_list", function(o) {
@@ -342,7 +484,7 @@ _.extend(OOI.prototype, Backbone.Events, {
         var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
         var item = items[items.length-1];
         var new_item = item.replace(/\d+/g, '');
-        console.log("DEFAULT Instrument Plot OPTION",new_item, defaultPlotTypes);
+        console.log("DEFAULT Instrument Plot OPTION::",new_item, defaultPlotTypes.where({instrument: new_item}));
 
         //EVENTS
         self.collections.plotEventList.fetch({
@@ -379,65 +521,14 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //get the selected parameters, only plot is they meet the criteria
       //will be null if the inputs dont conform
-      var parameterCollection = this.views.plotControls.getSelectedParameters();
+      var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
       if (!_.isNull(parameterCollection)){
-
         self.views.plotContainer.showLoading();
-        //get the params
-        var xParams = []
-        var yParams = []
-        var zParams = []
-        var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
-        var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
-        parameterCollection.each(function(model){
-          if (model.get('is_selected')){
-            //double check the selected field and add the parameter name to the list
-            if (model.get('is_x')){
-              xParams.push(model.get('short_name'));
-            }
-            if (model.get('is_y')){
-              yParams.push(model.get('short_name'));
-            }
-            if (model.get('is_z')){
-              zParams.push(model.get('short_name'));
-            }
-          }
-        });
 
-        var selectDt = this.views.plotControls.getDateTimeRange();
-        // update time
-        self.views.plotContainer.plotParameters = parameterCollection;
-        if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
-          //ONLY DO this for XY plot as it uses highcharts
-          //get the data
-          self.views.plotContainer.plotData = new DataSeriesCollection({},
-             {
-              stream      : streamName,
-              ref_des     : referenceDesignator,
-              startdate   : selectDt.startDate.toISOString(),
-              enddate     : selectDt.endDate.toISOString(),
-              xparameters : xParams,
-              yparameters : yParams
-            });
-
-
-          var onDataHandler = function(collection, response, options) {
-            self.views.plotContainer.hideLoading();
-            self.views.plotContainer.render();
-          };
-
-          var errorHandler = function(collection, response,options){
-            var errorText = response.status+': '+response.statusText
-            ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
-          }
-
-          //fetch the data
-          self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
-
+        if (self.collections.selectedStreamCollection.length == 1){
+          self.plotSingleInstrument(parameterCollection);
         }else{
-          //IMAGE PLOT generation
-          self.views.plotContainer.render();
-          self.views.plotContainer.hideLoading();
+          self.plotInterpolatedData(parameterCollection);
         }
       }
     });
@@ -457,6 +548,9 @@ _.extend(OOI.prototype, Backbone.Events, {
           }
         }
       });
+
+      //reset the content
+      $('#plot-view').html('<img src="/img/plotting/graph.png" style="width:100%;">');
 
     });
 

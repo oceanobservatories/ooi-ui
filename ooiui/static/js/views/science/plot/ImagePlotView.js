@@ -7,17 +7,61 @@ var ImagePlotView = BasePlot.extend({
   },
   getChart:function(){
   },
-  render: function(plotParameters, plotModel){
-    console.log('image render', plotParameters, plotModel);
+  render: function(plotParameters, plotModel, plotDates){
+    var self = this;
+    this.$el.html('<div style="width:100%;height:600px" id="plotContainer"></div>');
 
-    this.$el.html('<div id="plotContainer"></div>');
+    var params = [];
+    var width, height,yvar,xvar, stream_name, reference_designator;
 
-
-    this.$el.find('#plotContainer').append('<img src="https://ooinet.oceanobservatories.org/svg/plot/CE02SHBP-LJ01D-07-VEL3DC108/streamed_vel3d-cd-velocity-data?format=svg&x_units=&y_units=&dpa_flag=0&yvar=vel3d_c_eastward_turbulent_velocity%2Cvel3d_c_upward_turbulent_velocity&xvar%5B%5D=time&height=316.50000000000006&width=949.5000000000001&scatter=false&lines=true&event=false&plotLayout=rose&startdate=2016-05-13T10%3A59%3A55.000Z&enddate=2016-05-14T10%3A59%3A55.000Z&qaqc=0" alt="Rose Plot" style="width:300px;height:300px;">')
-
-    $('#plotContainer').load(function() {
-        $('#plotContainer').fadeIn('slow');
+    plotParameters.each(function(model, i){
+      params.push(model.get('short_name'))
+      if (i == 0){
+        reference_designator = model.get('original_model').get('reference_designator');
+        stream_name = model.get('original_model').get('stream_name');
+      }
     });
+
+
+    if (plotModel.get('plotType') == 'rose'){
+      width = 300;
+      height = 300;
+      yvar = params[1]+","+ params[1] ;
+      xvar = params[0];
+    }
+
+    var inputParams = {
+      width: width,
+      height: height,
+      yvar : yvar,
+      xvar : xvar,
+      plotLayout : plotModel.get('plotType'),
+      qaqc : 0,
+      startdate: plotDates.startDate.toISOString(),
+      enddate  : plotDates.endDate.toISOString(),
+      scatter : false,
+      lines : true,
+      event : false,
+      dpa_flag : 1,
+      format : 'svg',
+      x_units : null,
+      y_units : null
+    };
+
+    var recursiveEncoded = $.param( inputParams );
+
+    var url = '/svg/plot/' + reference_designator + '/' + stream_name + "?" + recursiveEncoded;
+
+    var img = new Image();
+    img.src = url;
+    img.id  = "dataPlot";
+    img.onload=function(){$(img).fadeIn(500);}
+    this.$el.find('#plotContainer').append(img);
+
+    this.$el.find('#dataPlot').error(function(e,r,s) {
+      ooi.trigger('plot:error', {title: "Image Plot Error", message:"ERROR"} );
+      self.$el.find('#dataPlot').remove();
+    })
 
   }
 });
