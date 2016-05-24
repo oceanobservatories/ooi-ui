@@ -30,6 +30,7 @@ var ArrayFilterView = FilterParentView.extend({
             $(selector).prop('checked', true);
             this.addToFilters(arrayCode);
         }
+        ooi.trigger('ArrayFilterView:addToFilters', this.getFilters());
     },
     template: JST['ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/asset_filters/ArrayFilter.html']
 });
