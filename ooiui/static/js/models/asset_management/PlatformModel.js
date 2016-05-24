@@ -8,7 +8,7 @@
  */
 
 var PlatformModel = Backbone.Model.extend({
-    urlRoot: '/api/platform_deployment',
+    url: '/api/asset_deployment?geoJSON=true',
     defaults: {
         array_id: null,
         display_name: null,
@@ -78,12 +78,12 @@ var PlatformModel = Backbone.Model.extend({
  */
 
 var PlatformCollection = Backbone.Collection.extend({
-    url: '/api/platform_deployment',
+    url: '/api/asset_deployment?geoJSON=true',
     model: PlatformModel,
     parse: function(response) {
         'use strict';
         // if the response is valid, return the results object
-        if (response) { return response.platform_deployments; } else { return {}; }
+        if (response) { return response.assets; } else { return {}; }
     },
     byGliders: function() {
         var filtered = this.filter(function (platform) {

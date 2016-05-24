@@ -137,7 +137,6 @@ var ArrayContentSummaryItem = ParentView.extend({
         });
     },
     _flyBye: function(originalZoom) {
-        console.log(originalZoom)
         map.flyTo({center: [-90, 5], zoom: originalZoom, pitch: 0, bearing: 0});
         map.setLayoutProperty('rsArray', 'visibility', 'visible');
         map.setLayoutProperty('eaArray', 'visibility', 'visible');
@@ -265,6 +264,7 @@ var ArrayContentSummaryItem = ParentView.extend({
 var PlatformContentTable = ParentView.extend({
     el: 'table',
     render: function() {
+        console.log(this);
         var platformContentItem = this.collection.byMoorings().map(function(model) {
             return (new PlatformContentItem({model: model})).render().el;
         });

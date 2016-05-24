@@ -23,7 +23,6 @@ var VectorMap = Backbone.View.extend({
                 container: this.id,
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
                 center: [-90, 5],
-                maxBounds: [[-179,-70],[0,70]],
                 interactive: true
             });
 
@@ -303,7 +302,7 @@ var VectorMap = Backbone.View.extend({
                                 uaxBounds: [[-179,-70],[0,70]],
                                 speed: 1.,
                                 zoom: originalZoom,
-                                pitch: 0, 
+                                pitch: 0,
                                 bearing: 0});
                             $('.js-array').removeClass('active');
                             $('.js-array').fadeIn();
@@ -311,7 +310,7 @@ var VectorMap = Backbone.View.extend({
                             renderContext.cameraControls.resetZoom = 1.;
                             renderContext.cameraControls.resetPitch = 0;
                             renderContext.cameraControls.resetBearing = 0;
-                       
+
                     }
                 });
 

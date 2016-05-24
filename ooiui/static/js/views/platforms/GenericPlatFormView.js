@@ -51,10 +51,6 @@ var GenericPlatForm = Backbone.View.extend({
         _.bindAll(this, "render","addTableRows");
         var self = this;
 
-        if(options && options.platform){
-            this.platform = options.platform;
-        }
-
         var platforms = this.collection.fetch({
             success:function(collection, response, options){
 
@@ -108,19 +104,23 @@ var GenericPlatForm = Backbone.View.extend({
     },
     template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
     render: function() {
+        console.log(this.collection.models[0].attributes);
+        var siteInfo = {
+            site: this.collection.models[0].attributes.assetInfo.site,
+            refDes: this.collection.models[0].attributes.ref_des.substr(0,8),
+        };
 
         var platformList = this.collection.map(function(model) {
             return  {
                 name: model.get('assembly_name'),
-                refDes: model.get('reference_designator').substr(0,14)
+                refDes: model.get('reference_designator').substr(0,14),
             };
         });
 
         var uniqueList = _.uniq(platformList, function(item, key, a) {
-            console.log(item);
             return item.refDes;
         });
 
-        this.$el.html(this.template({collection: uniqueList, platform: this.platform}));
+        this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
     }
 });

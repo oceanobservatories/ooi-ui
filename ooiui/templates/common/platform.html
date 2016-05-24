@@ -54,7 +54,7 @@ $(document).ready(function() {
     ooi.start();
 });
 
-var bannerTitle = "Platform";
+var bannerTitle = "Site";
 
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
@@ -75,38 +75,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
             searchId: platformId
         });
 
-        switch (platformId.substr(0,2)) {
-            case 'CE':
-                platform = 'endurance';
-                break;
-
-            case 'GP':
-                platform = 'papa';
-                break;
-
-            case 'RS':
-                platform = 'cabled';
-
-            case 'CP':
-                platform = 'pioneer';
-                break;
-
-            case 'GA':
-                platform = 'argentine';
-                break;
-
-            case 'GI':
-                platform = 'irminger';
-                break;
-
-            case 'GS':
-                platform = 'southern';
-                break;
-        }
-
 
         var platform = new GenericPlatForm({
-            platform: platform,
             el: $('#page-content-wrapper'),
             collection: streams
         });
