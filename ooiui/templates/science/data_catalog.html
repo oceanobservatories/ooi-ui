@@ -144,7 +144,7 @@
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
-          applyFilters(options);
+          setNavFilter("reference_designator", options);
 {#          var searchFiler = options, grid = $("#grid"), f;#}
 {#          if (searchFiler.length === 0) {#}
 {#            grid[0].p.search = false;#}
@@ -281,21 +281,6 @@
     var arrayCollection     = new ArrayCollection();
     var streamCollection    = new StreamCollection();
 
-    var applyFilters = function(options){
-      console.log(options);
-      console.log(options.length);
-      var searchFiler = options, grid = $("#grid"), f;
-      if (searchFiler.length === 0) {
-        grid[0].p.search = false;
-        $.extend(grid[0].p.postData,{filters:""});
-      }
-      f = {groupOp:"OR",rules:[]};
-      f.rules.push({field:"reference_designator",op:"bw",data:searchFiler});
-      grid[0].p.search = true;
-      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-      grid.trigger("reloadGrid",[{page:1,current:true}]);
-    };
-
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -309,7 +294,7 @@
     // Opens the plotting page
     var openPlot = function(ref_des, stream_name){
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/plotting/#"+ref_des+'/'+stream_name, '_blank');
+      var win = window.open(location.origin+"/plot/#"+ref_des+'/'+stream_name, '_blank');
       win.focus();
     };
 
@@ -323,7 +308,7 @@
     var openAssetManagement = function(ref_des, stream_name) {
       //assets/list/#CE01ISSP
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/assets/list/#"+ref_des.substr(0,8), '_blank');
+      var win = window.open(location.origin+"/assets/management/#"+ref_des.substr(0,8), '_blank');
       win.focus();
     };
 
@@ -381,7 +366,6 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-{#      console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -389,6 +373,21 @@
       }
       f = {groupOp:"OR",rules:[]};
       f.rules.push({field:searchColumn,op:"cn",data:searchFiler});
+      grid[0].p.search = true;
+      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+      grid.trigger("reloadGrid",[{page:1,current:true}]);
+    };
+
+    var setNavFilter = function(searchColumn, searchParam){
+      var searchFiler = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFiler.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFiler, function() {
+        f.rules.push({field:searchColumn,op:"bw",data:this});
+      });
       grid[0].p.search = true;
       $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
       grid.trigger("reloadGrid",[{page:1,current:true}]);
@@ -653,11 +652,6 @@
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
-
-{#          applyFilters(vobj.hash);#}
-          setScienceFilter('reference_designator', vobj.hash);
-
-{#          setArrayButtonState();#}
         },
         gridview : true,
         rowNum : 15,
@@ -703,8 +697,7 @@
           multipleSearch : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
-{#            $form.jqFilter('addFilter', defaultFilters);#}
-            setScienceFilter('reference_designator', vobj.hash);
+            $form.jqFilter('addFilter', defaultFilters);
           },
           {#          afterRedraw: function (p) {#}
           {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
@@ -776,10 +769,14 @@
           autosearch : true,
           searchOperators : false,
           searchOnEnter : false,
-          stringResult:true,
-          defaultSearch:"cn"
+          stringResult:true
+{#          defaultSearch:"cn"#}
         }
       );
+
+      if(location.hash!=""){
+        setNavFilter('reference_designator', location.hash.split('#')[1]);
+      }
     } // placeJqGrid
 
 
