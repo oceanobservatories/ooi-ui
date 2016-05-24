@@ -18,7 +18,7 @@ var TimeRangeFilterView = FilterParentView.extend({
                 var startDate = data.values.min.valueOf(),
                     endDate = data.values.max.valueOf();
 
-                _this.collection.fetch({data: {seach: _this.getFilters(), startDate: startDate, endDate: endDate}});
+                _this.collection.fetch({data: {search: _this.getFilters(), startDate: startDate, endDate: endDate}});
             });
         });
 
