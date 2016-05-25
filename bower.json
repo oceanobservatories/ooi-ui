@@ -61,9 +61,10 @@
     "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git",
     "slick-carousel": "~1.5.9",
     "bootbox.js": "bootbox#~4.4.0",
-    "bootstrap-daterangepicker": "https://github.com/cgalvarino/bootstrap-daterangepicker.git#6f5e759262202296a28562c58b2909ffb7e4fb56",
+    "bootstrap-daterangepicker": "~2.1.19",
     "jqgrid": "~5.1.0",
-    "requirejs": "~2.2.0"
+    "requirejs": "~2.2.0",
+    "moment-range": "^2.2.0"
   },
   "resolutions": {
     "jquery": "~2.1.1",

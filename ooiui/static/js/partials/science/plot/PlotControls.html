@@ -1,5 +1,6 @@
 <div class='plot-tab-view plot-control-view'>
   <div class="row">
+    <% if (!_.isNull(plotModel)) { %>
     <div class="col-sm-8 plot-instrument-column">
     <!-- instrument parameter listing -->
       <div class="instrument-content">
@@ -19,9 +20,14 @@
         <div class="row plot-control-section">
           <label>Plot Type:</label>
           <select id="plotTypeSelect" class="selectpicker" style="">
-            <% plotModel.get('plotTypeOptions').each(function(option){ %>
-              <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-            <% }); %>
+            <!-- only one option for interpolated -->
+            <% if (isInterpolated){ %>
+              <option value="xy" selected>X-Y</option>
+            <% } else { %>
+              <% plotModel.get('plotTypeOptions').each(function(option){ %>
+                <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+              <% }); %>
+            <% } %>
           </select>
         </div>
 
@@ -54,10 +60,10 @@
               <label><input type="checkbox" value="invertX">Invert X-Axis</label>
             </div>
             <div class="checkbox">
-              <label><input disabled type="checkbox" value="">Show Annotations</label>
+              <label><input type="checkbox" value="">Show Annotations</label>
             </div>
             <div class="checkbox">
-              <label><input disabled type="checkbox" value="">Show Events</label>
+              <label><input type="checkbox" value="">Show Events</label>
             </div>
           </div>
         </div>
@@ -66,5 +72,6 @@
 
       </form>
     </div>
+    <% } %>
   </div>
 </div>

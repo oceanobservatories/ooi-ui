@@ -9,6 +9,7 @@ var PlotView = BasePlot.extend({
   plotModel: null,
   plotParameters: null,
   plotData: new DataSeriesCollection(),
+  plotDates : null,
   className: 'plot-view',
   events: {
   },
@@ -52,11 +53,11 @@ var PlotView = BasePlot.extend({
     }else{
       //do nothing for the Image Chart
       //derender the hightcharts plot
-      /*
+
       if ( !_.isNull(this.xyPlot.chart) ){
         this.xyPlot.getChart().destroy();
         this.xyPlot.chart = null;
-      }*/
+      }
 
     }
   },
@@ -79,7 +80,7 @@ var PlotView = BasePlot.extend({
     }else{
       //image plot
       this.imagePlot = new ImagePlotView();
-      this.imagePlot.render(self.plotParameters, self.plotModel);
+      this.imagePlot.render(self.plotParameters, self.plotModel, self.plotDates);
 
       this.$el.find('#plotContainer').append(this.imagePlot.el);
 

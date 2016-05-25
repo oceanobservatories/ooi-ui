@@ -1,96 +1,58 @@
-/* CSS REQUIRED */
-.state-icon {
-    left: -5px;
-}
-.list-group-item-primary {
-    color: rgb(255, 255, 255);
-    background-color: rgb(66, 139, 202);
-}
+.ui-jqgrid-btable .ui-state-highlight { background: lightskyblue; color: #000000; font-weight: bold;}
 
-/* DEMO ONLY - REMOVES UNWANTED MARGIN */
-.well .list-group {
-    margin-bottom: 0px;
+.ui-jqgrid-title { font-size: 14px; font-weight: bold; text-align: center;}
+
+.ui-jqgrid .ui-jqgrid-caption { text-align: center; }
+
+.ui-jqgrid .ui-jqgrid-titlebar { height: 30px;}
+
+div#wrapper {
+    margin-top: 150px;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.color-index > span {
+    width: 10px;
+    background-color:
+}
+div.twelve-hours, div.twenty-four-hours, div.older {
+    display: inline-block;
+
+    height: 10px;
+    width: 10px;
 }
 
-.legend rect {
-  fill:white;
-  stroke:black;
-  opacity:0.8;}
-
-.datacircle{
-
+.color-index b {
+    margin-right: 5px;
+}
+.twelve-hours {
+    background-color: deepskyblue;
+    color: black;
+}
+.twenty-four-hours {
+    background-color: gold;
+}
+.older {
+    background-color: firebrick;
 }
 
-.dataline{
-
+#plottingBody div.reset-catalog-container{
+  padding-left: 20px;
 }
 
-.x.axis path {
-  display: none;
+#plottingBody .parameter-select{
+  height: 26px
 }
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+#plottingBody .filter-option.pull-left{
+  font-size:12px;
 }
 
-.bottom-div{
-	display: none;
+#plottingBody #plot-controls{
+  min-height:200px;
 }
 
-.spinner {
-  margin: 100px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  text-align: center;
-  
-  -webkit-animation: rotate 2.0s infinite linear;
-  animation: rotate 2.0s infinite linear;
+#plottingBody .tidy-panel{
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
-.dot1, .dot2 {
-  width: 60%;
-  height: 60%;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  background-color: #333;
-  border-radius: 100%;
-  
-  -webkit-animation: bounce 2.0s infinite ease-in-out;
-  animation: bounce 2.0s infinite ease-in-out;
-}
-
-.dot2 {
-  top: auto;
-  bottom: 0px;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}
-@keyframes rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
-
-@-webkit-keyframes bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
-}

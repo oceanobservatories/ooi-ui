@@ -34,40 +34,77 @@ var PlotControlView = Backbone.View.extend({
     //base render class
     var self = this;
     self.subviews = [];
-
-    this.$el.html(this.template({plotModel:self.plotModel}));
+    var isInterpolated = this.collection.length == 2 ? true : false;
 
     if (this.collection.length == 0){
-      self.$el.find('.instrument-content').append('<h5>Please Select an instrument</h5>');
+      this.$el.html(this.template({plotModel:null}));
+      self.$el.find('.plot-control-view .row').append('<h5>Please Select an instrument</h5>');
     }else{
-      //setup instrument parameter selection
-      var isInterpolated = this.collection.length == 2 ? true : false;
+      this.$el.html(this.template({plotModel:self.plotModel, isInterpolated: isInterpolated}));
       //this.collection = selected stream collection
-      this.collection.each(function(model) {
-        var subview = new PlotInstrumentControlItem({
-          model: model,
+      var controlView1 = new PlotInstrumentControlItem({
+        model: this.collection.models[0],
+        isInterpolated: isInterpolated,
+        plotModel: self.plotModel,
+        control: "controlView1"
+      });
+      //add the content
+      self.subviews.push(controlView1);
+      self.$el.find('.instrument-content').append(controlView1.$el);
+
+      if (isInterpolated){
+        var controlView2 = new PlotInstrumentControlItem({
+          model: this.collection.models[1],
           isInterpolated: isInterpolated,
-          plotModel: self.plotModel
+          plotModel: self.plotModel,
+          control: "controlView2"
         });
         //add the content
-        self.$el.find('.instrument-content').append(subview.$el);
-        self.subviews.push(subview);
-      });
+        self.subviews.push(controlView2);
+        self.$el.find('.instrument-content').append(controlView2.$el);
+      }
 
-      this.cb(moment(this.collection.models[0].get('start')),
-              moment(this.collection.models[0].get('end')));
+      var st, ed
+      //figure out the start and end times available
+      if (this.collection.length > 1 ){
+        if ((moment.utc(self.collection.models[0].get('start'))).isBefore(moment.utc(self.collection.models[1].get('start')))){
+          st = moment.utc(self.collection.models[0].get('start'));
+        }else{
+          st = moment.utc(self.collection.models[1].get('start'));
+        }
+        if ((moment.utc(self.collection.models[0].get('end'))).isAfter(moment.utc(self.collection.models[1].get('end')))){
+          ed = moment.utc(self.collection.models[0].get('end'));
+        }else{
+          ed = moment.utc(self.collection.models[1].get('end'));
+        }
+      }else{
+        st = moment.utc(self.collection.models[0].get('start'));
+        ed = moment.utc(self.collection.models[0].get('end'));
+      }
+
+      var stClone = ed.clone();
+      stClone = stClone.subtract(7,'d');
+      this.cb(stClone, ed);
 
       this.$el.find('#reportrange').daterangepicker({
-          locale: {
+        minDate: st.format('YYYY-MM-DD HH:mm'),
+        maxDate: ed.format('YYYY-MM-DD HH:mm'),
+        startDate: stClone.format('YYYY-MM-DD HH:mm'),
+        endDate: ed.format('YYYY-MM-DD HH:mm'),
+        locale: {
             format: 'YYYY-MM-DD HH:mm'
-          },
-          timePicker: true,
-          timePickerIncrement: 30,
-          startDate: moment.utc(self.collection.models[0].get('start')).format('YYYY-MM-DD HH:mm'),
-          endDate: moment.utc(self.collection.models[0].get('end')).format('YYYY-MM-DD HH:mm'),
-          ranges: {
-             'Yesterday - Today': [moment().subtract(1, 'days'), moment()]
-          }
+        },
+        alwaysShowCalendars: true,
+        timePicker: true,
+        timePickerIncrement: 30,
+        ranges: {
+           'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm'),ed.format('YYYY-MM-DD HH:mm')],
+           'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'Last Month of Data': [ed.clone().subtract(1, 'month').startOf('month').format('YYYY-MM-DD HH:mm'), ed.clone().subtract(1, 'month').endOf('month').format('YYYY-MM-DD HH:mm')],
+           'This Month': [moment().startOf('month').format('YYYY-MM-DD HH:mm'), moment().endOf('month').format('YYYY-MM-DD HH:mm')],
+
+        }
       }, this.cb);
 
       //plot type selection
@@ -75,6 +112,21 @@ var PlotControlView = Backbone.View.extend({
         style: 'btn-primary',
         size: 8
       });
+
+      if (this.collection.length > 1 ){
+        var range1 = moment.range(moment.utc(self.collection.models[0].get('start')),
+                                  moment.utc(self.collection.models[0].get('end')));
+
+
+        var range2 = moment.range(moment.utc(self.collection.models[1].get('start')),
+                                  moment.utc(self.collection.models[1].get('end')));
+
+        if (!(range1.overlaps(range2))){
+          ooi.trigger('plot:error', {title: "Interpolated Plot Error", message:"Interpolated date times dont overlap"} );
+        }
+      }
+
+
     }
   },
   cb: function(start, end){
@@ -112,11 +164,11 @@ var PlotControlView = Backbone.View.extend({
   },
   onPlotTypeSelect: function(e){
     this.plotModel.set('plotType',$(e.target).val());
-    ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
-    //ooi.trigger('update_plot',{model:this.plotModel});
+    ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
   },
-  getSelectedParameters: function(){
+  getSelectedParameters: function(selectedDataCollection){
     var self = this;
+
     var selectedParameterCollection = new ParameterCollection();
 
     _.each(self.subviews,function(view){
@@ -127,16 +179,23 @@ var PlotControlView = Backbone.View.extend({
       });
     });
 
-    //check that only 1 x/y is selected
+    //check that only 1 x/y/z is selected
     var xLen = selectedParameterCollection.where({'is_x':true})
     var yLen = selectedParameterCollection.where({'is_y':true})
     var zLen = selectedParameterCollection.where({'is_z':true})
+
+    var referenceCount = 1
+
+    //special case for interpolated plot
+    if (selectedDataCollection == 2){
+      referenceCount = 2;
+    }
 
     if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
       ooi.trigger('plot:error', {title: "incorrect inputs", message:"incorrect inputs selected, please select x or y for parameter"} );
       return null;
     }
-    else if ( (xLen.length > 1) && (yLen.length > 1) ){
+    else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) ){
       ooi.trigger('plot:error', {title: "incorrect inputs", message:"incorrect inputs selected, please select only 1 parameter for x or y"} );
       return null;
     }else{
@@ -160,6 +219,11 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     if ( "plotModel" in options){
       this.plotModel = options.plotModel;
     }
+
+    if ( "control" in options){
+      this.control = options.control;
+    }
+
     this.isInterpolated = options.isInterpolated;
     this.render();
   },
@@ -171,24 +235,27 @@ var PlotInstrumentControlItem = Backbone.View.extend({
 
     var selectedPlotType = self.plotModel.get('plotTypeOptions').where({value:self.plotModel.get('plotType')})[0]
 
-    console.log("here",selectedPlotType);
+    this.$el.html(this.template({ model:this.model, plotTypeModel: selectedPlotType, isInterpolated: self.isInterpolated }));
 
-    this.$el.html(this.template({ model:this.model, plotTypeModel: selectedPlotType }));
+
     self.$el.find('.table-content').empty();
     //gets the selected plot type configuration
+    //adds condition for interpolated plot
+    var rowCount = !self.isInterpolated ? selectedPlotType.get('num_inputs') : self.plotModel.get('interpolatedPlotCount');
+    //make sure the number of inputs matches the number of rows
+    var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
 
-    for (var i = 0; i < selectedPlotType.get('num_inputs'); i++) {
+    for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
-      var paramControl = new PlotInstrumentParameterControl({
+      self.subviews.push(new PlotInstrumentParameterControl({
         model: self.model,
         parameter_id: i,
-        plotTypeModel : selectedPlotType
-        //count : this.isInterpolated ? 1 : 1  //add one if interpolated else make it 6 data series available
-      })
-      self.subviews.push(paramControl);
-      self.$el.find('.table-content').append(paramControl.$el);
+        plotTypeModel : selectedPlotType,
+        control: this.control,
+        isInterpolated: self.isInterpolated
+      }));
+      self.$el.find('.table-content').append(self.subviews[i].$el);
     }
-
   }
 });
 
@@ -219,10 +286,17 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       this.plotTypeModel = options.plotTypeModel;
     }
 
+    if ("control" in options){
+      this.control = options.control;
+    }
+
+    if ("isInterpolated" in options){
+      this.isInterpolated = options.isInterpolated;
+    }
+
     if ("count" in options){
       this.count  = options.count;
     }
-
     this.render();
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotInstrumentParameterControl.html'],
@@ -243,8 +317,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     if (self.model.get("variables")[i] == "time"){
       return true;
     }
-
-    //complex if statement...
+    //complex if statement for parameters...
     if ((self.model.get("variables_shape")[i] == "scalar" ||
          self.model.get("variables_shape")[i] == "function") &&
         self.model.get("units")[i] != "bytes" &&
@@ -263,11 +336,10 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     //base render class
     var self = this;
     //empty it before we start
-    self.collection.reset();
+    self.collection = new ParameterCollection();
 
     var count = 0
     _.each(this.model.get('parameter_id'),function(v,i){
-      //console.log(i,self.model.attributes); //TODO update this
       if (self.isParameterValid(i)){
         //derived parameters
         self.collection.add(new ParameterModel({name:self.model.get('parameter_display_name')[i],
@@ -287,10 +359,10 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       }
     });
 
-    this.$el.html(this.template({model:this.model,
+    this.$el.html(this.template({ model:this.model,
                                  options:self.collection,
-                                 id: this.parameter_id,
-                                 parameterCount: this.count,
+                                 id: this.control+"_"+this.parameter_id,
+                                 parameterCount: 1,
                                  plotTypeModel : this.plotTypeModel
                                  }));
 

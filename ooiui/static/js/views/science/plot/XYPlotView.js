@@ -148,6 +148,9 @@ var XYPlotView = BasePlot.extend({
             fontSize: "18px"
           }
       },
+      credits: {
+        enabled: false
+      },
       xAxis: xAxis,
       yAxis: yAxis,
       tooltip: {

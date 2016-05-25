@@ -23,7 +23,6 @@ var PlotInstrumentView = Backbone.View.extend({
     //base render class
     var self = this;
     this.$el.html(this.template());
-
     //this.collection = selected stream collection
     if (this.collection.length == 0){
       self.emptyRender();
@@ -48,14 +47,25 @@ var PlotInstrumentViewItem = Backbone.View.extend({
   tagName:"tr",
   events: {
   },
+  events:{
+    "click .instrument-to-plot" : "onRemoveClick"
+  },
   initialize: function() {
     this.render();
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotInstrumentsItem.html'],
   render:function(){
-    //base render class
     var self = this;
-    console.log(this.model);
     this.$el.html(this.template({model:this.model}));
+  },
+  onRemoveClick:function(evt){
+    var modelList = collection.where({'ref_des': $(evt.target).data('ref_des'),'stream_name': $(evt.target).data('stream_name')});
+    if (!_.isUndefined(modelList) && modelList.length > 0){
+      ooi.trigger('remove_catalog_model',{model:modelList[0]});
+      var rowId = $(evt.target).data('ref_des')+$(evt.target).data('stream_name');
+      var currentRowData = $dcGrid.getRowData(rowId);
+      currentRowData.actions = currentRowData.actions.replace('fa fa-minus-square','fa-plus-square')
+      $dcGrid.setRowData(rowId,currentRowData);
+    }
   }
 });
