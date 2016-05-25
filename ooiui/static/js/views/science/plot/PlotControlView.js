@@ -82,19 +82,29 @@ var PlotControlView = Backbone.View.extend({
         ed = moment.utc(self.collection.models[0].get('end'));
       }
 
-      this.cb(st, ed);
+      var stClone = ed.clone();
+      stClone = stClone.subtract(7,'d');
+      this.cb(stClone, ed);
 
       this.$el.find('#reportrange').daterangepicker({
-          locale: {
+        minDate: st.format('YYYY-MM-DD HH:mm'),
+        maxDate: ed.format('YYYY-MM-DD HH:mm'),
+        startDate: stClone.format('YYYY-MM-DD HH:mm'),
+        endDate: ed.format('YYYY-MM-DD HH:mm'),
+        locale: {
             format: 'YYYY-MM-DD HH:mm'
-          },
-          timePicker: true,
-          timePickerIncrement: 30,
-          startDate: st.format('YYYY-MM-DD HH:mm'),
-          endDate: ed.format('YYYY-MM-DD HH:mm'),
-          ranges: {
-             'Yesterday - Today': [moment().subtract(1, 'days'), moment()]
-          }
+        },
+        alwaysShowCalendars: true,
+        timePicker: true,
+        timePickerIncrement: 30,
+        ranges: {
+           'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm'),ed.format('YYYY-MM-DD HH:mm')],
+           'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'Last Month of Data': [ed.clone().subtract(1, 'month').startOf('month').format('YYYY-MM-DD HH:mm'), ed.clone().subtract(1, 'month').endOf('month').format('YYYY-MM-DD HH:mm')],
+           'This Month': [moment().startOf('month').format('YYYY-MM-DD HH:mm'), moment().endOf('month').format('YYYY-MM-DD HH:mm')],
+
+        }
       }, this.cb);
 
       //plot type selection

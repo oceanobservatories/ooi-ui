@@ -8,8 +8,8 @@
 <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
 <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
 <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
-<link href="/css/compiled/plotting.css" rel="stylesheet" type="text/css" />
 <link href="/css/common/plotControls.css" rel="stylesheet" type="text/css" />
+<link href="/css/compiled/plot.css" rel="stylesheet" type="text/css" />
 <link href='/lib/bootstrap-daterangepicker/daterangepicker.css' rel="stylesheet" type="text/css" />
 
 <!-- Partials
@@ -30,6 +30,11 @@
 <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
 -->
 <script src="/js/compiled/plotting.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $.jgrid.no_legacy_api = true;
+  $.jgrid.useJSON = true;
+</script>
 
 {% block link %}
 <!-- common/base.html -->
@@ -58,7 +63,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-11">
+      <div class="col-sm-11 tidy-panel">
 
       <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
         <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
@@ -176,10 +181,29 @@
           Catlalog
         </div>
         <div class="panel-body">
-          <!-- REMOVE THIS -->
-          <h5> this is where the catalog goes....REMOVE THIS SECTION!</h5>
-          <button style="display:none" id="add_catalog_button" type="button" class="btn btn-primary">Add Random Catalog Entry...</button>
-          <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Catalog List...</button>
+          <div class="reset-catalog-container">
+            <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Selected Instruments</button>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div id="streamPanel" class="panel" style="margin-right:15px;">
+                <div class="color-index" align="right">
+                  <div class="twelve-hours"></div><b> 12 Hours </b>
+                  <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                  <div class="older"></div><b> Older than 24 hours </b>
+                  <em>Data are sorted by end date, most recent first</em>
+                </div>
+
+                <!-- jqGrid -->
+                <div>
+                  <div id="navGrid" class="redmond"></div>
+                  <table id="grid" class="redmond"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div> <!-- panel -->
     </div> <!-- .row -->
@@ -209,6 +233,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     subscriptionCollection :  new DataSubscriptionCollection(),
     largeFormatFiles: new LargeDataFormatCollection(),
     selectedStreamCollection: new StreamCollection(), //collection of stream models
+    streams: new StreamCollection()
   },
   views: {
     plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -436,6 +461,9 @@ _.extend(OOI.prototype, Backbone.Events, {
       collection : self.collections.plotEventList
     });
 
+    // Get the list of streams from the API
+    {#updateCollection( showStreams );#}
+
     /* Dispatcher Sectiion */
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
@@ -446,10 +474,21 @@ _.extend(OOI.prototype, Backbone.Events, {
       //o.model = selected stream model
       //ONLY ALLOW TWO instruments selected
       if (self.collections.selectedStreamCollection.length < 2){
-        console.log('add catalog entry','idx"',GLOBAL_COUNT);
         self.collections.selectedStreamCollection.add(o.model);
         self.trigger('update_catalog_list',{});
+        o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
       };
+    });
+
+    //MAIN ADDITION OF A STREAM
+    this.listenTo(this, "remove_catalog_model", function(o) {
+      //o.model = selected stream model
+      //ONLY ALLOW TWO instruments selected
+      self.collections.selectedStreamCollection.remove(o.model);
+      //reset the content
+      $('#plot-view').html('<img src="/img/plotting/graph.png" style="width:100%;">');
+      self.trigger('update_catalog_list',{});
+
     });
 
     this.listenTo(this, "reset_catalog_list", function(o) {
@@ -470,21 +509,20 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, "update_catalog_list", function(o) {
-      //listen to change events, should really be a change listener
-
       //get plot defaults for instrument
-      //TODO MOVE this somewhere else
-
-      console.log(self.collections.selectedStreamCollection,'change');
-      //render the controls
-      self.views.plotControls.render();
-      self.views.plotInstruments.render();
-
       if (self.collections.selectedStreamCollection.length > 0){
         var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
         var item = items[items.length-1];
         var new_item = item.replace(/\d+/g, '');
         console.log("DEFAULT Instrument Plot OPTION::",new_item, defaultPlotTypes.where({instrument: new_item}));
+      }
+
+      //render the controls
+      self.views.plotControls.render();
+      self.views.plotInstruments.render();
+
+      if (self.collections.selectedStreamCollection.length > 0){
+
 
         //EVENTS
         self.collections.plotEventList.fetch({
@@ -656,10 +694,14 @@ _.extend(OOI.prototype, Backbone.Events, {
 });
 
 var ooi = new OOI();
-var vent = _.extend({}, Backbone.Events);
+{#var collection = new StreamCollection();#}
+var collection = ooi.collections.streams;
 
+var vent = _.extend({}, Backbone.Events);
+var vobj = {};
 // controller for our model collections
-var streamCollection = new StreamCollection();
+var streamCollection    = new StreamCollection();
+
 var defaultPlotTypes = new DefaultPlotCollection();
 
 // url arguments
@@ -668,10 +710,49 @@ var data = { min : 'True' };
 var streamFetch = streamCollection.fetch({ reset: true });
 var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
 
-$.when(streamFetch, defaultPlotFetch).done(function() {
-  $('#add_catalog_button').css('display','inline-block') //TODO REMOVE LINE
-  $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
-});
+// Sets up the action buttons in the jqGrid table
+var createActionButtons = function(cellvalue, options, rowObject){
+  var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+  actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+
+  //actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+
+  actionButtons += "</div>";
+
+  return actionButtons;
+};
+
+// Opens the download modal
+var openDownload = function(ref_des, stream_name) {
+  var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+  dlModel.attributes.email = ooi.models.userModel.attributes.email;
+  ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+};
+
+var openAssetManagement = function(ref_des, stream_name) {
+  //assets/list/#CE01ISSP
+  location.origin = location.protocol + "//" + location.host;
+  var win = window.open(location.origin+"/assets/management/#"+ref_des.substr(0,8), '_blank');
+  win.focus();
+};
+
+// Colors the end time
+var colorTime = function(cellvalue, options, rowObject) {
+  var currentDate = new Date();
+  var endDate = new Date(cellvalue);
+  var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
+
+  // Base cell output is no background
+  var cellOutput = '<i>'+cellvalue+'</i>';
+  if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
+  } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="twenty-four-hours">'+cellvalue+'</i>';
+  } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="older">'+cellvalue+'</i>';
+  }
+  return cellOutput;
+};
 
 // The download pagination object holds information about the current
 // state of the page for us.
@@ -683,32 +764,434 @@ var dlPagination = {
     ref_des: ''
 }
 
-// TODO REMOVE GLOBAL_COUNT, ONLY FOR TESTING!
-var GLOBAL_COUNT = 0
-
 $(document).ready(function() {
   ooi.start();
-
-
-  $('#add_catalog_button').on('click', function(event){
-    event.preventDefault();
-    ooi.trigger('add_catalog_model',{model:streamCollection.models[GLOBAL_COUNT]});
-    GLOBAL_COUNT = GLOBAL_COUNT+1;
-  });
-
-  $('#reset_catalog_button').on('click', function(event){
-    event.preventDefault();
-    ooi.trigger('reset_catalog_list',{});
-    //GLOBAL_COUNT = 0;
-  });
-
 
   $('#updatePlot').on('click', function(event){
     event.preventDefault();
     ooi.trigger('update_plot',{});
   });
 
+  $('#reset_catalog_button').on('click', function(event){
+    event.preventDefault();
+    ooi.trigger('reset_catalog_list',{});
+    $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
+  });
+
+  updateCollection( showStreams );
+
 });
+
+//added from data-catalog
+ var $dcGrid = $("#grid");
+
+  var getUniqueNames = function(columnName) {
+      var texts = $dcGrid[0].p.data, uniqueTexts = [],
+        textsLength = texts.length, text, textsMap = {}, i;
+      for (i=0;i<textsLength;i++) {
+        text = texts[i][columnName];
+        if (text !== undefined && textsMap[text] === undefined) {
+          // to test whether the texts is unique we place it in the map.
+          textsMap[text] = true;
+          uniqueTexts.push(text);
+        }
+      }
+{#        console.log(uniqueTexts);#}
+      return uniqueTexts;
+    },
+    buildSearchSelect = function(uniqueNames) {
+      var values=":All";
+      $.each (uniqueNames, function() {
+        values += ";" + this + ":" + this;
+      });
+      return values;
+    },
+    setSearchSelect = function(columnName) {
+      $dcGrid.jqGrid('setColProp', columnName,
+        {
+          stype: 'select',
+          searchoptions: {
+            value:buildSearchSelect(getUniqueNames(columnName)),
+            sopt:['eq']
+          }
+        }
+      );
+    };
+
+  // Loads the jqGrid into
+  function placeJqGrid(collection) {
+    $dcGrid.jqGrid({
+      onCellSelect: function(row, col, content, event){
+        var selectedRow = $dcGrid.getRowData(row);
+        var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
+        $evt = $(event.target);
+
+        if ($evt.find('i').hasClass('fa-plus-square')){
+          if (!_.isUndefined(modelList) && modelList.length > 0){
+            //trigger for a new plot item
+            ooi.trigger('add_catalog_model',{model:modelList[0], evt:$evt});
+          }
+        }else{
+          if (!_.isUndefined(modelList) && modelList.length > 0){
+            //trigger a remove for a model
+            ooi.trigger('remove_catalog_model',{model:modelList[0]});
+          }
+          $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+        }
+      },
+      datatype : "local",
+      data : collection.toJSON(),
+      colNames: [
+        'Actions',
+        'Array',
+        'Site Name',
+        'Platform Name',
+        'Node',
+        'Instrument',
+        'Stream Identifier',
+        'Stream Type',
+        'Depth (m)',
+        'Lat / Lon (ddm)',
+        'Start Time',
+        'End Time',
+        'Reference Designator',
+        'Unique ID'],
+
+      colModel : [
+        { name : 'actions',
+          caption : 'Plot/Download',
+          width : 40,
+          sortable : false,
+          search : false,
+          align : 'center',
+          formatter : createActionButtons,
+        },
+        {
+          name : 'array_name',
+          index : 'array_name',
+          editable : false,
+          {#                width : 100,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'site_name',
+          index : 'site_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'platform_name',
+          index : 'platform_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'assembly_name',
+          index : 'assembly_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'display_name',
+          index : 'display_name',
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'stream_name',
+          index : 'stream_name',
+          key : true,
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'stream_type',
+          index : 'stream_type',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'depth',
+          index : 'depth',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'number',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'lat_lon',
+          index : 'lat_lon',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'start',
+          index : 'start',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'date',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'end',
+          index : 'end',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'date',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          formatter : colorTime,
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+          {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+        },
+        {
+          name: 'reference_designator',
+          index: 'reference_designator',
+          key: false, // rowID = reference_designator
+          editable: false,
+          {#                width: 165,#}
+          sortable: true,
+          sorttype: 'string',
+          searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+          align: 'center',
+          unformat: function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'unique_id',
+          index : 'unique_id',
+          key : true, // rowID = unique_id = ref_des+stream_name
+          hidden : true,
+          editable : false,
+          {#                width : 165,#}
+          sortable : false,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align: 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        }
+      ],
+      {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+      loadComplete : function(data) {
+        $("#navGrid").find("option[value=\"50000\"]").text('All');
+      },
+      gridview : true,
+      rowNum : 15,
+      rowList : [15, 30, 45, 60, 50000],
+      autowidth : true,
+      height : 'auto',
+      pager : '#navGrid',
+      sortname : 'end',
+      viewrecords : true,
+      sortorder : 'desc',
+      caption : 'Data Catalog',
+      altRows: false,
+      {#        altclass:'myAltRowClass',#}
+      {#        classes: 'table table-bordered table-striped table-selectable',#}
+      ignoreCase: true,
+      shrinkToFit : false,
+      multiselect: false,
+      multiboxonly: false,
+      reloadAfterSubmit : false,
+      loadOnce : false
+    }).jqGrid('navGrid',
+      '#navGrid',
+      {
+        edit : false,
+        add : false,
+        del : false,
+
+        // beforeRefresh:
+        // Set the latest data from collection before refreshing grid
+        {#            beforeRefresh : function () {#}
+        {#              $("#grid").jqGrid('setGridParam', {#}
+        {#                datatype : 'local',#}
+        {#                data : ooi.collections.streams.toJSON()#}
+        {#              });#}
+        {#            }#}
+      },
+      {},
+      {},
+      {},
+      {
+        cloneToTop : true,
+        closeOnEscape : true,
+        multipleSearch : true,
+        overlay: 0,
+        onInitializeSearch: function ($form) {
+          $form.jqFilter('addFilter', defaultFilters);
+        },
+        {#          afterRedraw: function (p) {#}
+        {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+        {#              p.columns.push({#}
+        {#                name: 'All',#}
+        {#                label: 'Any Field',#}
+        {#                searchoptions: {},#}
+        {#                searchrules: {},#}
+        {#                searchtype: 'string',#}
+        {#                inputtype: 'text'#}
+        {#              });#}
+        {#            }#}
+        {#            //$(this).find('.delete-rule:first').hide();#}
+        {#          }#}
+      });
+
+
+
+    {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+
+    $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+      caption: "showcolumns",
+      buttonicon: "ui-icon-calculator",
+      title: "Choose columns",
+      onClickButton: function () {
+        $(this).jqGrid('columnChooser',{
+{#            width: 700,#}
+{#            dialog_opts: {#}
+{#              modal: true,#}
+{#              minWidth: 470,#}
+{#              height: 470,#}
+{#              show: 'blind',#}
+{#              hide: 'explode',#}
+{#              dividerLocation: 0.5#}
+{#            }#}
+        });
+        $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+          .bind("sortreceive", function (event, ui) {
+            alert('column "' + ui.item.text() + '" is chosen');
+          });
+        $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+          .click(function () {
+            alert('column "' + $(this).parent().text() + '" is chosen');
+          });
+
+      }
+    });
+
+
+    setSearchSelect('array_name');
+    {#setSearchSelect('site_name');#}
+
+    $dcGrid.jqGrid('setColProp', 'array_name',
+      {
+        searchoptions: {
+          sopt:['cn'],
+          dataInit: function(elem) {
+            $(elem).autocomplete({
+              source:getUniqueNames('array_name'),
+              delay:0,
+              minLength:0
+            });
+          }
+        }
+      });
+
+    $dcGrid.jqGrid('filterToolbar',
+      {
+        autosearch : true,
+        searchOperators : false,
+        searchOnEnter : false,
+        stringResult:true
+{#          defaultSearch:"cn"#}
+      }
+    );
+
+    if(location.hash!=""){
+      setNavFilter('reference_designator', location.hash.split('#')[1]);
+    }
+  } // placeJqGrid
+
+
+  function showStreams( collection, response ){
+    //jqGrid
+    var jqCollection = collection;
+    jqCollection['actions'] = '';
+    placeJqGrid(jqCollection);
+    $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
+  }
+
+
+  function updateCollection( successCallback ){
+    collection.fetch({
+      {#        data : data,#}
+      success : successCallback
+      //    error : showError
+    });
+  }
+
+//added from data-catalog
+
 
 function jump(h){
     var url = location.href;               //Save down the URL without hash.
