@@ -11,6 +11,19 @@
     cursor: pointer;
 }
 
+.array-content .js-expand span, .array-content .js-expand i {
+    height: 70px;
+    padding-top: 25px;
+    padding-left: 10px;
+}
+
+.array-content .active .js-expand span,
+.array-content .active .js-expand i {
+    transition: all .5s ease;
+    height: 20px !important;
+    padding-top: 0px;
+}
+
 .array-content .panel-heading {
     padding: 0 0 5px 0;
     margin: 0;
@@ -52,7 +65,7 @@
     z-index: 10000;
 }
 
-.array-content .js-platform-table tr td {
+.array-content .js-platform-table tr td:nth-child(2) {
     font-size: 12px;
     cursor: pointer;
 }

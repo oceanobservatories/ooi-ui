@@ -49,7 +49,9 @@ var ArrayContentSummary = ParentView.extend({
         });
 
         // prepend the arrays to the page.
-        this.$el.prepend(arrayContentSummaryItem);
+        setTimeout(function() {
+            arrayContentContext.$el.prepend(arrayContentSummaryItem);
+        }, 300);
     }
 });
 

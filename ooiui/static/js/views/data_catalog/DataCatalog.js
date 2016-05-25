@@ -34,7 +34,7 @@ var DataCatalogParentView = Backbone.View.extend({
             return this;
 
         } catch (exception) {
-            console.log(exception, 'That suuuuucks...good luck');
+            console.log(exception, '[:(] That suuuuucks...good luck');
         }
     },
     onAfterRender: function(callback) {

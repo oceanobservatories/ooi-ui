@@ -13,13 +13,16 @@ var ArrayFilterView = FilterParentView.extend({
         // When an array checkbox is selected perform actions on the
         // filters and re fetch the collection in order for subscribers
         // of the collection to be notified.
-        var target = $(event.target);
+        var target = $(event.target),
+            timeRange = this.getTimeRange();
+
+
         if (this.indexOfFilters(target.val()) === -1) {
             this.addToFilters(target.val());
-            this.collection.fetch({data: {search: this.getFilters()}});
+            this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
         } else {
             this.removeFromFilters(target.val());
-            this.collection.fetch({data: {search: this.getFilters()}});
+            this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
         }
 
         // This bypasses the data as an interface

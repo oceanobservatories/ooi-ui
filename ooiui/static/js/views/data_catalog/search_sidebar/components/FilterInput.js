@@ -16,38 +16,64 @@
  * @method removeFromFilters(item)
  *      Removes the string item from the array of filters.
  *
+ * @method getTimeRange()
+ *      Return the time range object, with min and max
+ *
+ * @method setTimeRange(min, max)
+ *      Sets the time range object, and returns the global
+ *      time range.
+ *
+ *
+ * @global filters
+ * @global timeRange
  */
 
+var filters = [];
+var timeRange = {};
+
 var FilterParentView = SearchSidebarView.extend({
-    filters: [],
     getFilters: function() {
-        return this.filters.join(' ');
+        return filters.join(' ');
     },
     addToFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
-        this.filters.push(item);
-        return this.filters;
+        filters.push(item);
+        return filters;
     },
     indexOfFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
-        return this.filters.indexOf(item);
+        return filters.indexOf(item);
     },
     removeFromFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
 
-        var index = this.filters.indexOf(item);
+        var index = filters.indexOf(item);
         if (index !== -1) {
-            this.filters.splice(index, 1);
+            filters.splice(index, 1);
             return true;
         } else {
             return false;
         }
+    },
+    getTimeRange: function() {
+        if (timeRange === {}) {
+            return null;
+        } else {
+           return timeRange;
+        }
+    },
+    setTimeRange: function(min, max) {
+        timeRange = {
+            min: min.valueOf(),
+            max: max.valueOf()
+        }
+        return timeRange;
     }
 });
 

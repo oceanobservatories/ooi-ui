@@ -9,7 +9,7 @@ var TimeRangeFilterView = FilterParentView.extend({
         var _this = this;
         $.when(this.collection.fetch({data: {search: _this.getFilters()}})).done(function() {
             var dateRangeBounds = _this._getDateRangeSliderBounds(_this.collection.models);
-            console.log(dateRangeBounds);
+            _this.setTimeRange(dateRangeBounds.min, dateRangeBounds.max);
 
             _this.$el.find('#slider').dateRangeSlider({
                 bounds: dateRangeBounds,
