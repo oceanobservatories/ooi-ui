@@ -29,6 +29,8 @@
  */
 
 var filters = [];
+var streamFilters = [];
+var instrumentFilters = [];
 var timeRange = {};
 
 var FilterParentView = SearchSidebarView.extend({
@@ -74,7 +76,66 @@ var FilterParentView = SearchSidebarView.extend({
             max: max.valueOf()
         }
         return timeRange;
-    }
+    },
+    getStreamFilters: function() {
+        return streamFilters.join(' ');
+    },
+    addToStreamFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        streamFilters.push(item);
+        return streamFilters;
+    },
+    indexOfStreamFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        return streamFilters.indexOf(item);
+    },
+    removeFromStreamFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+
+        var index = streamFilters.indexOf(item);
+        if (index !== -1) {
+            streamFilters.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
+    },
+    getInstrumentFilters: function() {
+        return instrumentFilters.join(' ');
+    },
+    addToInstrumentFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        instrumentFilters.push(item);
+        return instrumentFilters;
+    },
+    indexOfInstrumentFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        return instrumentFilters.indexOf(item);
+    },
+    removeFromInstrumentFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+
+        var index = instrumentFilters.indexOf(item);
+        if (index !== -1) {
+            instrumentFilters.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
+    },
+
 });
 
 
@@ -87,6 +148,9 @@ var FilterInputView = FilterParentView.extend({
 
         var rangeFilterView = new RangeFilterView({el: '#rangeFilters', collection: this.collection});
         this.$el.find('#rangeFilters').append(rangeFilterView.render().el);
+
+        var streamFilterView = new StreamFilterView({el: '#streamFilters', collection: this.collection});
+        this.$el.find('#streamFilters').append(streamFilterView.render().el);
     },
     template: JST['ooiui/static/js/partials/data_catalog/search_sidebar/components/FilterInput.html']
 });

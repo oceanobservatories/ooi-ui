@@ -10,6 +10,8 @@ var TimeRangeFilterView = FilterParentView.extend({
         $.when(this.collection.fetch({data: {search: _this.getFilters()}})).done(function() {
             var dateRangeBounds = _this._getDateRangeSliderBounds(_this.collection.models);
             _this.setTimeRange(dateRangeBounds.min, dateRangeBounds.max);
+            ooi.trigger('TimeRangeFilterView:addToTimeRange', _this.getTimeRange());
+
 
             _this.$el.find('#slider').dateRangeSlider({
                 bounds: dateRangeBounds,
@@ -18,7 +20,10 @@ var TimeRangeFilterView = FilterParentView.extend({
                 var startDate = data.values.min.valueOf(),
                     endDate = data.values.max.valueOf();
 
-                _this.collection.fetch({data: {search: _this.getFilters(), startDate: startDate, endDate: endDate}});
+                //_this.collection.fetch({data: {search: _this.getFilters(), startDate: startDate, endDate: endDate}});
+
+                _this.setTimeRange(startDate, endDate);
+                ooi.trigger('TimeRangeFilterView:addToTimeRange', _this.getTimeRange());
             });
         });
 
