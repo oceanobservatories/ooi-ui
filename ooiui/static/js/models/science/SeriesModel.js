@@ -12,18 +12,18 @@ var SeriesModel = Backbone.Model.extend({
   urlRoot: '#',
   formatter: d3.format(".2f"),
   defaults: {
-    type: "scatter",
+    //type: "scatter",
     name: "",
-    axisName: "test",
-    xaxisName: "test",
-    showInLegend: true,
-    enableMouseTracking: true,
-    color: "",
+    //axisName: "test",
+    //xaxisName: "test",
+    //showInLegend: true,
+    //enableMouseTracking: true,
+    //color: "",
     data: [],
-    enableMarker: true,
+    //enableMarker: true,
     units:"",
-    xmin:0,
-    xmax:0,
+    //xmin:0,
+    //xmax:0,
     title:""
   }
 });
@@ -49,7 +49,6 @@ var DataSeriesCollection = Backbone.Collection.extend({
   enddate:"",
   xparameters:[],
   yparameters:[],
-  axis_name:[],
   initialize: function(models,options) {
     if (options && options.stream){
       this.stream = options.stream;
@@ -68,9 +67,6 @@ var DataSeriesCollection = Backbone.Collection.extend({
     }
     if (options && options.yparameters){
       this.yparameters = options.yparameters;
-    }
-    if (options && options.axis_name){
-      this.axis_name = options.axis_name;
     }
 
   },
