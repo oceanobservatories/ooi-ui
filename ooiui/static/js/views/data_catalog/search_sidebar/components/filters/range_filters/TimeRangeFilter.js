@@ -13,9 +13,10 @@ var TimeRangeFilterView = FilterParentView.extend({
             ooi.trigger('TimeRangeFilterView:addToTimeRange', _this.getTimeRange());
 
 
-            _this.$el.find('#slider').dateRangeSlider({
+            $('.date-range-slider').dateRangeSlider({
                 bounds: dateRangeBounds,
                 defaultValues: dateRangeBounds,
+
             }).bind('valuesChanged', function(event, data) {
                 var startDate = data.values.min.valueOf(),
                     endDate = data.values.max.valueOf();
