@@ -19,10 +19,10 @@ var ArrayFilterView = FilterParentView.extend({
 
         if (this.indexOfFilters(target.val()) === -1) {
             this.addToFilters(target.val());
-            this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
+            //this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
         } else {
             this.removeFromFilters(target.val());
-            this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
+            //this.collection.fetch({data: {search: this.getFilters(), startDate: timeRange.min, endDate: timeRange.max}});
         }
 
         // This bypasses the data as an interface

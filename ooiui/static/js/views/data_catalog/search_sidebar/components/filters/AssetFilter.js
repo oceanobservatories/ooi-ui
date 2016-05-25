@@ -3,7 +3,7 @@ var AssetFilterView = FilterParentView.extend({
         this.renderArrayFilter();
         //this.renderPlatformFilter();
         //this.renderNodeFilter();
-        //this.renderInstrumentFilter();
+        this.renderInstrumentFilter();
     },
     renderArrayFilter: function() {
         var arrayFilterView = new ArrayFilterView({el: '#arrayFilter', collection: this.collection});

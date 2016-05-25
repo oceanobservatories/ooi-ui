@@ -156,6 +156,20 @@
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
             //TODO: @OCEANZUS, implement the filter for the time range.
             //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            console.log(options);
+        });
+
+
+        this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
+            //TODO: @OCEANZUS, implement the filter for the time range.
+            //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            console.log(options);
+        });
+
+        this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
+            //TODO: @OCEANZUS, implement the filter for the time range.
+            //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            console.log(options);
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
