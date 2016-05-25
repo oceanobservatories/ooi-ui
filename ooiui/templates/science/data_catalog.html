@@ -443,6 +443,37 @@
         );
       };
 
+    var highlightFilteredData = function () {
+      var $self = $(this), filters, i, l, rules, rule, iCol,
+        isFiltered = $self.jqGrid("getGridParam", "search"),
+        postData = $self.jqGrid("getGridParam", "postData"),
+        colModel = $self.jqGrid("getGridParam", "colModel"),
+        colIndexByName = {};
+
+      // validate whether we have input for highlighting
+      if (!isFiltered || typeof postData !== "object") {
+        return;
+      }
+      filters = $.parseJSON(postData.filters);
+      if (filters == null || filters.rules == null || filters.rules.length <= 0) {
+        return;
+      }
+
+      // fill colIndexByName which get easy column index by the column name
+      for (i = 0, l = colModel.length; i < l; i++) {
+        colIndexByName[colModel[i].name] = i;
+      }
+
+      rules = filters.rules;
+      for (i = 0, l = rules.length; i < l; i++) {
+        rule = rules[i];
+        iCol = colIndexByName[rule.field];
+        if (iCol !== undefined) {
+          $self.find(">tbody>tr.jqgrow>td:nth-child(" + (iCol + 1) + ")").highlight(rule.data);
+        }
+      }
+    };
+
     // Loads the jqGrid into
     function placeJqGrid(collection) {
       $dcGrid.jqGrid({
@@ -652,8 +683,10 @@
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
+          highlightFilteredData.call(this);
         },
         gridview : true,
+        toolbar: [true, "top"],
         rowNum : 15,
         rowList : [15, 30, 45, 60, 50000],
         autowidth : true,
@@ -678,7 +711,7 @@
           edit : false,
           add : false,
           del : false,
-
+          search : true
           // beforeRefresh:
           // Set the latest data from collection before refreshing grid
           {#            beforeRefresh : function () {#}
@@ -777,6 +810,64 @@
       if(location.hash!=""){
         setNavFilter('reference_designator', location.hash.split('#')[1]);
       }
+
+      // fill top toolbar
+      var $grid = $dcGrid;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          $("#globalSearch").click();
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        var postData = $grid.jqGrid("getGridParam", "postData"),
+          colModel = $grid.jqGrid("getGridParam", "colModel"),
+          rules = [],
+          searchText = $("#globalSearchText").val(),
+          l = colModel.length,
+          searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+          cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+          i,
+          iPart,
+          token,
+          cm;
+
+        // normalize searchTextParts by removing quotes
+        for (iPart = 0; iPart < cnParts; iPart++) {
+          token = searchTextParts[iPart];
+          if (token.length > 2 &&
+            ((token[0] === '"' && token[token.length - 1] === '"') ||
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
+            searchTextParts[iPart] = token.substr(1,token.length-2);
+          }
+        }
+
+        for (i = 0; i < l; i++) {
+          cm = colModel[i];
+          if (cm.search !== false && (cm.stype === undefined || cm.stype === "text")) {
+            for (iPart = 0; iPart < cnParts; iPart++) {
+              rules.push({
+                field: cm.name,
+                op: "cn",
+                data: searchTextParts[iPart]
+              });
+            }
+          }
+        }
+        postData.filters = JSON.stringify({
+          groupOp: "OR",
+          rules: rules
+        });
+        $grid.jqGrid("setGridParam", { search: true });
+        $grid.trigger("reloadGrid", [{page: 1, current: true}]);
+        return false;
+      });
+
     } // placeJqGrid
 
 
