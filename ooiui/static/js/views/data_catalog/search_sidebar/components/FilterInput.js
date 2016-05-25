@@ -34,6 +34,14 @@ var instrumentFilters = [];
 var timeRange = {};
 
 var FilterParentView = SearchSidebarView.extend({
+    events: {
+        'click .js-collapse': 'collapsePanel'
+    },
+    collapsePanel: function(event) {
+        event.stopImmediatePropagation();
+        var target = $(event.target).data('target');
+        $(target).toggleClass('in');
+    },
     getFilters: function() {
         return filters.join(' ');
     },
