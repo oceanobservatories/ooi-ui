@@ -26,3 +26,5 @@ body, html {
 #timeRangeFilter #slider .ui-rangeSlider-label-value {
     font-size : 12px !important;
 }
+
+.highlight { background-color: #ba9217 }

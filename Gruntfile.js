@@ -1446,6 +1446,8 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jqgrid/js/plugins/grid.searchFilter.js',
             'ooiui/static/lib/jqgrid/js/plugins/grid.tablednd.js',
             'ooiui/static/lib/jqgrid/js/addons/ui.multiselect.js',
+            //'ooiui/static/lib/jquery-highlight/jquery.highlight.js',
+            'ooiui/static/js/core/common/jquery-highlight-5.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
