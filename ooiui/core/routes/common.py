@@ -1,11 +1,9 @@
 from ooiui.core.app import app
-from flask import request, render_template, Response, jsonify, session,make_response, redirect, url_for
+from flask import request, render_template, Response, jsonify, session, make_response, redirect, url_for
 from werkzeug.exceptions import Unauthorized
 from ooiui.core.routes.decorators import login_required, get_login, scope_required
 import requests
 import json
-import urllib
-import urllib2
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
@@ -29,128 +27,124 @@ def read_config():
     del c['COMMON']['UI_API_KEY']
     del c['COMMON']['CACHE_TYPE']
     del c['COMMON']['DEBUG']
-    del c['COMMON']['GOOGLE_ANALYTICS_URL']
+    del c['COMMON']['GOOGLE_ANALYTICS']
     del c['DEVELOPMENT']['SECRET_KEY']
     del c['DEVELOPMENT']['UI_API_KEY']
     del c['DEVELOPMENT']['CACHE_TYPE']
     del c['DEVELOPMENT']['DEBUG']
-    del c['DEVELOPMENT']['GOOGLE_ANALYTICS_URL']
+    del c['DEVELOPMENT']['GOOGLE_ANALYTICS']
     return jsonify(c)
 
 @app.route('/signup')
 def user_signup():
-    return render_template('common/signup.html')
+    return render_template('common/signup.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/user/edit/<int:id>')
 @login_required()
 def user_edit(id):
-    return render_template('common/userEdit.html')
+    return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/users/')
 @login_required()
 def users():
-    return render_template('common/users.html')
+    return render_template('common/users.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/troubleTicket')
 def create_ticket():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FtroubleTicket')
-    return render_template('common/troubleTicket.html')
+    return render_template('common/troubleTicket.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/login')
 def user_login():
-    return render_template('common/loginDemo.html')
+    return render_template('common/loginDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/help')
 def help_page():
-    return render_template('common/help.html')
+    return render_template('common/help.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/pioneer-array')
 def pioneer_array():
-    return render_template('landing/pioneerArray.html')
+    return render_template('landing/pioneerArray.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/endurance-array')
 def endurance_array():
-    return render_template('landing/enduranceArray.html')
+    return render_template('landing/enduranceArray.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/cabled-array')
 def cabled_array():
-    return render_template('landing/cabledArray.html')
+    return render_template('landing/cabledArray.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/station-papa')
 def station_papa():
-    return render_template('landing/stationPapa.html')
+    return render_template('landing/stationPapa.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/irminger-sea')
 def irminger_sea():
-    return render_template('landing/irmingerSea.html')
+    return render_template('landing/irmingerSea.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/argentine-basin')
 def argentine_basin():
-    return render_template('landing/argentineBasin.html')
+    return render_template('landing/argentineBasin.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/southern-ocean')
 def southern_ocean():
-    return render_template('landing/southernOcean.html')
+    return render_template('landing/southernOcean.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/infrastructure')
 def infrastructure():
-    return render_template('common/infrastructure.html')
+    return render_template('common/infrastructure.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/NewEvent')
 @login_required()
 def new_event():
-    return render_template('common/newEvent.html')
+    return render_template('common/newEvent.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/basic.html')
 def basic():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fbasic')
-    return render_template('common/basic.html')
+    return render_template('common/basic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/svgplot.html')
 def svg_timeseries_plot():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplot')
-    return render_template('common/svgplot.html')
+    return render_template('common/svgplot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/depthplot.html')
 def svg_depthprofile_plot():
-    return render_template('common/depthplot.html')
+    return render_template('common/depthplot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/chartDemo.html')
 def chart_demo():
-    return render_template('common/chartDemo.html')
+    return render_template('common/chartDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/plotsDemo.html')
 def plots_demo():
-    return render_template('common/plotsDemo.html')
+    return render_template('common/plotsDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/FAQ.html')
 def FAQ():
-    return render_template('common/FAQ.html')
+    return render_template('common/FAQ.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/glossary.html')
 def glossary():
-    return render_template('common/glossary.html')
+    return render_template('common/glossary.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/home')
 def home():
-    return render_template('common/home.html')
+    return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/station')
 def station():
-    return render_template('common/station.html')
+    return render_template('common/station.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/platform')
 def platform():
-    return render_template('common/platform.html')
+    return render_template('common/platform.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/data_catalog')
 def data_catalog():
-    return render_template('common/data_catalog.html')
+    return render_template('common/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/status')
 def statusUI():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstatus')
-    return render_template('common/status.html')
+    return render_template('common/status.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/api/organization', methods=['GET'])
@@ -241,7 +235,7 @@ def get_ticket_users():
 @app.route('/ticket_roles')
 def ticket_roles():
     token = get_login()
-    resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token,''))
+    resp = requests.get(app.config['SERVICES_URL'] + '/ticket_roles', auth=(token, ''))
     return resp.text, resp.status_code
 
 @login_required()
@@ -249,7 +243,7 @@ def ticket_roles():
 def subscription_post():
     headers = {'Content-Type': 'application/json'}
     token = get_login()
-    response = requests.post(app.config['SERVICES_URL']+'/uframe/subscription', data=request.data, headers=headers,auth=(token,''))
+    response = requests.post(app.config['SERVICES_URL']+'/uframe/subscription', data=request.data, headers=headers, auth=(token, ''))
     return response.text, response.status_code
 
 @login_required()
@@ -257,7 +251,7 @@ def subscription_post():
 def subscription_get():
     token = get_login()
     if 'email' not in request.args:
-        return jsonify(error="email address not set"),401
+        return jsonify(error="email address not set"), 401
     try:
         if token:
             email = request.args['email']
@@ -272,16 +266,16 @@ def subscription_get():
 
             return jsonify(data=ret_data)
         else:
-            return jsonify(error="user not logged in"),401
-    except Exception,e:
-        return jsonify(error="email address not set"),401
+            return jsonify(error="user not logged in"), 401
+    except Exception, e:
+        return jsonify(error="email address not set"), 401
 
 
 @login_required()
 @app.route('/api/subscription/<int:id>', methods=['DELETE'])
 def subscription_delete(id):
     token = get_login()
-    response = requests.delete(app.config['SERVICES_URL']+'/uframe/subscription/'+str(id), params=request.args,auth=(token,''))
+    response = requests.delete(app.config['SERVICES_URL']+'/uframe/subscription/'+str(id), params=request.args, auth=(token, ''))
     return response.text, response.status_code
 
 @app.route('/api/login', methods=['POST'])
@@ -348,7 +342,7 @@ def put_watch(id):
 @app.route('/api/watch/open', methods=['GET'])
 def get_watch_open():
     token = get_login()
-    resp = requests.get(app.config['SERVICES_URL'] + '/watch/open', auth=(token,''), params=request.args)
+    resp = requests.get(app.config['SERVICES_URL'] + '/watch/open', auth=(token, ''), params=request.args)
     return resp.text, resp.status_code
 
 @app.route('/api/operator_event', methods=['GET'])
@@ -457,10 +451,10 @@ def get_alfresco_documents():
 
 @app.route('/CGSNConfig')
 def CGSNConfig():
-    return render_template('common/CGSNConfig.html')
+    return render_template('common/CGSNConfig.html', tracking=app.config['GOOGLE_ANALYTICS'])
 @app.route('/config_file', methods=['GET'])
 def get_config():
-    with open('ooiui/static/txt/config_file.txt','r') as f:
+    with open('ooiui/static/txt/config_file.txt', 'r') as f:
         response = make_response(f.read())
         if not request.args.get("dl"): response.headers["Content-Type"] = "text;"
         else: response.headers["Content-Disposition"] = "attachment; filename=config.txt"
@@ -469,18 +463,18 @@ def get_config():
 def post_config():
     res = request.form["txt"]
     before = open('ooiui/static/txt/config_file.txt').readlines()
-    with open('ooiui/static/txt/config_file.txt','w') as f:
+    with open('ooiui/static/txt/config_file.txt', 'w') as f:
         f.write(res)
     after = open('ooiui/static/txt/config_file.txt').readlines()
     diff=''
-    for line in difflib.unified_diff(before, after, 'before', 'after',):diff+=line
-    #diff = difflib.unified_diff(before, after, 'before', 'after',)
+    for line in difflib.unified_diff(before, after, 'before', 'after', ):diff+=line
+    #diff = difflib.unified_diff(before, after, 'before', 'after', )
     response = make_response(diff)
     response.headers["Content-Type"] = "text;"
     return response
 @app.route('/notsupported')
 def not_supported():
-    return render_template("/common/notsupported.html")
+    return render_template('/common/notsupported.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/api/countries', methods=['GET'])
 def get_countries():
@@ -497,12 +491,12 @@ def get_states(country_code):
 @app.route('/sysadmin')
 @scope_required('sys_admin')
 def sys_admin_template():
-    return render_template('admin/sysAdmin.html')
+    return render_template('admin/sysAdmin.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/dataadmin')
 @scope_required('data_manager')
 def data_admin_template():
-    return render_template('admin/dataAdmin.html')
+    return render_template('admin/dataAdmin.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/api/disabled_streams', methods=['GET', 'POST'])
 @app.route('/api/disabled_streams/<int:id>', methods=['DELETE'])
@@ -511,17 +505,17 @@ def disabled_streams(id=None):
     token = get_login()
     END_POINT = '/uframe/disabled_streams'
     if request.method == 'GET':
-        response = requests.get(app.config['SERVICES_URL'] + END_POINT,
+        response = requests.get(app.config['SERVICES_URL'] + END_POINT, 
                                 auth=(token, ''), params=request.args)
         return response.text, response.status_code
 
     elif request.method == 'POST':
-        response = requests.post(app.config['SERVICES_URL'] + END_POINT,
+        response = requests.post(app.config['SERVICES_URL'] + END_POINT, 
                                 auth=(token, ''), data=request.data)
         return response.text, response.status_code
 
     elif request.method == 'DELETE':
-        response = requests.delete(app.config['SERVICES_URL'] + END_POINT + '/' + str(id),
+        response = requests.delete(app.config['SERVICES_URL'] + END_POINT + '/' + str(id), 
                                 auth=(token, ''))
         return response.text, response.status_code
 
@@ -532,12 +526,12 @@ def disabled_streams(id=None):
 def cache_keys(key=None):
     token = get_login()
     if request.method == 'GET':
-        response = requests.get(app.config['SERVICES_URL'] + '/cache_keys',
+        response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', 
                                 auth=(token, ''), params=request.args)
         return response.text, response.status_code
 
     elif request.method == 'DELETE':
-        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key,
+        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key, 
                                  auth=(token, ''))
         return response.text, response.status_code
 

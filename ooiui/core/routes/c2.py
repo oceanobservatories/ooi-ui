@@ -10,7 +10,6 @@ from flask import stream_with_context, make_response
 from ooiui.core.routes.decorators import login_required, scope_required
 from ooiui.core.routes.common import get_login
 import json
-import urllib2
 import requests
 from threading import Thread
 from flask_socketio import SocketIO
@@ -46,7 +45,7 @@ def is_json(input_json):
 
 @app.route('/cameras')
 def c2_cameras():
-    return render_template('science/camera_media.html')
+    return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive
 ######
@@ -56,8 +55,7 @@ def c2_cameras():
 @scope_required('command_control')
 @login_required()
 def c2_mission_executive():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fexecutive')
-    return render_template('c2/missionExecutive.html')
+    return render_template('c2/missionExecutive.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Load
 @app.route('/mission/load')
@@ -65,8 +63,7 @@ def c2_mission_executive():
 @scope_required('command_control')
 @login_required()
 def c2_mission_load():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fmissing%2Fload')
-    return render_template('c2/missionLoad.html')
+    return render_template('c2/missionLoad.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 #probably not going to use
@@ -75,16 +72,14 @@ def c2_mission_load():
 @scope_required('command_control')
 @login_required()
 def c2_platforms():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Fplatforms')
-    return render_template('c2/platforms.html')
+    return render_template('c2/platforms.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/c2/instrument')
 @app.route('/c2/instrument/')
 @scope_required('command_control')
 @login_required()
 def c2_platform_status():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Finstrument')
-    return render_template('c2/instrument.html')
+    return render_template('c2/instrument.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #arrays list
 @app.route('/c2')
@@ -92,8 +87,7 @@ def c2_platform_status():
 @scope_required('command_control')
 @login_required()
 def c2_index():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fc2%2Flanding')
-    return render_template('c2/landing.html')
+    return render_template('c2/landing.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive DATA PATHS
 ######
