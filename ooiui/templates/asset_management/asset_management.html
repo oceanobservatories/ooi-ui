@@ -66,14 +66,14 @@
                 <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;">Export Asset Information (JSON)</a>
                 <button type='button' title='Show Deployed' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PRESENT");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Deployed</i></button>
                 <button type='button' title='Show Recovered' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PAST");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Recovered</i></button>
-{#                <div class="toggle-btn-grp cssonly">#}
-{#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Valid Assets</label></div>#}
-{#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Invalid Assets</label></div>#}
-{#                </div>#}
-{#                <div class="toggle-btn-grp cssonly">#}
-{#                  <div><input title="Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense", "PRESENT");' class="toggle-btn">Deployed</label></div>#}
-{#                  <div><input title="Not Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense","PAST");' class="toggle-btn">Not Deployed</label></div>#}
-{#                </div>#}
+                {#                <div class="toggle-btn-grp cssonly">#}
+                {#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Valid Assets</label></div>#}
+                {#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Invalid Assets</label></div>#}
+                {#                </div>#}
+                {#                <div class="toggle-btn-grp cssonly">#}
+                {#                  <div><input title="Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense", "PRESENT");' class="toggle-btn">Deployed</label></div>#}
+                {#                  <div><input title="Not Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense","PAST");' class="toggle-btn">Not Deployed</label></div>#}
+                {#                </div>#}
               </div>
             </div>
             <div class="col-md-12">
@@ -278,10 +278,10 @@
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
-{#      console.log(rowObject);#}
+      {#      console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
-{#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
+      {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
       actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
       actionButtons += "</div>";
       return actionButtons;
@@ -308,7 +308,7 @@
     };
 
     var getEditUrl = function() {
-{#      console.log(lastsel2);#}
+      {#      console.log(lastsel2);#}
       location.origin = location.protocol + "//" + location.host;
       return location.origin+"/api/asset_deployment/"+lastsel2;
     };
@@ -344,7 +344,7 @@
     });
 
     var setScienceFilter = function(searchColumn, searchParam){
-{#      console.log(event);#}
+      {#      console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -373,7 +373,7 @@
     };
 
     var setEventFilter = function(searchColumn, searchParam){
-{#      console.log(event);#}
+      {#      console.log(event);#}
       var searchFiler = searchParam, grid = $("#gridEvents"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -417,7 +417,7 @@
             uniqueTexts.push(text);
           }
         }
-{#        console.log(uniqueTexts);#}
+        {#        console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -441,12 +441,12 @@
 
     //define handler for 'editSubmit' event
     var fn_editSubmit=function(response,postdata){
-{#      console.log('fn_editSubmit');#}
-{#      console.log(response);#}
-{#      console.log(postdata);#}
+      {#      console.log('fn_editSubmit');#}
+      {#      console.log(response);#}
+      {#      console.log(postdata);#}
       var json=response.responseText; //in my case response text form server is "{sc:true,msg:''}"
       var result=eval("("+json+")"); //create js object from server reponse
-{#      console.log(result);#}
+      {#      console.log(result);#}
       return [result,null];
     };
 
@@ -579,9 +579,11 @@
       $("#rowAlfresco").show();
     };
 
+    var currentAssetId;
+
     // Loads the jqGrid into
     function placeJqGrid(collection) {
-{#      console.log(collection);#}
+      {#      console.log(collection);#}
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection.toJSON(),
@@ -989,7 +991,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-                    {
+          {
             name : 'lastModifiedTimestamp',
             index : 'lastModifiedTimestamp',
             hidden : false,
@@ -1012,7 +1014,13 @@
           showRows();
         },
         onSelectRow: function (rowId, status, e) {
-{#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          $gridMetadata.jqGrid("clearGridData");
+          $gridEvents.jqGrid("clearGridData");
+{#          console.log('currentAssetId');#}
+{#          console.log($dcGrid.getRowData(rowId));#}
+          currentAssetId = $dcGrid.getRowData(rowId).id;
+{#          console.log(currentAssetId);#}
+          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
           setEventFilter("","");
           $gridMetadata.jqGrid('resetSelection');
           $gridEvents.jqGrid('resetSelection');
@@ -1038,10 +1046,10 @@
         {#          contentType :"application/json; charset=utf-8",#}
         {#          dataType :"json"#}
         {#        },#}
-{#        serializeRowData: function(postdata){#}
-{#          console.log(postdata);#}
-{#          return JSON.stringify(postdata);#}
-{#        },#}
+        {#        serializeRowData: function(postdata){#}
+        {#          console.log(postdata);#}
+        {#          return JSON.stringify(postdata);#}
+        {#        },#}
         gridview : true,
         toolbar: [true, "top"],
         rowNum : 10,
@@ -1066,10 +1074,10 @@
       }).jqGrid('navGrid',
         '#navGrid',
         {add:false, view:false, del:false,edit:false,pdf:true,search:true}
-{#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
-{#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
+        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
+        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
-{#        ,{multipleSearch:true}#}
+        ,{multipleSearch:true}
         ,{closeOnEscape:true}
         {#        {#}
         {#          edit : true,#}
@@ -1154,21 +1162,21 @@
       });
 
 
-{#      setSearchSelect('assetInfo.array');#}
-{#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
-{#        {#}
-{#          searchoptions: {#}
-{#            sopt:['cn'],#}
-{#            dataInit: function(elem) {#}
-{#              $(elem).autocomplete({#}
-{#                source:getUniqueNames('assetInfo.array'),#}
-{#                delay:0,#}
-{#                minLength:0#}
-{#              });#}
-{#            }#}
-{#          }#}
-{#        }#}
-{#      );#}
+      {#      setSearchSelect('assetInfo.array');#}
+      {#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
+      {#        {#}
+      {#          searchoptions: {#}
+      {#            sopt:['cn'],#}
+      {#            dataInit: function(elem) {#}
+      {#              $(elem).autocomplete({#}
+      {#                source:getUniqueNames('assetInfo.array'),#}
+      {#                delay:0,#}
+      {#                minLength:0#}
+      {#              });#}
+      {#            }#}
+      {#          }#}
+      {#        }#}
+      {#      );#}
 
       $dcGrid.jqGrid('filterToolbar',
         {
@@ -1244,7 +1252,7 @@
     } // placeJqGrid
 
     function placeJqGridMetadata(collection) {
-{#      console.log(collection);#}
+      {#      console.log(collection);#}
       $gridMetadata.jqGrid({
         datatype : "local",
         data : collection,
@@ -1297,7 +1305,7 @@
             }
           }
         ],
-{#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
           $("#navGridMetadata").find("option[value=\"50000\"]").text('All');
         },
@@ -1314,7 +1322,7 @@
         {#          dataType :"json"#}
         {#        },#}
         serializeRowData: function(postdata){
-{#          console.log(postdata);#}
+          {#          console.log(postdata);#}
           return JSON.stringify(postdata);
         },
         gridview : true,
@@ -1397,51 +1405,51 @@
         buttonicon: 'ui-icon ui-icon-document'
       });
 
-{#      // Column mover and chooser#}
-{#      $dcGrid.jqGrid('navButtonAdd', '#navGridMetadata', {#}
-{#        caption: "showcolumns",#}
-{#        buttonicon: "ui-icon-calculator",#}
-{#        title: "Choose columns",#}
-{#        onClickButton: function () {#}
-{#          $(this).jqGrid('columnChooser',{#}
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
-{#          });#}
-{#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")#}
-{#            .bind("sortreceive", function (event, ui) {#}
-{#              alert('column "' + ui.item.text() + '" is chosen');#}
-{#            });#}
-{#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")#}
-{#            .click(function () {#}
-{#              alert('column "' + $(this).parent().text() + '" is chosen');#}
-{#            });#}
-{##}
-{#        }#}
-{#      });#}
+      {#      // Column mover and chooser#}
+      {#      $dcGrid.jqGrid('navButtonAdd', '#navGridMetadata', {#}
+      {#        caption: "showcolumns",#}
+      {#        buttonicon: "ui-icon-calculator",#}
+      {#        title: "Choose columns",#}
+      {#        onClickButton: function () {#}
+      {#          $(this).jqGrid('columnChooser',{#}
+      {#						width: 700,#}
+      {#						dialog_opts: {#}
+      {#							modal: true,#}
+      {#							minWidth: 470,#}
+      {#							height: 470,#}
+      {#							show: 'blind',#}
+      {#							hide: 'explode',#}
+      {#							dividerLocation: 0.5#}
+      {#						}#}
+      {#          });#}
+      {#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")#}
+      {#            .bind("sortreceive", function (event, ui) {#}
+      {#              alert('column "' + ui.item.text() + '" is chosen');#}
+      {#            });#}
+      {#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")#}
+      {#            .click(function () {#}
+      {#              alert('column "' + $(this).parent().text() + '" is chosen');#}
+      {#            });#}
+      {##}
+      {#        }#}
+      {#      });#}
 
 
-{#      setSearchSelect('assetInfo.array');#}
-{#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
-{#        {#}
-{#          searchoptions: {#}
-{#            sopt:['cn'],#}
-{#            dataInit: function(elem) {#}
-{#              $(elem).autocomplete({#}
-{#                source:getUniqueNames('assetInfo.array'),#}
-{#                delay:0,#}
-{#                minLength:0#}
-{#              });#}
-{#            }#}
-{#          }#}
-{#        }#}
-{#      );#}
+      {#      setSearchSelect('assetInfo.array');#}
+      {#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
+      {#        {#}
+      {#          searchoptions: {#}
+      {#            sopt:['cn'],#}
+      {#            dataInit: function(elem) {#}
+      {#              $(elem).autocomplete({#}
+      {#                source:getUniqueNames('assetInfo.array'),#}
+      {#                delay:0,#}
+      {#                minLength:0#}
+      {#              });#}
+      {#            }#}
+      {#          }#}
+      {#        }#}
+      {#      );#}
 
       $dcGrid.jqGrid('filterToolbar',
         {
@@ -1453,13 +1461,50 @@
         }
       );
 
-{#      if(location.hash!=""){#}
-{#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
-{#      }#}
+      {#      if(location.hash!=""){#}
+      {#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
+      {#      }#}
     } // placeJqGrid Metadata
 
+    var deploymentCollection;
+    var integrationCollection;
+    var tagCollection;
+    var calibrationCollection;
+
+
+    var getEventData = function(rowData) {
+{#      console.log('rowData');#}
+{#      console.log(rowData);#}
+{#      console.log('rowData.eventId');#}
+{#      console.log(rowData.eventId);#}
+
+      var output = {};
+      var eventCollection = new AssetEventsCollection({id: parseInt(currentAssetId)});
+      var eventsFetch = eventCollection.fetch();
+      $.when(eventsFetch).done(function() {
+{#        console.log('eventCollection');#}
+{#        console.log(eventCollection);#}
+        if(rowData.eventClass == '.DeploymentEvent'){
+          output = eventCollection.where({'eventClass': '.DeploymentEvent'})[0];
+{#          console.log('output.attributes');#}
+{#          console.log(output.attributes);#}
+          {#          return output;#}
+          deploymentCollection = output.attributes;
+          {#          $gridEvents.setGridParam({data:output.attributes});#}
+          {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+        }
+      });
+
+    };
+
+
+    var subNames = [];
+    var subColumns = [];
+    var subModel = {};
+    var subData = {};
+
     function placeJqGridEvents(collection) {
-{#      console.log(collection);#}
+      {#      console.log(collection);#}
       $gridEvents.jqGrid({
         datatype : "local",
         data : collection,
@@ -1557,7 +1602,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-                    {
+          {
             name : 'notes',
             index : 'notes',
             editable : false,
@@ -1572,24 +1617,29 @@
             }
           }
         ],
-{#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
           $("#navGridEvents").find("option[value=\"50000\"]").text('All');
         },
-        {#        onSelectRow: function(id){#}
-        {#          if(id && id!==lastsel2){#}
-        {#            $dcGrid.restoreRow(lastsel2);#}
-        {#            $dcGrid.editRow(id,true);#}
-        {#            lastsel2=id;#}
-        {#          }#}
-        {#        },#}
-        {#        ajaxRowOptions : {#}
-        {#          type :"POST",#}
-        {#          contentType :"application/json; charset=utf-8",#}
-        {#          dataType :"json"#}
-        {#        },#}
+        onSelectRow: function (rowId, status, e) {
+          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          {#          setEventFilter("","");#}
+          {#          $gridMetadata.jqGrid('resetSelection');#}
+          {#          $gridEvents.jqGrid('resetSelection');#}
+          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
+          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
+          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
+          {##}
+          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
+          {#          $gridEvents.setGridParam({data:eventObjects});#}
+          {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+          {##}
+          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
+
+          {#          getEventData(rowId);#}
+        },
         serializeRowData: function(postdata){
-{#          console.log(postdata);#}
+          {#          console.log(postdata);#}
           return JSON.stringify(postdata);
         },
         gridview : true,
@@ -1610,15 +1660,234 @@
         multiselect: true,
         multiboxonly: true,
         reloadAfterSubmit : false,
-        loadOnce : false
+        loadOnce : false,
+        subGrid : true,
+        subGridOptions: {
+          "plusicon": "ui-icon-triangle-1-e",
+          "minusicon": "ui-icon-triangle-1-s",
+          "openicon": "ui-icon-arrowreturn-1-e",
+          "reloadOnExpand": true,
+          "selectOnExpand": true
+        },
+        subGridBeforeExpand: function(subgrid_id, row_id) {
+          subNames = [];
+          subColumns = [];
+          subModel = {};
+          subData = {};
+{#          console.log('expanded row');#}
+{#          console.log(row_id);#}
+          var selectedRow = $gridEvents.getRowData(row_id);
+{#          console.log(selectedRow);#}
+{#          console.log('selectedRow.eventId');#}
+{#          console.log(selectedRow.eventId);#}
+
+          var selectedAssetRow = $dcGrid.getRowData(currentAssetId);
+{#          console.log('selectedAssetRow');#}
+{#          console.log(selectedAssetRow);#}
+
+          {#          console.log('expanded row');#}
+          {#          console.log(row_id);#}
+          {#          var selectedRow = $gridEvents.getRowData(row_id);#}
+          {#          console.log(selectedRow);#}
+          {#          console.log('selectedRow.eventId');#}
+          {#          console.log(selectedRow.eventId);#}
+
+          var eventCollection = new AssetEventsCollection({id: parseInt(currentAssetId)});
+          var eventsFetch = eventCollection.fetch();
+          $.when(eventsFetch).done(function() {
+
+{#            console.log('eventCollection');#}
+{#            console.log(eventCollection);#}
+
+            var output = {};
+            // .DeploymentEvent
+            {#            if(selectedRow.eventClass == '.DeploymentEvent'){#}
+            {#              output = eventCollection.where({'eventClass': '.DeploymentEvent'})[0];#}
+            output = eventCollection.where({'eventClass': selectedRow.eventClass})[0];
+{#            console.log('output.attributes');#}
+{#            console.log(output.attributes);#}
+            {#          return output;#}
+            deploymentCollection = output.attributes;
+            {#          $gridEvents.setGridParam({data:output.attributes});#}
+            {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+{#            console.log('deploymentCollection');#}
+{#            console.log(deploymentCollection);#}
+
+            var subgridData;
+
+            if(selectedRow.eventClass == '.DeploymentEvent') {
+              subgridData = deploymentCollection;
+              subNames = [
+                "deploymentShipName",
+                "deploymentNumber",
+                "cruise",
+                "cruiseNumber",
+                "cruisePlanDocument.url",
+                "notes",
+                "locationLonLat",
+                "recoveryShipName",
+                "recoveryPlanDocument.url",
+                "recoveryCruiseNumber",
+                "recoveryLocationLonLat"
+              ];
+              subColumns = [
+                "Ship Name (D)",
+                "Deployment #",
+                "Cruise (D)",
+                "Cruise # (D)",
+                "Cruise Doc (D)",
+                "Notes (D)",
+                "Coordinates (D)",
+                "Ship Name (R)",
+                "Plan Doc (R)",
+                "Cruise # (R)",
+                "Coordinates (R)"
+              ];
+
+              // Put the data in the subgrid
+              mysubdata = [];
+              mysubdata[0] = {};
+              for (var j = 0; j < subNames.length; j++) {
+                mysubdata[0][subNames[j]] = subgridData[subNames[j]];
+              }
+{#              console.log('mysubdata');#}
+{#              console.log(mysubdata);#}
+              subData = mysubdata;
+
+            } else if(selectedRow.eventClass == '.TagEvent') {
+{#              console.log('.tagEvent');#}
+{#              console.log('.IntegrationEvent');#}
+              subgridData = deploymentCollection;
+{#              console.log(subgridData);#}
+              subNames = [];
+              subColumns = [];
+
+              subNames = Object.keys(subgridData);
+              subColumns = subNames;
+
+              // Put the data in the subgrid
+              mysubdata = [];
+              mysubdata[0] = {};
+              for (var j = 0; j < subNames.length; j++) {
+                if(!typeof subgridData[subNames[j]] == "object") {
+                  mysubdata[0][subNames[j]] = subgridData[subNames[j]];
+                } else {
+                  subNames.splice(subNames.indexOf(subNames[j]), 1);
+                }
+              }
+
+              $.each (subNames, function() {
+                mysubdata[0][this] = subgridData[this];
+              });
+              subColumns = subNames;
+{#              console.log(subNames);#}
+{#              console.log(subColumns);#}
+{#              console.log('mysubdata');#}
+{#              console.log(mysubdata);#}
+              subData = mysubdata;
+            } else if(selectedRow.eventClass == '.IntegrationEvent') {
+{#              console.log('.IntegrationEvent');#}
+              subgridData = deploymentCollection;
+{#              console.log(subgridData);#}
+              subNames = [];
+              subColumns = [];
+
+              subNames = Object.keys(subgridData);
+              subColumns = subNames;
+
+              // Put the data in the subgrid
+              mysubdata = [];
+              mysubdata[0] = {};
+              for (var j = 0; j < subNames.length; j++) {
+                if(!typeof subgridData[subNames[j]] == "object") {
+                  mysubdata[0][subNames[j]] = subgridData[subNames[j]];
+                } else {
+                  subNames.splice(subNames.indexOf(subNames[j]), 1);
+                }
+              }
+
+              $.each (subNames, function() {
+                mysubdata[0][this] = subgridData[this];
+              });
+              subColumns = subNames;
+{#              console.log(subNames);#}
+{#              console.log(subColumns);#}
+{#              console.log('mysubdata');#}
+{#              console.log(mysubdata);#}
+              subData = mysubdata;
+
+            } else if(selectedRow.eventClass == '.CalibrationEvent') {
+              subgridData = deploymentCollection.calibrationCoefficient;
+{#              console.log('.CalibrationEvent');#}
+{#              console.log(subgridData);#}
+              subNames = [];
+              subColumns = [];
+              $.each (subgridData, function() {
+                subNames.push(this.name);
+                subColumns.push(this.name);
+              });
+
+              // Put the data in the subgrid
+              mysubdata = [];
+              mysubdata[0] = {};
+              for (var j = 0; j < subNames.length; j++) {
+                mysubdata[0][subNames[j]] = subgridData[j].values;
+              }
+{#              console.log('mysubdata');#}
+{#              console.log(mysubdata);#}
+              subData = mysubdata;
+
+            } else {
+              subNames = [];
+              subColumns = [];
+            }
+
+
+// Create the colModel
+            subModel = [];
+            for (var sn = 0; sn < subNames.length; sn++) {
+              subModel.push({name:subNames[sn],index:subNames[sn]})
+            }
+
+            var subgrid_table_id;
+            subgrid_table_id = subgrid_id + "_t";
+
+            jQuery("#"+subgrid_id).html("<table id='"+subgrid_table_id+"' class='scroll'></table>");
+            jQuery("#"+subgrid_table_id).jqGrid({
+              datatype: "local",
+              colNames: subColumns,
+              colModel: subModel,
+              {#                [#}
+              {#                {name:"cruise",index:"cruise",width:80,key:false},#}
+              {#                {name:"cruiseNumber",index:"cruiseNumber",width:130}#}
+              {#              ],#}
+              height: '100%',
+              rowNum:10,
+              sortname: 'cruise',
+              sortorder: "asc"
+            });
+
+            $("#" + subgrid_table_id).jqGrid('addRowData', 1, subData[0]);
+
+          });
+
+
+        },
+        subGridRowExpanded: function(subgrid_id, row_id) {
+
+
+
+
+        }
+
       }).jqGrid('navGrid',
         '#navGridEvents',
         {add:false, view:false, del:false,edit:false,pdf:true}
-        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}
-        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/
+        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
+        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
-        ,{multipleSearch:true}
-        ,{closeOnEscape:true}
+        {#        ,{multipleSearch:true}#}
+        {#        ,{closeOnEscape:true}#}
         {#        {#}
         {#          edit : true,#}
         {#          add : true,#}
@@ -1672,51 +1941,51 @@
         buttonicon: 'ui-icon ui-icon-document'
       });
 
-{#      // Column mover and chooser#}
-{#      $dcGrid.jqGrid('navButtonAdd', '#navGridMetadata', {#}
-{#        caption: "showcolumns",#}
-{#        buttonicon: "ui-icon-calculator",#}
-{#        title: "Choose columns",#}
-{#        onClickButton: function () {#}
-{#          $(this).jqGrid('columnChooser',{#}
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
-{#          });#}
-{#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")#}
-{#            .bind("sortreceive", function (event, ui) {#}
-{#              alert('column "' + ui.item.text() + '" is chosen');#}
-{#            });#}
-{#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")#}
-{#            .click(function () {#}
-{#              alert('column "' + $(this).parent().text() + '" is chosen');#}
-{#            });#}
-{##}
-{#        }#}
-{#      });#}
+      {#      // Column mover and chooser#}
+      {#      $dcGrid.jqGrid('navButtonAdd', '#navGridMetadata', {#}
+      {#        caption: "showcolumns",#}
+      {#        buttonicon: "ui-icon-calculator",#}
+      {#        title: "Choose columns",#}
+      {#        onClickButton: function () {#}
+      {#          $(this).jqGrid('columnChooser',{#}
+      {#						width: 700,#}
+      {#						dialog_opts: {#}
+      {#							modal: true,#}
+      {#							minWidth: 470,#}
+      {#							height: 470,#}
+      {#							show: 'blind',#}
+      {#							hide: 'explode',#}
+      {#							dividerLocation: 0.5#}
+      {#						}#}
+      {#          });#}
+      {#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")#}
+      {#            .bind("sortreceive", function (event, ui) {#}
+      {#              alert('column "' + ui.item.text() + '" is chosen');#}
+      {#            });#}
+      {#          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")#}
+      {#            .click(function () {#}
+      {#              alert('column "' + $(this).parent().text() + '" is chosen');#}
+      {#            });#}
+      {##}
+      {#        }#}
+      {#      });#}
 
 
-{#      setSearchSelect('assetInfo.array');#}
-{#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
-{#        {#}
-{#          searchoptions: {#}
-{#            sopt:['cn'],#}
-{#            dataInit: function(elem) {#}
-{#              $(elem).autocomplete({#}
-{#                source:getUniqueNames('assetInfo.array'),#}
-{#                delay:0,#}
-{#                minLength:0#}
-{#              });#}
-{#            }#}
-{#          }#}
-{#        }#}
-{#      );#}
+      {#      setSearchSelect('assetInfo.array');#}
+      {#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
+      {#        {#}
+      {#          searchoptions: {#}
+      {#            sopt:['cn'],#}
+      {#            dataInit: function(elem) {#}
+      {#              $(elem).autocomplete({#}
+      {#                source:getUniqueNames('assetInfo.array'),#}
+      {#                delay:0,#}
+      {#                minLength:0#}
+      {#              });#}
+      {#            }#}
+      {#          }#}
+      {#        }#}
+      {#      );#}
 
       $dcGrid.jqGrid('filterToolbar',
         {
@@ -1728,9 +1997,9 @@
         }
       );
 
-{#      if(location.hash!=""){#}
-{#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
-{#      }#}
+      {#      if(location.hash!=""){#}
+      {#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
+      {#      }#}
     } // placeJqGrid Events
 
     var showAssets = function(collection, response){
@@ -1792,7 +2061,7 @@
     };
 
     var unixTimeToDateTime = function(cellvalue) {
-      var newDate = new Date(cellvalue * 1000);
+      var newDate = new Date(cellvalue);
       return newDate;
     };
 
