@@ -18,25 +18,10 @@
 
 var Row = Backbone.View.extend({
     tagName:'tbody',
-    events: {
-        'click ': 'onClick'
-
-    },
     initialize: function(options){
         _.bindAll(this, "render");
         var self = this;
         this.render();
-    },
-    onClick: function(event){
-
-        var reference_designator = $(event.target.parentNode.id);
-        var innerText = $(event.target);
-        var isPlot = innerText.context.innerText;
-
-        if(isPlot == "plot"){
-            console.log(reference_designator.selector);
-        }
-
     },
     template: JST['ooiui/static/js/partials/GenericPlatFormTable.html'],
     render: function(){
@@ -47,11 +32,19 @@ var Row = Backbone.View.extend({
 
 var GenericPlatForm = Backbone.View.extend({
 
+    events: {
+        'click .js-expand': '_expand'
+    },
+    _expand: function(event) {
+        var target = $(event.target).data('target');
+        $(target).slideToggle();
+    },
     initialize: function(options) {
         _.bindAll(this, "render","addTableRows");
         var self = this;
 
         var platforms = this.collection.fetch({
+            data: {order: 'reverse'},
             success:function(collection, response, options){
 
                 // first, lets identify only unique reference designators.
@@ -78,7 +71,7 @@ var GenericPlatForm = Backbone.View.extend({
                 // I don't really like doing this here...but lets refresh the collection
                 // to only what we need.
                 self.collection = new StreamCollection(filtered);
-                self.collection.fetch();
+                self.collection.fetch({data: {search: 'CP02CNSM' }});
 
                 self.render();
             }
