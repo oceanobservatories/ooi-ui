@@ -63,179 +63,160 @@
                     <div class="search-sidebar"></div>
                 </div>
                 <div class="col-md-10">
-                    <div id="plottingBody">
-                        <div>
-                            <div id="download-outline" class="pull-left">
-                                <li id="ref_des_stream_outline"></li>
-                            </div>
-                        </div>
+<div id="plottingBody">
+    <div>
+        <div id="download-outline" class="pull-left">
+            <li id="ref_des_stream_outline"></li>
+        </div>
+    </div>
 
-                        <div class="row">
-                            <div class="col-sm-11 tidy-panel">
+    <div class="row">
+        <div class="col-sm-12 tidy-panel">
 
-                                <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
-                                    <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
-                                    <li><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
-                                    <li><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
-                                    <li><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
-                                </ul>
+            <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
+                <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
+                <li><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
+                <li><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
+                <li><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
+            </ul>
 
-                                <div id="plot-tab-content" class="tab-content">
-                                    <div class="tab-pane active" id="plot-tool-tab">
-                                        <div class="row">
-                                            <div id='tools-panel' class="panel">
-                                                <div class="panel-heading plotting-heading">
-                                                    Plot Tools
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        {# <div class="col-md-12"> #}
-                                                            <div id="plot-controls">
-                                                                <p> Please select a stream from the Table of Contents. </p>
-                                                            </div>
-                                                            {# </div> #}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="plot-tool-instruments">
-                                        <div class="row">
-                                            <div id='plot-events-panel' class="panel">
-                                                <div class="panel-heading plotting-heading">
-                                                    Instruments
-                                                </div> <!-- panel-heading -->
-                                                <div class="scrollable-block">
-                                                    <div class="scrollable-area">
-                                                        <div id="instruments-scroll-body" class="panel-body">
-                                                            <div id="instruments-table">
-                                                                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                                                                {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
-                                                                <img src="/img/plotting/events.png" style="width:100%;">
-                                                            </div> <!-- panel-table -->
-                                                        </div> <!-- panel-body -->
-                                                    </div> <!-- panel -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="plot-tool-events">
-                                        <div class="row">
-                                            <div id='plot-events-panel' class="panel">
-
-                                                <div class="panel-heading plotting-heading">
-                                                    Events
-                                                </div> <!-- panel-heading -->
-                                                <div class="scrollable-block">
-                                                    <div class="scrollable-area">
-
-                                                        <div id="events-scroll-body" class="panel-body">
-                                                            <div id="events-table">
-                                                                {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                                                                {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
-                                                                <img src="/img/plotting/events.png" style="width:100%;">
-                                                            </div> <!-- panel-table -->
-                                                        </div> <!-- panel-body -->
-                                                    </div> <!-- panel -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="plot-tool-annotations">
-                                        <div class="row">
-                                            <div id='annotation-panel' class="panel">
-                                                <div class="panel-heading plotting-heading">
-                                                    Annotations
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div id="annotation-table">
-                                                        {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                                                        <img src="/img/plotting/anotations.png" style="width:100%;">
-                                                    </div> <!-- annotation-table -->
-                                                </div> <!-- panel-body -->
-                                            </div> <!-- panel -->
-                                        </div>  <!-- .row -->
+            <div id="plot-tab-content" class="tab-content">
+                <div class="tab-pane active" id="plot-tool-tab">
+                    <div class="row">
+                        <div id='tools-panel' class="panel">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="plot-tab-panel" id="plot-controls">
+                                        <p class="initial-text"> Please Select an instrument</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-sm-1 plot-button-column" style="">
-                                <button style="" id="updatePlot" type="button" class="btn btn-primary btn-lg" style="padding:15px">PLOT</button>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="panel">
-                                <div class="panel-heading plotting-heading">
-                                    Graph
-                                </div>
-                                <div class="panel-body">
-                                    <!--  Plot section NORMAL   -->
-                                    <div id="plot-view">
-                                        {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
-                                        {# <img src="/img/graph7.png" style="width:100%;"> #}
-                                        <img src="/img/plotting/graph.png" style="width:100%;">
-                                    </div> <!-- #view -->
-                                </div>
-                            </div> <!-- panel -->
-                        </div> <!-- .row -->
-
-                        <div class="row">
-                            <div class="panel">
-                                <div class="panel-heading plotting-heading">
-                                    Catlalog
-                                </div>
-                                <div class="panel-body">
-                                    <div class="reset-catalog-container">
-                                        <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Selected Instruments</button>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div id="streamPanel" class="panel" style="margin-right:15px;">
-                                                <div class="color-index" align="right">
-                                                    <div class="twelve-hours"></div><b> 12 Hours </b>
-                                                    <div class="twenty-four-hours"></div><b> 24 Hours </b>
-                                                    <div class="older"></div><b> Older than 24 hours </b>
-                                                    <em>Data are sorted by end date, most recent first</em>
-                                                </div>
-
-                                                <!-- jqGrid -->
-                                                <div>
-                                                    <div id="navGrid" class="redmond"></div>
-                                                    <table id="grid" class="redmond"></table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div> <!-- panel -->
-                        </div> <!-- .row -->
-                        <div class="tab-pane" id="plot-tool-annotations">
-                            <div class="row">
-                                <div id='plot-annotation-panel' class="panel">
-                                    <div class="scrollable-block">
-                                        <div class="scrollable-area">
-                                            <div id="annotation-panel" class="panel-body">
-                                                <div class="plot-tab-panel" id="annotation-table">
-                                                    <p class="initial-text"> Please Select an instrument</p>
-                                                </div> <!-- panel-table -->
-                                            </div> <!-- panel-body -->
-                                            <div class="panel-footer clearfix">
-                                                <div class="pull-center">
-                                                    <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                                </div>
-                                            </div>
-                                        </div> <!-- panel -->
-                                    </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-center">
+                                    <a href="#" class="btn btn-primary update-plot">Plot</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="tab-pane" id="plot-tool-instruments">
+                    <div class="row">
+                        <div id='plot-events-panel' class="panel">
+                            <div class="scrollable-block">
+                                <div class="scrollable-area">
+                                    <div id="instruments-scroll-body" class=" panel-body">
+                                        <div class="plot-tab-panel" id="instruments-table">
+                                            <p class="initial-text"> Please Select an instrument</p>
+                                        </div> <!-- panel-table -->
+                                    </div> <!-- panel-body -->
+                                    <div class="panel-footer clearfix">
+                                        <div class="pull-center">
+                                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                        </div>
+                                    </div>
+                                </div> <!-- panel -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="plot-tool-events">
+                    <div class="row">
+                        <div id='plot-events-panel' class="panel">
+                            <div class="scrollable-block">
+                                <div class="scrollable-area">
+                                    <div id="events-scroll-body" class="panel-body">
+                                        <div class="plot-tab-panel" id="events-table">
+                                            <p class="initial-text"> Please Select an instrument</p>
+                                        </div> <!-- panel-table -->
+                                    </div> <!-- panel-body -->
+                                    <div class="panel-footer clearfix">
+                                        <div class="pull-center">
+                                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                        </div>
+                                    </div>
+                                </div> <!-- panel -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="plot-tool-annotations">
+                    <div class="row">
+                        <div id='plot-annotation-panel' class="panel">
+                            <div class="scrollable-block">
+                                <div class="scrollable-area">
+                                    <div id="annotation-panel" class="panel-body">
+                                        <div class="plot-tab-panel" id="annotation-table">
+                                            <p class="initial-text"> Please Select an instrument</p>
+                                        </div> <!-- panel-table -->
+                                    </div> <!-- panel-body -->
+                                    <div class="panel-footer clearfix">
+                                        <div class="pull-center">
+                                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                        </div>
+                                    </div>
+                                </div> <!-- panel -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading plotting-heading">
+                Graph
+            </div>
+            <div class="panel-body">
+                <!--  Plot section NORMAL   -->
+                <div id="plot-view">
+                    {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+                    {# <img src="/img/graph7.png" style="width:100%;"> #}
+                    <img src="/img/plotting/graph.png" style="width:100%;">
+                </div> <!-- #view -->
+            </div>
+        </div> <!-- panel -->
+    </div> <!-- .row -->
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading plotting-heading">
+                Catlalog
+            </div>
+            <div class="panel-body">
+                <div class="reset-catalog-container">
+                    <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Selected Instruments</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="streamPanel" class="panel" style="margin-right:15px;">
+                            <div class="color-index" align="right">
+                                <div class="twelve-hours"></div><b> 12 Hours </b>
+                                <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                                <div class="older"></div><b> Older than 24 hours </b>
+                                <em>Data are sorted by end date, most recent first</em>
+                            </div>
+
+                            <!-- jqGrid -->
+                            <div>
+                                <div id="navGrid" class="redmond"></div>
+                                <table id="grid" class="redmond"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- panel -->
+    </div> <!-- .row -->
+
+
+</div>
                 </div>
             </div>
 
