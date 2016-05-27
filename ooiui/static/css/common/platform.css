@@ -1,81 +1,62 @@
-body, html {
-  margin: 0;
-  overflow: hidden;
-  height:100%;
-}
-#element::-webkit-scrollbar {
-    display: none;
+.platform-page {}
+
+.platform-page #platform-view-content h2 {
+    padding-top: 20px;
 }
 
-#left {
-    overflow-y: scroll;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding-left: 0;
-    bottom: 20px;
+.platform-page #platform-view-content .panel {
+     padding: 0 20px 0 20px;
 }
 
-#right {
+.platform-page #platform-view-content .panel .panel-heading{
     padding: 0;
-}
-
-
-
-.home-page .js-array:hover{
-}
-
-.home-page .js-array .panel-heading {
-}
-
-.home-page .js-array .panel-heading span {
-    display: inline-block;
-    width: 50%;
-}
-
-
-.home-page .js-array .panel-heading h4 {
-    position: relative;
-    background-color: #5c9ccc;
-    display: inline-block;
-    width: 100%;
-    padding: 5px;
     margin: 0;
+    cursor: pointer;
+    border: 0;
+}
+
+.platform-page #platform-view-content .panel-heading h4 i {
+    color: black;
+}
+
+.platform-page #platform-view-content .panel-heading h4 {
+    padding: 10px;
+    background-color: #5c9ccc;
     color: white;
+    text-align: left;
 
     background: #5c9ccc; /* Old browsers */
     background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-
 }
 
-.home-page .js-array .panel-heading h4 small {
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    background-color: green;
-}
 
-.home-page .js-array h4:hover {
+.platform-page #platform-view-content .panel-heading h4:hover {
     transition: background 5s;
-    display: inline-block;
-    width: 100%;
-    padding: 5px;
-    margin-top: 0;
-    color: white;
 
     background: #dfeffc; /* Old browsers */
     background: -moz-linear-gradient(left,  #1e5799 20%, #dfeffc 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left,  #1e5799 20%,#dfeffc 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right,  #1e5799 20%,#dfeffc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#dfeffc',GradientType=1 ); /* IE6-9 */
-
 }
 
 
-.home-page .fade {
-    opacity: 0;
-    transition: all 1;
+.platform-page #platform-view-content .panel-heading h4 small {
+    color: #bbb;
 }
 
+.platform-page #platform-view-content table {
+    width: 90%;
+    margin: 20px 20px 0 20px;
+}
+
+.platform-page #platform-view-content table th:first-child {
+    width: 30%;
+}
+
+.platform-page #platform-view-content table tr {
+
+}
