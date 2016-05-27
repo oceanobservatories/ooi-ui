@@ -33,8 +33,7 @@ def instr_index():
 @app.route('/assets/management/')
 @login_required()
 def assets_management():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassetsmanagament')
-    return render_template('asset_management/asset_management.html')
+    return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
@@ -61,8 +60,7 @@ def streams_page():
 
 @app.route('/datacatalog/')
 def data_catalog_page():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fdatacatalog')
-    return render_template('science/data_catalog.html')
+    return render_template('science/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
@@ -79,14 +77,12 @@ def acoustics_page():
 @app.route('/plot/', methods=['GET'])
 @login_required()
 def show_plot_no_path():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return plot_page(None)
 
 @app.route('/plot/<path:path>', methods=['GET'])
 @login_required()
 def plot_page(path):
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
-    return render_template('science/plot.html')
+    return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/getdata/')
 def getData():
