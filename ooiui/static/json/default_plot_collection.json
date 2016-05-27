@@ -3,21 +3,27 @@
   {
     "instrument": "ADCPA",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "quiver"
     ],
     "title": " Velocity Profiler for Mobile Assets - Short Range"
   },
   {
     "instrument": "ADCPS",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "quiver"
     ],
     "title": " Velocity Profiler - Long Range"
   },
   {
     "instrument": "ADCPT",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "quiver"
     ],
     "title": " Velocity Profiler - Short Range"
   },
@@ -122,14 +128,17 @@
   {
     "instrument": "METBK",
     "plotType": [
-      "xy"
+      "xy",
+      "quiver",
+      "3d_scatter"
     ],
     "title": " Bulk Meteorology Instrument Package"
   },
   {
     "instrument": "MOPAK",
     "plotType": [
-      "xy"
+      "xy",
+      "quiver"
     ],
     "title": " Motion Pack"
   },
@@ -220,28 +229,39 @@
   {
     "instrument": "VADCP",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "xy",
+      "quiver"
     ],
     "title": " 5-Beam - 600 kHz Acoustic Doppler Current Profiler"
   },
   {
     "instrument": "VEL3D",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "xy",
+      "quiver"
     ],
     "title": " 3-D Single Point Velocity Meter"
   },
   {
     "instrument": "VELPT",
     "plotType": [
-      "pcolor"
+      "3d_scatter",
+      "stacked",
+      "xy",
+      "quiver"
     ],
     "title": " Single Point Velocity Meter"
   },
   {
     "instrument": "WAVSS",
     "plotType": [
-      "xy"
+      "xy",
+      "rose",
+      "quiver"
     ],
     "title": " Surface Wave Spectra"
   }

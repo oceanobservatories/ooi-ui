@@ -39,18 +39,21 @@ var PlotControlModel = Backbone.Model.extend({
         invertY: false,
         interpolatedPlotCount: 2,
         plotTypeOptions: new PlotTypeCollection([
-                          {name:'X-Y', value:"xy", num_inputs: 6, inputs:[{name:"x","value":"x"},
-                                                                          {name:"y","value":"y"}]},
+                          {name:'X-Y', value:"xy", num_inputs: 6, inputs:[{name:"X","value":"x"},
+                                                                          {name:"Y","value":"y"}]},
 
-                          {name:'Rose', value:"rose", num_inputs: 2, inputs:[{name:"value","value":"x"},
-                                                                            {name:"direction","value":"y"}]},
+                          {name:'Rose', value:"rose", num_inputs: 2, inputs:[{name:"Direction","value":"x"},
+                                                                            {name:"Value","value":"y"}]},
 
-                          {name:'Feather',value:"feather", num_inputs: 2, inputs: [{name:"magnitude","value":"x"},
-                                                                                   {name:"direction","value":"y"}]},
+                          {name:'Feather',value:"quiver", num_inputs: 2, inputs: [{name:"Magnitude","value":"x"},
+                                                                                   {name:"Direction","value":"y"}]},
 
-                          {name:'Psuedocolor',value:"pcolor", num_inputs: 3, inputs: [{name:"x","value":"x"},
-                                                                                      {name:"y","value":"y"},
-                                                                                      {name:"color","value":"z"}]},
+                          {name:'Pseudocolor',value:"3d_scatter", num_inputs: 3, inputs: [{name:"X","value":"x"},
+                                                                                      {name:"Y","value":"y"},
+                                                                                      {name:"Color","value":"z"}]},
+
+                           {name:'Binned Pseudocolor',value:"stacked", num_inputs: 1, inputs: [{name:"Color","value":"z"}]},
+
                          ]),
 
         plotStyleOptions: [

@@ -35,6 +35,21 @@ div.twelve-hours, div.twenty-four-hours, div.older {
     background-color: firebrick;
 }
 
+#plottingBody .scrollable-area .initial-text{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+#plottingBody #instruments-table > h5{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+#plot-controls > h5{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
 #plottingBody div.reset-catalog-container{
   padding-left: 20px;
 }
@@ -47,12 +62,39 @@ div.twelve-hours, div.twenty-four-hours, div.older {
   font-size:12px;
 }
 
-#plottingBody #plot-controls{
-  min-height:200px;
-}
-
 #plottingBody .tidy-panel{
   padding-left: 2px;
   padding-right: 2px;
+  margin-top:10px;
+}
+
+#plottingBody .bootstrap-select.btn-group .dropdown-menu {
+  z-index: 3;
+}
+
+#plottingBody .plot-tab-panel{
+  min-height:230px;
+}
+
+#plottingBody .panel-footer .pull-center{
+  text-align: center;
+}
+
+#plottingBody .panel-footer .update-plot{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#plottingBody .panel > .panel-body,
+div#events-scroll-body {
+  border: 0px solid #d1daf5;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding: 5px;
+}
+
+#plottingBody .plot-control-section .bootstrap-select .dropdown-menu.open .not-default-plot-option{
+  color:rgba(109, 109, 109, 0.65);
+  font-weight: 200;
 }
 

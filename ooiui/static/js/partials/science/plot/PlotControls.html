@@ -24,9 +24,25 @@
             <% if (isInterpolated){ %>
               <option value="xy" selected>X-Y</option>
             <% } else { %>
-              <% plotModel.get('plotTypeOptions').each(function(option){ %>
-                <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-              <% }); %>
+              <!-- if null show them all -->
+              <% if (_.isNull(plotDefaultModel)){ %>
+
+                <% plotModel.get('plotTypeOptions').each(function(option){ %>
+                  <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                <% }); %>
+
+              <% }else { %>
+
+                <% plotModel.get('plotTypeOptions').each(function(option){ %>
+                  <% if (plotDefaultModel.get('plotType').indexOf(option.get('value')) > -1 ){ %>
+                    <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                  <% } else {%>
+                    <option class="not-default-plot-option" value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                  <% } %>
+
+                <% }); %>
+
+              <% } %>
             <% } %>
           </select>
         </div>
@@ -60,10 +76,10 @@
               <label><input type="checkbox" value="invertX">Invert X-Axis</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Show Annotations</label>
+              <label><input type="checkbox" value="showAnnotations">Show Annotations</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Show Events</label>
+              <label><input type="checkbox" value="showEvents">Show Events</label>
             </div>
           </div>
         </div>
