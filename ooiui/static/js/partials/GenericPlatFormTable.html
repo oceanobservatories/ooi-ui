@@ -1,6 +1,6 @@
 <tr id= "<%= model.get("reference_designator") %>"  >
     <td><%= model.get("display_name") %></td>
-    <td>design depth</td>
+    <td><%= model.get('depth') %></td>
     <td><%= new Date(model.get("start")) %></td>
     <td><%= new Date(model.get("end")) %></td>
     <td class="text-center" ><a href="/plot#<%= model.get('reference_designator') %>"><i class="fa fa-bar-chart"></i></a></td>

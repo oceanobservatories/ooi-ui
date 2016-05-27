@@ -156,6 +156,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/NewsBanner.html",
             "ooiui/static/js/partials/MenuToggle.html",
             "ooiui/static/js/partials/Alert.html",
+            "ooiui/static/js/partials/TermsDialog.html",
             "ooiui/static/js/partials/LoggedInNavItems.html"
           ],
           "ooiui/static/js/partials/compiled/troubleTicket.js": [
@@ -747,6 +748,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models

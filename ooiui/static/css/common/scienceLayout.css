@@ -9,12 +9,27 @@
 body {
     background-color: #f8f8f8;
 }
-.terms-modal {
+
+.terms-and-conditions-modal{
+    color: #004773;
+}
+
+.terms-and-conditions-modal .terms-modal {
     overflow-y:scroll;
     font-family:monospace;
     max-height:500px;
+    position: relative;
+    padding: 15px;
+}
+.terms-and-conditions-modal .modal-title{
 
 }
+
+.terms-and-conditions-modal .modal-header{
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
 .image-link{
     padding-top: 0px !important;
     padding-bottom: 0px !important;

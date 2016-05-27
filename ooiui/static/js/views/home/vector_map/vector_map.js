@@ -366,18 +366,18 @@ var VectorMap = Backbone.View.extend({
                     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
                 });
 
-                // This listener will update the overlay with lat/lng and the name of the feature under cursor.
-                map.on('mousemove', function (e) {
-
-                    var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
-                    if (features.length) {
-                        feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
-                    } else {
-                        feature = "Mouse over icon to inspect";
-                    }
-
-                    document.getElementById('info').innerHTML = feature;
-                });
+                // // This listener will update the overlay with lat/lng and the name of the feature under cursor.
+                // map.on('mousemove', function (e) {
+                //
+                //     var features = map.queryRenderedFeatures(e.point, { layers: ['arrays', 'rsArray', 'ceArray', 'moorings', 'gliders'] });
+                //     if (features.length) {
+                //         feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(e.lngLat.lat) + ', ' + JSON.stringify(e.lngLat.lng) + '</span>' ;
+                //     } else {
+                //         feature = "Mouse over icon to inspect";
+                //     }
+                //
+                //     document.getElementById('info').innerHTML = feature;
+                // });
                /* ****************************************************
                 * End Map Events
                 * ***************************************************/
