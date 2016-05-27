@@ -38,6 +38,14 @@ var SignUpForm = Backbone.View.extend({
         'change #country': function (e){
 
             this.show_states();
+        },
+        'click a.terms-link': function(e){
+            var termsView = new TermsDialogView();
+            termsView.render();
+            termsView.show();
+        },
+        'change input[type="checkbox"]#terms_agree': function (e){
+            e.target.checked == true ? this.$el.find('#submitButton').attr( "disabled", null ) : this.$el.find('#submitButton').attr( "disabled", 'disabled' );
         }
     },
 
@@ -172,46 +180,51 @@ var SignUpForm = Backbone.View.extend({
 
     submit: function () {
         var self = this;
-        // Check if the model is valid before saving
-        // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
-        //  on submit check for the role then change the role_id to the correct int
-        if (this.model.isValid(true)) {
-            this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
-            this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
-            this.model.set('_csrf_token', ooi.csrf_token);
-            // Needs to be dynamic (update)
-            this.model.save(null, {
-              success: function(model, response) {
-                self.modalDialog.show({
-                  message: "New user request successfully sent for processing. You will receive an email confirmation after review and activation.",
-                  type: "success",
-                  ack: function() {
-                    window.location = "/"
+        if ((self.$el.find('input[type="checkbox"]#terms_agree').is(":checked"))){
+            // Check if the model is valid before saving
+            // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
+            //  on submit check for the role then change the role_id to the correct int
+            if (this.model.isValid(true)) {
+                this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
+                this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
+                this.model.set('_csrf_token', ooi.csrf_token);
+                // Needs to be dynamic (update)
+                this.model.save(null, {
+                  success: function(model, response) {
+                    self.modalDialog.show({
+                      message: "New user request successfully sent for processing. You will receive an email confirmation after review and activation.",
+                      type: "success",
+                      ack: function() {
+                        window.location = "/"
+                      }
+                    });
+                  },
+                  error: function(model, response) {
+                    try {
+                      var errMessage = JSON.parse(response.responseText).error;
+                    } catch(err) {
+                      console.error(err);
+                      var errMessage = "Unable to submit user";
+                    }
+                    self.modalDialog.show({
+                      message: errMessage,
+                      type: "danger"
+                    });
+                    console.error(model);
+                    console.error(response.responseText);
                   }
                 });
-              },
-              error: function(model, response) {
-                try {
-                  var errMessage = JSON.parse(response.responseText).error;
-                } catch(err) {
-                  console.error(err);
-                  var errMessage = "Unable to submit user";
-                }
-                self.modalDialog.show({
-                  message: errMessage,
-                  type: "danger"
-                });
-                console.error(model);
-                console.error(response.responseText);
-              }
-            });
+            }
         }
     },
     reset: function(){
         // resests the page. Not sure it's the correct procedure??
+        this.$el.find('input[type="checkbox"]#terms_agree').prop('checked', false);
+        this.$el.find('#submitButton').attr( "disabled", 'disabled' );
         this.$el.find("input[type=text], textarea").val("");
         this.$el.find("input[type=password], textarea").val("");
         this.$el.find("input[type=email], textarea").val("");
+
         // maybe this?? this.model.set({name: "","email":""})
     },
 
