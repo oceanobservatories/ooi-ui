@@ -846,16 +846,13 @@ $.urlParam = function(name){
 }
 
 $(document).ready(function() {
-<<<<<<< HEAD
     var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
     searchSidebarView.render();
     searchSidebarView.renderFilterInput();
-=======
-  //input
-  if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
-    data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
-  }
->>>>>>> 8b16906d9f02be0784f8aeae680d19d789d249fa
+    //input
+    if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
+        data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
+    }
 
   ooi.start();
 
