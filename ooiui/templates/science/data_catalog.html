@@ -160,23 +160,42 @@
           //console.log('ready...',self.collections.subscriptionCollection);
         });
 
+        //TODO: If these filters prove to be overly complicated, maybe we should enable
+        //TODO: server side filtering that is already working.  Simply listening for the
+        //TODO: stremCollection change event and re-rendering the table will get the
+        //TODO: updated collection.
+
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
             //TODO: @OCEANZUS, implement the filter for the time range.
             //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            //TODO: Check the logic of the start/end columns.  Dates don't seem to be
+            //TODO: searchable.
             console.log(options);
+
+            var startDate = new Date(options.min).toISOString(),
+                endDate   = new Date(options.max).toISOString();
+
+            console.log(startDate, endDate);
+            setNavFilter("start", startDate);
+            setNavFilter("end", endDate);
+
         });
 
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the time range.
-            //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            //TODO: @OCEANZUS, implement the filter for the Stream Filters.
             console.log(options);
+
+            //TODO: @OCEANZU: Please check the logic on this
+            setNavFilter("reference_designator", options);
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the time range.
-            //TODO: obj returned is in the form: { min: <time>, max: <time> }
+            //TODO: @OCEANZUS, implement the filter for the instrument filters.
             console.log(options);
+
+            //TODO: @OCEANZU: Please check the logic on this
+            setNavFilter("reference_designator", options);
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
@@ -402,26 +421,28 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-      var searchFiler = searchParam, grid = $("#grid"), f;
-      if (searchFiler.length === 0) {
+      var searchFilter = searchParam, grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
         grid[0].p.search = false;
         $.extend(grid[0].p.postData,{filters:""});
       }
       f = {groupOp:"OR",rules:[]};
-      f.rules.push({field:searchColumn,op:"cn",data:searchFiler});
+      f.rules.push({field:searchColumn,op:"cn",data:searchFilter});
       grid[0].p.search = true;
       $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
       grid.trigger("reloadGrid",[{page:1,current:true}]);
     };
 
     var setNavFilter = function(searchColumn, searchParam){
-      var searchFiler = searchParam.split(" "), grid = $("#grid"), f;
-      if (searchFiler.length === 0) {
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
         grid[0].p.search = false;
         $.extend(grid[0].p.postData,{filters:""});
       }
       f = {groupOp:"OR",rules:[]};
-      $.each (searchFiler, function() {
+      $.each (searchFilter, function() {
         f.rules.push({field:searchColumn,op:"bw",data:this});
       });
       grid[0].p.search = true;

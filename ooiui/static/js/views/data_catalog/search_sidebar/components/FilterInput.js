@@ -4,8 +4,12 @@
  * Main Parent for all filters.
  *
  * @method getFilters()
- *      Return the array of filters in the FilterParentView.
+ *      Return the object of all filters.
  *
+ * @method resetCollection()
+ *      Resets the collection with all the filters and ranges.
+ *
+ * The following have respective filter types (array, instrument, stream, etc)
  * @method addToFilters(item)
  *      Add a string to the array of filters.
  *
@@ -28,6 +32,9 @@
  * @global timeRange
  */
 
+// SET TO FALSE TO DISABLE SERVER SIDE COLLECTION RESET
+var COLLECTION_RESET = true;
+
 var filters = [];
 var streamFilters = [];
 var instrumentFilters = [];
@@ -42,23 +49,46 @@ var FilterParentView = SearchSidebarView.extend({
         var target = $(event.target).data('target');
         $(target).toggleClass('in');
     },
-    getFilters: function() {
+    getFilters: function(options) {
+        var filters = {
+            strings: [
+                this.getArrayFilters(),
+                this.getInstrumentFilters(),
+                this.getStreamFilters()
+            ],
+            timeRange: this.getTimeRange()
+        };
+        return filters;
+    },
+    resetCollection: function() {
+        if (COLLECTION_RESET) {
+            var filters = this.getFilters();
+            this.collection.fetch({
+                data: {
+                    search: filters.strings.join(' '),
+                    startDate: filters.timeRange.min,
+                    endDate: filters.timeRange.max
+                }
+            });
+        }
+    },
+    getArrayFilters: function() {
         return filters.join(' ');
     },
-    addToFilters: function(item) {
+    addToArrayFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
         filters.push(item);
         return filters;
     },
-    indexOfFilters: function(item) {
+    indexOfArrayFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
         return filters.indexOf(item);
     },
-    removeFromFilters: function(item) {
+    removeFromArrayFilters: function(item) {
         if (typeof(item) !== 'string') {
             throw 'Item must be a string';
         }
@@ -71,6 +101,7 @@ var FilterParentView = SearchSidebarView.extend({
             return false;
         }
     },
+
     getTimeRange: function() {
         if (timeRange === {}) {
             return null;
