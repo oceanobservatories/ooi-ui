@@ -6,13 +6,21 @@
     margin-right:0px;
 }
 
+#plottingBody .plot-tool-tabs li a{
+    background-color:#dfeffc;
+    color: #004773;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
 #plottingBody .plot-tool-tabs li.active a{
-    background-color:#004773;
+    background-color:#5c9ccc;
     color: white;
 }
 
 #plottingBody #updatePlot{
     padding:20px;
+    min-height:200px;
 }
 
 #plottingBody .plot-tab-view{
@@ -43,17 +51,18 @@
     margin-top: 0px;
     margin-bottom: 0px;
     width: 100%;
-    border-top: 1px solid red;
+    border-top: 1px solid #5c9ccc;
 }
 
 #plottingBody .plot-control-view .plot-instrument-column{
-    border-right: 1px solid red;
+    border-right: 1px solid #5c9ccc;
     min-height:300px;
+    padding-left:0px;
 }
 
 #plottingBody .plot-button-column{
     margin-top:50px;
     padding:15px;
     min-height: 325px;
-    background-color: #EAEAEA;
+    /*background-color: #EAEAEA;*/
 }

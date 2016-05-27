@@ -337,7 +337,7 @@
     // Opens the plotting page
     var openPlot = function(ref_des, stream_name){
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/plot/#"+ref_des+'/'+stream_name, '_blank');
+      var win = window.open(location.origin+"/plot/?reference_designator="+ref_des+'&stream_name='+stream_name, '_blank');
       win.focus();
     };
 
