@@ -60,19 +60,19 @@
         </div>
 
         <div class="form-group">
-          <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
+          <label for="phone_primary" class="col-sm-3 control-label">Primary Phone</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" id="primary_phone"
-                   name="primary_phone" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
+            <input type="text" class="form-control" id="phone_primary"
+                   name="phone_primary" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
             <span class="help-block hidden"></span>
           </div>
 
         </div>
         <div class="form-group">
-          <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
+          <label for="phone_alternate" class="col-sm-3 control-label">Secondary Phone</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" id="secondary_phone"
-                   name="secondary_phone" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
+            <input type="text" class="form-control" id="phone_alternate"
+                   name="phone_alternate" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
             <span class="help-block hidden"></span>
           </div>
         </div>
@@ -216,6 +216,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
   },
   countrySelection: function(country_code) {
+    //console.log('country_code: ' + country_code);
     this.models.stateModel.fetchCurrent(country_code);
     this.collections.states.fetch({url: '/api/states/' + country_code});
   }

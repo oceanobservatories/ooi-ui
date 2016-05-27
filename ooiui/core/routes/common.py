@@ -541,3 +541,88 @@ def cache_keys(key=None):
 def get_reset_login_url():
     reset_login_url = app.config['RESET_LOGIN_URL']
     return redirect(reset_login_url)
+
+@app.route('/admin', methods=['GET'])
+def user_admin():
+    token = get_login()
+    r = requests.get(app.config['SERVICES_URL'] + '/admin', auth=(token, ''), data=request.args)
+    #make pass through
+    response = make_response(r.content)
+    response.headers['Content-Type'] = 'text/html'
+    return response
+
+
+@app.route('/admin/reset/<string:key>', methods=['GET'])
+def get_pw_reset_form(key):
+    token = get_login()
+    print key
+    password = 'junkjunk'
+    password_confirm = 'junkjunk'
+    the_data = {'password':password, 'password_confirm':password_confirm}
+    kkk = json.dumps(the_data)
+    print kkk
+    temp = app.config['RESET_LOGIN_URL'] + "/" + key
+    print temp
+    r = requests.post(temp, auth=(token, ''), data=kkk, headers=headers())
+    print r.status_code
+
+    response = make_response(r.content)
+    response.headers['Content-Type'] = 'text/html'
+    response.status_code = 200
+    return response
+
+
+
+
+
+@app.route('/admin/reset', methods=['GET', 'POST', 'PUT'])
+@app.route('/reset', methods=['GET', 'POST', 'PUT'])
+def user_reset():
+    print request
+    if request.data:
+        print request.data
+        print json.loads(request.data)
+    else:
+        print 'no data'
+    print request.args
+    token = get_login()
+    if request.method == 'GET':
+        print 'doing a get'
+        response = requests.get(app.config['RESET_LOGIN_URL'])
+        response = make_response(response.content)
+        response.headers['Content-Type'] = 'text/html'
+        return response
+
+    elif request.method == 'POST':
+        print 'doing a post'
+        # the_data = {'email':'case@oceanz.org'}
+        the_data = request.data
+        response = requests.post(app.config['RESET_LOGIN_URL'],
+                                auth=(token, ''), data=the_data, headers=headers())
+        print response.text
+        return response.text, response.status_code
+
+
+    # r = requests.get(app.config['SERVICES_URL'] + '/reset', auth=(token, ''), data=request.args)
+    # r = requests.post(app.config['RESET_LOGIN_URL'], auth=(token, ''), data=request.data)
+    #make pass through
+
+
+@app.route('/logout', methods=['GET'])
+def user_logout():
+    token = get_login()
+    r = requests.get(app.config['SERVICES_URL'] + '/logout/', auth=(token, ''), data=request.args)
+    #make pass through
+    response = make_response(r.content)
+    response.headers['Content-Type'] = 'text/html'
+    return response
+
+def _post_headers():
+    """ urlencoded values for uframe POST.
+    """
+    return {"Content-Type": "application/x-www-form-urlencoded"}
+
+def headers():
+    """ Headers for uframe PUT and POST. """
+    return {"Content-Type": "application/json"}
+

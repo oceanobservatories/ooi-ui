@@ -17,6 +17,7 @@
 var LoginView = Backbone.View.extend({
     events: {
         'click #btnLogin' : "login",
+        'click #btnReset' : "reset",
         'click #btnCILogon' : 'ciLogon',
         'keyup #passInput' : "keyUp",
         'click #btnClose' : "closeBtn",
@@ -56,6 +57,42 @@ var LoginView = Backbone.View.extend({
     ciLogon: function(e) {
         e.preventDefault();
         window.location.replace('/api/cilogon');
+    },
+    reset: function(e) {
+        console.log('hit reset inside LoginView.js');
+        var userEmail = {email: this.$el.find('#usrInput').val()};
+        $.ajax( '/admin/reset', {
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(userEmail),
+        success: function( resp ) {
+          //console.log('sending custom direct access command: ' + JSON.stringify(commandData));
+          //console.log(resp);
+          //var m = new ModalDialogView();
+          //
+          //m.show({
+          //  message: "Sent Direct Access Command Successfully"+"<br>"+JSON.stringify(commandData),
+          //  type: "success"
+          //});
+
+        },
+        error: function( req, status, err ) {
+          //console.log(req);
+          var errorMessage = '<div><h3>An error occurred sending the command:</h3></div>';
+          errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+          errorMessage += '</br>';
+          if(req.responseJSON){
+            errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+          }
+
+          var errorModal = new ModalDialogView();
+          errorModal.show({
+            message: errorMessage,
+            type: "danger"
+          });
+        }
+      });
     },
     login: function(e) {
         var self = this;

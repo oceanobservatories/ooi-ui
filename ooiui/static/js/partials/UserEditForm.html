@@ -8,7 +8,7 @@
       <span class="help-block hidden"></span>
     </div>
   </div>
-  <div class="form-group ">
+  <div class="form-group" id="active_div">
     <label class="col-sm-3 control-label">Account Enabled</label>
     <div class="col-sm-6">
       <input type="checkbox" class="form-control" id="active" name="active" style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.075);" />
@@ -19,40 +19,40 @@
   <hr width ="80%">
 
   <div class="form-group">
-    <label for="firstname" class="col-sm-3 control-label">First Name</label>
+    <label for="first_name" class="col-sm-3 control-label">First Name</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="first_name" name="first_name" />
+      <input type="text" class="form-control" id="first_name" name="first_name" />
       <span class="help-block hidden"></span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="lastname" class="col-sm-3 control-label">Last Name</label>
+    <label for="last_name" class="col-sm-3 control-label">Last Name</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="last_name" name="last_name" />
+      <input type="text" class="form-control" id="last_name" name="last_name" />
       <span class="help-block hidden"></span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
+    <label for="phone_primary" class="col-sm-3 control-label">Primary Phone</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="primary_phone" name="primary_phone" />
+      <input type="text" class="form-control" id="phone_primary" name="phone_primary" />
       <span class="help-block hidden"></span>
     </div>
 
   </div>
   <div class="form-group">
-    <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
+    <label for="phone_alternate" class="col-sm-3 control-label">Secondary Phone</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="secondary_phone" name="secondary_phone" />
+      <input type="text" class="form-control" id="phone_alternate" name="phone_alternate" />
       <span class="help-block hidden"></span>
     </div>
   </div>
 
 
   <div class="form-group ">
-    <label class="col-sm-3 control-label">Email Opt-In</label>
+    <label for="email_opt_in" class="col-sm-3 control-label">Email Opt-In</label>
     <div class="col-sm-6">
       <input type="checkbox" class="form-control" id="email_opt_in" name="email_opt_in" style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.075);" />
       <span class="help-block hidden"></span>
@@ -70,7 +70,7 @@
   <div class="form-group">
     <label for="other_organization" class="col-sm-3 control-label">Organization</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="other_organization" name="other_organization" />
+      <input type="text" class="form-control" id="other_organization" name="other_organization" />
       <span class="help-block hidden"></span>
     </div>
   </div>
@@ -78,7 +78,7 @@
   <div class="form-group">
     <label for="vocation" class="col-sm-3 control-label">Vocation</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="vocation" name="vocation" />
+      <input type="text" class="form-control" id="vocation" name="vocation" />
       <span class="help-block hidden"></span>
     </div>
   </div>
@@ -86,7 +86,7 @@
   <div class="form-group">
     <label for="country" class="col-sm-3 control-label">Country</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="country" name="country" />
+      <input type="text" class="form-control" id="country" name="country" />
       <span class="help-block hidden"></span>
     </div>
   </div>
@@ -94,22 +94,25 @@
   <div class="form-group">
     <label for="state" class="col-sm-3 control-label">State</label>
     <div class="col-sm-6">
-      <input disabled="disabled" type="text" class="form-control" id="state" name="state" />
+      <input type="text" class="form-control" id="state" name="state" />
       <span class="help-block hidden"></span>
     </div>
   </div>
 
-  <h3> User Scopes </h3>
-  <div class="form-group">
-    <% scopes.each(function(scope) { %>
-    <div class="col-sm-6 col-sm-offset-3">
-      <div class="pull-left checkbox">
-        <input class="scope_selection" type="checkbox" value="<%= scope.get('scope_name') %>">
-        <%= scope.get('scope_name') %>
+  <div id="scope_div">
+    <h3> User Scopes </h3>
+    <div class="form-group">
+      <% scopes.each(function(scope) { %>
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="pull-left checkbox">
+          <input class="scope_selection" type="checkbox" value="<%= scope.get('scope_name') %>">
+          <%= scope.get('scope_name') %>
+        </div>
       </div>
+      <% }); %>
     </div>
-    <% }); %>
   </div>
+
   <hr width="80%">
 
   <div class="form-group">

@@ -16,8 +16,8 @@ var UserEditFormView = Backbone.View.extend({
   bindings: {
     '#first_name' : 'first_name',
     '#last_name' : 'last_name',
-    '#primary_phone' : 'phone_primary',
-    '#secondary_phone' : 'phone_alternate',
+    '#phone_primary' : 'phone_primary',
+    '#phone_alternate' : 'phone_alternate',
     '#email' : 'email',
     '#organization' : 'organization',
     '#active' : 'active',
@@ -74,6 +74,14 @@ var UserEditFormView = Backbone.View.extend({
   template: JST['ooiui/static/js/partials/UserEditForm.html'],
   render: function() {
     this.$el.html(this.template({scopes: this.scopes}));
+    // Only allow scope modification if
+    if(this.model.attributes.scopes.includes('user_admin')){
+      this.$el.find("#scope_div").show();
+      this.$el.find("#active_div").show();
+    } else {
+      this.$el.find("#scope_div").hide();
+      this.$el.find("#active_div").hide();
+    }
     this.$el.append(this.modalDialog.el);
     this.stickit();
   }

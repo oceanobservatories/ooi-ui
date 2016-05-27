@@ -44,11 +44,11 @@ var SignUpModel = Backbone.Model.extend({
         other_organization:{
             required: true
         },
-        primary_phone: {
+        phone_primary: {
             required: true,
             pattern: 'phoneRegex'
         },
-        secondary_phone: {
+        phone_alternate: {
             required: false,
             pattern: 'phoneRegex'
         }

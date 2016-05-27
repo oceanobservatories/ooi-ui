@@ -83,14 +83,14 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=primary_phone]': {
-            observe: 'primary_phone',
+            '[name=phone_primary]': {
+            observe: 'phone_primary',
             setOptions: {
                 validate: true
             }
         },
-         '[name=secondary_phone]': {
-            observe: 'secondary_phone',
+         '[name=phone_alternate]': {
+            observe: 'phone_alternate',
             setOptions: {
                 validate: true
             }
