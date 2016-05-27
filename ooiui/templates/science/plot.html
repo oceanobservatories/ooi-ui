@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Data Catalog</title>
+<title>Plotting</title>
 {% endblock %}
 
 {% block head %}
@@ -63,7 +63,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-11 tidy-panel">
+      <div class="col-sm-12 tidy-panel">
 
       <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
         <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
@@ -76,17 +76,17 @@
         <div class="tab-pane active" id="plot-tool-tab">
             <div class="row">
               <div id='tools-panel' class="panel">
-                <div class="panel-heading plotting-heading">
-                  Plot Tools
-                </div>
                 <div class="panel-body">
                   <div class="row">
-                    {# <div class="col-md-12"> #}
-                      <div id="plot-controls">
-                        <p> Please select a stream from the Table of Contents. </p>
-                      </div>
-                    {# </div> #}
+                    <div class="plot-tab-panel" id="plot-controls">
+                      <p class="initial-text"> Please Select an instrument</p>
+                    </div>
                   </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-center">
+                        <a href="#" class="btn btn-primary update-plot">Plot</a>
+                    </div>
                 </div>
               </div>
             </div>
@@ -95,18 +95,18 @@
         <div class="tab-pane" id="plot-tool-instruments">
           <div class="row">
               <div id='plot-events-panel' class="panel">
-                <div class="panel-heading plotting-heading">
-                  Instruments
-                </div> <!-- panel-heading -->
                 <div class="scrollable-block">
                   <div class="scrollable-area">
-                    <div id="instruments-scroll-body" class="panel-body">
-                      <div id="instruments-table">
-                        {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                        {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
-                        <img src="/img/plotting/events.png" style="width:100%;">
+                    <div id="instruments-scroll-body" class=" panel-body">
+                      <div class="plot-tab-panel" id="instruments-table">
+                        <p class="initial-text"> Please Select an instrument</p>
                       </div> <!-- panel-table -->
                     </div> <!-- panel-body -->
+                    <div class="panel-footer clearfix">
+                        <div class="pull-center">
+                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                        </div>
+                    </div>
                   </div> <!-- panel -->
                 </div>
               </div>
@@ -116,20 +116,18 @@
         <div class="tab-pane" id="plot-tool-events">
             <div class="row">
               <div id='plot-events-panel' class="panel">
-
-                <div class="panel-heading plotting-heading">
-                  Events
-                </div> <!-- panel-heading -->
                 <div class="scrollable-block">
                   <div class="scrollable-area">
-
                     <div id="events-scroll-body" class="panel-body">
-                      <div id="events-table">
-                        {# <i class="fa fa-list-alt" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                        {# <img src="/img/cal.jpg" style="width:1120px; height:90px;">                  #}
-                        <img src="/img/plotting/events.png" style="width:100%;">
+                      <div class="plot-tab-panel" id="events-table">
+                        <p class="initial-text"> Please Select an instrument</p>
                       </div> <!-- panel-table -->
                     </div> <!-- panel-body -->
+                    <div class="panel-footer clearfix">
+                        <div class="pull-center">
+                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                        </div>
+                    </div>
                   </div> <!-- panel -->
                 </div>
               </div>
@@ -138,24 +136,25 @@
 
         <div class="tab-pane" id="plot-tool-annotations">
             <div class="row">
-              <div id='annotation-panel' class="panel">
-                <div class="panel-heading plotting-heading">
-                  Annotations
+              <div id='plot-annotation-panel' class="panel">
+                <div class="scrollable-block">
+                  <div class="scrollable-area">
+                    <div id="annotation-panel" class="panel-body">
+                      <div class="plot-tab-panel" id="annotation-table">
+                        <p class="initial-text"> Please Select an instrument</p>
+                      </div> <!-- panel-table -->
+                    </div> <!-- panel-body -->
+                    <div class="panel-footer clearfix">
+                        <div class="pull-center">
+                            <a href="#" class="btn btn-primary update-plot">Plot</a>
+                        </div>
+                    </div>
+                  </div> <!-- panel -->
                 </div>
-                <div class="panel-body">
-                  <div id="annotation-table">
-                    {# <i class="fa fa-th-list" style="margin-left:50%;font-size:90px;"> </i>                 #}
-                    <img src="/img/plotting/anotations.png" style="width:100%;">
-                  </div> <!-- annotation-table -->
-                </div> <!-- panel-body -->
-              </div> <!-- panel -->
-            </div>  <!-- .row -->
+              </div>
+            </div>
         </div>
       </div>
-      </div>
-
-      <div class="col-sm-1 plot-button-column" style="">
-        <button style="" id="updatePlot" type="button" class="btn btn-primary btn-lg" style="padding:15px">PLOT</button>
       </div>
     </div>
 
@@ -322,7 +321,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     var streamName1 = parameterCollection.models[0].get('original_model').get('stream_name');
     var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
     parameterCollection.each(function(model){
-      console.log(model)
       if (model.get('is_selected')){
         //double check the selected field and add the parameter name to the list
         if (model.get('is_x')){
@@ -345,7 +343,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     var streamName2 = parameterCollection.models[1].get('original_model').get('stream_name');
     var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
     parameterCollection.each(function(model){
-      console.log(model)
       if (model.get('is_selected')){
         //double check the selected field and add the parameter name to the list
         if (model.get('is_x')){
@@ -514,7 +511,14 @@ _.extend(OOI.prototype, Backbone.Events, {
         var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
         var item = items[items.length-1];
         var new_item = item.replace(/\d+/g, '');
-        console.log("DEFAULT Instrument Plot OPTION::",new_item, defaultPlotTypes.where({instrument: new_item}));
+
+        self.views.plotControls.plotDefaultModel = null;
+
+        defaultPlotTypes.each(function(plotStyle){
+          if (new_item.indexOf(plotStyle.get('instrument')) > -1){
+           self.views.plotControls.plotDefaultModel = plotStyle;
+          }
+        });
       }
 
       //render the controls
@@ -522,8 +526,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.plotInstruments.render();
 
       if (self.collections.selectedStreamCollection.length > 0){
-
-
         //EVENTS
         self.collections.plotEventList.fetch({
           reset: true,
@@ -560,6 +562,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       //get the selected parameters, only plot is they meet the criteria
       //will be null if the inputs dont conform
       var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
+
       if (!_.isNull(parameterCollection)){
         self.views.plotContainer.showLoading();
 
@@ -705,7 +708,7 @@ var streamCollection    = new StreamCollection();
 var defaultPlotTypes = new DefaultPlotCollection();
 
 // url arguments
-var data = { min : 'True' };
+var data = {};
 // begin the iterative fetching of arrays, assets, and streams.
 var streamFetch = streamCollection.fetch({ reset: true });
 var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
@@ -764,10 +767,25 @@ var dlPagination = {
     ref_des: ''
 }
 
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+}
+
 $(document).ready(function() {
+  //input
+  if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
+    data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
+  }
+
   ooi.start();
 
-  $('#updatePlot').on('click', function(event){
+  $('.update-plot').on('click', function(event){
     event.preventDefault();
     ooi.trigger('update_plot',{});
   });
@@ -796,7 +814,6 @@ $(document).ready(function() {
           uniqueTexts.push(text);
         }
       }
-{#        console.log(uniqueTexts);#}
       return uniqueTexts;
     },
     buildSearchSelect = function(uniqueNames) {
@@ -1184,7 +1201,7 @@ $(document).ready(function() {
 
   function updateCollection( successCallback ){
     collection.fetch({
-      {#        data : data,#}
+      data : data,
       success : successCallback
       //    error : showError
     });

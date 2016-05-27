@@ -20,31 +20,37 @@ var XYPlotView = BasePlot.extend({
       return val;
     }
   },
-  createAxis:function(plotParameters, axisType){
+  createAxis:function(plotParameters, plotModel, axisType){
     var axis = []
 
     var isMulti;
     var availableParameters = [];
+    var isReversed;
 
     if (axisType == 'x'){
+      isReversed = plotModel.get('invertX');
       availableParameters = plotParameters.filter(function (model) {
         return model.get('is_x');
       });
     }else{
+      isReversed = plotModel.get('invertY');
       availableParameters = plotParameters.filter(function (model) {
         return model.get('is_y');
       });
     }
 
+
     _.each(availableParameters,function(model,i){
       //create the axis
       if (model.get('short_name') != "time"){
         axis.push({
+                  reversed: isReversed,
                   title: {
-                          text: model.name
+                    text: model.get('name'),
+                    shortName: model.get('short_name')
                   },
                   labels: {
-                    format: '{value}'+model.get('units'),
+                    format: '{value}',
                   },
                   style: {
                     color: Highcharts.getOptions().colors[i]
@@ -53,8 +59,10 @@ var XYPlotView = BasePlot.extend({
                 });
       }else{
         axis.push({
+                  reversed: isReversed,
                   title: {
-                          text: model.name
+                    text: model.get('name'),
+                    shortName: model.get('short_name')
                   },
                   type: 'datetime',
                   style: {
@@ -87,9 +95,16 @@ var XYPlotView = BasePlot.extend({
     //container for the series list
     var seriesList = []
 
+    var enableMarkers = plotModel.get('plotStyle') == 'line' ? false : true;
+    var plotStyle = plotModel.get('plotStyle') == 'both' ? 'line' : plotModel.get('plotStyle');
+
     //map the avaiable parameters to the reference
     _.each(availableParameters,function(model, i){
       var series = new SeriesModel({
+                                    marker: {
+                                        enabled: enableMarkers
+                                    },
+                                    type: plotStyle,
                                     name  : model.get('name'),
                                     title : model.get('name'),
                                     units : model.get('units'),
@@ -101,7 +116,6 @@ var XYPlotView = BasePlot.extend({
       var data = []
       plotData.each(function(dataModel){
         var val1,val2;
-
         if (isY){
           var val2 = self.getValue(dataModel.get(referenceParameterModel.get('short_name')),referenceParameterModel.get('short_name'));
           var val1 = self.getValue(dataModel.get(model.get('short_name')),model.get('short_name'));
@@ -118,15 +132,15 @@ var XYPlotView = BasePlot.extend({
 
     return seriesList;
   },
+  doesSeriesHaveTimeAxis(){
+
+  },
   render: function(plotParameters, plotModel, plotData){
     var self = this;
 
-    var xAxis = self.createAxis(plotParameters,'x');
-    var yAxis = self.createAxis(plotParameters,'y');
+    var xAxis = self.createAxis(plotParameters,plotModel, 'x');
+    var yAxis = self.createAxis(plotParameters,plotModel, 'y');
     var seriesList = self.createSeries(plotParameters, plotModel, plotData);
-
-    console.log(plotParameters, plotModel, plotData);
-
 
     /* We use the d3 formatter because it's easy */
     //var formatter = d3.format(".2f");
@@ -156,7 +170,22 @@ var XYPlotView = BasePlot.extend({
       tooltip: {
           useHTML: true,
           shared: false,
-          crosshairs : [true,false]
+          crosshairs : [true,false],
+          formatter: function () {
+
+            var xVal = Highcharts.numberFormat(this.x, 2);
+            if (this.series.xAxis.userOptions.title.shortName == "time"){
+              xVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.x));
+            }
+
+            var yVal = Highcharts.numberFormat(this.y, 2);
+            if (this.series.yAxis.userOptions.title.shortName == "time"){
+              yVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.y));
+            }
+
+            var tooltip = '<span style="color:'+this.series.color+'">'+this.series.name+'</span>:<b> '+ xVal + " @ "+ yVal +'</b>'
+            return tooltip;
+          }
       },
       legend: {
           //layout: 'vertical',
