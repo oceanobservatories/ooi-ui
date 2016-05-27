@@ -30,18 +30,20 @@ var TermsDialogView = Backbone.View.extend({
     _.bindAll(this, "render", "hidden");
   },
   show: function(options) {
-    if(!options) {
-      options = {};
-    }
-    if(options && typeof options.ack == "function") {
-      this.ack = options.ack.bind(this);
-    }
-    this.render(options);
-    this.$el.modal({
-        keyboard:false,
-        backdrop:'static'
+     bootbox.dialog({
+      message: this.$el.find('.terms-modal')[0],
+      className: "terms-and-conditions-modal",
+      title: "OOI USER TERMS AND CONDITIONS",
+      buttons: {
+        success: {
+          label: "Close",
+          className: "btn-primary",
+          callback: function() {
+            return;
+          }
+        }
+      }
     });
-    this.$el.modal('show');
   },
   template: JST['ooiui/static/js/partials/TermsDialog.html'],
   render: function(options) {

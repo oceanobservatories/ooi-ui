@@ -227,22 +227,6 @@ _.extend(OOI.prototype, Backbone.Events, {
             $('#streamingDataContainer').css('display','none');
         });
 
-        // Login stuff..
-        if(!this.login.loggedIn()) {
-          var termsView = new TermsDialogView();
-          $('body').first().prepend(termsView.el);
-          $.ajax({
-            url: "/txt/eula.txt",
-            type: "GET",
-            success: function(response) {
-              termsView.show({
-                message: response,
-                ack: function() {  }
-              });
-            }
-          });
-        }
-
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
 

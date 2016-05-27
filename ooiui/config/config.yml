@@ -6,7 +6,7 @@ COMMON: &common
   CACHE_TYPE: simple
   UI_API_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   SECRET_KEY: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  GOOGLE_ANALYTICS_URL: 'http://www.google-analytics.com/collect?v=1&tid=UA-50606390-3&cid=5555&t=pageview'
+  GOOGLE_ANALYTICS: 'UA-50606390-3'
   REDMINE_URL: 'https://localhost'
   SUBSCRIPTION_SERVER: 'http://localhost:12585'
   SAN_DATA_SERVER: 'http://opendap-devel.ooi.rutgers.edu:8080/opendap/hyrax/'

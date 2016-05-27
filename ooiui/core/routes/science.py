@@ -9,28 +9,25 @@ from flask import request, render_template, Response, jsonify
 from flask import stream_with_context
 from ooiui.core.routes.common import get_login, login_required
 import requests
-import urllib2
 from ooiui.core.routes.decorators import login_required, scope_required
 import json
 
 @app.route('/')
 def new_index():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fscience%2Fworld')
-    return render_template('science/index.html')
+    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/landing/pioneer')
 @login_required()
 def landing_pioneer():
-    return render_template('landing/pioneer.html')
+    return render_template('landing/pioneer.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/assets/list')
 @app.route('/assets/list/')
 @login_required()
 def instr_index():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fassets')
-    return render_template('asset_management/assetslist.html')
+    return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
@@ -43,28 +40,24 @@ def assets_management():
 @app.route('/events/list/')
 @login_required()
 def event_list():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fevents')
-    return render_template('asset_management/eventslist.html')
+    return render_template('asset_management/eventslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/event/<int:id>', methods=['GET'])
 @login_required()
 def event_index(id):
-    #?id=%s' % id
-    return render_template('asset_management/event.html',id=id)
+    return render_template('asset_management/event.html', id=id, tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/event/<string:new>/<int:aid>/<string:aclass>', methods=['GET'])
 @login_required()
-def event_new(new,aid,aclass):
-    #?id=%s' % id
-    return render_template('asset_management/event.html',id=str(new),assetid=aid,aclass=str(aclass))
+def event_new(new, aid, aclass):
+    return render_template('asset_management/event.html', id=str(new), assetid=aid, aclass=str(aclass), tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/streams/')
 def streams_page():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreams')
-    return render_template('science/streams.html')
+    return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/datacatalog/')
 def data_catalog_page():
@@ -74,15 +67,13 @@ def data_catalog_page():
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
 def streaming_data_page():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fstreamingdata')
-    return render_template('science/streaming_data.html')
+    return render_template('science/streaming_data.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/antelope_acoustic/')
 @login_required()
 def acoustics_page():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Facoustic-antelope')
-    return render_template('science/antelope_acoustic.html')
+    return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/plot', methods=['GET'])
 @app.route('/plot/', methods=['GET'])
@@ -91,12 +82,16 @@ def show_plot_no_path():
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return plot_page(None)
 
-
 @app.route('/plot/<path:path>', methods=['GET'])
 @login_required()
+<<<<<<< HEAD
 def plot_page(path):
     urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Fplotting')
     return render_template('science/plot.html')
+=======
+def plotting_page(path):
+    return render_template('science/plotting.html', tracking=app.config['GOOGLE_ANALYTICS'])
+>>>>>>> 06a0a18f9712032ad420f5b7d5d2e3a2328a79a9
 
 
 @app.route('/getdata/')
@@ -348,8 +343,7 @@ def get_event_by_ref_des():
 
 @app.route('/opLog.html')
 def op_log():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2FopLog')
-    return render_template("common/opLog.html")
+    return render_template('common/opLog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/api/uframe/stream')
@@ -434,7 +428,6 @@ def get_plotdemo(instrument, stream):
     t0 = time.time()
     req = requests.get(app.config['SERVICES_URL'] + '/uframe/plot/%s/%s' % (instrument, stream), auth=(token, ''), params=request.args)
     t1 = time.time()
-    print "GUI took %s" % (t1 - t0)
     # they fake the response to 200
     return req.content, req.status_code, dict(req.headers)
 

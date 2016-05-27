@@ -54,4 +54,12 @@
     {% endblock %}
 {% endblock %}
 </body>
+<!-- Google Analytics -->
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', '{{ tracking }}', 'auto');
+    ga('send', 'pageview', location.pathname);
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
 </html>
