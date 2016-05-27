@@ -35,6 +35,14 @@ div.twelve-hours, div.twenty-four-hours, div.older {
     background-color: firebrick;
 }
 
+div#wrapper{
+  padding-left:0px;
+}
+
+#timeRangeFilter #slider{
+  display:none;
+}
+
 #plottingBody .scrollable-area .initial-text{
   margin-top:5px;
   margin-bottom:5px;
