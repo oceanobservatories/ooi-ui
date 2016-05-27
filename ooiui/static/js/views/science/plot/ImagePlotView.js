@@ -74,7 +74,7 @@ var ImagePlotView = BasePlot.extend({
       height = 600;
 
       if ( !_.isNull(paramOrder['z'])){
-        yvar = paramOrder['x'] ;
+        yvar = paramOrder['z'] ;
         xvar = 'time';
       }else{
          ooi.trigger('plot:error', {title: "Plot Type Input Error", message:"Please review the inputs for the Binned Pseudocolor plot and try again."} );
