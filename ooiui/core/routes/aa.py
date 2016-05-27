@@ -13,7 +13,6 @@ from flask import request, render_template, Response, jsonify
 from flask import stream_with_context, make_response
 from ooiui.core.routes.common import get_login
 import json
-import urllib2 
 import requests
 import os
 
@@ -22,24 +21,23 @@ import os
 @app.route('/alerts/dashboard')
 @app.route('/alerts/dashboard/')
 def aa_dashboard():
-    urllib2.urlopen(app.config['GOOGLE_ANALYTICS_URL'] + '&dp=%2Falerts')
-    return render_template('aa/AlertPage.html')
+    return render_template('aa/AlertPage.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #main aa page
 @app.route('/alerts/dashboard/triggered')
 @app.route('/alerts/dashboard/triggered')
 def aa_triggered_dashboard():
-    return render_template('aa/TriggeredPage.html')
+    return render_template('aa/TriggeredPage.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #edit/new page for aa
 #this is not being used right now
 @app.route('/alerts/createalert')
 @app.route('/alerts/createalert/')
 def aa_index():
-    return render_template('aa/CreateAlert.html')
+    return render_template('aa/CreateAlert.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/alerts/get_instrument_metadata/<string:ref_des>/<string:stream_name>', methods=['GET'])
-def get_instrument_metadata(ref_des,stream_name):
+def get_instrument_metadata(ref_des, stream_name):
     '''
     gets the alert alarm metadata for a given ref des
     '''
@@ -48,7 +46,7 @@ def get_instrument_metadata(ref_des,stream_name):
     try:
         text =  response.json()
         tmp = stream_name.split('_')[::-1][0]
-        method = stream_name.replace('_'+tmp,'')
+        method = stream_name.replace('_'+tmp, '')
         text = text['stream_metadata'][method][stream_name]
         return jsonify(stream_metadata=text)
     except:
