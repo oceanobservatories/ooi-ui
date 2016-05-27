@@ -23,7 +23,7 @@ var MapView = Backbone.View.extend({
 
 
         L.control.mousePosition().addTo(this.map);
-
+        var self = this
         L.easyButton('fa-globe', function(btn, map){
             map.fitBounds(self.inititalMapBounds);
         },"Reset Zoom Level").addTo( this.map );
