@@ -53,6 +53,14 @@ var ArrayModel = OOI.RelationalModel.extend({
             newArray = [-128.7533, 45.8305];
         }
 
+        if (!attrs.platforms) {
+            attrs.platforms = [];
+        } else {
+            _.each(attrs.platforms, function(platform) {
+                platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
+            });
+        }
+
 
         var geoJSON = {
             "type": "Feature",
