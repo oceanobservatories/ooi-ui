@@ -34,7 +34,7 @@ var ArrayModel = OOI.RelationalModel.extend({
         return data;
     },
     // geoJSON
-    toJSON: function() {
+    toGeoJSON: function() {
         var attrs = _.clone(this.attributes),
             coorArray = attrs.geo_location.coordinates,
             newArray = [coorArray[0][0][1], coorArray[0][0][0]],
@@ -53,13 +53,6 @@ var ArrayModel = OOI.RelationalModel.extend({
             newArray = [-128.7533, 45.8305];
         }
 
-        if (!attrs.platforms) {
-            attrs.platforms = [];
-        } else {
-            _.each(attrs.platforms, function(platform) {
-                platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
-            });
-        }
 
         var geoJSON = {
             "type": "Feature",
@@ -89,6 +82,12 @@ var ArrayCollection = Backbone.Collection.extend({
             return response.arrays;
         }
         return [];
-    }
+    },
+    toGeoJSON: function() {
+        var geoJSONified = this.map(function(model) {
+            return model.toGeoJSON();
+        });
+        return geoJSONified;
+    },
 });
 

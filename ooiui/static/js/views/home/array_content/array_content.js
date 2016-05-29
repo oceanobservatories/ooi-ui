@@ -11,10 +11,10 @@ var ParentView = Backbone.View.extend({
     render: function() {
         if (this.model) {
             // we're using geoJSON here.  Make sure when you access the
-            // object in the partial you are referencing the ArrayModel's .toJSON() method
+            // object in the partial you are referencing the ArrayModel's .toGeoJSON() method
             // return, and not the actual model.
             // e.g. properties.description NOT this.model.attributes. . .
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template(this.model.toGeoJSON()));
         } else {
             this.$el.html(this.template());
         }
@@ -41,7 +41,7 @@ var ArrayContentSummary = ParentView.extend({
 
             // then we can set an object on the array model, so we have a geoJSON
             // representation of all of the array's platforms, with lng/lat
-            model.set({platforms: platforms.toJSON()});
+            model.set({platforms: platforms.toGeoJSON()});
 
             // finally, return the array content summary, which will also contain
             // it's platforms to be displayed after the array is inspected.
