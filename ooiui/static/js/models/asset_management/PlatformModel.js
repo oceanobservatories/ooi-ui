@@ -6,7 +6,6 @@
  *      url: The downlaod URL of the ojbect.
  *
  */
-Backbone.Model.prototype.toGeoJSON = {};
 var PlatformModel = Backbone.Model.extend({
     url: '/api/asset_deployment?geoJSON=true',
     defaults: {
