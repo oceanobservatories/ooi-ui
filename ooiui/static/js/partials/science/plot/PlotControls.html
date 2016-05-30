@@ -18,56 +18,97 @@
         <hr>
 
         <div class="row plot-control-section">
-          <label>Plot Type:</label>
-          <select id="plotTypeSelect" class="selectpicker" style="">
-            <!-- only one option for interpolated -->
-            <% if (isInterpolated){ %>
-              <option value="xy" selected>X-Y</option>
-            <% } else { %>
-              <!-- if null show them all -->
-              <% if (_.isNull(plotDefaultModel)){ %>
+          <div class="col-sm-4">
+            <label>Plot Type:</label>
+          </div>
+          <div class="col-sm-8">
+            <select id="plotTypeSelect" class="selectpicker" style="">
+              <!-- only one option for interpolated -->
+              <% if (isInterpolated){ %>
+                <option value="xy" selected>X-Y</option>
+              <% } else { %>
+                <!-- if null show them all -->
+                <% if (_.isNull(plotDefaultModel)){ %>
 
-                <% plotModel.get('plotTypeOptions').each(function(option){ %>
-                  <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-                <% }); %>
-
-              <% }else { %>
-
-                <% plotModel.get('plotTypeOptions').each(function(option){ %>
-                  <% if (plotDefaultModel.get('plotType').indexOf(option.get('value')) > -1 ){ %>
+                  <% plotModel.get('plotTypeOptions').each(function(option){ %>
                     <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-                  <% } else {%>
-                    <option class="not-default-plot-option" value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-                  <% } %>
+                  <% }); %>
 
-                <% }); %>
+                <% }else { %>
 
+                  <% plotModel.get('plotTypeOptions').each(function(option){ %>
+                    <% if (plotDefaultModel.get('plotType').indexOf(option.get('value')) > -1 ){ %>
+                      <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                    <% } else {%>
+                      <option class="not-default-plot-option" value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                    <% } %>
+
+                  <% }); %>
+
+                <% } %>
               <% } %>
-            <% } %>
-          </select>
+            </select>
+          </div>
         </div>
 
         <% if (plotModel.get('plotType') == "xy"){ %>
 
+
+
         <div class="row plot-control-section">
-          <label>Plot Style:</label>
+          <div class="col-sm-4">
+            <label>Plot Style:</label>
+          </div>
+          <div class="col-sm-8">
+            <select id="plotLineStyle" class="selectpicker" style="">
+              <option class="" value="line">Line</option>
+              <option class="" value="scatter">Scatter</option>
+              <option class="" value="both">Both</option>
+            </select>
+          </div>
+
+          <!--
           <div class="btn-group plot-style-select" role="group" aria-label="..." style="">
             <% _.each(plotModel.get('plotStyleOptions'),function(option){ %>
               <button data-value="<%= option.value%>" type="button" class="btn <%= option.value == plotModel.get('plotStyle') ? 'btn-primary' : 'btn-default'%>"><%= option.name %></button>
             <% }); %>
           </div>
+          -->
         </div>
 
         <div class="row plot-control-section">
-          <label>Orientation:</label>
+          <div class="col-sm-4">
+            <label>Orientation:</label>
+          </div>
+          <div class="col-sm-8">
+            <select id="plotOrientation" class="selectpicker" style="">
+              <option class="" value="horizontal">Horizontal</option>
+              <option class="" value="vertical">Vertical</option>
+            </select>
+          </div>
+
+          <!--
           <div class="btn-group plot-orientation-select" role="group" aria-label="...">
             <button type="button" data-value="horizontal" class="btn <%= plotModel.get('plotOrientation') == "horizontal" ? "btn-primary" : "btn-default"%>">Horizontal</button>
             <button type="button" data-value="vertical" class="btn <%= plotModel.get('plotOrientation') == "vertical" ? "btn-primary" : "btn-default"%>">Vertical</button>
           </div>
+          -->
         </div>
 
         <div class="row plot-control-section">
-          <label>Options:</label>
+          <div class="col-sm-4">
+            <label>Options:</label>
+          </div>
+          <div class="col-sm-8">
+            <select id="plotMultiOptions" class="selectpicker" style="">
+              <option class="" value="invertY">Invert Y</option>
+              <option class="" value="invertX">Invert X</option>
+              <option class="" value="showAnnotations">Show Annotations</option>
+              <option class="" value="showEvents">Show Events</option>
+            </select>
+          </div>
+
+          <!--
           <div class="btn-group plot-options-select">
             <div class="checkbox">
               <label><input type="checkbox" value="invertY">Invert Y-Axis</label>
@@ -82,6 +123,8 @@
               <label><input type="checkbox" value="showEvents">Show Events</label>
             </div>
           </div>
+          -->
+
         </div>
 
         <% } %>

@@ -106,3 +106,14 @@ div#events-scroll-body {
   font-weight: 200;
 }
 
+#wrapper .content-fluid .search-sidebar{
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
+
+#plot-controls .plot-tab-view.plot-control-view .dropdown-menu.open{
+  left : 0px;
+  top  : 100%;
+
+}

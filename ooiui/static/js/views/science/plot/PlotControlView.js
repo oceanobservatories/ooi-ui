@@ -117,6 +117,25 @@ var PlotControlView = Backbone.View.extend({
         size: 8
       });
 
+      //plot line style selection
+      this.$el.find('#plotLineStyle').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
+
+      //plot orientation selection
+      this.$el.find('#plotOrientation').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
+      //plot additional plot options
+      this.$el.find('#plotMultiOptions').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
       if (this.collection.length > 1 ){
         var range1 = moment.range(moment.utc(self.collection.models[0].get('start')),
                                   moment.utc(self.collection.models[0].get('end')));
