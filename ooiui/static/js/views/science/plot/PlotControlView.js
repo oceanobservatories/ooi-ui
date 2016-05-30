@@ -12,6 +12,7 @@ var PlotControlView = Backbone.View.extend({
   plotModel : null, //plot style model containing the attributes
   plotDefaultModel: null,
   events: {
+    "click  #addAdditionalPlotRow" : "addXYInputRow",
     "change .plot-control-select-form .selectpicker#plotTypeSelect" : "onPlotTypeSelect", //on plot type change
     "change .selectpicker#plotOrientation" : "onPlotOrientationSelect", //on plot orientation change
     "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
@@ -29,6 +30,18 @@ var PlotControlView = Backbone.View.extend({
   },
   emptyRender:function(){
     this.$el.html('<h5>Please Select an instrument</h5>');
+  },
+  addXYInputRow:function(){
+    var hiddenRow = this.subviews[0].$el.find('tr[style="display: none;"]');
+    if (hiddenRow.length != 0){
+      $(hiddenRow[0]).css('display','table-row');
+    }
+
+    hiddenRow = this.subviews[0].$el.find('tr[style="display: none;"]');
+    if (hiddenRow.length == 0){
+      this.$el.find('#addMorePlotRows').css('display','none');
+    }
+
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotControls.html'],
   render:function(){
@@ -298,9 +311,11 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     //make sure the number of inputs matches the number of rows
     var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
 
+
     for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
       self.subviews.push(new PlotInstrumentParameterControl({
+        hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false ,
         model: self.model,
         parameter_id: i,
         plotTypeModel : selectedPlotType,
@@ -320,6 +335,7 @@ var PlotInstrumentControlItem = Backbone.View.extend({
  *  - ooiui/static/js/models/science/ParameterModel.js  -parameter collection
  */
 var PlotInstrumentParameterControl = Backbone.View.extend({
+  hidden : false,
   collection: new ParameterCollection,
   selectedParameter: null,
   tagName: "<tr>",
@@ -337,6 +353,10 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
 
     if ("plotTypeModel" in options){
       this.plotTypeModel = options.plotTypeModel;
+    }
+
+    if ("hidden" in options){
+      this.hidden = options.hidden;
     }
 
     if ("control" in options){
@@ -412,7 +432,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       }
     });
 
-    this.$el.html(this.template({ model:this.model,
+    this.$el.html(this.template({model:this.model,
                                  options:self.collection,
                                  id: this.control+"_"+this.parameter_id,
                                  parameterCount: 1,
@@ -424,6 +444,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       size: 8
     });
 
+    if (self.hidden){
+      self.$el.css('display','none');
+    }
   },
   onInputChange:function(e){
     var self = this;

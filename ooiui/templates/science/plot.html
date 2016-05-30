@@ -538,6 +538,12 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "plotControlView:change_plot_type", function(o) {
       //changes the plot type
+      if (o.model.plotType == "xy"){
+        $('#addMorePlotRows').css('display','inline');
+      }else{
+        $('#addMorePlotRows').css('display','none');
+      }
+
       $('.download-plot-container').css('display','none');
       self.views.plotControls.render();
     });
