@@ -15,7 +15,7 @@ var BasePlot = Backbone.View.extend({
     this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
   },
   showLoading:function(){
-    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
+    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:45%;font-size:90px;"> </i>');
   },
 
   hideLoading:function(){

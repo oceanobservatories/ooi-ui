@@ -22,7 +22,7 @@
             <label>Plot Type:</label>
           </div>
           <div class="col-sm-8">
-            <select id="plotTypeSelect" class="selectpicker" style="">
+            <select id="plotTypeSelect" class="selectpicker show-tick" style="">
               <!-- only one option for interpolated -->
               <% if (isInterpolated){ %>
                 <option value="xy" selected>X-Y</option>
@@ -59,21 +59,14 @@
           <div class="col-sm-4">
             <label>Plot Style:</label>
           </div>
+
           <div class="col-sm-8">
-            <select id="plotLineStyle" class="selectpicker" style="">
-              <option class="" value="line">Line</option>
-              <option class="" value="scatter">Scatter</option>
-              <option class="" value="both">Both</option>
+            <select id="plotLineStyle" class="selectpicker show-tick" style="">
+              <option class="" value="line" <%=plotModel.get('plotStyle') == "line" ? "selected" : ""%>>Line</option>
+              <option class="" value="scatter" <%=plotModel.get('plotStyle') == "scatter" ? "selected" : ""%>>Scatter</option>
+              <option class="" value="both" <%=plotModel.get('plotStyle') == "both" ? "selected" : ""%>>Both</option>
             </select>
           </div>
-
-          <!--
-          <div class="btn-group plot-style-select" role="group" aria-label="..." style="">
-            <% _.each(plotModel.get('plotStyleOptions'),function(option){ %>
-              <button data-value="<%= option.value%>" type="button" class="btn <%= option.value == plotModel.get('plotStyle') ? 'btn-primary' : 'btn-default'%>"><%= option.name %></button>
-            <% }); %>
-          </div>
-          -->
         </div>
 
         <div class="row plot-control-section">
@@ -81,18 +74,11 @@
             <label>Orientation:</label>
           </div>
           <div class="col-sm-8">
-            <select id="plotOrientation" class="selectpicker" style="">
-              <option class="" value="horizontal">Horizontal</option>
-              <option class="" value="vertical">Vertical</option>
+            <select id="plotOrientation" class="selectpicker show-tick" style="">
+              <option class="" value="horizontal" <%=plotModel.get('plotStyle') == "horizontal" ? "selected" : ""%>>Horizontal</option>
+              <option class="" value="vertical" <%=plotModel.get('plotStyle') == "vertical" ? "selected" : ""%>>Vertical</option>
             </select>
           </div>
-
-          <!--
-          <div class="btn-group plot-orientation-select" role="group" aria-label="...">
-            <button type="button" data-value="horizontal" class="btn <%= plotModel.get('plotOrientation') == "horizontal" ? "btn-primary" : "btn-default"%>">Horizontal</button>
-            <button type="button" data-value="vertical" class="btn <%= plotModel.get('plotOrientation') == "vertical" ? "btn-primary" : "btn-default"%>">Vertical</button>
-          </div>
-          -->
         </div>
 
         <div class="row plot-control-section">
@@ -100,30 +86,14 @@
             <label>Options:</label>
           </div>
           <div class="col-sm-8">
-            <select id="plotMultiOptions" class="selectpicker" style="">
-              <option class="" value="invertY">Invert Y</option>
-              <option class="" value="invertX">Invert X</option>
-              <option class="" value="showAnnotations">Show Annotations</option>
-              <option class="" value="showEvents">Show Events</option>
+            <select id="plotMultiOptions" class="selectpicker show-tick" multiple data-max-options="4" style="">
+              <option data-hidden="true"></option>
+              <option class="" value="invertY" <%=plotModel.get('invertY') ? "selected" : ""%> >Invert Y</option>
+              <option class="" value="invertX" <%=plotModel.get('invertX') ? "selected" : ""%> >Invert X</option>
+              <option class="" value="showAnnotations" <%=plotModel.get('showAnnotations') ? "selected" : ""%> >Show Annotations</option>
+              <option class="" value="showEvents" <%=plotModel.get('showEvents') ? "selected" : ""%>>Show Events</option>
             </select>
           </div>
-
-          <!--
-          <div class="btn-group plot-options-select">
-            <div class="checkbox">
-              <label><input type="checkbox" value="invertY">Invert Y-Axis</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="invertX">Invert X-Axis</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="showAnnotations">Show Annotations</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="showEvents">Show Events</label>
-            </div>
-          </div>
-          -->
 
         </div>
 

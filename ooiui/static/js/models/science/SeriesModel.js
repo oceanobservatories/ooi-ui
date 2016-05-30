@@ -44,6 +44,7 @@ var DataSeriesModel = Backbone.Model.extend({
 
 var DataSeriesCollection = Backbone.Collection.extend({
   stream:"",
+  displayName:"",
   ref_des:"",
   startdate:"",
   enddate:"",
@@ -58,6 +59,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
     }
     if (options && options.startdate){
       this.startdate = options.startdate;
+    }
+    if (options && options.displayName){
+      this.displayName = options.displayName;
     }
     if (options && options.enddate){
       this.enddate = options.enddate;
@@ -81,6 +85,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
   model: DataSeriesModel,
   getTitle:function(){
     return this.title;
+  },
+  getDisplayName:function(){
+    return this.displayName;
   },
   getStartDate:function(){
     return moment.utc(this.startdate).unix()*1000;

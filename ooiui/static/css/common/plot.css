@@ -117,3 +117,7 @@ div#events-scroll-body {
   top  : 100%;
 
 }
+
+.wait {
+  cursor: wait;
+}

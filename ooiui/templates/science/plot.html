@@ -170,6 +170,9 @@
                             <div class="panel">
                                 <div class="panel-heading plotting-heading">
                                     Graph
+                                    <span style="display:none" class="download-plot-container pull-right">
+                                        <a href="#" download="image.png" type="button" title="Download" style="float:left" id="downloadImage" class="btn btn-default download-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-download" aria-hidden="true"></i></a>
+                                    </span>
                                 </div>
                                 <div class="panel-body">
                                     <!--  Plot section NORMAL   -->
@@ -260,6 +263,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     var xParams = []
     var yParams = []
     var zParams = []
+    var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
     var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
     var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
     parameterCollection.each(function(model){
@@ -285,6 +289,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       //get the data
       self.views.plotContainer.plotData = new DataSeriesCollection({},
          {
+          displayName : displayName,
           stream      : streamName,
           ref_des     : referenceDesignator,
           startdate   : selectDt.startDate.toISOString(),
@@ -312,7 +317,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.plotContainer.plotDates = selectDt;
       //IMAGE PLOT generation
       self.views.plotContainer.render();
-      //self.views.plotContainer.hideLoading();
     }
   },
   plotInterpolatedData: function(parameterCollection) {
@@ -365,6 +369,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //create the interpolated data series collection
     self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
       {
+        displayName : displayName,
         ref_des1  : referenceDesignator1,
         ref_des2  : referenceDesignator2,
         instr1    : streamName1,
@@ -492,7 +497,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       showCurrentFilters();
     });
 
-
     //MAIN ADDITION OF A STREAM
     this.listenTo(this, "add_catalog_model", function(o) {
       //o.model = selected stream model
@@ -524,11 +528,17 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
       //renders the xy chart
+      self.views.plotContainer.showUpdateLoading();
       self.views.plotContainer.updateChart(o.model);
+    });
+
+    this.listenTo(this, "plot:plotLoaded", function(o) {
+        self.views.plotContainer.hideUpdateLoading();
     });
 
     this.listenTo(this, "plotControlView:change_plot_type", function(o) {
       //changes the plot type
+      $('.download-plot-container').css('display','none');
       self.views.plotControls.render();
     });
 
@@ -584,6 +594,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "update_plot", function(o) {
       //update the plot when "plot" is clicked
       //get the plot control model and create the
+      //hide the download button
+      $('.download-plot-container').css('display','none');
+
       self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
 
       //get the selected parameters, only plot is they meet the criteria
@@ -619,6 +632,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //reset the content
       $('#plot-view').html('<img src="/img/plotting/graph.png" style="width:100%;">');
+      $('#plot-view').css('height','300px');
 
     });
 

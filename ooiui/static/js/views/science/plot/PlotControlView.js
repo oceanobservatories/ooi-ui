@@ -12,10 +12,10 @@ var PlotControlView = Backbone.View.extend({
   plotModel : null, //plot style model containing the attributes
   plotDefaultModel: null,
   events: {
-    "click .plot-style-select" : "onPlotStyleSelect",  //on plot style change
-    "click .plot-orientation-select" : "onPlotOrientationSelect",  //on plot oritentation change
-    "click .plot-options-select input" : "onPlotOptionsSelect",  //on plot option change
-    "change .plot-control-select-form .selectpicker" : "onPlotTypeSelect" //on plot type change
+    "change .plot-control-select-form .selectpicker#plotTypeSelect" : "onPlotTypeSelect", //on plot type change
+    "change .selectpicker#plotOrientation" : "onPlotOrientationSelect", //on plot orientation change
+    "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
+    "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect" //on plot options change
   },
 
   initialize: function(options) {
@@ -170,24 +170,26 @@ var PlotControlView = Backbone.View.extend({
     return {startDate:picker.startDate, endDate:picker.endDate};
   },
   onPlotStyleSelect: function(e){
-    this.plotModel.set('plotStyle',$(e.target).data('value'));
-    $(e.target).parent().find('.btn-primary').removeClass('btn-primary').addClass('btn-default')
-    $(e.target).removeClass('btn-default').addClass('btn-primary')
+    this.plotModel.set('plotStyle',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotOrientationSelect: function(e){
-    this.plotModel.set('plotOrientation',$(e.target).data('value'));
-    $(e.target).parent().find('.btn-primary').removeClass('btn-primary').addClass('btn-default')
-    $(e.target).removeClass('btn-default').addClass('btn-primary')
+    this.plotModel.set('plotOrientation',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotOptionsSelect: function(e){
-    this.plotModel.set($(e.target).val(),$(e.target).prop('checked'));
+    var selected = $(e.target).val()
+    var obj = {'invertY':false,'invertX':false,'showAnnotations':false,'showEvents':false};
+    _.each(selected,function(selItem){
+      obj[selItem] = true;
+    });
+    this.plotModel.set(obj);
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotTypeSelect: function(e){
     this.plotModel.set('plotType',$(e.target).val());
     ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
+
     var defaultPlot = $(e.target).find('[value="'+$(e.target).val()+'"]').hasClass('not-default-plot-option');
     if (defaultPlot){
       ooi.trigger('plot:error', {title: "Plot Type Selection", message:"This plot type is not recommended for this instrument class. Proceeding with with plot type may lead to unexpected results."} );
@@ -221,23 +223,32 @@ var PlotControlView = Backbone.View.extend({
       referenceCount = 2;
     }
 
-    if (this.plotModel.get('plotType','stacked')){
-
-    }else{
-      if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected, please select x or y for parameter"} );
+    if (selectedParameterCollection.length == 0 || selectedDataCollection == 0){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Please select an instrument and valid inputs parameters"} );
+        return null;
+    }else if (this.plotModel.get('plotType') == 'stacked'){
+      if ( _.isEmpty(zLen) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected for Binned Psuedocolor plot, please select only 1 parameter for color"} );
         return null;
       }
-      else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) && (zLen.length > referenceCount )){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected, please select only 1 parameter for x or y"} );
+      else if ( (zLen.length > referenceCount )){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for Color"} );
         return null;
       }
-      else if (this.plotModel.get('plotType') == "3d_scatter"){
-        //require all inputs for 3d data plot
-        if ((xLen.length != referenceCount) && (yLen.length != referenceCount) && (zLen.length != referenceCount)){
+    }else if (this.plotModel.get('plotType') == "3d_scatter"){
+      //require all inputs for 3d data plot
+      if ((xLen.length != referenceCount) && (yLen.length != referenceCount) && (zLen.length != referenceCount)){
           ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected for Psuedocolor plot, please select only 1 parameter for x, y and color"} );
         return null;
-        }
+      }
+    }else{
+      if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select x or y for parameter"} );
+        return null;
+      }
+      else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for x or y"} );
+        return null;
       }
     }
 
