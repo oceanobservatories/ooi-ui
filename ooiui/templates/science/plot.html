@@ -482,7 +482,6 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
       setStreamFilter("reference_designator", options);
       combineFilters("OR");
-      showCurrentFilters();
     });
 
     this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
@@ -492,13 +491,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         //TODO: @OCEANZU: Please check the logic on this
       setInstrumentFilter("reference_designator", options);
       combineFilters("OR");
-      showCurrentFilters();
     });
 
     this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
       setArrayFilter("reference_designator", options);
       combineFilters("OR");
-      showCurrentFilters();
     });
 
     //MAIN ADDITION OF A STREAM
@@ -892,7 +889,6 @@ var resetAllFilters = function() {
   timeRangeFilter = {groupOp:"OR",rules:[]};
   mobileAssetFilter = {groupOp:"OR",rules:[]};
   combineFilters("OR");
-  showCurrentFilters();
 };
 
 var setArrayFilter = function(searchColumn, searchParam){
@@ -968,7 +964,6 @@ var setMobileAssetFilter = function() {
   }
 
   combineFilters("OR");
-  showCurrentFilters();
   $("#mobileAssetFilterBtn").toggleClass("down");
   $("#mobileAssetFilterBtn").blur();
 };
