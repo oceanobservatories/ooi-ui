@@ -163,6 +163,13 @@ var PlotControlView = Backbone.View.extend({
       }
 
 
+      if (self.plotModel.get('plotType') == "xy"){
+        $('#addMorePlotRows').css('display','inline');
+      }else{
+        $('#addMorePlotRows').css('display','none');
+      }
+
+
     }
   },
   cb: function(start, end){
