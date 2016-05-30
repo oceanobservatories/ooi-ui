@@ -81,7 +81,7 @@ div#wrapper{
 }
 
 #plottingBody .plot-tab-panel{
-  min-height:230px;
+  min-height:220px;
 }
 
 #plottingBody .panel-footer .pull-center{
@@ -117,6 +117,16 @@ div#events-scroll-body {
   top  : 100%;
 
 }
+
+#events-scroll-body{
+  overflow: scroll;
+  max-height: 230px;
+}
+
+#plot-controls .daterangepicker.dropdown-menu{
+  z-index: 4;
+}
+
 
 .wait {
   cursor: wait;

@@ -110,11 +110,15 @@ var FilterParentView = SearchSidebarView.extend({
         }
     },
     setTimeRange: function(min, max) {
-        timeRange = {
-            min: min.valueOf(),
-            max: max.valueOf()
+        if (!_.isUndefined(min) && !_.isUndefined(max) ){
+            timeRange = {
+                min: min.valueOf(),
+                max: max.valueOf()
+            }
+            return timeRange;
+        }else{
+            return null;
         }
-        return timeRange;
     },
     getStreamFilters: function() {
         return streamFilters.join(' ');

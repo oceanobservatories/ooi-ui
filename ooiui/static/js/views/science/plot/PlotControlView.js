@@ -168,8 +168,6 @@ var PlotControlView = Backbone.View.extend({
       }else{
         $('#addMorePlotRows').css('display','none');
       }
-
-
     }
   },
   cb: function(start, end){
@@ -244,7 +242,7 @@ var PlotControlView = Backbone.View.extend({
     }
 
     if (selectedParameterCollection.length == 0 || selectedDataCollection == 0){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Please select an instrument and valid inputs parameters"} );
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Please select an instrument and valid input parameters"} );
         return null;
     }else if (this.plotModel.get('plotType') == 'stacked'){
       if ( _.isEmpty(zLen) ){
@@ -397,6 +395,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     if (self.model.get("variables")[i] == "time"){
       return true;
     }
+
     //complex if statement for parameters...
     if ((self.model.get("variables_shape")[i] == "scalar" ||
          self.model.get("variables_shape")[i] == "function") &&
