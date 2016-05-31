@@ -15,34 +15,39 @@ var PlotView = BasePlot.extend({
   },
   hideUpdateLoading:function(o){
     var self = this;
-    if ( !_.isUndefined(this.xyPlot.getChart())){
+    if ( !_.isUndefined(this.xyPlot)){
       $('#plot-controls').removeClass('wait');
       self.xyPlot.getChart().hideLoading();
     }
   },
   showUpdateLoading:function(o){
     var self = this;
-    if ( !_.isUndefined(this.xyPlot.getChart())){
+    if ( !_.isUndefined(this.xyPlot)){
       $('#plot-controls').addClass('wait');
       self.xyPlot.getChart().showLoading();
     }
   },
   updateChart:function(o){
     var self = this;
-    if ( !_.isUndefined(this.xyPlot.getChart()) && o.get('plotType') == 'xy' ){
+    if ( !_.isUndefined(this.xyPlot) && !_.isUndefined(this.xyPlot.getChart()) && o.get('plotType') == 'xy' ){
       //o is a style model
       //only care about line, which should remove the scatter
       var enableMarkers = o.get('plotStyle') == 'line' ? false : true;
       var plotStyle = o.get('plotStyle') == 'both' ? 'line' : o.get('plotStyle')
       //update the markers and style
       _.each(this.xyPlot.getChart().series, function(series,i) {
-        series.update({
-          animation: false,
-          marker: {
+        if (!_.isUndefined(series.userOptions.qaqc) && series.userOptions.qaqc){
+          //pass for qaqc data, we may want to do something down the road...
+        }else{
+          series.update({
+            animation: false,
+            marker: {
+              radius : 3,
               enabled: enableMarkers
-          },
-          type: plotStyle
-        }, false);
+            },
+            type: plotStyle
+          }, false);
+        }
       });
 
       //set the axis
