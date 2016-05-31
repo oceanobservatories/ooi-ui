@@ -1,47 +1,4 @@
 
-<!-- Science -->
-<li class="dropdown" style='top:8px;cursor:pointer'>
-  <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Science
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="Science">
-    <li role="presentation">
-      <a href="/">
-        <i class="fa fa-globe" style='padding-right: 10px;'> </i>  Science Map
-      </a>
-    </li>
-    <li>
-      <a href="/datacatalog">
-        <i class="fa fa-th" style='padding-right: 10px;'> </i>  Data Catalog
-      </a>
-    </li>
-	<li>
-	   <a href="/plotting">
-            <i class="fa fa-bar-chart" style='padding-right: 10px;'> </i>  Plotting
-      </a>
-    </li>
-    <li>
-       <a href="/cameras">
-            <i class="fa fa-video-camera" style='padding-right: 10px;'> </i>  Cameras
-      </a>
-    </li>
-    <li>
-       <a href="/streamingdata">
-            <i class="fa fa-rss" style='padding-right: 10px;'> </i>  Streaming Data
-      </a>
-    </li>
-
-    <% if(user !== null && user.get('scopes').indexOf('data_manager') !== -1){ %>
-    <li>
-        <a href="/dataadmin">
-            <i class="fa fa-gear" style='padding-right: 10px;'> </i>Data Admin
-        </a>
-    </li>
-    <% } %>
-	</ul>
-</li>
-
 <!-- Status -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
     <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -101,10 +58,4 @@
     </ul>
 </li>
 <% } %>
-<!-- Infrastructure -->
-<li style='top:8px;cursor:pointer'>
-  <a href="/infrastructure">
-    Infrastructure
-  </a>
-</li>
 
