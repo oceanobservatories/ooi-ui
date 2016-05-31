@@ -176,7 +176,6 @@ var StreamDownloadFormView = Backbone.View.extend({
       dataType: "json",
       model: this.model,
       success: function(resp){
-        // TODO: FIX THIS SHIT
         var base = resp.COMMON.SAN_DATA_SERVER;
         var site = this.model.attributes.reference_designator.substring(0,8);
         var assembly = this.model.attributes.reference_designator.substring(9,14);
