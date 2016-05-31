@@ -58,7 +58,7 @@ var ImagePlotView = BasePlot.extend({
         yvar = paramOrder['x']+","+ paramOrder['y'] ;
         xvar = 'time';
       }else{
-         ooi.trigger('plot:error', {title: "Plot Type Input Error", message:"Please review the inputs for the Quiver plot and try again."} );
+         ooi.trigger('plot:error', {title: "Plot Type Input Error", message:"Please review the inputs for the Feather plot and try again."} );
          valid = false;
       }
     }
@@ -94,7 +94,7 @@ var ImagePlotView = BasePlot.extend({
       yvar : yvar,
       xvar : xvar,
       plotLayout : plotModel.get('plotType'),
-      qaqc : 0,
+      qaqc : plotModel.get('qaqc'),
       startdate: plotDates.startDate.toISOString(),
       enddate  : plotDates.endDate.toISOString(),
       scatter : false,
@@ -129,7 +129,7 @@ var ImagePlotView = BasePlot.extend({
 
     this.$el.find('#dataPlot').error(function(e,r,s) {
       if (valid){
-        ooi.trigger('plot:error', {title: "Image Plot Error", message:"There was an Error creating the image, please review selections and try again. If the problem persists, please email helpdesk@oceanobservatories.org "} );
+        ooi.trigger('plot:error', {title: "Image Plot Error", message:"There was an error creating the image, please review selections and try again. If the problem persists, please email helpdesk@oceanobservatories.org "} );
         self.$el.find('#dataPlot').remove();
       }
     })

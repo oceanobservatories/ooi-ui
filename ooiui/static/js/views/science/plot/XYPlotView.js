@@ -98,11 +98,17 @@ var XYPlotView = BasePlot.extend({
     var enableMarkers = plotModel.get('plotStyle') == 'line' ? false : true;
     var plotStyle = plotModel.get('plotStyle') == 'both' ? 'line' : plotModel.get('plotStyle');
 
+    var qaqc = plotModel.get('qaqc'); //qaqc selection
+
     //map the avaiable parameters to the reference
     _.each(availableParameters,function(model, i){
+      var qc_name = model.get('short_name') + "_qc_results";
+
+
       var series = new SeriesModel({
                                     marker: {
-                                        enabled: enableMarkers
+                                      radius : 3,
+                                      enabled: enableMarkers
                                     },
                                     type: plotStyle,
                                     name  : model.get('name'),
@@ -114,6 +120,8 @@ var XYPlotView = BasePlot.extend({
                                  });
 
       var data = []
+      var qaqcdata = []
+
       plotData.each(function(dataModel){
         var val1,val2;
         if (isY){
@@ -124,10 +132,53 @@ var XYPlotView = BasePlot.extend({
           var val2 = self.getValue(dataModel.get(model.get('short_name')),model.get('short_name'));
         }
         data.push([val1,val2]);
+
+        //will only add QAQC if the reference is time
+        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name') == 'time'){
+          var qaqc_data = dataModel.get(qc_name);
+          var qaqcpass = false
+          if (qaqc < 10){
+            if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
+              qaqcpass = true
+            }else{
+              qaqcpass = false
+            }
+          }else{
+            if (qaqc_data == Math.pow(2,9)){  // PASS
+              qaqcpass = true
+            }else{
+              qaqcpass = false
+            }
+          }
+
+          if (qaqcpass){
+            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'green', lineWidth:0.5, radius : 0,}});
+          }else{
+            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'#FF0000', lineWidth:1.5}});
+          }
+
+        }
       });
 
       series.set('data',data);
       seriesList.push(series.toJSON());
+
+      //add qaqc series
+      if (!_.isEmpty(qaqcdata)){
+        seriesList.push(new SeriesModel({
+                                          type  : 'scatter',
+                                          name  : "Failed QAQC: "+ model.get('name'),
+                                          qaqc  : true,
+                                          title : qc_name,
+                                          units : '',
+                                          color : '#FF0000',
+                                          data  : qaqcdata,
+                                          yAxis : isY ? 0 : i,
+                                          xAxis : isY ? i : 0
+                                       }).toJSON());
+      }
+
+
     });
 
     return seriesList;

@@ -29,6 +29,26 @@ var PlotTypeCollection = Backbone.Collection.extend({
 });
 
 
+var QaQcTypeModel = Backbone.Model.extend({
+  url: '#',
+  defaults:{
+    name: null,
+    value: null
+  }
+});
+
+
+var QaQcTypeCollection = Backbone.Collection.extend({
+  url: '#',
+  model: QaQcTypeModel,
+  initialize: function(options) {
+
+  },
+  parse: function(response) {
+  }
+});
+
+
 var PlotControlModel = Backbone.Model.extend({
     urlRoot: '#',
     defaults: {
@@ -61,6 +81,22 @@ var PlotControlModel = Backbone.Model.extend({
                             {name:'Scatter',value:"scatter"},
                             {name:'Both',value:"both"}
                           ],
+
+        qaqc : '0',
+        qaqcOptions : new QaQcTypeCollection([
+                        { name: 'None', value: '0'},
+                        { name: 'Global Range', value: '1'},
+                        { name: 'Local Range', value: '2'},
+                        { name: 'Spike', value: '3'},
+                        { name: 'Polytrend', value: '4'},
+                        { name: 'Stuck Value', value: '5'},
+                        { name: 'Gradient', value: '6'},
+                        //{ name: 'Solar Elevation', value: '7'},
+                        //{ name: 'Propagate Flags', value: '8'},
+                        //{ name: 'Cond Compress', value: '9'},
+                        { name: 'All', value: '10'}
+                      ]),
+
         defaultPlotTypes : null
     }
 });
