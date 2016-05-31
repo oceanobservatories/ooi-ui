@@ -107,7 +107,7 @@ var VectorMap = Backbone.View.extend({
                     var arrayData = [],
                         rsArrayData = [],
                         ceArrayData = [];
-                    _.each(renderContext.collection.arrayCollection.toJSON(), function(geoJSON) {
+                    _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
                         if (geoJSON.properties.code === 'RS') {
                             rsArrayData.push(geoJSON);
                         } else if (geoJSON.properties.code === 'CE') {
@@ -120,13 +120,13 @@ var VectorMap = Backbone.View.extend({
 
                     // Setup the mooring data by filtering out ... the moorings.
                     var mooringData = [];
-                    _.each(renderContext.collection.platformCollection.byMoorings().toJSON(), function(geoJSON) {
+                    _.each(renderContext.collection.platformCollection.byMoorings().toGeoJSON(), function(geoJSON) {
                         mooringData.push(geoJSON);
                     });
 
                     // Likewise we'll get the gliders out of the platform collection.
                     var gliderData = [];
-                    _.each(renderContext.collection.platformCollection.byGliders().toJSON(), function(geoJSON) {
+                    _.each(renderContext.collection.platformCollection.byGliders().toGeoJSON(), function(geoJSON) {
                         gliderData.push(geoJSON);
                     });
 

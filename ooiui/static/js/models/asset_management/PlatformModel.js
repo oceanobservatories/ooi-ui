@@ -6,7 +6,6 @@
  *      url: The downlaod URL of the ojbect.
  *
  */
-
 var PlatformModel = Backbone.Model.extend({
     url: '/api/asset_deployment?geoJSON=true',
     defaults: {
@@ -22,7 +21,7 @@ var PlatformModel = Backbone.Model.extend({
         reference_designator: null,
         start_date: null
     },
-    toJSON: function() {
+    toGeoJSON: function() {
         var attrs = _.clone(this.attributes),
             coorArray = attrs.geo_location.coordinates,
             newArray = [coorArray[0].toFixed(3), coorArray[1].toFixed(3)],
@@ -78,6 +77,12 @@ var PlatformModel = Backbone.Model.extend({
 var PlatformCollection = Backbone.Collection.extend({
     url: '/api/asset_deployment?geoJSON=true',
     model: PlatformModel,
+    toGeoJSON: function() {
+        var geoJSONified = this.map(function(model) {
+            return model.toGeoJSON();
+        });
+        return geoJSONified;
+    },
     parse: function(response) {
         'use strict';
         // if the response is valid, return the results object

@@ -36,12 +36,12 @@ var TileMap = Backbone.View.extend({
 
             $.when(map).done(function() {
                 var arrayData = [];
-                _.each(renderContext.collection.arrayCollection.toJSON(), function(geoJSON) {
+                _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
                     arrayData.push(geoJSON);
                 });
 
                 var platformData = [];
-                _.each(renderContext.collection.platformCollection.toJSON(), function(geoJSON) {
+                _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
                     platformData.push(geoJSON);
                 });
 
