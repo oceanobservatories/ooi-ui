@@ -118,13 +118,17 @@ var PlotView = BasePlot.extend({
         //only remove annotations
         if (!_.isUndefined(axis)){
           _.each(axis.plotLinesAndBands,function(annotationBand){
-            if (annotationBand.id.startsWith('plot-band-')){
-              axis.removePlotBand(annotationBand.id);
+            if (!_.isUndefined(annotationBand.id)){
+              if (annotationBand.id.startsWith('plot-band-')){
+                axis.removePlotBand(annotationBand.id);
+              }
             }
           });
           _.each(axis.plotLinesAndBands,function(annotationBand){
-            if (annotationBand.id.startsWith('plot-band-')){
-              axis.removePlotBand(annotationBand.id);
+            if (!_.isUndefined(annotationBand.id)){
+              if (annotationBand.id.startsWith('plot-band-')){
+                axis.removePlotBand(annotationBand.id);
+              }
             }
           });
         }
@@ -178,13 +182,17 @@ var PlotView = BasePlot.extend({
          //only remove events
          if (!_.isUndefined(axis)){
           _.each(axis.plotLinesAndBands,function(bandEvent){
-            if (bandEvent.id.startsWith('plot-event-band-')){
-              axis.removePlotBandOrLine(bandEvent.id);
+            if (!_.isUndefined(bandEvent.id)){
+              if (bandEvent.id.startsWith('plot-event-band-')){
+                axis.removePlotBandOrLine(bandEvent.id);
+              }
             }
           });
           _.each(axis.plotLinesAndBands,function(bandEvent){
-            if (bandEvent.id.startsWith('plot-event-band-')){
-              axis.removePlotBandOrLine(bandEvent.id);
+            if (!_.isUndefined(bandEvent.id)){
+              if (bandEvent.id.startsWith('plot-event-band-')){
+                axis.removePlotBandOrLine(bandEvent.id);
+              }
             }
           });
         }
