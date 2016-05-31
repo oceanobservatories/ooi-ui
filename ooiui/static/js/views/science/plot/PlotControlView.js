@@ -12,10 +12,11 @@ var PlotControlView = Backbone.View.extend({
   plotModel : null, //plot style model containing the attributes
   plotDefaultModel: null,
   events: {
-    "click .plot-style-select" : "onPlotStyleSelect",  //on plot style change
-    "click .plot-orientation-select" : "onPlotOrientationSelect",  //on plot oritentation change
-    "click .plot-options-select input" : "onPlotOptionsSelect",  //on plot option change
-    "change .plot-control-select-form .selectpicker" : "onPlotTypeSelect" //on plot type change
+    "click  #addAdditionalPlotRow" : "addXYInputRow",
+    "change .plot-control-select-form .selectpicker#plotTypeSelect" : "onPlotTypeSelect", //on plot type change
+    "change .selectpicker#plotOrientation" : "onPlotOrientationSelect", //on plot orientation change
+    "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
+    "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect" //on plot options change
   },
 
   initialize: function(options) {
@@ -29,6 +30,18 @@ var PlotControlView = Backbone.View.extend({
   },
   emptyRender:function(){
     this.$el.html('<h5>Please Select an instrument</h5>');
+  },
+  addXYInputRow:function(){
+    var hiddenRow = this.subviews[0].$el.find('tr[style="display: none;"]');
+    if (hiddenRow.length != 0){
+      $(hiddenRow[0]).css('display','table-row');
+    }
+
+    hiddenRow = this.subviews[0].$el.find('tr[style="display: none;"]');
+    if (hiddenRow.length == 0){
+      this.$el.find('#addMorePlotRows').css('display','none');
+    }
+
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotControls.html'],
   render:function(){
@@ -117,6 +130,25 @@ var PlotControlView = Backbone.View.extend({
         size: 8
       });
 
+      //plot line style selection
+      this.$el.find('#plotLineStyle').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
+
+      //plot orientation selection
+      this.$el.find('#plotOrientation').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
+      //plot additional plot options
+      this.$el.find('#plotMultiOptions').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
       if (this.collection.length > 1 ){
         var range1 = moment.range(moment.utc(self.collection.models[0].get('start')),
                                   moment.utc(self.collection.models[0].get('end')));
@@ -131,6 +163,11 @@ var PlotControlView = Backbone.View.extend({
       }
 
 
+      if (self.plotModel.get('plotType') == "xy"){
+        $('#addMorePlotRows').css('display','inline');
+      }else{
+        $('#addMorePlotRows').css('display','none');
+      }
     }
   },
   cb: function(start, end){
@@ -151,24 +188,26 @@ var PlotControlView = Backbone.View.extend({
     return {startDate:picker.startDate, endDate:picker.endDate};
   },
   onPlotStyleSelect: function(e){
-    this.plotModel.set('plotStyle',$(e.target).data('value'));
-    $(e.target).parent().find('.btn-primary').removeClass('btn-primary').addClass('btn-default')
-    $(e.target).removeClass('btn-default').addClass('btn-primary')
+    this.plotModel.set('plotStyle',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotOrientationSelect: function(e){
-    this.plotModel.set('plotOrientation',$(e.target).data('value'));
-    $(e.target).parent().find('.btn-primary').removeClass('btn-primary').addClass('btn-default')
-    $(e.target).removeClass('btn-default').addClass('btn-primary')
+    this.plotModel.set('plotOrientation',$(e.target).val());
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotOptionsSelect: function(e){
-    this.plotModel.set($(e.target).val(),$(e.target).prop('checked'));
+    var selected = $(e.target).val()
+    var obj = {'invertY':false,'invertX':false,'showAnnotations':false,'showEvents':false};
+    _.each(selected,function(selItem){
+      obj[selItem] = true;
+    });
+    this.plotModel.set(obj);
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotTypeSelect: function(e){
     this.plotModel.set('plotType',$(e.target).val());
     ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
+
     var defaultPlot = $(e.target).find('[value="'+$(e.target).val()+'"]').hasClass('not-default-plot-option');
     if (defaultPlot){
       ooi.trigger('plot:error', {title: "Plot Type Selection", message:"This plot type is not recommended for this instrument class. Proceeding with with plot type may lead to unexpected results."} );
@@ -199,26 +238,37 @@ var PlotControlView = Backbone.View.extend({
 
     //special case for interpolated plot
     if (selectedDataCollection == 2){
+      ooi.trigger('plot:error', {title: "Unavailable Plot Selection", message:"Interpolated plotting is currently unavailable. If the problem persists, please email helpdesk@oceanobservatories.org"} );
+      return null
       referenceCount = 2;
     }
 
-    if (this.plotModel.get('plotType','stacked')){
-
-    }else{
-      if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected, please select x or y for parameter"} );
+    if (selectedParameterCollection.length == 0 || selectedDataCollection == 0){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Please select an instrument and valid input parameters"} );
+        return null;
+    }else if (this.plotModel.get('plotType') == 'stacked'){
+      if ( _.isEmpty(zLen) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected for Binned Psuedocolor plot, please select only 1 parameter for color"} );
         return null;
       }
-      else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) && (zLen.length > referenceCount )){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected, please select only 1 parameter for x or y"} );
+      else if ( (zLen.length > referenceCount )){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for Color"} );
         return null;
       }
-      else if (this.plotModel.get('plotType') == "3d_scatter"){
-        //require all inputs for 3d data plot
-        if ((xLen.length != referenceCount) && (yLen.length != referenceCount) && (zLen.length != referenceCount)){
+    }else if (this.plotModel.get('plotType') == "3d_scatter"){
+      //require all inputs for 3d data plot
+      if ((xLen.length != referenceCount) && (yLen.length != referenceCount) && (zLen.length != referenceCount)){
           ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected for Psuedocolor plot, please select only 1 parameter for x, y and color"} );
         return null;
-        }
+      }
+    }else{
+      if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select x or y for parameter"} );
+        return null;
+      }
+      else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) ){
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for x or y"} );
+        return null;
       }
     }
 
@@ -268,9 +318,11 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     //make sure the number of inputs matches the number of rows
     var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
 
+
     for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
       self.subviews.push(new PlotInstrumentParameterControl({
+        hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false ,
         model: self.model,
         parameter_id: i,
         plotTypeModel : selectedPlotType,
@@ -290,6 +342,7 @@ var PlotInstrumentControlItem = Backbone.View.extend({
  *  - ooiui/static/js/models/science/ParameterModel.js  -parameter collection
  */
 var PlotInstrumentParameterControl = Backbone.View.extend({
+  hidden : false,
   collection: new ParameterCollection,
   selectedParameter: null,
   tagName: "<tr>",
@@ -307,6 +360,10 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
 
     if ("plotTypeModel" in options){
       this.plotTypeModel = options.plotTypeModel;
+    }
+
+    if ("hidden" in options){
+      this.hidden = options.hidden;
     }
 
     if ("control" in options){
@@ -340,6 +397,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     if (self.model.get("variables")[i] == "time"){
       return true;
     }
+
     //complex if statement for parameters...
     if ((self.model.get("variables_shape")[i] == "scalar" ||
          self.model.get("variables_shape")[i] == "function") &&
@@ -382,7 +440,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       }
     });
 
-    this.$el.html(this.template({ model:this.model,
+    this.$el.html(this.template({model:this.model,
                                  options:self.collection,
                                  id: this.control+"_"+this.parameter_id,
                                  parameterCount: 1,
@@ -394,6 +452,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       size: 8
     });
 
+    if (self.hidden){
+      self.$el.css('display','none');
+    }
   },
   onInputChange:function(e){
     var self = this;

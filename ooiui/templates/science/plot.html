@@ -74,10 +74,10 @@
                             <div class="col-sm-12 tidy-panel">
 
                                 <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
-                                    <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
-                                    <li><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
-                                    <li><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
-                                    <li><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
+                                    <li class="active default-tab-option">  <a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
+                                    <li class="disabled"><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
+                                    <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
+                                    <li class="disabled"><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
                                 </ul>
 
                                 <div id="plot-tab-content" class="tab-content">
@@ -94,6 +94,7 @@
                                                 <div class="panel-footer clearfix">
                                                     <div class="pull-center">
                                                         <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                        <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,7 +103,7 @@
 
                                     <div class="tab-pane" id="plot-tool-instruments">
                                         <div class="row">
-                                            <div id='plot-events-panel' class="panel">
+                                            <div id='plot-instruments-panel' class="panel">
                                                 <div class="scrollable-block">
                                                     <div class="scrollable-area">
                                                         <div id="instruments-scroll-body" class=" panel-body">
@@ -113,6 +114,7 @@
                                                         <div class="panel-footer clearfix">
                                                             <div class="pull-center">
                                                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
                                                             </div>
                                                         </div>
                                                     </div> <!-- panel -->
@@ -134,6 +136,7 @@
                                                         <div class="panel-footer clearfix">
                                                             <div class="pull-center">
                                                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
                                                             </div>
                                                         </div>
                                                     </div> <!-- panel -->
@@ -155,6 +158,7 @@
                                                         <div class="panel-footer clearfix">
                                                             <div class="pull-center">
                                                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right"> * Data is decimated. Maximum of 1000 points shown.</small>
                                                             </div>
                                                         </div>
                                                     </div> <!-- panel -->
@@ -170,6 +174,9 @@
                             <div class="panel">
                                 <div class="panel-heading plotting-heading">
                                     Graph
+                                    <span style="display:none" class="download-plot-container pull-right">
+                                        <a href="#" download="image.png" type="button" title="Download" style="float:left" id="downloadImage" class="btn btn-default download-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-download" aria-hidden="true"></i></a>
+                                    </span>
                                 </div>
                                 <div class="panel-body">
                                     <!--  Plot section NORMAL   -->
@@ -253,6 +260,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     downloadModel : new StreamModel(),
     userModel     : new UserModel()
   },
+  showPlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
+  },
+  hidePlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('active');
+
+    $('#plottingBody .plot-tool-tabs li.default-tab-option a').click();
+    //$($('#plottingBody .plot-tool-tabs li')[0]).addClass('active');
+    $('#plottingBody .plot-tool-tabs li:not(.default-tab-option)').addClass('disabled');
+
+  },
   plotSingleInstrument:function(parameterCollection){
     var self = this;
     //NORMAL PLOT
@@ -260,6 +278,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     var xParams = []
     var yParams = []
     var zParams = []
+    var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
     var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
     var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
     parameterCollection.each(function(model){
@@ -285,6 +304,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       //get the data
       self.views.plotContainer.plotData = new DataSeriesCollection({},
          {
+          displayName : displayName,
           stream      : streamName,
           ref_des     : referenceDesignator,
           startdate   : selectDt.startDate.toISOString(),
@@ -312,7 +332,6 @@ _.extend(OOI.prototype, Backbone.Events, {
       self.views.plotContainer.plotDates = selectDt;
       //IMAGE PLOT generation
       self.views.plotContainer.render();
-      //self.views.plotContainer.hideLoading();
     }
   },
   plotInterpolatedData: function(parameterCollection) {
@@ -365,6 +384,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     //create the interpolated data series collection
     self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
       {
+        displayName : displayName,
         ref_des1  : referenceDesignator1,
         ref_des2  : referenceDesignator2,
         instr1    : streamName1,
@@ -470,15 +490,39 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "login:success", function() { location.reload(); });
     this.listenTo(this, "login:logout", function() { location.reload(); });
 
+    this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
+      setStreamFilter("reference_designator", options);
+      combineFilters("OR");
+    });
+
+    this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
+        //TODO: @OCEANZUS, implement the filter for the instrument filters.
+    {#            console.log(options);#}
+
+        //TODO: @OCEANZU: Please check the logic on this
+      setInstrumentFilter("reference_designator", options);
+      combineFilters("OR");
+    });
+
+    this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
+      setArrayFilter("reference_designator", options);
+      combineFilters("OR");
+    });
 
     //MAIN ADDITION OF A STREAM
     this.listenTo(this, "add_catalog_model", function(o) {
       //o.model = selected stream model
       //ONLY ALLOW TWO instruments selected
       if (self.collections.selectedStreamCollection.length < 2){
+        self.showPlottingTabs();
         self.collections.selectedStreamCollection.add(o.model);
         self.trigger('update_catalog_list',{});
-        o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+        if (!_.isUndefined(o.evt)){
+            o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+        }else{
+            var rowId = val = o.model.get('ref_des') + o.model.get('stream_name');
+            $($dcGrid.getGridRowById(rowId)).find('.instrument-to-plot i').removeClass('fa-plus-square').addClass('fa-minus-square')
+        }
       };
     });
 
@@ -487,8 +531,13 @@ _.extend(OOI.prototype, Backbone.Events, {
       //o.model = selected stream model
       //ONLY ALLOW TWO instruments selected
       self.collections.selectedStreamCollection.remove(o.model);
+
+      if (self.collections.selectedStreamCollection.length == 0){
+        self.hidePlottingTabs();
+      }
+
       //reset the content
-      $('#plot-view').html('<img src="/img/plotting/graph.png" style="width:100%;">');
+      $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
       self.trigger('update_catalog_list',{});
 
     });
@@ -497,16 +546,23 @@ _.extend(OOI.prototype, Backbone.Events, {
       //listen to change events
       self.collections.selectedStreamCollection.reset();
       self.trigger('update_catalog_list',{});
-      //reset annotations
+      //reset tabs
+      self.hidePlottingTabs();
     });
 
     this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
       //renders the xy chart
+      self.views.plotContainer.showUpdateLoading();
       self.views.plotContainer.updateChart(o.model);
+    });
+
+    this.listenTo(this, "plot:plotLoaded", function(o) {
+        self.views.plotContainer.hideUpdateLoading();
     });
 
     this.listenTo(this, "plotControlView:change_plot_type", function(o) {
       //changes the plot type
+      $('.download-plot-container').css('display','none');
       self.views.plotControls.render();
     });
 
@@ -562,6 +618,9 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, "update_plot", function(o) {
       //update the plot when "plot" is clicked
       //get the plot control model and create the
+      //hide the download button
+      $('.download-plot-container').css('display','none');
+
       self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
 
       //get the selected parameters, only plot is they meet the criteria
@@ -597,6 +656,7 @@ _.extend(OOI.prototype, Backbone.Events, {
 
       //reset the content
       $('#plot-view').html('<img src="/img/plotting/graph.png" style="width:100%;">');
+      $('#plot-view').css('height','300px');
 
     });
 
@@ -698,6 +758,8 @@ _.extend(OOI.prototype, Backbone.Events, {
     self.views.modalDownloadFailView.show(msg);
   });
 
+
+
   }
 });
 
@@ -772,6 +834,26 @@ var dlPagination = {
     ref_des: ''
 }
 
+var vent = _.extend({}, Backbone.Events);
+var vobj = {};
+
+var setNavFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"bw",data:this});
+  });
+  grid[0].p.search = true;
+  $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+  grid.trigger("reloadGrid",[{page:1,current:true}]);
+};
+
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results==null){
@@ -783,30 +865,147 @@ $.urlParam = function(name){
 }
 
 $(document).ready(function() {
-    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
-    searchSidebarView.render();
-    searchSidebarView.renderFilterInput();
     //input
     if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
         data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
     }
 
-  ooi.start();
+    if(location.hash != ""){
+        _.extend(vobj, {hash: location.hash.split('#')[1]});
+    }else{
+        _.extend(vobj, {hash: ""});
+    }
 
-  $('.update-plot').on('click', function(event){
-    event.preventDefault();
-    ooi.trigger('update_plot',{});
-  });
+    $('.update-plot').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('update_plot',{});
+    });
 
-  $('#reset_catalog_button').on('click', function(event){
-    event.preventDefault();
-    ooi.trigger('reset_catalog_list',{});
-    $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
-  });
+    $('#reset_catalog_button').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('reset_catalog_list',{});
+        $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
+        $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+    });
 
-  updateCollection( showStreams );
+    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
+    searchSidebarView.render();
+    searchSidebarView.renderFilterInput();
 
+    updateCollection( showStreams );
+
+    ooi.start();
 });
+
+var instrumentFilter = {groupOp:"OR",rules:[]};
+var arrayFilter = {groupOp:"OR",rules:[]};
+var streamFilter = {groupOp:"OR",rules:[]};
+var timeRangeFilter = {groupOp:"OR",rules:[]};
+var mobileAssetFilter = {groupOp:"OR",rules:[]};
+
+
+var resetAllFilters = function() {
+  $("#resetAllFilters").blur();
+  $('input:checkbox').removeAttr('checked');
+  $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+  instrumentFilter = {groupOp:"OR",rules:[]};
+  arrayFilter = {groupOp:"OR",rules:[]};
+  streamFilter = {groupOp:"OR",rules:[]};
+  timeRangeFilter = {groupOp:"OR",rules:[]};
+  mobileAssetFilter = {groupOp:"OR",rules:[]};
+  combineFilters("OR");
+};
+
+var setArrayFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"bw",data:this});
+  });
+  arrayFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var showCurrentFilters = function() {
+  console.log($dcGrid.getGridParam("postData").filters);
+};
+
+var setInstrumentFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"cn",data:this});
+  });
+  instrumentFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var setStreamFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"cn",data:this});
+  });
+  streamFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var setTimeRangeFilter = function(start, startTime, end, endTime){
+  timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"ge",data:startTime},{field:end,op:"le",data:endTime}]};
+};
+
+var mobileAssetToggle = 0;
+var setMobileAssetFilter = function() {
+  if(mobileAssetToggle == 1){
+    mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:""}]};
+    mobileAssetToggle = 0;
+  } else {
+    mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:"Mobile Asset"}]};
+    mobileAssetToggle = 1;
+  }
+
+  combineFilters("OR");
+  $("#mobileAssetFilterBtn").toggleClass("down");
+  $("#mobileAssetFilterBtn").blur();
+};
+
+var combineFilters = function(groupOpVal) {
+  var combinedFilters = {
+    "groupOp":"AND",
+    "rules":[],
+    "groups":[arrayFilter,instrumentFilter,streamFilter,timeRangeFilter,mobileAssetFilter]
+  };
+
+  $dcGrid[0].p.search = true;
+  $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+  $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+};
+
+
 
 //added from data-catalog
  var $dcGrid = $("#grid");
@@ -1204,6 +1403,10 @@ $(document).ready(function() {
     jqCollection['actions'] = '';
     placeJqGrid(jqCollection);
     $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
+
+    if (collection.length == 1){
+        ooi.trigger('add_catalog_model',{model: collection.models[0]});
+    }
   }
 
 

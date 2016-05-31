@@ -13,6 +13,20 @@ var PlotView = BasePlot.extend({
   className: 'plot-view',
   events: {
   },
+  hideUpdateLoading:function(o){
+    var self = this;
+    if ( !_.isUndefined(this.xyPlot.getChart())){
+      $('#plot-controls').removeClass('wait');
+      self.xyPlot.getChart().hideLoading();
+    }
+  },
+  showUpdateLoading:function(o){
+    var self = this;
+    if ( !_.isUndefined(this.xyPlot.getChart())){
+      $('#plot-controls').addClass('wait');
+      self.xyPlot.getChart().showLoading();
+    }
+  },
   updateChart:function(o){
     var self = this;
     if ( !_.isUndefined(this.xyPlot.getChart()) && o.get('plotType') == 'xy' ){
@@ -23,25 +37,26 @@ var PlotView = BasePlot.extend({
       //update the markers and style
       _.each(this.xyPlot.getChart().series, function(series,i) {
         series.update({
+          animation: false,
           marker: {
               enabled: enableMarkers
           },
           type: plotStyle
-        });
+        }, false);
       });
 
       //set the axis
       _.each(this.xyPlot.getChart().xAxis, function(axis){
         axis.update({
            reversed: o.get('invertX')
-        });
+        }, false);
       });
 
       //set the axis
       _.each(this.xyPlot.getChart().yAxis, function(axis){
         axis.update({
            reversed: o.get('invertY')
-        });
+        }, false);
       });
 
       if (o.get('plotOrientation') == 'horizontal'){
@@ -94,6 +109,7 @@ var PlotView = BasePlot.extend({
           });
         });
       }else{
+        this.xyPlot.getChart().redraw();
         //only remove annotations
         _.each(axis.plotLinesAndBands,function(annotationBand){
           if (annotationBand.id.startsWith('plot-band-')){
@@ -151,14 +167,20 @@ var PlotView = BasePlot.extend({
           });
         });
       }else{
+         this.xyPlot.getChart().redraw();
          //only remove events
         _.each(axis.plotLinesAndBands,function(bandEvent){
           if (bandEvent.id.startsWith('plot-event-band-')){
             axis.removePlotBandOrLine(bandEvent.id);
           }
         });
+        _.each(axis.plotLinesAndBands,function(bandEvent){
+          if (bandEvent.id.startsWith('plot-event-band-')){
+            axis.removePlotBandOrLine(bandEvent.id);
+          }
+        });
       }
-
+      this.xyPlot.getChart().redraw();
 
     }else{
       //do nothing for the Image Chart
@@ -191,7 +213,6 @@ var PlotView = BasePlot.extend({
       //image plot
       this.imagePlot = new ImagePlotView();
       this.imagePlot.render(self.plotParameters, self.plotModel, self.plotDates);
-
       this.$el.find('#plotContainer').append(this.imagePlot.el);
 
     }

@@ -142,20 +142,22 @@ var XYPlotView = BasePlot.extend({
     var yAxis = self.createAxis(plotParameters,plotModel, 'y');
     var seriesList = self.createSeries(plotParameters, plotModel, plotData);
 
-    /* We use the d3 formatter because it's easy */
-    //var formatter = d3.format(".2f");
-
     // Create the chart
     this.chart = $('#plot-view').highcharts({
       chart: {
+        events: {
+                redraw: function(event) {
+                  ooi.trigger('plot:plotLoaded',{});
+                },
+              },
         zoomType: 'x'
       },
       title: {
-          text: plotData.title,
+          text: plotData.displayName,
           x: -20 //center
       },
       subtitle: {
-          text: plotData.stream,
+          text: plotData.title,
           x: -20,
           style: {
             color: "steelblue",

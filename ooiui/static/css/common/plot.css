@@ -81,7 +81,7 @@ div#wrapper{
 }
 
 #plottingBody .plot-tab-panel{
-  min-height:230px;
+  min-height:220px;
 }
 
 #plottingBody .panel-footer .pull-center{
@@ -106,3 +106,47 @@ div#events-scroll-body {
   font-weight: 200;
 }
 
+#wrapper .content-fluid .search-sidebar{
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
+
+#plot-controls .plot-tab-view.plot-control-view .dropdown-menu.open{
+  left : 0px;
+  top  : 100%;
+
+}
+
+#events-scroll-body{
+  overflow: scroll;
+  max-height: 230px;
+  min-height: 220px;
+}
+
+#plot-controls .daterangepicker.dropdown-menu{
+  z-index: 4;
+}
+
+#plot-controls #annotation-table.plot-tab-panel{
+  min-height: 230px;
+}
+
+#plot-controls #events-table{
+
+}
+
+.wait {
+  cursor: wait;
+}
+
+#plottingBody .plot-tool-tabs li.disabled{
+  pointer-events: none;
+  cursor:not-allowed;
+}
+
+#plottingBody .plot-tool-tabs li.disabled a{
+  pointer-events: none;
+  cursor:not-allowed;
+  background-color:#C7C7C7;
+}
