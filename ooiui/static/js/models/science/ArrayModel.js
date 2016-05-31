@@ -65,9 +65,9 @@ var ArrayModel = OOI.RelationalModel.extend({
         var geoJSON = {
             "type": "Feature",
             "properties": {
-                "description": "<span>"+attrs.display_name+"</span>",
+                "description": "<span>"+attrs.array_name+"</span>",
                 "code": attrs.array_code,
-                "title": attrs.display_name,
+                "title": attrs.array_name,
                 "marker-symbol": 'dot',
                 "platforms": attrs.platforms
             },
