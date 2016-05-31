@@ -345,7 +345,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   hidden : false,
   collection: new ParameterCollection,
   selectedParameter: null,
-  tagName: "<tr>",
+  tagName: "tr",
   parameter_id: null,
   plotTypeModel: null,
   count : 0,
