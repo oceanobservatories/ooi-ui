@@ -57,7 +57,7 @@ var NavbarView = Backbone.View.extend({
     logged_in_nav_items: JST['ooiui/static/js/partials/LoggedInNavItems.html']
   },
   render: function() {
-    this.$el.html(this.templates.navbar());
+    this.$el.html(this.templates.navbar({user:null}));
     this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()){
@@ -67,6 +67,7 @@ var NavbarView = Backbone.View.extend({
         userModel.fetch({
             url: '/api/current_user',
             success: function() {
+               self.$el.find('#dropdownMenu1').toggle(); 
                self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
             },
             error: function() {

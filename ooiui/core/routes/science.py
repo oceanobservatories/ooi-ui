@@ -69,18 +69,15 @@ def streaming_data_page():
 
 
 @app.route('/antelope_acoustic/')
-@login_required()
 def acoustics_page():
     return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/plot', methods=['GET'])
 @app.route('/plot/', methods=['GET'])
-@login_required()
 def show_plot_no_path():
     return plot_page(None)
 
 @app.route('/plot/<path:path>', methods=['GET'])
-@login_required()
 def plot_page(path):
     return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
