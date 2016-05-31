@@ -227,11 +227,11 @@ def platform_deployment_proxy():
     return response.text, response.status_code
 
 
-@app.route('/api/display_name')
-def display_name():
-    ref = request.args['reference_designator']
-    response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
-    return response.text, response.status_code
+# @app.route('/api/display_name')
+# def display_name():
+#     ref = request.args['reference_designator']
+#     response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
+#     return response.text, response.status_code
 
 
 # Assets
@@ -259,7 +259,7 @@ def instrument_deployment_get(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put(id):
-    print request.data
+    # print request.data
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
 
@@ -268,10 +268,10 @@ def instrument_deployment_put(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put_ajax():
-    print request.data
+    # print request.data
     json_data = json.loads(request.data)
-    print json_data
-    print json_data["id"]
+    # print json_data
+    # print json_data["id"]
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % json_data["id"], data=request.data)
     return response.text, response.status_code
 
@@ -280,7 +280,7 @@ def instrument_deployment_put_ajax():
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_post():
-    print request.data
+    # print request.data
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 

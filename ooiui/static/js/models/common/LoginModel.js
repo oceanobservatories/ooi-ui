@@ -28,6 +28,10 @@ var LoginModel = Backbone.Model.extend({
     });
     return this;
   },
+  //passwordReset: function() {
+  //  var self = this;
+  //  return true;
+  //},
   loggedIn: function() {
     if(this.get('token') != '') {
       return true;

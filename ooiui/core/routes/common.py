@@ -7,7 +7,8 @@ import json
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
-import json
+import json, smtplib, string
+from itsdangerous import TimestampSigner, URLSafeSerializer
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -42,7 +43,13 @@ def user_signup():
 @app.route('/user/edit/<int:id>')
 @login_required()
 def user_edit(id):
-    return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/current_user', auth=(token, ''))
+    user = json.loads(response.text)
+    if (user['id'] == id) or ('user_admin' in user['scopes']):
+        return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    else:
+        return render_template('common/help.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/users/')
 @login_required()
@@ -56,6 +63,52 @@ def create_ticket():
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/password-reset/<string:token>', methods=['GET'])
+def password_reset(token):
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+
+    if token is not None:
+        try:
+            unstamped = stamper.unsign(token, max_age=30000)
+            # session['reset_token'] = signer.loads(unstamped)
+            # print session['reset_token']
+            return render_template('common/passwordReset.html', reset_email=signer.loads(unstamped), reset_token=token)
+        except Exception, ex:
+            print ex.message
+            return jsonify(error="Password reset link invalid, send another reset email."), 401
+    else:
+        return jsonify(error="")
+
+
+@app.route('/password-reset-request', methods=['POST'])
+def password_reset_request():
+    the_data = request.data
+    email = json.loads(the_data)['email']
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signature_token = signer.dumps(email)
+    token = stamper.sign(signature_token)
+    try:
+        reset_url = app.config["SERVER_DNS"] + "/password-reset/" + token
+        body=string.join(("From: case@oceanz.org",
+                          "Subject: OOI Password Reset Request",
+                         "You recently requested a password reset. Click the link below to proceed.",
+                         " ",
+                         " ",
+                         "Please visit %s to reset your password." % reset_url),"\r\n")
+        send_ses(app.config['SMTP_SENDER'],
+             'OOI Password Reset Request',
+             body,
+             email)
+        # send_reset_password_email(email, token)
+        # return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
+        return jsonify(error="Sending password succeeded."), 201
+    except Exception as ex:
+        print ex.message
+        return jsonify(error="Sending password reset email failed."), 401
+
 
 @app.route('/help')
 def help_page():
@@ -536,93 +589,50 @@ def cache_keys(key=None):
         return response.text, response.status_code
 
 
-# Exposes the RESET_LOGIN_URL config.yml parameter
-@app.route('/api/resetlogin', methods=['GET'])
-def get_reset_login_url():
-    reset_login_url = app.config['RESET_LOGIN_URL']
-    return redirect(reset_login_url)
-
-@app.route('/admin', methods=['GET'])
-def user_admin():
+@app.route('/api/user/xpassword', methods=['POST'])
+def user_pw_reset():
     token = get_login()
-    r = requests.get(app.config['SERVICES_URL'] + '/admin', auth=(token, ''), data=request.args)
-    #make pass through
-    response = make_response(r.content)
-    response.headers['Content-Type'] = 'text/html'
-    return response
+    the_data = request.data
+    response = requests.put(app.config['SERVICES_URL']+'/user/xpassword',
+                            auth=(token, ''), data=the_data, headers=headers())
+    return response.text, response.status_code
 
-
-@app.route('/admin/reset/<string:key>', methods=['GET'])
-def get_pw_reset_form(key):
-    token = get_login()
-    print key
-    password = 'junkjunk'
-    password_confirm = 'junkjunk'
-    the_data = {'password':password, 'password_confirm':password_confirm}
-    kkk = json.dumps(the_data)
-    print kkk
-    temp = app.config['RESET_LOGIN_URL'] + "/" + key
-    print temp
-    r = requests.post(temp, auth=(token, ''), data=kkk, headers=headers())
-    print r.status_code
-
-    response = make_response(r.content)
-    response.headers['Content-Type'] = 'text/html'
-    response.status_code = 200
-    return response
-
-
-
-
-
-@app.route('/admin/reset', methods=['GET', 'POST', 'PUT'])
-@app.route('/reset', methods=['GET', 'POST', 'PUT'])
-def user_reset():
-    print request
-    if request.data:
-        print request.data
-        print json.loads(request.data)
-    else:
-        print 'no data'
-    print request.args
-    token = get_login()
-    if request.method == 'GET':
-        print 'doing a get'
-        response = requests.get(app.config['RESET_LOGIN_URL'])
-        response = make_response(response.content)
-        response.headers['Content-Type'] = 'text/html'
-        return response
-
-    elif request.method == 'POST':
-        print 'doing a post'
-        # the_data = {'email':'case@oceanz.org'}
-        the_data = request.data
-        response = requests.post(app.config['RESET_LOGIN_URL'],
-                                auth=(token, ''), data=the_data, headers=headers())
-        print response.text
-        return response.text, response.status_code
-
-
-    # r = requests.get(app.config['SERVICES_URL'] + '/reset', auth=(token, ''), data=request.args)
-    # r = requests.post(app.config['RESET_LOGIN_URL'], auth=(token, ''), data=request.data)
-    #make pass through
-
-
-@app.route('/logout', methods=['GET'])
-def user_logout():
-    token = get_login()
-    r = requests.get(app.config['SERVICES_URL'] + '/logout/', auth=(token, ''), data=request.args)
-    #make pass through
-    response = make_response(r.content)
-    response.headers['Content-Type'] = 'text/html'
-    return response
 
 def _post_headers():
     """ urlencoded values for uframe POST.
     """
     return {"Content-Type": "application/x-www-form-urlencoded"}
 
+
 def headers():
     """ Headers for uframe PUT and POST. """
     return {"Content-Type": "application/json"}
 
+# SMTP email sender
+def send_ses(fromaddr, subject, body, recipient):
+
+    fromaddr = fromaddr
+    toaddrs  = recipient
+
+    #Change according to your settings
+    smtp_server = app.config['SMTP_SERVER']
+    smtp_username = app.config['SMTP_USERNAME']
+    smtp_password = app.config['SMTP_PASSWORD']
+    smtp_port = app.config['SMTP_PORT']
+    smtp_do_tls = app.config['SMTP_DO_TLS']
+
+    try:
+        server = smtplib.SMTP(
+            host = smtp_server,
+            port = smtp_port,
+            timeout = 10
+        )
+        server.set_debuglevel(10)
+        server.starttls()
+        server.ehlo()
+        server.login(smtp_username, smtp_password)
+        server.sendmail(fromaddr, toaddrs, body)
+        return server.quit()
+    except Exception as ex:
+        print ex.message
+        return ex.message

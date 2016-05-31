@@ -767,6 +767,25 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/TermsDialogView.js',
             'ooiui/static/js/views/common/UserFormView.js'
           ],
+          'ooiui/static/js/compiled/passwordReset.js' : [
+            // Libs
+            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/underscore/underscore.js',
+            'ooiui/static/lib/backbone/backbone.js',
+            'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
+            'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
+            'ooiui/static/lib/bootbox.js/bootbox.js',
+            // App
+            'ooiui/static/js/ooi.js',
+            // Models
+            'ooiui/static/js/models/common/PasswordResetModel.js',
+            'ooiui/static/js/models/common/LoginModel.js',
+            // Views
+            'ooiui/static/js/views/common/DropdownUserView.js',
+            "ooiui/static/js/views/common/NavbarView.js",
+            'ooiui/static/js/views/common/ModalDialogView.js',
+            'ooiui/static/js/views/common/PasswordResetView.js'
+          ],
           'ooiui/static/js/compiled/troubleTicket.js' : [
             // Libs
             'ooiui/static/lib/jquery-cookie/jquery.cookie.js',

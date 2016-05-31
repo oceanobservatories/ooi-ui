@@ -4,19 +4,20 @@
  * 411, 0, or 1 so exclude numbers like that. */
 
 _.extend(Backbone.Validation.patterns, {
-        phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/,
+        phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/
 });
 
 _.extend(Backbone.Validation.messages, {
-        usPhone: 'Invalid US phone number',
+        usPhone: 'Invalid US phone number'
 });
 
 // Define a model with some validation rules
 var SignUpModel = Backbone.Model.extend({
     defaults: {
-        role_name: "Administrator",
+        role_name: "Science User",
         organization: "Other",
-        role_id: 0
+        role_id: 3,
+        active: true
     },
     url: "/api/user/",
 
@@ -54,7 +55,3 @@ var SignUpModel = Backbone.Model.extend({
         }
     }
 });
-
-
-
-

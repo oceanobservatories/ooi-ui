@@ -29,7 +29,8 @@ var UserEditFormView = Backbone.View.extend({
     '#state' : 'state'
   },
   events: {
-   'click #submitButton' : 'submit'
+    'click #submitButton' : 'submit',
+    'click #closeButton' : 'close'
   },
   initialize: function() {
     var self = this;
@@ -42,6 +43,9 @@ var UserEditFormView = Backbone.View.extend({
       }
     });
   },
+  close: function(e) {
+    window.location = "/users/"
+  },
   submit: function(e) {
     var self = this;
     e.preventDefault();
@@ -51,7 +55,7 @@ var UserEditFormView = Backbone.View.extend({
           message: "User successfully updated",
           type: "success",
           ack: function() {
-            window.location = "/"
+            window.location = "/users/"
           }
         });
       },
@@ -75,13 +79,26 @@ var UserEditFormView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({scopes: this.scopes}));
     // Only allow scope modification if
-    if(this.model.attributes.scopes.includes('user_admin')){
-      this.$el.find("#scope_div").show();
-      this.$el.find("#active_div").show();
-    } else {
-      this.$el.find("#scope_div").hide();
-      this.$el.find("#active_div").hide();
-    }
+    var userModel = new UserModel();
+    userModel.url = '/api/current_user';
+
+    userModel.fetch({
+      success: function(collection, response, options) {
+        var scopes = response.scopes;
+
+        if(scopes.includes('user_admin')){
+          $("#scope_div").show();
+          $("#active_div").show();
+        } else {
+          $("#scope_div").hide();
+          $("#active_div").hide();
+        }
+      },
+      error:function(collection, response, options) {
+        console.log('Error getting user data');
+      }
+    });
+
     this.$el.append(this.modalDialog.el);
     this.stickit();
   }
