@@ -18,6 +18,7 @@ def generate_csrf_token():
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 
+# TODO: Remove this route
 @app.route('/get_config', methods=['GET'])
 def read_config():
     basedir = 'ooiui/config'
@@ -72,11 +73,8 @@ def password_reset(token):
     if token is not None:
         try:
             unstamped = stamper.unsign(token, max_age=30000)
-            # session['reset_token'] = signer.loads(unstamped)
-            # print session['reset_token']
             return render_template('common/passwordReset.html', reset_email=signer.loads(unstamped), reset_token=token)
         except Exception, ex:
-            print ex.message
             return jsonify(error="Password reset link invalid, send another reset email."), 401
     else:
         return jsonify(error="")
@@ -92,7 +90,7 @@ def password_reset_request():
     token = stamper.sign(signature_token)
     try:
         reset_url = app.config["SERVER_DNS"] + "/password-reset/" + token
-        body=string.join(("From: case@oceanz.org",
+        body=string.join(("From: " + app.config["SMTP_SENDER"],
                           "Subject: OOI Password Reset Request",
                          "You recently requested a password reset. Click the link below to proceed.",
                          " ",
@@ -106,7 +104,6 @@ def password_reset_request():
         # return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
         return jsonify(error="Sending password succeeded."), 201
     except Exception as ex:
-        print ex.message
         return jsonify(error="Sending password reset email failed."), 401
 
 
@@ -505,6 +502,7 @@ def get_alfresco_documents():
 @app.route('/CGSNConfig')
 def CGSNConfig():
     return render_template('common/CGSNConfig.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 @app.route('/config_file', methods=['GET'])
 def get_config():
     with open('ooiui/static/txt/config_file.txt', 'r') as f:
@@ -634,5 +632,4 @@ def send_ses(fromaddr, subject, body, recipient):
         server.sendmail(fromaddr, toaddrs, body)
         return server.quit()
     except Exception as ex:
-        print ex.message
         return ex.message
