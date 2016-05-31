@@ -517,7 +517,12 @@ _.extend(OOI.prototype, Backbone.Events, {
         self.showPlottingTabs();
         self.collections.selectedStreamCollection.add(o.model);
         self.trigger('update_catalog_list',{});
-        o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+        if (!_.isUndefined(o.evt)){
+            o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+        }else{
+            var rowId = val = o.model.get('ref_des') + o.model.get('stream_name');
+            $($dcGrid.getGridRowById(rowId)).find('.instrument-to-plot i').removeClass('fa-plus-square').addClass('fa-minus-square')
+        }
       };
     });
 
