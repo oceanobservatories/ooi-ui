@@ -23,7 +23,7 @@ var UserModel = Backbone.Model.extend({
     return this.get('first_name') + ' ' + this.get('last_name');
   },
   defaults: {
-    active: false,
+    active: true,
     email: "",
     first_name: "",
     id: null,

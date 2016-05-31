@@ -83,14 +83,14 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=primary_phone]': {
-            observe: 'primary_phone',
+            '[name=phone_primary]': {
+            observe: 'phone_primary',
             setOptions: {
                 validate: true
             }
         },
-         '[name=secondary_phone]': {
-            observe: 'secondary_phone',
+         '[name=phone_alternate]': {
+            observe: 'phone_alternate',
             setOptions: {
                 validate: true
             }
@@ -134,15 +134,15 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
-            '[name=role_name]': {
-            observe: 'role_name',
-            selectOptions: {
-                collection: []
-            },
-            setOptions: {
-                validate: true
-            }
-        },
+        //    '[name=role_name]': {
+        //    observe: 'role_name',
+        //    selectOptions: {
+        //        collection: []
+        //    },
+        //    setOptions: {
+        //        validate: true
+        //    }
+        //},
             '[name=email_opt_in]': {
             observe: 'email_opt_in',
             setOptions: {
@@ -159,7 +159,7 @@ var SignUpForm = Backbone.View.extend({
         _.bindAll(this, "render", "submit", "reset", "remove", "show_other_organization", "show_states");
         // functions defined within a function, need to be able to set attributes of "this"
         // so in order to do that, we define "self" which currently points to this, in this case the UserFormView
-        this.roles = ooi.collections.roles;
+        //this.roles = ooi.collections.roles;
         this.orgs = ooi.collections.orgs;
         this.countries = ooi.collections.countries;
         this.states = ooi.collections.states;
@@ -169,7 +169,7 @@ var SignUpForm = Backbone.View.extend({
     },
 
     render: function () {
-        this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
+        //this.bindings["[name=role_name]"].selectOptions.collection = this.roles.pluck('role_name');
         this.bindings["[name=organization]"].selectOptions.collection = this.orgs.pluck('organization_name');
         this.bindings["[name=country]"].selectOptions.collection = this.countries.pluck('country_name');
         this.bindings["[name=state]"].selectOptions.collection = this.states.pluck('state_name');
@@ -185,14 +185,15 @@ var SignUpForm = Backbone.View.extend({
             // See: http://thedersen.com/projects/backbone-validation/#methods/isvalid
             //  on submit check for the role then change the role_id to the correct int
             if (this.model.isValid(true)) {
-                this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
+                //this.model.set("role_id", this.roles.findWhere({role_name: this.model.get('role_name')}).get('id'));
                 this.model.set("organization_id", this.orgs.findWhere({organization_name: this.model.get('organization')}).get('id'));
                 this.model.set('_csrf_token', ooi.csrf_token);
                 // Needs to be dynamic (update)
+                this.model.set('active', true);
                 this.model.save(null, {
                   success: function(model, response) {
                     self.modalDialog.show({
-                      message: "New user request successfully sent for processing. You will receive an email confirmation after review and activation.",
+                      message: "Account created and activated. Email the helpdesk for enhanced permissions requests.",
                       type: "success",
                       ack: function() {
                         window.location = "/"
@@ -239,13 +240,11 @@ var SignUpForm = Backbone.View.extend({
     },
 
     show_states: function() {
-        var val = this.model.get('country');
-        var element=document.getElementById('state_div');
-
+        var val = $('#country').val();
         if(val=='United States')
-            element.style.display='block';
+            $('#state_div').show();
         else
-            element.style.display='none';
+            $('#state_div').hide();
     },
 
     remove: function () {

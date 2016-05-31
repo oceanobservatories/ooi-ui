@@ -64,33 +64,15 @@
             <div class="col-md-2">
               <div class="search-sidebar"></div>
             </div>
-{#            <div class="col-md-9">#}
-{#              <div style="width:100%;">#}
-{#                <span style='margin-left:15px;font-weight:600;font-size:16px;'>Platform Filters</span>#}
-{#              </div>#}
-{#              <div id="dcGroupings">#}
-{#                <button type='button' title='Endurance' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Endurance");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Endurance</i></button>#}
-{#                <button type='button' title='Station Papa' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Station Papa");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Station Papa</i></button>#}
-{#                <button type='button' title='Pioneer' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Pioneer");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Pioneer</i></button>#}
-{#                <button type='button' title='Argentine Basin' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Argentine Basin");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Argentine Basin</i></button>#}
-{#                <button type='button' title='Irminger Sea' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Irminger Sea");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Irminger Sea</i></button>#}
-{#                <button type='button' title='Southern Ocean' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Southern Ocean");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Southern Ocean</i></button>#}
-{#                <button type='button' title='Southern Ocean' style='float:left;margin-left:15px;' id='dcPlatformFilter' class='btn btn-default' onclick='setScienceFilter("array_name","Cabled Array");' disabled><i style='font-size:14px;float:right;pointer-events: none;'>Cabled Array</i></button>#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="row">#}
             <div class="col-md-10">
               <div style="width:100%;">
                 <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Filters</span>
               </div>
               <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='dcScienceFilter' class='btn btn-default' onclick='setScienceFilter("","");'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
-                <button type='button' title='Show Mobile Assets' style='float:left;margin-bottom:15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-default' onclick='setScienceFilter("platform_name","Mobile Asset");'><i style='font-size:14px;float:left;pointer-events: none;'>Mobile Assets</i></button>
+                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
+                <button type='button' title='Show Mobile Assets' style='float:left;margin-bottom:15px;margin-left: 5px;' id='mobileAssetFilterBtn' class='btn btn-default' onclick='setMobileAssetFilter();'><i style='font-size:14px;float:left;pointer-events: none;'>Mobile Assets</i></button>
               </div>
-{#            </div>#}
           </div>
-{#          <div class="row">#}
             <div class="col-md-10">
               <div id="streamPanel" class="panel" style="margin-right:15px;">
                 <div class="color-index" align="right">
@@ -164,65 +146,36 @@
                 endDate   = new Date(options.max).toISOString();
 
             console.log(startDate, endDate);
-            setNavFilter("start", startDate);
-            setNavFilter("end", endDate);
+{#            setNavFilter("start", startDate);#}
+{#            setNavFilter("end", endDate);#}
+          setTimeRangeFilter("start", startDate, "end", endDate);
+          combineFilters("OR");
+          showCurrentFilters();
 
         });
 
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the Stream Filters.
-            console.log(options);
-
-            //TODO: @OCEANZU: Please check the logic on this
-            setNavFilter("reference_designator", options);
+          setStreamFilter("reference_designator", options);
+          combineFilters("OR");
+          showCurrentFilters();
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
             //TODO: @OCEANZUS, implement the filter for the instrument filters.
-            console.log(options);
+{#            console.log(options);#}
 
             //TODO: @OCEANZU: Please check the logic on this
-            setNavFilter("reference_designator", options);
+          setInstrumentFilter("reference_designator", options);
+          combineFilters("OR");
+          showCurrentFilters();
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
-          setNavFilter("reference_designator", options);
-{#          var searchFiler = options, grid = $("#grid"), f;#}
-{#          if (searchFiler.length === 0) {#}
-{#            grid[0].p.search = false;#}
-{#            $.extend(grid[0].p.postData,{filters:""});#}
-{#          }#}
-{#          f = {groupOp:"OR",rules:[]};#}
-{#          f.rules.push({field:"reference_designator",op:"bw",data:searchFiler});#}
-{#          grid[0].p.search = true;#}
-{#          $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-{#          grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+          setArrayFilter("reference_designator", options);
+          combineFilters("OR");
+          showCurrentFilters();
         });
-        {#      this.listenTo(self.collections.streams, 'update change', function(options){#}
-        {#        console.log('streams collection changed');#}
-        {#        console.log(options);#}
-        {#        console.log(options.models[0]);#}
-        {#        var model = options.models[0];#}
-        {#        var searchFor = model.get('array_name');#}
-        {#        var searchFiler = searchFor, grid = $("#grid"), f;#}
-        {#        if (searchFiler.length === 0) {#}
-        {#          grid[0].p.search = false;#}
-        {#          $.extend(grid[0].p.postData,{filters:""});#}
-        {#        }#}
-        {#        f = {groupOp:"OR",rules:[]};#}
-        {#        f.rules.push({field:"array_name",op:"cn",data:searchFiler});#}
-        {#        grid[0].p.search = true;#}
-        {#        $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-        {#        var grid = $("#grid");#}
-        {#        grid.trigger("reloadGrid",[{page:1,current:true}]);#}
-
-        {#        BackboneJqGridReader(self.collections.streams, $("#grid"));#}
-        {#        $.jgrid.gridUnload("#grid");#}
-        {#        $("#grid").jqGrid('setGridParam', { data: self.collections.streams.toJSON(), datatype: "local" }).trigger('reloadGrid',[{page:1,current:true}]);#}
-        {#        $("#grid").trigger("reloadGrid");#}
-
-        {#      });#}
 
         this.listenTo(self.models.userModel, 'change', function(options) {
           //reset the subscriptions, once loaded
@@ -347,7 +300,13 @@
         maxPages: 4, // max number of pages to show in the pagination element
         date: '',
         ref_des: ''
-    }
+    };
+
+    var instrumentFilter = {groupOp:"OR",rules:[]};
+    var arrayFilter = {groupOp:"OR",rules:[]};
+    var streamFilter = {groupOp:"OR",rules:[]};
+    var timeRangeFilter = {groupOp:"OR",rules:[]};
+    var mobileAssetFilter = {groupOp:"OR",rules:[]};
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -541,7 +500,20 @@ function updateDownloadPagination( details ){
       grid.trigger("reloadGrid",[{page:1,current:true}]);
     };
 
-    var setNavFilter = function(searchColumn, searchParam){
+    var resetAllFilters = function() {
+      $("#resetAllFilters").blur();
+      $('input:checkbox').removeAttr('checked');
+      $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+      instrumentFilter = {groupOp:"OR",rules:[]};
+      arrayFilter = {groupOp:"OR",rules:[]};
+      streamFilter = {groupOp:"OR",rules:[]};
+      timeRangeFilter = {groupOp:"OR",rules:[]};
+      mobileAssetFilter = {groupOp:"OR",rules:[]};
+      combineFilters("OR");
+      showCurrentFilters();
+    };
+
+    var setArrayFilter = function(searchColumn, searchParam){
         searchParam = searchParam + "";
 
       var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
@@ -553,9 +525,82 @@ function updateDownloadPagination( details ){
       $.each (searchFilter, function() {
         f.rules.push({field:searchColumn,op:"bw",data:this});
       });
-      grid[0].p.search = true;
-      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
-      grid.trigger("reloadGrid",[{page:1,current:true}]);
+      arrayFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+    var showCurrentFilters = function() {
+      console.log($dcGrid.getGridParam("postData").filters);
+    };
+
+    var setInstrumentFilter = function(searchColumn, searchParam){
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      instrumentFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+    var setStreamFilter = function(searchColumn, searchParam){
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      streamFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+    var setTimeRangeFilter = function(start, startTime, end, endTime){
+      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"ge",data:startTime},{field:end,op:"le",data:endTime}]};
+    };
+
+    var mobileAssetToggle = 0;
+    var setMobileAssetFilter = function() {
+      if(mobileAssetToggle == 1){
+        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:""}]};
+        mobileAssetToggle = 0;
+      } else {
+        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:"Mobile Asset"}]};
+        mobileAssetToggle = 1;
+      }
+
+      combineFilters("OR");
+      showCurrentFilters();
+      $("#mobileAssetFilterBtn").toggleClass("down");
+      $("#mobileAssetFilterBtn").blur();
+    };
+
+    var combineFilters = function(groupOpVal) {
+      var combinedFilters = {
+        "groupOp":"AND",
+        "rules":[],
+        "groups":[arrayFilter,instrumentFilter,streamFilter,timeRangeFilter,mobileAssetFilter]
+      };
+
+      $dcGrid[0].p.search = true;
+      $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+      $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
     };
 
     var numberTemplate = {
@@ -973,7 +1018,7 @@ function updateDownloadPagination( details ){
       );
 
       if(location.hash!=""){
-        setNavFilter('reference_designator', location.hash.split('#')[1]);
+        setArrayFilter('reference_designator', location.hash.split('#')[1]);
       }
 
       // fill top toolbar
