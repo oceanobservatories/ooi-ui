@@ -121,13 +121,32 @@ div#events-scroll-body {
 #events-scroll-body{
   overflow: scroll;
   max-height: 230px;
+  min-height: 220px;
 }
 
 #plot-controls .daterangepicker.dropdown-menu{
   z-index: 4;
 }
 
+#plot-controls #annotation-table.plot-tab-panel{
+  min-height: 230px;
+}
+
+#plot-controls #events-table{
+
+}
 
 .wait {
   cursor: wait;
+}
+
+#plottingBody .plot-tool-tabs li.disabled{
+  pointer-events: none;
+  cursor:not-allowed;
+}
+
+#plottingBody .plot-tool-tabs li.disabled a{
+  pointer-events: none;
+  cursor:not-allowed;
+  background-color:#C7C7C7;
 }

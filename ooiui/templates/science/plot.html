@@ -74,10 +74,10 @@
                             <div class="col-sm-12 tidy-panel">
 
                                 <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
-                                    <li class="active"><a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
-                                    <li><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
-                                    <li><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
-                                    <li><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
+                                    <li class="active default-tab-option">  <a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
+                                    <li class="disabled"><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
+                                    <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
+                                    <li class="disabled"><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
                                 </ul>
 
                                 <div id="plot-tab-content" class="tab-content">
@@ -259,6 +259,17 @@ _.extend(OOI.prototype, Backbone.Events, {
     plotModel     : new PlotControlModel(),
     downloadModel : new StreamModel(),
     userModel     : new UserModel()
+  },
+  showPlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
+  },
+  hidePlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('active');
+
+    $('#plottingBody .plot-tool-tabs li.default-tab-option a').click();
+    //$($('#plottingBody .plot-tool-tabs li')[0]).addClass('active');
+    $('#plottingBody .plot-tool-tabs li:not(.default-tab-option)').addClass('disabled');
+
   },
   plotSingleInstrument:function(parameterCollection){
     var self = this;
@@ -503,6 +514,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       //o.model = selected stream model
       //ONLY ALLOW TWO instruments selected
       if (self.collections.selectedStreamCollection.length < 2){
+        self.showPlottingTabs();
         self.collections.selectedStreamCollection.add(o.model);
         self.trigger('update_catalog_list',{});
         o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
@@ -514,6 +526,11 @@ _.extend(OOI.prototype, Backbone.Events, {
       //o.model = selected stream model
       //ONLY ALLOW TWO instruments selected
       self.collections.selectedStreamCollection.remove(o.model);
+
+      if (self.collections.selectedStreamCollection.length == 0){
+        self.hidePlottingTabs();
+      }
+
       //reset the content
       $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
       self.trigger('update_catalog_list',{});
@@ -524,7 +541,8 @@ _.extend(OOI.prototype, Backbone.Events, {
       //listen to change events
       self.collections.selectedStreamCollection.reset();
       self.trigger('update_catalog_list',{});
-      //reset annotations
+      //reset tabs
+      self.hidePlottingTabs();
     });
 
     this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
@@ -734,6 +752,8 @@ _.extend(OOI.prototype, Backbone.Events, {
   this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
     self.views.modalDownloadFailView.show(msg);
   });
+
+
 
   }
 });
