@@ -39,7 +39,6 @@ var XYPlotView = BasePlot.extend({
       });
     }
 
-
     _.each(availableParameters,function(model,i){
       //create the axis
       if (model.get('short_name') != "time"){
@@ -183,8 +182,10 @@ var XYPlotView = BasePlot.extend({
 
     return seriesList;
   },
-  doesSeriesHaveTimeAxis(){
-
+  setPlotSize:function(x,y){
+    //updates the plot size for orientation
+    $('#plot-view').width(x);
+    $('#plot-view').height(y);
   },
   render: function(plotParameters, plotModel, plotData){
     var self = this;
@@ -192,6 +193,12 @@ var XYPlotView = BasePlot.extend({
     var xAxis = self.createAxis(plotParameters,plotModel, 'x');
     var yAxis = self.createAxis(plotParameters,plotModel, 'y');
     var seriesList = self.createSeries(plotParameters, plotModel, plotData);
+
+    if (plotModel.get('plotOrientation') == 'horizontal'){
+      self.setPlotSize('100%','400px');
+    }else if (plotModel.get('plotOrientation') == 'vertical'){
+      self.setPlotSize('50%','800px');
+    }
 
     // Create the chart
     this.chart = $('#plot-view').highcharts({
@@ -249,6 +256,7 @@ var XYPlotView = BasePlot.extend({
       series: seriesList
       //plot end
     });
+
   }
 
 });

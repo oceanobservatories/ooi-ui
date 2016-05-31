@@ -116,16 +116,18 @@ var PlotView = BasePlot.extend({
       }else{
         this.xyPlot.getChart().redraw();
         //only remove annotations
-        _.each(axis.plotLinesAndBands,function(annotationBand){
-          if (annotationBand.id.startsWith('plot-band-')){
-            axis.removePlotBand(annotationBand.id);
-          }
-        });
-        _.each(axis.plotLinesAndBands,function(annotationBand){
-          if (annotationBand.id.startsWith('plot-band-')){
-            axis.removePlotBand(annotationBand.id);
-          }
-        });
+        if (!_.isUndefined(axis)){
+          _.each(axis.plotLinesAndBands,function(annotationBand){
+            if (annotationBand.id.startsWith('plot-band-')){
+              axis.removePlotBand(annotationBand.id);
+            }
+          });
+          _.each(axis.plotLinesAndBands,function(annotationBand){
+            if (annotationBand.id.startsWith('plot-band-')){
+              axis.removePlotBand(annotationBand.id);
+            }
+          });
+        }
       }
 
       //add events
@@ -174,16 +176,18 @@ var PlotView = BasePlot.extend({
       }else{
          this.xyPlot.getChart().redraw();
          //only remove events
-        _.each(axis.plotLinesAndBands,function(bandEvent){
-          if (bandEvent.id.startsWith('plot-event-band-')){
-            axis.removePlotBandOrLine(bandEvent.id);
-          }
-        });
-        _.each(axis.plotLinesAndBands,function(bandEvent){
-          if (bandEvent.id.startsWith('plot-event-band-')){
-            axis.removePlotBandOrLine(bandEvent.id);
-          }
-        });
+         if (!_.isUndefined(axis)){
+          _.each(axis.plotLinesAndBands,function(bandEvent){
+            if (bandEvent.id.startsWith('plot-event-band-')){
+              axis.removePlotBandOrLine(bandEvent.id);
+            }
+          });
+          _.each(axis.plotLinesAndBands,function(bandEvent){
+            if (bandEvent.id.startsWith('plot-event-band-')){
+              axis.removePlotBandOrLine(bandEvent.id);
+            }
+          });
+        }
       }
       this.xyPlot.getChart().redraw();
 
@@ -191,7 +195,7 @@ var PlotView = BasePlot.extend({
       //do nothing for the Image Chart
       //derender the hightcharts plot
 
-      if ( !_.isNull(this.xyPlot.chart) ){
+      if ( !_.isUndefined(this.xyPlot) && !_.isNull(this.xyPlot.chart) ){
         this.xyPlot.getChart().destroy();
         this.xyPlot.chart = null;
       }
