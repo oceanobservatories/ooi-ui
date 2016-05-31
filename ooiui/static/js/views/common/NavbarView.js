@@ -58,7 +58,10 @@ var NavbarView = Backbone.View.extend({
   },
   render: function() {
     this.$el.html(this.templates.navbar({user:null}));
-    this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+    var pageURI = this.el.baseURI;
+    if(pageURI.indexOf("streamingdata") > -1 || pageURI.indexOf("c2") > -1 || pageURI.indexOf("alerts") > -1 || pageURI.indexOf("dataadmin") > -1 || pageURI.indexOf("opLog") > -1){
+        this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+    }
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()){
         //Here we will get the user so that we can access the scope and only show items they can access.
