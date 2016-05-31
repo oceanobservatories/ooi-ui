@@ -619,6 +619,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       //update the plot when "plot" is clicked
       //get the plot control model and create the
       //hide the download button
+      $('#plot-view').empty();
       $('.download-plot-container').css('display','none');
 
       self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
@@ -640,6 +641,10 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.listenTo(this, "plot:error", function(o) {
       console.log('ERROR: Reason:',o.message);
+      //if error reset the plot window and xy plot
+      $('#plot-view').width('100%');
+      $('#plot-view').height('400px');
+      self.views.plotContainer.xyPlot = undefined;
 
       bootbox.dialog({
         message: o.message,
@@ -655,6 +660,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       });
 
       //reset the content
+      $('#plot-view').empty();
       $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
       $('#plot-view').css('height','300px');
 
