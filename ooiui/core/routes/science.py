@@ -12,10 +12,6 @@ import requests
 from ooiui.core.routes.decorators import login_required, scope_required
 import json
 
-@app.route('/')
-def new_index():
-    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
 
 @app.route('/landing/pioneer')
 @login_required()

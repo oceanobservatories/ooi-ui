@@ -176,7 +176,7 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
