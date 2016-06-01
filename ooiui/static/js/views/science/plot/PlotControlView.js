@@ -486,6 +486,49 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       this.selectedParameter.set({is_selected:true});
       //allow the user to now select x/y options
       this.$el.find('input').prop("disabled", false);
+
+      //only if the option is selected
+      //use the plot type to figure out the inputs available
+      var availableInputs = this.plotTypeModel.get('inputs');
+      if (this.plotTypeModel.get('value') == "xy"){
+        if (this.parameter_id == 0){
+          this.$el.find('input.x-select').prop('checked',true);
+          this.selectedParameter.set({is_x: true,
+                                      is_y: false,
+                                      is_z: false
+                                    })
+        }else{
+          this.$el.find('input.y-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: true,
+                                      is_z: false
+                                    })
+        }
+      }else{
+        //specific number of inputs use the input number to set the category
+        if (this.parameter_id == 0){
+          this.$el.find('input.x-select').prop('checked',true);
+          this.selectedParameter.set({is_x: true,
+                                      is_y: false,
+                                      is_z: false
+                                    })
+
+        }else if (this.parameter_id == 1){
+          this.$el.find('input.y-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: true,
+                                      is_z: false
+                                    })
+
+        }else if (this.parameter_id == 2){
+          this.$el.find('input.z-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: false,
+                                      is_z: true
+                                    })
+        }
+      }
+
     }else{
       //reset the disabled if its deselected
       this.$el.find('input').prop("disabled", true);
