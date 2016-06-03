@@ -24,7 +24,7 @@ var PlatformModel = Backbone.Model.extend({
     toGeoJSON: function() {
         var attrs = _.clone(this.attributes),
             coorArray = attrs.geo_location.coordinates,
-            newArray = [coorArray[0].toFixed(3), coorArray[1].toFixed(3)],
+            newArray = [coorArray[1].toFixed(3), coorArray[0].toFixed(3)],
             color = 'yellow';
 
 
@@ -106,8 +106,8 @@ var PlatformCollection = Backbone.Collection.extend({
     },
     byArray: function(array) {
         var filtered = this.filter(function (platform) {
-            if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 8 ||
-                platform.get('reference_designator').indexOf('GL') > -1) {
+            if (platform.get('reference_designator') !== "" && (platform.get('reference_designator').length === 14 ||
+                platform.get('reference_designator').indexOf('GL') > -1) || platform.get('reference_designator').length === 8) {
                 return platform.get('reference_designator').substr(0,2) === array;
             }
         });
