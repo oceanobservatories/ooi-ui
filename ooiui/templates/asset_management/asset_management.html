@@ -303,7 +303,7 @@
 
     var openDataCatalog = function(ref_des) {
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/datacatalog/#"+ref_des.substr(0,2), '_blank');
+      var win = window.open(location.origin+"/datacatalog/#"+ref_des, '_blank');
       win.focus();
     };
 
@@ -1241,7 +1241,7 @@
           }
         }
         postData.filters = JSON.stringify({
-          groupOp: "OR",
+          groupOp: "AND",
           rules: rules
         });
         $grid.jqGrid("setGridParam", { search: true });

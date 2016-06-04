@@ -130,51 +130,28 @@
           //console.log('ready...',self.collections.subscriptionCollection);
         });
 
-        //TODO: If these filters prove to be overly complicated, maybe we should enable
-        //TODO: server side filtering that is already working.  Simply listening for the
-        //TODO: stremCollection change event and re-rendering the table will get the
-        //TODO: updated collection.
-
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the time range.
-            //TODO: obj returned is in the form: { min: <time>, max: <time> }
-            //TODO: Check the logic of the start/end columns.  Dates don't seem to be
-            //TODO: searchable.
-            console.log(options);
+          var startDate = new Date(options.min).toISOString(),
+            endDate   = new Date(options.max).toISOString();
 
-            var startDate = new Date(options.min).toISOString(),
-                endDate   = new Date(options.max).toISOString();
-
-            console.log(startDate, endDate);
-{#            setNavFilter("start", startDate);#}
-{#            setNavFilter("end", endDate);#}
           setTimeRangeFilter("start", startDate, "end", endDate);
-          combineFilters("OR");
-          showCurrentFilters();
-
+          combineFilters();
         });
-
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
           setStreamFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the instrument filters.
-{#            console.log(options);#}
-
-            //TODO: @OCEANZU: Please check the logic on this
           setInstrumentFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
           setArrayFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
+{#          showCurrentFilters();#}
         });
 
         this.listenTo(self.models.userModel, 'change', function(options) {
@@ -264,7 +241,6 @@
           updateDownloadCollection(options);
         });
         this.listenTo(this, "LargeDataCollection:updated", function(details){
-            console.log(details);
             updateDownloadPagination(details);
         });
         this.listenTo(this, 'LargeFormatFileTable:update',function(options){
@@ -278,7 +254,7 @@
           };
 
           $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
-            console.log('HERE');
+{#            console.log('HERE');#}
             self.views.largeFileFormatView.render();
           });
         });
@@ -307,6 +283,7 @@
     var streamFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
     var mobileAssetFilter = {groupOp:"OR",rules:[]};
+    var globalFilter = null;
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -334,7 +311,7 @@
     var openAssetManagement = function(ref_des, stream_name) {
       //assets/list/#CE01ISSP
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/assets/management/#"+ref_des.substr(0,8), '_blank');
+      var win = window.open(location.origin+"/assets/management/#"+ref_des, '_blank');
       win.focus();
     };
 
@@ -364,7 +341,6 @@
         end = details.startAt + details.count,
         totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
         currentPage = details.startAt / details.count + 1;
-    console.log(details);
 
     // Display a "Page 1 of 5" type message on the page
     if (end >= details.total) {
@@ -404,7 +380,7 @@ function updateDownloadCollection( options ){
             startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
         }
     } catch(e) {
-        console.log(e)
+        console.log(e);
         startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
     }
     // Pagination attributes will be passed in using
@@ -443,7 +419,6 @@ function updateDownloadPagination( details ){
         display_max: dlPagination.maxPages,
         current_page: currentPage,
         callback: function(event, page) {
-            console.log(page);
             if ( page ){
                 dlPagination.currentPage = page;
                 updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
@@ -452,9 +427,6 @@ function updateDownloadPagination( details ){
     });
 }
 
-{#    var pageControlModel = new DataCatalogPageControlModel();#}
-{#    var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});#}
-{#    pageControlView.render();#}
 
     $(document).ready(function() {
       $(".delayImg").each(function() {
@@ -504,13 +476,15 @@ function updateDownloadPagination( details ){
       $("#resetAllFilters").blur();
       $('input:checkbox').removeAttr('checked');
       $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+      $("#globalSearchText").val("");
+      mobileAssetToggle = 0
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {groupOp:"OR",rules:[]};
-      combineFilters("OR");
-      showCurrentFilters();
+      globalFilter = null;
+      combineFilters();
     };
 
     var setArrayFilter = function(searchColumn, searchParam){
@@ -548,9 +522,6 @@ function updateDownloadPagination( details ){
         f.rules.push({field:searchColumn,op:"cn",data:this});
       });
       instrumentFilter = f;
-{#      grid[0].p.search = true;#}
-{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
     };
 
     var setStreamFilter = function(searchColumn, searchParam){
@@ -566,13 +537,10 @@ function updateDownloadPagination( details ){
         f.rules.push({field:searchColumn,op:"cn",data:this});
       });
       streamFilter = f;
-{#      grid[0].p.search = true;#}
-{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
     };
 
     var setTimeRangeFilter = function(start, startTime, end, endTime){
-      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"ge",data:startTime},{field:end,op:"le",data:endTime}]};
+      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
     };
 
     var mobileAssetToggle = 0;
@@ -585,18 +553,37 @@ function updateDownloadPagination( details ){
         mobileAssetToggle = 1;
       }
 
-      combineFilters("OR");
-      showCurrentFilters();
+      combineFilters();
       $("#mobileAssetFilterBtn").toggleClass("down");
       $("#mobileAssetFilterBtn").blur();
     };
 
-    var combineFilters = function(groupOpVal) {
+    var combineFilters = function() {
+      var allFilters = [];
+      allFilters.push(arrayFilter);
+      allFilters.push(instrumentFilter);
+      allFilters.push(streamFilter);
+      allFilters.push(timeRangeFilter);
+      allFilters.push(mobileAssetFilter);
+
       var combinedFilters = {
-        "groupOp":"AND",
-        "rules":[],
-        "groups":[arrayFilter,instrumentFilter,streamFilter,timeRangeFilter,mobileAssetFilter]
+        groupOp:"AND",
+        rules:[],
+        groups:allFilters
       };
+
+      // Global filter
+      var ggg = {groupOp:"OR", rules:[], groups:[]};
+      if(globalFilter != null){
+        $.each(globalFilter, function() {
+          $.each(this, function() {
+            ggg.groups.push(this);
+          });
+
+          combinedFilters.groups.push(ggg);
+          ggg = {groupOp:"OR", rules:[], groups:[]};
+        });
+      }
 
       $dcGrid[0].p.search = true;
       $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
@@ -631,7 +618,6 @@ function updateDownloadPagination( details ){
             uniqueTexts.push(text);
           }
         }
-{#        console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -1057,25 +1043,20 @@ function updateDownloadPagination( details ){
           }
         }
 
-        for (i = 0; i < l; i++) {
-          cm = colModel[i];
-          if (cm.search !== false && (cm.stype === undefined || cm.stype === "text")) {
-            for (iPart = 0; iPart < cnParts; iPart++) {
-              rules.push({
-                field: cm.name,
-                op: "cn",
-                data: searchTextParts[iPart]
-              });
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
             }
-          }
+          });
         }
-        postData.filters = JSON.stringify({
-          groupOp: "OR",
-          rules: rules
-        });
-        $grid.jqGrid("setGridParam", { search: true });
-        $grid.trigger("reloadGrid", [{page: 1, current: true}]);
-        return false;
+        globalFilter = textParts;
+
+        combineFilters();
       });
 
     } // placeJqGrid
@@ -1100,3 +1081,4 @@ function updateDownloadPagination( details ){
   </script>
   <script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
 {% endblock %}
+</div>
