@@ -7,17 +7,14 @@
   </a>
   <ul class="dropdown-menu" role="menu" aria-labelledby="Science">
     <li role="presentation">
-      <a href="/">
-        <i class="fa fa-globe" style='padding-right: 10px;'> </i>  Science Map
-      </a>
     </li>
     <li>
-      <a href="/streams">
+      <a href="/datacatalog">
         <i class="fa fa-th" style='padding-right: 10px;'> </i>  Data Catalog
       </a>
     </li>
 	<li>
-	   <a href="/plotting">
+	   <a href="/plot">
             <i class="fa fa-bar-chart" style='padding-right: 10px;'> </i>  Plotting
       </a>
     </li>
@@ -70,7 +67,7 @@
 <% if(user !== null && user.get('scopes').indexOf('asset_manager') !== -1){ %>
 <!-- Asset Management -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a href="/assets/list">
+    <a href="/assets/management">
         Asset Management
     </a>
 </li>
@@ -101,10 +98,4 @@
     </ul>
 </li>
 <% } %>
-<!-- Infrastructure -->
-<li style='top:8px;cursor:pointer'>
-  <a href="/infrastructure">
-    Infrastructure
-  </a>
-</li>
 

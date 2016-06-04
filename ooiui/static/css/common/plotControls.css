@@ -1,142 +1,68 @@
-#plottingBody #plotcontrols #plot-options .plot-tool-tip-icon{
-    color:#004773;
+#plot-tab-content.tab-content .panel{
 }
 
- #plottingBody #plotcontrols #plot-options .tooltip {
-  width: 250px;
+#plot-tab-content.tab-content .row{
+    margin-left:0px;
+    margin-right:0px;
 }
 
-div#plottingBody div.row div.panel div#control-heading {
-    padding: 0;
-    border-collapse: collapse;
+#plottingBody .plot-tool-tabs li a{
+    background-color:#dfeffc;
+    color: #004773;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
 }
 
-#plot-options {
-    display: block;
-    border-left: solid 5px lightblue;
-    padding-left: 5px;
-    margin-bottom: 10px;
-    transition: border-left 0.7s;
-}
-
-#plot-options:hover {
-    border-left: solid 5px #004473;
-}
-#plot-options > label, #data-selection > label {
-    color: black;
-    font-size: 16px;
-}
-
-#data-selection {
-    display: block;
-    padding-left: 5px;
-    border-left: solid 5px lightblue;
-    transition: border-left 0.7s;
-}
-#data-selection:hover {
-    border-left: solid 5px #004473;
-}
-
-#yvar1-selection, #yvar2-selection, #clear-interp-params, #yvar3-selection, .div-qa-qc {
-    display:none;
-}
-
-#plot-options {
-    background-color: #eee;
-}
-
-#plot-type {
-    float: left;
-}
-
-.plot-range-fields {
-    display: inline-block;
-    width: 100px;
-    float: left;
-    padding-right: 10px;
-}
-
-#start-time {
-    float: left;
-}
-
-#end-time {
-    float: left;
-}
-
-#plot-options div #start-date input.form-control, #plot-options div #end-date input.form-control {
-    width: 166px;
-}
-
-#qa-qc-test {
-    float: left;
-}
-
-#qa-qc {
-    padding-bottom: 10px;
-}
-
-div.div-qa-qc {
-    transition: all 4s;
-}
-div.div-qa-qc input {
-    display: inline-block;
-    padding-right: 5px;
-}
-div.div-qa-qc span {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-span.bootstrap-switch-handle-on.bootstrap-switch-primary,
-span.bootstrap-switch-handle-off.bootstrap-switch-default {
-    position: relative;
-    padding: 6px 12px;
-    top: -3px;
-}
-.bootstrap-switch-on,
-.bootstrap-switch-off {
-
-    height: 27px;
-}
-.bootstra-switch-container {
-
-}
-#plot-type, #start-time, #end-time, #qaqc-test, #qa-qc {
-    position: relative;
-    padding-right: 10px;
-    top: 50%;
-}
-
-#plot-type label, #start-time label, #end-time label, #qaqc-test label {
-    display: inline-block;
-}
-
-#plot-type, #start-time, #end-time, #qaqc-test {
-    display: inline-block;
-}
-
-#start-time input, #end-time input {
-    width: 200px;
-}
-
-#start-time span.input-group-addon, #end-time span.input-group-addon {
-    width: 10px;
-}
-
-table.data-controls {
-    width: 100%;
-}
-td.data-controls {
-    background-color: lightblue;
-    color: black;
-    padding: 5px 20px 5px 20px;
-    position: relative;
-    text-align:center;
-    border: solid 2px #004773;
-    cursor: pointer;
-    transition: all 0.7s;
-}
-td.data-controls:hover {
-    background-color: #004473;
+#plottingBody .plot-tool-tabs li.active a{
+    background-color:#5c9ccc;
     color: white;
+}
+
+#plottingBody #updatePlot{
+    padding:20px;
+    min-height:200px;
+}
+
+#plottingBody .plot-tab-view{
+    min-height:100px;
+}
+
+#plottingBody .parameter-field-select{
+    width:50px;
+}
+
+#plottingBody .parameter-select-form{
+
+}
+
+#plottingBody .parameter-select-radio input{
+    margin:0px;
+}
+
+#plottingBody .plot-control-section{
+    margin-top: 10px;
+}
+
+#plottingBody form.plot-control-select-form .checkbox{
+}
+
+#plottingBody form.plot-control-select-form hr{
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    border-top: 1px solid #5c9ccc;
+}
+
+#plottingBody .plot-control-view .plot-instrument-column{
+    border-right: 1px solid #5c9ccc;
+    min-height:300px;
+    padding-left:0px;
+}
+
+#plottingBody .plot-button-column{
+    margin-top:50px;
+    padding:15px;
+    min-height: 325px;
+    /*background-color: #EAEAEA;*/
 }

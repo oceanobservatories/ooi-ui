@@ -25,39 +25,41 @@ log/* CSS REQUIRED */
   padding: 40px 32px 25px 32px;
 }
 .lgn-footer{
-  min-height: 20px;
+  min-height: 30px;
   padding: 1px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 .lgn-footerPass{
+  min-height: 30px;
   padding: 0px 0px 10px 10px;
   /*border-top: 0px;*/
   font-size: 10px;
   float: left;
 }
 .lgn-footerNewUser{
+  min-height: 30px;
   padding: 0px 10px 10px 0px;
-  font-size: 10px;
+  font-size: 12px;
   float: right;
 }
-button#btnLogin {
- background: #4fd934;
- background-image: -webkit-linear-gradient(top, #4fd934, #298c29);
- background-image: -moz-linear-gradient(top, #4fd934, #298c29);
- background-image: -ms-linear-gradient(top, #4fd934, #298c29);
- background-image: -o-linear-gradient(top, #4fd934, #298c29);
- background-image: linear-gradient(to bottom, #4fd934, #298c29);
- -webkit-border-radius: 6;
- -moz-border-radius: 6;
- border-radius: 6px;
- padding: 0px 40px 0px 40px;
- border: solid #9ff5a2 2px;
- text-decoration: none;
- font-weight: 300;
- margin-top: 15px;
- line-height: 1.4;
-}
+/*button#btnLogin {*/
+ /*background: #4fd934;*/
+ /*background-image: -webkit-linear-gradient(top, #4fd934, #298c29);*/
+ /*background-image: -moz-linear-gradient(top, #4fd934, #298c29);*/
+ /*background-image: -ms-linear-gradient(top, #4fd934, #298c29);*/
+ /*background-image: -o-linear-gradient(top, #4fd934, #298c29);*/
+ /*background-image: linear-gradient(to bottom, #4fd934, #298c29);*/
+ /*-webkit-border-radius: 6;*/
+ /*-moz-border-radius: 6;*/
+ /*border-radius: 6px;*/
+ /*padding: 0px 40px 0px 40px;*/
+ /*border: solid #9ff5a2 2px;*/
+ /*text-decoration: none;*/
+ /*font-weight: 300;*/
+ /*margin-top: 15px;*/
+ /*line-height: 1.4;*/
+/*}*/
 div.image {
  content: url(/img/modal/OOI_Banner.svg);
  height: 160px;

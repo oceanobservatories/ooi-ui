@@ -23,7 +23,8 @@
     "Leaflet.awesome-markers": "~2.0.2",
     "holderjs": "~2.4.1",
     "leaflet.markercluster": "~0.4.0",
-    "moment": "~2.8.3",
+    "moment": "~2.10.3",
+    "moment-interval": "~0.2.2",
     "bootstrap3-datetimepicker": "~3.1.3",
     "morris.js": "~0.5.1",
     "fancytree": "~2.4.1",
@@ -59,7 +60,12 @@
     "bootstrap-validator": "~0.9.0",
     "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git",
     "slick-carousel": "~1.5.9",
-    "bootbox.js": "bootbox#~4.4.0"
+    "bootbox.js": "bootbox#~4.4.0",
+    "bootstrap-daterangepicker": "~2.1.19",
+    "jqgrid": "~5.1.0",
+    "requirejs": "~2.2.0",
+    "moment-range": "^2.2.0",
+    "jQRangeSlider": "https://github.com/maka-io/jQRangeSlider.git#master"
   },
   "resolutions": {
     "jquery": "~2.1.1",

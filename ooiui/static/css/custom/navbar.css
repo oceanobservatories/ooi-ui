@@ -41,14 +41,14 @@
   background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
   border-radius: 5px;
   border-color: #337ab7;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new li a:hover,
 .navbar-top-links-new li a:focus {
   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
   border-radius: 5px;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li {
@@ -58,17 +58,17 @@
 
 .navbar-top-links-new .dropdown-menu li:last-child {
   margin-right: 0;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li a {
   padding: 3px 20px;
   min-height: 0;
-  font-weight: 300; 
+  font-weight: 300;
 }
 .navbar-top-links-new .dropdown-menu li a:hover {
-  background: rgba(141,162,228,.1); 
-  font-weight: 300; 
+  background: rgba(141,162,228,.1);
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li a div {
@@ -102,13 +102,13 @@
 
 .nav > li > a {
   color: #004773;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-text > a {
   color: #004773;
   text-decoration: none;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-default {
@@ -144,14 +144,14 @@
 /* ~link colors~ */
 .navbar-default .navbar-nav > li > a {
   color: #fff;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
-.navbar-default .navbar-nav > li > a 
+.navbar-default .navbar-nav > li > a
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #A3A7BF;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 /*color of active nabar btn
@@ -159,16 +159,16 @@
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
 color: #fff;
-backgound-color: #A3A7BF; 
+backgound-color: #A3A7BF;
  */
 
-/* ~drop downs~ */    
+/* ~drop downs~ */
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   background-color:  #A3A7BF;
   color: #fff;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 div#aa-panel {

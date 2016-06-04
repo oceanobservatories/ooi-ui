@@ -1,0 +1,1500 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+<title>Plotting</title>
+{% endblock %}
+
+{% block head %}
+<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+<link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+<script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+<link href="/css/common/plotControls.css" rel="stylesheet" type="text/css" />
+<link href="/css/compiled/plot.css" rel="stylesheet" type="text/css" />
+<link href='/lib/bootstrap-daterangepicker/daterangepicker.css' rel="stylesheet" type="text/css" />
+<link href="/css/data_catalog/search_sidebar.css" rel="stylesheet" type="text/css"/>
+<link href='/lib/jQRangeSlider/dest/css/iThing-min.css' rel='stylesheet' type='text/css' />
+<script src='/lib/jQRangeSlider/dest/jQAllRangeSliders-min.js'></script>
+
+<!-- Partials
+<script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+ -->
+<script src="/js/partials/compiled/plotting.js" type="text/javascript"></script>
+
+<!-- lunr needs to be imported by a script tag -->
+
+<!-- TODO MOVE TO GRUNT FILE  -->
+<script src="/lib/d3/d3.min.js"></script>
+
+<script src="/lib/highcharts/highcharts.js"></script>
+<script src="/lib/highcharts/modules/exporting.js"></script>
+
+<!--
+<script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+<script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+-->
+<script src="/js/compiled/plotting.js" type="text/javascript"></script>
+<script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $.jgrid.no_legacy_api = true;
+  $.jgrid.useJSON = true;
+</script>
+
+{% block link %}
+<!-- common/base.html -->
+{{ super() }}
+{% endblock %}
+{% block script %}
+<!-- common/base.html -->
+{{ super() }}
+{% endblock %}
+{% endblock %}
+
+{%block body %}
+<div class="container-fluid">
+    <div id="navbar" class="row"></div>
+</div>
+
+<div id="wrapper" >
+    <div id="page-content-wrapper">
+        <div class="content-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="search-sidebar"></div>
+                </div>
+                <div class="col-md-10">
+                    <div id="plottingBody">
+                        <div>
+                            <div id="download-outline" class="pull-left">
+                                <li id="ref_des_stream_outline"></li>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 tidy-panel">
+
+                                <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
+                                    <li class="active default-tab-option">  <a href="#plot-tool-tab"  data-toggle="tab">Plot Tools</a></li>
+                                    <li class="disabled"><a href="#plot-tool-instruments" data-toggle="tab">Selected Instruments</a></li>
+                                    <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
+                                    <li class="disabled"><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
+                                </ul>
+
+                                <div id="plot-tab-content" class="tab-content">
+                                    <div class="tab-pane active" id="plot-tool-tab">
+                                        <div class="row">
+                                            <div id='tools-panel' class="panel">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="plot-tab-panel" id="plot-controls">
+                                                            <p class="initial-text"> Please Select an instrument</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer clearfix">
+                                                    <div class="pull-center">
+                                                        <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                        <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="plot-tool-instruments">
+                                        <div class="row">
+                                            <div id='plot-instruments-panel' class="panel">
+                                                <div class="scrollable-block">
+                                                    <div class="scrollable-area">
+                                                        <div id="instruments-scroll-body" class=" panel-body">
+                                                            <div class="plot-tab-panel" id="instruments-table">
+                                                                <p class="initial-text"> Please Select an instrument</p>
+                                                            </div> <!-- panel-table -->
+                                                        </div> <!-- panel-body -->
+                                                        <div class="panel-footer clearfix">
+                                                            <div class="pull-center">
+                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- panel -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="plot-tool-events">
+                                        <div class="row">
+                                            <div id='plot-events-panel' class="panel">
+                                                <div class="scrollable-block">
+                                                    <div class="scrollable-area">
+                                                        <div id="events-scroll-body" class="panel-body">
+                                                            <div class="plot-tab-panel" id="events-table">
+                                                                <p class="initial-text"> Please Select an instrument</p>
+                                                            </div> <!-- panel-table -->
+                                                        </div> <!-- panel-body -->
+                                                        <div class="panel-footer clearfix">
+                                                            <div class="pull-center">
+                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- panel -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="plot-tool-annotations">
+                                        <div class="row">
+                                            <div id='plot-annotation-panel' class="panel">
+                                                <div class="scrollable-block">
+                                                    <div class="scrollable-area">
+                                                        <div id="annotation-panel" class="panel-body">
+                                                            <div class="plot-tab-panel" id="annotation-table">
+                                                                <p class="initial-text"> Please Select an instrument</p>
+                                                            </div> <!-- panel-table -->
+                                                        </div> <!-- panel-body -->
+                                                        <div class="panel-footer clearfix">
+                                                            <div class="pull-center">
+                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                                                <small class="pull-right"> * Data is decimated. Maximum of 1000 points shown.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- panel -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="panel">
+                                <div class="panel-heading plotting-heading">
+                                    Graph
+                                    <span style="display:none" class="download-plot-container pull-right">
+                                        <a href="#" download="image.png" type="button" title="Download" style="float:left" id="downloadImage" class="btn btn-default download-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-download" aria-hidden="true"></i></a>
+                                    </span>
+                                </div>
+                                <div class="panel-body">
+                                    <!--  Plot section NORMAL   -->
+                                    <div id="plot-view">
+                                        {# <i class="fa fa-bar-chart" style="margin-left:50%;font-size:90px;"> </i>#}
+                                        {# <img src="/img/graph7.png" style="width:100%;"> #}
+                                        <img src="/img/plotting/graph.png" style="height:300px;width:100%;">
+                                    </div> <!-- #view -->
+                                </div>
+                            </div> <!-- panel -->
+                        </div> <!-- .row -->
+
+                        <div class="row">
+                            <div class="panel">
+                                <div class="panel-heading plotting-heading">
+                                    Catlalog
+                                </div>
+                                <div class="panel-body">
+                                    <div class="reset-catalog-container">
+                                        <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Selected Instruments</button>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="streamPanel" class="panel" style="margin-right:15px;">
+                                                <div class="color-index" align="right">
+                                                    <div class="twelve-hours"></div><b> 12 Hours </b>
+                                                    <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                                                    <div class="older"></div><b> Older than 24 hours </b>
+                                                    <em>Data are sorted by end date, most recent first</em>
+                                                </div>
+
+                                                <!-- jqGrid -->
+                                                <div>
+                                                    <div id="navGrid" class="redmond"></div>
+                                                    <table id="grid" class="redmond"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- panel -->
+                        </div> <!-- .row -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+var bannerTitle = "Plotting";
+var userId = parseInt(window.location.href.split('/').pop());
+
+_.extend(OOI.prototype, Backbone.Events, {
+  login: new LoginModel(),
+  collections: {
+    annotations: new AnnotationCollection(),
+    plotEventList: new PlotEventsCollection(),
+    //interpolatedDataseries: new InterpolatedDataSeriesCollection(),
+    subscriptionCollection :  new DataSubscriptionCollection(),
+    largeFormatFiles: new LargeDataFormatCollection(),
+    selectedStreamCollection: new StreamCollection(), //collection of stream models
+    streams: new StreamCollection()
+  },
+  views: {
+    plotControls: null, //holds the view, plot controls for the plot tools tab
+    plotInstruments: null, //holds the view, list of selected instruments
+    plotContainer  : null,  //hold the plot content, either image or highcharts plot
+
+    plotEventListView: null,
+    annotationTableView: null
+  },
+  models: {
+    //plotTimeModel : new PlotTimeModel(),
+    plotModel     : new PlotControlModel(),
+    downloadModel : new StreamModel(),
+    userModel     : new UserModel()
+  },
+  showPlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
+  },
+  hidePlottingTabs:function(){
+    $('#plottingBody .plot-tool-tabs li').removeClass('active');
+
+    $('#plottingBody .plot-tool-tabs li.default-tab-option a').click();
+    //$($('#plottingBody .plot-tool-tabs li')[0]).addClass('active');
+    $('#plottingBody .plot-tool-tabs li:not(.default-tab-option)').addClass('disabled');
+
+  },
+  plotSingleInstrument:function(parameterCollection){
+    var self = this;
+    //NORMAL PLOT
+    //get the params
+    var xParams = []
+    var yParams = []
+    var zParams = []
+    var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
+    var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
+    var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams.push(model.get('short_name'));
+        }
+      }
+    });
+
+    var selectDt = this.views.plotControls.getDateTimeRange();
+    // update time
+    self.views.plotContainer.plotParameters = parameterCollection;
+    if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
+      //ONLY DO this for XY plot as it uses highcharts
+      //get the data
+      self.views.plotContainer.plotData = new DataSeriesCollection({},
+         {
+          displayName : displayName,
+          stream      : streamName,
+          ref_des     : referenceDesignator,
+          startdate   : selectDt.startDate.toISOString(),
+          enddate     : selectDt.endDate.toISOString(),
+          xparameters : xParams,
+          yparameters : yParams
+      });
+
+
+      var onDataHandler = function(collection, response, options) {
+        self.views.plotContainer.hideLoading();
+        self.views.plotContainer.render();
+      };
+
+      var errorHandler = function(collection, response,options){
+        var errorText = response.status+': '+response.statusText
+        ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+        self.views.plotContainer.hideLoading();
+      }
+
+      //fetch the data
+      self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+
+    }else{
+      self.views.plotContainer.plotDates = selectDt;
+      //IMAGE PLOT generation
+      self.views.plotContainer.render();
+    }
+  },
+  plotInterpolatedData: function(parameterCollection) {
+    var self = this;
+    var selectDt = this.views.plotControls.getDateTimeRange();
+
+    //INTERPOLATED PLOT 1)
+    //get the params
+    var xParams1 = []
+    var yParams1 = []
+    var streamName1 = parameterCollection.models[0].get('original_model').get('stream_name');
+    var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams1.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams1.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams1.push(model.get('short_name'));
+        }
+      }
+    });
+
+
+    //INTERPOLATED PLOT 2)
+    //get the params
+    var xParams2 = []
+    var yParams2 = []
+    var streamName2 = parameterCollection.models[1].get('original_model').get('stream_name');
+    var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
+    parameterCollection.each(function(model){
+      if (model.get('is_selected')){
+        //double check the selected field and add the parameter name to the list
+        if (model.get('is_x')){
+          xParams2.push(model.get('short_name'));
+        }
+        if (model.get('is_y')){
+          yParams2.push(model.get('short_name'));
+        }
+        if (model.get('is_z')){
+          zParams2.push(model.get('short_name'));
+        }
+      }
+    });
+
+    //create the interpolated data series collection
+    self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
+      {
+        displayName : displayName,
+        ref_des1  : referenceDesignator1,
+        ref_des2  : referenceDesignator2,
+        instr1    : streamName1,
+        instr2    : streamName2,
+        startdate : selectDt.startDate.toISOString(),
+        enddate   : selectDt.endDate.toISOString(),
+        var1      : xParams1.concat(yParams1),
+        var2      : xParams2.concat(yParams2)
+    });
+
+    var onDataHandler = function(collection, response, options) {
+        self.views.plotContainer.hideLoading();
+        self.views.plotContainer.render();
+    };
+
+    var errorHandler = function(collection, response,options){
+      var errorText = response.status+': '+response.statusText
+      ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
+      self.views.plotContainer.hideLoading();
+    }
+
+    //fetch the data
+    self.views.plotContainer.plotData.fetch({ success : onDataHandler, error: errorHandler, reset: true});
+
+
+  },
+  start: function() {
+    var self = this;
+    this.login.fetch({async: false});
+
+    //reset the subscriptions
+    self.collections.subscriptionCollection.fetch({ reset: true });
+    this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+    });
+
+    //--------------------------------------------------------------------------------
+    // Views
+    //--------------------------------------------------------------------------------
+    this.views.banner = new BannerView({bannerTitle: bannerTitle});
+    $('body').prepend(this.views.banner.el);
+
+    this.views.navbar = new NavbarView({
+      el: $('#navbar')
+    });
+
+    if(this.login.loggedIn()) {
+      this.models.userModel.fetch({url: '/api/current_user'});
+    }
+
+    //INITIALIZE TABS
+    //PLOT CONTROLS
+
+    this.views.plotControls = new PlotControlView({
+      el: $('#plot-controls'),
+      collection: self.collections.selectedStreamCollection,
+      plotModel : self.models.plotModel
+    });
+
+    this.views.plotInstruments = new PlotInstrumentView({
+      el: $('#instruments-table'),
+      collection: self.collections.selectedStreamCollection
+    });
+
+    this.views.plotContainer = new PlotView({
+      el: $('#plot-view')
+    });
+
+    this.views.annotationTableView = new AnnotationTableView({
+      collection: self.collections.annotations,
+      el: $('#annotation-table')
+    });
+
+    this.views.annotationModal = new AnnotationModalFormView({
+      el: $('#annotation-modal')
+    });
+
+    this.views.streamDownloadFormView = new StreamDownloadFormView({
+      el: $('#stream-download-modal')
+    });
+
+    this.views.largeFileFormatView = new LargeDataTableView({
+      collection: this.collections.largeFormatFiles,
+      el: $('#large-format-file-view')
+    });
+
+    this.views.modalDownloadView = new ModalDownloadView({
+      el: $('#download-ok-modal')
+    });
+
+    this.views.modalDownloadFailView = new ModalDownloadFailView({
+      el: $('#download-fail-modal')
+    });
+
+    this.views.plotEventListView = new PlotEventListView({
+      el: $('#events-table'),
+      collection : self.collections.plotEventList
+    });
+
+    // Get the list of streams from the API
+    {#updateCollection( showStreams );#}
+
+    /* Dispatcher Sectiion */
+    this.listenTo(this, "login:success", function() { location.reload(); });
+    this.listenTo(this, "login:logout", function() { location.reload(); });
+
+    this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
+      setStreamFilter("reference_designator", options);
+      combineFilters("OR");
+    });
+
+    this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
+        //TODO: @OCEANZUS, implement the filter for the instrument filters.
+    {#            console.log(options);#}
+
+        //TODO: @OCEANZU: Please check the logic on this
+      setInstrumentFilter("reference_designator", options);
+      combineFilters("OR");
+    });
+
+    this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
+      setArrayFilter("reference_designator", options);
+      combineFilters("OR");
+    });
+
+    //MAIN ADDITION OF A STREAM
+    this.listenTo(this, "add_catalog_model", function(o) {
+      //o.model = selected stream model
+      //ONLY ALLOW TWO instruments selected
+      if (self.collections.selectedStreamCollection.length < 2){
+        self.showPlottingTabs();
+        self.collections.selectedStreamCollection.add(o.model);
+        self.trigger('update_catalog_list',{});
+        if (!_.isUndefined(o.evt)){
+            o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+        }else{
+            var rowId = val = o.model.get('ref_des') + o.model.get('stream_name');
+            $($dcGrid.getGridRowById(rowId)).find('.instrument-to-plot i').removeClass('fa-plus-square').addClass('fa-minus-square')
+        }
+      };
+    });
+
+    //MAIN ADDITION OF A STREAM
+    this.listenTo(this, "remove_catalog_model", function(o) {
+      //o.model = selected stream model
+      //ONLY ALLOW TWO instruments selected
+      self.collections.selectedStreamCollection.remove(o.model);
+
+      if (self.collections.selectedStreamCollection.length == 0){
+        self.hidePlottingTabs();
+      }
+
+      //reset the content
+      $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+      self.trigger('update_catalog_list',{});
+
+    });
+
+    this.listenTo(this, "reset_catalog_list", function(o) {
+      //listen to change events
+      self.collections.selectedStreamCollection.reset();
+      self.trigger('update_catalog_list',{});
+      //reset tabs
+      self.hidePlottingTabs();
+    });
+
+    this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
+      //renders the xy chart
+      self.views.plotContainer.showUpdateLoading();
+      self.views.plotContainer.updateChart(o.model);
+    });
+
+    this.listenTo(this, "plot:plotLoaded", function(o) {
+        self.views.plotContainer.hideUpdateLoading();
+    });
+
+    this.listenTo(this, "plotControlView:change_plot_type", function(o) {
+      //changes the plot type
+      $('.download-plot-container').css('display','none');
+      self.views.plotControls.render();
+    });
+
+    this.listenTo(this, "update_catalog_list", function(o) {
+      //get plot defaults for instrument
+      if (self.collections.selectedStreamCollection.length > 0){
+        var items = self.collections.selectedStreamCollection.models[0].get('ref_des').split('-');
+        var item = items[items.length-1];
+        var new_item = item.replace(/\d+/g, '');
+
+        self.views.plotControls.plotDefaultModel = null;
+
+        defaultPlotTypes.each(function(plotStyle){
+          if (new_item.indexOf(plotStyle.get('instrument')) > -1){
+           self.views.plotControls.plotDefaultModel = plotStyle;
+          }
+        });
+      }
+
+      //render the controls
+      self.views.plotControls.render();
+      self.views.plotInstruments.render();
+
+      if (self.collections.selectedStreamCollection.length > 0){
+        //EVENTS
+        self.collections.plotEventList.fetch({
+          reset: true,
+          data: $.param({
+            ref_des: self.collections.selectedStreamCollection.models[0].get('reference_designator')
+          })
+        });
+
+        //ANNOTATIONS
+        self.collections.annotations.fetch({
+            data: $.param({
+              startdate: self.collections.selectedStreamCollection.models[0].get('start'),
+              enddate:  self.collections.selectedStreamCollection.models[0].get('end'),
+              reference_designator: self.collections.selectedStreamCollection.models[0].get('reference_designator'),
+              stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name')
+            }),
+          reset: true
+        });
+      }else{
+        //reset is empty
+        self.collections.annotations.reset();
+        self.views.annotationTableView.emptyRender();
+
+        self.collections.plotEventList.reset();
+        self.views.plotEventListView.emptyRender();
+      }
+    });
+
+    this.listenTo(this, "update_plot", function(o) {
+      //update the plot when "plot" is clicked
+      //get the plot control model and create the
+      //hide the download button
+      $('#plot-view').empty();
+      $('.download-plot-container').css('display','none');
+
+      self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
+
+      //get the selected parameters, only plot is they meet the criteria
+      //will be null if the inputs dont conform
+      var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
+
+      if (!_.isNull(parameterCollection)){
+        self.views.plotContainer.showLoading();
+
+        if (self.collections.selectedStreamCollection.length == 1){
+          self.plotSingleInstrument(parameterCollection);
+        }else{
+          self.plotInterpolatedData(parameterCollection);
+        }
+      }
+    });
+
+    this.listenTo(this, "plot:error", function(o) {
+      console.log('ERROR: Reason:',o.message);
+      //if error reset the plot window and xy plot
+      $('#plot-view').width('100%');
+      $('#plot-view').height('400px');
+      self.views.plotContainer.xyPlot = undefined;
+
+      bootbox.dialog({
+        message: o.message,
+        title: o.title,
+        buttons: {
+          success: {
+            label: "OK",
+            className: "btn-primary",
+            callback: function() {
+            }
+          }
+        }
+      });
+
+      //reset the content
+      $('#plot-view').empty();
+      $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+      $('#plot-view').css('height','300px');
+
+    });
+
+    //render the annotations
+    this.listenTo(self.collections.annotations, 'reset', function(collection) {
+      self.views.annotationTableView.render();
+    });
+
+    // render the events
+    this.listenTo(this.collections.plotEventList, 'reset', function(collection) {
+      self.views.plotEventListView.render()
+  });
+
+  //
+  this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
+    self.collections.annotations.add(model);
+    self.views.annotationTableView.render();
+  });
+
+  this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
+    var min = moment.utc(model.get('beginDT')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(model.get('endDT')).format("YYYY-MM-DD HH:mm");
+
+    model.set('beginDTSafe',min);
+    model.set('endDTSafe',max);
+
+    if(self.login.loggedIn()) {
+      self.views.annotationModal.show({
+        model: model,
+        userModel: self.models.userModel,
+        showUpdate: true
+      });
+    }
+  });
+
+  this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
+    var model = self.collections.selectedStreamCollection.models[0];
+    var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm");
+    var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm");
+
+    var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
+      "beginDTSafe": min,
+      "endDTSafe": max,
+      "beginDT": null,
+      "endDT": null,
+      "method": model.get("stream_name"),
+      "stream_name": model.get("stream_name")
+    });
+
+    if(self.login.loggedIn()) {
+      self.views.annotationModal.show({
+        model: model,
+        userModel: self.models.userModel,
+        showUpdate: false
+      });
+    }
+
+  });
+
+  this.listenTo(this, 'ooi:downloadPlot', function() {
+    //self.views.svgplot.download();
+  });
+
+  this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+    self.collections.subscriptionCollection.fetch({ reset: true });
+  });
+
+  this.listenTo(this, 'ooi:downloadData', function() {
+  });
+
+  this.listenTo(this, "LargeDataCollection:updated", function(details){
+        updateDownloadPagination(details);
+  });
+
+  this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
+      updateDownloadCollection(options);
+    });
+
+  this.listenTo(this, 'LargeFormatFileTable:update',function(options){
+    var onErrorHandler = function(collection, response, options) {
+      self.views.largeFileFormatView.showError(response.responseText);
+      var details = {startAt: 0,
+                     count: 1,
+                     total: 0
+      };
+      updateDownloadPagination(details);
+    };
+
+    $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
+      self.views.largeFileFormatView.render();
+    });
+  });
+
+  this.listenTo(this, 'DownloadModal:onSuccess',function(url){
+    self.views.modalDownloadView.show(url);
+  });
+
+  this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
+    self.views.modalDownloadFailView.show(msg);
+  });
+
+
+
+  }
+});
+
+var ooi = new OOI();
+{#var collection = new StreamCollection();#}
+var collection = ooi.collections.streams;
+
+var vent = _.extend({}, Backbone.Events);
+var vobj = {};
+// controller for our model collections
+var streamCollection    = new StreamCollection();
+
+var defaultPlotTypes = new DefaultPlotCollection();
+
+// url arguments
+var data = {};
+// begin the iterative fetching of arrays, assets, and streams.
+var streamFetch = streamCollection.fetch({ reset: true });
+var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
+
+// Sets up the action buttons in the jqGrid table
+var createActionButtons = function(cellvalue, options, rowObject){
+  var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+  actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+
+  //actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+
+  actionButtons += "</div>";
+
+  return actionButtons;
+};
+
+// Opens the download modal
+var openDownload = function(ref_des, stream_name) {
+  var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+  dlModel.attributes.email = ooi.models.userModel.attributes.email;
+  ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+};
+
+var openAssetManagement = function(ref_des, stream_name) {
+  //assets/list/#CE01ISSP
+  location.origin = location.protocol + "//" + location.host;
+  var win = window.open(location.origin+"/assets/management/#"+ref_des.substr(0,8), '_blank');
+  win.focus();
+};
+
+// Colors the end time
+var colorTime = function(cellvalue, options, rowObject) {
+  var currentDate = new Date();
+  var endDate = new Date(cellvalue);
+  var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
+
+  // Base cell output is no background
+  var cellOutput = '<i>'+cellvalue+'</i>';
+  if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
+  } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="twenty-four-hours">'+cellvalue+'</i>';
+  } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
+    cellOutput = '<i class="older">'+cellvalue+'</i>';
+  }
+  return cellOutput;
+};
+
+// The download pagination object holds information about the current
+// state of the page for us.
+var dlPagination = {
+    itemsPerPage : 8, // how many items per page
+    currentPage : 1, // page to start at, first page is 1, not 0
+    maxPages: 4, // max number of pages to show in the pagination element
+    date: '',
+    ref_des: ''
+}
+
+var vent = _.extend({}, Backbone.Events);
+var vobj = {};
+
+var setNavFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"bw",data:this});
+  });
+  grid[0].p.search = true;
+  $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+  grid.trigger("reloadGrid",[{page:1,current:true}]);
+};
+
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+}
+
+$(document).ready(function() {
+    //input
+    if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
+        data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
+    }
+
+    if(location.hash != ""){
+        _.extend(vobj, {hash: location.hash.split('#')[1]});
+    }else{
+        _.extend(vobj, {hash: ""});
+    }
+
+    $('.update-plot').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('update_plot',{});
+    });
+
+    $('#reset_catalog_button').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('reset_catalog_list',{});
+        $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
+        $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+    });
+
+    var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
+    searchSidebarView.render();
+    searchSidebarView.renderFilterInput();
+
+    updateCollection( showStreams );
+
+    ooi.start();
+});
+
+var instrumentFilter = {groupOp:"OR",rules:[]};
+var arrayFilter = {groupOp:"OR",rules:[]};
+var streamFilter = {groupOp:"OR",rules:[]};
+var timeRangeFilter = {groupOp:"OR",rules:[]};
+var mobileAssetFilter = {groupOp:"OR",rules:[]};
+
+
+var resetAllFilters = function() {
+  $("#resetAllFilters").blur();
+  $('input:checkbox').removeAttr('checked');
+  $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+  instrumentFilter = {groupOp:"OR",rules:[]};
+  arrayFilter = {groupOp:"OR",rules:[]};
+  streamFilter = {groupOp:"OR",rules:[]};
+  timeRangeFilter = {groupOp:"OR",rules:[]};
+  mobileAssetFilter = {groupOp:"OR",rules:[]};
+  combineFilters("OR");
+};
+
+var setArrayFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"bw",data:this});
+  });
+  arrayFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var showCurrentFilters = function() {
+  console.log($dcGrid.getGridParam("postData").filters);
+};
+
+var setInstrumentFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"cn",data:this});
+  });
+  instrumentFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var setStreamFilter = function(searchColumn, searchParam){
+    searchParam = searchParam + "";
+
+  var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+  if (searchFilter.length === 0) {
+    grid[0].p.search = false;
+    $.extend(grid[0].p.postData,{filters:""});
+  }
+  f = {groupOp:"OR",rules:[]};
+  $.each (searchFilter, function() {
+    f.rules.push({field:searchColumn,op:"cn",data:this});
+  });
+  streamFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+};
+
+var setTimeRangeFilter = function(start, startTime, end, endTime){
+  timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"ge",data:startTime},{field:end,op:"le",data:endTime}]};
+};
+
+var mobileAssetToggle = 0;
+var setMobileAssetFilter = function() {
+  if(mobileAssetToggle == 1){
+    mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:""}]};
+    mobileAssetToggle = 0;
+  } else {
+    mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:"Mobile Asset"}]};
+    mobileAssetToggle = 1;
+  }
+
+  combineFilters("OR");
+  $("#mobileAssetFilterBtn").toggleClass("down");
+  $("#mobileAssetFilterBtn").blur();
+};
+
+var combineFilters = function(groupOpVal) {
+  var combinedFilters = {
+    "groupOp":"AND",
+    "rules":[],
+    "groups":[arrayFilter,instrumentFilter,streamFilter,timeRangeFilter,mobileAssetFilter]
+  };
+
+  $dcGrid[0].p.search = true;
+  $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+  $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+};
+
+
+
+//added from data-catalog
+ var $dcGrid = $("#grid");
+
+  var getUniqueNames = function(columnName) {
+      var texts = $dcGrid[0].p.data, uniqueTexts = [],
+        textsLength = texts.length, text, textsMap = {}, i;
+      for (i=0;i<textsLength;i++) {
+        text = texts[i][columnName];
+        if (text !== undefined && textsMap[text] === undefined) {
+          // to test whether the texts is unique we place it in the map.
+          textsMap[text] = true;
+          uniqueTexts.push(text);
+        }
+      }
+      return uniqueTexts;
+    },
+    buildSearchSelect = function(uniqueNames) {
+      var values=":All";
+      $.each (uniqueNames, function() {
+        values += ";" + this + ":" + this;
+      });
+      return values;
+    },
+    setSearchSelect = function(columnName) {
+      $dcGrid.jqGrid('setColProp', columnName,
+        {
+          stype: 'select',
+          searchoptions: {
+            value:buildSearchSelect(getUniqueNames(columnName)),
+            sopt:['eq']
+          }
+        }
+      );
+    };
+
+  // Loads the jqGrid into
+  function placeJqGrid(collection) {
+    $dcGrid.jqGrid({
+      onCellSelect: function(row, col, content, event){
+        var selectedRow = $dcGrid.getRowData(row);
+        var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
+        $evt = $(event.target);
+
+        if ($evt.find('i').hasClass('fa-plus-square')){
+          if (!_.isUndefined(modelList) && modelList.length > 0){
+            //trigger for a new plot item
+            ooi.trigger('add_catalog_model',{model:modelList[0], evt:$evt});
+          }
+        }else{
+          if (!_.isUndefined(modelList) && modelList.length > 0){
+            //trigger a remove for a model
+            ooi.trigger('remove_catalog_model',{model:modelList[0]});
+          }
+          $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+        }
+      },
+      datatype : "local",
+      data : collection.toJSON(),
+      colNames: [
+        'Actions',
+        'Array',
+        'Site Name',
+        'Platform Name',
+        'Node',
+        'Instrument',
+        'Stream Identifier',
+        'Stream Type',
+        'Depth (m)',
+        'Lat / Lon (ddm)',
+        'Start Time',
+        'End Time',
+        'Reference Designator',
+        'Unique ID'],
+
+      colModel : [
+        { name : 'actions',
+          caption : 'Plot/Download',
+          width : 40,
+          sortable : false,
+          search : false,
+          align : 'center',
+          formatter : createActionButtons,
+        },
+        {
+          name : 'array_name',
+          index : 'array_name',
+          editable : false,
+          {#                width : 100,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'site_name',
+          index : 'site_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'platform_name',
+          index : 'platform_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'assembly_name',
+          index : 'assembly_name',
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'display_name',
+          index : 'display_name',
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          editable : false,
+          {#                width : 150,#}
+          sortable : true,
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'stream_name',
+          index : 'stream_name',
+          key : true,
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'stream_type',
+          index : 'stream_type',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'depth',
+          index : 'depth',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'number',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'lat_lon',
+          index : 'lat_lon',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'start',
+          index : 'start',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'date',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'end',
+          index : 'end',
+          editable : false,
+          {#                width : 85,#}
+          sortable : true,
+          sorttype : 'date',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align : 'center',
+          formatter : colorTime,
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+          {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+        },
+        {
+          name: 'reference_designator',
+          index: 'reference_designator',
+          key: false, // rowID = reference_designator
+          editable: false,
+          {#                width: 165,#}
+          sortable: true,
+          sorttype: 'string',
+          searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+          align: 'center',
+          unformat: function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        },
+        {
+          name : 'unique_id',
+          index : 'unique_id',
+          key : true, // rowID = unique_id = ref_des+stream_name
+          hidden : true,
+          editable : false,
+          {#                width : 165,#}
+          sortable : false,
+          sorttype : 'string',
+          searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+          align: 'center',
+          unformat : function (cellvalue, options, cell) {
+            return $('input', cell).val() || cellvalue;
+          }
+        }
+      ],
+      {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+      loadComplete : function(data) {
+        $("#navGrid").find("option[value=\"50000\"]").text('All');
+      },
+      gridview : true,
+      rowNum : 15,
+      rowList : [15, 30, 45, 60, 50000],
+      autowidth : true,
+      height : 'auto',
+      pager : '#navGrid',
+      sortname : 'end',
+      viewrecords : true,
+      sortorder : 'desc',
+      caption : 'Data Catalog',
+      altRows: false,
+      {#        altclass:'myAltRowClass',#}
+      {#        classes: 'table table-bordered table-striped table-selectable',#}
+      ignoreCase: true,
+      shrinkToFit : false,
+      multiselect: false,
+      multiboxonly: false,
+      reloadAfterSubmit : false,
+      loadOnce : false
+    }).jqGrid('navGrid',
+      '#navGrid',
+      {
+        edit : false,
+        add : false,
+        del : false,
+
+        // beforeRefresh:
+        // Set the latest data from collection before refreshing grid
+        {#            beforeRefresh : function () {#}
+        {#              $("#grid").jqGrid('setGridParam', {#}
+        {#                datatype : 'local',#}
+        {#                data : ooi.collections.streams.toJSON()#}
+        {#              });#}
+        {#            }#}
+      },
+      {},
+      {},
+      {},
+      {
+        cloneToTop : true,
+        closeOnEscape : true,
+        multipleSearch : true,
+        overlay: 0,
+        onInitializeSearch: function ($form) {
+          $form.jqFilter('addFilter', defaultFilters);
+        },
+        {#          afterRedraw: function (p) {#}
+        {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+        {#              p.columns.push({#}
+        {#                name: 'All',#}
+        {#                label: 'Any Field',#}
+        {#                searchoptions: {},#}
+        {#                searchrules: {},#}
+        {#                searchtype: 'string',#}
+        {#                inputtype: 'text'#}
+        {#              });#}
+        {#            }#}
+        {#            //$(this).find('.delete-rule:first').hide();#}
+        {#          }#}
+      });
+
+
+
+    {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+
+    $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+      caption: "showcolumns",
+      buttonicon: "ui-icon-calculator",
+      title: "Choose columns",
+      onClickButton: function () {
+        $(this).jqGrid('columnChooser',{
+{#            width: 700,#}
+{#            dialog_opts: {#}
+{#              modal: true,#}
+{#              minWidth: 470,#}
+{#              height: 470,#}
+{#              show: 'blind',#}
+{#              hide: 'explode',#}
+{#              dividerLocation: 0.5#}
+{#            }#}
+        });
+        $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+          .bind("sortreceive", function (event, ui) {
+            alert('column "' + ui.item.text() + '" is chosen');
+          });
+        $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+          .click(function () {
+            alert('column "' + $(this).parent().text() + '" is chosen');
+          });
+
+      }
+    });
+
+
+    setSearchSelect('array_name');
+    {#setSearchSelect('site_name');#}
+
+    $dcGrid.jqGrid('setColProp', 'array_name',
+      {
+        searchoptions: {
+          sopt:['cn'],
+          dataInit: function(elem) {
+            $(elem).autocomplete({
+              source:getUniqueNames('array_name'),
+              delay:0,
+              minLength:0
+            });
+          }
+        }
+      });
+
+    $dcGrid.jqGrid('filterToolbar',
+      {
+        autosearch : true,
+        searchOperators : false,
+        searchOnEnter : false,
+        stringResult:true
+{#          defaultSearch:"cn"#}
+      }
+    );
+
+    if(location.hash!=""){
+      setNavFilter('reference_designator', location.hash.split('#')[1]);
+    }
+  } // placeJqGrid
+
+
+  function showStreams( collection, response ){
+    //jqGrid
+    var jqCollection = collection;
+    jqCollection['actions'] = '';
+    placeJqGrid(jqCollection);
+    $('#reset_catalog_button').css('display','inline-block') //TODO REMOVE LINE
+
+    if (collection.length == 1){
+        ooi.trigger('add_catalog_model',{model: collection.models[0]});
+    }
+  }
+
+
+  function updateCollection( successCallback ){
+    collection.fetch({
+      data : data,
+      success : successCallback
+      //    error : showError
+    });
+  }
+
+//added from data-catalog
+
+
+function jump(h){
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
+
+function updateDownloadCollection( options ){
+
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    var startingPoint = "";
+    try {
+        var target = $( event.target );
+        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
+                || target.is('th') || target.is('font') || target.is('input')) {
+            startingPoint = 0;
+        } else {
+            startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+        }
+    } catch(e) {
+        console.log(e)
+        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+    }
+    // Pagination attributes will be passed in using
+    // backbone's collection data method.
+
+    var data = {
+        startAt : startingPoint,
+        count : dlPagination.itemsPerPage,
+        ref_des: options.ref_des,
+        date: options.date
+    };
+    dlPagination.ref_des = options.ref_des;
+    dlPagination.date = options.date;
+
+    ooi.trigger('LargeFormatFileTable:update', data);
+}
+
+function updateDownloadPagination( details ){
+    // This is pagination for the Large File format download list
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $("#dl-pagination-boxes").unbind();
+    // Redraw the jquery pagination boxes
+    $("#dl-pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: dlPagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                dlPagination.currentPage = page;
+                updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
+            }
+        }
+    });
+}
+</script>
+<script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
+{% endblock %}
