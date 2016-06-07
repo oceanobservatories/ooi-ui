@@ -1,0 +1,85 @@
+.array-content {
+    padding: 0;
+}
+
+.array-content .js-array {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.array-content .js-expand {
+    cursor: pointer;
+}
+
+.array-content .js-expand span, .array-content .js-expand i {
+    height: 70px;
+    padding-top: 25px;
+    padding-left: 10px;
+}
+
+.array-content .active .js-expand span,
+.array-content .active .js-expand i {
+    transition: all .5s ease;
+    height: 20px !important;
+    padding-top: 0px;
+}
+
+.array-content .panel-heading {
+    padding: 0 0 5px 0;
+    margin: 0;
+    background: linear-gradient(to right, #EEEEEE 20%, #ffffff 100%);
+}
+
+
+.array-content .img-container {
+    overflow: hidden;
+    max-height: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+.array-content .img-container > div {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.array-content .panel-body img {
+    width: 32%;
+    padding: 0;
+    margin: 0;
+}
+
+.array-content .panel-body div {
+    display: inline-block;
+}
+
+.array-content  p {
+    padding: 0 15px 0 15px;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.array-content .js-platform-table {
+    z-index: 10000;
+}
+
+.array-content .js-platform-table tr td:nth-child(2) {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.array-content ul {
+    padding: 5px 0 10px 13px;
+    margin-left: 3px;
+    margin-bottom: 10px;
+
+}
+
+.array-content ul li {
+    padding-left: 0;
+    margin-left: 0;
+    font-size: 12px;
+    float: left;
+}

@@ -1,0 +1,11 @@
+.search-sidebar {
+    padding: 0 40px 0 40px;
+}
+
+.search-sidebar .panel {
+    margin-top: 10px;
+}
+
+.search-sidebar .panel-heading {
+    cursor: pointer;
+}

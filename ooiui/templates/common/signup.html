@@ -60,19 +60,19 @@
         </div>
 
         <div class="form-group">
-          <label for="primary" class="col-sm-3 control-label">Primary Phone</label>
+          <label for="phone_primary" class="col-sm-3 control-label">Primary Phone</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" id="primary_phone"
-                   name="primary_phone" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
+            <input type="text" class="form-control" id="phone_primary"
+                   name="phone_primary" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
             <span class="help-block hidden"></span>
           </div>
 
         </div>
         <div class="form-group">
-          <label for="secondary" class="col-sm-3 control-label">Secondary Phone</label>
+          <label for="phone_alternate" class="col-sm-3 control-label">Secondary Phone</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" id="secondary_phone"
-                   name="secondary_phone" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
+            <input type="text" class="form-control" id="phone_alternate"
+                   name="phone_alternate" placeholder="Example: (321) 456-7890 or (321) 456-7890x1234" />
             <span class="help-block hidden"></span>
           </div>
         </div>
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div id='state_div' class="form-group" style='display:none;'>
+        <div id='state_div' class="form-group">
           <label for="state" class="col-sm-3 control-label">State</label>
           <div class="col-sm-6 ">
             <select class="form-control" id="state" name="state">
@@ -130,14 +130,14 @@
         </div>
 
         <hr width="80%">
-        <div class="form-group">
-          <label for="role" class="col-sm-3 control-label">Role</label>
-          <div class="col-sm-6 ">
-            <select class="form-control" id="role_name" name="role_name">
-            </select>
-            <span class="help-block hidden"></span>
-          </div>
-        </div>
+{#        <div class="form-group">#}
+{#          <label for="role" class="col-sm-3 control-label">Role</label>#}
+{#          <div class="col-sm-6 ">#}
+{#            <select class="form-control" id="role_name" name="role_name">#}
+{#            </select>#}
+{#            <span class="help-block hidden"></span>#}
+{#          </div>#}
+{#        </div>#}
 
         <div class="form-group">
           <label for="email_opt_in" class="col-sm-3 control-label">Send me important OOI updates via email.</label>
@@ -177,18 +177,13 @@ _.extend(OOI.prototype, Backbone.Events, {
     stateModel: new StateModel()
   },
   collections: {
-    roles: new Roles(),
+{#    roles: new Roles(),#}
     orgs: new Organizations(),
     countries: new CountryCollection(),
     states: new StateCollection()
   },
   csrf_token: csrf_token,
   initViews: function() {
-    this.views.navbar = new NavbarView({
-      el: $('#navbar')
-    });
-    this.views.navbar.sidebarToggle();
-    $('body').find('#hideTOC').hide();
 
     this.views.signupview = new SignUpForm({
         el: 'form',
@@ -206,16 +201,23 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.initEvents();
     this.login.fetch({async:false});
 {#    this.models.stateModel.fetchCurrent('US');#}
-    var complete = _.invoke([this.collections.roles, this.collections.orgs, this.collections.countries, this.collections.states], 'fetch');
+    var complete = _.invoke([
+      //this.collections.roles,
+      this.collections.orgs,
+      this.collections.countries,
+      this.collections.states], 'fetch');
     $.when.apply($, complete).then(function() {
-      //console.log("DONE");
       self.initViews();
       self.trigger('ooi:sync');
+      $('#country option[value="United States"]').attr("selected", "selected");
+      $('#vocation option[value="Researcher"]').attr("selected", "selected");
     }, function() {
       self.initViews();
     });
+
   },
   countrySelection: function(country_code) {
+    //console.log('country_code: ' + country_code);
     this.models.stateModel.fetchCurrent(country_code);
     this.collections.states.fetch({url: '/api/states/' + country_code});
   }
@@ -225,7 +227,6 @@ var ooi = new OOI();
 
 $(document).ready(function () {
   ooi.start();
-
 });
 </script>
 {% endblock %}

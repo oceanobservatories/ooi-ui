@@ -24,20 +24,20 @@
     margin: 10px 0 10px 0;
     padding: 10px 20px 10px 20px;
     text-align: left;
-    border-left: solid 5px #004773;
+    border-left: solid 5px #5c9ccc;
 }
 .dwn-content img, .dwn-content button {
     padding-top: 10px;
 
 }
-#download-btn, #download-btn2 {
+#download-btn, #download-btn2, #dlraw-btn {
     border-radius: 0px;
-    background-color: #004773;
+    background-color: #5c9ccc;
     color: #fff;
     display: inline-block;
     width: 100%;
-    margin-top: 20px;
-    border-top: solid 1px #004773;
+    margin-top: 10px;
+    border-top: solid 1px #5c9ccc;
     border-bottom: none;
     border-right: none;
     border-left: none;
@@ -46,7 +46,7 @@
 
 }
 
-#download-btn:hover, #download-btn2:hover {
+#download-btn:hover, #download-btn2:hover, #dlraw-btn:hover {
     background-color: #115884;
     font-size: 16px;
 }
@@ -76,7 +76,7 @@
 }
 
 .alert-success > button.close {
-    color: #004773;
+    color: #5c9ccc;
     border: none;
     font-size: 25px;
     transform-origin: top left;
@@ -86,7 +86,7 @@
     color: white;
 }
 .dwn-content > button.close {
-    background-color: #004773;
+    background-color: #5c9ccc;
     color: white;
     padding-left: 7px;
     padding-right: 8px;
@@ -97,7 +97,7 @@
 }
 .dwn-content > button.close:hover {
     background-color: #fff;
-    color: #004773;
+    color: #5c9ccc;
     font-size: 25px;
 }
 

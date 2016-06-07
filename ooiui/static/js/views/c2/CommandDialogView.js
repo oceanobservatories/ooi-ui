@@ -632,7 +632,7 @@ var CommandDialogView = Backbone.View.extend({
     }
     // Plotting redirect
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
-      var plot_url = '/plotting/#'+ref_des+'/'+that.options.selected_stream_method+'_'+that.options.selected_stream_name.replace(/_/g, '-');
+      var plot_url = '/plot/?reference_designator='+ref_des+'&stream_name='+that.options.selected_stream_method+'_'+that.options.selected_stream_name.replace(/_/g, '-');
 
       //plotting/#CP05MOAS-GL001-05-PARADM000/<steam_method>_<stream-name>
       window.open(plot_url,'_blank');

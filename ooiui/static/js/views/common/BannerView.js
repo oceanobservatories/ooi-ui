@@ -35,6 +35,11 @@ var BannerView = Backbone.View.extend({
 
   },
 
+  changeTitle: function(options) {
+    this.options = options;
+    this.render();
+  },
+
   render: function() {
     this.$el.html(this.templates.banner());
     if (this.checkStreaming()){

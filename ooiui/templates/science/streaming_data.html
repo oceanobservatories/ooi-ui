@@ -174,21 +174,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           self.showStreamingTitle();
         });
 
-      // Login stuff..
-      if(!this.login.loggedIn()) {
-        var termsView = new TermsDialogView();
-        $('body').first().prepend(termsView.el);
-        $.ajax({
-          url: "/txt/eula.txt",
-          type: "GET",
-          success: function(response) {
-            termsView.show({
-              message: response,
-              ack: function() {  }
-            });
-          }
-        });
-      }
+
 
       this.listenTo(vent, 'toc:paramFilter', function(option) {
         //get currently selected stream/reference designators

@@ -10,11 +10,10 @@ from flask import stream_with_context
 from ooiui.core.routes.common import get_login, login_required
 import requests
 from ooiui.core.routes.decorators import login_required, scope_required
+import json
 
-@app.route('/')
 def new_index():
-    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
+    return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/landing/pioneer')
 @login_required()
@@ -27,6 +26,12 @@ def landing_pioneer():
 @login_required()
 def instr_index():
     return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/assets/management')
+@app.route('/assets/management/')
+@login_required()
+def assets_management():
+    return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
@@ -51,6 +56,10 @@ def event_new(new, aid, aclass):
 def streams_page():
     return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
+@app.route('/datacatalog/')
+def data_catalog_page():
+    return render_template('science/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
 def streaming_data_page():
@@ -58,23 +67,17 @@ def streaming_data_page():
 
 
 @app.route('/antelope_acoustic/')
-@login_required()
 def acoustics_page():
     return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
+@app.route('/plot', methods=['GET'])
+@app.route('/plot/', methods=['GET'])
+def show_plot_no_path():
+    return plot_page(None)
 
-@app.route('/plotting', methods=['GET'])
-@app.route('/plotting/', methods=['GET'])
-@login_required()
-def show_plotting_no_path():
-    return plotting_page(None)
-
-
-@app.route('/plotting/<path:path>', methods=['GET'])
-@login_required()
-def plotting_page(path):
-    return render_template('science/plotting.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
+@app.route('/plot/<path:path>', methods=['GET'])
+def plot_page(path):
+    return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/getdata/')
 def getData():
@@ -219,11 +222,11 @@ def platform_deployment_proxy():
     return response.text, response.status_code
 
 
-@app.route('/api/display_name')
-def display_name():
-    ref = request.args['reference_designator']
-    response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
-    return response.text, response.status_code
+# @app.route('/api/display_name')
+# def display_name():
+#     ref = request.args['reference_designator']
+#     response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
+#     return response.text, response.status_code
 
 
 # Assets
@@ -234,8 +237,8 @@ def instrument_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
 
     if 'export' in request.args:
-        return Response(response.text, 
-            mimetype='application/json', 
+        return Response(response.text,
+            mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=filtered_assets.json'})
     else:
         return response.text, response.status_code
@@ -251,7 +254,20 @@ def instrument_deployment_get(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put(id):
+    # print request.data
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
+    return response.text, response.status_code
+
+
+@app.route('/api/asset_deployment/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def instrument_deployment_put_ajax():
+    # print request.data
+    json_data = json.loads(request.data)
+    # print json_data
+    # print json_data["id"]
+    response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % json_data["id"], data=request.data)
     return response.text, response.status_code
 
 
@@ -259,6 +275,7 @@ def instrument_deployment_put(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_post():
+    # print request.data
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 
