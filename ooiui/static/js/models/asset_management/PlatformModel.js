@@ -106,8 +106,8 @@ var PlatformCollection = Backbone.Collection.extend({
     },
     byArray: function(array) {
         var filtered = this.filter(function (platform) {
-            if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 8 ||
-                platform.get('reference_designator').indexOf('GL') > -1) {
+            if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 14 ||
+                platform.get('reference_designator').indexOf('GL') > -1 || platform.get('reference_designator').length === 8) {
                 return platform.get('reference_designator').substr(0,2) === array;
             }
         });
