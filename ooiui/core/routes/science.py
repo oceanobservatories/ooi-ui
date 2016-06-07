@@ -12,6 +12,7 @@ import requests
 from ooiui.core.routes.decorators import login_required, scope_required
 import json
 
+@app.route('cilogonhome')
 def new_index():
     return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
