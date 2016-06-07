@@ -65,21 +65,48 @@
               <div class="search-sidebar"></div>
             </div>
             <div class="col-md-10">
-              <div style="width:100%;">
-                <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Filters</span>
+              <div class="row panel panel-heading" style="margin-right:15px;">
+                <div class="col-md-2" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Engineering Instruments</label>
+                    </div>
+                    <div>
+                      <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Mobile Assets</label>
+                    </div>
+                    <div>
+                      <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
+                  <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
+                  <div id="timeRangeFilter" align="right"><div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider"><div class="ui-rangeSlider-container" style="position: absolute; width: 707px;"><div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;"></div><div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;"></div><div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;"><div class="ui-rangeSlider-handle-inner"></div></div><div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;"><div class="ui-rangeSlider-handle-inner"></div></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;"><div class="ui-rangeSlider-label-value">2013-01-01</div><div class="ui-rangeSlider-label-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;"><div class="ui-rangeSlider-label-value">2016-06-07</div><div class="ui-rangeSlider-label-inner"></div></div></div>
+                  </div>
+                </div>
               </div>
-              <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
-                <button type='button' title='Show Mobile Assets' style='float:left;margin-bottom:15px;margin-left: 5px;' id='mobileAssetFilterBtn' class='btn btn-default' onclick='setMobileAssetFilter();'><i style='font-size:14px;float:left;pointer-events: none;'>Mobile Assets</i></button>
-              </div>
-          </div>
-            <div class="col-md-10">
               <div id="streamPanel" class="panel" style="margin-right:15px;">
-                <div class="color-index" align="right">
-                  <div class="twelve-hours"></div><b> 12 Hours </b>
-                  <div class="twenty-four-hours"></div><b> 24 Hours </b>
-                  <div class="older"></div><b> Older than 24 hours </b>
-                  <em>Data are sorted by end date, most recent first</em>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="color-index" align="left" style="padding:5px;">
+                      <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="color-index" align="right">
+                      <div class="twelve-hours"></div><b> 12 Hours </b>
+                      <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                      <div class="older"></div><b> Older than 24 hours </b>
+                      <em>Data are sorted by end date, most recent first</em>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- jqGrid -->
@@ -89,7 +116,7 @@
                 </div>
               </div>
             </div>
-{#          </div> <!-- .panel -->#}
+          </div>
         </div>
       </div>
     </div> <!-- #page-content-wrapper -->
@@ -254,7 +281,6 @@
           };
 
           $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
-{#            console.log('HERE');#}
             self.views.largeFileFormatView.render();
           });
         });
@@ -282,8 +308,10 @@
     var arrayFilter = {groupOp:"OR",rules:[]};
     var streamFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
-    var mobileAssetFilter = {groupOp:"OR",rules:[]};
+    var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+    var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
     var globalFilter = null;
+
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -428,6 +456,10 @@ function updateDownloadPagination( details ){
 }
 
 
+{#    $(window).bind("load", function() {#}
+{#      combineFilters();#}
+{#    });#}
+
     $(document).ready(function() {
       $(".delayImg").each(function() {
         this.onload = function() {
@@ -448,6 +480,46 @@ function updateDownloadPagination( details ){
       searchSidebarView.render();
       //searchSidebarView.renderSearchInput();
       searchSidebarView.renderFilterInput();
+
+      $.fn.bootstrapSwitch.defaults.size = 'small';
+
+{#      $('.BSswitch').bootstrapSwitch('state', true);#}
+
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+
+
+{#      $('#CheckBoxValue').text($("#EngInstrumentSwitch").bootstrapSwitch('state'));#}
+
+      $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
+        console.log(theStateEng);
+{#        $("#CheckBoxValue").text($('#TheCheckBox').bootstrapSwitch('state'));#}
+        if (theStateEng) {
+{#          engInstrumentFilter = {groupOp: "OR", rules: [{field: "display_name", op: "cn", data: ""}]};#}
+          engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+{#          engInstrumentFilter = {groupOp: "OR", rules: [{field: "display_name", op: "nc", data: "Engineering"}]};#}
+          engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+          combineFilters();
+        }
+      });
+
+      $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
+        console.log(theStateMobile);
+{#        $("#CheckBoxValue").text($('#TheCheckBox').bootstrapSwitch('state'));#}
+        if (theStateMobile) {
+{#          mobileAssetFilter = {groupOp: "OR", rules: [{field: "platform_name", op: "cn", data: "Mobile Asset"}]};#}
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: "Mobile Asset"};
+          combineFilters();
+        } else {
+{#          mobileAssetFilter = {groupOp: "OR", rules: [{field: "platform_name", op: "cn", data: ""}]};#}
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+          combineFilters();
+        }
+      });
 
       ooi.start();
     });
@@ -474,15 +546,17 @@ function updateDownloadPagination( details ){
 
     var resetAllFilters = function() {
       $("#resetAllFilters").blur();
-      $('input:checkbox').removeAttr('checked');
-      $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+{#      $('input:checkbox').removeAttr('checked');#}
+      $('input:checkbox').prop('checked', false);
       $("#globalSearchText").val("");
-      mobileAssetToggle = 0
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
-      mobileAssetFilter = {groupOp:"OR",rules:[]};
+      mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+      engInstrumentFilter = {field:"display_name",op:"cn",data:"Engineering"};
       globalFilter = null;
       combineFilters();
     };
@@ -543,34 +617,29 @@ function updateDownloadPagination( details ){
       timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
     };
 
-    var mobileAssetToggle = 0;
-    var setMobileAssetFilter = function() {
-      if(mobileAssetToggle == 1){
-        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:""}]};
-        mobileAssetToggle = 0;
-      } else {
-        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:"Mobile Asset"}]};
-        mobileAssetToggle = 1;
-      }
-
-      combineFilters();
-      $("#mobileAssetFilterBtn").toggleClass("down");
-      $("#mobileAssetFilterBtn").blur();
-    };
-
     var combineFilters = function() {
       var allFilters = [];
       allFilters.push(arrayFilter);
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
       allFilters.push(timeRangeFilter);
-      allFilters.push(mobileAssetFilter);
+{#      allFilters.push(mobileAssetFilter);#}
+{#      allFilters.push(engInstrumentFilter);#}
 
       var combinedFilters = {
         groupOp:"AND",
         rules:[],
         groups:allFilters
       };
+
+      // Toggle Filters
+      var aaa = {groupOp:"OR", rules:[]};
+      aaa.rules.push(mobileAssetFilter);
+      combinedFilters.groups.push(aaa);
+      aaa = {groupOp:"OR", rules:[]};
+      aaa.rules.push(engInstrumentFilter);
+      combinedFilters.groups.push(aaa);
+
 
       // Global filter
       var ggg = {groupOp:"OR", rules:[], groups:[]};
@@ -732,6 +801,7 @@ function updateDownloadPagination( details ){
             editable : false,
             {#                width : 150,#}
             sortable : true,
+            search : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
@@ -768,7 +838,7 @@ function updateDownloadPagination( details ){
           {
             name : 'stream_name',
             index : 'stream_name',
-            key : true,
+{#            key : true,#}
             editable : false,
             {#                width : 85,#}
             sortable : true,
@@ -880,6 +950,7 @@ function updateDownloadPagination( details ){
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
           highlightFilteredData.call(this);
+
         },
         gridview : true,
         toolbar: [true, "top"],
@@ -924,6 +995,7 @@ function updateDownloadPagination( details ){
           cloneToTop : true,
           closeOnEscape : true,
           multipleSearch : true,
+          multipleGroup : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
             $form.jqFilter('addFilter', defaultFilters);
@@ -976,22 +1048,21 @@ function updateDownloadPagination( details ){
       });
 
 
-      setSearchSelect('array_name');
-      {#setSearchSelect('site_name');#}
+      //setSearchSelect('array_name');
 
-      $dcGrid.jqGrid('setColProp', 'array_name',
-        {
-          searchoptions: {
-            sopt:['cn'],
-            dataInit: function(elem) {
-              $(elem).autocomplete({
-                source:getUniqueNames('array_name'),
-                delay:0,
-                minLength:0
-              });
-            }
-          }
-        });
+{#      $dcGrid.jqGrid('setColProp', 'array_name',#}
+{#        {#}
+{#          searchoptions: {#}
+{#            sopt:['cn'],#}
+{#            dataInit: function(elem) {#}
+{#              $(elem).autocomplete({#}
+{#                source:getUniqueNames('array_name'),#}
+{#                delay:0,#}
+{#                minLength:0#}
+{#              });#}
+{#            }#}
+{#          }#}
+{#        });#}
 
       $dcGrid.jqGrid('filterToolbar',
         {
@@ -1060,7 +1131,6 @@ function updateDownloadPagination( details ){
       });
 
     } // placeJqGrid
-
 
     function showStreams( collection, response ){
       //jqGrid
