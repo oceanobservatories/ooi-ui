@@ -483,24 +483,17 @@ function updateDownloadPagination( details ){
 
       $.fn.bootstrapSwitch.defaults.size = 'small';
 
-{#      $('.BSswitch').bootstrapSwitch('state', true);#}
-
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
 
 
-{#      $('#CheckBoxValue').text($("#EngInstrumentSwitch").bootstrapSwitch('state'));#}
 
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
-        console.log(theStateEng);
-{#        $("#CheckBoxValue").text($('#TheCheckBox').bootstrapSwitch('state'));#}
         if (theStateEng) {
-{#          engInstrumentFilter = {groupOp: "OR", rules: [{field: "display_name", op: "cn", data: ""}]};#}
           engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
           combineFilters();
         } else {
-{#          engInstrumentFilter = {groupOp: "OR", rules: [{field: "display_name", op: "nc", data: "Engineering"}]};#}
           engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
           combineFilters();
         }
@@ -508,14 +501,10 @@ function updateDownloadPagination( details ){
 
       $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
-        console.log(theStateMobile);
-{#        $("#CheckBoxValue").text($('#TheCheckBox').bootstrapSwitch('state'));#}
         if (theStateMobile) {
-{#          mobileAssetFilter = {groupOp: "OR", rules: [{field: "platform_name", op: "cn", data: "Mobile Asset"}]};#}
           mobileAssetFilter = {field: "platform_name", op: "cn", data: "Mobile Asset"};
           combineFilters();
         } else {
-{#          mobileAssetFilter = {groupOp: "OR", rules: [{field: "platform_name", op: "cn", data: ""}]};#}
           mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
           combineFilters();
         }
@@ -556,7 +545,7 @@ function updateDownloadPagination( details ){
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
-      engInstrumentFilter = {field:"display_name",op:"cn",data:"Engineering"};
+      engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
       globalFilter = null;
       combineFilters();
     };
@@ -623,8 +612,6 @@ function updateDownloadPagination( details ){
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
       allFilters.push(timeRangeFilter);
-{#      allFilters.push(mobileAssetFilter);#}
-{#      allFilters.push(engInstrumentFilter);#}
 
       var combinedFilters = {
         groupOp:"AND",
@@ -633,13 +620,10 @@ function updateDownloadPagination( details ){
       };
 
       // Toggle Filters
-      var aaa = {groupOp:"OR", rules:[]};
+      var aaa = {groupOp:"AND", rules:[]};
       aaa.rules.push(mobileAssetFilter);
-      combinedFilters.groups.push(aaa);
-      aaa = {groupOp:"OR", rules:[]};
       aaa.rules.push(engInstrumentFilter);
       combinedFilters.groups.push(aaa);
-
 
       // Global filter
       var ggg = {groupOp:"OR", rules:[], groups:[]};
