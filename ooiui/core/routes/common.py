@@ -618,17 +618,20 @@ def send_ses(fromaddr, subject, body, recipient):
     smtp_password = app.config['SMTP_PASSWORD']
     smtp_port = app.config['SMTP_PORT']
     smtp_do_tls = app.config['SMTP_DO_TLS']
+    smtp_auth = app.config['SMTP_AUTH']
 
     try:
         server = smtplib.SMTP(
-            host = smtp_server,
-            port = smtp_port,
-            timeout = 10
+            host=smtp_server,
+            port=smtp_port,
+            timeout=10
         )
         server.set_debuglevel(10)
-        server.starttls()
+        if smtp_do_tls:
+            server.starttls()
         server.ehlo()
-        server.login(smtp_username, smtp_password)
+        if smtp_auth:
+            server.login(smtp_username, smtp_password)
         server.sendmail(fromaddr, toaddrs, body)
         return server.quit()
     except Exception as ex:
