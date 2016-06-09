@@ -27,11 +27,11 @@
   <!--
     <script src="/js/views/aa/TriggeredView.js" type="text/javascript"></script>
       -->
-<style>
-    .banner-image div.row {
-        height: 150px;
-    }
-</style>
+{#<style>#}
+{#    .banner-image div.row {#}
+{#        height: 150px;#}
+{#    }#}
+{#</style>#}
 {% endblock %}
 
 {% block body %}
@@ -71,6 +71,9 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
+  </div>
 
   <!-- Menu Toggle Script -->
   <script type="text/javascript">
@@ -97,18 +100,20 @@
         //
       },
       start: function() {
-        this.login.fetch({async:false});
-        navbar = new NavbarView({
-          login: this.login
-        });
-
         var self = this;
+        this.login.fetch({async:false});
+
+
+
 
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
+
+        this.views.navbar = new NavbarView();
+        $('body').prepend(this.views.navbar.el);
 
         //empty table
         $('#triggerlist').find('tbody').empty();
