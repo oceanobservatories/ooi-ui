@@ -332,6 +332,7 @@
     var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
     var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
     var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+    var filterToolbarFilter = {groupOp:"AND",rules:[]};
     var globalFilter = null;
 
     // Sets up the action buttons in the jqGrid table
@@ -597,6 +598,7 @@ function updateDownloadPagination( details ){
       engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
       metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
+      filterToolbarFilter = {groupOp:"AND",rules:[]};
       globalFilter = null;
       combineFilters();
     };
@@ -663,6 +665,7 @@ function updateDownloadPagination( details ){
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
       allFilters.push(timeRangeFilter);
+      allFilters.push(filterToolbarFilter);
 
       var combinedFilters = {
         groupOp:"AND",
@@ -696,9 +699,12 @@ function updateDownloadPagination( details ){
         });
       }
 
-      $dcGrid[0].p.search = true;
-      $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
-      $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      // Ensure $dcGrid is defined (page load race conditions) before attempting to set filters
+      if (!_.isUndefined($dcGrid[0])) {
+        $dcGrid[0].p.search = true;
+        $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+        $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      }
     };
 
     var numberTemplate = {
@@ -1111,8 +1117,15 @@ function updateDownloadPagination( details ){
           autosearch : true,
           searchOperators : false,
           searchOnEnter : false,
-          stringResult:true
+          stringResult:true,
 {#          defaultSearch:"cn"#}
+          afterClear : function() {
+            combineFilters();
+          },
+          afterSearch : function() {
+            filterToolbarFilter = JSON.parse($dcGrid.getGridParam("postData").filters);
+            combineFilters()
+          }
         }
       );
 
