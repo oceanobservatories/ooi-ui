@@ -65,7 +65,13 @@ span.bootstrap-switch-handle-on.bootstrap-switch-primary {
 }
 
 .col-md-5 {
-    width: 50%;
+    width: 600px;
     float: right;
     padding-right: 30px;
+}
+
+.col-md-2-toggles {
+    width: 150px;
+    float: left;
+    padding-right: 10px;
 }

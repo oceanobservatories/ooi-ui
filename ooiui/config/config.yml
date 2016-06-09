@@ -16,12 +16,13 @@ COMMON: &common
   SERVER_DNS: 'http://10.0.0.14:5000'
   OOI_UI_GITHUB: '34efet54etefg'
   OOI_UI_SERVICES_GITHUB: '34ewrfe5eetrg'
-  SMTP_SENDER : 'system@ooi.rutgers.edu'
+  SMTP_SENDER : 'noreply@oceanobservatories.org'
   SMTP_SERVER: 'localhost'
   SMTP_USERNAME: 'username'
   SMTP_PASSWORD: 'password'
-  SMTP_PORT: '587'
-  SMTP_DO_TLS: True
+  SMTP_PORT: '25'
+  SMTP_DO_TLS: False
+  SMTP_AUTH: False
   SECURITY_PASSWORD_HASH : 'pbkdf2_sha512'
   SECURITY_PASSWORD_SALT : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 

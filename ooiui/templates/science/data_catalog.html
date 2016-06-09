@@ -66,20 +66,40 @@
             </div>
             <div class="col-md-10">
               <div class="row panel panel-heading" style="margin-right:15px;">
-                <div class="col-md-2" style="top:25px;">
+                <div class="col-md-2-toggles" style="top:25px;">
                   <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
                     <div>
-                      <label>Engineering Instruments</label>
+                      <label>Engineering<br>Instruments</label>
                     </div>
                     <div>
                       <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2" style="top:25px;">
+                <div class="col-md-2-toggles" style="top:25px;">
                   <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
                     <div>
-                      <label>Mobile Assets</label>
+                      <label>Metadata<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Status<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Mobile<br>Assets</label>
                     </div>
                     <div>
                       <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
@@ -310,6 +330,8 @@
     var timeRangeFilter = {groupOp:"OR",rules:[]};
     var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
     var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+    var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+    var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
     var globalFilter = null;
 
     // Sets up the action buttons in the jqGrid table
@@ -484,6 +506,8 @@ function updateDownloadPagination( details ){
       $.fn.bootstrapSwitch.defaults.size = 'small';
 
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
 
 
@@ -495,6 +519,28 @@ function updateDownloadPagination( details ){
           combineFilters();
         } else {
           engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+          combineFilters();
+        }
+      });
+
+      $('#MetadataStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMeta = $("#MetadataStreamSwitch").bootstrapSwitch('state');
+        if (theStateMeta) {
+          metadataStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+          combineFilters();
+        }
+      });
+
+      $('#StatusStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateStatus = $("#StatusStreamSwitch").bootstrapSwitch('state');
+        if (theStateStatus) {
+          statusStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
           combineFilters();
         }
       });
@@ -539,13 +585,18 @@ function updateDownloadPagination( details ){
       $('input:checkbox').prop('checked', false);
       $("#globalSearchText").val("");
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+      $dcGrid[0].clearToolbar();
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
       engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
+      metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
+      statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
       globalFilter = null;
       combineFilters();
     };
@@ -623,7 +674,14 @@ function updateDownloadPagination( details ){
       var aaa = {groupOp:"AND", rules:[]};
       aaa.rules.push(mobileAssetFilter);
       aaa.rules.push(engInstrumentFilter);
+      aaa.rules.push(metadataStreamFilter);
+      aaa.rules.push(statusStreamFilter);
       combinedFilters.groups.push(aaa);
+
+{#      // Toggle Filters#}
+{#      var bbb = {groupOp:"OR", rules:[]};#}
+{#      #}
+{#      combinedFilters.groups.push(bbb);#}
 
       // Global filter
       var ggg = {groupOp:"OR", rules:[], groups:[]};
