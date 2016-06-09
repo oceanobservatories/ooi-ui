@@ -22,14 +22,15 @@ def landing_pioneer():
     return render_template('landing/pioneer.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/assets/list')
-@app.route('/assets/list/')
-@login_required()
-def instr_index():
-    return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/assets/list')
+# @app.route('/assets/list/')
+# @login_required()
+# def instr_index():
+#     return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
+@scope_required('asset_manager')
 @login_required()
 def assets_management():
     return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
