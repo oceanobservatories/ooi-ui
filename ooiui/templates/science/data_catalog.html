@@ -529,7 +529,7 @@ function updateDownloadPagination( details ){
           metadataStreamFilter = {field: "stream_name", op: "cn", data: ""};
           combineFilters();
         } else {
-          engInstrumentFilter = {field: "stream_name", op: "nc", data: "metadata"};
+          metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
           combineFilters();
         }
       });
