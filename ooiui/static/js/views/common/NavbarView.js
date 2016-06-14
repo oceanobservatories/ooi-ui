@@ -13,14 +13,25 @@
 
 var NavbarView = Backbone.View.extend({
   events: {
-    'click #menu-toggle' : "menuToggle"
+    'click #menu-toggle' : "menuToggle",
+    'keyup #navSearch' : "keyPressEventHandler"
+  },
+  keyPressEventHandler : function(e){
+    e.preventDefault(); // Prevent the #about
+    if(e.keyCode == 13){
+        this.navSearch(e.currentTarget.value);
+    }
   },
   menuToggle: function(e) {
     e.preventDefault(); // Prevent the #about
     this.sidebarToggle();
   },
+  navSearch: function(val) {
+    var searchTerms = val;
+    var win = window.open(location.protocol + "//" + location.host + "/datacatalog/?search=" + searchTerms, '_blank');
+  },
   initialize: function(options) {
-    _.bindAll(this, "render", "sidebarToggle");
+    _.bindAll(this, "render", "sidebarToggle", "navSearch");
     if(ooi.login.loggedIn()) {
       this.messageView = new DropdownMessagesView({
         collection: new MessageCollection()
