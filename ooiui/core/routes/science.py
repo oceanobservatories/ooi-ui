@@ -12,10 +12,9 @@ import requests
 from ooiui.core.routes.decorators import login_required, scope_required
 import json
 
-@app.route('/')
+@app.route('/cilogonhome')
 def new_index():
-    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
+    return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/landing/pioneer')
 @login_required()
@@ -23,14 +22,15 @@ def landing_pioneer():
     return render_template('landing/pioneer.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/assets/list')
-@app.route('/assets/list/')
-@login_required()
-def instr_index():
-    return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/assets/list')
+# @app.route('/assets/list/')
+# @login_required()
+# def instr_index():
+#     return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
+@scope_required('asset_manager')
 @login_required()
 def assets_management():
     return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
@@ -69,18 +69,15 @@ def streaming_data_page():
 
 
 @app.route('/antelope_acoustic/')
-@login_required()
 def acoustics_page():
     return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/plot', methods=['GET'])
 @app.route('/plot/', methods=['GET'])
-@login_required()
 def show_plot_no_path():
     return plot_page(None)
 
 @app.route('/plot/<path:path>', methods=['GET'])
-@login_required()
 def plot_page(path):
     return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 

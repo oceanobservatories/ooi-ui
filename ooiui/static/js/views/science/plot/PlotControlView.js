@@ -16,7 +16,8 @@ var PlotControlView = Backbone.View.extend({
     "change .plot-control-select-form .selectpicker#plotTypeSelect" : "onPlotTypeSelect", //on plot type change
     "change .selectpicker#plotOrientation" : "onPlotOrientationSelect", //on plot orientation change
     "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
-    "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect" //on plot options change
+    "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect", //on plot options change
+    "change .selectpicker#plotqaqc" : "onPlotQAQCSelect" //on plot qaqc change
   },
 
   initialize: function(options) {
@@ -149,6 +150,12 @@ var PlotControlView = Backbone.View.extend({
         size: 8
       });
 
+      this.$el.find('#plotqaqc').selectpicker({
+        style: 'btn-primary',
+        size: 8
+      });
+
+
       if (this.collection.length > 1 ){
         var range1 = moment.range(moment.utc(self.collection.models[0].get('start')),
                                   moment.utc(self.collection.models[0].get('end')));
@@ -158,7 +165,7 @@ var PlotControlView = Backbone.View.extend({
                                   moment.utc(self.collection.models[1].get('end')));
 
         if (!(range1.overlaps(range2))){
-          ooi.trigger('plot:error', {title: "Interpolated Plot Error", message:"Interpolated date times dont overlap"} );
+          ooi.trigger('plot:error', {title: "Interpolated Plot Error", message:"Interpolated date times don't overlap"} );
         }
       }
 
@@ -210,10 +217,13 @@ var PlotControlView = Backbone.View.extend({
 
     var defaultPlot = $(e.target).find('[value="'+$(e.target).val()+'"]').hasClass('not-default-plot-option');
     if (defaultPlot){
-      ooi.trigger('plot:error', {title: "Plot Type Selection", message:"This plot type is not recommended for this instrument class. Proceeding with with plot type may lead to unexpected results."} );
+      ooi.trigger('plot:error', {title: "Plot Type Selection", message:"This plot type is not recommended for this instrument class. Proceeding with this plot type may lead to unexpected results."} );
     }
   },
-
+  onPlotQAQCSelect: function(e){
+    this.plotModel.set('qaqc',$(e.target).val());
+    //ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
+  },
   getSelectedParameters: function(selectedDataCollection){
     var self = this;
 
@@ -248,7 +258,7 @@ var PlotControlView = Backbone.View.extend({
         return null;
     }else if (this.plotModel.get('plotType') == 'stacked'){
       if ( _.isEmpty(zLen) ){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected for Binned Psuedocolor plot, please select only 1 parameter for color"} );
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for color"} );
         return null;
       }
       else if ( (zLen.length > referenceCount )){
@@ -258,12 +268,12 @@ var PlotControlView = Backbone.View.extend({
     }else if (this.plotModel.get('plotType') == "3d_scatter"){
       //require all inputs for 3d data plot
       if ((xLen.length != referenceCount) && (yLen.length != referenceCount) && (zLen.length != referenceCount)){
-          ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"incorrect inputs selected for Psuedocolor plot, please select only 1 parameter for x, y and color"} );
+          ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for x, y and color"} );
         return null;
       }
     }else{
       if ( _.isEmpty(xLen) || _.isEmpty(yLen) ){
-        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select x or y for parameter"} );
+        ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for x or y"} );
         return null;
       }
       else if ( (xLen.length > referenceCount) && (yLen.length > referenceCount) ){
@@ -345,7 +355,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   hidden : false,
   collection: new ParameterCollection,
   selectedParameter: null,
-  tagName: "<tr>",
+  tagName: "tr",
   parameter_id: null,
   plotTypeModel: null,
   count : 0,
@@ -476,6 +486,49 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       this.selectedParameter.set({is_selected:true});
       //allow the user to now select x/y options
       this.$el.find('input').prop("disabled", false);
+
+      //only if the option is selected
+      //use the plot type to figure out the inputs available
+      var availableInputs = this.plotTypeModel.get('inputs');
+      if (this.plotTypeModel.get('value') == "xy"){
+        if (this.parameter_id == 0){
+          this.$el.find('input.x-select').prop('checked',true);
+          this.selectedParameter.set({is_x: true,
+                                      is_y: false,
+                                      is_z: false
+                                    })
+        }else{
+          this.$el.find('input.y-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: true,
+                                      is_z: false
+                                    })
+        }
+      }else{
+        //specific number of inputs use the input number to set the category
+        if (this.parameter_id == 0){
+          this.$el.find('input.x-select').prop('checked',true);
+          this.selectedParameter.set({is_x: true,
+                                      is_y: false,
+                                      is_z: false
+                                    })
+
+        }else if (this.parameter_id == 1){
+          this.$el.find('input.y-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: true,
+                                      is_z: false
+                                    })
+
+        }else if (this.parameter_id == 2){
+          this.$el.find('input.z-select').prop('checked',true);
+          this.selectedParameter.set({is_x: false,
+                                      is_y: false,
+                                      is_z: true
+                                    })
+        }
+      }
+
     }else{
       //reset the disabled if its deselected
       this.$el.find('input').prop("disabled", true);

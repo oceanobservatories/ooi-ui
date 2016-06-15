@@ -150,3 +150,7 @@ div#events-scroll-body {
   cursor:not-allowed;
   background-color:#C7C7C7;
 }
+
+#plottingBody #pg_navGrid #navGrid_left{
+  visibility: hidden;
+}

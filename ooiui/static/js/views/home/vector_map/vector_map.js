@@ -23,6 +23,7 @@ var VectorMap = Backbone.View.extend({
                 container: this.id,
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
                 center: [-90, 5],
+                maxBounds: [[-179,-64],[5,78]],
                 interactive: true
             });
 
@@ -185,7 +186,7 @@ var VectorMap = Backbone.View.extend({
                             'icon-image': '{marker-symbol}',
                             'text-field': '{title}',
                             'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                            'text-offset': [0, -1],
+                            'text-offset': [1, -1],
                             'text-anchor': 'bottom',
                             'text-size': 14,
                             'icon-size': 1.0,
@@ -323,7 +324,7 @@ var VectorMap = Backbone.View.extend({
                             map.setLayoutProperty('rsArray', 'visibility', 'visible');
                             map._setArrayView();
                             map.flyTo({center:[-90, 5],
-                                uaxBounds: [[-179,-70],[0,70]],
+                                maxBounds: [[-179,-64],[5,78]],
                                 speed: 1.,
                                 zoom: originalZoom,
                                 pitch: 0,

@@ -65,21 +65,68 @@
               <div class="search-sidebar"></div>
             </div>
             <div class="col-md-10">
-              <div style="width:100%;">
-                <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Filters</span>
+              <div class="row panel panel-heading" style="margin-right:15px;">
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Engineering<br>Instruments</label>
+                    </div>
+                    <div>
+                      <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Metadata<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Status<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Mobile<br>Assets</label>
+                    </div>
+                    <div>
+                      <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
+                  <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
+                  <div id="timeRangeFilter" align="right"><div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider"><div class="ui-rangeSlider-container" style="position: absolute; width: 707px;"><div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;"></div><div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;"></div><div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;"><div class="ui-rangeSlider-handle-inner"></div></div><div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;"><div class="ui-rangeSlider-handle-inner"></div></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;"><div class="ui-rangeSlider-label-value">2013-01-01</div><div class="ui-rangeSlider-label-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;"><div class="ui-rangeSlider-label-value">2016-06-07</div><div class="ui-rangeSlider-label-inner"></div></div></div>
+                  </div>
+                </div>
               </div>
-              <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
-                <button type='button' title='Show Mobile Assets' style='float:left;margin-bottom:15px;margin-left: 5px;' id='mobileAssetFilterBtn' class='btn btn-default' onclick='setMobileAssetFilter();'><i style='font-size:14px;float:left;pointer-events: none;'>Mobile Assets</i></button>
-              </div>
-          </div>
-            <div class="col-md-10">
               <div id="streamPanel" class="panel" style="margin-right:15px;">
-                <div class="color-index" align="right">
-                  <div class="twelve-hours"></div><b> 12 Hours </b>
-                  <div class="twenty-four-hours"></div><b> 24 Hours </b>
-                  <div class="older"></div><b> Older than 24 hours </b>
-                  <em>Data are sorted by end date, most recent first</em>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="color-index" align="left" style="padding:5px;">
+                      <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="color-index" align="right">
+                      <div class="twelve-hours"></div><b> 12 Hours </b>
+                      <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                      <div class="older"></div><b> Older than 24 hours </b>
+                      <em>Data are sorted by end date, most recent first</em>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- jqGrid -->
@@ -89,7 +136,7 @@
                 </div>
               </div>
             </div>
-{#          </div> <!-- .panel -->#}
+          </div>
         </div>
       </div>
     </div> <!-- #page-content-wrapper -->
@@ -130,51 +177,28 @@
           //console.log('ready...',self.collections.subscriptionCollection);
         });
 
-        //TODO: If these filters prove to be overly complicated, maybe we should enable
-        //TODO: server side filtering that is already working.  Simply listening for the
-        //TODO: stremCollection change event and re-rendering the table will get the
-        //TODO: updated collection.
-
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the time range.
-            //TODO: obj returned is in the form: { min: <time>, max: <time> }
-            //TODO: Check the logic of the start/end columns.  Dates don't seem to be
-            //TODO: searchable.
-            console.log(options);
+          var startDate = new Date(options.min).toISOString(),
+            endDate   = new Date(options.max).toISOString();
 
-            var startDate = new Date(options.min).toISOString(),
-                endDate   = new Date(options.max).toISOString();
-
-            console.log(startDate, endDate);
-{#            setNavFilter("start", startDate);#}
-{#            setNavFilter("end", endDate);#}
           setTimeRangeFilter("start", startDate, "end", endDate);
-          combineFilters("OR");
-          showCurrentFilters();
-
+          combineFilters();
         });
-
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
           setStreamFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
-            //TODO: @OCEANZUS, implement the filter for the instrument filters.
-{#            console.log(options);#}
-
-            //TODO: @OCEANZU: Please check the logic on this
           setInstrumentFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
           setArrayFilter("reference_designator", options);
-          combineFilters("OR");
-          showCurrentFilters();
+          combineFilters();
+{#          showCurrentFilters();#}
         });
 
         this.listenTo(self.models.userModel, 'change', function(options) {
@@ -264,7 +288,6 @@
           updateDownloadCollection(options);
         });
         this.listenTo(this, "LargeDataCollection:updated", function(details){
-            console.log(details);
             updateDownloadPagination(details);
         });
         this.listenTo(this, 'LargeFormatFileTable:update',function(options){
@@ -278,7 +301,6 @@
           };
 
           $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
-            console.log('HERE');
             self.views.largeFileFormatView.render();
           });
         });
@@ -306,7 +328,13 @@
     var arrayFilter = {groupOp:"OR",rules:[]};
     var streamFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
-    var mobileAssetFilter = {groupOp:"OR",rules:[]};
+    var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+    var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+    var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+    var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+    var filterToolbarFilter = {groupOp:"AND",rules:[]};
+    var globalFilter = null;
+
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -334,7 +362,7 @@
     var openAssetManagement = function(ref_des, stream_name) {
       //assets/list/#CE01ISSP
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/assets/management/#"+ref_des.substr(0,8), '_blank');
+      var win = window.open(location.origin+"/assets/management/#"+ref_des, '_blank');
       win.focus();
     };
 
@@ -364,7 +392,6 @@
         end = details.startAt + details.count,
         totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
         currentPage = details.startAt / details.count + 1;
-    console.log(details);
 
     // Display a "Page 1 of 5" type message on the page
     if (end >= details.total) {
@@ -404,7 +431,7 @@ function updateDownloadCollection( options ){
             startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
         }
     } catch(e) {
-        console.log(e)
+        console.log(e);
         startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
     }
     // Pagination attributes will be passed in using
@@ -443,7 +470,6 @@ function updateDownloadPagination( details ){
         display_max: dlPagination.maxPages,
         current_page: currentPage,
         callback: function(event, page) {
-            console.log(page);
             if ( page ){
                 dlPagination.currentPage = page;
                 updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
@@ -452,9 +478,10 @@ function updateDownloadPagination( details ){
     });
 }
 
-{#    var pageControlModel = new DataCatalogPageControlModel();#}
-{#    var pageControlView = new DataCatalogPageControlView({model: pageControlModel, el: $('#buttons')});#}
-{#    pageControlView.render();#}
+
+{#    $(window).bind("load", function() {#}
+{#      combineFilters();#}
+{#    });#}
 
     $(document).ready(function() {
       $(".delayImg").each(function() {
@@ -476,6 +503,59 @@ function updateDownloadPagination( details ){
       searchSidebarView.render();
       //searchSidebarView.renderSearchInput();
       searchSidebarView.renderFilterInput();
+
+      $.fn.bootstrapSwitch.defaults.size = 'small';
+
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+
+
+
+      $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
+        if (theStateEng) {
+          engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+          combineFilters();
+        }
+      });
+
+      $('#MetadataStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMeta = $("#MetadataStreamSwitch").bootstrapSwitch('state');
+        if (theStateMeta) {
+          metadataStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+          combineFilters();
+        }
+      });
+
+      $('#StatusStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateStatus = $("#StatusStreamSwitch").bootstrapSwitch('state');
+        if (theStateStatus) {
+          statusStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+          combineFilters();
+        }
+      });
+
+      $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
+        if (theStateMobile) {
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: "Mobile Asset"};
+          combineFilters();
+        } else {
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+          combineFilters();
+        }
+      });
 
       ooi.start();
     });
@@ -502,15 +582,31 @@ function updateDownloadPagination( details ){
 
     var resetAllFilters = function() {
       $("#resetAllFilters").blur();
-      $('input:checkbox').removeAttr('checked');
-      $("#mobileAssetFilterBtn").prop('class', 'btn btn-default');
+{#      $('input:checkbox').removeAttr('checked');#}
+      $('input:checkbox').prop('checked', false);
+      $("#globalSearchText").val("");
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+      $dcGrid[0].clearToolbar();
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
-      mobileAssetFilter = {groupOp:"OR",rules:[]};
-      combineFilters("OR");
-      showCurrentFilters();
+      mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+      engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
+      metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
+      statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
+      filterToolbarFilter = {groupOp:"AND",rules:[]};
+      globalFilter = null;
+      location.search = testURL.substring(0, testURL.indexOf('?'));
+      location.hash = "";
+      var newOptions = {};
+      newOptions.min = new Date('2013', '00', '01');
+      newOptions.max = new Date();
+      ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
+      combineFilters();
     };
 
     var setArrayFilter = function(searchColumn, searchParam){
@@ -548,9 +644,6 @@ function updateDownloadPagination( details ){
         f.rules.push({field:searchColumn,op:"cn",data:this});
       });
       instrumentFilter = f;
-{#      grid[0].p.search = true;#}
-{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
     };
 
     var setStreamFilter = function(searchColumn, searchParam){
@@ -566,41 +659,61 @@ function updateDownloadPagination( details ){
         f.rules.push({field:searchColumn,op:"cn",data:this});
       });
       streamFilter = f;
-{#      grid[0].p.search = true;#}
-{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
-{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
     };
 
     var setTimeRangeFilter = function(start, startTime, end, endTime){
-      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"ge",data:startTime},{field:end,op:"le",data:endTime}]};
+      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
     };
 
-    var mobileAssetToggle = 0;
-    var setMobileAssetFilter = function() {
-      if(mobileAssetToggle == 1){
-        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:""}]};
-        mobileAssetToggle = 0;
-      } else {
-        mobileAssetFilter = {groupOp:"OR",rules:[{field:"platform_name",op:"cn",data:"Mobile Asset"}]};
-        mobileAssetToggle = 1;
-      }
+    var combineFilters = function() {
+      var allFilters = [];
+      allFilters.push(arrayFilter);
+      allFilters.push(instrumentFilter);
+      allFilters.push(streamFilter);
+      allFilters.push(timeRangeFilter);
+      allFilters.push(filterToolbarFilter);
 
-      combineFilters("OR");
-      showCurrentFilters();
-      $("#mobileAssetFilterBtn").toggleClass("down");
-      $("#mobileAssetFilterBtn").blur();
-    };
-
-    var combineFilters = function(groupOpVal) {
       var combinedFilters = {
-        "groupOp":"AND",
-        "rules":[],
-        "groups":[arrayFilter,instrumentFilter,streamFilter,timeRangeFilter,mobileAssetFilter]
+        groupOp:"AND",
+        rules:[],
+        groups:allFilters
       };
 
-      $dcGrid[0].p.search = true;
-      $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
-      $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      // Toggle Filters
+      var aaa = {groupOp:"AND", rules:[]};
+      aaa.rules.push(mobileAssetFilter);
+      aaa.rules.push(engInstrumentFilter);
+      aaa.rules.push(metadataStreamFilter);
+      aaa.rules.push(statusStreamFilter);
+      combinedFilters.groups.push(aaa);
+
+{#      // Toggle Filters#}
+{#      var bbb = {groupOp:"OR", rules:[]};#}
+{#      #}
+{#      combinedFilters.groups.push(bbb);#}
+
+      // Global filter
+      var ggg = {groupOp:"OR", rules:[], groups:[]};
+      if(globalFilter != null){
+        $.each(globalFilter, function() {
+          $.each(this, function() {
+            ggg.groups.push(this);
+          });
+
+          combinedFilters.groups.push(ggg);
+          ggg = {groupOp:"OR", rules:[], groups:[]};
+        });
+      }
+
+      // Ensure $dcGrid is defined (page load race conditions) before attempting to set filters
+      if (!_.isUndefined($dcGrid[0].p)) {
+        $dcGrid[0].p.search = true;
+        $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+        $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      }
+{#      if(!_.isUndefined(location.search)) {#}
+{#        location.search = "search=" + $("#globalSearchText").val();#}
+{#      }#}
     };
 
     var numberTemplate = {
@@ -631,7 +744,6 @@ function updateDownloadPagination( details ){
             uniqueTexts.push(text);
           }
         }
-{#        console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -692,7 +804,7 @@ function updateDownloadPagination( details ){
         colNames: [
           'Actions',
           'Array',
-          'Site Name',
+{#          'Site Name',#}
           'Platform Name',
           'Node',
           'Instrument',
@@ -727,25 +839,26 @@ function updateDownloadPagination( details ){
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'site_name',
-            index : 'site_name',
-            editable : false,
+{#          {#}
+{#            name : 'site_name',#}
+{#            index : 'site_name',#}
+{#            editable : false,#}
             {#                width : 150,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
           {
             name : 'platform_name',
             index : 'platform_name',
             editable : false,
             {#                width : 150,#}
             sortable : true,
+            search : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
@@ -782,7 +895,7 @@ function updateDownloadPagination( details ){
           {
             name : 'stream_name',
             index : 'stream_name',
-            key : true,
+{#            key : true,#}
             editable : false,
             {#                width : 85,#}
             sortable : true,
@@ -894,6 +1007,10 @@ function updateDownloadPagination( details ){
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
           highlightFilteredData.call(this);
+          if(location.search != "" && location.search != "?" && location.search != null){
+            var searchText = location.search.split('search=')[1].replace(/%20/g, ' ');
+            navSearchParse(searchText);
+          }
         },
         gridview : true,
         toolbar: [true, "top"],
@@ -938,6 +1055,7 @@ function updateDownloadPagination( details ){
           cloneToTop : true,
           closeOnEscape : true,
           multipleSearch : true,
+          multipleGroup : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
             $form.jqFilter('addFilter', defaultFilters);
@@ -990,30 +1108,36 @@ function updateDownloadPagination( details ){
       });
 
 
-      setSearchSelect('array_name');
-      {#setSearchSelect('site_name');#}
+      //setSearchSelect('array_name');
 
-      $dcGrid.jqGrid('setColProp', 'array_name',
-        {
-          searchoptions: {
-            sopt:['cn'],
-            dataInit: function(elem) {
-              $(elem).autocomplete({
-                source:getUniqueNames('array_name'),
-                delay:0,
-                minLength:0
-              });
-            }
-          }
-        });
+{#      $dcGrid.jqGrid('setColProp', 'array_name',#}
+{#        {#}
+{#          searchoptions: {#}
+{#            sopt:['cn'],#}
+{#            dataInit: function(elem) {#}
+{#              $(elem).autocomplete({#}
+{#                source:getUniqueNames('array_name'),#}
+{#                delay:0,#}
+{#                minLength:0#}
+{#              });#}
+{#            }#}
+{#          }#}
+{#        });#}
 
       $dcGrid.jqGrid('filterToolbar',
         {
           autosearch : true,
           searchOperators : false,
           searchOnEnter : false,
-          stringResult:true
+          stringResult:true,
 {#          defaultSearch:"cn"#}
+          afterClear : function() {
+            combineFilters();
+          },
+          afterSearch : function() {
+            filterToolbarFilter = JSON.parse($dcGrid.getGridParam("postData").filters);
+            combineFilters()
+          }
         }
       );
 
@@ -1028,6 +1152,7 @@ function updateDownloadPagination( details ){
       $("#globalSearchText").keypress(function (e) {
         var key = e.charCode || e.keyCode || 0;
         if (key === $.ui.keyCode.ENTER) { // 13
+          location.search = "search=" + $("#globalSearchText").val();
           $("#globalSearch").click();
         }
       });
@@ -1057,29 +1182,23 @@ function updateDownloadPagination( details ){
           }
         }
 
-        for (i = 0; i < l; i++) {
-          cm = colModel[i];
-          if (cm.search !== false && (cm.stype === undefined || cm.stype === "text")) {
-            for (iPart = 0; iPart < cnParts; iPart++) {
-              rules.push({
-                field: cm.name,
-                op: "cn",
-                data: searchTextParts[iPart]
-              });
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
             }
-          }
+          });
         }
-        postData.filters = JSON.stringify({
-          groupOp: "OR",
-          rules: rules
-        });
-        $grid.jqGrid("setGridParam", { search: true });
-        $grid.trigger("reloadGrid", [{page: 1, current: true}]);
-        return false;
+        globalFilter = textParts;
+
+        combineFilters();
       });
 
     } // placeJqGrid
-
 
     function showStreams( collection, response ){
       //jqGrid
@@ -1097,6 +1216,46 @@ function updateDownloadPagination( details ){
       });
     }
 
+    function navSearchParse(searchText) {
+
+      var colModel = $dcGrid.jqGrid("getGridParam", "colModel"),
+        rules = [],
+        l = colModel.length,
+        searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+        cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+        i,
+        iPart,
+        token,
+        cm;
+
+      // normalize searchTextParts by removing quotes
+      for (iPart = 0; iPart < cnParts; iPart++) {
+        token = searchTextParts[iPart];
+        if (token.length > 2 &&
+          ((token[0] === '"' && token[token.length - 1] === '"') ||
+          (token[0] === "'" && token[token.length - 1] === "'"))) {
+          searchTextParts[iPart] = token.substr(1,token.length-2);
+        }
+      }
+
+      var textParts = {};
+      for (k=0; k<cnParts; k++) {
+        st = searchTextParts[k];
+        textParts[st] = [];
+        $.each(colModel, function() {
+          var cm1 = this;
+          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+            textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+          }
+        });
+      }
+      globalFilter = textParts;
+
+      combineFilters();
+      $("#globalSearchText").val(searchText);
+    }
+
   </script>
   <script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
 {% endblock %}
+</div>

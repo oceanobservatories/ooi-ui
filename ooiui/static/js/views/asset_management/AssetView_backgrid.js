@@ -500,7 +500,7 @@ var AssetView = Backbone.View.extend({
                               message: "Asset successfully saved.",
                               type: "success",
                                 ack: function() {
-                                  window.location = "/assets/list/"
+                                  window.location = "/assets/management/"
                                 }
                               });
                               $('#editdep_panel').html('Saved Successfully.');
@@ -552,7 +552,7 @@ var AssetView = Backbone.View.extend({
                           message: "Asset successfully deleted.",
                           type: "success",
                           ack: function() {
-                            window.location = "/assets/list/"
+                            window.location = "/assets/management/"
                           }
                         });
                         $('#editdep_panel').html('Deleted Successfully.');

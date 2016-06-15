@@ -5,6 +5,7 @@
     <!-- instrument parameter listing -->
       <div class="instrument-content">
       </div>
+      <% if (!isInterpolated){ %>
       <div id="addMorePlotRows">
         <span class="" style="padding-left:10px">
             <button type="button" title="Add Additional Plot Row" style="float:left" id="addAdditionalPlotRow" class="btn btn-default">
@@ -13,6 +14,7 @@
             </button>
         </span>
       </div>
+      <% } %>
     </div>
 
     <div class="col-sm-4">
@@ -61,8 +63,6 @@
 
         <% if (plotModel.get('plotType') == "xy"){ %>
 
-
-
         <div class="row plot-control-section">
           <div class="col-sm-4">
             <label>Plot Style:</label>
@@ -102,10 +102,24 @@
               <option class="" value="showEvents" <%=plotModel.get('showEvents') ? "selected" : ""%>>Show Events</option>
             </select>
           </div>
-
         </div>
 
         <% } %>
+
+        <div class="row plot-control-section">
+          <div class="col-sm-4">
+            <label>QAQC:</label>
+          </div>
+
+          <div class="col-sm-8">
+            <select id="plotqaqc" class="selectpicker show-tick" style="">
+            <% plotModel.get('qaqcOptions').each(function(qc_option){ %>
+              <option class="" value="<%= qc_option.get('value') %>" <%= plotModel.get('qaqc') == qc_option.get('value') ? "selected" : ""%>><%=qc_option.get('name')%>
+              </option>
+            <% }); %>
+            </select>
+          </div>
+        </div>
 
       </form>
     </div>

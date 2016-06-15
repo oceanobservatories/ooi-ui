@@ -34,12 +34,13 @@ var UserEditFormView = Backbone.View.extend({
   },
   initialize: function() {
     var self = this;
+    var userScopes = [];
     _.bindAll(this, "render", "submit");
     this.modalDialog = new ModalDialogView();
     this.scopes = new UserScopeCollection();
     this.scopes.fetch({
       success: function(collection, response, options) {
-        self.render();
+        userScopes = self.render();
       }
     });
   },
@@ -55,7 +56,11 @@ var UserEditFormView = Backbone.View.extend({
           message: "User successfully updated",
           type: "success",
           ack: function() {
-            window.location = "/users/"
+            if(userScopes.includes('user_admin')){
+              window.location = "/users/";
+            } else {
+              window.location = "/user/edit/" + model.id;
+            }
           }
         });
       },
@@ -85,6 +90,7 @@ var UserEditFormView = Backbone.View.extend({
     userModel.fetch({
       success: function(collection, response, options) {
         var scopes = response.scopes;
+        self.userScopes = scopes;
 
         if(scopes.includes('user_admin')){
           $("#scope_div").show();
