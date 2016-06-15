@@ -116,7 +116,8 @@
                     <div class="panel-heading" >
                         <h4 class="js-expand" data-target="#<%= model.refDes.substr(9,14) %>"><%= model.name || model.refDes.substr(9,14) %><small> <%= (model.name) ? '(' + model.refDes.substr(9,14) + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
                     </div>
-                    <div id="<%=  model.refDes.substr(9,14) %>" class="panel-body" style="display: none;">
+                    <!-- <div id="<%=  model.refDes.substr(9,14) %>" class="panel&#45;body" style="display: none;"> -->
+                    <div id="<%=  model.refDes.substr(9,14) %>" class="panel-body">
                         <table id="<%= model.refDes %>" class="table table-default">
                             <thead>
                                 <tr>
@@ -134,10 +135,20 @@
                 </div>
             <% }); %>
         </div>
-        <% if (image !== 'none') { %>
         <div class="col-md-4 col-md-offset-right-1">
-            <img src="<%= image %>" width="100%">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="map" style="height: 450px; width: 100%;"></div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <% if (image !== 'none') { %>
+                    <img src="<%= image %>" width="100%">
+                    <% } %>
+                </div>
+            </div>
         </div>
-        <% } %>
     </div>
 </div>

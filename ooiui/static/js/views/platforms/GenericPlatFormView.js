@@ -114,5 +114,10 @@ var GenericPlatForm = Backbone.View.extend({
         });
 
         this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
+
+        // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
+        // both maps require a valid geoJson as a toJSON override.
+        var vectorMap = new VectorMap({id: 'map', collection: this.collection});
+        vectorMap.render();
     }
 });

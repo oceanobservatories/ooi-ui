@@ -8,6 +8,11 @@
      padding: 0 20px 0 20px;
 }
 
+div#wrapper.platform-page {
+    width: 100%;
+}
+
+
 .platform-page #platform-view-content .panel .panel-heading{
     padding: 0;
     margin: 0;
@@ -59,4 +64,13 @@
 
 .platform-page #platform-view-content table tr {
 
+}
+
+.mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
+  display: none !important;
+}
+
+#map canvas {
+    left: 0px;
+    width: 300%;
 }
