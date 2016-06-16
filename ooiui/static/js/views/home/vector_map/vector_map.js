@@ -93,10 +93,10 @@ var VectorMap = Backbone.View.extend({
                 * ***************************************************/
                 map.on('load', function() {
                     // define some map interaction restrictions
-                    // map.scrollZoom.disable();
-                    // map.dragPan.disable();
-                    // map.doubleClickZoom.disable();
-                    // map.dragRotate.disable();
+                    map.scrollZoom.disable();
+                    map.dragPan.disable();
+                    map.doubleClickZoom.disable();
+                    map.dragRotate.disable();
 
                     // someone couldn't figure out where north was...
                     map.addControl(new mapboxgl.Navigation({
