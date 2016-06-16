@@ -9,7 +9,6 @@
 
 var VectorMap = Backbone.View.extend({
     initialize: function(options) {
-        console.log(options);
         if (options) {
             this.lat = options.lat || 5;
             this.lng = options.lng || -90;
@@ -74,7 +73,7 @@ var VectorMap = Backbone.View.extend({
                 * ***************************************************/
                 map.on('load', function() {
                     // define some map interaction restrictions
-                    //map.scrollZoom.disable();
+                    map.scrollZoom.disable();
                     map.dragPan.disable();
                     map.doubleClickZoom.disable();
                     map.dragRotate.disable();
