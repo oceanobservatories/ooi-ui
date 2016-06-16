@@ -45,6 +45,7 @@ var ArrayContentSummary = ParentView.extend({
 
             // finally, return the array content summary, which will also contain
             // it's platforms to be displayed after the array is inspected.
+            console.log(model);
             return (new ArrayContentSummaryItem({model: model})).render().el;
         });
 
@@ -288,20 +289,3 @@ var ArrayContentSummaryItem = ParentView.extend({
     }, 500, true),
     template: JST['ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html']
 });
-
-var PlatformContentTable = ParentView.extend({
-    el: 'table',
-    render: function() {
-        var platformContentItem = this.collection.byMoorings().map(function(model) {
-            return (new PlatformContentItem({model: model})).render().el;
-        });
-
-        this.$el.append(platformContentItem);
-    },
-    template: JST['ooiui/static/js/partials/home/array_content/PlatformTable.html']
-});
-
-// var PlatformContentItem = ParentView.extend({
-//     tagName: 'tr',
-//     template: JST['ooiui/static/js/partials/home/array_content/PlatformTableItem.html']
-// });

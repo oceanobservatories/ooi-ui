@@ -81,10 +81,17 @@ _.extend(OOI.prototype, Backbone.Events,  {
         var self = this;
         this.login.fetch({async:false});
 
-        var platformId = location.search.split('id=')[1]
+        var platformId = location.search.split('id=')[1],
+            platformLat = location.search.split('lat=')[1],
+            platformLng = location.search.split('lng=')[1];
+
+        platformId = platformId.split('&')[0];
+        platformLat = platformLat.split('&')[0];
 
         var streams = new StreamCollection({
-            searchId: platformId
+            searchId: platformId,
+            searchLat: platformLat,
+            searchLng: platformLng
         });
 
         var platform = new GenericPlatForm({
@@ -100,9 +107,8 @@ _.extend(OOI.prototype, Backbone.Events,  {
         var resizeMap = (function() {
             vpw = $(window).width() - 200;
             //vph = $('#sidebar-wrapper').height() - 100;
-            vph = $(window).height() - 150;
-            $('#map').css({'height': 200 + 'px'});
-            $('.array-content').css({'height': 200 + 'px'});
+            vph = $(window).height() - 450;
+            $('#map').css({'height': vph + 'px'});
         });
         setTimeout(function() {
             resizeMap();

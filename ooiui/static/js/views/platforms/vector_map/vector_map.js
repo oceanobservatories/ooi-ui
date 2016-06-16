@@ -8,9 +8,12 @@
  */
 
 var VectorMap = Backbone.View.extend({
-    initialize: function() {
-        'use strict';
-        //this.listenTo(this.collection, 'change', this.render);
+    initialize: function(options) {
+        console.log(options);
+        if (options) {
+            this.lat = options.lat || 5;
+            this.lng = options.lng || -90;
+        }
         return this;
     },
     _onBeforeRender: function() {
@@ -21,7 +24,8 @@ var VectorMap = Backbone.View.extend({
             var map = new mapboxgl.Map({
                 container: this.id,
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
-                center: [-90, 5],
+                center: [this.lng, this.lat],
+                zoom: 5,
                 interactive: true
             });
 
@@ -70,7 +74,7 @@ var VectorMap = Backbone.View.extend({
                 * ***************************************************/
                 map.on('load', function() {
                     // define some map interaction restrictions
-                    map.scrollZoom.disable();
+                    //map.scrollZoom.disable();
                     map.dragPan.disable();
                     map.doubleClickZoom.disable();
                     map.dragRotate.disable();
@@ -79,6 +83,31 @@ var VectorMap = Backbone.View.extend({
                     map.addControl(new mapboxgl.Navigation({
                         position: 'bottom-left'
                     }));
+
+
+                    map.addSource('marker', {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: [{
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [renderContext.lng, renderContext.lat]
+                                }
+                            }]
+                        }
+                    });
+
+                    map.addLayer({
+                        id: 'marker',
+                        source: 'marker',
+                        type: 'circle',
+                        paint: {
+                            'circle-radius': 10,
+                            'circle-color': 'orange'
+                        }
+                    });
 
                 });
                /* ****************************************************

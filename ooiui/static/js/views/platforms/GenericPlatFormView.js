@@ -42,6 +42,8 @@ var GenericPlatForm = Backbone.View.extend({
     initialize: function(options) {
         _.bindAll(this, "render","addTableRows");
         var self = this;
+        this.platformLat = this.collection.options.searchLat;
+        this.platformLng = this.collection.options.searchLng;
 
         var platforms = this.collection.fetch({
             data: {order: 'reverse'},
@@ -71,7 +73,7 @@ var GenericPlatForm = Backbone.View.extend({
                 // I don't really like doing this here...but lets refresh the collection
                 // to only what we need.
                 self.collection = new StreamCollection(filtered);
-                self.collection.fetch({data: {search: 'CP02CNSM' }});
+                self.collection.fetch({data: {search: options.searchId }});
 
                 self.render();
             }
@@ -117,7 +119,7 @@ var GenericPlatForm = Backbone.View.extend({
 
         // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
         // both maps require a valid geoJson as a toJSON override.
-        var vectorMap = new VectorMap({id: 'map', collection: this.collection});
+        var vectorMap = new VectorMap({id: 'map', collection: this.collection, lat: this.platformLat, lng: this.platformLng});
         vectorMap.render();
     }
 });
