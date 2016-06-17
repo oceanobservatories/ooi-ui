@@ -9,19 +9,26 @@
 
 .array-content .js-expand {
     cursor: pointer;
+    min-height:20px;
 }
 
 .array-content .js-expand span, .array-content .js-expand i {
-    height: 70px;
-    padding-top: 25px;
+    min-height:20px;
+    position: relative;
+    top: 40%;
     padding-left: 10px;
 }
 
-.array-content .active .js-expand span,
-.array-content .active .js-expand i {
+.array-content .active h4.js-expand{
     transition: all .5s ease;
-    height: 20px !important;
+    height: 30px !important;
     padding-top: 0px;
+}
+
+.array-content .active h4.js-expand span,
+.array-content .active h4.js-expand i{
+    top: 5px;
+    transition: all .3s ease;
 }
 
 .array-content .panel-heading {
@@ -64,6 +71,12 @@
 .array-content .js-platform-table {
     z-index: 10000;
 }
+
+.array-content .js-array .js-platform-table .js-expand.js-expand-close{
+    height:20px !important;
+}
+
+
 
 .array-content .js-platform-table tr td:nth-child(2) {
     font-size: 12px;
