@@ -30,8 +30,8 @@ def landing_pioneer():
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
-@scope_required('asset_manager')
 @login_required()
+@scope_required('asset_manager')
 def assets_management():
     return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
