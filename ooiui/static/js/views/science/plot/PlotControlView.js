@@ -182,9 +182,9 @@ var PlotControlView = Backbone.View.extend({
   setAdditionalParameterVisibility:function(){
     //if the additional parameters are hidden, hide the rows
     if ($('input#showAdditionalParameters[type="checkbox"]').is(":checked")){
-      $('#plot-controls .parameter-select .dropdown-menu.open li[data-optgroup="2"]').css('display','list-item');
+      $('#plot-controls .parameter-select .dropdown-menu.open .additional-param').css('display','block');
     }else{
-      $('#plot-controls .parameter-select .dropdown-menu.open li[data-optgroup="2"]').css('display','none');
+      $('#plot-controls .parameter-select .dropdown-menu.open   .additional-param').css('display','none');
     }
   },
   cb: function(start, end){
@@ -451,40 +451,34 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var self = this;
     //empty it before we start
     self.collection = new ParameterCollection();
-    self.additionalParamcollection = new ParameterCollection();
 
     var count = 0
     //get the basic set of parameters, and see if
     _.each(this.model.get('parameter_id'),function(v,i){
+
+      var paramModel = new ParameterModel({name:self.model.get('parameter_display_name')[i],
+                                                units:self.model.get('units')[i],
+                                                short_name:self.model.get('variables')[i],
+                                                type:self.model.get('variable_type')[i],
+                                                is_selected: false,
+                                                param_class: "",
+                                                is_derived: self.isParameterDerived(i),
+                                                is_x: false,
+                                                is_y: false,
+                                                is_z: false,
+                                                original_model: self.model,
+                                                index_used: i
+                                           })
+
+
+
       if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
         //derived parameters
-        self.collection.add(new ParameterModel({name:self.model.get('parameter_display_name')[i],
-                                                units:self.model.get('units')[i],
-                                                short_name:self.model.get('variables')[i],
-                                                type:self.model.get('variable_type')[i],
-                                                is_selected: false,
-                                                is_derived: self.isParameterDerived(i),
-                                                is_x: false,
-                                                is_y: false,
-                                                is_z: false,
-                                                original_model: self.model,
-                                                index_used: i
-                                           }));
-
+        self.collection.add(paramModel);
       }else if (self.isEngineeringValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
         //other parameters
-        self.additionalParamcollection.add(new ParameterModel({name:self.model.get('parameter_display_name')[i],
-                                                units:self.model.get('units')[i],
-                                                short_name:self.model.get('variables')[i],
-                                                type:self.model.get('variable_type')[i],
-                                                is_selected: false,
-                                                is_derived: self.isParameterDerived(i),
-                                                is_x: false,
-                                                is_y: false,
-                                                is_z: false,
-                                                original_model: self.model,
-                                                index_used: i
-                                           }));
+        paramModel.set({param_class:"additional-param"});
+        self.collection.add(paramModel);
       }else{
         //number of parameters not added
         count+=1;
@@ -493,7 +487,6 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
 
     this.$el.html(this.template({model:this.model,
                                  options:self.collection,
-                                 additionalOptions: self.additionalParamcollection,
                                  id: this.control+"_"+this.parameter_id,
                                  parameterCount: 1,
                                  plotTypeModel : this.plotTypeModel

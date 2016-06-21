@@ -2,16 +2,9 @@
 <td colspan="2">
   <div class="parameter-select">
     <select class="selectpicker show-tick" data-selected-text-format="count" data-width="100%" multiple title="Select a parameter" data-max-options="<%=parameterCount%>">
-      <optgroup label="">
-        <% options.each(function(option) { %>
-          <option data-id="<%=option.get('short_name')%>" data-subtext="<%= option.get('units')%> "><%=option.get('name')%></option>
-        <% }); %>
-      </optgroup>
-      <optgroup label="Other Parameters">
-        <% additionalOptions.each(function(option) { %>
-          <option class="additional-parameters" data-id="<%=option.get('short_name')%>" data-subtext="<%= option.get('units')%> "><%=option.get('name')%></option>
-        <% }); %>
-      </optgroup>
+      <% options.each(function(option) { %>
+        <option class="<%=option.get('param_class')%>" data-id="<%=option.get('short_name')%>" data-subtext="<%= option.get('units')%> "><%=option.get('name')%></option>
+      <% }); %>
     </select>
   </div>
 </td>
