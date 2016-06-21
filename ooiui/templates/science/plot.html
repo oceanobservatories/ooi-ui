@@ -86,15 +86,14 @@
                                             <div id='tools-panel' class="panel">
                                                 <div class="panel-body">
                                                     <div class="row">
+                                                        <div class="pull-left">
+                                                            <input id="showAdditionalParameters" type="checkbox" class="" name="Show Additional Parameters" value="showAdditionalParameters"> Show Additional Parameters<br>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="plot-tab-panel" id="plot-controls">
                                                             <p class="initial-text"> Please Select an instrument</p>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-footer clearfix">
-                                                    <div class="pull-center">
-                                                        <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                                        <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,12 +110,6 @@
                                                                 <p class="initial-text"> Please Select an instrument</p>
                                                             </div> <!-- panel-table -->
                                                         </div> <!-- panel-body -->
-                                                        <div class="panel-footer clearfix">
-                                                            <div class="pull-center">
-                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
-                                                            </div>
-                                                        </div>
                                                     </div> <!-- panel -->
                                                 </div>
                                             </div>
@@ -133,12 +126,6 @@
                                                                 <p class="initial-text"> Please Select an instrument</p>
                                                             </div> <!-- panel-table -->
                                                         </div> <!-- panel-body -->
-                                                        <div class="panel-footer clearfix">
-                                                            <div class="pull-center">
-                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                                                <small class="pull-right">  * Data is decimated. Maximum of 1000 points shown.</small>
-                                                            </div>
-                                                        </div>
                                                     </div> <!-- panel -->
                                                 </div>
                                             </div>
@@ -155,17 +142,17 @@
                                                                 <p class="initial-text"> Please Select an instrument</p>
                                                             </div> <!-- panel-table -->
                                                         </div> <!-- panel-body -->
-                                                        <div class="panel-footer clearfix">
-                                                            <div class="pull-center">
-                                                                <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                                                <small class="pull-right"> * Data is decimated. Maximum of 1000 points shown.</small>
-                                                            </div>
-                                                        </div>
                                                     </div> <!-- panel -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-center">
+                                    <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                    <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
                                 </div>
                             </div>
                         </div>
@@ -221,7 +208,6 @@
                                 </div>
                             </div> <!-- panel -->
                         </div> <!-- .row -->
-
 
                     </div>
                 </div>
@@ -507,6 +493,10 @@ _.extend(OOI.prototype, Backbone.Events, {
     this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
       setArrayFilter("reference_designator", options);
       combineFilters("OR");
+    });
+
+    this.listenTo(this, 'show_additional_parameters', function(options) {
+        self.views.plotControls.setAdditionalParameterVisibility();
     });
 
     //MAIN ADDITION OF A STREAM
@@ -885,6 +875,10 @@ $(document).ready(function() {
     $('.update-plot').on('click', function(event){
         event.preventDefault();
         ooi.trigger('update_plot',{});
+    });
+
+    $('input#showAdditionalParameters:checkbox').on('change', function(event){
+        ooi.trigger('show_additional_parameters');
     });
 
     $('#reset_catalog_button').on('click', function(event){
