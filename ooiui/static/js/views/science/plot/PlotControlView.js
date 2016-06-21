@@ -423,7 +423,6 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         self.model.get("units")[i] != "counts" &&
         self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
         self.model.get("units")[i].toLowerCase() != "s" &&
-        self.model.get("units")[i].toLowerCase() != "1" &&
         self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
       {
@@ -436,11 +435,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var self = this;
     var isValid = false;
     //complex if statement for ENG parameters...
-    if (
-        (self.model.get("variables_shape")[i] == "scalar" || self.model.get("variables_shape")[i] == "function") &&
-        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
-        self.model.get("variables")[i].indexOf("_timestamp") == -1
-        )
+    if (self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get("variables")[i].indexOf("_timestamp") == -1)
       {
       isValid = true;
       }
