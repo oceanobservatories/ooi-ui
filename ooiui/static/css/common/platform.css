@@ -50,7 +50,7 @@ div#wrapper.platform-page {
 
 
 .platform-page #platform-view-content .panel-heading h4 small {
-    color: #bbb;
+    color: black;
 }
 
 .platform-page #platform-view-content table {
@@ -66,11 +66,14 @@ div#wrapper.platform-page {
 
 }
 
-.mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
+.mapboxgl-ctrl-compass {
   display: none !important;
 }
 
 #map canvas {
     left: 0px;
     width: 300%;
+}
+
+#map {
 }

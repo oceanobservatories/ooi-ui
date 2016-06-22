@@ -12,6 +12,7 @@ var VectorMap = Backbone.View.extend({
         if (options) {
             this.lat = options.lat || 5;
             this.lng = options.lng || -90;
+            this.platformId = options.platformId || null;
         }
         return this;
     },
@@ -25,6 +26,7 @@ var VectorMap = Backbone.View.extend({
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
                 center: [this.lng, this.lat],
                 zoom: 5,
+                minZoom: 5,
                 interactive: true
             });
 
@@ -37,6 +39,9 @@ var VectorMap = Backbone.View.extend({
 
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message.indexOf('LngLat') > -1) {
+                alert('Whoops! It appears the URL has changed.  Please go back to the home page and start over.');
+            }
             //debugger;
         }
     },
@@ -83,6 +88,32 @@ var VectorMap = Backbone.View.extend({
                         position: 'bottom-left'
                     }));
 
+                    var referencePlatforms = [];
+                    var primaryArray = renderContext.platformId.substr(0,2);
+                    _.each(renderContext.collection.byArray(primaryArray).toGeoJSON(), function(geoJSON) {
+                        referencePlatforms.push(geoJSON);
+                    });
+
+                    // Maps need sources.  Lets get some.
+                    map.addSource('platforms', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': referencePlatforms
+                        }
+                    });
+
+                    // Maps need their layers with sources in them.  Do it.
+                    map.addLayer({
+                        'id': 'platforms',
+                        'source': 'platforms',
+                        'type': 'circle',
+                        'paint': {
+                            'circle-radius': 5,
+                            'circle-color': 'yellow'
+                        }
+                    });
+
 
                     map.addSource('marker', {
                         type: 'geojson',
@@ -103,7 +134,7 @@ var VectorMap = Backbone.View.extend({
                         source: 'marker',
                         type: 'circle',
                         paint: {
-                            'circle-radius': 10,
+                            'circle-radius': 5.5,
                             'circle-color': 'orange'
                         }
                     });
@@ -128,6 +159,18 @@ var VectorMap = Backbone.View.extend({
 
                     }
                 });
+
+                // // This listener will update the overlay with lat/lng and the name of the feature under cursor.
+                map.on('mousemove', function (e) {
+
+                    var features = map.queryRenderedFeatures(e.point, { layers: ['platforms'] });
+                    if (features.length) {
+                        feature = features[0].properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.lngLat.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.lngLat.lng.toFixed(4))) + '</span>' ;
+                    }
+                    map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+                    document.getElementById('info').innerHTML = feature;
+                });
+
 
                 /* ****************************************************
                 * End Map Events

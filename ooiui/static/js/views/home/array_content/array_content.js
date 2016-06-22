@@ -45,7 +45,6 @@ var ArrayContentSummary = ParentView.extend({
 
             // finally, return the array content summary, which will also contain
             // it's platforms to be displayed after the array is inspected.
-            console.log(model);
             return (new ArrayContentSummaryItem({model: model})).render().el;
         });
 

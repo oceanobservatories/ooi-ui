@@ -22,7 +22,7 @@
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-
+  <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
 
   <script src="/js/partials/compiled/platform.js" type="text/javascript"></script>
   <script src="/js/compiled/genericPlatForms.js" type="text/javascript"></script>
@@ -88,15 +88,17 @@ _.extend(OOI.prototype, Backbone.Events,  {
         platformId = platformId.split('&')[0];
         platformLat = platformLat.split('&')[0];
 
-        var streams = new StreamCollection({
-            searchId: platformId,
-            searchLat: platformLat,
-            searchLng: platformLng
+        var streamCollection = new StreamCollection({
+            searchId:  atob(platformId),
+            searchLat: atob(platformLat),
+            searchLng: atob(platformLng)
         });
+
+        var platformCollection = new PlatformCollection();
 
         var platform = new GenericPlatForm({
             el: $('#page-content-wrapper'),
-            collection: streams
+            collection: {streamCollection, platformCollection}
         });
 
         // Takes care of the strange size of the map

@@ -156,7 +156,7 @@
                     </td>
                     <td >
                         <ul class"align-center" style="padding-left: 0px;">
-                            <li><a href="/platform?id=<%= platform.properties.code %>&lat=<%= platform.geometry.coordinates[0]%>&lng=<%=platform.geometry.coordinates[1]%>"><%= platform.properties.title %></a></li>
+                            <li><a href="/platform?id=<%= btoa(platform.properties.code) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a></li>
                         </ul>
                     </td>
                     <td><%= platform.properties.depth %></td>
