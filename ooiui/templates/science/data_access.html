@@ -11,6 +11,7 @@
 {% block head %}
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
   <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <link href="/css/common/plotControls.css" rel="stylesheet" type="text/css" />
@@ -18,6 +19,7 @@
   <link href="/css/compiled/plot.css" rel="stylesheet" type="text/css" />
   <link href='/lib/bootstrap-daterangepicker/daterangepicker.css' rel="stylesheet" type="text/css" />
   <link href="/css/data_catalog/search_sidebar.css" rel="stylesheet" type="text/css"/>
+
   <link href='/lib/jQRangeSlider/dest/css/iThing-min.css' rel='stylesheet' type='text/css' />
   <script src='/lib/jQRangeSlider/dest/jQAllRangeSliders-min.js'></script>
 
@@ -38,6 +40,7 @@
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
 
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
@@ -100,7 +103,13 @@
                             </div>
                             <div class="row">
                               <div class="plot-tab-panel" id="plot-controls">
-                                <p class="initial-text"> Please Select an instrument</p>
+                                <p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
+                              </div>
+                            </div>
+                            <div class="panel-footer clearfix">
+                              <div class="pull-center">
+                                <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
                               </div>
                             </div>
                           </div>
@@ -125,21 +134,6 @@
                           </div>
                         </div> <!-- panel -->
                       </div> <!-- .row -->
-
-
-                      <div class="panel-footer clearfix">
-                        <div class="pull-center">
-                          <a href="#" class="btn btn-primary update-plot">Plot</a>
-                          <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
-                        </div>
-                      </div>
-
-
-
-
-
-
-
                     </div>
 
                     <div class="tab-pane active" id="plot-tool-instruments">
@@ -149,7 +143,9 @@
                             <div class="scrollable-area">
                               <div id="instruments-scroll-body" class=" panel-body">
                                 <div class="plot-tab-panel" id="instruments-table">
-                                  <p class="initial-text"> Please Select an instrument</p>
+                                  <p class="initial-text"> How to plot data:</p>
+                                  <p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
+                                  <p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>
                                 </div> <!-- panel-table -->
                               </div> <!-- panel-body -->
                             </div> <!-- panel -->
@@ -157,69 +153,96 @@
                         </div>
                       </div>
 
-
-
-
-
-
-
                       <div class="panel-body">
-                        <div class="reset-catalog-container">
-                          <button style="display:none" id="reset_catalog_button" type="button" class="btn btn-primary">Reset Selected Instruments</button>
-                        </div>
                         <div class="color-index" align="left" style="padding:5px;">
-                      <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
-                    </div>
+                          <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
+                        </div>
 
                         <div class="row">
                           <div class="col-md-12">
                             <div class="row panel panel-heading" style="margin-right:15px;">
-                <div class="col-md-2-toggles" style="top:25px;">
-                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                    <div>
-                      <label>Engineering<br>Instruments</label>
-                    </div>
-                    <div>
-                      <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2-toggles" style="top:25px;">
-                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                    <div>
-                      <label>Metadata<br>Streams</label>
-                    </div>
-                    <div>
-                      <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2-toggles" style="top:25px;">
-                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                    <div>
-                      <label>Status<br>Streams</label>
-                    </div>
-                    <div>
-                      <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2-toggles" style="top:25px;">
-                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                    <div>
-                      <label>Mobile<br>Assets</label>
-                    </div>
-                    <div>
-                      <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
-                  <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
-                  <div id="timeRangeFilter" align="right"><div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider"><div class="ui-rangeSlider-container" style="position: absolute; width: 707px;"><div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;"></div><div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;"></div><div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;"><div class="ui-rangeSlider-handle-inner"></div></div><div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;"><div class="ui-rangeSlider-handle-inner"></div></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;"><div class="ui-rangeSlider-label-value">2013-01-01</div><div class="ui-rangeSlider-label-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;"><div class="ui-rangeSlider-label-value">2016-06-07</div><div class="ui-rangeSlider-label-inner"></div></div></div>
-                  </div>
-                </div>
-              </div>
+                              <div class="col-md-2-toggles" style="top:25px;">
+                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                                  <div>
+                                    <label>Engineering<br>Instruments</label>
+                                  </div>
+                                  <div>
+                                    <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2-toggles" style="top:25px;">
+                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                                  <div>
+                                    <label>Metadata<br>Streams</label>
+                                  </div>
+                                  <div>
+                                    <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2-toggles" style="top:25px;">
+                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                                  <div>
+                                    <label>Status<br>Streams</label>
+                                  </div>
+                                  <div>
+                                    <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2-toggles" style="top:25px;">
+                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                                  <div>
+                                    <label>Mobile<br>Assets</label>
+                                  </div>
+                                  <div>
+                                    <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
+                                <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
+                                <div id="timeRangeFilter" align="right">
+                                  <div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider">
+                                    <div class="ui-rangeSlider-container" style="position: absolute; width: 707px;">
+                                      <div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;">
+
+                                      </div>
+                                      <div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;">
+
+                                      </div>
+                                      <div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;">
+                                        <div class="ui-rangeSlider-handle-inner">
+
+                                        </div>
+                                      </div>
+                                      <div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;">
+                                        <div class="ui-rangeSlider-handle-inner">
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;">
+                                      <div class="ui-rangeSlider-arrow-inner">
+
+                                      </div>
+                                    </div>
+                                    <div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;">
+                                      <div class="ui-rangeSlider-arrow-inner"></div>
+                                    </div>
+                                    <div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;">
+                                      <div class="ui-rangeSlider-label-value">2013-01-01</div>
+                                      <div class="ui-rangeSlider-label-inner"></div>
+                                    </div>
+                                    <div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;">
+                                      <div class="ui-rangeSlider-label-value">2016-06-07</div>
+                                      <div class="ui-rangeSlider-label-inner"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div id="streamPanel" class="panel" style="margin-right:15px;">
                               <div class="color-index" align="right">
                                 <div class="twelve-hours"></div><b> 12 Hours </b>
@@ -237,11 +260,6 @@
                           </div>
                         </div>
                       </div>
-
-
-
-
-
                     </div>
 
                     <div class="tab-pane" id="plot-tool-events">
@@ -251,7 +269,7 @@
                             <div class="scrollable-area">
                               <div id="events-scroll-body" class="panel-body">
                                 <div class="plot-tab-panel" id="events-table">
-                                  <p class="initial-text"> Please Select an instrument</p>
+                                  <p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
                                 </div> <!-- panel-table -->
                               </div> <!-- panel-body -->
                             </div> <!-- panel -->
@@ -267,7 +285,7 @@
                             <div class="scrollable-area">
                               <div id="annotation-panel" class="panel-body">
                                 <div class="plot-tab-panel" id="annotation-table">
-                                  <p class="initial-text"> Please Select an instrument</p>
+                                  <p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
                                 </div> <!-- panel-table -->
                               </div> <!-- panel-body -->
                             </div> <!-- panel -->
@@ -277,11 +295,7 @@
                     </div>
                   </div>
                 </div>
-
               </div>
-
-
-
             </div>
           </div>
         </div>
@@ -294,7 +308,7 @@
 
 
   <script type="text/javascript">
-    var bannerTitle = "Plotting";
+    var bannerTitle = "Data Access & Visualization";
     var userId = parseInt(window.location.href.split('/').pop());
 
     _.extend(OOI.prototype, Backbone.Events, {
@@ -337,9 +351,9 @@
         var self = this;
         //NORMAL PLOT
         //get the params
-        var xParams = []
-        var yParams = []
-        var zParams = []
+        var xParams = [];
+        var yParams = [];
+        var zParams = [];
         var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
         var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
         var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
@@ -478,7 +492,9 @@
         this.login.fetch({async: false});
 
         //reset the subscriptions
-        self.collections.subscriptionCollection.fetch({ reset: true });
+        if (ooi.models.userModel.length > 0) {
+          self.collections.subscriptionCollection.fetch({reset: true});
+        }
         this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
         });
 
@@ -891,7 +907,7 @@
     var vent = _.extend({}, Backbone.Events);
     var vobj = {};
     // controller for our model collections
-{#    var arrayCollection     = new ArrayCollection();#}
+    var arrayCollection     = new ArrayCollection();
     var streamCollection    = new StreamCollection();
     var dlPagination = {
       itemsPerPage : 8, // how many items per page
@@ -1105,13 +1121,11 @@
         $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
       });
 
-
+      updateCollection( showStreams );
 
       var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
       searchSidebarView.render();
       searchSidebarView.renderFilterInput();
-
-      updateCollection( showStreams );
 
       $.fn.bootstrapSwitch.defaults.size = 'small';
 
@@ -1409,23 +1423,23 @@
     function placeJqGrid(collection) {
       $dcGrid.jqGrid({
         onCellSelect: function(row, col, content, event){
-        var selectedRow = $dcGrid.getRowData(row);
-        var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
-        $evt = $(event.target);
+          var selectedRow = $dcGrid.getRowData(row);
+          var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
+          $evt = $(event.target);
 
-        if ($evt.find('i').hasClass('fa-plus-square')){
-          if (!_.isUndefined(modelList) && modelList.length > 0){
-            //trigger for a new plot item
-            ooi.trigger('add_catalog_model',{model:modelList[0], evt:$evt});
+          if ($evt.find('i').hasClass('fa-plus-square')){
+            if (!_.isUndefined(modelList) && modelList.length > 0){
+              //trigger for a new plot item
+              ooi.trigger('add_catalog_model',{model:modelList[0], evt:$evt});
+            }
+          }else{
+            if (!_.isUndefined(modelList) && modelList.length > 0){
+              //trigger a remove for a model
+              ooi.trigger('remove_catalog_model',{model:modelList[0]});
+            }
+            $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
           }
-        }else{
-          if (!_.isUndefined(modelList) && modelList.length > 0){
-            //trigger a remove for a model
-            ooi.trigger('remove_catalog_model',{model:modelList[0]});
-          }
-          $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
-        }
-      },
+        },
         datatype : "local",
         data : collection.toJSON(),
         colNames: [
@@ -1634,8 +1648,9 @@
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
           highlightFilteredData.call(this);
-          if(location.search != "" && location.search != "?" && location.search != null){
-            var searchText = location.search.split('search=')[1].replace(/%20/g, ' ');
+          console.log(location.search);
+          if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
+            var searchText = location.search.split('?search=')[1].replace(/%20/g, ' ');
             navSearchParse(searchText);
           }
         },
@@ -1685,7 +1700,8 @@
           multipleGroup : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
-            $form.jqFilter('addFilter', defaultFilters);
+{#            $form.jqFilter('addFilter', defaultFilters);#}
+            combineFilters();
           },
           {#          afterRedraw: function (p) {#}
           {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}

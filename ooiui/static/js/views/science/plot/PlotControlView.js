@@ -30,7 +30,8 @@ var PlotControlView = Backbone.View.extend({
     this.emptyRender();
   },
   emptyRender:function(){
-    this.$el.html('<h5>Please Select an instrument</h5>');
+    //this.$el.html('<p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button.</p>');
+    //this.$el.find('.plot-control-view .row').append('<p class="initial-text"> Click the Plot tab above to configure and visualize your plot.</p>')
   },
   addXYInputRow:function(){
     var hiddenRow = this.subviews[0].$el.find('tr[style="display: none;"]');
@@ -53,7 +54,8 @@ var PlotControlView = Backbone.View.extend({
 
     if (this.collection.length == 0){
       this.$el.html(this.template({plotModel:null}));
-      self.$el.find('.plot-control-view .row').append('<h5>Please Select an instrument</h5>');
+      //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button to begin plotting.</p>');
+      //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Click the Plot tab above to configure and visualize your plot.</p>')
     }else{
       this.$el.html(this.template({plotModel:self.plotModel,
                                    isInterpolated: isInterpolated,

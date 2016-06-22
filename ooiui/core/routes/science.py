@@ -87,12 +87,12 @@ def plot_page(path):
 @app.route('/data_access', methods=['GET'])
 @app.route('/data_access/', methods=['GET'])
 def show_data_access_no_path():
-    return data_access(None)
-
-
-@app.route('/data_access/<path:path>', methods=['GET'])
-def data_access(path):
     return render_template('science/data_access.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+# @app.route('/data_access/<path:path>', methods=['GET'])
+# def data_access(path):
+#     return render_template('science/data_access.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/getdata/')

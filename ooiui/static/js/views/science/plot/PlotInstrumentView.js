@@ -38,7 +38,8 @@ var PlotInstrumentView = Backbone.View.extend({
 
   },
   emptyRender:function(){
-    this.$el.html('<h5>Please Select an instrument</h5>');
+    //this.$el.html('<p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button.</p>');
+    //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Click the Plot tab above to configure and visualize your plot.</p>')
   }
 });
 
