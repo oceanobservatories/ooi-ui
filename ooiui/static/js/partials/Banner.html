@@ -3,13 +3,13 @@
   </div>
   <div class="row">
     <ul id="fadein-left">
-    
+
       <li class="left">
         <a href="/">
           <img src="/img/logos-banners/OOI_Logo.svg" style="width:150px;">
         </a>
       </li>
-    
+
       <li class="center banner-title">
 				<lg><%= bannerTitle %></lg>
       </li>
@@ -19,12 +19,12 @@
           <img src="/img/logos-banners/ocean-leadership.png">
         </a>
       </li>
-    
+
       <li class="rightright">
         <a href="http://www.nsf.gov/">
           <img src="/img/logos-banners/nsf.png">
 				</a>
-        <a style="z-index: 100; position: absolute; top: 0px; right: 5px; font-size: 10px;" class="terms-link">Terms and Conditions
+        <a style="" id="termsAndConditionsLink" class="terms-link <%= isNewsActive ? 'news-active' : '' %> ">Terms and Conditions
         </a>
           <script>
           $(".terms-link").on("click",function(event){
