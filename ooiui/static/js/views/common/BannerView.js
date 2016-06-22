@@ -41,7 +41,7 @@ var BannerView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.templates.banner());
+    this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
     if (this.checkStreaming()){
       this.$el.find('#news-banner').append(this.templates.newsBanner());
     }
@@ -59,7 +59,7 @@ var BannerView = Backbone.View.extend({
         streaming = true;
       }
     }
-    return streaming
+    return streaming;
   }
 });
 
