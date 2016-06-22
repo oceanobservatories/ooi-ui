@@ -81,7 +81,7 @@ div#wrapper{
 }
 
 #plottingBody .plot-tab-panel{
-  min-height:220px;
+  min-height:50px;
 }
 
 #plottingBody .panel-footer .pull-center{
