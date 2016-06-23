@@ -46,13 +46,13 @@
 <div id="wrapper" class="home-page" style="padding-left: 0px">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-7" id="left">
+            <div class="col-xs-7 col-sm-7 col-md-7" id="left">
                 <div class="text-left" style="padding-left: 15px">
                     <h3><b>Research Arrays</b><small>  Select an array on the map or choose from the list.</small></h3>
                 </div>
                 <div class="array-content"></div>
             </div>
-            <div class="col-md-5 visible-lg visible-md" id="right">
+            <div class="col-xs-5 col-sm-5 col-md-5" id="right">
                 <div id="map"></div>
                 {# <pre id="info"></pre> #}
             </div>
@@ -68,6 +68,7 @@ var ooi = new OOI();
 var vent = _.extend({}, Backbone.Events);
 
 $(document).ready(function() {
+    var self = this;
     var arrayCollection = new ArrayCollection(),
         platformCollection = new PlatformCollection();
 
@@ -87,23 +88,25 @@ $(document).ready(function() {
 
             var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, platformCollection}});
             arrayContent.render();
+
         });
     });
 
-
     // Takes care of the strange size of the map
     window.onresize = function(event) {
-        resizeMap();
+        resizeMap(arrayCollection);
     };
 
-    var resizeMap = (function() {
+    var resizeMap = (function(arrayCollection) {
         vpw = $(window).width() - 200;
         //vph = $('#sidebar-wrapper').height() - 100;
         vph = $(window).height() - 150;
         $('#map').css({'height': vph + 'px'});
         $('.array-content').css({'height': vph + 'px'});
+        //select the size of the objects based on the array length, adjust for border
+        $('.js-expand').css('height',Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
     });
-    resizeMap();
+    resizeMap(arrayCollection);
 
     ooi.start();
 });

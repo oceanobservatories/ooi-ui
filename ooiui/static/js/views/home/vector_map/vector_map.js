@@ -23,7 +23,7 @@ var VectorMap = Backbone.View.extend({
                 container: this.id,
                 style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
                 center: [-90, 5],
-                maxBounds: [[-179,-64],[5,78]],
+                maxBounds: [[-179,-70],[5,78]],
                 interactive: true
             });
 
