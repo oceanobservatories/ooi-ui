@@ -1095,10 +1095,6 @@
 
     $(document).ready(function() {
       //input
-      if (!_.isNull($.urlParam('reference_designator')) && !_.isNull($.urlParam('stream_name'))){
-        data['search'] = $.urlParam('reference_designator') + " " + $.urlParam('stream_name');
-      }
-
       if(location.hash != ""){
         _.extend(vobj, {hash: location.hash.split('#')[1]});
       }else{
@@ -1134,50 +1130,44 @@
       $("#StatusStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
 
-
-
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
         if (theStateEng) {
           engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
-          combineFilters();
         } else {
           engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
-          combineFilters();
         }
+        combineFilters();
       });
 
       $('#MetadataStreamSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateMeta = $("#MetadataStreamSwitch").bootstrapSwitch('state');
         if (theStateMeta) {
           metadataStreamFilter = {field: "stream_name", op: "cn", data: ""};
-          combineFilters();
         } else {
           metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
-          combineFilters();
         }
+        combineFilters
       });
 
       $('#StatusStreamSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateStatus = $("#StatusStreamSwitch").bootstrapSwitch('state');
         if (theStateStatus) {
           statusStreamFilter = {field: "stream_name", op: "cn", data: ""};
-          combineFilters();
         } else {
           statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
-          combineFilters();
         }
+        combineFilters();
       });
 
       $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
         if (theStateMobile) {
           mobileAssetFilter = {field: "platform_name", op: "cn", data: "Mobile Asset"};
-          combineFilters();
         } else {
           mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
-          combineFilters();
         }
+        combineFilters();
       });
 
       ooi.start();
@@ -1648,6 +1638,7 @@
         loadComplete : function(data) {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
           highlightFilteredData.call(this);
+          showCurrentFilters();
           console.log(location.search);
           if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
             var searchText = location.search.split('?search=')[1].replace(/%20/g, ' ');
@@ -1700,22 +1691,8 @@
           multipleGroup : true,
           overlay: 0,
           onInitializeSearch: function ($form) {
-{#            $form.jqFilter('addFilter', defaultFilters);#}
             combineFilters();
-          },
-          {#          afterRedraw: function (p) {#}
-          {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
-          {#              p.columns.push({#}
-          {#                name: 'All',#}
-          {#                label: 'Any Field',#}
-          {#                searchoptions: {},#}
-          {#                searchrules: {},#}
-          {#                searchtype: 'string',#}
-          {#                inputtype: 'text'#}
-          {#              });#}
-          {#            }#}
-          {#            //$(this).find('.delete-rule:first').hide();#}
-          {#          }#}
+          }
         });
 
 
@@ -1854,6 +1831,7 @@
       if (collection.length == 1){
         ooi.trigger('add_catalog_model',{model: collection.models[0]});
       }
+      combineFilters();
     }
 
 
