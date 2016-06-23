@@ -1,55 +1,62 @@
 <%
-        var params = {
-            "General":[
-                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDWaterTempGen', 'Water Temperature'],
-                ['PRESFA PRESFB PRESFC PRESTA PRESTB CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDPress', 'Pressure'],
-                ['PHSENA PHSENB PHSEND PHSENE PHSENF PHpH', 'pH'],
-                ['NUTNRB NUTNRA NUTNRM NUTNRNitrate', 'Nitrate'],
-                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDDensity', 'Density'],
-                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDSalinGen', 'Salinity'],
-                ['OPTAAC OPTAAD OPTAAJ FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTChloro', 'Chlorophyll'],
-                ['OPTAAC OPTAAD OPTAAJ OPTAATurbid', 'Turbidity']
-            ],
-            "Air Sea Interface":[
-                ['FDCHPA METBKA FDCMETAirTemp', 'Air Temperature'],
-                ['FDCHPA METBKA FDCMETHumid', 'Humidity'],
-                ['FDCHPA METBKA FDCMETWindVelo', 'Wind Velocity'],
-                ['METBKA METBKAPrecip', 'Precipitation'],
-                ['PC02AA PC02Atmo', 'Atmospheric CO2'],
+        var params = [
                 ['PC02AA PC02Air-Sea', 'Air-Sea CO2 Flux'],
-                ['PC02WA PC02WB PC02WC PC02AA PC02Sea', 'Seawater CO2'],
+
                 ['FDCHPA METBKA FDCMETAir-SeaHeat', 'Air-Sea Heat Flux'],
-                ['METBKA METBKADownIrrad', 'Downwelling Irradiance'],
+
+                ['FDCHPA METBKA FDCMETAirTemp', 'Air Temperature'],
+
+                ['PC02AA PC02Atmo', 'Atmospheric CO2'],
+
                 ['METBKA METBKAAtmoPress', 'Atmospheric Pressure'],
-                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL METBKA CTDWaterTempAir-Sea', 'Water Temperature'],
-                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL METBKA CTDSalinAir-Sea', 'Salinity'],
-                ['METBKA METBKAHumid', 'Humidity'],
-                ['WAVSSA WAVSSAWave', 'Wave Properties']
-            ],
-            "Water Column": [
-                ['SPKIRA SPKIRB SPKIRJ SPIKRSpectral', 'Spectral Irradiance'],
-                ['PARADA PARADJ PARADK PARADM PARADPAR', 'PAR'],
-                ['VADCPA VEL3DB VEL3DC VEL3DD VEL3DK VEL3DL VELPTA VELPTB VELPTD VELPTJ ADCPAM ADCPSI ADCPSJ ADCPSK ADCPSL ADCPSN ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCWaterVelo', 'Water Velocity'],
-                ['ZPLSCB ZPLSCC ZPLSCBioacoustic', 'Bioacoustic Sonar'],
-                ['ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCPWaveProps', 'Wave Properties'],
-                ['FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTTurbid', 'Turbidity']
-            ],
-            "Seafloor": [
-                ['HYDBBA HYDLFA HYDHydroFloor', 'Hydrophone'],
-                ['MASSPA THSPHA TRHPHA TMPSFA TMPHydroThermal', 'Hydrothermal Vent Chemistry'],
-                ['HPIESA HPIESWaterVelo', 'Water Velocity'],
-                ['TMPSFA HPIESA TMPPIEWaterTemp', 'Water Temperature'],
-                ['OBSBBA OBSSPA OBSSeismic', 'Seismic Activity'],
-                ['BOTPTA PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA PRESSeaFloorPress', 'Seafloor Pressure']
-            ],
-            "Large Format Data":[
-                ['HYDBBA HYDLFA HYDHydrophoneLarge', 'Hydrophone'],
-                ['CAMDSC CAMDSB CAMLarge', 'Still Images'],
+
+                ['ZPLSCB ZPLSCC ZPLB', 'Bioacoustic Sonar'],
+
+                ['OPTAAC OPTAAD OPTAAJ FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTChloro', 'Chlorophyll'],
+
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDDensity', 'Density'],
+
+                ['METBKA METBKADownIrrad', 'Downwelling Irradiance'],
+
                 ['CAMHDA HDLarge', 'HD Video'],
-                ['ZPLSCB ZPLSCC ZPLBioacousticLarge', 'Bioacoustic Sonar'],
-                ['OBSBBA OBSSPA OBSSeismicLarge', 'Seismic Activity']
-            ]
-        }
+
+                ['FDCHPA METBKA METBKAHumid FDCMETHumid', 'Humidity'],
+
+                ['HYDBBA HYDLFA HYDHydroFloor HYDHydrophoneLarge', 'Hydrophone'],
+
+                ['MASSPA THSPHA TRHPHA TMPSFA TMPHydroThermal', 'Hydrothermal Vent Chemistry'],
+
+                ['NUTNRB NUTNRA NUTNRM NUTNRNitrate', 'Nitrate'],
+
+                ['PARADA PARADJ PARADK PARADM PARADPAR', 'PAR'],
+
+                ['PHSENA PHSENB PHSEND PHSENE PHSENF PHpH', 'pH'],
+
+                ['METBKA METBKAPrecip', 'Precipitation'],
+
+                ['PRESFA PRESFB PRESFC PRESTA PRESTB CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDPress', 'Pressure'],
+
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDSalinGen METBKA CTDSalinAir-Sea', 'Salinity'],
+
+                ['BOTPTA PRESFA PRESFB PRESFC PRESTA PRESTB HPIESA PRESSeaFloorPress', 'Seafloor Pressure'],
+
+                ['PC02WA PC02WB PC02WC PC02AA PC02Sea', 'Seawater CO2'],
+
+                ['OBSBBA OBSSPA OBSSeismicLarg OBSSeismice', 'Seismic Activity'],
+
+                ['SPKIRA SPKIRB SPKIRJ SPIKRSpectral', 'Spectral Irradiance'],
+
+                ['CAMDSC CAMDSB CAMLarge', 'Still Images'],
+
+                ['OPTAAC OPTAAD OPTAAJ OPTAATurbid FLNTUA FLCDRA FLORDD FLORDL FLORDM FLORTD FLORTJ FLORTK FLORTM FLORTTurbid', 'Turbidity'],
+                ['CTDAVN CTDBPC CTDBPD CTDBPE CTDBPF CTDBPN CTDBPO CTDBPP CTDGVM CTDMOG CTDMOH CTDMOQ CTDMOR CTDPFA CTDPFB CTDPFJ CTDPFK CTDPFL CTDWaterTempGen TMPSFA HPIESA TMPPIEWaterTemp METBKA CTDWaterTempAir-Sea', 'Water Temperature'],
+
+                ['HPIESA HPIESWaterVelo VADCPA VEL3DB VEL3DC VEL3DD VEL3DK VEL3DL VELPTA VELPTB VELPTD VELPTJ ADCPAM ADCPSI ADCPSJ ADCPSK ADCPSL ADCPSN ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCWaterVelo', 'Water Velocity'],
+
+                ['WAVSSA WAVSSAWave ADCPTA ADCPTB ADCPTD ADCPTE ADCPTF ADCPTG ADCPTM ADCPWaveProps', 'Wave Properties'],
+
+                ['FDCHPA METBKA FDCMETWindVelo', 'Wind Velocity'],
+        ]
 
 %>
 
@@ -59,13 +66,11 @@
     <div class="panel-wrapper">
         <div id="param-filters" class="panel-body collapse in">
             <div class="param-filters">
-                <% _.each(Object.keys(params), function(key) { %>
-                    <% _.each(params[key], function(item){ %>
+                <% _.each(params, function(item) { %>
 
                     <div class="checkbox">
                         <label><input type="checkbox" value="<%= item[0] %>"><%= item[1] %></label>
                     </div>
-                    <%;}); %>
                 <%;}); %>
             </div>
         </div>
