@@ -1147,7 +1147,7 @@
         } else {
           metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
         }
-        combineFilters
+        combineFilters();
       });
 
       $('#StatusStreamSwitch').on('switchChange.bootstrapSwitch', function () {
