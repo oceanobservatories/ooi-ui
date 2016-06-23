@@ -339,8 +339,17 @@
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
-      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
-      actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      if (ooi.models.userModel.length > 0) {
+        actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      } else {
+        actionButtons += "<button type='button' title='Download - Log in to access' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      }
+
+      if (ooi.models.userModel.length > 0 && ooi.models.userModel.attributes.scopes.contains('asset_manager')) {
+        actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      } else {
+        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      }
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -600,7 +609,7 @@ function updateDownloadPagination( details ){
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
       filterToolbarFilter = {groupOp:"AND",rules:[]};
       globalFilter = null;
-      location.search = testURL.substring(0, testURL.indexOf('?'));
+      location.href = location.href.substring(0, location.href.indexOf('?'));
       location.hash = "";
       var newOptions = {};
       newOptions.min = new Date('2013', '00', '01');

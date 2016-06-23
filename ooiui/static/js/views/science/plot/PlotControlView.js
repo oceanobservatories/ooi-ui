@@ -175,6 +175,16 @@ var PlotControlView = Backbone.View.extend({
       }else{
         $('#addMorePlotRows').css('display','none');
       }
+
+      self.setAdditionalParameterVisibility();
+    }
+  },
+  setAdditionalParameterVisibility:function(){
+    //if the additional parameters are hidden, hide the rows
+    if ($('input#showAdditionalParameters[type="checkbox"]').is(":checked")){
+      $('#plot-controls .parameter-select .dropdown-menu.open .additional-param').css('display','block');
+    }else{
+      $('#plot-controls .parameter-select .dropdown-menu.open   .additional-param').css('display','none');
     }
   },
   cb: function(start, end){
@@ -320,14 +330,12 @@ var PlotInstrumentControlItem = Backbone.View.extend({
 
     this.$el.html(this.template({ model:this.model, plotTypeModel: selectedPlotType, isInterpolated: self.isInterpolated }));
 
-
     self.$el.find('.table-content').empty();
     //gets the selected plot type configuration
     //adds condition for interpolated plot
     var rowCount = !self.isInterpolated ? selectedPlotType.get('num_inputs') : self.plotModel.get('interpolatedPlotCount');
     //make sure the number of inputs matches the number of rows
     var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
-
 
     for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
@@ -409,15 +417,26 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     }
 
     //complex if statement for parameters...
-    if ((self.model.get("variables_shape")[i] == "scalar" ||
-         self.model.get("variables_shape")[i] == "function") &&
+    if (
+        (self.model.get("variables_shape")[i] == "scalar" || self.model.get("variables_shape")[i] == "function") &&
         self.model.get("units")[i] != "bytes" &&
         self.model.get("units")[i] != "counts" &&
         self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
         self.model.get("units")[i].toLowerCase() != "s" &&
-        self.model.get("units")[i].toLowerCase() != "1" &&
         self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
+      {
+      isValid = true;
+      }
+    return isValid;
+  },
+
+  isEngineeringValid: function(i){
+    var self = this;
+    var isValid = false;
+    //complex if statement for ENG parameters...
+    if (self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get("variables")[i].indexOf("_timestamp") == -1)
       {
       isValid = true;
       }
@@ -430,22 +449,34 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     self.collection = new ParameterCollection();
 
     var count = 0
+    //get the basic set of parameters, and see if
     _.each(this.model.get('parameter_id'),function(v,i){
-      if (self.isParameterValid(i)){
-        //derived parameters
-        self.collection.add(new ParameterModel({name:self.model.get('parameter_display_name')[i],
+
+      var paramModel = new ParameterModel({name:self.model.get('parameter_display_name')[i],
                                                 units:self.model.get('units')[i],
                                                 short_name:self.model.get('variables')[i],
                                                 type:self.model.get('variable_type')[i],
                                                 is_selected: false,
+                                                param_class: "",
                                                 is_derived: self.isParameterDerived(i),
                                                 is_x: false,
                                                 is_y: false,
                                                 is_z: false,
                                                 original_model: self.model,
                                                 index_used: i
-                                           }));
+                                           })
+
+
+
+      if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+        //derived parameters
+        self.collection.add(paramModel);
+      }else if (self.isEngineeringValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+        //other parameters
+        paramModel.set({param_class:"additional-param"});
+        self.collection.add(paramModel);
       }else{
+        //number of parameters not added
         count+=1;
       }
     });

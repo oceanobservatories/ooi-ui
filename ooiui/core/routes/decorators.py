@@ -1,6 +1,6 @@
 from ooiui.core.app import app
 from functools import wraps
-from flask import request
+from flask import request, render_template
 import requests
 import urllib
 
@@ -10,7 +10,7 @@ def scope_required(scope):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if not get_scope(scope):
-                return "403 Forbidden: Scope %s required" % scope
+                return render_template('common/help_access.html', tracking=app.config['GOOGLE_ANALYTICS'])
             return f(*args, **kwargs)
         return decorated_function
     return decorator
@@ -21,7 +21,7 @@ def login_required():
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if get_login() is None:
-                return "401 Error: User not logged in."
+                return render_template('common/help_login.html', tracking=app.config['GOOGLE_ANALYTICS'])
             return f(*args, **kwargs)
         return decorated_function
     return decorator

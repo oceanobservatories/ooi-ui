@@ -5,7 +5,7 @@ var ParentView = Backbone.View.extend({
      *  - render()
      *  - derender()
      */
-    initialize: function() {
+    initialize: function(options) {
         _.bindAll(this, 'render', 'derender');
     },
     render: function() {
@@ -51,6 +51,8 @@ var ArrayContentSummary = ParentView.extend({
         // prepend the arrays to the page.
         setTimeout(function() {
             arrayContentContext.$el.prepend(arrayContentSummaryItem);
+            $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
+                2 * arrayContentContext.collection.arrayCollection.length + 'px'});
         }, 300);
     }
 });
@@ -141,12 +143,13 @@ var ArrayContentSummaryItem = ParentView.extend({
     // because of this, the ArrayContentSummary Item is tightly coupled to the VectorMap
     _toggleActive: function(event) {
         var el = $('#'+this.model.attributes.array_code);
-
-        if ($('.js-array').hasClass('active')) {
-            $('.js-array').removeClass('active');
-        }
+        //toggle current one class
         el.toggleClass('active');
 
+        //remove any existing actives
+        if ($( ".js-array" ).not(el).hasClass('active')) {
+            $( ".js-array" ).not(el).removeClass('active');
+        }
     },
     _toggleOthers: function(event) {
         var el = $('#'+this.model.attributes.array_code),
@@ -169,7 +172,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         map.setLayoutProperty('rsArray', 'visibility', 'visible');
         map.setLayoutProperty('ceArray', 'visibility', 'visible');
         map._setArrayView();
-        $('.js-array').removeClass('active');
+        //$('.js-array').removeClass('active');
         popup.remove();
 
         // when resetting the page, change the title back to 'Home'

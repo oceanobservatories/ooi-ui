@@ -3,7 +3,7 @@
   <div class="parameter-select">
     <select class="selectpicker show-tick" data-selected-text-format="count" data-width="100%" multiple title="Select a parameter" data-max-options="<%=parameterCount%>">
       <% options.each(function(option) { %>
-        <option data-id="<%=option.get('short_name')%>" data-subtext="<%= option.get('units')%> "><%=option.get('name')%></option>
+        <option class="<%=option.get('param_class')%>" data-id="<%=option.get('short_name')%>" data-subtext="<%= option.get('units')%> "><%=option.get('name')%></option>
       <% }); %>
     </select>
   </div>
