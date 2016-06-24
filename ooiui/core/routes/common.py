@@ -7,7 +7,8 @@ import json
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
-import json
+import json, smtplib, string
+from itsdangerous import TimestampSigner, URLSafeSerializer
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -17,6 +18,7 @@ def generate_csrf_token():
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 
+# TODO: Remove this route
 @app.route('/get_config', methods=['GET'])
 def read_config():
     basedir = 'ooiui/config'
@@ -42,7 +44,13 @@ def user_signup():
 @app.route('/user/edit/<int:id>')
 @login_required()
 def user_edit(id):
-    return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/current_user', auth=(token, ''))
+    user = json.loads(response.text)
+    if (user['id'] == id) or ('user_admin' in user['scopes']):
+        return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    else:
+        return render_template('common/help.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/users/')
 @login_required()
@@ -56,6 +64,48 @@ def create_ticket():
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/password-reset/<string:token>', methods=['GET'])
+def password_reset(token):
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+
+    if token is not None:
+        try:
+            unstamped = stamper.unsign(token, max_age=30000)
+            return render_template('common/passwordReset.html', reset_email=signer.loads(unstamped), reset_token=token)
+        except Exception, ex:
+            return jsonify(error="Password reset link invalid, send another reset email."), 401
+    else:
+        return jsonify(error="")
+
+
+@app.route('/password-reset-request', methods=['POST'])
+def password_reset_request():
+    the_data = request.data
+    email = json.loads(the_data)['email']
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signature_token = signer.dumps(email)
+    token = stamper.sign(signature_token)
+    try:
+        reset_url = app.config["SERVER_DNS"] + "/password-reset/" + token
+        body=string.join(("From: " + app.config["SMTP_SENDER"],
+                          "Subject: OOI Password Reset Request",
+                         "You recently requested a password reset. Click the link below to proceed.",
+                         " ",
+                         " ",
+                         "Please visit %s to reset your password." % reset_url),"\r\n")
+        send_ses(app.config['SMTP_SENDER'],
+             'OOI Password Reset Request',
+             body,
+             email)
+        # send_reset_password_email(email, token)
+        # return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
+        return jsonify(error="Sending password succeeded."), 201
+    except Exception as ex:
+        return jsonify(error="Sending password reset email failed."), 401
+
 
 @app.route('/help')
 def help_page():
@@ -126,7 +176,7 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
@@ -452,6 +502,7 @@ def get_alfresco_documents():
 @app.route('/CGSNConfig')
 def CGSNConfig():
     return render_template('common/CGSNConfig.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 @app.route('/config_file', methods=['GET'])
 def get_config():
     with open('ooiui/static/txt/config_file.txt', 'r') as f:
@@ -536,8 +587,52 @@ def cache_keys(key=None):
         return response.text, response.status_code
 
 
-# Exposes the RESET_LOGIN_URL config.yml parameter
-@app.route('/api/resetlogin', methods=['GET'])
-def get_reset_login_url():
-    reset_login_url = app.config['RESET_LOGIN_URL']
-    return redirect(reset_login_url)
+@app.route('/api/user/xpassword', methods=['POST'])
+def user_pw_reset():
+    token = get_login()
+    the_data = request.data
+    response = requests.put(app.config['SERVICES_URL']+'/user/xpassword',
+                            auth=(token, ''), data=the_data, headers=headers())
+    return response.text, response.status_code
+
+
+def _post_headers():
+    """ urlencoded values for uframe POST.
+    """
+    return {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def headers():
+    """ Headers for uframe PUT and POST. """
+    return {"Content-Type": "application/json"}
+
+# SMTP email sender
+def send_ses(fromaddr, subject, body, recipient):
+
+    fromaddr = fromaddr
+    toaddrs  = recipient
+
+    #Change according to your settings
+    smtp_server = app.config['SMTP_SERVER']
+    smtp_username = app.config['SMTP_USERNAME']
+    smtp_password = app.config['SMTP_PASSWORD']
+    smtp_port = app.config['SMTP_PORT']
+    smtp_do_tls = app.config['SMTP_DO_TLS']
+    smtp_auth = app.config['SMTP_AUTH']
+
+    try:
+        server = smtplib.SMTP(
+            host=smtp_server,
+            port=smtp_port,
+            timeout=10
+        )
+        server.set_debuglevel(10)
+        if smtp_do_tls:
+            server.starttls()
+        server.ehlo()
+        if smtp_auth:
+            server.login(smtp_username, smtp_password)
+        server.sendmail(fromaddr, toaddrs, body)
+        return server.quit()
+    except Exception as ex:
+        return ex.message

@@ -79,6 +79,7 @@ OOI.prototype.onLogout = (function() {
 
 
 // TOC Functions
+// TODO REMOVE
 var renderTOCView = (function(container, contents, streams) {
     var tocControlModel,
         tocControlView,

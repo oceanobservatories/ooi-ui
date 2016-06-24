@@ -151,7 +151,7 @@ var AssetMapView = Backbone.View.extend({
           // Data Catalog
           popupContent+='<a href="/streams/#'+  station_model.get('reference_designator') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
           // Asset Managment
-          popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+          popupContent+='<a href="/assets/management#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
 
 
           popupContent += "<div style=''>"

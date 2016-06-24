@@ -1,0 +1,77 @@
+.ui-jqgrid-btable .ui-state-highlight { background: lightskyblue; color: #000000; font-weight: bold;}
+
+.ui-jqgrid-title { font-size: 14px; font-weight: bold; text-align: center;}
+
+.ui-jqgrid .ui-jqgrid-caption { text-align: center; }
+
+.ui-jqgrid .ui-jqgrid-titlebar { height: 30px;}
+
+div#wrapper {
+    margin-top: 0;
+}
+
+#mobileAssetFilterBtn {
+    background-color: transparent;
+}
+
+#mobileAssetFilterBtn.down {
+    color: #3f7506;
+    border-top: solid 1px #3f7506;
+    border-left: solid 1px #3f7506;
+    border-bottom:solid 1px #3f7506;
+    border-right: solid 1px #3f7506;
+}
+
+#engInstrumentFilterBtn {
+    background-color: transparent;
+}
+
+#engInstrumentFilterBtn.down {
+    color: #3f7506;
+    border-top: solid 1px #3f7506;
+    border-left: solid 1px #3f7506;
+    border-bottom:solid 1px #3f7506;
+    border-right: solid 1px #3f7506;
+}
+
+/* slider btn */
+.bootstrap-switch-off, .bootstrap-switch-on {
+  height: 27px;
+  color: #004773;
+  border-radius: 5px;
+  font-size: 14px;
+  border: solid #1f628d 1.5px;
+  text-decoration: none;
+  line-height: .9;
+  font-weight: 300;
+  width: 80px;
+}
+.bootstrap-switch-container {
+  width: 138;
+}
+
+span.bootstrap-switch-label {
+  padding: 3px 12px;
+  width: 38px;
+}
+
+span.bootstrap-switch-handle-on.bootstrap-switch-primary,
+span.bootstrap-switch-handle-off.bootstrap-switch-default {
+  padding: 3px 12px;
+  width: 38px;
+}
+span.bootstrap-switch-handle-on.bootstrap-switch-primary {
+  width: 42px;
+}
+
+.col-md-5 {
+    width: 600px;
+    float: right;
+    padding-right: 30px;
+}
+
+.col-md-2-toggles {
+    width: 150px;
+    float: left;
+    padding-right: 10px;
+}

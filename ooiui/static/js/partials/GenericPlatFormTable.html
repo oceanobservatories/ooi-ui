@@ -1,0 +1,9 @@
+<tr id= "<%= model.get("reference_designator") %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
+    <td><%= model.get("display_name") %><small class="refDesLabel" style="display:none"><br>(<%= model.get('reference_designator') %>)<small></td>
+    <td><%= model.get('depth') %></td>
+    <td><%= new Date(model.get("start")) %></td>
+    <td><%= new Date(model.get("end")) %></td>
+    <td class="text-center" ><a href="/plot#<%= model.get('reference_designator') %>"><i class="fa fa-bar-chart"></i></a></td>
+    <td class="text-center" ><a href="/datacatalog#<%= model.get('reference_designator') %>"><i class="fa fa-database"></i></a></td>
+    <td class="text-center" ><a href="/assets/management#<%= model.get('reference_designator') %>"><i class="fa fa-sitemap"></i></a></td>
+</tr>
