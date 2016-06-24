@@ -75,9 +75,7 @@ var GenericPlatForm = Backbone.View.extend({
 
                 // I don't really like doing this here...but lets refresh the collection
                 // to only what we need.
-                self.collection = new StreamCollection(filtered);
-                self.collection.fetch({data: {search: options.searchId }});
-
+                self.streamCollection = new StreamCollection(filtered);
                 self.render();
             }
         });
