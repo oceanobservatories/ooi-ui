@@ -1,5 +1,5 @@
-<tr id= "<%= model.get("reference_designator") %>"  >
-    <td><%= model.get("display_name") %></td>
+<tr id= "<%= model.get("reference_designator") %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
+    <td><%= model.get("display_name") %><small class="refDesLabel" style="display:none"><br>(<%= model.get('reference_designator') %>)<small></td>
     <td><%= model.get('depth') %></td>
     <td><%= new Date(model.get("start")) %></td>
     <td><%= new Date(model.get("end")) %></td>

@@ -33,7 +33,15 @@ var Row = Backbone.View.extend({
 var GenericPlatForm = Backbone.View.extend({
 
     events: {
-        'click .js-expand': '_expand'
+        'click .js-expand': '_expand',
+        'click .js-toggle-eng': '_toggleEngInstruments',
+        'click .js-toggle-ref-des': '_toggleRefDesLabel'
+    },
+    _toggleEngInstruments: function(event) {
+        $('[data-eng="true"]').toggle();
+    },
+    _toggleRefDesLabel: function(event) {
+        $('.refDesLabel').toggle();
     },
     _expand: function(event) {
         var target = $(event.target).data('target');
