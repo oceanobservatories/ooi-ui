@@ -54,6 +54,7 @@ var VectorMap = Backbone.View.extend({
         'use strict';
         // When we're in the array view, we don't want to show all the platforms
         map.setLayoutProperty('moorings', 'visibility', 'none');
+        map.setLayoutProperty('rsMoorings', 'visibility', 'none');
         map.setLayoutProperty('gliders', 'visibility', 'none');
         map.setLayoutProperty('arrays', 'visibility', 'visible');
         map.setLayoutProperty('rsArray', 'visibility', 'visible');
@@ -125,6 +126,11 @@ var VectorMap = Backbone.View.extend({
                         mooringData.push(geoJSON);
                     });
 
+                    var rsMooringData = [];
+                    _.each(renderContext.collection.platformCollection.byArray('RS').toGeoJSON(), function(geoJSON) {
+                        rsMooringData.push(geoJSON);
+                    });
+
                     // Likewise we'll get the gliders out of the platform collection.
                     var gliderData = [];
                     _.each(renderContext.collection.platformCollection.byGliders().toGeoJSON(), function(geoJSON) {
@@ -161,6 +167,12 @@ var VectorMap = Backbone.View.extend({
                         'data': {
                             'type': 'FeatureCollection',
                             'features': gliderData
+                        }
+                    }).addSource('rsMoorings', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': rsMooringData
                         }
                     });
 
@@ -224,6 +236,18 @@ var VectorMap = Backbone.View.extend({
                     }).addLayer({
                         'id': 'moorings',
                         'source': 'moorings',
+                        'type': 'circle',
+                        'paint': {
+                            'circle-radius': 7,
+                            'circle-color': 'yellow',
+                            'circle-opacity': 0.5
+                        },
+                        'layout': {
+                            'visibility': 'none'
+                        }
+                    }).addLayer({
+                        'id': 'rsMoorings',
+                        'source': 'rsMoorings',
                         'type': 'circle',
                         'paint': {
                             'circle-radius': 7,
