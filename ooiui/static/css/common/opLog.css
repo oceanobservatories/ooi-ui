@@ -1,3 +1,7 @@
+body #wrapper .news-active{
+  margin-top: 155px;
+}
+
 /*----- Accordion -----*/
 .accordion, .accordion * {
     -webkit-box-sizing:border-box;

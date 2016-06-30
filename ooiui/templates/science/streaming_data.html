@@ -112,6 +112,11 @@ _.extend(OOI.prototype, Backbone.Events, {
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
 
+        if (this.views.banner.checkStreaming()){
+            $('#wrapper').addClass('news-active');
+            $('.container-fluid.banner-image').addClass('news-active');
+        }
+
         self.views.streamingDataView = new HighchartsStreamingContainerView({
           el: $('#streaming-data')
         });

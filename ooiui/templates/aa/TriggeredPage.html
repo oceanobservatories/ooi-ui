@@ -108,6 +108,12 @@
 
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
+
+        if (this.views.banner.checkStreaming()){
+          $('#wrapper').addClass('news-active');
+          $('.container-fluid.banner-image').addClass('news-active');
+        }
+
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });

@@ -58,7 +58,7 @@ var BannerView = Backbone.View.extend({
         streaming = true;
       }
     }
-    return false;
+    return streaming;
   }
 });
 
