@@ -28,7 +28,7 @@ var NavbarView = Backbone.View.extend({
   },
   navSearch: function(val) {
     var searchTerms = val;
-    var win = window.open(location.protocol + "//" + location.host + "/datacatalog/?search=" + searchTerms, '_blank');
+    var win = window.open(location.protocol + "//" + location.host + "/data_access/?search=" + searchTerms, '_blank');
   },
   initialize: function(options) {
     _.bindAll(this, "render", "sidebarToggle", "navSearch");

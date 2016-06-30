@@ -16,7 +16,7 @@ var PlotInstrumentView = Backbone.View.extend({
   },
   initialRender: function() {
     //this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
-    this.emptyRender();
+    //this.emptyRender();
   },
   template: JST['ooiui/static/js/partials/science/plot/PlotInstruments.html'],
   render:function(){
@@ -38,8 +38,11 @@ var PlotInstrumentView = Backbone.View.extend({
 
   },
   emptyRender:function(){
-    //this.$el.html('<p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button.</p>');
-    //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Click the Plot tab above to configure and visualize your plot.</p>')
+    $('#instruments-table').find('table').remove();
+    $('#instruments-table').find('div').remove();
+    $('#instruments-table').append('<p class="initial-text"> How to plot data:</p>');
+    $('#instruments-table').append('<p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button.</p>');
+    $('#instruments-table').append('<p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>');
   }
 });
 
@@ -65,7 +68,7 @@ var PlotInstrumentViewItem = Backbone.View.extend({
       ooi.trigger('remove_catalog_model',{model:modelList[0]});
       var rowId = $(evt.target).data('ref_des')+$(evt.target).data('stream_name');
       var currentRowData = $dcGrid.getRowData(rowId);
-      currentRowData.actions = currentRowData.actions.replace('fa fa-minus-square','fa-plus-square')
+      currentRowData.actions = currentRowData.actions.replace('fa fa-minus-square','fa-plus-square');
       $dcGrid.setRowData(rowId,currentRowData);
     }
   }

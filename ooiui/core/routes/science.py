@@ -58,9 +58,9 @@ def event_new(new, aid, aclass):
 def streams_page():
     return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/datacatalog/')
-def data_catalog_page():
-    return render_template('science/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/datacatalog/')
+# def data_catalog_page():
+#     return render_template('science/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
@@ -73,17 +73,20 @@ def acoustics_page():
     return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
+# @app.route('/plot', methods=['GET'])
+# @app.route('/plot/', methods=['GET'])
+# def show_plot_no_path():
+#     return plot_page(None)
+#
+#
+# @app.route('/plot/<path:path>', methods=['GET'])
+# def plot_page(path):
+#     return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/datacatalog/')
 @app.route('/plot', methods=['GET'])
 @app.route('/plot/', methods=['GET'])
-def show_plot_no_path():
-    return plot_page(None)
-
-
-@app.route('/plot/<path:path>', methods=['GET'])
-def plot_page(path):
-    return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
-
 @app.route('/data_access', methods=['GET'])
 @app.route('/data_access/', methods=['GET'])
 def show_data_access_no_path():
