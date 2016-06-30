@@ -32,7 +32,6 @@ var BannerView = Backbone.View.extend({
   templates: {
     banner: JST['ooiui/static/js/partials/Banner.html'],
     newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
-
   },
 
   changeTitle: function(options) {

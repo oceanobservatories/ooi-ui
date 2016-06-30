@@ -81,7 +81,7 @@ var NavbarView = Backbone.View.extend({
         userModel.fetch({
             url: '/api/current_user',
             success: function() {
-               self.$el.find('#dropdownMenu1').toggle(); 
+               self.$el.find('#dropdownMenu1').toggle();
                self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
             },
             error: function() {
@@ -93,5 +93,9 @@ var NavbarView = Backbone.View.extend({
         //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
+
+    if (ooi.views.banner.checkStreaming()){
+      this.$el.find('.navbar.navbar-fixed-top').addClass('news-active');
+    }
   }
 });

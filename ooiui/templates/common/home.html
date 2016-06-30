@@ -99,12 +99,14 @@ $(document).ready(function() {
 
     var resizeMap = (function(arrayCollection) {
         vpw = $(window).width() - 200;
-        //vph = $('#sidebar-wrapper').height() - 100;
-        vph = $(window).height() - 150;
+        //50 pixels for the h3 heading
+        var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
+        vph = $('#wrapper').height() - sectionHeight;
         $('#map').css({'height': vph + 'px'});
-        $('.array-content').css({'height': vph + 'px'});
+        //$('.array-content').css({'height': vph + 'px'});
+        $('.array-content').css({'height': "100%"});
         //select the size of the objects based on the array length, adjust for border
-        $('.js-expand').css('height',Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
+        $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
     });
     resizeMap(arrayCollection);
 
@@ -112,8 +114,7 @@ $(document).ready(function() {
 });
 
 var bannerTitle = "Home";
-var banner = new BannerView({bannerTitle});
-$('body').prepend(banner.el);
+
 
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
@@ -147,9 +148,17 @@ _.extend(OOI.prototype, Backbone.Events,  {
         // Views
         //--------------------------------------------------------------------------------
 
+        this.views.banner = new BannerView({bannerTitle});
+        $('body').prepend(this.views.banner.el);
+
         this.views.navbar = new NavbarView({
             el: $('#navbar')
         });
+
+        if (this.views.banner.checkStreaming()){
+            $('#wrapper').addClass('news-active');
+            $('.container-fluid.banner-image').addClass('news-active');
+        }
     },
     renderVectorMap: function() {
 

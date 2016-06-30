@@ -180,6 +180,11 @@
         this.views.navbar = new NavbarView();
         $('body').prepend(this.views.navbar.el);
 
+        //checks and adds streaming title
+        if (this.views.banner.checkStreaming()){
+            $('.container-fluid.banner-image').addClass('news-active')
+        }
+
         {#        footer = new AssetTabelFooterView({});#}
         {##}
         {#        //Render the asset table header#}
