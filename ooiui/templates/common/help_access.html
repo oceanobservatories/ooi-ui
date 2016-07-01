@@ -73,6 +73,10 @@ _.extend(OOI.prototype, Backbone.Events,  {
     this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
 
+    if (this.views.banner.checkStreaming()){
+      $('.container-fluid.banner-image').addClass('news-active')
+    }
+
     this.views.navbar = new NavbarView({
       el: $('#navbar')
     });

@@ -1,29 +1,38 @@
 <div class="container-fluid banner-image" >
   <div class="row center" id="news-banner">
   </div>
-  <div class="row">
-    <ul id="fadein-left">
 
-      <li class="left">
-        <a href="/">
-          <img src="/img/logos-banners/OOI_Logo.svg" style="width:150px;">
-        </a>
-      </li>
+  <div class="row image-header <%= isNewsActive ? 'news-active' : '' %>">
+    <div class="col-xs-6">
+      <a href="/">
+        <img class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">
+      </a>
+    </div>
 
-      <li class="center banner-title">
-				<lg><%= bannerTitle %></lg>
-      </li>
-
-      <li class="right">
-        <a href="http://oceanleadership.org/">
-          <img src="/img/logos-banners/ocean-leadership.png">
-        </a>
-      </li>
-
-      <li class="rightright">
+    <div class="col-xs-6">
+      <div class="pull-right">
         <a href="http://www.nsf.gov/">
-          <img src="/img/logos-banners/nsf.png">
-				</a>
+          <img class="banner-image-nsf" src="/img/logos-banners/nsf.png">
+        </a>
+      </div>
+      <div class="pull-right">
+        <a href="http://oceanleadership.org/">
+          <img class="banner-image-ol" src="/img/logos-banners/ocean-leadership.png">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row banner-header <%= isNewsActive ? 'news-active' : '' %>">
+    <ul id="fadein-left">
+      <div class="col-xs-12">
+        <li class="center banner-title">
+          <lg><span><%= bannerTitle %></span></lg>
+        </li>
+      </div>
+    </ul>
+    <li class="pull-right">
         <a style="" id="termsAndConditionsLink" class="terms-link <%= isNewsActive ? 'news-active' : '' %> ">Terms and Conditions
         </a>
           <script>
@@ -33,21 +42,8 @@
               termsView.show();
           });
           </script>
-      </li>
-    </ul>
+    </li>
   </div>
 </div>
-
-
-<script>
-$(document).ready(function() {
-    var words = $('lg').text().split(' ');
-    var html = '';
-    $.each(words, function() {
-        html += '<span style="font-size:60px;">'+this.substring(0,1)+'</span>'+this.substring(1) + ' ';
-    });
-    $('lg').html(html);
-});
-</script>
 
 

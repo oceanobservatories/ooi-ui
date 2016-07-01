@@ -190,7 +190,8 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/Alert.html",
             "ooiui/static/js/partials/UserEditForm.html",
             "ooiui/static/js/partials/LoggedInNavItems.html",
-            "ooiui/static/js/partials/Banner.html"
+            "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/TermsDialog.html"
           ],
           "ooiui/static/js/partials/compiled/users.js": [
             "ooiui/static/js/partials/DropdownMessages.html",
@@ -207,6 +208,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/partials/UserTableItem.html",
             "ooiui/static/js/partials/LoggedInNavItems.html",
             "ooiui/static/js/partials/Banner.html",
+            "ooiui/static/js/partials/TermsDialog.html"
           ],
 
           "ooiui/static/js/partials/compiled/FAQ.js" : [
@@ -824,6 +826,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
             'ooiui/static/lib/moment/moment.js',
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -842,7 +845,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserEditFormView.js',
-            'ooiui/static/js/views/common/BannerView.js'
+            'ooiui/static/js/views/common/BannerView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js'
           ],
           'ooiui/static/js/compiled/users.js' : [
             // Libs
@@ -851,7 +855,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
             'ooiui/static/lib/backbone.stickit/backbone.stickit.js',
-
+            'ooiui/static/lib/bootbox.js/bootbox.js',
             // App
             'ooiui/static/js/ooi.js',
             'ooiui/static/lib/moment/moment.js',
@@ -870,7 +874,8 @@ module.exports = function(grunt) {
             'ooiui/static/js/views/common/LoginView.js',
             'ooiui/static/js/views/common/ModalDialogView.js',
             'ooiui/static/js/views/common/UserTableView.js',
-            'ooiui/static/js/views/common/BannerView.js'
+            'ooiui/static/js/views/common/BannerView.js',
+            'ooiui/static/js/views/common/TermsDialogView.js'
           ],
           'ooiui/static/js/compiled/streamingdata.js' : [
             // Libs
