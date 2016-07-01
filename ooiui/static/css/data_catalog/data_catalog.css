@@ -19,8 +19,8 @@ body, html {
 }
 
 #timeRangeFilter {
-    width       : 680px;
-    margin-left : 23px;
+    margin-left : 15px;
+    margin-right: 15px;
 }
 
 #timeRangeFilter #slider .ui-rangeSlider-label-value {

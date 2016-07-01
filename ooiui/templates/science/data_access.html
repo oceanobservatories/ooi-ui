@@ -70,6 +70,80 @@
       <div class="content-fluid">
         <div class="row">
           <div class="col-md-2">
+            <div class="color-index" align="middle" style="padding:5px;">
+              <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
+            </div>
+
+
+{#            <div style="padding-bottom: 5px; padding-left: 5px; padding-right: 5px; text-align: center;" align="middle">
+              <label>Time Range Filter</label>
+              <div id="timeRangeFilter">
+                <div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider">
+                  <div class="ui-rangeSlider-container" >
+                    <div class="ui-rangeSlider-innerBar" >
+
+                    </div>
+                    <div class="ui-rangeSlider-bar" >
+
+                    </div>
+                    <div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle">
+                      <div class="ui-rangeSlider-handle-inner">
+
+                      </div>
+                    </div>
+                    <div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" >
+                      <div class="ui-rangeSlider-handle-inner">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" >
+                    <div class="ui-rangeSlider-arrow-inner">
+
+                    </div>
+                  </div>
+                  <div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" >
+                    <div class="ui-rangeSlider-arrow-inner"></div>
+                  </div>
+                  <div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" >
+                    <div class="ui-rangeSlider-label-value">2013-01-01</div>
+                    <div class="ui-rangeSlider-label-inner"></div>
+                  </div>
+                  <div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" >
+                    <div class="ui-rangeSlider-label-value">2016-06-07</div>
+                    <div class="ui-rangeSlider-label-inner"></div>
+                  </div>
+                </div>
+              </div>
+            </div>#}
+
+
+            <div class="panel" style="width: 100%; margin-left: 10px;">
+              <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters
+              </div>
+              <div class="panel-wrapper">
+                <div id="other-filters" class="panel-body collapse in">
+                  <div class="array-filters">
+                    <div class="checkbox">
+                      <label><input id="EngInstrumentSwitch" style="padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Eng Instruments</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input id="MetadataStreamSwitch" style="padding-right: 2px;" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Metadata Streams</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input id="StatusStreamSwitch" style="padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input id="MobileAssetSwitch" style="padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
             <div class="search-sidebar"></div>
           </div>
           <div class="col-md-10">
@@ -141,7 +215,7 @@
                         <div id='plot-instruments-panel' class="panel">
                           <div class="scrollable-block">
                             <div class="scrollable-area">
-                              <div id="instruments-scroll-body" class=" panel-body">
+                              <div id="instruments-scroll-body" class="panel-body">
                                 <div class="plot-tab-panel" id="instruments-table">
                                   <p class="initial-text"> How to plot data:</p>
                                   <p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
@@ -154,95 +228,50 @@
                       </div>
 
                       <div class="panel-body">
-                        <div class="color-index" align="left" style="padding:5px;">
-                          <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
-                        </div>
-
                         <div class="row">
                           <div class="col-md-12">
-                            <div class="row panel panel-heading" style="margin-right:15px;">
-                              <div class="col-md-2-toggles" style="top:25px;">
-                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                                  <div>
-                                    <label>Engineering<br>Instruments</label>
-                                  </div>
-                                  <div>
-                                    <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-2-toggles" style="top:25px;">
-                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                                  <div>
-                                    <label>Metadata<br>Streams</label>
-                                  </div>
-                                  <div>
-                                    <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-2-toggles" style="top:25px;">
-                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                                  <div>
-                                    <label>Status<br>Streams</label>
-                                  </div>
-                                  <div>
-                                    <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-2-toggles" style="top:25px;">
-                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
-                                  <div>
-                                    <label>Mobile<br>Assets</label>
-                                  </div>
-                                  <div>
-                                    <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
-                                <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
-                                <div id="timeRangeFilter" align="right">
-                                  <div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider">
-                                    <div class="ui-rangeSlider-container" style="position: absolute; width: 707px;">
-                                      <div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;">
-
-                                      </div>
-                                      <div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;">
-
-                                      </div>
-                                      <div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;">
-                                        <div class="ui-rangeSlider-handle-inner">
-
-                                        </div>
-                                      </div>
-                                      <div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;">
-                                        <div class="ui-rangeSlider-handle-inner">
-
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;">
-                                      <div class="ui-rangeSlider-arrow-inner">
-
-                                      </div>
-                                    </div>
-                                    <div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;">
-                                      <div class="ui-rangeSlider-arrow-inner"></div>
-                                    </div>
-                                    <div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;">
-                                      <div class="ui-rangeSlider-label-value">2013-01-01</div>
-                                      <div class="ui-rangeSlider-label-inner"></div>
-                                    </div>
-                                    <div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;">
-                                      <div class="ui-rangeSlider-label-value">2016-06-07</div>
-                                      <div class="ui-rangeSlider-label-inner"></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+{#                            <div class="row panel panel-heading" style="margin-right:15px;">#}
+{#                              <div class="col-md-2-toggles" style="top:25px;">#}
+{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
+{#                                  <div>#}
+{#                                    <label>Engineering<br>Instruments</label>#}
+{#                                  </div>#}
+{#                                  <div>#}
+{#                                    <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
+{#                                  </div>#}
+{#                                </div>#}
+{#                              </div>#}
+{#                              <div class="col-md-2-toggles" style="top:25px;">#}
+{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
+{#                                  <div>#}
+{#                                    <label>Metadata<br>Streams</label>#}
+{#                                  </div>#}
+{#                                  <div>#}
+{#                                    <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
+{#                                  </div>#}
+{#                                </div>#}
+{#                              </div>#}
+{#                              <div class="col-md-2-toggles" style="top:25px;">#}
+{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
+{#                                  <div>#}
+{#                                    <label>Status<br>Streams</label>#}
+{#                                  </div>#}
+{#                                  <div>#}
+{#                                    <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
+{#                                  </div>#}
+{#                                </div>#}
+{#                              </div>#}
+{#                              <div class="col-md-2-toggles" style="top:25px;">#}
+{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
+{#                                  <div>#}
+{#                                    <label>Mobile<br>Assets</label>#}
+{#                                  </div>#}
+{#                                  <div>#}
+{#                                    <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">#}
+{#                                  </div>#}
+{#                                </div>#}
+{#                              </div>#}
+{#                            </div>#}
                             <div id="streamPanel" class="panel" style="margin-right:15px;">
                               <div class="color-index" align="right">
                                 <div class="twelve-hours"></div><b> 12 Hours </b>
@@ -310,6 +339,10 @@
   <script type="text/javascript">
     var bannerTitle = "Data Access & Visualization";
     var userId = parseInt(window.location.href.split('/').pop());
+    var initialLocationSearch = "";
+    if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
+      initialLocationSearch = location.search.split('?search=')[1].replace(/%20/g, ' ');
+    }
 
     _.extend(OOI.prototype, Backbone.Events, {
       login: new LoginModel(),
@@ -416,8 +449,8 @@
 
         //INTERPOLATED PLOT 1)
         //get the params
-        var xParams1 = []
-        var yParams1 = []
+        var xParams1 = [];
+        var yParams1 = [];
         var streamName1 = parameterCollection.models[0].get('original_model').get('stream_name');
         var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
@@ -509,7 +542,7 @@
         });
 
         if(this.login.loggedIn()) {
-          this.models.userModel.fetch({url: '/api/current_user'});
+          this.models.userModel.fetch({async: false, url: '/api/current_user'});
         }
 
         //INITIALIZE TABS
@@ -604,6 +637,7 @@
         });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
+{#          console.log('addToTimeRange');#}
           var startDate = new Date(options.min).toISOString(),
             endDate   = new Date(options.max).toISOString();
 
@@ -612,16 +646,19 @@
         });
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
+{#          console.log('addToStreamFilters');#}
           setStreamFilter("reference_designator", options);
           combineFilters();
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
+{#          console.log('addToInstrumentFilters');#}
           setInstrumentFilter("reference_designator", options);
           combineFilters();
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
+{#          console.log('addToFilters');#}
           setArrayFilter("reference_designator", options);
           combineFilters();
           {#          showCurrentFilters();#}
@@ -922,10 +959,10 @@
     var streamFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
     var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
-    var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+    var engInstrumentFilter = {field: "stream_name", op: "nc", data: "-eng"};
     var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
     var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
-    var filterToolbarFilter = {groupOp:"AND",rules:[]};
+{#    var filterToolbarFilter = {groupOp:"AND",rules:[]};#}
     var globalFilter = null;
 
     var defaultPlotTypes = new DefaultPlotCollection();
@@ -939,17 +976,21 @@
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+      var testUserExists = ooi.models.userModel.attributes.email.length;
+{#      console.log(testUserExists);#}
+{#      console.log(ooi.models.userModel);#}
       actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
-      if (ooi.models.userModel.length > 0) {
+      if (testUserExists > 0) {
         actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       } else {
         actionButtons += "<button type='button' title='Download - Log in to access' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       }
 
-      if (ooi.models.userModel.length > 0 && ooi.models.userModel.attributes.scopes.contains('asset_manager')) {
-        actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+{#      console.log(ooi.models.userModel.attributes.scopes.indexOf('asset_manager'));#}
+      if (testUserExists > 0 && ooi.models.userModel.attributes.scopes.indexOf('asset_manager') > -1) {
+        actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
       } else {
-        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
       }
       actionButtons += "</div>";
       return actionButtons;
@@ -1117,6 +1158,8 @@
         $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
       });
 
+      ooi.start();
+
       updateCollection( showStreams );
 
       var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
@@ -1133,9 +1176,9 @@
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
         if (theStateEng) {
-          engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
+          engInstrumentFilter = {field: "stream_name", op: "cn", data: ""};
         } else {
-          engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+          engInstrumentFilter = {field: "stream_name", op: "nc", data: "-eng"};
         }
         combineFilters();
       });
@@ -1169,8 +1212,7 @@
         }
         combineFilters();
       });
-
-      ooi.start();
+{#      console.log('document.ready complete');#}
     });
 
     var setArrayButtonState = function(){
@@ -1202,16 +1244,16 @@
       $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
       $("#StatusStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
-      $dcGrid[0].clearToolbar();
+{#      $dcGrid[0].clearToolbar();#}
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
-      engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
+      engInstrumentFilter = {field:"stream_name",op:"nc",data:"-eng"};
       metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
-      filterToolbarFilter = {groupOp:"AND",rules:[]};
+{#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
       globalFilter = null;
       location.href = location.href.substring(0, location.href.indexOf('?'));
       location.hash = "";
@@ -1284,7 +1326,7 @@
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
       allFilters.push(timeRangeFilter);
-      allFilters.push(filterToolbarFilter);
+{#      allFilters.push(filterToolbarFilter);#}
 
       var combinedFilters = {
         groupOp:"AND",
@@ -1324,9 +1366,6 @@
         $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
         $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
       }
-      {#      if(!_.isUndefined(location.search)) {#}
-      {#        location.search = "search=" + $("#globalSearchText").val();#}
-      {#      }#}
     };
 
     var numberTemplate = {
@@ -1554,7 +1593,7 @@
             name : 'depth',
             index : 'depth',
             editable : false,
-            {#                width : 85,#}
+            width : 85,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1636,13 +1675,23 @@
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
+          highlightFilteredData.call($dcGrid);
+{#          console.log('loadComplete');#}
           $("#navGrid").find("option[value=\"50000\"]").text('All');
-          highlightFilteredData.call(this);
-          showCurrentFilters();
-          console.log(location.search);
-          if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
-            var searchText = location.search.split('?search=')[1].replace(/%20/g, ' ');
-            navSearchParse(searchText);
+
+
+{#          console.log(initialLocationSearch);#}
+        },
+        gridComplete : function() {
+{#          console.log('gridComplete');#}
+{#          console.log(initialLocationSearch);#}
+{#          initialLocationSearch = "";#}
+        },
+        beforeRequest : function() {
+{#          console.log('beforeRequest');#}
+{#          console.log(initialLocationSearch);#}
+          if (initialLocationSearch != "") {
+            navSearchParse(initialLocationSearch);
           }
         },
         gridview : true,
@@ -1655,6 +1704,7 @@
         sortname : 'end',
         viewrecords : true,
         sortorder : 'desc',
+        sortable : true,
         caption : 'Data Catalog',
         altRows: false,
         {#        altclass:'myAltRowClass',#}
@@ -1664,13 +1714,16 @@
         multiselect: false,
         multiboxonly: false,
         reloadAfterSubmit : false,
-        loadOnce : false
+        loadOnce : false,
+        loadui: 'block',
+        hidegrid : false
       }).jqGrid('navGrid',
         '#navGrid',
         {
           edit : false,
           add : false,
           del : false,
+          refresh : false,
           search : true
           // beforeRefresh:
           // Set the latest data from collection before refreshing grid
@@ -1685,13 +1738,17 @@
         {},
         {},
         {
-          cloneToTop : true,
+{#          cloneToTop : true,#}
           closeOnEscape : true,
           multipleSearch : true,
           multipleGroup : true,
-          overlay: 0,
+{#          overlay: 0,#}
+          width : 700,
           onInitializeSearch: function ($form) {
             combineFilters();
+          },
+          beforeShowSearch: function($form) {
+            return true;
           }
         });
 
@@ -1700,20 +1757,20 @@
       {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
 
       $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
-        caption: "showcolumns",
+        caption: "Column Changer",
         buttonicon: "ui-icon-calculator",
-        title: "Choose columns",
+        title: "Column Changer",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
+            						width: 700,
+            						dialog_opts: {
+            							modal: true,
+            							minWidth: 470,
+{#            							height: 470,#}
+            							show: 'blind',
+            							hide: 'explode',
+            							dividerLocation: 0.5
+            						}
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
@@ -1744,13 +1801,13 @@
       {#          }#}
       {#        });#}
 
-      $dcGrid.jqGrid('filterToolbar',
+{#      $dcGrid.jqGrid('filterToolbar',
         {
           autosearch : true,
           searchOperators : false,
           searchOnEnter : false,
           stringResult:true,
-          {#          defaultSearch:"cn"#}
+          #}{#          defaultSearch:"cn"#}{#
           afterClear : function() {
             combineFilters();
           },
@@ -1759,31 +1816,17 @@
             combineFilters()
           }
         }
-      );
+      );#}
 
       if(location.hash!=""){
         setArrayFilter('reference_designator', location.hash.split('#')[1]);
       }
 
-      // fill top toolbar
-      var $grid = $dcGrid;
-      $('#t_' + $.jgrid.jqID($grid[0].id))
-        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
-      $("#globalSearchText").keypress(function (e) {
-        var key = e.charCode || e.keyCode || 0;
-        if (key === $.ui.keyCode.ENTER) { // 13
-          location.search = "search=" + $("#globalSearchText").val();
-          $("#globalSearch").click();
-        }
-      });
-      $("#globalSearch").button({
-        icons: { primary: "ui-icon-search" },
-        text: false
-      }).click(function () {
+      var performGlobalSearch = function(searchText) {
         var postData = $grid.jqGrid("getGridParam", "postData"),
           colModel = $grid.jqGrid("getGridParam", "colModel"),
           rules = [],
-          searchText = $("#globalSearchText").val(),
+{#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
           searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
           cnParts = searchTextParts === null ? 0 : searchTextParts.length,
@@ -1816,6 +1859,25 @@
         globalFilter = textParts;
 
         combineFilters();
+      };
+
+      // fill top toolbar
+      var $grid = $dcGrid;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
       });
 
     } // placeJqGrid
@@ -1878,7 +1940,7 @@
       }
       globalFilter = textParts;
 
-      combineFilters();
+{#      combineFilters();#}
       $("#globalSearchText").val(searchText);
     }
     //added from data-catalog

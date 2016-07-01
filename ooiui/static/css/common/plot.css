@@ -40,7 +40,7 @@ div#wrapper{
 }
 
 #timeRangeFilter #slider{
-  display:none;
+  /*display:none;*/
 }
 
 #plottingBody .scrollable-area .initial-text{
@@ -151,6 +151,6 @@ div#events-scroll-body {
   background-color:#C7C7C7;
 }
 
-#plottingBody #pg_navGrid #navGrid_left{
-  visibility: hidden;
+#plottingBody #pg_navGrid #navGrid_left #refresh_grid{
+  /*visibility: hidden;*/
 }
