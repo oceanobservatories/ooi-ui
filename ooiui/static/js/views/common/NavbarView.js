@@ -94,7 +94,7 @@ var NavbarView = Backbone.View.extend({
     }
     this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
 
-    if (ooi.views.banner.checkStreaming()){
+    if (!_.isUndefined(ooi.views.banner) && ooi.views.banner.checkStreaming()){
       this.$el.find('.navbar.navbar-fixed-top').addClass('news-active');
     }
   }
