@@ -68,7 +68,7 @@ var PlotControlModel = Backbone.Model.extend({
                           {name:'Feather',value:"quiver", num_inputs: 2, inputs: [{name:"Magnitude","value":"x"},
                                                                                    {name:"Direction","value":"y"}]},
 
-                          {name:'Pseudocolor',value:"3d_scatter", num_inputs: 3, inputs: [{name:"X","value":"x"},
+                          {name:'3-D Color Scatter',value:"3d_scatter", num_inputs: 3, inputs: [{name:"X","value":"x"},
                                                                                       {name:"Y","value":"y"},
                                                                                       {name:"Color","value":"z"}]},
 
