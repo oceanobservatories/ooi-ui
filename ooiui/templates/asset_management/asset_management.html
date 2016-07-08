@@ -62,18 +62,12 @@
                 <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Actions</span>
               </div>
               <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("","");'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
+                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
                 <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;">Export Asset Information (JSON)</a>
+                <!--
                 <button type='button' title='Show Deployed' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PRESENT");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Deployed</i></button>
                 <button type='button' title='Show Recovered' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PAST");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Recovered</i></button>
-                {#                <div class="toggle-btn-grp cssonly">#}
-                {#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Valid Assets</label></div>#}
-                {#                  <div><input type="radio" name="group4"/><label onclick="" class="toggle-btn">Invalid Assets</label></div>#}
-                {#                </div>#}
-                {#                <div class="toggle-btn-grp cssonly">#}
-                {#                  <div><input title="Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense", "PRESENT");' class="toggle-btn">Deployed</label></div>#}
-                {#                  <div><input title="Not Deployed" type="radio" name="group9"/><label onclick='setScienceFilter("tense","PAST");' class="toggle-btn">Not Deployed</label></div>#}
-                {#                </div>#}
+                -->
               </div>
             </div>
             <div class="col-md-12">
@@ -259,6 +253,8 @@
     var arrayFetch = arrayCollection.fetch({ reset: true });
     var assetFetch = assetCollection.fetch({ data: data, reset: true });
     var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+
+    var globalFilter = null;
     {#    $.when(arrayFetch, assetFetch, streamFetch).done(function() {#}
     {#      $.when( (renderTOCView( arrayCollection, assetCollection, streamCollection )) ).done(function() {#}
     {#        $('#search-param').remove();#}
@@ -348,6 +344,15 @@
       populate();
     });
 
+    var resetTable = function() {
+      $("#globalSearchText").val("");
+      globalFilter = null;
+      $("refresh_grid").click();
+      $('.ui-search-toolbar').find('input[type="text"]').val('');
+      $dcGrid.getGridParam("postData").filters = null;
+      combineFilters();
+    };
+
     var setScienceFilter = function(searchColumn, searchParam){
       {#      console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
@@ -389,6 +394,41 @@
       grid[0].p.search = true;
       $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
       grid.trigger("reloadGrid",[{page:1,current:true}]);
+    };
+
+    var combineFilters = function() {
+      console.log('combineFilters');
+      var allFilters = [];
+      if($dcGrid.getGridParam("postData").filters != null) {
+        console.log($dcGrid.getGridParam("postData").filters);
+        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));
+      }
+
+      var combinedFilters = {
+        groupOp:"AND",
+        rules:[],
+        groups:allFilters
+      };
+
+      // Global filter
+      var ggg = {groupOp:"OR", rules:[], groups:[]};
+      if(globalFilter != null){
+        $.each(globalFilter, function() {
+          $.each(this, function() {
+            ggg.groups.push(this);
+          });
+
+          combinedFilters.groups.push(ggg);
+          ggg = {groupOp:"OR", rules:[], groups:[]};
+        });
+      }
+
+      // Ensure $dcGrid is defined (page load race conditions) before attempting to set filters
+      if (!_.isUndefined($dcGrid[0].p)) {
+        $dcGrid[0].p.search = true;
+        $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+        $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      }
     };
 
     var numberTemplate = {
@@ -579,8 +619,8 @@
     var showRows = function() {
       $("#loadingSpinner").hide();
       $("#rowButtons").show();
-      $("#rowFilters").show();
-      $("#rowSubGrids").show();
+{#      $("#rowFilters").show();#}
+{#      $("#rowSubGrids").show();#}
       $("#rowAlfresco").show();
     };
 
@@ -599,7 +639,6 @@
           'Array',
           'Assembly',
           'Description',
-          'Instrument Class',
           'Long Name',
           'Name',
           'Owner',
@@ -607,21 +646,22 @@
           'Coordinates',
           'Data Source',
           'Deployment Number',
+          'UID',
           'Manufacturer',
           'Model Number',
           'Serial Number',
-          'Depth Rating (m)',
-          'Height (cm)',
-          'Length (cm)',
-          'Required Power (Watts)',
-          'Weight (Oz)',
-          'Width (cm)',
+          'Depth Rating',
+          'Height',
+          'Length',
+          'Weight',
+          'Width',
           'Delivery Date',
-          'Purchase Cost',
+          'Purchase Price',
           'Purchase Date',
           'Tense',
           'Reference Designator',
-          'Last Modified'
+          'Last Modified',
+          'Mobile'
         ],
 
         colModel : [
@@ -636,7 +676,7 @@
           {
             name : 'id',
             index : 'id',
-            key : true, // rowID = unique_id = ref_des+stream_name
+            key : true,
             hidden : false,
             editable : false,
             width : 100,
@@ -680,20 +720,6 @@
             index : 'assetInfo.description',
             editable : false,
             width : 290,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assetInfo.instrumentClass',
-            index : 'assetInfo.instrumentClass',
-            editable : false,
-            {#                      width : 100,#}
-            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -792,10 +818,25 @@
             editable : false,
             width : 140,
             sortable : true,
-            sorttype : 'number',
+            sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
             unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'uid',
+            index: 'uid',
+            key: true, // uid = reference_designator
+            editable: false,
+            hidden : false,
+{#            width: 240,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
           },
@@ -839,8 +880,8 @@
             }
           },
           {
-            name : 'physicalInfo.depthRatingM',
-            index : 'physicalInfo.depthRatingM',
+            name : 'physicalInfo.depthRating',
+            index : 'physicalInfo.depthRating',
             hidden : false,
             editable : false,
             {#            width : 165,#}
@@ -854,8 +895,8 @@
             }
           },
           {
-            name : 'physicalInfo.heightCm',
-            index : 'physicalInfo.heightCm',
+            name : 'physicalInfo.height',
+            index : 'physicalInfo.height',
             hidden : false,
             editable : false,
             {#            width : 165,#}
@@ -869,8 +910,8 @@
             }
           },
           {
-            name : 'physicalInfo.lengthCm',
-            index : 'physicalInfo.lengthCm',
+            name : 'physicalInfo.length',
+            index : 'physicalInfo.length',
             hidden : false,
             editable : false,
             {#            width : 165,#}
@@ -884,8 +925,8 @@
             }
           },
           {
-            name : 'physicalInfo.requiredPowerW',
-            index : 'physicalInfo.requiredPowerW',
+            name : 'physicalInfo.weight',
+            index : 'physicalInfo.weight',
             editable : false,
             {#            width : 165,#}
             hidden : true,
@@ -898,22 +939,8 @@
             }
           },
           {
-            name : 'physicalInfo.weightOz',
-            index : 'physicalInfo.weightOz',
-            editable : false,
-            {#            width : 165,#}
-            hidden : true,
-            sortable : true,
-            sorttype : 'number',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align: 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'physicalInfo.widthCm',
-            index : 'physicalInfo.widthCm',
+            name : 'physicalInfo.width',
+            index : 'physicalInfo.width',
             editable : false,
             {#            width : 165,#}
             hidden : true,
@@ -941,8 +968,8 @@
             }
           },
           {
-            name : 'purchaseAndDeliveryInfo.purchaseCost',
-            index : 'purchaseAndDeliveryInfo.purchaseCost',
+            name : 'purchaseAndDeliveryInfo.purchasePrice',
+            index : 'purchaseAndDeliveryInfo.purchasePrice',
             editable : false,
             {#                width : 85,#}
             hidden : true,
@@ -1007,6 +1034,20 @@
             formatter: unixTimeToDateTime,
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'mobile',
+            index : 'mobile',
+            editable : false,
+            hidden : true,
+{#            width : 150,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
@@ -1078,7 +1119,7 @@
         loadOnce : false
       }).jqGrid('navGrid',
         '#navGrid',
-        {add:false, view:false, del:false,edit:false,pdf:true,search:true}
+        {add:false, view:false, del:false, refresh:false, edit:false,pdf:true,search:true}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
@@ -1189,7 +1230,17 @@
           searchOperators : false,
           searchOnEnter : false,
           stringResult : true,
-          defaultSearch : "cn"
+          defaultSearch : "cn",
+          afterSearch : function() {
+            console.log($("#globalSearchText").val());
+            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {
+              performGlobalSearch($("#globalSearchText").val());
+            } else {
+              globalFilter = null;
+              combineFilters();
+            }
+
+          }
         }
       );
 
@@ -1197,24 +1248,11 @@
         setScienceFilter('ref_des', location.hash.split('#')[1]);
       }
 
-      // fill top toolbar
-      var $grid = $dcGrid;
-      $('#t_' + $.jgrid.jqID($grid[0].id))
-        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
-      $("#globalSearchText").keypress(function (e) {
-        var key = e.charCode || e.keyCode || 0;
-        if (key === $.ui.keyCode.ENTER) { // 13
-          $("#globalSearch").click();
-        }
-      });
-      $("#globalSearch").button({
-        icons: { primary: "ui-icon-search" },
-        text: false
-      }).click(function () {
+      var performGlobalSearch = function(searchText) {
         var postData = $grid.jqGrid("getGridParam", "postData"),
           colModel = $grid.jqGrid("getGridParam", "colModel"),
           rules = [],
-          searchText = $("#globalSearchText").val(),
+{#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
           searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
           cnParts = searchTextParts === null ? 0 : searchTextParts.length,
@@ -1233,25 +1271,39 @@
           }
         }
 
-        for (i = 0; i < l; i++) {
-          cm = colModel[i];
-          if (cm.search !== false && (cm.stype === undefined || cm.stype === "text")) {
-            for (iPart = 0; iPart < cnParts; iPart++) {
-              rules.push({
-                field: cm.name,
-                op: "cn",
-                data: searchTextParts[iPart]
-              });
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
             }
-          }
+          });
         }
-        postData.filters = JSON.stringify({
-          groupOp: "AND",
-          rules: rules
-        });
-        $grid.jqGrid("setGridParam", { search: true });
-        $grid.trigger("reloadGrid", [{page: 1, current: true}]);
-        return false;
+        globalFilter = textParts;
+
+        combineFilters();
+      };
+
+      // fill top toolbar
+      var $grid = $dcGrid;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
       });
 
     } // placeJqGrid
@@ -1992,15 +2044,15 @@
       {#        }#}
       {#      );#}
 
-      $dcGrid.jqGrid('filterToolbar',
-        {
-          autosearch : true,
-          searchOperators : false,
-          searchOnEnter : false,
-          stringResult : true,
-          defaultSearch : "cn"
-        }
-      );
+{#      $dcGrid.jqGrid('filterToolbar',#}
+{#        {#}
+{#          autosearch : true,#}
+{#          searchOperators : false,#}
+{#          searchOnEnter : false,#}
+{#          stringResult : true,#}
+{#          defaultSearch : "cn"#}
+{#        }#}
+{#      );#}
 
       {#      if(location.hash!=""){#}
       {#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
