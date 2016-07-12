@@ -54,7 +54,7 @@
             </div>
             <div class="col-xs-5 col-sm-5 col-md-5" id="right">
                 <div id="map"></div>
-                {# <pre id="info"></pre> #}
+                <pre id="info"></pre>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@ $(document).ready(function() {
         platformCollection.fetch().then(function() {
             // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
             // both maps require a valid geoJson as a toJSON override.
-            var mapStyle = 'vector';
+            var mapStyle = 'tile';
 
             if (mapStyle === 'tile') {
                 var tileMap = new TileMap({id: 'map', collection: {arrayCollection, platformCollection}});

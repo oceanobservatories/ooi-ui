@@ -131,7 +131,7 @@ var GenericPlatForm = Backbone.View.extend({
             // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
             // both maps require a valid geoJson as a toJSON override.
             $.when(this.platformCollection.fetch()).done(function() {
-                var vectorMap = new VectorMap({id: 'map', collection: _this.platformCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
+                var vectorMap = new TileMap({id: 'map', collection: _this.platformCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
                 vectorMap.render();
             });
         } catch (exception) {

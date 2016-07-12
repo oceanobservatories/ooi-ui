@@ -1,15 +1,23 @@
 var TileMap = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(options) {
         // The geoJSON data, d3.json();
         this.listenTo(this.collection, 'change', this.render);
+        if (options) {
+            this.lat = options.lat || 5;
+            this.lng = options.lng || -90;
+            this.platformId = options.platformId || null;
+        }
+
         return this;
     },
     _onBeforeRender: function() {
         try {
 
             var map = L.map(this.id, {
-                zoomControl: false
-            }).setView([15.8, -90], 2);
+                zoomControl: true,
+                minZoom: 7,
+                maxZoom: 10,
+            }).setView([this.lat, this.lng], 7);
             L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
                 .addTo(map);
@@ -67,10 +75,16 @@ var TileMap = Backbone.View.extend({
 
             $.when(map).done(function() {
                 var arrayData = [];
-                _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
+                _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
                     arrayData.push(geoJSON);
                 });
 
+
+                var referencePlatforms = [];
+                var primaryArray = renderContext.platformId.substr(0,2);
+                _.each(renderContext.collection.byArray(primaryArray).toGeoJSON(), function(geoJSON) {
+                    referencePlatforms.push(geoJSON);
+                });
 
                 var mooringIcon = L.icon({
                     iconUrl: '/img/mooring.png',
@@ -79,13 +93,32 @@ var TileMap = Backbone.View.extend({
                     popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
                 });
 
+                var marker = {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [renderContext.lng, renderContext.lat]
+                    }
+                };
 
                 L.geoJson(arrayData, {
                     style: function(feature) {
-                        return {color: 'green'};
+                        return {color: 'yellow'};
                     },
                     pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});
+                        return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
+                    },
+                    // onEachFeature: function (feature, layer) {
+                    //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
+                    // }
+                }).addTo(map);
+
+                L.geoJson(marker, {
+                    style: function(feature) {
+                        return {color: 'orange'};
+                    },
+                    pointToLayer: function(feature, latlng) {
+                        return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
                     },
                     // onEachFeature: function (feature, layer) {
                     //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
