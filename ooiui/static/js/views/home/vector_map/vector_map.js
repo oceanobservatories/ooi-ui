@@ -21,7 +21,7 @@ var VectorMap = Backbone.View.extend({
             mapboxgl.accessToken = 'pk.eyJ1IjoicnBzbWFrYSIsImEiOiJjaWo4dDI2dnAwMDFqdXhseDNlOWdodHVqIn0.Xev64hHKuuUXS5TBgrozfQ';
             var map = new mapboxgl.Map({
                 container: this.id,
-                style: 'mapbox://styles/rpsmaka/cinc29jhd000rb2kvn2v8zfv0',
+                style: 'mapbox://styles/rpsmaka/ciq9he68u001pbymc2lfx4y7l',
                 center: [-90, 5],
                 maxBounds: [[-179,-70],[5,78]],
                 interactive: true

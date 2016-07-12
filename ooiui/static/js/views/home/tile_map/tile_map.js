@@ -20,12 +20,43 @@ var TileMap = Backbone.View.extend({
                 map.scrollWheelZoom.disable();
                 map.keyboard.disable();
 
+                // add some methods that can be useful to our map object.
+                map._resizeMap = this._resizeMap;
+
                 return map;
 
         } catch (error) {
             console.log(error);
             debugger;
         }
+    },
+    _resizeMap: function() {
+        'use strict';
+        // This can be used to redraw the map.  It is a bit strange, as it causes the
+        // map to flash for a second.
+        //
+        // This hook will allow more advanced options to be done before the map is actually
+        // resized. e.g. resize the map frame first so the focus persists.
+        map.resize();
+    },
+    _setArrayView: function() {
+        'use strict';
+        // When we're in the array view, we don't want to show all the platforms
+        map.setLayoutProperty('moorings', 'visibility', 'none');
+        map.setLayoutProperty('rsMoorings', 'visibility', 'none');
+        map.setLayoutProperty('gliders', 'visibility', 'none');
+        map.setLayoutProperty('arrays', 'visibility', 'visible');
+        map.setLayoutProperty('rsArray', 'visibility', 'visible');
+        map.setLayoutProperty('ceArray', 'visibility', 'visible');
+    },
+    _setPlatformView: function() {
+        'use strict';
+        // When we're in the platform view, we don't want to see any array icons.
+        map.setLayoutProperty('moorings', 'visibility', 'none');
+        map.setLayoutProperty('gliders', 'visibility', 'none');
+        map.setLayoutProperty('arrays', 'visibility', 'visible');
+        map.setLayoutProperty('ceArray', 'visibility', 'visible');
+        map.setLayoutProperty('rsArray', 'visibility', 'visible');
     },
     render: function() {
         try {
@@ -40,10 +71,6 @@ var TileMap = Backbone.View.extend({
                     arrayData.push(geoJSON);
                 });
 
-                var platformData = [];
-                _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
-                    platformData.push(geoJSON);
-                });
 
                 var mooringIcon = L.icon({
                     iconUrl: '/img/mooring.png',
@@ -52,17 +79,6 @@ var TileMap = Backbone.View.extend({
                     popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
                 });
 
-                L.geoJson(platformData, {
-                    style: function(feature) {
-                        return {color: 'yellow'};
-                    },
-                    pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 3, fillOpacity: 0.85});
-                    },
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup('<span>'+feature.properties.description+'</span>');
-                    }
-                }).addTo(map);
 
                 L.geoJson(arrayData, {
                     style: function(feature) {
@@ -71,9 +87,9 @@ var TileMap = Backbone.View.extend({
                     pointToLayer: function(feature, latlng) {
                         return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});
                     },
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup('<span>'+feature.properties.description+'</span>');
-                    }
+                    // onEachFeature: function (feature, layer) {
+                    //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
+                    // }
                 }).addTo(map);
             });
         } catch (error) {
