@@ -8,6 +8,11 @@
      padding: 0 20px 0 20px;
 }
 
+div#wrapper.platform-page {
+    width: 100%;
+}
+
+
 .platform-page #platform-view-content .panel .panel-heading{
     padding: 0;
     margin: 0;
@@ -45,7 +50,7 @@
 
 
 .platform-page #platform-view-content .panel-heading h4 small {
-    color: #bbb;
+    color: black;
 }
 
 .platform-page #platform-view-content table {
@@ -59,4 +64,16 @@
 
 .platform-page #platform-view-content table tr {
 
+}
+
+.mapboxgl-ctrl-compass {
+  display: none !important;
+}
+
+#map canvas {
+    left: 0px;
+    width: 300%;
+}
+
+#map {
 }

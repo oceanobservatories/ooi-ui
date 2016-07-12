@@ -121,8 +121,12 @@
 
             <% if (properties.code === 'RS') { %>
             <div>
-                <p>
                 <img style="float:right; width: 100%; padding-bottom: 5px;" src="/img/home/cabled_array/cabled_1.png">
+
+                <!-- <div class="cabled&#45;sub&#45;sites js&#45;view&#45;subsite"> -->
+                <!--     <span id="axial" data&#45;lat="45.945668" data&#45;lon="&#45;129.991458">Axial Summit</span><span id="juan" data&#45;lat="45.838733" data&#45;lon="&#45;129.746773">Juan de Fuca</span><span id="continental" data&#45;lat="44.536176" data&#45;lon="&#45;125.257770">Continental Margin</span> -->
+                <!-- </div> -->
+                <p>
                 The Cabled Array provides unprecedented power (10 kV, 8 kW) and bandwidth (10 GbE), and two-way communication to scientific sensor arrays on the seafloor and throughout the water column. A shore station in Pacific City, Oregon includes two cable landings serving key sites on the Cabled Array: 1) Slope Base, Southern Hydrate Ridge, and the Endurance Array Oregon Line; and 2) Axial Seamount, and Axial Base. The ~ 900 km of modified telecommunications cable (installed in 2012) provides high power and bandwidth to seven Primary Nodes: PN1A (Slope Base), PN1B (Southern Hydrate Ridge), PN3A (Axial Base), PN3B (Axial Summit), PN5A (Mid-Plate), PN1C (Oregon Offshore), and PN1D (Oregon Shelf).
 
                 <br><br>
@@ -152,7 +156,7 @@
                     </td>
                     <td >
                         <ul class"align-center" style="padding-left: 0px;">
-                            <li><a href="/platform?id=<%= platform.properties.code %>"><%= platform.properties.title %></a></li>
+                            <li><a href="/platform?id=<%= btoa(platform.properties.code) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a> <small> (<%= platform.properties.code %>) </small></li>
                         </ul>
                     </td>
                     <td><%= platform.properties.depth %></td>

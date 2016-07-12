@@ -33,7 +33,15 @@ var Row = Backbone.View.extend({
 var GenericPlatForm = Backbone.View.extend({
 
     events: {
-        'click .js-expand': '_expand'
+        'click .js-expand': '_expand',
+        'click .js-toggle-eng': '_toggleEngInstruments',
+        'click .js-toggle-ref-des': '_toggleRefDesLabel'
+    },
+    _toggleEngInstruments: function(event) {
+        $('[data-eng="true"]').toggle();
+    },
+    _toggleRefDesLabel: function(event) {
+        $('.refDesLabel').toggle();
     },
     _expand: function(event) {
         var target = $(event.target).data('target');
@@ -42,8 +50,13 @@ var GenericPlatForm = Backbone.View.extend({
     initialize: function(options) {
         _.bindAll(this, "render","addTableRows");
         var self = this;
+        this.streamCollection = this.collection.streamCollection;
+        this.platformCollection = this.collection.platformCollection;
+        this.platformLat = this.streamCollection.options.searchLat;
+        this.platformLng = this.streamCollection.options.searchLng;
+        this.platformId = this.streamCollection.options.searchId;
 
-        var platforms = this.collection.fetch({
+        var platforms = this.streamCollection.fetch({
             data: {order: 'reverse'},
             success:function(collection, response, options){
 
@@ -70,9 +83,7 @@ var GenericPlatForm = Backbone.View.extend({
 
                 // I don't really like doing this here...but lets refresh the collection
                 // to only what we need.
-                self.collection = new StreamCollection(filtered);
-                self.collection.fetch({data: {search: 'CP02CNSM' }});
-
+                self.streamCollection = new StreamCollection(filtered);
                 self.render();
             }
         });
@@ -84,12 +95,12 @@ var GenericPlatForm = Backbone.View.extend({
     addTableRows: function(){
         var self = this;
 
-        this.collection.each(function(model){
+        this.streamCollection.each(function(model){
             var row = new Row({
                 model : model
             });
 
-            var tableID = model.get("reference_designator").substring(0,14);
+            var tableID = model.get("reference_designator").substring(0,11);
 
             self.$el.find("#"+ tableID).append(row.el);
 
@@ -97,22 +108,36 @@ var GenericPlatForm = Backbone.View.extend({
     },
     template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
     render: function() {
-        var siteInfo = {
-            site: this.collection.models[0].attributes.assetInfo.site,
-            refDes: this.collection.models[0].attributes.ref_des.substr(0,8),
-        };
-
-        var platformList = this.collection.map(function(model) {
-            return  {
-                name: model.get('assembly_name'),
-                refDes: model.get('reference_designator').substr(0,14),
+        try {
+            var _this = this;
+            var siteInfo = {
+                site: this.streamCollection.models[0].attributes.assetInfo.site,
+                refDes: this.streamCollection.models[0].attributes.ref_des.substr(0,8),
             };
-        });
 
-        var uniqueList = _.uniq(platformList, function(item, key, a) {
-            return item.refDes;
-        });
+            var platformList = this.streamCollection.map(function(model) {
+                return  {
+                    name: model.get('assembly_name'),
+                    refDes: model.get('reference_designator').substr(0,11),
+                };
+            });
 
-        this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
+            var uniqueList = _.uniq(platformList, function(item, key, a) {
+                return item.refDes;
+            });
+
+            this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
+
+            // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
+            // both maps require a valid geoJson as a toJSON override.
+            $.when(this.platformCollection.fetch()).done(function() {
+                var vectorMap = new TileMap({id: 'map', collection: _this.platformCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
+                vectorMap.render();
+            });
+        } catch (exception) {
+
+            alert("We're sorry, this site, " + this.streamCollection.options.searchId + " doesn't appear to be communicating.  You'll be redirected back to the home page.");
+            window.location = '/';
+        }
     }
 });

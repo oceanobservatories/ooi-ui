@@ -59,9 +59,27 @@ var ArrayContentSummary = ParentView.extend({
 
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
-        'click .js-expand': '_flyFly'
+        'click .js-expand': '_flyFly',
+        'click .js-view-subsite span': '_flyToSubsite'
         //'mouseover .js-platform-table tr': '_popUpForPlatform',
         //'click .js-platform-table tr': '_goToPlatform',
+    },
+    _flyToSubsite: function(event) {
+        var target = $(event.target),
+            lat = target.data('lat').toString(),
+            lng = target.data('lon').toString();
+
+        if (this.activePlatform === target.attr('id')) {
+            this.activePlatform = undefined;
+            // map.setLayoutProperty('ceArray', 'visibility', 'none');
+            // map.setLayoutProperty('rsMoorings', 'visibility', 'none');
+            map.setView([45.769225,-128.804111], 5);
+        } else {
+            this.activePlatform = target.attr('id');
+
+            // map.setLayoutProperty('rsMoorings', 'visibility', 'visible');
+            map.setView([lat, lng]);
+        }
     },
     _popUpForPlatform: _.debounce(function(event) {
         event.stopImmediatePropagation;
@@ -72,36 +90,20 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         // CE
         if ($(event.target).parent().data('title').indexOf('OR ') > -1 || $(event.target).parent().data('code').indexOf('CE05MOAS') > -1) {
-            map.flyTo({
-                center: [-124.6133, 44.6499],
-                speed: 0.3, // make the flying slow
-                curve: 1, // change the speed at which it zooms out
-            });
+            map.setView([44.6499, -124.6133]);
         }
 
         if ($(event.target).parent().data('title').indexOf('WA ') > -1) {
-            map.flyTo({
-                center: [-124.6269, 46.9798],
-                speed: 0.3, // make the flying slow
-                curve: 1, // change the speed at which it zooms out
-            });
+            map.setView([ 46.9798, -124.6269]);
         }
 
         // RS
         if ($(event.target).parent().data('title').indexOf('Axial') > -1) {
-            map.flyTo({
-                center: [-130.055, 45.900],
-                speed: 0.4, // make the flying slow
-                curve: 1, // change the speed at which it zooms out
-            });
+            map.setView([45.900, -130.055]);
         }
 
         if ($(event.target).parent().data('title').indexOf('Continental') > -1) {
-            map.flyTo({
-                center: [-125.3707, 44.5028],
-                speed: 0.4, // make the flying slow
-                curve: 1, // change the speed at which it zooms out
-            });
+            map.setView([44.5028, -125.3707]);
         }
 
         this._addPopup([lon, lat], title);
@@ -142,10 +144,10 @@ var ArrayContentSummaryItem = ParentView.extend({
         });
     },
     _flyBye: function(originalZoom) {
-        map.flyTo({center: [-90, 5], zoom: originalZoom, pitch: 0, bearing: 0});
-        map.setLayoutProperty('rsArray', 'visibility', 'visible');
-        map.setLayoutProperty('ceArray', 'visibility', 'visible');
-        map._setArrayView();
+        map.setView([5, -90], originalZoom);
+        // map.setLayoutProperty('rsArray', 'visibility', 'visible');
+        // map.setLayoutProperty('ceArray', 'visibility', 'visible');
+        //map._setArrayView();
         //$('.js-array').removeClass('active');
         popup.remove();
 
@@ -200,7 +202,7 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         // end helper monkies
 
-        map._setPlatformView();
+        // map._setPlatformView();
         var loc = [
                 this.model.attributes.geo_location.coordinates[0][0][1],
                 this.model.attributes.geo_location.coordinates[0][0][0]
@@ -211,53 +213,53 @@ var ArrayContentSummaryItem = ParentView.extend({
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.flyTo({center: loc, zoom: 4});
+                // map.setLayoutProperty('rsArray', 'visibility', 'none');
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'RS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.flyTo({center: loc, zoom: 4});
+                // map.setLayoutProperty('ceArray', 'visibility', 'none');
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'CP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.flyTo({center: loc, zoom: 5});
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.flyTo({center: loc, zoom: 4});
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.flyTo({center: loc, zoom: 4});
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.flyTo({center: loc, zoom: 4});
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.flyTo({center: loc, zoom: 4});
+                // map.setLayoutProperty('rsArray', 'visibility', 'none');
+                // map.setLayoutProperty('ceArray', 'visibility', 'none');
+                map.setView([loc[1], loc[0]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
@@ -265,20 +267,3 @@ var ArrayContentSummaryItem = ParentView.extend({
     }, 500, true),
     template: JST['ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html']
 });
-
-var PlatformContentTable = ParentView.extend({
-    el: 'table',
-    render: function() {
-        var platformContentItem = this.collection.byMoorings().map(function(model) {
-            return (new PlatformContentItem({model: model})).render().el;
-        });
-
-        this.$el.append(platformContentItem);
-    },
-    template: JST['ooiui/static/js/partials/home/array_content/PlatformTable.html']
-});
-
-// var PlatformContentItem = ParentView.extend({
-//     tagName: 'tr',
-//     template: JST['ooiui/static/js/partials/home/array_content/PlatformTableItem.html']
-// });
