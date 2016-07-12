@@ -1813,9 +1813,9 @@ module.exports = function(grunt) {
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
             "ooiui/static/lib/loremjs/lorem.js",
             "ooiui/static/lib/jqtree/tree.jquery.js",
-            'ooiui/static/lib/moment/moment.js',
             // App
             'ooiui/static/js/ooi.js',
+            'ooiui/static/lib/moment/moment.js',
             // Models
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
