@@ -84,7 +84,6 @@ var TileMap = Backbone.View.extend({
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function(event) {
-                            map.setView(layer.getLatLng(), 7);
                             $('#'+feature.properties.code + ' .js-expand').trigger('click');
                         });
                     }

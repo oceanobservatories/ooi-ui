@@ -214,7 +214,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]],6);
+                map.setView([loc[0], loc[1]],8);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
@@ -222,7 +222,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]],6);
+                map.setView([loc[0], loc[1]],8);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
