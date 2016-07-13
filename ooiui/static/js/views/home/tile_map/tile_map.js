@@ -1,7 +1,6 @@
 var TileMap = Backbone.View.extend({
     initialize: function() {
         // The geoJSON data, d3.json();
-        this.listenTo(this.collection, 'change', this.render);
         return this;
     },
     _onBeforeRender: function() {
@@ -22,6 +21,7 @@ var TileMap = Backbone.View.extend({
 
                 // add some methods that can be useful to our map object.
                 map._resizeMap = this._resizeMap;
+                map._setArrayView = this._setArrayView;
 
                 return map;
 
@@ -42,12 +42,8 @@ var TileMap = Backbone.View.extend({
     _setArrayView: function() {
         'use strict';
         // When we're in the array view, we don't want to show all the platforms
-        map.setLayoutProperty('moorings', 'visibility', 'none');
-        map.setLayoutProperty('rsMoorings', 'visibility', 'none');
-        map.setLayoutProperty('gliders', 'visibility', 'none');
-        map.setLayoutProperty('arrays', 'visibility', 'visible');
-        map.setLayoutProperty('rsArray', 'visibility', 'visible');
-        map.setLayoutProperty('ceArray', 'visibility', 'visible');
+        map.setView([15.8, -90], 2);
+
     },
     _setPlatformView: function() {
         'use strict';
@@ -79,7 +75,6 @@ var TileMap = Backbone.View.extend({
                     popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
                 });
 
-
                 L.geoJson(arrayData, {
                     style: function(feature) {
                         return {color: 'green'};
@@ -87,10 +82,20 @@ var TileMap = Backbone.View.extend({
                     pointToLayer: function(feature, latlng) {
                         return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});
                     },
-                    // onEachFeature: function (feature, layer) {
-                    //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
-                    // }
+                    onEachFeature: function (feature, layer) {
+                        layer.on('click', function(event) {
+                            map.setView(layer.getLatLng(), 7);
+                            $('#'+feature.properties.code + ' .js-expand').trigger('click');
+                        });
+                    }
                 }).addTo(map);
+
+                map.on('click', function (e) {
+                    map.setView([15.8, -90], 2);
+                    $('.js-array').removeClass('active');
+                    $('.js-array').fadeIn();
+                    $('.js-platform-table').css('display', 'none');
+                });
             });
         } catch (error) {
             console.log(error);
