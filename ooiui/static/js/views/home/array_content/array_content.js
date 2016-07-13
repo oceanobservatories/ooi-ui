@@ -144,12 +144,12 @@ var ArrayContentSummaryItem = ParentView.extend({
         });
     },
     _flyBye: function(originalZoom) {
-        map.setView([5, -90], originalZoom);
+        map.setView([15.8, -90], originalZoom);
         // map.setLayoutProperty('rsArray', 'visibility', 'visible');
         // map.setLayoutProperty('ceArray', 'visibility', 'visible');
-        //map._setArrayView();
-        //$('.js-array').removeClass('active');
-        popup.remove();
+        map._setArrayView();
+        $('.js-array').removeClass('active');
+        //popup.remove();
 
         // when resetting the page, change the title back to 'Home'
         bannerTitle = 'Home';
@@ -189,12 +189,12 @@ var ArrayContentSummaryItem = ParentView.extend({
         var _compareGeoLoc = (function (pt1, pt2) {
             var RANGE = 10;
 
-            var isLngGreater = Math.round(pt1.lng) > Math.round(pt2[0]) - RANGE;
-            var isLngLess = Math.round(pt1.lng) < Math.round(pt2[0]) + RANGE;
+            var isLngGreater = Math.round(pt1.lng) > Math.round(pt2[1]) - RANGE;
+            var isLngLess = Math.round(pt1.lng) < Math.round(pt2[1]) + RANGE;
             var isPt1LngBetweenPt2Lng = isLngGreater && isLngLess;
 
-            var isLatGreater = Math.round(pt1.lat) > Math.round(pt2[1]) - RANGE;
-            var isLatLess = Math.round(pt1.lat) < Math.round(pt2[1]) + RANGE;
+            var isLatGreater = Math.round(pt1.lat) > Math.round(pt2[0]) - RANGE;
+            var isLatLess = Math.round(pt1.lat) < Math.round(pt2[0]) + RANGE;
             var isPt1LatBetweenPt2Lat = isLatGreater && isLatLess;
 
             return ((isPt1LngBetweenPt2Lng) && (isPt1LatBetweenPt2Lat)) ? true : false;
@@ -204,8 +204,8 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         // map._setPlatformView();
         var loc = [
-                this.model.attributes.geo_location.coordinates[0][0][1],
-                this.model.attributes.geo_location.coordinates[0][0][0]
+                this.model.attributes.geo_location.coordinates[0][0][0],
+                this.model.attributes.geo_location.coordinates[0][0][1]
             ],
             code = this.model.attributes.array_code,
             name = this.model.attributes.array_name;
@@ -214,7 +214,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
@@ -222,35 +222,35 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'CP') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
@@ -259,7 +259,7 @@ var ArrayContentSummaryItem = ParentView.extend({
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('rsArray', 'visibility', 'none');
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[1], loc[0]],6);
+                map.setView([loc[0], loc[1]],6);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }

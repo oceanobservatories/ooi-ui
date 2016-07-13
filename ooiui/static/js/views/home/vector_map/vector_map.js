@@ -335,7 +335,6 @@ var VectorMap = Backbone.View.extend({
                             renderContext.cameraControls.resetZoom = 1.;
                             renderContext.cameraControls.resetPitch = 0;
                             renderContext.cameraControls.resetBearing = 0;
-
                     }
                 });
 
