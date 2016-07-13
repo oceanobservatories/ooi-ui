@@ -211,8 +211,6 @@ var ArrayContentSummaryItem = ParentView.extend({
             name = this.model.attributes.array_name;
 
         if (code === 'CE') {
-            console.log(map.getCenter(), loc);
-            console.log(!_compareGeoLoc(map.getCenter(), loc));
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('rsArray', 'visibility', 'none');
@@ -221,7 +219,6 @@ var ArrayContentSummaryItem = ParentView.extend({
                 this._flyBye(flyFlyContext.originalZoom);
             }
         } else if (code === 'RS') {
-            console.log(map.getCenter(), loc);
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
