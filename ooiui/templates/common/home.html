@@ -114,7 +114,7 @@ $(document).ready(function() {
 });
 
 var bannerTitle = "Home";
-
+var banner = new BannerView({bannerTitle});
 
 _.extend(OOI.prototype, Backbone.Events,  {
     login: new LoginModel(),
@@ -148,7 +148,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
         // Views
         //--------------------------------------------------------------------------------
 
-        this.views.banner = new BannerView({bannerTitle});
+        this.views.banner = banner;
         $('body').prepend(this.views.banner.el);
 
         this.views.navbar = new NavbarView({
