@@ -108,9 +108,13 @@ var TileMap = Backbone.View.extend({
                     pointToLayer: function(feature, latlng) {
                         return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
                     },
-                    // onEachFeature: function (feature, layer) {
-                    //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
-                    // }
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function(e) {
+                            var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>' ;
+                            document.getElementById('info').innerHTML = content;
+
+                        });
+                    }
                 }).addTo(map);
 
                 L.geoJson(marker, {
@@ -118,11 +122,8 @@ var TileMap = Backbone.View.extend({
                         return {color: 'orange'};
                     },
                     pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
+                        return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 0.85});
                     },
-                    // onEachFeature: function (feature, layer) {
-                    //     layer.bindPopup('<span>'+feature.properties.description+'</span>');
-                    // }
                 }).addTo(map);
             });
         } catch (error) {
