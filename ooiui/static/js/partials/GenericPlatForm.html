@@ -212,12 +212,16 @@
                 </div>
             </div>
             <br/>
-            <div class="row">
-              <div class="col-md-12" class="js-expand"><i class="fa fa-chevron-down pull-right"></i> 
+            <div class="panel">
+              <div class="panel-heading" >
+                <h4 class="js-expand" data-target="#platformImage" >Image of Site<i class="fa fa-chevron-down pull-right"></i></h4>
+              </div>
+                <div id="platformImage" class="panel-body" style="display: none">
                     <% if (image !== 'none') { %>
                     <img  src="<%= image %>" width="100%">
                     <% } %>
                 </div>
+              </div>
             </div>
         </div>
     </div>
