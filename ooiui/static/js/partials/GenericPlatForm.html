@@ -108,6 +108,48 @@
             image = '/img/platform/station_papa/papa_flanking.png';
             break;
 
+        case 'RS01SBPD':
+            image = '/img/platform/cabled_array/RS01SBPD.jpg';
+            break;
+        case 'RS01SBPS':
+            image = '/img/platform/cabled_array/RS01SBPS.png';
+            break;
+        case 'RS03ABPI':
+            image = '/img/platform/cabled_array/RS03ABPI.jpg';
+            break;
+        case 'RS03AXPD':
+            image = '/img/platform/cabled_array/RS03AXPD.jpg';
+            break;
+        case 'RS03AXPS':
+            image = '/img/platform/cabled_array/RS03AXPS.png';
+            break;
+        case 'RS04ASPI':
+            image = '/img/platform/cabled_array/RS04ASPI.jpg';
+            break;
+
+        case 'RS03INT1':
+        case 'RS03INT2':
+        case 'RS03ECAL':
+        case 'RS03CCAL':
+        case 'RS03ASHS':
+        case 'RS01SUM2':
+            image = '/img/platform/cabled_array/med_pow.png';
+            break;
+
+        case 'RS01SUM1':
+            image = '/img/platform/cabled_array/low_pow.png';
+            break;
+
+        case 'RS03AXBS':
+        case 'RS01SLBS':
+            if (siteInfo.refDes.indexOf('MJ') !== -1) {
+                image = '/img/platform/cabled_array/med_pow.png';
+                break;
+            } else {
+                image = '/img/platform/cabled_array/low_pow.png';
+                break;
+            }
+
         default:
             if (siteInfo.refDes.indexOf('MOAS') !== -1) {
                 image = '/img/platform/mobile/glider.png';
