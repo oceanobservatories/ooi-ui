@@ -5,6 +5,7 @@
     "plotType": [
       "3d_scatter",
       "stacked",
+      "xy"
       "quiver"
     ],
     "title": " Velocity Profiler for Mobile Assets - Short Range"
@@ -14,6 +15,7 @@
     "plotType": [
       "3d_scatter",
       "stacked",
+      "xy"
       "quiver"
     ],
     "title": " Velocity Profiler - Long Range"
@@ -23,6 +25,7 @@
     "plotType": [
       "3d_scatter",
       "stacked",
+      "xy"
       "quiver"
     ],
     "title": " Velocity Profiler - Short Range"

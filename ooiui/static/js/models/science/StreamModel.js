@@ -92,6 +92,10 @@ var StreamCollection = Backbone.Collection.extend({
         }
         return [];
     },
+    comparator: function(model) {
+        return model.get('display_name');
+    },
+
     byArray: function(array) {
         var filtered = this.filter(function (model) {
             return model.get('reference_designator').substring(0,2) === array;

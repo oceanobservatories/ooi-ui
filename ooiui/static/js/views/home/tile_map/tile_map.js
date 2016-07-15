@@ -77,7 +77,7 @@ var TileMap = Backbone.View.extend({
 
                 L.geoJson(arrayData, {
                     style: function(feature) {
-                        return {color: 'green'};
+                        return {color: 'dimgray'};
                     },
                     pointToLayer: function(feature, latlng) {
                         return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});

@@ -9,11 +9,16 @@
             image = '/img/platform/southern_ocean/southern_profiler.png';
             break;
         case 'GS03FLMA':
+            image = '/img/platform/southern_ocean/southern_flanking.png';
+            break;
         case 'GS03FLMB':
             image = '/img/platform/southern_ocean/southern_flanking.png';
             break;
 
         case 'CE01ISSP':
+        image = '/img/platform/coastal_endurance/endurance_or_is_piercing.png';
+            break;
+
         case 'CE01ISSM':
             image = '/img/platform/coastal_endurance/endurance_or_is_surface.png';
             break;
@@ -70,10 +75,12 @@
         case 'GA01SUMO':
             image = '/img/platform/argentine/argentine_surface.png';
             break;
-        case 'GA012HYPM':
+        case 'GA02HYPM':
             image = '/img/platform/argentine/argentine_profiler.png';
             break;
         case 'GA03FLMA':
+            image = '/img/platform/argentine/argentine_flanking.png';
+            break;
         case 'GA03FLMB':
             image = '/img/platform/argentine/argentine_flanking.png';
             break;
@@ -81,21 +88,67 @@
         case 'GI01SUMO':
             image = '/img/platform/irminger/irminger_surface.png';
             break;
-        case 'GI012HYPM':
+        case 'GI02HYPM':
             image = '/img/platform/irminger/irminger_profiler.png';
             break;
         case 'GI03FLMA':
+            image = '/img/platform/irminger/irminger_flanking.png';
+            break;
         case 'GI03FLMB':
             image = '/img/platform/irminger/irminger_flanking.png';
             break;
 
-        case 'GP012HYPM':
+        case 'GP02HYPM':
             image = '/img/platform/station_papa/papa_profiler.png';
             break;
         case 'GP03FLMA':
+            image = '/img/platform/station_papa/papa_flanking.png';
+            break;
         case 'GP03FLMB':
             image = '/img/platform/station_papa/papa_flanking.png';
             break;
+
+        case 'RS01SBPD':
+            image = '/img/platform/cabled_array/RS01SBPD.jpg';
+            break;
+        case 'RS01SBPS':
+            image = '/img/platform/cabled_array/RS01SBPS.png';
+            break;
+        case 'RS03ABPI':
+            image = '/img/platform/cabled_array/RS03ABPI.jpg';
+            break;
+        case 'RS03AXPD':
+            image = '/img/platform/cabled_array/RS03AXPD.jpg';
+            break;
+        case 'RS03AXPS':
+            image = '/img/platform/cabled_array/RS03AXPS.png';
+            break;
+        case 'RS04ASPI':
+            image = '/img/platform/cabled_array/RS04ASPI.jpg';
+            break;
+
+        case 'RS03INT1':
+        case 'RS03INT2':
+        case 'RS03ECAL':
+        case 'RS03CCAL':
+        case 'RS03ASHS':
+        case 'RS01SUM2':
+            image = '/img/platform/cabled_array/med_pow.png';
+            break;
+
+        case 'RS01SUM1':
+            image = '/img/platform/cabled_array/low_pow.png';
+            break;
+
+        case 'RS03AXBS':
+        case 'RS01SLBS':
+            if (siteInfo.refDes.indexOf('MJ') !== -1) {
+                image = '/img/platform/cabled_array/med_pow.png';
+                break;
+            } else {
+                image = '/img/platform/cabled_array/low_pow.png';
+                break;
+            }
 
         default:
             if (siteInfo.refDes.indexOf('MOAS') !== -1) {
@@ -109,7 +162,7 @@
 <div id="platform-view-content">
 
     <h2><%= siteInfo.site %><small class="refDesLabel" style="display:none"> (<%= siteInfo.refDes %>)</small></h2>
-    <h3><small>Click an assembly to view it's instruments</small></h3>
+    <h3><small>Click an assembly to view its instruments</small></h3>
 
     <div class="row">
         <div class="col-md-12">
@@ -159,12 +212,16 @@
                 </div>
             </div>
             <br/>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="panel">
+              <div class="panel-heading" >
+                <h4 class="js-expand" data-target="#platformImage" >Image of Site<i class="fa fa-chevron-down pull-right"></i></h4>
+              </div>
+                <div id="platformImage" class="panel-body" style="display: none">
                     <% if (image !== 'none') { %>
-                    <img src="<%= image %>" width="100%">
+                    <img  src="<%= image %>" width="100%">
                     <% } %>
                 </div>
+              </div>
             </div>
         </div>
     </div>

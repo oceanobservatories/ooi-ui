@@ -50,7 +50,7 @@ var GenericPlatForm = Backbone.View.extend({
     initialize: function(options) {
         _.bindAll(this, "render","addTableRows");
         var self = this;
-        this.streamCollection = this.collection.streamCollection;
+        this.streamCollection = this.collection.streamCollection.sort('display_name');
         this.platformCollection = this.collection.platformCollection;
         this.platformLat = this.streamCollection.options.searchLat;
         this.platformLng = this.streamCollection.options.searchLng;
