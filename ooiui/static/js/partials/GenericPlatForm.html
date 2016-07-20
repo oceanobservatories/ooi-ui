@@ -16,9 +16,8 @@
             break;
 
         case 'CE01ISSP':
-        image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
             break;
-
         case 'CE01ISSM':
             image = '/img/platform/coastal_endurance/endurance_or_is_surface.png';
             break;
@@ -274,16 +273,17 @@
                 <div id="platformImage" class="panel-body" style="display: none">
                     <p>Click on the image to expand it.</p>
                     <% if (image !== 'none') { %>
-                    <img  id=theImage src="<%= image %>" width="100%" style="cursor:pointer" onclick="showImage(this.src, this.src);" >
+                    <img src="<%= image %>" width="100%" style="cursor:pointer" onclick="showImage(this.src, this.src);" >
                     <% } %>
                 </div>
               </div>
             </div>
         </div>
-        <div id="largeImgPanel" onclick="this.style.display='none'">
-            <p>Click on the image to close it.</p>
+        <div class="col-md-12" id="largeImgPanel" onclick="this.style.display='none'">
+            <h3><small>Click on the image to close it.</small></h3>
             <img id="largeImg" onclick="yesScroll();"
-             style=" margin:0; padding:0;" />
+             style=" margin:0; padding-bottom:50px; padding-top:150px;" />
+            <h3><small>Click on the image to close it.</small></h3>
         </div>
     </div>
 </div>
