@@ -63,7 +63,9 @@
               </div>
               <div id="dcGroupings">
                 <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
-                <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;">Export Asset Information (JSON)</a>
+                <!-- Disabled until UFRAME brings back the capability
+                <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;" disabled>Export Asset Information (JSON)</a>
+                -->
               </div>
             </div>
             <div class="col-md-12">
@@ -414,7 +416,7 @@
       if(!_.isNull(cellvalue) && cellvalue > 0) {
         newDate = new Date(cellvalue);
       }
-      if(cellvalue <= 0){
+      if(!_.isNull(cellvalue) && cellvalue <= 0){
         newDate = 'Invalid Date'
       }
       return newDate;
@@ -424,9 +426,9 @@
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
-      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";
+{#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -434,7 +436,7 @@
     // Opens the plotting page
     var openPlot = function(ref_des){
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/plot/#"+ref_des, '_blank');
+      var win = window.open(location.origin+"/data_access/#"+ref_des, '_blank');
       win.focus();
     };
 
@@ -542,10 +544,10 @@
     var combineFilters = function() {
       console.log('combineFilters');
       var allFilters = [];
-      if($dcGrid.getGridParam("postData").filters != null) {
-        console.log($dcGrid.getGridParam("postData").filters);
-        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));
-      }
+{#      if($dcGrid.getGridParam("postData").filters != null) {#}
+{#        console.log($dcGrid.getGridParam("postData").filters);#}
+{#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
+{#      }#}
 
       var combinedFilters = {
         groupOp:"AND",
@@ -799,7 +801,6 @@
           'Long Name',
           'Name',
           'Owner',
-          'Type',
           'Coordinates',
           'Data Source',
           'Deployment Number',
@@ -816,6 +817,7 @@
           'Purchase Price',
           'Purchase Date',
           'Tense',
+          'Type',
           'Reference Designator',
           'Last Modified',
           'Mobile'
@@ -878,6 +880,7 @@
             editable : false,
             width : 290,
             sortable : true,
+            hidden : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
@@ -904,7 +907,7 @@
             index : 'assetInfo.name',
             editable : false,
             {#                      width : 100,#}
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -916,20 +919,6 @@
           {
             name : 'assetInfo.owner',
             index : 'assetInfo.owner',
-            editable : false,
-            {#                      width : 100,#}
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assetInfo.type',
-            index : 'assetInfo.type',
             editable : false,
             {#                      width : 100,#}
             hidden : true,
@@ -1167,6 +1156,20 @@
             }
           },
           {
+            name : 'assetInfo.type',
+            index : 'assetInfo.type',
+            editable : false,
+            {#                      width : 100,#}
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name: 'ref_des',
             index: 'ref_des',
             key: false, // rowID = reference_designator
@@ -1302,7 +1305,7 @@
         {#        altclass:'myAltRowClass',#}
         {#        classes: 'table table-bordered table-striped table-selectable',#}
         ignoreCase: true,
-        shrinkToFit : false,
+        shrinkToFit : true,
         multiselect: true,
         multiboxonly: true,
         reloadAfterSubmit : false,
@@ -1414,25 +1417,25 @@
       {#        }#}
       {#      );#}
 
-      $dcGrid.jqGrid('filterToolbar',
-        {
-          autosearch : true,
-          searchOperators : false,
-          searchOnEnter : false,
-          stringResult : true,
-          defaultSearch : "cn",
-          afterSearch : function() {
-            console.log($("#globalSearchText").val());
-            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {
-              performGlobalSearch($("#globalSearchText").val());
-            } else {
-              globalFilter = null;
-              combineFilters();
-            }
-
-          }
-        }
-      );
+{#      $dcGrid.jqGrid('filterToolbar',#}
+{#        {#}
+{#          autosearch : true,#}
+{#          searchOperators : false,#}
+{#          searchOnEnter : false,#}
+{#          stringResult : true,#}
+{#          defaultSearch : "cn",#}
+{#          afterSearch : function() {#}
+{#            console.log($("#globalSearchText").val());#}
+{#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
+{#              performGlobalSearch($("#globalSearchText").val());#}
+{#            } else {#}
+{#              globalFilter = null;#}
+{#              combineFilters();#}
+{#            }#}
+{##}
+{#          }#}
+{#        }#}
+{#      );#}
 
       if(location.hash!=""){
         setScienceFilter('ref_des', location.hash.split('#')[1]);
@@ -1547,7 +1550,6 @@
       'Event Type',
       'Notes',
       'Tense',
-      'UID',
       'Values'
     ];
 
@@ -1679,20 +1681,6 @@
         }
       },
       {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
         name : 'values',
         index : 'values',
         editable : false,
@@ -1761,7 +1749,6 @@
       'Notes',
       'Ship Name',
       'Tense',
-      'UID',
       'Unique Cruise ID'
     ];
 
@@ -1907,20 +1894,6 @@
         }
       },
       {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
         name : 'uniqueCruiseIdentifer',
         key : true,
         index : 'uniqueCruiseIdentifer',
@@ -1984,10 +1957,10 @@
       'Start Date',
       'End Date',
       'Event Type',
+      'Event ID',
       'Location',
       'Notes',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['DEPLOYMENT'] = [
@@ -2011,7 +1984,7 @@
         editable : true,
         {#                      width : 100,#}
         sortable : true,
-        sorttype : 'number',
+        sorttype : 'float',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2074,6 +2047,20 @@
         }
       },
       {
+        name : 'event_id',
+        key : true,
+        index : 'event_id',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
         name : 'location',
         index : 'location',
         editable : false,
@@ -2109,20 +2096,6 @@
         {#                      width : 100,#}
         sortable : true,
         sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2186,7 +2159,6 @@
       'Integration Into',
       'Notes',
       'Tense',
-      'UID',
       'Version Number'
     ];
 
@@ -2346,20 +2318,6 @@
         }
       },
       {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
         name : 'versionNumber',
         key : false,
         index : 'versionNumber',
@@ -2438,12 +2396,10 @@
       'End Date',
       'Event Type',
       'Latitude',
-      'Location',
       'Longitude',
       'Notes',
       'Orbit Radius',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['LOCATION'] = [
@@ -2560,20 +2516,6 @@
         }
       },
       {
-        name : 'location',
-        index : 'location',
-        editable : true,
-        hidden : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
         name : 'longitude',
         index : 'longitude',
         editable : true,
@@ -2623,20 +2565,6 @@
         {#                      width : 100,#}
         sortable : true,
         sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2701,8 +2629,7 @@
       'Reason',
       'Severity',
       'Status',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['ASSET_STATUS'] = [
@@ -2873,20 +2800,6 @@
         unformat : function (cellvalue, options, cell) {
           return $('input', cell).val() || cellvalue;
         }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
       }
     ];
 
@@ -2946,8 +2859,7 @@
       'Physical Location',
       'Room ID',
       'Shelf ID',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['STORAGE'] = [
@@ -3132,20 +3044,6 @@
         unformat : function (cellvalue, options, cell) {
           return $('input', cell).val() || cellvalue;
         }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
       }
     ];
 
@@ -3196,8 +3094,7 @@
       'End Date',
       'Event Type',
       'Notes',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['UNSPECIFIED'] = [
@@ -3312,20 +3209,6 @@
         unformat : function (cellvalue, options, cell) {
           return $('input', cell).val() || cellvalue;
         }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
       }
     ];
 
@@ -3382,8 +3265,7 @@
       'Notes',
       'Reason',
       'Retired By',
-      'Tense',
-      'UID'
+      'Tense'
     ];
 
     eventColModels['RETIREMENT'] = [
@@ -3540,20 +3422,6 @@
         unformat : function (cellvalue, options, cell) {
           return $('input', cell).val() || cellvalue;
         }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
       }
     ];
 
@@ -3620,7 +3488,6 @@
       'Vendor Receipt By',
       'Vendor Sent By',
       'Tense',
-      'UID',
       'Vendor ID',
       'Vendor POC'
     ];
@@ -3816,20 +3683,6 @@
         {#                      width : 100,#}
         sortable : true,
         sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'uid',
-        key : false,
-        index : 'uid',
-        editable : false,
-        {#                      width : 100,#}
-        sortable : true,
-        sorttype : 'number',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
