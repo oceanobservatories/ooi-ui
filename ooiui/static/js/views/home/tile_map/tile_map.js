@@ -57,6 +57,7 @@ var TileMap = Backbone.View.extend({
     render: function() {
         try {
             var renderContext = this;
+            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
 
             // global
             map = this._onBeforeRender();
@@ -76,11 +77,11 @@ var TileMap = Backbone.View.extend({
                 });
 
                 L.geoJson(arrayData, {
-                    style: function(feature) {
-                        return {color: 'dimgray'};
-                    },
+                    //style: function(feature) {
+                    //    return {color: 'dimgray'};
+                    //},
                     pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});
+                        return new L.Marker(latlng, {icon: arrayIcon});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function(event) {
