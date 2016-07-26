@@ -64,10 +64,6 @@
               <div id="dcGroupings">
                 <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
                 <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;">Export Asset Information (JSON)</a>
-                <!--
-                <button type='button' title='Show Deployed' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PRESENT");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Deployed</i></button>
-                <button type='button' title='Show Recovered' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcScienceFilter' class='btn btn-primary btn-xs' onclick='setScienceFilter("tense","PAST");'><i style='font-size:14px;float:left;pointer-events: none;'>Show Recovered</i></button>
-                -->
               </div>
             </div>
             <div class="col-md-12">
@@ -78,41 +74,90 @@
               </div>
             </div>
           </div> <!-- row -->
-          <div class="row" id="rowFilters" hidden>
-            <div class="col-md-4" style='margin-top:10px;'>
+
+          <div class="row">
+            <div class="col-md-12" id="rowEvents" hidden>
               <div style="width:100%;">
-                <span style='margin-left:0px;font-weight:600;font-size:16px;'>Metadata Filters</span>
+                <hr>
+                <span style='margin-left:15px;font-weight:600;font-size:16px;'>Events</span>
+              </div>
+
+              <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
+                <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
+                <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>
+                <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
+                <li class=""><a href="#events-integration" data-toggle="tab">Integration</a></li>
+                <li class=""><a href="#events-location" data-toggle="tab">Location</a></li>
+                <li class=""><a href="#events-purchase" data-toggle="tab">Purchase</a></li>
+                <li class=""><a href="#events-recovery" data-toggle="tab">Recovery</a></li>
+                <li class=""><a href="#events-retirement" data-toggle="tab">Retirement</a></li>
+                <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
+                <li class=""><a href="#events-status" data-toggle="tab">Status</a></li>
+                <li class=""><a href="#events-unknown" data-toggle="tab">Unknown</a></li>
+                <li class=""><a href="#events-vendor" data-toggle="tab">Vendor</a></li>
+              </ul>
+
+              <div id="events-tab-content" class="tab-content" style="min-height:500px;">
+
+                <div class="tab-pane fade" id="events-calibration">
+                  <div class="row" style="margin-left:10px;margin-right:10px;">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <div>
+                          <p class="initial-text"> Calibration Events</p>
+                        </div> <!-- panel-table -->
+                      </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="events-cruise">
+                  <div class="row" style="margin-left:10px;margin-right:10px;">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <div>
+                          <p class="initial-text"> Cruise Events</p>
+                        </div> <!-- panel-table -->
+                      </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+                  </div>
+                </div>
+
+                <div class="tab-pane fade in active" id="events-deployment">
+                  <div class="row" style="margin-left:10px;margin-right:10px;">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <div>
+                          <p class="initial-text"> Deployment Events</p>
+                          <div id="pagerDEPLOYMENT" class="redmond"></div>
+                          <table id="gridEventsDeployment" class="redmond"></table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="tab-pane fade in active" id="events-storage">
+                  <div class="row" style="margin-left:10px;margin-right:10px;">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <div>
+                          <p class="initial-text"> Storage Events</p>
+                          <div id="pagerSTORAGE" class="redmond"></div>
+                          <table id="gridEventsStorage" class="redmond"></table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="col-md-8" style='margin-top:10px;'>
-              <div style="width:100%;">
-                <span style='margin-left:0px;font-weight:600;font-size:16px;'>Event Table Filters</span>
-              </div>
-              <div>
-                <button type='button' title='Show All Events' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcEventFilter' class='btn btn-primary btn-xs' onclick='setEventFilter("","");'><i style='font-size:14px;float:left;pointer-events: none;'>All</i></button>
-                <button type='button' title='Show Deployment Events' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcEventFilter' class='btn btn-primary btn-xs' onclick='setEventFilter("eventClass",".DeploymentEvent");'><i style='font-size:14px;float:left;pointer-events: none;'>Deployment</i></button>
-                <button type='button' title='Show Integration Events' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcEventFilter' class='btn btn-primary btn-xs' onclick='setEventFilter("eventClass",".IntegrationEvent");'><i style='font-size:14px;float:left;pointer-events: none;'>Integration</i></button>
-                <button type='button' title='Show Calibration Events' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcEventFilter' class='btn btn-primary btn-xs' onclick='setEventFilter("eventClass",".CalibrationEvent");'><i style='font-size:14px;float:left;pointer-events: none;'>Calibration</i></button>
-                <button type='button' title='Show Tag Events' style='float:left;margin-bottom: 15px;margin-left: 5px;' id='dcEventFilter' class='btn btn-primary btn-xs' onclick='setEventFilter("eventClass",".TagEvent");'><i style='font-size:14px;float:left;pointer-events: none;'>Tag</i></button>
-              </div>
-            </div>
-          </div><!-- subgrids filters row -->
-          <div class="row" id="rowSubGrids" hidden>
-            <div class="col-md-4">
-              <!-- jqGrid Metadata-->
-              <div>
-                <div id="navGridMetadata" class="redmond"></div>
-                <table id="gridMetadata" class="redmond"></table>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <!-- jqGrid Events-->
-              <div>
-                <div id="navGridEvents" class="redmond"></div>
-                <table id="gridEvents" class="redmond"></table>
-              </div>
-            </div>
-          </div><!-- subgrids row -->
+          </div>
+
+
+
           <div class="row" id="rowAlfresco" hidden>
             <div style="width:100%;">
               <hr>
@@ -147,6 +192,10 @@
 
     var bannerTitle = "Asset Management";
 
+    var gridIdLookup = {};
+    gridIdLookup["#events-deployment"] = "gridEventsDeployment";
+    gridIdLookup["#events-storage"] = "gridEventsStorage";
+
     _.extend(OOI.prototype, Backbone.Events, {
       login: new LoginModel(),
       views: {
@@ -176,7 +225,7 @@
 
         //checks and adds streaming title
         if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
-            $('.container-fluid.banner-image').addClass('news-active')
+          $('.container-fluid.banner-image').addClass('news-active')
         }
 
         {#        footer = new AssetTabelFooterView({});#}
@@ -233,6 +282,16 @@
           {#          $('#search').val(searchFor);#}
           {#          $('#search-clear').show();#}
           {#          updateCollection( showAssets );#}
+        });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          console.log('changed tab');
+          var target = $(e.target).attr("name"); // activated tab
+          console.log(target);
+          var target_id = "#" + gridIdLookup[$(e.target).attr("href")];
+{#          gridIdLookup[$('.nav-tabs .active').find("a").attr("href")]#}
+          console.log('target_id');
+          console.log(target_id);
+          refreshEventTable(target, target_id);
         });
       }
     });
@@ -448,7 +507,7 @@
 
     var $dcGrid = $("#grid");
     var $gridMetadata = $("#gridMetadata");
-    var $gridEvents = $("#gridEvents");
+{#    var $gridEvents = $("#gridEvents");#}
     var lastsel2;
 
     var getUniqueNames = function(columnName) {
@@ -616,12 +675,26 @@
       }
     };
 
+    var refreshEventTable = function(theName, gridId) {
+      console.log('refreshEventTable');
+      console.log(currentAssetId);
+      console.log(gridId);
+      var theDataUrl = "/api/asset_events";
+      if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {
+        theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + theName;
+        console.log(theDataUrl);
+        $(gridId).setGridParam({url:theDataUrl});
+        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);
+      }
+    };
+
     var showRows = function() {
       $("#loadingSpinner").hide();
       $("#rowButtons").show();
-{#      $("#rowFilters").show();#}
-{#      $("#rowSubGrids").show();#}
+      {#      $("#rowFilters").show();#}
+      {#      $("#rowSubGrids").show();#}
       $("#rowAlfresco").show();
+      $("#rowEvents").show();
     };
 
     var currentAssetId;
@@ -831,7 +904,7 @@
             key: true, // uid = reference_designator
             editable: false,
             hidden : false,
-{#            width: 240,#}
+            {#            width: 240,#}
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
@@ -1043,7 +1116,7 @@
             index : 'mobile',
             editable : false,
             hidden : true,
-{#            width : 150,#}
+            {#            width : 150,#}
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1059,26 +1132,59 @@
           highlightFilteredData.call(this);
           showRows();
         },
+        beforeRequest: function(){
+
+        },
         onSelectRow: function (rowId, status, e) {
-          $gridMetadata.jqGrid("clearGridData");
-          $gridEvents.jqGrid("clearGridData");
-{#          console.log('currentAssetId');#}
-{#          console.log($dcGrid.getRowData(rowId));#}
-          currentAssetId = $dcGrid.getRowData(rowId).id;
-{#          console.log(currentAssetId);#}
+          var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
+          console.log('select row, targetGrid:');
+          console.log(targetGrid);
+
+          $(targetGrid).jqGrid("clearGridData");
+          {#          console.log('currentAssetId');#}
+          {#          console.log($dcGrid.getRowData(rowId));#}
+          var selRows = $dcGrid.jqGrid('getGridParam','selarrrow');
+          if (selRows.length === 0) {
+            // No rows selected
+            currentAssetId = null;
+          } else {
+            // Row has been selected
+            currentAssetId = $dcGrid.getRowData(rowId).id;
+          }
+
           {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
-          setEventFilter("","");
-          $gridMetadata.jqGrid('resetSelection');
-          $gridEvents.jqGrid('resetSelection');
-          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;
-          $gridMetadata.setGridParam({data:metadataObjects});
-          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);
+          {#          setEventFilter("","");#}
+          {#          $gridMetadata.jqGrid('resetSelection');#}
+          $(targetGrid).jqGrid('resetSelection');
+          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
+          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
+          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
+          {##}
+          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
+          console.log(currentAssetId);
+{#          placeJqGridEvents();#}
+          refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 
-          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;
-          $gridEvents.setGridParam({data:eventObjects});
-          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);
 
-          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);
+{#          var theDataUrl = "/api/asset_events";#}
+{#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
+{#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
+{#            console.log(theDataUrl);#}
+{#            $gridEvents.setGridParam({url:theDataUrl});#}
+{#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+{#            var data = $gridEvents.jqGrid("getRowData");#}
+{#            console.log(data);#}
+{#          }#}
+
+{##}
+{#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
+{#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
+{#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
+{#          console.log($('.nav-tabs .active').name);#}
+{#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
+
+
+          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
         },
         {#        onSelectRow: function(id){#}
         {#          if(id && id!==lastsel2){#}
@@ -1252,7 +1358,7 @@
         var postData = $grid.jqGrid("getGridParam", "postData"),
           colModel = $grid.jqGrid("getGridParam", "colModel"),
           rules = [],
-{#          searchText = $("#globalSearchText").val(),#}
+          {#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
           searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
           cnParts = searchTextParts === null ? 0 : searchTextParts.length,
@@ -1303,11 +1409,12 @@
         text: false
       }).click(function () {
         initialLocationSearch = "";
-          performGlobalSearch($("#globalSearchText").val());
+        performGlobalSearch($("#globalSearchText").val());
       });
 
     } // placeJqGrid
 
+    // Metadata Grid
     function placeJqGridMetadata(collection) {
       {#      console.log(collection);#}
       $gridMetadata.jqGrid({
@@ -1530,21 +1637,21 @@
 
 
     var getEventData = function(rowData) {
-{#      console.log('rowData');#}
-{#      console.log(rowData);#}
-{#      console.log('rowData.eventId');#}
-{#      console.log(rowData.eventId);#}
+      {#      console.log('rowData');#}
+      {#      console.log(rowData);#}
+      {#      console.log('rowData.eventId');#}
+      {#      console.log(rowData.eventId);#}
 
       var output = {};
       var eventCollection = new AssetEventsCollection({id: parseInt(currentAssetId)});
       var eventsFetch = eventCollection.fetch();
       $.when(eventsFetch).done(function() {
-{#        console.log('eventCollection');#}
-{#        console.log(eventCollection);#}
+        {#        console.log('eventCollection');#}
+        {#        console.log(eventCollection);#}
         if(rowData.eventClass == '.DeploymentEvent'){
           output = eventCollection.where({'eventClass': '.DeploymentEvent'})[0];
-{#          console.log('output.attributes');#}
-{#          console.log(output.attributes);#}
+          {#          console.log('output.attributes');#}
+          {#          console.log(output.attributes);#}
           {#          return output;#}
           deploymentCollection = output.attributes;
           {#          $gridEvents.setGridParam({data:output.attributes});#}
@@ -1560,123 +1667,417 @@
     var subModel = {};
     var subData = {};
 
-    function placeJqGridEvents(collection) {
-      {#      console.log(collection);#}
-      $gridEvents.jqGrid({
-        datatype : "local",
-        data : collection,
-        editurl : "/api/asset_deployment/ajax",
-        colNames: [
-          'Event ID',
-          'Start Date',
-          'End Date',
-          'Tense',
-          'Event Class',
-          'Coordinates',
-          'Notes'
-        ],
+    var eventColNames = {};
+    var eventColModels = {};
+    var eventJsonReaders = {};
 
-        colModel : [
-          {
-            name : 'eventId',
-            key : true,
-            index : 'eventId',
-            editable : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'number',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'startDate',
-            index : 'startDate',
-            editable : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'date',
-            formatter: unixTimeToDateTime,
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'endDate',
-            index : 'endDate',
-            editable : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'date',
-            formatter: unixTimeToDateTime,
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'tense',
-            index : 'tense',
-            editable : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'eventClass',
-            index : 'eventClass',
-            editable : false,
-            hidden : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'locationLonLat',
-            index : 'locationLonLat',
-            editable : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'notes',
-            index : 'notes',
-            editable : false,
-            hidden : false,
-            {#                      width : 100,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          }
-        ],
+    // CALIBRATION_DATA
+
+    // DEPLOYMENT
+    eventColNames['DEPLOYMENT'] = [
+      'Deployment Number',
+      'Start Date',
+      'End Date',
+      'Tense',
+      'Event Type',
+      'Notes',
+      'Location'
+    ];
+
+    eventColModels['DEPLOYMENT'] = [
+      {
+        name : 'deployment_number',
+        key : true,
+        index : 'deployment_number',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventStartTime',
+        index : 'eventStartTime',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'date',
+        formatter: unixTimeToDateTime,
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventStopTime',
+        index : 'eventStopTime',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'date',
+        formatter: unixTimeToDateTime,
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'tense',
+        index : 'tense',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventType',
+        index : 'eventType',
+        editable : false,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'notes',
+        index : 'notes',
+        editable : false,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'location',
+        index : 'location',
+        editable : false,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        formatter : eventLocationFormatter,
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      }
+    ];
+
+    eventJsonReaders['DEPLOYMENT'] = {
+      repeatitems: false,
+      page: function(obj) {
+        return 1;
+      },
+      total: function(obj) {
+        return 1;
+      },
+      root: function (obj) {
+        console.log(obj);
+        console.log(obj.events.DEPLOYMENT);
+        return obj.events.DEPLOYMENT;
+      },
+      records: function (obj) {
+        console.log(obj.events.DEPLOYMENT.length);
+        return obj.events.DEPLOYMENT.length;
+      }
+    };
+
+    // STORAGE
+{#    {#}
+{#        "@class": ".XStorageEvent",#}
+{#        "buildingName": "Tower",#}
+{#        "dataSource": null,#}
+{#        "eventId": 14497,#}
+{#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
+{#        "eventStartTime": 1398039060000,#}
+{#        "eventStopTime": 1405382400000,#}
+{#        "eventType": "STORAGE",#}
+{#        "lastModifiedTimestamp": 1469314016410,#}
+{#        "notes": "This is another test storage event against CP02PMUO-WFP01-00-WFPENG000:1:1 instrument:A00391.1",#}
+{#        "performedBy": "Edna Donoughe, RPS ASA",#}
+{#        "physicalLocation": "Narragansett, RI",#}
+{#        "roomIdentification": "23",#}
+{#        "shelfIdentification": "Cube 7-21",#}
+{#        "tense": "UNKNOWN",#}
+{#        "uid": "A00391.1"#}
+{#      }#}
+    eventColNames['STORAGE'] = [
+      'Building Name',
+      'Data Source',
+      'Event ID',
+      'Event Name',
+      'Start Date',
+      'End Date',
+      'Event Type',
+      'Notes',
+      'Performed By',
+      'Physical Location',
+      'Room ID',
+      'Shelf ID',
+      'Tense',
+      'UID'
+    ];
+
+    eventColModels['STORAGE'] = [
+      {
+        name : 'buildingName',
+        index : 'buildingName',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'dataSource',
+        index : 'dataSource',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventID',
+        key : true,
+        index : 'eventID',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventName',
+        index : 'eventName',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventStartTime',
+        index : 'eventStartTime',
+        editable : true,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'date',
+        formatter: unixTimeToDateTime,
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventStopTime',
+        index : 'eventStopTime',
+        editable : true,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'date',
+        formatter: unixTimeToDateTime,
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'eventType',
+        index : 'eventType',
+        editable : false,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'notes',
+        index : 'notes',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'performedBy',
+        index : 'performedBy',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'physicalLocation',
+        index : 'physicalLocation',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'roomIdentification',
+        index : 'roomIdentification',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'shelfIdentification',
+        index : 'shelfIdentification',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'tense',
+        index : 'tense',
+        editable : true,
+        hidden : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'uid',
+        key : false,
+        index : 'uid',
+        editable : false,
+        {#                      width : 100,#}
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      }
+    ];
+
+    eventJsonReaders['STORAGE'] = {
+      repeatitems: false,
+      page: function(obj) {
+        return 1;
+      },
+      total: function(obj) {
+        return 1;
+      },
+      root: function (obj) {
+        console.log(obj);
+        console.log(obj.events.STORAGE);
+        return obj.events.STORAGE;
+      },
+      records: function (obj) {
+        console.log(obj.events.STORAGE.length);
+        return obj.events.STORAGE.length;
+      }
+    };
+
+
+
+    function placeJqGridEvents(divId, eventName) {
+      divId = "#" + divId;
+      $(divId).jqGrid({
+        datatype : "json",
+        mtype : "GET",
+        url : "",
+        {#        editurl : "/api/asset_deployment/ajax",#}
+        jsonReader: eventJsonReaders[eventName],
+        colNames: eventColNames[eventName],
+
+        colModel : eventColModels[eventName],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function(data) {
-          $("#navGridEvents").find("option[value=\"50000\"]").text('All');
+          $("#pager"+eventName).find("option[value=\"50000\"]").text('All');
+{#          console.log($gridEvents.jqGrid("getRowData"));#}
+        },
+        gridComplete : function() {
+{#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
         },
         onSelectRow: function (rowId, status, e) {
           {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
@@ -1696,15 +2097,33 @@
           {#          getEventData(rowId);#}
         },
         serializeRowData: function(postdata){
-          {#          console.log(postdata);#}
+{#          console.log(postdata);#}
           return JSON.stringify(postdata);
+        },
+        beforeProcessing: function(){
+{#          console.log('before request');#}
+{#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
+{#          console.log(eventClassName);#}
+{#          if(!_.isUndefined(eventColNames[eventClassName])){#}
+{#            console.log('setting colNames and colModel');#}
+{#            console.log(eventColNames[eventClassName]);#}
+{#            console.log(eventColModels[eventClassName]);#}
+{#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
+{#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
+{#            $("#gridEvents").jqGrid('GridUnload');#}
+{#            $("#gridEvents").unload();#}
+{#            $("#gridEvents").setGridParam({}).trigger('reloadGrid',[{ colNames:eventColNames[eventClassName],colModel:eventColModels[eventClassName]}]).jqGrid('GridUnload');#}
+{#            $gridEvents.jqGrid("GridUnload");#}
+{#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+{#          }#}
+
         },
         gridview : true,
         rowNum : 15,
         rowList : [15, 30, 45, 60, 50000],
         autowidth : true,
         height : 'auto',
-        pager : '#navGridEvents',
+        pager : '#pager'+eventName,
         sortname : 'end',
         viewrecords : true,
         sortorder : 'desc',
@@ -1718,7 +2137,7 @@
         multiboxonly: true,
         reloadAfterSubmit : false,
         loadOnce : false,
-        subGrid : true,
+        subGrid : false,
         subGridOptions: {
           "plusicon": "ui-icon-triangle-1-e",
           "minusicon": "ui-icon-triangle-1-s",
@@ -1731,16 +2150,16 @@
           subColumns = [];
           subModel = {};
           subData = {};
-{#          console.log('expanded row');#}
-{#          console.log(row_id);#}
+          {#          console.log('expanded row');#}
+          {#          console.log(row_id);#}
           var selectedRow = $gridEvents.getRowData(row_id);
-{#          console.log(selectedRow);#}
-{#          console.log('selectedRow.eventId');#}
-{#          console.log(selectedRow.eventId);#}
+          {#          console.log(selectedRow);#}
+          {#          console.log('selectedRow.eventId');#}
+          {#          console.log(selectedRow.eventId);#}
 
           var selectedAssetRow = $dcGrid.getRowData(currentAssetId);
-{#          console.log('selectedAssetRow');#}
-{#          console.log(selectedAssetRow);#}
+          {#          console.log('selectedAssetRow');#}
+          {#          console.log(selectedAssetRow);#}
 
           {#          console.log('expanded row');#}
           {#          console.log(row_id);#}
@@ -1753,22 +2172,22 @@
           var eventsFetch = eventCollection.fetch();
           $.when(eventsFetch).done(function() {
 
-{#            console.log('eventCollection');#}
-{#            console.log(eventCollection);#}
+            {#            console.log('eventCollection');#}
+            {#            console.log(eventCollection);#}
 
             var output = {};
             // .DeploymentEvent
             {#            if(selectedRow.eventClass == '.DeploymentEvent'){#}
             {#              output = eventCollection.where({'eventClass': '.DeploymentEvent'})[0];#}
             output = eventCollection.where({'eventClass': selectedRow.eventClass})[0];
-{#            console.log('output.attributes');#}
-{#            console.log(output.attributes);#}
+            {#            console.log('output.attributes');#}
+            {#            console.log(output.attributes);#}
             {#          return output;#}
             deploymentCollection = output.attributes;
             {#          $gridEvents.setGridParam({data:output.attributes});#}
             {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-{#            console.log('deploymentCollection');#}
-{#            console.log(deploymentCollection);#}
+            {#            console.log('deploymentCollection');#}
+            {#            console.log(deploymentCollection);#}
 
             var subgridData;
 
@@ -1807,15 +2226,15 @@
               for (var j = 0; j < subNames.length; j++) {
                 mysubdata[0][subNames[j]] = subgridData[subNames[j]];
               }
-{#              console.log('mysubdata');#}
-{#              console.log(mysubdata);#}
+              {#              console.log('mysubdata');#}
+              {#              console.log(mysubdata);#}
               subData = mysubdata;
 
             } else if(selectedRow.eventClass == '.TagEvent') {
-{#              console.log('.tagEvent');#}
-{#              console.log('.IntegrationEvent');#}
+              {#              console.log('.tagEvent');#}
+              {#              console.log('.IntegrationEvent');#}
               subgridData = deploymentCollection;
-{#              console.log(subgridData);#}
+              {#              console.log(subgridData);#}
               subNames = [];
               subColumns = [];
 
@@ -1837,15 +2256,15 @@
                 mysubdata[0][this] = subgridData[this];
               });
               subColumns = subNames;
-{#              console.log(subNames);#}
-{#              console.log(subColumns);#}
-{#              console.log('mysubdata');#}
-{#              console.log(mysubdata);#}
+              {#              console.log(subNames);#}
+              {#              console.log(subColumns);#}
+              {#              console.log('mysubdata');#}
+              {#              console.log(mysubdata);#}
               subData = mysubdata;
             } else if(selectedRow.eventClass == '.IntegrationEvent') {
-{#              console.log('.IntegrationEvent');#}
+              {#              console.log('.IntegrationEvent');#}
               subgridData = deploymentCollection;
-{#              console.log(subgridData);#}
+              {#              console.log(subgridData);#}
               subNames = [];
               subColumns = [];
 
@@ -1867,16 +2286,16 @@
                 mysubdata[0][this] = subgridData[this];
               });
               subColumns = subNames;
-{#              console.log(subNames);#}
-{#              console.log(subColumns);#}
-{#              console.log('mysubdata');#}
-{#              console.log(mysubdata);#}
+              {#              console.log(subNames);#}
+              {#              console.log(subColumns);#}
+              {#              console.log('mysubdata');#}
+              {#              console.log(mysubdata);#}
               subData = mysubdata;
 
             } else if(selectedRow.eventClass == '.CalibrationEvent') {
               subgridData = deploymentCollection.calibrationCoefficient;
-{#              console.log('.CalibrationEvent');#}
-{#              console.log(subgridData);#}
+              {#              console.log('.CalibrationEvent');#}
+              {#              console.log(subgridData);#}
               subNames = [];
               subColumns = [];
               $.each (subgridData, function() {
@@ -1890,8 +2309,8 @@
               for (var j = 0; j < subNames.length; j++) {
                 mysubdata[0][subNames[j]] = subgridData[j].values;
               }
-{#              console.log('mysubdata');#}
-{#              console.log(mysubdata);#}
+              {#              console.log('mysubdata');#}
+              {#              console.log(mysubdata);#}
               subData = mysubdata;
 
             } else {
@@ -1938,7 +2357,7 @@
         }
 
       }).jqGrid('navGrid',
-        '#navGridEvents',
+        '#pager'+eventName,
         {add:false, view:false, del:false,edit:false,pdf:true}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
@@ -1987,16 +2406,16 @@
       );
 
       // CSV Export footer button
-      $dcGrid.jqGrid('navButtonAdd','#navGridEvents',{
-        id:'ExportToExcel',
-        caption:'Export Selected Rows To CSV',
-        title:'Export Selected Rows To CSV',
-        onClickButton : function(e)
-        {
-          exportData(e, '#gridEvents');
-        },
-        buttonicon: 'ui-icon ui-icon-document'
-      });
+{#      $dcGrid.jqGrid('navButtonAdd','#navGridEvents',{#}
+{#        id:'ExportToExcel',#}
+{#        caption:'Export Selected Rows To CSV',#}
+{#        title:'Export Selected Rows To CSV',#}
+{#        onClickButton : function(e)#}
+{#        {#}
+{#          exportData(e, '#gridEvents');#}
+{#        },#}
+{#        buttonicon: 'ui-icon ui-icon-document'#}
+{#      });#}
 
       {#      // Column mover and chooser#}
       {#      $dcGrid.jqGrid('navButtonAdd', '#navGridMetadata', {#}
@@ -2044,15 +2463,15 @@
       {#        }#}
       {#      );#}
 
-{#      $dcGrid.jqGrid('filterToolbar',#}
-{#        {#}
-{#          autosearch : true,#}
-{#          searchOperators : false,#}
-{#          searchOnEnter : false,#}
-{#          stringResult : true,#}
-{#          defaultSearch : "cn"#}
-{#        }#}
-{#      );#}
+      {#      $dcGrid.jqGrid('filterToolbar',#}
+      {#        {#}
+      {#          autosearch : true,#}
+      {#          searchOperators : false,#}
+      {#          searchOnEnter : false,#}
+      {#          stringResult : true,#}
+      {#          defaultSearch : "cn"#}
+      {#        }#}
+      {#      );#}
 
       {#      if(location.hash!=""){#}
       {#        setScienceFilter('ref_des', location.hash.split('#')[1]);#}
@@ -2064,8 +2483,9 @@
       var jqCollection = collection;
       jqCollection['actions'] = '';
       placeJqGrid(jqCollection);
-      placeJqGridMetadata({});
-      placeJqGridEvents({});
+      {#      placeJqGridMetadata({});#}
+      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
+      placeJqGridEvents("gridEventsStorage", "STORAGE");
     };
 
     var renderRemoteDocuments = function(model) {
@@ -2118,8 +2538,18 @@
     };
 
     var unixTimeToDateTime = function(cellvalue) {
-      var newDate = new Date(cellvalue);
+      var newDate = '';
+      if(!_.isNull(cellvalue) && cellvalue > 0) {
+        newDate = new Date(cellvalue);
+      }
+      if(cellvalue <= 0){
+        newDate = 'Invalid Date'
+      }
       return newDate;
+    };
+
+    var eventLocationFormatter = function(cellvalue) {
+      return cellvalue[0].toString() + ", " + cellvalue[1].toString()
     };
 
     var isoToDateTime = function(cellvalue) {
