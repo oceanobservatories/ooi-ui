@@ -17,6 +17,8 @@ body, html {
 
 #right {
     padding: 0;
+    right: 0px;
+    position: absolute;
 }
 
 #wrapper{
@@ -84,3 +86,9 @@ body, html {
     transition: all 1;
 }
 
+.mydivicon{
+    border-radius: 58px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
