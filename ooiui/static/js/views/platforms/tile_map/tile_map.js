@@ -76,7 +76,9 @@ var TileMap = Backbone.View.extend({
             $.when(map).done(function() {
                 var arrayData = [];
                 _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
-                    arrayData.push(geoJSON);
+                    if (String(geoJSON.properties.code).indexOf('MOAS') < 0) {
+                        arrayData.push(geoJSON);
+                    }
                 });
 
 
