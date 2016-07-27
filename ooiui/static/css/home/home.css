@@ -71,12 +71,7 @@ body, html {
     padding: 5px;
     margin-top: 0;
     color: white;
-
-    background: #dfeffc; /* Old browsers */
-    background: -moz-linear-gradient(left,  #1e5799 20%, #dfeffc 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #1e5799 20%,#dfeffc 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #1e5799 20%,#dfeffc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#dfeffc',GradientType=1 ); /* IE6-9 */
+    border: 4px solid orange;
 
 }
 
@@ -89,6 +84,20 @@ body, html {
 .mydivicon{
     border-radius: 58px;
     background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon:hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-hover {
+    border-radius: 58px;
+    background: orange;
     border: 2px solid #000;
     opacity: 0.85;
 }
