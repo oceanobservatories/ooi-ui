@@ -422,6 +422,17 @@
       return newDate;
     };
 
+    var changeTenseDisplay = function(cellvalue) {
+      var tenseDisplay = cellvalue;
+      if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
+        tenseDisplay = "Yes";
+      }
+      if(!_.isNull(cellvalue) && cellvalue == "PAST"){
+        tenseDisplay = "No"
+      }
+      return tenseDisplay
+    };
+
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      console.log(rowObject);#}
@@ -816,7 +827,7 @@
           'Delivery Date',
           'Purchase Price',
           'Purchase Date',
-          'Tense',
+          'Alive?',
           'Type',
           'Reference Designator',
           'Last Modified',
@@ -1151,6 +1162,7 @@
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
             align: 'center',
+            formatter : changeTenseDisplay,
             unformat: function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
