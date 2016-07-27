@@ -342,13 +342,6 @@
     var initialLocationSearch = "";
     if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
       initialLocationSearch = location.search.split('?search=')[1].replace(/%20/g, ' ');
-      var searchTerms = "";
-      var searchParts = location.search.split('&');
-      $.each(searchParts, function(part) {
-        searchTerms += searchParts[part].split("=")[1] + " ";
-      });
-      console.log(searchTerms);
-      initialLocationSearch += searchTerms;
     }
 
     _.extend(OOI.prototype, Backbone.Events, {
@@ -1691,11 +1684,8 @@
         },
         gridComplete : function() {
 {#          console.log('gridComplete');#}
-          console.log(initialLocationSearch);
+{#          console.log(initialLocationSearch);#}
 {#          initialLocationSearch = "";#}
-          if (initialLocationSearch != "") {
-            performGlobalSearch(initialLocationSearch);
-          }
         },
         beforeRequest : function() {
 {#          console.log('beforeRequest');#}
@@ -1878,7 +1868,7 @@
       $("#globalSearchText").keypress(function (e) {
         var key = e.charCode || e.keyCode || 0;
         if (key === $.ui.keyCode.ENTER) { // 13
-{#          initialLocationSearch = "";#}
+          initialLocationSearch = "";
           performGlobalSearch($("#globalSearchText").val());
         }
       });
@@ -1886,7 +1876,7 @@
         icons: { primary: "ui-icon-search" },
         text: false
       }).click(function () {
-{#        initialLocationSearch = "";#}
+        initialLocationSearch = "";
           performGlobalSearch($("#globalSearchText").val());
       });
 
