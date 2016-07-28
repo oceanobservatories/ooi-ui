@@ -15,9 +15,9 @@ var TileMap = Backbone.View.extend({
 
             var map = L.map(this.id, {
                 zoomControl: true,
-                minZoom: 7,
+                minZoom: 6,
                 maxZoom: 10,
-            }).setView([this.lat, this.lng], 7);
+            }).setView([this.lat, this.lng], 6);
             L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
                 .addTo(map);
@@ -81,6 +81,8 @@ var TileMap = Backbone.View.extend({
                     }
                 });
 
+                var mooringIcon = new L.divIcon({className: 'mooringIcon', iconSize: [15, 15]});
+                var otherMooringIcon = new L.divIcon({className: 'otherMooringIcon', iconSize: [20, 20]});
 
                 var referencePlatforms = [];
                 var primaryArray = renderContext.platformId.substr(0,2);
@@ -88,12 +90,6 @@ var TileMap = Backbone.View.extend({
                     referencePlatforms.push(geoJSON);
                 });
 
-                var mooringIcon = L.icon({
-                    iconUrl: '/img/mooring.png',
-                    iconSize:     [50, 50], // size of the icon
-                    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
-                    popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
-                });
 
                 var marker = {
                     type: 'Feature',
@@ -104,11 +100,8 @@ var TileMap = Backbone.View.extend({
                 };
 
                 L.geoJson(arrayData, {
-                    style: function(feature) {
-                        return {color: 'yellow'};
-                    },
                     pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
+                        return new L.Marker(latlng, {icon: otherMooringIcon});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('mouseover', function(e) {
@@ -120,11 +113,8 @@ var TileMap = Backbone.View.extend({
                 }).addTo(map);
 
                 L.geoJson(marker, {
-                    style: function(feature) {
-                        return {color: 'orange'};
-                    },
                     pointToLayer: function(feature, latlng) {
-                        return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 0.85});
+                        return new L.Marker(latlng, {icon: mooringIcon});
                     },
                 }).addTo(map);
             });
