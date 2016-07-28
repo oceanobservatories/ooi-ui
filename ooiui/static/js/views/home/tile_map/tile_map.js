@@ -87,6 +87,12 @@ var TileMap = Backbone.View.extend({
                         layer.on('click', function(event) {
                             $('#'+feature.properties.code + ' .js-expand').trigger('click');
                         });
+                        layer.on('mouseover', function(event) {
+                            $('#'+feature.properties.code + ' .js-expand').css("border", "4px solid orange");
+                        });
+                        layer.on('mouseout', function(event) {
+                            $('#'+feature.properties.code + ' .js-expand').css("border", "");
+                        });
                     }
                 }).addTo(map);
 

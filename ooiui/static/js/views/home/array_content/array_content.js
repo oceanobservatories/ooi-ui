@@ -29,6 +29,34 @@ var ParentView = Backbone.View.extend({
 });
 
 var ArrayContentSummary = ParentView.extend({
+    events: {
+        'mouseover .js-expand': '_highlightArray',
+        'mouseout .js-expand': '_lowlightArray',
+    },
+
+    _highlightArray: function(event) {
+        var arrayIconHighlight = new L.divIcon({className: 'mydivicon-hover', iconSize: [20, 20]});
+        var targetCode = ($(event.target).parent().parent())[0]; 
+        _.each(map._layers, function(layer) {
+            if(layer._icon){
+                if(targetCode.id.indexOf(layer.feature.properties.code) > -1 || targetCode.outerHTML.indexOf(layer.feature.properties.code) > -1){
+                    layer.setIcon(arrayIconHighlight);
+                }
+            }
+        });
+    },
+    _lowlightArray: function(event) {
+        var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
+        var targetCode = ($(event.target).parent().parent());  
+
+        _.each(map._layers, function(layer) {
+            if(layer._icon){
+                if(layer.feature.properties.code.indexOf(targetCode[0].id) > -1){
+                    layer.setIcon(arrayIcon);
+                }
+            }
+        });
+    },
     render: function() {
         var arrayContentContext = this;
 
