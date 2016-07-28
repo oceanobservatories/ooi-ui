@@ -137,6 +137,7 @@ var PlatformInstrumentsView = Backbone.View.extend({
                 refresh_state: "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-3x'></i>",
                 parameter_options: "",
                 available_streams: "",
+                available_streams_index: "",
                 processing_state: "",
                 command_options: "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-3x'></i>",
                 variable: this.model.attributes.reference_designator,
