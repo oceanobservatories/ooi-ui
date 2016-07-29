@@ -24,7 +24,7 @@ var PlatformModel = Backbone.Model.extend({
     toGeoJSON: function() {
         var attrs = _.clone(this.attributes),
             coorArray = attrs.geo_location.coordinates,
-            newArray = [coorArray[0].toFixed(3), coorArray[1].toFixed(3)],
+            newArray = [coorArray[1].toFixed(3), coorArray[0].toFixed(3)],
             color = 'yellow';
 
 
