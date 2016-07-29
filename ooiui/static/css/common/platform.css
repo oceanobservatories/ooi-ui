@@ -77,3 +77,17 @@ div#wrapper.platform-page {
 
 #map {
 }
+
+.mooringIcon{
+    border-radius: 38px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.otherMooringIcon{
+    border-radius: 48px;
+    background: yellow;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
