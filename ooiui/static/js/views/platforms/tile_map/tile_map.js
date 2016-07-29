@@ -15,9 +15,9 @@ var TileMap = Backbone.View.extend({
 
             var map = L.map(this.id, {
                 zoomControl: true,
-                minZoom: 6,
+                minZoom: 7,
                 maxZoom: 10,
-            }).setView([this.lat, this.lng], 6);
+            }).setView([this.lat, this.lng], 7);
             L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
                 .addTo(map);
