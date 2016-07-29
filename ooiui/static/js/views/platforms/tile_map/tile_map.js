@@ -81,8 +81,6 @@ var TileMap = Backbone.View.extend({
                     }
                 });
 
-                var mooringIcon = new L.divIcon({className: 'mooringIcon', iconSize: [15, 15]});
-                var otherMooringIcon = new L.divIcon({className: 'otherMooringIcon', iconSize: [20, 20]});
 
                 var referencePlatforms = [];
                 var primaryArray = renderContext.platformId.substr(0,2);
@@ -90,6 +88,12 @@ var TileMap = Backbone.View.extend({
                     referencePlatforms.push(geoJSON);
                 });
 
+                var mooringIcon = L.icon({
+                    iconUrl: '/img/mooring.png',
+                    iconSize:     [50, 50], // size of the icon
+                    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+                    popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+                });
 
                 var marker = {
                     type: 'Feature',
@@ -100,8 +104,11 @@ var TileMap = Backbone.View.extend({
                 };
 
                 L.geoJson(arrayData, {
+                    style: function(feature) {
+                        return {color: 'yellow'};
+                    },
                     pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: otherMooringIcon});
+                        return new L.CircleMarker(latlng, {radius: 6, fillOpacity: 0.85});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('mouseover', function(e) {
@@ -113,8 +120,11 @@ var TileMap = Backbone.View.extend({
                 }).addTo(map);
 
                 L.geoJson(marker, {
+                    style: function(feature) {
+                        return {color: 'orange'};
+                    },
                     pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: mooringIcon});
+                        return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 0.85});
                     },
                 }).addTo(map);
             });
