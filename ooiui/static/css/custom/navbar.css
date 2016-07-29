@@ -1,23 +1,172 @@
 /***********************
  ******** Navbar ********
  ***********************/
-@media screen and (max-width: 1024px) {
-  .navbar-fixed-top {
-    top: 113px;
-    border-width: 0 0 1px;
-    z-index: 1001;
+/*
+  large
+*/
+@media (min-height: 1000px) {
+  div#wrapper{
+    margin-top:135px;
   }
-}
-@media (min-width: 958px) {
+
+  div#wrapper.news-active{
+    margin-top:135px;
+  }
+
+  .banner-header li.banner-title lg span{
+    font-size:60px;
+  }
+
+  .banner-header li.banner-title{
+    margin-top:-10px;
+  }
+
+  .container-fluid.banner-image{
+    height:120px;
+  }
+
   .navbar-fixed-top {
+    top: 85px;
+  }
+
+  .navbar-fixed-top.news-active {
     top: 103px;
+  }
+
+  .banner-image-icon{
+    width:145px;
+  }
+
+  .banner-image-ol{
+    height:75px;
+  }
+
+  .banner-image-nsf{
+    height:75px;
   }
 }
 
-@media (min-width: 958px) {
-  .navbar-fixed-top {
-    top: 100px;
+@media (min-height: 800px) and (max-height: 1000px){
+  div#wrapper{
+    margin-top:105px;
   }
+
+  div#wrapper.news-active{
+    margin-top:115px;
+  }
+
+  .banner-header li.banner-title lg span{
+    font-size:52px;
+  }
+
+  .banner-header li.banner-title{
+    margin-top:-15px;
+  }
+
+  .container-fluid.banner-image{
+    height:100px;
+  }
+
+  .navbar-fixed-top {
+    top: 65px;
+  }
+
+  .navbar-fixed-top.news-active {
+    top: 75px;
+  }
+
+  .banner-image-icon{
+    width:100px;
+  }
+
+  .banner-image-ol{
+    height:50px;
+  }
+
+  .banner-image-nsf{
+    height:50px;
+  }
+}
+
+
+@media (min-height: 100px) and (max-height: 800px){
+  div#wrapper{
+    margin-top:105px;
+  }
+
+  div#wrapper.news-active{
+    margin-top:115px;
+  }
+
+  .banner-header li.banner-title lg span{
+    font-size:52px;
+  }
+
+
+  .banner-header li.banner-title{
+    margin-top:-15px;
+  }
+
+  .container-fluid.banner-image{
+    height:100px;
+  }
+
+  .navbar-fixed-top {
+    top: 65px;
+  }
+
+  .navbar-fixed-top.news-active {
+    top: 85px;
+  }
+
+  .banner-image-icon{
+    width:100px;
+  }
+
+  .banner-image-ol{
+    height:50px;
+  }
+
+  .banner-image-nsf{
+    height:50px;
+  }
+}
+
+
+
+.container-fluid.banner-image .image-header{
+  width: 100%;
+  top: 8px;
+  /* margin-top: 25px; */
+  height: 50px;
+  position: absolute;
+}
+
+.container-fluid.banner-image.news-active .image-header{
+  top: 25px;
+}
+
+/*
+banner header for active/inactive
+*/
+.banner-header.news-active{
+  margin-top:25px;
+}
+
+.banner-header{
+  margin-top:10px;
+}
+
+
+
+.banner-header li.banner-title lg span{
+  color: #000;
+  opacity: 0.5;
+  font-family: Athelas
+}
+
+.banner-header.news-active li.banner-title{
+  margin-top:-20px;
 }
 
 .navbar-top-links-new li {
@@ -41,14 +190,14 @@
   background: radial-gradient(rgba(255,255,255,0), rgba(163,167,191,.3), rgba(255,255,255,0));
   border-radius: 5px;
   border-color: #337ab7;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new li a:hover,
 .navbar-top-links-new li a:focus {
   background: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
   border-radius: 5px;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li {
@@ -58,17 +207,17 @@
 
 .navbar-top-links-new .dropdown-menu li:last-child {
   margin-right: 0;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li a {
   padding: 3px 20px;
   min-height: 0;
-  font-weight: 300; 
+  font-weight: 300;
 }
 .navbar-top-links-new .dropdown-menu li a:hover {
-  background: rgba(141,162,228,.1); 
-  font-weight: 300; 
+  background: rgba(141,162,228,.1);
+  font-weight: 300;
 }
 
 .navbar-top-links-new .dropdown-menu li a div {
@@ -102,13 +251,13 @@
 
 .nav > li > a {
   color: #004773;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-text > a {
   color: #004773;
   text-decoration: none;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .navbar-default {
@@ -144,14 +293,14 @@
 /* ~link colors~ */
 .navbar-default .navbar-nav > li > a {
   color: #fff;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
-.navbar-default .navbar-nav > li > a 
+.navbar-default .navbar-nav > li > a
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #A3A7BF;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 /*color of active nabar btn
@@ -159,16 +308,16 @@
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
 color: #fff;
-backgound-color: #A3A7BF; 
+backgound-color: #A3A7BF;
  */
 
-/* ~drop downs~ */    
+/* ~drop downs~ */
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   background-color:  #A3A7BF;
   color: #fff;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 div#aa-panel {

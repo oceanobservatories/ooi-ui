@@ -542,7 +542,7 @@ var MapView = Backbone.View.extend({
                                     // Data Catalog
                                     popupContent+='<li><a href="/streams/#'+platforms[0].get('ref_des')+'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>';
                                     // Asset Managment
-                                    popupContent+='<li><a href="/assets/list#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>';
+                                    popupContent+='<li><a href="/assets/management#' + platforms[0].get('ref_des') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li></ul>';
 
                                     popupContent+= '<ul id="latLon"><li latFloat"><strong>Latitude:</strong> '+platforms[platforms.length -1].get('coordinates')[0] + '</li><li lonFloat"><strong>Longitude:</strong> ' + platforms[platforms.length -1].get('coordinates')[1] +'</li>';
                                     // Checkbox
@@ -577,7 +577,7 @@ var MapView = Backbone.View.extend({
                                         '<td>' +
                                         '<a href="/plotting/#'+instrumentRefDes+'" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>' +
                                         '<a href="/streams/#'+instrumentRefDes+'" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>'+
-                                        '<a href="/assets/list#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
+                                        '<a href="/assets/management#'+instrumentRefDes+'" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>'+
                                         '</td>' +
                                         '</tr>';
                                     if( instrumentList.indexOf(y) < 0 ) {

@@ -1,0 +1,1275 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>Data Catalog</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/compiled/data_catalog.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/data_catalog/search_sidebar.css" rel="stylesheet" type="text/css"/>
+
+  <link href='/lib/jQRangeSlider/dest/css/iThing-min.css' rel='stylesheet' type='text/css' />
+
+  <!-- partials -->
+  <script src='/lib/jQRangeSlider/dest/jQAllRangeSliders-min.js'></script>
+
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
+
+  <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+
+  <!-- lunr needs to be imported by a script tag -->
+  <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+  <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+
+  <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
+  {#<script src="/js/partials/compiled/data_catalog.js" type="text/javascript"</script>#}
+
+  <script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $.jgrid.no_legacy_api = true;
+    $.jgrid.useJSON = true;
+  </script>
+
+
+  {% block link %}
+    {{ super() }}
+  {% endblock %}
+  {% block script %}
+    {{ super() }}
+  {% endblock %}
+{% endblock %}
+
+{%block body %}
+  <div class="container-fluid">
+    <div id="navbar" class="row"></div>
+  </div>
+
+  <div id="wrapper" style="padding-left: 0">
+    <div id="page-content-wrapper">
+      <div class="content-fluid">
+        <div id="page-content" style="top:10px;">
+          <div class="row" style="margin-bottom:15px;">
+            <div class="col-md-2">
+              <div class="search-sidebar"></div>
+            </div>
+            <div class="col-md-10">
+              <div class="row panel panel-heading" style="margin-right:15px;">
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Engineering<br>Instruments</label>
+                    </div>
+                    <div>
+                      <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Metadata<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Status<br>Streams</label>
+                    </div>
+                    <div>
+                      <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2-toggles" style="top:25px;">
+                  <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">
+                    <div>
+                      <label>Mobile<br>Assets</label>
+                    </div>
+                    <div>
+                      <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5" style="vertical-align: top;float: right;bottom: 15px;">
+                  <label style="/* float: initial; */position: relative;top: 25px;">Time Range Filter</label>
+                  <div id="timeRangeFilter" align="right"><div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider"><div class="ui-rangeSlider-container" style="position: absolute; width: 707px;"><div class="ui-rangeSlider-innerBar" style="position: absolute; top: 0px; left: 0px; width: 707px;"></div><div class="ui-rangeSlider-bar" style="position: absolute; top: 0px; width: 707px; left: 0px;"></div><div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle" style="position: absolute; top: 0px; left: 0px;"><div class="ui-rangeSlider-handle-inner"></div></div><div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" style="position: absolute; top: 0px; left: 697px;"><div class="ui-rangeSlider-handle-inner"></div></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" style="position: absolute; left: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" style="position: absolute; right: 0px;"><div class="ui-rangeSlider-arrow-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" style="position: absolute; display: block; left: -27px;"><div class="ui-rangeSlider-label-value">2013-01-01</div><div class="ui-rangeSlider-label-inner"></div></div><div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" style="position: absolute; display: block; right: -27px;"><div class="ui-rangeSlider-label-value">2016-06-07</div><div class="ui-rangeSlider-label-inner"></div></div></div>
+                  </div>
+                </div>
+              </div>
+              <div id="streamPanel" class="panel" style="margin-right:15px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="color-index" align="left" style="padding:5px;">
+                      <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='font-size:12px;pointer-events: none; font-weight: 400;'>Reset Table</i></button>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="color-index" align="right">
+                      <div class="twelve-hours"></div><b> 12 Hours </b>
+                      <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                      <div class="older"></div><b> Older than 24 hours </b>
+                      <em>Data are sorted by end date, most recent first</em>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- jqGrid -->
+                <div>
+                  <div id="navGrid" class="redmond"></div>
+                  <table id="grid" class="redmond"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- #page-content-wrapper -->
+    <div id="stream-download-modal"></div>
+    <div id='download-ok-modal'></div>
+    <div id='download-fail-modal'></div>
+  </div> <!-- #wrapper -->
+
+
+  <script type="text/javascript">
+
+    var bannerTitle = "Data Catalog";
+
+    var userId = parseInt(window.location.href.split('/').pop());
+
+    _.extend(OOI.prototype, Backbone.Events, {
+      login: new LoginModel(),
+      collections: {
+        streams: new StreamCollection(),
+        subscriptionCollection: new DataSubscriptionCollection(),
+        largeFormatFiles: new LargeDataFormatCollection()
+      },
+      views: {
+      },
+      models: {
+        userModel: new UserModel()
+      },
+      start: function() {
+        var self = this;
+
+        this.login.fetch({async: false});
+
+        if(this.login.loggedIn()) {
+          this.models.userModel.fetch({url: '/api/current_user'});
+        }
+
+        this.listenTo(self.collections.subscriptionCollection, 'reset', function(options) {
+          //console.log('ready...',self.collections.subscriptionCollection);
+        });
+
+        this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
+          var startDate = new Date(options.min).toISOString(),
+            endDate   = new Date(options.max).toISOString();
+
+          setTimeRangeFilter("start", startDate, "end", endDate);
+          combineFilters();
+        });
+
+        this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
+          setStreamFilter("reference_designator", options);
+          combineFilters();
+        });
+
+        this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
+          setInstrumentFilter("reference_designator", options);
+          combineFilters();
+        });
+
+        this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
+          setArrayFilter("reference_designator", options);
+          combineFilters();
+{#          showCurrentFilters();#}
+        });
+
+        this.listenTo(self.models.userModel, 'change', function(options) {
+          //reset the subscriptions, once loaded
+          self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
+        });
+
+        this.listenTo(this, 'StreamDownloadFormView:resetSubscriptionCollection', function() {
+          self.collections.subscriptionCollection.fetch({ reset: true, data: {email:self.models.userModel.get("email")} });
+        });
+
+        this.views.banner = new BannerView({bannerTitle : bannerTitle});
+        $('body').prepend(this.views.banner.el);
+
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+            $('#wrapper').addClass('news-active');
+            $('.container-fluid.banner-image').addClass('news-active');
+        }
+
+        this.views.navbar = new NavbarView({
+          el: $('#navbar')
+        });
+
+        this.views.navbar = new NavbarView();
+        $('body').prepend(this.views.navbar.el);
+
+        this.views.streamDownloadFormView = new StreamDownloadFormView({
+          el: $('#stream-download-modal')
+        });
+        this.views.largeFileFormatView = new LargeDataTableView({
+          collection: this.collections.largeFormatFiles,
+          el: $('#large-format-file-view')
+        });
+
+        this.views.modalDownloadView = new ModalDownloadView({
+          el: $('#download-ok-modal')
+        });
+        this.views.modalDownloadFailView = new ModalDownloadFailView({
+          el: $('#download-fail-modal')
+        });
+
+        // Get the list of streams from the API
+        {#        updateCollection( showStreams );#}
+
+        /* Dispatcher Section */
+        this.listenTo(this, "login:success", function() { location.reload(); });
+        this.listenTo(this, "login:logout", function() { location.reload(); });
+
+        this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+          if(this.login.loggedIn()) {
+
+            options.model.attributes.email = this.models.userModel.get("email");
+            options.model.attributes.user_name = this.models.userModel.get("user_name");
+
+            var hasSubscribed = false;
+            //for email address
+            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
+            //for selected item
+            var currentStream = options.model.get('stream_name');
+            var currentRef = options.model.get('ref_des');
+            //loop over and compare, only if telemetered
+            if (currentStream.split('_')[0] == 'telemetered'){
+              _.each(availSubs,function(sub){
+                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
+
+                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+                if (streamName == currentStream && refDes == currentRef){
+                  hasSubscribed = true;
+                  options.model.set('subscriptionModel',sub);
+                }
+              });
+            }
+
+            if (hasSubscribed){
+              options.model.set('subscriptionEnabled', true);
+            }else{
+              options.model.set('subscriptionEnabled', false);
+            }
+
+            self.views.streamDownloadFormView.show(options);
+          }
+        });
+
+        this.listenTo(this, 'DownloadModal:onSuccess',function(url){
+          self.views.modalDownloadView.show(url);
+        });
+        this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
+          self.views.modalDownloadFailView.show(msg);
+        });
+
+        this.listenTo(this, 'GetLargeFormatFiles:fetch',function(options){
+          updateDownloadCollection(options);
+        });
+        this.listenTo(this, "LargeDataCollection:updated", function(details){
+            updateDownloadPagination(details);
+        });
+        this.listenTo(this, 'LargeFormatFileTable:update',function(options){
+            var onErrorHandler = function(collection, response, options) {
+            self.views.largeFileFormatView.showError(response.responseText);
+            var details = {startAt: 0,
+                           count: 1,
+                           total: 0
+            };
+            updateDownloadPagination(details);
+          };
+
+          $.when(this.collections.largeFormatFiles.fetch({data : options, reset: true, error: onErrorHandler})).done(function() {
+            self.views.largeFileFormatView.render();
+          });
+        });
+      } // start
+    }); // extend
+
+    var ooi = new OOI();
+    {#var collection = new StreamCollection();#}
+    var collection = ooi.collections.streams;
+
+    var vent = _.extend({}, Backbone.Events);
+    var vobj = {};
+    // controller for our model collections
+    var arrayCollection     = new ArrayCollection();
+    var streamCollection    = new StreamCollection();
+    var dlPagination = {
+        itemsPerPage : 8, // how many items per page
+        currentPage : 1, // page to start at, first page is 1, not 0
+        maxPages: 4, // max number of pages to show in the pagination element
+        date: '',
+        ref_des: ''
+    };
+
+    var instrumentFilter = {groupOp:"OR",rules:[]};
+    var arrayFilter = {groupOp:"OR",rules:[]};
+    var streamFilter = {groupOp:"OR",rules:[]};
+    var timeRangeFilter = {groupOp:"OR",rules:[]};
+    var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+    var engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+    var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+    var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+    var filterToolbarFilter = {groupOp:"AND",rules:[]};
+    var globalFilter = null;
+
+    // Sets up the action buttons in the jqGrid table
+    var createActionButtons = function(cellvalue, options, rowObject){
+      var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      if (ooi.models.userModel.length > 0) {
+        actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      } else {
+        actionButtons += "<button type='button' title='Download - Log in to access' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      }
+
+      if (ooi.models.userModel.length > 0 && ooi.models.userModel.attributes.scopes.contains('asset_manager')) {
+        actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      } else {
+        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      }
+      actionButtons += "</div>";
+      return actionButtons;
+    };
+
+    // Opens the plotting page
+    var openPlot = function(ref_des, stream_name){
+      location.origin = location.protocol + "//" + location.host;
+      var win = window.open(location.origin+"/plot/?reference_designator="+ref_des+'&stream_name='+stream_name, '_blank');
+      win.focus();
+    };
+
+    // Opens the download modal
+    var openDownload = function(ref_des, stream_name) {
+      var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
+      dlModel.attributes.email = ooi.models.userModel.attributes.email;
+      ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+    };
+
+    var openAssetManagement = function(ref_des, stream_name) {
+      //assets/list/#CE01ISSP
+      location.origin = location.protocol + "//" + location.host;
+      var win = window.open(location.origin+"/assets/management/#"+ref_des, '_blank');
+      win.focus();
+    };
+
+    // Colors the end time
+      var colorTime = function(cellvalue, options, rowObject) {
+      var currentDate = new Date();
+      var endDate = new Date(cellvalue);
+      var timeSinceEndDate = currentDate.getTime()-endDate.getTime();
+
+      // Base cell output is no background
+      var cellOutput = '<i>'+cellvalue+'</i>';
+      if(timeSinceEndDate <= 1000*60*60*12 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="twelve-hours">'+cellvalue+'</i>';
+      } else if(timeSinceEndDate < 1000*60*60*24 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="twenty-four-hours">'+cellvalue+'</i>';
+      } else if(timeSinceEndDate >= 1000*60*60*24 && timeSinceEndDate >= 0){
+        cellOutput = '<i class="older">'+cellvalue+'</i>';
+      }
+      return cellOutput;
+    };
+
+    //Adds in support for Large Format Data
+    function updatePagination( details, successCallback ){
+
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $("#pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $("#pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $("#pagination-boxes").unbind();
+
+    // Redraw the jquery pagination boxes
+    $("#pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: pagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                pagination.currentPage = page;
+                updateCollection( successCallback );
+            }
+        }
+    });
+}
+
+function updateDownloadCollection( options ){
+
+    // If there is a search term, we need to set the startAt attribute to 0,
+    // otherwise the results may not load on the page.
+    var startingPoint = "";
+    try {
+        var target = $( event.target );
+        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
+                || target.is('th') || target.is('font') || target.is('input')) {
+            startingPoint = 0;
+        } else {
+            startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+        }
+    } catch(e) {
+        console.log(e);
+        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+    }
+    // Pagination attributes will be passed in using
+    // backbone's collection data method.
+
+    var data = {
+        startAt : startingPoint,
+        count : dlPagination.itemsPerPage,
+        ref_des: options.ref_des,
+        date: options.date
+    };
+    dlPagination.ref_des = options.ref_des;
+    dlPagination.date = options.date;
+    ooi.trigger('LargeFormatFileTable:update', data);
+}
+
+function updateDownloadPagination( details ){
+    // This is pagination for the Large File format download list
+    // Calculate pagination attributes
+    var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+    // Display a "Page 1 of 5" type message on the page
+    if (end >= details.total) {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+    } else {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+    }
+    // Remove the pagination binding so they don't get called
+    // multiple times after they're redrawn.
+    $("#dl-pagination-boxes").unbind();
+    // Redraw the jquery pagination boxes
+    $("#dl-pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: dlPagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+            if ( page ){
+                dlPagination.currentPage = page;
+                updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
+            }
+        }
+    });
+}
+
+
+{#    $(window).bind("load", function() {#}
+{#      combineFilters();#}
+{#    });#}
+
+    $(document).ready(function() {
+      $(".delayImg").each(function() {
+        this.onload = function() {
+          $(this).animate({opacity: 1}, 2000);
+        };
+        this.src = this.getAttribute("delayedSrc");
+      });
+
+      if(location.hash!=""){
+        _.extend(vobj, {hash: location.hash.split('#')[1]});
+      }else{
+        _.extend(vobj, {hash: ""});
+      }
+
+      updateCollection( showStreams );
+
+      var searchSidebarView = new SearchSidebarView({el: '.search-sidebar', collection: streamCollection});
+      searchSidebarView.render();
+      //searchSidebarView.renderSearchInput();
+      searchSidebarView.renderFilterInput();
+
+      $.fn.bootstrapSwitch.defaults.size = 'small';
+
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+
+
+
+      $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
+        if (theStateEng) {
+          engInstrumentFilter = {field: "display_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          engInstrumentFilter = {field: "display_name", op: "nc", data: "Engineering"};
+          combineFilters();
+        }
+      });
+
+      $('#MetadataStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMeta = $("#MetadataStreamSwitch").bootstrapSwitch('state');
+        if (theStateMeta) {
+          metadataStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
+          combineFilters();
+        }
+      });
+
+      $('#StatusStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateStatus = $("#StatusStreamSwitch").bootstrapSwitch('state');
+        if (theStateStatus) {
+          statusStreamFilter = {field: "stream_name", op: "cn", data: ""};
+          combineFilters();
+        } else {
+          statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+          combineFilters();
+        }
+      });
+
+      $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
+        if (theStateMobile) {
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: "Mobile Asset"};
+          combineFilters();
+        } else {
+          mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+          combineFilters();
+        }
+      });
+
+      ooi.start();
+    });
+
+    var setArrayButtonState = function(){
+      var arrays = getUniqueNames('array_name');
+      $.each (arrays, function() {
+        $.find('button[title=\"'+this+'\"]')[0].disabled = false;
+      });
+    };
+
+    var setScienceFilter = function(searchColumn, searchParam){
+      var searchFilter = searchParam, grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      f.rules.push({field:searchColumn,op:"cn",data:searchFilter});
+      grid[0].p.search = true;
+      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});
+      grid.trigger("reloadGrid",[{page:1,current:true}]);
+    };
+
+    var resetAllFilters = function() {
+      $("#resetAllFilters").blur();
+{#      $('input:checkbox').removeAttr('checked');#}
+      $('input:checkbox').prop('checked', false);
+      $("#globalSearchText").val("");
+      $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
+      $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
+      $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+      $dcGrid[0].clearToolbar();
+      instrumentFilter = {groupOp:"OR",rules:[]};
+      arrayFilter = {groupOp:"OR",rules:[]};
+      streamFilter = {groupOp:"OR",rules:[]};
+      timeRangeFilter = {groupOp:"OR",rules:[]};
+      mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
+      engInstrumentFilter = {field:"display_name",op:"nc",data:"Engineering"};
+      metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
+      statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
+      filterToolbarFilter = {groupOp:"AND",rules:[]};
+      globalFilter = null;
+      location.href = location.href.substring(0, location.href.indexOf('?'));
+      location.hash = "";
+      var newOptions = {};
+      newOptions.min = new Date('2013', '00', '01');
+      newOptions.max = new Date();
+      ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
+      combineFilters();
+    };
+
+    var setArrayFilter = function(searchColumn, searchParam){
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"bw",data:this});
+      });
+      arrayFilter = f;
+{#      grid[0].p.search = true;#}
+{#      $.extend(grid[0].p.postData,{filters:JSON.stringify(f)});#}
+{#      grid.trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+    var showCurrentFilters = function() {
+      console.log($dcGrid.getGridParam("postData").filters);
+    };
+
+    var setInstrumentFilter = function(searchColumn, searchParam){
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      instrumentFilter = f;
+    };
+
+    var setStreamFilter = function(searchColumn, searchParam){
+        searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      streamFilter = f;
+    };
+
+    var setTimeRangeFilter = function(start, startTime, end, endTime){
+      timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
+    };
+
+    var combineFilters = function() {
+      var allFilters = [];
+      allFilters.push(arrayFilter);
+      allFilters.push(instrumentFilter);
+      allFilters.push(streamFilter);
+      allFilters.push(timeRangeFilter);
+      allFilters.push(filterToolbarFilter);
+
+      var combinedFilters = {
+        groupOp:"AND",
+        rules:[],
+        groups:allFilters
+      };
+
+      // Toggle Filters
+      var aaa = {groupOp:"AND", rules:[]};
+      aaa.rules.push(mobileAssetFilter);
+      aaa.rules.push(engInstrumentFilter);
+      aaa.rules.push(metadataStreamFilter);
+      aaa.rules.push(statusStreamFilter);
+      combinedFilters.groups.push(aaa);
+
+{#      // Toggle Filters#}
+{#      var bbb = {groupOp:"OR", rules:[]};#}
+{#      #}
+{#      combinedFilters.groups.push(bbb);#}
+
+      // Global filter
+      var ggg = {groupOp:"OR", rules:[], groups:[]};
+      if(globalFilter != null){
+        $.each(globalFilter, function() {
+          $.each(this, function() {
+            ggg.groups.push(this);
+          });
+
+          combinedFilters.groups.push(ggg);
+          ggg = {groupOp:"OR", rules:[], groups:[]};
+        });
+      }
+
+      // Ensure $dcGrid is defined (page load race conditions) before attempting to set filters
+      if (!_.isUndefined($dcGrid[0].p)) {
+        $dcGrid[0].p.search = true;
+        $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+        $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      }
+{#      if(!_.isUndefined(location.search)) {#}
+{#        location.search = "search=" + $("#globalSearchText").val();#}
+{#      }#}
+    };
+
+    var numberTemplate = {
+      formatter : 'number',
+      align : 'right',
+      sorttype : 'number',
+      editable : true,
+      searchoptions : { sopt : ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+    };
+
+    var defaultFilters = {
+      "groupOp" : "AND",
+      "rules" : [
+        { "field" : "All", "op" : "cn", "data" : ""}
+      ]
+    };
+
+    var $dcGrid = $("#grid");
+
+    var getUniqueNames = function(columnName) {
+        var texts = $dcGrid[0].p.data, uniqueTexts = [],
+          textsLength = texts.length, text, textsMap = {}, i;
+        for (i=0;i<textsLength;i++) {
+          text = texts[i][columnName];
+          if (text !== undefined && textsMap[text] === undefined) {
+            // to test whether the texts is unique we place it in the map.
+            textsMap[text] = true;
+            uniqueTexts.push(text);
+          }
+        }
+        return uniqueTexts;
+      },
+      buildSearchSelect = function(uniqueNames) {
+        var values=":All";
+        $.each (uniqueNames, function() {
+          values += ";" + this + ":" + this;
+        });
+        return values;
+      },
+      setSearchSelect = function(columnName) {
+        $dcGrid.jqGrid('setColProp', columnName,
+          {
+            stype: 'select',
+            searchoptions: {
+              value:buildSearchSelect(getUniqueNames(columnName)),
+              sopt:['eq']
+            }
+          }
+        );
+      };
+
+    var highlightFilteredData = function () {
+      var $self = $(this), filters, i, l, rules, rule, iCol,
+        isFiltered = $self.jqGrid("getGridParam", "search"),
+        postData = $self.jqGrid("getGridParam", "postData"),
+        colModel = $self.jqGrid("getGridParam", "colModel"),
+        colIndexByName = {};
+
+      // validate whether we have input for highlighting
+      if (!isFiltered || typeof postData !== "object") {
+        return;
+      }
+      filters = $.parseJSON(postData.filters);
+      if (filters == null || filters.rules == null || filters.rules.length <= 0) {
+        return;
+      }
+
+      // fill colIndexByName which get easy column index by the column name
+      for (i = 0, l = colModel.length; i < l; i++) {
+        colIndexByName[colModel[i].name] = i;
+      }
+
+      rules = filters.rules;
+      for (i = 0, l = rules.length; i < l; i++) {
+        rule = rules[i];
+        iCol = colIndexByName[rule.field];
+        if (iCol !== undefined) {
+          $self.find(">tbody>tr.jqgrow>td:nth-child(" + (iCol + 1) + ")").highlight(rule.data);
+        }
+      }
+    };
+
+    // Loads the jqGrid into
+    function placeJqGrid(collection) {
+      $dcGrid.jqGrid({
+        datatype : "local",
+        data : collection.toJSON(),
+        colNames: [
+          'Actions',
+          'Array',
+{#          'Site Name',#}
+          'Platform Name',
+          'Node',
+          'Instrument',
+          'Stream Identifier',
+          'Stream Type',
+          'Depth (m)',
+          'Lat / Lon (ddm)',
+          'Start Time',
+          'End Time',
+          'Reference Designator',
+          'Unique ID'],
+
+        colModel : [
+          { name : 'actions',
+            caption : 'Plot/Download',
+            width : 110,
+            sortable : false,
+            search : false,
+            align : 'center',
+            formatter : createActionButtons
+          },
+          {
+            name : 'array_name',
+            index : 'array_name',
+            editable : false,
+            {#                width : 100,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+{#          {#}
+{#            name : 'site_name',#}
+{#            index : 'site_name',#}
+{#            editable : false,#}
+            {#                width : 150,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
+          {
+            name : 'platform_name',
+            index : 'platform_name',
+            editable : false,
+            {#                width : 150,#}
+            sortable : true,
+            search : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'assembly_name',
+            index : 'assembly_name',
+            editable : false,
+            {#                width : 150,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'display_name',
+            index : 'display_name',
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            editable : false,
+            {#                width : 150,#}
+            sortable : true,
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'stream_name',
+            index : 'stream_name',
+{#            key : true,#}
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'stream_type',
+            index : 'stream_type',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'depth',
+            index : 'depth',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'lat_lon',
+            index : 'lat_lon',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'start',
+            index : 'start',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'end',
+            index : 'end',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            formatter : colorTime,
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+          },
+          {
+            name: 'reference_designator',
+            index: 'reference_designator',
+            key: false, // rowID = reference_designator
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'unique_id',
+            index : 'unique_id',
+            key : true, // rowID = unique_id = ref_des+stream_name
+            hidden : true,
+            editable : false,
+            {#                width : 165,#}
+            sortable : false,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
+        ],
+        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        loadComplete : function(data) {
+          $("#navGrid").find("option[value=\"50000\"]").text('All');
+          highlightFilteredData.call(this);
+          if(location.search != "" && location.search != "?" && location.search != null){
+            var searchText = location.search.split('search=')[1].replace(/%20/g, ' ');
+            navSearchParse(searchText);
+          }
+        },
+        gridview : true,
+        toolbar: [true, "top"],
+        rowNum : 15,
+        rowList : [15, 30, 45, 60, 50000],
+        autowidth : true,
+        height : 'auto',
+        pager : '#navGrid',
+        sortname : 'end',
+        viewrecords : true,
+        sortorder : 'desc',
+        caption : 'Data Catalog',
+        altRows: false,
+        {#        altclass:'myAltRowClass',#}
+        {#        classes: 'table table-bordered table-striped table-selectable',#}
+        ignoreCase: true,
+        shrinkToFit : false,
+        multiselect: false,
+        multiboxonly: false,
+        reloadAfterSubmit : false,
+        loadOnce : false
+      }).jqGrid('navGrid',
+        '#navGrid',
+        {
+          edit : false,
+          add : false,
+          del : false,
+          search : true
+          // beforeRefresh:
+          // Set the latest data from collection before refreshing grid
+          {#            beforeRefresh : function () {#}
+          {#              $("#grid").jqGrid('setGridParam', {#}
+          {#                datatype : 'local',#}
+          {#                data : ooi.collections.streams.toJSON()#}
+          {#              });#}
+          {#            }#}
+        },
+        {},
+        {},
+        {},
+        {
+          cloneToTop : true,
+          closeOnEscape : true,
+          multipleSearch : true,
+          multipleGroup : true,
+          overlay: 0,
+          onInitializeSearch: function ($form) {
+            $form.jqFilter('addFilter', defaultFilters);
+          },
+          {#          afterRedraw: function (p) {#}
+          {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
+          {#              p.columns.push({#}
+          {#                name: 'All',#}
+          {#                label: 'Any Field',#}
+          {#                searchoptions: {},#}
+          {#                searchrules: {},#}
+          {#                searchtype: 'string',#}
+          {#                inputtype: 'text'#}
+          {#              });#}
+          {#            }#}
+          {#            //$(this).find('.delete-rule:first').hide();#}
+          {#          }#}
+        });
+
+
+
+      {#      $dcGrid.jqGrid('jqGridExport', {exptype: 'jsonstring', root: 'ooidatacatalog', ident: '\t'});#}
+
+      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+        caption: "showcolumns",
+        buttonicon: "ui-icon-calculator",
+        title: "Choose columns",
+        onClickButton: function () {
+          $(this).jqGrid('columnChooser',{
+{#						width: 700,#}
+{#						dialog_opts: {#}
+{#							modal: true,#}
+{#							minWidth: 470,#}
+{#							height: 470,#}
+{#							show: 'blind',#}
+{#							hide: 'explode',#}
+{#							dividerLocation: 0.5#}
+{#						}#}
+					});
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+            .bind("sortreceive", function (event, ui) {
+              alert('column "' + ui.item.text() + '" is chosen');
+            });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+            .click(function () {
+              alert('column "' + $(this).parent().text() + '" is chosen');
+            });
+
+        }
+      });
+
+
+      //setSearchSelect('array_name');
+
+{#      $dcGrid.jqGrid('setColProp', 'array_name',#}
+{#        {#}
+{#          searchoptions: {#}
+{#            sopt:['cn'],#}
+{#            dataInit: function(elem) {#}
+{#              $(elem).autocomplete({#}
+{#                source:getUniqueNames('array_name'),#}
+{#                delay:0,#}
+{#                minLength:0#}
+{#              });#}
+{#            }#}
+{#          }#}
+{#        });#}
+
+      $dcGrid.jqGrid('filterToolbar',
+        {
+          autosearch : true,
+          searchOperators : false,
+          searchOnEnter : false,
+          stringResult:true,
+{#          defaultSearch:"cn"#}
+          afterClear : function() {
+            combineFilters();
+          },
+          afterSearch : function() {
+            filterToolbarFilter = JSON.parse($dcGrid.getGridParam("postData").filters);
+            combineFilters()
+          }
+        }
+      );
+
+      if(location.hash!=""){
+        setArrayFilter('reference_designator', location.hash.split('#')[1]);
+      }
+
+      // fill top toolbar
+      var $grid = $dcGrid;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          location.search = "search=" + $("#globalSearchText").val();
+          $("#globalSearch").click();
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        var postData = $grid.jqGrid("getGridParam", "postData"),
+          colModel = $grid.jqGrid("getGridParam", "colModel"),
+          rules = [],
+          searchText = $("#globalSearchText").val(),
+          l = colModel.length,
+          searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+          cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+          i,
+          iPart,
+          token,
+          cm;
+
+        // normalize searchTextParts by removing quotes
+        for (iPart = 0; iPart < cnParts; iPart++) {
+          token = searchTextParts[iPart];
+          if (token.length > 2 &&
+            ((token[0] === '"' && token[token.length - 1] === '"') ||
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
+            searchTextParts[iPart] = token.substr(1,token.length-2);
+          }
+        }
+
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+            }
+          });
+        }
+        globalFilter = textParts;
+
+        combineFilters();
+      });
+
+    } // placeJqGrid
+
+    function showStreams( collection, response ){
+      //jqGrid
+      var jqCollection = collection;
+      jqCollection['actions'] = '';
+      placeJqGrid(jqCollection);
+    }
+
+
+    function updateCollection( successCallback ){
+      collection.fetch({
+        {#        data : data,#}
+        success : successCallback
+        //    error : showError
+      });
+    }
+
+    function navSearchParse(searchText) {
+
+      var colModel = $dcGrid.jqGrid("getGridParam", "colModel"),
+        rules = [],
+        l = colModel.length,
+        searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+        cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+        i,
+        iPart,
+        token,
+        cm;
+
+      // normalize searchTextParts by removing quotes
+      for (iPart = 0; iPart < cnParts; iPart++) {
+        token = searchTextParts[iPart];
+        if (token.length > 2 &&
+          ((token[0] === '"' && token[token.length - 1] === '"') ||
+          (token[0] === "'" && token[token.length - 1] === "'"))) {
+          searchTextParts[iPart] = token.substr(1,token.length-2);
+        }
+      }
+
+      var textParts = {};
+      for (k=0; k<cnParts; k++) {
+        st = searchTextParts[k];
+        textParts[st] = [];
+        $.each(colModel, function() {
+          var cm1 = this;
+          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+            textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+          }
+        });
+      }
+      globalFilter = textParts;
+
+      combineFilters();
+      $("#globalSearchText").val(searchText);
+    }
+
+  </script>
+  <script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
+{% endblock %}
+</div>

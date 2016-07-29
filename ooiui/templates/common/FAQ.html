@@ -7,7 +7,7 @@
 {% block head %}
   <link rel="stylesheet" href="/css/compiled/FAQ.css" type="text/css" />
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
- 
+
   <!-- Partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@
   <div id="navbar" class="row"></div>
 </div>
 
-<div id="gloss-wrapper"></div> 
+<div id="gloss-wrapper"></div>
    <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
@@ -31,7 +31,7 @@
          <div  class="col-md-3">
             <ol class="nav nav-sidebar">
 
-              
+
               <li><a href="#1" title="What is the Ocean Observatories Initiative (OOI)?"><strong>What is the Ocean Observatories Initiative (OOI)?</strong></a></li>
               <li><a href="#2" title="What are the science themes of the program?"><strong>What are the science themes of the program?</strong></a></li>
               <li><a href="#3" title="What OOI documentation is available on the web?"><strong>What OOI documentation is available on the web?</strong></a></li>
@@ -45,8 +45,8 @@
               <li><a href="#11" title="What are the expansion capabilities of the OOI?"><strong>What are the expansion capabilities of the OOI?</strong></a></li>
               <li><a href="#12" title="How is the OOI program managed?"><strong>How is the OOI program managed?</strong></a></li>
               <li><a href="#13" title="What is the OOI Construction &amp;amp; Installation Schedules?"><strong>What is the OOI Construction &amp; Installation Schedules?</strong></a></li>
-            </ol>          
-         
+            </ol>
+
         </div>
 
         <div class="col-md-9">
@@ -106,18 +106,18 @@
 <h2>What is the OOI Planned Installation Schedule?</h2>
 <p>The OOI Planned Installation Schedule is depicted in the form of a simplified graphic of events and as detailed tables describing what will be deployed during each installation event. The OOI Planned Installation Schedule graphic shows installation&nbsp;milestones&nbsp;from 2011 to 2014 as well as the continuation of the phased installation of OOI infrastructure scheduled for 2015. The tables lists &nbsp;the&nbsp;initial OOI installation deployment&nbsp;dates that are accurate as of the date the file was posted. The authoritative source is the OOI Integrated Master Schedule. Updates will be made as needed so that all materials on this site remain current. Note also that these tables do not and are not intended to portray a ship cruise schedule. In some cases, multiple installation events may be combined on a single installation cruise.</p>
 <p>The OOI Planned Installation Schedule can be viewed and downloaded from the OOI website&nbsp;<a href="http://oceanobservatories.org/about/construction-schedule/" title="here">here</a>.</p>
-  
+
         		</div>
-        
-		 
+
+
             </div>
-    
+
             </div><!-- #content -->
-            </div><!-- #container --> 
+            </div><!-- #container -->
       </div>
     </div>
   </div>
-  
+
 
 <!-- Bootstrap FAQ - END -->
 <script type="text/javascript">
@@ -128,7 +128,7 @@ _.extend(OOI.prototype, Backbone.Events, {
   login: new LoginModel(),
   models: {
     mapModel: new MapModel()
-  
+
   },
   collections: {
      },
@@ -146,6 +146,11 @@ _.extend(OOI.prototype, Backbone.Events, {
     //--------------------------------------------------------------------------------
     this.views.banner = new BannerView({bannerTitle});
     $('body').prepend(this.views.banner.el);
+
+    if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+      $('#wrapper').addClass('news-active');
+      $('.container-fluid.banner-image').addClass('news-active');
+    }
 
     this.views.navbar = new NavbarView({
         el: $('#navbar')

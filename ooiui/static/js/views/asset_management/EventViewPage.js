@@ -357,7 +357,7 @@ var EventViewPage = Backbone.View.extend({
                           message: "Event successfully deleted.",
                           type: "success",
                           ack: function() { 
-                            window.location = "/assets/list/"
+                            window.location = "/assets/management/"
                           }
                         });
                         $('#editdep_panel').html('Deleted Successfully.');

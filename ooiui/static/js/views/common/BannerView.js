@@ -32,11 +32,15 @@ var BannerView = Backbone.View.extend({
   templates: {
     banner: JST['ooiui/static/js/partials/Banner.html'],
     newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
+  },
 
+  changeTitle: function(options) {
+    this.options = options;
+    this.render();
   },
 
   render: function() {
-    this.$el.html(this.templates.banner());
+    this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
     if (this.checkStreaming()){
       this.$el.find('#news-banner').append(this.templates.newsBanner());
     }
@@ -54,7 +58,7 @@ var BannerView = Backbone.View.extend({
         streaming = true;
       }
     }
-    return streaming
+    return streaming;
   }
 });
 

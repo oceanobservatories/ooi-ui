@@ -118,7 +118,7 @@
 }
 .color-index > div {
     width: 10px;
-    background-color:
+    /*background-color:*/
 }
 div.twelve-hours, div.twenty-four-hours, div.older {
     display: inline-block;

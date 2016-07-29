@@ -1,0 +1,30 @@
+body, html {
+  margin: 0;
+  /* overflow: hidden; */
+  height:100%;
+}
+#element::-webkit-scrollbar {
+    display: none;
+}
+
+#left {
+    overflow-y: auto;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 0px;
+}
+
+#right {
+    padding-right: 50px;
+}
+
+#timeRangeFilter {
+    margin-left : 15px;
+    margin-right: 15px;
+}
+
+#timeRangeFilter #slider .ui-rangeSlider-label-value {
+    font-size : 12px !important;
+}
+
+.highlight { background-color: #ba9217 }

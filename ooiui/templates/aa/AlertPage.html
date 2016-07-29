@@ -83,6 +83,9 @@
         </div>
       </div>
     </div>
+  </div>
+  </div>
+  </div>
 
   <!-- Menu Toggle Script -->
   <script type="text/javascript">
@@ -127,18 +130,22 @@
         $('#current_selection').text("");
       },
       start: function() {
-        this.login.fetch({async:false});
-        navbar = new NavbarView({
-          login: this.login
-        });
-
         var self = this;
+        this.login.fetch({async:false});
 
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
+
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+          $('#wrapper').addClass('news-active');
+          $('.container-fluid.banner-image').addClass('news-active');
+        }
+
+        this.views.navbar = new NavbarView();
+        $('body').prepend(this.views.navbar.el);
 
         //$('#navbar-menus').append('<li id="Science"><a href="/alerts/dashboard/triggered">Triggered Alerts</a></li>');
 

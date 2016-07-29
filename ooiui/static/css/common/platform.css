@@ -1,0 +1,93 @@
+.platform-page {}
+
+.platform-page #platform-view-content h2 {
+    padding-top: 20px;
+}
+
+.platform-page #platform-view-content .panel {
+     padding: 0 20px 0 20px;
+}
+
+div#wrapper.platform-page {
+    width: 100%;
+}
+
+
+.platform-page #platform-view-content .panel .panel-heading{
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    border: 0;
+}
+
+.platform-page #platform-view-content .panel-heading h4 i {
+    color: black;
+}
+
+.platform-page #platform-view-content .panel-heading h4 {
+    padding: 10px;
+    background-color: #5c9ccc;
+    color: white;
+    text-align: left;
+
+    background: #5c9ccc; /* Old browsers */
+    background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+}
+
+
+.platform-page #platform-view-content .panel-heading h4:hover {
+    transition: background 5s;
+
+    background: #dfeffc; /* Old browsers */
+    background: -moz-linear-gradient(left,  #1e5799 20%, #dfeffc 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #1e5799 20%,#dfeffc 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #1e5799 20%,#dfeffc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#dfeffc',GradientType=1 ); /* IE6-9 */
+}
+
+
+.platform-page #platform-view-content .panel-heading h4 small {
+    color: black;
+}
+
+.platform-page #platform-view-content table {
+    width: 90%;
+    margin: 20px 20px 0 20px;
+}
+
+.platform-page #platform-view-content table th:first-child {
+    width: 30%;
+}
+
+.platform-page #platform-view-content table tr {
+
+}
+
+.mapboxgl-ctrl-compass {
+  display: none !important;
+}
+
+#map canvas {
+    left: 0px;
+    width: 300%;
+}
+
+#map {
+}
+
+.mooringIcon{
+    border-radius: 38px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.otherMooringIcon{
+    border-radius: 48px;
+    background: yellow;
+    border: 2px solid #000;
+    opacity: 0.85;
+}

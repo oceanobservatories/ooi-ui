@@ -1,0 +1,103 @@
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+#element::-webkit-scrollbar {
+    display: none;
+}
+
+#left {
+    overflow-y: scroll;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-left: 0;
+    bottom: 0px;
+}
+
+#right {
+    padding: 0;
+    right: 0px;
+    position: absolute;
+}
+
+#wrapper{
+    height:100%;
+    overflow-y: scroll;
+}
+
+
+
+.home-page .js-array:hover{
+}
+
+.home-page .js-array .panel-heading {
+}
+
+.home-page .js-array .panel-heading span {
+    display: inline-block;
+    width: 50%;
+}
+
+
+.home-page .js-array .panel-heading h4 {
+    position: relative;
+    background-color: #5c9ccc;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    color: white;
+
+    background: #5c9ccc; /* Old browsers */
+    background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+
+}
+
+.home-page .js-array .panel-heading h4 small {
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    background-color: green;
+}
+
+.home-page .js-array h4:hover {
+    transition: background 5s;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin-top: 0;
+    color: white;
+    border: 4px solid orange;
+
+}
+
+
+.home-page .fade {
+    opacity: 0;
+    transition: all 1;
+}
+
+.mydivicon{
+    border-radius: 58px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon:hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}

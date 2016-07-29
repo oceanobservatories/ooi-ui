@@ -100,7 +100,7 @@ var StatusAlertModel = Backbone.Model.extend({
     event_type: "",
     reference_designator:"",
     coordinates:[],
-    asset_type:[]
+    asset_type:""
   },  
   url:"#"
 });  

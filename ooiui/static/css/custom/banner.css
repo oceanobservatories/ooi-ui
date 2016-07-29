@@ -17,7 +17,6 @@
 
 /* ~ adjust #wrapper & #page-content-wrapper for content below the banner & navbar ~ */
 div#wrapper {
-  margin-top: 150px;
   padding-left: 375px;
 }
 
@@ -33,6 +32,23 @@ div#wrapper-status{
 
 div#wrapper-asset {
   margin-top: 170px;
+}
+
+.terms-link{
+  z-index: 100;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 10px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.terms-link.news-active{
+  background-color: #004773;
+  color: white;
 }
 
 /* #sidebar-wrapper { */
@@ -203,12 +219,12 @@ div#wrapper-asset {
 .breaking-news-title {
   background-color: #05A9E1;
   display: block;
-  height: 20px;  
+  height: 20px;
   width: 10%;
   color: white;
   font-family: arial;
   font-size: 13px;
-  position: absolute; 
+  position: absolute;
   top: 0px;
   margin-top: -22px;
   margin-left: 20px;
@@ -256,7 +272,7 @@ div#wrapper-asset {
   -moz-animation-fill-mode: both;
   -webkit-animation-iteration-count: 1;
   -moz-animation-iteration-count: 1;
-  -webkit-animation-delay: 0.3s; 
+  -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 }
 
@@ -265,9 +281,9 @@ div#wrapper-asset {
   -webkit-animation-fill-mode: both;
   -moz-animation-duration: 3s;
   -moz-animation-fill-mode: both;
-  -webkit-animation-iteration-count: 1; 
+  -webkit-animation-iteration-count: 1;
   -moz-animation-iteration-count: 1;
-  -webkit-animation-delay: 0.5s; 
+  -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
@@ -276,9 +292,9 @@ div#wrapper-asset {
   -webkit-animation-fill-mode: both;
   -moz-animation-duration: 3s;
   -moz-animation-fill-mode: both;
-  -webkit-animation-iteration-count: 1; 
+  -webkit-animation-iteration-count: 1;
   -moz-animation-iteration-count: 1;
-  -webkit-animation-delay: 0.5s; 
+  -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
@@ -297,11 +313,11 @@ div#wrapper-asset {
 }
 
 @keyframes marquee {
-  0% { 
+  0% {
     left: 0;
   }
-  20% { 
-    left: 0; 
+  20% {
+    left: 0;
   }
   100% { left: -80%; }
 }
@@ -310,7 +326,7 @@ div#wrapper-asset {
   animation: marquee 30s linear infinite;
   -webkit-animation-duration: 30s;
   -moz-animation-duration: 30s;
-  -webkit-animation-delay: 0.5s; 
+  -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
@@ -320,15 +336,15 @@ div#wrapper-asset {
   }
   to {
     margin-top: 0px
-  } 
-}  
+  }
+}
 @-moz-keyframes slidein {
   from {
     margin-left: 8000px
   }
   to {
     margin-top: 0px
-  }  
+  }
 }
 
 .slideup {
@@ -343,15 +359,15 @@ div#wrapper-asset {
   }
   to {
     margin-top: 0;
-  } 
-}  
+  }
+}
 @-moz-keyframes slideup {
   from {
     margin-top: 30px
   }
   to {
     margin-top: 0;
-  } 
+  }
 }
 
 
