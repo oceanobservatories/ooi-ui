@@ -70,9 +70,9 @@ var PlotControlModel = Backbone.Model.extend({
 
                           {name:'3-D Color Scatter',value:"3d_scatter", num_inputs: 3, inputs: [{name:"X","value":"x"},
                                                                                       {name:"Y","value":"y"},
-                                                                                      {name:"Color","value":"z"}]},
+                                                                                      {name:"Color","value":"z",checked:false}]},
 
-                           {name:'Binned Pseudocolor',value:"stacked", num_inputs: 1, inputs: [{name:"Color","value":"z"}]},
+                           {name:'Binned Pseudocolor',value:"stacked", num_inputs: 1, inputs: [{name:"Color","value":"z",checked:true}]},
 
                          ]),
 
