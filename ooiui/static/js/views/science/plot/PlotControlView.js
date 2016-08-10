@@ -249,7 +249,6 @@ var PlotControlView = Backbone.View.extend({
         }
       });
     });
-
     //check that only 1 x/y/z is selected
     var xLen = selectedParameterCollection.where({'is_x':true})
     var yLen = selectedParameterCollection.where({'is_y':true})
@@ -536,6 +535,12 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                       is_z: false
                                     })
         }
+      }else if (this.plotTypeModel.get('value') === 'stacked'){
+        this.$el.find('input').prop('checked', true);
+        this.$el.find('input').prop("disabled", true);
+        this.selectedParameter.set({is_x: false,
+                                    is_y: false,
+                                    is_z: true});
       }else{
         //specific number of inputs use the input number to set the category
         if (this.parameter_id == 0){
@@ -564,7 +569,12 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     }else{
       //reset the disabled if its deselected
       this.$el.find('input').prop("disabled", true);
-      this.$el.find('input').prop('checked', false);
+      //resets the radio button (unless its a stacked plot)
+      if (this.plotTypeModel.get('value') === 'stacked'){
+        this.$el.find('input').prop('checked', true);
+      }else{
+        this.$el.find('input').prop('checked', false);
+      }
       //
       this.selectedParameter.set({is_x:false, is_selected:true, is_y:false, is_z:false});
       this.selectedParameter = null;
