@@ -86,12 +86,12 @@
               </div>
 <div class="col-md-12">
               <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
+                <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                 <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
                 <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>
                 <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
                 <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
                 <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
-                <li class=""><a href="#events-purchase" data-toggle="tab">Purchase</a></li>
                 <li class=""><a href="#events-recovery" data-toggle="tab">Recovery</a></li>
                 <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
                 <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
@@ -102,6 +102,20 @@
 </div>
               <div class="col-md-12">
               <div id="events-tab-content" class="tab-content" style="max-width:100%">
+
+                <div class="tab-pane fade" id="events-acquisition">
+                  <div class="row" style="margin-left:10px;margin-right:10px;">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <div>
+                          <p class="initial-text"> Acquisition Events</p>
+                          <div id="pagerACQUISITION" class="redmond"></div>
+                          <table id="gridEventsAcquisition" class="redmond"></table>
+                        </div>
+                      </div> <!-- panel-body -->
+                    </div> <!-- panel -->
+                  </div>
+                </div>
 
                 <div class="tab-pane fade" id="events-calibration">
                   <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -173,18 +187,6 @@
                   </div>
                 </div>
 
-                <div class="tab-pane fade" id="events-purchase">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Purchase Events</p>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
                 <div class="tab-pane fade" id="events-recovery">
                   <div class="row" style="margin-left:10px;margin-right:10px;">
                     <div class="panel">
@@ -196,7 +198,6 @@
                     </div> <!-- panel -->
                   </div>
                 </div>
-
 
                 <div class="tab-pane fade" id="events-retirement">
                   <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -309,6 +310,7 @@
     var bannerTitle = "Asset Management";
 
     var gridIdLookup = {};
+    gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
     gridIdLookup["#events-cruise"] = "gridEventsCruise";
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
@@ -412,6 +414,8 @@
 
     var globalFilter = null;
 
+    var currentAssetUid = null;
+
     var unixTimeToDateTime = function(cellvalue) {
       var newDate = '';
       if(!_.isNull(cellvalue) && cellvalue > 0) {
@@ -426,9 +430,9 @@
     var dateTimeToUnixTime = function(cellvalue) {
       var newDate = null;
       if(!_.isNull(cellvalue)) {
-        newDate = Date.parse(cellvalue)/1000
+        newDate = Date.parse(cellvalue)
       }
-      return newDate;
+      return newDate
     };
 
     var formatCellInt = function(cellvalue) {
@@ -451,6 +455,23 @@
         return $(elem).val();
       } else if(operation === 'set') {
         return formatCellInt($('input',elem).val(value));
+      }
+    };
+
+    var myelem1 = function(value, options) {
+      var el = document.createElement("input");
+      el.type="text";
+      el.value = value;
+      return el;
+    };
+
+    var myvalue1 = function(elem, operation, value) {
+      if(operation === 'get') {
+        return $(elem).val();
+      } else if(operation === 'set') {
+        console.log('set')
+        console.log(value);
+        return $('input',elem).val(value);
       }
     };
 
@@ -828,6 +849,173 @@
 
     var currentAssetId;
 
+    var eventNameCol = {
+      name : 'eventName',
+      index : 'eventName',
+      jsonmap : 'eventName',
+      editrules: {required:false, edithidden:true},
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var eventIdCol = {
+      name : 'eventId',
+      key : true,
+      index : 'eventId',
+      jsonmap : 'eventId',
+      editrules: {required:false, edithidden:true},
+      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var eventStartTimeCol = {
+      name : 'eventStartTime',
+      index : 'eventStartTime',
+      jsonmap : 'eventStartTime',
+      editrules: {required:false, edithidden:true},
+      formatter : 'date',
+      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+      editable : true,
+      sortable : true,
+      sorttype : 'date',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center'
+    };
+
+    var eventStopTimeCol = {
+      name : 'eventStopTime',
+      index : 'eventStopTime',
+      jsonmap : 'eventStopTime',
+      editrules: {required:false, edithidden:true},
+      formatter : 'date',
+      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+      editable : true,
+      sortable : true,
+      sorttype : 'date',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center'
+    };
+
+    var eventTypeCol = {
+      name : 'eventType',
+      index : 'eventType',
+      jsonmap : 'eventType',
+      editrules: {required:false, edithidden:true},
+      editoptions:{
+        dataInit: function(element) { $(element).attr("readonly", "readonly"); }
+{#        defaultValue : 'STORAGE'#}
+      },
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var notesCol = {
+      name : 'notes',
+      index : 'notes',
+      jsonmap : 'notes',
+      editrules : {required:false, edithidden:true},
+      editoptions : {rows:"10",cols:"80"},
+      edittype : 'textarea',
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      {#        align : 'center',#}
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var tenseCol = {
+      name : 'tense',
+      index : 'tense',
+      jsonmap : 'tense',
+      editrules: {required:false, edithidden:true},
+      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var assetUidCol = {
+      name : 'assetUid',
+      index : 'assetUid',
+      jsonmap : 'assetUid',
+      editrules: {required:false, edithidden:true},
+      editoptions:{
+        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
+        defaultValue : function() { return currentAssetUid;}
+      },
+      editable : true,
+      hidden : true,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var dataSourceCol = {
+      name : 'dataSource',
+      index : 'dataSource',
+      jsonmap : 'dataSource',
+      editrules: {required:false, edithidden:true},
+      editable : true,
+      hidden : true,
+      sortable : true,
+      sorttype : 'string',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var lastModifiedTimestampCol = {
+      name : 'lastModifiedTimestamp',
+      index : 'lastModifiedTimestamp',
+      jsonmap : 'lastModifiedTimestamp',
+      editrules: {required:false, edithidden:true},
+      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+      editable : true,
+      hidden : true,
+      sortable : true,
+      sorttype : 'date',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center'
+    };
+
     // Loads the jqGrid into
     function placeJqGrid(collection) {
     {#
@@ -1141,22 +1329,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'dataSource',
-            index : 'dataSource',
-            jsonmap : 'dataSource',
-            editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          dataSourceCol,
           {
             name : 'deployment_number',
             index : 'deployment_number',
@@ -1311,17 +1484,14 @@
             index : 'manufacturerInfo.shelfLifeExpirationDate',
             jsonmap : 'manufactureInfo.shelfLifeExpirationDate',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            formatter : 'date',
+            formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
             editable : true,
             hidden : true,
             sortable : true,
             sorttype : 'date',
-            formatter: unixTimeToDateTime,
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
+            align : 'center'
           },
           {
             name : 'manufactureInfo.softwareVersion',
@@ -1356,22 +1526,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'notes',
-            index : 'notes',
-            jsonmap : 'notes',
-            editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          notesCol,
           {
             name : 'partData.institutionPropertyNumber',
             index : 'partData.institutionPropertyNumber',
@@ -1537,17 +1692,14 @@
             index : 'purchaseAndDeliveryInfo.deliveryDate',
             jsonmap : 'purchaseAndDeliveryInfo.deliveryDate',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            formatter : 'date',
+            formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
             editable : true,
             hidden : true,
             sortable : true,
             sorttype : 'date',
-            formatter: unixTimeToDateTime,
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
+            align : 'center'
           },
           {
             name : 'purchaseAndDeliveryInfo.deliveryOrderNumber',
@@ -1586,35 +1738,16 @@
             index : 'purchaseAndDeliveryInfo.purchaseDate',
             jsonmap : 'purchaseAndDeliveryInfo.purchaseDate',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            formatter : 'date',
+            formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
             editable : true,
             hidden : true,
             sortable : true,
             sorttype : 'date',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
+            align : 'center'
           },
-          {
-            name: 'tense',
-            index: 'tense',
-            jsonmap : 'tense',
-            editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
-            width: 75,
-            sortable: true,
-            sorttype: 'string',
-            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
-            align: 'center',
-            formatter : changeTenseDisplay,
-            unformat: function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          tenseCol,
           {
             name : 'assetInfo.type',
             index : 'assetInfo.type',
@@ -1680,24 +1813,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'lastModifiedTimestamp',
-            index : 'lastModifiedTimestamp',
-            jsonmap : 'lastModifiedTimestamp',
-            editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
-            width : 350,
-            sortable : true,
-            sorttype : 'date',
-            formatter: unixTimeToDateTime,
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align: 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          }
+          lastModifiedTimestampCol
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function() {
@@ -1722,7 +1838,10 @@
             currentAssetId = null;
           } else {
             // Row has been selected
+{#            console.log('selected row');#}
             currentAssetId = $dcGrid.getRowData(rowId).id;
+            currentAssetUid = $dcGrid.getRowData(rowId).uid;
+{#            console.log(currentAssetUid);#}
           }
 
           {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
@@ -2044,7 +2163,7 @@
           maxlength: 16, size: 17, // for searching dialog
           dataInit: initDate
         },
-        formatter: "date", formatoptions: { srcformat: "u", newformat: "d/m/Y H:i" }
+        formatter: "date", formatoptions: { srcformat: "U/1000", newformat: "ISO8601Long" }
       };
 
 
@@ -2063,6 +2182,238 @@
     var eventColNames = {};
     var eventColModels = {};
     var eventJsonReaders = {};
+
+
+    // ACQUISITION
+{#    {
+      "@class" : ".AcquisitionEvent", Reserved.
+      "purchasePrice" : null, Suggested. Double.
+      "purchaseDate" : null, Suggested. Long.
+      "deliveryDate" : null, Suggested. Long.
+      "purchasedBy" : null, Suggested. String.
+      "vendorIdentification" : null, Suggested. String.
+      "vendorPointOfContact" : null, Suggested. String.
+      "receivedFromVendorBy" : null, Suggested. String.
+      "authorizationNumber" : null, Suggested. String.
+      "authorizationForPayment" : null, Suggested. String.
+      "invoiceNumber" : null, Suggested. String.
+      "eventId" : -1, Reserved. Integer. Value of -1 or null for Create.
+      "assetUid" : null, Suggested. String.
+      "eventType" : "ACQUISTION", Mandatory. String. (eventType)
+      "eventName" : null, Mandatory. String. Not nullable.
+      "eventStartTime" : null, Suggested. Long. Recommended for most events.
+      "eventStopTime" : null, Suggested. Long. Optional for most events.
+      "notes" : null, Suggested. String.
+      "tense" : "UNKNOWN", Readonly. String.
+      "dataSource" : null, Suggested. Source of this edit. "UI:user=username" for example
+      "lastModifiedTimestamp" : null Reserved. Not specified for create; required for update.
+}#}
+    eventColNames['ACQUISITION'] = [
+      'Purchase Price',
+      'Purchase Date',
+      'Delivery Date',
+      'Purchased By',
+      'Vendor ID',
+      'Vendor POC',
+      'Vendor Recepient',
+      'Authorization Number',
+      'Payment Authorization',
+      'Invoice Number',
+      'Event ID',
+      'Asset UID',
+      'Event Type',
+      'Event Name',
+      'Start Date',
+      'End Date',
+      'Notes',
+      'Tense',
+      'Data Source',
+      'lastModifiedTimestamp'
+    ];
+
+    eventColModels['ACQUISITION'] = [
+      {
+        name : 'purchasePrice',
+        index : 'purchasePrice',
+        jsonmap : 'purchasePrice',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'purchaseDate',
+        index : 'purchaseDate',
+        jsonmap : 'purchaseDate',
+        editrules: {required:false, edithidden:true},
+        formatter : 'date',
+        formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+        editable : true,
+        sortable : true,
+        sorttype : 'date',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center'
+      },
+      {
+        name : 'deliveryDate',
+        index : 'deliveryDate',
+        jsonmap : 'deliveryDate',
+        editrules: {required:false, edithidden:true},
+        formatter : 'date',
+        formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+        editable : true,
+        sortable : true,
+        sorttype : 'date',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center'
+      },
+      {
+        name : 'purchasedBy',
+        index : 'purchasedBy',
+        jsonmap : 'purchasedBy',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'vendorIdentification',
+        index : 'vendorIdentification',
+        jsonmap : 'vendorIdentification',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'vendorPointOfContact',
+        index : 'vendorPointOfContact',
+        jsonmap : 'vendorPointOfContact',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'receivedFromVendorBy',
+        index : 'receivedFromVendorBy',
+        jsonmap : 'receivedFromVendorBy',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'authorizationNumber',
+        index : 'authorizationNumber',
+        jsonmap : 'authorizationNumber',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'authorizationForPayment',
+        index : 'authorizationForPayment',
+        jsonmap : 'authorizationForPayment',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'invoiceNumber',
+        index : 'invoiceNumber',
+        jsonmap : 'invoiceNumber',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      eventIdCol,
+      assetUidCol,
+      eventTypeCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      notesCol,
+      tenseCol,
+      dataSourceCol,
+      lastModifiedTimestampCol
+    ];
+
+    eventJsonReaders['ACQUISITION'] = {
+      repeatitems: false,
+      page: function(obj) {
+        return 1;
+      },
+      total: function(obj) {
+        return 1;
+      },
+      root: function (obj) {
+        if(!_.isUndefined(obj.events.ACQUISITION)){
+          return obj.events.ACQUISITION;
+        }else{
+          return {}
+        }
+      },
+      records: function (obj) {
+        if(!_.isUndefined(obj.events.ACQUISITION)) {
+          return obj.events.ACQUISITION.length;
+        }else{
+          return 0;
+        }
+      }
+    };
+
 
     // CALIBRATION_DATA
 {#    {#}
@@ -2116,128 +2467,14 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      notesCol,
+      tenseCol,
       {
         name : 'values',
         index : 'values',
@@ -2251,38 +2488,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['CALIBRATION_DATA'] = {
@@ -2358,114 +2565,13 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      notesCol,
       {
         name : 'shipName',
         index : 'shipName',
@@ -2479,20 +2585,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      tenseCol,
       {
         name : 'uniqueCruiseIdentifer',
         key : true,
@@ -2507,38 +2600,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['CRUISE_INFO'] = {
@@ -2625,85 +2688,11 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      eventIdCol,
       {
         name : 'location',
         index : 'location',
@@ -2719,20 +2708,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      notesCol,
       {
         name : 'tense',
         index : 'tense',
@@ -2746,38 +2722,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['DEPLOYMENT'] = {
@@ -2841,20 +2787,7 @@
     ];
 
     eventColModels['INTEGRATION'] = [
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
       {
         name : 'deploymentNumber',
         index : 'deploymentNumber',
@@ -2869,86 +2802,11 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
       {
         name : 'integratedBy',
         index : 'integratedBy',
@@ -2977,20 +2835,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      notesCol,
       {
         name : 'tense',
         index : 'tense',
@@ -3018,38 +2863,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['INTEGRATION'] = {
@@ -3124,20 +2939,7 @@
     ];
 
     eventColModels['LOCATION'] = [
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
       {
         name : 'depth',
         index : 'depth',
@@ -3152,86 +2954,11 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
       {
         name : 'latitude',
         index : 'latitude',
@@ -3260,20 +2987,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      notesCol,
       {
         name : 'orbitRadius',
         index : 'orbitRadius',
@@ -3288,52 +3002,9 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      tenseCol,
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['LOCATION'] = {
@@ -3398,100 +3069,12 @@
     ];
 
     eventColModels['ASSET_STATUS'] = [
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
       {
         name : 'location',
         index : 'location',
@@ -3506,20 +3089,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      notesCol,
       {
         name : 'reason',
         index : 'reason',
@@ -3562,52 +3132,9 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      tenseCol,
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['ASSET_STATUS'] = {
@@ -3687,123 +3214,13 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        jsonmap : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        jsonmap : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        jsonmap : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-{#        template: dateTemplate,#}
-{#        formatter: unixTimeToDateTime,#}
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center'
-{#        unformat : function (cellvalue, options, cell) {#}
-{#          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);#}
-{#        }#}
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        jsonmap : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-{#        template: dateTemplate,#}
-{#        formatter: unixTimeToDateTime,#}
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center'
-{#        unformat : function (cellvalue, options, cell) {#}
-{#          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);#}
-{#        }#}
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        jsonmap : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'notes',
-        index : 'notes',
-        jsonmap : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      notesCol,
       {
         name : 'performedBy',
         index : 'performedBy',
@@ -3864,54 +3281,9 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        jsonmap : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-{#        formatter: unixTimeToDateTime,#}
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-
-{#        unformat : function (cellvalue, options, cell) {#}
-{#          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);#}
-{#        }#}
-        align : 'center'
-      }
+      tenseCol,
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['STORAGE'] = {
@@ -3967,160 +3339,16 @@
     ];
 
     eventColModels['UNSPECIFIED'] = [
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-{#        formatter: unixTimeToDateTime,#}
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center'
-{#        unformat : function (cellvalue, options, cell) {#}
-{#          return $('input', cell).val() || cellvalue;#}
-{#        }#}
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      notesCol,
+      tenseCol,
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['UNSPECIFIED'] = {
@@ -4182,20 +3410,7 @@
     ];
 
     eventColModels['RETIREMENT'] = [
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
       {
         name : 'disposition',
         index : 'disposition',
@@ -4210,122 +3425,12 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        edittype : 'custom',
-        editoptions : {
-          "custom_element":function( value, options) {
-        var elm = $('<textarea></textarea>');
-        elm.val( value );
-        // give the editor time to initialize
-        setTimeout( function() {
-            tinymce.init({selector: "textarea#" + options.id});
-        }, 100);
-        return elm;
-      },
-      "custom_value":function( element, oper, gridval) {
-            var id = element[0].id;
-            if(oper === 'get') {
-                return tinymce.get( id ).getContent({format: 'row'});
-            } else if( oper === 'set') {
-                if(tinymce.get( id )) {
-                    tinymce.get( id ).setContent( gridval );
-                }
-            }
-      }
-        },
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      notesCol,
       {
         name : 'reason',
         index : 'reason',
@@ -4354,52 +3459,9 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      tenseCol,
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['RETIREMENT'] = {
@@ -4500,100 +3562,12 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'dataSource',
-        index : 'dataSource',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventId',
-        key : true,
-        index : 'eventId',
-        jsonmap : 'eventId',
-        editrules: {required:false, edithidden:true, integer:true},
-        editoptions:{
-          dataInit: function(element) { $(element).attr("readonly", "readonly"); },
-          custom_element: myelem,
-          custom_value:myvalue
-        },
-        formattype:'integer',
-        edittype:'custom',
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        formatter : formatCellInt,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return formatCellInt($('input', cell).val()) || formatCellInt(cellvalue);
-        }
-      },
-      {
-        name : 'eventName',
-        index : 'eventName',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'eventStartTime',
-        index : 'eventStartTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventStopTime',
-        index : 'eventStopTime',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      },
-      {
-        name : 'eventType',
-        index : 'eventType',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      dataSourceCol,
+      eventIdCol,
+      eventNameCol,
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
       {
         name : 'invoiceNumber',
         index : 'invoiceNumber',
@@ -4608,20 +3582,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'notes',
-        index : 'notes',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      notesCol,
       {
         name : 'reason',
         index : 'reason',
@@ -4664,20 +3625,7 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      tenseCol,
       {
         name : 'vendorIdentification',
         index : 'vendorIdentification',
@@ -4706,38 +3654,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      {
-        name : 'assetUid',
-        index : 'assetUid',
-        jsonmap : 'assetUid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'lastModifiedTimestamp',
-        index : 'lastModifiedTimestamp',
-        jsonmap : 'lastModifiedTimestamp',
-        editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-        editable : true,
-        hidden : true,
-        sortable : true,
-        sorttype : 'date',
-        formatter: unixTimeToDateTime,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return dateTimeToUnixTime($('input', cell).val()) || dateTimeToUnixTime(cellvalue);
-        }
-      }
+      assetUidCol,
+      lastModifiedTimestampCol
     ];
 
     eventJsonReaders['ATVENDOR'] = {
@@ -4778,7 +3696,6 @@
         colNames: eventColNames[eventName],
 
         colModel : eventColModels[eventName],
-        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         serializeEditData: function(postData) {
           return JSON.stringify(postData);
         },
@@ -4805,8 +3722,62 @@
           {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
 
         },
+        ondblClickRow: function(rowId) {
+          $(divId).jqGrid(
+            'editGridRow',
+            rowId,
+            {ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
+          serializeEditData: function (postdata) {
+            console.log(postdata);
+            return JSON.stringify(postdata);
+          },
+          beforeShowForm: function(id) {
+            $('#eventType').val(eventName);
+          },
+          beforeSubmit: function (postData) {
+            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+            }else{
+              postData.eventStartTime = '';
+            }
+
+            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+            }else{
+              postData.eventStopTime = '';
+            }
+
+            if('purchaseDate' in postData){
+              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+              }else{
+                postData.purchaseDate = '';
+              }
+            }
+
+            if('deliveryDate' in postData) {
+              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+              }else{
+                postData.deliveryDate = '';
+              }
+            }
+
+            return [true, ''];
+          },
+          closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
+          width:800,
+          top:120,
+          left:50,
+          recreateForm:true,
+          jqModal:true
+        }
+          );
+        },
         serializeRowData: function(postdata){
-{#          console.log(postdata);#}
+          console.log(postdata);
           return JSON.stringify(postdata);
         },
         beforeProcessing: function(){
@@ -5078,17 +4049,102 @@
             console.log(postdata);
             return JSON.stringify(postdata);
           },
+          beforeShowForm: function(id) {
+            $('#eventType').val(eventName);
+          },
+          beforeSubmit: function (postData) {
+            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+            }else{
+              postData.eventStartTime = '';
+            }
+
+            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+            }else{
+              postData.eventStopTime = '';
+            }
+
+            if('purchaseDate' in postData){
+              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+              }else{
+                postData.purchaseDate = '';
+              }
+            }
+
+            if('deliveryDate' in postData) {
+              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+              }else{
+                postData.deliveryDate = '';
+              }
+            }
+
+            return [true, ''];
+          },
           closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
           width:800,
+          top:120,
+          left:50,
           recreateForm:true,
           jqModal:true
         } /* edit options */
-        ,{} /* add options */
+        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
+          serializeEditData: function (postdata) {
+            console.log(postdata);
+            return JSON.stringify(postdata);
+          },
+          beforeShowForm: function(id) {
+            $('#eventType').val(eventName);
+          },
+          beforeSubmit: function (postData) {
+            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+            }else{
+              postData.eventStartTime = '';
+            }
+
+            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+            }else{
+              postData.eventStopTime = '';
+            }
+
+            if('purchaseDate' in postData){
+              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+              }else{
+                postData.purchaseDate = '';
+              }
+            }
+
+            if('deliveryDate' in postData) {
+              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+              }else{
+                postData.deliveryDate = '';
+              }
+            }
+
+            return [true, ''];
+          },
+          closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
+          width:800,
+          top:120,
+          left:50,
+          recreateForm:true,
+          jqModal:true
+        } /* add options */
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
         ,{multipleSearch:false}
-        ,{closeOnEscape:true}
+        ,{closeOnEscape:true, closeAfterAdd:true}
 
       );
     } // placeJqGrid Events
@@ -5099,6 +4155,7 @@
       jqCollection['actions'] = '';
       placeJqGrid(jqCollection);
       {#      placeJqGridMetadata({});#}
+      placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
       placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");

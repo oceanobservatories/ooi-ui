@@ -360,7 +360,7 @@ def asset_event_post():
     if (len(request.data) > 0):
         json_data = dot_to_json(json.loads(request.data))
     if (len(request.form) > 0):
-        json_data = dot_to_json(json.loads(request.form))
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
     if len(json_data) > 0:
         clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper' and k != 'id')}
         print json_data
@@ -390,9 +390,9 @@ def asset_event_post():
         print 'add record'
         clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'eventId' and k != 'lastModifiedTimestamp')}
         print clean_data
-        # response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=clean_data)
-        # return response.text, response.status_code
-        return 'Add record operation!', 200
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
 
     return 'No operation performed!', 200
 
