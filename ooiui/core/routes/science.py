@@ -286,8 +286,8 @@ def instrument_deployment_put_ajax():
     # print request.data
     json_data = dot_to_json(json.loads(request.data))
     clean_data = {k:v for k,v in json_data.iteritems() if k != 'oper'}
-    print json_data
-    print clean_data
+    # print json_data
+    # print clean_data
     # print json_data["id"]
     # print json_data["assetInfo"]["array"]
     # print json_data['coordinates']
@@ -336,7 +336,7 @@ def event_deployments_proxy():
 @app.route('/api/asset_events/<int:id>', methods=['GET'])
 def event_deployment_get(id):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/%s/events' % id, params=request.args)
-    print response.text
+    # print response.text
     return response.text, response.status_code
 
 
@@ -354,8 +354,8 @@ def asset_event_put(id):
 @login_required()
 def asset_event_post():
     token = get_login()
-    print request.form
-    print request.data
+    # print request.form
+    # print request.data
     json_data = ''
     if (len(request.data) > 0):
         json_data = dot_to_json(json.loads(request.data))
@@ -363,33 +363,33 @@ def asset_event_post():
         json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
     if len(json_data) > 0:
         clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper' and k != 'id')}
-        print json_data
-        print clean_data
+        # print json_data
+        # print clean_data
     else:
         return 'No operation type found in data!', 500
 
-    print 'eventId'
-    print clean_data['eventId']
+    # print 'eventId'
+    # print clean_data['eventId']
 
     if 'oper' in json_data:
         operation_type = json_data['oper']
-        print operation_type
+        # print operation_type
     else:
         return 'No operation type found in data!', 500
 
     if operation_type == 'edit':
-        print 'edit record'
-        print clean_data['eventId']
-        print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
-        print json.dumps(clean_data)
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        # print json.dumps(clean_data)
         response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId'], auth=(token, ''), data=json.dumps(clean_data))
         return response.text, response.status_code
         # return 'Edit record operation', 200
 
     if operation_type == 'add':
-        print 'add record'
+        # print 'add record'
         clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'eventId' and k != 'lastModifiedTimestamp')}
-        print clean_data
+        # print clean_data
         response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=json.dumps(clean_data))
         return response.text, response.status_code
         # return 'Add record operation!', 200

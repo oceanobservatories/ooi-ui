@@ -430,38 +430,6 @@
       }
     };
 
-    var myelem = function(value, options) {
-      var el = document.createElement("input");
-      el.type="text";
-      el.value = value;
-      return el;
-    };
-
-    var myvalue = function(elem, operation, value) {
-      if(operation === 'get') {
-        return $(elem).val();
-      } else if(operation === 'set') {
-        return formatCellInt($('input',elem).val(value));
-      }
-    };
-
-    var myelem1 = function(value, options) {
-      var el = document.createElement("input");
-      el.type="text";
-      el.value = value;
-      return el;
-    };
-
-    var myvalue1 = function(elem, operation, value) {
-      if(operation === 'get') {
-        return $(elem).val();
-      } else if(operation === 'set') {
-        console.log('set')
-        console.log(value);
-        return $('input',elem).val(value);
-      }
-    };
-
     var changeTenseDisplay = function(cellvalue) {
       var tenseDisplay = cellvalue;
       if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
@@ -593,7 +561,7 @@
     };
 
     var combineFilters = function() {
-      console.log('combineFilters');
+      // console.log('combineFilters');
       var allFilters = [];
       {#      if($dcGrid.getGridParam("postData").filters != null) {#}
       {#        console.log($dcGrid.getGridParam("postData").filters);#}
@@ -815,13 +783,13 @@
     eventData = {}
 
     var refreshEventTable = function(theName, gridId) {
-      console.log('refreshEventTable');
-      console.log(currentAssetId);
-      console.log(gridId);
+      // console.log('refreshEventTable');
+      // console.log(currentAssetId);
+      // console.log(gridId);
       var theDataUrl = "/api/asset_events";
       if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {
         theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + theName;
-        console.log(theDataUrl);
+        // console.log(theDataUrl);
 
         $.ajax( theDataUrl, {
           type: 'GET',
@@ -833,7 +801,7 @@
             if(stat=="success") {
               {#              console.log(jsondata.responseJSON);#}
               eventData[theName] = jsondata.responseJSON;
-              console.log(eventData[theName].events[theName]);
+              // console.log(eventData[theName].events[theName]);
               $(gridId).setGridParam({data:eventData[theName].events[theName]});
               $(gridId).trigger("reloadGrid",[{page:1,current:true}]);
             }
@@ -863,7 +831,7 @@
       name : 'eventName',
       index : 'eventName',
       jsonmap : 'eventName',
-      editrules: {required:false, edithidden:true},
+      editrules: {required:true, edithidden:true},
       editable : true,
       hidden : false,
       sortable : true,
@@ -1929,7 +1897,7 @@
         ajaxEditOptions: { contentType: "application/json; charset=utf-8", dataType: "json" }
       }).jqGrid('navGrid',
         '#navGrid',
-        {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true}
+        {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true}
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             return JSON.stringify(postdata);
@@ -2805,7 +2773,7 @@
       {
         name : 'deploymentNumber',
         index : 'deploymentNumber',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:true, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -2848,24 +2816,11 @@
         }
       },
       notesCol,
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      tenseCol,
       {
         name : 'versionNumber',
         index : 'versionNumber',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:true, edithidden:true, number:true},
         editable : true,
         sortable : true,
         sorttype : 'number',
@@ -2974,7 +2929,7 @@
       {
         name : 'latitude',
         index : 'latitude',
-        editrules: {required:false, edithidden:true, number:true},
+        editrules: {required:true, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -2988,7 +2943,7 @@
       {
         name : 'longitude',
         index : 'longitude',
-        editrules: {required:false, edithidden:true, number:true},
+        editrules: {required:true, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -3070,7 +3025,7 @@
       'Start Date',
       'End Date',
       'Event Type',
-      'Location',
+{#      'Location',#}
       'Notes',
       'Reason',
       'Severity',
@@ -3087,20 +3042,20 @@
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
-      {
-        name : 'location',
-        index : 'location',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+{#      {#}
+{#        name : 'location',#}
+{#        index : 'location',#}
+{#        editrules: {required:false, edithidden:true},#}
+{#        editable : true,#}
+{#        hidden : false,#}
+{#        sortable : true,#}
+{#        sorttype : 'string',#}
+{#        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#        align : 'center',#}
+{#        unformat : function (cellvalue, options, cell) {#}
+{#          return $('input', cell).val() || cellvalue;#}
+{#        }#}
+{#      },#}
       notesCol,
       {
         name : 'reason',
@@ -3317,8 +3272,8 @@
         return 1;
       },
       root: function (obj) {
-        console.log('in root');
-        console.log(eventData.STORAGE)
+        // console.log('in root');
+        // console.log(eventData.STORAGE)
         if(!_.isUndefined(eventData.STORAGE)){
           return eventData.STORAGE.events.STORAGE;
         }else{
@@ -3761,8 +3716,11 @@
               {
                 ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
                 serializeEditData: function (postdata) {
-                  console.log(postdata);
+                  // console.log(postdata);
                   return JSON.stringify(postdata);
+                },
+                onClose: function() {
+                  refreshEventTable(eventName, divId);
                 },
                 beforeShowForm: function (id) {
                   $('#eventType').val(eventName);
@@ -3811,7 +3769,7 @@
           }
         },
         serializeRowData: function(postdata){
-          console.log(postdata);
+          // console.log(postdata);
           return JSON.stringify(postdata);
         },
         beforeProcessing: function(){
@@ -3841,7 +3799,7 @@
         sortname : 'eventId',
         viewrecords : true,
         sortorder : 'desc',
-        caption : eventName + ' Events',
+        {#        caption : eventName + ' Events',#}
         altRows: false,
         {#        altclass:'myAltRowClass',#}
         {#        classes: 'table table-bordered table-striped table-selectable',#}
@@ -3856,232 +3814,13 @@
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           mtype: "POST"
-        },
-        subGrid : false,
-        subGridOptions: {
-          "plusicon": "ui-icon-triangle-1-e",
-          "minusicon": "ui-icon-triangle-1-s",
-          "openicon": "ui-icon-arrowreturn-1-e",
-          "reloadOnExpand": true,
-          "selectOnExpand": true
-        },
-        subGridBeforeExpand: function(subgrid_id, row_id) {
-          subNames = [];
-          subColumns = [];
-          subModel = {};
-          subData = {};
-          {#          console.log('expanded row');#}
-          {#          console.log(row_id);#}
-          var selectedRow = $gridEvents.getRowData(row_id);
-          {#          console.log(selectedRow);#}
-          {#          console.log('selectedRow.eventId');#}
-          {#          console.log(selectedRow.eventId);#}
-
-          var selectedAssetRow = $dcGrid.getRowData(currentAssetId);
-          {#          console.log('selectedAssetRow');#}
-          {#          console.log(selectedAssetRow);#}
-
-          {#          console.log('expanded row');#}
-          {#          console.log(row_id);#}
-          {#          var selectedRow = $gridEvents.getRowData(row_id);#}
-          {#          console.log(selectedRow);#}
-          {#          console.log('selectedRow.eventId');#}
-          {#          console.log(selectedRow.eventId);#}
-
-          var eventCollection = new AssetEventsCollection({id: parseInt(currentAssetId)});
-          var eventsFetch = eventCollection.fetch();
-          $.when(eventsFetch).done(function() {
-
-            {#            console.log('eventCollection');#}
-            {#            console.log(eventCollection);#}
-
-            var output = {};
-            // .DeploymentEvent
-            {#            if(selectedRow.eventClass == '.DeploymentEvent'){#}
-            {#              output = eventCollection.where({'eventClass': '.DeploymentEvent'})[0];#}
-            output = eventCollection.where({'eventClass': selectedRow.eventClass})[0];
-            {#            console.log('output.attributes');#}
-            {#            console.log(output.attributes);#}
-            {#          return output;#}
-            deploymentCollection = output.attributes;
-            {#          $gridEvents.setGridParam({data:output.attributes});#}
-            {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-            {#            console.log('deploymentCollection');#}
-            {#            console.log(deploymentCollection);#}
-
-            var subgridData;
-
-            if(selectedRow.eventClass == '.DeploymentEvent') {
-              subgridData = deploymentCollection;
-              subNames = [
-                "deploymentShipName",
-                "deploymentNumber",
-                "cruise",
-                "cruiseNumber",
-                "cruisePlanDocument.url",
-                "notes",
-                "locationLonLat",
-                "recoveryShipName",
-                "recoveryPlanDocument.url",
-                "recoveryCruiseNumber",
-                "recoveryLocationLonLat"
-              ];
-              subColumns = [
-                "Ship Name (D)",
-                "Deployment #",
-                "Cruise (D)",
-                "Cruise # (D)",
-                "Cruise Doc (D)",
-                "Notes (D)",
-                "Coordinates (D)",
-                "Ship Name (R)",
-                "Plan Doc (R)",
-                "Cruise # (R)",
-                "Coordinates (R)"
-              ];
-
-              // Put the data in the subgrid
-              mysubdata = [];
-              mysubdata[0] = {};
-              for (var j = 0; j < subNames.length; j++) {
-                mysubdata[0][subNames[j]] = subgridData[subNames[j]];
-              }
-              {#              console.log('mysubdata');#}
-              {#              console.log(mysubdata);#}
-              subData = mysubdata;
-
-            } else if(selectedRow.eventClass == '.TagEvent') {
-              {#              console.log('.tagEvent');#}
-              {#              console.log('.IntegrationEvent');#}
-              subgridData = deploymentCollection;
-              {#              console.log(subgridData);#}
-              subNames = [];
-              subColumns = [];
-
-              subNames = Object.keys(subgridData);
-              subColumns = subNames;
-
-              // Put the data in the subgrid
-              mysubdata = [];
-              mysubdata[0] = {};
-              for (var j = 0; j < subNames.length; j++) {
-                if(!typeof subgridData[subNames[j]] == "object") {
-                  mysubdata[0][subNames[j]] = subgridData[subNames[j]];
-                } else {
-                  subNames.splice(subNames.indexOf(subNames[j]), 1);
-                }
-              }
-
-              $.each (subNames, function() {
-                mysubdata[0][this] = subgridData[this];
-              });
-              subColumns = subNames;
-              {#              console.log(subNames);#}
-              {#              console.log(subColumns);#}
-              {#              console.log('mysubdata');#}
-              {#              console.log(mysubdata);#}
-              subData = mysubdata;
-            } else if(selectedRow.eventClass == '.IntegrationEvent') {
-              {#              console.log('.IntegrationEvent');#}
-              subgridData = deploymentCollection;
-              {#              console.log(subgridData);#}
-              subNames = [];
-              subColumns = [];
-
-              subNames = Object.keys(subgridData);
-              subColumns = subNames;
-
-              // Put the data in the subgrid
-              mysubdata = [];
-              mysubdata[0] = {};
-              for (var j = 0; j < subNames.length; j++) {
-                if(!typeof subgridData[subNames[j]] == "object") {
-                  mysubdata[0][subNames[j]] = subgridData[subNames[j]];
-                } else {
-                  subNames.splice(subNames.indexOf(subNames[j]), 1);
-                }
-              }
-
-              $.each (subNames, function() {
-                mysubdata[0][this] = subgridData[this];
-              });
-              subColumns = subNames;
-              {#              console.log(subNames);#}
-              {#              console.log(subColumns);#}
-              {#              console.log('mysubdata');#}
-              {#              console.log(mysubdata);#}
-              subData = mysubdata;
-
-            } else if(selectedRow.eventClass == '.CalibrationEvent') {
-              subgridData = deploymentCollection.calibrationCoefficient;
-              {#              console.log('.CalibrationEvent');#}
-              {#              console.log(subgridData);#}
-              subNames = [];
-              subColumns = [];
-              $.each (subgridData, function() {
-                subNames.push(this.name);
-                subColumns.push(this.name);
-              });
-
-              // Put the data in the subgrid
-              mysubdata = [];
-              mysubdata[0] = {};
-              for (var j = 0; j < subNames.length; j++) {
-                mysubdata[0][subNames[j]] = subgridData[j].values;
-              }
-              {#              console.log('mysubdata');#}
-              {#              console.log(mysubdata);#}
-              subData = mysubdata;
-
-            } else {
-              subNames = [];
-              subColumns = [];
-            }
-
-
-// Create the colModel
-            subModel = [];
-            for (var sn = 0; sn < subNames.length; sn++) {
-              subModel.push({name:subNames[sn],index:subNames[sn]})
-            }
-
-            var subgrid_table_id;
-            subgrid_table_id = subgrid_id + "_t";
-
-            jQuery("#"+subgrid_id).html("<table id='"+subgrid_table_id+"' class='scroll'></table>");
-            jQuery("#"+subgrid_table_id).jqGrid({
-              datatype: "local",
-              colNames: subColumns,
-              colModel: subModel,
-              {#                [#}
-              {#                {name:"cruise",index:"cruise",width:80,key:false},#}
-              {#                {name:"cruiseNumber",index:"cruiseNumber",width:130}#}
-              {#              ],#}
-              height: '100%',
-              rowNum:10,
-              sortname: 'cruise',
-              sortorder: "asc"
-            });
-
-            $("#" + subgrid_table_id).jqGrid('addRowData', 1, subData[0]);
-
-          });
-
-
-        },
-        subGridRowExpanded: function(subgrid_id, row_id) {
-
-
-
-
         }
-
       }).jqGrid('navGrid',
         '#pager'+eventName,
         pagerOptions
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
-            console.log(postdata);
+            // console.log(postdata);
             return JSON.stringify(postdata);
           },
           onClose: function() {
@@ -4121,6 +3860,26 @@
 
             return [true, ''];
           },
+          afterSubmit: function(response, postdata){
+            // console.log(response);
+            var m = new ModalDialogView();
+            var success = false;
+            var messageText = "Error";
+
+            if(response.statusText == 'OK'){
+              success = true;
+              messageText = "OK";
+            }else{
+              success = false;
+              messageText = response.responseText;
+              m.show({
+                message: messageText,
+                type: "danger"
+              });
+            }
+
+            return [success,messageText]
+          },
           closeOnEscape:true,
           closeAfterAdd:true,
           closeAfterEdit:true,
@@ -4132,8 +3891,11 @@
         } /* edit options */
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
-            console.log(postdata);
+            // console.log(postdata);
             return JSON.stringify(postdata);
+          },
+          onClose: function() {
+            refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
