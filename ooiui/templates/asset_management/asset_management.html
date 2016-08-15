@@ -84,196 +84,183 @@
                 <hr>
                 <span style='margin-left:15px;font-weight:600;font-size:16px;'>Events</span>
               </div>
-<div class="col-md-12">
-              <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-                <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
-                <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
-                <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>
-                <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
-                <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
-                <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
-                <li class=""><a href="#events-recovery" data-toggle="tab">Recovery</a></li>
-                <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
-                <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
-                <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
-                <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>
-                <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>
-              </ul>
-</div>
               <div class="col-md-12">
-              <div id="events-tab-content" class="tab-content" style="max-width:100%">
-
-                <div class="tab-pane fade" id="events-acquisition">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Acquisition Events</p>
-                          <div id="pagerACQUISITION" class="redmond"></div>
-                          <table id="gridEventsAcquisition" class="redmond"></table>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-calibration">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Calibration Events</p>
-                          <div id="pagerCALIBRATION_DATA" class="redmond"></div>
-                          <table id="gridEventsCalibration" class="redmond"></table>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-cruise">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Cruise Info Events</p>
-                          <div id="pagerCRUISE_INFO" class="redmond"></div>
-                          <table id="gridEventsCruise" class="redmond"></table>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade in active" id="events-deployment">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Deployment Events</p>
-                          <div id="pagerDEPLOYMENT" class="redmond"></div>
-                          <table id="gridEventsDeployment" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-integration">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Integration Events</p>
-                          <div id="pagerINTEGRATION" class="redmond"></div>
-                          <table id="gridEventsIntegration" class="redmond"></table>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-location">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Location Events</p>
-                          <div id="pagerLOCATION" class="redmond"></div>
-                          <table id="gridEventsLocation" class="redmond"></table>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-recovery">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Recovery Events</p>
-                        </div>
-                      </div> <!-- panel-body -->
-                    </div> <!-- panel -->
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-retirement">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Retirement Events</p>
-                          <div id="pagerRETIREMENT" class="redmond"></div>
-                          <table id="gridEventsRetirement" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade in" id="events-status">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Status Events</p>
-                          <div id="pagerASSET_STATUS" class="redmond"></div>
-                          <table id="gridEventsStatus" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade in" id="events-storage">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Storage Events</p>
-                          <div id="pagerSTORAGE" class="redmond"></div>
-                          <table id="gridEventsStorage" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-unspecified">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> Unspecified Events</p>
-                          <div id="pagerUNSPECIFIED" class="redmond"></div>
-                          <table id="gridEventsUnspecified" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade" id="events-vendor">
-                  <div class="row" style="margin-left:10px;margin-right:10px;">
-                    <div class="panel">
-                      <div class="panel-body">
-                        <div>
-                          <p class="initial-text"> At Vendor Events</p>
-                          <div id="pagerATVENDOR" class="redmond"></div>
-                          <table id="gridEventsVendor" class="redmond"></table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-</div>
+                <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
+                  <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
+                  <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
+                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>
+                  <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
+                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
+                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
+                  <li class=""><a href="#events-recovery" data-toggle="tab">Recovery</a></li>
+                  <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
+                  <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
+                  <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
+                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>
+                  <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>
+                </ul>
               </div>
+              <div class="col-md-12">
+                <div id="events-tab-content" class="tab-content" style="max-width:100%">
+
+                  <div class="tab-pane fade" id="events-acquisition">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerACQUISITION" class="redmond"></div>
+                            <table id="gridEventsAcquisition" class="redmond"></table>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-calibration">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerCALIBRATION_DATA" class="redmond"></div>
+                            <table id="gridEventsCalibration" class="redmond"></table>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-cruise">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerCRUISE_INFO" class="redmond"></div>
+                            <table id="gridEventsCruise" class="redmond"></table>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade in active" id="events-deployment">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerDEPLOYMENT" class="redmond"></div>
+                            <table id="gridEventsDeployment" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-integration">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerINTEGRATION" class="redmond"></div>
+                            <table id="gridEventsIntegration" class="redmond"></table>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-location">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerLOCATION" class="redmond"></div>
+                            <table id="gridEventsLocation" class="redmond"></table>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-recovery">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <p class="initial-text"> Recovery Events</p>
+                          </div>
+                        </div> <!-- panel-body -->
+                      </div> <!-- panel -->
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-retirement">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerRETIREMENT" class="redmond"></div>
+                            <table id="gridEventsRetirement" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade in" id="events-status">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerASSET_STATUS" class="redmond"></div>
+                            <table id="gridEventsStatus" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade in" id="events-storage">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerSTORAGE" class="redmond"></div>
+                            <table id="gridEventsStorage" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-unspecified">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerUNSPECIFIED" class="redmond"></div>
+                            <table id="gridEventsUnspecified" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="events-vendor">
+                    <div class="row" style="margin-left:10px;margin-right:10px;">
+                      <div class="panel">
+                        <div class="panel-body">
+                          <div>
+                            <div id="pagerATVENDOR" class="redmond"></div>
+                            <table id="gridEventsVendor" class="redmond"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-
+          </div>
 
           <div class="row" id="rowAlfresco" hidden>
             <div style="width:100%;">
@@ -492,7 +479,7 @@
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
-{#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
+      {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -608,10 +595,10 @@
     var combineFilters = function() {
       console.log('combineFilters');
       var allFilters = [];
-{#      if($dcGrid.getGridParam("postData").filters != null) {#}
-{#        console.log($dcGrid.getGridParam("postData").filters);#}
-{#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
-{#      }#}
+      {#      if($dcGrid.getGridParam("postData").filters != null) {#}
+      {#        console.log($dcGrid.getGridParam("postData").filters);#}
+      {#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
+      {#      }#}
 
       var combinedFilters = {
         groupOp:"AND",
@@ -657,7 +644,7 @@
 
     var $dcGrid = $("#grid");
     var $gridMetadata = $("#gridMetadata");
-{#    var $gridEvents = $("#gridEvents");#}
+    {#    var $gridEvents = $("#gridEvents");#}
     var lastsel2;
 
     var getUniqueNames = function(columnName) {
@@ -825,6 +812,8 @@
       }
     };
 
+    eventData = {}
+
     var refreshEventTable = function(theName, gridId) {
       console.log('refreshEventTable');
       console.log(currentAssetId);
@@ -833,8 +822,29 @@
       if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {
         theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + theName;
         console.log(theDataUrl);
-        $(gridId).setGridParam({url:theDataUrl});
-        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);
+
+        $.ajax( theDataUrl, {
+          type: 'GET',
+          dataType: 'json',
+          success: function( resp ) {
+
+          },
+          complete: function(jsondata,stat){
+            if(stat=="success") {
+              {#              console.log(jsondata.responseJSON);#}
+              eventData[theName] = jsondata.responseJSON;
+              console.log(eventData[theName].events[theName]);
+              $(gridId).setGridParam({data:eventData[theName].events[theName]});
+              $(gridId).trigger("reloadGrid",[{page:1,current:true}]);
+            }
+          },
+          error: function( req, status, err ) {
+
+          }
+        });
+
+        {#        $(gridId).setGridParam({url:theDataUrl});#}
+        {#        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);#}
       }
     };
 
@@ -867,7 +877,7 @@
 
     var eventIdCol = {
       name : 'eventId',
-      key : true,
+      key : false,
       index : 'eventId',
       jsonmap : 'eventId',
       editrules: {required:false, edithidden:true},
@@ -875,7 +885,7 @@
       editable : true,
       hidden : false,
       sortable : true,
-      sorttype : 'string',
+      sorttype : 'int',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
       align : 'center',
       unformat : function (cellvalue, options, cell) {
@@ -918,10 +928,10 @@
       editrules: {required:false, edithidden:true},
       editoptions:{
         dataInit: function(element) { $(element).attr("readonly", "readonly"); }
-{#        defaultValue : 'STORAGE'#}
+        {#        defaultValue : 'STORAGE'#}
       },
       editable : true,
-      hidden : false,
+      hidden : true,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -992,7 +1002,7 @@
       jsonmap : 'dataSource',
       editrules: {required:false, edithidden:true},
       editable : true,
-      hidden : true,
+      hidden : false,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1018,72 +1028,72 @@
 
     // Loads the jqGrid into
     function placeJqGrid(collection) {
-    {#
-    {
-      "Ref Des": "CP01CNSM",
-      "assetInfo": {
-        "array": "Coastal Pioneer",
-        "assembly": "",
-        "asset_name": "CP01CNSM-00001",
-        "description": "MOORING PIONEER CENTRAL SURFAC",
-        "longName": "Coastal Pioneer Central Surface Mooring",
-        "name": "Central Surface Mooring",
-        "owner": null,
-        "type": "Mooring"
-      },
-      "assetType": "Mooring",
-      "augmented": true,
-      "coordinates": [
-        -70.7715,
-        40.1398
-      ],
-      "dataSource": "/home/asadev/uframes/uframe_ooi_20160727_90f4540c71d3fc4f6a4fc8262903c92c722535ee/uframe-1.0/edex/data/ooi/xasset_spreadsheet/bulk_load-AssetRecord.csv",
-      "deployment_number": "1",
-      "deployment_numbers": [
-        1
-      ],
-      "depth": 0.0,
-      "hasDeploymentEvent": true,
-      "id": 5720,
-      "lastModifiedTimestamp": 1469665718227,
-      "manufactureInfo": {
-        "firmwareVersion": null,
-        "manufacturer": "WHOI",
-        "modelNumber": "CP01CNSM",
-        "serialNumber": "CP01CNSM-00001",
-        "shelfLifeExpirationDate": null,
-        "softwareVersion": null
-      },
-      "mobile": false,
-      "notes": null,
-      "partData": {
-        "institutionPropertyNumber": null,
-        "institutionPurchaseOrderNumber": null,
-        "ooiPartNumber": null,
-        "ooiPropertyNumber": null,
-        "ooiSerialNumber": null
-      },
-      "physicalInfo": {
-        "depthRating": null,
-        "height": -1.0,
-        "length": -1.0,
-        "powerRequirements": null,
-        "weight": -1.0,
-        "width": -1.0
-      },
-      "purchaseAndDeliveryInfo": {
-        "deliveryDate": 1361145600000,
-        "deliveryOrderNumber": null,
-        "purchaseDate": 1361145600000,
-        "purchasePrice": 280424.81
-      },
-      "ref_des": "CP01CNSM",
-      "remoteDocuments": [],
-      "remoteResources": [],
-      "tense": "PAST",
-      "uid": "A00228"
-    }
-    #}
+      {#
+      {
+        "Ref Des": "CP01CNSM",
+        "assetInfo": {
+          "array": "Coastal Pioneer",
+          "assembly": "",
+          "asset_name": "CP01CNSM-00001",
+          "description": "MOORING PIONEER CENTRAL SURFAC",
+          "longName": "Coastal Pioneer Central Surface Mooring",
+          "name": "Central Surface Mooring",
+          "owner": null,
+          "type": "Mooring"
+        },
+        "assetType": "Mooring",
+        "augmented": true,
+        "coordinates": [
+          -70.7715,
+          40.1398
+        ],
+        "dataSource": "/home/asadev/uframes/uframe_ooi_20160727_90f4540c71d3fc4f6a4fc8262903c92c722535ee/uframe-1.0/edex/data/ooi/xasset_spreadsheet/bulk_load-AssetRecord.csv",
+        "deployment_number": "1",
+        "deployment_numbers": [
+          1
+        ],
+        "depth": 0.0,
+        "hasDeploymentEvent": true,
+        "id": 5720,
+        "lastModifiedTimestamp": 1469665718227,
+        "manufactureInfo": {
+          "firmwareVersion": null,
+          "manufacturer": "WHOI",
+          "modelNumber": "CP01CNSM",
+          "serialNumber": "CP01CNSM-00001",
+          "shelfLifeExpirationDate": null,
+          "softwareVersion": null
+        },
+        "mobile": false,
+        "notes": null,
+        "partData": {
+          "institutionPropertyNumber": null,
+          "institutionPurchaseOrderNumber": null,
+          "ooiPartNumber": null,
+          "ooiPropertyNumber": null,
+          "ooiSerialNumber": null
+        },
+        "physicalInfo": {
+          "depthRating": null,
+          "height": -1.0,
+          "length": -1.0,
+          "powerRequirements": null,
+          "weight": -1.0,
+          "width": -1.0
+        },
+        "purchaseAndDeliveryInfo": {
+          "deliveryDate": 1361145600000,
+          "deliveryOrderNumber": null,
+          "purchaseDate": 1361145600000,
+          "purchasePrice": 280424.81
+        },
+        "ref_des": "CP01CNSM",
+        "remoteDocuments": [],
+        "remoteResources": [],
+        "tense": "PAST",
+        "uid": "A00228"
+      }
+      #}
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection.toJSON(),
@@ -1172,7 +1182,7 @@
             index : 'assetInfo.array',
             jsonmap : 'assetInfo.array',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             width : 150,
@@ -1189,7 +1199,7 @@
             index : 'assetInfo.assembly',
             jsonmap : 'assetInfo.assembly',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1205,7 +1215,7 @@
             index : 'assetInfo.asset_name',
             jsonmap : 'assetInfo.asset_name',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1221,7 +1231,7 @@
             index : 'assetInfo.description',
             jsonmap : 'assetInfo.description',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             width : 290,
@@ -1238,7 +1248,7 @@
             index : 'assetInfo.longName',
             jsonmap : 'assetInfo.longName',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1254,7 +1264,7 @@
             index : 'assetInfo.name',
             jsonmap : 'assetInfo.name',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             sortable : true,
@@ -1270,7 +1280,7 @@
             index : 'assetInfo.owner',
             jsonmap : 'assetInfo.owner',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1286,7 +1296,7 @@
             index : 'assetType',
             jsonmap : 'assetType',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1302,7 +1312,7 @@
             index : 'augmented',
             jsonmap : 'augmented',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1318,7 +1328,7 @@
             index : 'coordinates',
             jsonmap : 'coordinates',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1335,7 +1345,7 @@
             index : 'deployment_number',
             jsonmap : 'deployment_number',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             sortable : true,
@@ -1351,7 +1361,7 @@
             index : 'deployment_numbers',
             jsonmap : 'deployment_numbers',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1367,7 +1377,7 @@
             index : 'depth',
             jsonmap : 'depth',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1383,7 +1393,7 @@
             index : 'hasDeploymentEvent',
             jsonmap : 'hasDeploymentEvent',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1400,7 +1410,7 @@
             key : false, // uid = reference_designator
             jsonmap : 'uid',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable: true,
@@ -1416,7 +1426,7 @@
             index : 'manufactureInfo.firmwareVersion',
             jsonmap : 'manufactureInfo.firmwareVersion',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             width : 150,
@@ -1433,7 +1443,7 @@
             index : 'manufactureInfo.manufacturer',
             jsonmap : 'manufactureInfo.manufacturer',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             width : 150,
@@ -1450,7 +1460,7 @@
             index : 'manufactureInfo.modelNumber',
             jsonmap : 'manufactureInfo.modelNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             width : 150,
@@ -1467,7 +1477,7 @@
             index : 'manufactureInfo.serialNumber',
             jsonmap : 'manufactureInfo.serialNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             width : 150,
@@ -1498,7 +1508,7 @@
             index : 'manufactureInfo.softwareVersion',
             jsonmap : 'manufactureInfo.softwareVersion',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             width : 150,
@@ -1515,7 +1525,7 @@
             index : 'mobile',
             jsonmap : 'mobile',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1532,7 +1542,7 @@
             index : 'partData.institutionPropertyNumber',
             jsonmap : 'partData.institutionPropertyNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1548,7 +1558,7 @@
             index : 'partData.institutionPurchaseOrderNumber',
             jsonmap : 'partData.institutionPurchaseOrderNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1564,7 +1574,7 @@
             index : 'partData.ooiPartNumber',
             jsonmap : 'partData.ooiPartNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1580,7 +1590,7 @@
             index : 'partData.ooiSerialNumber',
             jsonmap : 'partData.ooiSerialNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1596,7 +1606,7 @@
             index : 'physicalInfo.depthRating',
             jsonmap : 'physicalInfo.depthRating',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1612,7 +1622,7 @@
             index : 'physicalInfo.height',
             jsonmap : 'physicalInfo.height',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1628,7 +1638,7 @@
             index : 'physicalInfo.length',
             jsonmap : 'physicalInfo.length',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1644,7 +1654,7 @@
             index : 'physicalInfo.powerRequirements',
             jsonmap : 'physicalInfo.powerRequirements',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1660,7 +1670,7 @@
             index : 'physicalInfo.weight',
             jsonmap : 'physicalInfo.weight',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1676,7 +1686,7 @@
             index : 'physicalInfo.width',
             jsonmap : 'physicalInfo.width',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1706,7 +1716,7 @@
             index : 'purchaseAndDeliveryInfo.deliveryOrderNumber',
             jsonmap : 'purchaseAndDeliveryInfo.deliveryOrderNumber',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1722,7 +1732,7 @@
             index : 'purchaseAndDeliveryInfo.purchasePrice',
             jsonmap : 'purchaseAndDeliveryInfo.purchasePrice',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1753,7 +1763,7 @@
             index : 'assetInfo.type',
             jsonmap : 'assetInfo.type',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             sortable : true,
@@ -1769,7 +1779,7 @@
             index: 'ref_des',
             jsonmap : 'ref_des',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : false,
             width: 240,
@@ -1786,7 +1796,7 @@
             index : 'remoteDocuments',
             jsonmap : 'remoteDocuments',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1802,7 +1812,7 @@
             index : 'remoteResources',
             jsonmap : 'remoteResources',
             editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
             sortable : true,
@@ -1826,8 +1836,8 @@
         },
         onSelectRow: function (rowId, status, e) {
           var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
-{#          console.log('select row, targetGrid:');#}
-{#          console.log(targetGrid);#}
+          {#          console.log('select row, targetGrid:');#}
+          {#          console.log(targetGrid);#}
 
           $(targetGrid).jqGrid("clearGridData");
           {#          console.log('currentAssetId');#}
@@ -1838,10 +1848,10 @@
             currentAssetId = null;
           } else {
             // Row has been selected
-{#            console.log('selected row');#}
+            {#            console.log('selected row');#}
             currentAssetId = $dcGrid.getRowData(rowId).id;
             currentAssetUid = $dcGrid.getRowData(rowId).uid;
-{#            console.log(currentAssetUid);#}
+            {#            console.log(currentAssetUid);#}
           }
 
           {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
@@ -1853,27 +1863,27 @@
           {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
           {##}
           {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-{#          console.log(currentAssetId);#}
-{#          placeJqGridEvents();#}
+          {#          console.log(currentAssetId);#}
+          {#          placeJqGridEvents();#}
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 
 
-{#          var theDataUrl = "/api/asset_events";#}
-{#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
-{#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
-{#            console.log(theDataUrl);#}
-{#            $gridEvents.setGridParam({url:theDataUrl});#}
-{#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-{#            var data = $gridEvents.jqGrid("getRowData");#}
-{#            console.log(data);#}
-{#          }#}
+          {#          var theDataUrl = "/api/asset_events";#}
+          {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
+          {#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
+          {#            console.log(theDataUrl);#}
+          {#            $gridEvents.setGridParam({url:theDataUrl});#}
+          {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+          {#            var data = $gridEvents.jqGrid("getRowData");#}
+          {#            console.log(data);#}
+          {#          }#}
 
-{##}
-{#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
-{#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
-{#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
-{#          console.log($('.nav-tabs .active').name);#}
-{#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
+          {##}
+          {#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
+          {#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
+          {#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
+          {#          console.log($('.nav-tabs .active').name);#}
+          {#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
 
 
           {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
@@ -1979,16 +1989,16 @@
       );
 
       // CSV Export footer button
-{#      $dcGrid.jqGrid('navButtonAdd','#navGrid',{#}
-{#        id:'ExportToExcel',#}
-{#        caption:'Export Selected Rows To CSV',#}
-{#        title:'Export Selected Rows To CSV',#}
-{#        onClickButton : function(e)#}
-{#        {#}
-{#          exportData(e, '#grid');#}
-{#        },#}
-{#        buttonicon: 'ui-icon ui-icon-document'#}
-{#      });#}
+      {#      $dcGrid.jqGrid('navButtonAdd','#navGrid',{#}
+      {#        id:'ExportToExcel',#}
+      {#        caption:'Export Selected Rows To CSV',#}
+      {#        title:'Export Selected Rows To CSV',#}
+      {#        onClickButton : function(e)#}
+      {#        {#}
+      {#          exportData(e, '#grid');#}
+      {#        },#}
+      {#        buttonicon: 'ui-icon ui-icon-document'#}
+      {#      });#}
 
       // Column mover and chooser
       $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
@@ -2036,25 +2046,25 @@
       {#        }#}
       {#      );#}
 
-{#      $dcGrid.jqGrid('filterToolbar',#}
-{#        {#}
-{#          autosearch : true,#}
-{#          searchOperators : false,#}
-{#          searchOnEnter : false,#}
-{#          stringResult : true,#}
-{#          defaultSearch : "cn",#}
-{#          afterSearch : function() {#}
-{#            console.log($("#globalSearchText").val());#}
-{#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
-{#              performGlobalSearch($("#globalSearchText").val());#}
-{#            } else {#}
-{#              globalFilter = null;#}
-{#              combineFilters();#}
-{#            }#}
-{##}
-{#          }#}
-{#        }#}
-{#      );#}
+      {#      $dcGrid.jqGrid('filterToolbar',#}
+      {#        {#}
+      {#          autosearch : true,#}
+      {#          searchOperators : false,#}
+      {#          searchOnEnter : false,#}
+      {#          stringResult : true,#}
+      {#          defaultSearch : "cn",#}
+      {#          afterSearch : function() {#}
+      {#            console.log($("#globalSearchText").val());#}
+      {#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
+      {#              performGlobalSearch($("#globalSearchText").val());#}
+      {#            } else {#}
+      {#              globalFilter = null;#}
+      {#              combineFilters();#}
+      {#            }#}
+      {##}
+      {#          }#}
+      {#        }#}
+      {#      );#}
 
       if(location.hash!=""){
         setScienceFilter('ref_des', location.hash.split('#')[1]);
@@ -2122,7 +2132,7 @@
 
 
 
-        var initDate = function (elem) {
+    var initDate = function (elem) {
       $(elem).datetimepicker({
         dateFormat: "dd/mm/yy",
         timeFormat: "HH:mm",
@@ -2155,16 +2165,16 @@
         $(elem).datepicker("setDate", new Date(2007, 10, 31));
       }
     };
-      var dateTemplate = {align: "center", sorttype: "date", width: 124,
-        editable: true, editoptions: { dataInit: initDate },
-        searchoptions: {
-          sopt: ["eq", "ne", "lt", "le", "gt", "ge"],
-          attr: { maxlength: 10, size: 11 }, // for searching toolbar
-          maxlength: 16, size: 17, // for searching dialog
-          dataInit: initDate
-        },
-        formatter: "date", formatoptions: { srcformat: "U/1000", newformat: "ISO8601Long" }
-      };
+    var dateTemplate = {align: "center", sorttype: "date", width: 124,
+      editable: true, editoptions: { dataInit: initDate },
+      searchoptions: {
+        sopt: ["eq", "ne", "lt", "le", "gt", "ge"],
+        attr: { maxlength: 10, size: 11 }, // for searching toolbar
+        maxlength: 16, size: 17, // for searching dialog
+        dataInit: initDate
+      },
+      formatter: "date", formatoptions: { srcformat: "U/1000", newformat: "ISO8601Long" }
+    };
 
 
 
@@ -2185,30 +2195,32 @@
 
 
     // ACQUISITION
-{#    {
-      "@class" : ".AcquisitionEvent", Reserved.
-      "purchasePrice" : null, Suggested. Double.
-      "purchaseDate" : null, Suggested. Long.
-      "deliveryDate" : null, Suggested. Long.
-      "purchasedBy" : null, Suggested. String.
-      "vendorIdentification" : null, Suggested. String.
-      "vendorPointOfContact" : null, Suggested. String.
-      "receivedFromVendorBy" : null, Suggested. String.
-      "authorizationNumber" : null, Suggested. String.
-      "authorizationForPayment" : null, Suggested. String.
-      "invoiceNumber" : null, Suggested. String.
-      "eventId" : -1, Reserved. Integer. Value of -1 or null for Create.
-      "assetUid" : null, Suggested. String.
-      "eventType" : "ACQUISTION", Mandatory. String. (eventType)
-      "eventName" : null, Mandatory. String. Not nullable.
-      "eventStartTime" : null, Suggested. Long. Recommended for most events.
-      "eventStopTime" : null, Suggested. Long. Optional for most events.
-      "notes" : null, Suggested. String.
-      "tense" : "UNKNOWN", Readonly. String.
-      "dataSource" : null, Suggested. Source of this edit. "UI:user=username" for example
-      "lastModifiedTimestamp" : null Reserved. Not specified for create; required for update.
-}#}
+    {#    {
+          "@class" : ".AcquisitionEvent", Reserved.
+          "purchasePrice" : null, Suggested. Double.
+          "purchaseDate" : null, Suggested. Long.
+          "deliveryDate" : null, Suggested. Long.
+          "purchasedBy" : null, Suggested. String.
+          "vendorIdentification" : null, Suggested. String.
+          "vendorPointOfContact" : null, Suggested. String.
+          "receivedFromVendorBy" : null, Suggested. String.
+          "authorizationNumber" : null, Suggested. String.
+          "authorizationForPayment" : null, Suggested. String.
+          "invoiceNumber" : null, Suggested. String.
+          "eventId" : -1, Reserved. Integer. Value of -1 or null for Create.
+          "assetUid" : null, Suggested. String.
+          "eventType" : "ACQUISTION", Mandatory. String. (eventType)
+          "eventName" : null, Mandatory. String. Not nullable.
+          "eventStartTime" : null, Suggested. Long. Recommended for most events.
+          "eventStopTime" : null, Suggested. Long. Optional for most events.
+          "notes" : null, Suggested. String.
+          "tense" : "UNKNOWN", Readonly. String.
+          "dataSource" : null, Suggested. Source of this edit. "UI:user=username" for example
+          "lastModifiedTimestamp" : null Reserved. Not specified for create; required for update.
+    }#}
     eventColNames['ACQUISITION'] = [
+      'Event ID',
+      'Event Name',
       'Purchase Price',
       'Purchase Date',
       'Delivery Date',
@@ -2219,10 +2231,8 @@
       'Authorization Number',
       'Payment Authorization',
       'Invoice Number',
-      'Event ID',
       'Asset UID',
       'Event Type',
-      'Event Name',
       'Start Date',
       'End Date',
       'Notes',
@@ -2232,13 +2242,17 @@
     ];
 
     eventColModels['ACQUISITION'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'purchasePrice',
         index : 'purchasePrice',
         jsonmap : 'purchasePrice',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
         hidden : false,
+        formatter : 'currency',
+        formatoptions : {decimalSeparator: null, thousandsSeparator: null, decimalPlaces: 2, defaultValue: ""},
         sortable : true,
         sorttype : 'number',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -2378,10 +2392,8 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventIdCol,
       assetUidCol,
       eventTypeCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       notesCol,
@@ -2416,32 +2428,32 @@
 
 
     // CALIBRATION_DATA
-{#    {#}
-{#        "cardinality": 0,#}
-{#        "comments": "units = mm",#}
-{#        "dataSource": null,#}
-{#        "dimensions": [#}
-{#          1#}
-{#        ],#}
-{#        "eventId": 71,#}
-{#        "eventName": "CC_scale_factor1",#}
-{#        "eventStartTime": 1361318400000,#}
-{#        "eventStopTime": null,#}
-{#        "eventType": "CALIBRATION_DATA",#}
-{#        "lastModifiedTimestamp": 1468511911189,#}
-{#        "notes": null,#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00089",#}
-{#        "values": [#}
-{#          0.45#}
-{#        ]#}
-{#      }#}
+    {#    {#}
+    {#        "cardinality": 0,#}
+    {#        "comments": "units = mm",#}
+    {#        "dataSource": null,#}
+    {#        "dimensions": [#}
+    {#          1#}
+    {#        ],#}
+    {#        "eventId": 71,#}
+    {#        "eventName": "CC_scale_factor1",#}
+    {#        "eventStartTime": 1361318400000,#}
+    {#        "eventStopTime": null,#}
+    {#        "eventType": "CALIBRATION_DATA",#}
+    {#        "lastModifiedTimestamp": 1468511911189,#}
+    {#        "notes": null,#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00089",#}
+    {#        "values": [#}
+    {#          0.45#}
+    {#        ]#}
+    {#      }#}
 
     eventColNames['CALIBRATION_DATA'] = [
-      'Comments',
-      'Data Source',
       'Event ID',
       'Event Name',
+      'Comments',
+      'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
@@ -2453,6 +2465,8 @@
     ];
 
     eventColModels['CALIBRATION_DATA'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'comments',
         index : 'comments',
@@ -2468,8 +2482,6 @@
         }
       },
       dataSourceCol,
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -2518,28 +2530,28 @@
 
 
     // CRUISE_INFO
-{#    {#}
-{#        "@class": ".CruiseInfo",#}
-{#        "cruiseIdentifier": "Test CE Cruise Info 2016",#}
-{#        "dataSource": null,#}
-{#        "eventId": 14536,#}
-{#        "eventName": "Test CE Cruise Info 2016",#}
-{#        "eventStartTime": 1453308000000,#}
-{#        "eventStopTime": 1453508700000,#}
-{#        "eventType": "CRUISE_INFO",#}
-{#        "lastModifiedTimestamp": 1469489065248,#}
-{#        "notes": "Testing update capability cruise info event; target this for deletion.",#}
-{#        "shipName": "M/V Scarlett OHara",#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1",#}
-{#        "uniqueCruiseIdentifer": "CE-2016-0001"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".CruiseInfo",#}
+    {#        "cruiseIdentifier": "Test CE Cruise Info 2016",#}
+    {#        "dataSource": null,#}
+    {#        "eventId": 14536,#}
+    {#        "eventName": "Test CE Cruise Info 2016",#}
+    {#        "eventStartTime": 1453308000000,#}
+    {#        "eventStopTime": 1453508700000,#}
+    {#        "eventType": "CRUISE_INFO",#}
+    {#        "lastModifiedTimestamp": 1469489065248,#}
+    {#        "notes": "Testing update capability cruise info event; target this for deletion.",#}
+    {#        "shipName": "M/V Scarlett OHara",#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1",#}
+    {#        "uniqueCruiseIdentifer": "CE-2016-0001"#}
+    {#      }#}
 
     eventColNames['CRUISE_INFO'] = [
-      'Cruise ID',
-      'Data Source',
       'Event ID',
       'Event Name',
+      'Cruise ID',
+      'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
@@ -2552,6 +2564,8 @@
     ];
 
     eventColModels['CRUISE_INFO'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'cruiseIdentifier',
         index : 'cruiseIdentifier',
@@ -2566,8 +2580,6 @@
         }
       },
       dataSourceCol,
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -2629,30 +2641,30 @@
     };
 
     // DEPLOYMENT
-{#    {#}
-{#        "deployment_number": 1,#}
-{#        "depth": 0.0,#}
-{#        "eventName": "Deployment 1",#}
-{#        "eventStartTime": 1385221800000,#}
-{#        "eventStopTime": 1385337600000,#}
-{#        "eventType": "DEPLOYMENT",#}
-{#        "location": [#}
-{#          -70.7797083333,#}
-{#          39.9415716667#}
-{#        ],#}
-{#        "notes": "",#}
-{#        "tense": "PAST",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "deployment_number": 1,#}
+    {#        "depth": 0.0,#}
+    {#        "eventName": "Deployment 1",#}
+    {#        "eventStartTime": 1385221800000,#}
+    {#        "eventStopTime": 1385337600000,#}
+    {#        "eventType": "DEPLOYMENT",#}
+    {#        "location": [#}
+    {#          -70.7797083333,#}
+    {#          39.9415716667#}
+    {#        ],#}
+    {#        "notes": "",#}
+    {#        "tense": "PAST",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
 
     eventColNames['DEPLOYMENT'] = [
+      'Event ID',
+      'Event Name',
       'Deployment Number',
       'Depth',
-      'Event Name',
       'Start Date',
       'End Date',
       'Event Type',
-      'Event ID',
       'Location',
       'Notes',
       'Tense',
@@ -2661,6 +2673,8 @@
     ];
 
     eventColModels['DEPLOYMENT'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'deployment_number',
         key : true,
@@ -2678,7 +2692,7 @@
       {
         name : 'depth',
         index : 'depth',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
         sortable : true,
         sorttype : 'float',
@@ -2688,11 +2702,9 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
-      eventIdCol,
       {
         name : 'location',
         index : 'location',
@@ -2751,29 +2763,29 @@
     };
 
     // INTEGRATION
-{#    {#}
-{#        "@class": ".XIntegrationEvent",#}
-{#        "dataSource": null,#}
-{#        "deploymentNumber": 1,#}
-{#        "eventId": 14530,#}
-{#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
-{#        "eventStartTime": 1398039060000,#}
-{#        "eventStopTime": 1405382400000,#}
-{#        "eventType": "INTEGRATION",#}
-{#        "integratedBy": "Engineer, RPS ASA",#}
-{#        "integrationInto": null,#}
-{#        "lastModifiedTimestamp": 1469465195955,#}
-{#        "notes": "Updated integration event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1",#}
-{#        "versionNumber": 1#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".XIntegrationEvent",#}
+    {#        "dataSource": null,#}
+    {#        "deploymentNumber": 1,#}
+    {#        "eventId": 14530,#}
+    {#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
+    {#        "eventStartTime": 1398039060000,#}
+    {#        "eventStopTime": 1405382400000,#}
+    {#        "eventType": "INTEGRATION",#}
+    {#        "integratedBy": "Engineer, RPS ASA",#}
+    {#        "integrationInto": null,#}
+    {#        "lastModifiedTimestamp": 1469465195955,#}
+    {#        "notes": "Updated integration event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1",#}
+    {#        "versionNumber": 1#}
+    {#      }#}
 
     eventColNames['INTEGRATION'] = [
-      'Data Source',
-      'Deployment Number',
       'Event ID',
       'Event Name',
+      'Data Source',
+      'Deployment Number',
       'Start Date',
       'End Date',
       'Event Type',
@@ -2787,6 +2799,8 @@
     ];
 
     eventColModels['INTEGRATION'] = [
+      eventIdCol,
+      eventNameCol,
       dataSourceCol,
       {
         name : 'deploymentNumber',
@@ -2802,8 +2816,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -2893,39 +2905,39 @@
 
 
     // LOCATION
-{#    {#}
-{#        "@class": ".XLocationEvent",#}
-{#        "dataSource": null,#}
-{#        "depth": 587.27,#}
-{#        "eventId": 14533,#}
-{#        "eventName": "Updated location event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
-{#        "eventStartTime": 1405382400000,#}
-{#        "eventStopTime": 1405862400000,#}
-{#        "eventType": "LOCATION",#}
-{#        "lastModifiedTimestamp": 1469485612082,#}
-{#        "latitude": 40.36341,#}
-{#        "location": {#}
-{#          "depth": 587.27,#}
-{#          "latitude": 40.36341,#}
-{#          "location": [#}
-{#            -70.7861,#}
-{#            40.36341#}
-{#          ],#}
-{#          "longitude": -70.7861,#}
-{#          "orbitRadius": 1.1#}
-{#        },#}
-{#        "longitude": -70.7861,#}
-{#        "notes": "Location event update for depth, longitude, orbitRadius and eventStartTime.",#}
-{#        "orbitRadius": 1.1,#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".XLocationEvent",#}
+    {#        "dataSource": null,#}
+    {#        "depth": 587.27,#}
+    {#        "eventId": 14533,#}
+    {#        "eventName": "Updated location event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
+    {#        "eventStartTime": 1405382400000,#}
+    {#        "eventStopTime": 1405862400000,#}
+    {#        "eventType": "LOCATION",#}
+    {#        "lastModifiedTimestamp": 1469485612082,#}
+    {#        "latitude": 40.36341,#}
+    {#        "location": {#}
+    {#          "depth": 587.27,#}
+    {#          "latitude": 40.36341,#}
+    {#          "location": [#}
+    {#            -70.7861,#}
+    {#            40.36341#}
+    {#          ],#}
+    {#          "longitude": -70.7861,#}
+    {#          "orbitRadius": 1.1#}
+    {#        },#}
+    {#        "longitude": -70.7861,#}
+    {#        "notes": "Location event update for depth, longitude, orbitRadius and eventStartTime.",#}
+    {#        "orbitRadius": 1.1,#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
 
     eventColNames['LOCATION'] = [
-      'Data Source',
-      'Depth',
       'Event ID',
       'Event Name',
+      'Data Source',
+      'Depth',
       'Start Date',
       'End Date',
       'Event Type',
@@ -2939,6 +2951,8 @@
     ];
 
     eventColModels['LOCATION'] = [
+      eventIdCol,
+      eventNameCol,
       dataSourceCol,
       {
         name : 'depth',
@@ -2954,15 +2968,13 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
       {
         name : 'latitude',
         index : 'latitude',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -2976,7 +2988,7 @@
       {
         name : 'longitude',
         index : 'longitude',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -2991,7 +3003,7 @@
       {
         name : 'orbitRadius',
         index : 'orbitRadius',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
         hidden : false,
         sortable : true,
@@ -3009,12 +3021,12 @@
 
     eventJsonReaders['LOCATION'] = {
       repeatitems: false,
-      page: function(obj) {
-        return 1;
-      },
-      total: function(obj) {
-        return 1;
-      },
+      {#      page: function(obj) {#}
+      {#        return 1;#}
+      {#      },#}
+      {#      total: function(obj) {#}
+      {#        return 1;#}
+      {#      },#}
       root: function (obj) {
         if(!_.isUndefined(obj.events.LOCATION)){
           return obj.events.LOCATION;
@@ -3033,28 +3045,28 @@
 
 
     // ASSET_STATUS
-{#    {#}
-{#        "@class": ".AssetStatusEvent",#}
-{#        "dataSource": null,#}
-{#        "eventId": 14522,#}
-{#        "eventName": "ASSET_STATUS event name cannot be null or create/update fail.",#}
-{#        "eventStartTime": 1398039060000,#}
-{#        "eventStopTime": 1405382400000,#}
-{#        "eventType": "ASSET_STATUS",#}
-{#        "lastModifiedTimestamp": 1469449890041,#}
-{#        "location": "Need sample location data.",#}
-{#        "notes": "Create asset_status event for uid A00391.1.",#}
-{#        "reason": "Unable to process new ASSET_STATUS with eventName field null.",#}
-{#        "severity": 5,#}
-{#        "status": "Need sample status data.",#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".AssetStatusEvent",#}
+    {#        "dataSource": null,#}
+    {#        "eventId": 14522,#}
+    {#        "eventName": "ASSET_STATUS event name cannot be null or create/update fail.",#}
+    {#        "eventStartTime": 1398039060000,#}
+    {#        "eventStopTime": 1405382400000,#}
+    {#        "eventType": "ASSET_STATUS",#}
+    {#        "lastModifiedTimestamp": 1469449890041,#}
+    {#        "location": "Need sample location data.",#}
+    {#        "notes": "Create asset_status event for uid A00391.1.",#}
+    {#        "reason": "Unable to process new ASSET_STATUS with eventName field null.",#}
+    {#        "severity": 5,#}
+    {#        "status": "Need sample status data.",#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
 
     eventColNames['ASSET_STATUS'] = [
-      'Data Source',
       'Event ID',
       'Event Name',
+      'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
@@ -3069,9 +3081,9 @@
     ];
 
     eventColModels['ASSET_STATUS'] = [
-      dataSourceCol,
       eventIdCol,
       eventNameCol,
+      dataSourceCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -3162,29 +3174,29 @@
     };
 
     // STORAGE
-{#    {#}
-{#        "@class": ".XStorageEvent",#}
-{#        "buildingName": "Tower",#}
-{#        "dataSource": null,#}
-{#        "eventId": 14497,#}
-{#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
-{#        "eventStartTime": 1398039060000,#}
-{#        "eventStopTime": 1405382400000,#}
-{#        "eventType": "STORAGE",#}
-{#        "lastModifiedTimestamp": 1469314016410,#}
-{#        "notes": "This is another test storage event against CP02PMUO-WFP01-00-WFPENG000:1:1 instrument:A00391.1",#}
-{#        "performedBy": "Edna Donoughe, RPS ASA",#}
-{#        "physicalLocation": "Narragansett, RI",#}
-{#        "roomIdentification": "23",#}
-{#        "shelfIdentification": "Cube 7-21",#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".XStorageEvent",#}
+    {#        "buildingName": "Tower",#}
+    {#        "dataSource": null,#}
+    {#        "eventId": 14497,#}
+    {#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
+    {#        "eventStartTime": 1398039060000,#}
+    {#        "eventStopTime": 1405382400000,#}
+    {#        "eventType": "STORAGE",#}
+    {#        "lastModifiedTimestamp": 1469314016410,#}
+    {#        "notes": "This is another test storage event against CP02PMUO-WFP01-00-WFPENG000:1:1 instrument:A00391.1",#}
+    {#        "performedBy": "Edna Donoughe, RPS ASA",#}
+    {#        "physicalLocation": "Narragansett, RI",#}
+    {#        "roomIdentification": "23",#}
+    {#        "shelfIdentification": "Cube 7-21",#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
     eventColNames['STORAGE'] = [
-      'Building Name',
-      'Data Source',
       'Event ID',
       'Event Name',
+      'Building Name',
+      'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
@@ -3199,6 +3211,8 @@
     ];
 
     eventColModels['STORAGE'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'buildingName',
         index : 'buildingName',
@@ -3215,8 +3229,6 @@
         }
       },
       dataSourceCol,
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -3288,15 +3300,27 @@
 
     eventJsonReaders['STORAGE'] = {
       repeatitems: false,
+      id: 'eventId',
       page: function(obj) {
+        {#        console.log($('#pagerSTORAGE_center .ui-pg-input').val());#}
+        {#        return $('#gridEventsStorage').getGridParam('page');#}
         return 1;
       },
       total: function(obj) {
+        {#        if(!_.isUndefined(obj.events.STORAGE)){#}
+        {#          console.log(obj.events.STORAGE.length);#}
+        {#          console.log(Math.ceil(obj.events.STORAGE.length / $('#pagerSTORAGE_center .ui-pg-selbox').val()));#}
+        {#          return Math.ceil(obj.events.STORAGE.length / $('#pagerSTORAGE_center .ui-pg-selbox').val());#}
+        {#        }else{#}
+        {#          return 1#}
+        {#        }#}
         return 1;
       },
       root: function (obj) {
-        if(!_.isUndefined(obj.events.STORAGE)){
-          return obj.events.STORAGE;
+        console.log('in root');
+        console.log(eventData.STORAGE)
+        if(!_.isUndefined(eventData.STORAGE)){
+          return eventData.STORAGE.events.STORAGE;
         }else{
           return {}
         }
@@ -3312,23 +3336,23 @@
 
 
     // Unspecified
-{#    {#}
-{#        "@class": ".XEvent",#}
-{#        "dataSource": null,#}
-{#        "eventId": 14500,#}
-{#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
-{#        "eventStartTime": 1398039060000,#}
-{#        "eventStopTime": 1405382400000,#}
-{#        "eventType": "UNSPECIFIED",#}
-{#        "lastModifiedTimestamp": 1469406611576,#}
-{#        "notes": "Updated unspecified event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".XEvent",#}
+    {#        "dataSource": null,#}
+    {#        "eventId": 14500,#}
+    {#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
+    {#        "eventStartTime": 1398039060000,#}
+    {#        "eventStopTime": 1405382400000,#}
+    {#        "eventType": "UNSPECIFIED",#}
+    {#        "lastModifiedTimestamp": 1469406611576,#}
+    {#        "notes": "Updated unspecified event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
     eventColNames['UNSPECIFIED'] = [
-      'Data Source',
       'Event ID',
       'Event Name',
+      'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
@@ -3339,9 +3363,9 @@
     ];
 
     eventColModels['UNSPECIFIED'] = [
-      dataSourceCol,
       eventIdCol,
       eventNameCol,
+      dataSourceCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -3377,27 +3401,27 @@
 
 
     // RETIREMENT
-{#    {#}
-{#        "@class": ".XRetirementEvent",#}
-{#        "dataSource": null,#}
-{#        "disposition": null,#}
-{#        "eventId": 14525,#}
-{#        "eventName": "Field eventName cannot be null or fails to create/update retirement event.",#}
-{#        "eventStartTime": null,#}
-{#        "eventStopTime": null,#}
-{#        "eventType": "RETIREMENT",#}
-{#        "lastModifiedTimestamp": 1469461739465,#}
-{#        "notes": "Update retirement event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1",#}
-{#        "reason": null,#}
-{#        "retiredBy": null,#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1"#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".XRetirementEvent",#}
+    {#        "dataSource": null,#}
+    {#        "disposition": null,#}
+    {#        "eventId": 14525,#}
+    {#        "eventName": "Field eventName cannot be null or fails to create/update retirement event.",#}
+    {#        "eventStartTime": null,#}
+    {#        "eventStopTime": null,#}
+    {#        "eventType": "RETIREMENT",#}
+    {#        "lastModifiedTimestamp": 1469461739465,#}
+    {#        "notes": "Update retirement event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1",#}
+    {#        "reason": null,#}
+    {#        "retiredBy": null,#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1"#}
+    {#      }#}
     eventColNames['RETIREMENT'] = [
-      'Data Source',
-      'Disposition',
       'Event ID',
       'Event Name',
+      'Data Source',
+      'Disposition',
       'Start Date',
       'End Date',
       'Event Type',
@@ -3410,6 +3434,8 @@
     ];
 
     eventColModels['RETIREMENT'] = [
+      eventIdCol,
+      eventNameCol,
       dataSourceCol,
       {
         name : 'disposition',
@@ -3425,8 +3451,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -3490,34 +3514,34 @@
 
 
     // ATVENDOR
-{#    {#}
-{#        "@class": ".AtVendorEvent",#}
-{#        "authorizationForPayment": null,#}
-{#        "authorizationNumber": null,#}
-{#        "dataSource": null,#}
-{#        "eventId": 14506,#}
-{#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
-{#        "eventStartTime": 1398039060000,#}
-{#        "eventStopTime": 1405382400000,#}
-{#        "eventType": "ATVENDOR",#}
-{#        "invoiceNumber": null,#}
-{#        "lastModifiedTimestamp": 1469442113731,#}
-{#        "notes": "Create an atvendor event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
-{#        "reason": "Broken",#}
-{#        "receivedFromVendorBy": null,#}
-{#        "sentToVendorBy": null,#}
-{#        "tense": "UNKNOWN",#}
-{#        "uid": "A00391.1",#}
-{#        "vendorIdentification": null,#}
-{#        "vendorPointOfContact": null#}
-{#      }#}
+    {#    {#}
+    {#        "@class": ".AtVendorEvent",#}
+    {#        "authorizationForPayment": null,#}
+    {#        "authorizationNumber": null,#}
+    {#        "dataSource": null,#}
+    {#        "eventId": 14506,#}
+    {#        "eventName": "CP02PMUO-WFP01-00-WFPENG000",#}
+    {#        "eventStartTime": 1398039060000,#}
+    {#        "eventStopTime": 1405382400000,#}
+    {#        "eventType": "ATVENDOR",#}
+    {#        "invoiceNumber": null,#}
+    {#        "lastModifiedTimestamp": 1469442113731,#}
+    {#        "notes": "Create an atvendor event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
+    {#        "reason": "Broken",#}
+    {#        "receivedFromVendorBy": null,#}
+    {#        "sentToVendorBy": null,#}
+    {#        "tense": "UNKNOWN",#}
+    {#        "uid": "A00391.1",#}
+    {#        "vendorIdentification": null,#}
+    {#        "vendorPointOfContact": null#}
+    {#      }#}
 
     eventColNames['ATVENDOR'] = [
+      'Event ID',
+      'Event Name',
       'Payment Authorization',
       'Authorization Number',
       'Data Source',
-      'Event ID',
-      'Event Name',
       'Start Date',
       'End Date',
       'Event Type',
@@ -3534,6 +3558,8 @@
     ];
 
     eventColModels['ATVENDOR'] = [
+      eventIdCol,
+      eventNameCol,
       {
         name : 'authorizationForPayment',
         index : 'authorizationForPayment',
@@ -3563,8 +3589,6 @@
         }
       },
       dataSourceCol,
-      eventIdCol,
-      eventNameCol,
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
@@ -3686,13 +3710,19 @@
 
 
     function placeJqGridEvents(divId, eventName) {
+      var pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
+      if(eventName == 'DEPLOYMENT'){
+        pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      }
       divId = "#" + divId;
       $(divId).jqGrid({
-        datatype : "json",
-        mtype : "GET",
-        url : "",
+        datatype : "local",
+        data : [],
+        {#        datatype : "json",#}
+        {#        mtype : "GET",#}
+        {#        url : "",#}
         editurl : "/api/asset_events",
-        jsonReader: eventJsonReaders[eventName],
+        {#        jsonReader: eventJsonReaders[eventName],#}
         colNames: eventColNames[eventName],
 
         colModel : eventColModels[eventName],
@@ -3701,10 +3731,11 @@
         },
         loadComplete : function(data) {
           $("#pager"+eventName).find("option[value=\"50000\"]").text('All');
-{#          console.log($gridEvents.jqGrid("getRowData"));#}
+          {#          $("#pager"+eventName).setGridParam({lastpage: $('#pagerSTORAGE_center .ui-pg-selbox').val()});#}
+          {#          console.log($gridEvents.jqGrid("getRowData"));#}
         },
         gridComplete : function() {
-{#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
+          {#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
         },
         onSelectRow: function (rowId, status, e) {
           {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
@@ -3723,91 +3754,94 @@
 
         },
         ondblClickRow: function(rowId) {
-          $(divId).jqGrid(
-            'editGridRow',
-            rowId,
-            {ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
-          serializeEditData: function (postdata) {
-            console.log(postdata);
-            return JSON.stringify(postdata);
-          },
-          beforeShowForm: function(id) {
-            $('#eventType').val(eventName);
-          },
-          beforeSubmit: function (postData) {
-            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-            }else{
-              postData.eventStartTime = '';
-            }
+          if(eventName != 'DEPLOYMENT') {
+            $(divId).jqGrid(
+              'editGridRow',
+              rowId,
+              {
+                ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
+                serializeEditData: function (postdata) {
+                  console.log(postdata);
+                  return JSON.stringify(postdata);
+                },
+                beforeShowForm: function (id) {
+                  $('#eventType').val(eventName);
+                },
+                beforeSubmit: function (postData) {
+                  if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+                    postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+                  } else {
+                    postData.eventStartTime = '';
+                  }
 
-            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-            }else{
-              postData.eventStopTime = '';
-            }
+                  if (!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+                    postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+                  } else {
+                    postData.eventStopTime = '';
+                  }
 
-            if('purchaseDate' in postData){
-              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-              }else{
-                postData.purchaseDate = '';
+                  if ('purchaseDate' in postData) {
+                    if (!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                      postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+                    } else {
+                      postData.purchaseDate = '';
+                    }
+                  }
+
+                  if ('deliveryDate' in postData) {
+                    if (!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                      postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+                    } else {
+                      postData.deliveryDate = '';
+                    }
+                  }
+
+                  return [true, ''];
+                },
+                closeOnEscape: true,
+                closeAfterAdd: true,
+                closeAfterEdit: true,
+                width: 800,
+                top: 120,
+                left: 50,
+                recreateForm: true,
+                jqModal: true
               }
-            }
-
-            if('deliveryDate' in postData) {
-              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-              }else{
-                postData.deliveryDate = '';
-              }
-            }
-
-            return [true, ''];
-          },
-          closeOnEscape:true,
-          closeAfterAdd:true,
-          closeAfterEdit:true,
-          width:800,
-          top:120,
-          left:50,
-          recreateForm:true,
-          jqModal:true
-        }
-          );
+            );
+          }
         },
         serializeRowData: function(postdata){
           console.log(postdata);
           return JSON.stringify(postdata);
         },
         beforeProcessing: function(){
-{#          console.log('before request');#}
-{#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
-{#          console.log(eventClassName);#}
-{#          if(!_.isUndefined(eventColNames[eventClassName])){#}
-{#            console.log('setting colNames and colModel');#}
-{#            console.log(eventColNames[eventClassName]);#}
-{#            console.log(eventColModels[eventClassName]);#}
-{#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
-{#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
-{#            $("#gridEvents").jqGrid('GridUnload');#}
-{#            $("#gridEvents").unload();#}
-{#            $("#gridEvents").setGridParam({}).trigger('reloadGrid',[{ colNames:eventColNames[eventClassName],colModel:eventColModels[eventClassName]}]).jqGrid('GridUnload');#}
-{#            $gridEvents.jqGrid("GridUnload");#}
-{#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-{#          }#}
+          {#          console.log('before request');#}
+          {#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
+          {#          console.log(eventClassName);#}
+          {#          if(!_.isUndefined(eventColNames[eventClassName])){#}
+          {#            console.log('setting colNames and colModel');#}
+          {#            console.log(eventColNames[eventClassName]);#}
+          {#            console.log(eventColModels[eventClassName]);#}
+          {#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
+          {#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
+          {#            $("#gridEvents").jqGrid('GridUnload');#}
+          {#            $("#gridEvents").unload();#}
+          {#            $("#gridEvents").setGridParam({}).trigger('reloadGrid',[{ colNames:eventColNames[eventClassName],colModel:eventColModels[eventClassName]}]).jqGrid('GridUnload');#}
+          {#            $gridEvents.jqGrid("GridUnload");#}
+          {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
+          {#          }#}
 
         },
         gridview : true,
-        rowNum : 15,
-        rowList : [15, 30, 45, 60, 50000],
+        rowNum : 10,
+        rowList : [10, 20, 40, 80, 50000],
         autowidth : true,
         height : 'auto',
         pager : '#pager'+eventName,
-        sortname : 'end',
+        sortname : 'eventId',
         viewrecords : true,
         sortorder : 'desc',
-        caption : 'Events',
+        caption : eventName + ' Events',
         altRows: false,
         {#        altclass:'myAltRowClass',#}
         {#        classes: 'table table-bordered table-striped table-selectable',#}
@@ -3815,8 +3849,9 @@
         shrinkToFit : true,
         multiselect: false,
         multiboxonly: true,
-        reloadAfterSubmit : false,
+        reloadAfterSubmit : true,
         loadOnce : false,
+        {#        ajaxGridOptions: { contentType: "application/json", cache: true },#}
         ajaxEditOptions : {
           contentType: "application/json; charset=utf-8",
           dataType: "json",
@@ -4043,11 +4078,14 @@
 
       }).jqGrid('navGrid',
         '#pager'+eventName,
-        {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true}
+        pagerOptions
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             console.log(postdata);
             return JSON.stringify(postdata);
+          },
+          onClose: function() {
+            refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
