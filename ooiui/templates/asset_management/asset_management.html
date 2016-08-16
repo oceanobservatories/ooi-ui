@@ -3860,25 +3860,9 @@
 
             return [true, ''];
           },
-          afterSubmit: function(response, postdata){
-            // console.log(response);
-            var m = new ModalDialogView();
-            var success = false;
-            var messageText = "Error";
-
-            if(response.statusText == 'OK'){
-              success = true;
-              messageText = "OK";
-            }else{
-              success = false;
-              messageText = response.responseText;
-              m.show({
-                message: messageText,
-                type: "danger"
-              });
-            }
-
-            return [success,messageText]
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
           },
           closeOnEscape:true,
           closeAfterAdd:true,
