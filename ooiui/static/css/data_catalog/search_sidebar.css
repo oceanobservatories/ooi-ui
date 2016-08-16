@@ -1,11 +1,26 @@
+html, body {
+    height:100%;
+}
+
 .search-sidebar {
     padding: 0 40px 0 40px;
 }
 
 .search-sidebar .panel {
     margin-top: 10px;
+    margin-left: 10px;
 }
 
 .search-sidebar .panel-heading {
     cursor: pointer;
+}
+
+.col-md-2 {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
+}
+
+.col-md-10 {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
 }
