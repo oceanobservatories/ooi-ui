@@ -134,6 +134,18 @@ var SignUpForm = Backbone.View.extend({
                 validate: true
             }
         },
+            '[name=api_user_login]': {
+            observe: 'api_user_login',
+            setOptions: {
+                validate: true
+            }
+        },
+            '[name=api_user_token]': {
+            observe: 'api_user_token',
+            setOptions: {
+                validate: true
+            }
+        },
         //    '[name=role_name]': {
         //    observe: 'role_name',
         //    selectOptions: {

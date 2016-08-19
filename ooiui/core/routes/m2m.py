@@ -5,24 +5,24 @@ ooiui.core.routes.m2m
 Defines the application routes
 '''
 from ooiui.core.app import app
-from flask import request, render_template, Response, jsonify
-from flask import stream_with_context
+from flask import request
 from ooiui.core.routes.common import get_login
 import requests
-import urllib2
 
-#M2M Interface
+# M2M Interface
 
-@app.route('/api/m2m/get_data/<string:reference_designator>/<string:method>/<string:stream>/<string:start>/<string:end>')
-def get_data(reference_designator, method, stream, start, end):
-    token = get_login()
-    url = app.config['SERVICES_URL'] + '/m2m/get_data/%s/%s/%s/%s/%s' % (reference_designator, method, stream, start, end)
-    print url
-    for each in request.args:
-        print each, request.args[each]
-    response = requests.get(url, auth=(token, ''), params=request.args)
-    print response.text
-    return response.text, response.status_code
+# External API Request
+# http://localhost:5000/api/m2m/get_data?data_type=sensor_inv&user_request=CP02PMUO/WFP01/03-CTDPFK000/telemetered/ctdpf_ckl_wfp_instrument%3FbeginDT=2015-10-14T15:15:27.000Z%26endDT=2015-10-15T15:15:27.000Z%26limit=1000%26parameters=PD1959,PD1960,PD1961,PD7,PD7,PD7
+@app.route('/api/m2m/get_data')
+def get_data():
+    if request.authorization:
+        api_user_name = request.authorization['username']
+        api_user_token = request.authorization['password']
+        url = app.config['SERVICES_URL'] + '/m2m/get_data'
+        response = requests.get(url, auth=(api_user_name, api_user_token), params=request.args)
+        return response.text, response.status_code
+    else:
+        return 'Please supply your API credentials', 401
 
 
 @app.route('/api/m2m/get_metadata/<string:reference_designator>', methods=['GET'])

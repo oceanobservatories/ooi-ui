@@ -26,11 +26,14 @@ var UserEditFormView = Backbone.View.extend({
     '#other_organization' : 'other_organization',
     '#vocation' : 'vocation',
     '#country' : 'country',
-    '#state' : 'state'
+    '#state' : 'state',
+    '#api_user_name' : 'api_user_name',
+    '#api_user_token' : 'api_user_token'
   },
   events: {
     'click #submitButton' : 'submit',
-    'click #closeButton' : 'close'
+    'click #closeButton' : 'close',
+    'click #refreshTokenButton' : 'refreshToken'
   },
   initialize: function() {
     var self = this;
@@ -79,6 +82,16 @@ var UserEditFormView = Backbone.View.extend({
         console.error(response.responseText);
       }
     });
+  },
+  refreshToken: function(e) {
+    var self = this;
+    e.preventDefault();
+    var newToken = Math.random().toString(36).substr(2).toUpperCase();
+    var tb = $('#api_user_token');
+    tb.val(newToken);
+    tb.select();
+    tb.focus();
+    self.model.set('api_user_token', newToken);
   },
   template: JST['ooiui/static/js/partials/UserEditForm.html'],
   render: function() {
