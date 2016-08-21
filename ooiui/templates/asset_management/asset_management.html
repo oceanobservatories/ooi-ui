@@ -1307,7 +1307,21 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          dataSourceCol,
+          {
+            name : 'dataSource',
+            index : 'dataSource',
+            jsonmap : 'dataSource',
+            editrules: {required:false, edithidden:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           {
             name : 'deployment_number',
             index : 'deployment_number',
@@ -1380,7 +1394,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
@@ -2396,30 +2410,33 @@
 
 
     // CALIBRATION_DATA
-    {#    {#}
-    {#        "cardinality": 0,#}
-    {#        "comments": "units = mm",#}
-    {#        "dataSource": null,#}
-    {#        "dimensions": [#}
-    {#          1#}
-    {#        ],#}
-    {#        "eventId": 71,#}
-    {#        "eventName": "CC_scale_factor1",#}
-    {#        "eventStartTime": 1361318400000,#}
-    {#        "eventStopTime": null,#}
-    {#        "eventType": "CALIBRATION_DATA",#}
-    {#        "lastModifiedTimestamp": 1468511911189,#}
-    {#        "notes": null,#}
-    {#        "tense": "UNKNOWN",#}
-    {#        "uid": "A00089",#}
-    {#        "values": [#}
-    {#          0.45#}
-    {#        ]#}
-    {#      }#}
+    {#{
+      "assetUid": "A00165",
+      "cardinality": 0,
+      "comments": null,
+      "dataSource": null,
+      "dimensions": [
+        1
+      ],
+      "eventId": 9318,
+      "eventName": "CC_y3",
+      "eventStartTime": 1370044800000,
+      "eventStopTime": 1433030400000,
+      "eventType": "CALIBRATION_DATA",
+      "lastModifiedTimestamp": 1469666135600,
+      "notes": null,
+      "tense": "UNKNOWN",
+      "values": [
+        0.0
+      ]
+    }#}
 
     eventColNames['CALIBRATION_DATA'] = [
       'Event ID',
       'Event Name',
+      'Dimensions',
+      'Cardinality',
+      'Values',
       'Comments',
       'Data Source',
       'Start Date',
@@ -2427,7 +2444,6 @@
       'Event Type',
       'Notes',
       'Tense',
-      'Values',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -2435,6 +2451,45 @@
     eventColModels['CALIBRATION_DATA'] = [
       eventIdCol,
       eventNameCol,
+      {
+        name : 'dimensions',
+        index : 'dimensions',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : false,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'cardinality',
+        index : 'cardinality',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : false,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'values',
+        index : 'values',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : false,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       {
         name : 'comments',
         index : 'comments',
@@ -2455,19 +2510,6 @@
       eventTypeCol,
       notesCol,
       tenseCol,
-      {
-        name : 'values',
-        index : 'values',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : false,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -2537,7 +2579,7 @@
       {
         name : 'cruiseIdentifier',
         index : 'cruiseIdentifier',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:true, edithidden:true},
         editable : true,
         sortable : true,
         sorttype : 'string',
@@ -2555,7 +2597,7 @@
       {
         name : 'shipName',
         index : 'shipName',
-        editrules: {required:false, edithidden:true},
+        editrules: {required:true, edithidden:true},
         editable : true,
         sortable : true,
         sorttype : 'string',
@@ -2571,6 +2613,7 @@
         key : true,
         index : 'uniqueCruiseIdentifer',
         editrules: {required:false, edithidden:true},
+        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
         editable : true,
         sortable : true,
         sorttype : 'string',
@@ -3756,6 +3799,10 @@
 
                   return [true, ''];
                 },
+                errorTextFormat : function(serviceResponse){
+                  var messageText = JSON.parse(serviceResponse.responseText).message;
+                  return messageText;
+                },
                 closeOnEscape: true,
                 closeAfterAdd: true,
                 closeAfterEdit: true,
@@ -3813,7 +3860,11 @@
         ajaxEditOptions : {
           contentType: "application/json; charset=utf-8",
           dataType: "json",
-          mtype: "POST"
+          mtype: "POST",
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
+          }
         }
       }).jqGrid('navGrid',
         '#pager'+eventName,
@@ -3914,6 +3965,10 @@
             }
 
             return [true, ''];
+          },
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
           },
           closeOnEscape:true,
           closeAfterAdd:true,
