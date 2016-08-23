@@ -62,9 +62,22 @@
 <% if(user !== null && user.get('scopes').indexOf('asset_manager') !== -1){ %>
 <!-- Asset Management -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a href="/assets/management">
+    <a class="dropdown-toggle" type="button" id="dropdownMenuAM" data-toggle="dropdown" aria-expanded="true">
         Asset Management
+        <span class="caret"></span>
     </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="Assets">
+        <li role="presentation">
+            <a href="/assets/management">
+                <i class="fa fa-sitemap" style='padding-right: 13px;'></i><span style="text-align:left;padding-left:3px;">Assets & Events</span>
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#">
+                <i class="fa fa-ship" style='padding-right: 13px;'> </i><span style="text-align:left;padding-left:0px;">Cruises</span>
+            </a>
+        </li>
+    </ul>
 </li>
 <% } %>
 <% if(user !== null && user.get('scopes').indexOf('command_control') !== -1){ %>
