@@ -99,6 +99,23 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <label for="api_user_name" class="col-sm-3 control-label">API Username</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="api_user_name" name="api_user_name" disabled />
+      <span class="help-block hidden"></span>
+    </div>
+  </div>
+
+  <div class="form-group" style="text-align:left;">
+    <label for="api_user_token" class="col-sm-3 control-label">API Token</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="api_user_token" name="api_user_token" disabled />
+      <span class="help-block hidden"></span>
+    </div>
+    <button type="button" id="refreshTokenButton" class="btn btn-success">Refresh API Token</button>
+  </div>
+
   <div id="scope_div">
     <h3> User Scopes </h3>
     <div class="form-group">

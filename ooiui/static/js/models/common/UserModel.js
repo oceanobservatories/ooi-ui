@@ -36,7 +36,9 @@ var UserModel = Backbone.Model.extend({
     user_id: "",
     scopes: [],
     user_name: "",
-    email_opt_in: true
+    email_opt_in: true,
+    api_user_name: "",
+    api_user_token: ""
   }
 });
 

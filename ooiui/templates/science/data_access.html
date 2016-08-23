@@ -134,7 +134,13 @@
                       <label><input id="StatusStreamSwitch" style="padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
                     </div>
                     <div class="checkbox">
+                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Invalidated Streams</label>
+                    </div>
+                    <div class="checkbox">
                       <label><input id="MobileAssetSwitch" style="padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input id="AllTimesSwitch" style="padding-right: 2px;" title="All Times Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Time Range</label>
                     </div>
                   </div>
                 </div>
@@ -601,40 +607,40 @@
         this.listenTo(this, "login:success", function() { location.reload(); });
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
-        this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-          if(this.login.loggedIn()) {
-
-            options.model.attributes.email = this.models.userModel.get("email");
-            options.model.attributes.user_name = this.models.userModel.get("user_name");
-
-            var hasSubscribed = false;
-            //for email address
-            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
-            //for selected item
-            var currentStream = options.model.get('stream_name');
-            var currentRef = options.model.get('ref_des');
-            //loop over and compare, only if telemetered
-            if (currentStream.split('_')[0] == 'telemetered'){
-              _.each(availSubs,function(sub){
-                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
-
-                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
-                if (streamName == currentStream && refDes == currentRef){
-                  hasSubscribed = true;
-                  options.model.set('subscriptionModel',sub);
-                }
-              });
-            }
-
-            if (hasSubscribed){
-              options.model.set('subscriptionEnabled', true);
-            }else{
-              options.model.set('subscriptionEnabled', false);
-            }
-
-            self.views.streamDownloadFormView.show(options);
-          }
-        });
+{#        this.listenTo(this, 'StreamTableItemView:onClick', function(options) {#}
+{#          if(this.login.loggedIn()) {#}
+{##}
+{#            options.model.attributes.email = this.models.userModel.get("email");#}
+{#            options.model.attributes.user_name = this.models.userModel.get("user_name");#}
+{##}
+{#            var hasSubscribed = false;#}
+{#            //for email address#}
+{#            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});#}
+{#            //for selected item#}
+{#            var currentStream = options.model.get('stream_name');#}
+{#            var currentRef = options.model.get('ref_des');#}
+{#            //loop over and compare, only if telemetered#}
+{#            if (currentStream.split('_')[0] == 'telemetered'){#}
+{#              _.each(availSubs,function(sub){#}
+{#                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;#}
+{##}
+{#                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");#}
+{#                if (streamName == currentStream && refDes == currentRef){#}
+{#                  hasSubscribed = true;#}
+{#                  options.model.set('subscriptionModel',sub);#}
+{#                }#}
+{#              });#}
+{#            }#}
+{##}
+{#            if (hasSubscribed){#}
+{#              options.model.set('subscriptionEnabled', true);#}
+{#            }else{#}
+{#              options.model.set('subscriptionEnabled', false);#}
+{#            }#}
+{##}
+{#            self.views.streamDownloadFormView.show(options);#}
+{#          }#}
+{#        });#}
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
 {#          console.log('addToTimeRange');#}
@@ -962,6 +968,7 @@
     var engInstrumentFilter = {field: "stream_name", op: "nc", data: "-eng"};
     var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
     var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
+    var invalidatedStreamFilter = {field: "stream_name", op: "bn", data: "bad"};
 {#    var filterToolbarFilter = {groupOp:"AND",rules:[]};#}
     var globalFilter = null;
 
@@ -1171,7 +1178,9 @@
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
       $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
       $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#InvalidatedStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+      $("#AllTimesSwitch").bootstrapSwitch('state', true);
 
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
@@ -1203,6 +1212,16 @@
         combineFilters();
       });
 
+      $('#InvalidatedStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateInvalidated = $("#InvalidatedStreamSwitch").bootstrapSwitch('state');
+        if (theStateInvalidated) {
+          invalidatedStreamFilter = {field: "stream_name", op: "bw", data: "bad"};
+        } else {
+          invalidatedStreamFilter = {field: "stream_name", op: "bn", data: "bad"};
+        }
+        combineFilters();
+      });
+
       $('#MobileAssetSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateMobile = $("#MobileAssetSwitch").bootstrapSwitch('state');
         if (theStateMobile) {
@@ -1210,6 +1229,26 @@
         } else {
           mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
         }
+        combineFilters();
+      });
+
+      $('#AllTimesSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateAllTimes = $("#AllTimesSwitch").bootstrapSwitch('state');
+        var options = {};
+
+        if (!theStateAllTimes) {
+          options.min = new Date('1900', '00', '01');
+          options.max = new Date('3000', '00', '01');
+          $('#rangeFilters').hide();
+        } else {
+          options.min = new Date('2013', '00', '01');
+          options.max = new Date();
+          $('#rangeFilters').show();
+        }
+        var startDate = new Date(options.min).toISOString(),
+            endDate   = new Date(options.max).toISOString();
+
+        setTimeRangeFilter("start", startDate, "end", endDate);
         combineFilters();
       });
 {#      console.log('document.ready complete');#}
@@ -1243,7 +1282,9 @@
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
       $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
       $("#StatusStreamSwitch").bootstrapSwitch('state', false);
+      $("#InvalidatedStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
+      $("#AllTimesSwitch").bootstrapSwitch('state', false);
 {#      $dcGrid[0].clearToolbar();#}
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
@@ -1253,6 +1294,7 @@
       engInstrumentFilter = {field:"stream_name",op:"nc",data:"-eng"};
       metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
+      invalidatedStreamFilter = {field:"stream_name",op:"bn",data:"bad"};
 {#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
       globalFilter = null;
       location.href = location.href.substring(0, location.href.indexOf('?'));
@@ -1340,6 +1382,7 @@
       aaa.rules.push(engInstrumentFilter);
       aaa.rules.push(metadataStreamFilter);
       aaa.rules.push(statusStreamFilter);
+      aaa.rules.push(invalidatedStreamFilter);
       combinedFilters.groups.push(aaa);
 
       {#      // Toggle Filters#}
