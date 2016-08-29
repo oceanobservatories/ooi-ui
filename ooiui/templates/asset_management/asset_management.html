@@ -92,7 +92,6 @@
                   <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
                   <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
                   <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
-                  <li class=""><a href="#events-recovery" data-toggle="tab">Recovery</a></li>
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
                   <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
                   <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
@@ -175,18 +174,6 @@
                           <div>
                             <div id="pagerLOCATION" class="redmond"></div>
                             <table id="gridEventsLocation" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>
-
-                  <div class="tab-pane fade" id="events-recovery">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <p class="initial-text"> Recovery Events</p>
                           </div>
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
@@ -994,6 +981,36 @@
       align : 'center'
     };
 
+    var eventLatitudeCol = {
+      name : 'latitude',
+      index : 'latitude',
+      editrules: {required:false, edithidden:true, number:true},
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'number',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
+    var eventLongitudeCol = {
+      name : 'longitude',
+      index : 'longitude',
+      editrules: {required:false, edithidden:true, number:true},
+      editable : true,
+      hidden : false,
+      sortable : true,
+      sorttype : 'number',
+      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+      align : 'center',
+      unformat : function (cellvalue, options, cell) {
+        return $('input', cell).val() || cellvalue;
+      }
+    };
+
     // Loads the jqGrid into
     function placeJqGrid(collection) {
       {#
@@ -1077,16 +1094,18 @@
           'Asset Name',
           'Description',
           'Long Name',
+          'Max Depth',
+          'Min Depth',
           'Name',
           'Owner',
           'Asset Type',
-          'Augmented',
-          'Coordinates',
+{#          'Augmented',#}
+{#          'Coordinates',#}
           'Data Source',
           'Deployment Number',
           'Deployment Numbers',
           'Depth',
-          'Has Deployment Event',
+{#          'Has Deployment Event',#}
           'UID',
           'Firmware Version',
           'Manufacturer',
@@ -1099,6 +1118,7 @@
           'Inst Property Number',
           'Inst PO Number',
           'OOI Part Number',
+          'OOI Property Number',
           'OOI Serial Number',
           'Depth Rating',
           'Height',
@@ -1110,12 +1130,15 @@
           'Delivery Order Number',
           'Purchase Price',
           'Purchase Date',
-          'Alive?',
+          'Alive?', // This is really the 'tense' column, renamed per Rutgers
+          'Cumulative Tense',
           'Type',
           'Reference Designator',
-          'Remote Documents',
+{#          'Remote Documents',#}
           'Remote Resources',
-          'Last Modified'
+          'Last Modified',
+          'Latitude',
+          'Longitude'
         ],
 
         colModel : [
@@ -1228,6 +1251,38 @@
             }
           },
           {
+            name : 'maxdepth',
+            index : 'maxdepth',
+            jsonmap : 'maxdepth',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'mindepth',
+            index : 'mindepth',
+            jsonmap : 'mindepth',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'assetInfo.name',
             index : 'assetInfo.name',
             jsonmap : 'assetInfo.name',
@@ -1275,38 +1330,38 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'augmented',
-            index : 'augmented',
-            jsonmap : 'augmented',
-            editrules: {required:false, edithidden:true},
+{#          {#}
+{#            name : 'augmented',#}
+{#            index : 'augmented',#}
+{#            jsonmap : 'augmented',#}
+{#            editrules: {required:false, edithidden:true},#}
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'coordinates',
-            index : 'coordinates',
-            jsonmap : 'coordinates',
-            editrules: {required:false, edithidden:true},
+{#            editable : true,#}
+{#            hidden : true,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
+{#          {#}
+{#            name : 'coordinates',#}
+{#            index : 'coordinates',#}
+{#            jsonmap : 'coordinates',#}
+{#            editrules: {required:false, edithidden:true},#}
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+{#            editable : true,#}
+{#            hidden : true,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
           {
             name : 'dataSource',
             index : 'dataSource',
@@ -1370,22 +1425,22 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'hasDeploymentEvent',
-            index : 'hasDeploymentEvent',
-            jsonmap : 'hasDeploymentEvent',
-            editrules: {required:false, edithidden:true},
+{#          {#}
+{#            name : 'hasDeploymentEvent',#}
+{#            index : 'hasDeploymentEvent',#}
+{#            jsonmap : 'hasDeploymentEvent',#}
+{#            editrules: {required:false, edithidden:true},#}
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align: 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+{#            editable : true,#}
+{#            hidden : true,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align: 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
           {
             name: 'uid',
             index: 'uid',
@@ -1555,6 +1610,22 @@
             name : 'partData.ooiPartNumber',
             index : 'partData.ooiPartNumber',
             jsonmap : 'partData.ooiPartNumber',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'partData.ooiPropertyNumber',
+            index : 'partData.ooiPropertyNumber',
+            jsonmap : 'partData.ooiPropertyNumber',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
@@ -1741,6 +1812,22 @@
           },
           tenseCol,
           {
+            name : 'cumulative_tense',
+            index : 'cumulative_tense',
+            jsonmap : 'cumulative_tense',
+            editrules: {required:false, edithidden:true},
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'assetInfo.type',
             index : 'assetInfo.type',
             jsonmap : 'assetInfo.type',
@@ -1773,22 +1860,22 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'remoteDocuments',
-            index : 'remoteDocuments',
-            jsonmap : 'remoteDocuments',
-            editrules: {required:false, edithidden:true},
+{#          {#}
+{#            name : 'remoteDocuments',#}
+{#            index : 'remoteDocuments',#}
+{#            jsonmap : 'remoteDocuments',#}
+{#            editrules: {required:false, edithidden:true},#}
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+{#            editable : true,#}
+{#            hidden : true,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
           {
             name : 'remoteResources',
             index : 'remoteResources',
@@ -1805,7 +1892,9 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          lastModifiedTimestampCol
+          lastModifiedTimestampCol,
+          eventLatitudeCol,
+          eventLongitudeCol
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function() {
@@ -2554,13 +2643,12 @@
     {#        "shipName": "M/V Scarlett OHara",#}
     {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
-    {#        "uniqueCruiseIdentifer": "CE-2016-0001"#}
+    {#        "uniqueCruiseIdentifier": "CE-2016-0001"#}
     {#      }#}
 
     eventColNames['CRUISE_INFO'] = [
       'Event ID',
       'Event Name',
-      'Cruise ID',
       'Data Source',
       'Start Date',
       'End Date',
@@ -2576,19 +2664,6 @@
     eventColModels['CRUISE_INFO'] = [
       eventIdCol,
       eventNameCol,
-      {
-        name : 'cruiseIdentifier',
-        index : 'cruiseIdentifier',
-        editrules: {required:true, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
       dataSourceCol,
       eventStartTimeCol,
       eventStopTimeCol,
@@ -2609,11 +2684,10 @@
       },
       tenseCol,
       {
-        name : 'uniqueCruiseIdentifer',
+        name : 'uniqueCruiseIdentifier',
         key : true,
-        index : 'uniqueCruiseIdentifer',
+        index : 'uniqueCruiseIdentifier',
         editrules: {required:false, edithidden:true},
-        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
         editable : true,
         sortable : true,
         sorttype : 'string',
@@ -2969,34 +3043,8 @@
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
-      {
-        name : 'latitude',
-        index : 'latitude',
-        editrules: {required:false, edithidden:true, number:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'longitude',
-        index : 'longitude',
-        editrules: {required:false, edithidden:true, number:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
+      eventLatitudeCol,
+      eventLongitudeCol,
       notesCol,
       {
         name : 'orbitRadius',
