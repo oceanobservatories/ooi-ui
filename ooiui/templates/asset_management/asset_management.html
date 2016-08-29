@@ -1130,8 +1130,8 @@
           'Delivery Order Number',
           'Purchase Price',
           'Purchase Date',
-          'Alive?', // This is really the 'tense' column, renamed per Rutgers
-          'Cumulative Tense',
+          'Tense', // This is really the 'tense' column, renamed per Rutgers
+          'Alive?',
           'Type',
           'Reference Designator',
 {#          'Remote Documents',#}
@@ -1821,6 +1821,7 @@
             hidden : false,
             sortable : true,
             sorttype : 'string',
+            formatter : changeTenseDisplay,
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
             unformat : function (cellvalue, options, cell) {
@@ -1997,20 +1998,49 @@
         multiboxonly: true,
         reloadAfterSubmit : false,
         loadOnce : false,
-        ajaxEditOptions: { contentType: "application/json; charset=utf-8", dataType: "json" }
+        ajaxEditOptions : {
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          mtype: "POST",
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
+          }
+        }
       }).jqGrid('navGrid',
         '#navGrid',
-        {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true}
+        {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true}
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             return JSON.stringify(postdata);
           },
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
+          },
           closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
           width:800,
+          top:120,
+          left:50,
           recreateForm:true,
           jqModal:true
         } /* edit options */
-        ,{} /* add options */
+        ,{
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
+          },
+          closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
+          width:800,
+          top:120,
+          left:50,
+          recreateForm:true,
+          jqModal:true
+        } /* add options */
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
