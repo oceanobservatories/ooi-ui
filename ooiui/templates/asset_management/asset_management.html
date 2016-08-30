@@ -1330,38 +1330,6 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-{#          {#}
-{#            name : 'augmented',#}
-{#            index : 'augmented',#}
-{#            jsonmap : 'augmented',#}
-{#            editrules: {required:false, edithidden:true},#}
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-{#            editable : true,#}
-{#            hidden : true,#}
-{#            sortable : true,#}
-{#            sorttype : 'string',#}
-{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#            align : 'center',#}
-{#            unformat : function (cellvalue, options, cell) {#}
-{#              return $('input', cell).val() || cellvalue;#}
-{#            }#}
-{#          },#}
-{#          {#}
-{#            name : 'coordinates',#}
-{#            index : 'coordinates',#}
-{#            jsonmap : 'coordinates',#}
-{#            editrules: {required:false, edithidden:true},#}
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-{#            editable : true,#}
-{#            hidden : true,#}
-{#            sortable : true,#}
-{#            sorttype : 'string',#}
-{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#            align : 'center',#}
-{#            unformat : function (cellvalue, options, cell) {#}
-{#              return $('input', cell).val() || cellvalue;#}
-{#            }#}
-{#          },#}
           {
             name : 'dataSource',
             index : 'dataSource',
@@ -1425,22 +1393,6 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-{#          {#}
-{#            name : 'hasDeploymentEvent',#}
-{#            index : 'hasDeploymentEvent',#}
-{#            jsonmap : 'hasDeploymentEvent',#}
-{#            editrules: {required:false, edithidden:true},#}
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-{#            editable : true,#}
-{#            hidden : true,#}
-{#            sortable : true,#}
-{#            sorttype : 'string',#}
-{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#            align: 'center',#}
-{#            unformat : function (cellvalue, options, cell) {#}
-{#              return $('input', cell).val() || cellvalue;#}
-{#            }#}
-{#          },#}
           {
             name: 'uid',
             index: 'uid',
@@ -1861,22 +1813,6 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-{#          {#}
-{#            name : 'remoteDocuments',#}
-{#            index : 'remoteDocuments',#}
-{#            jsonmap : 'remoteDocuments',#}
-{#            editrules: {required:false, edithidden:true},#}
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-{#            editable : true,#}
-{#            hidden : true,#}
-{#            sortable : true,#}
-{#            sorttype : 'string',#}
-{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#            align : 'center',#}
-{#            unformat : function (cellvalue, options, cell) {#}
-{#              return $('input', cell).val() || cellvalue;#}
-{#            }#}
-{#          },#}
           {
             name : 'remoteResources',
             index : 'remoteResources',
@@ -1983,10 +1919,10 @@
         autowidth : true,
         height : 'auto',
         pager : '#navGrid',
-        sortname : 'end',
+        sortname : 'id',
         autoencode: true,
         viewrecords : true,
-        sortorder : 'desc',
+        sortorder : 'asc',
         sortable : true,
         caption : 'Assets',
         altRows: false,
@@ -2009,7 +1945,7 @@
         }
       }).jqGrid('navGrid',
         '#navGrid',
-        {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true}
+        {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true}
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             return JSON.stringify(postdata);
@@ -2663,6 +2599,7 @@
     {#        "@class": ".CruiseInfo",#}
     {#        "cruiseIdentifier": "Test CE Cruise Info 2016",#}
     {#        "dataSource": null,#}
+    {#        "editPhase": "SomeString" #}
     {#        "eventId": 14536,#}
     {#        "eventName": "Test CE Cruise Info 2016",#}
     {#        "eventStartTime": 1453308000000,#}
@@ -2682,6 +2619,7 @@
       'Data Source',
       'Start Date',
       'End Date',
+      'Edit Phase',
       'Event Type',
       'Notes',
       'Ship Name',
@@ -2697,6 +2635,19 @@
       dataSourceCol,
       eventStartTimeCol,
       eventStopTimeCol,
+      {
+        name : 'editPhase',
+        index : 'editPhase',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       eventTypeCol,
       notesCol,
       {
