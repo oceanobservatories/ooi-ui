@@ -30,10 +30,14 @@ def landing_pioneer():
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
-@login_required()
-@scope_required('asset_manager')
 def assets_management():
     return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/assets/cruises')
+@app.route('/assets/cruises/')
+def asset_management_cruises():
+    return render_template('asset_management/cruises.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
@@ -546,4 +550,14 @@ def get_c2_instrument_display(reference_designator):
 @app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
 def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
+    return response.text, response.status_code
+
+@app.route('/api/cruises', methods=['GET'])
+def get_cruises():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises')
+    return response.text, response.status_code
+
+@app.route('/api/cruises/<string:uniqueCruiseIdentifier>/deployments', methods=['GET'])
+def get_cruise_deployments(uniqueCruiseIdentifier):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (uniqueCruiseIdentifier))
     return response.text, response.status_code

@@ -19,7 +19,7 @@ var NavbarView = Backbone.View.extend({
   keyPressEventHandler : function(e){
     e.preventDefault(); // Prevent the #about
     if(e.keyCode == 13){
-        this.navSearch(e.currentTarget.value);
+      this.navSearch(e.currentTarget.value);
     }
   },
   menuToggle: function(e) {
@@ -59,9 +59,9 @@ var NavbarView = Backbone.View.extend({
     //Remove event listener on menu toggle.
     var sidebar = $("#sidebar-wrapper").children().length;
     if (sidebar == 0) {
-        this.undelegateEvents();
+      this.undelegateEvents();
     }
-    },
+  },
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
     sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html'],
@@ -71,26 +71,27 @@ var NavbarView = Backbone.View.extend({
     this.$el.html(this.templates.navbar({user:null}));
     var pageURI = this.el.baseURI;
     if(pageURI.indexOf("streamingdata") > -1 || pageURI.indexOf("c2") > -1 || pageURI.indexOf("alerts") > -1 || pageURI.indexOf("dataadmin") > -1 || pageURI.indexOf("opLog") > -1){
-        this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+      this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
     }
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()){
-        //Here we will get the user so that we can access the scope and only show items they can access.
-        var userModel = new UserModel();
-        var self = this;
-        userModel.fetch({
-            url: '/api/current_user',
-            success: function() {
-               self.$el.find('#dropdownMenu1').toggle();
-               self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
-            },
-            error: function() {
-              self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:null}));
-            }
-        });
-        this.$el.find('#current').hide();
-        this.$el.find('#world-map').hide();
-        //this.$el.find('#navbar-menus').append(this.messageView.el);
+      //Here we will get the user so that we can access the scope and only show items they can access.
+      var userModel = new UserModel();
+      var self = this;
+      userModel.fetch({
+        url: '/api/current_user',
+        success: function() {
+          self.$el.find('#dropdownMenu1').toggle();
+          self.$el.find('#dropdownMenuAM').toggle();
+          self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
+        },
+        error: function() {
+          self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:null}));
+        }
+      });
+      this.$el.find('#current').hide();
+      this.$el.find('#world-map').hide();
+      //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
 

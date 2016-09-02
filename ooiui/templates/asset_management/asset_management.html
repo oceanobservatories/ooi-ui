@@ -88,7 +88,7 @@
                 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
                   <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
-                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>
+{#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
                   <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
                   <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
                   <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
@@ -128,7 +128,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="events-cruise">
+{#                  <div class="tab-pane fade" id="events-cruise">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -139,7 +139,7 @@
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
                     </div>
-                  </div>
+                  </div>#}
 
                   <div class="tab-pane fade in active" id="events-deployment">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -286,7 +286,7 @@
     var gridIdLookup = {};
     gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
-    gridIdLookup["#events-cruise"] = "gridEventsCruise";
+{#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
     gridIdLookup["#events-integration"] = "gridEventsIntegration";
     gridIdLookup["#events-location"] = "gridEventsLocation";
@@ -329,9 +329,9 @@
           $('.container-fluid.banner-image').addClass('news-active')
         }
 
-        this.listenTo(vent, "asset:renderDocsTable", function(model) {
-          renderRemoteDocuments(model);
-        });
+{#        this.listenTo(vent, "asset:renderDocsTable", function(model) {#}
+{#          renderRemoteDocuments(model);#}
+{#        });#}
 
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
@@ -808,7 +808,7 @@
       $("#rowButtons").show();
       {#      $("#rowFilters").show();#}
       {#      $("#rowSubGrids").show();#}
-      $("#rowAlfresco").show();
+      $("#rowAlfresco").hide();
       $("#rowEvents").show();
     };
 
@@ -1079,6 +1079,17 @@
         "uid": "A00228"
       }
       #}
+      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+          currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+        }
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+        }
+      }
+
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection.toJSON(),
@@ -1144,6 +1155,10 @@
         colModel : [
           { name : 'actions',
             caption : 'Plot/Download',
+            editrules: {required:false, edithidden:false},
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editable : false,
+            hidden : false,
             width : 80,
             sortable : false,
             search : false,
@@ -1875,6 +1890,12 @@
           {#          placeJqGridEvents();#}
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 
+          // ref_des, cruise, array
+{#          console.log($dcGrid.getRowData(rowId).ref_des);#}
+{#          console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
+{#          var uniqueCruiseIdnetifier = null;#}
+          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);
+{#          renderRemoteDocuments('', 'OC-1410A', 'Coastal Endurance');#}
 
           {#          var theDataUrl = "/api/asset_events";#}
           {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
@@ -1945,7 +1966,7 @@
         }
       }).jqGrid('navGrid',
         '#navGrid',
-        {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true}
+        pagerOptions
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             return JSON.stringify(postdata);
@@ -3737,7 +3758,17 @@
 
 
     function placeJqGridEvents(divId, eventName) {
-      var pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
+      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+          currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+        }
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+          pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
+        }
+      }
+
       if(eventName == 'DEPLOYMENT'){
         pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       }
@@ -3781,67 +3812,71 @@
 
         },
         ondblClickRow: function(rowId) {
-          if(eventName != 'DEPLOYMENT') {
-            $(divId).jqGrid(
-              'editGridRow',
-              rowId,
-              {
-                ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
-                serializeEditData: function (postdata) {
-                  // console.log(postdata);
-                  return JSON.stringify(postdata);
-                },
-                onClose: function() {
-                  refreshEventTable(eventName, divId);
-                },
-                beforeShowForm: function (id) {
-                  $('#eventType').val(eventName);
-                },
-                beforeSubmit: function (postData) {
-                  if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-                    postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-                  } else {
-                    postData.eventStartTime = '';
-                  }
+          if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+            if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+              if(eventName != 'DEPLOYMENT') {
+                $(divId).jqGrid(
+                  'editGridRow',
+                  rowId,
+                  {
+                    ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
+                    serializeEditData: function (postdata) {
+                      // console.log(postdata);
+                      return JSON.stringify(postdata);
+                    },
+                    onClose: function() {
+                      refreshEventTable(eventName, divId);
+                    },
+                    beforeShowForm: function (id) {
+                      $('#eventType').val(eventName);
+                    },
+                    beforeSubmit: function (postData) {
+                      if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+                        postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+                      } else {
+                        postData.eventStartTime = '';
+                      }
 
-                  if (!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-                    postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-                  } else {
-                    postData.eventStopTime = '';
-                  }
+                      if (!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+                        postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+                      } else {
+                        postData.eventStopTime = '';
+                      }
 
-                  if ('purchaseDate' in postData) {
-                    if (!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                      postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-                    } else {
-                      postData.purchaseDate = '';
-                    }
-                  }
+                      if ('purchaseDate' in postData) {
+                        if (!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                          postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+                        } else {
+                          postData.purchaseDate = '';
+                        }
+                      }
 
-                  if ('deliveryDate' in postData) {
-                    if (!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                      postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-                    } else {
-                      postData.deliveryDate = '';
-                    }
-                  }
+                      if ('deliveryDate' in postData) {
+                        if (!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                          postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+                        } else {
+                          postData.deliveryDate = '';
+                        }
+                      }
 
-                  return [true, ''];
-                },
-                errorTextFormat : function(serviceResponse){
-                  var messageText = JSON.parse(serviceResponse.responseText).message;
-                  return messageText;
-                },
-                closeOnEscape: true,
-                closeAfterAdd: true,
-                closeAfterEdit: true,
-                width: 800,
-                top: 120,
-                left: 50,
-                recreateForm: true,
-                jqModal: true
+                      return [true, ''];
+                    },
+                    errorTextFormat : function(serviceResponse){
+                      var messageText = JSON.parse(serviceResponse.responseText).message;
+                      return messageText;
+                    },
+                    closeOnEscape: true,
+                    closeAfterAdd: true,
+                    closeAfterEdit: true,
+                    width: 800,
+                    top: 120,
+                    left: 50,
+                    recreateForm: true,
+                    jqModal: true
+                  }
+                );
               }
-            );
+            }
           }
         },
         serializeRowData: function(postdata){
@@ -4025,7 +4060,7 @@
       {#      placeJqGridMetadata({});#}
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
-      placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");
+      // placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
       placeJqGridEvents("gridEventsIntegration", "INTEGRATION");
       placeJqGridEvents("gridEventsLocation", "LOCATION");
@@ -4036,19 +4071,19 @@
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
     };
 
-    var renderRemoteDocuments = function(model) {
+    var renderRemoteDocuments = function(ref_des, cruise, array) {
       //clear out the old events table panel DOM
       $('div#remoteDocuments table tbody').remove();
 
-      var ref_des = model.get('ref_des');
-      var cruise = null;
-      var array = model.get('assetInfo').array;
+{#      var ref_des = model.get('ref_des');#}
+{#      var cruise = null;#}
+{#      var array = model.get('assetInfo').array;#}
 
-      _.each( model.attributes.metaData, function(item){
-        if (item.key == "Cruise Number"){
-          cruise = item['value'];
-        }
-      });
+{#      _.each( model.attributes.metaData, function(item){#}
+{#        if (item.key == "Cruise Number"){#}
+{#          cruise = item['value'];#}
+{#        }#}
+{#      });#}
 
       var data = { 'search': ref_des,'cruise': cruise,'array':array};
 
