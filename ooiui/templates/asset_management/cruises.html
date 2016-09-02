@@ -287,7 +287,7 @@
     var gridIdLookup = {};
     {#    gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";#}
     {#    gridIdLookup["#events-calibration"] = "gridEventsCalibration";#}
-    {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
+        gridIdLookup["#events-cruise"] = "gridEventsCruise";
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
     {#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
     {#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
@@ -331,7 +331,7 @@
         }
 
         this.listenTo(vent, "asset:renderDocsTable", function(model) {
-          renderRemoteDocuments(model);
+          //renderRemoteDocuments(model);
         });
 
         this.listenTo(this, "login:success", this.onLogin);
@@ -768,7 +768,31 @@
       }
     };
 
-    eventData = {}
+    eventData = {};
+
+    var refreshCruiseData = function() {
+      var jqCollection = {};
+      jqCollection['actions'] = '';
+      $.ajax( '/api/cruises', {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+
+        },
+        complete: function(jsondata,stat){
+          if(stat=="success") {
+            $dcGrid.setGridParam({data:jsondata.responseJSON['cruises']});
+            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+          }
+        },
+        error: function( req, status, err ) {
+          console.log(req);
+          console.log(status);
+          console.log(err);
+        },
+        timeout : 60000
+      });
+    };
 
     var refreshEventTable = function(theName, gridId) {
       // console.log('refreshEventTable');
@@ -902,10 +926,10 @@
       index : 'notes',
       jsonmap : 'notes',
       editrules : {required:false, edithidden:true},
-      editoptions : {rows:"5",cols:"5"},
+      editoptions : {rows:"10",cols:"80"},
       edittype : 'textarea',
       editable : true,
-      hidden : false,
+      hidden : true,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1037,15 +1061,17 @@
       }
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
         if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
-          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+          pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
         }
       }
+
+      var eventName = 'CRUISE_INFO';
 
       console.log(collection);
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection['cruises'],
-        editurl : "",
+        editurl : "/api/asset_events",
         serializeEditData: function(postData) {
           jsonResponse = JSON.stringify(postData);
           return jsonResponse;
@@ -1053,7 +1079,7 @@
         colNames: [
           'Event ID',
           'Event Name',
-          'Array Name',
+{#          'Array Name',#}
           'Data Source',
           'Start Date',
           'End Date',
@@ -1069,23 +1095,23 @@
         colModel : [
           eventIdCol,
           eventNameCol,
-          {
-            name : 'array',
-            index : 'array',
-            jsonmap : 'array',
-            editrules: {required:false, edithidden:true},
-            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-            editable : true,
-            hidden : false,
-            width : 150,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+{#          {#}
+{#            name : 'array',#}
+{#            index : 'array',#}
+{#            jsonmap : 'array',#}
+{#            editrules: {required:false, edithidden:true},#}
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+{#            editable : true,#}
+{#            hidden : false,#}
+{#            width : 150,#}
+{#            sortable : true,#}
+{#            sorttype : 'string',#}
+{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+{#            align : 'center',#}
+{#            unformat : function (cellvalue, options, cell) {#}
+{#              return $('input', cell).val() || cellvalue;#}
+{#            }#}
+{#          },#}
           dataSourceCol,
           eventStartTimeCol,
           eventStopTimeCol,
@@ -1176,7 +1202,7 @@
           {#          console.log(currentAssetId);#}
           {#          placeJqGridEvents();#}
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
-          renderRemoteDocuments('', $dcGrid.getRowData(rowId).uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).array);
+{#          renderRemoteDocuments('', $dcGrid.getRowData(rowId).uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).array);#}
 
           {#          var theDataUrl = "/api/asset_events";#}
           {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
@@ -1221,7 +1247,7 @@
         autowidth : true,
         height : 'auto',
         pager : '#navGrid',
-        sortname : 'id',
+        sortname : 'eventId',
         autoencode: true,
         viewrecords : true,
         sortorder : 'asc',
@@ -1234,7 +1260,7 @@
         shrinkToFit : true,
         multiselect: false,
         multiboxonly: true,
-        reloadAfterSubmit : false,
+        reloadAfterSubmit : true,
         loadOnce : false,
         ajaxEditOptions : {
           contentType: "application/json; charset=utf-8",
@@ -1250,7 +1276,45 @@
         pagerOptions
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
+            // console.log(postdata);
             return JSON.stringify(postdata);
+          },
+          onClose: function() {
+            refreshCruiseData();
+          },
+          beforeShowForm: function(id) {
+            $('#eventType').val(eventName);
+          },
+          beforeSubmit: function (postData) {
+            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+            }else{
+              postData.eventStartTime = '';
+            }
+
+            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+            }else{
+              postData.eventStopTime = '';
+            }
+
+            if('purchaseDate' in postData){
+              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+              }else{
+                postData.purchaseDate = '';
+              }
+            }
+
+            if('deliveryDate' in postData) {
+              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+              }else{
+                postData.deliveryDate = '';
+              }
+            }
+
+            return [true, ''];
           },
           errorTextFormat : function(serviceResponse){
             var messageText = JSON.parse(serviceResponse.responseText).message;
@@ -1262,10 +1326,52 @@
           width:800,
           top:120,
           left:50,
+          reloadAfterSubmit:true,
           recreateForm:true,
           jqModal:true
         } /* edit options */
-        ,{
+,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
+          serializeEditData: function (postdata) {
+            // console.log(postdata);
+            return JSON.stringify(postdata);
+          },
+          onClose: function() {
+            refreshCruiseData();
+          },
+          beforeShowForm: function(id) {
+            $('#eventType').val(eventName);
+          },
+          beforeSubmit: function (postData) {
+            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
+              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
+            }else{
+              postData.eventStartTime = '';
+            }
+
+            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
+              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
+            }else{
+              postData.eventStopTime = '';
+            }
+
+            if('purchaseDate' in postData){
+              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
+                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
+              }else{
+                postData.purchaseDate = '';
+              }
+            }
+
+            if('deliveryDate' in postData) {
+              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
+                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
+              }else{
+                postData.deliveryDate = '';
+              }
+            }
+
+            return [true, ''];
+          },
           errorTextFormat : function(serviceResponse){
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
@@ -1279,8 +1385,6 @@
           recreateForm:true,
           jqModal:true
         } /* add options */
-        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
-        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
         ,{} /*delete options*/
         ,{multipleSearch:false}
         ,{closeOnEscape:true}
@@ -1559,8 +1663,8 @@
       'Longitude',
       'Mooring UID',
       'Node UID',
-      'Reference Designator',
-      'Sensor UID'
+      'Sensor UID',
+      'Reference Designator'
     ];
 
     eventColModels['DEPLOYMENT'] = [
@@ -1637,8 +1741,8 @@
         }
       },
       {
-        name : 'rd',
-        index : 'rd',
+        name : 'sensor_uid',
+        index : 'sensor_uid',
         editrules: {required:false, edithidden:true},
         editable : true,
         sortable : true,
@@ -1650,9 +1754,10 @@
         }
       },
       {
-        name : 'sensor_uid',
-        index : 'sensor_uid',
+        name : 'rd',
+        index : 'rd',
         editrules: {required:false, edithidden:true},
+        width : 200,
         editable : true,
         sortable : true,
         sorttype : 'string',
@@ -1842,7 +1947,8 @@
         pager : '#pager'+eventName,
         sortname : 'eventId',
         viewrecords : true,
-        sortorder : 'desc',
+        sortorder : 'asc',
+        sortable : true,
         {#        caption : eventName + ' Events',#}
         altRows: false,
         {#        altclass:'myAltRowClass',#}
@@ -2004,9 +2110,11 @@
           placeJqGrid(jqCollection);
         },
         error: function( req, status, err ) {
-
+          console.log(req);
+          console.log(status);
+          console.log(err);
         },
-        timeout : 5000
+        timeout : 60000
       });
 
 

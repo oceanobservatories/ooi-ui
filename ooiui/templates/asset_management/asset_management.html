@@ -428,6 +428,10 @@
       return tenseDisplay
     };
 
+    var formatterStringToList = function(cellvalue) {
+      return "[" + cellvalue + "]";
+    }
+
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      console.log(rowObject);#}
@@ -1894,7 +1898,7 @@
 {#          console.log($dcGrid.getRowData(rowId).ref_des);#}
 {#          console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
 {#          var uniqueCruiseIdnetifier = null;#}
-          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);
+{#          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);#}
 {#          renderRemoteDocuments('', 'OC-1410A', 'Coastal Endurance');#}
 
           {#          var theDataUrl = "/api/asset_events";#}
@@ -2534,6 +2538,7 @@
         editable : true,
         sortable : false,
         sorttype : 'number',
+        formatter : formatterStringToList,
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2560,6 +2565,7 @@
         editable : true,
         sortable : false,
         sorttype : 'number',
+        formatter : formatterStringToList,
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
