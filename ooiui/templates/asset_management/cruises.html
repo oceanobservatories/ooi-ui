@@ -1661,10 +1661,10 @@
       'End Date',
       'Latitude',
       'Longitude',
+      'Reference Designator',
       'Mooring UID',
       'Node UID',
-      'Sensor UID',
-      'Reference Designator'
+      'Sensor UID'
     ];
 
     eventColModels['DEPLOYMENT'] = [
@@ -1713,6 +1713,20 @@
       eventLatitudeCol,
       eventLongitudeCol,
       {
+        name : 'rd',
+        index : 'rd',
+        editrules: {required:false, edithidden:true},
+        width : 200,
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
         name : 'mooring_uid',
         index : 'mooring_uid',
         editrules: {required:false, edithidden:true},
@@ -1744,20 +1758,6 @@
         name : 'sensor_uid',
         index : 'sensor_uid',
         editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'rd',
-        index : 'rd',
-        editrules: {required:false, edithidden:true},
-        width : 200,
         editable : true,
         sortable : true,
         sorttype : 'string',
