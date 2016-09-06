@@ -136,4 +136,7 @@ label {
     border:solid 1px green !important;
 }
 
+.ui-jqgrid tr.jqgrow td {
+    white-space:nowrap;
+}
 

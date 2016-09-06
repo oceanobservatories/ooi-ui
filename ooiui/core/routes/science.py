@@ -30,10 +30,14 @@ def landing_pioneer():
 
 @app.route('/assets/management')
 @app.route('/assets/management/')
-@login_required()
-@scope_required('asset_manager')
 def assets_management():
     return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/assets/cruises')
+@app.route('/assets/cruises/')
+def asset_management_cruises():
+    return render_template('asset_management/cruises.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
@@ -282,19 +286,48 @@ def instrument_deployment_put(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put_ajax():
+    token = get_login()
     # print request.form
     # print request.data
-    json_data = dot_to_json(json.loads(request.data))
-    clean_data = {k:v for k,v in json_data.iteritems() if k != 'oper'}
-    # print json_data
-    # print clean_data
-    # print json_data["id"]
-    # print json_data["assetInfo"]["array"]
-    # print json_data['coordinates']
-    # print json_data["notes"]
-    # response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % json_data["id"], data=request.data)
-    # return response.text, response.status_code
-    return 'TEST', 200
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        print json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'id' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200
 
 
 def dot_to_json(a):
@@ -517,4 +550,14 @@ def get_c2_instrument_display(reference_designator):
 @app.route('/api/c2/instrument/<string:reference_designator>/<string:stream_name>', methods=['GET'])
 def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
+    return response.text, response.status_code
+
+@app.route('/api/cruises', methods=['GET'])
+def get_cruises():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises')
+    return response.text, response.status_code
+
+@app.route('/api/cruises/<string:uniqueCruiseIdentifier>/deployments', methods=['GET'])
+def get_cruise_deployments(uniqueCruiseIdentifier):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (uniqueCruiseIdentifier))
     return response.text, response.status_code
