@@ -373,7 +373,8 @@
         //plotTimeModel : new PlotTimeModel(),
         plotModel     : new PlotControlModel(),
         downloadModel : new StreamModel(),
-        userModel     : new UserModel()
+        userModel     : new UserModel(),
+        userModelCheck: new UserModel()
       },
       showPlottingTabs:function(){
         $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
@@ -607,40 +608,40 @@
         this.listenTo(this, "login:success", function() { location.reload(); });
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
-{#        this.listenTo(this, 'StreamTableItemView:onClick', function(options) {#}
-{#          if(this.login.loggedIn()) {#}
-{##}
-{#            options.model.attributes.email = this.models.userModel.get("email");#}
-{#            options.model.attributes.user_name = this.models.userModel.get("user_name");#}
-{##}
-{#            var hasSubscribed = false;#}
-{#            //for email address#}
-{#            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});#}
-{#            //for selected item#}
-{#            var currentStream = options.model.get('stream_name');#}
-{#            var currentRef = options.model.get('ref_des');#}
-{#            //loop over and compare, only if telemetered#}
-{#            if (currentStream.split('_')[0] == 'telemetered'){#}
-{#              _.each(availSubs,function(sub){#}
-{#                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;#}
-{##}
-{#                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");#}
-{#                if (streamName == currentStream && refDes == currentRef){#}
-{#                  hasSubscribed = true;#}
-{#                  options.model.set('subscriptionModel',sub);#}
-{#                }#}
-{#              });#}
-{#            }#}
-{##}
-{#            if (hasSubscribed){#}
-{#              options.model.set('subscriptionEnabled', true);#}
-{#            }else{#}
-{#              options.model.set('subscriptionEnabled', false);#}
-{#            }#}
-{##}
-{#            self.views.streamDownloadFormView.show(options);#}
-{#          }#}
-{#        });#}
+        this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
+          if(this.login.loggedIn()) {
+
+            options.model.attributes.email = this.models.userModel.get("email");
+            options.model.attributes.user_name = this.models.userModel.get("user_name");
+
+            var hasSubscribed = false;
+            //for email address
+            var availSubs = self.collections.subscriptionCollection.where({email:this.models.userModel.get("email")});
+            //for selected item
+            var currentStream = options.model.get('stream_name');
+            var currentRef = options.model.get('ref_des');
+            //loop over and compare, only if telemetered
+            if (currentStream.split('_')[0] == 'telemetered'){
+              _.each(availSubs,function(sub){
+                var refDes = sub.attributes.referenceDesignator.subsite+"-"+sub.attributes.referenceDesignator.node+"-"+sub.attributes.referenceDesignator.sensor;
+
+                var streamName = sub.get('method').replace(/_/g,"-") +"_"+sub.get('stream').replace(/_/g,"-");
+                if (streamName == currentStream && refDes == currentRef){
+                  hasSubscribed = true;
+                  options.model.set('subscriptionModel',sub);
+                }
+              });
+            }
+
+            if (hasSubscribed){
+              options.model.set('subscriptionEnabled', true);
+            }else{
+              options.model.set('subscriptionEnabled', false);
+            }
+
+            self.views.streamDownloadFormView.show(options);
+          }
+        });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
 {#          console.log('addToTimeRange');#}
@@ -697,7 +698,7 @@
               var rowId = val = o.model.get('ref_des') + o.model.get('stream_name');
               $($dcGrid.getGridRowById(rowId)).find('.instrument-to-plot i').removeClass('fa-plus-square').addClass('fa-minus-square')
             }
-          };
+          }
         });
 
         //MAIN ADDITION OF A STREAM
@@ -982,28 +983,31 @@
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
-      var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      var testUserExists = ooi.models.userModel.attributes.email.length;
-{#      console.log(testUserExists);#}
-{#      console.log(ooi.models.userModel);#}
-      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
-      if (testUserExists > 0) {
-        actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
-      } else {
-        actionButtons += "<button type='button' title='Download - Log in to access' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+        currentUser = ooi.models.userModelCheck.fetch({url: '/api/current_user', async:false});
       }
 
-{#      console.log(ooi.models.userModel.attributes.scopes.indexOf('asset_manager'));#}
-      if (testUserExists > 0 && ooi.models.userModel.attributes.scopes.indexOf('asset_manager') > -1) {
-        actionButtons += "<button type='button' title='Asset Management' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
+      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+      if (ooi.login.loggedIn()) {
+        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       } else {
-        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:right' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Download - Log in to access' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      }
+
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)) {
+        if ($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0) {
+          actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+        } else {
+          actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+        }
+      } else {
+        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
       }
       actionButtons += "</div>";
       return actionButtons;
     };
-
-
 
     // Opens the download modal
     var openDownload = function(ref_des, stream_name) {
@@ -1499,17 +1503,19 @@
           var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
           $evt = $(event.target);
 
-          if ($evt.find('i').hasClass('fa-plus-square')){
-            if (!_.isUndefined(modelList) && modelList.length > 0){
-              //trigger for a new plot item
-              ooi.trigger('add_catalog_model',{model:modelList[0], evt:$evt});
+          if (!$evt.find('i').hasClass('fa-download') && !$evt.find('i').hasClass('fa-sitemap')) {
+            if ($evt.find('i').hasClass('fa-plus-square')) {
+              if (!_.isUndefined(modelList) && modelList.length > 0) {
+                //trigger for a new plot item
+                ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+              }
+            } else {
+              if (!_.isUndefined(modelList) && modelList.length > 0) {
+                //trigger a remove for a model
+                ooi.trigger('remove_catalog_model', {model: modelList[0]});
+              }
+              $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
             }
-          }else{
-            if (!_.isUndefined(modelList) && modelList.length > 0){
-              //trigger a remove for a model
-              ooi.trigger('remove_catalog_model',{model:modelList[0]});
-            }
-            $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
           }
         },
         datatype : "local",
@@ -1758,7 +1764,7 @@
         multiboxonly: false,
         reloadAfterSubmit : false,
         loadOnce : false,
-        loadui: 'block',
+{#        loadui: 'block',#}
         hidegrid : false
       }).jqGrid('navGrid',
         '#navGrid',
@@ -1787,6 +1793,8 @@
           multipleGroup : true,
 {#          overlay: 0,#}
           width : 700,
+          recreateForm:true,
+          jqModal:true,
           onInitializeSearch: function ($form) {
             combineFilters();
           },
