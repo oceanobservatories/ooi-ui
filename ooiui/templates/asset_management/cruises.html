@@ -799,8 +799,8 @@
       // console.log(currentAssetId);
       // console.log(gridId);
       var theDataUrl = "";
-      if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {
-        theDataUrl = "/api/cruises/"+currentAssetId.toString()+"/deployments";
+      if (!_.isUndefined(currentEventId) && !_.isNull(currentEventId)) {
+        theDataUrl = "/api/cruises/"+currentEventId.toString()+"/deployments";
         // console.log(theDataUrl);
 
         $.ajax( theDataUrl, {
@@ -838,6 +838,7 @@
     };
 
     var currentAssetId;
+    var currentEventId;
 
     var eventNameCol = {
       name : 'eventName',
@@ -1181,11 +1182,11 @@
           var selRows = $dcGrid.jqGrid('getGridParam','selrow');
           if (selRows.length === 0) {
             // No rows selected
-            currentAssetId = null;
+            currentEventId = null;
           } else {
             // Row has been selected
             {#            console.log('selected row');#}
-            currentAssetId = $dcGrid.getRowData(rowId).uniqueCruiseIdentifier;
+            currentEventId = $dcGrid.getRowData(rowId).eventId;
             currentAssetUid = $dcGrid.getRowData(rowId).uid;
             {#            console.log(currentAssetUid);#}
           }

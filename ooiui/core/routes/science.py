@@ -553,12 +553,14 @@ def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
     return response.text, response.status_code
 
+
 @app.route('/api/cruises', methods=['GET'])
 def get_cruises():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises')
     return response.text, response.status_code
 
-@app.route('/api/cruises/<string:uniqueCruiseIdentifier>/deployments', methods=['GET'])
-def get_cruise_deployments(uniqueCruiseIdentifier):
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (uniqueCruiseIdentifier))
+
+@app.route('/api/cruises/<string:eventId>/deployments', methods=['GET'])
+def get_cruise_deployments(eventId):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (eventId))
     return response.text, response.status_code
