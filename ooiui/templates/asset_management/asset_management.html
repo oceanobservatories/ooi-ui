@@ -390,6 +390,8 @@
 
     var currentAssetUid = null;
 
+    var dataSourceUser = null;
+
     var unixTimeToDateTime = function(cellvalue) {
       var newDate = '';
       if(!_.isNull(cellvalue) && cellvalue > 0) {
@@ -956,10 +958,14 @@
     };
 
     var dataSourceCol = {
-      name : 'dataSource',
-      index : 'dataSource',
-      jsonmap : 'dataSource',
-      editrules: {required:false, edithidden:true},
+      name: 'dataSource',
+      index: 'dataSource',
+      jsonmap: 'dataSource',
+      editrules: {required: false, edithidden: true},
+      editoptions:{
+        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
+        defaultValue : function() { return dataSourceUser;},
+      },
       editable : true,
       hidden : false,
       sortable : true,
@@ -977,6 +983,8 @@
       jsonmap : 'lastModifiedTimestamp',
       editrules: {required:false, edithidden:true},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+      formatter : 'date',
+      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
       editable : true,
       hidden : true,
       sortable : true,
@@ -1090,7 +1098,7 @@
         }
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
         if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
-          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+          pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
         }
       }
 
@@ -1153,7 +1161,9 @@
           'Remote Resources',
           'Last Modified',
           'Latitude',
-          'Longitude'
+          'Longitude',
+          'Orbit Radius',
+          'Edit Phase'
         ],
 
         colModel : [
@@ -1193,7 +1203,7 @@
             jsonmap : 'assetInfo.array',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             width : 150,
             sortable : true,
@@ -1210,7 +1220,7 @@
             jsonmap : 'assetInfo.assembly',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1259,7 +1269,7 @@
             jsonmap : 'assetInfo.longName',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1275,7 +1285,7 @@
             jsonmap : 'maxdepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'number',
@@ -1291,7 +1301,7 @@
             jsonmap : 'mindepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'number',
@@ -1307,7 +1317,7 @@
             jsonmap : 'assetInfo.name',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -1334,6 +1344,7 @@
             }
           },
           {
+            // TODO: Pull down
             name : 'assetType',
             index : 'assetType',
             jsonmap : 'assetType',
@@ -1349,28 +1360,14 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'dataSource',
-            index : 'dataSource',
-            jsonmap : 'dataSource',
-            editrules: {required:false, edithidden:true},
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          dataSourceCol,
           {
             name : 'deployment_number',
             index : 'deployment_number',
             jsonmap : 'deployment_number',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -1386,7 +1383,7 @@
             jsonmap : 'deployment_numbers',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1413,12 +1410,13 @@
             }
           },
           {
+            // TODO: No spaces or slashes
             name: 'uid',
             index: 'uid',
             key : false, // uid = reference_designator
             jsonmap : 'uid',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : true,
             hidden : false,
             sortable: true,
@@ -1788,7 +1786,7 @@
             jsonmap : 'cumulative_tense',
             editrules: {required:false, edithidden:true},
             editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-            editable : true,
+            editable : false,
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -1805,7 +1803,7 @@
             jsonmap : 'assetInfo.type',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -1821,7 +1819,7 @@
             jsonmap : 'ref_des',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             width: 240,
             sortable: true,
@@ -1833,6 +1831,7 @@
             }
           },
           {
+            // TODO: Button, separate grid
             name : 'remoteResources',
             index : 'remoteResources',
             jsonmap : 'remoteResources',
@@ -1850,7 +1849,38 @@
           },
           lastModifiedTimestampCol,
           eventLatitudeCol,
-          eventLongitudeCol
+          eventLongitudeCol,
+          {
+            name : 'orbitRadius',
+            index : 'orbitRadius',
+            editrules: {required:false, edithidden:true, number:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            // TODO: Pull down
+            name : 'editPhase',
+            index : 'editPhase',
+            jsonmap : 'editPhase',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function() {
@@ -1979,6 +2009,9 @@
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
           },
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+          },
           closeOnEscape:true,
           closeAfterAdd:true,
           closeAfterEdit:true,
@@ -1989,9 +2022,15 @@
           jqModal:true
         } /* edit options */
         ,{
+          serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+          },
           errorTextFormat : function(serviceResponse){
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
+          },
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -4063,10 +4102,10 @@
       var jqCollection = collection;
       jqCollection['actions'] = '';
       placeJqGrid(jqCollection);
-      {#      placeJqGridMetadata({});#}
+      // TODO: Add ALL events tab
+      // TODO: Only show events tabs that make sense for the asset
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
-      // placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
       placeJqGridEvents("gridEventsIntegration", "INTEGRATION");
       placeJqGridEvents("gridEventsLocation", "LOCATION");
