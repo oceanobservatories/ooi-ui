@@ -983,8 +983,8 @@
       jsonmap : 'lastModifiedTimestamp',
       editrules: {required:false, edithidden:true},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-      formatter : 'date',
-      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+{#      formatter : 'date',#}
+{#      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},#}
       editable : true,
       hidden : true,
       sortable : true,
@@ -1853,6 +1853,7 @@
           {
             name : 'orbitRadius',
             index : 'orbitRadius',
+            jsonmap : 'orbitRadius',
             editrules: {required:false, edithidden:true, number:true},
             editable : true,
             hidden : true,
@@ -2011,6 +2012,55 @@
           },
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+          },
+          onClose: function() {
+            collection.fetch();
+            $dcGrid.setGridParam({data:collection.toJSON()});
+            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+          },
+          beforeSubmit: function(postdata) {
+            // Fix the dates
+{#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
+{#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
+{#            } else {#}
+{#              postData.eventStartTime = '';#}
+{#            }#}
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+            console.log(selRows);
+            var currentRowData = $dcGrid.getRowData(selRows);
+            console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+            console.log(theColModel);
+            console.log(postdata);
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+              console.log(theName);
+              if (!(theName in postdata) && (theName != 'actions')) {
+                console.log(currentRowData[theName]);
+                if(theName == 'deployment_numbers'){
+                  postdata[theName] = "["+currentRowData[theName]+"]";
+                } else {
+                  postdata[theName] = currentRowData[theName]
+                };
+              };
+              if (theName.includes('Date')){
+                postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+              };
+              if (theName.includes('remoteResources')){
+                if (postdata[theName].length > 0){
+                  postdata[theName] = "["+postdata[theName]+"]";
+                }else{
+                  postdata[theName] = "[]";
+                }
+              };
+              console.log(postdata[theName]);
+            });
+            console.log('Full postdata');
+            console.log(postdata);
+
+            return [true, ''];
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -2553,9 +2603,7 @@
     eventColNames['CALIBRATION_DATA'] = [
       'Event ID',
       'Event Name',
-      'Dimensions',
-      'Cardinality',
-      'Values',
+      'Value',
       'Comments',
       'Data Source',
       'Start Date',
@@ -2571,35 +2619,8 @@
       eventIdCol,
       eventNameCol,
       {
-        name : 'dimensions',
-        index : 'dimensions',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : false,
-        sorttype : 'number',
-        formatter : formatterStringToList,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'cardinality',
-        index : 'cardinality',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : false,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'values',
-        index : 'values',
+        name : 'value',
+        index : 'value',
         editrules: {required:false, edithidden:true},
         editable : true,
         sortable : false,
