@@ -773,6 +773,42 @@
       }
     };
 
+    assetData = {}
+
+    var refreshAssetTable = function() {
+      // console.log('refreshEventTable');
+      // console.log(currentAssetId);
+      // console.log(gridId);
+      var theDataUrl = "/api/asset_deployment";
+
+      $.ajax( theDataUrl, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+
+        },
+        complete: function(jsondata,stat){
+          if(stat=="success") {
+            console.log(jsondata.responseJSON);
+            // console.log(eventData[theName].events[theName]);
+            var assetTableData = jsondata.responseJSON.assets;
+            assetTableData['actions'] = '';
+            $dcGrid.setGridParam({data:assetTableData});
+{#            resetTable();#}
+            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+{#            resetTable();#}
+          }
+        },
+        error: function( req, status, err ) {
+
+        }
+      });
+
+      {#        $(gridId).setGridParam({url:theDataUrl});#}
+      {#        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+
     eventData = {}
 
     var refreshEventTable = function(theName, gridId) {
@@ -1091,6 +1127,7 @@
         "uid": "A00228"
       }
       #}
+
       var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       var currentUser = null;
       if(ooi.login.loggedIn()) {
@@ -1104,7 +1141,7 @@
 
       $dcGrid.jqGrid({
         datatype : "local",
-        data : collection.toJSON(),
+        data : [],
         editurl : "/api/asset_deployment/ajax",
         serializeEditData: function(postData) {
           return JSON.stringify(postData);
@@ -1889,6 +1926,9 @@
           highlightFilteredData.call(this);
           showRows();
         },
+        gridComplete : function() {
+
+        },
         beforeRequest: function(){
 
         },
@@ -1988,7 +2028,7 @@
         shrinkToFit : true,
         multiselect: false,
         multiboxonly: true,
-        reloadAfterSubmit : false,
+        reloadAfterSubmit : true,
         loadOnce : false,
         ajaxEditOptions : {
           contentType: "application/json; charset=utf-8",
@@ -2014,9 +2054,10 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           onClose: function() {
-            collection.fetch();
-            $dcGrid.setGridParam({data:collection.toJSON()});
-            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+            refreshAssetTable();
+{#            ooi.collection.fetch();#}
+{#            $dcGrid.setGridParam({data:collection.toJSON()});#}
+{#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
           },
           beforeSubmit: function(postdata) {
             // Fix the dates
@@ -2027,27 +2068,36 @@
 {#            }#}
 
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
-            console.log(selRows);
+{#            console.log(selRows);#}
             var currentRowData = $dcGrid.getRowData(selRows);
-            console.log(currentRowData);
+{#            console.log(currentRowData);#}
             var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
-            console.log(theColModel);
-            console.log(postdata);
+{#            console.log(theColModel);#}
+{#            console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
-              console.log(theName);
+{#              console.log(theName);#}
               if (!(theName in postdata) && (theName != 'actions')) {
-                console.log(currentRowData[theName]);
+{#                console.log(currentRowData[theName]);#}
                 if(theName == 'deployment_numbers'){
                   postdata[theName] = "["+currentRowData[theName]+"]";
                 } else {
                   postdata[theName] = currentRowData[theName]
                 };
               };
+
               if (theName.includes('Date')){
-                postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                console.log('Date Before');
+                console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                console.log('Date After');
+                console.log(postdata[theName]);
               };
+
+
               if (theName.includes('remoteResources')){
                 if (postdata[theName].length > 0){
                   postdata[theName] = "["+postdata[theName]+"]";
@@ -2055,7 +2105,7 @@
                   postdata[theName] = "[]";
                 }
               };
-              console.log(postdata[theName]);
+{#              console.log(postdata[theName]);#}
             });
             console.log('Full postdata');
             console.log(postdata);
@@ -2069,6 +2119,7 @@
           top:120,
           left:50,
           recreateForm:true,
+          reloadAfterSubmit : true,
           jqModal:true
         } /* edit options */
         ,{
@@ -4135,6 +4186,7 @@
       placeJqGridEvents("gridEventsStorage", "STORAGE");
       placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
+      refreshAssetTable();
     };
 
     var renderRemoteDocuments = function(ref_des, cruise, array) {
