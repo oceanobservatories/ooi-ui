@@ -56,6 +56,7 @@ var TileMap = Backbone.View.extend({
             };
             if(platform._icon && platform.feature.properties.code.length < 3){
                 platform._icon.style.opacity = 0;
+                platform._icon.style.zIndex = -1;
             };
         });
     },
@@ -68,15 +69,15 @@ var TileMap = Backbone.View.extend({
             };
             if(platform._icon && platform.feature.properties.code.length < 3){
                 platform._icon.style.opacity = 1;
+                platform._icon.style.zIndex = 1000;
             };
         });
     },
     render: function() {
         try {
             var renderContext = this;
-            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20], opacity: 1});
+            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20], opacity: 1, zIndex: 1000});
 
-            var platformIcon = new L.divIcon({className: 'myplatformicon', iconSize: [20, 20], opacity: 1});
             // global
             map = this._onBeforeRender();
 
@@ -90,23 +91,7 @@ var TileMap = Backbone.View.extend({
                 _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
                     platformData.push(geoJSON);
                 });
-
-
-                var mooringIcon = L.icon({
-                    iconUrl: '/img/mooring.png',
-                    iconSize:     [50, 50], // size of the icon
-                    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
-                    popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
-                });
-                L.geoJson(platformData, {
-
-                    pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: platformIcon});
-                    }
-                    
-                }).addTo(map); //
                 
-
                 L.geoJson(arrayData, {
 
                     pointToLayer: function(feature, latlng) {
@@ -125,13 +110,32 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);
 
+                L.geoJson(platformData, {
+
+                    pointToLayer: function(feature, latlng) {
+                        return new L.Marker(latlng, {icon: arrayIcon});
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function(event) {
+                            $('#'+feature.properties.code.substring(0,2) + ' table tbody tr[data-code="'+feature.properties.code+'"]').css("border", "4px solid orange");
+                        });
+                        
+                        layer.on('mouseout', function(event) {
+                            $('#'+feature.properties.code.substring(0,2) + ' table tbody tr[data-code="'+feature.properties.code+'"]').css("border", "");
+                        });
+                    }
+                    
+                }).addTo(map); 
+                
+                map._hidePlatformView();
+
+
                 //map.on('click', function (e) {
                 //    map.setView([15.8, -90], 2);
                 //    $('.js-array').removeClass('active');
                 //    $('.js-array').fadeIn();
                 //    $('.js-platform-table').css('display', 'none');
                 //});
-                map._hidePlatformView();
             });
         } catch (error) {
             console.log(error);

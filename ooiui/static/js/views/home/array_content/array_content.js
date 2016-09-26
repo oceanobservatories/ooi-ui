@@ -32,6 +32,8 @@ var ArrayContentSummary = ParentView.extend({
     events: {
         'mouseover .js-expand': '_highlightArray',
         'mouseout .js-expand': '_lowlightArray',
+        'mouseover tr': '_highlightPlatform',
+        'mouseout tr': '_lowlightPlatform',
     },
 
     _highlightArray: function(event) {
@@ -39,7 +41,9 @@ var ArrayContentSummary = ParentView.extend({
         var targetCode = ($(event.target).parent().parent())[0]; 
         _.each(map._layers, function(layer) {
             if(layer._icon){
-                if(targetCode.id.indexOf(layer.feature.properties.code) > -1 || targetCode.outerHTML.indexOf(layer.feature.properties.code) > -1){
+                if(targetCode.id.indexOf(layer.feature.properties.code) > -1 || targetCode.outerHTML.indexOf(layer.feature.properties.code) > -1)
+                {
+
                     layer.setIcon(arrayIconHighlight);
                 }
             }
@@ -54,6 +58,34 @@ var ArrayContentSummary = ParentView.extend({
                 if(layer.feature.properties.code.indexOf(targetCode[0].id) > -1){
                     layer.setIcon(arrayIcon);
                 }
+            }
+        });
+    },
+    _highlightPlatform: function(event) {
+        var platIconHighlight = new L.divIcon({className: 'mydivicon-hover', iconSize: [20, 20]});
+        var targetGrandParent = ($(event.target).parent().parent())[0];
+        var targetParent = ($(event.target).parent())[0];
+        _.each(map._layers, function(layer) {
+            if(layer._icon){
+               if(targetParent.getAttribute("data-code") == layer.feature.properties.code || targetGrandParent.getAttribute("data-code") == layer.feature.properties.code && layer.feature.properties.code.length > 2){
+                   layer.setIcon(platIconHighlight);
+                }
+            }
+        });
+    },
+    _lowlightPlatform: function(event) {
+        var platIconLowLight = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
+        var targetCode = ($(event.target).parent().parent());  
+
+        var targetGrandParent = ($(event.target).parent().parent())[0];
+        var targetParent = ($(event.target).parent())[0];
+        _.each(map._layers, function(layer) {
+            if(layer._icon && targetParent.getAttribute("data-code")){
+
+               if(layer.feature.properties.code.indexOf(targetCode[0].id) > -1){
+                    layer.setIcon(platIconLowLight);
+                }
+
             }
         });
     },
@@ -243,7 +275,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]],9);
+                map.setView([loc[0]+1.8, loc[1]],7);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
@@ -251,7 +283,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]],8);
+                map.setView([loc[0], loc[1]+1],7);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }
