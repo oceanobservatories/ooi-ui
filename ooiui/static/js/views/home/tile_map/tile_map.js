@@ -22,7 +22,9 @@ var TileMap = Backbone.View.extend({
                 // add some methods that can be useful to our map object.
                 map._resizeMap = this._resizeMap;
                 map._setArrayView = this._setArrayView;
-
+                
+                map._hidePlatformView = this._hidePlatformView;
+                map._showPlatformView = this._showPlatformView;
                 return map;
 
         } catch (error) {
@@ -45,19 +47,36 @@ var TileMap = Backbone.View.extend({
         map.setView([15.8, -90], 2);
 
     },
-    _setPlatformView: function() {
+    _showPlatformView: function() {
         'use strict';
         // When we're in the platform view, we don't want to see any array icons.
-        map.setLayoutProperty('moorings', 'visibility', 'none');
-        map.setLayoutProperty('gliders', 'visibility', 'none');
-        map.setLayoutProperty('arrays', 'visibility', 'visible');
-        map.setLayoutProperty('ceArray', 'visibility', 'visible');
-        map.setLayoutProperty('rsArray', 'visibility', 'visible');
+        _.each(map._layers, function(platform) {
+            if(platform._icon && platform.feature.properties.code.length > 2){
+                platform._icon.style.opacity = 1;
+            };
+            if(platform._icon && platform.feature.properties.code.length < 3){
+                platform._icon.style.opacity = 0;
+                platform._icon.style.zIndex = -1;
+            };
+        });
+    },
+    _hidePlatformView: function() {
+        'use strict';
+        // When we're in the platform view, we don't want to see any array icons.
+        _.each(map._layers, function(platform) {
+            if(platform._icon && platform.feature.properties.code.length > 2){
+                platform._icon.style.opacity = 0;
+            };
+            if(platform._icon && platform.feature.properties.code.length < 3){
+                platform._icon.style.opacity = 1;
+                platform._icon.style.zIndex = 1000;
+            };
+        });
     },
     render: function() {
         try {
             var renderContext = this;
-            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
+            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20], opacity: 1, zIndex: 1000});
 
             // global
             map = this._onBeforeRender();
@@ -67,19 +86,14 @@ var TileMap = Backbone.View.extend({
                 _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
                     arrayData.push(geoJSON);
                 });
-
-
-                var mooringIcon = L.icon({
-                    iconUrl: '/img/mooring.png',
-                    iconSize:     [50, 50], // size of the icon
-                    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
-                    popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+                
+                var platformData = [];
+                _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
+                    platformData.push(geoJSON);
                 });
-
+                
                 L.geoJson(arrayData, {
-                    //style: function(feature) {
-                    //    return {color: 'dimgray'};
-                    //},
+
                     pointToLayer: function(feature, latlng) {
                         return new L.Marker(latlng, {icon: arrayIcon});
                     },
@@ -96,12 +110,32 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);
 
-                map.on('click', function (e) {
-                    map.setView([15.8, -90], 2);
-                    $('.js-array').removeClass('active');
-                    $('.js-array').fadeIn();
-                    $('.js-platform-table').css('display', 'none');
-                });
+                L.geoJson(platformData, {
+
+                    pointToLayer: function(feature, latlng) {
+                        return new L.Marker(latlng, {icon: arrayIcon});
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function(event) {
+                            $('#'+feature.properties.code.substring(0,2) + ' table tbody tr[data-code="'+feature.properties.code+'"]').css("border", "4px solid orange");
+                        });
+                        
+                        layer.on('mouseout', function(event) {
+                            $('#'+feature.properties.code.substring(0,2) + ' table tbody tr[data-code="'+feature.properties.code+'"]').css("border", "");
+                        });
+                    }
+                    
+                }).addTo(map); 
+                
+                map._hidePlatformView();
+
+
+                //map.on('click', function (e) {
+                //    map.setView([15.8, -90], 2);
+                //    $('.js-array').removeClass('active');
+                //    $('.js-array').fadeIn();
+                //    $('.js-platform-table').css('display', 'none');
+                //});
             });
         } catch (error) {
             console.log(error);
