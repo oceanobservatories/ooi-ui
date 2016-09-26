@@ -283,6 +283,26 @@ def instrument_deployment_put(id):
     return response.text, response.status_code
 
 
+@app.route('/api/asset_deployment/edit_phase_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_edit_phase_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/edit_phase_values', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['values'])
+    print select
+    return select, response.status_code
+
+
+@app.route('/api/asset_deployment/asset_type_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_types_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/types/supported', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['asset_types'])
+    print select
+    return select, response.status_code
+
+
 @app.route('/api/asset_deployment/ajax', methods=['POST'])
 @scope_required('asset_manager')
 @login_required()
@@ -339,6 +359,14 @@ def dot_to_json(a):
             path = path[1:]
         target = reduce(lambda d, k: d.setdefault(k, {}), path[:-1], output)
         target[path[-1]] = value
+    return output
+
+
+def create_html_select_from_list(the_values):
+    output = "<select>"
+    for value in the_values:
+        output += '<option value="%s">%s</option>' % (value, value)
+    output += "</select>"
     return output
 
 

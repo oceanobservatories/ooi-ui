@@ -1059,6 +1059,10 @@
       }
     };
 
+    function containsNonLatinCodepoints(s) {
+      return /[^\\u0000-\\u00ff]/.test(s);
+    }
+
     // Loads the jqGrid into
     function placeJqGrid(collection) {
       {#
@@ -1317,9 +1321,9 @@
             }
           },
           {
-            name : 'maxdepth',
-            index : 'maxdepth',
-            jsonmap : 'maxdepth',
+            name : 'assetInfo.maxdepth',
+            index : 'assetInfo.maxdepth',
+            jsonmap : 'assetInfo.maxdepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
@@ -1333,9 +1337,9 @@
             }
           },
           {
-            name : 'mindepth',
-            index : 'mindepth',
-            jsonmap : 'mindepth',
+            name : 'assetInfo.mindepth',
+            index : 'assetInfo.mindepth',
+            jsonmap : 'assetInfo.mindepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
@@ -1381,13 +1385,13 @@
             }
           },
           {
-            // TODO: Pull down
             name : 'assetType',
             index : 'assetType',
             jsonmap : 'assetType',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataUrl : '/api/asset_deployment/asset_type_values'},
             editable : true,
+            edittype : 'select',
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1533,8 +1537,8 @@
             }
           },
           {
-            name : 'manufacturerInfo.shelfLifeExpirationDate',
-            index : 'manufacturerInfo.shelfLifeExpirationDate',
+            name : 'manufactureInfo.shelfLifeExpirationDate',
+            index : 'manufactureInfo.shelfLifeExpirationDate',
             jsonmap : 'manufactureInfo.shelfLifeExpirationDate',
             editrules: {required:false, edithidden:true},
             formatter : 'date',
@@ -1875,6 +1879,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
+{#            edittype : 'button',#}
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1908,8 +1913,9 @@
             index : 'editPhase',
             jsonmap : 'editPhase',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
             editable : true,
+            edittype : 'select',
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -2054,10 +2060,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           onClose: function() {
-            refreshAssetTable();
+{#            refreshAssetTable();#}
 {#            ooi.collection.fetch();#}
 {#            $dcGrid.setGridParam({data:collection.toJSON()});#}
 {#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            console.log(response);
+            if(response.status == 200){
+              success = true;
+              message = "Record saved successfully."
+              refreshAssetTable();
+            }
+
+            return [success,message]
           },
           beforeSubmit: function(postdata) {
             // Fix the dates
@@ -2070,7 +2089,8 @@
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
 {#            console.log(selRows);#}
             var currentRowData = $dcGrid.getRowData(selRows);
-{#            console.log(currentRowData);#}
+            console.log('currentRowData');
+            console.log(currentRowData);
             var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
 {#            console.log(theColModel);#}
 {#            console.log(postdata);#}
@@ -2083,8 +2103,16 @@
                 if(theName == 'deployment_numbers'){
                   postdata[theName] = "["+currentRowData[theName]+"]";
                 } else {
-                  postdata[theName] = currentRowData[theName]
-                };
+                  postdata[theName] = currentRowData[theName];
+                }
+
+                console.log(currentRowData[theName]);
+                if(containsNonLatinCodepoints(currentRowData[theName])){
+                  console.log('unicode data detected');
+                  console.log(currentRowData[theName]);
+                  postdata[theName] = "";
+                }
+
               };
 
               if (theName.includes('Date')){
@@ -2122,7 +2150,7 @@
           reloadAfterSubmit : true,
           jqModal:true
         } /* edit options */
-        ,{
+        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
             return JSON.stringify(postdata);
           },
@@ -2132,6 +2160,67 @@
           },
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+            $('#uid').attr('readonly', false);
+          },
+          onClose: function() {
+
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            console.log(response);
+            if(response.status == 200){
+              success = true;
+              message = "Record saved successfully."
+              refreshAssetTable();
+            }
+
+            return [success,message]
+          },
+          beforeSubmit: function(postdata) {
+            // Fix the dates
+{#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
+{#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
+{#            } else {#}
+{#              postData.eventStartTime = '';#}
+{#            }#}
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+{#            console.log(selRows);#}
+            var currentRowData = $dcGrid.getRowData(selRows);
+            console.log('currentRowData');
+            console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+{#            console.log(theColModel);#}
+{#            console.log(postdata);#}
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+
+              if (!(theName in postdata) && (theName != 'actions')) {
+                postdata[theName] = "";
+                if(theName == 'deployment_numbers'){
+                  postdata[theName] = "[]";
+                }
+              }
+
+
+              if (theName.includes('Date')){
+                console.log('Date Before');
+                console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                console.log('Date After');
+                console.log(postdata[theName]);
+              };
+
+            });
+            console.log('Full Add postdata');
+            console.log(postdata);
+
+            return [true, ''];
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -2140,6 +2229,7 @@
           top:120,
           left:50,
           recreateForm:true,
+          reloadAfterSubmit : true,
           jqModal:true
         } /* add options */
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
