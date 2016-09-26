@@ -22,7 +22,9 @@ var TileMap = Backbone.View.extend({
                 // add some methods that can be useful to our map object.
                 map._resizeMap = this._resizeMap;
                 map._setArrayView = this._setArrayView;
-
+                
+                map._hidePlatformView = this._hidePlatformView;
+                map._showPlatformView = this._showPlatformView;
                 return map;
 
         } catch (error) {
@@ -45,20 +47,36 @@ var TileMap = Backbone.View.extend({
         map.setView([15.8, -90], 2);
 
     },
-    _setPlatformView: function() {
+    _showPlatformView: function() {
         'use strict';
         // When we're in the platform view, we don't want to see any array icons.
-        map.setLayoutProperty('moorings', 'visibility', 'none');
-        map.setLayoutProperty('gliders', 'visibility', 'none');
-        map.setLayoutProperty('arrays', 'visibility', 'visible');
-        map.setLayoutProperty('ceArray', 'visibility', 'visible');
-        map.setLayoutProperty('rsArray', 'visibility', 'visible');
+        _.each(map._layers, function(platform) {
+            if(platform._icon && platform.feature.properties.code.length > 2){
+                platform._icon.style.opacity = 1;
+            };
+            if(platform._icon && platform.feature.properties.code.length < 3){
+                platform._icon.style.opacity = 0;
+            };
+        });
+    },
+    _hidePlatformView: function() {
+        'use strict';
+        // When we're in the platform view, we don't want to see any array icons.
+        _.each(map._layers, function(platform) {
+            if(platform._icon && platform.feature.properties.code.length > 2){
+                platform._icon.style.opacity = 0;
+            };
+            if(platform._icon && platform.feature.properties.code.length < 3){
+                platform._icon.style.opacity = 1;
+            };
+        });
     },
     render: function() {
         try {
             var renderContext = this;
-            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
+            var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20], opacity: 1});
 
+            var platformIcon = new L.divIcon({className: 'myplatformicon', iconSize: [20, 20], opacity: 1});
             // global
             map = this._onBeforeRender();
 
@@ -66,6 +84,11 @@ var TileMap = Backbone.View.extend({
                 var arrayData = [];
                 _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
                     arrayData.push(geoJSON);
+                });
+                
+                var platformData = [];
+                _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
+                    platformData.push(geoJSON);
                 });
 
 
@@ -75,11 +98,17 @@ var TileMap = Backbone.View.extend({
                     iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
                     popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
                 });
+                L.geoJson(platformData, {
+
+                    pointToLayer: function(feature, latlng) {
+                        return new L.Marker(latlng, {icon: platformIcon});
+                    }
+                    
+                }).addTo(map); //
+                
 
                 L.geoJson(arrayData, {
-                    //style: function(feature) {
-                    //    return {color: 'dimgray'};
-                    //},
+
                     pointToLayer: function(feature, latlng) {
                         return new L.Marker(latlng, {icon: arrayIcon});
                     },
@@ -96,12 +125,13 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);
 
-                map.on('click', function (e) {
-                    map.setView([15.8, -90], 2);
-                    $('.js-array').removeClass('active');
-                    $('.js-array').fadeIn();
-                    $('.js-platform-table').css('display', 'none');
-                });
+                //map.on('click', function (e) {
+                //    map.setView([15.8, -90], 2);
+                //    $('.js-array').removeClass('active');
+                //    $('.js-array').fadeIn();
+                //    $('.js-platform-table').css('display', 'none');
+                //});
+                map._hidePlatformView();
             });
         } catch (error) {
             console.log(error);

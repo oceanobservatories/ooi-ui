@@ -175,7 +175,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         map.setView([15.8, -90], originalZoom);
         // map.setLayoutProperty('rsArray', 'visibility', 'visible');
         // map.setLayoutProperty('ceArray', 'visibility', 'visible');
-        map._setArrayView();
+        map._hidePlatformView();
         $('.js-array').removeClass('active');
         //popup.remove();
 
@@ -189,7 +189,8 @@ var ArrayContentSummaryItem = ParentView.extend({
         .addTo(map);
     },
     _flyFly: _.debounce(function(event) {
-        var flyFlyContext = this;
+        var flyFlyContext = this; 
+        map._showPlatformView();
         event.stopImmediatePropagation();
         flyFlyContext.originalZoom;
 
