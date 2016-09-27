@@ -28,9 +28,6 @@ var PlatformModel = Backbone.Model.extend({
             color = 'yellow';
 
 
-        if (attrs.reference_designator.indexOf('GI') > -1 || attrs.reference_designator.indexOf('GA') > -1 ) {
-            newArray[1] = -1 * newArray[1];
-        }
 
         // the icons stack on top of each other, this give a slight offset so they can be
         // seen easier.
