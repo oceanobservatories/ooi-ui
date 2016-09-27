@@ -89,7 +89,9 @@ var TileMap = Backbone.View.extend({
                 
                 var platformData = [];
                 _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
-                    platformData.push(geoJSON);
+                    if (geoJSON.properties.code.indexOf('MOAS') == -1) {
+                        platformData.push(geoJSON);
+                    };
                 });
                 
                 L.geoJson(arrayData, {
