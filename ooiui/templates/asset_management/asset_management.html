@@ -1456,7 +1456,7 @@
             index: 'uid',
             key : false, // uid = reference_designator
             jsonmap : 'uid',
-            editrules: {required:false, edithidden:true},
+            editrules: {required:true, edithidden:true},
             editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : true,
             hidden : false,
@@ -4036,6 +4036,7 @@
                     },
                     beforeShowForm: function (id) {
                       $('#eventType').val(eventName);
+                      $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -4150,6 +4151,7 @@
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -4205,6 +4207,7 @@
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {

@@ -40,6 +40,12 @@ def asset_management_cruises():
     return render_template('asset_management/cruises.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
+@app.route('/assets/deployments')
+@app.route('/assets/deployments/')
+def asset_management_deployments():
+    return render_template('asset_management/deployments.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
 @app.route('/events/list/')
 @login_required()
 def event_list():
