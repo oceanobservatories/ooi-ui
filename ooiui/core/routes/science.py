@@ -598,3 +598,75 @@ def get_cruises():
 def get_cruise_deployments(eventId):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (eventId))
     return response.text, response.status_code
+
+
+@app.route('/api/deployments/subsites', methods=['GET'])
+def get_deployments_inv():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv')
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/nodes', methods=['GET'])
+def get_deployments_nodes(subsiteRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/<string:nodeRd>/sensors', methods=['GET'])
+def get_deployments_sensors(subsiteRd, nodeRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd + '/' + nodeRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:rd>', methods=['GET'])
+def get_deployments_by_rd(rd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/' + rd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def deployment_post_ajax():
+    token = get_login()
+    # print request.form
+    # print request.data
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        print json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/deployments/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'id' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/deployments', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200

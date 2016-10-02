@@ -52,228 +52,72 @@
     <div id="page-content-wrapper">
       <div class="container-fluid">
         <div id="page-content">
+
           <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <!-- jqGrid Assets-->
+                <div>
+                  <div id="navGrid" class="redmond"></div>
+                  <table id="grid" class="redmond"></table>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <!-- jqGrid Assets-->
+                <div>
+                  <div id="navGridNodes" class="redmond"></div>
+                  <table id="gridNodes" class="redmond"></table>
+                </div>
+              </div>
+              {#          </div> <!-- row -->#}
+
+              {#          <div class="row">#}
+              <div class="col-md-4">
+                <!-- jqGrid Assets-->
+                <div>
+                  <div id="navGridSensors" class="redmond"></div>
+                  <table id="gridSensors" class="redmond"></table>
+                </div>
+              </div>
+            </div>
+          </div> <!-- row -->
+
+
+          <div class="row" style="padding-top:5px;">
             <div class="col-md-12" id="loadingSpinner" style="width:100%;">
               <span id="" style="margin-left:50%; font-size:18px;">
                 <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-4x"></i>
               </span>
             </div>
             <div class="col-md-12" id="rowButtons" hidden>
-              <div style="width:100%;">
-                <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Actions</span>
-              </div>
+
               <div id="dcGroupings">
                 <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
                 <!-- Disabled until UFRAME brings back the capability
                 <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;" disabled>Export Asset Information (JSON)</a>
                 -->
               </div>
-            </div>
-            <div class="col-md-12">
+
               <!-- jqGrid Assets-->
-              <div>
-                <div id="navGrid" class="redmond"></div>
-                <table id="grid" class="redmond"></table>
-              </div>
+
+
             </div>
+            <div class="col-md-12" id="loadingSpinnerDeployments" style="width:100%;" hidden>
+                <span id="" style="margin-left:50%; font-size:18px;">
+                  <b>Loading deployments...</b><i class="fa fa-spinner fa-spin fa-4x"></i>
+                </span>
+            </div>
+            <div class="col-md-12" id="deploymentsTableDiv">
+
+              <div id="navGridDeployments" class="redmond"></div>
+              <table id="gridDeployments" class="redmond"></table>
+            </div>
+
           </div> <!-- row -->
 
-          <div class="row">
-            <div class="col-md-12" id="rowEvents" hidden style="width:100%;">
-              {#              <div style="width:100%;">#}
-              {#                <hr>#}
-              {#                <span style='margin-left:10px;font-weight:600;font-size:16px;'>Deployments</span>#}
-              {#              </div>#}
-              <div class="col-md-12">
-                <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-                  {#                  <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>#}
-                  {#                  <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>#}
-                  {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
-                  <li class="active default-tab-option"><a style='margin-left:10px;font-weight:600;font-size:16px;' href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment Events</a></li>
-                  {#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
-                  {#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
-                  {#                  <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>#}
-                  {#                  <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>#}
-                  {#                  <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>#}
-                  {#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
-                  {#                  <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>#}
-                </ul>
-              </div>
-              <div class="col-md-12">
-                <div id="events-tab-content" class="tab-content" style="max-width:100%">
 
-                  {#                  <div class="tab-pane fade" id="events-acquisition">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerACQUISITION" class="redmond"></div>
-                            <table id="gridEventsAcquisition" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>
 
-                  <div class="tab-pane fade" id="events-calibration">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerCALIBRATION_DATA" class="redmond"></div>
-                            <table id="gridEventsCalibration" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>#}
-
-                  {#                  <div class="tab-pane fade" id="events-cruise">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerCRUISE_INFO" class="redmond"></div>
-                            <table id="gridEventsCruise" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>#}
-
-                  <div class="tab-pane fade in active" id="events-deployment">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerDEPLOYMENT" class="redmond"></div>
-                            <table id="gridEventsDeployment" class="redmond"></table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {#                  <div class="tab-pane fade" id="events-integration">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerINTEGRATION" class="redmond"></div>#}
-                  {#                            <table id="gridEventsIntegration" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div> <!-- panel-body -->#}
-                  {#                      </div> <!-- panel -->#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-location">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerLOCATION" class="redmond"></div>#}
-                  {#                            <table id="gridEventsLocation" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div> <!-- panel-body -->#}
-                  {#                      </div> <!-- panel -->#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-retirement">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerRETIREMENT" class="redmond"></div>#}
-                  {#                            <table id="gridEventsRetirement" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade in" id="events-status">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerASSET_STATUS" class="redmond"></div>#}
-                  {#                            <table id="gridEventsStatus" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade in" id="events-storage">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerSTORAGE" class="redmond"></div>#}
-                  {#                            <table id="gridEventsStorage" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-unspecified">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerUNSPECIFIED" class="redmond"></div>#}
-                  {#                            <table id="gridEventsUnspecified" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-vendor">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerATVENDOR" class="redmond"></div>#}
-                  {#                            <table id="gridEventsVendor" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row" id="rowAlfresco" hidden>
-            <div style="width:100%;">
-              <hr>
-              <span style='margin-left:15px;font-weight:600;font-size:16px;'>Alfresco Documents</span>
-            </div>
-            <div class="col-md-12">
-              <div role="tabpanel" class="tab-pane" id="remoteDocuments">
-                <table class="table table-striped" id="">
-                  <thead>
-                  <tr>
-                    <th id="remoteDocDownload">Download</th>
-                    <th>Document</th>
-                    <th>Type</th>
-                  </tr>
-                  </thead>
-                  <tbody id="loadDocs">
-                  <tr><td colspan="2"><span id="" style="text-decoration:underline; cursor:pointer;">
-                            <b>Click a record above to refresh...</b><i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:12px;"></i>
-                        </span></td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div><!-- pagge-content -->
       </div><!-- .container-fluid -->
     </div><!-- #page-content-wrapper -->
@@ -283,20 +127,6 @@
   <script type="text/javascript">
 
     var bannerTitle = "Deployments";
-
-    var gridIdLookup = {};
-    {#    gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";#}
-    {#    gridIdLookup["#events-calibration"] = "gridEventsCalibration";#}
-        gridIdLookup["#events-cruise"] = "gridEventsCruise";
-    gridIdLookup["#events-deployment"] = "gridEventsDeployment";
-    {#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
-    {#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
-    {#    gridIdLookup["#events-retirement"] = "gridEventsRetirement";#}
-    {#    gridIdLookup["#events-status"] = "gridEventsStatus";#}
-    {#    gridIdLookup["#events-storage"] = "gridEventsStorage";#}
-    {#    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";#}
-    {#    gridIdLookup["#events-vendor"] = "gridEventsVendor";#}
-
 
     _.extend(OOI.prototype, Backbone.Events, {
       login: new LoginModel(),
@@ -599,8 +429,10 @@
     };
 
     var $dcGrid = $("#grid");
-    var $gridMetadata = $("#gridMetadata");
-    {#    var $gridEvents = $("#gridEvents");#}
+    var $dcGridNodes = $("#gridNodes");
+    var $dcGridSensors = $("#gridSensors");
+    var $dcGridDeployments = $('#gridDeployments');
+
     var lastsel2;
 
     var getUniqueNames = function(columnName) {
@@ -768,12 +600,70 @@
       }
     };
 
-    eventData = {};
+    var refreshNodesTable = function() {
+      console.log(currentSubsiteRd);
+      var theDataUrl = "";
+      if (!_.isUndefined(currentSubsiteRd) && !_.isNull(currentSubsiteRd)) {
+        theDataUrl = "/api/deployments/"+currentSubsiteRd+"/nodes";
+        console.log(theDataUrl);
 
-    var refreshCruiseData = function() {
-      var jqCollection = {};
-      jqCollection['actions'] = '';
-      $.ajax( '/api/cruises', {
+        $.ajax( theDataUrl, {
+          type: 'GET',
+          dataType: 'json',
+          success: function( resp ) {
+          },
+          complete: function(jsondata,stat){
+            if(stat=="success") {
+              var theData = jsondata.responseJSON;
+              console.log(theData.nodes);
+              $dcGridNodes.setGridParam({data:theData.nodes});
+              $dcGridNodes.trigger("reloadGrid",[{page:1,current:true}]);
+            }
+          },
+          error: function( req, status, err ) {
+          }
+        });
+      }
+    };
+
+    var refreshSensorsTable = function() {
+      console.log(currentNodeRd);
+      var theDataUrl = "";
+      if (!_.isUndefined(currentNodeRd) && !_.isNull(currentNodeRd)) {
+        theDataUrl = "/api/deployments/"+currentSubsiteRd+"/"+currentNodeRd.split('-')[1]+"/sensors";
+        console.log(theDataUrl);
+
+        $.ajax( theDataUrl, {
+          type: 'GET',
+          dataType: 'json',
+          success: function( resp ) {
+          },
+          complete: function(jsondata,stat){
+            if(stat=="success") {
+              var theData = jsondata.responseJSON;
+              console.log(theData.sensors);
+              $dcGridSensors.setGridParam({data:theData.sensors});
+              $dcGridSensors.trigger("reloadGrid",[{page:1,current:true}]);
+            }
+          },
+          error: function( req, status, err ) {
+          }
+        });
+      }
+    };
+
+    var refreshDeploymentsTable = function() {
+      $dcGridDeployments.jqGrid("clearGridData");
+      $('#deploymentsTableDiv').hide();
+      $("#loadingSpinnerDeployments").show();
+      // console.log('refreshEventTable');
+      // console.log(currentAssetId);
+      // console.log(gridId);
+      console.log('currentDeploymentRd before refreshDeploymentsTable');
+      console.log(currentDeploymentRd);
+      var theDataUrl = "/api/deployments/"+currentDeploymentRd;
+
+      $.ajax( theDataUrl, {
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
@@ -781,64 +671,713 @@
         },
         complete: function(jsondata,stat){
           if(stat=="success") {
-            $dcGrid.setGridParam({data:jsondata.responseJSON['cruises']});
-            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+            console.log(jsondata.responseJSON);
+            // console.log(eventData[theName].events[theName]);
+            var assetTableData = jsondata.responseJSON.deployments;
+            assetTableData['actions'] = '';
+            $dcGridDeployments.setGridParam({data:assetTableData});
+            {#            resetTable();#}
+            $dcGridDeployments.trigger("reloadGrid",[{page:1,current:true}]);
+            {#            resetTable();#}
           }
+          $("#loadingSpinnerDeployments").hide();
+          $('#deploymentsTableDiv').show();
         },
         error: function( req, status, err ) {
-          console.log(req);
-          console.log(status);
-          console.log(err);
-        },
-        timeout : 60000
+
+        }
       });
-    };
 
-    var refreshEventTable = function(theName, gridId) {
-      // console.log('refreshEventTable');
-      // console.log(currentAssetId);
-      // console.log(gridId);
-      var theDataUrl = "";
-      if (!_.isUndefined(currentEventId) && !_.isNull(currentEventId)) {
-        theDataUrl = "/api/cruises/"+currentEventId.toString()+"/deployments";
-        // console.log(theDataUrl);
-
-        $.ajax( theDataUrl, {
-          type: 'GET',
-          dataType: 'json',
-          success: function( resp ) {
-
-          },
-          complete: function(jsondata,stat){
-            if(stat=="success") {
-              {#              console.log(jsondata.responseJSON);#}
-              eventData[theName] = jsondata.responseJSON;
-              // console.log(eventData[theName].events[theName]);
-              $(gridId).setGridParam({data:eventData[theName].cruise_deployments});
-              $(gridId).trigger("reloadGrid",[{page:1,current:true}]);
-            }
-          },
-          error: function( req, status, err ) {
-
-          }
-        });
-
-        {#        $(gridId).setGridParam({url:theDataUrl});#}
-        {#        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);#}
-      }
+      {#        $(gridId).setGridParam({url:theDataUrl});#}
+      {#        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);#}
     };
 
     var showRows = function() {
       $("#loadingSpinner").hide();
-      $("#rowButtons").show();
+      $("#loadingSpinnerDeployments").hide();
+      $("#rowButtons").hide();
       {#      $("#rowFilters").show();#}
       {#      $("#rowSubGrids").show();#}
       $("#rowAlfresco").hide();
       $("#rowEvents").show();
     };
 
-    var currentAssetId;
-    var currentEventId;
+    var currentSubsiteRd;
+    var currentNodeRd;
+    var currentSensorRd;
+    var currentDeploymentRd;
+
+
+    // Loads the jqGrid into
+    function placeJqGrid(collection) {
+      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+      }
+
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+        }
+      }
+
+      console.log(collection['subsites']);
+      $dcGrid.jqGrid({
+        datatype : "local",
+        data : collection['subsites'],
+        editurl : "",
+        serializeEditData: function(postData) {
+          jsonResponse = JSON.stringify(postData);
+          return jsonResponse;
+        },
+        colNames: [
+          'Key',
+          'Array',
+          'Name',
+          'Reference Designator'
+        ],
+
+        colModel : [
+          {
+            name : 'key',
+            index : 'key',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'array',
+            index : 'array',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'name',
+            index : 'name',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'rd',
+            index : 'rd',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
+        ],
+        loadComplete : function() {
+          $("#navGrid").find("option[value=\"50000\"]").text('All');
+          highlightFilteredData.call(this);
+          showRows();
+        },
+        beforeRequest: function(){
+
+        },
+        onSelectRow: function (rowId, status, e) {
+          $dcGridNodes.jqGrid("clearGridData");
+          $dcGridSensors.jqGrid("clearGridData");
+          $dcGridDeployments.jqGrid("clearGridData");
+
+
+          var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+          if (selRows.length === 0) {
+            // No rows selected
+            currentSubsiteRd = null;
+          } else {
+            // Row has been selected
+            currentSubsiteRd = $dcGrid.getRowData(rowId).rd;
+            currentDeploymentRd = $dcGrid.getRowData(rowId).rd;
+            console.log('currentDeploymentRd for subsites');
+            console.log(currentDeploymentRd);
+          }
+
+          refreshNodesTable();
+          refreshDeploymentsTable();
+        },
+        gridview : true,
+        toolbar: [true, "top"],
+        rowNum : 10,
+        rowList : [10, 20, 30, 40, 50000],
+        autowidth : true,
+        height : 'auto',
+        pager : '#navGrid',
+        sortname : 'eventId',
+        autoencode: true,
+        viewrecords : true,
+        sortorder : 'asc',
+        sortable : true,
+        caption : 'Subsites',
+        altRows: false,
+        ignoreCase: true,
+        shrinkToFit : true,
+        multiselect: false,
+        multiboxonly: true,
+        reloadAfterSubmit : true,
+        loadOnce : false
+      }).jqGrid('navGrid',
+        '#navGrid',
+        pagerOptions
+        ,{} /* edit options */
+        ,{} /* add options */
+        ,{} /*delete options*/
+        ,{multipleSearch:false}
+        ,{closeOnEscape:true}
+      );
+
+      // Column mover and chooser
+      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+        caption: "showcolumns",
+        buttonicon: "ui-icon-calculator",
+        title: "Choose columns",
+        onClickButton: function () {
+          $(this).jqGrid('columnChooser',{});
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+            .bind("sortreceive", function (event, ui) {
+              alert('column "' + ui.item.text() + '" is chosen');
+            });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+            .click(function () {
+              alert('column "' + $(this).parent().text() + '" is chosen');
+            });
+        }
+      });
+
+      if(location.hash!=""){
+        setScienceFilter('ref_des', location.hash.split('#')[1]);
+      }
+
+      var performGlobalSearch = function(searchText) {
+        var postData = $grid.jqGrid("getGridParam", "postData"),
+          colModel = $grid.jqGrid("getGridParam", "colModel"),
+          rules = [],
+          {#          searchText = $("#globalSearchText").val(),#}
+          l = colModel.length,
+          searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+          cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+          i,
+          iPart,
+          token,
+          cm;
+
+        // normalize searchTextParts by removing quotes
+        for (iPart = 0; iPart < cnParts; iPart++) {
+          token = searchTextParts[iPart];
+          if (token.length > 2 &&
+            ((token[0] === '"' && token[token.length - 1] === '"') ||
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
+            searchTextParts[iPart] = token.substr(1,token.length-2);
+          }
+        }
+
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+            }
+          });
+        }
+        globalFilter = textParts;
+
+        combineFilters();
+      };
+
+      // fill top toolbar
+      var $grid = $dcGrid;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        initialLocationSearch = "";
+        performGlobalSearch($("#globalSearchText").val());
+      });
+
+    } // placeJqGrid
+
+    function placeJqGridNodes() {
+      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+      }
+
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+        }
+      }
+
+      $dcGridNodes.jqGrid({
+        datatype : "local",
+        data : [],
+        editurl : "",
+        serializeEditData: function(postData) {
+          jsonResponse = JSON.stringify(postData);
+          return jsonResponse;
+        },
+        colNames: [
+          'Key',
+          'Array',
+          'Name',
+          'Reference Designator'
+        ],
+
+        colModel : [
+          {
+            name : 'key',
+            index : 'key',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'array',
+            index : 'array',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'name',
+            index : 'name',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'rd',
+            index : 'rd',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
+        ],
+        loadComplete : function() {
+          $("#navGridNodes").find("option[value=\"50000\"]").text('All');
+        },
+        beforeRequest: function(){
+
+        },
+        onSelectRow: function (rowId, status, e) {
+
+          $dcGridSensors.jqGrid("clearGridData");
+
+          var selRows = $dcGridNodes.jqGrid('getGridParam','selrow');
+          if (selRows.length === 0) {
+            // No rows selected
+            currentNodeRd = null;
+          } else {
+            // Row has been selected
+            currentNodeRd = $dcGridNodes.getRowData(rowId).rd;
+            currentDeploymentRd = $dcGridNodes.getRowData(rowId).rd;
+            console.log('currentDeploymentRd for nodes');
+            console.log(currentDeploymentRd);
+          }
+
+          refreshSensorsTable();
+          refreshDeploymentsTable();
+        },
+        gridview : true,
+        toolbar: [true, "top"],
+        rowNum : 10,
+        rowList : [10, 20, 30, 40, 50000],
+        autowidth : true,
+        height : 'auto',
+        pager : '#navGridNodes',
+        sortname : 'array',
+        autoencode: true,
+        viewrecords : true,
+        sortorder : 'asc',
+        sortable : true,
+        caption : 'Nodes',
+        altRows: false,
+        ignoreCase: true,
+        shrinkToFit : true,
+        multiselect: false,
+        multiboxonly: true,
+        reloadAfterSubmit : true,
+        loadOnce : false
+      }).jqGrid('navGrid',
+        '#navGridNodes',
+        pagerOptions
+        ,{} /* edit options */
+        ,{} /* add options */
+        ,{} /*delete options*/
+        ,{multipleSearch:false}
+        ,{closeOnEscape:true}
+      );
+
+      // Column mover and chooser
+      $dcGridNodes.jqGrid('navButtonAdd', '#navGridNodes', {
+        caption: "showcolumns",
+        buttonicon: "ui-icon-calculator",
+        title: "Choose columns",
+        onClickButton: function () {
+          $(this).jqGrid('columnChooser',{});
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+            .bind("sortreceive", function (event, ui) {
+              alert('column "' + ui.item.text() + '" is chosen');
+            });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+            .click(function () {
+              alert('column "' + $(this).parent().text() + '" is chosen');
+            });
+        }
+      });
+
+      if(location.hash!=""){
+        setScienceFilter('ref_des', location.hash.split('#')[1]);
+      }
+
+      var performGlobalSearch = function(searchText) {
+        var postData = $grid.jqGrid("getGridParam", "postData"),
+          colModel = $grid.jqGrid("getGridParam", "colModel"),
+          rules = [],
+          {#          searchText = $("#globalSearchText").val(),#}
+          l = colModel.length,
+          searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+          cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+          i,
+          iPart,
+          token,
+          cm;
+
+        // normalize searchTextParts by removing quotes
+        for (iPart = 0; iPart < cnParts; iPart++) {
+          token = searchTextParts[iPart];
+          if (token.length > 2 &&
+            ((token[0] === '"' && token[token.length - 1] === '"') ||
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
+            searchTextParts[iPart] = token.substr(1,token.length-2);
+          }
+        }
+
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+            }
+          });
+        }
+        globalFilter = textParts;
+
+        combineFilters();
+      };
+
+      // fill top toolbar
+      var $grid = $dcGridNodes;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        initialLocationSearch = "";
+        performGlobalSearch($("#globalSearchText").val());
+      });
+
+    } // placeJqGridNodes
+
+    function placeJqGridSensors() {
+      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+      var currentUser = null;
+      if(ooi.login.loggedIn()) {
+        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+      }
+
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
+          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+        }
+      }
+
+      $dcGridSensors.jqGrid({
+        datatype : "local",
+        data : [],
+        editurl : "",
+        serializeEditData: function(postData) {
+          jsonResponse = JSON.stringify(postData);
+          return jsonResponse;
+        },
+        colNames: [
+          'Key',
+          'Array',
+          'Name',
+          'Reference Designator'
+        ],
+
+        colModel : [
+          {
+            name : 'key',
+            index : 'key',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'array',
+            index : 'array',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'name',
+            index : 'name',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'rd',
+            index : 'rd',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
+        ],
+        loadComplete : function() {
+          $("#navGridSensors").find("option[value=\"50000\"]").text('All');
+        },
+        beforeRequest: function(){
+
+        },
+        onSelectRow: function (rowId, status, e) {
+
+          $dcGridDeployments.jqGrid("clearGridData");
+
+          var selRows = $dcGridSensors.jqGrid('getGridParam','selrow');
+          if (selRows.length === 0) {
+            // No rows selected
+            currentSensorRd = null;
+          } else {
+            // Row has been selected
+            currentSensorRd = $dcGridSensors.getRowData(rowId).rd;
+            currentDeploymentRd = $dcGridSensors.getRowData(rowId).rd;
+            console.log('currentDeploymentRd for sensors');
+            console.log(currentDeploymentRd);
+          }
+
+          refreshDeploymentsTable();
+        },
+        gridview : true,
+        toolbar: [true, "top"],
+        rowNum : 10,
+        rowList : [10, 20, 30, 40, 50000],
+        autowidth : true,
+        height : 'auto',
+        pager : '#navGridSensors',
+        sortname : 'array',
+        autoencode: true,
+        viewrecords : true,
+        sortorder : 'asc',
+        sortable : true,
+        caption : 'Sensors',
+        altRows: false,
+        ignoreCase: true,
+        shrinkToFit : true,
+        multiselect: false,
+        multiboxonly: true,
+        reloadAfterSubmit : true,
+        loadOnce : false
+      }).jqGrid('navGrid',
+        '#navGridSensors',
+        pagerOptions
+        ,{} /* edit options */
+        ,{} /* add options */
+        ,{} /*delete options*/
+        ,{multipleSearch:false}
+        ,{closeOnEscape:true}
+      );
+
+      // Column mover and chooser
+      $dcGridNodes.jqGrid('navButtonAdd', '#navGridSensors', {
+        caption: "showcolumns",
+        buttonicon: "ui-icon-calculator",
+        title: "Choose columns",
+        onClickButton: function () {
+          $(this).jqGrid('columnChooser',{});
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
+            .bind("sortreceive", function (event, ui) {
+              alert('column "' + ui.item.text() + '" is chosen');
+            });
+          $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
+            .click(function () {
+              alert('column "' + $(this).parent().text() + '" is chosen');
+            });
+        }
+      });
+
+      if(location.hash!=""){
+        setScienceFilter('ref_des', location.hash.split('#')[1]);
+      }
+
+      var performGlobalSearch = function(searchText) {
+        var postData = $grid.jqGrid("getGridParam", "postData"),
+          colModel = $grid.jqGrid("getGridParam", "colModel"),
+          rules = [],
+          {#          searchText = $("#globalSearchText").val(),#}
+          l = colModel.length,
+          searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
+          cnParts = searchTextParts === null ? 0 : searchTextParts.length,
+          i,
+          iPart,
+          token,
+          cm;
+
+        // normalize searchTextParts by removing quotes
+        for (iPart = 0; iPart < cnParts; iPart++) {
+          token = searchTextParts[iPart];
+          if (token.length > 2 &&
+            ((token[0] === '"' && token[token.length - 1] === '"') ||
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
+            searchTextParts[iPart] = token.substr(1,token.length-2);
+          }
+        }
+
+        var textParts = {};
+        for (k=0; k<cnParts; k++) {
+          st = searchTextParts[k];
+          textParts[st] = [];
+          $.each(colModel, function() {
+            var cm1 = this;
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+              textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
+            }
+          });
+        }
+        globalFilter = textParts;
+
+        combineFilters();
+      };
+
+      // fill top toolbar
+      var $grid = $dcGridSensors;
+      $('#t_' + $.jgrid.jqID($grid[0].id))
+        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
+      $("#globalSearchText").keypress(function (e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key === $.ui.keyCode.ENTER) { // 13
+          initialLocationSearch = "";
+          performGlobalSearch($("#globalSearchText").val());
+        }
+      });
+      $("#globalSearch").button({
+        icons: { primary: "ui-icon-search" },
+        text: false
+      }).click(function () {
+        initialLocationSearch = "";
+        performGlobalSearch($("#globalSearchText").val());
+      });
+
+    } // placeJqGridSensors
+
+
+
+
+
+
 
     var eventNameCol = {
       name : 'eventName',
@@ -930,7 +1469,7 @@
       editoptions : {rows:"10",cols:"80"},
       edittype : 'textarea',
       editable : true,
-      hidden : true,
+      hidden : false,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -978,10 +1517,14 @@
     };
 
     var dataSourceCol = {
-      name : 'dataSource',
-      index : 'dataSource',
-      jsonmap : 'dataSource',
-      editrules: {required:false, edithidden:true},
+      name: 'dataSource',
+      index: 'dataSource',
+      jsonmap: 'dataSource',
+      editrules: {required: false, edithidden: true},
+      editoptions:{
+        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
+        defaultValue : function() { return dataSourceUser;},
+      },
       editable : true,
       hidden : false,
       sortable : true,
@@ -999,6 +1542,8 @@
       jsonmap : 'lastModifiedTimestamp',
       editrules: {required:false, edithidden:true},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+      {#      formatter : 'date',#}
+      {#      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},#}
       editable : true,
       hidden : true,
       sortable : true,
@@ -1037,24 +1582,92 @@
       }
     };
 
+    function containsNonLatinCodepoints(s) {
+      return /[^\\u0000-\\u00ff]/.test(s);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Loads the jqGrid into
-    function placeJqGrid(collection) {
-      {#
-    "CE-2014-0002": {
-      "dataSource": "Load from [CruiseInformation.xlsx]",
-      "editPhase": "OPERATIONAL",
-      "eventId": 15,
-      "eventName": "Cruise OC1410A",
-      "eventStartTime": 1412553600000,
-      "eventStopTime": 1412985599000,
-      "eventType": "CRUISE_INFO",
-      "lastModifiedTimestamp": 1472481949806,
-      "notes": "Deployed:\nCE01ISSM-00002 10/10/2014 17:52\nCE06ISSM-00001 10/7/2014 19:56\nCE09OSPM-00002 10/8/2014 18:12\nCE05MOAS-GL311 10/7/2014 00:30\nCE05MOAS-GL320 10/7/2014 02:00\nCE05MOAS-GL381 10/8/2014 19:52\n\nRecovered:\nCE01ISSM-00001 \n",
-      "shipName": "R/V Oceanus",
-      "tense": "UNKNOWN",
-      "uniqueCruiseIdentifier": "CE-2014-0002"
-    },
-      #}
+    function placeJqGridDeployments() {
+      {#      {
+              "assetUid": null,
+              "dataSource": "Load from [CE02SHSP_Deploy.xlsx]2016-09-29 02:36:20.317183",
+              "deployCruiseInfo": null,
+              "deployedBy": "Test user - 48121",
+              "deploymentNumber": 1,
+              "depth": 0.0,
+              "editPhase": "EDIT",
+              "eventId": 23643,
+              "eventName": "CE02SHSP-SP001-00-SPPENG000",
+              "eventStartTime": 1426706400000,
+              "eventStopTime": 1427932800000,
+              "eventType": "DEPLOYMENT",
+              "inductiveId": null,
+              "ingestInfo": [
+              {
+                "@class": ".IngestInfo",
+                "id": 23644,
+                "ingestMask": "*PDBG.txt",
+                "ingestMethod": "recovered_cspp",
+                "ingestPath": "/omc_data/whoi/OMC/CE02SHSP/R00001/extract/",
+                "ingestQueue": "Ingest.dbg-pdbg-cspp_recovered"
+              },
+              {
+                "@class": ".IngestInfo",
+                "id": 23645,
+                "ingestMask": "*WC_HMR.txt",
+                "ingestMethod": "recovered_cspp",
+                "ingestPath": "/omc_data/whoi/OMC/CE02SHSP/R00001/extract/",
+                "ingestQueue": "Ingest.wc-hmr-cspp_recovered"
+              },
+              {
+                "@class": ".IngestInfo",
+                "id": 23646,
+                "ingestMask": "*WC_SBE.txt",
+                "ingestMethod": "recovered_cspp",
+                "ingestPath": "/omc_data/whoi/OMC/CE02SHSP/R00001/extract/",
+                "ingestQueue": "Ingest.wc-sbe-cspp_recovered"
+              },
+              {
+                "@class": ".IngestInfo",
+                "id": 23647,
+                "ingestMask": "*WC_WM.txt",
+                "ingestMethod": "recovered_cspp",
+                "ingestPath": "/omc_data/whoi/OMC/CE02SHSP/R00001/extract/",
+                "ingestQueue": "Ingest.wc-wm-cspp_recovered"
+              }
+            ],
+              "lastModifiedTimestamp": 1475130981877,
+              "latitude": 44.6391,
+              "location": {},
+              "longitude": -124.30043,
+              "mooring_uid": "N00285",
+              "node_uid": "N00121",
+              "notes": null,
+              "orbitRadius": 8.0,
+              "rd": "CE02SHSP-SP001-00-SPPENG000",
+              "recoverCruiseInfo": null,
+              "recoveredBy": null,
+              "sensor_uid": "R00100",
+              "tense": "UNKNOWN",
+              "versionNumber": 2
+            }#}
+
       var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       var currentUser = null;
       if(ooi.login.loggedIn()) {
@@ -1066,62 +1679,66 @@
         }
       }
 
-      var eventName = 'CRUISE_INFO';
-
-      console.log(collection);
-      $dcGrid.jqGrid({
+      $dcGridDeployments.jqGrid({
         datatype : "local",
-        data : collection['cruises'],
-        editurl : "/api/asset_events",
+        data : [],
+        editurl : "/api/deployments/ajax",
         serializeEditData: function(postData) {
-          jsonResponse = JSON.stringify(postData);
-          return jsonResponse;
+          return JSON.stringify(postData);
         },
         colNames: [
+          'Actions',
+          'Asset UID',
+          'Data Source',
+          'Deployment Number',
+          'Depth',
+          'Notes',
+          'Reference Designator',
+          'Last Modified',
+          'Latitude',
+          'Longitude',
+          'Orbit Radius',
+          'Edit Phase',
+          'Cruise Info',
+          'Deployed By',
           'Event ID',
           'Event Name',
-{#          'Array Name',#}
-          'Data Source',
           'Start Date',
-          'End Date',
-          'Edit Phase',
+          'Stop Date',
           'Event Type',
-          'Notes',
-          'Ship Name',
+          'Inductive ID',
           'Tense',
-          'Unique Cruise ID',
-          'lastModifiedTimestamp'
+          'Version Number',
+          'Mooring UID',
+          'Node UID',
+          'Sensor UID',
+          'Recovered By',
+          'Deployed Cruise Info',
+          'Recovered Cruise Info',
+          'Ingest Info'
         ],
 
         colModel : [
-          eventIdCol,
-          eventNameCol,
-{#          {#}
-{#            name : 'array',#}
-{#            index : 'array',#}
-{#            jsonmap : 'array',#}
-{#            editrules: {required:false, edithidden:true},#}
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-{#            editable : true,#}
-{#            hidden : false,#}
-{#            width : 150,#}
-{#            sortable : true,#}
-{#            sorttype : 'string',#}
-{#            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#            align : 'center',#}
-{#            unformat : function (cellvalue, options, cell) {#}
-{#              return $('input', cell).val() || cellvalue;#}
-{#            }#}
-{#          },#}
-          dataSourceCol,
-          eventStartTimeCol,
-          eventStopTimeCol,
+          { name : 'actions',
+            caption : 'Plot/Download',
+            editrules: {required:false, edithidden:false},
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editable : false,
+            hidden : false,
+            width : 80,
+            sortable : false,
+            search : false,
+            align : 'center',
+            formatter : createActionButtons
+          },
           {
-            name : 'editPhase',
-            index : 'editPhase',
-            jsonmap : 'editPhase',
+            name : 'assetUid',
+            index : 'assetUid',
+            jsonmap : 'assetUid',
             editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1130,13 +1747,138 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          eventTypeCol,
+          dataSourceCol,
+          {
+            name : 'deploymentNumber',
+            index : 'deploymentNumber',
+            jsonmap : 'deploymentNumber',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'depth',
+            index : 'depth',
+            jsonmap : 'depth',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align: 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           notesCol,
           {
-            name : 'shipName',
-            index : 'shipName',
-            editrules: {required:true, edithidden:true},
+            name: 'rd',
+            index: 'rd',
+            jsonmap : 'rd',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
+            hidden : false,
+            width: 240,
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          lastModifiedTimestampCol,
+          eventLatitudeCol,
+          eventLongitudeCol,
+          {
+            name : 'orbitRadius',
+            index : 'orbitRadius',
+            jsonmap : 'orbitRadius',
+            editrules: {required:false, edithidden:true, number:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            // TODO: Pull down
+            name : 'editPhase',
+            index : 'editPhase',
+            jsonmap : 'editPhase',
+            editrules: {required:false, edithidden:true},
+            editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
+            editable : true,
+            edittype : 'select',
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'cruiseInfo',
+            index : 'cruiseInfo',
+            jsonmap : 'cruiseInfo',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : false,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'deployedBy',
+            index : 'deployedBy',
+            jsonmap : 'deployedBy',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          eventIdCol,
+          eventNameCol,
+          eventStartTimeCol,
+          eventStopTimeCol,
+          eventTypeCol,
+          {
+            name : 'inductiveId',
+            index : 'inductiveId',
+            jsonmap : 'inductiveId',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1147,11 +1889,13 @@
           },
           tenseCol,
           {
-            name : 'uniqueCruiseIdentifier',
-            key : true,
-            index : 'uniqueCruiseIdentifier',
+            name : 'versionNumber',
+            index : 'versionNumber',
+            jsonmap : 'versionNumber',
             editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1160,103 +1904,148 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          lastModifiedTimestampCol
+          {
+            name : 'mooring_uid',
+            index : 'mooring_uid',
+            jsonmap : 'mooring_uid',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'node_uid',
+            index : 'node_uid',
+            jsonmap : 'node_uid',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'sensor_uid',
+            index : 'sensor_uid',
+            jsonmap : 'sensor_uid',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'recoveredBy',
+            index : 'recoveredBy',
+            jsonmap : 'recoveredBy',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'deployCruiseInfo',
+            index : 'deployCruiseInfo',
+            jsonmap : 'deployCruiseInfo',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'recoverCruiseInfo',
+            index : 'recoverCruiseInfo',
+            jsonmap : 'recoverCruiseInfo',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'ingestInfo',
+            index : 'ingestInfo',
+            jsonmap : 'ingestInfo',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function() {
-          $("#navGrid").find("option[value=\"50000\"]").text('All');
-          highlightFilteredData.call(this);
-          showRows();
+          $("#navGridDeployments").find("option[value=\"50000\"]").text('All');
+          {#          highlightFilteredData.call(this);#}
+          {#          showRows();#}
+        },
+        gridComplete : function() {
+
         },
         beforeRequest: function(){
 
         },
         onSelectRow: function (rowId, status, e) {
-          var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
-          {#          console.log('select row, targetGrid:');#}
-          {#          console.log(targetGrid);#}
 
-          $(targetGrid).jqGrid("clearGridData");
-          {#          console.log('currentAssetId');#}
-          {#          console.log($dcGrid.getRowData(rowId));#}
-          var selRows = $dcGrid.jqGrid('getGridParam','selrow');
-          if (selRows.length === 0) {
-            // No rows selected
-            currentEventId = null;
-          } else {
-            // Row has been selected
-            {#            console.log('selected row');#}
-            currentEventId = $dcGrid.getRowData(rowId).eventId;
-            currentAssetUid = $dcGrid.getRowData(rowId).uid;
-            {#            console.log(currentAssetUid);#}
-          }
-
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
-          {#          setEventFilter("","");#}
-          {#          $gridMetadata.jqGrid('resetSelection');#}
-          $(targetGrid).jqGrid('resetSelection');
-          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
-          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
-          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          console.log(currentAssetId);#}
-          {#          placeJqGridEvents();#}
-          refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
-{#          renderRemoteDocuments('', $dcGrid.getRowData(rowId).uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).array);#}
-
-          {#          var theDataUrl = "/api/asset_events";#}
-          {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
-          {#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
-          {#            console.log(theDataUrl);#}
-          {#            $gridEvents.setGridParam({url:theDataUrl});#}
-          {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {#            var data = $gridEvents.jqGrid("getRowData");#}
-          {#            console.log(data);#}
-          {#          }#}
-
-          {##}
-          {#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
-          {#          console.log($('.nav-tabs .active').name);#}
-          {#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
-
-
-          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
         },
-        {#        onSelectRow: function(id){#}
-        {#          if(id && id!==lastsel2){#}
-        {#            $dcGrid.restoreRow(lastsel2);#}
-        {#            $dcGrid.editRow(id,true);#}
-        {#            lastsel2=id;#}
-        {#          }#}
-        {#        },#}
-        {#        ajaxRowOptions : {#}
-        {#          type :"POST",#}
-        {#          contentType :"application/json; charset=utf-8",#}
-        {#          dataType :"json"#}
-        {#        },#}
-        {#        serializeRowData: function(postdata){#}
-        {#          console.log(postdata);#}
-        {#          return JSON.stringify(postdata);#}
-        {#        },#}
         gridview : true,
         toolbar: [true, "top"],
         rowNum : 10,
         rowList : [10, 20, 30, 40, 50000],
         autowidth : true,
         height : 'auto',
-        pager : '#navGrid',
-        sortname : 'eventId',
+        pager : '#navGridDeployments',
+        sortname : 'id',
         autoencode: true,
         viewrecords : true,
         sortorder : 'asc',
         sortable : true,
-        caption : 'Cruises',
+        caption : 'Deployments',
         altRows: false,
-        {#        altclass:'myAltRowClass',#}
-        {#        classes: 'table table-bordered table-striped table-selectable',#}
         ignoreCase: true,
         shrinkToFit : true,
         multiselect: false,
@@ -1273,54 +2062,99 @@
           }
         }
       }).jqGrid('navGrid',
-        '#navGrid',
+        '#navGridDeployments',
         pagerOptions
         ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
-            // console.log(postdata);
             return JSON.stringify(postdata);
-          },
-          onClose: function() {
-            refreshCruiseData();
-          },
-          beforeShowForm: function(id) {
-            $('#eventType').val(eventName);
-            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-          },
-          beforeSubmit: function (postData) {
-            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-            }else{
-              postData.eventStartTime = '';
-            }
-
-            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-            }else{
-              postData.eventStopTime = '';
-            }
-
-            if('purchaseDate' in postData){
-              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-              }else{
-                postData.purchaseDate = '';
-              }
-            }
-
-            if('deliveryDate' in postData) {
-              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-              }else{
-                postData.deliveryDate = '';
-              }
-            }
-
-            return [true, ''];
           },
           errorTextFormat : function(serviceResponse){
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
+          },
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+          },
+          onClose: function() {
+            {#            refreshAssetTable();#}
+            {#            ooi.collection.fetch();#}
+            {#            $dcGrid.setGridParam({data:collection.toJSON()});#}
+            {#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            console.log(response);
+            if(response.status == 200){
+              success = true;
+              message = "Record saved successfully.";
+              refreshDeploymentsTable();
+            }
+
+            return [success,message]
+          },
+          beforeSubmit: function(postdata) {
+            // Fix the dates
+            {#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
+            {#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
+            {#            } else {#}
+            {#              postData.eventStartTime = '';#}
+            {#            }#}
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+            {#            console.log(selRows);#}
+            var currentRowData = $dcGrid.getRowData(selRows);
+            console.log('currentRowData');
+            console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+            {#            console.log(theColModel);#}
+            {#            console.log(postdata);#}
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+              {#              console.log(theName);#}
+              if (!(theName in postdata) && (theName != 'actions')) {
+                {#                console.log(currentRowData[theName]);#}
+                if(theName == 'ingestInfo'){
+                  postdata[theName] = "["+currentRowData[theName]+"]";
+                } else {
+                  postdata[theName] = currentRowData[theName];
+                }
+
+                console.log(currentRowData[theName]);
+                if(containsNonLatinCodepoints(currentRowData[theName])){
+                  console.log('unicode data detected');
+                  console.log(currentRowData[theName]);
+                  postdata[theName] = "";
+                }
+
+              }
+
+              if (theName.includes('Date')){
+                console.log('Date Before');
+                console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                console.log('Date After');
+                console.log(postdata[theName]);
+              }
+
+
+              if (theName.includes('ingestInfo')){
+                if (postdata[theName].length > 0){
+                  postdata[theName] = "["+postdata[theName]+"]";
+                }else{
+                  postdata[theName] = "[]";
+                }
+              }
+              {#              console.log(postdata[theName]);#}
+            });
+            console.log('Full postdata');
+            console.log(postdata);
+
+            return [true, ''];
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -1328,56 +2162,81 @@
           width:800,
           top:120,
           left:50,
-          reloadAfterSubmit:true,
           recreateForm:true,
+          reloadAfterSubmit : true,
           jqModal:true
         } /* edit options */
-,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
+        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
           serializeEditData: function (postdata) {
-            // console.log(postdata);
             return JSON.stringify(postdata);
-          },
-          onClose: function() {
-            refreshCruiseData();
-          },
-          beforeShowForm: function(id) {
-            $('#eventType').val(eventName);
-            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-          },
-          beforeSubmit: function (postData) {
-            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-            }else{
-              postData.eventStartTime = '';
-            }
-
-            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-            }else{
-              postData.eventStopTime = '';
-            }
-
-            if('purchaseDate' in postData){
-              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-              }else{
-                postData.purchaseDate = '';
-              }
-            }
-
-            if('deliveryDate' in postData) {
-              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-              }else{
-                postData.deliveryDate = '';
-              }
-            }
-
-            return [true, ''];
           },
           errorTextFormat : function(serviceResponse){
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
+          },
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+            $('#uid').attr('readonly', false);
+          },
+          onClose: function() {
+
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            console.log(response);
+            if(response.status == 200){
+              success = true;
+              message = "Record saved successfully."
+              refreshAssetTable();
+            }
+
+            return [success,message]
+          },
+          beforeSubmit: function(postdata) {
+            // Fix the dates
+            {#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
+            {#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
+            {#            } else {#}
+            {#              postData.eventStartTime = '';#}
+            {#            }#}
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+            {#            console.log(selRows);#}
+            var currentRowData = $dcGrid.getRowData(selRows);
+            console.log('currentRowData');
+            console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+            {#            console.log(theColModel);#}
+            {#            console.log(postdata);#}
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+
+              if (!(theName in postdata) && (theName != 'actions')) {
+                postdata[theName] = "";
+                if(theName == 'deployment_numbers'){
+                  postdata[theName] = "[]";
+                }
+              }
+
+
+              if (theName.includes('Date')){
+                console.log('Date Before');
+                console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                console.log('Date After');
+                console.log(postdata[theName]);
+              }
+
+            });
+            console.log('Full Add postdata');
+            console.log(postdata);
+
+            return [true, ''];
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -1386,83 +2245,21 @@
           top:120,
           left:50,
           recreateForm:true,
+          reloadAfterSubmit : true,
           jqModal:true
         } /* add options */
         ,{} /*delete options*/
         ,{multipleSearch:false}
         ,{closeOnEscape:true}
-
-
-        {#        {#}
-        {#          edit : true,#}
-        {#          add : true,#}
-        {#          del : false,#}
-        {##}
-        {#          // beforeRefresh:#}
-        {#          // Set the latest data from collection before refreshing grid#}
-        {#            beforeRefresh : function () {#}
-        {#              $("#grid").jqGrid('setGridParam', {#}
-        {#                datatype : 'local',#}
-        {#                data : ooi.collections.streams.toJSON()#}
-        {#              });#}
-        {#            }#}
-        {#        },#}
-        {#        {serializeEditData: function (postdata) {return JSON.stringify(postdata)}},#}
-        {#        {serializeEditData: function (postdata) {return JSON.stringify(postdata)}},#}
-        {#        {},#}
-        {#        {#}
-        {#          cloneToTop : true,#}
-        {#          closeOnEscape : true,#}
-        {#          multipleSearch : true,#}
-        {#          overlay: 0,#}
-        {#          onInitializeSearch: function ($form) {#}
-        {#            $form.jqFilter('addFilter', defaultFilters);#}
-        {#          },#}
-        {#          afterRedraw: function (p) {#}
-        {#            if (p.columns.length === $("#grid")[0].p.colModel.length) {#}
-        {#              p.columns.push({#}
-        {#                name: 'All',#}
-        {#                label: 'Any Field',#}
-        {#                searchoptions: {},#}
-        {#                searchrules: {},#}
-        {#                searchtype: 'string',#}
-        {#                inputtype: 'text'#}
-        {#              });#}
-        {#            }#}
-        {#            //$(this).find('.delete-rule:first').hide();#}
-        {#          }#}
-        {#        }#}
       );
 
-      // CSV Export footer button
-      {#      $dcGrid.jqGrid('navButtonAdd','#navGrid',{#}
-      {#        id:'ExportToExcel',#}
-      {#        caption:'Export Selected Rows To CSV',#}
-      {#        title:'Export Selected Rows To CSV',#}
-      {#        onClickButton : function(e)#}
-      {#        {#}
-      {#          exportData(e, '#grid');#}
-      {#        },#}
-      {#        buttonicon: 'ui-icon ui-icon-document'#}
-      {#      });#}
-
       // Column mover and chooser
-      $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
+      $dcGridDeployments.jqGrid('navButtonAdd', '#navGridDeployments', {
         caption: "showcolumns",
         buttonicon: "ui-icon-calculator",
         title: "Choose columns",
         onClickButton: function () {
-          $(this).jqGrid('columnChooser',{
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
-          });
+          $(this).jqGrid('columnChooser',{});
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
               alert('column "' + ui.item.text() + '" is chosen');
@@ -1476,41 +2273,6 @@
       });
 
 
-      {#      setSearchSelect('assetInfo.array');#}
-      {#      $dcGrid.jqGrid('setColProp', 'assetInfo.array',#}
-      {#        {#}
-      {#          searchoptions: {#}
-      {#            sopt:['cn'],#}
-      {#            dataInit: function(elem) {#}
-      {#              $(elem).autocomplete({#}
-      {#                source:getUniqueNames('assetInfo.array'),#}
-      {#                delay:0,#}
-      {#                minLength:0#}
-      {#              });#}
-      {#            }#}
-      {#          }#}
-      {#        }#}
-      {#      );#}
-
-      {#      $dcGrid.jqGrid('filterToolbar',#}
-      {#        {#}
-      {#          autosearch : true,#}
-      {#          searchOperators : false,#}
-      {#          searchOnEnter : false,#}
-      {#          stringResult : true,#}
-      {#          defaultSearch : "cn",#}
-      {#          afterSearch : function() {#}
-      {#            console.log($("#globalSearchText").val());#}
-      {#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
-      {#              performGlobalSearch($("#globalSearchText").val());#}
-      {#            } else {#}
-      {#              globalFilter = null;#}
-      {#              combineFilters();#}
-      {#            }#}
-      {##}
-      {#          }#}
-      {#        }#}
-      {#      );#}
 
       if(location.hash!=""){
         setScienceFilter('ref_des', location.hash.split('#')[1]);
@@ -1556,25 +2318,37 @@
       };
 
       // fill top toolbar
-      var $grid = $dcGrid;
+      var $grid = $dcGridDeployments;
       $('#t_' + $.jgrid.jqID($grid[0].id))
-        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
-      $("#globalSearchText").keypress(function (e) {
+        .append($("<div><label for=\"globalSearchTextDeployments\">Global search in grid for:&nbsp;</label><input id=\"globalSearchTextDeployments\" type=\"text\"></input>&nbsp;<button id=\"globalSearchDeployments\" type=\"button\">Search</button></div>"));
+      $("#globalSearchTextDeployments").keypress(function (e) {
         var key = e.charCode || e.keyCode || 0;
         if (key === $.ui.keyCode.ENTER) { // 13
           initialLocationSearch = "";
-          performGlobalSearch($("#globalSearchText").val());
+          performGlobalSearch($("#globalSearchTextDeployments").val());
         }
       });
-      $("#globalSearch").button({
+      $("#globalSearchDeployments").button({
         icons: { primary: "ui-icon-search" },
         text: false
       }).click(function () {
         initialLocationSearch = "";
-        performGlobalSearch($("#globalSearchText").val());
+        performGlobalSearch($("#globalSearchTextDeployments").val());
       });
 
-    } // placeJqGrid
+    } // placeJqGridDeployments
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1622,486 +2396,11 @@
       formatter: "date", formatoptions: { srcformat: "U/1000", newformat: "ISO8601Long" }
     };
 
-
-
-    var deploymentCollection;
-    var integrationCollection;
-    var tagCollection;
-    var calibrationCollection;
-
-
-    var subNames = [];
-    var subColumns = [];
-    var subModel = {};
-    var subData = {};
-
-    var eventColNames = {};
-    var eventColModels = {};
-    var eventJsonReaders = {};
-
-    // DEPLOYMENT
-    {#    {
-          "deploymentNumber": 2,
-          "depth": 0.0,
-          "editPhase": "OPERATIONAL",
-          "eventId": 2995,
-          "eventStartTime": 1413051060000,
-          "eventStopTime": 1418601600000,
-          "latitude": 40.22653,
-          "longitude": -70.87795,
-          "mooring_uid": "A01195",
-          "node_uid": null,
-          "rd": "CP02PMCI-RII01-02-ADCPTG010",
-          "sensor_uid": "A00491"
-        }#}
-
-    eventColNames['DEPLOYMENT'] = [
-      'Event ID',
-      'Deployment Number',
-      'Edit Phase',
-      'Depth',
-      'Start Date',
-      'End Date',
-      'Latitude',
-      'Longitude',
-      'Reference Designator',
-      'Mooring UID',
-      'Node UID',
-      'Sensor UID'
-    ];
-
-    eventColModels['DEPLOYMENT'] = [
-      eventIdCol,
-      {
-        name : 'deploymentNumber',
-        index : 'deploymentNumber',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'editPhase',
-        index : 'editPhase',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'depth',
-        index : 'depth',
-        editrules: {required:false, edithidden:true, number:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'float',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      eventStartTimeCol,
-      eventStopTimeCol,
-      eventLatitudeCol,
-      eventLongitudeCol,
-      {
-        name : 'rd',
-        index : 'rd',
-        editrules: {required:false, edithidden:true},
-        width : 200,
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'mooring_uid',
-        index : 'mooring_uid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        formatter : eventLocationFormatter,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'node_uid',
-        index : 'node_uid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'sensor_uid',
-        index : 'sensor_uid',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      }
-    ];
-
-    eventJsonReaders['DEPLOYMENT'] = {
-      repeatitems: false,
-      page: function(obj) {
-        return 1;
-      },
-      total: function(obj) {
-        return 1;
-      },
-      root: function (obj) {
-        if(!_.isUndefined(obj.events.DEPLOYMENT)){
-          return obj.events.DEPLOYMENT;
-        }else{
-          return {}
-        }
-      },
-      records: function (obj) {
-        if(!_.isUndefined(obj.events.DEPLOYMENT)){
-          return obj.events.DEPLOYMENT.length;
-        }else{
-          return 0
-        }
-      }
-    };
-
-
-
-    function placeJqGridEvents(divId, eventName) {
-      var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
-      var currentUser = null;
-      if(ooi.login.loggedIn()) {
-        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
-      }
-      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
-        if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
-          pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
-        }
-      }
-
-      if(eventName == 'DEPLOYMENT'){
-        pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
-      }
-      divId = "#" + divId;
-      $(divId).jqGrid({
-        datatype : "local",
-        data : [],
-        {#        datatype : "json",#}
-        {#        mtype : "GET",#}
-        {#        url : "",#}
-        editurl : "",
-        {#        jsonReader: eventJsonReaders[eventName],#}
-        colNames: eventColNames[eventName],
-
-        colModel : eventColModels[eventName],
-        serializeEditData: function(postData) {
-          return JSON.stringify(postData);
-        },
-        loadComplete : function(data) {
-          $("#pager"+eventName).find("option[value=\"50000\"]").text('All');
-          {#          $("#pager"+eventName).setGridParam({lastpage: $('#pagerSTORAGE_center .ui-pg-selbox').val()});#}
-          {#          console.log($gridEvents.jqGrid("getRowData"));#}
-        },
-        gridComplete : function() {
-          {#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
-        },
-        onSelectRow: function (rowId, status, e) {
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
-          {#          setEventFilter("","");#}
-          {#          $gridMetadata.jqGrid('resetSelection');#}
-          {#          $gridEvents.jqGrid('resetSelection');#}
-          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
-          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
-          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          $gridEvents.setGridParam({data:eventObjects});#}
-          {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
-
-        },
-        ondblClickRow: function(rowId) {
-          if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
-            if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
-              if(eventName != 'DEPLOYMENT') {
-                $(divId).jqGrid(
-                  'editGridRow',
-                  rowId,
-                  {
-                    ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
-                    serializeEditData: function (postdata) {
-                      // console.log(postdata);
-                      return JSON.stringify(postdata);
-                    },
-                    onClose: function() {
-                      refreshEventTable(eventName, divId);
-                    },
-                    beforeShowForm: function (id) {
-                      $('#eventType').val(eventName);
-                      $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-                    },
-                    beforeSubmit: function (postData) {
-                      if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-                        postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-                      } else {
-                        postData.eventStartTime = '';
-                      }
-
-                      if (!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-                        postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-                      } else {
-                        postData.eventStopTime = '';
-                      }
-
-                      if ('purchaseDate' in postData) {
-                        if (!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                          postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-                        } else {
-                          postData.purchaseDate = '';
-                        }
-                      }
-
-                      if ('deliveryDate' in postData) {
-                        if (!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                          postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-                        } else {
-                          postData.deliveryDate = '';
-                        }
-                      }
-
-                      return [true, ''];
-                    },
-                    errorTextFormat : function(serviceResponse){
-                      var messageText = JSON.parse(serviceResponse.responseText).message;
-                      return messageText;
-                    },
-                    closeOnEscape: true,
-                    closeAfterAdd: true,
-                    closeAfterEdit: true,
-                    width: 800,
-                    top: 120,
-                    left: 50,
-                    recreateForm: true,
-                    jqModal: true
-                  }
-                );
-              }
-            }
-          }
-        },
-        serializeRowData: function(postdata){
-          // console.log(postdata);
-          return JSON.stringify(postdata);
-        },
-        beforeProcessing: function(){
-          {#          console.log('before request');#}
-          {#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
-          {#          console.log(eventClassName);#}
-          {#          if(!_.isUndefined(eventColNames[eventClassName])){#}
-          {#            console.log('setting colNames and colModel');#}
-          {#            console.log(eventColNames[eventClassName]);#}
-          {#            console.log(eventColModels[eventClassName]);#}
-          {#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
-          {#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
-          {#            $("#gridEvents").jqGrid('GridUnload');#}
-          {#            $("#gridEvents").unload();#}
-          {#            $("#gridEvents").setGridParam({}).trigger('reloadGrid',[{ colNames:eventColNames[eventClassName],colModel:eventColModels[eventClassName]}]).jqGrid('GridUnload');#}
-          {#            $gridEvents.jqGrid("GridUnload");#}
-          {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {#          }#}
-
-        },
-        gridview : true,
-        rowNum : 10,
-        rowList : [10, 20, 40, 80, 50000],
-        autowidth : true,
-        height : 'auto',
-        pager : '#pager'+eventName,
-        sortname : 'eventId',
-        viewrecords : true,
-        sortorder : 'asc',
-        sortable : true,
-        {#        caption : eventName + ' Events',#}
-        altRows: false,
-        {#        altclass:'myAltRowClass',#}
-        {#        classes: 'table table-bordered table-striped table-selectable',#}
-        ignoreCase: true,
-        shrinkToFit : true,
-        multiselect: false,
-        multiboxonly: true,
-        reloadAfterSubmit : true,
-        loadOnce : false,
-        {#        ajaxGridOptions: { contentType: "application/json", cache: true },#}
-        ajaxEditOptions : {
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          mtype: "POST",
-          errorTextFormat : function(serviceResponse){
-            var messageText = JSON.parse(serviceResponse.responseText).message;
-            return messageText;
-          }
-        }
-      }).jqGrid('navGrid',
-        '#pager'+eventName,
-        pagerOptions
-        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
-          serializeEditData: function (postdata) {
-            // console.log(postdata);
-            return JSON.stringify(postdata);
-          },
-          onClose: function() {
-            refreshEventTable(eventName, divId);
-          },
-          beforeShowForm: function(id) {
-            $('#eventType').val(eventName);
-            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-          },
-          beforeSubmit: function (postData) {
-            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-            }else{
-              postData.eventStartTime = '';
-            }
-
-            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-            }else{
-              postData.eventStopTime = '';
-            }
-
-            if('purchaseDate' in postData){
-              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-              }else{
-                postData.purchaseDate = '';
-              }
-            }
-
-            if('deliveryDate' in postData) {
-              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-              }else{
-                postData.deliveryDate = '';
-              }
-            }
-
-            return [true, ''];
-          },
-          errorTextFormat : function(serviceResponse){
-            var messageText = JSON.parse(serviceResponse.responseText).message;
-            return messageText;
-          },
-          closeOnEscape:true,
-          closeAfterAdd:true,
-          closeAfterEdit:true,
-          width:800,
-          top:120,
-          left:50,
-          recreateForm:true,
-          jqModal:true
-        } /* edit options */
-        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
-          serializeEditData: function (postdata) {
-            // console.log(postdata);
-            return JSON.stringify(postdata);
-          },
-          onClose: function() {
-            refreshEventTable(eventName, divId);
-          },
-          beforeShowForm: function(id) {
-            $('#eventType').val(eventName);
-            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-          },
-          beforeSubmit: function (postData) {
-            if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
-              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
-            }else{
-              postData.eventStartTime = '';
-            }
-
-            if(!_.isNull(postData.eventStopTime) && postData.eventStopTime.length > 0) {
-              postData.eventStopTime = String(Date.parse(postData.eventStopTime + " GMT"));
-            }else{
-              postData.eventStopTime = '';
-            }
-
-            if('purchaseDate' in postData){
-              if(!_.isNull(postData.purchaseDate) && postData.purchaseDate.length > 0) {
-                postData.purchaseDate = String(Date.parse(postData.purchaseDate + " GMT"));
-              }else{
-                postData.purchaseDate = '';
-              }
-            }
-
-            if('deliveryDate' in postData) {
-              if(!_.isNull(postData.deliveryDate) && postData.deliveryDate.length > 0) {
-                postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
-              }else{
-                postData.deliveryDate = '';
-              }
-            }
-
-            return [true, ''];
-          },
-          errorTextFormat : function(serviceResponse){
-            var messageText = JSON.parse(serviceResponse.responseText).message;
-            return messageText;
-          },
-          closeOnEscape:true,
-          closeAfterAdd:true,
-          closeAfterEdit:true,
-          width:800,
-          top:120,
-          left:50,
-          recreateForm:true,
-          jqModal:true
-        } /* add options */
-        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
-        {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit} /*add options*/#}
-        ,{} /*delete options*/
-        ,{multipleSearch:false}
-        ,{closeOnEscape:true, closeAfterAdd:true}
-
-      );
-    } // placeJqGrid Events
-
     var showAssets = function(collection, response){
       //jqGrid
       var jqCollection = {};
-      jqCollection['actions'] = '';
-      $.ajax( '/api/cruises', {
+      {#      jqCollection['actions'] = '';#}
+      $.ajax( '/api/deployments/subsites', {
         type: 'GET',
         dataType: 'json',
         success: function( resp ) {
@@ -2113,7 +2412,10 @@
             jqCollection = jsondata.responseJSON
           }
           console.log(jqCollection);
-{#          placeJqGrid(jqCollection);#}
+          placeJqGrid(jqCollection);
+          placeJqGridNodes();
+          placeJqGridSensors();
+          placeJqGridDeployments();
         },
         error: function( req, status, err ) {
           console.log(req);
@@ -2121,65 +2423,6 @@
           console.log(err);
         },
         timeout : 60000
-      });
-
-
-
-
-      {#      placeJqGridMetadata({});#}
-      {#      placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");#}
-      {#      placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");#}
-      {#      // placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");#}
-{#      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");#}
-      {#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
-      {#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
-      {#      placeJqGridEvents("gridEventsRetirement", "RETIREMENT");#}
-      {#      placeJqGridEvents("gridEventsStatus", "ASSET_STATUS");#}
-      {#      placeJqGridEvents("gridEventsStorage", "STORAGE");#}
-      {#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
-      {#      placeJqGridEvents("gridEventsVendor", "ATVENDOR");#}
-    };
-
-    var renderRemoteDocuments = function(rd, cruise, array) {
-      console.log(rd);
-      console.log(cruise);
-      console.log(array);
-      //clear out the old events table panel DOM
-      $('div#remoteDocuments table tbody').remove();
-
-      {#      var ref_des = model.get('ref_des');#}
-      {#      var cruise = null;#}
-      {#      var array = model.get('assetInfo').array;#}
-
-      {#      _.each( model.attributes.metaData, function(item){#}
-      {#        if (item.key == "Cruise Number"){#}
-      {#          cruise = item['value'];#}
-      {#        }#}
-      {#      });#}
-
-      var data = { 'search': rd,'cruise': cruise,'array':array};
-      console.log(data);
-
-      var alfrescoDocCollection = new AlfrescoDocumentCollection();
-
-      //create a new table body and render it's view
-      alfrescoDocCollection.fetch({
-        data: data,
-        success: function() {
-          $('div#remoteDocuments table tbody').remove();
-          $('div#remoteDocuments table #loadDocs').remove();
-          var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
-          alfrescoTableBodyView.renderRecords();
-
-          // append to the DOM
-          $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
-        },
-        error: function(e) {
-          $('div#remoteDocuments table tbody').remove();
-          $('div#remoteDocuments table #loadDocs').remove();
-          $('div#remoteDocuments table p').remove();
-          $('div#remoteDocuments table').append('<p>Could not find any associated documents.</p>');
-        }
       });
     };
 
