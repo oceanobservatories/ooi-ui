@@ -1388,8 +1388,11 @@
             name : 'assetType',
             index : 'assetType',
             jsonmap : 'assetType',
-            editrules: {required:false, edithidden:true},
-            editoptions:{ dataUrl : '/api/asset_deployment/asset_type_values'},
+            editrules: {required:true, edithidden:true},
+            editoptions:{
+              dataUrl : '/api/asset_deployment/asset_type_values'
+{#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
+            },
             editable : true,
             edittype : 'select',
             hidden : true,
@@ -1908,7 +1911,6 @@
             }
           },
           {
-            // TODO: Pull down
             name : 'editPhase',
             index : 'editPhase',
             jsonmap : 'editPhase',
@@ -2160,7 +2162,6 @@
           },
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
-            $('#uid').attr('readonly', false);
           },
           onClose: function() {
 
@@ -2866,8 +2867,12 @@
       {
         name : 'editPhase',
         index : 'editPhase',
+        jsonmap : 'editPhase',
         editrules: {required:false, edithidden:true},
+        editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
         editable : true,
+        edittype : 'select',
+        hidden : false,
         sortable : true,
         sorttype : 'string',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},

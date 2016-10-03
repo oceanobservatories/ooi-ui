@@ -1117,11 +1117,15 @@
           eventStartTimeCol,
           eventStopTimeCol,
           {
+            // TODO: Pull down
             name : 'editPhase',
             index : 'editPhase',
             jsonmap : 'editPhase',
             editrules: {required:false, edithidden:true},
+            editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
             editable : true,
+            edittype : 'select',
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1686,10 +1690,15 @@
         }
       },
       {
+        // TODO: Pull down
         name : 'editPhase',
         index : 'editPhase',
+        jsonmap : 'editPhase',
         editrules: {required:false, edithidden:true},
+        editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
         editable : true,
+        edittype : 'select',
+        hidden : false,
         sortable : true,
         sorttype : 'string',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},

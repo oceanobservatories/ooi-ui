@@ -1866,7 +1866,23 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          eventIdCol,
+          {
+            name : 'eventId',
+            key : true,
+            index : 'eventId',
+            jsonmap : 'eventId',
+            editrules: {required:false, edithidden:true},
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'int',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           eventNameCol,
           eventStartTimeCol,
           eventStopTimeCol,
