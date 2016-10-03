@@ -2096,18 +2096,24 @@
           },
           beforeSubmit: function(postdata) {
             // Fix the dates
-            {#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
-            {#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
-            {#            } else {#}
-            {#              postData.eventStartTime = '';#}
-            {#            }#}
+            if (!_.isNull(postdata.eventStartTime) && postdata.eventStartTime.length > 0) {
+              postdata.eventStartTime = String(Date.parse(postdata.eventStartTime + " GMT"));
+            } else {
+              postdata.eventStartTime = '';
+            }
 
-            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+            if (!_.isNull(postdata.eventStopTime) && postdata.eventStopTime.length > 0) {
+              postdata.eventStopTime = String(Date.parse(postdata.eventStopTime + " GMT"));
+            } else {
+              postdata.eventStopTime = '';
+            }
+
+            var selRows = $dcGridDeployments.jqGrid('getGridParam','selrow');
             {#            console.log(selRows);#}
-            var currentRowData = $dcGrid.getRowData(selRows);
+            var currentRowData = $dcGridDeployments.getRowData(selRows);
             console.log('currentRowData');
             console.log(currentRowData);
-            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+            var theColModel = $dcGridDeployments.jqGrid('getGridParam', 'colModel');
             {#            console.log(theColModel);#}
             {#            console.log(postdata);#}
             $.each(theColModel, function() {
@@ -2143,11 +2149,15 @@
 
 
               if (theName.includes('ingestInfo')){
-                if (postdata[theName].length > 0){
-                  postdata[theName] = "["+postdata[theName]+"]";
-                }else{
-                  postdata[theName] = "[]";
-                }
+                postdata[theName] = null;
+              }
+
+              if (theName.includes('deployCruiseInfo')){
+                postdata[theName] = null;
+              }
+
+              if (theName.includes('recoverCruiseInfo')){
+                postdata[theName] = null;
               }
               {#              console.log(postdata[theName]);#}
             });
