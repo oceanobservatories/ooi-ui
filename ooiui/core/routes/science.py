@@ -202,10 +202,7 @@ def get_uframe_large_format_data():
 @app.route('/api/annotation', methods=['GET'])
 def get_annotations():
     try:
-        instr = request.args['reference_designator']
-        stream = request.args['stream_name']
-
-        response = requests.get(app.config['SERVICES_URL'] + '/annotation/'+instr+"/"+stream, params=request.args)
+        response = requests.get(app.config['SERVICES_URL'] + '/annotation', params=request.args)
         return response.text, response.status_code, dict(response.headers)
     except Exception, e:
         return jsonify(error=str(e))
@@ -214,14 +211,18 @@ def get_annotations():
 @app.route('/api/annotation', methods=['POST'])
 def post_annotation():
     token = get_login()
-    response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation'
+    response = requests.post(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code, dict(response.headers)
 
 
 @app.route('/api/annotation/<string:id>', methods=['PUT'])
 def put_annotation(id):
     token = get_login()
-    response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation/%s' % id
+    response = requests.put(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code
 
 

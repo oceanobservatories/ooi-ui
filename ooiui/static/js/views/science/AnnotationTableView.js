@@ -41,6 +41,10 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'endDT',
         label : 'End Date'
+      },
+      {
+        name : 'exclusionFlag',
+        label : 'Exclude Data?'
       }
   ],
   initialize: function() {
