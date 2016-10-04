@@ -1450,7 +1450,6 @@
       editrules: {required:false, edithidden:true},
       editoptions:{
         dataInit: function(element) { $(element).attr("readonly", "readonly"); }
-        {#        defaultValue : 'STORAGE'#}
       },
       editable : true,
       hidden : true,
@@ -2205,6 +2204,7 @@
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
             $('#uid').attr('readonly', false);
+            $('#eventType').val('DEPLOYMENT');
           },
           onClose: function() {
 
