@@ -263,7 +263,7 @@
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
-      {#      console.log(rowObject);#}
+      {#      // console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
@@ -293,7 +293,7 @@
     };
 
     var getEditUrl = function() {
-      {#      console.log(lastsel2);#}
+      {#      // console.log(lastsel2);#}
       location.origin = location.protocol + "//" + location.host;
       return location.origin+"/api/asset_deployment/"+lastsel2;
     };
@@ -338,7 +338,7 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -367,7 +367,7 @@
     };
 
     var setEventFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#gridEvents"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -384,7 +384,7 @@
       // console.log('combineFilters');
       var allFilters = [];
       {#      if($dcGrid.getGridParam("postData").filters != null) {#}
-      {#        console.log($dcGrid.getGridParam("postData").filters);#}
+      {#        // console.log($dcGrid.getGridParam("postData").filters);#}
       {#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
       {#      }#}
 
@@ -448,7 +448,7 @@
             uniqueTexts.push(text);
           }
         }
-        {#        console.log(uniqueTexts);#}
+        {#        // console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -472,12 +472,12 @@
 
     //define handler for 'editSubmit' event
     var fn_editSubmit=function(response,postdata){
-      {#      console.log('fn_editSubmit');#}
-      {#      console.log(response);#}
-      {#      console.log(postdata);#}
+      {#      // console.log('fn_editSubmit');#}
+      {#      // console.log(response);#}
+      {#      // console.log(postdata);#}
       var json=response.responseText; //in my case response text form server is "{sc:true,msg:''}"
       var result=eval("("+json+")"); //create js object from server reponse
-      {#      console.log(result);#}
+      {#      // console.log(result);#}
       return [result,null];
     };
 
@@ -603,11 +603,11 @@
     };
 
     var refreshNodesTable = function() {
-      console.log(currentSubsiteRd);
+      // console.log(currentSubsiteRd);
       var theDataUrl = "";
       if (!_.isUndefined(currentSubsiteRd) && !_.isNull(currentSubsiteRd)) {
         theDataUrl = "/api/deployments/"+currentSubsiteRd+"/nodes";
-        console.log(theDataUrl);
+        // console.log(theDataUrl);
 
         $.ajax( theDataUrl, {
           type: 'GET',
@@ -617,7 +617,7 @@
           complete: function(jsondata,stat){
             if(stat=="success") {
               var theData = jsondata.responseJSON;
-              console.log(theData.nodes);
+              // console.log(theData.nodes);
               $dcGridNodes.setGridParam({data:theData.nodes});
               $dcGridNodes.trigger("reloadGrid",[{page:1,current:true}]);
             }
@@ -629,11 +629,11 @@
     };
 
     var refreshSensorsTable = function() {
-      console.log(currentNodeRd);
+      // console.log(currentNodeRd);
       var theDataUrl = "";
       if (!_.isUndefined(currentNodeRd) && !_.isNull(currentNodeRd)) {
         theDataUrl = "/api/deployments/"+currentSubsiteRd+"/"+currentNodeRd.split('-')[1]+"/sensors";
-        console.log(theDataUrl);
+        // console.log(theDataUrl);
 
         $.ajax( theDataUrl, {
           type: 'GET',
@@ -643,7 +643,7 @@
           complete: function(jsondata,stat){
             if(stat=="success") {
               var theData = jsondata.responseJSON;
-              console.log(theData.sensors);
+              // console.log(theData.sensors);
               $dcGridSensors.setGridParam({data:theData.sensors});
               $dcGridSensors.trigger("reloadGrid",[{page:1,current:true}]);
             }
@@ -661,8 +661,8 @@
       // console.log('refreshEventTable');
       // console.log(currentAssetId);
       // console.log(gridId);
-      console.log('currentDeploymentRd before refreshDeploymentsTable');
-      console.log(currentDeploymentRd);
+      // console.log('currentDeploymentRd before refreshDeploymentsTable');
+      // console.log(currentDeploymentRd);
       var theDataUrl = "/api/deployments/"+currentDeploymentRd;
 
       $.ajax( theDataUrl, {
@@ -673,7 +673,7 @@
         },
         complete: function(jsondata,stat){
           if(stat=="success") {
-            console.log(jsondata.responseJSON);
+            // console.log(jsondata.responseJSON);
             // console.log(eventData[theName].events[theName]);
             var assetTableData = jsondata.responseJSON.deployments;
             assetTableData['actions'] = '';
@@ -724,7 +724,7 @@
         }
       }
 
-      console.log(collection['subsites']);
+      // console.log(collection['subsites']);
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection['subsites'],
@@ -817,8 +817,8 @@
             // Row has been selected
             currentSubsiteRd = $dcGrid.getRowData(rowId).rd;
             currentDeploymentRd = $dcGrid.getRowData(rowId).rd;
-            console.log('currentDeploymentRd for subsites');
-            console.log(currentDeploymentRd);
+            // console.log('currentDeploymentRd for subsites');
+            // console.log(currentDeploymentRd);
           }
 
           refreshNodesTable();
@@ -1037,8 +1037,8 @@
             // Row has been selected
             currentNodeRd = $dcGridNodes.getRowData(rowId).rd;
             currentDeploymentRd = $dcGridNodes.getRowData(rowId).rd;
-            console.log('currentDeploymentRd for nodes');
-            console.log(currentDeploymentRd);
+            // console.log('currentDeploymentRd for nodes');
+            // console.log(currentDeploymentRd);
           }
 
           refreshSensorsTable();
@@ -1257,8 +1257,8 @@
             // Row has been selected
             currentSensorRd = $dcGridSensors.getRowData(rowId).rd;
             currentDeploymentRd = $dcGridSensors.getRowData(rowId).rd;
-            console.log('currentDeploymentRd for sensors');
-            console.log(currentDeploymentRd);
+            // console.log('currentDeploymentRd for sensors');
+            // console.log(currentDeploymentRd);
           }
 
           refreshDeploymentsTable();
@@ -2103,7 +2103,7 @@
           {
             var success = false;
             var message = response.statusText;
-            console.log(response);
+            // console.log(response);
             if(response.status == 200){
               success = true;
               message = "Record saved successfully.";
@@ -2127,42 +2127,42 @@
             }
 
             var selRows = $dcGridDeployments.jqGrid('getGridParam','selrow');
-            {#            console.log(selRows);#}
+            {#            // console.log(selRows);#}
             var currentRowData = $dcGridDeployments.getRowData(selRows);
-            console.log('currentRowData');
-            console.log(currentRowData);
+            // console.log('currentRowData');
+            // console.log(currentRowData);
             var theColModel = $dcGridDeployments.jqGrid('getGridParam', 'colModel');
-            {#            console.log(theColModel);#}
-            {#            console.log(postdata);#}
+            {#            // console.log(theColModel);#}
+            {#            // console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
-              {#              console.log(theName);#}
+              {#              // console.log(theName);#}
               if (!(theName in postdata) && (theName != 'actions')) {
-                {#                console.log(currentRowData[theName]);#}
+                {#                // console.log(currentRowData[theName]);#}
                 if(theName == 'ingestInfo'){
                   postdata[theName] = "["+currentRowData[theName]+"]";
                 } else {
                   postdata[theName] = currentRowData[theName];
                 }
 
-                console.log(currentRowData[theName]);
+                // console.log(currentRowData[theName]);
                 if(containsNonLatinCodepoints(currentRowData[theName])){
-                  console.log('unicode data detected');
-                  console.log(currentRowData[theName]);
+                  // console.log('unicode data detected');
+                  // console.log(currentRowData[theName]);
                   postdata[theName] = "";
                 }
 
               }
 
               if (theName.includes('Date')){
-                console.log('Date Before');
-                console.log(postdata[theName]);
+                // console.log('Date Before');
+                // console.log(postdata[theName]);
                 if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
                   postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
                 }
-                console.log('Date After');
-                console.log(postdata[theName]);
+                // console.log('Date After');
+                // console.log(postdata[theName]);
               }
 
 
@@ -2177,10 +2177,10 @@
               if (theName.includes('recoverCruiseInfo')){
                 postdata[theName] = null;
               }
-              {#              console.log(postdata[theName]);#}
+              {#              // console.log(postdata[theName]);#}
             });
-            console.log('Full postdata');
-            console.log(postdata);
+            // console.log('Full postdata');
+            // console.log(postdata);
 
             return [true, ''];
           },
@@ -2213,7 +2213,7 @@
           {
             var success = false;
             var message = response.statusText;
-            console.log(response);
+            // console.log(response);
             if(response.status == 200){
               success = true;
               message = "Record saved successfully.";
@@ -2237,42 +2237,42 @@
             }
 
             var selRows = $dcGridDeployments.jqGrid('getGridParam','selrow');
-            {#            console.log(selRows);#}
+            {#            // console.log(selRows);#}
             var currentRowData = $dcGridDeployments.getRowData(selRows);
-            console.log('currentRowData');
-            console.log(currentRowData);
+            // console.log('currentRowData');
+            // console.log(currentRowData);
             var theColModel = $dcGridDeployments.jqGrid('getGridParam', 'colModel');
-            {#            console.log(theColModel);#}
-            {#            console.log(postdata);#}
+            {#            // console.log(theColModel);#}
+            {#            // console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
-              {#              console.log(theName);#}
+              {#              // console.log(theName);#}
               if (!(theName in postdata) && (theName != 'actions')) {
-                {#                console.log(currentRowData[theName]);#}
+                {#                // console.log(currentRowData[theName]);#}
                 if(theName == 'ingestInfo'){
                   postdata[theName] = "["+currentRowData[theName]+"]";
                 } else {
                   postdata[theName] = currentRowData[theName];
                 }
 
-                console.log(currentRowData[theName]);
+                // console.log(currentRowData[theName]);
                 if(containsNonLatinCodepoints(currentRowData[theName])){
-                  console.log('unicode data detected');
-                  console.log(currentRowData[theName]);
+                  // console.log('unicode data detected');
+                  // console.log(currentRowData[theName]);
                   postdata[theName] = "";
                 }
 
               }
 
               if (theName.includes('Date')){
-                console.log('Date Before');
-                console.log(postdata[theName]);
+                // console.log('Date Before');
+                // console.log(postdata[theName]);
                 if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
                   postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
                 }
-                console.log('Date After');
-                console.log(postdata[theName]);
+                // console.log('Date After');
+                // console.log(postdata[theName]);
               }
 
 
@@ -2287,10 +2287,10 @@
               if (theName.includes('recoverCruiseInfo')){
                 postdata[theName] = null;
               }
-              {#              console.log(postdata[theName]);#}
+              {#              // console.log(postdata[theName]);#}
             });
-            console.log('Full postdata');
-            console.log(postdata);
+            // console.log('Full postdata');
+            // console.log(postdata);
 
             return [true, ''];
           },
@@ -2464,19 +2464,19 @@
         },
         complete: function(jsondata,stat){
           if(stat=="success") {
-            {#              console.log(jsondata.responseJSON);#}
+            {#              // console.log(jsondata.responseJSON);#}
             jqCollection = jsondata.responseJSON
           }
-          console.log(jqCollection);
+          // console.log(jqCollection);
           placeJqGrid(jqCollection);
           placeJqGridNodes();
           placeJqGridSensors();
           placeJqGridDeployments();
         },
         error: function( req, status, err ) {
-          console.log(req);
-          console.log(status);
-          console.log(err);
+          // console.log(req);
+          // console.log(status);
+          // console.log(err);
         },
         timeout : 60000
       });

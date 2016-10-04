@@ -431,7 +431,7 @@
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
-      {#      console.log(rowObject);#}
+      {#      // console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
@@ -461,7 +461,7 @@
     };
 
     var getEditUrl = function() {
-      {#      console.log(lastsel2);#}
+      {#      // console.log(lastsel2);#}
       location.origin = location.protocol + "//" + location.host;
       return location.origin+"/api/asset_deployment/"+lastsel2;
     };
@@ -506,7 +506,7 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -535,7 +535,7 @@
     };
 
     var setEventFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#gridEvents"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -552,7 +552,7 @@
       // console.log('combineFilters');
       var allFilters = [];
       {#      if($dcGrid.getGridParam("postData").filters != null) {#}
-      {#        console.log($dcGrid.getGridParam("postData").filters);#}
+      {#        // console.log($dcGrid.getGridParam("postData").filters);#}
       {#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
       {#      }#}
 
@@ -614,7 +614,7 @@
             uniqueTexts.push(text);
           }
         }
-        {#        console.log(uniqueTexts);#}
+        {#        // console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -638,12 +638,12 @@
 
     //define handler for 'editSubmit' event
     var fn_editSubmit=function(response,postdata){
-      {#      console.log('fn_editSubmit');#}
-      {#      console.log(response);#}
-      {#      console.log(postdata);#}
+      {#      // console.log('fn_editSubmit');#}
+      {#      // console.log(response);#}
+      {#      // console.log(postdata);#}
       var json=response.responseText; //in my case response text form server is "{sc:true,msg:''}"
       var result=eval("("+json+")"); //create js object from server reponse
-      {#      console.log(result);#}
+      {#      // console.log(result);#}
       return [result,null];
     };
 
@@ -786,9 +786,9 @@
           }
         },
         error: function( req, status, err ) {
-          console.log(req);
-          console.log(status);
-          console.log(err);
+          // console.log(req);
+          // console.log(status);
+          // console.log(err);
         },
         timeout : 60000
       });
@@ -811,7 +811,7 @@
           },
           complete: function(jsondata,stat){
             if(stat=="success") {
-              {#              console.log(jsondata.responseJSON);#}
+              {#              // console.log(jsondata.responseJSON);#}
               eventData[theName] = jsondata.responseJSON;
               // console.log(eventData[theName].events[theName]);
               $(gridId).setGridParam({data:eventData[theName].cruise_deployments});
@@ -1068,7 +1068,7 @@
 
       var eventName = 'CRUISE_INFO';
 
-      console.log(collection);
+      // console.log(collection);
       $dcGrid.jqGrid({
         datatype : "local",
         data : collection['cruises'],
@@ -1177,25 +1177,25 @@
         },
         onSelectRow: function (rowId, status, e) {
           var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
-          {#          console.log('select row, targetGrid:');#}
-          {#          console.log(targetGrid);#}
+          {#          // console.log('select row, targetGrid:');#}
+          {#          // console.log(targetGrid);#}
 
           $(targetGrid).jqGrid("clearGridData");
-          {#          console.log('currentAssetId');#}
-          {#          console.log($dcGrid.getRowData(rowId));#}
+          {#          // console.log('currentAssetId');#}
+          {#          // console.log($dcGrid.getRowData(rowId));#}
           var selRows = $dcGrid.jqGrid('getGridParam','selrow');
           if (selRows.length === 0) {
             // No rows selected
             currentEventId = null;
           } else {
             // Row has been selected
-            {#            console.log('selected row');#}
+            {#            // console.log('selected row');#}
             currentEventId = $dcGrid.getRowData(rowId).eventId;
             currentAssetUid = $dcGrid.getRowData(rowId).uid;
-            {#            console.log(currentAssetUid);#}
+            {#            // console.log(currentAssetUid);#}
           }
 
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
           {#          setEventFilter("","");#}
           {#          $gridMetadata.jqGrid('resetSelection');#}
           $(targetGrid).jqGrid('resetSelection');
@@ -1204,7 +1204,7 @@
           {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
           {##}
           {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          console.log(currentAssetId);#}
+          {#          // console.log(currentAssetId);#}
           {#          placeJqGridEvents();#}
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 {#          renderRemoteDocuments('', $dcGrid.getRowData(rowId).uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).array);#}
@@ -1212,19 +1212,19 @@
           {#          var theDataUrl = "/api/asset_events";#}
           {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
           {#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
-          {#            console.log(theDataUrl);#}
+          {#            // console.log(theDataUrl);#}
           {#            $gridEvents.setGridParam({url:theDataUrl});#}
           {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
           {#            var data = $gridEvents.jqGrid("getRowData");#}
-          {#            console.log(data);#}
+          {#            // console.log(data);#}
           {#          }#}
 
           {##}
           {#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
-          {#          console.log($('.nav-tabs .active').name);#}
-          {#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
+          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
+          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
+          {#          // console.log($('.nav-tabs .active').name);#}
+          {#          // console.log($('.nav-tabs .active').find("a").attr("name"))#}
 
 
           {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
@@ -1242,7 +1242,7 @@
         {#          dataType :"json"#}
         {#        },#}
         {#        serializeRowData: function(postdata){#}
-        {#          console.log(postdata);#}
+        {#          // console.log(postdata);#}
         {#          return JSON.stringify(postdata);#}
         {#        },#}
         gridview : true,
@@ -1504,7 +1504,7 @@
       {#          stringResult : true,#}
       {#          defaultSearch : "cn",#}
       {#          afterSearch : function() {#}
-      {#            console.log($("#globalSearchText").val());#}
+      {#            // console.log($("#globalSearchText").val());#}
       {#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
       {#              performGlobalSearch($("#globalSearchText").val());#}
       {#            } else {#}
@@ -1840,13 +1840,13 @@
         loadComplete : function(data) {
           $("#pager"+eventName).find("option[value=\"50000\"]").text('All');
           {#          $("#pager"+eventName).setGridParam({lastpage: $('#pagerSTORAGE_center .ui-pg-selbox').val()});#}
-          {#          console.log($gridEvents.jqGrid("getRowData"));#}
+          {#          // console.log($gridEvents.jqGrid("getRowData"));#}
         },
         gridComplete : function() {
-          {#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
+          {#          // console.log($gridEvents.jqGrid("getGridParam", "data"));#}
         },
         onSelectRow: function (rowId, status, e) {
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
           {#          setEventFilter("","");#}
           {#          $gridMetadata.jqGrid('resetSelection');#}
           {#          $gridEvents.jqGrid('resetSelection');#}
@@ -1935,13 +1935,13 @@
           return JSON.stringify(postdata);
         },
         beforeProcessing: function(){
-          {#          console.log('before request');#}
+          {#          // console.log('before request');#}
           {#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
-          {#          console.log(eventClassName);#}
+          {#          // console.log(eventClassName);#}
           {#          if(!_.isUndefined(eventColNames[eventClassName])){#}
-          {#            console.log('setting colNames and colModel');#}
-          {#            console.log(eventColNames[eventClassName]);#}
-          {#            console.log(eventColModels[eventClassName]);#}
+          {#            // console.log('setting colNames and colModel');#}
+          {#            // console.log(eventColNames[eventClassName]);#}
+          {#            // console.log(eventColModels[eventClassName]);#}
           {#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
           {#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
           {#            $("#gridEvents").jqGrid('GridUnload');#}
@@ -2118,16 +2118,16 @@
         },
         complete: function(jsondata,stat){
           if(stat=="success") {
-            {#              console.log(jsondata.responseJSON);#}
+            {#              // console.log(jsondata.responseJSON);#}
             jqCollection = jsondata.responseJSON
           }
-          console.log(jqCollection);
+          // console.log(jqCollection);
           placeJqGrid(jqCollection);
         },
         error: function( req, status, err ) {
-          console.log(req);
-          console.log(status);
-          console.log(err);
+          // console.log(req);
+          // console.log(status);
+          // console.log(err);
         },
         timeout : 60000
       });
@@ -2150,9 +2150,9 @@
     };
 
     var renderRemoteDocuments = function(rd, cruise, array) {
-      console.log(rd);
-      console.log(cruise);
-      console.log(array);
+      // console.log(rd);
+      // console.log(cruise);
+      // console.log(array);
       //clear out the old events table panel DOM
       $('div#remoteDocuments table tbody').remove();
 
@@ -2167,7 +2167,7 @@
       {#      });#}
 
       var data = { 'search': rd,'cruise': cruise,'array':array};
-      console.log(data);
+      // console.log(data);
 
       var alfrescoDocCollection = new AlfrescoDocumentCollection();
 
