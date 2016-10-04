@@ -221,6 +221,8 @@
 
     var currentAssetUid = null;
 
+    var dataSourceUser = null;
+
     var unixTimeToDateTime = function(cellvalue) {
       var newDate = '';
       if(!_.isNull(cellvalue) && cellvalue > 0) {
@@ -2214,7 +2216,7 @@
             console.log(response);
             if(response.status == 200){
               success = true;
-              message = "Record saved successfully."
+              message = "Record saved successfully.";
               refreshAssetTable();
             }
 
@@ -2222,31 +2224,46 @@
           },
           beforeSubmit: function(postdata) {
             // Fix the dates
-            {#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
-            {#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
-            {#            } else {#}
-            {#              postData.eventStartTime = '';#}
-            {#            }#}
+            if (!_.isNull(postdata.eventStartTime) && postdata.eventStartTime.length > 0) {
+              postdata.eventStartTime = String(Date.parse(postdata.eventStartTime + " GMT"));
+            } else {
+              postdata.eventStartTime = '';
+            }
 
-            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+            if (!_.isNull(postdata.eventStopTime) && postdata.eventStopTime.length > 0) {
+              postdata.eventStopTime = String(Date.parse(postdata.eventStopTime + " GMT"));
+            } else {
+              postdata.eventStopTime = '';
+            }
+
+            var selRows = $dcGridDeployments.jqGrid('getGridParam','selrow');
             {#            console.log(selRows);#}
-            var currentRowData = $dcGrid.getRowData(selRows);
+            var currentRowData = $dcGridDeployments.getRowData(selRows);
             console.log('currentRowData');
             console.log(currentRowData);
-            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+            var theColModel = $dcGridDeployments.jqGrid('getGridParam', 'colModel');
             {#            console.log(theColModel);#}
             {#            console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
-
+              {#              console.log(theName);#}
               if (!(theName in postdata) && (theName != 'actions')) {
-                postdata[theName] = "";
-                if(theName == 'deployment_numbers'){
-                  postdata[theName] = "[]";
+                {#                console.log(currentRowData[theName]);#}
+                if(theName == 'ingestInfo'){
+                  postdata[theName] = "["+currentRowData[theName]+"]";
+                } else {
+                  postdata[theName] = currentRowData[theName];
                 }
-              }
 
+                console.log(currentRowData[theName]);
+                if(containsNonLatinCodepoints(currentRowData[theName])){
+                  console.log('unicode data detected');
+                  console.log(currentRowData[theName]);
+                  postdata[theName] = "";
+                }
+
+              }
 
               if (theName.includes('Date')){
                 console.log('Date Before');
@@ -2258,8 +2275,21 @@
                 console.log(postdata[theName]);
               }
 
+
+              if (theName.includes('ingestInfo')){
+                postdata[theName] = null;
+              }
+
+              if (theName.includes('deployCruiseInfo')){
+                postdata[theName] = null;
+              }
+
+              if (theName.includes('recoverCruiseInfo')){
+                postdata[theName] = null;
+              }
+              {#              console.log(postdata[theName]);#}
             });
-            console.log('Full Add postdata');
+            console.log('Full postdata');
             console.log(postdata);
 
             return [true, ''];
