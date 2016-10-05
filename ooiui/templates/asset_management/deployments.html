@@ -1503,7 +1503,6 @@
       jsonmap : 'assetUid',
       editrules: {required:false, edithidden:true},
       editoptions:{
-        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
         defaultValue : function() { return currentAssetUid;}
       },
       editable : true,
