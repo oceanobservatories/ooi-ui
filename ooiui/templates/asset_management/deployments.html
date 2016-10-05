@@ -1771,7 +1771,7 @@
             index : 'deploymentNumber',
             jsonmap : 'deploymentNumber',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : true,
             hidden : false,
             sortable : true,
@@ -1804,7 +1804,7 @@
             index: 'rd',
             jsonmap : 'rd',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : true,
             hidden : false,
             width: 240,
@@ -1910,7 +1910,7 @@
             index : 'versionNumber',
             jsonmap : 'versionNumber',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : true,
             hidden : false,
             sortable : true,
@@ -2204,6 +2204,9 @@
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
             $('#uid').attr('readonly', false);
+            $('rd').removeProp('readonly');
+            $('deploymentNumber').removeAttr('readonly');
+            $('versionNumber').removeAttr('readonly');
             $('#eventType').val('DEPLOYMENT');
           },
           onClose: function() {

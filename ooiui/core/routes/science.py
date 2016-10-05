@@ -295,7 +295,6 @@ def instrument_deployment_put(id):
 def asset_edit_phase_values():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/edit_phase_values', data=request.data)
     select = create_html_select_from_list(json.loads(response.text)['values'])
-    print select
     return select, response.status_code
 
 
@@ -415,6 +414,13 @@ def asset_event_put(id):
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
+
+
+@app.route('/api/uframe/events/operational_status_values', methods=['GET'])
+def get_operational_status_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/operational_status_values', params=request.args)
+    select = create_html_select_from_list(json.loads(response.text)['operational_status_values'])
+    return select, response.status_code
 
 
 @app.route('/api/asset_events', methods=['POST'])
