@@ -2169,14 +2169,22 @@
                 postdata[theName] = null;
               }
 
-              if (theName.includes('deployCruiseInfo')){
-                postdata[theName] = null;
+{#              if (theName.includes('deployCruiseInfo')){
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = "{" + postdata[theName] + "}";
+                } else {
+                  postdata[theName] = null;
+                }
               }
 
               if (theName.includes('recoverCruiseInfo')){
-                postdata[theName] = null;
-              }
-              {#              // console.log(postdata[theName]);#}
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = "{" + postdata[theName] + "}";
+                } else {
+                  postdata[theName] = null;
+                }
+              }#}
+              // console.log(postdata[theName]);
             });
             // console.log('Full postdata');
             // console.log(postdata);
