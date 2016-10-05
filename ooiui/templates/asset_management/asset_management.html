@@ -979,7 +979,6 @@
       jsonmap : 'assetUid',
       editrules: {required:false, edithidden:true},
       editoptions:{
-        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
         defaultValue : function() { return currentAssetUid;}
       },
       editable : true,
@@ -1460,7 +1459,9 @@
             key : false, // uid = reference_designator
             jsonmap : 'uid',
             editrules: {required:true, edithidden:true},
-            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editoptions:{
+              //dataInit: function(element) { $(element).attr("readonly", "readonly"); }
+            },
             editable : true,
             hidden : false,
             sortable: true,
