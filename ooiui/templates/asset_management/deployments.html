@@ -1853,22 +1853,6 @@
             }
           },
           {
-            name : 'cruiseInfo',
-            index : 'cruiseInfo',
-            jsonmap : 'cruiseInfo',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : false,
-            hidden : false,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
             name : 'deployedBy',
             index : 'deployedBy',
             jsonmap : 'deployedBy',
