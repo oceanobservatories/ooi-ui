@@ -2094,6 +2094,15 @@
             return [success,message]
           },
           beforeSubmit: function(postdata) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             // Fix the dates
             if (!_.isNull(postdata.eventStartTime) && postdata.eventStartTime.length > 0) {
               postdata.eventStartTime = String(Date.parse(postdata.eventStartTime + " GMT"));
@@ -2216,6 +2225,15 @@
             return [success,message]
           },
           beforeSubmit: function(postdata) {
+                        // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             // Fix the dates
             if (!_.isNull(postdata.eventStartTime) && postdata.eventStartTime.length > 0) {
               postdata.eventStartTime = String(Date.parse(postdata.eventStartTime + " GMT"));

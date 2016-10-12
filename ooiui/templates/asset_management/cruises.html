@@ -1292,6 +1292,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -1349,6 +1366,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -1882,6 +1916,23 @@
                       $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
+                      // Form Validations
+                      if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+                        return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                        return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                        return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                        return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
                         postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
                       } else {
@@ -1998,6 +2049,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -2054,6 +2122,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{

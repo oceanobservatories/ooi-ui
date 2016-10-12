@@ -884,7 +884,7 @@
       editrules: {required:false, edithidden:true},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
       editable : true,
-      hidden : false,
+      hidden : true,
       sortable : true,
       sorttype : 'int',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -926,7 +926,7 @@
       name : 'eventType',
       index : 'eventType',
       jsonmap : 'eventType',
-      editrules: {required:false, edithidden:true},
+      editrules: {required:false, edithidden:false},
       editoptions:{
         dataInit: function(element) { $(element).attr("readonly", "readonly"); }
         {#        defaultValue : 'STORAGE'#}
@@ -2786,7 +2786,7 @@
 
     eventColNames['CALIBRATION_DATA'] = [
       'Event ID',
-      'Event Name',
+      'Coefficient Name',
       'Value',
       'Comments',
       'Data Source',
@@ -2801,7 +2801,21 @@
 
     eventColModels['CALIBRATION_DATA'] = [
       eventIdCol,
-      eventNameCol,
+      {
+        name : 'eventName',
+        index : 'eventName',
+        jsonmap : 'eventName',
+        editrules: {required:true, edithidden:false},
+        editable : false,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       {
         name : 'value',
         index : 'value',
@@ -4088,6 +4102,23 @@
                       $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
+                      // Form Validations
+                      if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+                        return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                        return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                        return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
+                      if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                        return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      }
+
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
                         postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
                       } else {
@@ -4113,6 +4144,14 @@
                           postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
                         } else {
                           postData.deliveryDate = '';
+                        }
+                      }
+
+                      postData.eventType = eventName;
+
+                      if('severity' in postData) {
+                        if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                          return [false, 'Input Error: severity field must be an integer.']
                         }
                       }
 
@@ -4203,6 +4242,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -4228,6 +4284,14 @@
                 postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
               }else{
                 postData.deliveryDate = '';
+              }
+            }
+
+            postData.eventType = eventName;
+
+            if('severity' in postData) {
+              if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                return [false, 'Input Error: severity field must be an integer.']
               }
             }
 
@@ -4259,6 +4323,23 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -4284,6 +4365,14 @@
                 postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
               }else{
                 postData.deliveryDate = '';
+              }
+            }
+
+            postData.eventType = eventName;
+
+            if('severity' in postData) {
+              if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                return [false, 'Input Error: severity field must be an integer.']
               }
             }
 
