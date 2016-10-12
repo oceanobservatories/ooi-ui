@@ -90,12 +90,12 @@
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
 {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
                   <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
-                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
-                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
+{#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
+{#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
                   <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
                   <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
-                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>
+{#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
                   <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>
                 </ul>
               </div>
@@ -154,7 +154,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="events-integration">
+{#                  <div class="tab-pane fade" id="events-integration">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -165,9 +165,9 @@
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
                     </div>
-                  </div>
+                  </div>#}
 
-                  <div class="tab-pane fade" id="events-location">
+                 {# <div class="tab-pane fade" id="events-location">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -178,7 +178,7 @@
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
                     </div>
-                  </div>
+                  </div>#}
 
                   <div class="tab-pane fade" id="events-retirement">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -219,7 +219,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="events-unspecified">
+                  {#<div class="tab-pane fade" id="events-unspecified">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -230,7 +230,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>#}
 
                   <div class="tab-pane fade" id="events-vendor">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -288,12 +288,12 @@
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
 {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
-    gridIdLookup["#events-integration"] = "gridEventsIntegration";
-    gridIdLookup["#events-location"] = "gridEventsLocation";
+{#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
+{#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
     gridIdLookup["#events-retirement"] = "gridEventsRetirement";
     gridIdLookup["#events-status"] = "gridEventsStatus";
     gridIdLookup["#events-storage"] = "gridEventsStorage";
-    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";
+{#    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";#}
     gridIdLookup["#events-vendor"] = "gridEventsVendor";
 
 
@@ -1576,8 +1576,9 @@
             index : 'mobile',
             jsonmap : 'mobile',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ value:"true:false"},
             editable : true,
+            edittype: 'checkbox',
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -2073,7 +2074,7 @@
             var success = false;
             var message = response.statusText;
             // console.log(response);
-            if(response.status == 200){
+            if(response.status == 200 || response.status == 201){
               success = true;
               message = "Record saved successfully."
               refreshAssetTable();
@@ -2082,12 +2083,22 @@
             return [success,message]
           },
           beforeSubmit: function(postdata) {
-            // Fix the dates
-{#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
-{#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
-{#            } else {#}
-{#              postData.eventStartTime = '';#}
-{#            }#}
+            // Form Validations
+            var deliveryDateVal = postdata["purchaseAndDeliveryInfo.deliveryDate"];
+            var purchaseDateVal = postdata["purchaseAndDeliveryInfo.purchaseDate"];
+            var shelfLifeExpirationDateVal = postdata["manufactureInfo.shelfLifeExpirationDate"];
+
+            if (!moment(deliveryDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && deliveryDateVal.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(purchaseDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && purchaseDateVal.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(shelfLifeExpirationDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && shelfLifeExpirationDateVal.length>0){
+              return [false, 'Shelf Life Expiration Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
 
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
 {#            // console.log(selRows);#}
@@ -2172,7 +2183,7 @@
             var success = false;
             var message = response.statusText;
             // console.log(response);
-            if(response.status == 200){
+            if(response.status == 200 || response.status == 201){
               success = true;
               message = "Record saved successfully."
               refreshAssetTable();
@@ -2181,12 +2192,22 @@
             return [success,message]
           },
           beforeSubmit: function(postdata) {
-            // Fix the dates
-{#            if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {#}
-{#              postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));#}
-{#            } else {#}
-{#              postData.eventStartTime = '';#}
-{#            }#}
+            // Form Validations
+            var deliveryDateVal = postdata["purchaseAndDeliveryInfo.deliveryDate"];
+            var purchaseDateVal = postdata["purchaseAndDeliveryInfo.purchaseDate"];
+            var shelfLifeExpirationDateVal = postdata["manufactureInfo.shelfLifeExpirationDate"];
+
+            if (!moment(deliveryDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && deliveryDateVal.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(purchaseDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && purchaseDateVal.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(shelfLifeExpirationDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && shelfLifeExpirationDateVal.length>0){
+              return [false, 'Shelf Life Expiration Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
 
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
 {#            // console.log(selRows);#}
@@ -4280,12 +4301,12 @@
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
-      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");
-      placeJqGridEvents("gridEventsLocation", "LOCATION");
+{#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
+{#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
       placeJqGridEvents("gridEventsRetirement", "RETIREMENT");
       placeJqGridEvents("gridEventsStatus", "ASSET_STATUS");
       placeJqGridEvents("gridEventsStorage", "STORAGE");
-      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");
+{#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
       refreshAssetTable();
     };
