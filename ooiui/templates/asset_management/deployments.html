@@ -2003,10 +2003,10 @@
             name : 'ingestInfo',
             index : 'ingestInfo',
             jsonmap : 'ingestInfo',
-            editrules: {required:false, edithidden:true},
+            editrules: {required:false, edithidden:false},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
+            editable : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},

@@ -438,9 +438,11 @@
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      // console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      if (!_.isNull(rowObject.ref_des)){
+        actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
       {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
+      }
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -1244,7 +1246,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
-            hidden : false,
+            hidden : true,
             width : 150,
             sortable : true,
             sorttype : 'string',
@@ -1358,7 +1360,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1443,7 +1445,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1463,7 +1465,7 @@
               //dataInit: function(element) { $(element).attr("readonly", "readonly"); }
             },
             editable : true,
-            hidden : false,
+            hidden : true,
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
@@ -1583,7 +1585,7 @@
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
+            align : 'left',
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
@@ -1825,7 +1827,22 @@
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center'
           },
-          tenseCol,
+          {
+            name : 'tense',
+            index : 'tense',
+            jsonmap : 'tense',
+            editrules: {required:false, edithidden:true},
+            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           {
             name : 'cumulative_tense',
             index : 'cumulative_tense',
@@ -1833,7 +1850,7 @@
             editrules: {required:false, edithidden:true},
             editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
             editable : false,
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             formatter : changeTenseDisplay,
@@ -1850,7 +1867,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1881,9 +1898,9 @@
             name : 'remoteResources',
             index : 'remoteResources',
             jsonmap : 'remoteResources',
-            editrules: {required:false, edithidden:true},
+            editrules: {required:false, edithidden:false},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
 {#            edittype : 'button',#}
             hidden : true,
             sortable : true,
@@ -1903,7 +1920,7 @@
             jsonmap : 'orbitRadius',
             editrules: {required:false, edithidden:true, number:true},
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -2062,6 +2079,7 @@
           },
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+            $('#mobile').attr('style','width:30px;height:30px;');
           },
           onClose: function() {
 {#            refreshAssetTable();#}
