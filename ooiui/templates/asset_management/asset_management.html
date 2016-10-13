@@ -419,19 +419,13 @@
       }
     };
 
-    var changeTenseDisplay = function(cellvalue) {
-      var tenseDisplay = cellvalue;
-      if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
-        tenseDisplay = "Yes";
-      }
-      if(!_.isNull(cellvalue) && cellvalue == "PAST"){
-        tenseDisplay = "No"
-      }
-      return tenseDisplay
-    };
-
     var formatterStringToList = function(cellvalue) {
-      return "[" + cellvalue + "]";
+      if (isNaN(cellvalue)){
+        return "[" + cellvalue + "]";
+      }else{
+        return cellvalue;
+      }
+
     }
 
     // Sets up the action buttons in the jqGrid table
@@ -864,7 +858,7 @@
       name : 'eventName',
       index : 'eventName',
       jsonmap : 'eventName',
-      editrules: {required:true, edithidden:false},
+      editrules: {required:false, edithidden:false},
       editable : true,
       hidden : false,
       sortable : true,
@@ -955,23 +949,6 @@
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
       {#        align : 'center',#}
-      unformat : function (cellvalue, options, cell) {
-        return $('input', cell).val() || cellvalue;
-      }
-    };
-
-    var tenseCol = {
-      name : 'tense',
-      index : 'tense',
-      jsonmap : 'tense',
-      editrules: {required:false, edithidden:false},
-      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-      editable : true,
-      hidden : true,
-      sortable : true,
-      sorttype : 'string',
-      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-      align : 'center',
       unformat : function (cellvalue, options, cell) {
         return $('input', cell).val() || cellvalue;
       }
@@ -1130,7 +1107,6 @@
         "ref_des": "CP01CNSM",
         "remoteDocuments": [],
         "remoteResources": [],
-        "tense": "PAST",
         "uid": "A00228"
       }
       #}
@@ -1197,9 +1173,6 @@
           'Delivery Order Number',
           'Purchase Price',
           'Purchase Date',
-          'Tense', // This is really the 'tense' column, renamed per Rutgers
-          'Alive?',
-          'Type',
           'Reference Designator',
 {#          'Remote Documents',#}
           'Remote Resources',
@@ -1828,55 +1801,6 @@
             sorttype : 'date',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center'
-          },
-          {
-            name : 'tense',
-            index : 'tense',
-            jsonmap : 'tense',
-            editrules: {required:false, edithidden:true},
-            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'cumulative_tense',
-            index : 'cumulative_tense',
-            jsonmap : 'cumulative_tense',
-            editrules: {required:false, edithidden:true},
-            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-            editable : false,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            formatter : changeTenseDisplay,
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assetInfo.type',
-            index : 'assetInfo.type',
-            jsonmap : 'assetInfo.type',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : false,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
           },
           {
             name: 'ref_des',
@@ -2549,7 +2473,6 @@
           "eventStartTime" : null, Suggested. Long. Recommended for most events.
           "eventStopTime" : null, Suggested. Long. Optional for most events.
           "notes" : null, Suggested. String.
-          "tense" : "UNKNOWN", Readonly. String.
           "dataSource" : null, Suggested. Source of this edit. "UI:user=username" for example
           "lastModifiedTimestamp" : null Reserved. Not specified for create; required for update.
     }#}
@@ -2571,7 +2494,6 @@
       'Start Date',
       'End Date',
       'Notes',
-      'Tense',
       'Data Source',
       'lastModifiedTimestamp'
     ];
@@ -2732,7 +2654,6 @@
       eventStartTimeCol,
       eventStopTimeCol,
       notesCol,
-      tenseCol,
       dataSourceCol,
       lastModifiedTimestampCol
     ];
@@ -2778,7 +2699,6 @@
       "eventType": "CALIBRATION_DATA",
       "lastModifiedTimestamp": 1469666135600,
       "notes": null,
-      "tense": "UNKNOWN",
       "values": [
         0.0
       ]
@@ -2794,7 +2714,6 @@
       'End Date',
       'Event Type',
       'Notes',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -2822,8 +2741,8 @@
         editrules: {required:false, edithidden:true},
         editable : true,
         sortable : false,
-        sorttype : 'number',
-        formatter : formatterStringToList,
+        sorttype : 'string',
+{#        formatter : formatterStringToList,#}
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2849,7 +2768,6 @@
       eventStopTimeCol,
       eventTypeCol,
       notesCol,
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -2893,7 +2811,6 @@
     {#        "lastModifiedTimestamp": 1469489065248,#}
     {#        "notes": "Testing update capability cruise info event; target this for deletion.",#}
     {#        "shipName": "M/V Scarlett OHara",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "uniqueCruiseIdentifier": "CE-2016-0001"#}
     {#      }#}
@@ -2908,7 +2825,6 @@
       'Event Type',
       'Notes',
       'Ship Name',
-      'Tense',
       'Unique Cruise ID',
       'Asset UID',
       'lastModifiedTimestamp'
@@ -2952,7 +2868,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       {
         name : 'uniqueCruiseIdentifier',
         key : true,
@@ -3008,7 +2923,6 @@
     {#          39.9415716667#}
     {#        ],#}
     {#        "notes": "",#}
-    {#        "tense": "PAST",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
@@ -3022,7 +2936,6 @@
       'Event Type',
       'Location',
       'Notes',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3076,19 +2989,6 @@
         }
       },
       notesCol,
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3131,7 +3031,6 @@
     {#        "integrationInto": null,#}
     {#        "lastModifiedTimestamp": 1469465195955,#}
     {#        "notes": "Updated integration event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "versionNumber": 1#}
     {#      }#}
@@ -3147,7 +3046,6 @@
       'Integrated By',
       'Integration Into',
       'Notes',
-      'Tense',
       'Version Number',
       'Asset UID',
       'lastModifiedTimestamp'
@@ -3203,7 +3101,6 @@
         }
       },
       notesCol,
-      tenseCol,
       {
         name : 'versionNumber',
         index : 'versionNumber',
@@ -3271,7 +3168,6 @@
     {#        "longitude": -70.7861,#}
     {#        "notes": "Location event update for depth, longitude, orbitRadius and eventStartTime.",#}
     {#        "orbitRadius": 1.1,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
@@ -3287,7 +3183,6 @@
       'Longitude',
       'Notes',
       'Orbit Radius',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3330,7 +3225,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3375,7 +3269,6 @@
     {#        "reason": "Unable to process new ASSET_STATUS with eventName field null.",#}
     {#        "severity": 5,#}
     {#        "status": "Need sample status data.",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
@@ -3391,7 +3284,6 @@
       'Reason',
       'Severity',
       'Status',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3462,7 +3354,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3507,7 +3398,6 @@
     {#        "physicalLocation": "Narragansett, RI",#}
     {#        "roomIdentification": "23",#}
     {#        "shelfIdentification": "Cube 7-21",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['STORAGE'] = [
@@ -3523,7 +3413,6 @@
       'Physical Location',
       'Room ID',
       'Shelf ID',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3611,7 +3500,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3664,7 +3552,6 @@
     {#        "eventType": "UNSPECIFIED",#}
     {#        "lastModifiedTimestamp": 1469406611576,#}
     {#        "notes": "Updated unspecified event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['UNSPECIFIED'] = [
@@ -3675,7 +3562,6 @@
       'End Date',
       'Event Type',
       'Notes',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3688,7 +3574,6 @@
       eventStopTimeCol,
       eventTypeCol,
       notesCol,
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3732,7 +3617,6 @@
     {#        "notes": "Update retirement event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1",#}
     {#        "reason": null,#}
     {#        "retiredBy": null,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['RETIREMENT'] = [
@@ -3746,7 +3630,6 @@
       'Notes',
       'Reason',
       'Retired By',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3801,7 +3684,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3848,7 +3730,6 @@
     {#        "reason": "Broken",#}
     {#        "receivedFromVendorBy": null,#}
     {#        "sentToVendorBy": null,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "vendorIdentification": null,#}
     {#        "vendorPointOfContact": null#}
@@ -3868,7 +3749,6 @@
       'Reason',
       'Vendor Receipt By',
       'Vendor Sent By',
-      'Tense',
       'Vendor ID',
       'Vendor POC',
       'Asset UID',
@@ -3967,7 +3847,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       {
         name : 'vendorIdentification',
         index : 'vendorIdentification',
@@ -4099,6 +3978,10 @@
                     },
                     beforeShowForm: function (id) {
                       $('#eventType').val(eventName);
+                      if (eventName != 'CALIBRATION_DATA'){
+                        $('#tr_eventName').hide();
+                      }
+                      $('#tr_lastModifiedTimestamp').hide();
                       $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
@@ -4157,6 +4040,9 @@
                       }
 
                       postData.eventType = eventName;
+                      if (eventName != 'CALIBRATION_DATA') {
+                        postData.eventName = eventName;
+                      }
 
                       if('severity' in postData) {
                         if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
@@ -4247,8 +4133,12 @@
             refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
-            $('#tr_eventName').hide();
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
             $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
@@ -4307,6 +4197,9 @@
             }
 
             postData.eventType = eventName;
+            if (eventName != 'CALIBRATION_DATA') {
+              postData.eventName = eventName;
+            }
 
             if('severity' in postData) {
               if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
@@ -4339,6 +4232,10 @@
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
@@ -4396,6 +4293,9 @@
             }
 
             postData.eventType = eventName;
+            if (eventName != 'CALIBRATION_DATA') {
+              postData.eventName = eventName;
+            }
 
             if('severity' in postData) {
               if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
@@ -4437,13 +4337,15 @@
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
-{#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
-{#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
       placeJqGridEvents("gridEventsRetirement", "RETIREMENT");
       placeJqGridEvents("gridEventsStatus", "ASSET_STATUS");
       placeJqGridEvents("gridEventsStorage", "STORAGE");
-{#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
+
+
+{#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
+{#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
+{#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
       refreshAssetTable();
     };
 
