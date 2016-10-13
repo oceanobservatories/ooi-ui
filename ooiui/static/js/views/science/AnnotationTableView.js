@@ -35,12 +35,20 @@ var AnnotationTableView = Backbone.View.extend({
         label : 'Reference Designator'
       },
       {
+        name : 'stream_name',
+        label : 'Stream Name'
+      },
+      {
         name : 'beginDT',
         label : 'Start Date'
       },
       {
         name : 'endDT',
         label : 'End Date'
+      },
+      {
+        name : 'exclusionFlag',
+        label : 'Exclude Data?'
       }
   ],
   initialize: function() {
