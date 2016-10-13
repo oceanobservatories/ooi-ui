@@ -865,7 +865,7 @@
       index : 'eventName',
       jsonmap : 'eventName',
       editrules: {required:true, edithidden:false},
-      editable : false,
+      editable : true,
       hidden : false,
       sortable : true,
       sorttype : 'string',
@@ -2805,8 +2805,8 @@
         name : 'eventName',
         index : 'eventName',
         jsonmap : 'eventName',
-        editrules: {required:true, edithidden:false},
-        editable : false,
+        editrules: {required:false, edithidden:false},
+        editable : true,
         hidden : false,
         sortable : true,
         sorttype : 'string',
@@ -4103,21 +4103,30 @@
                     },
                     beforeSubmit: function (postData) {
                       // Form Validations
-                      if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-                        return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('eventStartTime' in postData){
+                        if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                          return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-                        return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('eventStopTime' in postData) {
+                        if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                          return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-                        return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('purchaseDate' in postData) {
+                        if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                          return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-                        return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('deliveryDate' in postData) {
+                        if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                          return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
+
 
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
                         postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
@@ -4239,24 +4248,34 @@
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
+            $('#tr_eventName').hide();
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -4324,20 +4343,28 @@
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
