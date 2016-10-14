@@ -250,17 +250,6 @@
       }
     };
 
-    var changeTenseDisplay = function(cellvalue) {
-      var tenseDisplay = cellvalue;
-      if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
-        tenseDisplay = "Yes";
-      }
-      if(!_.isNull(cellvalue) && cellvalue == "PAST"){
-        tenseDisplay = "No"
-      }
-      return tenseDisplay
-    };
-
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      // console.log(rowObject);#}
@@ -1376,16 +1365,11 @@
     } // placeJqGridSensors
 
 
-
-
-
-
-
     var eventNameCol = {
       name : 'eventName',
       index : 'eventName',
       jsonmap : 'eventName',
-      editrules: {required:true, edithidden:true},
+      editrules: {required:false, edithidden:false},
       editable : true,
       hidden : false,
       sortable : true,
@@ -1475,23 +1459,6 @@
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
       {#        align : 'center',#}
-      unformat : function (cellvalue, options, cell) {
-        return $('input', cell).val() || cellvalue;
-      }
-    };
-
-    var tenseCol = {
-      name : 'tense',
-      index : 'tense',
-      jsonmap : 'tense',
-      editrules: {required:false, edithidden:true},
-      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-      editable : true,
-      hidden : false,
-      sortable : true,
-      sorttype : 'string',
-      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-      align : 'center',
       unformat : function (cellvalue, options, cell) {
         return $('input', cell).val() || cellvalue;
       }
@@ -1664,7 +1631,6 @@
               "recoverCruiseInfo": null,
               "recoveredBy": null,
               "sensor_uid": "R00100",
-              "tense": "UNKNOWN",
               "versionNumber": 2
             }#}
 
@@ -1706,7 +1672,6 @@
           'Stop Date',
           'Event Type',
           'Inductive ID',
-          'Tense',
           'Version Number',
           'Mooring UID',
           'Node UID',
@@ -1886,7 +1851,6 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          tenseCol,
           {
             name : 'versionNumber',
             index : 'versionNumber',
@@ -2072,13 +2036,10 @@
             return messageText;
           },
           beforeShowForm: function(id) {
+            $('#tr_eventName').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           onClose: function() {
-            {#            refreshAssetTable();#}
-            {#            ooi.collection.fetch();#}
-            {#            $dcGrid.setGridParam({data:collection.toJSON()});#}
-            {#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
           },
           afterSubmit : function(response, postdata)
           {
@@ -2095,11 +2056,11 @@
           },
           beforeSubmit: function(postdata) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+            if (!moment(postdata.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
               return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+            if (!moment(postdata.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStopTime.length>0){
               return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
             }
 
@@ -2180,6 +2141,8 @@
             // console.log('Full postdata');
             // console.log(postdata);
 
+            postdata.eventName = 'DEPLOYMENT';
+
             return [true, ''];
           },
           closeOnEscape:true,
@@ -2219,18 +2182,18 @@
             if(response.status == 200){
               success = true;
               message = "Record saved successfully.";
-              refreshAssetTable();
+              refreshDeploymentsTable();
             }
 
             return [success,message]
           },
           beforeSubmit: function(postdata) {
                         // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
+            if (!moment(postdata.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
               return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+            if (!moment(postdata.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStopTime.length>0){
               return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
             }
 

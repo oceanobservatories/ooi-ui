@@ -418,17 +418,6 @@
       }
     };
 
-    var changeTenseDisplay = function(cellvalue) {
-      var tenseDisplay = cellvalue;
-      if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
-        tenseDisplay = "Yes";
-      }
-      if(!_.isNull(cellvalue) && cellvalue == "PAST"){
-        tenseDisplay = "No"
-      }
-      return tenseDisplay
-    };
-
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      // console.log(rowObject);#}
@@ -940,23 +929,6 @@
       }
     };
 
-    var tenseCol = {
-      name : 'tense',
-      index : 'tense',
-      jsonmap : 'tense',
-      editrules: {required:false, edithidden:true},
-      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-      editable : true,
-      hidden : false,
-      sortable : true,
-      sorttype : 'string',
-      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-      align : 'center',
-      unformat : function (cellvalue, options, cell) {
-        return $('input', cell).val() || cellvalue;
-      }
-    };
-
     var assetUidCol = {
       name : 'assetUid',
       index : 'assetUid',
@@ -1051,7 +1023,6 @@
       "lastModifiedTimestamp": 1472481949806,
       "notes": "Deployed:\nCE01ISSM-00002 10/10/2014 17:52\nCE06ISSM-00001 10/7/2014 19:56\nCE09OSPM-00002 10/8/2014 18:12\nCE05MOAS-GL311 10/7/2014 00:30\nCE05MOAS-GL320 10/7/2014 02:00\nCE05MOAS-GL381 10/8/2014 19:52\n\nRecovered:\nCE01ISSM-00001 \n",
       "shipName": "R/V Oceanus",
-      "tense": "UNKNOWN",
       "uniqueCruiseIdentifier": "CE-2014-0002"
     },
       #}
@@ -1088,7 +1059,6 @@
           'Event Type',
           'Notes',
           'Ship Name',
-          'Tense',
           'Unique Cruise ID',
           'lastModifiedTimestamp'
         ],
@@ -1149,7 +1119,6 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          tenseCol,
           {
             name : 'uniqueCruiseIdentifier',
             key : true,
@@ -1288,25 +1257,39 @@
             refreshCruiseData();
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -1362,25 +1345,39 @@
             refreshCruiseData();
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -1912,25 +1909,39 @@
                       refreshEventTable(eventName, divId);
                     },
                     beforeShowForm: function (id) {
+                      $('#eventName').attr('readonly',true);
+                      {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
                       $('#eventType').val(eventName);
+                      if (eventName != 'CALIBRATION_DATA'){
+                        $('#tr_eventName').hide();
+                      }
+                      $('#tr_lastModifiedTimestamp').hide();
                       $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
                       // Form Validations
-                      if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-                        return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('eventStartTime' in postData){
+                        if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                          return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-                        return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('eventStopTime' in postData) {
+                        if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                          return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-                        return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('purchaseDate' in postData) {
+                        if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                          return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
-                      if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-                        return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                      if ('deliveryDate' in postData) {
+                        if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                          return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
                       }
 
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -2045,25 +2056,39 @@
             refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
@@ -2118,25 +2143,39 @@
             refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
             // Form Validations
-            if (!moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postdata.eventStartTime.length>0){
-              return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
-              return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
-              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
-            if (!moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
-              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
             }
 
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {

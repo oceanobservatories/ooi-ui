@@ -86,10 +86,10 @@
               </div>
               <div class="col-md-12">
                 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-                  <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
+                  <li class="active default-tab-option"><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
 {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
-                  <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
+{#                  <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>#}
 {#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
 {#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
@@ -102,7 +102,7 @@
               <div class="col-md-12">
                 <div id="events-tab-content" class="tab-content" style="max-width:100%">
 
-                  <div class="tab-pane fade" id="events-acquisition">
+                  <div class="tab-pane fade in active" id="events-acquisition">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -141,7 +141,7 @@
                     </div>
                   </div>#}
 
-                  <div class="tab-pane fade in active" id="events-deployment">
+{#                  <div class="tab-pane fade in active" id="events-deployment">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -152,7 +152,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>#}
 
 {#                  <div class="tab-pane fade" id="events-integration">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -287,7 +287,7 @@
     gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
 {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
-    gridIdLookup["#events-deployment"] = "gridEventsDeployment";
+{#    gridIdLookup["#events-deployment"] = "gridEventsDeployment";#}
 {#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
 {#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
     gridIdLookup["#events-retirement"] = "gridEventsRetirement";
@@ -4336,13 +4336,12 @@
       // TODO: Only show events tabs that make sense for the asset
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
-      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
       placeJqGridEvents("gridEventsRetirement", "RETIREMENT");
       placeJqGridEvents("gridEventsStatus", "ASSET_STATUS");
       placeJqGridEvents("gridEventsStorage", "STORAGE");
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
 
-
+{#      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");#}
 {#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
 {#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
 {#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
