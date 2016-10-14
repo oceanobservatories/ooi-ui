@@ -1345,12 +1345,7 @@
             refreshCruiseData();
           },
           beforeShowForm: function(id) {
-            $('#eventName').attr('readonly',true);
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
-            if (eventName != 'CALIBRATION_DATA'){
-              $('#tr_eventName').hide();
-            }
             $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
