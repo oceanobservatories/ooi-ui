@@ -1371,7 +1371,7 @@
             },
             editable : true,
             edittype : 'select',
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1440,7 +1440,7 @@
               //dataInit: function(element) { $(element).attr("readonly", "readonly"); }
             },
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
@@ -1846,7 +1846,7 @@
             jsonmap : 'orbitRadius',
             editrules: {required:false, edithidden:true, number:true},
             editable : true,
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1863,7 +1863,7 @@
             editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
             editable : true,
             edittype : 'select',
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -2266,15 +2266,16 @@
         title: "Choose columns",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
+{#            						width: 700,#}
+{#            						dlog_opts: {#}
+{#            							modal: false,#}
+{#            							minWidth: 700,#}
+{#            							height: 470,#}
+{#            							show: 'blind',#}
+{#            							hide: 'explode',#}
+{#            							dividerLocation: 1,#}
+{#                          classes: "column-chooser"#}
+{#            						}#}
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {

@@ -54,27 +54,31 @@
         <div id="page-content">
 
           <div class="row">
+            <div class="col-md-12" id="rowButtons" hidden>
+              <div id="dcGroupings">
+                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset All Filters</i></button>
+                <!-- Disabled until UFRAME brings back the capability
+                <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;" disabled>Export Asset Information (JSON)</a>
+                -->
+              </div>
+            </div>
             <div class="col-md-12">
               <div class="col-md-4">
-                <!-- jqGrid Assets-->
+                <!-- jqGrid Subsites-->
                 <div>
                   <div id="navGrid" class="redmond"></div>
                   <table id="grid" class="redmond"></table>
                 </div>
               </div>
-
               <div class="col-md-4">
-                <!-- jqGrid Assets-->
+                <!-- jqGrid Nodes-->
                 <div>
                   <div id="navGridNodes" class="redmond"></div>
                   <table id="gridNodes" class="redmond"></table>
                 </div>
               </div>
-              {#          </div> <!-- row -->#}
-
-              {#          <div class="row">#}
               <div class="col-md-4">
-                <!-- jqGrid Assets-->
+                <!-- jqGrid Sensors-->
                 <div>
                   <div id="navGridSensors" class="redmond"></div>
                   <table id="gridSensors" class="redmond"></table>
@@ -89,19 +93,6 @@
               <span id="" style="margin-left:50%; font-size:18px;">
                 <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-4x"></i>
               </span>
-            </div>
-            <div class="col-md-12" id="rowButtons" hidden>
-
-              <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
-                <!-- Disabled until UFRAME brings back the capability
-                <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;" disabled>Export Asset Information (JSON)</a>
-                -->
-              </div>
-
-              <!-- jqGrid Assets-->
-
-
             </div>
             <div class="col-md-12" id="loadingSpinnerDeployments" style="width:100%;" hidden>
                 <span id="" style="margin-left:50%; font-size:18px;">
@@ -254,7 +245,7 @@
     var createActionButtons = function(cellvalue, options, rowObject){
       {#      // console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+{#      actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";#}
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
       {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
       actionButtons += "</div>";
@@ -319,11 +310,17 @@
 
     var resetTable = function() {
       $("#globalSearchText").val("");
+      $("#globalSearchTextNodes").val("");
+      $("#globalSearchTextSensors").val("");
+      $("#globalSearchTextDeployments").val("");
       globalFilter = null;
       $("refresh_grid").click();
       $('.ui-search-toolbar').find('input[type="text"]').val('');
       $dcGrid.getGridParam("postData").filters = null;
-      combineFilters();
+      combineFilters($dcGrid);
+      combineFilters($dcGridDeployments);
+      combineFilters($dcGridNodes);
+      combineFilters($dcGridSensors);
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
@@ -369,7 +366,7 @@
       grid.trigger("reloadGrid",[{page:1,current:true}]);
     };
 
-    var combineFilters = function() {
+    var combineFilters = function($theGrid) {
       // console.log('combineFilters');
       var allFilters = [];
       {#      if($dcGrid.getGridParam("postData").filters != null) {#}
@@ -397,10 +394,10 @@
       }
 
       // Ensure $dcGrid is defined (page load race conditions) before attempting to set filters
-      if (!_.isUndefined($dcGrid[0].p)) {
-        $dcGrid[0].p.search = true;
-        $.extend($dcGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
-        $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+      if (!_.isUndefined($theGrid[0].p)) {
+        $theGrid[0].p.search = true;
+        $.extend($theGrid[0].p.postData,{filters:JSON.stringify(combinedFilters)});
+        $theGrid.trigger("reloadGrid",[{page:1,current:true}]);
       }
     };
 
@@ -686,7 +683,7 @@
     var showRows = function() {
       $("#loadingSpinner").hide();
       $("#loadingSpinnerDeployments").hide();
-      $("#rowButtons").hide();
+      $("#rowButtons").show();
       {#      $("#rowFilters").show();#}
       {#      $("#rowSubGrids").show();#}
       $("#rowAlfresco").hide();
@@ -901,7 +898,7 @@
         }
         globalFilter = textParts;
 
-        combineFilters();
+        combineFilters($grid);
       };
 
       // fill top toolbar
@@ -1086,8 +1083,8 @@
       }
 
       var performGlobalSearch = function(searchText) {
-        var postData = $grid.jqGrid("getGridParam", "postData"),
-          colModel = $grid.jqGrid("getGridParam", "colModel"),
+        var postData = $dcGridNodes.jqGrid("getGridParam", "postData"),
+          colModel = $dcGridNodes.jqGrid("getGridParam", "colModel"),
           rules = [],
           {#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
@@ -1121,26 +1118,26 @@
         }
         globalFilter = textParts;
 
-        combineFilters();
+        combineFilters($dcGridNodes);
       };
 
       // fill top toolbar
       var $grid = $dcGridNodes;
       $('#t_' + $.jgrid.jqID($grid[0].id))
-        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
-      $("#globalSearchText").keypress(function (e) {
+        .append($("<div><label for=\"globalSearchTextNodes\">Global search in grid for:&nbsp;</label><input id=\"globalSearchTextNodes\" type=\"text\"></input>&nbsp;<button id=\"globalSearchNodes\" type=\"button\">Search</button></div>"));
+      $("#globalSearchTextNodes").keypress(function (e) {
         var key = e.charCode || e.keyCode || 0;
         if (key === $.ui.keyCode.ENTER) { // 13
           initialLocationSearch = "";
-          performGlobalSearch($("#globalSearchText").val());
+          performGlobalSearch($("#globalSearchTextNodes").val());
         }
       });
-      $("#globalSearch").button({
+      $("#globalSearchNodes").button({
         icons: { primary: "ui-icon-search" },
         text: false
       }).click(function () {
         initialLocationSearch = "";
-        performGlobalSearch($("#globalSearchText").val());
+        performGlobalSearch($("#globalSearchTextNodes").val());
       });
 
     } // placeJqGridNodes
@@ -1283,7 +1280,7 @@
       );
 
       // Column mover and chooser
-      $dcGridNodes.jqGrid('navButtonAdd', '#navGridSensors', {
+      $dcGridSensors.jqGrid('navButtonAdd', '#navGridSensors', {
         caption: "showcolumns",
         buttonicon: "ui-icon-calculator",
         title: "Choose columns",
@@ -1305,8 +1302,8 @@
       }
 
       var performGlobalSearch = function(searchText) {
-        var postData = $grid.jqGrid("getGridParam", "postData"),
-          colModel = $grid.jqGrid("getGridParam", "colModel"),
+        var postData = $dcGridSensors.jqGrid("getGridParam", "postData"),
+          colModel = $dcGridSensors.jqGrid("getGridParam", "colModel"),
           rules = [],
           {#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
@@ -1340,26 +1337,26 @@
         }
         globalFilter = textParts;
 
-        combineFilters();
+        combineFilters($dcGridSensors);
       };
 
       // fill top toolbar
       var $grid = $dcGridSensors;
       $('#t_' + $.jgrid.jqID($grid[0].id))
-        .append($("<div><label for=\"globalSearchText\">Global search in grid for:&nbsp;</label><input id=\"globalSearchText\" type=\"text\"></input>&nbsp;<button id=\"globalSearch\" type=\"button\">Search</button></div>"));
-      $("#globalSearchText").keypress(function (e) {
+        .append($("<div><label for=\"globalSearchTextSensors\">Global search in grid for:&nbsp;</label><input id=\"globalSearchTextSensors\" type=\"text\"></input>&nbsp;<button id=\"globalSearchSensors\" type=\"button\">Search</button></div>"));
+      $("#globalSearchTextSensors").keypress(function (e) {
         var key = e.charCode || e.keyCode || 0;
         if (key === $.ui.keyCode.ENTER) { // 13
           initialLocationSearch = "";
-          performGlobalSearch($("#globalSearchText").val());
+          performGlobalSearch($("#globalSearchTextSensors").val());
         }
       });
-      $("#globalSearch").button({
+      $("#globalSearchSensors").button({
         icons: { primary: "ui-icon-search" },
         text: false
       }).click(function () {
         initialLocationSearch = "";
-        performGlobalSearch($("#globalSearchText").val());
+        performGlobalSearch($("#globalSearchTextSensors").val());
       });
 
     } // placeJqGridSensors
@@ -2040,13 +2037,14 @@
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           onClose: function() {
+            refreshDeploymentsTable();
           },
           afterSubmit : function(response, postdata)
           {
             var success = false;
             var message = response.statusText;
             // console.log(response);
-            if(response.status == 200){
+            if(response.status == 200 || response.status == 201){
               success = true;
               message = "Record saved successfully.";
               refreshDeploymentsTable();
@@ -2179,7 +2177,7 @@
             var success = false;
             var message = response.statusText;
             // console.log(response);
-            if(response.status == 200){
+            if(response.status == 200 || response.status == 201){
               success = true;
               message = "Record saved successfully.";
               refreshDeploymentsTable();
@@ -2254,13 +2252,13 @@
                 postdata[theName] = null;
               }
 
-              if (theName.includes('deployCruiseInfo')){
-                postdata[theName] = null;
-              }
-
-              if (theName.includes('recoverCruiseInfo')){
-                postdata[theName] = null;
-              }
+{#              if (theName.includes('deployCruiseInfo')){#}
+{#                postdata[theName] = null;#}
+{#              }#}
+{##}
+{#              if (theName.includes('recoverCruiseInfo')){#}
+{#                postdata[theName] = null;#}
+{#              }#}
               {#              // console.log(postdata[theName]);#}
             });
             // console.log('Full postdata');
@@ -2309,8 +2307,8 @@
       }
 
       var performGlobalSearch = function(searchText) {
-        var postData = $grid.jqGrid("getGridParam", "postData"),
-          colModel = $grid.jqGrid("getGridParam", "colModel"),
+        var postData = $dcGridDeployments.jqGrid("getGridParam", "postData"),
+          colModel = $dcGridDeployments.jqGrid("getGridParam", "colModel"),
           rules = [],
           {#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
@@ -2344,7 +2342,7 @@
         }
         globalFilter = textParts;
 
-        combineFilters();
+        combineFilters($dcGridDeployments);
       };
 
       // fill top toolbar
