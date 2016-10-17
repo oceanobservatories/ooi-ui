@@ -2034,6 +2034,7 @@
           },
           beforeShowForm: function(id) {
             $('#tr_eventName').hide();
+            $('#tr_lastModifiedTimestamp').hide();
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           onClose: function() {
@@ -2163,6 +2164,7 @@
           },
           beforeShowForm: function(id) {
             $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+            $('#tr_lastModifiedTimestamp').hide();
 {#            $('#uid').attr('readonly', false);#}
 {#            $('#rd').removeProp('readonly');#}
 {#            $('#deploymentNumber').removeAttr('readonly');#}
