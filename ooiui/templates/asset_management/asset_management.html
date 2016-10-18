@@ -89,7 +89,7 @@
                   <li class="active default-tab-option"><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
 {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
-{#                  <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>#}
+                  <li><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
 {#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
 {#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
@@ -141,7 +141,7 @@
                     </div>
                   </div>#}
 
-{#                  <div class="tab-pane fade in active" id="events-deployment">
+                  <div class="tab-pane fade" id="events-deployment">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -152,7 +152,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>#}
+                  </div>
 
 {#                  <div class="tab-pane fade" id="events-integration">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -287,7 +287,7 @@
     gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
 {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
-{#    gridIdLookup["#events-deployment"] = "gridEventsDeployment";#}
+    gridIdLookup["#events-deployment"] = "gridEventsDeployment";
 {#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
 {#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
     gridIdLookup["#events-retirement"] = "gridEventsRetirement";
@@ -2930,7 +2930,7 @@
 
     eventColNames['DEPLOYMENT'] = [
       'Event ID',
-      'Event Name',
+{#      'Event Name',#}
       'Deployment Number',
       'Depth',
       'Start Date',
@@ -2944,7 +2944,7 @@
 
     eventColModels['DEPLOYMENT'] = [
       eventIdCol,
-      eventNameCol,
+{#      eventNameCol,#}
       {
         name : 'deployment_number',
         key : true,
@@ -4343,7 +4343,7 @@
       placeJqGridEvents("gridEventsStorage", "STORAGE");
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
 
-{#      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");#}
+      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
 {#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
 {#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
 {#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
