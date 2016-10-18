@@ -1655,6 +1655,7 @@
           'Asset UID',
           'Data Source',
           'Deployment Number',
+          'Version Number',
           'Depth',
           'Notes',
           'Reference Designator',
@@ -1669,7 +1670,6 @@
           'Stop Date',
           'Event Type',
           'Inductive ID',
-          'Version Number',
           'Mooring UID',
           'Node UID',
           'Sensor UID',
@@ -1743,13 +1743,29 @@
             }
           },
           {
+            name : 'versionNumber',
+            index : 'versionNumber',
+            jsonmap : 'versionNumber',
+            editrules: {required:false, edithidden:true},
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'depth',
             index : 'depth',
             jsonmap : 'depth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1795,7 +1811,6 @@
             }
           },
           {
-            // TODO: Pull down
             name : 'editPhase',
             index : 'editPhase',
             jsonmap : 'editPhase',
@@ -1803,7 +1818,7 @@
             editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
             editable : true,
             edittype : 'select',
-            hidden : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1828,7 +1843,21 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          eventNameCol,
+          {
+            name : 'eventName',
+            index : 'eventName',
+            jsonmap : 'eventName',
+            editrules: {required:false, edithidden:false},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           eventStartTimeCol,
           eventStopTimeCol,
           eventTypeCol,
@@ -1840,22 +1869,6 @@
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'versionNumber',
-            index : 'versionNumber',
-            jsonmap : 'versionNumber',
-            editrules: {required:false, edithidden:true},
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
