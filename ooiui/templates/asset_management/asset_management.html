@@ -2929,22 +2929,37 @@
     {#      }#}
 
     eventColNames['DEPLOYMENT'] = [
+      'Asset UID',
       'Event ID',
-{#      'Event Name',#}
       'Deployment Number',
       'Depth',
+      'Orbit Radius',
       'Start Date',
       'End Date',
       'Event Type',
-      'Location',
-      'Notes',
-      'Asset UID',
-      'lastModifiedTimestamp'
+      'Latitude',
+      'Longitude'
     ];
 
     eventColModels['DEPLOYMENT'] = [
-      eventIdCol,
-{#      eventNameCol,#}
+      assetUidCol,
+      {
+        name : 'eventId',
+        key : false,
+        index : 'eventId',
+        jsonmap : 'eventId',
+        editrules: {required:false, edithidden:true},
+        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'int',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       {
         name : 'deployment_number',
         key : true,
@@ -2972,27 +2987,24 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventStartTimeCol,
-      eventStopTimeCol,
-      eventTypeCol,
       {
-        name : 'location',
-        index : 'location',
-        editrules: {required:false, edithidden:true},
+        name : 'orbitRadius',
+        index : 'orbitRadius',
+        editrules: {required:false, edithidden:true, number:true},
         editable : true,
-        hidden : false,
         sortable : true,
-        sorttype : 'string',
-        formatter : eventLocationFormatter,
+        sorttype : 'float',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
           return $('input', cell).val() || cellvalue;
         }
       },
-      notesCol,
-      assetUidCol,
-      lastModifiedTimestampCol
+      eventStartTimeCol,
+      eventStopTimeCol,
+      eventTypeCol,
+      eventLatitudeCol,
+      eventLongitudeCol
     ];
 
     eventJsonReaders['DEPLOYMENT'] = {
