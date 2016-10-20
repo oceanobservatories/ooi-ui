@@ -86,23 +86,23 @@
               </div>
               <div class="col-md-12">
                 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-                  <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
+                  <li class="active default-tab-option"><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
 {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
-                  <li class="active default-tab-option"><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
-                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>
-                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>
+                  <li><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
+{#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
+{#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
                   <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
                   <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
-                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>
+{#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
                   <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>
                 </ul>
               </div>
               <div class="col-md-12">
                 <div id="events-tab-content" class="tab-content" style="max-width:100%">
 
-                  <div class="tab-pane fade" id="events-acquisition">
+                  <div class="tab-pane fade in active" id="events-acquisition">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -141,7 +141,7 @@
                     </div>
                   </div>#}
 
-                  <div class="tab-pane fade in active" id="events-deployment">
+                  <div class="tab-pane fade" id="events-deployment">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -154,7 +154,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="events-integration">
+{#                  <div class="tab-pane fade" id="events-integration">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -165,9 +165,9 @@
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
                     </div>
-                  </div>
+                  </div>#}
 
-                  <div class="tab-pane fade" id="events-location">
+                 {# <div class="tab-pane fade" id="events-location">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -178,7 +178,7 @@
                         </div> <!-- panel-body -->
                       </div> <!-- panel -->
                     </div>
-                  </div>
+                  </div>#}
 
                   <div class="tab-pane fade" id="events-retirement">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -219,7 +219,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="events-unspecified">
+                  {#<div class="tab-pane fade" id="events-unspecified">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -230,7 +230,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>#}
 
                   <div class="tab-pane fade" id="events-vendor">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -288,12 +288,12 @@
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
 {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
-    gridIdLookup["#events-integration"] = "gridEventsIntegration";
-    gridIdLookup["#events-location"] = "gridEventsLocation";
+{#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
+{#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
     gridIdLookup["#events-retirement"] = "gridEventsRetirement";
     gridIdLookup["#events-status"] = "gridEventsStatus";
     gridIdLookup["#events-storage"] = "gridEventsStorage";
-    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";
+{#    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";#}
     gridIdLookup["#events-vendor"] = "gridEventsVendor";
 
 
@@ -390,6 +390,8 @@
 
     var currentAssetUid = null;
 
+    var dataSourceUser = null;
+
     var unixTimeToDateTime = function(cellvalue) {
       var newDate = '';
       if(!_.isNull(cellvalue) && cellvalue > 0) {
@@ -417,28 +419,26 @@
       }
     };
 
-    var changeTenseDisplay = function(cellvalue) {
-      var tenseDisplay = cellvalue;
-      if(!_.isNull(cellvalue) && cellvalue == "PRESENT"){
-        tenseDisplay = "Yes";
-      }
-      if(!_.isNull(cellvalue) && cellvalue == "PAST"){
-        tenseDisplay = "No"
-      }
-      return tenseDisplay
-    };
-
     var formatterStringToList = function(cellvalue) {
-      return "[" + cellvalue + "]";
+      if (isNaN(cellvalue)){
+        return "[" + cellvalue + "]";
+      }else{
+        return cellvalue;
+      }
+
     }
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
-      {#      console.log(rowObject);#}
+      {#      // console.log(rowObject);#}
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      if (!_.isNull(rowObject.ref_des)){
+        actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
       {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
+      }else{
+        actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
+      }
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -464,7 +464,7 @@
     };
 
     var getEditUrl = function() {
-      {#      console.log(lastsel2);#}
+      {#      // console.log(lastsel2);#}
       location.origin = location.protocol + "//" + location.host;
       return location.origin+"/api/asset_deployment/"+lastsel2;
     };
@@ -509,7 +509,7 @@
     };
 
     var setScienceFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#grid"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -538,7 +538,7 @@
     };
 
     var setEventFilter = function(searchColumn, searchParam){
-      {#      console.log(event);#}
+      {#      // console.log(event);#}
       var searchFiler = searchParam, grid = $("#gridEvents"), f;
       if (searchFiler.length === 0) {
         grid[0].p.search = false;
@@ -555,7 +555,7 @@
       // console.log('combineFilters');
       var allFilters = [];
       {#      if($dcGrid.getGridParam("postData").filters != null) {#}
-      {#        console.log($dcGrid.getGridParam("postData").filters);#}
+      {#        // console.log($dcGrid.getGridParam("postData").filters);#}
       {#        allFilters.push(JSON.parse($dcGrid.getGridParam("postData").filters));#}
       {#      }#}
 
@@ -617,7 +617,7 @@
             uniqueTexts.push(text);
           }
         }
-        {#        console.log(uniqueTexts);#}
+        {#        // console.log(uniqueTexts);#}
         return uniqueTexts;
       },
       buildSearchSelect = function(uniqueNames) {
@@ -641,12 +641,12 @@
 
     //define handler for 'editSubmit' event
     var fn_editSubmit=function(response,postdata){
-      {#      console.log('fn_editSubmit');#}
-      {#      console.log(response);#}
-      {#      console.log(postdata);#}
+      {#      // console.log('fn_editSubmit');#}
+      {#      // console.log(response);#}
+      {#      // console.log(postdata);#}
       var json=response.responseText; //in my case response text form server is "{sc:true,msg:''}"
       var result=eval("("+json+")"); //create js object from server reponse
-      {#      console.log(result);#}
+      {#      // console.log(result);#}
       return [result,null];
     };
 
@@ -771,6 +771,42 @@
       }
     };
 
+    assetData = {}
+
+    var refreshAssetTable = function() {
+      // console.log('refreshEventTable');
+      // console.log(currentAssetId);
+      // console.log(gridId);
+      var theDataUrl = "/api/asset_deployment";
+
+      $.ajax( theDataUrl, {
+        type: 'GET',
+        dataType: 'json',
+        success: function( resp ) {
+
+        },
+        complete: function(jsondata,stat){
+          if(stat=="success") {
+            // console.log(jsondata.responseJSON);
+            // console.log(eventData[theName].events[theName]);
+            var assetTableData = jsondata.responseJSON.assets;
+            assetTableData['actions'] = '';
+            $dcGrid.setGridParam({data:assetTableData});
+{#            resetTable();#}
+            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
+{#            resetTable();#}
+          }
+        },
+        error: function( req, status, err ) {
+
+        }
+      });
+
+      {#        $(gridId).setGridParam({url:theDataUrl});#}
+      {#        $(gridId).trigger("reloadGrid",[{page:1,current:true}]);#}
+    };
+
+
     eventData = {}
 
     var refreshEventTable = function(theName, gridId) {
@@ -790,7 +826,7 @@
           },
           complete: function(jsondata,stat){
             if(stat=="success") {
-              {#              console.log(jsondata.responseJSON);#}
+              {#              // console.log(jsondata.responseJSON);#}
               eventData[theName] = jsondata.responseJSON;
               // console.log(eventData[theName].events[theName]);
               $(gridId).setGridParam({data:eventData[theName].events[theName]});
@@ -822,7 +858,7 @@
       name : 'eventName',
       index : 'eventName',
       jsonmap : 'eventName',
-      editrules: {required:true, edithidden:true},
+      editrules: {required:false, edithidden:false},
       editable : true,
       hidden : false,
       sortable : true,
@@ -842,7 +878,7 @@
       editrules: {required:false, edithidden:true},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
       editable : true,
-      hidden : false,
+      hidden : true,
       sortable : true,
       sorttype : 'int',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -884,7 +920,7 @@
       name : 'eventType',
       index : 'eventType',
       jsonmap : 'eventType',
-      editrules: {required:false, edithidden:true},
+      editrules: {required:false, edithidden:false},
       editoptions:{
         dataInit: function(element) { $(element).attr("readonly", "readonly"); }
         {#        defaultValue : 'STORAGE'#}
@@ -918,23 +954,6 @@
       }
     };
 
-    var tenseCol = {
-      name : 'tense',
-      index : 'tense',
-      jsonmap : 'tense',
-      editrules: {required:false, edithidden:true},
-      editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-      editable : true,
-      hidden : false,
-      sortable : true,
-      sorttype : 'string',
-      searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-      align : 'center',
-      unformat : function (cellvalue, options, cell) {
-        return $('input', cell).val() || cellvalue;
-      }
-    };
-
     var assetUidCol = {
       name : 'assetUid',
       index : 'assetUid',
@@ -956,10 +975,14 @@
     };
 
     var dataSourceCol = {
-      name : 'dataSource',
-      index : 'dataSource',
-      jsonmap : 'dataSource',
-      editrules: {required:false, edithidden:true},
+      name: 'dataSource',
+      index: 'dataSource',
+      jsonmap: 'dataSource',
+      editrules: {required: false, edithidden: true},
+      editoptions:{
+        dataInit: function(element) { $(element).attr("readonly", "readonly"); },
+        defaultValue : function() { return dataSourceUser;},
+      },
       editable : true,
       hidden : false,
       sortable : true,
@@ -975,8 +998,10 @@
       name : 'lastModifiedTimestamp',
       index : 'lastModifiedTimestamp',
       jsonmap : 'lastModifiedTimestamp',
-      editrules: {required:false, edithidden:true},
+      editrules: {required:false, edithidden:false},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+{#      formatter : 'date',#}
+{#      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},#}
       editable : true,
       hidden : true,
       sortable : true,
@@ -1014,6 +1039,10 @@
         return $('input', cell).val() || cellvalue;
       }
     };
+
+    function containsNonLatinCodepoints(s) {
+      return /[^\\u0000-\\u00ff]/.test(s);
+    }
 
     // Loads the jqGrid into
     function placeJqGrid(collection) {
@@ -1079,10 +1108,10 @@
         "ref_des": "CP01CNSM",
         "remoteDocuments": [],
         "remoteResources": [],
-        "tense": "PAST",
         "uid": "A00228"
       }
       #}
+
       var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       var currentUser = null;
       if(ooi.login.loggedIn()) {
@@ -1090,13 +1119,13 @@
         }
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
         if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
-          pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
+          pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
         }
       }
 
       $dcGrid.jqGrid({
         datatype : "local",
-        data : collection.toJSON(),
+        data : [],
         editurl : "/api/asset_deployment/ajax",
         serializeEditData: function(postData) {
           return JSON.stringify(postData);
@@ -1145,15 +1174,14 @@
           'Delivery Order Number',
           'Purchase Price',
           'Purchase Date',
-          'Tense', // This is really the 'tense' column, renamed per Rutgers
-          'Alive?',
-          'Type',
           'Reference Designator',
 {#          'Remote Documents',#}
           'Remote Resources',
           'Last Modified',
           'Latitude',
-          'Longitude'
+          'Longitude',
+          'Orbit Radius',
+          'Edit Phase'
         ],
 
         colModel : [
@@ -1193,8 +1221,8 @@
             jsonmap : 'assetInfo.array',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
+            editable : false,
+            hidden : true,
             width : 150,
             sortable : true,
             sorttype : 'string',
@@ -1210,7 +1238,7 @@
             jsonmap : 'assetInfo.assembly',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1259,7 +1287,7 @@
             jsonmap : 'assetInfo.longName',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1270,12 +1298,12 @@
             }
           },
           {
-            name : 'maxdepth',
-            index : 'maxdepth',
-            jsonmap : 'maxdepth',
+            name : 'assetInfo.maxdepth',
+            index : 'assetInfo.maxdepth',
+            jsonmap : 'assetInfo.maxdepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'number',
@@ -1286,12 +1314,12 @@
             }
           },
           {
-            name : 'mindepth',
-            index : 'mindepth',
-            jsonmap : 'mindepth',
+            name : 'assetInfo.mindepth',
+            index : 'assetInfo.mindepth',
+            jsonmap : 'assetInfo.mindepth',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'number',
@@ -1307,8 +1335,8 @@
             jsonmap : 'assetInfo.name',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
+            editable : false,
+            hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1337,10 +1365,14 @@
             name : 'assetType',
             index : 'assetType',
             jsonmap : 'assetType',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editrules: {required:true, edithidden:true},
+            editoptions:{
+              dataUrl : '/api/asset_deployment/asset_type_values'
+{#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
+            },
             editable : true,
-            hidden : true,
+            edittype : 'select',
+            hidden : false,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1349,28 +1381,14 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
-            name : 'dataSource',
-            index : 'dataSource',
-            jsonmap : 'dataSource',
-            editrules: {required:false, edithidden:true},
-            editable : true,
-            hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          dataSourceCol,
           {
             name : 'deployment_number',
             index : 'deployment_number',
             jsonmap : 'deployment_number',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             sortable : true,
             sorttype : 'string',
@@ -1386,7 +1404,7 @@
             jsonmap : 'deployment_numbers',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1403,7 +1421,7 @@
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
-            hidden : true,
+            hidden : false,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1413,12 +1431,15 @@
             }
           },
           {
+            // TODO: No spaces or slashes
             name: 'uid',
             index: 'uid',
             key : false, // uid = reference_designator
             jsonmap : 'uid',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editrules: {required:true, edithidden:true},
+            editoptions:{
+              //dataInit: function(element) { $(element).attr("readonly", "readonly"); }
+            },
             editable : true,
             hidden : false,
             sortable: true,
@@ -1498,8 +1519,8 @@
             }
           },
           {
-            name : 'manufacturerInfo.shelfLifeExpirationDate',
-            index : 'manufacturerInfo.shelfLifeExpirationDate',
+            name : 'manufactureInfo.shelfLifeExpirationDate',
+            index : 'manufactureInfo.shelfLifeExpirationDate',
             jsonmap : 'manufactureInfo.shelfLifeExpirationDate',
             editrules: {required:false, edithidden:true},
             formatter : 'date',
@@ -1533,13 +1554,14 @@
             index : 'mobile',
             jsonmap : 'mobile',
             editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editoptions:{ value:"true:false"},
             editable : true,
+            edittype: 'checkbox',
             hidden : true,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
+            align : 'left',
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
@@ -1781,47 +1803,13 @@
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center'
           },
-          tenseCol,
-          {
-            name : 'cumulative_tense',
-            index : 'cumulative_tense',
-            jsonmap : 'cumulative_tense',
-            editrules: {required:false, edithidden:true},
-            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-            editable : true,
-            hidden : false,
-            sortable : true,
-            sorttype : 'string',
-            formatter : changeTenseDisplay,
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assetInfo.type',
-            index : 'assetInfo.type',
-            jsonmap : 'assetInfo.type',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : false,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
           {
             name: 'ref_des',
             index: 'ref_des',
             jsonmap : 'ref_des',
             editrules: {required:false, edithidden:true},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
             hidden : false,
             width: 240,
             sortable: true,
@@ -1833,12 +1821,14 @@
             }
           },
           {
+            // TODO: Button, separate grid
             name : 'remoteResources',
             index : 'remoteResources',
             jsonmap : 'remoteResources',
-            editrules: {required:false, edithidden:true},
+            editrules: {required:false, edithidden:false},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
+            editable : false,
+{#            edittype : 'button',#}
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -1850,7 +1840,39 @@
           },
           lastModifiedTimestampCol,
           eventLatitudeCol,
-          eventLongitudeCol
+          eventLongitudeCol,
+          {
+            name : 'orbitRadius',
+            index : 'orbitRadius',
+            jsonmap : 'orbitRadius',
+            editrules: {required:false, edithidden:true, number:true},
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'editPhase',
+            index : 'editPhase',
+            jsonmap : 'editPhase',
+            editrules: {required:false, edithidden:true},
+            editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
+            editable : true,
+            edittype : 'select',
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          }
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
         loadComplete : function() {
@@ -1858,30 +1880,33 @@
           highlightFilteredData.call(this);
           showRows();
         },
+        gridComplete : function() {
+
+        },
         beforeRequest: function(){
 
         },
         onSelectRow: function (rowId, status, e) {
           var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
-          {#          console.log('select row, targetGrid:');#}
-          {#          console.log(targetGrid);#}
+          {#          // console.log('select row, targetGrid:');#}
+          {#          // console.log(targetGrid);#}
 
           $(targetGrid).jqGrid("clearGridData");
-          {#          console.log('currentAssetId');#}
-          {#          console.log($dcGrid.getRowData(rowId));#}
+          {#          // console.log('currentAssetId');#}
+          {#          // console.log($dcGrid.getRowData(rowId));#}
           var selRows = $dcGrid.jqGrid('getGridParam','selrow');
           if (selRows.length === 0) {
             // No rows selected
             currentAssetId = null;
           } else {
             // Row has been selected
-            {#            console.log('selected row');#}
+            {#            // console.log('selected row');#}
             currentAssetId = $dcGrid.getRowData(rowId).id;
             currentAssetUid = $dcGrid.getRowData(rowId).uid;
-            {#            console.log(currentAssetUid);#}
+            {#            // console.log(currentAssetUid);#}
           }
 
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
           {#          setEventFilter("","");#}
           {#          $gridMetadata.jqGrid('resetSelection');#}
           $(targetGrid).jqGrid('resetSelection');
@@ -1890,13 +1915,13 @@
           {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
           {##}
           {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          console.log(currentAssetId);#}
+          {#          // console.log(currentAssetId);#}
           {#          placeJqGridEvents();#}
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 
           // ref_des, cruise, array
-{#          console.log($dcGrid.getRowData(rowId).ref_des);#}
-{#          console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
+{#          // console.log($dcGrid.getRowData(rowId).ref_des);#}
+{#          // console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
 {#          var uniqueCruiseIdnetifier = null;#}
 {#          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);#}
 {#          renderRemoteDocuments('', 'OC-1410A', 'Coastal Endurance');#}
@@ -1904,19 +1929,19 @@
           {#          var theDataUrl = "/api/asset_events";#}
           {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
           {#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
-          {#            console.log(theDataUrl);#}
+          {#            // console.log(theDataUrl);#}
           {#            $gridEvents.setGridParam({url:theDataUrl});#}
           {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
           {#            var data = $gridEvents.jqGrid("getRowData");#}
-          {#            console.log(data);#}
+          {#            // console.log(data);#}
           {#          }#}
 
           {##}
           {#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
-          {#          console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
-          {#          console.log($('.nav-tabs .active').name);#}
-          {#          console.log($('.nav-tabs .active').find("a").attr("name"))#}
+          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
+          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
+          {#          // console.log($('.nav-tabs .active').name);#}
+          {#          // console.log($('.nav-tabs .active').find("a").attr("name"))#}
 
 
           {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
@@ -1934,7 +1959,7 @@
         {#          dataType :"json"#}
         {#        },#}
         {#        serializeRowData: function(postdata){#}
-        {#          console.log(postdata);#}
+        {#          // console.log(postdata);#}
         {#          return JSON.stringify(postdata);#}
         {#        },#}
         gridview : true,
@@ -1957,7 +1982,7 @@
         shrinkToFit : true,
         multiselect: false,
         multiboxonly: true,
-        reloadAfterSubmit : false,
+        reloadAfterSubmit : true,
         loadOnce : false,
         ajaxEditOptions : {
           contentType: "application/json; charset=utf-8",
@@ -1979,19 +2004,100 @@
             var messageText = JSON.parse(serviceResponse.responseText).message;
             return messageText;
           },
-          closeOnEscape:true,
-          closeAfterAdd:true,
-          closeAfterEdit:true,
-          width:800,
-          top:120,
-          left:50,
-          recreateForm:true,
-          jqModal:true
-        } /* edit options */
-        ,{
-          errorTextFormat : function(serviceResponse){
-            var messageText = JSON.parse(serviceResponse.responseText).message;
-            return messageText;
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+            $('#mobile').attr('style','width:30px;height:30px;');
+          },
+          onClose: function() {
+{#            refreshAssetTable();#}
+{#            ooi.collection.fetch();#}
+{#            $dcGrid.setGridParam({data:collection.toJSON()});#}
+{#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            // console.log(response);
+            if(response.status == 200 || response.status == 201){
+              success = true;
+              message = "Record saved successfully."
+              refreshAssetTable();
+            }
+
+            return [success,message]
+          },
+          beforeSubmit: function(postdata) {
+            // Form Validations
+            var deliveryDateVal = postdata["purchaseAndDeliveryInfo.deliveryDate"];
+            var purchaseDateVal = postdata["purchaseAndDeliveryInfo.purchaseDate"];
+            var shelfLifeExpirationDateVal = postdata["manufactureInfo.shelfLifeExpirationDate"];
+
+            if (!moment(deliveryDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && deliveryDateVal.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(purchaseDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && purchaseDateVal.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(shelfLifeExpirationDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && shelfLifeExpirationDateVal.length>0){
+              return [false, 'Shelf Life Expiration Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+{#            // console.log(selRows);#}
+            var currentRowData = $dcGrid.getRowData(selRows);
+            // console.log('currentRowData');
+            // console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+{#            // console.log(theColModel);#}
+{#            // console.log(postdata);#}
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+{#              // console.log(theName);#}
+              if (!(theName in postdata) && (theName != 'actions')) {
+{#                // console.log(currentRowData[theName]);#}
+                if(theName == 'deployment_numbers'){
+                  postdata[theName] = "["+currentRowData[theName]+"]";
+                } else {
+                  postdata[theName] = currentRowData[theName];
+                }
+
+                // console.log(currentRowData[theName]);
+                if(containsNonLatinCodepoints(currentRowData[theName])){
+                  // console.log('unicode data detected');
+                  // console.log(currentRowData[theName]);
+                  postdata[theName] = "";
+                }
+
+              };
+
+              if (theName.includes('Date')){
+                // console.log('Date Before');
+                // console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                // console.log('Date After');
+                // console.log(postdata[theName]);
+              };
+
+
+              if (theName.includes('remoteResources')){
+                if (postdata[theName].length > 0){
+                  postdata[theName] = "["+postdata[theName]+"]";
+                }else{
+                  postdata[theName] = "[]";
+                }
+              };
+{#              // console.log(postdata[theName]);#}
+            });
+            // console.log('Full postdata');
+            // console.log(postdata);
+
+            return [true, ''];
           },
           closeOnEscape:true,
           closeAfterAdd:true,
@@ -2000,6 +2106,98 @@
           top:120,
           left:50,
           recreateForm:true,
+          reloadAfterSubmit : true,
+          jqModal:true
+        } /* edit options */
+        ,{ajaxEditOptions: { contentType: "application/json; charset=utf-8" },
+          serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+          },
+          errorTextFormat : function(serviceResponse){
+            var messageText = JSON.parse(serviceResponse.responseText).message;
+            return messageText;
+          },
+          beforeShowForm: function(id) {
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
+          },
+          onClose: function() {
+
+          },
+          afterSubmit : function(response, postdata)
+          {
+            var success = false;
+            var message = response.statusText;
+            // console.log(response);
+            if(response.status == 200 || response.status == 201){
+              success = true;
+              message = "Record saved successfully."
+              refreshAssetTable();
+            }
+
+            return [success,message]
+          },
+          beforeSubmit: function(postdata) {
+            // Form Validations
+            var deliveryDateVal = postdata["purchaseAndDeliveryInfo.deliveryDate"];
+            var purchaseDateVal = postdata["purchaseAndDeliveryInfo.purchaseDate"];
+            var shelfLifeExpirationDateVal = postdata["manufactureInfo.shelfLifeExpirationDate"];
+
+            if (!moment(deliveryDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && deliveryDateVal.length>0){
+              return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(purchaseDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && purchaseDateVal.length>0){
+              return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            if (!moment(shelfLifeExpirationDateVal, 'YYYY-MM-DD HH:mm:ss',true).isValid() && shelfLifeExpirationDateVal.length>0){
+              return [false, 'Shelf Life Expiration Date format invalid (ex. 2014-09-23 09:45:12)'];
+            }
+
+            var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+{#            // console.log(selRows);#}
+            var currentRowData = $dcGrid.getRowData(selRows);
+            // console.log('currentRowData');
+            // console.log(currentRowData);
+            var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+{#            // console.log(theColModel);#}
+{#            // console.log(postdata);#}
+            $.each(theColModel, function() {
+              var cm1 = this;
+              var theName = cm1.name;
+
+              if (!(theName in postdata) && (theName != 'actions')) {
+                postdata[theName] = "";
+                if(theName == 'deployment_numbers'){
+                  postdata[theName] = "[]";
+                }
+              }
+
+
+              if (theName.includes('Date')){
+                // console.log('Date Before');
+                // console.log(postdata[theName]);
+                if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                  postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                }
+                // console.log('Date After');
+                // console.log(postdata[theName]);
+              };
+
+            });
+            // console.log('Full Add postdata');
+            // console.log(postdata);
+
+            return [true, ''];
+          },
+          closeOnEscape:true,
+          closeAfterAdd:true,
+          closeAfterEdit:true,
+          width:800,
+          top:120,
+          left:50,
+          recreateForm:true,
+          reloadAfterSubmit : true,
           jqModal:true
         } /* add options */
         {#        ,{closeOnEscape: true, afterSubmit: fn_editSubmit}#}
@@ -2069,15 +2267,16 @@
         title: "Choose columns",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
+{#            						width: 700,#}
+{#            						dlog_opts: {#}
+{#            							modal: false,#}
+{#            							minWidth: 700,#}
+{#            							height: 470,#}
+{#            							show: 'blind',#}
+{#            							hide: 'explode',#}
+{#            							dividerLocation: 1,#}
+{#                          classes: "column-chooser"#}
+{#            						}#}
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
@@ -2116,7 +2315,7 @@
       {#          stringResult : true,#}
       {#          defaultSearch : "cn",#}
       {#          afterSearch : function() {#}
-      {#            console.log($("#globalSearchText").val());#}
+      {#            // console.log($("#globalSearchText").val());#}
       {#            if($("#globalSearchText").val() != "" && $("#globalSearchText").val() != null) {#}
       {#              performGlobalSearch($("#globalSearchText").val());#}
       {#            } else {#}
@@ -2276,7 +2475,6 @@
           "eventStartTime" : null, Suggested. Long. Recommended for most events.
           "eventStopTime" : null, Suggested. Long. Optional for most events.
           "notes" : null, Suggested. String.
-          "tense" : "UNKNOWN", Readonly. String.
           "dataSource" : null, Suggested. Source of this edit. "UI:user=username" for example
           "lastModifiedTimestamp" : null Reserved. Not specified for create; required for update.
     }#}
@@ -2298,7 +2496,6 @@
       'Start Date',
       'End Date',
       'Notes',
-      'Tense',
       'Data Source',
       'lastModifiedTimestamp'
     ];
@@ -2459,7 +2656,6 @@
       eventStartTimeCol,
       eventStopTimeCol,
       notesCol,
-      tenseCol,
       dataSourceCol,
       lastModifiedTimestampCol
     ];
@@ -2505,7 +2701,6 @@
       "eventType": "CALIBRATION_DATA",
       "lastModifiedTimestamp": 1469666135600,
       "notes": null,
-      "tense": "UNKNOWN",
       "values": [
         0.0
       ]
@@ -2513,32 +2708,29 @@
 
     eventColNames['CALIBRATION_DATA'] = [
       'Event ID',
-      'Event Name',
-      'Dimensions',
-      'Cardinality',
-      'Values',
+      'Coefficient Name',
+      'Value',
       'Comments',
       'Data Source',
       'Start Date',
       'End Date',
       'Event Type',
       'Notes',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
 
     eventColModels['CALIBRATION_DATA'] = [
       eventIdCol,
-      eventNameCol,
       {
-        name : 'dimensions',
-        index : 'dimensions',
-        editrules: {required:false, edithidden:true},
+        name : 'eventName',
+        index : 'eventName',
+        jsonmap : 'eventName',
+        editrules: {required:false, edithidden:false},
         editable : true,
-        sortable : false,
-        sorttype : 'number',
-        formatter : formatterStringToList,
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2546,26 +2738,13 @@
         }
       },
       {
-        name : 'cardinality',
-        index : 'cardinality',
+        name : 'value',
+        index : 'value',
         editrules: {required:false, edithidden:true},
         editable : true,
         sortable : false,
-        sorttype : 'number',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      {
-        name : 'values',
-        index : 'values',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : false,
-        sorttype : 'number',
-        formatter : formatterStringToList,
+        sorttype : 'string',
+{#        formatter : formatterStringToList,#}
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -2591,7 +2770,6 @@
       eventStopTimeCol,
       eventTypeCol,
       notesCol,
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -2635,7 +2813,6 @@
     {#        "lastModifiedTimestamp": 1469489065248,#}
     {#        "notes": "Testing update capability cruise info event; target this for deletion.",#}
     {#        "shipName": "M/V Scarlett OHara",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "uniqueCruiseIdentifier": "CE-2016-0001"#}
     {#      }#}
@@ -2650,7 +2827,6 @@
       'Event Type',
       'Notes',
       'Ship Name',
-      'Tense',
       'Unique Cruise ID',
       'Asset UID',
       'lastModifiedTimestamp'
@@ -2665,8 +2841,12 @@
       {
         name : 'editPhase',
         index : 'editPhase',
+        jsonmap : 'editPhase',
         editrules: {required:false, edithidden:true},
+        editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
         editable : true,
+        edittype : 'select',
+        hidden : false,
         sortable : true,
         sorttype : 'string',
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -2690,7 +2870,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       {
         name : 'uniqueCruiseIdentifier',
         key : true,
@@ -2746,28 +2925,41 @@
     {#          39.9415716667#}
     {#        ],#}
     {#        "notes": "",#}
-    {#        "tense": "PAST",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
     eventColNames['DEPLOYMENT'] = [
+      'Asset UID',
       'Event ID',
-      'Event Name',
       'Deployment Number',
       'Depth',
+      'Orbit Radius',
       'Start Date',
       'End Date',
       'Event Type',
-      'Location',
-      'Notes',
-      'Tense',
-      'Asset UID',
-      'lastModifiedTimestamp'
+      'Latitude',
+      'Longitude'
     ];
 
     eventColModels['DEPLOYMENT'] = [
-      eventIdCol,
-      eventNameCol,
+      assetUidCol,
+      {
+        name : 'eventId',
+        key : false,
+        index : 'eventId',
+        jsonmap : 'eventId',
+        editrules: {required:false, edithidden:true},
+        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'int',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       {
         name : 'deployment_number',
         key : true,
@@ -2795,40 +2987,24 @@
           return $('input', cell).val() || cellvalue;
         }
       },
+      {
+        name : 'orbitRadius',
+        index : 'orbitRadius',
+        editrules: {required:false, edithidden:true, number:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'float',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
-      {
-        name : 'location',
-        index : 'location',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        hidden : false,
-        sortable : true,
-        sorttype : 'string',
-        formatter : eventLocationFormatter,
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      notesCol,
-      {
-        name : 'tense',
-        index : 'tense',
-        editrules: {required:false, edithidden:true},
-        editable : true,
-        sortable : true,
-        sorttype : 'string',
-        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-        align : 'center',
-        unformat : function (cellvalue, options, cell) {
-          return $('input', cell).val() || cellvalue;
-        }
-      },
-      assetUidCol,
-      lastModifiedTimestampCol
+      eventLatitudeCol,
+      eventLongitudeCol
     ];
 
     eventJsonReaders['DEPLOYMENT'] = {
@@ -2869,7 +3045,6 @@
     {#        "integrationInto": null,#}
     {#        "lastModifiedTimestamp": 1469465195955,#}
     {#        "notes": "Updated integration event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1 ",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "versionNumber": 1#}
     {#      }#}
@@ -2885,7 +3060,6 @@
       'Integrated By',
       'Integration Into',
       'Notes',
-      'Tense',
       'Version Number',
       'Asset UID',
       'lastModifiedTimestamp'
@@ -2941,7 +3115,6 @@
         }
       },
       notesCol,
-      tenseCol,
       {
         name : 'versionNumber',
         index : 'versionNumber',
@@ -3009,7 +3182,6 @@
     {#        "longitude": -70.7861,#}
     {#        "notes": "Location event update for depth, longitude, orbitRadius and eventStartTime.",#}
     {#        "orbitRadius": 1.1,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
@@ -3025,7 +3197,6 @@
       'Longitude',
       'Notes',
       'Orbit Radius',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3068,7 +3239,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3113,7 +3283,6 @@
     {#        "reason": "Unable to process new ASSET_STATUS with eventName field null.",#}
     {#        "severity": 5,#}
     {#        "status": "Need sample status data.",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
 
@@ -3129,7 +3298,6 @@
       'Reason',
       'Severity',
       'Status',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3188,7 +3356,9 @@
         name : 'status',
         index : 'status',
         editrules: {required:false, edithidden:true},
+        editoptions:{ dataUrl : '/api/uframe/events/operational_status_values'},
         editable : true,
+        edittype : 'select',
         hidden : false,
         sortable : true,
         sorttype : 'string',
@@ -3198,7 +3368,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3243,7 +3412,6 @@
     {#        "physicalLocation": "Narragansett, RI",#}
     {#        "roomIdentification": "23",#}
     {#        "shelfIdentification": "Cube 7-21",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['STORAGE'] = [
@@ -3259,7 +3427,6 @@
       'Physical Location',
       'Room ID',
       'Shelf ID',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3347,7 +3514,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3356,14 +3522,14 @@
       repeatitems: false,
       id: 'eventId',
       page: function(obj) {
-        {#        console.log($('#pagerSTORAGE_center .ui-pg-input').val());#}
+        {#        // console.log($('#pagerSTORAGE_center .ui-pg-input').val());#}
         {#        return $('#gridEventsStorage').getGridParam('page');#}
         return 1;
       },
       total: function(obj) {
         {#        if(!_.isUndefined(obj.events.STORAGE)){#}
-        {#          console.log(obj.events.STORAGE.length);#}
-        {#          console.log(Math.ceil(obj.events.STORAGE.length / $('#pagerSTORAGE_center .ui-pg-selbox').val()));#}
+        {#          // console.log(obj.events.STORAGE.length);#}
+        {#          // console.log(Math.ceil(obj.events.STORAGE.length / $('#pagerSTORAGE_center .ui-pg-selbox').val()));#}
         {#          return Math.ceil(obj.events.STORAGE.length / $('#pagerSTORAGE_center .ui-pg-selbox').val());#}
         {#        }else{#}
         {#          return 1#}
@@ -3400,7 +3566,6 @@
     {#        "eventType": "UNSPECIFIED",#}
     {#        "lastModifiedTimestamp": 1469406611576,#}
     {#        "notes": "Updated unspecified event for CP02PMUO-WFP01-00-WFPENG000 A00391.1",#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['UNSPECIFIED'] = [
@@ -3411,7 +3576,6 @@
       'End Date',
       'Event Type',
       'Notes',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3424,7 +3588,6 @@
       eventStopTimeCol,
       eventTypeCol,
       notesCol,
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3468,7 +3631,6 @@
     {#        "notes": "Update retirement event for CP02PMUO-WFP01-00-WFPENG000, uid A00391.1",#}
     {#        "reason": null,#}
     {#        "retiredBy": null,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1"#}
     {#      }#}
     eventColNames['RETIREMENT'] = [
@@ -3482,7 +3644,6 @@
       'Notes',
       'Reason',
       'Retired By',
-      'Tense',
       'Asset UID',
       'lastModifiedTimestamp'
     ];
@@ -3537,7 +3698,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       assetUidCol,
       lastModifiedTimestampCol
     ];
@@ -3584,7 +3744,6 @@
     {#        "reason": "Broken",#}
     {#        "receivedFromVendorBy": null,#}
     {#        "sentToVendorBy": null,#}
-    {#        "tense": "UNKNOWN",#}
     {#        "uid": "A00391.1",#}
     {#        "vendorIdentification": null,#}
     {#        "vendorPointOfContact": null#}
@@ -3604,7 +3763,6 @@
       'Reason',
       'Vendor Receipt By',
       'Vendor Sent By',
-      'Tense',
       'Vendor ID',
       'Vendor POC',
       'Asset UID',
@@ -3703,7 +3861,6 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      tenseCol,
       {
         name : 'vendorIdentification',
         index : 'vendorIdentification',
@@ -3796,13 +3953,13 @@
         loadComplete : function(data) {
           $("#pager"+eventName).find("option[value=\"50000\"]").text('All');
           {#          $("#pager"+eventName).setGridParam({lastpage: $('#pagerSTORAGE_center .ui-pg-selbox').val()});#}
-          {#          console.log($gridEvents.jqGrid("getRowData"));#}
+          {#          // console.log($gridEvents.jqGrid("getRowData"));#}
         },
         gridComplete : function() {
-          {#          console.log($gridEvents.jqGrid("getGridParam", "data"));#}
+          {#          // console.log($gridEvents.jqGrid("getGridParam", "data"));#}
         },
         onSelectRow: function (rowId, status, e) {
-          {#          console.log(collection.where({id:parseInt(rowId)})[0]);#}
+          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
           {#          setEventFilter("","");#}
           {#          $gridMetadata.jqGrid('resetSelection');#}
           {#          $gridEvents.jqGrid('resetSelection');#}
@@ -3835,8 +3992,39 @@
                     },
                     beforeShowForm: function (id) {
                       $('#eventType').val(eventName);
+                      if (eventName != 'CALIBRATION_DATA'){
+                        $('#tr_eventName').hide();
+                      }
+                      $('#tr_lastModifiedTimestamp').hide();
+                      $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
                     },
                     beforeSubmit: function (postData) {
+                      // Form Validations
+                      if ('eventStartTime' in postData){
+                        if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                          return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
+                      }
+
+                      if ('eventStopTime' in postData) {
+                        if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                          return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
+                      }
+
+                      if ('purchaseDate' in postData) {
+                        if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                          return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
+                      }
+
+                      if ('deliveryDate' in postData) {
+                        if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                          return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                        }
+                      }
+
+
                       if (!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
                         postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
                       } else {
@@ -3865,6 +4053,17 @@
                         }
                       }
 
+                      postData.eventType = eventName;
+                      if (eventName != 'CALIBRATION_DATA') {
+                        postData.eventName = eventName;
+                      }
+
+                      if('severity' in postData) {
+                        if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                          return [false, 'Input Error: severity field must be an integer.']
+                        }
+                      }
+
                       return [true, ''];
                     },
                     errorTextFormat : function(serviceResponse){
@@ -3890,13 +4089,13 @@
           return JSON.stringify(postdata);
         },
         beforeProcessing: function(){
-          {#          console.log('before request');#}
+          {#          // console.log('before request');#}
           {#          var eventClassName = $('.nav-tabs .active').find("a").attr("name");#}
-          {#          console.log(eventClassName);#}
+          {#          // console.log(eventClassName);#}
           {#          if(!_.isUndefined(eventColNames[eventClassName])){#}
-          {#            console.log('setting colNames and colModel');#}
-          {#            console.log(eventColNames[eventClassName]);#}
-          {#            console.log(eventColModels[eventClassName]);#}
+          {#            // console.log('setting colNames and colModel');#}
+          {#            // console.log(eventColNames[eventClassName]);#}
+          {#            // console.log(eventColModels[eventClassName]);#}
           {#            $gridEvents.jqGrid('setGridParam', { colNames: eventColNames[eventClassName]});#}
           {#            $gridEvents.jqGrid('setGridParam', { colModel: eventColModels[eventClassName]});#}
           {#            $("#gridEvents").jqGrid('GridUnload');#}
@@ -3948,9 +4147,41 @@
             refreshEventTable(eventName, divId);
           },
           beforeShowForm: function(id) {
+            $('#eventName').attr('readonly',true);
+{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -3976,6 +4207,17 @@
                 postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
               }else{
                 postData.deliveryDate = '';
+              }
+            }
+
+            postData.eventType = eventName;
+            if (eventName != 'CALIBRATION_DATA') {
+              postData.eventName = eventName;
+            }
+
+            if('severity' in postData) {
+              if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                return [false, 'Input Error: severity field must be an integer.']
               }
             }
 
@@ -4004,8 +4246,38 @@
           },
           beforeShowForm: function(id) {
             $('#eventType').val(eventName);
+            if (eventName != 'CALIBRATION_DATA'){
+              $('#tr_eventName').hide();
+            }
+            $('#tr_lastModifiedTimestamp').hide();
+            $('#dataSource').val('UI:user='+currentUser.responseJSON.user_name);
           },
           beforeSubmit: function (postData) {
+            // Form Validations
+            if ('eventStartTime' in postData){
+              if (!_.isNull(postData.eventStartTime) && !moment(postData.eventStartTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStartTime.length>0){
+                return [false, 'Event Start Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('eventStopTime' in postData) {
+              if (!_.isNull(postData.eventStopTime) && !moment(postData.eventStopTime, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.eventStopTime.length>0){
+                return [false, 'Event Stop Time format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('purchaseDate' in postData) {
+              if (!_.isNull(postData.purchaseDate) && !moment(postData.purchaseDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.purchaseDate.length>0){
+                return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
+            if ('deliveryDate' in postData) {
+              if (!_.isNull(postData.deliveryDate) && !moment(postData.deliveryDate, 'YYYY-MM-DD HH:mm:ss',true).isValid() && postData.deliveryDate.length>0){
+                return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+              }
+            }
+
             if(!_.isNull(postData.eventStartTime) && postData.eventStartTime.length > 0) {
               postData.eventStartTime = String(Date.parse(postData.eventStartTime + " GMT"));
             }else{
@@ -4031,6 +4303,17 @@
                 postData.deliveryDate = String(Date.parse(postData.deliveryDate + " GMT"));
               }else{
                 postData.deliveryDate = '';
+              }
+            }
+
+            postData.eventType = eventName;
+            if (eventName != 'CALIBRATION_DATA') {
+              postData.eventName = eventName;
+            }
+
+            if('severity' in postData) {
+              if(!_.isNull(postData.severity) && postData.severity.length > 0 && isNaN(postData.severity)) {
+                return [false, 'Input Error: severity field must be an integer.']
               }
             }
 
@@ -4063,18 +4346,20 @@
       var jqCollection = collection;
       jqCollection['actions'] = '';
       placeJqGrid(jqCollection);
-      {#      placeJqGridMetadata({});#}
+      // TODO: Add ALL events tab
+      // TODO: Only show events tabs that make sense for the asset
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
       placeJqGridEvents("gridEventsCalibration", "CALIBRATION_DATA");
-      // placeJqGridEvents("gridEventsCruise", "CRUISE_INFO");
-      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
-      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");
-      placeJqGridEvents("gridEventsLocation", "LOCATION");
       placeJqGridEvents("gridEventsRetirement", "RETIREMENT");
       placeJqGridEvents("gridEventsStatus", "ASSET_STATUS");
       placeJqGridEvents("gridEventsStorage", "STORAGE");
-      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
+
+      placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
+{#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
+{#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
+{#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
+      refreshAssetTable();
     };
 
     var renderRemoteDocuments = function(ref_des, cruise, array) {

@@ -40,6 +40,12 @@ def asset_management_cruises():
     return render_template('asset_management/cruises.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
+@app.route('/assets/deployments')
+@app.route('/assets/deployments/')
+def asset_management_deployments():
+    return render_template('asset_management/deployments.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
 @app.route('/events/list/')
 @login_required()
 def event_list():
@@ -283,6 +289,25 @@ def instrument_deployment_put(id):
     return response.text, response.status_code
 
 
+@app.route('/api/asset_deployment/edit_phase_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_edit_phase_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/edit_phase_values', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['values'])
+    return select, response.status_code
+
+
+@app.route('/api/asset_deployment/asset_type_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_types_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/types/supported', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['asset_types'])
+    print select
+    return select, response.status_code
+
+
 @app.route('/api/asset_deployment/ajax', methods=['POST'])
 @scope_required('asset_manager')
 @login_required()
@@ -342,6 +367,14 @@ def dot_to_json(a):
     return output
 
 
+def create_html_select_from_list(the_values):
+    output = "<select>"
+    for value in the_values:
+        output += '<option value="%s">%s</option>' % (value, value)
+    output += "</select>"
+    return output
+
+
 @app.route('/api/asset_deployment', methods=['POST'])
 @scope_required('asset_manager')
 @login_required()
@@ -381,6 +414,13 @@ def asset_event_put(id):
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
+
+
+@app.route('/api/uframe/events/operational_status_values', methods=['GET'])
+def get_operational_status_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/operational_status_values', params=request.args)
+    select = create_html_select_from_list(json.loads(response.text)['operational_status_values'])
+    return select, response.status_code
 
 
 @app.route('/api/asset_events', methods=['POST'])
@@ -553,12 +593,86 @@ def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
     return response.text, response.status_code
 
+
 @app.route('/api/cruises', methods=['GET'])
 def get_cruises():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises')
     return response.text, response.status_code
 
-@app.route('/api/cruises/<string:uniqueCruiseIdentifier>/deployments', methods=['GET'])
-def get_cruise_deployments(uniqueCruiseIdentifier):
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (uniqueCruiseIdentifier))
+
+@app.route('/api/cruises/<string:eventId>/deployments', methods=['GET'])
+def get_cruise_deployments(eventId):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (eventId))
     return response.text, response.status_code
+
+
+@app.route('/api/deployments/subsites', methods=['GET'])
+def get_deployments_inv():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv')
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/nodes', methods=['GET'])
+def get_deployments_nodes(subsiteRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/<string:nodeRd>/sensors', methods=['GET'])
+def get_deployments_sensors(subsiteRd, nodeRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd + '/' + nodeRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:rd>', methods=['GET'])
+def get_deployments_by_rd(rd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/' + rd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def deployment_post_ajax():
+    token = get_login()
+    # print request.form
+    # print request.data
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        print json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/deployments/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'id' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/deployments', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200
