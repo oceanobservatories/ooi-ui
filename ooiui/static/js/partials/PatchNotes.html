@@ -1,0 +1,13 @@
+<div class="patch">
+      <div class="Version">
+        <h3> Version Number: <%= VersionNumber %> </h3>
+      </div>
+      <div class="Description">
+        <h4> Patch Notes </h4>
+        <% _.each(VersionDescription, function(description){%>
+        <li>
+        -<%= description %>
+        </li>
+        <%})%>
+      </div>
+</div>

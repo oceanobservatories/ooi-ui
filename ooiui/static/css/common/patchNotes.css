@@ -1,0 +1,35 @@
+h2{
+    text-align: left;
+    text-decoration: underline;
+    margin-left: 25%;
+}
+
+.patch{
+    text-align: left;
+    overflow-y: scroll;
+}
+
+#uframe .Version{
+  margin-left: 25%;
+}
+
+#uframe .Description h4{
+  margin-left: 25%;
+}
+
+#uframe .Description li{
+  margin-left: 27%;
+}
+
+#ui .Version{
+  margin-left: 25%;
+}
+
+#ui .Description h4{
+  margin-left: 25%;
+}
+
+#ui .Description li{
+  margin-left: 27%;
+}
+
