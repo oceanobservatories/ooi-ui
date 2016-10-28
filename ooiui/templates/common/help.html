@@ -12,12 +12,20 @@
   <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
   <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
   <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/patchNotes.css" rel="stylesheet" type="text/css" />
   <!-- Partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+    <script src="/js/partials/compiled/patch_notes.js" type="text/javascript"></script>
+    <script src="/js/models/common/uiPatchNotes.js" type="text/javascript"></script>
+    <script src="/js/models/common/uFramePatchNotes.js" type="text/javascript"></script>
+    <script src="/js/views/common/PatchNotes.js" type="text/javascript"></script>
+
 {% endblock %}
+
+
 
 {%block body %}
 <div class="container-fluid">
@@ -27,12 +35,17 @@
 <div id="wrapper" style="padding-left: 0px">
     <div id="page-content-wrapper">
         <div class="container-fluid">
+
+
             <div class="row">
                 <div class="text-center jumbotron">
                     <p> For all issues, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></p>
-                    <p> Access trouble tickets at <a href="https://redmine.oceanobservatories.org/login">https://redmine.oceanobservatories.org/login</a></p>
+                    <p> For more information about the OOI Help Desk and Knowledge Base, go to  <a href="http://oceanobservatories.org/helpdesk/">http://oceanobservatories.org/helpdesk/</a></p>
                 </div><!-- col-md-12 -->
             </div><!-- row -->
+        <div id="patchNotes"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6" id="ui"><h2>User Interface Change Log</h2></div>
+        <div class="col-xs-6 col-sm-6 col-md-6" id="uframe"><h2>uFrame Change Log</h2></div>
         </div><!--container-fluid -->
     </div><!-- page-content-wrapper -->
 </div><!-- wrapper -->
@@ -51,7 +64,9 @@ this.src = this.getAttribute("delayedSrc");
 
 <script type="text/javascript">
 
-var bannerTitle = "Redmine Help";
+var bannerTitle = "Help";
+
+
 
 _.extend(OOI.prototype, Backbone.Events,  {
   login: new LoginModel(),
@@ -91,8 +106,23 @@ var ooi = new OOI();
 
 $(document).ready(function() {
 // Once the DOM is loaded, we start our application
+    var uipatchnotes = new uiPatchNoteList(); 
+    var uiPatchNotesView = new PatchNoteView({model: uipatchnotes, el: "#ui"});
+    uipatchnotes.fetch({
+      success: function() {
+          uiPatchNotesView.render().el;
+        }
+    });
+    var uframepatchnotes = new uFramePatchNoteList(); 
+    var uFramePatchNotesView = new PatchNoteView({model: uframepatchnotes, el: "#uframe"});
+    uframepatchnotes.fetch({
+      success: function() {
+          uFramePatchNotesView.render().el;
+        }
+    });
 ooi.start();
 });
 </script>
+
 
 {% endblock %}
