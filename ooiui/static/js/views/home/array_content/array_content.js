@@ -59,9 +59,35 @@ var ArrayContentSummary = ParentView.extend({
 
 var ArrayContentSummaryItem = ParentView.extend({
     events: {
-        'click .js-expand': '_flyFly'
+        'click .js-expand': '_flyFly',
+        'click .js-view-subsite span': '_flyToSubsite'
         //'mouseover .js-platform-table tr': '_popUpForPlatform',
         //'click .js-platform-table tr': '_goToPlatform',
+    },
+    _flyToSubsite: function(event) {
+        var target = $(event.target),
+            lat = target.data('lat').toString(),
+            lng = target.data('lon').toString();
+
+        if (this.activePlatform === target.attr('id')) {
+            this.activePlatform = undefined;
+            map.setLayoutProperty('ceArray', 'visibility', 'none');
+            map.setLayoutProperty('rsMoorings', 'visibility', 'none');
+            map.flyTo({
+                center: [-128.804111, 45.769225],
+                zoom: 5,
+                curve: 1, // change the speed at which it zooms out
+            });
+        } else {
+            this.activePlatform = target.attr('id');
+
+            map.setLayoutProperty('rsMoorings', 'visibility', 'visible');
+            map.flyTo({
+                center: [lng, lat],
+                zoom: 10,
+                curve: 1, // change the speed at which it zooms out
+            });
+        }
     },
     _popUpForPlatform: _.debounce(function(event) {
         event.stopImmediatePropagation;

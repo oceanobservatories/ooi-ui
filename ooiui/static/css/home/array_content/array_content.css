@@ -96,3 +96,44 @@
     font-size: 12px;
     float: left;
 }
+
+.array-content .cabled-sub-sites {
+    text-align:center;
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+.array-content .cabled-sub-sites span {
+    text-align: center;
+    color: white;
+    background-color: #004773;
+    width: 30%;
+    display: inline-block;
+    border: collapse;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.array-content .cabled-sub-sites span:hover {
+    transition: all 0.8s ease;
+    background-color: #5c9ccc;
+    color: black;
+
+    -webkit-animation-name: bounce;
+    -moz-animation-name: bounce;
+    -o-animation-name: bounce;
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+}
+
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);opacity: 1;}
+    40% {transform: translateY(-2px);}
+    60% {transform: translateY(-1px);}
+}
