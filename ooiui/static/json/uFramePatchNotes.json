@@ -3,7 +3,7 @@
         "VersionNumber":"uframe_ooi_20161027_f6f2d988a971370b0504652023e7e3b90e5ad651",
         "VersionDescription":["Jenkins Nightly Package #142",
             "Issue #11370 Correct 2 dimensional calibration data row/col order.  Remove commented code.",
-            "Issue #1006 Update Preload submodule"
+            "Issue #1006 Update Preload submodule",
             "Issue #11199 Initial code to implement Preload database in Postgres.  Added new tables to Preload; updated existing Preload tables from the newest Preload.  Updated table column names with new preload model classes.",
             "Issue #11412 Remove unused logback.xml configuration entries.",
             "Issue #11407 - Catch Errors on AsyncResponse sent to user and correct. Reformat Address comments.",
