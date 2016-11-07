@@ -12,6 +12,6 @@
             "Issue #11455 Fixed Annotation column length that was not sufficient.",
             "Issue #11431 Correct asset discovery in deployment population.  Corrected comments in code.  Add release notes."
                 ]
-    },
+    }
   ]
 
