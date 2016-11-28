@@ -1,14 +1,14 @@
 [
     {
-        "VersionNumber":"X.Y.Z",
+        "VersionNumber":"1.1.0",
         "VersionDescription":[
-            "UI Place Holder Text"
+            "Adds patch note capabilties.",
+            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets.",
+            "Fixes typo in plotting code that prohibited most plots from generating.",
+            "Update to the annotation services.  Annotations now register in uFrame.",
+            "Integration of new asset management servcies from uFrame.",
+            "Addition of crusie and deployment pages.",
+            "Added support for machine-to-machine data download"
                 ]
-    },
-    {
-        "VersionNumber":"X.Y.Z",
-        "VersionDescription":[
-            "UI Place Holder Text"
-            ]
     }
 ]
