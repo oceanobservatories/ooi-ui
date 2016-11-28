@@ -7,6 +7,7 @@ h2{
 .patch{
     text-align: left;
     overflow-y: scroll;
+    word-wrap: break-word; 
 }
 
 #uframe .Version{

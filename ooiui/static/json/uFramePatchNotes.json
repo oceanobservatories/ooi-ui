@@ -2,15 +2,13 @@
     {
         "VersionNumber":"uframe_ooi_20161027_f6f2d988a971370b0504652023e7e3b90e5ad651",
         "VersionDescription":["Jenkins Nightly Package #142",
-            "Issue #11370 Correct 2 dimensional calibration data row/col order.  Remove commented code.",
-            "Issue #1006 Update Preload submodule",
-            "Issue #11199 Initial code to implement Preload database in Postgres.  Added new tables to Preload; updated existing Preload tables from the newest Preload.  Updated table column names with new preload model classes.",
-            "Issue #11412 Remove unused logback.xml configuration entries.",
-            "Issue #11407 - Catch Errors on AsyncResponse sent to user and correct. Reformat Address comments.",
-            "Issue #11413 UFrame now passes the fully qualified path name to stream engine for async requests.",
-            "Issue #11222 Add query for deployments associated with assets.  Fixed typos.",
-            "Issue #11455 Fixed Annotation column length that was not sufficient.",
-            "Issue #11431 Correct asset discovery in deployment population.  Corrected comments in code.  Add release notes."
+            "Corrected two-dimensional calibration data. (#11370)",
+            "Publish preload information to internal database. (#11199)",
+            "Corrected issue where a user would receive a response indicating a valid download even though there was no data to return. (#11407)",
+            "Added support to aggregate NetCDF files on download. (#11413)",
+            "Add support to query deployment events from the asset ID. (#11222)",
+            "Removed restriction for length of annotation text. (#11455)",
+            "Fixed an issue that caused editing of an asset to fail. (#11431)"
                 ]
     }
   ]
