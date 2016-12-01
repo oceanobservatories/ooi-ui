@@ -197,6 +197,11 @@ def statusUI():
     return render_template('common/status.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
+@app.route('/statusnav')
+def statusN():
+    return render_template('common/statusN.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
 @app.route('/api/organization', methods=['GET'])
 def get_organization():
     response = requests.get(app.config['SERVICES_URL'] + '/organization', params=request.args)

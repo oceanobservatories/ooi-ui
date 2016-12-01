@@ -76,7 +76,7 @@ var ArrayModel = OOI.RelationalModel.extend({
                 "coordinates": newArray
             }
 
-        }
+        };
         return geoJSON;
     }
 });
@@ -96,6 +96,6 @@ var ArrayCollection = Backbone.Collection.extend({
             return model.toGeoJSON();
         });
         return geoJSONified;
-    },
+    }
 });
 

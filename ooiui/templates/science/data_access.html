@@ -134,7 +134,7 @@
                       <label><input id="StatusStreamSwitch" style="padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
                     </div>
                     <div class="checkbox">
-                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Invalidated Streams</label>
+                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Invalidated Streams</label>
                     </div>
                     <div class="checkbox">
                       <label><input id="MobileAssetSwitch" style="padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
@@ -349,6 +349,9 @@
     var initialLocationSearch = "";
     if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
       initialLocationSearch = location.search.split('?search=')[1].replace(/%20/g, ' ');
+    }
+    if(location.hash!=""){
+      initialLocationSearch = location.hash.split('#')[1].replace(/%20/g, ' ');
     }
 
     _.extend(OOI.prototype, Backbone.Events, {

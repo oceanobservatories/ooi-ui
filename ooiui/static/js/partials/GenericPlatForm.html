@@ -235,6 +235,7 @@
     <div class="row">
         <div class="col-md-7">
             <% _.each(collection, function(model) { %>
+          <% console.log(model); %>
                 <div class="panel">
                     <div class="panel-heading" >
                         <h4 class="js-expand" data-target="#<%= model.refDes.substr(9,2) %>"><%= model.name || model.refDes.substr(9,2) %><small class="refDesLabel" style="display:none"> <%= (model.name) ? '(' + model.refDes.substr(9,2) + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
@@ -248,8 +249,7 @@
                                     <th>Design Depth</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
-                                    <th>Plot</th>
-                                    <th>Data Catalog</th>
+                                    <th>Data Access & Plotting</th>
                                     <th>Asset Management</th>
                                 </tr>
                             </thead>

@@ -38,7 +38,7 @@ var ArrayContentSummary = ParentView.extend({
 
     _highlightArray: function(event) {
         var arrayIconHighlight = new L.divIcon({className: 'mydivicon-hover', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent())[0]; 
+        var targetCode = ($(event.target).parent().parent())[0];
         _.each(map._layers, function(layer) {
             if(layer._icon){
                 if(targetCode.id.indexOf(layer.feature.properties.code) > -1 || targetCode.outerHTML.indexOf(layer.feature.properties.code) > -1)
@@ -51,7 +51,7 @@ var ArrayContentSummary = ParentView.extend({
     },
     _lowlightArray: function(event) {
         var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent());  
+        var targetCode = ($(event.target).parent().parent());
 
         _.each(map._layers, function(layer) {
             if(layer._icon){
@@ -75,7 +75,7 @@ var ArrayContentSummary = ParentView.extend({
     },
     _lowlightPlatform: function(event) {
         var platIconLowLight = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent());  
+        var targetCode = ($(event.target).parent().parent());
 
         var targetGrandParent = ($(event.target).parent().parent())[0];
         var targetParent = ($(event.target).parent())[0];
@@ -105,6 +105,8 @@ var ArrayContentSummary = ParentView.extend({
 
             // finally, return the array content summary, which will also contain
             // it's platforms to be displayed after the array is inspected.
+            console.log('ArrayContentSummaryItem model');
+            console.log(model);
             return (new ArrayContentSummaryItem({model: model})).render().el;
         });
 
@@ -114,6 +116,8 @@ var ArrayContentSummary = ParentView.extend({
             $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
                 2 * arrayContentContext.collection.arrayCollection.length + 'px'});
         }, 300);
+
+        $("#loadingSpinner").hide();
     }
 });
 
@@ -212,7 +216,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         //popup.remove();
 
         // when resetting the page, change the title back to 'Home'
-        bannerTitle = 'Home';
+        bannerTitle = 'Status Navigation';
         banner.changeTitle({bannerTitle});
     },
     _addPopup: function(loc, name) {
@@ -221,7 +225,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         .addTo(map);
     },
     _flyFly: _.debounce(function(event) {
-        var flyFlyContext = this; 
+        var flyFlyContext = this;
         map._showPlatformView();
         event.stopImmediatePropagation();
         flyFlyContext.originalZoom;
@@ -264,6 +268,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         // end helper monkies
 
         // map._setPlatformView();
+        //console.log(this.model.attributes);
         var loc = [
                 this.model.attributes.geo_location.coordinates[0][0][0],
                 this.model.attributes.geo_location.coordinates[0][0][1]
@@ -326,5 +331,5 @@ var ArrayContentSummaryItem = ParentView.extend({
             }
         }
     }, 500, true),
-    template: JST['ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html']
+    template: JST['ooiui/static/js/partials/home/array_content/ArrayStatusSummaryItem.html']
 });

@@ -3,7 +3,6 @@
     <td><%= model.get('depth') %></td>
     <td><%= new Date(model.get("start")) %></td>
     <td><%= new Date(model.get("end")) %></td>
-    <td class="text-center" ><a href="/plot#<%= model.get('reference_designator') %>"><i class="fa fa-bar-chart"></i></a></td>
-    <td class="text-center" ><a href="/datacatalog#<%= model.get('reference_designator') %>"><i class="fa fa-database"></i></a></td>
+    <td class="text-center" ><a href="/data_access#<%= model.get('reference_designator') %>"><i class="fa fa-th"></i></a></td>
     <td class="text-center" ><a href="/assets/management#<%= model.get('reference_designator') %>"><i class="fa fa-sitemap"></i></a></td>
 </tr>

@@ -236,6 +236,19 @@ def put_annotation(id):
 @app.route('/api/array')
 def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
+    # response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/arrays')
+def status_arrays():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/sites/<string:array_code>')
+def status_sites(array_code):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
     return response.text, response.status_code
 
 

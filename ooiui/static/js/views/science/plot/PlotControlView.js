@@ -420,10 +420,10 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     if (
         (self.model.get("variables_shape")[i] == "scalar" || self.model.get("variables_shape")[i] == "function") &&
         self.model.get("units")[i] != "bytes" &&
-        self.model.get("units")[i] != "counts" &&
-        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
-        self.model.get("units")[i].toLowerCase() != "s" &&
-        self.model.get("variables")[i].indexOf("_timestamp") == -1
+        self.model.get("units")[i] != "counts"
+        //self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        //self.model.get("units")[i].toLowerCase() != "s" &&
+        //self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
       {
       isValid = true;
@@ -477,6 +477,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         self.collection.add(paramModel);
       }else{
         //number of parameters not added
+        console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
         count+=1;
       }
     });
