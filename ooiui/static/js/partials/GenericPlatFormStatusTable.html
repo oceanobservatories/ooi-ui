@@ -1,0 +1,33 @@
+<tr id= "<%= model.get("reference_designator") %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
+<% //console.log('platform table model'); %>
+<% //console.log(model); %>
+    <td><%= model.get("display_name") %><small class="refDesLabel" style="display:none"><br>(<%= model.get('reference_designator') %>)<small></td>
+    <td>
+                              <ul class="align-center" style="padding-left: 0px;">
+                          <% var instStatus = model.get("instrument_status").status; %>
+
+                          <% if(instStatus == "failed") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: red; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "degraded") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: orange; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "removedFromService") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "notTracked") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "Fetching Status Failed") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "No Status Returned") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else if(instStatus == "operational") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } else { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                          <% } %>
+                        </ul>
+    </td>
+    <td><%= model.get('instrument_status').depth %></td>
+    <td><%= new Date(model.get("start")) %></td>
+    <td><%= new Date(model.get("end")) %></td>
+    <td class="text-center" ><a href="/data_access#<%= model.get('reference_designator') %>"><i class="fa fa-th"></i></a></td>
+    <td class="text-center" ><a href="/assets/management#<%= model.get('reference_designator') %>"><i class="fa fa-sitemap"></i></a></td>
+</tr>

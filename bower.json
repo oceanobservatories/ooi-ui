@@ -65,7 +65,8 @@
     "jqgrid": "~5.1.0",
     "requirejs": "~2.2.0",
     "moment-range": "^2.2.0",
-    "jQRangeSlider": "https://github.com/maka-io/jQRangeSlider.git#master"
+    "jQRangeSlider": "https://github.com/maka-io/jQRangeSlider.git#master",
+    "visavail": "https://github.com/flrs/visavail.git#master"
   },
   "resolutions": {
     "jquery": "~2.1.1",

@@ -252,6 +252,18 @@ def status_sites(array_code):
     return response.text, response.status_code
 
 
+@app.route('/api/uframe/status/platforms/<string:array_code>')
+def status_platforms(array_code):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/platforms/%s' % array_code, params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/instrument/<string:ref_des>')
+def status_instrument(ref_des):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/instrument/%s' % ref_des, params=request.args)
+    return response.text, response.status_code
+
+
 @app.route('/api/uframe/get_structured_toc')
 def structured_toc_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_structured_toc', params=request.args)

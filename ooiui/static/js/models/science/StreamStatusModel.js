@@ -12,7 +12,50 @@
  * Usage
  */
 
-var StreamModel = Backbone.Model.extend({
+var GetInstrumentStatus = function(ref_des) {
+    //console.log(array_code);
+    //console.log(platform_ref_des);
+    var output = {"status": "Fetching Status Failed", "depth": "Unknown"};
+    $.ajax('/api/uframe/status/instrument/' + ref_des, {
+        type: 'GET',
+        dataType: 'json',
+        timeout: 50000,
+        async: false,
+        success: function (resp) {
+            //console.log('success getting instrument status: ');
+            //console.log(resp.instrument);
+            //var theStatus = $.map(resp.sites, function(val) {
+            //    return val.reference_designator == platform_ref_des ? val.status : 'No Status Returned';
+            //});
+            //console.log(theStatus);
+            //return theStatus
+            var result = $.grep(resp.instrument, function(e){ return e.reference_designator == ref_des; });
+            //console.log('result');
+            //console.log(result);
+            if (result.length == 0) {
+                //console.log('No Status Returned');
+                output = {"status": "No Status Returned", "depth": "Unknown"};
+            } else if (result.length == 1) {
+                // access the foo property using result[0].foo
+                //console.log('Found: ' + platform_ref_des);
+                //console.log(result[0].status);
+                output = {"status": result[0].status, "depth": result[0].depth};
+            } else {
+                // multiple items found
+                //console.log('Multiple Status Returned');
+                output = {"status": 'Multiple Status Returned', "depth": "Unknown"};
+            }
+
+        },
+
+        error: function( req, status, err ) {
+            console.log(req);
+        }
+    });
+    return output;
+};
+
+var StreamStatusModel = Backbone.Model.extend({
   //urlRoot: '/api/uframe/get_toc',
   defaults: {
     stream_name: "",
@@ -37,7 +80,8 @@ var StreamModel = Backbone.Model.extend({
     lat_lon: "",
     depth: "",
     freshness: "",
-    reference_designator_first14chars:""
+    reference_designator_first14chars:"",
+    instrument_status: ""
   },
 
   getURL: function(type) {
@@ -70,11 +114,14 @@ var StreamModel = Backbone.Model.extend({
                         'assembly': data.assembly_name
                     };
     data.unique_id = data.reference_designator + data.stream_name;
+    //data.instrument_status = GetPlatformStatus(data.ref_des, data.ref_des.split("-")[0]);
+    data.instrument_status = GetInstrumentStatus(data.ref_des);
+    data.depth = data.instrument_status.depth;
     return data;
   }
 });
 
-var StreamCollection = Backbone.Collection.extend({
+var StreamStatusCollection = Backbone.Collection.extend({
     initialize: function(options) {
         this.options = options || {};
         return this;
@@ -84,7 +131,7 @@ var StreamCollection = Backbone.Collection.extend({
         var url = '/api/uframe/stream';
         return (this.options.searchId) ? url +  '?search=' + this.options.searchId || "" : url;
     },
-    model: StreamModel,
+    model: StreamStatusModel,
     parse: function(response) {
         if(response) {
             this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
@@ -100,14 +147,14 @@ var StreamCollection = Backbone.Collection.extend({
         var filtered = this.filter(function (model) {
             return model.get('reference_designator').substring(0,2) === array;
         });
-        return new StreamCollection(filtered);
+        return new StreamStatusCollection(filtered);
     },
     byEng: function(bool) {
         if (!bool) {
             var filtered = this.filter(function (model) {
                 return model.get('reference_designator').indexOf('ENG') === -1;
             });
-            return new StreamCollection(filtered);
+            return new StreamStatusCollection(filtered);
         } else {
             return this;
         }
@@ -139,6 +186,6 @@ var StreamCollection = Backbone.Collection.extend({
                     return false;
             }
         });
-        return new StreamCollection(filtered);
+        return new StreamStatusCollection(filtered);
     }
 });

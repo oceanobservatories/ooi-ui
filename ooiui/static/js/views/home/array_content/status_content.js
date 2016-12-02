@@ -105,8 +105,8 @@ var ArrayContentSummary = ParentView.extend({
 
             // finally, return the array content summary, which will also contain
             // it's platforms to be displayed after the array is inspected.
-            console.log('ArrayContentSummaryItem model');
-            console.log(model);
+            //console.log('ArrayContentSummaryItem model');
+            //console.log(model);
             return (new ArrayContentSummaryItem({model: model})).render().el;
         });
 
@@ -176,7 +176,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         event.stopImmediatePropagation;
 
         var code = $(event.target).parent().data('code');
-        window.open("/platform?id="+code);
+        window.open("/platformnav?id="+code);
 
     },
     // _flyBye and flyFly are controls that interact directly with the global map variable.
