@@ -131,7 +131,7 @@
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
 
         <table class="table table-stripped">
-            <thead><tr><th>Navigation</th><th>Site Name</th><th>Depth</th><th>Latitude</th><th>Longitude</th></tr></thead>
+            <thead><tr><th>Navigation</th><th>Site Name</th><th>Depth (meters)</th><th>Latitude</th><th>Longitude</th></tr></thead>
             <tbody>
                 <% _.each(properties.platforms, function(platform) { %>
                 <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
