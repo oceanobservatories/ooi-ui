@@ -613,7 +613,7 @@
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-          if(this.login.loggedIn()) {
+{#          if(this.login.loggedIn()) {
 
             options.model.attributes.email = this.models.userModel.get("email");
             options.model.attributes.user_name = this.models.userModel.get("user_name");
@@ -644,7 +644,7 @@
             }
 
             self.views.streamDownloadFormView.show(options);
-          }
+          }#}
         });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
@@ -869,11 +869,11 @@
           model.set('endDTSafe',max);
 
           if(self.login.loggedIn()) {
-            self.views.annotationModal.show({
+{#            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: true
-            });
+            });#}
           }
         });
 
@@ -892,11 +892,11 @@
           });
 
           if(self.login.loggedIn()) {
-            self.views.annotationModal.show({
+{#            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: false
-            });
+            });#}
           }
 
         });
@@ -982,8 +982,8 @@
     // url arguments
     var data = {};
     // begin the iterative fetching of arrays, assets, and streams.
-    var streamFetch = streamCollection.fetch({ reset: true });
-    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
+{#    var streamFetch = streamCollection.fetch({ reset: true });#}
+{#    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });#}
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
@@ -1046,7 +1046,7 @@
     };
 
     //Adds in support for Large Format Data
-    function updatePagination( details, successCallback ){
+{#    function updatePagination( details, successCallback ){
 
       // Calculate pagination attributes
       var start = details.startAt + 1,
@@ -1076,7 +1076,7 @@
           }
         }
       });
-    }
+    }#}
 
     function updateDownloadCollection( options ){
 

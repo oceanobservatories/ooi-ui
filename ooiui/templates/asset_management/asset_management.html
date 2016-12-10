@@ -373,18 +373,18 @@
 
     // Main collection for this page's asset information.
     var collection          = new AssetCollection();
-    var assetCollection     = new AssetCollection();
-    var arrayCollection     = new ArrayCollection();
-    var streamCollection    = new StreamCollection();
+{#    var assetCollection     = new AssetCollection();#}
+{#    var arrayCollection     = new ArrayCollection();#}
+{#    var streamCollection    = new StreamCollection();#}
 
     var ooi = new OOI();
 
     // url arguments
     var data = { min : 'True' };
     // begin the iterative fetching of arrays, assets, and streams.
-    var arrayFetch = arrayCollection.fetch({ reset: true });
-    var assetFetch = assetCollection.fetch({ data: data, reset: true });
-    var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+{#    var arrayFetch = arrayCollection.fetch({ reset: true });#}
+{#    var assetFetch = assetCollection.fetch({ data: data, reset: true });#}
+{#    var streamFetch = streamCollection.fetch({ data: data,  reset: true });#}
 
     var globalFilter = null;
 
@@ -4534,11 +4534,10 @@
       );
     } // placeJqGrid Events
 
-    var showAssets = function(collection, response){
+    var showAssets = function(){
       //jqGrid
-      var jqCollection = collection;
-      jqCollection['actions'] = '';
-      placeJqGrid(jqCollection);
+
+      placeJqGrid();
       // TODO: Add ALL events tab
       // TODO: Only show events tabs that make sense for the asset
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
@@ -4595,14 +4594,15 @@
     };
 
     var populate = function() {
-      updateCollection( showAssets );
+{#      updateCollection( showAssets );#}
+      showAssets();
     };
 
-    var updateCollection = function(successCallback){
-      collection.fetch({
-        success : successCallback
-      });
-    };
+{#    var updateCollection = function(successCallback){#}
+{#      collection.fetch({#}
+{#        success : successCallback#}
+{#      });#}
+{#    };#}
 
     var eventLocationFormatter = function(cellvalue) {
       return cellvalue[0].toString() + ", " + cellvalue[1].toString()
