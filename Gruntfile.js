@@ -10,6 +10,7 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/js/partials/compiled/home.js": [
             "ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html",
+            "ooiui/static/js/partials/home/array_content/ArrayStatusSummaryItem.html",
             "ooiui/static/js/partials/home/array_content/PlatformTable.html",
             "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
           ],
@@ -37,6 +38,10 @@ module.exports = function(grunt) {
           "ooiui/static/js/partials/compiled/platform.js": [
             'ooiui/static/js/partials/GenericPlatForm.html',
             'ooiui/static/js/partials/GenericPlatFormTable.html'
+          ],
+          "ooiui/static/js/partials/compiled/platformStatus.js": [
+            'ooiui/static/js/partials/GenericPlatFormStatus.html',
+            'ooiui/static/js/partials/GenericPlatFormStatusTable.html'
           ],
           "ooiui/static/js/partials/compiled/index.js" : [
             "ooiui/static/js/partials/TOC.html",
@@ -958,6 +963,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/AssetModel.js',
             'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
+            'ooiui/static/js/models/science/ArrayStatusModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -1900,7 +1906,13 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/PlatformModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/views/platforms/GenericPlatFormView.js',
-            'ooiui/static/js/views/platforms/GenericPlatFormTableView.js',
+            'ooiui/static/js/views/platforms/GenericPlatFormTableView.js'
+        ],
+        "ooiui/static/js/compiled/genericPlatFormsStatus.js": [
+            'ooiui/static/js/models/asset_management/PlatformStatusModel.js',
+            'ooiui/static/js/models/science/StreamStatusModel.js',
+            'ooiui/static/js/views/platforms/GenericPlatFormStatusView.js',
+            'ooiui/static/js/views/platforms/GenericPlatFormTableView.js'
         ]
 
         }

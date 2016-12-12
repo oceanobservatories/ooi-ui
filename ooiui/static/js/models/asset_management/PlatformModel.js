@@ -43,7 +43,7 @@ var PlatformModel = Backbone.Model.extend({
             //       There are several changes we need to make to the platforms so this
             //       should be noted as one of them.  If there is no value, just provide
             //       any number . . .
-            attrs.geo_location.depth = (attrs.geo_location.depth) ? attrs.geo_location.depth + ' meters' : 'Unknown';
+            //attrs.geo_location.depth = (attrs.geo_location.depth) ? attrs.geo_location.depth + ' meters' : 'Unknown';
         }
 
         var geoJSON = {
@@ -60,7 +60,7 @@ var PlatformModel = Backbone.Model.extend({
                 "coordinates": newArray
             }
 
-        }
+        };
         return geoJSON;
     }
 });

@@ -373,18 +373,18 @@
 
     // Main collection for this page's asset information.
     var collection          = new AssetCollection();
-    var assetCollection     = new AssetCollection();
-    var arrayCollection     = new ArrayCollection();
-    var streamCollection    = new StreamCollection();
+{#    var assetCollection     = new AssetCollection();#}
+{#    var arrayCollection     = new ArrayCollection();#}
+{#    var streamCollection    = new StreamCollection();#}
 
     var ooi = new OOI();
 
     // url arguments
     var data = { min : 'True' };
     // begin the iterative fetching of arrays, assets, and streams.
-    var arrayFetch = arrayCollection.fetch({ reset: true });
-    var assetFetch = assetCollection.fetch({ data: data, reset: true });
-    var streamFetch = streamCollection.fetch({ data: data,  reset: true });
+{#    var arrayFetch = arrayCollection.fetch({ reset: true });#}
+{#    var assetFetch = assetCollection.fetch({ data: data, reset: true });#}
+{#    var streamFetch = streamCollection.fetch({ data: data,  reset: true });#}
 
     var globalFilter = null;
 
@@ -2913,6 +2913,26 @@
     };
 
     // DEPLOYMENT
+{#      "deployCruiseIdentifier": "TN-299",
+        "deploymentNumber": 1,
+        "depth": 0.0,
+        "editPhase": "OPERATIONAL",
+        "endTime": 1468713600000,
+        "eventId": 42541,
+        "latitude": 44.5097,
+        "longitude": -125.40526,
+        "mooring_uid": "ATAPL-65244-010-0023",
+        "node": "MJ01A",
+        "node_uid": null,
+        "orbitRadius": 0.0,
+        "recoverCruiseIdentifier": null,
+        "sensor": "06-PRESTA101",
+        "sensor_uid": "ATAPL-67639-00004",
+        "startTime": 1375931986000,
+        "subsite": "RS01SLBS",
+        "versionNumber": 1,
+        "waterDepth": null#}
+
     {#    {#}
     {#        "deployment_number": 1,#}
     {#        "depth": 0.0,#}
@@ -2931,14 +2951,25 @@
     eventColNames['DEPLOYMENT'] = [
       'Asset UID',
       'Event ID',
+      'Cruise ID',
+      'Edit Phase',
       'Deployment Number',
+      'Version Number',
       'Depth',
+      'Water Depth',
       'Orbit Radius',
       'Start Date',
       'End Date',
       'Event Type',
       'Latitude',
-      'Longitude'
+      'Longitude',
+      'Mooring UID',
+      'Node',
+      'Node UID',
+      'Sensor',
+      'Sensor UID',
+      'Recover Cruise ID',
+      'Subsite'
     ];
 
     eventColModels['DEPLOYMENT'] = [
@@ -2961,9 +2992,57 @@
         }
       },
       {
-        name : 'deployment_number',
+        name : 'deployCruiseIdentifier',
+        key : false,
+        index : 'deployCruiseIdentifier',
+        jsonmap : 'deployCruiseIdentifier',
+        editrules: {required:false, edithidden:true},
+        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'int',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'editPhase',
+        index : 'editPhase',
+        jsonmap : 'editPhase',
+        editrules: {required:false, edithidden:true},
+        editoptions:{ dataUrl : '/api/asset_deployment/edit_phase_values'},
+        editable : true,
+        edittype : 'select',
+        hidden : false,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'deploymentNumber',
         key : true,
-        index : 'deployment_number',
+        index : 'deploymentNumber',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'number',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'ersionNumber',
+        key : false,
+        index : 'versionNumber',
         editrules: {required:false, edithidden:true},
         editable : true,
         sortable : true,
@@ -2977,6 +3056,19 @@
       {
         name : 'depth',
         index : 'depth',
+        editrules: {required:false, edithidden:true, number:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'float',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'waterDepth',
+        index : 'waterDepth',
         editrules: {required:false, edithidden:true, number:true},
         editable : true,
         sortable : true,
@@ -3004,7 +3096,108 @@
       eventStopTimeCol,
       eventTypeCol,
       eventLatitudeCol,
-      eventLongitudeCol
+      eventLongitudeCol,
+      {
+        name : 'mooring_uid',
+        key : false,
+        index : 'mooring_uid',
+        jsonmap : 'mooring_uid',
+        editrules: {required:false, edithidden:true},
+        editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
+        editable : true,
+        hidden : false,
+        sortable : true,
+        sorttype : 'int',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'node',
+        key : false,
+        index : 'node',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'node_uid',
+        key : false,
+        index : 'node_uid',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'sensor',
+        key : false,
+        index : 'sensor',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'sensor_uid',
+        key : false,
+        index : 'sensor_uid',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'recoverCruiseIdentifier',
+        key : false,
+        index : 'recoverCruiseIdentifier',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
+      {
+        name : 'subsite',
+        key : false,
+        index : 'subsite',
+        editrules: {required:false, edithidden:true},
+        editable : true,
+        sortable : true,
+        sorttype : 'string',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center',
+        unformat : function (cellvalue, options, cell) {
+          return $('input', cell).val() || cellvalue;
+        }
+      },
     ];
 
     eventJsonReaders['DEPLOYMENT'] = {
@@ -4341,11 +4534,10 @@
       );
     } // placeJqGrid Events
 
-    var showAssets = function(collection, response){
+    var showAssets = function(){
       //jqGrid
-      var jqCollection = collection;
-      jqCollection['actions'] = '';
-      placeJqGrid(jqCollection);
+
+      placeJqGrid();
       // TODO: Add ALL events tab
       // TODO: Only show events tabs that make sense for the asset
       placeJqGridEvents("gridEventsAcquisition", "ACQUISITION");
@@ -4402,14 +4594,15 @@
     };
 
     var populate = function() {
-      updateCollection( showAssets );
+{#      updateCollection( showAssets );#}
+      showAssets();
     };
 
-    var updateCollection = function(successCallback){
-      collection.fetch({
-        success : successCallback
-      });
-    };
+{#    var updateCollection = function(successCallback){#}
+{#      collection.fetch({#}
+{#        success : successCallback#}
+{#      });#}
+{#    };#}
 
     var eventLocationFormatter = function(cellvalue) {
       return cellvalue[0].toString() + ", " + cellvalue[1].toString()

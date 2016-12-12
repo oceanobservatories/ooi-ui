@@ -134,7 +134,7 @@
                       <label><input id="StatusStreamSwitch" style="padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
                     </div>
                     <div class="checkbox">
-                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Invalidated Streams</label>
+                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Invalidated Streams</label>
                     </div>
                     <div class="checkbox">
                       <label><input id="MobileAssetSwitch" style="padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
@@ -349,6 +349,9 @@
     var initialLocationSearch = "";
     if(location.search != "" && location.search != "?" && location.search != null && location.search.indexOf('?search=') > -1){
       initialLocationSearch = location.search.split('?search=')[1].replace(/%20/g, ' ');
+    }
+    if(location.hash!=""){
+      initialLocationSearch = location.hash.split('#')[1].replace(/%20/g, ' ');
     }
 
     _.extend(OOI.prototype, Backbone.Events, {
@@ -610,7 +613,7 @@
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-          if(this.login.loggedIn()) {
+{#          if(this.login.loggedIn()) {
 
             options.model.attributes.email = this.models.userModel.get("email");
             options.model.attributes.user_name = this.models.userModel.get("user_name");
@@ -641,7 +644,7 @@
             }
 
             self.views.streamDownloadFormView.show(options);
-          }
+          }#}
         });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
@@ -866,11 +869,11 @@
           model.set('endDTSafe',max);
 
           if(self.login.loggedIn()) {
-            self.views.annotationModal.show({
+{#            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: true
-            });
+            });#}
           }
         });
 
@@ -889,11 +892,11 @@
           });
 
           if(self.login.loggedIn()) {
-            self.views.annotationModal.show({
+{#            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: false
-            });
+            });#}
           }
 
         });
@@ -979,8 +982,8 @@
     // url arguments
     var data = {};
     // begin the iterative fetching of arrays, assets, and streams.
-    var streamFetch = streamCollection.fetch({ reset: true });
-    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });
+{#    var streamFetch = streamCollection.fetch({ reset: true });#}
+{#    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });#}
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
@@ -1043,7 +1046,7 @@
     };
 
     //Adds in support for Large Format Data
-    function updatePagination( details, successCallback ){
+{#    function updatePagination( details, successCallback ){
 
       // Calculate pagination attributes
       var start = details.startAt + 1,
@@ -1073,7 +1076,7 @@
           }
         }
       });
-    }
+    }#}
 
     function updateDownloadCollection( options ){
 

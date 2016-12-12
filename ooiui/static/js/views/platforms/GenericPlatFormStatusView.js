@@ -16,21 +16,21 @@
  */
 
 
-var Row = Backbone.View.extend({
+var StatusRow = Backbone.View.extend({
     tagName:'tbody',
     initialize: function(options){
         _.bindAll(this, "render");
         var self = this;
         this.render();
     },
-    template: JST['ooiui/static/js/partials/GenericPlatFormTable.html'],
+    template: JST['ooiui/static/js/partials/GenericPlatFormStatusTable.html'],
     render: function(){
         this.$el.html(this.template({model:this.model}));
     }
 
 });
 
-var GenericPlatForm = Backbone.View.extend({
+var GenericPlatFormStatus = Backbone.View.extend({
 
     events: {
         'click .js-expand': '_expand',
@@ -83,7 +83,7 @@ var GenericPlatForm = Backbone.View.extend({
 
                 // I don't really like doing this here...but lets refresh the collection
                 // to only what we need.
-                self.streamCollection = new StreamCollection(filtered);
+                self.streamCollection = new StreamStatusCollection(filtered);
                 self.render();
             }
         });
@@ -95,8 +95,10 @@ var GenericPlatForm = Backbone.View.extend({
     addTableRows: function(){
         var self = this;
 
+        this.streamCollection.comparator = "depth";
+        this.streamCollection.sort();
         this.streamCollection.each(function(model){
-            var row = new Row({
+            var row = new StatusRow({
                 model : model
             });
 
@@ -106,7 +108,10 @@ var GenericPlatForm = Backbone.View.extend({
 
         });
     },
-    template: JST['ooiui/static/js/partials/GenericPlatForm.html'],
+    template: JST['ooiui/static/js/partials/GenericPlatFormStatus.html'],
+    initialRender:function(){
+        this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:50px;margin-left:50%;font-size:90px;color:#337ab7;"> </i>');
+    },
     render: function() {
         try {
             var _this = this;
@@ -118,7 +123,7 @@ var GenericPlatForm = Backbone.View.extend({
             var platformList = this.streamCollection.map(function(model) {
                 return  {
                     name: model.get('assembly_name'),
-                    refDes: model.get('reference_designator').substr(0,11),
+                    refDes: model.get('reference_designator').substr(0,11)
                 };
             });
 
@@ -134,6 +139,8 @@ var GenericPlatForm = Backbone.View.extend({
                 var vectorMap = new TileMap({id: 'map', collection: _this.platformCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
                 vectorMap.render();
             });
+
+            $("#loadingSpinner").hide();
         } catch (exception) {
 
             alert("We're sorry, this site, " + this.streamCollection.options.searchId + " doesn't appear to be communicating.  You'll be redirected back to the home page.");
