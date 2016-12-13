@@ -377,8 +377,7 @@
         //plotTimeModel : new PlotTimeModel(),
         plotModel     : new PlotControlModel(),
         downloadModel : new StreamModel(),
-        userModel     : new UserModel(),
-        userModelCheck: new UserModel()
+        userModel     : new UserModel()
       },
       showPlottingTabs:function(){
         $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
@@ -989,7 +988,7 @@
     var createActionButtons = function(cellvalue, options, rowObject){
       var currentUser = null;
       if(ooi.login.loggedIn()) {
-        currentUser = ooi.models.userModelCheck.fetch({url: '/api/current_user', async:false});
+        currentUser = ooi.models.userModel.attributes;
       }
 
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
@@ -1000,8 +999,8 @@
         actionButtons += "<button type='button' title='Download - Log in to access' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       }
 
-      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)) {
-        if ($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0) {
+      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.scopes)) {
+        if ($.inArray("asset_manager", currentUser.scopes) >= 0) {
           actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
         } else {
           actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
