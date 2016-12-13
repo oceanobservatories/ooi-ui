@@ -5,6 +5,7 @@ ooiui.core.routes.m2m
 Defines the application routes
 """
 import requests
+from flask import Response
 from flask import request
 
 from ooiui.core.app import app
@@ -19,9 +20,9 @@ def m2m_handler(path):
         api_user_name = request.authorization['username']
         api_user_token = request.authorization['password']
         url = app.config['SERVICES_URL'] + '/m2m/%s' % path
-        response = requests.get(url, auth=(api_user_name, api_user_token), params=request.args)
+        response = requests.get(url, auth=(api_user_name, api_user_token), params=request.args, stream=True)
         headers = dict(response.headers)
         headers = {k: headers[k] for k in headers if k in transfer_header_fields}
-        return response.text, response.status_code, headers
+        return Response(response.iter_content(1024), response.status_code, headers)
     else:
         return 'Please supply your API credentials', 401
