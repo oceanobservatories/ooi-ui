@@ -612,7 +612,7 @@
         this.listenTo(this, "login:logout", function() { location.reload(); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
-{#          if(this.login.loggedIn()) {
+          if(this.login.loggedIn()) {
 
             options.model.attributes.email = this.models.userModel.get("email");
             options.model.attributes.user_name = this.models.userModel.get("user_name");
@@ -643,7 +643,7 @@
             }
 
             self.views.streamDownloadFormView.show(options);
-          }#}
+          }
         });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
