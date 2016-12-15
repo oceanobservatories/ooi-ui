@@ -282,8 +282,8 @@
           }
         });
 
-        this.listenTo(this, 'DownloadModal:onSuccess',function(url){
-          self.views.modalDownloadView.show(url);
+        this.listenTo(this, 'DownloadModal:onSuccess',function(url, timeCalculation){
+          self.views.modalDownloadView.show(url, timeCalculation);
         });
         this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
           self.views.modalDownloadFailView.show(msg);

@@ -253,7 +253,8 @@ var StreamDownloadFormView = Backbone.View.extend({
       user_email: email,
       user_name: user_name,
       success: function(resp){
-        ooi.trigger('DownloadModal:onSuccess', this.user_email);
+        var timeCalculation = _.has(resp, "timeCalculation") ? resp.timeCalculation : null;
+        ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation);
       },
       error: function(msg){
         ooi.trigger('DownloadModalFail:onFail', msg);
@@ -287,9 +288,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
       // This is a large file format!
       $("#large-format-file-view").find("tbody").remove().end();
-      
+
       var date = moment.utc(model.get('end')).format("YYYY-MM-DD");
-      
+
       // Go get the files (set the date to trigger the request!)
       if (date == moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")){
         // Trigger the request becasue the date is already set correctly
@@ -375,7 +376,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
     this.$data_date_picker = this.$data_date.data('DateTimePicker');
-    
+
 
   }
 });

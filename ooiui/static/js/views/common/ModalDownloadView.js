@@ -1,14 +1,42 @@
 var ModalDownloadView= Backbone.View.extend({
- 
-    hide: function() {
+
+  hide: function() {
     this.$el.modal('hide');
   },
   initialize: function() {
     _.bindAll(this, "render", "show" );
     this.render();
   },
-  show: function(url) {
-    this.$el.find('#download-url').html('A link containing your data will be emailed to <b>' + url +'</b>');
+  getTimeString: function(time) {
+    // time = number of seconds
+
+    // If time is null, don't worry about it
+    if (_.isNull(time)){
+      return '';
+    }
+
+    var baseString = "<p>Your data should be done processing in about ";
+    var units;
+
+    if (time > 4200){  // Anything over 70 minutes will have a min 2 hour wait time
+      time = Math.ceil(time/3600.0).toString();
+      units = ' hours';
+    } else if (time > 2700){  // Between 45 and 70 minutes is 1 hour
+      time = '1';
+      units = ' hour';
+    } else if (time > 60){  // Show minutes
+      time = Math.ceil(time/60.0).toString();
+      units = ' minutes';
+    } else {  // Show seconds
+      time = time.toString();
+      units = ' seconds';
+    }
+    return baseString + time + units + '.</p>';
+  },
+  show: function(url, timeCalculation) {
+    var timeString = this.getTimeString(timeCalculation);
+    this.$el.find('#download-url').html('<p>A link containing your data will be emailed to <b>' + url +'</b></p>');
+    this.$el.find('#download-url').append(timeString);
     this.$el.find('#download-ok').modal('show');
   },
   template: JST['ooiui/static/js/partials/ModalDownload.html'],
