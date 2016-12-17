@@ -137,7 +137,12 @@ label.platform > font, label.assembly > font, label.instrument > font {
 
 
 #streamPanel {
-  padding-left: 15px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 1520px;
+    border-color: transparent;
+    background-color: transparent;
 }
 label.instrument > span {
     display: block;

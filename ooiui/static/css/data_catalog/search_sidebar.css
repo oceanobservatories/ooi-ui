@@ -20,11 +20,21 @@ html, body {
 }
 
 .col-md-2 {
-    height: calc(100vh - 165px);
+    /*height: calc(100vh - 165px);*/
     overflow-y: scroll;
 }
 
 .col-md-10 {
-    height: calc(100vh - 165px);
-    overflow-y: scroll;
+    /*height: calc(100vh - 165px);*/
+    /*overflow-y: scroll;*/
+}
+
+.ui-th-div
+{
+    word-wrap: break-word; /* IE 5.5+ and CSS3 */
+    white-space: pre-wrap; /* CSS3 */
+    height: auto;
+    vertical-align: text-top;
+    padding-top: 2px;
+    padding-bottom: 3px;
 }

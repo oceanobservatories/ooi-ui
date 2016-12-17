@@ -49,12 +49,12 @@ var XYPlotView = BasePlot.extend({
                     shortName: model.get('short_name')
                   },
                   labels: {
-                    format: '{value}',
+                    format: '{value}'
                   },
                   style: {
                     color: Highcharts.getOptions().colors[i]
                   },
-                  opposite: i % 2 === 0 ? false : true
+                  opposite: i % 2 == 0 ? false : true
                 });
       }else{
         axis.push({
@@ -259,13 +259,19 @@ var XYPlotView = BasePlot.extend({
     }else if (plotModel.get('plotOrientation') == 'vertical'){
       self.setPlotSize('50%','800px');
     }
+
+    console.log("plotData");
+    console.log(plotData);
+    console.log(plotModel);
+
+
     // Create the chart
     this.chart = $('#plot-view').highcharts({
       chart: {
         events: {
                 redraw: function(event) {
                   ooi.trigger('plot:plotLoaded',{});
-                },
+                }
               },
         zoomType: 'x'
       },
@@ -274,7 +280,7 @@ var XYPlotView = BasePlot.extend({
           x: -20 //center
       },
       subtitle: {
-          text: plotData.title,
+          text: plotData.stream_display_name,
           x: -20,
           style: {
             color: "steelblue",
@@ -311,6 +317,13 @@ var XYPlotView = BasePlot.extend({
           //align: 'right',
           //verticalAlign: 'middle',
           //borderWidth: 0
+      },
+      exporting: { //Enable exporting images
+        sourceWidth: 1520,
+        sourceHeight: 400,
+        scale: 1,
+        enabled: true,
+        enableImages: true
       },
       series: seriesList
       //plot end

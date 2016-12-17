@@ -161,7 +161,7 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-12 tidy-panel">
+                <div class="col-sm-12">
 
                   <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
                     <li class="active default-tab-option"><a href="#plot-tool-instruments" data-toggle="tab">Data Navigation</a></li>
@@ -233,9 +233,9 @@
                         </div>
                       </div>
 
-                      <div class="panel-body">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="panel-body" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
+                        <div class="row" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
+                          <div class="col-md-12" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
 {#                            <div class="row panel panel-heading" style="margin-right:15px;">#}
 {#                              <div class="col-md-2-toggles" style="top:25px;">#}
 {#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
@@ -278,8 +278,8 @@
 {#                                </div>#}
 {#                              </div>#}
 {#                            </div>#}
-                            <div id="streamPanel" class="panel" style="margin-right:15px;">
-                              <div class="color-index" align="right">
+                            <div id="streamPanel" class="panel" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
+                              <div class="color-index" align="right" style="padding-right: 5px;">
                                 <div class="twelve-hours"></div><b> 12 Hours </b>
                                 <div class="twenty-four-hours"></div><b> 24 Hours </b>
                                 <div class="older"></div><b> Older than 24 hours </b>
@@ -391,6 +391,9 @@
 
       },
       plotSingleInstrument:function(parameterCollection){
+        console.log('parameterCollection');
+        console.log(parameterCollection);
+
         var self = this;
         //NORMAL PLOT
         //get the params
@@ -399,6 +402,7 @@
         var zParams = [];
         var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
         var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
+        var stream_display_name = parameterCollection.models[0].get('original_model').get('stream_display_name');
         var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
           if (model.get('is_selected')){
@@ -429,7 +433,8 @@
               startdate   : selectDt.startDate.toISOString(),
               enddate     : selectDt.endDate.toISOString(),
               xparameters : xParams,
-              yparameters : yParams
+              yparameters : yParams,
+              stream_display_name : stream_display_name
             });
 
 
@@ -715,7 +720,7 @@
           }
 
           //reset the content
-          $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+          $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
           self.trigger('update_catalog_list',{});
 
         });
@@ -779,7 +784,8 @@
                 startdate: self.collections.selectedStreamCollection.models[0].get('start'),
                 enddate:  self.collections.selectedStreamCollection.models[0].get('end'),
                 reference_designator: self.collections.selectedStreamCollection.models[0].get('reference_designator'),
-                stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name')
+                stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name'),
+                stream_display_name: self.collections.selectedStreamCollection.models[0].get('stream_display_name')
               }),
               reset: true
             });
@@ -839,8 +845,8 @@
 
           //reset the content
           $('#plot-view').empty();
-          $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
-          $('#plot-view').css('height','300px');
+          $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
+          $('#plot-view').css('height','400px');
 
         });
 
@@ -1169,7 +1175,7 @@
         event.preventDefault();
         ooi.trigger('reset_catalog_list',{});
         $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
-        $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+        $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
       });
 
       ooi.start();
@@ -1530,13 +1536,14 @@
           'Platform Name',
           'Node',
           'Instrument',
+          'Reference Designator',
           'Stream Identifier',
-          'Stream Type',
-          'Depth (m)',
-          'Lat / Lon (ddm)',
+          'Delivery Method',
+          'Deployment Depth',
+          'Latitude',
+          'Longitude',
           'Start Time',
           'End Time',
-          'Reference Designator',
           'Unique ID'],
 
         colModel : [
@@ -1615,6 +1622,20 @@
             }
           },
           {
+            name: 'reference_designator',
+            index: 'reference_designator',
+            key: false, // rowID = reference_designator
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'stream_name',
             index : 'stream_name',
             {#            key : true,#}
@@ -1632,6 +1653,7 @@
             name : 'stream_type',
             index : 'stream_type',
             editable : false,
+            hidden: true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -1645,7 +1667,6 @@
             name : 'depth',
             index : 'depth',
             editable : false,
-            width : 85,
             sortable : true,
             sorttype : 'number',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1655,8 +1676,21 @@
             }
           },
           {
-            name : 'lat_lon',
-            index : 'lat_lon',
+            name : 'latitude',
+            index : 'latitude',
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'longitude',
+            index : 'longitude',
             editable : false,
             {#                width : 85,#}
             sortable : true,
@@ -1694,20 +1728,6 @@
               return $('input', cell).val() || cellvalue;
             }
             {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
-          },
-          {
-            name: 'reference_designator',
-            index: 'reference_designator',
-            key: false, // rowID = reference_designator
-            editable: false,
-            {#                width: 165,#}
-            sortable: true,
-            sorttype: 'string',
-            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
-            align: 'center',
-            unformat: function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
           },
           {
             name : 'unique_id',

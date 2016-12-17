@@ -7,7 +7,7 @@ var HighchartsScatterView = Backbone.View.extend({
     this.title = options && options.title || "Chart";
     this.title_style = options && options.title_style || {
     };
-    this.subtitle = options && options.subtitle || "";
+    this.subtitle = options && options.stream_display_name || "";
     this.initialRender();
     _.bindAll(this, "onClick");
   },

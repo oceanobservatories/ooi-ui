@@ -78,6 +78,8 @@ var StreamStatusModel = Backbone.Model.extend({
     site_name: "",
     assembly_name: "",
     lat_lon: "",
+    latitude: "",
+    longitude: "",
     depth: "",
     freshness: "",
     reference_designator_first14chars:"",

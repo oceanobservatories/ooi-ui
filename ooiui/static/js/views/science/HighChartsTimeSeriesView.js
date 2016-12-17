@@ -135,12 +135,12 @@ var TimeseriesView = Backbone.View.extend({
     var yvars = self.collection.yparameters;
     var axis_names = self.collection.axis_name;
     var axes_count = 0;
-    var notifyList = []
+    var notifyList = [];
 
     _.each(xvars, function(param,index) {
-      var xvar = xvars[index]
-      var yvar = yvars[index]
-      var axis_name = axis_names[index]
+      var xvar = xvars[index];
+      var yvar = yvars[index];
+      var axis_name = axis_names[index];
       var series_data = [];
       //reset for each series
       var addNotify = false;

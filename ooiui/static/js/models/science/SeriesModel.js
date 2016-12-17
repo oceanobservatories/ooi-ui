@@ -50,6 +50,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   enddate:"",
   xparameters:[],
   yparameters:[],
+  stream_display_name:"",
   initialize: function(models,options) {
     if (options && options.stream){
       this.stream = options.stream;
@@ -71,6 +72,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
     }
     if (options && options.yparameters){
       this.yparameters = options.yparameters;
+    }
+    if (options && options.stream_display_name){
+      this.stream_display_name = options.stream_display_name;
     }
 
   },
