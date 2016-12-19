@@ -189,6 +189,7 @@
                             <div class="panel-footer clearfix">
                               <div class="pull-center">
                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
+                                <a href="#" class="btn btn-primary download-plot-data">Download Data</a>
                                 <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
                               </div>
                             </div>
@@ -352,6 +353,8 @@
     }
     if(location.hash!=""){
       initialLocationSearch = location.hash.split('#')[1].replace(/%20/g, ' ');
+      //console.log('initialLocationSearch');
+      //console.log(initialLocationSearch);
     }
 
     _.extend(OOI.prototype, Backbone.Events, {
@@ -391,8 +394,8 @@
 
       },
       plotSingleInstrument:function(parameterCollection){
-        console.log('parameterCollection');
-        console.log(parameterCollection);
+        //console.log('parameterCollection');
+        //console.log(parameterCollection);
 
         var self = this;
         //NORMAL PLOT
@@ -673,7 +676,8 @@
         });
 
         this.listenTo(this, 'ArrayFilterView:addToFilters', function(options) {
-{#          console.log('addToFilters');#}
+          //console.log('addToFilters');
+          //console.log(options);
           setArrayFilter("reference_designator", options);
           combineFilters();
           {#          showCurrentFilters();#}
@@ -706,8 +710,16 @@
               var rowId = val = o.model.get('ref_des') + o.model.get('stream_name');
               $($dcGrid.getGridRowById(rowId)).find('.instrument-to-plot i').removeClass('fa-plus-square').addClass('fa-minus-square')
             }
+            var selectedStreamUrl =  "#" + o.model.get('ref_des') + "/" + o.model.get('stream_name');
+            var selectedStreamObj = {"ref_des": o.model.get('ref_des'), "stream_name": o.model.get('stream_name')};
+            //console.log(selectedStreamUrl);
+            history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
+
+        window.onpopstate = function(event) {
+          //alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+        };
 
         //MAIN ADDITION OF A STREAM
         this.listenTo(this, "remove_catalog_model", function(o) {
@@ -723,6 +735,10 @@
           $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
           self.trigger('update_catalog_list',{});
 
+          var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+{#          history.replaceState(null,null,newurl);#}
+          history.back();
+          //console.log(location.href);
         });
 
         this.listenTo(this, "reset_catalog_list", function(o) {
@@ -823,6 +839,32 @@
           }
         });
 
+        this.listenTo(this, "download_plot_data", function(o) {
+          //update the plot when "plot" is clicked
+          //get the plot control model and create the
+          //hide the download button
+          //console.log('clicked download-plot-data');
+          //console.log(o);
+          $('#plot-view').empty();
+          $('.download-plot-container').css('display','none');
+
+{#          self.views.plotContainer.plotModel = this.views.plotControls.plotModel;#}
+
+          //get the selected parameters, only plot is they meet the criteria
+          //will be null if the inputs dont conform
+          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
+
+          if (!_.isNull(parameterCollection)){
+            self.views.plotContainer.showLoading();
+
+            if (self.collections.selectedStreamCollection.length == 1){
+              self.plotSingleInstrument(parameterCollection);
+            }else{
+              self.plotInterpolatedData(parameterCollection);
+            }
+          }
+        });
+
         this.listenTo(this, "plot:error", function(o) {
           console.log('ERROR: Reason:',o.message);
           //if error reset the plot window and xy plot
@@ -874,11 +916,11 @@
           model.set('endDTSafe',max);
 
           if(self.login.loggedIn()) {
-{#            self.views.annotationModal.show({
+            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: true
-            });#}
+            });
           }
         });
 
@@ -897,11 +939,11 @@
           });
 
           if(self.login.loggedIn()) {
-{#            self.views.annotationModal.show({
+            self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
               showUpdate: false
-            });#}
+            });
           }
 
         });
@@ -1162,9 +1204,17 @@
         _.extend(vobj, {hash: ""});
       }
 
+      //console.log('location.hash document.ready');
+      //console.log(location.hash);
+
       $('.update-plot').on('click', function(event){
         event.preventDefault();
         ooi.trigger('update_plot',{});
+      });
+
+      $('.download-plot-data').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('download_plot_data',{});
       });
 
       $('input#showAdditionalParameters:checkbox').on('change', function(event){
@@ -1338,7 +1388,7 @@
     };
 
     var showCurrentFilters = function() {
-      console.log($dcGrid.getGridParam("postData").filters);
+      //console.log($dcGrid.getGridParam("postData").filters);
     };
 
     var setInstrumentFilter = function(searchColumn, searchParam){
@@ -1406,6 +1456,7 @@
       // Global filter
       var ggg = {groupOp:"OR", rules:[], groups:[]};
       if(globalFilter != null){
+        //console.log(globalFilter);
         $.each(globalFilter, function() {
           $.each(this, function() {
             ggg.groups.push(this);
@@ -1753,6 +1804,9 @@
 
 
 {#          console.log(initialLocationSearch);#}
+          if (initialLocationSearch != "") {
+            navSearchParse(initialLocationSearch);
+          }
         },
         gridComplete : function() {
 {#          console.log('gridComplete');#}
@@ -1762,9 +1816,7 @@
         beforeRequest : function() {
 {#          console.log('beforeRequest');#}
 {#          console.log(initialLocationSearch);#}
-          if (initialLocationSearch != "") {
-            navSearchParse(initialLocationSearch);
-          }
+
         },
         gridview : true,
         toolbar: [true, "top"],
@@ -1893,7 +1945,10 @@
       );#}
 
       if(location.hash!=""){
-        setArrayFilter('reference_designator', location.hash.split('#')[1]);
+        //console.log('setArrayFilter');
+        //console.log(location.hash.split('#')[1].substr(2));
+{#        setArrayFilter('reference_designator', location.hash.split('#')[1].substr(2));#}
+{#        combineFilters();#}
       }
 
       var performGlobalSearch = function(searchText) {
@@ -2013,9 +2068,11 @@
         });
       }
       globalFilter = textParts;
+      //console.log('navSearchParse textParts');
+      //console.log(searchText);
 
-{#      combineFilters();#}
-      $("#globalSearchText").val(searchText);
+      $("#globalSearchText").val(searchText.replace('/', ' '));
+      $("#globalSearch").click();
     }
     //added from data-catalog
 

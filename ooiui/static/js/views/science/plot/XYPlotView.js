@@ -260,9 +260,9 @@ var XYPlotView = BasePlot.extend({
       self.setPlotSize('50%','800px');
     }
 
-    console.log("plotData");
-    console.log(plotData);
-    console.log(plotModel);
+    //console.log("plotData");
+    //console.log(plotData);
+    //console.log(plotModel);
 
 
     // Create the chart
