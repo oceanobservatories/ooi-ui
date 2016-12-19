@@ -23,7 +23,7 @@ var AnnotationTableView = Backbone.View.extend({
   },
   columns: [
       {
-        name : 'ui_id',
+        name : 'id',
         label : 'Annotation ID' //not the same as the uframe id
       },
       {
