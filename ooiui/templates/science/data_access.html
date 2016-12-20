@@ -712,14 +712,15 @@
             }
             var selectedStreamUrl =  "#" + o.model.get('ref_des') + "/" + o.model.get('stream_name');
             var selectedStreamObj = {"ref_des": o.model.get('ref_des'), "stream_name": o.model.get('stream_name')};
+            //console.log("add_catalog_model");
             //console.log(selectedStreamUrl);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
 
-        window.onpopstate = function(event) {
+{#        window.onpopstate = function(event) {
           //alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
-        };
+        };#}
 
         //MAIN ADDITION OF A STREAM
         this.listenTo(this, "remove_catalog_model", function(o) {
@@ -736,7 +737,7 @@
           self.trigger('update_catalog_list',{});
 
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-{#          history.replaceState(null,null,newurl);#}
+          //console.log("remove_catalog_model");
           history.back();
           //console.log(location.href);
         });
@@ -1561,20 +1562,22 @@
         onCellSelect: function(row, col, content, event){
           var selectedRow = $dcGrid.getRowData(row);
           var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
-          $evt = $(event.target);
+          var $evt = $(event.target);
 
-          if (!$evt.find('i').hasClass('fa-download') && !$evt.find('i').hasClass('fa-sitemap')) {
-            if ($evt.find('i').hasClass('fa-plus-square')) {
-              if (!_.isUndefined(modelList) && modelList.length > 0) {
-                //trigger for a new plot item
-                ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
-              }
-            } else {
+          // Toggle for add/remove stream from plotting list
+          if ($evt.find('i').hasClass('fa-plus-square')) {
+            if (!_.isUndefined(modelList) && modelList.length > 0) {
+              //trigger for a new plot item
+              ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+              $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+            }
+          } else {
+            if ($evt.find('i').hasClass('fa-minus-square')) {
               if (!_.isUndefined(modelList) && modelList.length > 0) {
                 //trigger a remove for a model
                 ooi.trigger('remove_catalog_model', {model: modelList[0]});
+                $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
               }
-              $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
             }
           }
         },
