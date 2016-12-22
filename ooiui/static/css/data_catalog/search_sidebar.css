@@ -2,6 +2,10 @@ html, body {
     height:100%;
 }
 
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
 .search-sidebar {
     padding: 0 40px 0 40px;
 }

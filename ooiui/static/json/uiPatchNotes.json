@@ -1,13 +1,30 @@
 [
     {
+        "VersionNumber":"1.2.0",
+        "VersionDescription":[
+            "Adds New Feature: Status UI Functionality",
+            "Additional parameters and instruments added to data catalog filters",
+            "Corrects platform images showing incorrect platforms",
+            "M2M token and username are now able to be highlighted for copying to clipboard",
+            "M2M now supports streaming for large requests",
+            "Added multiple bin time series plot for SPKIR instruments",
+            "Fixed plotting bugs (see closed Red Mine tickets for specifics)",
+            "Estimated time for data delivery now provided in the download success popup",
+            "Assets and Events caches are now popuated automatically once per day",
+            "Data Catalog cache is now populated automatically every hour",
+            "Fixes cache swap error where old cache was deleted before new cache was created/swapped",
+            "Plotting parameters now pull live from uFrame instead of from the UI cache"
+                ]
+    },
+    {
         "VersionNumber":"1.1.0",
         "VersionDescription":[
-            "Adds patch note capabilties.",
-            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets.",
-            "Fixes typo in plotting code that prohibited most plots from generating.",
-            "Update to the annotation services.  Annotations now register in uFrame.",
-            "Integration of new asset management servcies from uFrame.",
-            "Addition of crusie and deployment pages.",
+            "Adds patch note capabilties",
+            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets",
+            "Fixes typo in plotting code that prohibited most plots from generating",
+            "Update to the annotation services.  Annotations now register in uFrame",
+            "Integration of new asset management services from uFrame",
+            "Addition of crusie and deployment pages",
             "Added support for machine-to-machine data download"
                 ]
     }

@@ -1,5 +1,32 @@
 [
     {
+        "VersionNumber":"V 1.1.3",
+        "VersionDescription":["Jenkins Nightly Package #147-uframe_ooi_20161209_7b9970e847a1981fd6cb4c6398c8bb2e2bd0128c",
+            "Issue 11701 CruiseInfo cruiseIdentifer is no longer used.",
+            "Remove cruiseIdentifier attribute from CruiseInfo and associated ingest parser.",
+            "Issue 11688 Disconnect events collection from the associated asset.",
+            "Removed association between an asset and events.",
+            "Wrote new endpoints that expose new event selection capability, existing endpoints remain as is.",
+            "Issue 11663 Reworked serialization to use maps",
+            "Issue 11691 High Priority DOI Bug Fixes",
+            "Issue 11650 Remove unused IngestInfo attribute from XDeployment.",
+            "Removed IngestInfo, associated attributes in XDeployment, and Deployment ingest.",
+            "Issue 11621 Code Stream Engine Manager to restart product requests/sub-requests if stream_engines terminate.",
+            "Issue 11639 Add waterDepth attribute; support for renamed depth column in spreadsheet.",
+            "Issue 8604 Modify for local range data parser rewrite.",
+            "Issue 11168 Added new tables for the new DOSTA and FLORD streams for the CTDBP-P.",
+            "Issue 11528 Expose Stream Engine method to directly serve parsed data.  Modified to default execDPA to true.",
+            "Issue 11299 EDEX web services should provide access log.  Modified to fix formatting.",
+            "Issue 11519 Added webservice support for status reporting.",
+            "Issue 11347 Add ReferenceDesignator to subsite/metadata query response.",
+            "Issue 11382 Create Preload Tools Preload updates made due to validate_preload_csv.py updates.",
+            "Issue 11439 Added logic to check number of jobs for a specific user before adding more jobs.",
+            "Issue 11431 Correct asset discovery in deployment population.",
+            "Issue 11455 Annotation column length insufficient."
+                ]
+    },
+
+    {
         "VersionNumber":"uframe_ooi_20161027_f6f2d988a971370b0504652023e7e3b90e5ad651",
         "VersionDescription":["Jenkins Nightly Package #142",
             "Corrected two-dimensional calibration data. (#11370)",
