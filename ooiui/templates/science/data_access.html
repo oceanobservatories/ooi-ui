@@ -292,6 +292,10 @@
                                 <div id="navGrid" class="redmond"></div>
                                 <table id="grid" class="redmond"></table>
                               </div>
+                              <div>
+                                <p id="dataAvailabilityInfo"></p>
+                                <p id='dataAvailability'></p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -366,7 +370,8 @@
         subscriptionCollection :  new DataSubscriptionCollection(),
         largeFormatFiles: new LargeDataFormatCollection(),
         selectedStreamCollection: new StreamCollection(), //collection of stream models
-        streams: new StreamCollection()
+        streams: new StreamCollection(),
+        dataAvailabilityCollection: new DataAvailabilityCollection()
       },
       views: {
         plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -380,7 +385,8 @@
         //plotTimeModel : new PlotTimeModel(),
         plotModel     : new PlotControlModel(),
         downloadModel : new StreamModel(),
-        userModel     : new UserModel()
+        userModel     : new UserModel(),
+        dataAvailabilityModel : new DataAvailabilityModel()
       },
       showPlottingTabs:function(){
         $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
@@ -849,6 +855,9 @@
           $('#plot-view').empty();
           $('.download-plot-container').css('display','none');
 
+
+          openPlotDataDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');
+
 {#          self.views.plotContainer.plotModel = this.views.plotControls.plotModel;#}
 
           //get the selected parameters, only plot is they meet the criteria
@@ -905,8 +914,20 @@
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-          self.collections.annotations.add(model);
-          self.views.annotationTableView.render();
+          console.log('onSubmit');
+          $.when(self.collections.annotations.add(model)).done( function(ret){
+            console.log(ret);
+            self.views.annotationTableView.render();
+          })
+        });
+
+        //
+        this.listenTo(this, 'AnnotationModalFormView:onUpdate', function(model) {
+          console.log('onUpdate');
+          $.when(self.collections.annotations.add(model)).done( function(ret){
+            console.log(ret);
+            self.views.annotationTableView.render();
+          })
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
@@ -1338,6 +1359,23 @@
       grid.trigger("reloadGrid",[{page:1,current:true}]);
     };
 
+    var resetTimeFilter = function() {
+      console.log($('#slider').dateRangeSlider("option", "bounds"));
+
+      var newOptions = {};
+      newOptions.min = new Date('2013', '00', '01');
+      newOptions.max = new Date(Date.now());
+{#      ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);#}
+{#      $('#slider').dateRangeSlider({defaultValues: newOptions});#}
+      $('#slider').dateRangeSlider("bounds", newOptions);
+      $('#slider').dateRangeSlider("values", newOptions);
+      $('#slider').dateRangeSlider("min", new Date('2013', '00', '01'));
+      $('#slider').dateRangeSlider("max", new Date(Date.now()));
+      $('#slider').dateRangeSlider("resize");
+      timeRangeFilter = {groupOp:"OR",rules:[]};
+      combineFilters();
+    };
+
     var resetAllFilters = function() {
       $("#resetAllFilters").blur();
       {#      $('input:checkbox').removeAttr('checked');#}
@@ -1557,7 +1595,7 @@
     };
 
     // Loads the jqGrid into
-    function placeJqGrid(collection) {
+    function placeJqGrid(collection, dataAvailabilityCollection) {
       $dcGrid.jqGrid({
         onCellSelect: function(row, col, content, event){
           var selectedRow = $dcGrid.getRowData(row);
@@ -1580,6 +1618,47 @@
               }
             }
           }
+
+          // Show Data Availability Pop-up
+          $("#dataAvailability").empty();
+          $("#dataAvailabilityInfo").empty();
+          // Use this for the dataAvailabilityCollection
+          $("#dataAvailabilityInfo").append("[Mocked] Currently viewing data availability for: " + dataAvailabilityCollection.models[0].attributes['ref_des']);
+          // Used as a mocked example only
+          $("#dataAvailabilityInfo").append("<br>");
+          $("#dataAvailabilityInfo").append("Currently viewing data availability for: " + selectedRow.reference_designator);
+          console.log('dataAvailabilityCollection');
+          console.log(dataAvailabilityCollection);
+          stats_data = dataAvailabilityCollection.models[0].attributes['stats_data'];
+          moment.locale("en");
+          var dataset=[];
+          if (stats_data['operational_status'].length>0) {
+            dataset.push({
+              "measure": "Op. Status",
+              "interval_s": 30 * 24 * 60 * 60,
+              "data": stats_data['operational_status']
+            })
+          }
+          if (stats_data['cassandra_ts'].length>0) {
+            dataset.push({
+              "measure": "Cass. Tel/Stream",
+              "interval_s": 30 * 24 * 60 * 60,
+              "data": stats_data['cassandra_ts']
+            })
+          }
+          if (stats_data['cassandra_rec'].length>0) {
+            dataset.push({
+              "measure": "Cass. Recovered",
+              "interval_s": 30 * 24 * 60 * 60,
+              "data": stats_data['cassandra_rec']
+            })
+          }
+
+          var chart = visavailChart().width(800); // define width of chart in px
+
+          d3.select("#dataAvailability")
+            .datum(dataset)
+            .call(chart);
         },
         datatype : "local",
         data : collection.toJSON(),
@@ -2019,7 +2098,9 @@
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
-      placeJqGrid(jqCollection);
+      ooi.collections.dataAvailabilityCollection.fetch()
+      console.log(ooi.collections.dataAvailabilityCollection);
+      placeJqGrid(jqCollection, ooi.collections.dataAvailabilityCollection);
       $('#reset_catalog_button').css('display','inline-block'); //TODO REMOVE LINE
 
       if (collection.length == 1){

@@ -114,7 +114,7 @@ var FilterParentView = SearchSidebarView.extend({
             timeRange = {
                 min: min.valueOf(),
                 max: max.valueOf()
-            }
+            };
             return timeRange;
         }else{
             return null;

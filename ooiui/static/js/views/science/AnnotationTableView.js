@@ -24,7 +24,7 @@ var AnnotationTableView = Backbone.View.extend({
   columns: [
       {
         name : 'id',
-        label : 'Annotation ID' //not the same as the uframe id
+        label : 'Annotation ID' // The uframe ID
       },
       {
         name : 'annotation',
@@ -49,6 +49,10 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'exclusionFlag',
         label : 'Exclude Data?'
+      },
+      {
+        source : 'source',
+        label : 'UserID'
       }
   ],
   initialize: function() {
@@ -67,12 +71,13 @@ var AnnotationTableView = Backbone.View.extend({
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
 
     this.collection.each(function(model, i) {
-      model.set('ui_id',i)
+      model.set('ui_id',i);
 
       var streamTableItemView = new AnnotationTableItemView({
         columns: self.columns,
         model: model
       });
+      console.log('are we doing this?');
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }

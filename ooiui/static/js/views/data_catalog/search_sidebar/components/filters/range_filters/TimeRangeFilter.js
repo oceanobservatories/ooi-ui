@@ -20,7 +20,7 @@ var TimeRangeFilterView = FilterParentView.extend({
 
             _this.$el.find('#slider').dateRangeSlider({
                 bounds: dateRangeBounds,
-                defaultValues: dateRangeBounds,
+                defaultValues: dateRangeBounds
 
             }).bind('valuesChanged', function(event, data) {
                 var startDate = data.values.min.valueOf(),

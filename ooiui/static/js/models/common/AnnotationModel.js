@@ -24,7 +24,8 @@ var AnnotationModel = Backbone.Model.extend({
     endDT:"",    //end date, from chart
     referenceDesignator:"",    
     method:"",  //stream name
-    parameters:"" //param list is affects
+    parameters:"", //param list is affects
+    source:""
   }  
 });
 

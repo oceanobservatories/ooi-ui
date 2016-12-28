@@ -254,12 +254,12 @@ var PlotControlView = Backbone.View.extend({
     var yLen = selectedParameterCollection.where({'is_y':true})
     var zLen = selectedParameterCollection.where({'is_z':true})
 
-    var referenceCount = 1
+    var referenceCount = 1;
 
     //special case for interpolated plot
     if (selectedDataCollection == 2){
       ooi.trigger('plot:error', {title: "Unavailable Plot Selection", message:"Interpolated plotting is currently unavailable. If the problem persists, please email helpdesk@oceanobservatories.org"} );
-      return null
+      return null;
       referenceCount = 2;
     }
 
