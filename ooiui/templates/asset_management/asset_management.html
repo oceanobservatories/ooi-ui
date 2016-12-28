@@ -1379,7 +1379,14 @@
             jsonmap : 'assetType',
             editrules: {required:true, edithidden:true},
             editoptions:{
-              dataUrl : '/api/asset_deployment/asset_type_values'
+              dataUrl : '/api/asset_deployment/asset_type_values',
+              dataEvents: [
+                {  type: 'change',
+                  fn: function(e) {
+                    $('input#assetType').val(this.value);
+                  }
+                }
+              ]
 {#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
             },
             editable : true,
@@ -1914,34 +1921,32 @@
                     refreshAssetTable();
                   },
                   afterShowForm: function (id) {
-                    $("select#editPhase option[value='OPERATIONAL']").prop("selected", "selected").change();
+                    $('#tr_editPhase').hide();
+                    $('#tr_assetType').hide();
                   },
                   beforeShowForm: function (id) {
                     // Don't add this data to the form
                     var restrictedParameters = ["uid", "id", "dataSource", "deployment_number", "deployment_numbers", "ref_des", "remoteResources"];
-                    var selectElements = ["editPhase"];
-                    console.log('beforeShowForm');
+                    var selectElements = ["assetType", "editPhase"];
+                    //console.log('beforeShowForm');
 
                     var rowId = $dcGrid.jqGrid('getGridParam', 'selrow');
-                    console.log(rowId);
+                    //console.log(rowId);
 
                     if (rowId !== null) {
                       var rowData = $dcGrid.getRowData(rowId);
                       // Let's check each parameter and make sure we should carry it forward to the form
                       $.each(rowData, function (key, value) {
                         if ($.inArray(key, restrictedParameters) === -1 && value != "\u00a0") {
-                          {#                      console.log('adding value: '+ value + ' to key: ' + key);#}
+                          //console.log('adding value: '+ value + ' to key: ' + key);
                           if ($.inArray(key, selectElements) === -1) {
                             $('input#' + escapeSelector(key)).val(value);
                           } else {
-                            console.log("select#" + escapeSelector(key) + " option[value='" + value + "']");
-                            {#                        $("select#"+escapeSelector(key)+" option[value='" + value + "']").val(value).change();#}
-                            {#                        $("select#"+escapeSelector(key)+" option[value='" + value + "']").attr('selectedIndex', value);#}
-                            {#                        $("select#"+escapeSelector(key)).val(value);#}
-                            {#                        $("select#"+escapeSelector(key)).attr('selected', 'selected');#}
+                            //console.log("select#" + escapeSelector(key) + " option[value='" + value + "']");
+                            //$('select#' + key + ' option[value="' + value + '"]').attr('selected', 'selected');
                           }
                         } else {
-                          {#                      console.log('skipping key: ' + key);#}
+                          //console.log('skipping key: ' + key);
                           $('input#' + escapeSelector(key)).val(null);
                         }
                       });
@@ -1995,8 +2000,15 @@
                           postdata[theName] = "";
                         }
 
-                      }
-                      ;
+                      };
+
+                      if (theName.includes('editPhase')) {
+                        postdata[theName] = currentRowData[theName];
+                      };
+
+                      if (theName.includes('assetType')) {
+                        postdata[theName] = currentRowData[theName];
+                      };
 
                       if (theName.includes('Date')) {
                         // console.log('Date Before');
@@ -2006,9 +2018,7 @@
                         }
                         // console.log('Date After');
                         // console.log(postdata[theName]);
-                      }
-                      ;
-
+                      };
 
                       if (theName.includes('remoteResources')) {
                         if (postdata[theName].length > 0) {
@@ -2016,12 +2026,8 @@
                         } else {
                           postdata[theName] = "[]";
                         }
-                      }
-                      ;
-                      {#              // console.log(postdata[theName]);#}
+                      };
                     });
-                    // console.log('Full postdata');
-                    // console.log(postdata);
 
                     return [true, ''];
                   },
@@ -2039,7 +2045,10 @@
                   jqModal: true
                 }
               );
-            }}
+            }else {
+            alert("Please log in.");
+          }
+          }
 {#          $dcGrid.jqGrid('GridToForm', id);#}
         },
         loadComplete : function() {
