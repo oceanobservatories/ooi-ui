@@ -14,11 +14,13 @@ var AlfrescoDocumentModel = Backbone.Model.extend({
     defaults: {
         id: null,
         name: null,
-        url: null
+        url: null,
+        type: null
     },
     toJSON: function() {
         'use strict';
         var attrs = _.clone(this.attributes);
+        console.log(attrs);
         // include any modification to key names here . . .
         return attrs;
 

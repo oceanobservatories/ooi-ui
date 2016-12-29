@@ -54,6 +54,27 @@ var AlfrescoTableBodyView = ParentAlfrescoView.extend({
     }
 });
 
+var AlfrescoCruiseTableBodyView = ParentAlfrescoView.extend({
+    tagName: 'tbody',
+    renderRecords: function() {
+        'use strict';
+
+        // Cruise documents
+        this.$el.append('<tr><td colspan="3" style="text-align:left">Cruise Documents</td></tr>');
+        var alfrescoRecordView = this.collection.map(function(model) {
+            if (model.get('type')  == "cruise" || model.get('type')  == "link"){
+                return (new AlfrescoRecordView({ model:model })).render().el;
+            }
+        });
+
+        this.$el.append(alfrescoRecordView);
+        if (this.collection.where({type:"cruise"}).length === 0) {
+            this.$el.append('<td colspan="3" style="text-align:center"><em>No documents found</em></td>');
+        }
+
+    }
+});
+
 var AlfrescoRecordView = ParentAlfrescoView.extend({
     tagName: 'tr',
     fontIcon: 'fa-download',

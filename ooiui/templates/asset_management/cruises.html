@@ -1126,74 +1126,31 @@
         },
         onSelectRow: function (rowId, status, e) {
           var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
-          {#          // console.log('select row, targetGrid:');#}
-          {#          // console.log(targetGrid);#}
+          // console.log('select row, targetGrid:');
+          // console.log(targetGrid);
 
           $(targetGrid).jqGrid("clearGridData");
-          {#          // console.log('currentAssetId');#}
-          {#          // console.log($dcGrid.getRowData(rowId));#}
+          // console.log('currentAssetId');
+          // console.log($dcGrid.getRowData(rowId));
+
           var selRows = $dcGrid.jqGrid('getGridParam','selrow');
           if (selRows.length === 0) {
             // No rows selected
             currentEventId = null;
           } else {
             // Row has been selected
-            {#            // console.log('selected row');#}
-            currentEventId = $dcGrid.getRowData(rowId).eventId;
-            currentAssetUid = $dcGrid.getRowData(rowId).uid;
-            {#            // console.log(currentAssetUid);#}
+            var selectedRowData = $dcGrid.getRowData(rowId);
+            console.log(selectedRowData);
+
+            currentEventId = selectedRowData.eventId;
+            currentAssetUid = selectedRowData.uid;
+
+            $(targetGrid).jqGrid('resetSelection');
+
+            refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
+            renderRemoteDocuments(selectedRowData.uniqueCruiseIdentifier);
           }
-
-          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
-          {#          setEventFilter("","");#}
-          {#          $gridMetadata.jqGrid('resetSelection');#}
-          $(targetGrid).jqGrid('resetSelection');
-          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
-          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
-          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          // console.log(currentAssetId);#}
-          {#          placeJqGridEvents();#}
-          refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
-{#          renderRemoteDocuments('', $dcGrid.getRowData(rowId).uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).array);#}
-
-          {#          var theDataUrl = "/api/asset_events";#}
-          {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
-          {#            theDataUrl = theDataUrl + "/" + currentAssetId.toString() + "?type=" + $('.nav-tabs .active').find("a").attr("name");#}
-          {#            // console.log(theDataUrl);#}
-          {#            $gridEvents.setGridParam({url:theDataUrl});#}
-          {#            $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {#            var data = $gridEvents.jqGrid("getRowData");#}
-          {#            // console.log(data);#}
-          {#          }#}
-
-          {##}
-          {#          $('.nav-tabs a[href="#events-calibration"]').tab('show');#}
-          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').tab);#}
-          {#          // console.log($('.nav-tabs a[href="#events-calibration"]').name);#}
-          {#          // console.log($('.nav-tabs .active').name);#}
-          {#          // console.log($('.nav-tabs .active').find("a").attr("name"))#}
-
-
-          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
         },
-        {#        onSelectRow: function(id){#}
-        {#          if(id && id!==lastsel2){#}
-        {#            $dcGrid.restoreRow(lastsel2);#}
-        {#            $dcGrid.editRow(id,true);#}
-        {#            lastsel2=id;#}
-        {#          }#}
-        {#        },#}
-        {#        ajaxRowOptions : {#}
-        {#          type :"POST",#}
-        {#          contentType :"application/json; charset=utf-8",#}
-        {#          dataType :"json"#}
-        {#        },#}
-        {#        serializeRowData: function(postdata){#}
-        {#          // console.log(postdata);#}
-        {#          return JSON.stringify(postdata);#}
-        {#        },#}
         gridview : true,
         toolbar: [true, "top"],
         rowNum : 10,
@@ -1208,8 +1165,6 @@
         sortable : true,
         caption : 'Cruises',
         altRows: false,
-        {#        altclass:'myAltRowClass',#}
-        {#        classes: 'table table-bordered table-striped table-selectable',#}
         ignoreCase: true,
         shrinkToFit : true,
         multiselect: false,
@@ -1696,7 +1651,6 @@
         }
       },
       {
-        // TODO: Pull down
         name : 'editPhase',
         index : 'editPhase',
         jsonmap : 'editPhase',
@@ -1852,20 +1806,17 @@
           {#          // console.log($gridEvents.jqGrid("getGridParam", "data"));#}
         },
         onSelectRow: function (rowId, status, e) {
-          {#          // console.log(collection.where({id:parseInt(rowId)})[0]);#}
-          {#          setEventFilter("","");#}
-          {#          $gridMetadata.jqGrid('resetSelection');#}
-          {#          $gridEvents.jqGrid('resetSelection');#}
-          {#          var metadataObjects = collection.where({id:parseInt(rowId)})[0].attributes.metaData;#}
-          {#          $gridMetadata.setGridParam({data:metadataObjects});#}
-          {#          $gridMetadata.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          var eventObjects = collection.where({id:parseInt(rowId)})[0].attributes.events;#}
-          {#          $gridEvents.setGridParam({data:eventObjects});#}
-          {#          $gridEvents.trigger("reloadGrid",[{page:1,current:true}]);#}
-          {##}
-          {#          renderRemoteDocuments(collection.where({id:parseInt(rowId)})[0]);#}
+{#          var selRows = $dcGrid.jqGrid('getGridParam','selrow');
+          if (selRows.length === 0) {
+            // No rows selected
+            currentEventId = null;
+          } else {
+            // Row has been selected
+            var selectedRowData = $dcGrid.getRowData(rowId);
+            console.log(selectedRowData);
 
+            renderRemoteDocuments($dcGrid.getRowData(rowId).uniqueCruiseIdentifier);
+          }#}
         },
         ondblClickRow: function(rowId) {
           if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
@@ -2248,7 +2199,7 @@
       {#      placeJqGridEvents("gridEventsVendor", "ATVENDOR");#}
     };
 
-    var renderRemoteDocuments = function(rd, cruise, array) {
+    var renderRemoteDocuments = function(cruise) {
       // console.log(rd);
       // console.log(cruise);
       // console.log(array);
@@ -2265,7 +2216,7 @@
       {#        }#}
       {#      });#}
 
-      var data = { 'search': rd,'cruise': cruise,'array':array};
+      var data = {'cruise': cruise};
       // console.log(data);
 
       var alfrescoDocCollection = new AlfrescoDocumentCollection();
@@ -2274,13 +2225,14 @@
       alfrescoDocCollection.fetch({
         data: data,
         success: function() {
+          console.log(data);
           $('div#remoteDocuments table tbody').remove();
           $('div#remoteDocuments table #loadDocs').remove();
-          var alfrescoTableBodyView = new AlfrescoTableBodyView({ collection:alfrescoDocCollection });
-          alfrescoTableBodyView.renderRecords();
+          var alfrescoCruiseTableBodyView = new AlfrescoCruiseTableBodyView({ collection:alfrescoDocCollection });
+          alfrescoCruiseTableBodyView.renderRecords();
 
           // append to the DOM
-          $('div#remoteDocuments table').append( alfrescoTableBodyView.el );
+          $('div#remoteDocuments table').append( alfrescoCruiseTableBodyView.el );
         },
         error: function(e) {
           $('div#remoteDocuments table tbody').remove();
