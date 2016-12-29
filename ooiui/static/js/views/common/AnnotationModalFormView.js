@@ -66,6 +66,8 @@ var AnnotationModalFormView = ModalFormView.extend({
       self.model.unset('beginDTSafe', {silent:true});
       self.model.unset('endDTSafe', {silent:true});
 
+      self.model.set('source', this.username);
+
       this.model.save(null, {
         success: function(model,response) {
           console.log(model.ui_id);

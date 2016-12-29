@@ -78,6 +78,7 @@ var AnnotationTableView = Backbone.View.extend({
         model: model
       });
       console.log('are we doing this?');
+      console.log(model);
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }

@@ -188,8 +188,9 @@
                             </div>
                             <div class="panel-footer clearfix">
                               <div class="pull-center">
+                                <a href="#" class="btn btn-primary clear-plot-area pull-left">Clear Plot</a>
                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
-                                <a href="#" class="btn btn-primary download-plot-data">Download Data</a>
+                                <a href="#" class="btn btn-primary download-plot-data" style="margin-left: 30px;">Download Data</a>
                                 <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
                               </div>
                             </div>
@@ -846,33 +847,45 @@
           }
         });
 
+        this.listenTo(this, "clear_plot_area", function(o) {
+          $('#plot-view').empty();
+        });
+
         this.listenTo(this, "download_plot_data", function(o) {
           //update the plot when "plot" is clicked
           //get the plot control model and create the
           //hide the download button
           //console.log('clicked download-plot-data');
           //console.log(o);
-          $('#plot-view').empty();
           $('.download-plot-container').css('display','none');
-
-
-          openPlotDataDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');
+          if(this.login.loggedIn()) {
+            var ref_des = self.collections.selectedStreamCollection.models[0].get('reference_designator');
+            var stream_name = self.collections.selectedStreamCollection.models[0].get('stream_name');
+            console.log(ref_des);
+            console.log(stream_name);
+            var dtRange = this.views.plotControls.getDateTimeRange();
+            console.log(dtRange);
+            openDownload(ref_des, stream_name, dtRange);
+          } else {
+            alert('Please log in');
+          }
+{#          openPlotDataDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');#}
 
 {#          self.views.plotContainer.plotModel = this.views.plotControls.plotModel;#}
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
-          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
-
-          if (!_.isNull(parameterCollection)){
-            self.views.plotContainer.showLoading();
-
-            if (self.collections.selectedStreamCollection.length == 1){
-              self.plotSingleInstrument(parameterCollection);
-            }else{
-              self.plotInterpolatedData(parameterCollection);
-            }
-          }
+{#          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);#}
+{##}
+{#          if (!_.isNull(parameterCollection)){#}
+{#            self.views.plotContainer.showLoading();#}
+{##}
+{#            if (self.collections.selectedStreamCollection.length == 1){#}
+{#              self.plotSingleInstrument(parameterCollection);#}
+{#            }else{#}
+{#              self.plotInterpolatedData(parameterCollection);#}
+{#            }#}
+{#          }#}
         });
 
         this.listenTo(this, "plot:error", function(o) {
@@ -1064,9 +1077,9 @@
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
       if (ooi.login.loggedIn()) {
-        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       } else {
-        actionButtons += "<button type='button' title='Download - Log in to access' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Download - Log in to access' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       }
 
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.scopes)) {
@@ -1083,9 +1096,19 @@
     };
 
     // Opens the download modal
-    var openDownload = function(ref_des, stream_name) {
+    var openDownload = function(ref_des, stream_name, dtRange) {
       var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
-      dlModel.attributes.email = ooi.models.userModel.attributes.email;
+{#      console.log(self.models.userModel.get("email"));#}
+{#      dlModel.attributes.email = self.models.userModel.get("email");#}
+      if(dtRange === null){
+        dlModel.attributes.startDate = null;
+        dlModel.attributes.endDate = null;
+      }else{
+        dlModel.attributes.startDate = dtRange['startDate'];
+        dlModel.attributes.endDate = dtRange['endDate'];
+      }
+
+      console.log(dlModel);
       ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
     };
 
@@ -1237,6 +1260,11 @@
       $('.download-plot-data').on('click', function(event){
         event.preventDefault();
         ooi.trigger('download_plot_data',{});
+      });
+
+      $('.clear-plot-area').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('clear_plot_area',{});
       });
 
       $('input#showAdditionalParameters:checkbox').on('change', function(event){

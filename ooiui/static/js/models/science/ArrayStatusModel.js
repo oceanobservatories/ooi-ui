@@ -19,16 +19,11 @@ var GetArrayStatus = function(array_code) {
     $.ajax('/api/uframe/status/arrays', {
         type: 'GET',
         dataType: 'json',
-        timeout: 50000,
+        timeout: 1000,
         async: false,
         success: function (resp) {
-            //console.log('success getting platform status: ');
-            //console.log(resp.sites);
-            //var theStatus = $.map(resp.sites, function(val) {
-            //    return val.reference_designator == platform_ref_des ? val.status : 'No Status Returned';
-            //});
-            //console.log(theStatus);
-            //return theStatus
+            console.log('Success getting array status');
+            console.log(resp);
             var result = $.grep(resp.arrays, function(e){ return e.reference_designator == array_code; });
             //console.log('result');
             //console.log(result);
@@ -45,14 +40,14 @@ var GetArrayStatus = function(array_code) {
                 //console.log('Multiple Status Returned');
                 output = 'Multiple Status Returned';
             }
-
+            return output;
         },
 
         error: function( req, status, err ) {
             console.log(req);
         }
     });
-    return output;
+    //return output;
 };
 
 var GetPlatformStatus = function(array_code, platform_ref_des) {
@@ -62,10 +57,11 @@ var GetPlatformStatus = function(array_code, platform_ref_des) {
     $.ajax('/api/uframe/status/sites/' + array_code, {
         type: 'GET',
         dataType: 'json',
-        timeout: 50000,
+        timeout: 1000,
         async: false,
         success: function (resp) {
-            //console.log('success getting platform status: ');
+            //console.log('success getting platform status: ' + platform_ref_des);
+            //console.log(resp);
             //console.log(resp.sites);
             //var theStatus = $.map(resp.sites, function(val) {
             //    return val.reference_designator == platform_ref_des ? val.status : 'No Status Returned';
@@ -151,12 +147,14 @@ var ArrayStatusModel = OOI.RelationalModel.extend({
             _.each(attrs.platforms, function(platform) {
                 platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
                 var statusReturn = GetPlatformStatus(attrs.array_code, platform.properties.code);
+                console.log(statusReturn);
                 platform.properties.status = statusReturn.status;
                 platform.properties.mindepth = statusReturn.mindepth;
                 platform.properties.maxdepth = statusReturn.maxdepth;
             });
         }
 
+        console.log(attrs.platforms);
 
         var geoJSON = {
             "type": "Feature",

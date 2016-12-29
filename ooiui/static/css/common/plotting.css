@@ -352,7 +352,7 @@ div.scrollable-block {
 
 .scrollable-area {
   width: 100%;
-  max-height: 305px;
+  max-height: 700px;
   border: 2px solid #fff;
   overflow: auto;
 }
