@@ -727,6 +727,7 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/NodeFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/InstrumentFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/range_filters/TimeRangeFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/range_filters/DepthRangeFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/stream_filters/StreamParameterFilter.js",
             "ooiui/static/js/models/science/StreamModel.js"
           ],

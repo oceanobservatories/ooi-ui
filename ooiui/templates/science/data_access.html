@@ -588,6 +588,11 @@
           combineFilters();
         });
 
+        this.listenTo(this, 'DepthRangeFilterView:change', function(options) {
+          setDepthRangeFilter("depth", options.startDepth, options.endDepth);
+          combineFilters();
+        });
+
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
 {#          console.log('addToStreamFilters');#}
           setStreamFilter("reference_designator", options);
@@ -986,6 +991,7 @@
     var arrayFilter = {groupOp:"OR",rules:[]};
     var streamFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
+    var depthRangeFilter = {groupOp:"OR",rules:[]};
     var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
     var engInstrumentFilter = {field: "stream_name", op: "nc", data: "-eng"};
     var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
@@ -1331,19 +1337,36 @@
     };
 
     var resetTimeFilter = function() {
-      //console.log($('#slider').dateRangeSlider("option", "bounds"));
+      var timeSlider = $('#slider');
 
       var newOptions = {};
       newOptions.min = new Date('2013', '00', '01');
       newOptions.max = new Date(Date.now());
-{#      ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);#}
-{#      $('#slider').dateRangeSlider({defaultValues: newOptions});#}
-      $('#slider').dateRangeSlider("bounds", newOptions);
-      $('#slider').dateRangeSlider("values", newOptions);
-      $('#slider').dateRangeSlider("min", new Date('2013', '00', '01'));
-      $('#slider').dateRangeSlider("max", new Date(Date.now()));
-      $('#slider').dateRangeSlider("resize");
+
+      timeSlider.dateRangeSlider("bounds", newOptions);
+      timeSlider.dateRangeSlider("values", newOptions);
+      timeSlider.dateRangeSlider("min", new Date('2013', '00', '01'));
+      timeSlider.dateRangeSlider("max", new Date(Date.now()));
+      timeSlider.dateRangeSlider("resize");
+
       timeRangeFilter = {groupOp:"OR",rules:[]};
+      combineFilters();
+    };
+
+    var resetDepthFilter = function() {
+      var depthSlider = $('#depth-slider');
+
+      var newOptions = {};
+      newOptions.min = 0;
+      newOptions.max = 10994;
+
+      depthSlider.rangeSlider("bounds", newOptions);
+      depthSlider.rangeSlider("values", newOptions);
+      depthSlider.rangeSlider("min", newOptions.min);
+      depthSlider.rangeSlider("max", newOptions.max);
+      depthSlider.rangeSlider("resize");
+      
+      depthRangeFilter = {groupOp:"OR",rules:[]};
       combineFilters();
     };
 
@@ -1363,6 +1386,7 @@
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
+      depthRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
       engInstrumentFilter = {field:"stream_name",op:"nc",data:"-eng"};
       metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
@@ -1376,6 +1400,7 @@
       newOptions.min = new Date('2013', '00', '01');
       newOptions.max = new Date();
       ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
+      ooi.trigger("DepthRangeFilterView:change", {startDepth: 0, endDepth: 10994});
       combineFilters();
     };
 
@@ -1435,12 +1460,17 @@
       timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
     };
 
+    var setDepthRangeFilter = function(depthField, startDepth, endDepth){
+      depthRangeFilter = {groupOp:"AND",rules:[{field:depthField,op:"le",data:endDepth},{field:depthField,op:"ge",data:startDepth}]};
+    };
+
     var combineFilters = function() {
       var allFilters = [];
       allFilters.push(arrayFilter);
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
       allFilters.push(timeRangeFilter);
+      allFilters.push(depthRangeFilter);
 {#      allFilters.push(filterToolbarFilter);#}
 
       var combinedFilters = {
@@ -2047,7 +2077,7 @@
           textParts[st] = [];
           $.each(colModel, function() {
             var cm1 = this;
-            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end" && cm1.name != "depth")) {
               textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
             }
           });
@@ -2131,7 +2161,7 @@
         textParts[st] = [];
         $.each(colModel, function() {
           var cm1 = this;
-          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
+          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end" && cm1.name != "depth")) {
             textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
           }
         });
