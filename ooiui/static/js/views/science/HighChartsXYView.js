@@ -34,11 +34,11 @@ var HighchartsScatterView = Backbone.View.extend({
         // width: $("#highcharts-view").height(),
         events: {
           click: function(e) {
-            console.log(e);
+            //console.log(e);
             self.onClick(e, this);
           },
           selection: function (event) {
-            console.log(event);
+            //console.log(event);
             var text,
               label;
             if (event.xAxis) {

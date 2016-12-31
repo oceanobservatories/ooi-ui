@@ -1140,7 +1140,7 @@
           } else {
             // Row has been selected
             var selectedRowData = $dcGrid.getRowData(rowId);
-            console.log(selectedRowData);
+            //console.log(selectedRowData);
 
             currentEventId = selectedRowData.eventId;
             currentAssetUid = selectedRowData.uid;
@@ -2200,24 +2200,11 @@
     };
 
     var renderRemoteDocuments = function(cruise) {
-      // console.log(rd);
-      // console.log(cruise);
-      // console.log(array);
       //clear out the old events table panel DOM
       $('div#remoteDocuments table tbody').remove();
 
-      {#      var ref_des = model.get('ref_des');#}
-      {#      var cruise = null;#}
-      {#      var array = model.get('assetInfo').array;#}
-
-      {#      _.each( model.attributes.metaData, function(item){#}
-      {#        if (item.key == "Cruise Number"){#}
-      {#          cruise = item['value'];#}
-      {#        }#}
-      {#      });#}
-
+      // URL parameters
       var data = {'cruise': cruise};
-      // console.log(data);
 
       var alfrescoDocCollection = new AlfrescoDocumentCollection();
 
@@ -2225,7 +2212,6 @@
       alfrescoDocCollection.fetch({
         data: data,
         success: function() {
-          console.log(data);
           $('div#remoteDocuments table tbody').remove();
           $('div#remoteDocuments table #loadDocs').remove();
           var alfrescoCruiseTableBodyView = new AlfrescoCruiseTableBodyView({ collection:alfrescoDocCollection });

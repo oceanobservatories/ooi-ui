@@ -277,9 +277,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     if(model.get('startDate') != null){
       startDate = moment.utc(model.get('startDate')._d);
       endDate = moment.utc(model.get('endDate')._d);
-      console.log('got to startDate');
-      console.log(startDate);
-      console.log(endDate);
+      //console.log('got to startDate');
+      //console.log(startDate);
+      //console.log(endDate);
       model.set('startDate',startDate);
       model.set('endDate',endDate);
       isPlotDl = true;

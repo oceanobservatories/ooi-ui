@@ -211,7 +211,7 @@ var XYPlotView = BasePlot.extend({
           }
 
           if (qaqcpass){
-            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'green', lineWidth:0.5, radius : 0,}});
+            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'green', lineWidth:0.5, radius : 0}});
           }else{
             qaqcdata.push({x:val1,y:val2, marker:{lineColor:'#FF0000', lineWidth:1.5}});
           }
@@ -224,6 +224,8 @@ var XYPlotView = BasePlot.extend({
 
       //add qaqc series
       if (!_.isEmpty(qaqcdata)){
+        console.log('FAILED QAQC SHOULD SHOW HERE');
+        console.log(qaqcdata);
         seriesList.push(new SeriesModel({
                                           type  : 'scatter',
                                           name  : "Failed QAQC: "+ model.get('name'),
@@ -250,6 +252,18 @@ var XYPlotView = BasePlot.extend({
   render: function(plotParameters, plotModel, plotData){
     var self = this;
 
+    // console.log(plotParameters);
+    // console.log(plotModel);
+    // console.log(plotData);
+
+    // Set message for data decimation based on returned data model length
+    $('#isDecimated').empty();
+    if(plotData.length < 1000){
+      $('#isDecimated').append('<small class="pull-right"> Data points shown: ' + plotData.length + '</small>');
+    }else{
+      $('#isDecimated').append('<small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>');
+    }
+
     var xAxis = self.createAxis(plotParameters,plotModel, 'x');
     var yAxis = self.createAxis(plotParameters,plotModel, 'y');
     var seriesList = self.createSeries(plotParameters, plotModel, plotData);
@@ -260,20 +274,55 @@ var XYPlotView = BasePlot.extend({
       self.setPlotSize('50%','800px');
     }
 
-    //console.log("plotData");
-    //console.log(plotData);
-    //console.log(plotModel);
-
-
     // Create the chart
     this.chart = $('#plot-view').highcharts({
       chart: {
         events: {
-                redraw: function(event) {
-                  ooi.trigger('plot:plotLoaded',{});
-                }
+          redraw: function(event) {
+            ooi.trigger('plot:plotLoaded',{});
+          },
+          selection: function(event) {
+            if(event.xAxis != null) {
+              $('#zoom-details').show();
+              $('#zoom-coordinates').empty();
+              // console.log("selection: ", event.xAxis[0].min, event.xAxis[0].max);
+              $('#zoom-coordinates').append("Min: " + moment.utc(event.xAxis[0].min).toString());
+              $('#zoom-coordinates').append(", Max: " + moment.utc(event.xAxis[0].max).toString());
+
+              var startDate = moment.utc(event.xAxis[0].min).toJSON();
+              var endDate = moment.utc(event.xAxis[0].max).toJSON();
+              // console.log('startDate and endDate');
+              // console.log(startDate);
+              // console.log(endDate);
+
+              ooi.trigger('updateCalendarZoom', {startDate: startDate, endDate: endDate});
+
+              $('#zoom-update-plot').prop('disabled',false);
+              $('#zoom-update-plot').show();
+              // console.log(this.$end_date_picker.getDate(endDate));
+              // console.log(this.$start_date_picker.getDate(startDate));
+              //ooi.trigger('update_plot',{});
+
+            } else {
+              // console.log("selection: reset");
+              $('#zoom-details').hide();
+              $('#zoom-coordinates').empty();
+              $('#zoom-update-plot').prop('disabled',true);
+              $('#zoom-update-plot').hide();
+              // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate})
+            }
+          }
               },
-        zoomType: 'x'
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            align: 'left', // by default
+            verticalAlign: 'top', // by default
+            x: 10,
+            y: 10
+          },
+          relativeTo: 'chart'
+        }
       },
       title: {
           text: plotData.displayName,

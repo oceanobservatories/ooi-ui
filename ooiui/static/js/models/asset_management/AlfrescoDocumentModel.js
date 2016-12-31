@@ -20,7 +20,6 @@ var AlfrescoDocumentModel = Backbone.Model.extend({
     toJSON: function() {
         'use strict';
         var attrs = _.clone(this.attributes);
-        console.log(attrs);
         // include any modification to key names here . . .
         return attrs;
 

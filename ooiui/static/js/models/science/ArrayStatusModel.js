@@ -19,7 +19,7 @@ var GetArrayStatus = function(array_code) {
     $.ajax('/api/uframe/status/arrays', {
         type: 'GET',
         dataType: 'json',
-        timeout: 1000,
+        timeout: 5000,
         async: false,
         success: function (resp) {
             console.log('Success getting array status');
@@ -40,14 +40,13 @@ var GetArrayStatus = function(array_code) {
                 //console.log('Multiple Status Returned');
                 output = 'Multiple Status Returned';
             }
-            return output;
         },
 
         error: function( req, status, err ) {
             console.log(req);
         }
     });
-    //return output;
+    return output;
 };
 
 var GetPlatformStatus = function(array_code, platform_ref_des) {
@@ -57,7 +56,7 @@ var GetPlatformStatus = function(array_code, platform_ref_des) {
     $.ajax('/api/uframe/status/sites/' + array_code, {
         type: 'GET',
         dataType: 'json',
-        timeout: 1000,
+        timeout: 5000,
         async: false,
         success: function (resp) {
             //console.log('success getting platform status: ' + platform_ref_des);
@@ -147,14 +146,14 @@ var ArrayStatusModel = OOI.RelationalModel.extend({
             _.each(attrs.platforms, function(platform) {
                 platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
                 var statusReturn = GetPlatformStatus(attrs.array_code, platform.properties.code);
-                console.log(statusReturn);
+                //console.log(statusReturn);
                 platform.properties.status = statusReturn.status;
                 platform.properties.mindepth = statusReturn.mindepth;
                 platform.properties.maxdepth = statusReturn.maxdepth;
             });
         }
 
-        console.log(attrs.platforms);
+        //console.log(attrs.platforms);
 
         var geoJSON = {
             "type": "Feature",

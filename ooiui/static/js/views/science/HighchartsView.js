@@ -87,11 +87,11 @@ var HighchartsView = Backbone.View.extend({
         renderTo: this.el,
         events: {
           click: function(e) {
-            console.log(e);
+            //console.log(e);
             self.onClick(e, this);
           },
           selection: function (event) {
-            console.log(event);
+            //console.log(event);
             var text,
               label;
             if (event.xAxis) {

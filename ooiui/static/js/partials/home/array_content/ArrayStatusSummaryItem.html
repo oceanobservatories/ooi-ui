@@ -1,7 +1,7 @@
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
         <h4 id="<%= properties.code %>" class="js-expand"><%= properties.description %>
-          <% //console.log(properties); %>
+          <% console.log(properties); %>
           <% if(properties.status.failed > 0) { %>
           <i class="fa fa-circle pull-left" aria-hidden="true" style="color: red; font-size: 16px;" title="<%= properties.status.failed %>"></i>
           <% } else if(properties.status.degraded > 0) { %>

@@ -51,7 +51,7 @@ var AnnotationTableView = Backbone.View.extend({
         label : 'Exclude Data?'
       },
       {
-        source : 'source',
+        name : 'source',
         label : 'UserID'
       }
   ],
@@ -77,8 +77,8 @@ var AnnotationTableView = Backbone.View.extend({
         columns: self.columns,
         model: model
       });
-      console.log('are we doing this?');
-      console.log(model);
+      //console.log('Adding annotation table.');
+      //console.log(model);
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }

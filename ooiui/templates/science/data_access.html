@@ -74,50 +74,6 @@
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
             </div>
 
-
-{#            <div style="padding-bottom: 5px; padding-left: 5px; padding-right: 5px; text-align: center;" align="middle">
-              <label>Time Range Filter</label>
-              <div id="timeRangeFilter">
-                <div id="slider" class="ui-rangeSlider ui-rangeSlider-withArrows ui-dateRangeSlider">
-                  <div class="ui-rangeSlider-container" >
-                    <div class="ui-rangeSlider-innerBar" >
-
-                    </div>
-                    <div class="ui-rangeSlider-bar" >
-
-                    </div>
-                    <div class="ui-rangeSlider-handle ui-rangeSlider-leftHandle">
-                      <div class="ui-rangeSlider-handle-inner">
-
-                      </div>
-                    </div>
-                    <div class="ui-rangeSlider-handle ui-rangeSlider-rightHandle" >
-                      <div class="ui-rangeSlider-handle-inner">
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui-rangeSlider-arrow ui-rangeSlider-leftArrow" >
-                    <div class="ui-rangeSlider-arrow-inner">
-
-                    </div>
-                  </div>
-                  <div class="ui-rangeSlider-arrow ui-rangeSlider-rightArrow" >
-                    <div class="ui-rangeSlider-arrow-inner"></div>
-                  </div>
-                  <div class="ui-rangeSlider-label ui-rangeSlider-leftLabel" >
-                    <div class="ui-rangeSlider-label-value">2013-01-01</div>
-                    <div class="ui-rangeSlider-label-inner"></div>
-                  </div>
-                  <div class="ui-rangeSlider-label ui-rangeSlider-rightLabel" >
-                    <div class="ui-rangeSlider-label-value">2016-06-07</div>
-                    <div class="ui-rangeSlider-label-inner"></div>
-                  </div>
-                </div>
-              </div>
-            </div>#}
-
-
             <div class="panel" style="width: 100%; margin-left: 10px;">
               <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters
               </div>
@@ -146,9 +102,6 @@
                 </div>
               </div>
             </div>
-
-
-
 
             <div class="search-sidebar"></div>
           </div>
@@ -191,7 +144,9 @@
                                 <a href="#" class="btn btn-primary clear-plot-area pull-left">Clear Plot</a>
                                 <a href="#" class="btn btn-primary update-plot">Plot</a>
                                 <a href="#" class="btn btn-primary download-plot-data" style="margin-left: 30px;">Download Data</a>
-                                <small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>
+                                <div id="isDecimated">
+
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -205,6 +160,11 @@
                                     <span style="display:none" class="download-plot-container pull-right">
                                         <a href="#" download="image.png" type="button" title="Download" style="float:left" id="downloadImage" class="btn btn-default download-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-download" aria-hidden="true"></i></a>
                                     </span>
+                          </div>
+                          <div id="zoom-details" class="pull-left" style="border: 1px; m-top: 5px;" hidden>
+                            <p>Zoom Details</p>
+                            <p id="zoom-coordinates"></p>
+                            <a href="#" type="button" id="zoom-update-plot" class="btn btn-default zoom-update-plot">Update plot based on current zoom level</a>
                           </div>
                           <div class="panel-body">
                             <!--  Plot section NORMAL   -->
@@ -238,48 +198,6 @@
                       <div class="panel-body" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
                         <div class="row" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
                           <div class="col-md-12" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
-{#                            <div class="row panel panel-heading" style="margin-right:15px;">#}
-{#                              <div class="col-md-2-toggles" style="top:25px;">#}
-{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
-{#                                  <div>#}
-{#                                    <label>Engineering<br>Instruments</label>#}
-{#                                  </div>#}
-{#                                  <div>#}
-{#                                    <input id="EngInstrumentSwitch" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
-{#                                  </div>#}
-{#                                </div>#}
-{#                              </div>#}
-{#                              <div class="col-md-2-toggles" style="top:25px;">#}
-{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
-{#                                  <div>#}
-{#                                    <label>Metadata<br>Streams</label>#}
-{#                                  </div>#}
-{#                                  <div>#}
-{#                                    <input id="MetadataStreamSwitch" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
-{#                                  </div>#}
-{#                                </div>#}
-{#                              </div>#}
-{#                              <div class="col-md-2-toggles" style="top:25px;">#}
-{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
-{#                                  <div>#}
-{#                                    <label>Status<br>Streams</label>#}
-{#                                  </div>#}
-{#                                  <div>#}
-{#                                    <input id="StatusStreamSwitch" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch">#}
-{#                                  </div>#}
-{#                                </div>#}
-{#                              </div>#}
-{#                              <div class="col-md-2-toggles" style="top:25px;">#}
-{#                                <div style="margin-left: 10px; padding-bottom: 10px; text-align: center;">#}
-{#                                  <div>#}
-{#                                    <label>Mobile<br>Assets</label>#}
-{#                                  </div>#}
-{#                                  <div>#}
-{#                                    <input id="MobileAssetSwitch" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch">#}
-{#                                  </div>#}
-{#                                </div>#}
-{#                              </div>#}
-{#                            </div>#}
                             <div id="streamPanel" class="panel" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
                               <div class="color-index" align="right" style="padding-right: 5px;">
                                 <div class="twelve-hours"></div><b> 12 Hours </b>
@@ -813,6 +731,8 @@
               }),
               reset: true
             });
+            $('#zoom-update-plot').prop('disabled',true);
+            $('#zoom-update-plot').hide();
           }else{
             //reset is empty
             self.collections.annotations.reset();
@@ -823,12 +743,22 @@
           }
         });
 
+        this.listenTo(this, "updateCalendarZoom", function(o) {
+          //console.log('this is a test of updateCalendarView');
+          //console.log(o);
+          //console.log(o.startDate);
+          //console.log(o.endDate);
+
+          self.views.plotControls.updateDateTimeRange(o.startDate, o.endDate);
+        });
+
         this.listenTo(this, "update_plot", function(o) {
           //update the plot when "plot" is clicked
           //get the plot control model and create the
           //hide the download button
           $('#plot-view').empty();
           $('.download-plot-container').css('display','none');
+          $('#zoom-details').hide();
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
 
@@ -861,10 +791,10 @@
           if(this.login.loggedIn()) {
             var ref_des = self.collections.selectedStreamCollection.models[0].get('reference_designator');
             var stream_name = self.collections.selectedStreamCollection.models[0].get('stream_name');
-            console.log(ref_des);
-            console.log(stream_name);
+            //console.log(ref_des);
+            //console.log(stream_name);
             var dtRange = this.views.plotControls.getDateTimeRange();
-            console.log(dtRange);
+            //console.log(dtRange);
             openDownload(ref_des, stream_name, dtRange);
           } else {
             alert('Please log in');
@@ -918,6 +848,11 @@
         //render the annotations
         this.listenTo(self.collections.annotations, 'reset', function(collection) {
           self.views.annotationTableView.render();
+          if(self.login.loggedIn()) {
+            $('#addAnnotation').show();
+          }else{
+            $('#addAnnotation').hide();
+          }
         });
 
         // render the events
@@ -927,18 +862,18 @@
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-          console.log('onSubmit');
+          //console.log('onSubmit');
           $.when(self.collections.annotations.add(model)).done( function(ret){
-            console.log(ret);
+            //console.log(ret);
             self.views.annotationTableView.render();
           })
         });
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onUpdate', function(model) {
-          console.log('onUpdate');
+          //console.log('onUpdate');
           $.when(self.collections.annotations.add(model)).done( function(ret){
-            console.log(ret);
+            //console.log(ret);
             self.views.annotationTableView.render();
           })
         });
@@ -1108,7 +1043,7 @@
         dlModel.attributes.endDate = dtRange['endDate'];
       }
 
-      console.log(dlModel);
+      //console.log(dlModel);
       ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
     };
 
@@ -1257,6 +1192,14 @@
         ooi.trigger('update_plot',{});
       });
 
+      $('.zoom-update-plot').on('click', function(event){
+        event.preventDefault();
+        ooi.trigger('update_plot',{});
+        $('.zoom-update-plot').prop('disabled',true);
+        $('.zoom-update-plot').hide();
+        $('#zoom-coordinates').empty();
+      });
+
       $('.download-plot-data').on('click', function(event){
         event.preventDefault();
         ooi.trigger('download_plot_data',{});
@@ -1388,7 +1331,7 @@
     };
 
     var resetTimeFilter = function() {
-      console.log($('#slider').dateRangeSlider("option", "bounds"));
+      //console.log($('#slider').dateRangeSlider("option", "bounds"));
 
       var newOptions = {};
       newOptions.min = new Date('2013', '00', '01');
@@ -1655,8 +1598,8 @@
           // Used as a mocked example only
           $("#dataAvailabilityInfo").append("<br>");
           $("#dataAvailabilityInfo").append("Currently viewing data availability for: " + selectedRow.reference_designator);
-          console.log('dataAvailabilityCollection');
-          console.log(dataAvailabilityCollection);
+          //console.log('dataAvailabilityCollection');
+          //console.log(dataAvailabilityCollection);
           stats_data = dataAvailabilityCollection.models[0].attributes['stats_data'];
           moment.locale("en");
           var dataset=[];
@@ -1701,6 +1644,7 @@
           'Stream Identifier',
           'Delivery Method',
           'Deployment Depth',
+          'Water Depth',
           'Latitude',
           'Longitude',
           'Start Time',
@@ -1827,6 +1771,19 @@
           {
             name : 'depth',
             index : 'depth',
+            editable : false,
+            sortable : true,
+            sorttype : 'number',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'water_depth',
+            index : 'water_depth',
+            hidden: true,
             editable : false,
             sortable : true,
             sorttype : 'number',
@@ -2127,7 +2084,7 @@
       var jqCollection = collection;
       jqCollection['actions'] = '';
       ooi.collections.dataAvailabilityCollection.fetch()
-      console.log(ooi.collections.dataAvailabilityCollection);
+      //console.log(ooi.collections.dataAvailabilityCollection);
       placeJqGrid(jqCollection, ooi.collections.dataAvailabilityCollection);
       $('#reset_catalog_button').css('display','inline-block'); //TODO REMOVE LINE
 

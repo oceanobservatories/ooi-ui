@@ -84,7 +84,7 @@ var PlotControlView = Backbone.View.extend({
         self.$el.find('.instrument-content').append(controlView2.$el);
       }
 
-      var st, ed
+      var st, ed;
       //figure out the start and end times available
       if (this.collection.length > 1 ){
         if ((moment.utc(self.collection.models[0].get('start'))).isBefore(moment.utc(self.collection.models[1].get('start')))){
@@ -197,12 +197,18 @@ var PlotControlView = Backbone.View.extend({
   },
   updateDateTimeRange: function(st,ed){
     //update the selected date range
+    // console.log('updateDateTimeRange');
+    // console.log(st);
+    // console.log(ed);
+    // console.log(this.plotModel);
+
     $('#reportrange').data('daterangepicker').setStartDate(st);
     $('#reportrange').data('daterangepicker').setEndDate(ed);
+    this.cb(moment.utc(st), moment.utc(ed));
   },
   getDateTimeRange: function(){
     //update the selected date range
-    var picker = $('#reportrange').data('daterangepicker')
+    var picker = $('#reportrange').data('daterangepicker');
     return {startDate:picker.startDate, endDate:picker.endDate};
   },
   onPlotStyleSelect: function(e){

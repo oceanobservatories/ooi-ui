@@ -70,7 +70,7 @@ var AnnotationModalFormView = ModalFormView.extend({
 
       this.model.save(null, {
         success: function(model,response) {
-          console.log(model.ui_id);
+          //console.log(model.ui_id);
           if(model.ui_id) {
             ooi.trigger('AnnotationModalFormView:onUpdate', model);
           }else{
