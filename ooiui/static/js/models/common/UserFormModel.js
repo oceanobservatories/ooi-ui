@@ -46,12 +46,12 @@ var SignUpModel = Backbone.Model.extend({
             required: true
         },
         phone_primary: {
-            required: true,
-            pattern: 'phoneRegex'
+            required: true
+            //pattern: 'phoneRegex'
         },
         phone_alternate: {
-            required: false,
-            pattern: 'phoneRegex'
+            required: false
+            //pattern: 'phoneRegex'
         }
     }
 });

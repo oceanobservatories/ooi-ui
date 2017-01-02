@@ -7,27 +7,24 @@
 var DepthRangeFilterView = FilterParentView.extend({
     onAfterRender: function() {
         var _this = this;
-        $.when(this.collection.fetch({data: {search: _this.getArrayFilters()}})).done(function() {
-            var depthRangeBounds = {} ;
+        var depthRangeBounds = {};
+        depthRangeBounds.min = 0;
+        depthRangeBounds.max = 4000;
 
-            // We're overriding the data sets min bound.
-            depthRangeBounds.min = 0;
-            // We're overriding the data sets max bound.
-            depthRangeBounds.max = 10994;
+      $('#depth-slider').rangeSlider({
+        bounds: depthRangeBounds,
+        min: depthRangeBounds.min,
+        max: depthRangeBounds.max,
+        defaultValues: depthRangeBounds
+      }).bind('userValuesChanged', function(event, data) {
+        var startDepth = data.values.min.valueOf(),
+          endDepth = data.values.max.valueOf();
 
-            // _this.setTimeRange(dateRangeBounds.min, dateRangeBounds.max);
-            // ooi.trigger('TimeRangeFilterView:addToTimeRange', _this.getTimeRange());
+        _this.setDepthRange(startDepth, endDepth);
+        //_this.resetCollection();
 
-            $('#depth-slider').rangeSlider({
-                bounds: depthRangeBounds,
-                defaultValues: depthRangeBounds
-            }).bind('valuesChanged', function(event, data) {
-                var startDepth = data.values.min.valueOf(),
-                    endDepth = data.values.max.valueOf();
-
-                ooi.trigger('DepthRangeFilterView:change', {startDepth: startDepth, endDepth: endDepth});
-            });
-        });
+        ooi.trigger('DepthRangeFilterView:change', _this.getDepthRange());
+      });
 
     },
     template: JST['ooiui/static/js/partials/data_catalog/search_sidebar/components/filters/range_filters/DepthRangeFilter.html']

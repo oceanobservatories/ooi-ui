@@ -92,6 +92,9 @@ var ArrayContentSummary = ParentView.extend({
     render: function() {
         var arrayContentContext = this;
 
+        console.log('arrayCollection');
+        console.log(this.collection.arrayCollection);
+
         var arrayContentSummaryItem = this.collection.arrayCollection.map(function(model) {
             // lets get all the platforms for this particular array...
             var platforms = arrayContentContext

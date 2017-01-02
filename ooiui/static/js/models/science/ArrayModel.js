@@ -87,7 +87,7 @@ var ArrayCollection = Backbone.Collection.extend({
     model: ArrayModel,
     parse: function(response) {
         if (response) {
-            return response.arrays;
+            return _.sortBy(response.arrays, 'display_name');
         }
         return [];
     },

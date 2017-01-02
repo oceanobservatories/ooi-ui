@@ -111,6 +111,11 @@ div#events-scroll-body {
   padding-right : 10px;
 }
 
+#wrapper .content-fluid .special-sidebar{
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
 
 #plot-controls .plot-tab-view.plot-control-view .dropdown-menu.open{
   left : 0px;

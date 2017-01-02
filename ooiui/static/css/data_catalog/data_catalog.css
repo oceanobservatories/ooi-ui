@@ -24,7 +24,16 @@ body, html {
 }
 
 #timeRangeFilter #slider .ui-rangeSlider-label-value {
-    font-size : 12px !important;
+    font-size : 10px !important;
+}
+
+#depthRangeFilter {
+    margin-left : 15px;
+    margin-right: 15px;
+}
+
+#depthRangeFilter #slider .ui-rangeSlider-label-value {
+    font-size : 10px !important;
 }
 
 .highlight { background-color: #ba9217 }

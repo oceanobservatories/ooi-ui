@@ -39,6 +39,7 @@ var filters = [];
 var streamFilters = [];
 var instrumentFilters = [];
 var timeRange = {};
+var depthRange = {};
 
 var FilterParentView = SearchSidebarView.extend({
     events: {
@@ -56,7 +57,8 @@ var FilterParentView = SearchSidebarView.extend({
                 this.getInstrumentFilters(),
                 this.getStreamFilters()
             ],
-            timeRange: this.getTimeRange()
+            timeRange: this.getTimeRange(),
+            depthRange: this.getDepthRange()
         };
         return filters;
     },
@@ -67,7 +69,9 @@ var FilterParentView = SearchSidebarView.extend({
                 data: {
                     search: filters.strings.join(' '),
                     startDate: filters.timeRange.min,
-                    endDate: filters.timeRange.max
+                    endDate: filters.timeRange.max,
+                    startDepth: filters.depthRange.min,
+                    endDepth: filters.depthRange.max
                 }
             });
         }
@@ -116,6 +120,24 @@ var FilterParentView = SearchSidebarView.extend({
                 max: max.valueOf()
             };
             return timeRange;
+        }else{
+            return null;
+        }
+    },
+    getDepthRange: function() {
+        if (depthRange === {}) {
+            return null;
+        } else {
+           return depthRange;
+        }
+    },
+    setDepthRange: function(min, max) {
+        if (!_.isUndefined(min) && !_.isUndefined(max) ){
+            depthRange = {
+                min: min.valueOf(),
+                max: max.valueOf()
+            };
+            return depthRange;
         }else{
             return null;
         }
@@ -177,7 +199,7 @@ var FilterParentView = SearchSidebarView.extend({
         } else {
             return false;
         }
-    },
+    }
 
 });
 

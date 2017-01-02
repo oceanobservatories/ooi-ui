@@ -74,29 +74,34 @@
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
             </div>
 
-            <div class="panel" style="width: 100%; margin-left: 10px;">
-              <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters
-              </div>
-              <div class="panel-wrapper">
-                <div id="other-filters" class="panel-body collapse in">
-                  <div class="array-filters">
-                    <div class="checkbox">
-                      <label><input id="EngInstrumentSwitch" style="padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Eng Instruments</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input id="MetadataStreamSwitch" style="padding-right: 2px;" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Metadata Streams</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input id="StatusStreamSwitch" style="padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input id="InvalidatedStreamSwitch" style="padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Invalidated Streams</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input id="MobileAssetSwitch" style="padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input id="AllTimesSwitch" style="padding-right: 2px;" title="All Times Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Time Range</label>
+            <div class="special-sidebar">
+              <div class="panel">
+                <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters<i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="panel-wrapper">
+                  <div id="other-filters" class="panel-body collapse in">
+                    <div class="other-filters pull-left">
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="EngInstrumentSwitch" style="padding-left: 0; padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False"> Eng Instruments</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="MetadataStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Metadata Streams</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="StatusStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="InvalidatedStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Invalidated Streams</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="MobileAssetSwitch" style="padding-left: 0; padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="AllTimesSwitch" style="padding-left: 0; padding-right: 2px;" title="All Times Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Time Range</label>
+                      </div>
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="AllDepthsSwitch" style="padding-left: 0; padding-right: 2px;" title="All Depths Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Depth Range</label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -589,13 +594,21 @@
         });
 
         this.listenTo(this, 'DepthRangeFilterView:change', function(options) {
-          setDepthRangeFilter("depth", options.startDepth, options.endDepth);
+          //console.log('DepthRangeFilterView:change');
+          //console.log(options);
+          setDepthRangeFilter("depth", options.min, options.max);
           combineFilters();
         });
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
 {#          console.log('addToStreamFilters');#}
           setStreamFilter("reference_designator", options);
+          combineFilters();
+        });
+
+        this.listenTo(this, 'StreamFilterView:addToStreamDeliveryFilters', function(options) {
+{#          console.log('addToStreamFilters');#}
+          setStreamFilter("stream_method", options);
           combineFilters();
         });
 
@@ -1078,6 +1091,14 @@
       return cellOutput;
     };
 
+    var depthFormatter = function(cellvalue, options, rowObject) {
+      if(!$.isNumeric(cellvalue) || cellvalue === null || cellvalue === "" || _.isUndefined(cellvalue)){
+        return undefined;
+      }else{
+        return cellvalue;
+      }
+    };
+
     //Adds in support for Large Format Data
 {#    function updatePagination( details, successCallback ){
 
@@ -1243,6 +1264,8 @@
       $("#InvalidatedStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
       $("#AllTimesSwitch").bootstrapSwitch('state', true);
+      $("#AllDepthsSwitch").bootstrapSwitch('state', true);
+
 
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
@@ -1301,17 +1324,41 @@
         if (!theStateAllTimes) {
           options.min = new Date('1900', '00', '01');
           options.max = new Date('3000', '00', '01');
-          $('#rangeFilters').hide();
+          $('#timeRangeFilterContainer').hide();
         } else {
           options.min = new Date('2013', '00', '01');
           options.max = new Date();
-          $('#rangeFilters').show();
+          var timeSlider = $('#slider');
+
+          options.min = timeSlider.dateRangeSlider("min");
+          options.max = timeSlider.dateRangeSlider("max");
+          $('#timeRangeFilterContainer').show();
         }
         var startDate = new Date(options.min).toISOString(),
-            endDate   = new Date(options.max).toISOString();
+          endDate   = new Date(options.max).toISOString();
 
         setTimeRangeFilter("start", startDate, "end", endDate);
         combineFilters();
+      });
+
+      $('#AllDepthsSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateAllDepths = $("#AllDepthsSwitch").bootstrapSwitch('state');
+        var options = {};
+
+        if (!theStateAllDepths) {
+          options.min = 0;
+          options.max = 4000;
+          $('#depthRangeFilterContainer').hide();
+        } else {
+
+          var depthSlider = $('#depth-slider');
+
+          options.min = depthSlider.rangeSlider("min");
+          options.max = depthSlider.rangeSlider("max");
+          $('#depthRangeFilterContainer').show();
+        }
+
+        ooi.trigger("DepthRangeFilterView:change", options);
       });
 {#      console.log('document.ready complete');#}
     });
@@ -1358,13 +1405,15 @@
 
       var newOptions = {};
       newOptions.min = 0;
-      newOptions.max = 10994;
+      newOptions.max = 4000;
 
       depthSlider.rangeSlider("bounds", newOptions);
-      depthSlider.rangeSlider("values", newOptions);
+      depthSlider.rangeSlider("values", newOptions.min, newOptions.max);
       depthSlider.rangeSlider("min", newOptions.min);
       depthSlider.rangeSlider("max", newOptions.max);
       depthSlider.rangeSlider("resize");
+
+      setDepthRangeFilter("depth", newOptions.min, newOptions.max);
       
       depthRangeFilter = {groupOp:"OR",rules:[]};
       combineFilters();
@@ -1381,6 +1430,7 @@
       $("#InvalidatedStreamSwitch").bootstrapSwitch('state', false);
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
       $("#AllTimesSwitch").bootstrapSwitch('state', false);
+      $("#AllDepthsSwitch").bootstrapSwitch('state', false);
 {#      $dcGrid[0].clearToolbar();#}
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
@@ -1399,8 +1449,11 @@
       var newOptions = {};
       newOptions.min = new Date('2013', '00', '01');
       newOptions.max = new Date();
+      var depthOptions = {};
+      depthOptions.min = 0;
+      depthOptions.max = 4000;
       ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
-      ooi.trigger("DepthRangeFilterView:change", {startDepth: 0, endDepth: 10994});
+      ooi.trigger("DepthRangeFilterView:change", depthOptions);
       combineFilters();
     };
 
@@ -1461,7 +1514,14 @@
     };
 
     var setDepthRangeFilter = function(depthField, startDepth, endDepth){
-      depthRangeFilter = {groupOp:"AND",rules:[{field:depthField,op:"le",data:endDepth},{field:depthField,op:"ge",data:startDepth}]};
+      //console.log('setDepthRangeFilter');
+      if(startDepth == 0 && endDepth == 4000){
+        depthRangeFilter = {groupOp:"OR",rules:[]};
+      }else{
+        depthRangeFilter = {groupOp:"AND",rules:[{field:depthField,op:"le",data:endDepth},{field:depthField,op:"ge",data:startDepth}]};
+      }
+
+      combineFilters();
     };
 
     var combineFilters = function() {
@@ -1673,6 +1733,7 @@
           'Reference Designator',
           'Stream Identifier',
           'Delivery Method',
+          'Stream Type',
           'Deployment Depth',
           'Water Depth',
           'Latitude',
@@ -1785,8 +1846,22 @@
             }
           },
           {
-            name : 'stream_type',
-            index : 'stream_type',
+            name : 'stream_method',
+            index : 'stream_method',
+            editable : false,
+            hidden: true,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'stream_dataset',
+            index : 'stream_dataset',
             editable : false,
             hidden: true,
             {#                width : 85,#}
@@ -1804,6 +1879,7 @@
             editable : false,
             sortable : true,
             sorttype : 'number',
+            formatter : depthFormatter,
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
             unformat : function (cellvalue, options, cell) {

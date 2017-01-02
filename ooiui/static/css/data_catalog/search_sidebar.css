@@ -19,6 +19,24 @@ html, body {
     cursor: pointer;
 }
 
+.special-sidebar {
+    padding: 0 40px 0 40px;
+}
+
+.special-sidebar .panel {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.special-sidebar .panel-heading {
+    cursor: pointer;
+}
+
+.other-filters {
+    font-size: 12px;
+    padding-left: 0px;
+}
+
 .col-md-2 {
     /*height: calc(100vh - 165px);*/
     overflow-y: scroll;
