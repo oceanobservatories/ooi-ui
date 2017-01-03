@@ -9,7 +9,7 @@ var DepthRangeFilterView = FilterParentView.extend({
         var _this = this;
         var depthRangeBounds = {};
         depthRangeBounds.min = 0;
-        depthRangeBounds.max = 4000;
+        depthRangeBounds.max = 6000;
 
       $('#depth-slider').rangeSlider({
         bounds: depthRangeBounds,

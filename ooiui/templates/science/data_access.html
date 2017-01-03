@@ -1368,7 +1368,7 @@
 
         if (!theStateAllDepths) {
           options.min = 0;
-          options.max = 4000;
+          options.max = 6000;
           $('#depthRangeFilterContainer').hide();
         } else {
 
@@ -1436,7 +1436,7 @@
 
       var newOptions = {};
       newOptions.min = 0;
-      newOptions.max = 4000;
+      newOptions.max = 6000;
 
       depthSlider.rangeSlider("bounds", newOptions);
       depthSlider.rangeSlider("values", newOptions.min, newOptions.max);
@@ -1485,7 +1485,7 @@
       newOptions.max = new Date();
       var depthOptions = {};
       depthOptions.min = 0;
-      depthOptions.max = 4000;
+      depthOptions.max = 6000;
       ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
       ooi.trigger("DepthRangeFilterView:change", depthOptions);
       combineFilters();
