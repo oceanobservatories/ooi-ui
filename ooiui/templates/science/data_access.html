@@ -81,6 +81,11 @@
                 <div class="panel-wrapper">
                   <div id="other-filters" class="panel-body collapse in">
                     <div class="other-filters pull-left">
+                      <!-- Leaving out until ticket 10531 can be discussed
+                      <div class="checkbox">
+                        <label style="padding-left: 0;"><input id="InstrumentStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False"> Instruments</label>
+                      </div>
+                      -->
                       <div class="checkbox">
                         <label style="padding-left: 0;"><input id="EngInstrumentSwitch" style="padding-left: 0; padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False"> Eng Instruments</label>
                       </div>
@@ -612,6 +617,18 @@
           combineFilters();
         });
 
+        this.listenTo(this, 'PlatformFilterView:add', function(options) {
+          console.log('PlatformFilterView:add');
+          setPlatformFilter("reference_designator", options);
+          combineFilters();
+        });
+
+        this.listenTo(this, 'NodeFilterView:add', function(options) {
+          console.log('NodeFilterView:add');
+          setNodeFilter("reference_designator", options);
+          combineFilters();
+        });
+
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
 {#          console.log('addToInstrumentFilters');#}
           setInstrumentFilter("reference_designator", options);
@@ -1003,6 +1020,8 @@
     var instrumentFilter = {groupOp:"OR",rules:[]};
     var arrayFilter = {groupOp:"OR",rules:[]};
     var streamFilter = {groupOp:"OR",rules:[]};
+    var platformFilter = {groupOp:"OR",rules:[]};
+    var nodeFilter = {groupOp:"OR",rules:[]};
     var timeRangeFilter = {groupOp:"OR",rules:[]};
     var depthRangeFilter = {groupOp:"OR",rules:[]};
     var mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
@@ -1010,6 +1029,7 @@
     var metadataStreamFilter = {field: "stream_name", op: "nc", data: "metadata"};
     var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
     var invalidatedStreamFilter = {field: "stream_name", op: "bn", data: "bad"};
+    var instrumentStreamFilter = {field: "stream_dataset", op: "nc", data: "-eng"};
 {#    var filterToolbarFilter = {groupOp:"AND",rules:[]};#}
     var globalFilter = null;
 
@@ -1258,6 +1278,7 @@
 
       $.fn.bootstrapSwitch.defaults.size = 'small';
 
+      $("#InstrumentStreamSwitch").bootstrapSwitch('state', false);
       $("#EngInstrumentSwitch").bootstrapSwitch('state', false);
       $("#MetadataStreamSwitch").bootstrapSwitch('state', false);
       $("#StatusStreamSwitch").bootstrapSwitch('state', false);
@@ -1360,6 +1381,16 @@
 
         ooi.trigger("DepthRangeFilterView:change", options);
       });
+
+      $('#InstrumentStreamSwitch').on('switchChange.bootstrapSwitch', function () {
+        var theStateInst = $("#InstrumentStreamSwitch").bootstrapSwitch('state');
+        if (theStateInst) {
+          instrumentStreamFilter = {field: "stream_dataset", op: "cn", data: ""};
+        } else {
+          instrumentStreamFilter = {field: "stream_dataset", op: "cn", data: "Instrument"};
+        }
+        combineFilters();
+      });
 {#      console.log('document.ready complete');#}
     });
 
@@ -1435,6 +1466,8 @@
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
+      platformFilter = {groupOp:"OR",rules:[]};
+      nodeFilter = {groupOp:"OR",rules:[]};
       timeRangeFilter = {groupOp:"OR",rules:[]};
       depthRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
@@ -1442,6 +1475,7 @@
       metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
       invalidatedStreamFilter = {field:"stream_name",op:"bn",data:"bad"};
+      instrumentStreamFilter = {field:"stream_dataset",op:"nc",data:"Instrument"};
 {#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
       globalFilter = null;
       location.href = location.href.substring(0, location.href.indexOf('?'));
@@ -1509,6 +1543,36 @@
       streamFilter = f;
     };
 
+    var setPlatformFilter = function(searchColumn, searchParam){
+      searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      platformFilter = f;
+    };
+
+    var setNodeFilter = function(searchColumn, searchParam){
+      searchParam = searchParam + "";
+
+      var searchFilter = searchParam.split(" "), grid = $("#grid"), f;
+      if (searchFilter.length === 0) {
+        grid[0].p.search = false;
+        $.extend(grid[0].p.postData,{filters:""});
+      }
+      f = {groupOp:"OR",rules:[]};
+      $.each (searchFilter, function() {
+        f.rules.push({field:searchColumn,op:"cn",data:this});
+      });
+      nodeFilter = f;
+    };
+
     var setTimeRangeFilter = function(start, startTime, end, endTime){
       timeRangeFilter = {groupOp:"AND",rules:[{field:start,op:"le",data:endTime},{field:end,op:"ge",data:startTime}]};
     };
@@ -1529,6 +1593,8 @@
       allFilters.push(arrayFilter);
       allFilters.push(instrumentFilter);
       allFilters.push(streamFilter);
+      allFilters.push(platformFilter);
+      allFilters.push(nodeFilter);
       allFilters.push(timeRangeFilter);
       allFilters.push(depthRangeFilter);
 {#      allFilters.push(filterToolbarFilter);#}
@@ -1546,6 +1612,7 @@
       aaa.rules.push(metadataStreamFilter);
       aaa.rules.push(statusStreamFilter);
       aaa.rules.push(invalidatedStreamFilter);
+      aaa.rules.push(instrumentStreamFilter);
       combinedFilters.groups.push(aaa);
 
       {#      // Toggle Filters#}
