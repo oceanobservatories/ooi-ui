@@ -2220,7 +2220,7 @@
           textParts[st] = [];
           $.each(colModel, function() {
             var cm1 = this;
-            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end" && cm1.name != "depth")) {
+            if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
               textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
             }
           });
@@ -2304,7 +2304,7 @@
         textParts[st] = [];
         $.each(colModel, function() {
           var cm1 = this;
-          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end" && cm1.name != "depth")) {
+          if (cm1.search !== false && (cm1.stype === undefined || cm1.stype === "text") && (cm1.name != "start" && cm1.name != "end")) {
             textParts[st].push({groupOp:"OR",rules:[{field: cm1.name, op: "cn", data: st}]});
           }
         });
