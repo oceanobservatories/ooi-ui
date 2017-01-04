@@ -297,6 +297,7 @@ var XYPlotView = BasePlot.extend({
 
               ooi.trigger('updateCalendarZoom', {startDate: startDate, endDate: endDate});
 
+              $('#update-plot').hide();
               $('#zoom-update-plot').prop('disabled',false);
               $('#zoom-update-plot').show();
               // console.log(this.$end_date_picker.getDate(endDate));
@@ -309,6 +310,7 @@ var XYPlotView = BasePlot.extend({
               $('#zoom-coordinates').empty();
               $('#zoom-update-plot').prop('disabled',true);
               $('#zoom-update-plot').hide();
+              $('#update-plot').show();
               // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate})
             }
           }

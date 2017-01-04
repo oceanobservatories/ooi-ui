@@ -121,7 +121,7 @@ var PlotControlView = Backbone.View.extend({
            'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
            'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm'),ed.format('YYYY-MM-DD HH:mm')],
            'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
-           'All Data': [st.format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'All Data': [st.format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')]
 
         }
       }, this.cb);
