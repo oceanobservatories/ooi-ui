@@ -1088,10 +1088,12 @@
       var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
 {#      console.log(self.models.userModel.get("email"));#}
 {#      dlModel.attributes.email = self.models.userModel.get("email");#}
+      dlModel.attributes.hideTimeRange = false;
       if(dtRange === null){
         dlModel.attributes.startDate = null;
         dlModel.attributes.endDate = null;
       }else{
+        dlModel.attributes.hideTimeRange = true;
         dlModel.attributes.startDate = dtRange['startDate'];
         dlModel.attributes.endDate = dtRange['endDate'];
       }

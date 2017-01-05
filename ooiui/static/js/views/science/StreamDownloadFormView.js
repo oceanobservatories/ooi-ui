@@ -356,6 +356,11 @@ var StreamDownloadFormView = Backbone.View.extend({
         //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
       }
     }
+    //console.log(model.get('hideTimeRange'));
+    if(model.get('hideTimeRange'))
+      this.$el.find('#timeRangeDiv').hide();
+    else
+      this.$el.find('#timeRangeDiv').show();
     this.$el.find('#download-modal').modal('show');
 
     // Update parameters dropdown
