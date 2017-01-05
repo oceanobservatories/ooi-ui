@@ -1836,8 +1836,9 @@
           'Instrument',
           'Reference Designator',
           'Stream Identifier',
-          'Delivery Method',
           'Stream Type',
+          'Delivery Method',
+          'Stream Content',
           'Deployment Depth',
           'Water Depth',
           'Latitude',
@@ -1950,6 +1951,20 @@
             }
           },
           {
+            name : 'stream_dataset',
+            index : 'stream_dataset',
+            editable : false,
+            hidden: false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'stream_method',
             index : 'stream_method',
             editable : false,
@@ -1964,8 +1979,8 @@
             }
           },
           {
-            name : 'stream_dataset',
-            index : 'stream_dataset',
+            name : 'stream_display_name',
+            index : 'stream_display_name',
             editable : false,
             hidden: true,
             {#                width : 85,#}
