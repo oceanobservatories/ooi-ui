@@ -283,34 +283,60 @@ var XYPlotView = BasePlot.extend({
           },
           selection: function(event) {
             if(event.xAxis != null) {
+              var startDate = moment.utc(event.xAxis[0].min).toJSON();
+              var endDate = moment.utc(event.xAxis[0].max).toJSON();
+              //console.log('startDate and endDate');
+              //console.log(startDate);
+              //console.log(endDate);
+
+
+              if(_.isNull(origStartDate)){
+                //console.log('changing origStartDate');
+                origStartDate = plotData.startdate;
+              }
+
+              if(_.isNull(origEndDate)){
+                //console.log('changing origEndDate');
+                origEndDate = plotData.enddate;
+              }
+
+              //console.log('origStartDate and origEndDate in selection');
+              //console.log(origStartDate);
+              //console.log(origEndDate);
+
+              ooi.trigger('updateCalendarZoom', {startDate: startDate, endDate: endDate});
+
+              //$('#update-plot').hide();
+              // $('#zoom-update-plot').prop('disabled',false);
+              // $('#zoom-update-plot').show();
+
+              $('#zoom-reset-plot').prop('disabled',false);
+              $('#zoom-reset-plot').show();
+
+
+              // console.log(this.$end_date_picker.getDate(endDate));
+              // console.log(this.$start_date_picker.getDate(startDate));
+              $('#plot-view').empty();
+              ooi.trigger('update_plot');
+
               $('#zoom-details').show();
               $('#zoom-coordinates').empty();
               // console.log("selection: ", event.xAxis[0].min, event.xAxis[0].max);
               $('#zoom-coordinates').append("Min: " + moment.utc(event.xAxis[0].min).toString());
               $('#zoom-coordinates').append(", Max: " + moment.utc(event.xAxis[0].max).toString());
 
-              var startDate = moment.utc(event.xAxis[0].min).toJSON();
-              var endDate = moment.utc(event.xAxis[0].max).toJSON();
-              // console.log('startDate and endDate');
-              // console.log(startDate);
-              // console.log(endDate);
-
-              ooi.trigger('updateCalendarZoom', {startDate: startDate, endDate: endDate});
-
-              $('#update-plot').hide();
-              $('#zoom-update-plot').prop('disabled',false);
-              $('#zoom-update-plot').show();
-              // console.log(this.$end_date_picker.getDate(endDate));
-              // console.log(this.$start_date_picker.getDate(startDate));
-              //ooi.trigger('update_plot',{});
-
             } else {
-              // console.log("selection: reset");
-              $('#zoom-details').hide();
-              $('#zoom-coordinates').empty();
-              $('#zoom-update-plot').prop('disabled',true);
-              $('#zoom-update-plot').hide();
-              $('#update-plot').show();
+              // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate});
+              // ooi.trigger('update_plot');
+              // origStartDate = null;
+              // origEndDate = null;
+              // $('#zoom-reset-plot').hide();
+              // // console.log("selection: reset");
+              // $('#zoom-details').hide();
+              // $('#zoom-coordinates').empty();
+              //$('#zoom-update-plot').prop('disabled',true);
+              //$('#zoom-update-plot').hide();
+              //$('#update-plot').show();
               // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate})
             }
           }

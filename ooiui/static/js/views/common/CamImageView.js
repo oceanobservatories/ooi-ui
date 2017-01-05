@@ -40,7 +40,8 @@ var CamImageView = Backbone.View.extend({
       lazyLoad: 'ondemand',
       speed: 500,
       slidesToShow: 5,
-      slidesToScroll: 5
+      slidesToScroll: 5,
+      dots: true
     });
 
   }

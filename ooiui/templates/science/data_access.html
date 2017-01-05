@@ -175,6 +175,7 @@
                           <div id="zoom-details" class="pull-left" style="border: 1px; m-top: 5px;" hidden>
                             <p>Zoom Details</p>
                             <p id="zoom-coordinates"></p>
+                            <a href="#" type="button" id="zoom-reset-plot" class="btn btn-default zoom-reset-plot">Reset Zoom</a>
                           </div>
                           <div class="panel-body">
                             <!--  Plot section NORMAL   -->
@@ -289,6 +290,9 @@
       //console.log('initialLocationSearch');
       //console.log(initialLocationSearch);
     }
+
+    var origStartDate = null;
+    var origEndDate = null;
 
     _.extend(OOI.prototype, Backbone.Events, {
       login: new LoginModel(),
@@ -618,13 +622,13 @@
         });
 
         this.listenTo(this, 'PlatformFilterView:add', function(options) {
-          console.log('PlatformFilterView:add');
+          //console.log('PlatformFilterView:add');
           setPlatformFilter("reference_designator", options);
           combineFilters();
         });
 
         this.listenTo(this, 'NodeFilterView:add', function(options) {
-          console.log('NodeFilterView:add');
+          //console.log('NodeFilterView:add');
           setNodeFilter("reference_designator", options);
           combineFilters();
         });
@@ -768,6 +772,8 @@
             });
             $('#zoom-update-plot').prop('disabled',true);
             $('#zoom-update-plot').hide();
+            $('#zoom-reset-plot').prop('disabled',true);
+            $('#zoom-reset-plot').hide();
           }else{
             //reset is empty
             self.collections.annotations.reset();
@@ -794,6 +800,10 @@
           $('#plot-view').empty();
           $('.download-plot-container').css('display','none');
           $('#zoom-details').hide();
+
+          //console.log('update_plot');
+{#          console.log(self.views.plotContainer.xyPlot.origStartDate);#}
+{#          console.log(self.views.plotContainer.xyPlot.   .xyPlot.origEndDate);#}
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
 
@@ -1235,6 +1245,8 @@
       //console.log(location.hash);
 
       $('.update-plot').on('click', function(event){
+        origStartDate = null;
+        origEndDate = null;
         event.preventDefault();
         ooi.trigger('update_plot',{});
       });
@@ -1246,6 +1258,21 @@
         $('.zoom-update-plot').hide();
         $('#zoom-coordinates').empty();
         $('#update-plot').show();
+      });
+
+      $('#zoom-reset-plot').on('click', function(event) {
+        event.preventDefault();
+        $('#plot-view').empty();
+        //console.log('zoom-reset-plot');
+        //console.log(origStartDate);
+        //console.log(origEndDate);
+        ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate});
+        ooi.trigger('update_plot');
+        origStartDate = null;
+        origEndDate = null;
+        $('.zoom-reset-plot').prop('disabled',true);
+        $('.zoom-reset-plot').hide();
+        $('#zoom-coordinates').empty();
       });
 
       $('.download-plot-data').on('click', function(event){
