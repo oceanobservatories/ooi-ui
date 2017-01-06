@@ -7,7 +7,12 @@
 var TimeRangeFilterView = FilterParentView.extend({
     onAfterRender: function() {
         var _this = this;
-        $.when(this.collection.fetch({data: {search: _this.getArrayFilters()}})).done(function() {
+
+        var getArrayFiltersResult = _this.getArrayFilters();
+        var searchDict = {};
+        if(!$.isEmptyObject(getArrayFiltersResult))
+            searchDict = {search: getArrayFiltersResult};
+        $.when(this.collection.fetch({data: searchDict})).done(function() {
             var dateRangeBounds = {} ;
 
             // We're overriding the data sets min bound.

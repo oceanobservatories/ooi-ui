@@ -329,7 +329,7 @@ def asset_edit_phase_values():
 def asset_types_values():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/types/supported', data=request.data)
     select = create_html_select_from_list(json.loads(response.text)['asset_types'])
-    print select
+    # print select
     return select, response.status_code
 
 
@@ -365,7 +365,7 @@ def instrument_deployment_put_ajax():
         # print 'edit record'
         # print clean_data['eventId']
         # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
-        print json.dumps(clean_data)
+        #  json.dumps(clean_data)
         response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
         return response.text, response.status_code
         # return 'Edit record operation', 200
@@ -508,11 +508,25 @@ def op_log():
     return render_template('common/opLog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/api/uframe/stream')
+@app.route('/api/uframe/stream', methods=['GET'])
 def stream_proxy():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
-    return response.text, response.status_code
+    search_request_arg = request.args.get('search','')
+    if len(search_request_arg) > 0 or len(request.args) == 0:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+    else:
+        return {}, 400
+
+
+@app.route('/api/uframe/get_stream_for_model', methods=['GET'])
+def stream_for_model():
+    token = get_login()
+    if len(request.args) > 0:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_stream_for_model/%s/%s/%s' % (request.args.get('ref_des',''), request.args.get('stream_method',''), request.args.get('stream','')), auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+    else:
+        return {}, 400
 
 
 @app.route('/api/antelope_acoustic/list', methods=['GET'])

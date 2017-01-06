@@ -390,7 +390,8 @@
           };
 
           var errorHandler = function(collection, response,options){
-            var errorText = response.status+': '+response.statusText
+            //var errorText = response.status+': '+response.statusText;
+            var errorText = "There is no data available for the specified time range.";
             ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
             self.views.plotContainer.hideLoading();
           };
@@ -471,7 +472,8 @@
         };
 
         var errorHandler = function(collection, response,options){
-          var errorText = response.status+': '+response.statusText
+          //var errorText = response.status+': '+response.statusText;
+          var errorText = "There is no data available for the specified time range.";
           ooi.trigger('plot:error', {title:"Error Obtaining Data:", message: errorText});
           self.views.plotContainer.hideLoading();
         };
@@ -598,7 +600,7 @@
         });
 
         this.listenTo(this, 'TimeRangeFilterView:addToTimeRange', function(options) {
-{#          console.log('addToTimeRange');#}
+          // console.log('addToTimeRange');
           var startDate = new Date(options.min).toISOString(),
             endDate   = new Date(options.max).toISOString();
 
@@ -670,7 +672,20 @@
           //ONLY ALLOW TWO instruments selected
           if (self.collections.selectedStreamCollection.length < 2){
             self.showPlottingTabs();
-            self.collections.selectedStreamCollection.add(o.model);
+            // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
+            // console.log('adding model to selectedStreamCollection');
+            // console.log(o.model);
+            // console.log(o);
+            var ref_des = o.model.get('ref_des'),
+              stream_method = o.model.get('stream_method'),
+              stream = o.model.get('stream');
+            var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
+            var streamWithParameters = new StreamCollection();
+            streamWithParameters.fetch({url: newUrl, async:false});
+            // console.log('streamWithParameters');
+            // console.log(streamWithParameters);
+            // TODO: Check that the model is > 0
+            self.collections.selectedStreamCollection.add(streamWithParameters.models[0]);
             self.trigger('update_catalog_list',{});
             if (!_.isUndefined(o.evt)){
               o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -685,10 +700,6 @@
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
-
-{#        window.onpopstate = function(event) {
-          //alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
-        };#}
 
         //MAIN ADDITION OF A STREAM
         this.listenTo(this, "remove_catalog_model", function(o) {
@@ -848,23 +859,6 @@
           } else {
             alert('Please log in');
           }
-{#          openPlotDataDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"');#}
-
-{#          self.views.plotContainer.plotModel = this.views.plotControls.plotModel;#}
-
-          //get the selected parameters, only plot is they meet the criteria
-          //will be null if the inputs dont conform
-{#          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);#}
-{##}
-{#          if (!_.isNull(parameterCollection)){#}
-{#            self.views.plotContainer.showLoading();#}
-{##}
-{#            if (self.collections.selectedStreamCollection.length == 1){#}
-{#              self.plotSingleInstrument(parameterCollection);#}
-{#            }else{#}
-{#              self.plotInterpolatedData(parameterCollection);#}
-{#            }#}
-{#          }#}
         });
 
         this.listenTo(this, "plot:error", function(o) {
@@ -1015,21 +1009,13 @@
     });
 
     var ooi = new OOI();
-    {#var collection = new StreamCollection();#}
     var collection = ooi.collections.streams;
 
     var vent = _.extend({}, Backbone.Events);
     var vobj = {};
     // controller for our model collections
-    var arrayCollection     = new ArrayCollection();
     var streamCollection    = new StreamCollection();
-    var dlPagination = {
-      itemsPerPage : 8, // how many items per page
-      currentPage : 1, // page to start at, first page is 1, not 0
-      maxPages: 4, // max number of pages to show in the pagination element
-      date: '',
-      ref_des: ''
-    };
+
 
     var instrumentFilter = {groupOp:"OR",rules:[]};
     var arrayFilter = {groupOp:"OR",rules:[]};
@@ -1135,99 +1121,6 @@
       }
     };
 
-    //Adds in support for Large Format Data
-{#    function updatePagination( details, successCallback ){
-
-      // Calculate pagination attributes
-      var start = details.startAt + 1,
-        end = details.startAt + details.count,
-        totalPages = Math.ceil( details.total / pagination.itemsPerPage ),
-        currentPage = details.startAt / details.count + 1;
-
-      // Display a "Page 1 of 5" type message on the page
-      if (end >= details.total) {
-        $("#pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
-      } else {
-        $("#pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
-      }
-      // Remove the pagination binding so they don't get called
-      // multiple times after they're redrawn.
-      $("#pagination-boxes").unbind();
-
-      // Redraw the jquery pagination boxes
-      $("#pagination-boxes").pagination({
-        total_pages: totalPages,
-        display_max: pagination.maxPages,
-        current_page: currentPage,
-        callback: function(event, page) {
-          if ( page ){
-            pagination.currentPage = page;
-            updateCollection( successCallback );
-          }
-        }
-      });
-    }#}
-
-    function updateDownloadCollection( options ){
-
-      // If there is a search term, we need to set the startAt attribute to 0,
-      // otherwise the results may not load on the page.
-      var startingPoint = "";
-      try {
-        var target = $( event.target );
-        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
-          || target.is('th') || target.is('font') || target.is('input')) {
-          startingPoint = 0;
-        } else {
-          startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
-        }
-      } catch(e) {
-        console.log(e);
-        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
-      }
-      // Pagination attributes will be passed in using
-      // backbone's collection data method.
-
-      var data = {
-        startAt : startingPoint,
-        count : dlPagination.itemsPerPage,
-        ref_des: options.ref_des,
-        date: options.date
-      };
-      dlPagination.ref_des = options.ref_des;
-      dlPagination.date = options.date;
-      ooi.trigger('LargeFormatFileTable:update', data);
-    }
-
-    function updateDownloadPagination( details ){
-      // This is pagination for the Large File format download list
-      // Calculate pagination attributes
-      var start = details.startAt + 1,
-        end = details.startAt + details.count,
-        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
-        currentPage = details.startAt / details.count + 1;
-      // Display a "Page 1 of 5" type message on the page
-      if (end >= details.total) {
-        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
-      } else {
-        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
-      }
-      // Remove the pagination binding so they don't get called
-      // multiple times after they're redrawn.
-      $("#dl-pagination-boxes").unbind();
-      // Redraw the jquery pagination boxes
-      $("#dl-pagination-boxes").pagination({
-        total_pages: totalPages,
-        display_max: dlPagination.maxPages,
-        current_page: currentPage,
-        callback: function(event, page) {
-          if ( page ){
-            dlPagination.currentPage = page;
-            updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
-          }
-        }
-      });
-    }
 
     $.urlParam = function(name){
       var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -2308,7 +2201,7 @@
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
-      ooi.collections.dataAvailabilityCollection.fetch()
+      ooi.collections.dataAvailabilityCollection.fetch();
       //console.log(ooi.collections.dataAvailabilityCollection);
       placeJqGrid(jqCollection, ooi.collections.dataAvailabilityCollection);
       $('#reset_catalog_button').css('display','inline-block'); //TODO REMOVE LINE
@@ -2321,6 +2214,7 @@
 
 
     function updateCollection( successCallback ){
+      // console.log('updateCollection');
       collection.fetch({
         data : data,
         success : successCallback

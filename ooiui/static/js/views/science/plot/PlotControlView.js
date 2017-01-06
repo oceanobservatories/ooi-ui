@@ -454,7 +454,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     //empty it before we start
     self.collection = new ParameterCollection();
 
-    var count = 0
+    var count = 0;
     //get the basic set of parameters, and see if
     _.each(this.model.get('parameter_id'),function(v,i){
 
@@ -470,7 +470,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 is_z: false,
                                                 original_model: self.model,
                                                 index_used: i
-                                           })
+                                           });
 
 
 
@@ -483,7 +483,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         self.collection.add(paramModel);
       }else{
         //number of parameters not added
-        console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
+        // console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
         count+=1;
       }
     });
