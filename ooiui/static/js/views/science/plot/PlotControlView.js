@@ -424,10 +424,14 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
 
     //complex if statement for parameters...
     if (
-        (self.model.get("variables_shape")[i] == "scalar" || self.model.get("variables_shape")[i] == "function") &&
+        (
+          self.model.get("variables_shape")[i] == "scalar" ||
+          self.model.get("variables_shape")[i] == "function" ||
+          self.model.get("variables_shape")[i] == "boolean"
+        ) &&
         self.model.get("units")[i] != "bytes" &&
-        self.model.get("units")[i] != "counts"
-        //self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get("units")[i] != "counts" &&
+        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1
         //self.model.get("units")[i].toLowerCase() != "s" &&
         //self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
@@ -448,6 +452,12 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       }
     return isValid;
   },
+  isAdditionalTimestamp: function(i){
+    var self = this;
+    if (self.model.get("variables")[i] != "time" &&
+      self.model.get("units")[i].toLowerCase().indexOf("seconds since") == 0)
+      return true
+  },
   render:function(){
     //base render class
     var self = this;
@@ -455,6 +465,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     self.collection = new ParameterCollection();
 
     var count = 0;
+    var containsTimeVariable = $.inArray("time", self.model.get("variables"));
+
     //get the basic set of parameters, and see if
     _.each(this.model.get('parameter_id'),function(v,i){
 
@@ -473,18 +485,21 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                            });
 
 
-
-      if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
-        //derived parameters
-        self.collection.add(paramModel);
-      }else if (self.isEngineeringValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
-        //other parameters
-        paramModel.set({param_class:"additional-param"});
-        self.collection.add(paramModel);
+      if(containsTimeVariable >= 0){
+        if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+          //derived parameters
+          self.collection.add(paramModel);
+        }else if (self.isAdditionalTimestamp(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+          //other parameters
+          paramModel.set({param_class:"additional-param"});
+          self.collection.add(paramModel);
+        }else{
+          //number of parameters not added
+          // console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
+          count+=1;
+        }
       }else{
-        //number of parameters not added
-        // console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
-        count+=1;
+        self.collection.add(paramModel);
       }
     });
 

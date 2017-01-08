@@ -192,9 +192,6 @@ def platform():
 def platformN():
     return render_template('common/platformStatus.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/data_catalog')
-def data_catalog():
-    return render_template('common/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/status')
 def statusUI():

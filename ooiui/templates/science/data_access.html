@@ -673,8 +673,8 @@
           if (self.collections.selectedStreamCollection.length < 2){
             self.showPlottingTabs();
             // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
-            // console.log('adding model to selectedStreamCollection');
-            // console.log(o.model);
+            console.log('adding model to selectedStreamCollection');
+            console.log(o.model);
             // console.log(o);
             var ref_des = o.model.get('ref_des'),
               stream_method = o.model.get('stream_method'),
@@ -682,6 +682,7 @@
             var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
             var streamWithParameters = new StreamCollection();
             streamWithParameters.fetch({url: newUrl, async:false});
+            console.log(streamWithParameters.models[0]);
             // console.log('streamWithParameters');
             // console.log(streamWithParameters);
             // TODO: Check that the model is > 0
@@ -695,8 +696,9 @@
             }
             var selectedStreamUrl =  "#" + o.model.get('ref_des') + "/" + o.model.get('stream_name');
             var selectedStreamObj = {"ref_des": o.model.get('ref_des'), "stream_name": o.model.get('stream_name')};
-            //console.log("add_catalog_model");
-            //console.log(selectedStreamUrl);
+            console.log("add_catalog_model");
+            console.log(selectedStreamObj);
+            console.log(selectedStreamUrl);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
@@ -705,7 +707,15 @@
         this.listenTo(this, "remove_catalog_model", function(o) {
           //o.model = selected stream model
           //ONLY ALLOW TWO instruments selected
-          self.collections.selectedStreamCollection.remove(o.model);
+
+          console.log("remove_catalog_model");
+          console.log(o.model);
+          console.log(self.collections.selectedStreamCollection);
+
+          // people.remove(people.where({name: "joe3"}));
+          self.collections.selectedStreamCollection.remove(self.collections.selectedStreamCollection.where({unique_id: o.model.get('unique_id')}));
+          console.log('after remove');
+          console.log(self.collections.selectedStreamCollection);
 
           if (self.collections.selectedStreamCollection.length == 0){
             self.hidePlottingTabs();
@@ -716,9 +726,9 @@
           self.trigger('update_catalog_list',{});
 
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-          //console.log("remove_catalog_model");
+
           history.back();
-          //console.log(location.href);
+          console.log(location.href);
         });
 
         this.listenTo(this, "reset_catalog_list", function(o) {
@@ -1015,7 +1025,7 @@
     var vobj = {};
     // controller for our model collections
     var streamCollection    = new StreamCollection();
-
+    var arrayCollection     = new ArrayCollection();
 
     var instrumentFilter = {groupOp:"OR",rules:[]};
     var arrayFilter = {groupOp:"OR",rules:[]};
@@ -1661,20 +1671,27 @@
           var $evt = $(event.target);
 
           // Toggle for add/remove stream from plotting list
-          if ($evt.find('i').hasClass('fa-plus-square')) {
-            if (!_.isUndefined(modelList) && modelList.length > 0) {
-              //trigger for a new plot item
-              ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
-              $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
-            }
-          } else {
-            if ($evt.find('i').hasClass('fa-minus-square')) {
+          // Check is start and end times are exactly the same, if so send message to user and don't so it
+          if (selectedRow.start == selectedRow.end) {
+
+
+            if ($evt.find('i').hasClass('fa-plus-square')) {
               if (!_.isUndefined(modelList) && modelList.length > 0) {
-                //trigger a remove for a model
-                ooi.trigger('remove_catalog_model', {model: modelList[0]});
-                $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+                //trigger for a new plot item
+                ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+                $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+              }
+            } else {
+              if ($evt.find('i').hasClass('fa-minus-square')) {
+                if (!_.isUndefined(modelList) && modelList.length > 0) {
+                  //trigger a remove for a model
+                  ooi.trigger('remove_catalog_model', {model: modelList[0]});
+                  $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+                }
               }
             }
+          }else{
+            alert('Sorry, currently unable to plot this stream.  Start and end times are exactly the same.')
           }
 
           // Show Data Availability Pop-up

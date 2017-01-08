@@ -68,9 +68,6 @@ def event_new(new, aid, aclass):
 def streams_page():
     return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-# @app.route('/datacatalog/')
-# def data_catalog_page():
-#     return render_template('science/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
