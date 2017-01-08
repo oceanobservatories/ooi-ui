@@ -1672,9 +1672,7 @@
 
           // Toggle for add/remove stream from plotting list
           // Check is start and end times are exactly the same, if so send message to user and don't so it
-          if (selectedRow.start == selectedRow.end) {
-
-
+          if (selectedRow.start != selectedRow.end) {
             if ($evt.find('i').hasClass('fa-plus-square')) {
               if (!_.isUndefined(modelList) && modelList.length > 0) {
                 //trigger for a new plot item
