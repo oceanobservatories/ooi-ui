@@ -867,7 +867,14 @@
             //console.log(dtRange);
             openDownload(ref_des, stream_name, dtRange);
           } else {
-            alert('Please log in');
+            var daWarning = new ModalDialogView();
+            var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+            theMessage += "Please log in to download data.";
+            theMessage += "</div>";
+            daWarning.show({
+              message: theMessage,
+              type: "warning"
+            });
           }
         });
 
@@ -1689,7 +1696,16 @@
               }
             }
           }else{
-            alert('Sorry, currently unable to plot this stream.  Start and end times are exactly the same.')
+            var daWarning = new ModalDialogView();
+            var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+            theMessage += "<p>Sorry, currently unable to plot this stream.  Start and end times are exactly the same.</p>";
+            theMessage += "<p>Start Time: " + selectedRow.start + "</p>";
+            theMessage += "<p>End Time: " + selectedRow.end + "</p>";
+            theMessage += "</div>";
+            daWarning.show({
+              message: theMessage,
+              type: "warning"
+            });
           }
 
           // Show Data Availability Pop-up
@@ -1996,7 +2012,9 @@
             }
           }
         ],
-        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        ondblClickRow: function (id) {
+          // alert("You double click row with id: " + id);
+        },
         loadComplete : function(data) {
           highlightFilteredData.call($dcGrid);
 {#          console.log('loadComplete');#}
@@ -2100,11 +2118,11 @@
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
-              alert('column "' + ui.item.text() + '" is chosen');
+              // alert('column "' + ui.item.text() + '" is chosen');
             });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
             .click(function () {
-              alert('column "' + $(this).parent().text() + '" is chosen');
+              // alert('column "' + $(this).parent().text() + '" is chosen');
             });
 
         }

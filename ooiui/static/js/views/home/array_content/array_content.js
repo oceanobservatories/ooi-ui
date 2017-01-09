@@ -147,7 +147,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         }
     },
     _popUpForPlatform: _.debounce(function(event) {
-        event.stopImmediatePropagation;
+        event.stopImmediatePropagation();
         var title = $(event.target).parent().data('title'),
             lat = $(event.target).parent().data('lat'),
             lon = $(event.target).parent().data('lon');
@@ -174,7 +174,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         this._addPopup([lon, lat], title);
     }, 100),
     _goToPlatform: function(event) {
-        event.stopImmediatePropagation;
+        event.stopImmediatePropagation();
 
         var code = $(event.target).parent().data('code');
         window.open("/platform?id="+code);
@@ -229,7 +229,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         var flyFlyContext = this; 
         map._showPlatformView();
         event.stopImmediatePropagation();
-        flyFlyContext.originalZoom;
+        //flyFlyContext.originalZoom;
 
         $.when(this._toggleActive(event)).done(function() {
             $.when(flyFlyContext._toggleOthers(event)).done(function() {

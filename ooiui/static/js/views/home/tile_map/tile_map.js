@@ -53,11 +53,11 @@ var TileMap = Backbone.View.extend({
         _.each(map._layers, function(platform) {
             if(platform._icon && platform.feature.properties.code.length > 2){
                 platform._icon.style.opacity = 1;
-            };
+            }
             if(platform._icon && platform.feature.properties.code.length < 3){
                 platform._icon.style.opacity = 0;
                 platform._icon.style.zIndex = -1;
-            };
+            }
         });
     },
     _hidePlatformView: function() {
@@ -66,11 +66,11 @@ var TileMap = Backbone.View.extend({
         _.each(map._layers, function(platform) {
             if(platform._icon && platform.feature.properties.code.length > 2){
                 platform._icon.style.opacity = 0;
-            };
+            }
             if(platform._icon && platform.feature.properties.code.length < 3){
                 platform._icon.style.opacity = 1;
                 platform._icon.style.zIndex = 1000;
-            };
+            }
         });
     },
     render: function() {
@@ -91,7 +91,7 @@ var TileMap = Backbone.View.extend({
                 _.each(renderContext.collection.platformCollection.toGeoJSON(), function(geoJSON) {
                     if (geoJSON.properties.code.indexOf('MOAS') == -1) {
                         platformData.push(geoJSON);
-                    };
+                    }
                 });
                 
                 L.geoJson(arrayData, {
