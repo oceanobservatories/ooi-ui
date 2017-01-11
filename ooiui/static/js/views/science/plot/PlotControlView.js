@@ -204,7 +204,7 @@ var PlotControlView = Backbone.View.extend({
 
     $('#reportrange').data('daterangepicker').setStartDate(st);
     $('#reportrange').data('daterangepicker').setEndDate(ed);
-    this.cb(moment.utc(st), moment.utc(ed));
+    this.cb(st, ed);
   },
   getDateTimeRange: function(){
     //update the selected date range

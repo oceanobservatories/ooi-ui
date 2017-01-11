@@ -815,7 +815,7 @@
           //console.log(o.startDate);
           //console.log(o.endDate);
 
-          self.views.plotControls.updateDateTimeRange(o.startDate, o.endDate);
+          self.views.plotControls.updateDateTimeRange(moment.utc(o.startDate), moment.utc(o.endDate));
         });
 
         this.listenTo(this, "update_plot", function(o) {
