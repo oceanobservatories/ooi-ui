@@ -9,8 +9,14 @@ var TileMap = Backbone.View.extend({
             var map = L.map(this.id, {
                 zoomControl: false
             }).setView([15.8, -90], 2);
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
+            L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+                max_zoom: 13,
+                layers: 'topo',
+                format: 'image/png',
+                transparent: true,
+                crs: L.CRS.EPSG4326,
+                attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
+            })
                 .addTo(map);
 
                 map.dragging.disable();
@@ -97,7 +103,7 @@ var TileMap = Backbone.View.extend({
                 L.geoJson(arrayData, {
 
                     pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: arrayIcon});
+                        return new L.Marker(latlng, {icon: arrayIcon, zIndexOffset: 1000000});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function(event) {
@@ -128,7 +134,7 @@ var TileMap = Backbone.View.extend({
                     }
                     
                 }).addTo(map); 
-                
+
                 map._hidePlatformView();
 
 
