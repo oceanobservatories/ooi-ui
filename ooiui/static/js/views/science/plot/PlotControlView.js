@@ -427,7 +427,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         (
           self.model.get("variables_shape")[i] == "scalar" ||
           self.model.get("variables_shape")[i] == "function" ||
-          self.model.get("variables_shape")[i] == "boolean"
+          self.model.get("variables_shape")[i] == "boolean" ||
+          self.model.get("variables_shape")[i] == "array1d"
         ) &&
         self.model.get("units")[i] != "bytes" &&
         self.model.get("units")[i] != "counts" &&
