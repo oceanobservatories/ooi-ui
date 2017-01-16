@@ -1,7 +1,16 @@
 [
     {
-        "VersionNumber":"V 1.1.3",
-        "VersionDescription":["Jenkins Nightly Package #147-uframe_ooi_20161209_7b9970e847a1981fd6cb4c6398c8bb2e2bd0128c",
+        "VersionNumber":"1.2.1",
+        "VersionDescription":[
+            "Added author to annotations (Issue 11715).",
+            "Removed cruiseIdentifier from Cruise event and parser (Issue 11701).",
+            "Created new interface for event selection, reducing amount of data returned and removing direct association of event with asset (Issue 11688)."
+                ]
+    },
+
+    {
+        "VersionNumber":"1.1.3",
+        "VersionDescription":[
             "Issue 11701 CruiseInfo cruiseIdentifer is no longer used.",
             "Remove cruiseIdentifier attribute from CruiseInfo and associated ingest parser.",
             "Issue 11688 Disconnect events collection from the associated asset.",
@@ -27,8 +36,8 @@
     },
 
     {
-        "VersionNumber":"uframe_ooi_20161027_f6f2d988a971370b0504652023e7e3b90e5ad651",
-        "VersionDescription":["Jenkins Nightly Package #142",
+        "VersionNumber":"1.1.2",
+        "VersionDescription":[
             "Corrected two-dimensional calibration data. (#11370)",
             "Publish preload information to internal database. (#11199)",
             "Corrected issue where a user would receive a response indicating a valid download even though there was no data to return. (#11407)",
