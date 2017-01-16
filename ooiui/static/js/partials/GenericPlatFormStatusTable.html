@@ -11,11 +11,11 @@
                           <% } else if(instStatus == "degraded") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: orange; font-size: 16px;" title="<%= instStatus %>"></i></li>
                           <% } else if(instStatus == "removedFromService") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: black; font-size: 16px;" title="<%= instStatus %>"></i></li>
                           <% } else if(instStatus == "notTracked") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= instStatus %>"></i></li>
                           <% } else if(instStatus == "Fetching Status Failed") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: lightgrey; font-size: 16px;" title="<%= instStatus %>"></i></li>
                           <% } else if(instStatus == "No Status Returned") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= instStatus %>"></i></li>
                           <% } else if(instStatus == "operational") { %>

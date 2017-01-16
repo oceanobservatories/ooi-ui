@@ -10,7 +10,7 @@ var XYPlotView = BasePlot.extend({
   },
   getValue: function(val, name){
     //convert times to time
-    if (name == 'time'){
+    if (name.indexOf('time') > -1){
       var dt;
       val -= 2208988800;
       val = val*1000;
@@ -41,7 +41,7 @@ var XYPlotView = BasePlot.extend({
 
     _.each(availableParameters,function(model,i){
       //create the axis
-      if (model.get('short_name') != "time"){
+      if (model.get('short_name').indexOf('time') == -1){
         axis.push({
                   reversed: isReversed,
                   title: {
@@ -193,11 +193,15 @@ var XYPlotView = BasePlot.extend({
         data.push([val1,val2]);
 
         //will only add QAQC if the reference is time
-        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name') == 'time'){
+        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name').indexOf('time') > -1){
           var qaqc_data = dataModel.get(qc_name);
+          // console.log('qaqc_data');
+          // console.log(qaqc_data);
+          // console.log('qaqc');
+          // console.log(qaqc);
           var qaqcpass = false;
           if (qaqc < 10){
-            if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
+            if (qaqc_data && Math.pow(2,qaqc-1)){  //PASS
               qaqcpass = true;
             }else{
               qaqcpass = false;
@@ -210,36 +214,32 @@ var XYPlotView = BasePlot.extend({
             }
           }
 
-          if (qaqcpass){
-            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'green', lineWidth:0.5, radius : 0}});
-          }else{
+          // console.log(qaqcpass);
+          if (!qaqcpass)
             qaqcdata.push({x:val1,y:val2, marker:{lineColor:'#FF0000', lineWidth:1.5}});
-          }
-
         }
       });
 
-      series.set('data',data);
-      seriesList.push(series.toJSON());
-
       //add qaqc series
       if (!_.isEmpty(qaqcdata)){
-        console.log('FAILED QAQC SHOULD SHOW HERE');
-        console.log(qaqcdata);
+        // console.log('FAILED QAQC SHOULD SHOW HERE');
+        // console.log(qaqcdata);
+
         seriesList.push(new SeriesModel({
-                                          type  : 'scatter',
-                                          name  : "Failed QAQC: "+ model.get('name'),
-                                          qaqc  : true,
-                                          title : qc_name,
-                                          units : '',
-                                          color : '#FF0000',
-                                          data  : qaqcdata,
-                                          yAxis : isY ? 0 : i,
-                                          xAxis : isY ? i : 0
-                                       }).toJSON());
+          type  : 'scatter',
+          name  : "Failed QAQC: "+ model.get('name'),
+          qaqc  : true,
+          title : qc_name,
+          units : '',
+          color : '#FF0000',
+          data  : qaqcdata,
+          yAxis : isY ? 0 : i,
+          xAxis : isY ? i : 0
+        }).toJSON());
       }
 
-
+      series.set('data',data);
+      seriesList.push(series.toJSON());
     });
 
     return seriesList;
@@ -376,12 +376,12 @@ var XYPlotView = BasePlot.extend({
           formatter: function () {
 
             var xVal = Highcharts.numberFormat(this.x, 2);
-            if (this.series.xAxis.userOptions.title.shortName == "time"){
+            if (this.series.xAxis.userOptions.title.shortName.indexOf('time') > -1){
               xVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.x));
             }
 
             var yVal = Highcharts.numberFormat(this.y, 2);
-            if (this.series.yAxis.userOptions.title.shortName == "time"){
+            if (this.series.yAxis.userOptions.title.shortName.indexOf('time') > -1){
               yVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.y));
             }
 

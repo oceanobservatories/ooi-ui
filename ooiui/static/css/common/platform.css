@@ -91,3 +91,11 @@ div#wrapper.platform-page {
     border: 2px solid #000;
     opacity: 0.85;
 }
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}

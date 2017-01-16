@@ -64,15 +64,14 @@ body, html {
     background-color: green;
 }
 
-.home-page .js-array h4:hover {
+.home-page .js-array .panel-heading h4:hover {
     transition: background 5s;
     display: inline-block;
     width: 100%;
-    padding: 5px;
+    /*padding: 5px;*/
     margin-top: 0;
     color: white;
     border: 4px solid orange;
-
 }
 
 
@@ -100,4 +99,29 @@ body, html {
     background: orange;
     border: 2px solid #000;
     opacity: 0.85;
+}
+
+.mydivicon-platform{
+    border-radius: 58px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-platform:hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-platform-hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-nopointer {
+    pointer-events: none;
 }

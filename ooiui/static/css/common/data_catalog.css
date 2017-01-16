@@ -85,3 +85,8 @@ span.bootstrap-switch-handle-on.bootstrap-switch-primary {
     padding-top: 2px;
     padding-bottom: 3px;
 }
+
+.col-md-2 {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
+}

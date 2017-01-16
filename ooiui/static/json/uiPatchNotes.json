@@ -1,31 +1,67 @@
 [
     {
+        "VersionNumber":"1.3.0",
+        "VersionDescription":[
+            "Plotting: Download plot image scaling problem fixed. (10821)",
+            "Plotting: Data zoom with dynamic refresh implemented. (8865)",
+            "Plotting: Data decimation warning message. Closed by 8865. (8867)",
+            "Camera image display restored on Cameras page. (8869)",
+            "Data Access: Deep links to stream restored. (10829)",
+            "Plotting: Axis reset on image download fixed. (10880)",
+            "Annotations: ID fixed to represent uframe's ID. (11475)",
+            "Plotting: \"There is no data available for the specified time range.\" error message implemented. (9764)",
+            "Cruises: Alfresco documentation restored on Cruises page. (10527)",
+            "Data Access: Additional filters added for platform, node, delivery method, and dataset type. (10531)",
+            "Plotting: Dynamic parameter drop down list implemented, fixes units and vocabulary. (10547)",
+            "Data Access: Annotations save user name in uframe and displayed in table. (11520)",
+            "General: Help link added to top toolbar to make more accessible. (9618)",
+            "Plotting: Ability to download data from plotting tab for plotted time range implemented. (10453)",
+            "Plotting: Calendar times fixed to not reset after date change. (9834)",
+            "Data Access: Depth Range filter implemented. (10538)",
+            "General: Home page array sorted alphabetically. (11022)",
+            "General: Registration form fixed to allow international phone numbers. (9338)",
+            "Data Access: Time slider dedicated reset button implemented. (10727)",
+            "Plotting: Button added to clear plot window. (10449)",
+            "Data Access: New data columns added; order and naming of columns changed. (11358)",
+            "Data Access: Populate latitude, longitude and water depth; format decimal places. (10539)",
+            "Plotting: Binned pseudo color plotting updates. (10553)",
+            "Data Access: Column selection interface CSS updated. (10859)",
+            "Plotting: Color bar now scales to majority of data for binned pseudo color plots. (10913)",
+            "Data Access: Toggle to filter out \"_bad\" data streams updated. (10923)",
+            "General: Non-https 3rd party traffic updated to https. (11316)",
+            "Data Access: Annotation tab data update and ability to add annotation fixed. (11408)",
+            "Plotting: execDPA flag now being respected in requests. (11738)",
+            "General: Array-level navigation fix where map icons would not be clickable. (11771)",
+            "Data Access: Add annotation fix. (11782)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.0",
         "VersionDescription":[
-            "Adds New Feature: Status UI Functionality",
-            "Additional parameters and instruments added to data catalog filters",
-            "Corrects platform images showing incorrect platforms",
-            "M2M token and username are now able to be highlighted for copying to clipboard",
-            "M2M now supports streaming for large requests",
-            "Added multiple bin time series plot for SPKIR instruments",
-            "Fixed plotting bugs (see closed Red Mine tickets for specifics)",
-            "Estimated time for data delivery now provided in the download success popup",
-            "Assets and Events caches are now popuated automatically once per day",
-            "Data Catalog cache is now populated automatically every hour",
-            "Fixes cache swap error where old cache was deleted before new cache was created/swapped",
-            "Plotting parameters now pull live from uFrame instead of from the UI cache"
-                ]
+            "Adds New Feature: Status UI Functionality.",
+            "Additional parameters and instruments added to data catalog filters.",
+            "Corrects platform images showing incorrect platforms.",
+            "M2M token and username are now able to be highlighted for copying to clipboard.",
+            "M2M now supports streaming for large requests.",
+            "Added multiple bin time series plot for SPKIR instruments.",
+            "Fixed plotting bugs (see closed Red Mine tickets for specifics).",
+            "Estimated time for data delivery now provided in the download success popup.",
+            "Assets and Events caches are now populated automatically once per day.",
+            "Data Catalog cache is now populated automatically every hour.",
+            "Fixes cache swap error where old cache was deleted before new cache was created/swapped.",
+            "Plotting parameters now pull live from uFrame instead of from the UI cache."
+        ]
     },
     {
         "VersionNumber":"1.1.0",
         "VersionDescription":[
-            "Adds patch note capabilties",
-            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets",
-            "Fixes typo in plotting code that prohibited most plots from generating",
-            "Update to the annotation services.  Annotations now register in uFrame",
-            "Integration of new asset management services from uFrame",
-            "Addition of crusie and deployment pages",
-            "Added support for machine-to-machine data download"
-                ]
+            "Adds patch note capabilities.",
+            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets.",
+            "Fixes typo in plotting code that prohibited most plots from generating.",
+            "Update to the annotation services.  Annotations now register in uFrame.",
+            "Integration of new asset management services from uFrame.",
+            "Addition of cruise and deployment pages.",
+            "Added support for machine-to-machine data download."
+        ]
     }
 ]

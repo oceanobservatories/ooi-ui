@@ -73,7 +73,7 @@
     <div id="page-content-wrapper">
       <div class="content-fluid">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2" id="filterScrollContainer">
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
             </div>
@@ -120,6 +120,10 @@
             <div class="search-sidebar"></div>
           </div>
           <div class="col-md-10">
+                      <div class="col-md-12" style="text-align:center;">
+                                <p id="dataAvailabilityInfo"></p>
+                                <p id='dataAvailability'></p>
+                              </div>
             <div id="plottingBody">
               <div>
                 <div id="download-outline" class="pull-left">
@@ -210,11 +214,11 @@
                         </div>
                       </div>
 
-                      <div class="panel-body" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
-                        <div class="row" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
-                          <div class="col-md-12" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
-                            <div id="streamPanel" class="panel" style="margin-right: 0px; margin-left: 0px; padding: 0px;">
-                              <div class="color-index" align="right" style="padding-right: 5px;">
+
+                        <div class="row">
+
+                            <div id="streamPanel">
+                              <div class="color-index" align="right">
                                 <div class="twelve-hours"></div><b> 12 Hours </b>
                                 <div class="twenty-four-hours"></div><b> 24 Hours </b>
                                 <div class="older"></div><b> Older than 24 hours </b>
@@ -222,18 +226,14 @@
                               </div>
 
                               <!-- jqGrid -->
-                              <div>
+
                                 <div id="navGrid" class="redmond"></div>
                                 <table id="grid" class="redmond"></table>
-                              </div>
-                              <div>
-                                <p id="dataAvailabilityInfo"></p>
-                                <p id='dataAvailability'></p>
-                              </div>
+
                             </div>
-                          </div>
+
                         </div>
-                      </div>
+
                     </div>
 
                     <div class="tab-pane" id="plot-tool-events">
@@ -1713,10 +1713,7 @@
           $("#dataAvailability").empty();
           $("#dataAvailabilityInfo").empty();
           // Use this for the dataAvailabilityCollection
-          $("#dataAvailabilityInfo").append("[Mocked] Currently viewing data availability for: " + dataAvailabilityCollection.models[0].attributes['ref_des']);
-          // Used as a mocked example only
-          $("#dataAvailabilityInfo").append("<br>");
-          $("#dataAvailabilityInfo").append("Currently viewing data availability for: " + selectedRow.reference_designator);
+          $("#dataAvailabilityInfo").append("[Mocked] Currently viewing data availability for: " + selectedRow.reference_designator);
           //console.log('dataAvailabilityCollection');
           //console.log(dataAvailabilityCollection);
           stats_data = dataAvailabilityCollection.models[0].attributes['stats_data'];
@@ -1749,6 +1746,12 @@
           d3.select("#dataAvailability")
             .datum(dataset)
             .call(chart);
+
+          // Fix scrollable height of filters after DA is added
+          $('#filterScrollContainer').css({
+            "height": "calc(100vh - 165px)",
+            "overflow-y": "scroll"
+          })
         },
         datatype : "local",
         data : collection.toJSON(),
@@ -2031,6 +2034,10 @@
 {#          console.log('gridComplete');#}
 {#          console.log(initialLocationSearch);#}
 {#          initialLocationSearch = "";#}
+          $('#gbox_grid').css({
+            "padding":"5px",
+            "background-color":"#e9e9e9"
+          })
         },
         beforeRequest : function() {
 {#          console.log('beforeRequest');#}

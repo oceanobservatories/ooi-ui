@@ -99,6 +99,58 @@ var GetPlatformStatus = function(array_code, platform_ref_des) {
     return output;
 };
 
+var GetSitesStatus = function(array_code) {
+    //console.log(array_code);
+    //console.log(platform_ref_des);
+
+    var allSitesStatus = [];
+
+    $.ajax('/api/uframe/status/sites/' + array_code, {
+        type: 'GET',
+        dataType: 'json',
+        timeout: 500,
+        async: false,
+        success: function (resp) {
+
+          // console.log('resp');
+          // console.log(resp);
+          var theSites = resp.sites;
+          _.each(theSites, function(site){
+            var output = {};
+            output.geometry = {};
+            output.geometry.coordinates = [null,null];
+            output.geometry.type = "Point";
+            output.properties = {};
+            // console.log('site');
+            // console.log(site);
+            output.geometry.coordinates = [site.longitude, site.latitude];
+            output.properties['code'] = site.reference_designator;
+            output.properties['depth'] = site.depth;
+            output.properties['waterDepth'] = site.waterDepth;
+            output.properties['mindepth'] = site.mindepth;
+            output.properties['maxdepth'] = site.maxdepth;
+            output.properties['description'] = site.display_name;
+            output.properties['marker-symbol'] = "harbor_icon";
+            output.properties['title'] = site.display_name;
+            output.properties['status'] = site.status;
+
+            // console.log('output before push');
+            // console.log(output);
+
+            allSitesStatus.push(output);
+            // console.log('allSitesStatus');
+            // console.log(allSitesStatus);
+          });
+
+        },
+
+        error: function( req, status, err ) {
+            console.log(req);
+        }
+    });
+    return allSitesStatus;
+};
+
 var ArrayStatusModel = OOI.RelationalModel.extend({
     urlRoot: '/api/array',
     defaults: {
