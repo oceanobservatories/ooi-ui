@@ -27,7 +27,7 @@
             "Added webservice support for status reporting. (11519)",
             "Added ReferenceDesignator to subsite/metadata query response. (11347)",
             "Created tools to manage preload data; visualize stream parameters and automated loading of changes. (11382)",
-            "Added limit for total number of jobs per user. (11439)",
+            "Added limit for total number of jobs per user. (11439)"
                 ]
     },
 
