@@ -1,6 +1,7 @@
 [
     {
         "VersionNumber":"1.3.0",
+        "VersionDate":"2017-01-17",
         "VersionDescription":[
             "Plotting: Download plot image scaling problem fixed. (10821)",
             "Plotting: Data zoom with dynamic refresh implemented. (8865)",
@@ -37,6 +38,7 @@
     },
     {
         "VersionNumber":"1.2.0",
+        "VersionDate":"2016-12-12",
         "VersionDescription":[
             "Adds New Feature: Status UI Functionality.",
             "Additional parameters and instruments added to data catalog filters.",
@@ -54,6 +56,7 @@
     },
     {
         "VersionNumber":"1.1.0",
+        "VersionDate":"2016-10-28",
         "VersionDescription":[
             "Adds patch note capabilities.",
             "Interim fix of latitude/longitudes being shown as -1, -1 for all assets.",

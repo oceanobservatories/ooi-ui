@@ -7,5 +7,5 @@ var PatchNoteView = Backbone.View.extend({
             $(self.el).append(patchNoteTemplate);
         }, self);
         return this;
-    },
+    }
 });

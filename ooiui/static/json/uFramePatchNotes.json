@@ -1,15 +1,16 @@
 [
     {
         "VersionNumber":"1.2.1",
+        "VersionDate":"2017-01-17",
         "VersionDescription":[
             "Added author to annotations. (11715)",
             "Removed cruiseIdentifier from Cruise event and parser. (11701)",
             "Created new interface for event selection, reducing amount of data returned and removing direct association of event with asset. (11688)"
-                ]
+        ]
     },
-
     {
         "VersionNumber":"1.1.3",
+        "VersionDate":"2016-12-09",
         "VersionDescription":[
             "Removed CruiseInfo cruiseIdentifer. (11701)",
             "Disconnected events collection from the associated asset. (11688)",
@@ -28,11 +29,11 @@
             "Added ReferenceDesignator to subsite/metadata query response. (11347)",
             "Created tools to manage preload data; visualize stream parameters and automated loading of changes. (11382)",
             "Added limit for total number of jobs per user. (11439)"
-                ]
+        ]
     },
-
     {
         "VersionNumber":"1.1.2",
+        "VersionDate":"2016-10-24",
         "VersionDescription":[
             "Corrected two-dimensional calibration data. (11370)",
             "Preload information is now stored in an internal database. (11199)",
@@ -41,7 +42,6 @@
             "Added support to query deployment events from the asset ID. (11222)",
             "Removed restriction for length of annotation text. (11455)",
             "Fixed an issue that caused editing of an asset to fail. (11431)"
-                ]
+        ]
     }
-  ]
-
+]
