@@ -2,49 +2,45 @@
     {
         "VersionNumber":"1.2.1",
         "VersionDescription":[
-            "Added author to annotations (Issue 11715).",
-            "Removed cruiseIdentifier from Cruise event and parser (Issue 11701).",
-            "Created new interface for event selection, reducing amount of data returned and removing direct association of event with asset (Issue 11688)."
+            "Added author to annotations. (11715)",
+            "Removed cruiseIdentifier from Cruise event and parser. (11701)",
+            "Created new interface for event selection, reducing amount of data returned and removing direct association of event with asset. (11688)"
                 ]
     },
 
     {
         "VersionNumber":"1.1.3",
         "VersionDescription":[
-            "Issue 11701 CruiseInfo cruiseIdentifer is no longer used.",
-            "Remove cruiseIdentifier attribute from CruiseInfo and associated ingest parser.",
-            "Issue 11688 Disconnect events collection from the associated asset.",
+            "Removed CruiseInfo cruiseIdentifer. (11701)",
+            "Disconnected events collection from the associated asset. (11688)",
             "Removed association between an asset and events.",
-            "Wrote new endpoints that expose new event selection capability, existing endpoints remain as is.",
-            "Issue 11663 Reworked serialization to use maps",
-            "Issue 11691 High Priority DOI Bug Fixes",
-            "Issue 11650 Remove unused IngestInfo attribute from XDeployment.",
-            "Removed IngestInfo, associated attributes in XDeployment, and Deployment ingest.",
-            "Issue 11621 Code Stream Engine Manager to restart product requests/sub-requests if stream_engines terminate.",
-            "Issue 11639 Add waterDepth attribute; support for renamed depth column in spreadsheet.",
-            "Issue 8604 Modify for local range data parser rewrite.",
-            "Issue 11168 Added new tables for the new DOSTA and FLORD streams for the CTDBP-P.",
-            "Issue 11528 Expose Stream Engine method to directly serve parsed data.  Modified to default execDPA to true.",
-            "Issue 11299 EDEX web services should provide access log.  Modified to fix formatting.",
-            "Issue 11519 Added webservice support for status reporting.",
-            "Issue 11347 Add ReferenceDesignator to subsite/metadata query response.",
-            "Issue 11382 Create Preload Tools Preload updates made due to validate_preload_csv.py updates.",
-            "Issue 11439 Added logic to check number of jobs for a specific user before adding more jobs.",
-            "Issue 11431 Correct asset discovery in deployment population.",
-            "Issue 11455 Annotation column length insufficient."
+            "Wrote new endpoints that expose new event selection capability.",
+            "Reworked serialization to use maps. (11663)",
+            "Corrected several issues related to Digital Object Identifier (DOI). (11691)",
+            "Removed unused IngestInfo attribute from XDeployment. (11650)",
+            "Stream Engine Manager now restarts product requests/sub-requests if stream_engines terminate. (11621)",
+            "Added waterDepth (depth of water column to ocean floor at location) attribute; support for renamed depth column in spreadsheet. (11639)",
+            "Added support for Local Range QC sheet ingest. (8604)",
+            "Added support to ingest CTDBP-P with attached DOSTA and FLORD. (11168)",
+            "Changed stream engine to execute DPA on queries by default. Added option to turn off DPA calculations. (11528)",
+            "Added access log for EDEX web services. (11299)",
+            "Added webservice support for status reporting. (11519)",
+            "Added ReferenceDesignator to subsite/metadata query response. (11347)",
+            "Created tools to manage preload data; visualize stream parameters and automated loading of changes. (11382)",
+            "Added limit for total number of jobs per user. (11439)",
                 ]
     },
 
     {
         "VersionNumber":"1.1.2",
         "VersionDescription":[
-            "Corrected two-dimensional calibration data. (#11370)",
-            "Publish preload information to internal database. (#11199)",
-            "Corrected issue where a user would receive a response indicating a valid download even though there was no data to return. (#11407)",
-            "Added support to aggregate NetCDF files on download. (#11413)",
-            "Add support to query deployment events from the asset ID. (#11222)",
-            "Removed restriction for length of annotation text. (#11455)",
-            "Fixed an issue that caused editing of an asset to fail. (#11431)"
+            "Corrected two-dimensional calibration data. (11370)",
+            "Preload information is now stored in an internal database. (11199)",
+            "Corrected issue where a user would receive a response indicating a valid download even though there was no data to return. (11407)",
+            "Added support to aggregate NetCDF files on download. (11413)",
+            "Added support to query deployment events from the asset ID. (11222)",
+            "Removed restriction for length of annotation text. (11455)",
+            "Fixed an issue that caused editing of an asset to fail. (11431)"
                 ]
     }
   ]
