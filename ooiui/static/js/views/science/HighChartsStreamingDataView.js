@@ -323,7 +323,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     this.title = options && options.title || "Chart";
     this.title_style = options && options.title_style || {
     };
-    this.subtitle = options && options.subtitle || "";
+    this.subtitle = options && options.stream_display_name || "";
 
     _.bindAll(this, "onClick",'requestData','abort','updateDateTimes','getUrl','updateVariable','resume');
 
@@ -566,7 +566,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
           text: self.model.get('display_name')
         },
         subtitle: {
-          text: self.model.get('stream_name')
+          text: self.model.get('stream_display_name')
         },
         legend: {
             align: 'left'

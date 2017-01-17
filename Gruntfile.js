@@ -727,7 +727,9 @@ module.exports = function(grunt) {
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/NodeFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/asset_filters/InstrumentFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/range_filters/TimeRangeFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/range_filters/DepthRangeFilter.js",
             "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/stream_filters/StreamParameterFilter.js",
+            "ooiui/static/js/views/data_catalog/search_sidebar/components/filters/stream_filters/StreamDeliveryFilter.js",
             "ooiui/static/js/models/science/StreamModel.js"
           ],
           'ooiui/static/js/compiled/science.js' : [
@@ -1502,6 +1504,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jqgrid/js/addons/ui.multiselect.js',
             //'ooiui/static/lib/jquery-highlight/jquery.highlight.js',
             'ooiui/static/js/core/common/jquery-highlight-5.js',
+            'ooiui/static/lib/visavail/visavail/js/visavail.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -1513,6 +1516,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/science/LargeDataFormatModel.js',
             'ooiui/static/js/models/science/AcousticDataModel.js',
             'ooiui/static/js/models/common/DataSubscriptionModel.js',
+            'ooiui/static/js/models/common/DataAvailabilityModel.js',
             // Views
             'ooiui/static/js/views/common/DropdownMessagesView.js',
             'ooiui/static/js/views/common/DropdownUserView.js',
@@ -2130,7 +2134,8 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jqgrid/css/addons/ui-multiselect.css',
             'ooiui/static/css/common/data_catalog.css',
             'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
-            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css'
+            'ooiui/static/lib/jquery-ui/themes/redmond/theme.css',
+            'ooiui/static/lib/visavail/visavail/css/visavail.css'
           ],
           "ooiui/static/css/compiled/plot.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",

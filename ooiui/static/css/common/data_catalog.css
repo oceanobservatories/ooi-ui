@@ -75,3 +75,18 @@ span.bootstrap-switch-handle-on.bootstrap-switch-primary {
     float: left;
     padding-right: 10px;
 }
+
+.ui-th-div
+{
+    word-wrap: break-word; /* IE 5.5+ and CSS3 */
+    white-space: pre-wrap; /* CSS3 */
+    height: auto;
+    vertical-align: text-top;
+    padding-top: 2px;
+    padding-bottom: 3px;
+}
+
+.col-md-2 {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
+}

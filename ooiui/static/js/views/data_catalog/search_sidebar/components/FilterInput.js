@@ -38,7 +38,10 @@ var COLLECTION_RESET = true;
 var filters = [];
 var streamFilters = [];
 var instrumentFilters = [];
+var platformFilters = [];
+var nodeFilters = [];
 var timeRange = {};
+var depthRange = {};
 
 var FilterParentView = SearchSidebarView.extend({
     events: {
@@ -56,7 +59,8 @@ var FilterParentView = SearchSidebarView.extend({
                 this.getInstrumentFilters(),
                 this.getStreamFilters()
             ],
-            timeRange: this.getTimeRange()
+            timeRange: this.getTimeRange(),
+            depthRange: this.getDepthRange()
         };
         return filters;
     },
@@ -67,7 +71,9 @@ var FilterParentView = SearchSidebarView.extend({
                 data: {
                     search: filters.strings.join(' '),
                     startDate: filters.timeRange.min,
-                    endDate: filters.timeRange.max
+                    endDate: filters.timeRange.max,
+                    startDepth: filters.depthRange.min,
+                    endDepth: filters.depthRange.max
                 }
             });
         }
@@ -114,8 +120,26 @@ var FilterParentView = SearchSidebarView.extend({
             timeRange = {
                 min: min.valueOf(),
                 max: max.valueOf()
-            }
+            };
             return timeRange;
+        }else{
+            return null;
+        }
+    },
+    getDepthRange: function() {
+        if (depthRange === {}) {
+            return null;
+        } else {
+           return depthRange;
+        }
+    },
+    setDepthRange: function(min, max) {
+        if (!_.isUndefined(min) && !_.isUndefined(max) ){
+            depthRange = {
+                min: min.valueOf(),
+                max: max.valueOf()
+            };
+            return depthRange;
         }else{
             return null;
         }
@@ -177,7 +201,67 @@ var FilterParentView = SearchSidebarView.extend({
         } else {
             return false;
         }
+    }
+    ,
+    getPlatformFilters: function() {
+        return platformFilters.join(' ');
     },
+    addToPlatformFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        platformFilters.push(item);
+        return platformFilters;
+    },
+    indexOfPlatformFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        return platformFilters.indexOf(item);
+    },
+    removeFromPlatformFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+
+        var index = platformFilters.indexOf(item);
+        if (index !== -1) {
+            platformFilters.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    ,
+    getNodeFilters: function() {
+        return nodeFilters.join(' ');
+    },
+    addToNodeFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        nodeFilters.push(item);
+        return nodeFilters;
+    },
+    indexOfNodeFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+        return nodeFilters.indexOf(item);
+    },
+    removeFromNodeFilters: function(item) {
+        if (typeof(item) !== 'string') {
+            throw 'Item must be a string';
+        }
+
+        var index = nodeFilters.indexOf(item);
+        if (index !== -1) {
+            nodeFilters.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 });
 

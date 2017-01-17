@@ -36,6 +36,16 @@
 
 
 .bitdash-vc{
-  width:100% !important;
-  z-index:0 !important;
+	width:100% !important;
+	z-index:0 !important;
 }
+
+.slick-initialized.slick-slider{
+	bottom:10px;
+	height:800px;
+}
+
+.slick-initialized.slick-slider .slick-dots{
+	position: relative;
+}
+

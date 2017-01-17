@@ -10,7 +10,7 @@ var XYPlotView = BasePlot.extend({
   },
   getValue: function(val, name){
     //convert times to time
-    if (name == 'time'){
+    if (name.indexOf('time') > -1){
       var dt;
       val -= 2208988800;
       val = val*1000;
@@ -41,7 +41,7 @@ var XYPlotView = BasePlot.extend({
 
     _.each(availableParameters,function(model,i){
       //create the axis
-      if (model.get('short_name') != "time"){
+      if (model.get('short_name').indexOf('time') == -1){
         axis.push({
                   reversed: isReversed,
                   title: {
@@ -49,12 +49,12 @@ var XYPlotView = BasePlot.extend({
                     shortName: model.get('short_name')
                   },
                   labels: {
-                    format: '{value}',
+                    format: '{value}'
                   },
                   style: {
                     color: Highcharts.getOptions().colors[i]
                   },
-                  opposite: i % 2 === 0 ? false : true
+                  opposite: i % 2 == 0 ? false : true
                 });
       }else{
         axis.push({
@@ -193,11 +193,15 @@ var XYPlotView = BasePlot.extend({
         data.push([val1,val2]);
 
         //will only add QAQC if the reference is time
-        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name') == 'time'){
+        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name').indexOf('time') > -1){
           var qaqc_data = dataModel.get(qc_name);
+          // console.log('qaqc_data');
+          // console.log(qaqc_data);
+          // console.log('qaqc');
+          // console.log(qaqc);
           var qaqcpass = false;
           if (qaqc < 10){
-            if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
+            if (qaqc_data && Math.pow(2,qaqc-1)){  //PASS
               qaqcpass = true;
             }else{
               qaqcpass = false;
@@ -210,34 +214,32 @@ var XYPlotView = BasePlot.extend({
             }
           }
 
-          if (qaqcpass){
-            qaqcdata.push({x:val1,y:val2, marker:{lineColor:'green', lineWidth:0.5, radius : 0,}});
-          }else{
+          // console.log(qaqcpass);
+          if (!qaqcpass)
             qaqcdata.push({x:val1,y:val2, marker:{lineColor:'#FF0000', lineWidth:1.5}});
-          }
-
         }
       });
 
-      series.set('data',data);
-      seriesList.push(series.toJSON());
-
       //add qaqc series
       if (!_.isEmpty(qaqcdata)){
+        // console.log('FAILED QAQC SHOULD SHOW HERE');
+        // console.log(qaqcdata);
+
         seriesList.push(new SeriesModel({
-                                          type  : 'scatter',
-                                          name  : "Failed QAQC: "+ model.get('name'),
-                                          qaqc  : true,
-                                          title : qc_name,
-                                          units : '',
-                                          color : '#FF0000',
-                                          data  : qaqcdata,
-                                          yAxis : isY ? 0 : i,
-                                          xAxis : isY ? i : 0
-                                       }).toJSON());
+          type  : 'scatter',
+          name  : "Failed QAQC: "+ model.get('name'),
+          qaqc  : true,
+          title : qc_name,
+          units : '',
+          color : '#FF0000',
+          data  : qaqcdata,
+          yAxis : isY ? 0 : i,
+          xAxis : isY ? i : 0
+        }).toJSON());
       }
 
-
+      series.set('data',data);
+      seriesList.push(series.toJSON());
     });
 
     return seriesList;
@@ -250,6 +252,18 @@ var XYPlotView = BasePlot.extend({
   render: function(plotParameters, plotModel, plotData){
     var self = this;
 
+    // console.log(plotParameters);
+    // console.log(plotModel);
+    // console.log(plotData);
+
+    // Set message for data decimation based on returned data model length
+    $('#isDecimated').empty();
+    if(plotData.length < 1000){
+      $('#isDecimated').append('<small class="pull-right"> Data points available: ' + plotData.length + '</small>');
+    }else{
+      $('#isDecimated').append('<small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>');
+    }
+
     var xAxis = self.createAxis(plotParameters,plotModel, 'x');
     var yAxis = self.createAxis(plotParameters,plotModel, 'y');
     var seriesList = self.createSeries(plotParameters, plotModel, plotData);
@@ -259,22 +273,91 @@ var XYPlotView = BasePlot.extend({
     }else if (plotModel.get('plotOrientation') == 'vertical'){
       self.setPlotSize('50%','800px');
     }
+
     // Create the chart
     this.chart = $('#plot-view').highcharts({
       chart: {
         events: {
-                redraw: function(event) {
-                  ooi.trigger('plot:plotLoaded',{});
-                },
+          redraw: function(event) {
+            ooi.trigger('plot:plotLoaded',{});
+          },
+          selection: function(event) {
+            if(event.xAxis != null) {
+              var startDate = moment.utc(event.xAxis[0].min).toJSON();
+              var endDate = moment.utc(event.xAxis[0].max).toJSON();
+              //console.log('startDate and endDate');
+              //console.log(startDate);
+              //console.log(endDate);
+
+
+              if(_.isNull(origStartDate)){
+                //console.log('changing origStartDate');
+                origStartDate = plotData.startdate;
+              }
+
+              if(_.isNull(origEndDate)){
+                //console.log('changing origEndDate');
+                origEndDate = plotData.enddate;
+              }
+
+              //console.log('origStartDate and origEndDate in selection');
+              //console.log(origStartDate);
+              //console.log(origEndDate);
+
+              ooi.trigger('updateCalendarZoom', {startDate: startDate, endDate: endDate});
+
+              //$('#update-plot').hide();
+              // $('#zoom-update-plot').prop('disabled',false);
+              // $('#zoom-update-plot').show();
+
+              $('#zoom-reset-plot').prop('disabled',false);
+              $('#zoom-reset-plot').show();
+
+
+              // console.log(this.$end_date_picker.getDate(endDate));
+              // console.log(this.$start_date_picker.getDate(startDate));
+              $('#plot-view').empty();
+              ooi.trigger('update_plot');
+
+              $('#zoom-details').show();
+              $('#zoom-coordinates').empty();
+              // console.log("selection: ", event.xAxis[0].min, event.xAxis[0].max);
+              $('#zoom-coordinates').append("Min: " + moment.utc(event.xAxis[0].min).toString());
+              $('#zoom-coordinates').append(", Max: " + moment.utc(event.xAxis[0].max).toString());
+
+            } else {
+              // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate});
+              // ooi.trigger('update_plot');
+              // origStartDate = null;
+              // origEndDate = null;
+              // $('#zoom-reset-plot').hide();
+              // // console.log("selection: reset");
+              // $('#zoom-details').hide();
+              // $('#zoom-coordinates').empty();
+              //$('#zoom-update-plot').prop('disabled',true);
+              //$('#zoom-update-plot').hide();
+              //$('#update-plot').show();
+              // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate})
+            }
+          }
               },
-        zoomType: 'x'
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            align: 'left', // by default
+            verticalAlign: 'top', // by default
+            x: 10,
+            y: 10
+          },
+          relativeTo: 'chart'
+        }
       },
       title: {
           text: plotData.displayName,
           x: -20 //center
       },
       subtitle: {
-          text: plotData.title,
+          text: plotData.stream_display_name,
           x: -20,
           style: {
             color: "steelblue",
@@ -293,12 +376,12 @@ var XYPlotView = BasePlot.extend({
           formatter: function () {
 
             var xVal = Highcharts.numberFormat(this.x, 2);
-            if (this.series.xAxis.userOptions.title.shortName == "time"){
+            if (this.series.xAxis.userOptions.title.shortName.indexOf('time') > -1){
               xVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.x));
             }
 
             var yVal = Highcharts.numberFormat(this.y, 2);
-            if (this.series.yAxis.userOptions.title.shortName == "time"){
+            if (this.series.yAxis.userOptions.title.shortName.indexOf('time') > -1){
               yVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.y));
             }
 
@@ -311,6 +394,13 @@ var XYPlotView = BasePlot.extend({
           //align: 'right',
           //verticalAlign: 'middle',
           //borderWidth: 0
+      },
+      exporting: { //Enable exporting images
+        sourceWidth: 1520,
+        sourceHeight: 400,
+        scale: 1,
+        enabled: true,
+        enableImages: true
       },
       series: seriesList
       //plot end

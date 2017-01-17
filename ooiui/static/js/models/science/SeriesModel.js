@@ -50,6 +50,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   enddate:"",
   xparameters:[],
   yparameters:[],
+  stream_display_name:"",
   initialize: function(models,options) {
     if (options && options.stream){
       this.stream = options.stream;
@@ -72,11 +73,14 @@ var DataSeriesCollection = Backbone.Collection.extend({
     if (options && options.yparameters){
       this.yparameters = options.yparameters;
     }
+    if (options && options.stream_display_name){
+      this.stream_display_name = options.stream_display_name;
+    }
 
   },
   url: function() {
     var durl = '/api/get_data?instrument='+ this.ref_des+"&stream="+this.stream+"&xvars="+this.xparameters.join()+"&yvars="+this.yparameters.join()+"&startdate="+this.startdate+"&enddate="+this.enddate
-    console.log(durl);
+    //console.log(durl);
     return durl;
   },
   //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',
@@ -129,7 +133,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
     var durl = ('/api/get_multistream?instrument1='+ this.instr1 + '&instrument2=' + this.instr2 +
                 "&stream1=" + this.ref_des1 + "&stream2=" + this.ref_des2 + "&var1=" + this.var1 +
                 "&var2=" + this.var2 + "&startdate=" + this.startdate + "&enddate=" + this.enddate);
-    console.log(durl);
+    //console.log(durl);
     return durl;
   },
   //eg url: '/api/get_data?instrument=CE05MOAS-GL382-05-CTDGVM000&stream=telemetered_ctdgv_m_glider_instrument&xvars=time,time&yvars=sci_water_pressure,sci_water_cond&startdate=2015-01-21T22:01:48.103Z&enddate=2015-01-22T22:01:48.103Z',

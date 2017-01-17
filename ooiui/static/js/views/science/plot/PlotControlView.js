@@ -84,7 +84,7 @@ var PlotControlView = Backbone.View.extend({
         self.$el.find('.instrument-content').append(controlView2.$el);
       }
 
-      var st, ed
+      var st, ed;
       //figure out the start and end times available
       if (this.collection.length > 1 ){
         if ((moment.utc(self.collection.models[0].get('start'))).isBefore(moment.utc(self.collection.models[1].get('start')))){
@@ -121,7 +121,7 @@ var PlotControlView = Backbone.View.extend({
            'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
            'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm'),ed.format('YYYY-MM-DD HH:mm')],
            'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
-           'All Data': [st.format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
+           'All Data': [st.format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')]
 
         }
       }, this.cb);
@@ -197,12 +197,18 @@ var PlotControlView = Backbone.View.extend({
   },
   updateDateTimeRange: function(st,ed){
     //update the selected date range
+    // console.log('updateDateTimeRange');
+    // console.log(st);
+    // console.log(ed);
+    // console.log(this.plotModel);
+
     $('#reportrange').data('daterangepicker').setStartDate(st);
     $('#reportrange').data('daterangepicker').setEndDate(ed);
+    this.cb(st, ed);
   },
   getDateTimeRange: function(){
     //update the selected date range
-    var picker = $('#reportrange').data('daterangepicker')
+    var picker = $('#reportrange').data('daterangepicker');
     return {startDate:picker.startDate, endDate:picker.endDate};
   },
   onPlotStyleSelect: function(e){
@@ -254,12 +260,12 @@ var PlotControlView = Backbone.View.extend({
     var yLen = selectedParameterCollection.where({'is_y':true})
     var zLen = selectedParameterCollection.where({'is_z':true})
 
-    var referenceCount = 1
+    var referenceCount = 1;
 
     //special case for interpolated plot
     if (selectedDataCollection == 2){
       ooi.trigger('plot:error', {title: "Unavailable Plot Selection", message:"Interpolated plotting is currently unavailable. If the problem persists, please email helpdesk@oceanobservatories.org"} );
-      return null
+      return null;
       referenceCount = 2;
     }
 
@@ -418,10 +424,15 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
 
     //complex if statement for parameters...
     if (
-        (self.model.get("variables_shape")[i] == "scalar" || self.model.get("variables_shape")[i] == "function") &&
+        (
+          self.model.get("variables_shape")[i] == "scalar" ||
+          self.model.get("variables_shape")[i] == "function" ||
+          self.model.get("variables_shape")[i] == "boolean" ||
+          self.model.get("variables_shape")[i] == "array1d"
+        ) &&
         self.model.get("units")[i] != "bytes" &&
-        self.model.get("units")[i] != "counts"
-        //self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get("units")[i] != "counts" &&
+        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1
         //self.model.get("units")[i].toLowerCase() != "s" &&
         //self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
@@ -442,13 +453,21 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
       }
     return isValid;
   },
+  isAdditionalTimestamp: function(i){
+    var self = this;
+    if (self.model.get("variables")[i] != "time" &&
+      self.model.get("units")[i].toLowerCase().indexOf("seconds since") == 0)
+      return true
+  },
   render:function(){
     //base render class
     var self = this;
     //empty it before we start
     self.collection = new ParameterCollection();
 
-    var count = 0
+    var count = 0;
+    var containsTimeVariable = $.inArray("time", self.model.get("variables"));
+
     //get the basic set of parameters, and see if
     _.each(this.model.get('parameter_id'),function(v,i){
 
@@ -464,21 +483,24 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 is_z: false,
                                                 original_model: self.model,
                                                 index_used: i
-                                           })
+                                           });
 
 
-
-      if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
-        //derived parameters
-        self.collection.add(paramModel);
-      }else if (self.isEngineeringValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
-        //other parameters
-        paramModel.set({param_class:"additional-param"});
-        self.collection.add(paramModel);
+      if(containsTimeVariable >= 0){
+        if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+          //derived parameters
+          self.collection.add(paramModel);
+        }else if (self.isAdditionalTimestamp(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+          //other parameters
+          paramModel.set({param_class:"additional-param"});
+          self.collection.add(paramModel);
+        }else{
+          //number of parameters not added
+          // console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
+          count+=1;
+        }
       }else{
-        //number of parameters not added
-        console.log('parameter id skipped: '+i+' >>> display_name: '+self.model.get('parameter_display_name'));
-        count+=1;
+        self.collection.add(paramModel);
       }
     });
 

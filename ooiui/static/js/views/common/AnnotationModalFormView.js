@@ -63,12 +63,15 @@ var AnnotationModalFormView = ModalFormView.extend({
       self.model.set('beginDT', min);
       self.model.set('endDT', max);
 
-      self.model.unset('beginDTSafe', {silent:true})
-      self.model.unset('endDTSafe', {silent:true})
+      self.model.unset('beginDTSafe', {silent:true});
+      self.model.unset('endDTSafe', {silent:true});
+
+      self.model.set('source', this.username);
 
       this.model.save(null, {
         success: function(model,response) {
-          if(model.id) {
+          //console.log(model.ui_id);
+          if(model.ui_id) {
             ooi.trigger('AnnotationModalFormView:onUpdate', model);
           }else{
             ooi.trigger('AnnotationModalFormView:onSubmit', model);

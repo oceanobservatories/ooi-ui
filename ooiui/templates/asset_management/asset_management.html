@@ -13,6 +13,10 @@
   <link rel="stylesheet" type="text/css" href="/css/common/assets.css">
   <link rel="stylesheet" type="text/css" href="/css/common/assetEditorModal.css">
   <link href="/css/compiled/asset_management.css" rel="stylesheet" type="text/css"/>
+  <link href='/lib/jqgrid/css/addons/ui.multiselect.css' rel='stylesheet' type="text/css" />
+  <link href="/lib/jqgrid/css/ui.jqgrid.css" rel='stylesheet' type='text/css' />
+  <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap.css" rel='stylesheet' type='text/css' />
+  <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap-ui.css" rel='stylesheet' type='text/css' />
 
 
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
@@ -63,10 +67,18 @@
                 <span style='margin-left:0px;font-weight:600;font-size:16px'>Quick Table Actions</span>
               </div>
               <div id="dcGroupings">
-                <button type='button' title='Reset Table Filters' style='float:left;margin-bottom:15px;' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
+                <div style='float:left;margin-bottom:15px;vertical-align:bottom;'>
+                  <button type='button' title='Reset Table Filters' id='reset_table' class='btn btn-primary btn-xs' onclick='resetTable();'><i style='font-size:14px;float:left;pointer-events: none;'>Reset Table</i></button>
+                </div>
+
                 <!-- Disabled until UFRAME brings back the capability
                 <a target="_blank" href="/api/asset_deployment?export=json" id="assetExportBtn" class="btn btn-primary btn-xs" style="float:left;margin-bottom: 15px;margin-left: 5px;" disabled>Export Asset Information (JSON)</a>
                 -->
+                <div style='float:right; width:800; text-align:left;margin-right: 10px;border:all;valign:top;'>
+                  <span style='margin-right:5px;font-weight:600;font-size:16px'>Hints</span>
+                  <span><br></span>
+                  <span style='margin-right:5px;font-weight:100;font-size:11px'>Double-click row to duplicate</span>
+                </div>
               </div>
             </div>
             <div class="col-md-12">
@@ -852,6 +864,10 @@
       $("#rowEvents").show();
     };
 
+    var escapeSelector = function(s){
+      return s.replace( /(:|\.|\[|\])/g, "\\$1" );
+    }
+
     var currentAssetId;
 
     var eventNameCol = {
@@ -1367,7 +1383,14 @@
             jsonmap : 'assetType',
             editrules: {required:true, edithidden:true},
             editoptions:{
-              dataUrl : '/api/asset_deployment/asset_type_values'
+              dataUrl : '/api/asset_deployment/asset_type_values',
+              dataEvents: [
+                {  type: 'change',
+                  fn: function(e) {
+                    $('input#assetType').val(this.value);
+                  }
+                }
+              ]
 {#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
             },
             editable : true,
@@ -1874,7 +1897,164 @@
             }
           }
         ],
-        {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
+        ondblClickRow: function (id) {
+          if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
+            if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0) {
+              alert("You are about to duplicate a row with id: " + id);
+              $dcGrid.jqGrid(
+                'editGridRow',
+                "new",
+                {
+                  edit: {
+                    addCaption: "Duplicate Record",
+                    editCaption: "Duplicate Record",
+                    bSubmit: "Submit",
+                    bCancel: "Cancel",
+                    bClose: "Close",
+                    saveData: "Data has been changed! Save changes?",
+                    bYes: "Yes",
+                    bNo: "No",
+                    bExit: "Cancel"
+                  },
+                  ajaxEditOptions: {contentType: "application/json; charset=utf-8"},
+                  serializeEditData: function (postdata) {
+                    // console.log(postdata);
+                    return JSON.stringify(postdata);
+                  },
+                  onClose: function () {
+                    refreshAssetTable();
+                  },
+                  afterShowForm: function (id) {
+                    $('#tr_editPhase').hide();
+                    $('#tr_assetType').hide();
+                  },
+                  beforeShowForm: function (id) {
+                    // Don't add this data to the form
+                    var restrictedParameters = ["uid", "id", "dataSource", "deployment_number", "deployment_numbers", "ref_des", "remoteResources"];
+                    var selectElements = ["assetType", "editPhase"];
+                    //console.log('beforeShowForm');
+
+                    var rowId = $dcGrid.jqGrid('getGridParam', 'selrow');
+                    //console.log(rowId);
+
+                    if (rowId !== null) {
+                      var rowData = $dcGrid.getRowData(rowId);
+                      // Let's check each parameter and make sure we should carry it forward to the form
+                      $.each(rowData, function (key, value) {
+                        if ($.inArray(key, restrictedParameters) === -1 && value != "\u00a0") {
+                          //console.log('adding value: '+ value + ' to key: ' + key);
+                          if ($.inArray(key, selectElements) === -1) {
+                            $('input#' + escapeSelector(key)).val(value);
+                          } else {
+                            //console.log("select#" + escapeSelector(key) + " option[value='" + value + "']");
+                            //$('select#' + key + ' option[value="' + value + '"]').attr('selected', 'selected');
+                          }
+                        } else {
+                          //console.log('skipping key: ' + key);
+                          $('input#' + escapeSelector(key)).val(null);
+                        }
+                      });
+                    }
+
+                    $('#dataSource').val('UI:user=' + currentUser.responseJSON.user_name);
+                    $('#mobile').attr('style', 'width:30px;height:30px;');
+                  },
+                  beforeSubmit: function (postdata) {
+                    // Form Validations
+                    var deliveryDateVal = postdata["purchaseAndDeliveryInfo.deliveryDate"];
+                    var purchaseDateVal = postdata["purchaseAndDeliveryInfo.purchaseDate"];
+                    var shelfLifeExpirationDateVal = postdata["manufactureInfo.shelfLifeExpirationDate"];
+
+                    if (!moment(deliveryDateVal, 'YYYY-MM-DD HH:mm:ss', true).isValid() && deliveryDateVal.length > 0) {
+                      return [false, 'Delivery Date format invalid (ex. 2014-09-23 09:45:12)'];
+                    }
+
+                    if (!moment(purchaseDateVal, 'YYYY-MM-DD HH:mm:ss', true).isValid() && purchaseDateVal.length > 0) {
+                      return [false, 'Purchase Date format invalid (ex. 2014-09-23 09:45:12)'];
+                    }
+
+                    if (!moment(shelfLifeExpirationDateVal, 'YYYY-MM-DD HH:mm:ss', true).isValid() && shelfLifeExpirationDateVal.length > 0) {
+                      return [false, 'Shelf Life Expiration Date format invalid (ex. 2014-09-23 09:45:12)'];
+                    }
+
+                    var selRows = $dcGrid.jqGrid('getGridParam', 'selrow');
+                    {#            // console.log(selRows);#}
+                    var currentRowData = $dcGrid.getRowData(selRows);
+                    // console.log('currentRowData');
+                    // console.log(currentRowData);
+                    var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
+                    {#            // console.log(theColModel);#}
+                    {#            // console.log(postdata);#}
+                    $.each(theColModel, function () {
+                      var cm1 = this;
+                      var theName = cm1.name;
+                      {#              // console.log(theName);#}
+                      if (!(theName in postdata) && (theName != 'actions')) {
+                        {#                // console.log(currentRowData[theName]);#}
+                        if (theName == 'deployment_numbers') {
+                          postdata[theName] = "[" + currentRowData[theName] + "]";
+                        } else {
+                          postdata[theName] = currentRowData[theName];
+                        }
+
+                        // console.log(currentRowData[theName]);
+                        if (containsNonLatinCodepoints(currentRowData[theName])) {
+                          // console.log('unicode data detected');
+                          // console.log(currentRowData[theName]);
+                          postdata[theName] = "";
+                        }
+
+                      };
+
+                      if (theName.includes('editPhase')) {
+                        postdata[theName] = currentRowData[theName];
+                      };
+
+                      if (theName.includes('assetType')) {
+                        postdata[theName] = currentRowData[theName];
+                      };
+
+                      if (theName.includes('Date')) {
+                        // console.log('Date Before');
+                        // console.log(postdata[theName]);
+                        if (!_.isNull(postdata[theName]) && postdata[theName].length > 0) {
+                          postdata[theName] = String(Date.parse(postdata[theName] + " GMT"));
+                        }
+                        // console.log('Date After');
+                        // console.log(postdata[theName]);
+                      };
+
+                      if (theName.includes('remoteResources')) {
+                        if (postdata[theName].length > 0) {
+                          postdata[theName] = "[" + postdata[theName] + "]";
+                        } else {
+                          postdata[theName] = "[]";
+                        }
+                      };
+                    });
+
+                    return [true, ''];
+                  },
+                  errorTextFormat: function (serviceResponse) {
+                    var messageText = JSON.parse(serviceResponse.responseText).message;
+                    return messageText;
+                  },
+                  closeOnEscape: true,
+                  closeAfterAdd: true,
+                  closeAfterEdit: true,
+                  width: 800,
+                  top: 120,
+                  left: 50,
+                  recreateForm: true,
+                  jqModal: true
+                }
+              );
+            }else {
+            alert("Please log in.");
+          }
+          }
+{#          $dcGrid.jqGrid('GridToForm', id);#}
+        },
         loadComplete : function() {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
           highlightFilteredData.call(this);

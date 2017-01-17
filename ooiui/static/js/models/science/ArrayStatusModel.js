@@ -19,16 +19,11 @@ var GetArrayStatus = function(array_code) {
     $.ajax('/api/uframe/status/arrays', {
         type: 'GET',
         dataType: 'json',
-        timeout: 50000,
+        timeout: 5000,
         async: false,
         success: function (resp) {
-            //console.log('success getting platform status: ');
-            //console.log(resp.sites);
-            //var theStatus = $.map(resp.sites, function(val) {
-            //    return val.reference_designator == platform_ref_des ? val.status : 'No Status Returned';
-            //});
-            //console.log(theStatus);
-            //return theStatus
+            console.log('Success getting array status');
+            console.log(resp);
             var result = $.grep(resp.arrays, function(e){ return e.reference_designator == array_code; });
             //console.log('result');
             //console.log(result);
@@ -45,7 +40,6 @@ var GetArrayStatus = function(array_code) {
                 //console.log('Multiple Status Returned');
                 output = 'Multiple Status Returned';
             }
-
         },
 
         error: function( req, status, err ) {
@@ -62,10 +56,11 @@ var GetPlatformStatus = function(array_code, platform_ref_des) {
     $.ajax('/api/uframe/status/sites/' + array_code, {
         type: 'GET',
         dataType: 'json',
-        timeout: 50000,
+        timeout: 5000,
         async: false,
         success: function (resp) {
-            //console.log('success getting platform status: ');
+            //console.log('success getting platform status: ' + platform_ref_des);
+            //console.log(resp);
             //console.log(resp.sites);
             //var theStatus = $.map(resp.sites, function(val) {
             //    return val.reference_designator == platform_ref_des ? val.status : 'No Status Returned';
@@ -102,6 +97,58 @@ var GetPlatformStatus = function(array_code, platform_ref_des) {
         }
     });
     return output;
+};
+
+var GetSitesStatus = function(array_code) {
+    //console.log(array_code);
+    //console.log(platform_ref_des);
+
+    var allSitesStatus = [];
+
+    $.ajax('/api/uframe/status/sites/' + array_code, {
+        type: 'GET',
+        dataType: 'json',
+        timeout: 500,
+        async: false,
+        success: function (resp) {
+
+          // console.log('resp');
+          // console.log(resp);
+          var theSites = resp.sites;
+          _.each(theSites, function(site){
+            var output = {};
+            output.geometry = {};
+            output.geometry.coordinates = [null,null];
+            output.geometry.type = "Point";
+            output.properties = {};
+            // console.log('site');
+            // console.log(site);
+            output.geometry.coordinates = [site.longitude, site.latitude];
+            output.properties['code'] = site.reference_designator;
+            output.properties['depth'] = site.depth;
+            output.properties['waterDepth'] = site.waterDepth;
+            output.properties['mindepth'] = site.mindepth;
+            output.properties['maxdepth'] = site.maxdepth;
+            output.properties['description'] = site.display_name;
+            output.properties['marker-symbol'] = "harbor_icon";
+            output.properties['title'] = site.display_name;
+            output.properties['status'] = site.status;
+
+            // console.log('output before push');
+            // console.log(output);
+
+            allSitesStatus.push(output);
+            // console.log('allSitesStatus');
+            // console.log(allSitesStatus);
+          });
+
+        },
+
+        error: function( req, status, err ) {
+            console.log(req);
+        }
+    });
+    return allSitesStatus;
 };
 
 var ArrayStatusModel = OOI.RelationalModel.extend({
@@ -151,12 +198,14 @@ var ArrayStatusModel = OOI.RelationalModel.extend({
             _.each(attrs.platforms, function(platform) {
                 platform.properties.title = platform.properties.title.replace(attrs.display_name, '');
                 var statusReturn = GetPlatformStatus(attrs.array_code, platform.properties.code);
+                //console.log(statusReturn);
                 platform.properties.status = statusReturn.status;
                 platform.properties.mindepth = statusReturn.mindepth;
                 platform.properties.maxdepth = statusReturn.maxdepth;
             });
         }
 
+        //console.log(attrs.platforms);
 
         var geoJSON = {
             "type": "Feature",

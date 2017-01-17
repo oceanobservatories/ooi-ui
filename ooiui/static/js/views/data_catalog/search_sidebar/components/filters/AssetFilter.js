@@ -1,8 +1,8 @@
 var AssetFilterView = FilterParentView.extend({
     onAfterRender: function() {
         this.renderArrayFilter();
-        //this.renderPlatformFilter();
-        //this.renderNodeFilter();
+        this.renderPlatformFilter();
+        this.renderNodeFilter();
         this.renderInstrumentFilter();
     },
     renderArrayFilter: function() {

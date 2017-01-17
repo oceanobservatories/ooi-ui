@@ -35,6 +35,8 @@ var StreamModel = Backbone.Model.extend({
     site_name: "",
     assembly_name: "",
     lat_lon: "",
+    latitude: "",
+    longitude: "",
     depth: "",
     freshness: "",
     reference_designator_first14chars:""
@@ -80,15 +82,32 @@ var StreamCollection = Backbone.Collection.extend({
         return this;
     },
     url: function() {
-        // if the constructor contains a searchId, modify the url.
-        var url = '/api/uframe/stream';
-        return (this.options.searchId) ? url +  '?search=' + this.options.searchId || "" : url;
+        // console.log('url');
+        // console.log(this.options);
+        if(this.options.url){
+            return this.options.url;
+        }else{
+            var url = '/api/uframe/stream';
+            // if the constructor contains a searchId, modify the url.
+            return (this.options.searchId) ? url +  '?search=' + this.options.searchId || "" : url;
+        }
     },
     model: StreamModel,
     parse: function(response) {
+      // console.log('parse');
+      // console.log(response);
         if(response) {
-            this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-            return response.streams;
+            if(response.streams) {
+              this.trigger("collection:updated", {
+                count: response.count,
+                total: response.total,
+                startAt: response.startAt
+              });
+              return response.streams;
+            }else{
+              // console.log('returning stream_content');
+              return response.stream_content;
+            }
         }
         return [];
     },

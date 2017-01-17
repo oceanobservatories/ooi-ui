@@ -106,11 +106,11 @@ var PlotView = BasePlot.extend({
             to: moment.utc(annotation.get('endDT')),
             color: '#FCFFC5',
             label: {
-              text: 'Annotation ID:'+annotation.get('ui_id'), // Content of the label.
+              text: 'Annotation ID:'+annotation.get('id'), // Content of the label.
               align: 'left', // Positioning of the label.
               x: 10 // Amount of pixels the label will be repositioned according to the alignment.
             },
-            id: 'plot-band-'+annotation.get('ui_id')
+            id: 'plot-band-'+annotation.get('id')
           });
         });
       }else{

@@ -3,6 +3,7 @@
 var CamImageModel = Backbone.Model.extend({
   urlRoot: '#',
   defaults: {
+    date:"",
     datetime:"",
     filename: "",
     reference_designator: "",

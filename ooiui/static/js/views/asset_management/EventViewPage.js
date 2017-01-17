@@ -178,7 +178,7 @@ var EventViewPage = Backbone.View.extend({
         //add map
         L.Icon.Default.imagePath = '/img';
         var map = L.map('editdep_map').setView([1.505, 1.09], 2);
-        L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             }).addTo(map);
         // add an OpenStreetMap tile layer

@@ -40,7 +40,8 @@ var CamImageView = Backbone.View.extend({
       lazyLoad: 'ondemand',
       speed: 500,
       slidesToShow: 5,
-      slidesToScroll: 5
+      slidesToScroll: 5,
+      dots: true
     });
 
   }
@@ -59,7 +60,7 @@ var CamImageItemView = Backbone.View.extend({
     var self = this;
     evt.preventDefault();
     if (!_.isUndefined(self.model.get('url'))){
-      var text = "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>"
+      var text = "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>";
       bootbox.dialog({
         title: "<h5>"+self.model.get("reference_designator")+"</h5>"+text,
         size:'large',

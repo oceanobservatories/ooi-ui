@@ -271,8 +271,20 @@ var StreamDownloadFormView = Backbone.View.extend({
     // console.log("SHOW", options.model.attributes);
     this.model = model;
 
-    var startDate = moment.utc(model.get('start')).toJSON();
-    var endDate = moment.utc(model.get('end')).toJSON();
+    var startDate = null;
+    var endDate = null;
+    var isPlotDl = false;
+    if(model.get('startDate') != null){
+      startDate = moment.utc(model.get('startDate')._d);
+      endDate = moment.utc(model.get('endDate')._d);
+      //console.log('got to startDate');
+      //console.log(startDate);
+      //console.log(endDate);
+      model.set('startDate',startDate);
+      model.set('endDate',endDate);
+      isPlotDl = true;
+    }
+
 
     this.$start_date_picker.setDate(startDate);
     this.$end_date_picker.setDate(endDate);
@@ -289,7 +301,9 @@ var StreamDownloadFormView = Backbone.View.extend({
       // This is a large file format!
       $("#large-format-file-view").find("tbody").remove().end();
 
-      var date = moment.utc(model.get('end')).format("YYYY-MM-DD");
+
+      var date = moment.utc(model.get('endDate')).format("YYYY-MM-DD");
+
 
       // Go get the files (set the date to trigger the request!)
       if (date == moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")){
@@ -342,6 +356,11 @@ var StreamDownloadFormView = Backbone.View.extend({
         //this.$el.find('#subscription-selection-select').attr('disabled','disabled');
       }
     }
+    //console.log(model.get('hideTimeRange'));
+    if(model.get('hideTimeRange'))
+      this.$el.find('#timeRangeDiv').hide();
+    else
+      this.$el.find('#timeRangeDiv').show();
     this.$el.find('#download-modal').modal('show');
 
     // Update parameters dropdown
@@ -349,7 +368,9 @@ var StreamDownloadFormView = Backbone.View.extend({
     // $('.selectpicker').selectpicker('refresh');
 
     this.onTypeChange();
-    this.timeRangeChange();
+    if(!isPlotDl){
+      this.timeRangeChange();
+    }
 
     return this;
   },
