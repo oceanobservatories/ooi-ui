@@ -28,7 +28,7 @@ var ParentView = Backbone.View.extend({
     }
 });
 
-var ArrayContentSummary = ParentView.extend({
+var ArrayContentStatusSummary = ParentView.extend({
     events: {
         'mouseover .js-expand': '_highlightArray',
         'mouseout .js-expand': '_lowlightArray',
@@ -331,5 +331,5 @@ var ArrayContentSummaryItem = ParentView.extend({
             }
         }
     }, 500, true),
-    template: JST['ooiui/static/js/partials/home/array_content/ArrayStatusSummaryItem.html']
+    template: JST['ooiui/static/js/partials/home/array_content/ArrayStatusdfgdfSummaryItem.html']
 });

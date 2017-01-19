@@ -1,3 +1,9 @@
+<%
+console.log('in arraycontentsummaryitem');
+console.log(this);
+console.log('properties');
+console.log(properties);
+%>
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
         <h4 id="<%= properties.code %>" class="js-expand"><%= properties.description %><i class="fa fa-chevron-down pull-right" style="color: black;"></i></h4>
@@ -6,7 +12,7 @@
         <div >
             <div style="width: 100%">
                 <ul class="align-center" >
-                    <li><a href="/datacatalog/#<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                    <li><a href="/data_access/#<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                     <li><a href="/assets/management#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li>
                 </ul>
             </div>
@@ -122,19 +128,22 @@
                 <br><br>
                 **Note: Several of the Endurance Array platforms are connected to the seafloor cable and provide near real-time streaming data, but they are not found in the list of Cabled Array platforms below. They are considered part of the Endurance Array because the platforms are located at Endurance sites and have a focus on coastal processes. Information on Coastal Endurance cabled platforms can be found in the Endurance Array section, or can be accessed in the data catalog by doing a text search on the word 'cabled'.
                 </p>
+              <% //console.log('This is the RS array trying to print out'); %>
 
             </div>
             <% } %>
 
         </div>
 
-        <% if (properties.platforms.length > 0) { %>
+
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
 
         <table class="table table-stripped">
-            <thead><tr><th>Navigation</th><th>Site Name</th><th>Depth (meters)</th><th>Latitude</th><th>Longitude</th></tr></thead>
+            <thead><tr><th>Navigation</th><th>Status</th><th>Site Name</th><th>Deployment Depth</th><th>Latitude</th><th>Longitude</th></tr></thead>
             <tbody>
-                <% _.each(properties.platforms, function(platform) { %>
+
+                            <% _.each(this.model.attributes.platforms, function(platform) { %>
+                <% //console.log(platform); %>
                 <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
                     <td width="10%">
                         <ul class="align-center" style="padding-left: 0px;">
@@ -142,9 +151,32 @@
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
+                    <td>
+                        <ul class="align-center" style="padding-left: 0px;">
+                          <% //console.log(platform.properties.status); %>
+
+                          <% if(platform.properties.status == "failed") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: red; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "degraded") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: orange; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "removedFromService") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "notTracked") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "Fetching Status Failed") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "No Status Returned") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else if(platform.properties.status == "operational") { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } else { %>
+                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
+                          <% } %>
+                        </ul>
+                    </td>
                     <td >
-                        <ul class=align-center" style="padding-left: 0px;">
-                          <li><a href="/platform?id=<%= btoa(platform.properties.code) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>
+                        <ul class="align-center" style="padding-left: 0px;">
+                          <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>
                         </ul>
                     </td>
                     <td><%= platform.properties.depth %></td>
@@ -154,10 +186,7 @@
             </tbody>
             <tfoot colspan="1"></tfoot>
         </table>
-        <% } else { %>
 
-        <div style="text-align:center; width: 100%;"><h4><small> Site list for this research array is currently unavailable.</small></h4></div>
-        <% } %>
         <div style="margin: 0 0 80px 0; width: 100%; background-color: #004773; color: white;" class="js-expand text-center js-expand-close">Close</div>
     </div>
 </div>

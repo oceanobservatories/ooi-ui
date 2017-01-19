@@ -14,6 +14,8 @@ var ParentView = Backbone.View.extend({
             // object in the partial you are referencing the ArrayModel's .toGeoJSON() method
             // return, and not the actual model.
             // e.g. properties.description NOT this.model.attributes. . .
+          // console.log('ParentView render');
+          // console.log(this.model);
             this.$el.html(this.template(this.model.toGeoJSON()));
         } else {
             this.$el.html(this.template());
@@ -102,37 +104,54 @@ var ArrayContentSummary = ParentView.extend({
             }
         });
     },
-    render: function() {
-        var arrayContentContext = this;
+  render: function() {
+    var arrayContentContext = this;
+    // console.log('arrayContentContext');
+    // console.log(arrayContentContext);
 
-        //console.log('arrayCollection');
-        //console.log(this.collection.arrayCollection);
+    //console.log('arrayCollection');
+    //console.log(this.collection.arrayCollection);
 
-        var arrayContentSummaryItem = this.collection.arrayCollection.map(function(model) {
-            // lets get all the platforms for this particular array...
-            var platforms = arrayContentContext
-                                .collection
-                                .platformCollection
-                                .byArray(model.attributes.array_code);
+    var arrayContentSummaryItem = this.collection.arrayCollection.map(function(model) {
+      // lets get all the platforms for this particular array...
+        /* var platforms = arrayContentContext
+         .collection
+         .platformCollection
+         .byArray(model.attributes.array_code);*/
+      //var siteStatusCollection = new SiteStatusCollection();
+      arrayContentContext.collection.siteStatusCollection.fetch({async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
+        arrayContentContext.collection.siteStatusCollection.sortByField('depth','ascending');
+          console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
+          console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
+          model.set({platforms: arrayContentContext.collection.siteStatusCollection.toGeoJSON()});
 
-            // then we can set an object on the array model, so we have a geoJSON
-            // representation of all of the array's platforms, with lng/lat
-            model.set({platforms: platforms.toGeoJSON()});
+      });
+        //model.set({platforms: model.toGeoJSON().properties.platforms});
 
-            // finally, return the array content summary, which will also contain
-            // it's platforms to be displayed after the array is inspected.
-            //console.log('render arrays');
-            //console.log(model);
-            return (new ArrayContentSummaryItem({model: model})).render().el;
-        });
+        //console.log('render arrays');
+        //console.log(model);
+        // console.log('model before');
+        // console.log(model);
 
-        // prepend the arrays to the page.
-        setTimeout(function() {
-            arrayContentContext.$el.prepend(arrayContentSummaryItem);
-            $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
-                2 * arrayContentContext.collection.arrayCollection.length + 'px'});
-        }, 300);
-    }
+      return (new ArrayContentSummaryItem({model: model})).render().el;
+      });
+
+
+
+
+
+    // console.log('arrayContentSummaryItem');
+    // console.log(arrayContentSummaryItem);
+    // console.log('arrayContentContext.$el');
+    // console.log(arrayContentContext.$el);
+
+    // prepend the arrays to the page.
+    setTimeout(function() {
+      arrayContentContext.$el.prepend(arrayContentSummaryItem);
+      $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
+      2 * arrayContentContext.collection.arrayCollection.length + 'px'});
+    }, 300);
+  }
 });
 
 var ArrayContentSummaryItem = ParentView.extend({
@@ -196,8 +215,10 @@ var ArrayContentSummaryItem = ParentView.extend({
     // _flyBye and flyFly are controls that interact directly with the global map variable.
     // because of this, the ArrayContentSummary Item is tightly coupled to the VectorMap
     _toggleActive: function(event) {
-        var el = $('#'+this.model.attributes.array_code);
+        var el = $('#'+this.model.attributes.reference_designator);
         //toggle current one class
+      console.log('toggle active');
+      console.log(el);
         el.toggleClass('active');
 
         //remove any existing actives
@@ -206,7 +227,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         }
     },
     _toggleOthers: function(event) {
-        var el = $('#'+this.model.attributes.array_code),
+        var el = $('#'+this.model.attributes.reference_designator),
             arrayEl = $('.js-array');
 
         _.each(arrayEl, function(item) {
@@ -243,15 +264,17 @@ var ArrayContentSummaryItem = ParentView.extend({
         map._showPlatformView();
         event.stopImmediatePropagation();
         //flyFlyContext.originalZoom;
+      console.log('flyFlyContext.model.attributes.reference_designator');
+      console.log(flyFlyContext.model.attributes.reference_designator);
 
         $.when(this._toggleActive(event)).done(function() {
             $.when(flyFlyContext._toggleOthers(event)).done(function() {
-                var el = $('#'+flyFlyContext.model.attributes.array_code),
+                var el = $('#'+flyFlyContext.model.attributes.reference_designator),
                     table = '#' + el.attr('id') + ' > .js-platform-table';
                 $(table).slideToggle();
 
                 // give the impression that the page has changed, change the title.
-                bannerTitle = flyFlyContext.model.attributes.array_name;
+                bannerTitle = flyFlyContext.model.attributes.display_name;
                 banner.changeTitle({bannerTitle});
             });
         });
@@ -283,11 +306,11 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         // map._setPlatformView();
         var loc = [
-                this.model.attributes.geo_location.coordinates[0][0][0],
-                this.model.attributes.geo_location.coordinates[0][0][1]
+                flyFlyContext.model.attributes.latitude,
+                flyFlyContext.model.attributes.longitude
             ],
-            code = this.model.attributes.array_code,
-            name = this.model.attributes.array_name;
+            code = flyFlyContext.model.attributes.reference_designator,
+            name = flyFlyContext.model.attributes.display_name;
 
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {

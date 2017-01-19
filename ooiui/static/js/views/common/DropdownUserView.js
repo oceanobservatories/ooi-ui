@@ -22,7 +22,7 @@ var DropdownUserView = Backbone.View.extend({
   login: function() {
     var self = this;
     var loginview = new LoginView({
-      model: self.model,
+      model: self.model
     });
     $('body').append(loginview.el);
     loginview.isHidden = true; // allow the dialog to be hidden

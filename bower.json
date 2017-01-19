@@ -66,7 +66,9 @@
     "requirejs": "~2.2.0",
     "moment-range": "^2.2.0",
     "jQRangeSlider": "https://github.com/maka-io/jQRangeSlider.git#master",
-    "visavail": "https://github.com/flrs/visavail.git#master"
+    "visavail": "https://github.com/flrs/visavail.git#master",
+    "mapbox-gl-js": "https://github.com/mapbox/mapbox-gl-js.git#0.17.0",
+    "mapbox.js": "2.4.0"
   },
   "resolutions": {
     "jquery": "~2.1.1",
