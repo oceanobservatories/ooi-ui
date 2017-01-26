@@ -266,10 +266,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-12" style="text-align:center;">
+              <!--<div class="col-md-12" style="text-align:center;">
                 <p id="dataAvailabilityInfo"></p>
                 <p id='dataAvailability'></p>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -1709,7 +1709,7 @@
             });
           }
 
-          // Show Data Availability Pop-up
+{#          // Show Data Availability Pop-up
           $("#dataAvailability").empty();
           $("#dataAvailabilityInfo").empty();
           // Use this for the dataAvailabilityCollection
@@ -1745,7 +1745,7 @@
 
           d3.select("#dataAvailability")
             .datum(dataset)
-            .call(chart);
+            .call(chart);#}
 
           // Fix scrollable height of filters after DA is added
           $('#filterScrollContainer').css({
