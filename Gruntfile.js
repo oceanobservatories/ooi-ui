@@ -1915,6 +1915,7 @@ module.exports = function(grunt) {
         ],
         "ooiui/static/js/compiled/genericPlatFormsStatus.js": [
             'ooiui/static/js/models/asset_management/PlatformStatusModel.js',
+            'ooiui/static/js/models/asset_management/PlatformsStatusModel.js',
             'ooiui/static/js/models/science/StreamStatusModel.js',
             'ooiui/static/js/views/platforms/GenericPlatFormStatusView.js',
             'ooiui/static/js/views/platforms/GenericPlatFormTableView.js'

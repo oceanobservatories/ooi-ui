@@ -52,6 +52,7 @@ var GenericPlatFormStatus = Backbone.View.extend({
         var self = this;
         this.streamCollection = this.collection.streamCollection.sort('display_name');
         this.platformCollection = this.collection.platformCollection;
+        this.platformStatusCollection = this.collection.platformStatusCollection;
         this.platformLat = this.streamCollection.options.searchLat;
         this.platformLng = this.streamCollection.options.searchLng;
         this.platformId = this.streamCollection.options.searchId;

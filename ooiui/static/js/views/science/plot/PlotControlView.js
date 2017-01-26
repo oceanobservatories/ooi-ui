@@ -264,8 +264,8 @@ var PlotControlView = Backbone.View.extend({
 
     //special case for interpolated plot
     if (selectedDataCollection == 2){
-      ooi.trigger('plot:error', {title: "Unavailable Plot Selection", message:"Interpolated plotting is currently unavailable. If the problem persists, please email helpdesk@oceanobservatories.org"} );
-      return null;
+      //ooi.trigger('plot:error', {title: "Unavailable Plot Selection", message:"Interpolated plotting is currently unavailable. If the problem persists, please email helpdesk@oceanobservatories.org"} );
+      //return null;
       referenceCount = 2;
     }
 
