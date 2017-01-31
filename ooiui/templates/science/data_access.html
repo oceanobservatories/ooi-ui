@@ -43,8 +43,13 @@
 
   <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
 
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
   <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/home.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
+  <script src="/js/views/home/array_content/array_content.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
@@ -317,7 +322,8 @@
         largeFormatFiles: new LargeDataFormatCollection(),
         selectedStreamCollection: new StreamCollection(), //collection of stream models
         streams: new StreamCollection(),
-        dataAvailabilityCollection: new DataAvailabilityCollection()
+        dataAvailabilityCollection: new DataAvailabilityCollection(),
+        organizations: new Organizations()
       },
       views: {
         plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -536,9 +542,27 @@
 
 
       },
+      getURLParameter: function(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i=0; i < sURLVariables.length; i++) {
+          var sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+          }
+        }
+      },
       start: function() {
         var self = this;
-        this.login.fetch({async: false});
+        var ciLogonToken = this.getURLParameter('token'),
+          ciLogonTimeout = this.getURLParameter('expiration');
+        if (ciLogonToken) {
+          var date = new Date();
+          date.setTime(date.getTime() + ciLogonTimeout*1000);
+          $.cookie('ooiusertoken', ciLogonToken, {expires: date});
+          ooi.trigger('login:success');
+        }
+        this.login.fetch({async:false});
 
         //reset the subscriptions
         if (ooi.models.userModel.length > 0) {
@@ -1145,7 +1169,12 @@
       }
 
       // Raw Data Server Link
-      actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      if(rowObject.rds_enabled) {
+        actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      }else{
+        actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      }
+
 
       actionButtons += "</div>";
       return actionButtons;
@@ -1195,9 +1224,9 @@
       var daWarning = new ModalDialogView();
 
       var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-      //theMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
-      theMessage += "You are about to navigate to an external website operated by OOI for raw data.";
-      theMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
+      theMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo.svg" alt="OOI" height="100"></p></div>';
+      theMessage += "You are about to navigate to an external OOI-operated raw data server.";
+      theMessage += "<p><a id='rds_link_message' onClick='parent.hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
       theMessage += "</div>";
       daWarning.show({
         message: theMessage,
