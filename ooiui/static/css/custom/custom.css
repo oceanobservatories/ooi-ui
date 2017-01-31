@@ -46,11 +46,11 @@ li {
 
 /* ~panel style~ */
 .panel {
-  border: none;
+  /*border: none;*/
 }
 
 .panel-body {
-  border: none;
+  /*border: none;*/
 }
 
 .panel-heading.panel-search.pull-right {
@@ -175,6 +175,7 @@ color: #000;
   text-decoration: none;
   line-height: .9;
   font-weight: 300;
+  white-space: normal;
 }
 
 .btn-default:hover {
@@ -308,4 +309,83 @@ div#events-scroll-body {
 /* alt light blue #D1DAF5 rgb(209,218,245) */
 /* alt light blue2 #7F9BDA */
 
+.jqtree-notTracked {
+  background-color: lightgrey;
+  cursor: pointer;
+  color: #000;
+}
 
+.jqtree-notTracked:hover {
+  border:2px solid;
+  color: purple;
+}
+
+.jqtree-failed {
+  background-color: indianred;
+  cursor: pointer;
+}
+
+.ui-jqgrid .ui-jqgrid-htable th div
+{
+  height: auto;
+  overflow: hidden;
+  padding-right: 4px;
+  padding-top: 2px;
+  position: relative;
+  vertical-align: text-top;
+  white-space: normal !important;
+}
+
+th.ui-th-column div {
+  white-space: normal !important;
+  height: auto !important;
+  padding: 2px;
+}
+
+#filterScrollContainer {
+  white-space: normal !important;
+  max-width: 33% !important;
+}
+
+div.ui-rangeSlider-label-value {
+  font-size: 10pt;
+}
+
+a.back-to-top {
+  display: none;
+  width: 60px;
+  height: 60px;
+  text-indent: -9999px;
+  font-size: 20pt;
+  position: fixed;
+  z-index: 999;
+  right: 20px;
+  bottom: 90px;
+  background: #27AE61 url("/img/uparrow.png") no-repeat center 20%;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  background-size: contain;
+}
+
+a.back-to-bottom {
+  display: none;
+  width: 60px;
+  height: 60px;
+  text-indent: -9999px;
+  font-size: 20pt;
+  position: fixed;
+  z-index: 999;
+  right: 20px;
+  bottom: 20px;
+  background: #27AE61 url("/img/uparrow.png") no-repeat center 20%;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  background-size: contain;
+}

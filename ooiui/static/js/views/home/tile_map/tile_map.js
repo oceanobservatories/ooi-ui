@@ -8,7 +8,7 @@ var TileMap = Backbone.View.extend({
 
       var map = L.map(this.id, {
         zoomControl: false
-      }).setView([15.8, -90], 2);
+      }).setView([6.3, -80], 2.5);
       // Commenting this out for now until security and web mapping service performance are resolved
       L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
         max_zoom: 13,
@@ -19,15 +19,36 @@ var TileMap = Backbone.View.extend({
         attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
       }).addTo(map);
 
+      var track = new L.KML("/kmz/OOI_Glider_Lines.kml", {async: true});
+      track.on("loaded", function(e) {
+        //map.fitBounds(e.target.getBounds());
+      });
+      map.addLayer(track);
+
       /*            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
        .addTo(map);*/
 
-      /*map.dragging.disable();
-       map.touchZoom.disable();
-       map.doubleClickZoom.disable();
-       map.scrollWheelZoom.disable();
-       map.keyboard.disable();*/
+      map.dragging.disable();
+      map.touchZoom.disable();
+      map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
+      map.keyboard.disable();
+
+      map.on('dragend', function onDragEnd(){
+        var width = map.getBounds().getEast() - map.getBounds().getWest();
+        var height = map.getBounds().getNorth() - map.getBounds().getSouth();
+
+        alert (
+          'west:' + map.getBounds().getWest() +'\n'+
+          'east:' + map.getBounds().getEast() +'\n'+
+          'south:' + map.getBounds().getSouth() +'\n'+
+          'north:' + map.getBounds().getNorth() +'\n'+
+          'center:' + map.getCenter() +'\n'+
+          'width:' + width +'\n'+
+          'height:' + height +'\n'+
+          'size in pixels:' + map.getSize()
+        )});
 
       // add some methods that can be useful to our map object.
       map._resizeMap = this._resizeMap;

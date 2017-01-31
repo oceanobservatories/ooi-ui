@@ -243,7 +243,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         });
     },
     _flyBye: function(originalZoom) {
-        map.setView([15.8, -90], originalZoom);
+        map.setView([6.3, -80], 2.5);
         // map.setLayoutProperty('rsArray', 'visibility', 'visible');
         // map.setLayoutProperty('ceArray', 'visibility', 'visible');
         map._hidePlatformView();
@@ -324,7 +324,7 @@ var ArrayContentSummaryItem = ParentView.extend({
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
                 flyFlyContext.originalZoom = map.getZoom();
                 // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]+1],7);
+                map.setView([loc[0]+1, loc[1]-1],7);
             } else {
                 this._flyBye(flyFlyContext.originalZoom);
             }

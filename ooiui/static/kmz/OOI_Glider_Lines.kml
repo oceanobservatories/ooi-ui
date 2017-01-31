@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>OOI Glider Lines</name>
+	<Style id="orangeLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff5ea8ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="greenLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff00ff00</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="redLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="blueLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="cyanLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ffffff00</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="grayLine">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff999999</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>700000ff</color>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Folder>
+		<name>Endurance</name>
+		<open>1</open>
+		<Placemark>
+			<name>La Push Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-126,48,0 -124.67,48,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Grays Harbor Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-124.2,47,0 -128,47,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Cape Falcon Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-124,45.75,0 -126,45.75,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Newport Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-124.1,44.6,0 -128,44.6,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Coos Bay Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-124.3,43.5,0 -126,43.5,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Offshore Line</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+					-126,48,0 -126,43.5,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+	<Folder>
+		<name>Pioneer</name>
+		<open>1</open>
+		<Placemark>
+			<name>EB Line</name>
+			<styleUrl>#greenLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-70,40.667,0
+  				-70,39.833,0
+  				-70.19,39.833,0
+  				-70.19,40.0833,0
+  				-70,40.667,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>FZ Line</name>
+			<styleUrl>#redLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-70.375,40.0833,0
+          -71.167,40.0833,0
+          -71.167,39.833,0
+          -70.375,39.833,0
+  				-70.375,40.0833,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>SS-1 Line</name>
+			<styleUrl>#blueLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-71.167,39.833,0
+          -71.167,39.333,0
+          -70.583,39.833,0
+          -70,39.333,0
+          -70,39.833,0
+          -70.583,39.333,0
+  				-71.167,39.833,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>SS-2 Line</name>
+			<styleUrl>#cyanLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-71.167,39.583,0
+          -70.875,39.833,0
+          -70.292,39.333,0
+          -70,39.583,0
+          -70.292,39.833,0
+          -70.875,39.333,0
+  				-71.167,39.583,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>GS Line</name>
+			<styleUrl>#grayLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-70.883,39.9,0
+          -70.7071,39.9,0
+          -70.707,39.1,0
+          -70.883,39.1,0
+  				-70.883,39.9,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+	<Folder>
+		<name>Global Arrays</name>
+		<open>1</open>
+		<Placemark>
+			<name>Argentine Basin</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-42.51,-42.99,0
+  				-42.89,-42.51,0
+  				-42.13,-42.51,0
+  				-42.51,-42.99,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Irminger Sea</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-38.26,60.61,0
+  				-38.44,60.46,0
+  				-38.08,60.46,0
+  				-38.26,60.61,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Station Papa</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-144.8733333333333,50.055,0
+  				-144.25,49.98,0
+  				-144.4,50.33000000000001,0
+  				-144.8733333333333,50.055,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Southern Ocean</name>
+			<styleUrl>#orangeLine</styleUrl>
+			<LineString>
+				<tessellate>0</tessellate>
+				<coordinates>
+  				-89.28,-54.47,0
+  				-88.89,-54.08000000000001,0
+  				-89.67,-54.08000000000001,0
+  				-89.28,-54.47,0
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

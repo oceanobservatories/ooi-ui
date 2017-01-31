@@ -202,6 +202,10 @@ def statusUI():
 def statusN():
     return render_template('common/statusN.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
+@app.route('/statustree')
+def statusTree():
+    return render_template('common/statusTree.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 
 @app.route('/api/organization', methods=['GET'])
 def get_organization():

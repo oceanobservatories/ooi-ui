@@ -23,7 +23,7 @@
         <div >
             <div style="width: 100%">
                 <ul class="align-center" >
-                    <li><a href="/data_access/#<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                    <li><a href="/data_access/?search=<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                     <li><a href="/assets/management#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li>
                 </ul>
             </div>
@@ -156,7 +156,7 @@
                 <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
                     <td width="10%">
                         <ul class="align-center" style="padding-left: 0px;">
-                            <li><a href="/data_access/#<%= platform.properties.code %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                            <li><a href="/data_access/?search=<%= platform.properties.code %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>

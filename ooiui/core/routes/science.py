@@ -158,10 +158,10 @@ def getUframeMultiStreamInterp():
     '''
     try:
         # Parse the parameters
-        stream1 = request.args['stream1']
-        stream2 = request.args['stream2']
-        instr1 = request.args['instrument1']
-        instr2 = request.args['instrument2']
+        ref_des1 = request.args['ref_des1']
+        ref_des2 = request.args['ref_des2']
+        instr1 = request.args['instr1']
+        instr2 = request.args['instr2']
         var1 = request.args['var1']
         var2 = request.args['var2']
         startdate = request.args['startdate']
@@ -169,7 +169,11 @@ def getUframeMultiStreamInterp():
 
         # Build the URL
         params = '?startdate=%s&enddate=%s' % (startdate, enddate)
-        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_multistream', stream1, stream2, instr1, instr2, var1, var2 + params])
+        # http://localhost:4000/uframe/get_multistream/CP05MOAS-GL340-03-CTDGVM000/CP05MOAS-GL340-02-FLORTM000/telemetered_ctdgv_m_glider_instrument/
+        # telemetered_flort_m_glider_instrument/sci_water_pressure/sci_flbbcd_chlor_units?startdate=2015-05-07T02:49:22.745Z&enddate=2015-06-28T04:00:41.282Z
+        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_multistream', ref_des1, ref_des2, instr1, instr2, var1, var2 + params])
+
+        print data_url
 
         # Get the response
         response = requests.get(data_url, params=request.args)
@@ -245,6 +249,17 @@ def status_arrays():
 
 @app.route('/api/uframe/status/sites/<string:array_code>')
 def status_sites(array_code):
+    if request.args:
+        array_code = request.args['node']
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/status/sites')
+def status_sites_tree():
+    if request.args:
+        array_code = request.args['node']
+    else:
+        return "Bad node parameter", 400
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
     return response.text, response.status_code
 

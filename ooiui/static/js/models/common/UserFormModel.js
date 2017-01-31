@@ -4,11 +4,13 @@
  * 411, 0, or 1 so exclude numbers like that. */
 
 _.extend(Backbone.Validation.patterns, {
-        phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/
+        phoneRegex: /^\(?(?![94]11)([2-9]\d{2})\)?[-. ]?(\d{3})[-. ]?(\d{4})(?: ?[Xx] ?(\d+))?$/,
+        passwordRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 });
 
 _.extend(Backbone.Validation.messages, {
-        usPhone: 'Invalid US phone number'
+        usPhone: 'Invalid US phone number',
+        passwordRegex: 'Password must be at least 8 characters and contain at least one number and one upper case letter.'
 });
 
 // Define a model with some validation rules
@@ -33,7 +35,7 @@ var SignUpModel = Backbone.Model.extend({
             pattern: 'email'
         },
         password: {
-            minLength: 8
+            pattern: 'passwordRegex'
         },
         repeatPassword: {
             equalTo: 'password',

@@ -48,10 +48,16 @@
   <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css"/>
 
   <script type="text/javascript">
     $.jgrid.no_legacy_api = true;
     $.jgrid.useJSON = true;
+  </script>
+
+  <script type="text/javascript">
+    $('body').prepend('<a href="#" class="back-to-top" tooltip="Scroll to top of page">Back to Top</a>');
+    $('body').prepend('<a href="#" class="back-to-bottom" tooltip="Scroll to bottom of page">Back to Bottom</a>');
   </script>
 
   {% block link %}
@@ -119,7 +125,7 @@
 
             <div class="search-sidebar"></div>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-10" id="plottingBodyContainer">
             <div id="plottingBody">
               <div>
                 <div id="download-outline" class="pull-left">
@@ -131,7 +137,7 @@
                 <div class="col-sm-12">
 
                   <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
-                    <li class="active default-tab-option"><a href="#plot-tool-instruments" data-toggle="tab">Data Navigation</a></li>
+                    <li class="active default-tab-option"><a id="plot-tool-instruments-tab" href="#plot-tool-instruments" data-toggle="tab">Data Navigation</a></li>
                     <li class="disabled">  <a href="#plot-tool-tab"  data-toggle="tab">Plotting</a></li>
 
                     <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
@@ -263,6 +269,7 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -275,6 +282,8 @@
         </div>
       </div>
     </div>
+    <a href="#" class="back-to-top" tooltip="Scroll to top of page">Back to Top</a>
+    <a href="#" class="back-to-bottom" tooltip="Scroll to bottom of page">Back to Bottom</a>
     <div id="stream-download-modal"></div>
     <div id='download-ok-modal'></div>
     <div id='download-fail-modal'></div>
@@ -406,19 +415,32 @@
         }
       },
       plotInterpolatedData: function(parameterCollection) {
+        console.log('plotInterpolatedData');
+        console.log(parameterCollection);
         var self = this;
         var selectDt = this.views.plotControls.getDateTimeRange();
+        self.views.plotContainer.plotParameters = parameterCollection;
 
+        var instr1_2 = [];
+        var vars1_2 = [];
+        var ref_des1_2 = [];
         //INTERPOLATED PLOT 1)
         //get the params
         var xParams1 = [];
         var yParams1 = [];
+        var zParams1 = [];
         var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
-        var streamName1 = parameterCollection.models[0].get('original_model').get('stream_name');
+        var streamName1 = parameterCollection.models[0].get('original_model').get('stream_display_name');
         var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
+          console.log(model);
           if (model.get('is_selected')){
-            //double check the selected field and add the parameter name to the list
+            if(model.get('short_name') != 'time'){
+              instr1_2.push(model.get('original_model').get('stream_name'));
+              vars1_2.push(model.get('short_name'));
+              ref_des1_2.push(model.get('original_model').get('reference_designator'));
+            }
+{#            //double check the selected field and add the parameter name to the list
             if (model.get('is_x')){
               xParams1.push(model.get('short_name'));
             }
@@ -427,19 +449,24 @@
             }
             if (model.get('is_z')){
               zParams1.push(model.get('short_name'));
-            }
+            }#}
           }
         });
 
 
-        //INTERPOLATED PLOT 2)
+{#        //INTERPOLATED PLOT 2)
         //get the params
         var xParams2 = [];
         var yParams2 = [];
-        var streamName2 = parameterCollection.models[1].get('original_model').get('stream_name');
+        var zParams2 = [];
+        var streamName2 = parameterCollection.models[1].get('original_model').get('stream_display_name');
         var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
           if (model.get('is_selected')){
+            instr1_2 = model.get('short_name');
+            if(instr1 != 'time'){
+              vars1_2.push(model.get('original_model').get('stream'));
+            }
             //double check the selected field and add the parameter name to the list
             if (model.get('is_x')){
               xParams2.push(model.get('short_name'));
@@ -451,21 +478,46 @@
               zParams2.push(model.get('short_name'));
             }
           }
-        });
+        });#}
+
+        //xParams1 = xParams1.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
+        //yParams1 = yParams1.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
+        //xParams2 = xParams2.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
+        //yParams2 = yParams2.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
+
+{#        console.log('xParams1');
+        console.log(xParams1);
+        console.log('xParams2');
+        console.log(xParams2);
+        console.log('yParams1');
+        console.log(yParams1);
+        console.log('yParams2');
+        console.log(yParams2);
+        console.log('zParams1');
+        console.log(zParams1);
+        console.log('zParams2');
+        console.log(zParams2);#}
+
+        console.log('instr1_2');
+        console.log(instr1_2);
+        console.log('vars1_2');
+        console.log(vars1_2);
+        console.log('ref_des1_2');
+        console.log(ref_des1_2);
 
         //create the interpolated data series collection
         self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
-          {
-            displayName : displayName,
-            ref_des1  : referenceDesignator1,
-            ref_des2  : referenceDesignator2,
-            instr1    : streamName1,
-            instr2    : streamName2,
-            startdate : selectDt.startDate.toISOString(),
-            enddate   : selectDt.endDate.toISOString(),
-            var1      : xParams1.concat(yParams1),
-            var2      : xParams2.concat(yParams2)
-          });
+          {instr1    : instr1_2[0],
+          instr2    : instr1_2[1],
+          ref_des1  : ref_des1_2[0],
+          ref_des2  : ref_des1_2[1],
+          startdate : selectDt.startDate.toISOString(),
+          enddate   : selectDt.endDate.toISOString(),
+          var1      : vars1_2[0],
+          var2      : vars1_2[1],
+          displayName: displayName,
+          stream_display_name: streamName1}
+        );
 
         var onDataHandler = function(collection, response, options) {
           self.views.plotContainer.hideLoading();
@@ -1067,22 +1119,34 @@
       }
 
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
-      actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
-      if (ooi.login.loggedIn()) {
-        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
-      } else {
-        actionButtons += "<button type='button' title='Download - Log in to access' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"','"+rowObject.stream_name+"',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+
+      // Add stream to plot button
+      if(_.isNull(rowObject.stream_name)) {
+        actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot' disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+      }else{
+         actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
       }
 
-      if (!_.isNull(currentUser) && !_.isUndefined(currentUser.scopes)) {
-        if ($.inArray("asset_manager", currentUser.scopes) >= 0) {
-          actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
-        } else {
-          actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
-        }
-      } else {
-        actionButtons += "<button type='button' title='Asset Management - Log in to access' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      // Download Data Button
+      if(!_.isNull(rowObject.stream_name) && ooi.login.loggedIn()) {
+        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
+      }else{
+        actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       }
+
+      // Asset management button
+      actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+
+      // IRIS Link
+      if(rowObject.iris_enabled) {
+        actionButtons += "<button type='button' title='IRIS Link' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openIrisDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      }else{
+        actionButtons += "<button type='button' title='IRIS Link' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openIrisDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      }
+
+      // Raw Data Server Link
+      actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+
       actionButtons += "</div>";
       return actionButtons;
     };
@@ -1104,6 +1168,41 @@
 
       //console.log(dlModel);
       ooi.trigger('StreamTableItemView:onClick', {model: dlModel});
+    };
+
+    // Hides the IRIS modal after clicking the link
+    var hideModal = function() {
+      $('button.close').click();
+    };
+
+    // Opens the IRIS external link download
+    var openIrisDownload = function(ref_des, stream_name, iris_link, dtRange) {
+      var daWarning = new ModalDialogView();
+
+      var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+      theMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
+      theMessage += "You are about to navigate to an external website operated by IRIS.";
+      theMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
+      theMessage += "</div>";
+      daWarning.show({
+        message: theMessage,
+        type: "warning"
+      });
+    };
+
+    // Opens the IRIS external link download
+    var openRawDownload = function(ref_des, stream_name, rds_link, dtRange) {
+      var daWarning = new ModalDialogView();
+
+      var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+      //theMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
+      theMessage += "You are about to navigate to an external website operated by OOI for raw data.";
+      theMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
+      theMessage += "</div>";
+      daWarning.show({
+        message: theMessage,
+        type: "warning"
+      });
     };
 
     var openAssetManagement = function(ref_des, stream_name) {
@@ -1232,6 +1331,83 @@
       $("#AllTimesSwitch").bootstrapSwitch('state', true);
       $("#AllDepthsSwitch").bootstrapSwitch('state', true);
 
+      $.fn.scrollBottom = function(scroll){
+        if(typeof scroll === 'number'){
+          window.scrollTo(0,$(document).height() - $(window).height() - scroll);
+          return $(document).height() - $(window).height() - scroll;
+        } else {
+          return $(document).height() - $(window).height() - $(window).scrollTop();
+        }
+      };
+
+      var amountScrolled = 200;
+
+      $(window).scroll(function() {
+        if ( $(window).scrollTop() > amountScrolled) {
+          $('a.back-to-top').fadeIn('slow');
+{#          $('a.back-to-bottom').fadeIn('slow');#}
+        } else {
+          $('a.back-to-top').fadeOut('slow');
+{#          $('a.back-to-bottom').fadeOut('slow');#}
+        }
+
+        if ( $(window).scrollBottom() > amountScrolled ) {
+{#          $('a.back-to-top').fadeIn('slow');#}
+          $('a.back-to-bottom').fadeIn('slow');
+        } else {
+{#          $('a.back-to-top').fadeOut('slow');#}
+          $('a.back-to-bottom').fadeOut('slow');
+        }
+      });
+
+      $('a.back-to-top').click(function() {
+        $('html, body').animate({
+          scrollTop: 0
+        }, 700);
+        return false;
+      });
+
+      $('a.back-to-bottom').click(function() {
+        $('html, body').animate({
+          scrollTop: $(document).height()
+        }, 700);
+        return false;
+      });
+
+      // Fixs the jqGrid tab width based on current window size
+      var fixjqGridSize = function() {
+        var jqGridWrapperId = "#gbox_" + $dcGrid.attr('id'); //here be dragons, this is     generated by jqGrid.
+        $dcGrid.setGridWidth($(jqGridWrapperId).parent().width()-20); //perhaps add padding calculation here?
+      };
+
+      // Fix the sidebar filter size and jqGrid width on window/browser resize
+      $(window).resize(function () {
+        // console.log('setting new grid width');
+        fixjqGridSize();
+        // Fix scrollable height of filters after DA is added
+        $('#filterScrollContainer').height(jQuery('#plottingBodyContainer').height());
+        {#$('#filterScrollContainer').css({
+          "height": "calc(100vh - 165px)",
+          "overflow-y": "scroll"
+        })#}
+      });
+
+      $('#navGrid select').change(function() {
+        $('#filterScrollContainer').height(jQuery('#plottingBodyContainer').height());
+      });
+
+      // Fix the jqGrid width after tab selection
+      $( 'a[data-toggle="tab"]' ).on( 'shown.bs.tab', function( evt ) {
+        // console.log('shown.bs.tab');
+        fixjqGridSize()
+      });
+
+{#      $(window).load(function(){
+        $('#filterScrollContainer').css({
+          "height": "calc(100vh - 165px)",
+          "overflow-y": "scroll"
+        })
+      });#}
 
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
@@ -1437,6 +1613,7 @@
       ooi.trigger("TimeRangeFilterView:addToTimeRange", newOptions);
       ooi.trigger("DepthRangeFilterView:change", depthOptions);
       combineFilters();
+      $('#filterScrollContainer').height(jQuery('#plottingBodyContainer').height());
     };
 
     var setArrayFilter = function(searchColumn, searchParam){
@@ -1748,10 +1925,10 @@
             .call(chart);#}
 
           // Fix scrollable height of filters after DA is added
-          $('#filterScrollContainer').css({
+          {#$('#filterScrollContainer').css({
             "height": "calc(100vh - 165px)",
             "overflow-y": "scroll"
-          })
+          })#}
         },
         datatype : "local",
         data : collection.toJSON(),
@@ -1773,12 +1950,17 @@
           'Longitude',
           'Start Time',
           'End Time',
-          'Unique ID'],
+          'Unique ID',
+          'IRIS Link',
+          'IRIS Enabled',
+          'RDS Link',
+          'RDS Enabled'
+        ],
 
         colModel : [
           { name : 'actions',
             caption : 'Plot/Download',
-            width : 110,
+            width : 170,
             sortable : false,
             search : false,
             align : 'center',
@@ -1855,7 +2037,7 @@
             index: 'reference_designator',
             key: false, // rowID = reference_designator
             editable: false,
-            {#                width: 165,#}
+            width: 200,
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
@@ -1923,6 +2105,7 @@
           {
             name : 'depth',
             index : 'depth',
+            width : 85,
             editable : false,
             sortable : true,
             sorttype : 'number',
@@ -1950,7 +2133,7 @@
             name : 'latitude',
             index : 'latitude',
             editable : false,
-            {#                width : 85,#}
+            width : 85,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1963,7 +2146,7 @@
             name : 'longitude',
             index : 'longitude',
             editable : false,
-            {#                width : 85,#}
+            width : 85,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1976,7 +2159,7 @@
             name : 'start',
             index : 'start',
             editable : false,
-            {#                width : 85,#}
+            width : 160,
             sortable : true,
             sorttype : 'date',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1989,7 +2172,7 @@
             name : 'end',
             index : 'end',
             editable : false,
-            {#                width : 85,#}
+            width : 160,
             sortable : true,
             sorttype : 'date',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -2014,6 +2197,66 @@
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
+          },
+          {
+            name: 'iris_link',
+            index: 'iris_link',
+            key: false,
+            hidden : true,
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'iris_enabled', // iris_link available, download off, plotting off
+            index: 'iris_enabled',
+            key: false,
+            hidden : true,
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'rds_link',
+            index: 'rds_link',
+            key: false,
+            hidden : true,
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name: 'rds_enabled',
+            index: 'rds_enabled',
+            key: false,
+            hidden : true,
+            editable: false,
+            {#                width: 165,#}
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
           }
         ],
         ondblClickRow: function (id) {
@@ -2029,6 +2272,8 @@
           if (initialLocationSearch != "") {
             navSearchParse(initialLocationSearch);
           }
+
+          $('#filterScrollContainer').height(jQuery('#plottingBodyContainer').height());
         },
         gridComplete : function() {
 {#          console.log('gridComplete');#}

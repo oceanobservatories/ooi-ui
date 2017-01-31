@@ -432,7 +432,7 @@
     // Opens the plotting page
     var openPlot = function(ref_des){
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/data_access/#"+ref_des, '_blank');
+      var win = window.open(location.origin+"/data_access/?search="+ref_des, '_blank');
       win.focus();
     };
 

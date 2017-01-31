@@ -140,9 +140,12 @@ label.platform > font, label.assembly > font, label.instrument > font {
     padding-left: 0px;
     margin-right: 0px;
     margin-left: 0px;
-    width: 1520px;
+    /*width: 1520px;*/
+    max-width: 100% !important;
+    width: auto !important;
     border-color: transparent;
     background-color: transparent;
+    min-height: 600px;
 }
 label.instrument > span {
     display: block;

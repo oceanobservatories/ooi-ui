@@ -19,18 +19,18 @@ var TileMap = Backbone.View.extend({
                 maxZoom: 10
             }).setView([this.lat, this.lng], 7);
             // Commenting this out for now until security and web mapping service performance are resolved
-/*            L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+            L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
                 layers: 'topo',
                 format: 'image/png',
                 transparent: true,
                 crs: L.CRS.EPSG4326,
                 attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
             })
-                .addTo(map);*/
-
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
                 .addTo(map);
+
+/*            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
+                .addTo(map);*/
 
                 map.dragging.disable();
                 map.touchZoom.disable();
