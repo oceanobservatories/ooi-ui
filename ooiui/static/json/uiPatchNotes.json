@@ -1,5 +1,20 @@
 [
     {
+        "VersionNumber": "1.3.2",
+        "VersionDate": "2017-01-31",
+        "VersionDescription": [
+            "Streaming Data: Streaming data restored. (11895)",
+            "Streaming Data: Updates DC and AM buttons and links. (11780)"
+        ]
+    },
+    {
+        "VersionNumber": "1.3.1",
+        "VersionDate": "2017-01-26",
+        "VersionDescription": [
+            "Data Access: Removed beta version of data availability. (11852)"
+        ]
+    },
+    {
         "VersionNumber":"1.3.0",
         "VersionDate":"2017-01-17",
         "VersionDescription":[

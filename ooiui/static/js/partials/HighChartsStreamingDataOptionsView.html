@@ -10,9 +10,8 @@
     <div class="pull-right">
       <div id='streamingDataViewControls'>
         <div class="asset-streaming-links btn-group" role="group" aria-label="...">
-          <a class="btn btn-default" href="/plotting/#<%= streamModel.get('ref_des') %>" target="_blank" title="Plotting"><i class="fa fa-bar-chart">&nbsp;</i></a>
-          <a class="btn btn-default" href="/streams/#<%= streamModel.get('ref_des') %>" target="_blank" title="Data Catalog"><i class="fa fa-database">&nbsp;</i></a>
-          <a class="btn btn-default" href="/assets/management#<%= streamModel.get('ref_des') %>" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>
+          <a class="btn btn-default" href="/data_access/?search=<%= streamModel.get('ref_des') %>" target="_blank" title="Data Access & Visualization"><i class="fa fa-th">&nbsp;</i></a>
+          <a class="btn btn-default" href="/assets/management/#<%= streamModel.get('ref_des') %>" target="_blank" title="Asset Management"><i class="fa fa-sitemap">&nbsp;</i></a>
         </div>
         <div class="btn-group" role="group" aria-label="...">
           <button id='playStream' type="button" class="btn btn-default btn-lg">
