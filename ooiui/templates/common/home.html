@@ -28,6 +28,7 @@
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/home.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformsStatusModel.js" type="text/javascript"></script>
 
   <script src="/js/views/home/vector_map/vector_map.js" type="text/javascript"></script>
   <script src="/js/views/home/array_content/array_content.js" type="text/javascript"></script>
@@ -72,6 +73,7 @@
       var self = this;
       var arrayCollection = new ArrayStatusCollection();
       var siteStatusCollection = new SiteStatusCollection();
+      var platformsStatusCollection = new PlatformsStatusCollection();
 
       arrayCollection.fetch().then(function() {
         // Sort the arrays
@@ -79,7 +81,7 @@
         var mapStyle = 'tile';
 
         // Render the site content for each array
-        var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, siteStatusCollection}});
+        var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}});
         arrayContent.render();
 
         // Render the map

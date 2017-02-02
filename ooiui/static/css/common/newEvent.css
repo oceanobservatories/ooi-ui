@@ -62,7 +62,7 @@
   text-decoration: none;
 }
 div.image {
-  content: url(/img/modal/OOI_Banner.png);
+  content: url("/img/modal/OOI_Banner.svg");
   margin-left: auto;
   margin-right: auto;
   margin-top: -20px;

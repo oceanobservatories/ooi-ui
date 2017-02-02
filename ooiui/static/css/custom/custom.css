@@ -353,15 +353,15 @@ div.ui-rangeSlider-label-value {
 
 a.back-to-top {
   display: none;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   text-indent: -9999px;
   font-size: 20pt;
   position: fixed;
   z-index: 999;
-  right: 20px;
+  right: 5px;
   bottom: 90px;
-  background: #27AE61 url("/img/uparrow.png") no-repeat center 20%;
+  background: #27AE61 url("/img/uparrow.png") no-repeat center 10%;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   border-radius: 30px;
@@ -370,15 +370,15 @@ a.back-to-top {
 
 a.back-to-bottom {
   display: none;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   text-indent: -9999px;
   font-size: 20pt;
   position: fixed;
   z-index: 999;
-  right: 20px;
+  right: 5px;
   bottom: 20px;
-  background: #27AE61 url("/img/uparrow.png") no-repeat center 20%;
+  background: #27AE61 url("/img/uparrow.png") no-repeat center 10%;
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);

@@ -35,7 +35,21 @@ var ArrayContentSummary = ParentView.extend({
         'mouseenter .js-expand': '_highlightArray',
         'mouseleave .js-expand': '_lowlightArray',
         'mouseover tr': '_highlightPlatform',
-        'mouseout tr': '_lowlightPlatform'
+        'mouseout tr': '_lowlightPlatform',
+        'click tr': '_getPlatformsStatus'
+    },
+
+    _getPlatformsStatus: function(event) {
+      var self = this;
+      var targetParent = ($(event.target).parent())[0];
+
+      console.log('maybe fetch some platform status with the instrument status');
+
+      self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(){
+        console.log('getting platform status on demand');
+        console.log(self.collection.platformsStatusCollection);
+      })
+
     },
 
     _highlightArray: function(event) {

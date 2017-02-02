@@ -9,9 +9,9 @@
           <% } else if(properties.status.operational > 0) { %>
           <i class="fa fa-circle pull-left" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= properties.status.operational %>"></i>
           <% } else if(properties.status.notTracked > 0) { %>
-          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= properties.status.notTracked %>"></i>
+          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= properties.status.notTracked %>"></i>
           <% } else if(properties.status.removedFromService > 0) { %>
-          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= properties.status.removedFromService %>"></i>
+          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: black; font-size: 16px;" title="<%= properties.status.removedFromService %>"></i>
           <% } else { %>
           <i class="fa fa-circle pull-left" aria-hidden="true" style="color: white; font-size: 16px;" title="No Match"></i>
           <% } %>
@@ -23,7 +23,7 @@
         <div >
             <div style="width: 100%">
                 <ul class="align-center" >
-                    <li><a href="/data_access/?search=<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                    <li><a href="/data_access/#<%= properties.code %>"><i class="fa fa-th">&nbsp;</i>Data Access & Plotting</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                     <li><a href="/assets/management#<%= properties.code %>"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></li>
                 </ul>
             </div>
