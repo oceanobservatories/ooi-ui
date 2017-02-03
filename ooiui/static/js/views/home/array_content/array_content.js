@@ -43,11 +43,11 @@ var ArrayContentSummary = ParentView.extend({
       var self = this;
       var targetParent = ($(event.target).parent())[0];
 
-      console.log('maybe fetch some platform status with the instrument status');
+      // console.log('maybe fetch some platform status with the instrument status');
 
       self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(){
-        console.log('getting platform status on demand');
-        console.log(self.collection.platformsStatusCollection);
+        // console.log('getting platform status on demand');
+        // console.log(self.collection.platformsStatusCollection);
       })
 
     },
@@ -133,10 +133,10 @@ var ArrayContentSummary = ParentView.extend({
          .platformCollection
          .byArray(model.attributes.array_code);*/
       //var siteStatusCollection = new SiteStatusCollection();
-      arrayContentContext.collection.siteStatusCollection.fetch({async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
+      arrayContentContext.collection.siteStatusCollection.fetch({timeout: 5000, async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
         arrayContentContext.collection.siteStatusCollection.sortByField('depth','ascending');
-          console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
-          console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
+          // console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
+          // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
           model.set({platforms: arrayContentContext.collection.siteStatusCollection.toGeoJSON()});
 
       });
@@ -231,8 +231,8 @@ var ArrayContentSummaryItem = ParentView.extend({
     _toggleActive: function(event) {
         var el = $('#'+this.model.attributes.reference_designator);
         //toggle current one class
-      console.log('toggle active');
-      console.log(el);
+        // console.log('toggle active');
+        // console.log(el);
         el.toggleClass('active');
 
         //remove any existing actives
@@ -278,8 +278,8 @@ var ArrayContentSummaryItem = ParentView.extend({
         map._showPlatformView();
         event.stopImmediatePropagation();
         //flyFlyContext.originalZoom;
-      console.log('flyFlyContext.model.attributes.reference_designator');
-      console.log(flyFlyContext.model.attributes.reference_designator);
+        // console.log('flyFlyContext.model.attributes.reference_designator');
+        // console.log(flyFlyContext.model.attributes.reference_designator);
 
         $.when(this._toggleActive(event)).done(function() {
             $.when(flyFlyContext._toggleOthers(event)).done(function() {

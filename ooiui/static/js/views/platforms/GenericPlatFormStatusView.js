@@ -52,7 +52,7 @@ var GenericPlatFormStatus = Backbone.View.extend({
         var self = this;
         this.streamCollection = this.collection.streamCollection.sort('display_name');
         this.platformCollection = this.collection.platformCollection;
-        this.platformStatusCollection = this.collection.platformStatusCollection;
+        this.platformsStatusCollection = this.collection.platformsStatusCollection;
         this.platformLat = this.streamCollection.options.searchLat;
         this.platformLng = this.streamCollection.options.searchLng;
         this.platformId = this.streamCollection.options.searchId;
@@ -118,19 +118,26 @@ var GenericPlatFormStatus = Backbone.View.extend({
             var _this = this;
             var siteInfo = {
                 site: this.streamCollection.models[0].attributes.assetInfo.site,
-                refDes: this.streamCollection.models[0].attributes.ref_des.substr(0,8),
+                refDes: this.streamCollection.models[0].attributes.ref_des.substr(0,8)
             };
 
             var platformList = this.streamCollection.map(function(model) {
+                // console.log('platformList');
+                // console.log(model);
                 return  {
                     name: model.get('assembly_name'),
-                    refDes: model.get('reference_designator').substr(0,11)
+                    refDes: model.get('reference_designator').substr(0,11),
+                    depth: model.get('depth')
                 };
             });
 
             var uniqueList = _.uniq(platformList, function(item, key, a) {
                 return item.refDes;
             });
+
+            // console.log('uniqueList');
+            // console.log(_.sortBy( uniqueList, 'depth' ));
+            uniqueList = _.sortBy( uniqueList, 'depth' );
 
             this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
 

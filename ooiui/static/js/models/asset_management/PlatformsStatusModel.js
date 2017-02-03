@@ -128,7 +128,7 @@ var PlatformsStatusCollection = Backbone.Collection.extend({
     return geoJSONified;
   },
   parse: function(response) {
-    console.log(response);
+    // console.log(response);
     'use strict';
     // if the response is valid, return the results object
     if (response) { return response.platforms; } else { return []; }

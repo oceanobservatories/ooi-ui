@@ -1,7 +1,7 @@
 <tr id= "<%= model.get("reference_designator") %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
 <% //console.log('platform table model'); %>
 <% //console.log(model); %>
-<td class="whyMe">
+<td class="tdulliFormat">
  <ul>
                             <li><a href="/data_access/?search=<%= model.get('reference_designator') %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a></li>
    <li>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
@@ -9,7 +9,7 @@
                         </ul>
                     </td>
     <td><%= model.get("display_name") %><small class="refDesLabel" style="display:none"><br>(<%= model.get('reference_designator') %>)</small></td>
-    <td class="whyMe">
+    <td class="tdulliFormat">
                               <ul>
                           <% var instStatus = model.get("instrument_status").status; %>
 

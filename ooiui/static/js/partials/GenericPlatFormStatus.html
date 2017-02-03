@@ -201,30 +201,30 @@
 </script>
 
 <style type="text/css">
-    #largeImgPanel {
-        text-align: center;
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-color: rgba(100,100,100, 0.5);
-        overflow-y: scroll;
-    }
+  #largeImgPanel {
+    text-align: center;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(100,100,100, 0.5);
+    overflow-y: scroll;
+  }
 
-  .whyMe ul {
+  .tdulliFormat ul {
     width: 50px;
     display: table;
     table-layout: fixed;
-}
-.whyMe ul li {
+  }
+  .tdulliFormat ul li {
     display: table-cell;
-  vertical-align: middle;
-}
-.whyMe ul li a {
+    vertical-align: middle;
+  }
+  .tdulliFormat ul li a {
     display: inline-block;
-}
+  }
 
-  .whyMe td {
+  .tdulliFormat td {
     width: 50px;
   }
 
@@ -255,7 +255,7 @@
           <% //console.log(model); %>
                 <div class="panel">
                     <div class="panel-heading" >
-                        <h4 class="js-expand" data-target="#<%= model.refDes.substr(9,2) %>"><%= model.name || model.refDes.substr(9,2) %><i class="fa fa-chevron-down pull-right"></i></h4>
+                        <h4 class="js-expand" data-target="#<%= model.refDes.substr(9,2) %>"><%= model.name || model.refDes.substr(9,2) %><small class="refDesLabel" style="display:none"> <%= (model.name) ? '(' + model.refDes.substr(9,2) + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
                     </div>
                     <!-- <div id="<%=  model.refDes.substr(9,2) %>" class="panel&#45;body" style="display: none;"> -->
                     <div id="<%=  model.refDes.substr(9,2) %>" class="panel-body" style="display: none">
@@ -263,11 +263,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 75px;">Navigation</th>
-                                    <th style="width: 200px;">Instrument</th>
+                                    <th style="width: 300px;">Instrument</th>
                                     <th style="width: 100px;">Status</th>
                                     <th style="width: 100px;">Deployment Depth</th>
-                                    <th style="width: 200px;">Start Time</th>
-                                    <th style="width: 200px;">End Time</th>
+                                    <th style="width: 175px;">Start Time</th>
+                                    <th style="width: 175px;">End Time</th>
                                 </tr>
                             </thead>
                         </table>

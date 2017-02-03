@@ -1,8 +1,8 @@
 <%
-console.log('in arraycontentsummaryitem');
-console.log(this);
-console.log('properties');
-console.log(properties);
+//console.log('in arraycontentsummaryitem');
+//console.log(this);
+//console.log('properties');
+//console.log(properties);
 %>
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
@@ -174,7 +174,7 @@ console.log(properties);
                           <% } %>
                         </ul>
                     </td>
-                    <td >
+                    <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">
                           <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>
                         </ul>
@@ -184,7 +184,7 @@ console.log(properties);
                     <td><%= platform.geometry.coordinates[0] %></td></tr>
                 <% }); %>
             </tbody>
-            <tfoot colspan="1"></tfoot>
+            <tfoot></tfoot>
         </table>
 
         <div style="margin: 0 0 80px 0; width: 100%; background-color: #004773; color: white;" class="js-expand text-center js-expand-close">Close</div>

@@ -40,8 +40,8 @@ var XYPlotView = BasePlot.extend({
     }
 
     //availableParameters = availableParameters.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
-    console.log('availableParameters in create axis');
-    console.log(availableParameters);
+    // console.log('availableParameters in create axis');
+    // console.log(availableParameters);
 
     _.each(availableParameters,function(model,i){
       //create the axis
@@ -139,8 +139,8 @@ var XYPlotView = BasePlot.extend({
     var isY = plotParameters.where({'is_x':true}).length > 1;
     //figure out the reference axis
     var referenceParameterModel = isY ? plotParameters.where({'is_y': true})[0] : plotParameters.where({'is_x': true})[0];
-    console.log('referenceParameterModel');
-    console.log(referenceParameterModel);
+    // console.log('referenceParameterModel');
+    // console.log(referenceParameterModel);
     //get all params not reference
     var availableParameters = plotParameters.filter(function (model) {
       return model !== referenceParameterModel;
@@ -156,14 +156,14 @@ var XYPlotView = BasePlot.extend({
 
     //map the avaiable parameters to the reference
     //availableParameters = availableParameters.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
-    console.log('availableParameters before getting data');
-    console.log(availableParameters);
+    // console.log('availableParameters before getting data');
+    // console.log(availableParameters);
 
     _.each(availableParameters,function(model, i){
 
       // if the dependent variable (y) is an array, we need to produce multiple series (only spkir_abj_cspp_downwelling_vector for now)
       if (_.isArray(self.getValue(plotData.models[0].get(model.get('short_name')), model.get('short_name')))){
-        console.log('inside multiple series');
+        // console.log('inside multiple series');
         var shortName = model.get('short_name');
         if (shortName.indexOf('spkir') > -1){
           // spkir_abj_cspp_downwelling_vector
@@ -174,6 +174,7 @@ var XYPlotView = BasePlot.extend({
       }
 
       var qc_name = model.get('short_name') + "_qc_results";
+      var qc_run_name = model.get('short_name') + "_qc_executed";
       var series = new SeriesModel({
                                     marker: {
                                       radius : 3,
@@ -193,6 +194,8 @@ var XYPlotView = BasePlot.extend({
 
 
       plotData.each(function(dataModel){
+        // console.log('dataModel');
+        // console.log(dataModel);
         var val1, val2;
         if (isY){
           val2 = self.getValue(dataModel.get(referenceParameterModel.get('short_name')),referenceParameterModel.get('short_name'));
@@ -204,21 +207,20 @@ var XYPlotView = BasePlot.extend({
         data.push([val1,val2]);
 
         //will only add QAQC if the reference is time
-        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name').indexOf('time') > -1){
+        if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name') == 'time'){
           var qaqc_data = dataModel.get(qc_name);
-          console.log('qaqc_data');
-          console.log(qaqc_data);
-          console.log('qaqc');
-          console.log(qaqc);
+          var qaqc_executed_data = dataModel.get(qc_run_name);
           var qaqcpass = false;
+
           if (qaqc < 10){
-            if (qaqc_data && Math.pow(2,qaqc-1)){  //PASS
+            var test_bit = Math.pow(2, qaqc-1);
+            if (!(qaqc_executed_data & test_bit) || (qaqc_data & test_bit)) {
               qaqcpass = true;
             }else{
               qaqcpass = false;
             }
           }else{
-            if (qaqc_data == Math.pow(2,9)){  // PASS
+            if (qaqc_data == qaqc_executed_data){  // PASS
               qaqcpass = true;
             }else{
               qaqcpass = false;
@@ -238,7 +240,7 @@ var XYPlotView = BasePlot.extend({
 
         seriesList.push(new SeriesModel({
           type  : 'scatter',
-          name  : "Failed QAQC: "+ model.get('name'),
+          name  : "Failed QAQC (" + qaqc + ": "+ model.get('name'),
           qaqc  : true,
           title : qc_name,
           units : '',
@@ -265,8 +267,8 @@ var XYPlotView = BasePlot.extend({
     var isY = plotParameters.where({'is_x':true}).length > 1;
     //figure out the reference axis
     var referenceParameterModel = isY ? plotParameters.where({'is_x': true})[0] : plotParameters.where({'is_y': true})[0];
-    console.log('referenceParameterModel');
-    console.log(referenceParameterModel);
+    // console.log('referenceParameterModel');
+    // console.log(referenceParameterModel);
     //get all params not reference
     var availableParameters = plotParameters.filter(function (model) {
       return model;
@@ -283,15 +285,15 @@ var XYPlotView = BasePlot.extend({
 
     //map the avaiable parameters to the reference
     //availableParameters = availableParameters.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
-    console.log('availableParameters before getting data');
-    console.log(availableParameters);
+    // console.log('availableParameters before getting data');
+    // console.log(availableParameters);
 
     availableParameters = _.uniq(availableParameters, function(item, key, a) {return item.attributes.short_name;});
 
     //_.uniq(temp3, function(item, key, a) {return item.attributes.short_name;});
 
-    console.log('availableParameters after uniq');
-    console.log(availableParameters);
+    // console.log('availableParameters after uniq');
+    // console.log(availableParameters);
 
     var yAxisCounter = 0;
     var xAxisCounter = 0;
@@ -299,7 +301,7 @@ var XYPlotView = BasePlot.extend({
 
       // if the dependent variable (y) is an array, we need to produce multiple series (only spkir_abj_cspp_downwelling_vector for now)
       if (_.isArray(self.getValue(plotData.models[0].get(model.get('short_name')), model.get('short_name')))){
-        console.log('inside multiple series');
+        // console.log('inside multiple series');
         var shortName = model.get('short_name');
         if (shortName.indexOf('spkir') > -1){
           // spkir_abj_cspp_downwelling_vector
@@ -348,10 +350,10 @@ var XYPlotView = BasePlot.extend({
         //will only add QAQC if the reference is time
         if (qaqc > 0 && dataModel.has(qc_name) && referenceParameterModel.get('short_name').indexOf('time') > -1){
           var qaqc_data = dataModel.get(qc_name);
-          console.log('qaqc_data');
-          console.log(qaqc_data);
-          console.log('qaqc');
-          console.log(qaqc);
+          // console.log('qaqc_data');
+          // console.log(qaqc_data);
+          // console.log('qaqc');
+          // console.log(qaqc);
           var qaqcpass = false;
           if (qaqc < 10){
             if (qaqc_data && Math.pow(2,qaqc-1)){  //PASS
@@ -408,12 +410,12 @@ var XYPlotView = BasePlot.extend({
   render: function(plotParameters, plotModel, plotData){
     var self = this;
 
-    console.log('plotParameters');
-    console.log(plotParameters);
-    console.log('plotModel');
-    console.log(plotModel);
-    console.log('plotData');
-    console.log(plotData);
+    // console.log('plotParameters');
+    // console.log(plotParameters);
+    // console.log('plotModel');
+    // console.log(plotModel);
+    // console.log('plotData');
+    // console.log(plotData);
 
     // Set message for data decimation based on returned data model length
     $('#isDecimated').empty();
@@ -437,14 +439,14 @@ var XYPlotView = BasePlot.extend({
     //yAxis = yAxis.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
     //seriesList = seriesList.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
 
-    console.log('xAxis');
-    console.log(xAxis);
-    console.log('yAxis');
-    console.log(yAxis);
-    console.log('seriesList');
-    console.log(seriesList);
-    console.log(plotData.displayName);
-    console.log(plotData.stream_display_name);
+    // console.log('xAxis');
+    // console.log(xAxis);
+    // console.log('yAxis');
+    // console.log(yAxis);
+    // console.log('seriesList');
+    // console.log(seriesList);
+    // console.log(plotData.displayName);
+    // console.log(plotData.stream_display_name);
 
     if (plotModel.get('plotOrientation') == 'horizontal'){
       self.setPlotSize('100%','400px');

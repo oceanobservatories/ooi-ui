@@ -266,8 +266,11 @@ def status_sites_tree():
 
 @app.route('/api/uframe/status/platforms/<string:array_code>')
 def status_platforms(array_code):
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/platforms/%s' % array_code, params=request.args)
-    return response.text, response.status_code
+    if array_code:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/platforms/%s' % array_code, params=request.args)
+        return response.text, response.status_code
+    else:
+        return "No platform status response.", 500
 
 
 @app.route('/api/uframe/status/instrument/<string:ref_des>')

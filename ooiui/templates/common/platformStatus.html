@@ -113,15 +113,15 @@ _.extend(OOI.prototype, Backbone.Events,  {
         var platformsStatusCollection = new PlatformsStatusCollection();
 
         platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+atob(platformId)}).done(function() {
-          console.log('platformsStatusCollection');
-          console.log(platformsStatusCollection);
-          console.log('platformsStatusCollection.toGeoJSON()');
-          console.log(platformsStatusCollection.toGeoJSON());
+          // console.log('platformsStatusCollection');
+          // console.log(platformsStatusCollection);
+          // console.log('platformsStatusCollection.toGeoJSON()');
+          // console.log(platformsStatusCollection.toGeoJSON());
         });
 
         var platform = new GenericPlatFormStatus({
             el: $('#page-content-wrapper'),
-            collection: {streamCollection, platformCollection}
+            collection: {streamCollection, platformCollection, platformsStatusCollection}
         });
 
         // Takes care of the strange size of the map

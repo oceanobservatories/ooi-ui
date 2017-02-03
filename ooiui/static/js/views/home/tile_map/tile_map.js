@@ -75,7 +75,7 @@ var TileMap = Backbone.View.extend({
   _setArrayView: function() {
     'use strict';
     // When we're in the array view, we don't want to show all the platforms
-    map.setView([30, -70], 2);
+    map.setView([20, -80], 2);
 
   },
   _showPlatformView: function() {
@@ -127,8 +127,8 @@ var TileMap = Backbone.View.extend({
   render: function() {
     try {
       var renderContext = this;
-      console.log('renderContext');
-      console.log(renderContext);
+      // console.log('renderContext');
+      // console.log(renderContext);
       var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20], opacity: 1});
       var platformIcon = new L.divIcon({className: 'mydivicon-platform', iconSize: [20, 20], opacity: 1});
 
@@ -139,17 +139,17 @@ var TileMap = Backbone.View.extend({
         var arrayData = [];
         var platformData = [];
         _.each(renderContext.collection.arrayCollection.toGeoJSON(), function(geoJSON) {
-          console.log('geoJSON in array');
-          console.log(geoJSON);
+          // console.log('geoJSON in array');
+          // console.log(geoJSON);
           arrayData.push(geoJSON);
 
-          console.log('platform data inside arrayCollection toGeoJSON');
-          console.log(geoJSON.properties.platforms);
+          // console.log('platform data inside arrayCollection toGeoJSON');
+          // console.log(geoJSON.properties.platforms);
 
 
           _.each(geoJSON.properties.platforms, function(geoJSON) {
-            console.log('geoJSON in platform');
-            console.log(geoJSON);
+            // console.log('geoJSON in platform');
+            // console.log(geoJSON);
 
             if (geoJSON.properties.code.indexOf('MOAS') == -1) {
               platformData.push(geoJSON);
