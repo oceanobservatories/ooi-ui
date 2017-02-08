@@ -35,27 +35,86 @@ var ArrayContentSummary = ParentView.extend({
         'mouseenter .js-expand': '_highlightArray',
         'mouseleave .js-expand': '_lowlightArray',
         'mouseover tr': '_highlightPlatform',
-        'mouseout tr': '_lowlightPlatform',
-        'click tr': '_getPlatformsStatus'
+        'mouseout tr': '_lowlightPlatform'
+        //'click tr': '_getPlatformsStatus' // Dyanmically populate the nodes and instruments under the site
     },
 
     _getPlatformsStatus: function(event) {
       var self = this;
       var targetParent = ($(event.target).parent())[0];
+      var innerTableRowId = 'innerTableRow_' + targetParent.getAttribute("data-code");
 
+      console.log('targetParent');
+      console.log(targetParent);
       // console.log('maybe fetch some platform status with the instrument status');
 
-      self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(){
+      self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(collection){
+        console.log(collection);
         // console.log('getting platform status on demand');
         // console.log(self.collection.platformsStatusCollection);
+        // var newRow = $("<tr id='test_view_insert'><td>Col1</td><td>Col2</td><td>Col3</td><td>Col4</td><td>Col5</td><td>Col6</td></tr>");
+
+
+        // platformItems = collection.platforms;
+        // platformItems.comparator = "depth";
+        // platformItems.sort();
+        _.forEach(collection.platforms, function(modelList) {
+          var innerTableId = 'innerTable_' + modelList.header.code;
+          var innerTableBannerId = 'innerTableBanner_' + modelList.header.code;
+
+          var platformHeaderRow = $(
+            '<tr id='+innerTableBannerId+'><td colspan="6">'+
+            '<h4 class="" data-target=' + modelList.header.title + '<small class="refDesLabel">(' + modelList.header.title + ')</small><i class="fa fa-chevron-down pull-right"></i></h4>'+
+            '</td></tr>'
+          );
+          // Add table header
+          var newRow =$(
+            '<tr id='+innerTableRowId+'><td colspan="6">'+
+            // '<div class="panel">'+
+            // '<div class="panel-heading">'+
+            // '<h4 class="js-expand" data-target="'+modelList.header.code+'"'+modelList.header.title || modelList.header.code+'<small class="refDesLabel" style="display:none">'+(modelList.header.title)+' ? ('+ modelList.header.code + ') :""</small><i class="fa fa-chevron-down pull-right"></i></h4>'+
+            // '</div>'+
+            // '<div id="'+modelList.header.code+'" class="panel-body" style="display: none">'+
+            '<table id='+innerTableId+' class="table table-default">'+
+            '<thead>'+
+            '<tr>'+
+            '<th style="width: 75px;font-size: 10pt;">Navigation</th>'+
+            '<th style="width: 300px;font-size: 10pt;"><div class="innerTableTitle">'+modelList.header.title+'</div><div style="vertical-align: bottom;font-size: 10pt;">Instrument</div></th>'+
+            '<th style="width: 100px;font-size: 10pt;">Status</th>'+
+            '<th style="width: 100px;font-size: 10pt;">Deployment Depth</th>'+
+            '<th style="width: 175px;font-size: 10pt;">Start Time</th>'+
+            '<th style="width: 175px;font-size: 10pt;">End Time</th>'+
+            '</tr>'+
+            '</thead>'+
+            '</table>'+
+            // '</div>'+
+            // '</div>'+
+            '</td></tr>'
+          );
+          // platformHeaderRow.insertAfter('#'+targetParent.getAttribute("data-code"));
+          newRow.insertAfter('#'+targetParent.getAttribute("data-code"));
+
+          _.forEach(modelList.items, function(model){
+            console.log(model);
+            var piModel = new PlatformsInstrumentModel(model);
+            console.log('piModel');
+            console.log(piModel);
+            var row = new StatusRow({
+              model : piModel
+            });
+            console.log('row');
+            console.log(row);
+
+            self.$el.find("#"+ innerTableId).append(row.el);
+          })
+        });
       })
 
     },
-
     _highlightArray: function(event) {
         // console.log(event);
         var arrayIconHighlight = new L.divIcon({className: 'mydivicon-hover', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent())[0]; 
+        var targetCode = ($(event.target).parent().parent())[0];
         _.each(map._layers, function(layer) {
             if(!_.isUndefined(layer.feature)) {
               // console.log(layer.feature.properties.code);
@@ -71,7 +130,7 @@ var ArrayContentSummary = ParentView.extend({
     _lowlightArray: function(event) {
         // console.log(event);
         var arrayIcon = new L.divIcon({className: 'mydivicon', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent());  
+        var targetCode = ($(event.target).parent().parent());
 
         _.each(map._layers, function(layer) {
             if(!_.isUndefined(layer.feature)) {
@@ -101,7 +160,7 @@ var ArrayContentSummary = ParentView.extend({
     },
     _lowlightPlatform: function(event) {
         var platIconLowLight = new L.divIcon({className: 'mydivicon-platform', iconSize: [20, 20]});
-        var targetCode = ($(event.target).parent().parent());  
+        var targetCode = ($(event.target).parent().parent());
 
         var targetGrandParent = ($(event.target).parent().parent())[0];
         var targetParent = ($(event.target).parent())[0];
@@ -151,6 +210,11 @@ var ArrayContentSummary = ParentView.extend({
       });
 
 
+    // $(window).resize(function () {
+    //   map._setArrayView();
+    // });
+
+    //map._setMaxBounds(sw, ne);
 
 
 
@@ -164,7 +228,7 @@ var ArrayContentSummary = ParentView.extend({
       arrayContentContext.$el.prepend(arrayContentSummaryItem);
       $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
       2 * arrayContentContext.collection.arrayCollection.length + 'px'});
-    }, 300);
+    }, 3000);
   }
 });
 
@@ -256,13 +320,20 @@ var ArrayContentSummaryItem = ParentView.extend({
             }
         });
     },
-    _flyBye: function(originalZoom) {
-        map.setView([6.3, -80], 2.5);
+    _flyBye: function() {
         // map.setLayoutProperty('rsArray', 'visibility', 'visible');
         // map.setLayoutProperty('ceArray', 'visibility', 'visible');
         map._hidePlatformView();
-        $('.js-array').removeClass('active');
+
         //popup.remove();
+
+        // Set the map back to the array view
+        map._isArrayView = true;
+        map.setView([5.7, -94], 2.59);
+        // map.whenReady(function() {
+        //     var currentMapBounds = map.getBounds();
+        //     map.setMaxBounds(currentMapBounds);
+        // });
 
         // when resetting the page, change the title back to 'Home'
         bannerTitle = 'Home';
@@ -274,35 +345,42 @@ var ArrayContentSummaryItem = ParentView.extend({
         .addTo(map);
     },
     _flyFly: _.debounce(function(event) {
-        var flyFlyContext = this; 
-        map._showPlatformView();
-        event.stopImmediatePropagation();
-        //flyFlyContext.originalZoom;
-        // console.log('flyFlyContext.model.attributes.reference_designator');
-        // console.log(flyFlyContext.model.attributes.reference_designator);
+        var flyFlyContext = this;
 
-        $.when(this._toggleActive(event)).done(function() {
-            $.when(flyFlyContext._toggleOthers(event)).done(function() {
-                var el = $('#'+flyFlyContext.model.attributes.reference_designator),
-                    table = '#' + el.attr('id') + ' > .js-platform-table';
-                $(table).slideToggle();
+              if(map._isArrayView) {
+                map._showPlatformView();
+                map._isArrayView = false;
+              }else{
+                  map._hidePlatformView();
+                  map._isArrayView = true;
+              }
+          event.stopImmediatePropagation();
+          //flyFlyContext.originalZoom;
+          // console.log('flyFlyContext.model.attributes.reference_designator');
+          // console.log(flyFlyContext.model.attributes.reference_designator);
 
-                // give the impression that the page has changed, change the title.
-                bannerTitle = flyFlyContext.model.attributes.display_name;
-                banner.changeTitle({bannerTitle});
+          $.when(this._toggleActive(event)).done(function () {
+            $.when(flyFlyContext._toggleOthers(event)).done(function () {
+              var el = $('#' + flyFlyContext.model.attributes.reference_designator),
+                table = '#' + el.attr('id') + ' > .js-platform-table';
+              $(table).slideToggle();
+
+              // give the impression that the page has changed, change the title.
+              bannerTitle = flyFlyContext.model.attributes.display_name;
+              banner.changeTitle({bannerTitle});
             });
-        });
+          });
 
-        // helper monkies
+          // helper monkies
 
-        /* @private _compareGeoLoc
-         * Given Point 1 (pt1), return bool if between a RANGE centered at Point 2 (pt2).
-         *
-         * @private _addPopup
-         * Adds the global popup variable with HTML to the global map variable.
-         */
+            /* @private _compareGeoLoc
+             * Given Point 1 (pt1), return bool if between a RANGE centered at Point 2 (pt2).
+             *
+             * @private _addPopup
+             * Adds the global popup variable with HTML to the global map variable.
+             */
 
-        var _compareGeoLoc = (function (pt1, pt2) {
+          var _compareGeoLoc = (function (pt1, pt2) {
             var RANGE = 10;
 
             var isLngGreater = Math.round(pt1.lng) > Math.round(pt2[1]) - RANGE;
@@ -314,72 +392,95 @@ var ArrayContentSummaryItem = ParentView.extend({
             var isPt1LatBetweenPt2Lat = isLatGreater && isLatLess;
 
             return ((isPt1LngBetweenPt2Lng) && (isPt1LatBetweenPt2Lat)) ? true : false;
-        });
+          });
 
-        // end helper monkies
+          // end helper monkies
 
-        // map._setPlatformView();
-        var loc = [
-                flyFlyContext.model.attributes.latitude,
-                flyFlyContext.model.attributes.longitude
+          // map._setPlatformView();
+          var loc = [
+              flyFlyContext.model.attributes.latitude,
+              flyFlyContext.model.attributes.longitude
             ],
             code = flyFlyContext.model.attributes.reference_designator,
             name = flyFlyContext.model.attributes.display_name;
 
-        if (code === 'CE') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                // map.setLayoutProperty('rsArray', 'visibility', 'none');
-                map.setView([loc[0]+1.8, loc[1]],7);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'RS') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[0]+1, loc[1]-1],7);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'CP') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[0], loc[1]],8);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'GS') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[0], loc[1]],6);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'GI') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[0], loc[1]],7);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'GA') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                map.setView([loc[0], loc[1]],6);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
-        } else if (code === 'GP') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                flyFlyContext.originalZoom = map.getZoom();
-                // map.setLayoutProperty('rsArray', 'visibility', 'none');
-                // map.setLayoutProperty('ceArray', 'visibility', 'none');
-                map.setView([loc[0], loc[1]],6);
-            } else {
-                this._flyBye(flyFlyContext.originalZoom);
-            }
+
+      if(!map._isArrayView) {
+
+
+          if (code === 'CE') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            // map.setLayoutProperty('rsArray', 'visibility', 'none');
+            map.setView([loc[0] + 1.8, loc[1]], 7);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'RS') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            // map.setLayoutProperty('ceArray', 'visibility', 'none');
+            map.setView([loc[0] + 1, loc[1] - 1], 7);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'CP') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            map.setView([loc[0], loc[1]], 8);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'GS') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            map.setView([loc[0], loc[1]], 6);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'GI') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            map.setView([loc[0], loc[1]], 7);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'GA') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            map.setView([loc[0], loc[1]], 6);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          } else if (code === 'GP') {
+            // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+            //     flyFlyContext.originalZoom = map.getZoom();
+            // map.setLayoutProperty('rsArray', 'visibility', 'none');
+            // map.setLayoutProperty('ceArray', 'visibility', 'none');
+            map.setView([loc[0], loc[1]], 6);
+            // } else {
+            //     this._flyBye(flyFlyContext.originalZoom);
+            // }
+          }
+
+
+          // map.whenReady(function() {
+            var west = map.getBounds().getWest()-.2;
+            var east = map.getBounds().getEast()+.2;
+            var south = map.getBounds().getSouth()-.2;
+            var north = map.getBounds().getNorth()+.2;
+            var sw = L.latLng(south, west),
+                ne = L.latLng(north, east),
+              currentMapBounds = L.latLngBounds(sw, ne);
+            // map.setMaxBounds(currentMapBounds);
+            // });
+
+
+        }else{
+            this._flyBye();
         }
+
+
     }, 500, true),
     template: JST['ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html']
 });

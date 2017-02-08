@@ -175,7 +175,7 @@ banner header for active/inactive
 }
 
 .navbar-top-links-new li:last-child {
-  margin-right: 15px;
+  /*margin-right: 15px;*/
 }
 
 .navbar-top-links-new li a {

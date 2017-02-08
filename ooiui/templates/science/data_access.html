@@ -564,6 +564,15 @@
         }
         this.login.fetch({async:false});
 
+        console.log('this.login in data_access');
+        console.log(this.login);
+
+        if(this.login.loggedIn()) {
+          console.log('this.models.userModel');
+          console.log(this.models.userModel);
+          this.models.userModel.fetch({url: '/api/current_user'});
+        }
+
         //reset the subscriptions
         if (ooi.models.userModel.length > 0) {
           self.collections.subscriptionCollection.fetch({reset: true});
@@ -580,10 +589,6 @@
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
-
-        if(this.login.loggedIn()) {
-          this.models.userModel.fetch({url: '/api/current_user'});
-        }
 
         //INITIALIZE TABS
         //PLOT CONTROLS
@@ -638,8 +643,14 @@
         {#updateCollection( showStreams );#}
 
         /* Dispatcher Sectiion */
-        this.listenTo(this, "login:success", function() { location.reload(); });
-        this.listenTo(this, "login:logout", function() { location.reload(); });
+        this.listenTo(this, "login:success", function() {
+          console.log('login successful');
+          if(this.login.loggedIn()) {
+            this.models.userModel.fetch({url: '/api/current_user'});
+          }
+          window.location.reload(true);
+        });
+        this.listenTo(this, "login:logout", function() { window.location.reload(true); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
           if(this.login.loggedIn()) {
@@ -1162,17 +1173,10 @@
       actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
 
       // IRIS Link
-      if(rowObject.iris_enabled) {
-        actionButtons += "<button type='button' title='IRIS Link' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openIrisDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      if(rowObject.iris_enabled || rowObject.rds_enabled) {
+        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }else{
-        actionButtons += "<button type='button' title='IRIS Link' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openIrisDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
-      }
-
-      // Raw Data Server Link
-      if(rowObject.rds_enabled) {
-        actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
-      }else{
-        actionButtons += "<button type='button' title='Raw Data Server Link' style='float:left' id='goRawDownload' class='btn btn-default' onclick=\"openRawDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.rds_link + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }
 
 
@@ -1204,22 +1208,39 @@
       $('button.close').click();
     };
 
-    // Opens the IRIS external link download
-    var openIrisDownload = function(ref_des, stream_name, iris_link, dtRange) {
+    // Opens the external link download
+    var openExternalDownload = function(ref_des, stream_name, iris_link, iris_enabled, rds_link, rds_enabled) {
       var daWarning = new ModalDialogView();
 
-      var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-      theMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
-      theMessage += "You are about to navigate to an external website operated by IRIS.";
-      theMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
-      theMessage += "</div>";
+      // console.log([ref_des, stream_name, iris_link, iris_enabled, rds_link, rds_enabled]);
+
+      var message = "";
+
+      if(rds_enabled === "true") {
+        var theRDSMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+        theRDSMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo.svg" alt="OOI" height="100"></p></div>';
+        theRDSMessage += "You are about to navigate to the OOI raw data server.";
+        theRDSMessage += "<p><a id='rds_link_message' onClick='parent.hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
+        theRDSMessage += "</div>";
+        message += theRDSMessage
+      }
+
+      if(iris_enabled === "true") {
+        var theIrisMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+        theIrisMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
+        theIrisMessage += "You are about to navigate to an external website operated by IRIS.";
+        theIrisMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
+        theIrisMessage += "</div>";
+        message += theIrisMessage;
+      }
+
       daWarning.show({
-        message: theMessage,
+        message: message,
         type: "warning"
       });
     };
 
-    // Opens the IRIS external link download
+{#    // Opens the IRIS external link download
     var openRawDownload = function(ref_des, stream_name, rds_link, dtRange) {
       var daWarning = new ModalDialogView();
 
@@ -1232,7 +1253,7 @@
         message: theMessage,
         type: "warning"
       });
-    };
+    };#}
 
     var openAssetManagement = function(ref_des, stream_name) {
       //assets/list/#CE01ISSP
@@ -1969,8 +1990,6 @@
           'Node',
           'Instrument',
           'Reference Designator',
-          'Stream Identifier',
-          'Stream Type',
           'Delivery Method',
           'Stream Content',
           'Deployment Depth',
@@ -1979,6 +1998,8 @@
           'Longitude',
           'Start Time',
           'End Time',
+          'Stream Identifier',
+          'Stream Type',
           'Unique ID',
           'IRIS Link',
           'IRIS Enabled',
@@ -1989,7 +2010,7 @@
         colModel : [
           { name : 'actions',
             caption : 'Plot/Download',
-            width : 170,
+            width : 140,
             sortable : false,
             search : false,
             align : 'center',
@@ -2066,40 +2087,12 @@
             index: 'reference_designator',
             key: false, // rowID = reference_designator
             editable: false,
-            width: 200,
+            width: 195,
             sortable: true,
             sorttype: 'string',
             searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
             align: 'center',
             unformat: function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_name',
-            index : 'stream_name',
-            {#            key : true,#}
-            editable : false,
-            {#                width : 85,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_dataset',
-            index : 'stream_dataset',
-            editable : false,
-            hidden: false,
-            {#                width : 85,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
           },
@@ -2211,6 +2204,34 @@
               return $('input', cell).val() || cellvalue;
             }
             {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+          },
+          {
+            name : 'stream_name',
+            index : 'stream_name',
+            {#            key : true,#}
+            editable : false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'stream_dataset',
+            index : 'stream_dataset',
+            editable : false,
+            hidden: false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
           },
           {
             name : 'unique_id',

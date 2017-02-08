@@ -389,3 +389,33 @@ a.back-to-bottom {
   border-radius: 30px;
   background-size: contain;
 }
+
+#infoArrayMap {
+  display: none;
+  width: auto !important;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  white-space: normal !important;
+  height: auto !important;
+  padding: 2px;
+  font-size: 14pt;
+  position: fixed;
+  /*right: 5px;*/
+  /*bottom: 35px;*/
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+span.labelFirst {
+  margin-top: 3px;
+}
+
+div.innerTableTitle {
+  position: relative;
+  bottom: 25px;
+  left: 150px;
+  font-size: 10pt;
+  font-weight: 400;
+  vertical-align: text-top;
+}

@@ -32,6 +32,13 @@ var TileMap = Backbone.View.extend({
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
                 .addTo(map);*/
 
+                // Add the optimal glider tracks
+                var track = new L.KML("/kmz/OOI_Glider_Lines.kml", {async: true});
+                track.on("loaded", function(e) {
+                //map.fitBounds(e.target.getBounds());
+                });
+                map.addLayer(track);
+
                 map.dragging.disable();
                 map.touchZoom.disable();
                 map.doubleClickZoom.disable();
@@ -118,6 +125,9 @@ var TileMap = Backbone.View.extend({
                             var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>' ;
                             document.getElementById('info').innerHTML = content;
 
+                        });
+                        layer.on('click', function(e) {
+                            window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
                         });
                     }
                 }).addTo(map);

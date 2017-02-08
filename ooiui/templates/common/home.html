@@ -19,6 +19,8 @@
   <link href="/css/home/vector_map/vector_map.css" rel="stylesheet" type="text/css"/>
   <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
   <link href='/lib/mapbox.js/mapbox.css' rel='stylesheet' />
+  <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
+  <link href="/css/common/platform.css" rel="stylesheet" type="text/css" />
   <!-- page resources --<>
 
   <!-- Partials -->
@@ -30,6 +32,10 @@
   <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/PlatformsStatusModel.js" type="text/javascript"></script>
 
+  <script src="/js/partials/compiled/platformStatus.js" type="text/javascript"></script>
+  <script src="/js/compiled/genericPlatFormsStatus.js" type="text/javascript"></script>
+  <script src="/js/models/science/StreamStatusModel.js" type="text/javascript"></script>
+
   <script src="/js/views/home/vector_map/vector_map.js" type="text/javascript"></script>
   <script src="/js/views/home/array_content/array_content.js" type="text/javascript"></script>
 
@@ -37,7 +43,8 @@
   <script src="/js/views/home/tile_map/tile_map.js" type="text/javascript"></script>
   <!--<script src='/lib/mapbox-gl-js/js/mapbox-gl.js'></script>-->
   <script src='/lib/mapbox.js/mapbox.js'></script>
-  <script src='/lib/leaflet-plugins/layer/vector/KML.js/'></script>
+  <script src='/lib/leaflet-plugins/layer/vector/KML.js'></script>
+  <script src='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.min.js'></script>
 {% endblock %}
 
 {%block body %}
@@ -56,10 +63,11 @@
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5" id="right">
           <div id="map"></div>
-          <!--<pre id="info"></pre>-->
+          <div id="infoArrayMap"><pre class="infoInner">Hover over platform for description.</pre></div>
         </div>
       </div>
     </div>
+
   </div><!-- wrapper -->
 
   <!-- fade in image -->
@@ -119,7 +127,7 @@
       login: new LoginModel(),
       views: {},
       collections: {
-        organizations: new Organizations(),
+        organizations: new Organizations()
       },
       models: {},
       getURLParameter: function(sParam) {

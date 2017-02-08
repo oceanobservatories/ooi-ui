@@ -120,7 +120,13 @@ var LoginView = Backbone.View.extend({
             //console.log("success");
             this.hide();
             this.success();
-            window.location.reload();
+            var date = new Date();
+            date.setTime(date.getTime() + 12500*1000);
+            console.log('ooiusertoken');
+            console.log(this.model.get('token'));
+            $.cookie('ooiusertoken', this.model.get('token'), {expires: date});
+            // ooi.trigger('login:success');
+            window.location.reload(true);
         } else {
             console.log("Login failed");
             this.attempts++;

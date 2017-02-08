@@ -144,7 +144,7 @@
 
                             <% _.each(this.model.attributes.platforms, function(platform) { %>
                 <% //console.log(platform); %>
-                <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
+                <tr id="<%= platform.properties.code %>" data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
                     <td width="10%">
                         <ul class="align-center" style="padding-left: 0px;">
                             <li><a href="/data_access/?search=<%= platform.properties.code %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
@@ -181,7 +181,8 @@
                     </td>
                     <td><%= platform.properties.depth %></td>
                     <td><%= platform.geometry.coordinates[1] %></td>
-                    <td><%= platform.geometry.coordinates[0] %></td></tr>
+                    <td><%= platform.geometry.coordinates[0] %></td>
+                </tr>
                 <% }); %>
             </tbody>
             <tfoot></tfoot>
