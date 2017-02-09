@@ -1,6 +1,6 @@
-<% console.log('platform table model'); %>
-<% console.log(model); %>
-<tr id= "<%= model.get("reference_designator") %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
+<% //console.log('platform table model'); %>
+<% //console.log(model); %>
+<tr id="<%= model.get('reference_designator') %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
 <td class="tdulliFormat">
  <ul>
                             <li><a href="/data_access/?search=<%= model.get('reference_designator') %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a></li>

@@ -2,6 +2,8 @@ var TileMap = Backbone.View.extend({
     initialize: function(options) {
         // The geoJSON data, d3.json();
         this.listenTo(this.collection, 'change', this.render);
+        console.log('options');
+        console.log(options);
         if (options) {
             this.lat = options.lat || 5;
             this.lng = options.lng || -90;
@@ -15,9 +17,9 @@ var TileMap = Backbone.View.extend({
 
             var map = L.map(this.id, {
                 zoomControl: true,
-                minZoom: 7,
-                maxZoom: 10
-            }).setView([this.lat, this.lng], 7);
+                minZoom: 10,
+                maxZoom: 13
+            }).setView([this.lat, this.lng], 10);
             // Commenting this out for now until security and web mapping service performance are resolved
             L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
                 layers: 'topo',
@@ -90,22 +92,36 @@ var TileMap = Backbone.View.extend({
             // global
             map = this._onBeforeRender();
 
+            console.log('after onBeforeRender');
+            console.log(renderContext.collection);
+
             $.when(map).done(function() {
                 var arrayData = [];
-                _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
+/*                _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
+                    console.log('geoJSON');
+                    console.log(geoJSON);
+
                     if (String(geoJSON.properties.code).indexOf('MOAS') < 0) {
                         arrayData.push(geoJSON);
                     }
-                });
+                });*/
 
-                var mooringIcon = new L.divIcon({className: 'mooringIcon', iconSize: [15, 15]});
+                var mooringIcon = new L.divIcon({className: 'mooringIcon', iconSize: [20, 20]});
                 var otherMooringIcon = new L.divIcon({className: 'otherMooringIcon', iconSize: [20, 20]});
+                var otherSitesIcon = new L.divIcon({className: 'otherSitesIcon', iconSize: [20, 20]});
 
                 var referencePlatforms = [];
                 var primaryArray = renderContext.platformId.substr(0,2);
-                _.each(renderContext.collection.byArray(primaryArray).toGeoJSON(), function(geoJSON) {
+                _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
                     referencePlatforms.push(geoJSON);
                 });
+
+                var otherSites = [];
+                _.each(renderContext.collection.allSites.toGeoJSON(), function(geoJSON){
+                    otherSites.push(geoJSON);
+                });
+                console.log('otherSites');
+                console.log(otherSites);
 
 
                 var marker = {
@@ -113,10 +129,27 @@ var TileMap = Backbone.View.extend({
                     geometry: {
                         type: 'Point',
                         coordinates: [renderContext.lng, renderContext.lat]
+                    },
+                    properties: {
+                        code: renderContext.collection.siteData.get('reference_designator'),
+                        description: renderContext.collection.siteData.get('display_name')
                     }
                 };
 
-                L.geoJson(arrayData, {
+
+
+                console.log('referencePlatforms');
+                console.log(referencePlatforms);
+
+                var refPlatforms = [];
+                _.forEach(referencePlatforms, function(platforms){
+                    $.merge(refPlatforms, platforms);
+                });
+
+                console.log('refPlatforms');
+                console.log(refPlatforms);
+
+                L.geoJson(otherSites, {
                     pointToLayer: function(feature, latlng) {
                         return new L.Marker(latlng, {icon: otherMooringIcon});
                     },
@@ -132,10 +165,36 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);
 
+/*                L.geoJson(otherSites, {
+                    pointToLayer: function(feature, latlng) {
+                        return new L.Marker(latlng, {icon: otherSitesIcon});
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function(e) {
+                            var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>' ;
+                            document.getElementById('info').innerHTML = content;
+
+                        });
+                        layer.on('click', function(e) {
+                            window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
+                        });
+                    }
+                }).addTo(map);*/
+
                 L.geoJson(marker, {
                     pointToLayer: function(feature, latlng) {
                         return new L.Marker(latlng, {icon: mooringIcon});
                     },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('mouseover', function(e) {
+                            var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>' ;
+                            document.getElementById('info').innerHTML = content;
+
+                        });
+                        // layer.on('click', function(e) {
+                        //     window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
+                        // });
+                    }
                 }).addTo(map);
             });
         } catch (error) {

@@ -79,10 +79,10 @@ div#wrapper.platform-page {
 }
 
 .mooringIcon{
-    border-radius: 38px;
+    border-radius: 48px;
     background: teal;
     border: 2px solid #000;
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .otherMooringIcon{
@@ -90,6 +90,14 @@ div#wrapper.platform-page {
     background: yellow;
     border: 2px solid #000;
     opacity: 0.85;
+}
+
+.otherSitesIcon{
+    border-radius: 48px;
+    background: green;
+    border: 2px solid #000;
+    opacity: 0.85;
+    z-index: -100000;
 }
 
 .centered {

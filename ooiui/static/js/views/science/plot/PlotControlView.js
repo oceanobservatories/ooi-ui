@@ -431,7 +431,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
           self.model.get("variables_shape")[i] == "array1d"
         ) &&
         self.model.get("units")[i] != "bytes" &&
-        self.model.get("units")[i] != "counts" &&
+        // self.model.get("units")[i] != "counts" &&
         self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1
         //self.model.get("units")[i].toLowerCase() != "s" &&
         //self.model.get("variables")[i].indexOf("_timestamp") == -1

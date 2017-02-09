@@ -44,20 +44,26 @@ var GenericPlatFormStatus = Backbone.View.extend({
         $('.refDesLabel').toggle();
     },
     _expand: function(event) {
+        var self = this;
         var target = $(event.target).data('target');
         $(target).slideToggle();
     },
     initialize: function(options) {
         _.bindAll(this, "render","addTableRows");
         var self = this;
-        this.streamCollection = this.collection.streamCollection.sort('display_name');
-        this.platformCollection = this.collection.platformCollection;
+        // this.streamCollection = this.collection.streamCollection.sort('display_name');
+        // this.platformCollection = this.collection.platformCollection;
         this.platformsStatusCollection = this.collection.platformsStatusCollection;
-        this.platformLat = this.streamCollection.options.searchLat;
-        this.platformLng = this.streamCollection.options.searchLng;
-        this.platformId = this.streamCollection.options.searchId;
+        this.platformLat = this.platformsStatusCollection.siteData.attributes.latitude;
+        this.platformLng = this.platformsStatusCollection.siteData.attributes.longitude;
+        this.platformId = this.platformsStatusCollection.siteData.attributes.reference_designator;
+
+      console.log('this.platformsStatusCollection');
+      console.log(this.platformsStatusCollection);
+      // console.log('this.platformsStatusCollection.toGeoJSON()');
+      // console.log(this.platformsStatusCollection.toGeoJSON());
 //
-        var platforms = this.streamCollection.fetch({
+/*        var platforms = this.streamCollection.fetch({
             data: {order: 'reverse'},
             success:function(collection, response, options){
 
@@ -90,13 +96,40 @@ var GenericPlatFormStatus = Backbone.View.extend({
         });
         $.when(platforms).done(function(){
             self.addTableRows();
-        });
+        });*/
+// $.when(self.render()).done(function(){
+//             self.addTableRows();
+//         });
+      self.render();
+      self.addTableRows();
     },
 
     addTableRows: function(){
         var self = this;
+        // console.log('addTableRows this.platformsStatusCollection');
+        // console.log(this.platformsStatusCollection);
+        _.forEach(this.platformsStatusCollection.models, function(modelList) {
+            // console.log('modelList');
+            // console.log(modelList);
+            _.forEach(modelList.get('items'), function(model){
+                // console.log("modelList.get('items')");
+                // console.log(model);
+                var piModel = new PlatformsInstrumentModel(model);
+                // console.log('piModel');
+                // console.log(piModel);
+                var row = new StatusRow({
+                  model : piModel
+                });
+                // console.log('row');
+                // console.log(row);
+                var innerTableId = modelList.get('header').code;
+                // console.log('row.el');
+                // console.log(row.el);
+                self.$el.find("#site_"+ innerTableId).append(row.el);
+              })
+        });
 
-        this.streamCollection.comparator = "depth";
+/*        this.platformsStatusCollection.comparator = "depth";
         this.streamCollection.sort();
         this.streamCollection.each(function(model){
             var row = new StatusRow({
@@ -107,7 +140,7 @@ var GenericPlatFormStatus = Backbone.View.extend({
 
             self.$el.find("#"+ tableID).append(row.el);
 
-        });
+        });*/
     },
     template: JST['ooiui/static/js/partials/GenericPlatFormStatus.html'],
     initialRender:function(){
@@ -117,23 +150,40 @@ var GenericPlatFormStatus = Backbone.View.extend({
         try {
             var _this = this;
             var siteInfo = {
-                site: this.streamCollection.models[0].attributes.assetInfo.site,
-                refDes: this.streamCollection.models[0].attributes.ref_des.substr(0,8)
+                site: this.platformsStatusCollection.siteData.get('display_name'),
+                refDes: this.platformsStatusCollection.siteData.get('reference_designator')
             };
 
-            var platformList = this.streamCollection.map(function(model) {
-                // console.log('platformList');
+            var uniqueList = [];
+            var platformList = this.platformsStatusCollection.map(function(model) {
+                console.log('platformList');
                 // console.log(model);
-                return  {
-                    name: model.get('assembly_name'),
-                    refDes: model.get('reference_designator').substr(0,11),
-                    depth: model.get('depth')
-                };
+
+                  // console.log('model.header');
+                  // console.log(model.get('header'));
+
+                  var maxDepth = 0;
+                  _.forEach(model.get('items'), function(item){
+                      // console.log('item');
+                      // console.log(item);
+                      if(item.depth > maxDepth){
+                          maxDepth = item.depth;
+                      }
+                  });
+                uniqueList.push( {
+                  name: model.get('header').title,
+                  refDes: model.get('header').code,
+                  depth: maxDepth // find the min and max depth for all instruments in this node and use the max
+                });
+
             });
 
-            var uniqueList = _.uniq(platformList, function(item, key, a) {
-                return item.refDes;
-            });
+            // var uniqueList = _.uniq(platformList, function(item, key, a) {
+            //     return item.refDes;
+            // });
+
+          // console.log('siteInfo');
+          // console.log(siteInfo);
 
             // console.log('uniqueList');
             // console.log(_.sortBy( uniqueList, 'depth' ));
@@ -141,12 +191,7 @@ var GenericPlatFormStatus = Backbone.View.extend({
 
             this.$el.html(this.template({collection: uniqueList, siteInfo: siteInfo}));
 
-            // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
-            // both maps require a valid geoJson as a toJSON override.
-            $.when(this.platformCollection.fetch()).done(function() {
-                var vectorMap = new TileMap({id: 'map', collection: _this.platformCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
-                vectorMap.render();
-            });
+
 
             $("#loadingSpinner").hide();
         } catch (exception) {
@@ -154,5 +199,11 @@ var GenericPlatFormStatus = Backbone.View.extend({
             alert("We're sorry, this site, " + this.streamCollection.options.searchId + " doesn't appear to be communicating.  You'll be redirected back to the home page.");
             window.location = '/';
         }
+        // set to 'tile' to use tile maps, set to 'vector' to use vector maps.
+            // both maps require a valid geoJson as a toJSON override.
+            // $.when(this.platformCollection.fetch()).done(function() {
+                var vectorMap = new TileMap({id: 'map', collection: _this.platformsStatusCollection, lat: _this.platformLat, lng: _this.platformLng, platformId: _this.platformId});
+                vectorMap.render();
+            // });
     }
 });
