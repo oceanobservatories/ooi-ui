@@ -44,12 +44,12 @@ var ArrayContentSummary = ParentView.extend({
       var targetParent = ($(event.target).parent())[0];
       var innerTableRowId = 'innerTableRow_' + targetParent.getAttribute("data-code");
 
-      console.log('targetParent');
-      console.log(targetParent);
+      // console.log('targetParent');
+      // console.log(targetParent);
       // console.log('maybe fetch some platform status with the instrument status');
 
       self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(collection){
-        console.log(collection);
+        // console.log(collection);
         // console.log('getting platform status on demand');
         // console.log(self.collection.platformsStatusCollection);
         // var newRow = $("<tr id='test_view_insert'><td>Col1</td><td>Col2</td><td>Col3</td><td>Col4</td><td>Col5</td><td>Col6</td></tr>");
@@ -95,15 +95,15 @@ var ArrayContentSummary = ParentView.extend({
           newRow.insertAfter('#'+targetParent.getAttribute("data-code"));
 
           _.forEach(modelList.items, function(model){
-            console.log(model);
+            // console.log(model);
             var piModel = new PlatformsInstrumentModel(model);
-            console.log('piModel');
-            console.log(piModel);
+            // console.log('piModel');
+            // console.log(piModel);
             var row = new StatusRow({
               model : piModel
             });
-            console.log('row');
-            console.log(row);
+            // console.log('row');
+            // console.log(row);
 
             self.$el.find("#"+ innerTableId).append(row.el);
           })
@@ -192,7 +192,7 @@ var ArrayContentSummary = ParentView.extend({
          .platformCollection
          .byArray(model.attributes.array_code);*/
       //var siteStatusCollection = new SiteStatusCollection();
-      arrayContentContext.collection.siteStatusCollection.fetch({timeout: 5000, async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
+      arrayContentContext.collection.siteStatusCollection.fetch({timeout: 500, async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
         arrayContentContext.collection.siteStatusCollection.sortByField('depth','ascending');
           // console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
           // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
@@ -228,7 +228,7 @@ var ArrayContentSummary = ParentView.extend({
       arrayContentContext.$el.prepend(arrayContentSummaryItem);
       $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
       2 * arrayContentContext.collection.arrayCollection.length + 'px'});
-    }, 3000);
+    }, 300);
   }
 });
 

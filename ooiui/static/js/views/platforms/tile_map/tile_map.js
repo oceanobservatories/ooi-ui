@@ -2,8 +2,8 @@ var TileMap = Backbone.View.extend({
     initialize: function(options) {
         // The geoJSON data, d3.json();
         this.listenTo(this.collection, 'change', this.render);
-        console.log('options');
-        console.log(options);
+        // console.log('options');
+        // console.log(options);
         if (options) {
             this.lat = options.lat || 5;
             this.lng = options.lng || -90;
@@ -17,9 +17,9 @@ var TileMap = Backbone.View.extend({
 
             var map = L.map(this.id, {
                 zoomControl: true,
-                minZoom: 10,
-                maxZoom: 13
-            }).setView([this.lat, this.lng], 10);
+                minZoom: 9,
+                maxZoom: 14
+            }).setView([this.lat, this.lng], 9);
             // Commenting this out for now until security and web mapping service performance are resolved
             L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
                 layers: 'topo',
@@ -27,8 +27,7 @@ var TileMap = Backbone.View.extend({
                 transparent: true,
                 crs: L.CRS.EPSG4326,
                 attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
-            })
-                .addTo(map);
+            }).addTo(map);
 
 /*            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
@@ -41,10 +40,10 @@ var TileMap = Backbone.View.extend({
                 });
                 map.addLayer(track);
 
-                map.dragging.disable();
-                map.touchZoom.disable();
+                // map.dragging.disable();
+                // map.touchZoom.disable();
                 map.doubleClickZoom.disable();
-                map.scrollWheelZoom.disable();
+                // map.scrollWheelZoom.disable();
                 map.keyboard.disable();
 
                 // add some methods that can be useful to our map object.
@@ -92,8 +91,8 @@ var TileMap = Backbone.View.extend({
             // global
             map = this._onBeforeRender();
 
-            console.log('after onBeforeRender');
-            console.log(renderContext.collection);
+            // console.log('after onBeforeRender');
+            // console.log(renderContext.collection);
 
             $.when(map).done(function() {
                 var arrayData = [];
@@ -120,8 +119,8 @@ var TileMap = Backbone.View.extend({
                 _.each(renderContext.collection.allSites.toGeoJSON(), function(geoJSON){
                     otherSites.push(geoJSON);
                 });
-                console.log('otherSites');
-                console.log(otherSites);
+                // console.log('otherSites');
+                // console.log(otherSites);
 
 
                 var marker = {
@@ -138,16 +137,16 @@ var TileMap = Backbone.View.extend({
 
 
 
-                console.log('referencePlatforms');
-                console.log(referencePlatforms);
+                // console.log('referencePlatforms');
+                // console.log(referencePlatforms);
 
                 var refPlatforms = [];
                 _.forEach(referencePlatforms, function(platforms){
                     $.merge(refPlatforms, platforms);
                 });
 
-                console.log('refPlatforms');
-                console.log(refPlatforms);
+                // console.log('refPlatforms');
+                // console.log(refPlatforms);
 
                 L.geoJson(otherSites, {
                     pointToLayer: function(feature, latlng) {

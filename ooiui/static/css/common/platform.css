@@ -107,3 +107,59 @@ div#wrapper.platform-page {
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+/*dark gray	Not Operational	96	96	96	606060
+gray	Unavailable	160	160	160	A0A0A0
+light gray	Pending	224	224	224	E0E0E0
+blue	Not Evaluated	0	76	153	004C00
+orange	Suspect	204	102	0	CC6600
+red	Fail	204	0	0	CC0000
+green	Pass	0	204	0	00CC00
+dark green	Good	0	102	0	006600*/
+
+.fa.fa-circle.failed {
+    color: #CC0000;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.degraded {
+    color: #CC6600;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.removedFromService {
+    color: #606060;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.notTracked {
+    color: blue;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.fetchingStatusFailed {
+    color: #A0A0A0;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.noStatusReturned {
+    color: #A0A0A0;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.operational {
+    color: #00CC00;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.unknownStatusResult {
+    color: #A0A0A0;
+    font-size: 16px;
+    float: left;
+}

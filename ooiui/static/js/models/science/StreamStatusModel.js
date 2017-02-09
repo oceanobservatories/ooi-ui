@@ -15,7 +15,7 @@
 var GetInstrumentStatus = function(ref_des) {
     //console.log(array_code);
     //console.log(platform_ref_des);
-    var output = {"status": "Fetching Status Failed", "depth": "Unknown"};
+    var output = {"status": "fetchingStatusFailed", "depth": "Unknown"};
     $.ajax('/api/uframe/status/instrument/' + ref_des, {
         type: 'GET',
         dataType: 'json',
@@ -34,7 +34,7 @@ var GetInstrumentStatus = function(ref_des) {
             //console.log(result);
             if (result.length == 0) {
                 //console.log('No Status Returned');
-                output = {"status": "No Status Returned", "depth": "Unknown"};
+                output = {"status": "noStatusReturned", "depth": "Unknown"};
             } else if (result.length == 1) {
                 // access the foo property using result[0].foo
                 //console.log('Found: ' + platform_ref_des);

@@ -82,8 +82,8 @@ var PlatformsStatusModel = Backbone.Model.extend({
     items: PlatformsInstrumentModel
   },
   toGeoJSON: function() {
-    console.log('in toGeoJSON');
-    console.log(this.attributes);
+    // console.log('in toGeoJSON');
+    // console.log(this.attributes);
     var items = _.clone(this.attributes);
     var geoJSONArray = [];
     _.each(this.attributes.items, function(attrs) {

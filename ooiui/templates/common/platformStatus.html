@@ -107,13 +107,13 @@ _.extend(OOI.prototype, Backbone.Events,  {
         platformId = platformId.split('&')[0];
         platformLat = platformLat.split('&')[0];
 
-        var streamCollection = new StreamStatusCollection({
+{#        var streamCollection = new StreamStatusCollection({
             searchId:  atob(platformId),
             searchLat: atob(platformLat),
             searchLng: atob(platformLng)
         });
 
-        var platformCollection = new PlatformCollection();
+        var platformCollection = new PlatformCollection();#}
 
         var siteData;
         var siteStatusCollection = new SiteStatusCollection();

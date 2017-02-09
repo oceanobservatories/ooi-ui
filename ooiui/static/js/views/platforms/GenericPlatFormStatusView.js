@@ -58,8 +58,8 @@ var GenericPlatFormStatus = Backbone.View.extend({
         this.platformLng = this.platformsStatusCollection.siteData.attributes.longitude;
         this.platformId = this.platformsStatusCollection.siteData.attributes.reference_designator;
 
-      console.log('this.platformsStatusCollection');
-      console.log(this.platformsStatusCollection);
+      // console.log('this.platformsStatusCollection');
+      // console.log(this.platformsStatusCollection);
       // console.log('this.platformsStatusCollection.toGeoJSON()');
       // console.log(this.platformsStatusCollection.toGeoJSON());
 //
@@ -111,7 +111,10 @@ var GenericPlatFormStatus = Backbone.View.extend({
         _.forEach(this.platformsStatusCollection.models, function(modelList) {
             // console.log('modelList');
             // console.log(modelList);
-            _.forEach(modelList.get('items'), function(model){
+            var instrumentsSorted = _.sortBy(_.sortBy(modelList.get('items'), 'reference_designator'), 'depth');
+            // console.log('instrumentsSorted');
+            // console.log(instrumentsSorted);
+            _.forEach(instrumentsSorted, function(model){
                 // console.log("modelList.get('items')");
                 // console.log(model);
                 var piModel = new PlatformsInstrumentModel(model);
@@ -156,7 +159,7 @@ var GenericPlatFormStatus = Backbone.View.extend({
 
             var uniqueList = [];
             var platformList = this.platformsStatusCollection.map(function(model) {
-                console.log('platformList');
+                // console.log('platformList');
                 // console.log(model);
 
                   // console.log('model.header');

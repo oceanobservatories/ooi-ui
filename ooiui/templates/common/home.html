@@ -83,7 +83,7 @@
       var siteStatusCollection = new SiteStatusCollection();
       var platformsStatusCollection = new PlatformsStatusCollection();
 
-      arrayCollection.fetch({timeout: 5000}).then(function() {
+      arrayCollection.fetch({timeout: 500}).then(function() {
         // Sort the arrays
         arrayCollection.sortByField('display_name','ascending');
         var mapStyle = 'tile';

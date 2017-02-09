@@ -263,7 +263,7 @@ var TileMap = Backbone.View.extend({
             // Mouse over events to handle table indicators and point pop-ups
             if(!_.isUndefined(feature.properties)) {
               layer.on('mouseover', function (event) {
-                console.log(map._isArrayView);
+                // console.log(map._isArrayView);
                 if(!map._isArrayView) {
                   // Set table row with an orange border
                   $('#' + feature.properties.code.substring(0, 2) + ' table tbody tr[data-code="' + feature.properties.code + '"]').css("border", "4px solid orange");
@@ -299,8 +299,8 @@ var TileMap = Backbone.View.extend({
 
         $.when(map.setView([5.7, -94], 2.59)).done(function() {
           var currentMapBounds = map.getBounds();
-          console.log('currentMapBounds');
-          console.log(currentMapBounds);
+          // console.log('currentMapBounds');
+          // console.log(currentMapBounds);
           $.when(map.fitBounds(currentMapBounds, {reset: true})).done(function() {
             map.setMaxBounds(currentMapBounds);
           })
