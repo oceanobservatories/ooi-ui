@@ -80,14 +80,14 @@ div#wrapper.platform-page {
 
 .mooringIcon{
     border-radius: 48px;
-    background: teal;
+    background: orange;
     border: 2px solid #000;
     opacity: 1;
 }
 
 .otherMooringIcon{
     border-radius: 48px;
-    background: yellow;
+    background: teal;
     border: 2px solid #000;
     opacity: 0.85;
 }
