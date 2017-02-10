@@ -122,8 +122,8 @@ var LoginView = Backbone.View.extend({
             this.success();
             var date = new Date();
             date.setTime(date.getTime() + 12500*1000);
-            console.log('ooiusertoken');
-            console.log(this.model.get('token'));
+            // console.log('ooiusertoken');
+            // console.log(this.model.get('token'));
             $.cookie('ooiusertoken', this.model.get('token'), {expires: date});
             // ooi.trigger('login:success');
             window.location.reload(true);
@@ -154,14 +154,14 @@ var LoginView = Backbone.View.extend({
         }
     },
     hidden: function(e) {
-        console.log("hidden");
+        // console.log("hidden");
     },
     /* Called when the user is successfully authenticated */
     success: function() {
-        console.log("Success");
+        // console.log("Success");
     },
     failure: function() {
-        console.log("this failure");
+        // console.log("this failure");
     },
     show: function() {
         if(this.attempts >= 1) {
@@ -172,7 +172,7 @@ var LoginView = Backbone.View.extend({
         return this;
     },
     hide: function() {
-        console.log("hide was called");
+        // console.log("hide was called");
         this.isHidden = true;
         $('#loginModal').modal('hide');
         return this;

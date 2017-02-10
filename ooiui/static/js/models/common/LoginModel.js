@@ -54,9 +54,9 @@ var LoginModel = Backbone.Model.extend({
     return output;
   },
   loggedIn: function() {
-    console.log('loggedIn check');
-    console.log(this);
-    console.log(this.get('token') != '');
+    // console.log('loggedIn check');
+    // console.log(this);
+    // console.log(this.get('token') != '');
     if(this.get('token') != '') {
       return true;
     }

@@ -564,12 +564,12 @@
         }
         this.login.fetch({async:false});
 
-        console.log('this.login in data_access');
-        console.log(this.login);
+        // console.log('this.login in data_access');
+        // console.log(this.login);
 
         if(this.login.loggedIn()) {
-          console.log('this.models.userModel');
-          console.log(this.models.userModel);
+          // console.log('this.models.userModel');
+          // console.log(this.models.userModel);
           this.models.userModel.fetch({url: '/api/current_user'});
         }
 
@@ -644,7 +644,7 @@
 
         /* Dispatcher Sectiion */
         this.listenTo(this, "login:success", function() {
-          console.log('login successful');
+          // console.log('login successful');
           if(this.login.loggedIn()) {
             this.models.userModel.fetch({url: '/api/current_user'});
           }

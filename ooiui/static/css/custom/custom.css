@@ -310,20 +310,27 @@ div#events-scroll-body {
 /* alt light blue2 #7F9BDA */
 
 .jqtree-notTracked {
-  background-color: lightgrey;
+  background-color: transparent;
   cursor: pointer;
   color: #000;
 }
 
 .jqtree-notTracked:hover {
   border:2px solid;
-  color: purple;
+  color: black;
 }
 
-.jqtree-failed {
+.scrollable-jqtree {
+  width: 60%;
+  max-height: 700px;
+  border: 2px solid #fff;
+  overflow: auto;
+}
+
+/*.jqtree-failed {
   background-color: indianred;
   cursor: pointer;
-}
+}*/
 
 .ui-jqgrid .ui-jqgrid-htable th div
 {
