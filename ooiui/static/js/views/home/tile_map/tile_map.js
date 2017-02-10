@@ -10,22 +10,58 @@ var TileMap = Backbone.View.extend({
           ne = L.latLng(71.7728104733597, -1.1705977958376423),
           arrayMapBounds = L.latLngBounds(sw, ne);
 
-      var map = new L.map(this.id, {
-        zoomControl: false
-        // ,
-        // maxBounds: arrayMapBounds
+      // ESRI Map - Save until GMRT is fully operational (https and performance on AWS)
+      var baseMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
+        maxZoom: 12,
+        minZoom: 2.6,
+        bounceAtZoomLimits: true
+        // crs: L.CRS.EPSG3857
       });
+
+      // ESRI Map - Save until GMRT is fully operational (https and performance on AWS)
+      var esriOceanReference = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+        // maxZoom: 12,
+        // minZoom: 2.6,
+        // bounceAtZoomLimits: true,
+        // crs: L.CRS.EPSG3857,
+        // format: 'image/png',
+        // transparent: true
+      });
+
       // Commenting this out for now until security and web mapping service performance are resolved
-      L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+      var highResMap = L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
         maxZoom: 12,
         minZoom: 2.6,
         layers: 'topo',
         format: 'image/png',
         transparent: true,
         bounceAtZoomLimits: true,
-        crs: L.CRS.EPSG4326,
+        // crs: L.CRS.EPSG4326,
+        crs: L.CRS.EPSG3857,
         attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
-      }).addTo(map);
+      });
+
+      var map = new L.map(this.id, {
+        zoomControl: false
+        // layers: [highResMap]
+      });
+
+      // map.addLayer(baseMap);
+      map.addLayer(highResMap);
+      // map.addLayer(esriOceanReference);
+
+      var baseMaps = {
+        // "ESRI Oceans": baseMap,
+        "GMRT Hi-Res": highResMap
+      };
+
+      var mapLayers = {
+        "ESRI Ocean Reference": esriOceanReference
+      };
+
+      // L.control.layers(baseMaps, mapLayers).addTo(map);
 
       // Add the optimal glider tracks
       var track = new L.KML("/kmz/OOI_Glider_Lines.kml", {async: true});
@@ -47,11 +83,6 @@ var TileMap = Backbone.View.extend({
         markerType: L.marker, //optional default L.marker
         markerProps: {}
       }).addTo(map);
-
-      /*      // ESRI Map - Save until GMRT is fully operational (https and performance on AWS)
-       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
-       attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', maxZoom: 13})
-       .addTo(map);*/
 
       // Turn on/off map functionalities
       // map.dragging.disable();

@@ -180,9 +180,9 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);*/
 
-                L.geoJson(marker, {
+                var currentMarker = L.geoJson(marker, {
                     pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: mooringIcon});
+                        return new L.Marker(latlng, {icon: mooringIcon, riseOnHover: true, zIndexOffset: 100000});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('mouseover', function(e) {
