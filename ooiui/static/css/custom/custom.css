@@ -327,6 +327,13 @@ div#events-scroll-body {
   overflow: auto;
 }
 
+.scrollable-visavail {
+  width: 100%;
+  max-height: 700px;
+  border: 2px solid #fff;
+  overflow: auto;
+}
+
 /*.jqtree-failed {
   background-color: indianred;
   cursor: pointer;

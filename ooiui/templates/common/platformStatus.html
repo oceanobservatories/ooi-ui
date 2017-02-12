@@ -123,6 +123,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
           //console.log('siteStatusCollection.toGeoJSON()');
           //console.log(siteStatusCollection.toGeoJSON());
           siteData = siteStatusCollection.where({reference_designator: atob(platformId)})[0]
+          bannerTitle = siteData.get('display_name');
         });
 
         var platformsStatusCollection = new PlatformsStatusCollection();

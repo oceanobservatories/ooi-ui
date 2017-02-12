@@ -179,6 +179,7 @@ var ArrayContentSummary = ParentView.extend({
     },
   render: function() {
     var arrayContentContext = this;
+    var sitesWithErrors = [];
     // console.log('arrayContentContext');
     // console.log(arrayContentContext);
 
@@ -196,7 +197,11 @@ var ArrayContentSummary = ParentView.extend({
         arrayContentContext.collection.siteStatusCollection.sortByField('depth','ascending');
           // console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
           // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
-          model.set({platforms: arrayContentContext.collection.siteStatusCollection.toGeoJSON()});
+        var siteGeoJSON = arrayContentContext.collection.siteStatusCollection.toGeoJSON();
+          model.set({platforms: siteGeoJSON});
+          if(siteGeoJSON == null || siteGeoJSON.length == 0){
+              sitesWithErrors.push(model.attributes.display_name + ' (' + model.attributes.reference_designator + ')')
+          }
 
       });
         //model.set({platforms: model.toGeoJSON().properties.platforms});
@@ -222,6 +227,21 @@ var ArrayContentSummary = ParentView.extend({
     // console.log(arrayContentSummaryItem);
     // console.log('arrayContentContext.$el');
     // console.log(arrayContentContext.$el);
+
+    // TODO: Maybe use something like this down the road for the admin panel.
+/*    if(sitesWithErrors.length > 0){
+      var daWarning = new ModalDialogView();
+      var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+      theMessage += "Error retrieving site data from uframe for site(s):";
+      _.each(sitesWithErrors, function(theSite){
+        theMessage += "<p>" + theSite + "</p>";
+      });
+      theMessage += "</div>";
+      daWarning.show({
+        message: theMessage,
+        type: "warning"
+      });
+    }*/
 
     // prepend the arrays to the page.
     setTimeout(function() {

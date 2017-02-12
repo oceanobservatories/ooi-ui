@@ -21,6 +21,9 @@
   <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
   <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
   <link href='/lib/mapbox.js/mapbox.css' rel='stylesheet' />
+  <link href="/lib/jqtree/jqtree.scss" rel="stylesheet/scss" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css">
+  <link href='/lib/visavail/visavail/css/visavail.css' rel='stylesheet' />
   <!-- page resources --<>
 
   <!-- Partials -->
@@ -29,6 +32,7 @@
   <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/home.js" type="text/javascript"></script>
+  <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
   <script src="/js/models/asset_management/PlatformsStatusModel.js" type="text/javascript"></script>
 
@@ -42,16 +46,16 @@
   <!--<script src='/lib/mapbox-gl-js/js/mapbox-gl.js'></script>-->
   <script src='/lib/mapbox.js/mapbox.js'></script>
   <script src="/lib/jqtree/tree.jquery.js"></script>
-  <link href="/lib/jqtree/jqtree.scss" rel="stylesheet/scss" type="text/css" />
+  <script src="/lib/visavail/visavail/js/visavail.js"></script>
 {% endblock %}
 
 {%block body %}
 
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div id="navbar" class="row"></div>
   </div>
 
-  <div id="wrapper" class="home-page" style="padding-left: 0px">
+  <div id="wrapper" class="home-page" style="padding-left: 0;">
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-7 col-sm-7 col-md-7" id="left">
@@ -60,60 +64,65 @@
           </div>
           <div id="testTree" class="scrollable-jqtree"></div>
         </div>
-        <div class="col-xs-5 col-sm-5 col-md-5" id="right">
-          <div id="map"></div>
-          <!--<pre id="info"></pre>-->
+        <div class="col-md-5 scrollable-jqtree" id="right">
+          <div class="text-left" style="padding-left: 15px">
+            <h3><b>Data Availability</b><small></small></h3>
+          </div>
+          <p id="dataAvailabilityInfo"></p>
+          <p id='dataAvailability'></p>
         </div>
       </div>
     </div>
   </div><!-- wrapper -->
 
   <!-- fade in image -->
-    <script>
+  <script>
     // Instantiate the application for this page
     var ooi = new OOI();
+
+    var dataAvailabilityCollection = new DataAvailabilityCollection();
 
     var vent = _.extend({}, Backbone.Events);
 
     $(document).ready(function() {
       var self = this;
-      var arrayCollection = new ArrayStatusCollection();
-      var siteStatusCollection = new SiteStatusCollection();
-      var platformsStatusCollection = new PlatformsStatusCollection();
+      {#      var arrayCollection = new ArrayStatusCollection();#}
+      {#      var siteStatusCollection = new SiteStatusCollection();#}
+      {#      var platformsStatusCollection = new PlatformsStatusCollection();#}
 
-{#      arrayCollection.fetch().then(function() {
-        // Sort the arrays
-        arrayCollection.sortByField('display_name','ascending');
-        var mapStyle = 'tile';
+      {#      arrayCollection.fetch().then(function() {
+              // Sort the arrays
+              arrayCollection.sortByField('display_name','ascending');
+              var mapStyle = 'tile';
 
-        // Render the site content for each array
-        var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}});
-        arrayContent.render();
+              // Render the site content for each array
+              var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}});
+              arrayContent.render();
 
-        // Render the map
-        if (mapStyle === 'tile') {
-          var tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
-          tileMap.render();
-        }
-      });#}
+              // Render the map
+              if (mapStyle === 'tile') {
+                var tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
+                tileMap.render();
+              }
+            });#}
 
       // Takes care of the strange size of the map
-      window.onresize = function(event) {
-        resizeMap(arrayCollection);
-      };
+      {#      window.onresize = function(event) {
+              resizeMap(arrayCollection);
+            };
 
-      var resizeMap = (function(arrayCollection) {
-        vpw = $(window).width() - 200;
-        //50 pixels for the h3 heading
-        var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
-        vph = $('#wrapper').height() - sectionHeight;
-        $('#map').css({'height': vph + 'px'});
-        //$('.array-content').css({'height': vph + 'px'});
-        $('.array-content').css({'height': "100%"});
-        //select the size of the objects based on the array length, adjust for border
-        $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
-      });
-      resizeMap(arrayCollection);
+            var resizeMap = (function(arrayCollection) {
+              vpw = $(window).width() - 200;
+              //50 pixels for the h3 heading
+              var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
+              vph = $('#wrapper').height() - sectionHeight;
+              $('#map').css({'height': vph + 'px'});
+              //$('.array-content').css({'height': vph + 'px'});
+              $('.array-content').css({'height': "100%"});
+              //select the size of the objects based on the array length, adjust for border
+              $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
+            });
+            resizeMap(arrayCollection);#}
 
 
       var sampleData = [
@@ -176,25 +185,25 @@
         autoOpen: false,
         onCreateLi: function (node, $li) {
           // Add 'icon' span before title
-{#          console.log('node.status');#}
-{#          console.log(node);#}
+          {#          console.log('node.status');#}
+          {#          console.log(node);#}
 
           var instStatus = node.status;
-      var instReason = node.reason;
-      if(instReason == null || instReason.replace(/ /gi,"").length == 0){
-        instReason = "No Reason Provided";
-      }
+          var instReason = node.reason;
+          if(instReason == null || instReason.replace(/ /gi,"").length == 0){
+            instReason = "No Reason Provided";
+          }
 
 
-      if(instStatus != null && instStatus.length > 0) {
-         if(instStatus == "notTracked") {
-          $li.find('.jqtree-title').before('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="Not Tracked ('+instStatus+'"></span>');
-         } else {
-          $li.find('.jqtree-title').before('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="'+instReason+' ('+instStatus+')"></span>');
-         }
-       } else {
-      $li.find('.jqtree-title').before('<span class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left; padding-right: 3px;" title="Unknown Status Result"></span>');
-       }
+          if(instStatus != null && instStatus.length > 0) {
+            if(instStatus == "notTracked") {
+              $li.find('.jqtree-title').prepend('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="Not Tracked ('+instStatus+'"></span>');
+            } else {
+              $li.find('.jqtree-title').prepend('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="'+instReason+' ('+instStatus+')"></span>');
+            }
+          } else {
+            $li.find('.jqtree-title').prepend('<span class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left; padding-right: 3px;" title="Unknown Status Result"></span>');
+          }
 
 
 
@@ -211,76 +220,76 @@
           $span.attr('id', node.id);
           $span.attr('status', node.status);
 
-{#          console.log($li);#}
-{#          $li.addClass('jqtree-' + node.status);#}
+          {#          console.log($li);#}
+          {#          $li.addClass('jqtree-' + node.status);#}
 
         },
         dataFilter: function (data) {
-{#          console.log('dataFilter');#}
-{#          console.log(data);#}
-{#          if (data.length > 0) {#}
-            var treeObjects = [];
+          {#          console.log('dataFilter');#}
+          {#          console.log(data);#}
+          {#          if (data.length > 0) {#}
+          var treeObjects = [];
 
-            // Arrays
-            if (data.sites !== undefined) {
-              _.each(data['sites'], function (siteData) {
-{#                console.log('siteData');#}
-{#                console.log(siteData);#}
-                var arrayTreeObject = [];
-                arrayTreeObject['label'] = siteData.display_name;
-                arrayTreeObject['id'] = siteData.reference_designator;
-                arrayTreeObject['status'] = siteData.status;
-                arrayTreeObject['reason'] = siteData.reason;
-                arrayTreeObject['chldren'] = [];
-                treeObjects.push(arrayTreeObject);
+          // Arrays
+          if (data.sites !== undefined) {
+            _.each(data['sites'], function (siteData) {
+              {#                console.log('siteData');#}
+              {#                console.log(siteData);#}
+              var arrayTreeObject = [];
+              arrayTreeObject['label'] = siteData.display_name;
+              arrayTreeObject['id'] = siteData.reference_designator;
+              arrayTreeObject['status'] = siteData.status;
+              arrayTreeObject['reason'] = siteData.reason;
+              arrayTreeObject['chldren'] = [];
+              treeObjects.push(arrayTreeObject);
+            });
+          }
+
+          // Platforms
+          if (data.platforms !== undefined) {
+            _.each(data['platforms'], function (platformData) {
+              {#                console.log('platformData');#}
+              {#                console.log(platformData);#}
+              var platformTreeObject = [];
+              platformTreeObject['label'] = platformData.header.title;
+              platformTreeObject['id'] = platformData.header.code;
+              platformTreeObject['status'] = platformData.header.status;
+              platformTreeObject['reason'] = platformData.reason;
+              platformTreeObject['children'] = [];
+
+              _.each(platformData.items, function (item) {
+                var itemObject = [];
+                itemObject['label'] = item.display_name;
+                itemObject['id'] = item.reference_designator;
+                itemObject['status'] = item.status;
+                itemObject['reason'] = item.reason;
+                {#                  itemObject['children'] = [];#}
+                platformTreeObject['children'].push(itemObject);
               });
-            }
 
-            // Platforms
-            if (data.platforms !== undefined) {
-              _.each(data['platforms'], function (platformData) {
-{#                console.log('platformData');#}
-{#                console.log(platformData);#}
-                var platformTreeObject = [];
-                platformTreeObject['label'] = platformData.header.title;
-                platformTreeObject['id'] = platformData.header.code;
-                platformTreeObject['status'] = platformData.header.status;
-                platformTreeObject['reason'] = platformData.reason;
-                platformTreeObject['children'] = [];
+              treeObjects.push(platformTreeObject);
+            });
+          }
 
-                _.each(platformData.items, function (item) {
-                  var itemObject = [];
-                  itemObject['label'] = item.display_name;
-                  itemObject['id'] = item.reference_designator;
-                  itemObject['status'] = item.status;
-                  itemObject['reason'] = item.reason;
-{#                  itemObject['children'] = [];#}
-                  platformTreeObject['children'].push(itemObject);
-                });
+          {#            console.log(treeObjects);#}
 
-                treeObjects.push(platformTreeObject);
-              });
-            }
+          //return data['arrays'];
+          if (treeObjects.length > 0) {
+            return treeObjects;
+          } else {
+            return [];
+          }
 
-{#            console.log(treeObjects);#}
-
-            //return data['arrays'];
-            if (treeObjects.length > 0) {
-              return treeObjects;
-            } else {
-              return [];
-            }
-
-{#          }#}
+          {#          }#}
         }
       });
 
       $testTree.bind(
         'tree.click',
         function(e) {
-{#          console.log('tree.click');#}
-{#          console.log(e.node);#}
-{#          console.log(e.node.id.length);#}
+          {#          console.log('tree.click');#}
+          {#          console.log(e.node);#}
+          {#          console.log(e.node.id.length);#}
           if(e.node.id.length == 8){
             $testTree.tree('loadDataFromUrl', '/api/uframe/status/platforms/'+e.node.id, e.node);
           }
@@ -288,22 +297,134 @@
             //$testTree.tree('loadDataFromUrl', '/api/uframe/status/instruments/'+e.node.id, e.node);
           }
 
+          var onDataHandler = function(collection, response, options) {
+            console.log('collection');
+            console.log(collection);
+            console.log('e.node.id');
+            console.log(e.node.id);
+            // Show Data Availability Pop-up
+            $("#dataAvailability").empty();
+            $("#dataAvailabilityInfo").empty();
+            // Use this for the dataAvailabilityCollection
+            $("#dataAvailabilityInfo").append("Currently viewing data availability for: " + e.node.id);
+            //console.log('dataAvailabilityCollection');
+            //console.log(dataAvailabilityCollection);
+
+            var dataset=[];
+
+            collection.each(function(model){
+              var theData = model.get('data');
+              console.log('theData');
+              console.log(theData);
+
+
+{#                var j = 0;
+                for (var i = 0, l = theData[0].length; i < l; i++) {
+                  if (theData[0][i].includes(' GMT')) {
+                    theData[0][j++] = moment.utc(theData[0][i]).format("YYYY-MM-DD HH:mm:ss");
+                  }
+                }#}
+
+
+              var newDataArray = [];
+              _.forEach(theData, function(tData) {
+
+                console.log('tData');
+                console.log(tData);
+
+                var newSubArray = [];
+                _.forEach(tData, function(elem){
+
+                  console.log('elem');
+                  console.log(elem);
+                  if(elem.indexOf(' GMT') > 0){
+                    var newDate = moment(elem).format("YYYY-MM-DD HH:mm:ss");
+                    console.log('newDate');
+                    console.log(newDate);
+                    newSubArray.push(newDate.toString());
+                  }else{
+                    newSubArray.push(elem);
+                  }
+
+
+                });
+                newDataArray.push(newSubArray);
+
+              });
+
+
+
+
+{#              var newDataArray = [];
+              _.forEach(theData, function(tData){
+
+                console.log('tData');
+                console.log(tData);
+                var newData = [];
+                for (var i = 0, l = tData.length; i < l; ++i) {
+
+
+#}{#                  console.log('tData[i]');#}{#
+#}{#                  console.log(tData[i]);#}{#
+
+                  if(tData[i].includes(' GMT')){
+                    var mdate = moment(new Date(tData[i]));
+                    newData.push(mdate.format('YYYY-MM-DD hh:mm:ss'));
+                  }
+                }
+                console.log('newData');
+                console.log(newData);
+                newDataArray.push(newData);
+              });
+
+#}
+              console.log('newDataArray');
+              console.log(newDataArray);
+
+
+              dataset.push({
+                "measure": model.get('measure'),
+                "categories": model.get('categories'),
+                "data": newDataArray
+              });
+
+              var chart = visavailChart().width(800); // define width of chart in px
+
+              d3.select("#dataAvailability")
+                .datum(dataset)
+                .call(chart);
+
+            }); // each chart in the collection
+          };
+
+
+          ooi.collections.dataAvailabilityCollection.fetch(
+            {
+              url: '/api/data_availability/'+e.node.id,
+              success : onDataHandler
+            });
+
+
+
         }
       );
 
       ooi.start();
     });
 
-    var bannerTitle = "Home";
+    var bannerTitle = "Status Navigation";
     var banner = new BannerView({bannerTitle});
 
     _.extend(OOI.prototype, Backbone.Events,  {
       login: new LoginModel(),
       views: {},
       collections: {
-        organizations: new Organizations()
+        organizations: new Organizations(),
+        dataAvailabilityCollection: new DataAvailabilityCollection()
       },
-      models: {},
+      models: {
+        dataAvailabilityModel : new DataAvailabilityModel()
+      },
       getURLParameter: function(sParam) {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
