@@ -253,6 +253,13 @@ def submit_user():
     response = requests.post(app.config['SERVICES_URL'] + '/user', headers={'X-Csrf-Token' : api_key}, data=request.data)
     return response.text, response.status_code
 
+
+@app.route('/api/user/check_valid_email', methods=['GET'])
+def check_valid_email():
+    response = requests.get(app.config['SERVICES_URL'] + '/user/check_valid_email', params=request.args)
+    return response.text, response.status_code
+
+
 @app.route('/api/user_scope', methods=['GET'])
 def get_user_scopes():
     token = get_login()

@@ -32,6 +32,27 @@ var LoginModel = Backbone.Model.extend({
   //  var self = this;
   //  return true;
   //},
+  checkValidEmail: function(email) {
+    var output = false;
+    $.ajax('/api/user/check_valid_email?email='+email, {
+      type: 'GET',
+      dataType: 'json',
+      timeout: 5000,
+      async: false,
+      success: function (resp) {
+        // console.log('Success getting check valid email');
+        // console.log(resp);
+        if(resp.email !== undefined && resp.email !== ""){
+          output = true
+        }
+      },
+
+      error: function( req, status, err ) {
+        console.log(req);
+      }
+    });
+    return output;
+  },
   loggedIn: function() {
     if(this.get('token') != '') {
       return true;
