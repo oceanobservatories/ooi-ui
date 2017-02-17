@@ -61,7 +61,7 @@ var LoginView = Backbone.View.extend({
     sendResetEmail: function(e) {
         //console.log('hit reset inside LoginView.js');
         var emailAddr = this.$el.find('#usrInput').val();
-        if(emailAddr != null && emailAddr != ""){
+        if(emailAddr != null && emailAddr != "" && this.model.checkValidEmail(emailAddr)){
             var userEmail = {email: this.$el.find('#usrInput').val()};
             //console.log(userEmail);
             $.ajax( '/password-reset-request', {
@@ -75,7 +75,7 @@ var LoginView = Backbone.View.extend({
                     var m = new ModalDialogView();
 
                     m.show({
-                        message: "Sent password reset email successfully.",
+                        message: "Please check your inbox for a password reset link.",
                         type: "success"
                     });
 
@@ -99,8 +99,8 @@ var LoginView = Backbone.View.extend({
         } else {
             var errorEmailModal = new ModalDialogView();
             errorEmailModal.show({
-                message: "Please enter an email address above.",
-                type: "danger"
+                message: "Please check your inbox for a password reset link.",
+                type: "success"
             });
         }
 
