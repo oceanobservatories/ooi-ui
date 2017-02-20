@@ -427,7 +427,10 @@ var ArrayContentSummaryItem = ParentView.extend({
 
 
     if(!map._isArrayView) {
-      var mBounds = new L.latLngBounds([[loc[0], loc[1]]]);
+      $.when(map._getPlatformBounds(flyFlyContext.model.attributes.reference_designator)).done(function(mBounds) {
+      // var mBounds = new L.latLngBounds([[loc[0], loc[1]]]);
+
+      map.setMaxBounds(mBounds.pad(1));
       var mBoundsCenter = mBounds.getCenter();
 
 
@@ -435,9 +438,9 @@ var ArrayContentSummaryItem = ParentView.extend({
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         // map.setLayoutProperty('rsArray', 'visibility', 'none');
-        mBounds = new L.latLngBounds([[loc[0] + 1.8, loc[1]]]);
-        map.setMaxBounds(mBounds);
-        mBoundsCenter = mBounds.getCenter();
+        // mBounds = new L.latLngBounds([[loc[0] + 1.8, loc[1]]]);
+        // map.setMaxBounds(mBounds.pad(10));
+        // mBoundsCenter = mBounds.getCenter();
         map.setView(mBoundsCenter, 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
@@ -446,9 +449,9 @@ var ArrayContentSummaryItem = ParentView.extend({
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         // map.setLayoutProperty('ceArray', 'visibility', 'none');
-        mBounds = new L.latLngBounds([[loc[0] + 1, loc[1] -1]]);
-        map.setMaxBounds(mBounds);
-        mBoundsCenter = mBounds.getCenter();
+        // mBounds = new L.latLngBounds([[loc[0] + 1, loc[1] -1]]);
+        // map.setMaxBounds(mBounds.pad(10));
+        // mBoundsCenter = mBounds.getCenter();
         map.setView(mBoundsCenter, 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
@@ -491,9 +494,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
       }
-
-      map.setMaxBounds(mBounds);
-
+      })
     }else{
       this._flyBye();
     }

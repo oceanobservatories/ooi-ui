@@ -13,7 +13,7 @@ var TileMap = Backbone.View.extend({
           arrayMapBounds = L.latLngBounds([]);
 
       // ESRI Map - Save until GMRT is fully operational (https and performance on AWS)
-      var baseMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', {
+      var highResMap1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
         maxZoom: 12,
         minZoom: 2.6,
@@ -23,7 +23,7 @@ var TileMap = Backbone.View.extend({
 
       // ESRI Map - Save until GMRT is fully operational (https and performance on AWS)
       var esriOceanReference = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+        // attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
         // maxZoom: 12,
         // minZoom: 2.6,
         // bounceAtZoomLimits: true,
@@ -36,13 +36,13 @@ var TileMap = Backbone.View.extend({
       var highResMap = L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
         // maxZoom: 12,
         // minZoom: 2.6,
+        attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2',
         layers: 'topo',
         format: 'image/png',
         transparent: true,
         bounceAtZoomLimits: true,
         // crs: L.CRS.EPSG4326,
-        crs: L.CRS.EPSG3857,
-        attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2'
+        crs: L.CRS.EPSG3857
       });
 
       var map = new L.map(this.id, {
@@ -52,7 +52,7 @@ var TileMap = Backbone.View.extend({
 
       // map.addLayer(baseMap);
       map.addLayer(highResMap);
-      // map.addLayer(esriOceanReference);
+      map.addLayer(esriOceanReference);
 
       var baseMaps = {
         // "ESRI Oceans": baseMap,
@@ -146,6 +146,7 @@ var TileMap = Backbone.View.extend({
       map._isArrayView = this.isArrayView;
       map._arrayMapBounds = arrayMapBounds;
       map._gliderTrackLayer = track;
+      map._getPlatformBounds = this._getPlatformBounds;
 
       return map;
 
@@ -178,7 +179,7 @@ var TileMap = Backbone.View.extend({
       {2: 70},
       {3: 40}
     ];
-    var baseZoomLevel = 1.1;
+    var baseZoomLevel = 1.0;
     var browserZoomLevel = Math.round((window.devicePixelRatio*100));
     // console.log('browserZoomLevel');
     // console.log(browserZoomLevel);
@@ -209,7 +210,7 @@ var TileMap = Backbone.View.extend({
         map.setMaxBounds(map._arrayMapBounds);
 
         map.setMinZoom(minBoundsZoom-0.25);
-        // map.setMaxZoom(maxBoundsZoom);
+        // map.setMaxZoom(minBoundsZoom);
         // console.log('setting zoom to: ');
         // console.log(newMinZoom);
 
@@ -231,6 +232,27 @@ var TileMap = Backbone.View.extend({
     var bounds = L.latLngBounds(sw, ne);
     map.fitBounds(bounds);
     // map.panInsideBounds(bounds);
+  },
+  _getPlatformBounds: function(arrayCode) {
+    'use strict';
+    console.log('arrayCode');
+    console.log(arrayCode);
+
+    var platformBounds = L.latLngBounds([]);
+
+    // When we're in the platform view, we don't want to see any array icons.
+    _.each(map._layers, function(platform) {
+      if(!_.isUndefined(platform.feature)){
+        console.log('platform');
+        console.log(platform);
+        if(platform._icon && platform.feature.properties.code.indexOf(arrayCode) == 0){
+          platformBounds.extend(platform._latlng);
+        }
+      }
+    });
+    console.log('map._platformBounds');
+    console.log(platformBounds);
+    return platformBounds
   },
   _showPlatformView: function() {
     'use strict';
@@ -349,9 +371,9 @@ var TileMap = Backbone.View.extend({
               });
             }
           }
-        }).addTo(map);
+        });
 
-        L.geoJson(platformData, {
+        var platformLayer = L.geoJson(platformData, {
 
           pointToLayer: function(feature, latlng) {
             // console.log(feature);
@@ -394,10 +416,14 @@ var TileMap = Backbone.View.extend({
             }
           }
 
-        }).addTo(map);
+        });
 
         arrayLayer.addTo(map);
+        platformLayer.addTo(map);
+
         map._arrayMapBounds.extend(arrayLayer.getBounds());
+        map._arrayMapBounds.extend(platformLayer.getBounds());
+        map._arrayMapBounds.extend(map._gliderTrackLayer.getBounds());
         // console.log('map._arrayMapBounds.extend(arrayLayer.getBounds())');
         // console.log(map._arrayMapBounds);
 

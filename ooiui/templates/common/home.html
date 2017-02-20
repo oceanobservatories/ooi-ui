@@ -18,7 +18,7 @@
   <link href="/css/home/array_content/array_content.css" rel="stylesheet" type="text/css" />
   <link href="/css/home/vector_map/vector_map.css" rel="stylesheet" type="text/css"/>
   <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
-  <link href='/lib/mapbox.js/mapbox.css' rel='stylesheet' />
+
   <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
   <link href='/lib/Leaflet.Rrose/dist/leaflet.rrose.css' rel='stylesheet' />
   <link href="/css/common/platform.css" rel="stylesheet" type="text/css" />
@@ -43,7 +43,8 @@
   <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
   <script src="/js/views/home/tile_map/tile_map.js" type="text/javascript"></script>
   <!--<script src='/lib/mapbox-gl-js/js/mapbox-gl.js'></script>-->
-  <script src='/lib/mapbox.js/mapbox.js'></script>
+
+  <script src='/lib/leaflet/dist/leaflet.js'></script>
   <script src='/lib/leaflet-plugins/layer/vector/KML.js'></script>
   <script src='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.min.js'></script>
   <script src='/lib/Leaflet.Rrose/dist/leaflet.rrose-src.js'></script>
@@ -61,7 +62,7 @@
           <div class="text-left" style="padding-left: 15px">
             <h3><b>Research Arrays</b><small>  Select an array on the map or choose from the list.</small></h3>
           </div>
-          <div class="array-content"></div>
+          <div class="array-content" id="array-content"></div>
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5" id="right">
           <div id="map"></div>
@@ -86,29 +87,43 @@
       var siteStatusCollection = new SiteStatusCollection();
       var platformsStatusCollection = new PlatformsStatusCollection();
 
-      arrayCollection.fetch({timeout: 500}).then(function() {
-        // Sort the arrays
-        arrayCollection.sortByField('display_name','ascending');
-        var mapStyle = 'tile';
+      try {
+        var onErrorHandler = function(collection, response, options) {
+{#          console.log('arrayCollection fetch onerrorhandler');#}
 
-        // Render the site content for each array
-        var arrayContent = new ArrayContentSummary({el: $('.array-content'), collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}});
-        arrayContent.render();
+          var helpMessage = '<div class="text-center jumbotron">';
+          helpMessage += '<p>No connection to the data services could be established.</p>';
+          helpMessage += '<p> For all issues, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></p>';
+          helpMessage += '<p> For more information about the OOI Help Desk and Knowledge Base, go to  <a href="http://oceanobservatories.org/helpdesk/">http://oceanobservatories.org/helpdesk/</a></p>';
+          helpMessage += '</div>';
+          $('#array-content').replaceWith(helpMessage);
+        };
 
-        // Render the map
-        if (mapStyle === 'tile') {
-          tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
-          tileMap.render();
-        }
-      });
+        arrayCollection.fetch({timeout: 500, error: onErrorHandler}).then(function () {
+          // Sort the arrays
+          arrayCollection.sortByField('display_name', 'ascending');
+          var mapStyle = 'tile';
+
+          // Render the site content for each array
+          var arrayContent = new ArrayContentSummary({
+            el: $('.array-content'),
+            collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}
+          });
+          arrayContent.render();
+
+          // Render the map
+          if (mapStyle === 'tile') {
+            tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
+            tileMap.render();
+          }
+        });
+
 
       var calculateLayout = function() {
 
           $.when(resizeMap(arrayCollection)).done(function () {
             if(map._isArrayView) {
               tileMap._setArrayView();
-            }else{
-              self._flyFly();
             }
           })
 
@@ -130,7 +145,7 @@
         vpw = $(window).width() - 200;
         //50 pixels for the h3 heading
         var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
-        vph = $('#wrapper').height() - sectionHeight;
+        vph = $('#wrapper').height() - sectionHeight - 10;
         $('#map').css({'height': vph + 'px'});
         //$('.array-content').css({'height': vph + 'px'});
         $('.array-content').css({'height': "100%"});
@@ -138,6 +153,10 @@
         $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
       });
       resizeMap(arrayCollection);
+
+      } catch(err) {
+        console.log('error');
+      }
 
       ooi.start();
     });

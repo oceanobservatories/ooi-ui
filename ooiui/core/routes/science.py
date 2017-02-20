@@ -243,8 +243,12 @@ def array_proxy():
 
 @app.route('/api/uframe/status/arrays')
 def status_arrays():
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
-    return response.text, response.status_code
+    try:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
+        return response.text, response.status_code
+    except Exception, e:
+        print "error" + e.message
+        return "Error getting array status from services", 400
 
 
 @app.route('/api/uframe/status/sites/<string:array_code>')
@@ -253,6 +257,7 @@ def status_sites(array_code):
         array_code = request.args['node']
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
     return response.text, response.status_code
+
 
 @app.route('/api/uframe/status/sites')
 def status_sites_tree():
