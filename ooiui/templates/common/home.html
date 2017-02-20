@@ -20,6 +20,7 @@
   <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
   <link href='/lib/mapbox.js/mapbox.css' rel='stylesheet' />
   <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
+  <link href='/lib/Leaflet.Rrose/dist/leaflet.rrose.css' rel='stylesheet' />
   <link href="/css/common/platform.css" rel="stylesheet" type="text/css" />
   <!-- page resources --<>
 
@@ -45,6 +46,7 @@
   <script src='/lib/mapbox.js/mapbox.js'></script>
   <script src='/lib/leaflet-plugins/layer/vector/KML.js'></script>
   <script src='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.min.js'></script>
+  <script src='/lib/Leaflet.Rrose/dist/leaflet.rrose-src.js'></script>
 {% endblock %}
 
 {%block body %}
@@ -79,6 +81,7 @@
 
     $(document).ready(function() {
       var self = this;
+      var tileMap;
       var arrayCollection = new ArrayStatusCollection();
       var siteStatusCollection = new SiteStatusCollection();
       var platformsStatusCollection = new PlatformsStatusCollection();
@@ -94,15 +97,34 @@
 
         // Render the map
         if (mapStyle === 'tile') {
-          var tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
+          tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
           tileMap.render();
         }
       });
 
-      // Takes care of the strange size of the map
-      window.onresize = function(event) {
-        resizeMap(arrayCollection);
+      var calculateLayout = function() {
+
+          $.when(resizeMap(arrayCollection)).done(function () {
+            if(map._isArrayView) {
+              tileMap._setArrayView();
+            }else{
+              self._flyFly();
+            }
+          })
+
       };
+
+      // Takes care of the strange size of the map
+      var lazyLayout = _.debounce(calculateLayout, 300);
+      $(window).resize(lazyLayout);
+      {#window.onresize = function(event) {
+        console.log('map onresize event');
+        if(map._isArrayView) {
+          $.when(resizeMap(arrayCollection)).done(function () {
+              tileMap._setArrayView();
+          })
+        }
+      };#}
 
       var resizeMap = (function(arrayCollection) {
         vpw = $(window).width() - 200;

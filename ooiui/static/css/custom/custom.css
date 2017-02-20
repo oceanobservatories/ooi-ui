@@ -433,3 +433,26 @@ div.innerTableTitle {
   font-weight: 400;
   vertical-align: text-top;
 }
+
+div.leaflet-control-coordinates.leaflet-control{
+    position: absolute;
+    left: 35px;
+    top: 5px;
+    padding-left: 0;
+}
+
+.leaflet-popup-content{
+  min-width: 125px;
+  min-height: 30px;
+  background: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+.leaflet-popup-tip-container{
+  visibility: hidden;
+}
+
+.leaflet-popup-close-button{
+  visibility: hidden;
+}

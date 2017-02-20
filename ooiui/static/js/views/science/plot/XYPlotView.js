@@ -285,7 +285,7 @@ var XYPlotView = BasePlot.extend({
 
     //map the avaiable parameters to the reference
     //availableParameters = availableParameters.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
-    // console.log('availableParameters before getting data');
+    // console.log('availableParameters before uniq');
     // console.log(availableParameters);
 
     availableParameters = _.uniq(availableParameters, function(item, key, a) {return item.attributes.short_name;});
@@ -534,13 +534,17 @@ var XYPlotView = BasePlot.extend({
       },
       title: {
           text: plotData.displayName,
-          x: -20 //center
+          x: -20, //center
+          style: {
+            color: "black",
+            fontSize: "18px"
+          }
       },
       subtitle: {
           text: plotData.stream_display_name,
           x: -20,
           style: {
-            color: "steelblue",
+            color: "black",
             fontSize: "18px"
           }
       },

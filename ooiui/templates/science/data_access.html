@@ -425,7 +425,18 @@
         console.log(parameterCollection);
         var self = this;
         var selectDt = this.views.plotControls.getDateTimeRange();
-        self.views.plotContainer.plotParameters = parameterCollection;
+        self.views.plotContainer.plotParameters = new ParameterCollection(parameterCollection.toJSON());
+
+        var paramCounter = 0;
+        self.views.plotContainer.plotParameters.each(function(model){
+          if(paramCounter > 1 && model.get('short_name') != 'time'){
+            model.set({'short_name' : model.get('original_model').get('stream') + '-' + model.get('short_name')});
+          }
+          paramCounter++;
+        });
+
+        console.log('self.views.plotContainer.plotParameters');
+        console.log(self.views.plotContainer.plotParameters);
 
         var instr1_2 = [];
         var vars1_2 = [];
@@ -435,8 +446,8 @@
         var xParams1 = [];
         var yParams1 = [];
         var zParams1 = [];
-        var displayName = parameterCollection.models[0].get('original_model').get('long_display_name');
-        var streamName1 = parameterCollection.models[0].get('original_model').get('stream_display_name');
+        var displayName = parameterCollection.models[0].get('original_model').get('long_display_name') + ' - ' + parameterCollection.models[0].get('original_model').get('stream_display_name');
+        var streamName1 = parameterCollection.models[2].get('original_model').get('long_display_name') + ' - ' + parameterCollection.models[2].get('original_model').get('stream_display_name');
         var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
           console.log(model);
@@ -457,6 +468,7 @@
               zParams1.push(model.get('short_name'));
             }#}
           }
+          paramCounter++;
         });
 
 
@@ -925,6 +937,8 @@
           var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
 
           if (!_.isNull(parameterCollection)){
+            console.log('parameterCollection');
+            console.log(parameterCollection);
             self.views.plotContainer.showLoading();
 
             if (self.collections.selectedStreamCollection.length == 1){

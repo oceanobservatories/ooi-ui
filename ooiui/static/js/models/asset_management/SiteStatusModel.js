@@ -95,31 +95,31 @@ var SiteStatusCollection = Backbone.Collection.extend({
 
     this.models = sorted;
   },
-  byGliders: function() {
-    var filtered = this.filter(function (platform) {
-      if (platform.get('reference_designator') !== "") {
-        return platform.get('reference_designator').indexOf('GL') > -1;
-      }
-    });
-    return new PlatformCollection(filtered);
-  },
-  byMoorings: function() {
-    var filtered = this.filter(function (platform) {
-      if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 8) {
-        return platform.get('reference_designator').indexOf('GL') < 0;
-      }
-    });
-    return new PlatformCollection(filtered);
-  },
-  byArray: function(array) {
-    var filtered = this.filter(function (platform) {
-      if (platform.get('reference_designator') !== "" && (platform.get('reference_designator').length === 14 ||
-        platform.get('reference_designator').indexOf('GL') > -1) || platform.get('reference_designator').length === 8) {
-        return platform.get('reference_designator').substr(0,2) === array;
-      }
-    });
-    return new PlatformCollection(filtered);
-  },
+  // byGliders: function() {
+  //   var filtered = this.filter(function (platform) {
+  //     if (platform.get('reference_designator') !== "") {
+  //       return platform.get('reference_designator').indexOf('GL') > -1;
+  //     }
+  //   });
+  //   return new PlatformCollection(filtered);
+  // },
+  // byMoorings: function() {
+  //   var filtered = this.filter(function (platform) {
+  //     if (platform.get('reference_designator') !== "" && platform.get('reference_designator').length === 8) {
+  //       return platform.get('reference_designator').indexOf('GL') < 0;
+  //     }
+  //   });
+  //   return new PlatformCollection(filtered);
+  // },
+  // byArray: function(array) {
+  //   var filtered = this.filter(function (platform) {
+  //     if (platform.get('reference_designator') !== "" && (platform.get('reference_designator').length === 14 ||
+  //       platform.get('reference_designator').indexOf('GL') > -1) || platform.get('reference_designator').length === 8) {
+  //       return platform.get('reference_designator').substr(0,2) === array;
+  //     }
+  //   });
+  //   return new PlatformCollection(filtered);
+  // },
   initialize: function () {
   }
 });

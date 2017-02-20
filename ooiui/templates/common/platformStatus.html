@@ -101,11 +101,15 @@ _.extend(OOI.prototype, Backbone.Events,  {
         this.login.fetch({async:false});
 
         var platformId = location.search.split('id=')[1],
+            arrayDisplayName = location.search.split('array=')[1],
             platformLat = location.search.split('lat=')[1],
             platformLng = location.search.split('lng=')[1];
 
         platformId = platformId.split('&')[0];
         platformLat = platformLat.split('&')[0];
+
+        // console.log('arrayDisplayName.split('&')[0]');
+        bannerTitle = atob(arrayDisplayName.split('&')[0]);
 
 {#        var streamCollection = new StreamStatusCollection({
             searchId:  atob(platformId),
@@ -122,14 +126,14 @@ _.extend(OOI.prototype, Backbone.Events,  {
           //console.log(siteStatusCollection);
           //console.log('siteStatusCollection.toGeoJSON()');
           //console.log(siteStatusCollection.toGeoJSON());
-          siteData = siteStatusCollection.where({reference_designator: atob(platformId)})[0]
-          bannerTitle = siteData.get('display_name');
+          siteData = siteStatusCollection.where({reference_designator: atob(platformId)})[0];
         });
 
         var platformsStatusCollection = new PlatformsStatusCollection();
         platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+atob(platformId)}).done(function() {
           platformsStatusCollection['siteData'] = siteData;
           platformsStatusCollection['allSites'] = siteStatusCollection;
+          platformsStatusCollection['arrayDisplayName'] = btoa(bannerTitle);
           //console.log('platformsStatusCollection');
           //console.log(platformsStatusCollection);
           //console.log('platformsStatusCollection.toGeoJSON()');
@@ -161,7 +165,6 @@ _.extend(OOI.prototype, Backbone.Events,  {
           el: $('#ll')
         });
 {#        $('body').prepend(this.views.loading.el);#}
-
         this.views.banner = new BannerView({bannerTitle});
         $('body').prepend(this.views.banner.el);
 

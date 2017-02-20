@@ -154,7 +154,8 @@ var GenericPlatFormStatus = Backbone.View.extend({
             var _this = this;
             var siteInfo = {
                 site: this.platformsStatusCollection.siteData.get('display_name'),
-                refDes: this.platformsStatusCollection.siteData.get('reference_designator')
+                refDes: this.platformsStatusCollection.siteData.get('reference_designator'),
+                arrayDisplayName: this.platformsStatusCollection.arrayDisplayName
             };
 
             var uniqueList = [];

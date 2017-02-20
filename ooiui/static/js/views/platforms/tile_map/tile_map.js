@@ -148,9 +148,11 @@ var TileMap = Backbone.View.extend({
                 // console.log('refPlatforms');
                 // console.log(refPlatforms);
 
+              // console.log(renderContext.collection.arrayDisplayName);
+
                 L.geoJson(otherSites, {
                     pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: otherMooringIcon});
+                        return new L.Marker(latlng, {icon: otherMooringIcon, riseOnHover: true});
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('mouseover', function(e) {
@@ -159,7 +161,7 @@ var TileMap = Backbone.View.extend({
 
                         });
                         layer.on('click', function(e) {
-                            window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
+                            window.open("/platformnav?id="+ btoa(feature.properties.code) + "&array=" + renderContext.collection.arrayDisplayName + "&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
                         });
                     }
                 }).addTo(map);
