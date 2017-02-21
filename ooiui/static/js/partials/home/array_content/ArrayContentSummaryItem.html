@@ -141,7 +141,7 @@
         <table class="table table-stripped">
             <thead><tr>
               <th>Navigation</th>
-              <th>Status</th>
+              <!--<th>Status</th>-->
               <th>Site Name</th>
               <th>Deployment Depth</th>
               <th>Latitude</th>
@@ -158,7 +158,7 @@
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
-                    <td class="tdulliFormat">
+                    <!--<td class="tdulliFormat">
                       <ul>
                         <%
                         var instStatus = platform.properties.status;
@@ -178,29 +178,6 @@
                         <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
                       </ul>
-                    </td>
-                    <!--<td>
-                        <ul class="align-center" style="padding-left: 0px;">
-                          <% //console.log(platform.properties.status); %>
-
-                          <% if(platform.properties.status == "failed") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: red; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "degraded") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: orange; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "removedFromService") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "notTracked") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "Fetching Status Failed") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "No Status Returned") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "operational") { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else { %>
-                            <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } %>
-                        </ul>
                     </td>-->
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">

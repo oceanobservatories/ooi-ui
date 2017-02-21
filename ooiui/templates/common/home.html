@@ -99,7 +99,7 @@
           $('#array-content').replaceWith(helpMessage);
         };
 
-        arrayCollection.fetch({timeout: 500, error: onErrorHandler}).then(function () {
+        arrayCollection.fetch({timeout: 5000, error: onErrorHandler}).then(function () {
           // Sort the arrays
           arrayCollection.sortByField('display_name', 'ascending');
           var mapStyle = 'tile';
