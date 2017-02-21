@@ -441,6 +441,8 @@ var ArrayContentSummaryItem = ParentView.extend({
         // mBounds = new L.latLngBounds([[loc[0] + 1.8, loc[1]]]);
         // map.setMaxBounds(mBounds.pad(10));
         // mBoundsCenter = mBounds.getCenter();
+        mBounds.extend([loc[0] + 1.8, loc[1]]);
+        map.setMaxBounds(mBounds.pad(1));
         map.setView([loc[0] + 1.8, loc[1]], 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
@@ -452,7 +454,9 @@ var ArrayContentSummaryItem = ParentView.extend({
         // mBounds = new L.latLngBounds([[loc[0] + 1, loc[1] -1]]);
         // map.setMaxBounds(mBounds.pad(10));
         // mBoundsCenter = mBounds.getCenter();
-        map.setView([loc[0] + 1, loc[1] -1], 7, {animate: false});
+        mBounds.extend([loc[0] + 1, loc[1] - 1]);
+        map.setMaxBounds(mBounds.pad(1));
+        map.setView([loc[0] + 1, loc[1] - 1], 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }

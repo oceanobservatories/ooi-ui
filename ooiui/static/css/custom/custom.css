@@ -441,11 +441,19 @@ div.leaflet-control-coordinates.leaflet-control{
     padding-left: 0;
 }
 
-.leaflet-popup-content{
+.leaflet-popup-content h2{
   min-width: 125px;
   min-height: 30px;
   background: white;
-  font-size: 14px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.leaflet-popup-content-wrapper{
+  min-width: 125px;
+  min-height: 30px;
+  background: white;
+  font-size: 12px;
   text-align: center;
 }
 
