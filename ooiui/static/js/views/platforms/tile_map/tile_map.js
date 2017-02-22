@@ -117,7 +117,9 @@ var TileMap = Backbone.View.extend({
 
                 var otherSites = [];
                 _.each(renderContext.collection.allSites.toGeoJSON(), function(geoJSON){
-                    otherSites.push(geoJSON);
+                    if (geoJSON.properties.code.indexOf('MOAS') == -1) {
+                      otherSites.push(geoJSON);
+                    }
                 });
                 // console.log('otherSites');
                 // console.log(otherSites);
@@ -182,21 +184,23 @@ var TileMap = Backbone.View.extend({
                     }
                 }).addTo(map);*/
 
-                var currentMarker = L.geoJson(marker, {
-                    pointToLayer: function(feature, latlng) {
-                        return new L.Marker(latlng, {icon: mooringIcon, riseOnHover: true, zIndexOffset: 100000});
+                if (marker.properties.code.indexOf('MOAS') == -1) {
+                  var currentMarker = L.geoJson(marker, {
+                    pointToLayer: function (feature, latlng) {
+                      return new L.Marker(latlng, {icon: mooringIcon, riseOnHover: true, zIndexOffset: 100000});
                     },
                     onEachFeature: function (feature, layer) {
-                        layer.on('mouseover', function(e) {
-                            var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>' ;
-                            document.getElementById('info').innerHTML = content;
+                      layer.on('mouseover', function (e) {
+                        var content = feature.properties.description + '<br>' + '<span>' + JSON.stringify(Number(e.latlng.lat.toFixed(4))) + ', ' + JSON.stringify(Number(e.latlng.lng.toFixed(4))) + '</span>';
+                        document.getElementById('info').innerHTML = content;
 
-                        });
-                        // layer.on('click', function(e) {
-                        //     window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
-                        // });
+                      });
+                      // layer.on('click', function(e) {
+                      //     window.open("/platformnav?id="+ btoa(feature.properties.code) +"&lat=" + btoa(JSON.stringify(Number(e.latlng.lat.toFixed(4)))) + "&lng=" + btoa(JSON.stringify(Number(e.latlng.lng.toFixed(4)))),'_self');
+                      // });
                     }
-                }).addTo(map);
+                  }).addTo(map);
+                }
             });
         } catch (error) {
             console.log(error);

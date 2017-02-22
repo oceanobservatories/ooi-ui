@@ -1,11 +1,11 @@
 .platform-page {}
 
 .platform-page #platform-view-content h2 {
-    padding-top: 20px;
+    padding-top: 25px;
 }
 
 .platform-page #platform-view-content .panel {
-     padding: 0 20px 0 20px;
+     padding: 0 25px 0 25px;
 }
 
 div#wrapper.platform-page {

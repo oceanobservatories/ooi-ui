@@ -36,80 +36,6 @@ var ArrayContentSummary = ParentView.extend({
     'mouseleave .js-expand': '_lowlightArray',
     'mouseover tr': '_highlightPlatform',
     'mouseout tr': '_lowlightPlatform'
-    //'click tr': '_getPlatformsStatus' // Dyanmically populate the nodes and instruments under the site
-  },
-
-  _getPlatformsStatus: function(event) {
-    var self = this;
-    var targetParent = ($(event.target).parent())[0];
-    var innerTableRowId = 'innerTableRow_' + targetParent.getAttribute("data-code");
-
-    // console.log('targetParent');
-    // console.log(targetParent);
-    // console.log('maybe fetch some platform status with the instrument status');
-
-    self.collection.platformsStatusCollection.fetch({async: false, url: '/api/uframe/status/platforms/'+targetParent.getAttribute("data-code")}).done(function(collection){
-      // console.log(collection);
-      // console.log('getting platform status on demand');
-      // console.log(self.collection.platformsStatusCollection);
-      // var newRow = $("<tr id='test_view_insert'><td>Col1</td><td>Col2</td><td>Col3</td><td>Col4</td><td>Col5</td><td>Col6</td></tr>");
-
-
-      // platformItems = collection.platforms;
-      // platformItems.comparator = "depth";
-      // platformItems.sort();
-      _.forEach(collection.platforms, function(modelList) {
-        var innerTableId = 'innerTable_' + modelList.header.code;
-        var innerTableBannerId = 'innerTableBanner_' + modelList.header.code;
-
-        var platformHeaderRow = $(
-          '<tr id='+innerTableBannerId+'><td colspan="6">'+
-          '<h4 class="" data-target=' + modelList.header.title + '<small class="refDesLabel">(' + modelList.header.title + ')</small><i class="fa fa-chevron-down pull-right"></i></h4>'+
-          '</td></tr>'
-        );
-        // Add table header
-        var newRow =$(
-          '<tr id='+innerTableRowId+'><td colspan="6">'+
-          // '<div class="panel">'+
-          // '<div class="panel-heading">'+
-          // '<h4 class="js-expand" data-target="'+modelList.header.code+'"'+modelList.header.title || modelList.header.code+'<small class="refDesLabel" style="display:none">'+(modelList.header.title)+' ? ('+ modelList.header.code + ') :""</small><i class="fa fa-chevron-down pull-right"></i></h4>'+
-          // '</div>'+
-          // '<div id="'+modelList.header.code+'" class="panel-body" style="display: none">'+
-          '<table id='+innerTableId+' class="table table-default">'+
-          '<thead>'+
-          '<tr>'+
-          '<th style="width: 75px;font-size: 10pt;">Navigation</th>'+
-          '<th style="width: 300px;font-size: 10pt;"><div class="innerTableTitle">'+modelList.header.title+'</div><div style="vertical-align: bottom;font-size: 10pt;">Instrument</div></th>'+
-          '<th style="width: 100px;font-size: 10pt;">Status</th>'+
-          '<th style="width: 100px;font-size: 10pt;">Deployment Depth</th>'+
-          '<th style="width: 175px;font-size: 10pt;">Start Time</th>'+
-          '<th style="width: 175px;font-size: 10pt;">End Time</th>'+
-          '</tr>'+
-          '</thead>'+
-          '</table>'+
-          // '</div>'+
-          // '</div>'+
-          '</td></tr>'
-        );
-        // platformHeaderRow.insertAfter('#'+targetParent.getAttribute("data-code"));
-        newRow.insertAfter('#'+targetParent.getAttribute("data-code"));
-
-        _.forEach(modelList.items, function(model){
-          // console.log(model);
-          var piModel = new PlatformsInstrumentModel(model);
-          // console.log('piModel');
-          // console.log(piModel);
-          var row = new StatusRow({
-            model : piModel
-          });
-          // console.log('row');
-          // console.log(row);
-
-          self.$el.find("#"+ innerTableId).append(row.el);
-        })
-      });
-    })
-
   },
   _highlightArray: function(event) {
     // console.log(event);
@@ -168,11 +94,9 @@ var ArrayContentSummary = ParentView.extend({
       if(!_.isUndefined(layer.feature)) {
         // console.log(layer.feature.properties.code);
         if (layer._icon && targetParent.getAttribute("data-code")) {
-
           if (layer.feature.properties.code.indexOf(targetCode[0].id) > -1) {
             layer.setIcon(platIconLowLight);
           }
-
         }
       }
     });
@@ -376,7 +300,7 @@ var ArrayContentSummaryItem = ParentView.extend({
       map._hidePlatformView();
       map._isArrayView = true;
     }
-    event.stopImmediatePropagation();
+    event.stopPropagation();
     // console.log('flyFlyContext.model.attributes.reference_designator');
     // console.log(flyFlyContext.model.attributes.reference_designator);
 
@@ -430,7 +354,7 @@ var ArrayContentSummaryItem = ParentView.extend({
       $.when(map._getPlatformBounds(flyFlyContext.model.attributes.reference_designator)).done(function(mBounds) {
       // var mBounds = new L.latLngBounds([[loc[0], loc[1]]]);
 
-      map.setMaxBounds(mBounds.pad(1));
+      // map.setMaxBounds(mBounds.pad(1));
       var mBoundsCenter = mBounds.getCenter();
 
 
@@ -442,7 +366,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         // map.setMaxBounds(mBounds.pad(10));
         // mBoundsCenter = mBounds.getCenter();
         mBounds.extend([loc[0] + 1.8, loc[1]]);
-        map.setMaxBounds(mBounds.pad(1));
+        // map.setMaxBounds(mBounds.pad(1));
         map.setView([loc[0] + 1.8, loc[1]], 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
@@ -455,7 +379,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         // map.setMaxBounds(mBounds.pad(10));
         // mBoundsCenter = mBounds.getCenter();
         mBounds.extend([loc[0] + 1, loc[1] - 1]);
-        map.setMaxBounds(mBounds.pad(1));
+        // map.setMaxBounds(mBounds.pad(1));
         map.setView([loc[0] + 1, loc[1] - 1], 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);

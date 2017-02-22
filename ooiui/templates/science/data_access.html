@@ -421,8 +421,8 @@
         }
       },
       plotInterpolatedData: function(parameterCollection) {
-        console.log('plotInterpolatedData');
-        console.log(parameterCollection);
+        // console.log('plotInterpolatedData');
+        // console.log(parameterCollection);
         var self = this;
         var selectDt = this.views.plotControls.getDateTimeRange();
         self.views.plotContainer.plotParameters = new ParameterCollection(parameterCollection.toJSON());
@@ -435,8 +435,8 @@
           paramCounter++;
         });
 
-        console.log('self.views.plotContainer.plotParameters');
-        console.log(self.views.plotContainer.plotParameters);
+        // console.log('self.views.plotContainer.plotParameters');
+        // console.log(self.views.plotContainer.plotParameters);
 
         var instr1_2 = [];
         var vars1_2 = [];
@@ -450,7 +450,7 @@
         var streamName1 = parameterCollection.models[2].get('original_model').get('long_display_name') + ' - ' + parameterCollection.models[2].get('original_model').get('stream_display_name');
         var referenceDesignator1 = parameterCollection.models[0].get('original_model').get('reference_designator');
         parameterCollection.each(function(model){
-          console.log(model);
+          // console.log(model);
           if (model.get('is_selected')){
             if(model.get('short_name') != 'time'){
               instr1_2.push(model.get('original_model').get('stream_name'));
@@ -514,14 +514,14 @@
         console.log('zParams1');
         console.log(zParams1);
         console.log('zParams2');
-        console.log(zParams2);#}
+        console.log(zParams2);
 
         console.log('instr1_2');
         console.log(instr1_2);
         console.log('vars1_2');
         console.log(vars1_2);
         console.log('ref_des1_2');
-        console.log(ref_des1_2);
+        console.log(ref_des1_2);#}
 
         //create the interpolated data series collection
         self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
@@ -937,8 +937,8 @@
           var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
 
           if (!_.isNull(parameterCollection)){
-            console.log('parameterCollection');
-            console.log(parameterCollection);
+            // console.log('parameterCollection');
+            // console.log(parameterCollection);
             self.views.plotContainer.showLoading();
 
             if (self.collections.selectedStreamCollection.length == 1){
@@ -1925,8 +1925,20 @@
             if ($evt.find('i').hasClass('fa-plus-square')) {
               if (!_.isUndefined(modelList) && modelList.length > 0) {
                 //trigger for a new plot item
-                ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
-                $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+                if(ooi.collections.selectedStreamCollection.length == 0) {
+                  ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+                  $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+                }else{
+                  var interpWarning = new ModalDialogView();
+                  var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                  interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
+                  interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
+                  interpWarningMessage += "</div>";
+                  interpWarning.show({
+                    message: interpWarningMessage,
+                    type: "warning"
+                  });
+                }
               }
             } else {
               if ($evt.find('i').hasClass('fa-minus-square')) {

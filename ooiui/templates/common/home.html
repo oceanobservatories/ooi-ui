@@ -66,7 +66,7 @@
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5" id="right">
           <div id="map"></div>
-          <div id="infoArrayMap"><pre class="infoInner">Hover over platform for description.</pre></div>
+          <!--<div id="infoArrayMap"><pre class="infoInner">Hover over platform for description.</pre></div>-->
         </div>
       </div>
     </div>
@@ -152,7 +152,8 @@
         //select the size of the objects based on the array length, adjust for border
         $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
       });
-      resizeMap(arrayCollection);
+{#      resizeMap(arrayCollection);#}
+      lazyLayout();
 
       } catch(err) {
         console.log('error');

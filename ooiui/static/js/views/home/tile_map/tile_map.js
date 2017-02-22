@@ -33,14 +33,14 @@ var TileMap = Backbone.View.extend({
       });
 
       // Commenting this out for now until security and web mapping service performance are resolved
-      var highResMap = L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+      var highResMap = L.tileLayer.wms('https://maps.oceanobservatories.org/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
         // maxZoom: 12,
         // minZoom: 2.6,
         attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2',
         layers: 'topo',
         format: 'image/png',
         transparent: true,
-        bounceAtZoomLimits: true,
+        // bounceAtZoomLimits: true,
         // crs: L.CRS.EPSG4326,
         crs: L.CRS.EPSG3857
       });
@@ -94,10 +94,10 @@ var TileMap = Backbone.View.extend({
       }).addTo(map);
 
       // Turn on/off map functionalities
-      // map.dragging.disable();
-      // map.touchZoom.disable();
+      map.dragging.disable();
+      map.touchZoom.disable();
       map.doubleClickZoom.disable();
-      // map.scrollWheelZoom.disable();
+      map.scrollWheelZoom.disable();
       map.keyboard.disable();
 
 /*      map.on('zoomstart', function(event){
@@ -198,7 +198,7 @@ var TileMap = Backbone.View.extend({
           maxZoom: minBoundsZoom
         })
         */
-      map.setView(map._arrayMapBounds.getCenter(), minBoundsZoom-0.25,{
+      map.setView(map._arrayMapBounds.getCenter(), minBoundsZoom,{
           reset: true,
           animate: false
           // ,
@@ -209,7 +209,7 @@ var TileMap = Backbone.View.extend({
       .done(function() {
         map.setMaxBounds(map._arrayMapBounds);
 
-        map.setMinZoom(minBoundsZoom-0.25);
+        map.setMinZoom(minBoundsZoom);
         // map.setMaxZoom(minBoundsZoom);
         // console.log('setting zoom to: ');
         // console.log(newMinZoom);
@@ -235,28 +235,33 @@ var TileMap = Backbone.View.extend({
   },
   _getPlatformBounds: function(arrayCode) {
     'use strict';
-    console.log('arrayCode');
-    console.log(arrayCode);
+    // console.log('arrayCode');
+    // console.log(arrayCode);
 
     var platformBounds = L.latLngBounds([]);
 
     // When we're in the platform view, we don't want to see any array icons.
     _.each(map._layers, function(platform) {
       if(!_.isUndefined(platform.feature)){
-        console.log('platform');
-        console.log(platform);
+        // console.log('platform');
+        // console.log(platform);
         if(platform._icon && platform.feature.properties.code.indexOf(arrayCode) == 0){
           platformBounds.extend(platform._latlng);
         }
       }
     });
-    console.log('map._platformBounds');
-    console.log(platformBounds);
+    // console.log('map._platformBounds');
+    // console.log(platformBounds);
     return platformBounds
   },
   _showPlatformView: function() {
     'use strict';
     this.isArrayView = false;
+    map.dragging.enable();
+    map.touchZoom.enable();
+    map.scrollWheelZoom.enable();
+
+    $('div.leaflet-control-zoom.leaflet-bar.leaflet-control').show();
     map.addLayer(map._gliderTrackLayer);
     // When we're in the platform view, we don't want to see any array icons.
     _.each(map._layers, function(platform) {
@@ -286,7 +291,10 @@ var TileMap = Backbone.View.extend({
     'use strict';
 
     this.isArrayView = true;
-
+    $('div.leaflet-control-zoom.leaflet-bar.leaflet-control').hide();
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.scrollWheelZoom.disable();
     // When we're in the platform view, we don't want to see any array icons.
     _.each(map._layers, function(platform) {
       if(!_.isUndefined(platform.feature)) {
@@ -338,11 +346,13 @@ var TileMap = Backbone.View.extend({
             // console.log('geoJSON in platform');
             // console.log(geoJSON);
 
-            // if (geoJSON.properties.code.indexOf('MOAS') == -1) {
+            if (geoJSONplatform.properties.code.indexOf('MOAS') == -1) {
               geoJSONplatform['properties']['array_name'] = geoJSON.properties.title;
               platformData.push(geoJSONplatform);
-
-            // }
+            }else{
+              // console.log('geoJSONplatform');
+              // console.log(geoJSONplatform);
+            }
           });
         });
 
@@ -424,6 +434,9 @@ var TileMap = Backbone.View.extend({
         map._arrayMapBounds.extend(arrayLayer.getBounds());
         map._arrayMapBounds.extend(platformLayer.getBounds());
         map._arrayMapBounds.extend(map._gliderTrackLayer.getBounds());
+        map._arrayMapBounds.extend([66.0, -30.0]);
+        map._arrayMapBounds.extend([-56.0, -90.0]);
+        map._arrayMapBounds.extend([66.0, -156]);
         // console.log('map._arrayMapBounds.extend(arrayLayer.getBounds())');
         // console.log(map._arrayMapBounds);
 
