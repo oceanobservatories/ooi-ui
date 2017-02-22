@@ -1925,20 +1925,20 @@
             if ($evt.find('i').hasClass('fa-plus-square')) {
               if (!_.isUndefined(modelList) && modelList.length > 0) {
                 //trigger for a new plot item
-                if(ooi.collections.selectedStreamCollection.length == 0) {
+                // if(ooi.collections.selectedStreamCollection.length == 0) {
                   ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
                   $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
-                }else{
-                  var interpWarning = new ModalDialogView();
-                  var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-                  interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
-                  interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
-                  interpWarningMessage += "</div>";
-                  interpWarning.show({
-                    message: interpWarningMessage,
-                    type: "warning"
-                  });
-                }
+                // }else{
+                  // var interpWarning = new ModalDialogView();
+                  // var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                  // interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
+                  // interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
+                  // interpWarningMessage += "</div>";
+                  // interpWarning.show({
+                    // message: interpWarningMessage,
+                    // type: "warning"
+                  // });
+                // }
               }
             } else {
               if ($evt.find('i').hasClass('fa-minus-square')) {
@@ -2565,7 +2565,7 @@
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
-      ooi.collections.dataAvailabilityCollection.fetch();
+      // ooi.collections.dataAvailabilityCollection.fetch();
       //console.log(ooi.collections.dataAvailabilityCollection);
       placeJqGrid(jqCollection, ooi.collections.dataAvailabilityCollection);
       $('#reset_catalog_button').css('display','inline-block'); //TODO REMOVE LINE

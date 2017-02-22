@@ -434,7 +434,7 @@ var TileMap = Backbone.View.extend({
         map._arrayMapBounds.extend(arrayLayer.getBounds());
         map._arrayMapBounds.extend(platformLayer.getBounds());
         map._arrayMapBounds.extend(map._gliderTrackLayer.getBounds());
-        map._arrayMapBounds.extend([66.0, -30.0]);
+        map._arrayMapBounds.extend([70.0, -30.0]);
         map._arrayMapBounds.extend([-56.0, -90.0]);
         map._arrayMapBounds.extend([66.0, -156]);
         // console.log('map._arrayMapBounds.extend(arrayLayer.getBounds())');
