@@ -311,7 +311,7 @@ div#events-scroll-body {
 
 .jqtree-notTracked {
   background-color: transparent;
-  cursor: pointer;
+  /*cursor: pointer;*/
   color: #000;
 }
 
@@ -321,14 +321,13 @@ div#events-scroll-body {
 }
 
 .scrollable-jqtree {
-  width: 60%;
   max-height: 700px;
   border: 2px solid #fff;
   overflow: auto;
 }
 
 .scrollable-visavail {
-  width: 100%;
+  width: 65%;
   max-height: 700px;
   border: 2px solid #fff;
   overflow: auto;

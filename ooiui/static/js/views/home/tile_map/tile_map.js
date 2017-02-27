@@ -46,7 +46,9 @@ var TileMap = Backbone.View.extend({
       });
 
       var map = new L.map(this.id, {
-        zoomControl: true
+        zoomControl: true,
+        trackResize: true,
+        bounceAtZoomLimits: true
         // layers: [highResMap]
       });
 
@@ -434,9 +436,10 @@ var TileMap = Backbone.View.extend({
         map._arrayMapBounds.extend(arrayLayer.getBounds());
         map._arrayMapBounds.extend(platformLayer.getBounds());
         map._arrayMapBounds.extend(map._gliderTrackLayer.getBounds());
-        map._arrayMapBounds.extend([70.0, -30.0]);
-        map._arrayMapBounds.extend([-56.0, -90.0]);
-        map._arrayMapBounds.extend([66.0, -156]);
+        map._arrayMapBounds.extend([68.5, -30.0]);
+        map._arrayMapBounds.extend([-57.0, -30.0]);
+        map._arrayMapBounds.extend([-57.0, -156.0]);
+        map._arrayMapBounds.extend([68.5, -156]);
         // console.log('map._arrayMapBounds.extend(arrayLayer.getBounds())');
         // console.log(map._arrayMapBounds);
 
@@ -449,6 +452,7 @@ var TileMap = Backbone.View.extend({
           // });
         // });
 
+        map._isArrayView = true;
         map._setArrayView();
         map._hidePlatformView();
       });

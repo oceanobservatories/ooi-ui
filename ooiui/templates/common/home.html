@@ -122,41 +122,40 @@
       var calculateLayout = function() {
 
           $.when(resizeMap(arrayCollection)).done(function () {
-            if(map._isArrayView) {
+{#            if(map._isArrayView) {#}
               tileMap._setArrayView();
-            }
+{#            }#}
           })
 
       };
 
       // Takes care of the strange size of the map
       var lazyLayout = _.debounce(calculateLayout, 300);
-      $(window).resize(lazyLayout);
-      {#window.onresize = function(event) {
+{#      window.onresize(lazyLayout);#}
+      window.onresize = function(event) {
         console.log('map onresize event');
-        if(map._isArrayView) {
-          $.when(resizeMap(arrayCollection)).done(function () {
-              tileMap._setArrayView();
-          })
-        }
-      };#}
+        lazyLayout();
+      };
 
       var resizeMap = (function(arrayCollection) {
         vpw = $(window).width() - 200;
         //50 pixels for the h3 heading
         var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
         vph = $('#wrapper').height() - sectionHeight - 10;
-        $('#map').css({'height': vph + 'px'});
+        $('#map').css('height', vph + 'px');
         //$('.array-content').css({'height': vph + 'px'});
         $('.array-content').css({'height': "100%"});
         //select the size of the objects based on the array length, adjust for border
         $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
       });
 {#      resizeMap(arrayCollection);#}
-      lazyLayout();
+      $.when(tileMap).done(function() {
+        lazyLayout();
+      });
 
       } catch(err) {
         console.log('error');
+        console.log(err);
       }
 
       ooi.start();

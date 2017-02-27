@@ -169,6 +169,8 @@ var ArrayContentSummary = ParentView.extend({
 
     // prepend the arrays to the page.
     setTimeout(function() {
+      // var vpw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      // var vph = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       arrayContentContext.$el.prepend(arrayContentSummaryItem);
       $('.js-expand').css({height: Math.floor(vph/arrayContentContext.collection.arrayCollection.length) -
       2 * arrayContentContext.collection.arrayCollection.length + 'px'});
