@@ -1,5 +1,26 @@
 [
     {
+        "VersionNumber":"1.2.2",
+        "VersionDate":"2017-02-14",
+        "VersionDescription":[
+            "Corrected the creation of parameter definitions in preload. (12010)",
+            "Corrected issue in machine-to-machine request which resulted in gateway timeout. (11995)",
+            "Corrected the over-estimate for processing time of user requested downloads. (11871)",
+            "Corrected issue where aggregation of requested download could hang. (11982)",
+            "Added column contraints for QCFlag and StatusLevel to prevent asset management server errors. (11947)",
+            "Improved performance of asynchronous download aggregation. (11952)",
+            "Cleaned up the sensor inventory service. Error messages are now reported to the user. (11775)",
+            "Finished edit phase for assets, deployments and cruises. (11765)",
+            "Added support for rolling up status from instruments to nodes. (11833)",
+            "Added (de)commission dates in deployment event for asset management. (11564)",
+            "Corrected the sequence name when annotation is created. (11851)",
+            "Migrated the preload database from SQLite to Postgres. (11839)",
+            "Corrected an error where queries to ingest history would fail due to missing enqueue or dequeue times. (11754)",
+            "Improved the estimation of size/time for user download requests (11827, 11871)",
+            "Removed the legacy annotation service. (11811)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.1",
         "VersionDate":"2017-01-17",
         "VersionDescription":[
