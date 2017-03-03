@@ -100,14 +100,14 @@
                 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
                   <li class="active default-tab-option"><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>
                   <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>
-{#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
+                  {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
                   <li><a href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment</a></li>
-{#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
-{#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
+                  {#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
+                  {#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
                   <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>
                   <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>
                   <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>
-{#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
+                  {#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
                   <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>
                 </ul>
               </div>
@@ -140,7 +140,7 @@
                     </div>
                   </div>
 
-{#                  <div class="tab-pane fade" id="events-cruise">
+                  {#                  <div class="tab-pane fade" id="events-cruise">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -166,7 +166,7 @@
                     </div>
                   </div>
 
-{#                  <div class="tab-pane fade" id="events-integration">
+                  {#                  <div class="tab-pane fade" id="events-integration">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -179,7 +179,7 @@
                     </div>
                   </div>#}
 
-                 {# <div class="tab-pane fade" id="events-location">
+                  {# <div class="tab-pane fade" id="events-location">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
                       <div class="panel">
                         <div class="panel-body">
@@ -298,14 +298,14 @@
     var gridIdLookup = {};
     gridIdLookup["#events-acquisition"] = "gridEventsAcquisition";
     gridIdLookup["#events-calibration"] = "gridEventsCalibration";
-{#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
+    {#    gridIdLookup["#events-cruise"] = "gridEventsCruise";#}
     gridIdLookup["#events-deployment"] = "gridEventsDeployment";
-{#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
-{#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
+    {#    gridIdLookup["#events-integration"] = "gridEventsIntegration";#}
+    {#    gridIdLookup["#events-location"] = "gridEventsLocation";#}
     gridIdLookup["#events-retirement"] = "gridEventsRetirement";
     gridIdLookup["#events-status"] = "gridEventsStatus";
     gridIdLookup["#events-storage"] = "gridEventsStorage";
-{#    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";#}
+    {#    gridIdLookup["#events-unspecified"] = "gridEventsUnspecified";#}
     gridIdLookup["#events-vendor"] = "gridEventsVendor";
 
 
@@ -341,9 +341,9 @@
           $('.container-fluid.banner-image').addClass('news-active')
         }
 
-{#        this.listenTo(vent, "asset:renderDocsTable", function(model) {#}
-{#          renderRemoteDocuments(model);#}
-{#        });#}
+        {#        this.listenTo(vent, "asset:renderDocsTable", function(model) {#}
+        {#          renderRemoteDocuments(model);#}
+        {#        });#}
 
         this.listenTo(this, "login:success", this.onLogin);
         this.listenTo(this, "login:logout", this.onLogout);
@@ -385,18 +385,18 @@
 
     // Main collection for this page's asset information.
     var collection          = new AssetCollection();
-{#    var assetCollection     = new AssetCollection();#}
-{#    var arrayCollection     = new ArrayCollection();#}
-{#    var streamCollection    = new StreamCollection();#}
+    {#    var assetCollection     = new AssetCollection();#}
+    {#    var arrayCollection     = new ArrayCollection();#}
+    {#    var streamCollection    = new StreamCollection();#}
 
     var ooi = new OOI();
 
     // url arguments
     var data = { min : 'True' };
     // begin the iterative fetching of arrays, assets, and streams.
-{#    var arrayFetch = arrayCollection.fetch({ reset: true });#}
-{#    var assetFetch = assetCollection.fetch({ data: data, reset: true });#}
-{#    var streamFetch = streamCollection.fetch({ data: data,  reset: true });#}
+    {#    var arrayFetch = arrayCollection.fetch({ reset: true });#}
+    {#    var assetFetch = assetCollection.fetch({ data: data, reset: true });#}
+    {#    var streamFetch = streamCollection.fetch({ data: data,  reset: true });#}
 
     var globalFilter = null;
 
@@ -446,8 +446,8 @@
       var actionButtons = "<div style='display: flex;justify-content: space-between;'>";
       if (!_.isNull(rowObject.ref_des)){
         actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
-      {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
-      {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
+        {#      actionButtons += "<button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick=\"openDownload('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";#}
+        {#      actionButtons += "<button type='button' title='Data Catalog' style='float:left' id='goDataCatalog' class='btn btn-default' onclick=\"openDataCatalog('"+rowObject.ref_des+"');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-database' aria-hidden='true'></i></button>";#}
       }else{
         actionButtons += "<button type='button' title='Data Access & Visualization' style='float:left' id='goPlot' class='btn btn-default' onclick=\"openPlot('"+rowObject.ref_des+"');\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-bar-chart' aria-hidden='true'></i></button>";
       }
@@ -458,7 +458,7 @@
     // Opens the plotting page
     var openPlot = function(ref_des){
       location.origin = location.protocol + "//" + location.host;
-      var win = window.open(location.origin+"/data_access/#"+ref_des, '_blank');
+      var win = window.open(location.origin+"/data_access/?search="+ref_des, '_blank');
       win.focus();
     };
 
@@ -804,9 +804,9 @@
             var assetTableData = jsondata.responseJSON.assets;
             assetTableData['actions'] = '';
             $dcGrid.setGridParam({data:assetTableData});
-{#            resetTable();#}
+            {#            resetTable();#}
             $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);
-{#            resetTable();#}
+            {#            resetTable();#}
           }
         },
         error: function( req, status, err ) {
@@ -1016,8 +1016,8 @@
       jsonmap : 'lastModifiedTimestamp',
       editrules: {required:false, edithidden:false},
       editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},
-{#      formatter : 'date',#}
-{#      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},#}
+      {#      formatter : 'date',#}
+      {#      formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},#}
       editable : true,
       hidden : true,
       sortable : true,
@@ -1131,8 +1131,8 @@
       var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       var currentUser = null;
       if(ooi.login.loggedIn()) {
-          currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
-        }
+        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+      }
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
         if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
           pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
@@ -1159,13 +1159,13 @@
           'Name',
           'Owner',
           'Asset Type',
-{#          'Augmented',#}
-{#          'Coordinates',#}
+          {#          'Augmented',#}
+          {#          'Coordinates',#}
           'Data Source',
           'Deployment Number',
           'Deployment Numbers',
           'Depth',
-{#          'Has Deployment Event',#}
+          {#          'Has Deployment Event',#}
           'UID',
           'Firmware Version',
           'Manufacturer',
@@ -1191,7 +1191,7 @@
           'Purchase Price',
           'Purchase Date',
           'Reference Designator',
-{#          'Remote Documents',#}
+          {#          'Remote Documents',#}
           'Remote Resources',
           'Last Modified',
           'Latitude',
@@ -1391,7 +1391,7 @@
                   }
                 }
               ]
-{#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
+              {#              ,dataInit: function(element) { $(element).prop("disabled", "true"); }#}
             },
             editable : true,
             edittype : 'select',
@@ -1851,7 +1851,7 @@
             editrules: {required:false, edithidden:false},
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : false,
-{#            edittype : 'button',#}
+            {#            edittype : 'button',#}
             hidden : true,
             sortable : true,
             sorttype : 'string',
@@ -2050,10 +2050,10 @@
                 }
               );
             }else {
-            alert("Please log in.");
+              alert("Please log in.");
+            }
           }
-          }
-{#          $dcGrid.jqGrid('GridToForm', id);#}
+          {#          $dcGrid.jqGrid('GridToForm', id);#}
         },
         loadComplete : function() {
           $("#navGrid").find("option[value=\"50000\"]").text('All');
@@ -2100,11 +2100,11 @@
           refreshEventTable($('.nav-tabs .active').find("a").attr("name"),targetGrid);
 
           // ref_des, cruise, array
-{#          // console.log($dcGrid.getRowData(rowId).ref_des);#}
-{#          // console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
-{#          var uniqueCruiseIdnetifier = null;#}
-{#          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);#}
-{#          renderRemoteDocuments('', 'OC-1410A', 'Coastal Endurance');#}
+          {#          // console.log($dcGrid.getRowData(rowId).ref_des);#}
+          {#          // console.log($dcGrid.getRowData(rowId).assetInfo.array);#}
+          {#          var uniqueCruiseIdnetifier = null;#}
+          {#          renderRemoteDocuments('', uniqueCruiseIdentifier, $dcGrid.getRowData(rowId).assetInfo.array);#}
+          {#          renderRemoteDocuments('', 'OC-1410A', 'Coastal Endurance');#}
 
           {#          var theDataUrl = "/api/asset_events";#}
           {#          if (!_.isUndefined(currentAssetId) && !_.isNull(currentAssetId)) {#}
@@ -2189,10 +2189,10 @@
             $('#mobile').attr('style','width:30px;height:30px;');
           },
           onClose: function() {
-{#            refreshAssetTable();#}
-{#            ooi.collection.fetch();#}
-{#            $dcGrid.setGridParam({data:collection.toJSON()});#}
-{#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
+            {#            refreshAssetTable();#}
+            {#            ooi.collection.fetch();#}
+            {#            $dcGrid.setGridParam({data:collection.toJSON()});#}
+            {#            $dcGrid.trigger("reloadGrid",[{page:1,current:true}]);#}
           },
           afterSubmit : function(response, postdata)
           {
@@ -2226,19 +2226,19 @@
             }
 
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
-{#            // console.log(selRows);#}
+            {#            // console.log(selRows);#}
             var currentRowData = $dcGrid.getRowData(selRows);
             // console.log('currentRowData');
             // console.log(currentRowData);
             var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
-{#            // console.log(theColModel);#}
-{#            // console.log(postdata);#}
+            {#            // console.log(theColModel);#}
+            {#            // console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
-{#              // console.log(theName);#}
+              {#              // console.log(theName);#}
               if (!(theName in postdata) && (theName != 'actions')) {
-{#                // console.log(currentRowData[theName]);#}
+                {#                // console.log(currentRowData[theName]);#}
                 if(theName == 'deployment_numbers'){
                   postdata[theName] = "["+currentRowData[theName]+"]";
                 } else {
@@ -2272,7 +2272,7 @@
                   postdata[theName] = "[]";
                 }
               };
-{#              // console.log(postdata[theName]);#}
+              {#              // console.log(postdata[theName]);#}
             });
             // console.log('Full postdata');
             // console.log(postdata);
@@ -2335,13 +2335,13 @@
             }
 
             var selRows = $dcGrid.jqGrid('getGridParam','selrow');
-{#            // console.log(selRows);#}
+            {#            // console.log(selRows);#}
             var currentRowData = $dcGrid.getRowData(selRows);
             // console.log('currentRowData');
             // console.log(currentRowData);
             var theColModel = $dcGrid.jqGrid('getGridParam', 'colModel');
-{#            // console.log(theColModel);#}
-{#            // console.log(postdata);#}
+            {#            // console.log(theColModel);#}
+            {#            // console.log(postdata);#}
             $.each(theColModel, function() {
               var cm1 = this;
               var theName = cm1.name;
@@ -2447,16 +2447,16 @@
         title: "Choose columns",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-{#            						width: 700,#}
-{#            						dlog_opts: {#}
-{#            							modal: false,#}
-{#            							minWidth: 700,#}
-{#            							height: 470,#}
-{#            							show: 'blind',#}
-{#            							hide: 'explode',#}
-{#            							dividerLocation: 1,#}
-{#                          classes: "column-chooser"#}
-{#            						}#}
+            {#            						width: 700,#}
+            {#            						dlog_opts: {#}
+            {#            							modal: false,#}
+            {#            							minWidth: 700,#}
+            {#            							height: 470,#}
+            {#            							show: 'blind',#}
+            {#            							hide: 'explode',#}
+            {#            							dividerLocation: 1,#}
+            {#                          classes: "column-chooser"#}
+            {#            						}#}
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
@@ -2924,7 +2924,7 @@
         editable : true,
         sortable : false,
         sorttype : 'string',
-{#        formatter : formatterStringToList,#}
+        {#        formatter : formatterStringToList,#}
         searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
         align : 'center',
         unformat : function (cellvalue, options, cell) {
@@ -3093,25 +3093,25 @@
     };
 
     // DEPLOYMENT
-{#      "deployCruiseIdentifier": "TN-299",
-        "deploymentNumber": 1,
-        "depth": 0.0,
-        "editPhase": "OPERATIONAL",
-        "endTime": 1468713600000,
-        "eventId": 42541,
-        "latitude": 44.5097,
-        "longitude": -125.40526,
-        "mooring_uid": "ATAPL-65244-010-0023",
-        "node": "MJ01A",
-        "node_uid": null,
-        "orbitRadius": 0.0,
-        "recoverCruiseIdentifier": null,
-        "sensor": "06-PRESTA101",
-        "sensor_uid": "ATAPL-67639-00004",
-        "startTime": 1375931986000,
-        "subsite": "RS01SLBS",
-        "versionNumber": 1,
-        "waterDepth": null#}
+    {#      "deployCruiseIdentifier": "TN-299",
+            "deploymentNumber": 1,
+            "depth": 0.0,
+            "editPhase": "OPERATIONAL",
+            "endTime": 1468713600000,
+            "eventId": 42541,
+            "latitude": 44.5097,
+            "longitude": -125.40526,
+            "mooring_uid": "ATAPL-65244-010-0023",
+            "node": "MJ01A",
+            "node_uid": null,
+            "orbitRadius": 0.0,
+            "recoverCruiseIdentifier": null,
+            "sensor": "06-PRESTA101",
+            "sensor_uid": "ATAPL-67639-00004",
+            "startTime": 1375931986000,
+            "subsite": "RS01SLBS",
+            "versionNumber": 1,
+            "waterDepth": null#}
 
     {#    {#}
     {#        "deployment_number": 1,#}
@@ -3140,7 +3140,6 @@
       'Orbit Radius',
       'Start Date',
       'End Date',
-      'Event Type',
       'Latitude',
       'Longitude',
       'Mooring UID',
@@ -3272,9 +3271,32 @@
           return $('input', cell).val() || cellvalue;
         }
       },
-      eventStartTimeCol,
-      eventStopTimeCol,
-      eventTypeCol,
+      {
+        name : 'startTime',
+        index : 'startTime',
+        jsonmap : 'startTime',
+        editrules: {required:false, edithidden:true},
+        formatter : 'date',
+        formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+        editable : true,
+        sortable : true,
+        sorttype : 'date',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center'
+      },
+      {
+        name : 'endTime',
+        index : 'endTime',
+        jsonmap : 'endTime',
+        editrules: {required:false, edithidden:true},
+        formatter : 'date',
+        formatoptions : {srcformat: 'U/1000',newformat: 'ISO8601Long'},
+        editable : true,
+        sortable : true,
+        sorttype : 'date',
+        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+        align : 'center'
+      },
       eventLatitudeCol,
       eventLongitudeCol,
       {
@@ -3666,7 +3688,7 @@
       'Start Date',
       'End Date',
       'Event Type',
-{#      'Location',#}
+      {#      'Location',#}
       'Notes',
       'Reason',
       'Severity',
@@ -3682,20 +3704,20 @@
       eventStartTimeCol,
       eventStopTimeCol,
       eventTypeCol,
-{#      {#}
-{#        name : 'location',#}
-{#        index : 'location',#}
-{#        editrules: {required:false, edithidden:true},#}
-{#        editable : true,#}
-{#        hidden : false,#}
-{#        sortable : true,#}
-{#        sorttype : 'string',#}
-{#        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
-{#        align : 'center',#}
-{#        unformat : function (cellvalue, options, cell) {#}
-{#          return $('input', cell).val() || cellvalue;#}
-{#        }#}
-{#      },#}
+      {#      {#}
+      {#        name : 'location',#}
+      {#        index : 'location',#}
+      {#        editrules: {required:false, edithidden:true},#}
+      {#        editable : true,#}
+      {#        hidden : false,#}
+      {#        sortable : true,#}
+      {#        sorttype : 'string',#}
+      {#        searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},#}
+      {#        align : 'center',#}
+      {#        unformat : function (cellvalue, options, cell) {#}
+      {#          return $('input', cell).val() || cellvalue;#}
+      {#        }#}
+      {#      },#}
       notesCol,
       {
         name : 'reason',
@@ -4297,8 +4319,8 @@
       var pagerOptions = {add:false, view:true, del:false, refresh:false, edit:false,pdf:false,search:true};
       var currentUser = null;
       if(ooi.login.loggedIn()) {
-          currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
-        }
+        currentUser = ooi.models.userModel.fetch({url: '/api/current_user', async:false});
+      }
       if (!_.isNull(currentUser) && !_.isUndefined(currentUser.responseJSON.scopes)){
         if($.inArray("asset_manager", currentUser.responseJSON.scopes) >= 0){
           pagerOptions = {add:true, view:true, del:false, refresh:false, edit:true,pdf:false,search:true};
@@ -4521,7 +4543,7 @@
           },
           beforeShowForm: function(id) {
             $('#eventName').attr('readonly',true);
-{#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             $('#eventType').val(eventName);
             if (eventName != 'CALIBRATION_DATA'){
               $('#tr_eventName').hide();
@@ -4728,9 +4750,9 @@
       placeJqGridEvents("gridEventsVendor", "ATVENDOR");
 
       placeJqGridEvents("gridEventsDeployment", "DEPLOYMENT");
-{#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
-{#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
-{#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
+      {#      placeJqGridEvents("gridEventsIntegration", "INTEGRATION");#}
+      {#      placeJqGridEvents("gridEventsLocation", "LOCATION");#}
+      {#      placeJqGridEvents("gridEventsUnspecified", "UNSPECIFIED");#}
       refreshAssetTable();
     };
 
@@ -4738,15 +4760,15 @@
       //clear out the old events table panel DOM
       $('div#remoteDocuments table tbody').remove();
 
-{#      var ref_des = model.get('ref_des');#}
-{#      var cruise = null;#}
-{#      var array = model.get('assetInfo').array;#}
+      {#      var ref_des = model.get('ref_des');#}
+      {#      var cruise = null;#}
+      {#      var array = model.get('assetInfo').array;#}
 
-{#      _.each( model.attributes.metaData, function(item){#}
-{#        if (item.key == "Cruise Number"){#}
-{#          cruise = item['value'];#}
-{#        }#}
-{#      });#}
+      {#      _.each( model.attributes.metaData, function(item){#}
+      {#        if (item.key == "Cruise Number"){#}
+      {#          cruise = item['value'];#}
+      {#        }#}
+      {#      });#}
 
       var data = { 'search': ref_des,'cruise': cruise,'array':array};
 
@@ -4774,15 +4796,15 @@
     };
 
     var populate = function() {
-{#      updateCollection( showAssets );#}
+      {#      updateCollection( showAssets );#}
       showAssets();
     };
 
-{#    var updateCollection = function(successCallback){#}
-{#      collection.fetch({#}
-{#        success : successCallback#}
-{#      });#}
-{#    };#}
+    {#    var updateCollection = function(successCallback){#}
+    {#      collection.fetch({#}
+    {#        success : successCallback#}
+    {#      });#}
+    {#    };#}
 
     var eventLocationFormatter = function(cellvalue) {
       return cellvalue[0].toString() + ", " + cellvalue[1].toString()

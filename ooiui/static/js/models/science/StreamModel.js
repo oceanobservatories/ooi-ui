@@ -39,7 +39,11 @@ var StreamModel = Backbone.Model.extend({
     longitude: "",
     depth: "",
     freshness: "",
-    reference_designator_first14chars:""
+    reference_designator_first14chars:"",
+    iris_enabled: false,
+    iris_link: "",
+    rds_enabled: false,
+    rds_link: ""
   },
 
   getURL: function(type) {

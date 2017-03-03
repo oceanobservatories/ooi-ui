@@ -3,7 +3,8 @@ body, html {
   overflow: hidden;
   height:100%;
 }
-#element::-webkit-scrollbar {
+
+#map::-webkit-scrollbar {
     display: none;
 }
 
@@ -17,8 +18,8 @@ body, html {
 
 #right {
     padding: 0;
-    right: 0px;
-    position: absolute;
+    right: 0;
+    position: fixed;
 }
 
 #wrapper{
@@ -26,7 +27,9 @@ body, html {
     overflow-y: scroll;
 }
 
-
+.row{
+    overflow: hidden;
+}
 
 .home-page .js-array:hover{
 }
@@ -42,7 +45,7 @@ body, html {
 
 .home-page .js-array .panel-heading h4 {
     position: relative;
-    background-color: #5c9ccc;
+    /*background-color: #5c9ccc;*/
     display: inline-block;
     width: 100%;
     padding: 5px;
@@ -75,10 +78,10 @@ body, html {
 }
 
 
-.home-page .fade {
-    opacity: 0;
-    transition: all 1;
-}
+/*.home-page .fade {*/
+    /*opacity: 0;*/
+    /*transition: all 1s;*/
+/*}*/
 
 .mydivicon{
     border-radius: 58px;

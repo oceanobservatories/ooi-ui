@@ -1,51 +1,19 @@
 
 <!-- Science -->
-<li class="dropdown" style='top:8px;cursor:pointer'>
-  <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Science
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="Science">
-    <li role="presentation">
-    </li>
-    <li>
-      <a href="/data_access">
-        <i class="fa fa-th" style='padding-right: 10px;'> </i>  Data Access & Plotting
-      </a>
-    </li>
-    <li>
-       <a href="/cameras">
-            <i class="fa fa-video-camera" style='padding-right: 10px;'> </i>  Cameras
-      </a>
-    </li>
-    <li>
-       <a href="/streamingdata">
-            <i class="fa fa-rss" style='padding-right: 10px;'> </i>  Streaming Data
-      </a>
-    </li>
 
-    <% if(user !== null && user.get('scopes').indexOf('data_manager') !== -1){ %>
-    <li>
-        <a href="/dataadmin">
-            <i class="fa fa-gear" style='padding-right: 10px;'> </i>Data Admin
-        </a>
-    </li>
-    <% } %>
-	</ul>
-</li>
 
 <!-- Status -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <a class="dropdown-toggle" type="button" id="dropdownMenuStatus" data-toggle="dropdown" aria-expanded="true">
         Status
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="Status">
-        <li role="presentation">
+        <!--<li role="presentation">
             <a href="/statusnav">
                 <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Status Navigation
             </a>
-        </li>
+        </li>-->
         <li role="presentation">
             <a href="/status">
                 <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Alert & Alarm Dashboard
@@ -65,34 +33,12 @@
 </li>
 
 <!-- Asset Management -->
-<li class="dropdown" style='top:8px;cursor:pointer'>
-    <a class="dropdown-toggle" type="button" id="dropdownMenuAM" data-toggle="dropdown" aria-expanded="true">
-        Asset Management
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="Assets">
-        <li role="presentation">
-            <a href="/assets/management">
-                <i class="fa fa-sitemap" style='padding-right: 13px;'></i><span style="text-align:left;padding-left:3px;">Assets & Events</span>
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/assets/cruises">
-                <i class="fa fa-ship" style='padding-right: 13px;'> </i><span style="text-align:left;padding-left:0px;">Cruises</span>
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/assets/deployments">
-                <i class="fa fa-forward" style='padding-right: 13px;'> </i><span style="text-align:left;padding-left:0px;">Deployments</span>
-            </a>
-        </li>
-    </ul>
-</li>
+
 
 <% if(user !== null && user.get('scopes').indexOf('command_control') !== -1){ %>
 <!-- C2 -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <a class="dropdown-toggle" type="button" id="dropdownMenuC2" data-toggle="dropdown" aria-expanded="true">
         Command & Control
         <span class="caret"></span>
     </a>

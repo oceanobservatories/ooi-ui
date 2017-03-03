@@ -7,10 +7,10 @@
 /*******************/
 
 div#plottingBody {
-  margin-left: 20px;
-  padding-right: 50px;
+  margin-left: 5px;
+  padding-right: 5px;
   max-height: 700px;
-  max-width: 1560px;
+  max-width: 100%;
   min-width: 881px;
 }
 /* ~vertical buttons on sidebar~ */

@@ -18,8 +18,9 @@
 var DataAvailabilityModel = Backbone.Model.extend({
   urlRoot: '/api/data_availability',
   defaults: {
-    ref_des: "",
-    stats_data: {}
+    categories: {},
+    data: [],
+    measure: ""
   }
 });
 
@@ -28,7 +29,7 @@ var DataAvailabilityCollection = Backbone.Collection.extend({
   model: DataAvailabilityModel,
   parse: function(response) {
     if(response) {
-      return response;
+      return response.availability;
     }
     return [];
   }

@@ -5,6 +5,11 @@
     bottom: 0;
     position: absolute;
 }
+
+#map::-webkit-scrollbar {
+ display: none;
+}
+
 div#wrapper.home-page {
     width: 100%;
 }

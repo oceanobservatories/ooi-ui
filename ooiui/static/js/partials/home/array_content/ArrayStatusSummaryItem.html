@@ -9,9 +9,9 @@
           <% } else if(properties.status.operational > 0) { %>
           <i class="fa fa-circle pull-left" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= properties.status.operational %>"></i>
           <% } else if(properties.status.notTracked > 0) { %>
-          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= properties.status.notTracked %>"></i>
+          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= properties.status.notTracked %>"></i>
           <% } else if(properties.status.removedFromService > 0) { %>
-          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= properties.status.removedFromService %>"></i>
+          <i class="fa fa-circle pull-left" aria-hidden="true" style="color: black; font-size: 16px;" title="<%= properties.status.removedFromService %>"></i>
           <% } else { %>
           <i class="fa fa-circle pull-left" aria-hidden="true" style="color: white; font-size: 16px;" title="No Match"></i>
           <% } %>
@@ -156,7 +156,7 @@
                 <tr data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
                     <td width="10%">
                         <ul class="align-center" style="padding-left: 0px;">
-                            <li><a href="/data_access/#<%= platform.properties.code %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
+                            <li><a href="/data_access/?search=<%= platform.properties.code %>"><i class="fa fa-th" title="Data Access & Plotting">&nbsp;</i></a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</li>
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
@@ -172,9 +172,9 @@
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: dimgrey; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
                           <% } else if(platform.properties.status == "notTracked") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "Fetching Status Failed") { %>
+                          <% } else if(platform.properties.status == "fetchingStatusFailed") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
-                          <% } else if(platform.properties.status == "No Status Returned") { %>
+                          <% } else if(platform.properties.status == "noStatusReturned") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: white; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>
                           <% } else if(platform.properties.status == "operational") { %>
                             <li><i class="fa fa-circle" aria-hidden="true" style="color: blue; font-size: 16px;" title="<%= platform.properties.status %>"></i></li>

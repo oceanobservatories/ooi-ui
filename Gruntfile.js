@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           ],
           "ooiui/static/js/partials/compiled/home.js": [
             "ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html",
-            "ooiui/static/js/partials/home/array_content/ArrayStatusSummaryItem.html",
+            //"ooiui/static/js/partials/home/array_content/ArrayStatusSummaryItem.html",
             "ooiui/static/js/partials/home/array_content/PlatformTable.html",
             "ooiui/static/js/partials/home/array_content/PlatformTableItem.html"
           ],
@@ -966,6 +966,7 @@ module.exports = function(grunt) {
             'ooiui/static/js/models/asset_management/PlatformDeploymentModel.js',
             'ooiui/static/js/models/science/ArrayModel.js',
             'ooiui/static/js/models/science/ArrayStatusModel.js',
+            'ooiui/static/js/models/asset_management/SiteStatusModel.js',
             'ooiui/static/js/models/science/StreamModel.js',
             'ooiui/static/js/models/common/MessageModel.js',
             'ooiui/static/js/models/common/LoginModel.js',
@@ -1914,6 +1915,7 @@ module.exports = function(grunt) {
         ],
         "ooiui/static/js/compiled/genericPlatFormsStatus.js": [
             'ooiui/static/js/models/asset_management/PlatformStatusModel.js',
+            'ooiui/static/js/models/asset_management/PlatformsStatusModel.js',
             'ooiui/static/js/models/science/StreamStatusModel.js',
             'ooiui/static/js/views/platforms/GenericPlatFormStatusView.js',
             'ooiui/static/js/views/platforms/GenericPlatFormTableView.js'

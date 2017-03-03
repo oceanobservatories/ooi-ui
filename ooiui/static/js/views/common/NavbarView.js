@@ -81,8 +81,10 @@ var NavbarView = Backbone.View.extend({
       userModel.fetch({
         url: '/api/current_user',
         success: function() {
-          self.$el.find('#dropdownMenu1').toggle();
-          self.$el.find('#dropdownMenuAM').toggle();
+          // self.$el.find('#dropdownMenuScience').toggle();
+          self.$el.find('#dropdownMenuStatus').toggle();
+          // self.$el.find('#dropdownMenuAM').toggle();
+          self.$el.find('#dropdownMenuC2').toggle();
           self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
         },
         error: function() {

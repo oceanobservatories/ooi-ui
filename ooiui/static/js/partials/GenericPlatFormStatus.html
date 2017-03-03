@@ -147,20 +147,20 @@
         case 'RS03CCAL':
         case 'RS03ASHS':
         case 'RS01SUM2':
-            image = '/img/platform/cabled_array/med_pow.png';
+            image = '/img/platform/cabled_array/Med_Pow.png';
             break;
 
         case 'RS01SUM1':
-            image = '/img/platform/cabled_array/low_pow.png';
+            image = '/img/platform/cabled_array/Low_Pow.png';
             break;
 
         case 'RS03AXBS':
         case 'RS01SLBS':
             if (siteInfo.refDes.indexOf('MJ') !== -1) {
-                image = '/img/platform/cabled_array/med_pow.png';
+                image = '/img/platform/cabled_array/Med_Pow.png';
                 break;
             } else {
-                image = '/img/platform/cabled_array/low_pow.png';
+                image = '/img/platform/cabled_array/Low_Pow.png';
                 break;
             }
 
@@ -201,15 +201,32 @@
 </script>
 
 <style type="text/css">
-    #largeImgPanel {
-        text-align: center;
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-color: rgba(100,100,100, 0.5);
-        overflow-y: scroll;
-    }
+  #largeImgPanel {
+    text-align: center;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(100,100,100, 0.5);
+    overflow-y: scroll;
+  }
+
+  .tdulliFormat ul {
+    width: 50px;
+    display: table;
+    table-layout: fixed;
+  }
+  .tdulliFormat ul li {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .tdulliFormat ul li a {
+    display: inline-block;
+  }
+
+  .tdulliFormat td {
+    width: 50px;
+  }
 
 </style>
 
@@ -238,20 +255,18 @@
           <% //console.log(model); %>
                 <div class="panel">
                     <div class="panel-heading" >
-                        <h4 class="js-expand" data-target="#<%= model.refDes.substr(9,2) %>"><%= model.name || model.refDes.substr(9,2) %><small class="refDesLabel" style="display:none"> <%= (model.name) ? '(' + model.refDes.substr(9,2) + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
+                        <h4 class="js-expand" data-target="#<%= model.refDes %>"><%= model.name || model.refDes %><small class="refDesLabel" style="display:none"> <%= (model.name) ? '(' + model.refDes + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
                     </div>
-                    <!-- <div id="<%=  model.refDes.substr(9,2) %>" class="panel&#45;body" style="display: none;"> -->
-                    <div id="<%=  model.refDes.substr(9,2) %>" class="panel-body" style="display: none">
-                        <table id="<%= model.refDes %>" class="table table-default">
+                    <div id="<%=  model.refDes %>" class="panel-body" style="display: none">
+                        <table id="site_<%= model.refDes %>" class="table table-default">
                             <thead>
                                 <tr>
-                                    <th>Instrument</th>
-                                    <th>Status</th>
-                                    <th>Deployment Depth</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Data Access & Plotting</th>
-                                    <th>Asset Management</th>
+                                    <th style="width: 75px;">Navigation</th>
+                                    <th style="width: 300px;">Instrument</th>
+                                    <th style="width: 100px;">Status</th>
+                                    <th style="width: 100px;">Deployment Depth</th>
+                                    <th style="width: 175px;">Start Time</th>
+                                    <th style="width: 175px;">End Time</th>
                                 </tr>
                             </thead>
                         </table>
@@ -286,5 +301,4 @@
              style=" margin:0; padding-bottom:50px; padding-top:150px;" />
             <h3><small>Click on the image to close it.</small></h3>
         </div>
-    </div>
 </div>
