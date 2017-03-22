@@ -30,7 +30,7 @@
     "fancytree": "~2.4.1",
     "font-awesome": "~4.4.0",
     "jquery-ui": "~1.11.2",
-    "bootstrap-switch": "~3.3.2",
+    "bootstrap-switch": "~3.3.4",
     "backbone": "~1.1.2",
     "backbone-validation": "~0.9.1",
     "backbone.stickit": "~0.8.0",

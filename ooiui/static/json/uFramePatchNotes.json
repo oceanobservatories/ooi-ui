@@ -1,5 +1,15 @@
 [
     {
+        "VersionNumber":"1.2.3",
+        "VersionDate":"2017-03-22",
+        "VersionDescription":[
+            "Deprecated /events/postto/{uid} interface - users should now post to /events. (12056)",
+            "Removed min/max bin size to allow support for BOTPT L2 data products. (12111)",
+            "Security update to prevent HQL string execution via web service. (12077)",
+            "Corrected an issue where the first automated status event was being created with a flag to update it manually. (12077)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.2",
         "VersionDate":"2017-02-14",
         "VersionDescription":[
