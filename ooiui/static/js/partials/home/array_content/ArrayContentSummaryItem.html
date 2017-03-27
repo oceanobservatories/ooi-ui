@@ -141,7 +141,7 @@
         <table class="table table-stripped">
             <thead><tr>
               <th>Navigation</th>
-              <th>Status</th>
+              <!--<th>Status</th>-->
               <th>Site Name</th>
               <th>Deployment Depth</th>
               <th>Latitude</th>
@@ -158,6 +158,7 @@
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
+                  <!--
                     <td class="tdulliFormat">
                       <ul>
                         <%
@@ -179,6 +180,7 @@
                         <% } %>
                       </ul>
                     </td>
+                    -->
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">
                           <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>

@@ -1,11 +1,11 @@
 [
     {
         "VersionNumber": "1.4.1",
-        "VersionDate": "2017-03-22",
+        "VersionDate": "2017-03-27",
         "VersionDescription": [
             "Plotting: Corrects parameter unit case in drop-down. (12074)",
             "Status: Integration testing in UI. (12013)",
-            "Status: Status indicators added for sites. (8920)"
+            "Status: Status indicators removed on platform pages. (12149)"
         ]
     },
     {
