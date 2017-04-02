@@ -158,7 +158,8 @@
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
-                    <!--<td class="tdulliFormat">
+                  <!--
+                    <td class="tdulliFormat">
                       <ul>
                         <%
                         var instStatus = platform.properties.status;
@@ -178,7 +179,8 @@
                         <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
                       </ul>
-                    </td>-->
+                    </td>
+                    -->
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">
                           <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>
