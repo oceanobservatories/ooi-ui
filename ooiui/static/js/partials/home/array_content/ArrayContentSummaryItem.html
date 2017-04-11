@@ -6,7 +6,10 @@
 %>
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
-        <h4 id="<%= properties.code %>" class="js-expand"><%= properties.description %><i class="fa fa-chevron-down pull-right" style="color: black;"></i></h4>
+        <h4 id="<%= properties.code %>" class="js-expand">
+          <%= properties.description %>
+          <i class="fa fa-chevron-down pull-right" style="color: black;"></i>
+        </h4>
     </div>
     <div class="panel-body js-platform-table" style="display: none">
         <div >
@@ -149,8 +152,19 @@
             </tr></thead>
             <tbody>
 
-                            <% _.each(this.model.attributes.platforms, function(platform) { %>
-                <% //console.log(platform); %>
+                <% _.each(this.model.attributes.platforms, function(platform) { %>
+                  <% // console.log(platform); %>
+                  <%
+                  var cabledArrayDesignator = platform.properties.code;
+                  if (platform.properties.code.substr(0,4) === 'RS01') {
+                    console.log('RS01');
+                    cabledArrayDesignator = 'Continental Margin ' + cabledArrayDesignator;
+                  }
+                  if (platform.properties.code.substr(0,4) === 'RS03') {
+                    console.log('RS03');
+                  cabledArrayDesignator = 'Axial Seamount ' + cabledArrayDesignator;
+                  }
+                  %>
                 <tr id="<%= platform.properties.code %>" data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
                     <td width="10%">
                         <ul class="align-center" style="padding-left: 0px;">
@@ -183,7 +197,7 @@
                     -->
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">
-                          <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= platform.properties.code %>) </small></li>
+                          <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= cabledArrayDesignator %>) </small></li>
                         </ul>
                     </td>
                     <td><%= platform.properties.depth %></td>

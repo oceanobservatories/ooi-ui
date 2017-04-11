@@ -17,7 +17,7 @@ var TileMap = Backbone.View.extend({
         attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
         maxZoom: 12,
         minZoom: 2.6,
-        bounceAtZoomLimits: true
+        bounceAtZoomLimits: false
         // crs: L.CRS.EPSG3857
       });
 
@@ -40,15 +40,15 @@ var TileMap = Backbone.View.extend({
         layers: 'topo',
         format: 'image/png',
         transparent: true,
-        // bounceAtZoomLimits: true,
+        bounceAtZoomLimits: false,
         // crs: L.CRS.EPSG4326,
         crs: L.CRS.EPSG3857
       });
 
       var map = new L.map(this.id, {
-        zoomControl: true,
+        zoomControl: false,
         trackResize: true,
-        bounceAtZoomLimits: true
+        bounceAtZoomLimits: false
         // layers: [highResMap]
       });
 
@@ -96,7 +96,7 @@ var TileMap = Backbone.View.extend({
       }).addTo(map);
 
       // Turn on/off map functionalities
-      map.dragging.disable();
+      // map.dragging.disable();
       map.touchZoom.disable();
       map.doubleClickZoom.disable();
       map.scrollWheelZoom.disable();
@@ -149,6 +149,86 @@ var TileMap = Backbone.View.extend({
       map._arrayMapBounds = arrayMapBounds;
       map._gliderTrackLayer = track;
       map._getPlatformBounds = this._getPlatformBounds;
+      map._platformCenter = [0,0];
+      map._platformZoom = 2.6;
+
+      L.Control.zoomHome = L.Control.extend({
+        options: {
+          position: 'topleft',
+          zoomInText: '+',
+          zoomInTitle: 'Zoom in',
+          zoomOutText: '-',
+          zoomOutTitle: 'Zoom out',
+          zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
+          zoomHomeTitle: 'Zoom home'
+        },
+
+        onAdd: function (map) {
+          var controlName = 'gin-control-zoom',
+            container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
+            options = this.options;
+
+          this._zoomInButton = this._createButton(options.zoomInText, options.zoomInTitle,
+            controlName + '-in', container, this._zoomIn);
+          this._zoomHomeButton = this._createButton(options.zoomHomeText, options.zoomHomeTitle,
+            controlName + '-home', container, this._zoomHome);
+          this._zoomOutButton = this._createButton(options.zoomOutText, options.zoomOutTitle,
+            controlName + '-out', container, this._zoomOut);
+
+          this._updateDisabled();
+          map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+
+          return container;
+        },
+
+        onRemove: function (map) {
+          map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+        },
+
+        _zoomIn: function (e) {
+          this._map.zoomIn(e.shiftKey ? 3 : 1);
+        },
+
+        _zoomOut: function (e) {
+          this._map.zoomOut(e.shiftKey ? 3 : 1);
+        },
+
+        _zoomHome: function (e) {
+          map.setView(map._platformCenter, map._platformZoom);
+        },
+
+        _createButton: function (html, title, className, container, fn) {
+          var link = L.DomUtil.create('a', className, container);
+          link.innerHTML = html;
+          link.href = '#';
+          link.title = title;
+
+          L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+            .on(link, 'click', L.DomEvent.stop)
+            .on(link, 'click', fn, this)
+            .on(link, 'click', this._refocusOnMap, this);
+
+          return link;
+        },
+
+        _updateDisabled: function () {
+          var map = this._map,
+            className = 'leaflet-disabled';
+
+          L.DomUtil.removeClass(this._zoomInButton, className);
+          L.DomUtil.removeClass(this._zoomOutButton, className);
+
+          if (map._zoom === map.getMinZoom()) {
+            L.DomUtil.addClass(this._zoomOutButton, className);
+          }
+          if (map._zoom === map.getMaxZoom()) {
+            L.DomUtil.addClass(this._zoomInButton, className);
+          }
+        }
+      });
+
+      var zoomHome = new L.Control.zoomHome();
+      zoomHome.addTo(map);
 
       return map;
 
@@ -294,7 +374,7 @@ var TileMap = Backbone.View.extend({
 
     this.isArrayView = true;
     $('div.leaflet-control-zoom.leaflet-bar.leaflet-control').hide();
-    map.dragging.disable();
+    // map.dragging.disable();
     map.touchZoom.disable();
     map.scrollWheelZoom.disable();
     // When we're in the platform view, we don't want to see any array icons.

@@ -2016,17 +2016,17 @@
           'Platform Name',
           'Node',
           'Instrument',
-          'Reference Designator',
+          'Start Time',
+          'End Time',
+          'Stream Type',
           'Delivery Method',
           'Stream Content',
           'Deployment Depth',
           'Water Depth',
           'Latitude',
           'Longitude',
-          'Start Time',
-          'End Time',
+          'Reference Designator',
           'Stream Identifier',
-          'Stream Type',
           'Unique ID',
           'IRIS Link',
           'IRIS Enabled',
@@ -2110,16 +2110,44 @@
             }
           },
           {
-            name: 'reference_designator',
-            index: 'reference_designator',
-            key: false, // rowID = reference_designator
-            editable: false,
-            width: 195,
-            sortable: true,
-            sorttype: 'string',
-            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
-            align: 'center',
-            unformat: function (cellvalue, options, cell) {
+            name : 'start',
+            index : 'start',
+            editable : false,
+            width : 160,
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'end',
+            index : 'end',
+            editable : false,
+            width : 160,
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            formatter : colorTime,
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+          },
+          {
+            name : 'stream_dataset',
+            index : 'stream_dataset',
+            editable : false,
+            hidden: false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
           },
@@ -2127,7 +2155,7 @@
             name : 'stream_method',
             index : 'stream_method',
             editable : false,
-            hidden: true,
+            hidden: false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2141,7 +2169,7 @@
             name : 'stream_display_name',
             index : 'stream_display_name',
             editable : false,
-            hidden: true,
+            hidden: false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2205,52 +2233,25 @@
             }
           },
           {
-            name : 'start',
-            index : 'start',
-            editable : false,
-            width : 160,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
+            name: 'reference_designator',
+            index: 'reference_designator',
+            key: false, // rowID = reference_designator
+            editable: false,
+            width: 195,
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
-          },
-          {
-            name : 'end',
-            index : 'end',
-            editable : false,
-            width : 160,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            formatter : colorTime,
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
           },
           {
             name : 'stream_name',
             index : 'stream_name',
             {#            key : true,#}
             editable : false,
-            {#                width : 85,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_dataset',
-            index : 'stream_dataset',
-            editable : false,
-            hidden: false,
+            hidden : true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',

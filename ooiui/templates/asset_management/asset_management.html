@@ -1152,7 +1152,6 @@
           'Array',
           'Assembly',
           'Asset Name',
-          'Description',
           'Long Name',
           'Max Depth',
           'Min Depth',
@@ -1167,6 +1166,7 @@
           'Depth',
           {#          'Has Deployment Event',#}
           'UID',
+          'Description',
           'Firmware Version',
           'Manufacturer',
           'Model Number',
@@ -1272,23 +1272,6 @@
             {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
             editable : true,
             hidden : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'assetInfo.description',
-            index : 'assetInfo.description',
-            jsonmap : 'assetInfo.description',
-            editrules: {required:false, edithidden:true},
-            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
-            editable : true,
-            hidden : true,
-            width : 290,
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1474,6 +1457,23 @@
             }
           },
           {
+            name : 'assetInfo.description',
+            index : 'assetInfo.description',
+            jsonmap : 'assetInfo.description',
+            editrules: {required:false, edithidden:true},
+            {#            editoptions:{ dataInit: function(element) { $(element).attr("readonly", "readonly"); }},#}
+            editable : true,
+            hidden : false,
+            width : 290,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
             name : 'manufactureInfo.firmwareVersion',
             index : 'manufactureInfo.firmwareVersion',
             jsonmap : 'manufactureInfo.firmwareVersion',
@@ -1589,7 +1589,23 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          notesCol,
+          {
+            name : 'notes',
+            index : 'notes',
+            jsonmap : 'notes',
+            editrules : {required:false, edithidden:true},
+            editoptions : {rows:"10",cols:"80"},
+            edittype : 'textarea',
+            editable : true,
+            hidden : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            {#        align : 'center',#}
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
           {
             name : 'partData.institutionPropertyNumber',
             index : 'partData.institutionPropertyNumber',

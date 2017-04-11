@@ -278,6 +278,9 @@ var ArrayContentSummaryItem = ParentView.extend({
     // map.setView([5.7, -94], 2.59);
     map._setArrayView();
 
+    map._platformCenter = map.getCenter();
+    map._platformZoom = map.getZoom();
+
     // map.whenReady(function() {
     //     var currentMapBounds = map.getBounds();
     //     map.setMaxBounds(currentMapBounds);
@@ -424,6 +427,8 @@ var ArrayContentSummaryItem = ParentView.extend({
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
       }
+      map._platformCenter = map.getCenter();
+      map._platformZoom = map.getZoom();
       })
     }else{
       this._flyBye();
