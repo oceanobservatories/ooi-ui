@@ -1,8 +1,19 @@
 [
     {
         "VersionNumber": "1.4.1",
-        "VersionDate": "2017-03-27",
+        "VersionDate": "2017-04-11",
         "VersionDescription": [
+            "Data Catalog: Default column changes to Data Catalog. (12062)",
+            "Data Catalog: Default coulmn Description added to AM table. (12024)",
+            "Data Download: Download confirmatin popup false-positive errors resolved. (10205)",
+            "Deployment: Resolved missing data catalog entries. (12088)",
+            "M2M: Enable POST and PUT methods in M2M annotations API for operators with authenticated M2M annotation permissions (12117)",
+            "Map: Added recenter control to map. (12003)",
+            "Navigation: FAQ link moved to oceanobservatories.org path. (12038)",
+            "Navigation: Glossary link moved to oceanobservatories.org path. (12073)",
+            "Navigation: Axial and Continental Margin site filters and grouping split. (10986)",
+            "Navigation: Glider instrument pages split by glider. (12017)",
+            "Navigation: Scrolling updated on landing page. (12011)",
             "Plotting: Corrects parameter unit case in drop-down. (12074)",
             "Status: Integration testing in UI. (12013)",
             "Status: Status indicators removed on platform pages. (12149)"
