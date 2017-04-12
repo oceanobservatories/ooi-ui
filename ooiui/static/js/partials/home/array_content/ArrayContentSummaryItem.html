@@ -138,11 +138,41 @@
 
         </div>
 
+        <%
+            var cabledArray01 = [];
+            var cabledArray03 = [];
+            var regularArray = [];
+            var displayArray = [];
+        %>
+        <% _.each(this.model.attributes.platforms, function(platform) { %>
+            <%
+              if (platform.properties.code.substr(0,4) === 'RS01') {
+                  cabledArray01.push(platform);
+              } else if (platform.properties.code.substr(0,4) === 'RS03') {
+                  cabledArray03.push(platform);
+              } else {
+                  regularArray.push(platform);
+              }
+            %>
+        <% });
+              if (cabledArray01.length > 0 || cabledArray03.length > 0) {
+                  displayArray.push(cabledArray01);
+                  displayArray.push(cabledArray03);
+              } else {
+                  displayArray.push(regularArray);
+              }
+              // console.log(displayArray);
+        %>
+
 
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
 
         <table class="table table-stripped">
-            <thead><tr>
+
+                <%
+                _.each(displayArray, function(currentArray) {
+                %>
+          <thead><tr>
               <th>Navigation</th>
               <!--<th>Status</th>-->
               <th>Site Name</th>
@@ -151,18 +181,18 @@
               <th>Longitude</th>
             </tr></thead>
             <tbody>
-
-                <% _.each(this.model.attributes.platforms, function(platform) { %>
+                <% _.each(currentArray, function(platform) { %>
                   <% // console.log(platform); %>
                   <%
                   var cabledArrayDesignator = platform.properties.code;
+
                   if (platform.properties.code.substr(0,4) === 'RS01') {
-                    console.log('RS01');
+                    // console.log('RS01');
                     cabledArrayDesignator = 'Continental Margin ' + cabledArrayDesignator;
                   }
                   if (platform.properties.code.substr(0,4) === 'RS03') {
-                    console.log('RS03');
-                  cabledArrayDesignator = 'Axial Seamount ' + cabledArrayDesignator;
+                    // console.log('RS03');
+                    cabledArrayDesignator = 'Axial Seamount ' + cabledArrayDesignator;
                   }
                   %>
                 <tr id="<%= platform.properties.code %>" data-code="<%= platform.properties.code %>" data-title="<%= platform.properties.title %>" data-lat="<%= platform.geometry.coordinates[1] %>" data-lon="<%= platform.geometry.coordinates[0] %>">
@@ -204,7 +234,7 @@
                     <td><%= platform.geometry.coordinates[1] %></td>
                     <td><%= platform.geometry.coordinates[0] %></td>
                 </tr>
-                <% }); %>
+                <% }); }); %>
             </tbody>
             <tfoot></tfoot>
         </table>
