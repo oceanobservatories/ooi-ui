@@ -230,7 +230,7 @@
                           <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= cabledArrayDesignator %>) </small></li>
                         </ul>
                     </td>
-                    <td><%= platform.properties.depth %></td>
+                    <td><%= platform.properties.waterDepth %></td>
                     <td><%= platform.geometry.coordinates[1] %></td>
                     <td><%= platform.geometry.coordinates[0] %></td>
                 </tr>

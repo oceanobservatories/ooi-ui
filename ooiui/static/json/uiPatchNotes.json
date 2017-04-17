@@ -14,6 +14,7 @@
             "Navigation: Axial and Continental Margin site filters and grouping split. (10986)",
             "Navigation: Glider instrument pages split by glider. (12017)",
             "Navigation: Scrolling updated on landing page. (12011)",
+            "Navigation: Replaces Deployment Depth with Water Depth in array Sites listing. (10506)",
             "Plotting: Corrects parameter unit case in drop-down. (12074)",
             "Status: Integration testing in UI. (12013)",
             "Status: Status indicators removed on platform pages. (12149)"
