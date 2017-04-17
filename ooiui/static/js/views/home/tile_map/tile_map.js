@@ -96,7 +96,7 @@ var TileMap = Backbone.View.extend({
       }).addTo(map);
 
       // Turn on/off map functionalities
-      // map.dragging.disable();
+      map.dragging.disable();
       map.touchZoom.disable();
       map.doubleClickZoom.disable();
       map.scrollWheelZoom.disable();
@@ -187,6 +187,7 @@ var TileMap = Backbone.View.extend({
 
         _zoomIn: function (e) {
           this._map.zoomIn(e.shiftKey ? 3 : 1);
+          map.dragging.enable();
         },
 
         _zoomOut: function (e) {
@@ -195,6 +196,7 @@ var TileMap = Backbone.View.extend({
 
         _zoomHome: function (e) {
           map.setView(map._platformCenter, map._platformZoom);
+          map.dragging.disable();
         },
 
         _createButton: function (html, title, className, container, fn) {
