@@ -5,7 +5,7 @@
         "VersionDescription": [
             "Data Catalog: Default column changes to Data Catalog. (12062)",
             "Data Catalog: Default coulmn Description added to AM table. (12024)",
-            "Data Download: Download confirmatin popup false-positive errors resolved. (10205)",
+            "Data Download: Download confirmation popup false-positive errors resolved. (10205)",
             "Deployment: Resolved missing data catalog entries. (12088)",
             "M2M: Enable POST and PUT methods in M2M annotations API for operators with authenticated M2M annotation permissions (12117)",
             "Map: Added recenter control to map. (12003)",
@@ -16,7 +16,8 @@
             "Navigation: Scrolling updated on landing page. (12011)",
             "Navigation: Replaces Deployment Depth with Water Depth in array Sites listing. (10506)",
             "Plotting: Corrects parameter unit case in drop-down. (12074)",
-            "Status: Integration testing in UI. (12013)",
+            "Plotting: Plotting of downwelling vector should not have negative range. (12044)",
+            "Status: Status integration testing (UI server). (11996)",
             "Status: Status indicators removed on platform pages. (12149)"
         ]
     },
