@@ -47,7 +47,7 @@ div#wrapper {
   width: 80px;
 }
 .bootstrap-switch-container {
-  width: 138;
+  width: 300px;
 }
 
 span.bootstrap-switch-label {
@@ -58,10 +58,10 @@ span.bootstrap-switch-label {
 span.bootstrap-switch-handle-on.bootstrap-switch-primary,
 span.bootstrap-switch-handle-off.bootstrap-switch-default {
   padding: 3px 12px;
-  width: 38px;
+  width: 100px;
 }
 span.bootstrap-switch-handle-on.bootstrap-switch-primary {
-  width: 42px;
+  width: 100px;
 }
 
 .col-md-5 {

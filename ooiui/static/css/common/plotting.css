@@ -96,7 +96,7 @@ ul.dropdown-menu.inner.selectpicker > li > a:focus {
 }
 
 span.filter-option.pull-left {
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   margin-left: -9px;
   padding-bottom: 5px;
 }

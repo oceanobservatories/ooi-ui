@@ -118,7 +118,7 @@ var ArrayContentSummary = ParentView.extend({
        .byArray(model.attributes.array_code);*/
       //var siteStatusCollection = new SiteStatusCollection();
       arrayContentContext.collection.siteStatusCollection.fetch({timeout: 500, async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
-        arrayContentContext.collection.siteStatusCollection.sortByField('depth','ascending');
+        arrayContentContext.collection.siteStatusCollection.sortByField('waterDepth','ascending');
         // console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
         // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
         var siteGeoJSON = arrayContentContext.collection.siteStatusCollection.toGeoJSON();
@@ -278,6 +278,9 @@ var ArrayContentSummaryItem = ParentView.extend({
     // map.setView([5.7, -94], 2.59);
     map._setArrayView();
 
+    map._platformCenter = map.getCenter();
+    map._platformZoom = map.getZoom();
+
     // map.whenReady(function() {
     //     var currentMapBounds = map.getBounds();
     //     map.setMaxBounds(currentMapBounds);
@@ -424,6 +427,8 @@ var ArrayContentSummaryItem = ParentView.extend({
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
       }
+      map._platformCenter = map.getCenter();
+      map._platformZoom = map.getZoom();
       })
     }else{
       this._flyBye();

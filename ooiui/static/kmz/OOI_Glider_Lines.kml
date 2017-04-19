@@ -12,7 +12,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ff5ea8ff</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -29,7 +29,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ff00ff00</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -46,7 +46,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ff0000ff</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -63,7 +63,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ffff0000</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -80,7 +80,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ffffff00</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -97,7 +97,7 @@
 		</BalloonStyle>
 		<LineStyle>
 			<color>ff999999</color>
-			<width>5</width>
+			<width>3</width>
 		</LineStyle>
 		<PolyStyle>
 			<color>700000ff</color>
@@ -192,9 +192,9 @@
 				<tessellate>0</tessellate>
 				<coordinates>
   				-70.375,40.0833,0
-          -71.167,40.0833,0
-          -71.167,39.833,0
-          -70.375,39.833,0
+                -71.167,40.0833,0
+                -71.167,39.833,0
+                -70.375,39.833,0
   				-70.375,40.0833,0
 				</coordinates>
 			</LineString>
@@ -206,11 +206,11 @@
 				<tessellate>0</tessellate>
 				<coordinates>
   				-71.167,39.833,0
-          -71.167,39.333,0
-          -70.583,39.833,0
-          -70,39.333,0
-          -70,39.833,0
-          -70.583,39.333,0
+                -71.167,39.333,0
+                -70.583,39.833,0
+                -70,39.333,0
+                -70,39.833,0
+                -70.583,39.333,0
   				-71.167,39.833,0
 				</coordinates>
 			</LineString>
@@ -222,11 +222,11 @@
 				<tessellate>0</tessellate>
 				<coordinates>
   				-71.167,39.583,0
-          -70.875,39.833,0
-          -70.292,39.333,0
-          -70,39.583,0
-          -70.292,39.833,0
-          -70.875,39.333,0
+                -70.875,39.833,0
+                -70.292,39.333,0
+                -70,39.583,0
+                -70.292,39.833,0
+                -70.875,39.333,0
   				-71.167,39.583,0
 				</coordinates>
 			</LineString>
@@ -238,9 +238,9 @@
 				<tessellate>0</tessellate>
 				<coordinates>
   				-70.883,39.9,0
-          -70.7071,39.9,0
-          -70.707,39.1,0
-          -70.883,39.1,0
+                -70.7071,39.9,0
+                -70.707,39.1,0
+                -70.883,39.1,0
   				-70.883,39.9,0
 				</coordinates>
 			</LineString>
@@ -255,10 +255,10 @@
 			<LineString>
 				<tessellate>0</tessellate>
 				<coordinates>
-  				-42.51,-42.99,0
-  				-42.89,-42.51,0
-  				-42.13,-42.51,0
-  				-42.51,-42.99,0
+-42.4957,-42.9781,0
+-42.8802,-42.4921,0
+-42.1255,-42.496,0
+-42.4957,-42.9781,0
 				</coordinates>
 			</LineString>
 		</Placemark>
@@ -268,10 +268,10 @@
 			<LineString>
 				<tessellate>0</tessellate>
 				<coordinates>
-  				-38.26,60.61,0
-  				-38.44,60.46,0
-  				-38.08,60.46,0
-  				-38.26,60.61,0
+-39.4886,59.9695,0
+-39.8412,59.8177,0
+-39.3148,59.7155,0
+-39.4886,59.9695,0
 				</coordinates>
 			</LineString>
 		</Placemark>
@@ -281,11 +281,11 @@
 			<LineString>
 				<tessellate>0</tessellate>
 				<coordinates>
-  				-144.8733333333333,50.055,0
-  				-144.25,49.98,0
-  				-144.4,50.33000000000001,0
-  				-144.8733333333333,50.055,0
-				</coordinates>
+-144.806,50.0796,0
+-144.24,49.9743,0
+-144.398,50.3293,0
+-144.806,50.0796,0
+                </coordinates>
 			</LineString>
 		</Placemark>
 		<Placemark>
@@ -294,10 +294,10 @@
 			<LineString>
 				<tessellate>0</tessellate>
 				<coordinates>
-  				-89.28,-54.47,0
-  				-88.89,-54.08000000000001,0
-  				-89.67,-54.08000000000001,0
-  				-89.28,-54.47,0
+-89.3191,-54.4693,0
+-89.6542,-54.1042,0
+-88.9318,-54.0803,0
+-89.3191,-54.4693,0
 				</coordinates>
 			</LineString>
 		</Placemark>

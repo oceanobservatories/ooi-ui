@@ -1,5 +1,14 @@
 [
     {
+        "VersionNumber":"1.2.3",
+        "VersionDate":"2017-03-28",
+        "VersionDescription":[
+            "Fixed an issue where some download requests would fail (11798).",
+		    "Added support for creation of Status events (12012).",
+		    "Added automatic alert generation on instrument status changes and alarm generation when status changes to failed (11920)."
+        ]
+    },
+    {
         "VersionNumber":"1.2.2",
         "VersionDate":"2017-02-14",
         "VersionDescription":[

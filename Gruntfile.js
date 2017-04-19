@@ -1964,7 +1964,7 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/assets.css",
             "ooiui/static/css/common/annotationModal.css",
             "ooiui/static/css/common/errorModal.css",
-            "ooiui/static/css/common/streamingdata.css",
+            "ooiui/static/css/common/streamingdata.css"
           ],
           "ooiui/static/css/compiled/index.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
@@ -1976,7 +1976,8 @@ module.exports = function(grunt) {
             'ooiui/static/lib/bootstrap-table/dist/bootstrap-table.min.css',
             "ooiui/static/css/common/loginDemo.css",
             "ooiui/static/lib/jquery-ui/themes/smoothness/jquery-ui.css",
-            "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            // "ooiui/static/lib/bootstrap-select/dist/css/bootstrap-select.css",
+            // "ooiui/static/lib/jquery.scrollbar/jquery.scrollbar.css",
             "ooiui/static/css/common/backgridall.min.css",
             "ooiui/static/css/filtrify/css/filtrify.css",
             'ooiui/static/lib/bootstrap-editable-table/bootstrap-editable-table.css',

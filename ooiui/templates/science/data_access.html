@@ -54,6 +54,7 @@
   <script src="/js/compiled/plotting.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/data_catalog_sidebar.js" type="text/javascript"></script>
   <link href="/css/custom/custom.css" rel="stylesheet" type="text/css"/>
+  <link href="/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 
   <script type="text/javascript">
     $.jgrid.no_legacy_api = true;
@@ -84,7 +85,7 @@
     <div id="page-content-wrapper">
       <div class="content-fluid">
         <div class="row">
-          <div class="col-md-2" id="filterScrollContainer">
+          <div class="col-md-2" id="filterScrollContainer11">
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
             </div>
@@ -120,7 +121,7 @@
                         <label style="padding-left: 0;"><input id="AllTimesSwitch" style="padding-left: 0; padding-right: 2px;" title="All Times Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Time Range</label>
                       </div>
                       <div class="checkbox">
-                        <label style="padding-left: 0;"><input id="AllDepthsSwitch" style="padding-left: 0; padding-right: 2px;" title="All Depths Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Depth Range</label>
+                        <label style="padding-left: 0;"><input id="AllDepthsSwitch" style="padding-left: 0; padding-right: 2px;" title="All Depths Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True"> Depth Range</label>
                       </div>
                     </div>
                   </div>
@@ -2015,17 +2016,17 @@
           'Platform Name',
           'Node',
           'Instrument',
-          'Reference Designator',
+          'Start Time',
+          'End Time',
+          'Stream Type',
           'Delivery Method',
           'Stream Content',
           'Deployment Depth',
           'Water Depth',
           'Latitude',
           'Longitude',
-          'Start Time',
-          'End Time',
+          'Reference Designator',
           'Stream Identifier',
-          'Stream Type',
           'Unique ID',
           'IRIS Link',
           'IRIS Enabled',
@@ -2109,16 +2110,44 @@
             }
           },
           {
-            name: 'reference_designator',
-            index: 'reference_designator',
-            key: false, // rowID = reference_designator
-            editable: false,
-            width: 195,
-            sortable: true,
-            sorttype: 'string',
-            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
-            align: 'center',
-            unformat: function (cellvalue, options, cell) {
+            name : 'start',
+            index : 'start',
+            editable : false,
+            width : 160,
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'end',
+            index : 'end',
+            editable : false,
+            width : 160,
+            sortable : true,
+            sorttype : 'date',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            formatter : colorTime,
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
+          },
+          {
+            name : 'stream_dataset',
+            index : 'stream_dataset',
+            editable : false,
+            hidden: false,
+            {#                width : 85,#}
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
           },
@@ -2126,7 +2155,7 @@
             name : 'stream_method',
             index : 'stream_method',
             editable : false,
-            hidden: true,
+            hidden: false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2140,7 +2169,7 @@
             name : 'stream_display_name',
             index : 'stream_display_name',
             editable : false,
-            hidden: true,
+            hidden: false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2204,52 +2233,25 @@
             }
           },
           {
-            name : 'start',
-            index : 'start',
-            editable : false,
-            width : 160,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
+            name: 'reference_designator',
+            index: 'reference_designator',
+            key: false, // rowID = reference_designator
+            editable: false,
+            width: 195,
+            sortable: true,
+            sorttype: 'string',
+            searchoptions: {sopt: ['cn', 'eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'nc']},
+            align: 'center',
+            unformat: function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
-          },
-          {
-            name : 'end',
-            index : 'end',
-            editable : false,
-            width : 160,
-            sortable : true,
-            sorttype : 'date',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            formatter : colorTime,
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-            {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
           },
           {
             name : 'stream_name',
             index : 'stream_name',
             {#            key : true,#}
             editable : false,
-            {#                width : 85,#}
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'stream_dataset',
-            index : 'stream_dataset',
-            editable : false,
-            hidden: false,
+            hidden : true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
