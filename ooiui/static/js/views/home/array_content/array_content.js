@@ -118,7 +118,7 @@ var ArrayContentSummary = ParentView.extend({
        .byArray(model.attributes.array_code);*/
       //var siteStatusCollection = new SiteStatusCollection();
       arrayContentContext.collection.siteStatusCollection.fetch({timeout: 500, async: false, url: '/api/uframe/status/sites/'+model.attributes.reference_designator}).done(function() {
-        arrayContentContext.collection.siteStatusCollection.sortByField('waterDepth','ascending');
+        arrayContentContext.collection.siteStatusCollection.sortByField('display_name','ascending');
         // console.log('arrayContentContext.collection.siteStatusCollection.toGeoJSON()');
         // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
         var siteGeoJSON = arrayContentContext.collection.siteStatusCollection.toGeoJSON();

@@ -174,7 +174,7 @@
                 %>
           <thead><tr>
               <th>Navigation</th>
-              <!--<th>Status</th>-->
+              <th>Status</th>
               <th>Site Name</th>
               <th>Water Depth (m)</th>
               <th>Latitude</th>
@@ -202,7 +202,7 @@
                             <li><a href="/assets/management#<%= platform.properties.code %>"><i class="fa fa-sitemap" title="Asset Management">&nbsp;</i></a></li>
                         </ul>
                     </td>
-                  <!--
+
                     <td class="tdulliFormat">
                       <ul>
                         <%
@@ -214,17 +214,13 @@
                         %>
 
                         <% if(instStatus.length > 0) { %>
-                        <% if(instStatus == "notTracked") { %>
-                        <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="Not Tracked (<%= instStatus %>)"></i></li>
+                          <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %> (<%= instStatus %>)"></i></li>
                         <% } else { %>
-                        <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %> (<%= instStatus %>)"></i></li>
-                        <% } %>
-                        <% } else { %>
-                        <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
+                          <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
                       </ul>
                     </td>
-                    -->
+
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">
                           <li><a href="/platformnav?id=<%= btoa(platform.properties.code) %>&array=<%= btoa(properties.description) %>&lat=<%= btoa(platform.geometry.coordinates[1])%>&lng=<%= btoa(platform.geometry.coordinates[0])%>"><%= platform.properties.title %></a><br> <small> (<%= cabledArrayDesignator %>) </small></li>
