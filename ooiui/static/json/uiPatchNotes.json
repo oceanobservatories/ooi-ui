@@ -1,5 +1,13 @@
 [
     {
+        "VersionNumber": "1.4.2",
+        "VersionDate": "2017-04-25",
+        "VersionDescription": [
+            "Navigation: Updated sorting in landing page tables to be alphabetical. (12244)",
+            "Status: Turned status indicators on for platforms and instruments."
+        ]
+    },
+    {
         "VersionNumber": "1.4.1",
         "VersionDate": "2017-04-11",
         "VersionDescription": [
