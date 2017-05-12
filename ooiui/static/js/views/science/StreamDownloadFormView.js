@@ -249,7 +249,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     $.ajax({
       url: url,
       type: "GET",
-      dataType: "json",
+      // dataType: "json",
       user_email: email,
       user_name: user_name,
       success: function(resp){

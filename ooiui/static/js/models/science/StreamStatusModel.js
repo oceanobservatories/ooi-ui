@@ -144,7 +144,17 @@ var StreamStatusCollection = Backbone.Collection.extend({
     comparator: function(model) {
         return model.get('display_name');
     },
+    sortByField: function(field, direction){
+      var sorted = _.sortBy(this.models, function(model){
+        return model.get(field);
+      });
 
+      if(direction === 'descending'){
+        sorted = sorted.reverse()
+      }
+
+      this.models = sorted;
+    },
     byArray: function(array) {
         var filtered = this.filter(function (model) {
             return model.get('reference_designator').substring(0,2) === array;
