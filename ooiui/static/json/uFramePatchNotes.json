@@ -1,5 +1,17 @@
 [
     {
+        "VersionNumber":"1.2.4",
+        "VersionDate":"2017-04-12",
+        "VersionDescription":[
+            "Constrain time bounds for queries (11979)",
+	    "add parameter list to annotations (12130)",
+	    "fix POST to events endpoint (12056)",
+            "remove logic specifying minimum/maximum bin size (12111)",
+            "remove direct hql string execution via web service vulnerability (12077)",
+            "Bugfix automatic status creation (12058)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.3",
         "VersionDate":"2017-03-28",
         "VersionDescription":[
