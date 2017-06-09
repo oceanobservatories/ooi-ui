@@ -1,11 +1,24 @@
 [
     {
+        "VersionNumber":"1.2.5",
+        "VersionDate":"2017-06-08",
+        "VersionDescription":[
+            "Add external notification framework (10824)",
+            "Allow async request emails to be disabled per request (12139)",
+            "Allow easier customization of async request notifications (11315)",
+            "Add time validation checks to anno service (12242)",
+            "Add deployment validation for status events (12296)",
+            "Validate annotation stream vs refDes (12243)",
+            "Require pagination requests on sensor/inv/partition_metadata (11070)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.4",
         "VersionDate":"2017-04-12",
         "VersionDescription":[
             "Constrain time bounds for queries. (11979)",
-	    "Add parameter list to annotations. (12130)",
-	    "Fix POST to events endpoint. (12056)",
+            "Add parameter list to annotations. (12130)",
+            "Fix POST to events endpoint. (12056)",
             "Remove logic specifying minimum/maximum bin size. (12111)",
             "Remove direct hql string execution via web service vulnerability. (12077)",
             "Bugfix automatic status creation. (12058)"
@@ -16,8 +29,8 @@
         "VersionDate":"2017-03-28",
         "VersionDescription":[
             "Fixed an issue where some download requests would fail (11798).",
-		    "Added support for creation of Status events (12012).",
-		    "Added automatic alert generation on instrument status changes and alarm generation when status changes to failed (11920)."
+            "Added support for creation of Status events (12012).",
+            "Added automatic alert generation on instrument status changes and alarm generation when status changes to failed (11920)."
         ]
     },
     {
