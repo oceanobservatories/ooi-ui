@@ -58,7 +58,9 @@ var BannerView = Backbone.View.extend({
         streaming = true;
       }
     }
-    return streaming;
+    //return streaming;
+    // TODO: Disables the streaming camera banner until there is a programmatic way to determine the state
+    return false;
   }
 });
 
