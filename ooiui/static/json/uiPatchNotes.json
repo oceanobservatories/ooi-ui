@@ -1,5 +1,16 @@
 [
     {
+        "VersionNumber": "1.4.3",
+        "VersionDate": "2017-06-13",
+        "VersionDescription": [
+            "M2M: Adds initial OOI API documentation to service routes. (11986)",
+            "M2M: Adds initial OOI API documentation presentation layer (demo). (12403)",
+            "Map: Updates glider track data. (12075)",
+            "Navigation: Disables live streaming banner. (12285)",
+            "Navigation: Adds Data Forum button to top toolbar. (12271)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.2",
         "VersionDate": "2017-04-25",
         "VersionDescription": [

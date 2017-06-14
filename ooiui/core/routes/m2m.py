@@ -7,6 +7,7 @@ Defines the application routes
 import requests
 from flask import Response
 from flask import request
+from flask import render_template
 
 from ooiui.core.app import app
 
@@ -46,3 +47,7 @@ def m2m_handler(path):
         return Response(response.iter_content(1024), response.status_code, headers)
     else:
         return 'Please supply your API credentials', 401
+
+@app.route('/help/m2m')
+def m2m_help_page():
+    return render_template('common/help_m2m.html', tracking=app.config['GOOGLE_ANALYTICS'])

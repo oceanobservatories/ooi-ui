@@ -1,64 +1,76 @@
-
-<!-- Science -->
-
-
 <!-- Status -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a class="dropdown-toggle" type="button" id="dropdownMenuStatus" data-toggle="dropdown" aria-expanded="true">
-        Status
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="Status">
-        <!--<li role="presentation">
-            <a href="/statusnav">
-                <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Status Navigation
-            </a>
-        </li>-->
-        <li role="presentation">
-            <a href="/status">
-                <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Alert & Alarm Dashboard
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/alerts/dashboard">
-                <i class="fa fa-bell" style='padding-right: 13px;'> </i>  Alert & Alarm Definitions
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/alerts/dashboard/triggered">
-                <i class="fa fa-bolt" style='padding-right: 13px;'> </i>  Triggered Alerts & Alarms
-            </a>
-        </li>
-    </ul>
+  <a class="dropdown-toggle" type="button" id="dropdownMenuStatus" data-toggle="dropdown" aria-expanded="true">
+    Status
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="Status">
+    <!--<li role="presentation">
+        <a href="/statusnav">
+            <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Status Navigation
+        </a>
+    </li>-->
+    <li role="presentation">
+      <a href="/status">
+        <i class="fa fa-heart" style='padding-right: 14px;'> </i>  Alert & Alarm Dashboard
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="/alerts/dashboard">
+        <i class="fa fa-bell" style='padding-right: 13px;'> </i>  Alert & Alarm Definitions
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="/alerts/dashboard/triggered">
+        <i class="fa fa-bolt" style='padding-right: 13px;'> </i>  Triggered Alerts & Alarms
+      </a>
+    </li>
+  </ul>
 </li>
-
-<!-- Asset Management -->
-
 
 <% if(user !== null && user.get('scopes').indexOf('command_control') !== -1){ %>
 <!-- C2 -->
 <li class="dropdown" style='top:8px;cursor:pointer'>
-    <a class="dropdown-toggle" type="button" id="dropdownMenuC2" data-toggle="dropdown" aria-expanded="true">
-        Command & Control
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="C2">
-        <li role="presentation">
-            <a href="/c2">
-                <i class="fa fa-list-ol" style='padding-right: 13px;'> </i> Command & Control
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/mission/executive">
-                <i class="fa fa-bolt" style='padding-right: 20px;'> </i>  Mission Executive
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="/mission/load">
-                <i class="fa fa-cloud-upload" style='padding-right: 20px;'> </i>  Mission Load
-            </a>
-        </li>
-    </ul>
+  <a class="dropdown-toggle" type="button" id="dropdownMenuC2" data-toggle="dropdown" aria-expanded="true">
+    Command & Control
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="C2">
+    <li role="presentation">
+      <a href="/c2">
+        <i class="fa fa-list-ol" style='padding-right: 13px;'> </i> Command & Control
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="/mission/executive">
+        <i class="fa fa-bolt" style='padding-right: 20px;'> </i>  Mission Executive
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="/mission/load">
+        <i class="fa fa-cloud-upload" style='padding-right: 20px;'> </i>  Mission Load
+      </a>
+    </li>
+  </ul>
 </li>
 <% } %>
 
+<!-- OOI API -->
+<li class="dropdown" style='top:8px;cursor:pointer'>
+  <a class="dropdown-toggle" type="button" id="dropdownMenuM2MApi" data-toggle="dropdown" aria-expanded="true">
+    OOI API
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="M2M API">
+    <li role="presentation">
+      <a href="/help/m2m">
+        <i class="fa fa-dot-circle-o" style='padding-right: 14px;'> </i>  Documentation
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#">
+        <i class="fa fa-gears" style='padding-right: 13px;'> </i>  Try It!
+      </a>
+    </li>
+  </ul>
+</li>
