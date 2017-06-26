@@ -1057,6 +1057,10 @@
           }
         });
 
+        this.listenTo(this, 'AnnotationTableItemView:onClickDelete', function(model) {
+          console.log('Clicked onClickDelete')
+        });
+
         this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
           var model = self.collections.selectedStreamCollection.models[0];
           var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss");

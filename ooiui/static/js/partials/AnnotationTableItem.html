@@ -1,3 +1,13 @@
-<% _.each(columns, function(col) { %>  
-    <td><%= model.get(col.name) %></td>  
-<% }); %>
+<%  _.each(columns, function(col) { %>
+<%    if(col.name == 'actions'){ %>
+        <td>
+          <div style='display: flex;justify-content: space-between;'>
+            <% if('annotate_admin' in user.scopes || user.user_name == model.get('source')){ %>
+            <button type='button' title='Edit' style='float:left; margin-right: 3px;' id='editAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-edit' aria-hidden='true'></i></button>
+            <button type='button' title='Delete' style='float:right' id='deleteAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-trash' aria-hidden='true'></i></button>
+            <% } %>
+          </div>
+        </td>
+<%    } else { %>
+        <td><%= model.get(col.name) %></td>
+<%  }}); %>

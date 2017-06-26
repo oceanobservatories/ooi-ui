@@ -23,6 +23,10 @@ var AnnotationTableView = Backbone.View.extend({
   },
   columns: [
       {
+        name : 'actions',
+        label : 'Actions'
+      },
+      {
         name : 'id',
         label : 'Annotation ID' // The uframe ID
       },
@@ -87,7 +91,8 @@ var AnnotationTableView = Backbone.View.extend({
 var AnnotationTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click' : 'onClick'
+    'click #editAnnotation' : 'onClick',
+    'click #deleteAnnotation' : 'onClickDelete'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -100,9 +105,13 @@ var AnnotationTableItemView = Backbone.View.extend({
     event.stopPropagation();
     ooi.trigger('AnnotationTableItemView:onClick', this.model);
   },
+  onClickDelete: function(event) {
+    event.stopPropagation();
+    ooi.trigger('AnnotationTableItemView:onClickDelete', this.model);
+  },
   template: JST['ooiui/static/js/partials/AnnotationTableItem.html'],
   render: function() {
-    this.$el.html(this.template({model: this.model, columns: this.columns}));
+    this.$el.html(this.template({model: this.model, columns: this.columns, user: ooi.models.userModel.attributes}));
   }
 });
 
