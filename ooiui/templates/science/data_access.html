@@ -1042,8 +1042,8 @@
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
-          var min = moment.utc(model.get('beginDT')).format("YYYY-MM-DD HH:mm");
-          var max = moment.utc(model.get('endDT')).format("YYYY-MM-DD HH:mm");
+          var min = moment.utc(model.get('beginDT')).toISOString();
+          var max = moment.utc(model.get('endDT')).toISOString();
 
           model.set('beginDTSafe',min);
           model.set('endDTSafe',max);
@@ -1059,8 +1059,8 @@
 
         this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
           var model = self.collections.selectedStreamCollection.models[0];
-          var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm");
-          var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm");
+          var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss");
+          var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm:ss");
 
           var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
             "beginDTSafe": min,
