@@ -75,9 +75,9 @@ var AnnotationModalFormView = ModalFormView.extend({
         success: function(model,response) {
           //console.log(model.ui_id);
           if(model.ui_id) {
-            ooi.trigger('AnnotationModalFormView:onUpdate', model);
+            ooi.trigger('AnnotationModalFormView:onUpdate99', model);
           }else{
-            ooi.trigger('AnnotationModalFormView:onSubmit', model);
+            ooi.trigger('AnnotationModalFormView:onSubmit99', model);
           }
         },
         error: function(){
@@ -115,16 +115,16 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.$el.find('#comments-input').val(this.model.get('annotation'));
     }
 
-    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss'})
+    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss.SSS'})
                                               .on('dp.change', function(){
-                                                var min = moment.utc($('#startAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+                                                var min = moment.utc($('#startAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
                                                 // console.log('min');
                                                 // console.log(min);
                                                 self.model.set('beginDTSafe',min)
                                               });
-    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'YYYY-MM-DD HH:mm:ss'})
+    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'YYYY-MM-DD HH:mm:ss.SSS'})
                                               .on('dp.change', function(){
-                                                var max = moment.utc($('#endAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+                                                var max = moment.utc($('#endAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
                                                 // console.log('max');
                                                 // console.log(max);
                                                 self.model.set('endDTSafe',max)                                                

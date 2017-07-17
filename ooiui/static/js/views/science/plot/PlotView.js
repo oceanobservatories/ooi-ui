@@ -100,37 +100,45 @@ var PlotView = BasePlot.extend({
       }
 
       if (o.get('showAnnotations') && (isValidTimeYAxis || isValidTimeXAxis)){
+        // Sort the annotations by end time
+        ooi.collections.annotations.sortByField('endDT', 'descending');
         ooi.collections.annotations.each(function(annotation,i) {
+          // Set random color to annotation band
+          var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
+          var annoLabelText = annotation.get('annotation') + " (" + annotation.get('id') + ")";
           axis.addPlotBand({
             from: moment.utc(annotation.get('beginDT')),
             to: moment.utc(annotation.get('endDT')),
-            color: '#FCFFC5',
+            color: '#'+bandColor,
+            borderWidth: 1,
+            borderColor: '#FFFFFF',
             label: {
-              text: 'Annotation ID:'+annotation.get('id'), // Content of the label.
+              text: annoLabelText, // Content of the label.
               align: 'left', // Positioning of the label.
               x: 10 // Amount of pixels the label will be repositioned according to the alignment.
             },
-            id: 'plot-band-'+annotation.get('id')
+            id: 'plot-band-1',//+annotation.get('id'),
+            events: {
+              click: function (e) {
+                alert(annoLabelText);
+              }
+            }
           });
+          // console.log(axis.plotLinesAndBands);
         });
       }else{
-        this.xyPlot.getChart().redraw();
+        //this.xyPlot.getChart().redraw();
         //only remove annotations
         if (!_.isUndefined(axis)){
-          _.each(axis.plotLinesAndBands,function(annotationBand){
-            if (!_.isUndefined(annotationBand.id)){
+          // console.log(axis.plotLinesAndBands);
+          axis.removePlotBand('plot-band-1');
+          /*_.each(axis.plotLinesAndBands,function(annotationBand){
+            if (!_.isUndefined(annotationBand)){
               if (annotationBand.id.startsWith('plot-band-')){
                 axis.removePlotBand(annotationBand.id);
               }
             }
-          });
-          _.each(axis.plotLinesAndBands,function(annotationBand){
-            if (!_.isUndefined(annotationBand.id)){
-              if (annotationBand.id.startsWith('plot-band-')){
-                axis.removePlotBand(annotationBand.id);
-              }
-            }
-          });
+          });*/
         }
       }
 
@@ -181,13 +189,6 @@ var PlotView = BasePlot.extend({
          this.xyPlot.getChart().redraw();
          //only remove events
          if (!_.isUndefined(axis)){
-          _.each(axis.plotLinesAndBands,function(bandEvent){
-            if (!_.isUndefined(bandEvent.id)){
-              if (bandEvent.id.startsWith('plot-event-band-')){
-                axis.removePlotBandOrLine(bandEvent.id);
-              }
-            }
-          });
           _.each(axis.plotLinesAndBands,function(bandEvent){
             if (!_.isUndefined(bandEvent.id)){
               if (bandEvent.id.startsWith('plot-event-band-')){

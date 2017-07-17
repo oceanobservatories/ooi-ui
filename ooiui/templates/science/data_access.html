@@ -1024,8 +1024,8 @@
         });
 
         //
-        this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-          //console.log('onSubmit');
+        this.listenTo(this, 'AnnotationModalFormView:onSubmit99', function(model) {
+          // console.log('onSubmit99');
           $.when(self.collections.annotations.add(model)).done( function(ret){
             //console.log(ret);
             self.views.annotationTableView.render();
@@ -1033,17 +1033,22 @@
         });
 
         //
-        this.listenTo(this, 'AnnotationModalFormView:onUpdate', function(model) {
-          //console.log('onUpdate');
+        this.listenTo(this, 'AnnotationModalFormView:onUpdate99', function(model) {
+          // console.log('onUpdate99');
+          // console.log(model);
           $.when(self.collections.annotations.add(model)).done( function(ret){
-            //console.log(ret);
+            // console.log(ret);
             self.views.annotationTableView.render();
           })
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
-          var min = moment.utc(model.get('beginDT')).toISOString();
-          var max = moment.utc(model.get('endDT')).toISOString();
+          // console.log("model.get('beginDT')");
+          // console.log(model.get('beginDT'));
+          // console.log("model.get('endDT')");
+          // console.log(model.get('endDT'));
+          var min = moment.utc(new Date(model.get('beginDT'))).toISOString();
+          var max = moment.utc(new Date(model.get('endDT'))).toISOString();
 
           model.set('beginDTSafe',min);
           model.set('endDTSafe',max);
@@ -1058,13 +1063,20 @@
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClickDelete', function(model) {
-          console.log('Clicked onClickDelete')
+          // console.log('Deleting annotation');
+          // console.log(model);
+
+          $.when(self.collections.annotations.remove(model)).done( function(ret){
+            // console.log(ret);
+            self.views.annotationTableView.render();
+          })
+          // alert("Deletion of annotations not yet implemented.")
         });
 
         this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
           var model = self.collections.selectedStreamCollection.models[0];
-          var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss");
-          var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm:ss");
+          var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss.SSS");
+          var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm:ss.SSS");
 
           var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
             "beginDTSafe": min,

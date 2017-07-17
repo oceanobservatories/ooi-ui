@@ -81,8 +81,8 @@ var AnnotationTableView = Backbone.View.extend({
         columns: self.columns,
         model: model
       });
-      //console.log('Adding annotation table.');
-      //console.log(model);
+      // console.log('Adding annotation entry.');
+      // console.log(model);
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }
@@ -106,8 +106,14 @@ var AnnotationTableItemView = Backbone.View.extend({
     ooi.trigger('AnnotationTableItemView:onClick', this.model);
   },
   onClickDelete: function(event) {
-    event.stopPropagation();
-    ooi.trigger('AnnotationTableItemView:onClickDelete', this.model);
+    // event.stopPropagation();
+    var self = this;
+    event.preventDefault();
+    this.model.destroy({
+      success: function() {
+        ooi.trigger('AnnotationTableItemView:onClickDelete', self.model);
+      }
+    });
   },
   template: JST['ooiui/static/js/partials/AnnotationTableItem.html'],
   render: function() {

@@ -234,6 +234,16 @@ def put_annotation(id):
     response = requests.put(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code
 
+@scope_required('annotate')
+@login_required()
+@app.route('/api/annotation/<string:id>', methods=['DELETE'])
+def delete_annotation(id):
+    token = get_login()
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation/delete/%s' % id
+    response = requests.get(url, auth=(token, ''), data=request.data, headers=headers)
+    return response.text, response.status_code
+
 
 # old
 @app.route('/api/array')
