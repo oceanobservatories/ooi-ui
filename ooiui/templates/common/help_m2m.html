@@ -286,6 +286,14 @@
             if(($.type(obj[j]) === 'object') && obj[j].hasOwnProperty('sample_request')){
               title = obj[j].sample_request;
             }
+            if(($.type(obj[j]) === 'object') && obj[j].hasOwnProperty('sample_response')){
+              //title = 'SAMPLES';
+              obj[j].sample_response = "<pre>"+JSON.stringify(obj[j].sample_response, null, 2)+"</pre>";
+            }
+            if(($.type(obj[j]) === 'object') && obj[j].hasOwnProperty('sample_data')){
+              //title = 'SAMPLES';
+              obj[j].sample_data = "<pre>"+JSON.stringify(obj[j].sample_data, null, 2)+"</pre>";
+            }
             children[j] = convert(title,obj[j]);
           }
           break;
