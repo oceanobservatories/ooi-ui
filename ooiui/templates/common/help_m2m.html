@@ -166,7 +166,7 @@
           });
 
           //$('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\">" + dynamicOutput + '</pre>');
-          visualize(response.message);
+          visualize(response.message, route);
           $('#selectedApi').text(title);
           // console.log(resp);
         },
@@ -211,11 +211,11 @@
       ]}
     };
 
-    function visualize(json) {
+    function visualize(json, headerText) {
 
       $('#uiDynamic').html('');
 
-      $('#uiDynamic').json2html(convert('http://server/api/m2m/help/12577',json,'open'),transforms.object);
+      $('#uiDynamic').json2html(convert(headerText,json,'open'),transforms.object);
 
       regEvents();
     }
