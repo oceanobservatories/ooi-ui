@@ -1,27 +1,11 @@
-{% extends "common/base.html" %}
-
-{% block title %}
-  <title>OOI User Interface - API Documentation</title>
-{% endblock %}
-
-{% block beforebootstrap %}
-
-{% endblock %}
-
-{% block head %}
-  <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
-  <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
-  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
-  <link href="/css/common/patchNotes.css" rel="stylesheet" type="text/css" />
-  <!-- Partials -->
-  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
-  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-  <script src="/js/partials/compiled/patch_notes.js" type="text/javascript"></script>
-  <script src="/js/models/common/uiPatchNotes.js" type="text/javascript"></script>
-  <script src="/js/models/common/uFramePatchNotes.js" type="text/javascript"></script>
+{% extends "common/base.html" %} {% block title %} <title>OOI User Interface - API Documentation</title> {% endblock %} {% block beforebootstrap %} {% endblock %} {% block head %} <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" /> <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" /> <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" /> <link href="/css/common/patchNotes.css" rel="stylesheet" type="text/css" /> <!-- Partials --> <script src="/js/partials/compiled/index.js" type="text/javascript"></script> <script src="/js/compiled/index.js" type="text/javascript"></script> <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script> <script src="/js/compiled/landingPages.js" type="text/javascript"></script> <script src="/js/partials/compiled/patch_notes.js" type="text/javascript"></script> <script src="/js/models/common/uiPatchNotes.js" type="text/javascript"></script> <script src="/js/models/common/uFramePatchNotes.js" type="text/javascript"></script>
   <script src="/js/views/common/PatchNotes.js" type="text/javascript"></script>
+
+  <link href="/css/json2html/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href='/css/json2html/layout.css' media='all' type='text/css' rel='stylesheet'/>
+  <link href='/css/json2html/index.css' media='all' type='text/css' rel='stylesheet'/>
+  <script src="/js/core/json2html/jquery.json2html.js" type="text/javascript"></script>
+  <script src="/js/core/json2html/json2html.js" type="text/javascript"></script>
 
 {% endblock %}
 
@@ -43,7 +27,7 @@
 
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6" id="ui"><h2></h2><pre id="currentDoc" style="height: 60vh;"></pre></div>
-          <div class="col-xs-6 col-sm-6 col-md-6" id="uiDynamic"><h2></h2><pre id="currentDynamic" style="height: 60vh;"></pre></div>
+          <div class="col-xs-6 col-sm-6 col-md-6" id="uiDynamic"></div>
         </div>
 
       </div><!--container-fluid -->
@@ -101,11 +85,11 @@
           // console.log('help response');
           // console.log(response);
           $('#ui').find('#currentDoc').replaceWith("<pre id=\"currentDoc\" style=\"height: 60vh;\">" + _.escape(response.message) + '</pre>');
-          //// console.log(resp);
+          // console.log(resp);
           if (route !== '/api/m2m/help' && route !== '/api/m2m/help/12587') {
             openHelpJson(title, route);
           }else{
-            $('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\"></pre>");
+            $('#uiDynamic').html('');
             $('#selectedApi').text(title);
           }
 
@@ -145,7 +129,7 @@
 
         },
         error: function( req, status, err ) {
-          //// console.log(req);
+          // console.log(req);
           var errorMessage = '<div><h3>An error occurred getting M2M help documentation for the current user:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
@@ -181,12 +165,13 @@
             dynamicOutput += "[" + helpItem.endpoint + "] " + helpItem['description'] + "<br>";
           });
 
-          $('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\">" + dynamicOutput + '</pre>');
+          //$('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\">" + dynamicOutput + '</pre>');
+          visualize(response.message);
           $('#selectedApi').text(title);
-          //// console.log(resp);
+          // console.log(resp);
         },
         error: function( req, status, err ) {
-          //// console.log(req);
+          // console.log(req);
           var errorMessage = '<div><h3>An error occurred getting M2M help documentation for the current user:</h3></div>';
           errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
           errorMessage += '</br>';
@@ -202,6 +187,142 @@
         }
       });
     };
+
+    var transforms = {
+      'object':{'tag':'div','class':'package ${show} ${type}','children':[
+        {'tag':'div','class':'header','children':[
+          {'tag':'div','class':function(obj){
+
+            var classes = ["arrow"];
+
+            if( getValue(obj.value) !== undefined ) classes.push("hide");
+
+            return(classes.join(' '));
+          }},
+          {'tag':'span','class':'name','html':'${name}'},
+          {'tag':'span','class':'value','html':function(obj) {
+            var value = getValue(obj.value);
+            if( value !== undefined ) return(" : " + value);
+            else return('');
+          }}
+          //,{'tag':'span','class':'type','html':'${type}'}
+        ]},
+        {'tag':'div','class':'children','children':function(obj){return(children(obj.value));}}
+      ]}
+    };
+
+    function visualize(json) {
+
+      $('#uiDynamic').html('');
+
+      $('#uiDynamic').json2html(convert('http://server/api/m2m/help/12577',json,'open'),transforms.object);
+
+      regEvents();
+    }
+
+    function getValue(obj) {
+      var type = $.type(obj);
+
+      //Determine if this object has children
+      switch(type) {
+        case 'array':
+        case 'object':
+          return(undefined);
+          break;
+
+        case 'function':
+          //none
+          return('function');
+          break;
+
+        case 'string':
+          return("'" + obj + "'");
+          break;
+
+        default:
+          return(obj);
+          break;
+      }
+    }
+
+    //Transform the children
+    function children(obj){
+      var type = $.type(obj);
+
+      //Determine if this object has children
+      switch(type) {
+        case 'array':
+        case 'object':
+          return(json2html.transform(obj,transforms.object));
+          break;
+
+        default:
+          //This must be a litteral
+          break;
+      }
+    }
+
+    function convert(name,obj,show) {
+
+      var type = $.type(obj);
+
+      if(show === undefined) show = 'closed';
+
+      var children = [];
+
+      //Determine the type of this object
+      switch(type) {
+        case 'array':
+          //Transform array
+          //Itterrate through the array and add it to the elements array
+          var len=obj.length;
+          for(var j=0;j<len;++j){
+            //Concat the return elements from this objects tranformation
+            var title = j;
+            // console.log(obj);
+            if(($.type(obj[j]) === 'object') && obj[j].hasOwnProperty('description')){
+              title = obj[j].description;
+            }
+            if(($.type(obj[j]) === 'object') && obj[j].hasOwnProperty('sample_request')){
+              title = obj[j].sample_request;
+            }
+            children[j] = convert(title,obj[j]);
+          }
+          break;
+
+        case 'object':
+          //Transform Object
+          var j = 0;
+          for(var prop in obj) {
+            children[j] = convert(prop,obj[prop]);
+            j++;
+          }
+          break;
+
+        default:
+          //This must be a litteral (or function)
+          children = obj;
+          break;
+      }
+
+      return( {'name':name,'value':children,'type':type,'show':show} );
+
+    }
+
+    function regEvents() {
+
+      $('.header').click(function(){
+        var parent = $(this).parent();
+
+        if(parent.hasClass('closed')) {
+          parent.removeClass('closed');
+          parent.addClass('open');
+        } else {
+          parent.removeClass('open');
+          parent.addClass('closed');
+        }
+      });
+    }
 
     _.extend(OOI.prototype, Backbone.Events,  {
       login: new LoginModel(),
