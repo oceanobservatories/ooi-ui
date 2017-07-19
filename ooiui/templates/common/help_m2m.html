@@ -21,13 +21,13 @@
       <div class="container-fluid">
 
         <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6" id="apimenu"><h1>OOI API Menu</h1></div>
-          <div class="col-xs-6 col-sm-6 col-md-6" id="apimenuDynamic"><h1>Definitions & Examples</h1><h3 style="text-align: left;" id="selectedApi"></h3></div>
+{#          <div class="col-xs-6 col-sm-6 col-md-6" id="apimenu"><h1>OOI API Menu</h1></div>#}
+          <div class="col-xs-12 col-sm-12 col-md-12" id="apimenuDynamic"><h1>Definitions & Examples</h1><h3 style="text-align: left;" id="selectedApi"></h3></div>
         </div>
 
         <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6" id="ui"><h2></h2><pre id="currentDoc" style="height: 60vh;"></pre></div>
-          <div class="col-xs-6 col-sm-6 col-md-6" id="uiDynamic"></div>
+{#          <div class="col-xs-6 col-sm-6 col-md-6" id="ui"><h2></h2><pre id="currentDoc" style="height: 60vh;"></pre></div>#}
+          <div class="col-xs-12 col-sm-12 col-md-12" id="uiDynamic"></div>
         </div>
 
       </div><!--container-fluid -->
@@ -84,12 +84,13 @@
         success: function( response ) {
           // console.log('help response');
           // console.log(response);
-          $('#ui').find('#currentDoc').replaceWith("<pre id=\"currentDoc\" style=\"height: 60vh;\">" + _.escape(response.message) + '</pre>');
+
           // console.log(resp);
           if (route !== '/api/m2m/help' && route !== '/api/m2m/help/12587') {
             openHelpJson(title, route);
           }else{
-            $('#uiDynamic').html('');
+            $('#uiDynamic').html("<pre id=\"currentDoc\" style=\"height: 60vh;\">" + _.escape(response.message) + '</pre>');
+            //$('#uiDynamic').html('');
             $('#selectedApi').text(title);
           }
 
@@ -106,25 +107,25 @@
             http://server/api/m2m/help/12587/all            # uframe REST queries for all topics
             #}
 
-            actionButtons += "<button type='button' title='Asset Objects' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Asset Objects', '/api/m2m/help/12587/asset');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i>Asset Objects</button>";
+            actionButtons += "<button type='button' title='Asset Objects' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Asset Objects', '/api/m2m/help/12587/asset');\">Asset Objects</button>";
 
-            actionButtons += "<button type='button' title='Events' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Events', '/api/m2m/help/12587/event');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Events</button>";
+            actionButtons += "<button type='button' title='Events' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Events', '/api/m2m/help/12587/event');\">Events</button>";
 
-            actionButtons += "<button type='button' title='Deployment Events' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Deployment Events', '/api/m2m/help/12587/deployment');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Deployment Events</button>";
+            actionButtons += "<button type='button' title='Deployment Events' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Deployment Events', '/api/m2m/help/12587/deployment');\">Deployment Events</button>";
 
-            actionButtons += "<button type='button' title='Calibration Events' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Calibration Events', '/api/m2m/help/12587/cal');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Calibration Events</button>";
+            actionButtons += "<button type='button' title='Calibration Events' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Calibration Events', '/api/m2m/help/12587/cal');\">Calibration Events</button>";
 
-            actionButtons += "<button type='button' title='Cruise Events' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Cruise Events', '/api/m2m/help/12587/cruise');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Cruise Events</button>";
+            actionButtons += "<button type='button' title='Cruise Events' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Cruise Events', '/api/m2m/help/12587/cruise');\">Cruise Events</button>";
 
-            actionButtons += "<button type='button' title='Status Events' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - Status Events', '/api/m2m/help/12587/status');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Status Events</button>";
+            actionButtons += "<button type='button' title='Status Events' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - Status Events', '/api/m2m/help/12587/status');\">Status Events</button>";
 
-            actionButtons += "<button type='button' title='All Topics' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management - All Topics', '/api/m2m/help/12587/all');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>All Topics</button>";
+            actionButtons += "<button type='button' title='All Topics' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management - All Topics', '/api/m2m/help/12587/all');\">All Topics</button>";
 
             actionButtons += "</div></div>";
-            $('#apimenu').find('#assetButtons').remove();
-            $('#apimenu').append(actionButtons);
+            $('#apimenuDynamic').find('#assetButtons').remove();
+            $('#apimenuDynamic').append(actionButtons);
           }else{
-            $('#apimenu').find('#assetButtons').remove();
+            $('#apimenuDynamic').find('#assetButtons').remove();
           }
 
         },
@@ -165,8 +166,10 @@
             dynamicOutput += "[" + helpItem.endpoint + "] " + helpItem['description'] + "<br>";
           });
 
+          var serverUrl = 'https://ooinet.oceanobservatories.org';
+
           //$('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\">" + dynamicOutput + '</pre>');
-          visualize(response.message, route);
+          visualize(response.message, serverUrl + route);
           $('#selectedApi').text(title);
           // console.log(resp);
         },
@@ -388,24 +391,24 @@
                 http://server/api/m2m/help/12586     Vocabulary
                 http://server/api/m2m/help/12587     Asset Management Subsystem#}
 
-        actionButtons += "<button type='button' title='Home' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Home', '/api/m2m/help');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-home' aria-hidden='true'></i>Home</button>";
+        actionButtons += "<button type='button' title='Home'  id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Home', '/api/m2m/help');\">Home</button>";
 
-        actionButtons += "<button type='button' title='Preload (streams, parameters, etc.)' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Preload', '/api/m2m/help/12575');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Preload<br>(streams, parameters, etc.)</button>";
+        actionButtons += "<button type='button' title='Preload (streams, parameters, etc.)' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Preload', '/api/m2m/help/12575');\">Preload (streams, parameters, etc.)</button>";
 
-        actionButtons += "<button type='button' title='Sensor Inventory' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Sensor Inventory', '/api/m2m/help/12576');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Sensor Inventory</button>";
+        actionButtons += "<button type='button' title='Sensor Inventory' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Sensor Inventory', '/api/m2m/help/12576');\">Sensor Inventory</button>";
 
-        actionButtons += "<button type='button' title='Alerts and Alarms' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Alerts and Alarms', '/api/m2m/help/12577');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Alerts &<br>Alarms</button>";
+        actionButtons += "<button type='button' title='Alerts and Alarms' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Alerts and Alarms', '/api/m2m/help/12577');\">Alerts & Alarms</button>";
 
-        actionButtons += "<button type='button' title='Quality Control (QC)' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Quality Control', '/api/m2m/help/12578');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Quality Control<br>(QC)</button>";
+        actionButtons += "<button type='button' title='Quality Control (QC)' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Quality Control', '/api/m2m/help/12578');\">Quality Control (QC)</button>";
 
-        actionButtons += "<button type='button' title='Annotations' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Annotations', '/api/m2m/help/12580');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Annotations</button>";
+        actionButtons += "<button type='button' title='Annotations' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Annotations', '/api/m2m/help/12580');\">Annotations</button>";
 
-        actionButtons += "<button type='button' title='Vocabulary' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Vocabulary', '/api/m2m/help/12586');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Vocabulary</button>";
+        actionButtons += "<button type='button' title='Vocabulary' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Vocabulary', '/api/m2m/help/12586');\">Vocabulary</button>";
 
-        actionButtons += "<button type='button' title='Asset Management Subsystem' style='float:left; margin: 5px; max-width: 125px;' id='goPreload' class='btn btn-default' onclick=\"openHelp('Asset Management Subsystem', '/api/m2m/help/12587');\"><i style='font-size:14px;float:center;pointer-events: none;' class='fa fa-book' aria-hidden='true'></i><br>Asset Management<br>Subsystem</button>";
+        actionButtons += "<button type='button' title='Asset Management Subsystem' id='goPreload' class='btn btn-default btn-m2m' onclick=\"openHelp('Asset Management Subsystem', '/api/m2m/help/12587');\">Asset Management Subsystem</button>";
 
         actionButtons += "</div>";
-        $('#apimenu').append(actionButtons);
+        $('#apimenuDynamic').append(actionButtons);
       }else{
         $('#ui').append('Please log in to access the OOI API Documentation');
       }
