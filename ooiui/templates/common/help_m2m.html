@@ -85,11 +85,14 @@
           // console.log('help response');
           // console.log(response);
 
+          var serverUrl = window.location.protocol + "//" + window.location.host;
+
           // console.log(resp);
           if (route !== '/api/m2m/help' && route !== '/api/m2m/help/12587') {
             openHelpJson(title, route);
           }else{
-            $('#uiDynamic').html("<pre id=\"currentDoc\" style=\"height: 60vh;\">" + _.escape(response.message) + '</pre>');
+            console.log(response.message);
+            $('#uiDynamic').html("<pre id=\"currentDoc\" style=\"height: 60vh;\">" + _.escape(response.message.toString().replace(/http:\/\/server\/api\/m2m\/help/g, serverUrl+"/api/m2m/help").replace(/http:\/\/server/g, serverUrl)) + '</pre>');
             //$('#uiDynamic').html('');
             $('#selectedApi').text(title);
           }
@@ -166,7 +169,7 @@
             dynamicOutput += "[" + helpItem.endpoint + "] " + helpItem['description'] + "<br>";
           });
 
-          var serverUrl = 'https://ooinet.oceanobservatories.org';
+          var serverUrl = window.location.protocol + "//" + window.location.host;
 
           //$('#uiDynamic').find('#currentDynamic').replaceWith("<pre id=\"currentDynamic\" style=\"height: 60vh;\">" + dynamicOutput + '</pre>');
           visualize(response.message, serverUrl + route);
