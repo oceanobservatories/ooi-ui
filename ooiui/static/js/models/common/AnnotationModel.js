@@ -26,7 +26,9 @@ var AnnotationModel = Backbone.Model.extend({
     referenceDesignator:"",    
     method:"",  //stream name
     parameters:"", //param list is affects
-    source:""
+    source:"",
+    qcFlag:"",
+    exclusionFlag:false
   }  
 });
 
@@ -49,5 +51,22 @@ var AnnotationCollection = Backbone.Collection.extend({
     }
 
     this.models = sorted;
+  }
+});
+
+var QcFlagsModel = Backbone.Model.extend({
+  urlRoot: '/api/annotation/qcflags',
+  defaults: {
+  }
+});
+
+var QcFlagsCollection = Backbone.Collection.extend({
+  url: '/api/annotation/qcflags',
+  model: QcFlagsModel,
+  parse: function(response) {
+    if(response) {
+      return response.qcFlags;
+    }
+    return [];
   }
 });

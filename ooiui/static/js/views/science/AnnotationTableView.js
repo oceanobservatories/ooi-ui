@@ -16,6 +16,25 @@
  * Usage
  */
 
+/* Example annotation record
+{
+  "@class": ".AnnotationRecord",
+  "annotation": "Create annotation for SSRSPACC-F10NA-F10-8",
+  "beginDT": 1491412013000,
+  "endDT": 1492468785000,
+  "exclusionFlag": false,
+  "id": 81,
+  "method": "streamed",
+  "node": "F10NA",
+  "parameters": [],
+  "qcFlag": null,
+  "sensor": "F10-8",
+  "source": "admin@ooi.rutgers.edu",
+  "stream": "shore_station_force_10_network_port_data",
+  "subsite": "SSRSPACC"
+}
+*/
+
 var AnnotationTableView = Backbone.View.extend({
   className: "annotationTableView",
   events:{
@@ -35,14 +54,6 @@ var AnnotationTableView = Backbone.View.extend({
         label : 'Annotation'
       },
       {
-        name : 'referenceDesignator',
-        label : 'Reference Designator'
-      },
-      {
-        name : 'stream_name',
-        label : 'Stream Name'
-      },
-      {
         name : 'beginDT',
         label : 'Start Date'
       },
@@ -57,6 +68,42 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'source',
         label : 'UserID'
+      },
+      {
+        name : 'parameters',
+        label : 'Parameters'
+      },
+      {
+        name : 'qcFlag',
+        label : 'QC Flag'
+      },
+      {
+        name : 'referenceDesignator',
+        label : 'Reference Designator'
+      },
+      {
+        name : 'stream_name',
+        label : 'Stream Name'
+      },
+      {
+        name : 'method',
+        label : 'Method'
+      },
+      {
+        name : 'node',
+        label : 'Node'
+      },
+      {
+        name : 'sensor',
+        label : 'Sensor'
+      },
+      {
+        name : 'stream',
+        label : 'Stream'
+      },
+      {
+        name : 'subsite',
+        label : 'Subsite'
       }
   ],
   initialize: function() {

@@ -60,6 +60,25 @@ tabindex allows the escape key to be used to close the modal -->
                 <label for="comments-input">Annotation</label>
                 <textarea id="comments-input" class="modal-form-textarea-row-3 form-control"></textarea>
               </div> <!-- .form-group -->
+              <div class="form-group">
+                <label for="qcflag-input">QC Flag</label>
+                <select id="qcflag-input" title="QC Flag" class="form-control">
+                  <% console.log('Creating QC Flags SELECT form element'); %>
+                  <% console.log(qcFlags); %>
+                  <% var val = ""; %>
+                  <% for(var key in qcFlags.attributes.qcflags){ %>
+                  <% console.log(key); %>
+                  <option value="<%= qcFlags.attributes.qcflags[key] %>"><%= key %></option>
+                  <% }; %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exclusionFlag-input">Exclude Data</label>
+                <select id="exclusionFlag-input" title="Exclude Data" class="form-control">
+                  <option value=true>Yes</option>
+                  <option value=false>No</option>
+                </select>
+              </div>
               <div class="pull-left">
                 <button class="btn btn-default" type="button" id="submit-button">Add</button>
               </div> <!-- .pull-left -->

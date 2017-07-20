@@ -221,6 +221,7 @@ def post_annotation():
     token = get_login()
     headers = {'Content-Type': 'application/json'}
     url = app.config['SERVICES_URL'] + '/annotation'
+    print request.data
     response = requests.post(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code, dict(response.headers)
 
@@ -244,6 +245,13 @@ def delete_annotation(id):
     response = requests.get(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code
 
+@app.route('/api/annotation/qcflags', methods=['GET'])
+def get_qcflags():
+    try:
+        response = requests.get(app.config['SERVICES_URL'] + '/annotation/qcflags', params=request.args)
+        return response.text, response.status_code, dict(response.headers)
+    except Exception, e:
+        return jsonify(error=str(e))
 
 # old
 @app.route('/api/array')

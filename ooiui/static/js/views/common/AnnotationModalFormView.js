@@ -33,9 +33,10 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.showUpdate = options.showUpdate;
     }
 
-    if(options && options.model && options.userModel) {
+    if(options && options.model && options.userModel && options.qcFlagsModel) {
         this.model = options.model;
         this.username = options.userModel.get('user_name');
+        this.qcFlags = options.qcFlagsModel;
         this.render();
         ModalFormView.prototype.show.apply(this);
     } else {
@@ -49,6 +50,8 @@ var AnnotationModalFormView = ModalFormView.extend({
     event.stopPropagation();
     event.preventDefault();
     this.model.set('annotation',this.$el.find('#comments-input').val());
+    this.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+    this.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
     var minDate = moment.utc(self.model.get('beginDTSafe'));
     var maxDate = moment.utc(self.model.get('endDTSafe'));
@@ -68,6 +71,10 @@ var AnnotationModalFormView = ModalFormView.extend({
 
       self.model.set('source', this.username);
 
+      self.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+
+      self.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
+
       // console.log(min);
       // console.log(max);
 
@@ -80,9 +87,10 @@ var AnnotationModalFormView = ModalFormView.extend({
             ooi.trigger('AnnotationModalFormView:onSubmit99', model);
           }
         },
-        error: function(){
-          alert('There was a problem saving the annotation to uframe.');
-          console.log('error saving annotation...')
+        error: function(model, e){
+          //alert('There was a problem saving the annotation to uframe.');
+          console.log('error saving annotation...');
+          ooi.trigger('AnnotationModalFormView:onError', e);
         }
       });
       this.hide();
@@ -97,7 +105,8 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     this.$el.html(this.template({
       model: this.model,
-      username: this.username
+      username: this.username,
+      qcFlags: this.qcFlags
     }));
     this.stickit();
 
@@ -113,6 +122,8 @@ var AnnotationModalFormView = ModalFormView.extend({
 
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
+      $('#qcflag-input').val(this.model.get('qcFlag'));
+      $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
     }
 
     $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss.SSS'})
