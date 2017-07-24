@@ -37,6 +37,8 @@ var AnnotationModalFormView = ModalFormView.extend({
         this.model = options.model;
         this.username = options.userModel.get('user_name');
         this.qcFlags = options.qcFlagsModel;
+        this.parameterDisplayNames = ooi.collections.selectedStreamCollection.models[0].attributes.parameter_display_name;
+        this.parameterIds = ooi.collections.selectedStreamCollection.models[0].attributes.parameter_id;
         this.render();
         ModalFormView.prototype.show.apply(this);
     } else {
@@ -49,8 +51,11 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     event.stopPropagation();
     event.preventDefault();
+    console.log('Selected Parameters');
+    console.log(this.$el.find('#parameters-input').val());
     this.model.set('annotation',this.$el.find('#comments-input').val());
     this.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+    this.model.set('parameters', this.$el.find('#parameters-input').val().toString());
     this.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
     var minDate = moment.utc(self.model.get('beginDTSafe'));
@@ -72,6 +77,8 @@ var AnnotationModalFormView = ModalFormView.extend({
       self.model.set('source', this.username);
 
       self.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+
+      self.model.set('parameters', this.$el.find('#parameters-input').val().toString());
 
       self.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
@@ -106,7 +113,9 @@ var AnnotationModalFormView = ModalFormView.extend({
     this.$el.html(this.template({
       model: this.model,
       username: this.username,
-      qcFlags: this.qcFlags
+      qcFlags: this.qcFlags,
+      parameterDisplayNames: this.parameterDisplayNames,
+      parameterIds: this.parameterIds
     }));
     this.stickit();
 
@@ -123,6 +132,7 @@ var AnnotationModalFormView = ModalFormView.extend({
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
       $('#qcflag-input').val(this.model.get('qcFlag'));
+      $('#parameters-input').val(this.model.get('parameters').split(','));
       $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
     }
 

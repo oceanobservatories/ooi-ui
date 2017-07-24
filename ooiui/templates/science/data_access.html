@@ -216,6 +216,11 @@
                                   <p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
                                   <p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>
                                 </div> <!-- panel-table -->
+                                <div class="plot-tab-panel" id="data-availability-dc">
+                                  <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+                                    <p id="example"><!-- Visavail.js chart will be placed here --></p>
+                                  </div>
+                                </div>
                               </div> <!-- panel-body -->
                             </div> <!-- panel -->
                           </div>
@@ -804,6 +809,7 @@
             // console.log("add_catalog_model");
             // console.log(selectedStreamObj);
             // console.log(selectedStreamUrl);
+            placeDataAvailability(ref_des);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
@@ -831,6 +837,9 @@
           self.trigger('update_catalog_list',{});
 
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+          console.log(o.model);
+          $('#div_'+o.model.get('reference_designator')).remove();
 
           history.back();
           // console.log(location.href);
@@ -2595,6 +2604,57 @@
       });
 
     } // placeJqGrid
+
+
+    function placeDataAvailability(ref_des) {
+
+      var dataset=[];
+      var onDataHandler = function(collection, response, options) {
+
+        // Show Data Availability Pop-up
+        $("#data-vailability-dc").empty();
+
+        dataset=[];
+
+        collection.each(function(model){
+          // console.log(model.get('data'));
+          dataset.push({
+            "measure_html": "<div style='width: 280px; text-align: right;'>"+model.get('measure')+"</div>",
+            "categories": model.get('categories'),
+            "data": model.get('data'),
+            "interval_s": 365 * 24 * 60 * 60
+          });
+        }); // each chart in the collection
+
+        draw_visavail(ref_des);
+      };
+
+      var chart = visavailChart();
+      function draw_visavail(ref_des) {
+        chart.width($('#visavail_container').width()-350);
+
+        var divId = "div_" + ref_des;
+        console.log(divId);
+        $('#example').append('<div id="' + divId + '"></div>');
+        d3.select("#"+divId)
+          .datum(dataset)
+          .call(chart);
+        d3.selectAll("#"+divId+" svg #g_title .heading")
+          .filter(function() {
+            return /^Data/.test(d3.select(this).text());  // Check if text begin with a "C"
+          })
+          .text('Data Availability Plot ('+ ref_des + ')');
+      }
+
+{#      $(window).resize(function () { return draw_visavail(); });#}
+
+      ooi.collections.dataAvailabilityCollection.fetch(
+        {
+          url: '/api/data_availability/'+ref_des,
+          success : onDataHandler
+        });
+
+    }
 
 
     function showStreams( collection, response ){
