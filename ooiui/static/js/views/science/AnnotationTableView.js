@@ -23,6 +23,10 @@ var AnnotationTableView = Backbone.View.extend({
   },
   columns: [
       {
+        name : 'actions',
+        label : 'Actions'
+      },
+      {
         name : 'id',
         label : 'Annotation ID' // The uframe ID
       },
@@ -77,8 +81,8 @@ var AnnotationTableView = Backbone.View.extend({
         columns: self.columns,
         model: model
       });
-      //console.log('Adding annotation table.');
-      //console.log(model);
+      // console.log('Adding annotation entry.');
+      // console.log(model);
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }
@@ -87,7 +91,8 @@ var AnnotationTableView = Backbone.View.extend({
 var AnnotationTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click' : 'onClick'
+    'click #editAnnotation' : 'onClick',
+    'click #deleteAnnotation' : 'onClickDelete'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -100,9 +105,19 @@ var AnnotationTableItemView = Backbone.View.extend({
     event.stopPropagation();
     ooi.trigger('AnnotationTableItemView:onClick', this.model);
   },
+  onClickDelete: function(event) {
+    // event.stopPropagation();
+    var self = this;
+    event.preventDefault();
+    this.model.destroy({
+      success: function() {
+        ooi.trigger('AnnotationTableItemView:onClickDelete', self.model);
+      }
+    });
+  },
   template: JST['ooiui/static/js/partials/AnnotationTableItem.html'],
   render: function() {
-    this.$el.html(this.template({model: this.model, columns: this.columns}));
+    this.$el.html(this.template({model: this.model, columns: this.columns, user: ooi.models.userModel.attributes}));
   }
 });
 

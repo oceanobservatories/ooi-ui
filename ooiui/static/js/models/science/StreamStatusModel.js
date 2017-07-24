@@ -29,13 +29,13 @@ var GetInstrumentStatus = function(ref_des) {
             //});
             //console.log(theStatus);
             //return theStatus
-            var result = $.grep(resp.instrument, function(e){ return e.reference_designator == ref_des; });
+            var result = $.grep(resp.instrument, function(e){ return e.reference_designator === ref_des; });
             //console.log('result');
             //console.log(result);
-            if (result.length == 0) {
+            if (result.length === 0) {
                 //console.log('No Status Returned');
                 output = {"status": "noStatusReturned", "depth": "Unknown"};
-            } else if (result.length == 1) {
+            } else if (result.length === 1) {
                 // access the foo property using result[0].foo
                 //console.log('Found: ' + platform_ref_des);
                 //console.log(result[0].status);

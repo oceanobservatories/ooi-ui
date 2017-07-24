@@ -214,7 +214,8 @@ def get_annotations():
     except Exception, e:
         return jsonify(error=str(e))
 
-
+@scope_required('annotate')
+@login_required()
 @app.route('/api/annotation', methods=['POST'])
 def post_annotation():
     token = get_login()
@@ -223,13 +224,24 @@ def post_annotation():
     response = requests.post(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code, dict(response.headers)
 
-
+@scope_required('annotate')
+@login_required()
 @app.route('/api/annotation/<string:id>', methods=['PUT'])
 def put_annotation(id):
     token = get_login()
     headers = {'Content-Type': 'application/json'}
     url = app.config['SERVICES_URL'] + '/annotation/%s' % id
     response = requests.put(url, auth=(token, ''), data=request.data, headers=headers)
+    return response.text, response.status_code
+
+@scope_required('annotate')
+@login_required()
+@app.route('/api/annotation/<string:id>', methods=['DELETE'])
+def delete_annotation(id):
+    token = get_login()
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation/delete/%s' % id
+    response = requests.get(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code
 
 

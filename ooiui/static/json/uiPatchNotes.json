@@ -1,5 +1,17 @@
 [
     {
+        "VersionNumber": "1.4.4",
+        "VersionDate": "2017-07-17",
+        "VersionDescription": [
+            "Annotations: Adds ability to push annotations at the subsite, platform and instrument levels. (11778)",
+            "Annotations: Adds the ability to create annotations at the parameter level. (11849)",
+            "Annotations: Adds scope-level CRUD permissions for annotations. (11785)",
+            "Annotations: Adds edit and delete of annotations. (11784)",
+            "Download: Enables POST and PUT methods in M2M annotations API for operators with authenticated M2M annotation permissions. (12117)",
+            "M2M: Added M2M routes for new data ingestion web service in EDEX. (12375)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.3",
         "VersionDate": "2017-06-13",
         "VersionDescription": [

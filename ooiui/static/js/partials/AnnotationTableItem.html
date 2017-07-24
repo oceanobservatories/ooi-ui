@@ -1,3 +1,20 @@
-<% _.each(columns, function(col) { %>  
-    <td><%= model.get(col.name) %></td>  
-<% }); %>
+<%  _.each(columns, function(col) { %>
+<%    // console.log(col.name + ":" + model.get(col.name)) %>
+<%    if(col.name === 'beginDT'){ %>
+        <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
+<%    } else if(col.name === 'endDT') { %>
+        <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
+<%    } else if(col.name === 'actions') { %>
+        <td>
+          <div style='display: flex;justify-content: space-between;'>
+            <% // console.log(user.scopes) %>
+            <% // console.log(user) %>
+            <% if((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source'))){ %>
+            <button type='button' title='Edit' style='float:left; margin: 3px;' id='editAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-edit' aria-hidden='true'></i></button>
+            <button type='button' title='Delete' style='float:left; padding-left: 6px; margin: 3px;' id='deleteAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-trash' aria-hidden='true'></i></button>
+            <% } %>
+          </div>
+        </td>
+<%    } else { %>
+        <td><%= model.get(col.name) %></td>
+<%  }}); %>

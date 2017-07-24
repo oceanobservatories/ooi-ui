@@ -16,6 +16,7 @@
 
 var AnnotationModel = Backbone.Model.extend({
   urlRoot: '/api/annotation',
+  //idAttribute: 'id',
   defaults: {
     annotation:"",
     stream_name: "",
@@ -37,5 +38,16 @@ var AnnotationCollection = Backbone.Collection.extend({
       return response.annotations;
     }
     return [];
+  },
+  sortByField: function(field, direction){
+    var sorted = _.sortBy(this.models, function(model){
+      return model.get(field);
+    });
+
+    if(direction === 'descending'){
+      sorted = sorted.reverse()
+    }
+
+    this.models = sorted;
   }
 });
