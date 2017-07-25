@@ -24,7 +24,7 @@ tabindex allows the escape key to be used to close the modal -->
         </div> <!-- .row -->
         <form>
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label for="username">User</label>
                 <input id="username" type="text" class="form-control modal-form-input input" value="<%= username %>" disabled="disabled">
@@ -51,19 +51,20 @@ tabindex allows the escape key to be used to close the modal -->
                 </div>
               </div>
             </div>
-            <div class="col-sm-6" style="width: auto;">
+
               <div class="form-group">
                 <label for="comments-input">Annotation</label>
-                <textarea id="comments-input" class="modal-form-textarea-row-3 form-control"></textarea>
+                <textarea id="comments-input" class="modal-form-textarea-row-3 form-control" required></textarea>
               </div> <!-- .form-group -->
+
               <div class="form-group">
                 <label for="qcflag-input">QC Flag</label>
                 <select id="qcflag-input" title="QC Flag" class="form-control">
-                  <% console.log('Creating QC Flags SELECT form element'); %>
-                  <% console.log(qcFlags); %>
+                  <% //console.log('Creating QC Flags SELECT form element'); %>
+                  <% //console.log(qcFlags); %>
                   <% var val = ""; %>
                   <% for(var key in qcFlags.attributes.qcflags){ %>
-                  <% console.log(key); %>
+                  <% //console.log(key); %>
                   <option value="<%= qcFlags.attributes.qcflags[key] %>"><%= key %></option>
                   <% }; %>
                 </select>
@@ -78,13 +79,12 @@ tabindex allows the escape key to be used to close the modal -->
               <div class="form-group">
                 <label for="parameters-input">Parameter Selection</label>
                 <select id="parameters-input" title="Parameter Selection" class="form-group-sm" multiple>
+                  <option value="null" selected="selected">No Parameters</option>
                   <% console.log('Creating Parameter SELECT form element'); %>
                   <% console.log(model); %>
                   <% var val = ""; %>
                   <% for(var i=0; i<parameterDisplayNames.length;i++){ %>
-                  <% console.log(parameterDisplayNames[i]); %>
-                  <% console.log(parameterIds[i]); %>
-                  <option value="<%= parameterIds[i] %>"><%= parameterDisplayNames[i] %></option>
+                  <option value="<%= parameterIds[i].substring(2) %>"><%= parameterDisplayNames[i] %></option>
                   <% }; %>
                 </select>
               </div>
@@ -94,7 +94,7 @@ tabindex allows the escape key to be used to close the modal -->
               <div class="pull-right">
                 <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
               </div>
-            </div> <!-- .col-sm-6 -->
+
           </div> <!-- .row -->
         </form>
       </div> <!-- modal-form-body -->

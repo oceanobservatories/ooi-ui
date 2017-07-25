@@ -28,7 +28,11 @@ var AnnotationModel = Backbone.Model.extend({
     parameters:"", //param list is affects
     source:"",
     qcFlag:"",
-    exclusionFlag:false
+    exclusionFlag:false,
+    node:"",
+    sensor:"",
+    stream:"",
+    subsite:""
   }  
 });
 

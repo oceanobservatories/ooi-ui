@@ -1041,6 +1041,7 @@
           // console.log('onSubmit99');
           $.when(self.collections.annotations.add(model)).done( function(ret){
             //console.log(ret);
+            self.collections.annotations.fetch();
             self.views.annotationTableView.render();
           })
         });
@@ -1051,6 +1052,7 @@
           // console.log(model);
           $.when(self.collections.annotations.add(model)).done( function(ret){
             // console.log(ret);
+            self.collections.annotations.fetch();
             self.views.annotationTableView.render();
           })
         });
@@ -1082,9 +1084,9 @@
 
           $.when(self.collections.annotations.remove(model)).done( function(ret){
             // console.log(ret);
+            self.collections.annotations.fetch();
             self.views.annotationTableView.render();
           })
-          // alert("Deletion of annotations not yet implemented.")
         });
 
         this.listenTo(this, 'AnnotationModalFormView:onError', function(e) {
@@ -1107,10 +1109,14 @@
             "endDTSafe": max,
             "beginDT": null,
             "endDT": null,
-            "method": model.get("stream_name"),
+            "method": model.get("method"),
             "stream_name": model.get("stream_name"),
             "qcFlag": null,
-            "exclusionFlag": null
+            "exclusionFlag": null,
+            "node": model.get("node"),
+            "sensor": model.get("sensor"),
+            "stream": model.get("stream"),
+            "subsite": model.get("subsite")
           });
 
           if(self.login.loggedIn()) {
@@ -2632,6 +2638,8 @@
       var chart = visavailChart();
       function draw_visavail(ref_des) {
         chart.width($('#visavail_container').width()-350);
+        chart.marginLeft(300);
+        chart.paddingLeft(-300);
 
         var divId = "div_" + ref_des;
         console.log(divId);

@@ -504,3 +504,15 @@ pre {
   font-size: 16px;
   font-weight: 300;
 }
+
+.form-group-sm {
+  width: 100%;
+  min-height: 100px;
+}
+
+#comments-input {
+  display:inline-block;
+  border: solid 1px #000;
+  min-height: 200px;
+  width: 300px
+}

@@ -55,7 +55,13 @@ var AnnotationModalFormView = ModalFormView.extend({
     console.log(this.$el.find('#parameters-input').val());
     this.model.set('annotation',this.$el.find('#comments-input').val());
     this.model.set('qcFlag', this.$el.find('#qcflag-input').val());
-    this.model.set('parameters', this.$el.find('#parameters-input').val().toString());
+    var pVal = this.$el.find('#parameters-input').val().toString();
+    console.log('pVal');
+    console.log(pVal);
+    if(pVal === "null"){
+      pVal = null;
+    }
+    this.model.set('parameters', pVal);
     this.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
     var minDate = moment.utc(self.model.get('beginDTSafe'));
@@ -78,7 +84,7 @@ var AnnotationModalFormView = ModalFormView.extend({
 
       self.model.set('qcFlag', this.$el.find('#qcflag-input').val());
 
-      self.model.set('parameters', this.$el.find('#parameters-input').val().toString());
+      self.model.set('parameters', pVal);
 
       self.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
@@ -132,7 +138,14 @@ var AnnotationModalFormView = ModalFormView.extend({
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
       $('#qcflag-input').val(this.model.get('qcFlag'));
-      $('#parameters-input').val(this.model.get('parameters').split(','));
+      console.log("this.model.get('parameters')");
+      console.log(this.model.get('parameters'));
+      if(this.model.get('parameters') !== null && this.model.get('parameters').length > 0){
+        $('#parameters-input').val(this.model.get('parameters').toString().split(','));
+      } else {
+        $('#parameters-input').val("null");
+      }
+
       $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
     }
 
