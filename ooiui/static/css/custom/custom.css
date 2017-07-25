@@ -511,8 +511,11 @@ pre {
 }
 
 #comments-input {
-  display:inline-block;
+  /*display:inline-block;*/
   border: solid 1px #000;
-  min-height: 200px;
-  width: 300px
+  min-height: 150px;
+  min-width: 580px;
+  padding: 0;
+  font-size: 14pt;
+  font-weight: 300;
 }
