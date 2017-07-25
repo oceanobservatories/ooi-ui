@@ -17,12 +17,12 @@
       var instStatus = model.get("status");
       var instReason = model.get("reason");
       if(instReason == null || instReason.replace(/ /gi,"").length == 0){
-        instReason = "No Reason Provided";
+        instReason = "";
       }
       %>
 
       <% if(instStatus.length > 0) { %>
-        <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %> (<%= instStatus %>)"></i></li>
+        <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %>"></i></li>
       <% } else { %>
         <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
       <% } %>
