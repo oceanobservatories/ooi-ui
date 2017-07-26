@@ -49,7 +49,8 @@ var SiteStatusModel = Backbone.Model.extend({
         "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
         "depth": attrs.depth,
         "waterDepth": attrs.waterDepth,
-        "status": attrs.status
+        "status": attrs.status,
+        "reason": attrs.reason
       },
       "geometry": {
         "type": "Point",
