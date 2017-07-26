@@ -1,5 +1,15 @@
 [
     {
+        "VersionNumber": "1.4.5 Candidate",
+        "VersionDate": "2017-XX-XX",
+        "VersionDescription": [
+            "Annotations: General form and CSS cleanup. ()",
+            "Data Availability: Added to data access page on stream selection. ()",
+            "Download: Removes pdids from netCDF. ()",
+            "Status: Adds status indicators with updated mouse over text. ()"
+        ]
+    },
+    {
         "VersionNumber": "1.4.4",
         "VersionDate": "2017-07-17",
         "VersionDescription": [
