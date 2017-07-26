@@ -1,8 +1,10 @@
 <%
-//console.log('in arraycontentsummaryitem');
-//console.log(this);
-//console.log('properties');
-//console.log(properties);
+// console.log('in arraycontentsummaryitem');
+// console.log(this);
+// console.log('properties');
+// console.log(properties);
+// console.log(this.model.attributes.pLookup);
+var pLookup = this.model.attributes.pLookup;
 %>
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
@@ -208,15 +210,18 @@
                     <td class="tdulliFormat">
                       <ul>
                         <%
-                        var instStatus = platform.properties.status;
-                        var instReason = platform.properties.reason;
+                        // console.log('pLookup');
+                        // console.log(pLookup);
+                        // console.log(platform.properties.status);
+                        var instStatus = pLookup[platform.properties.status].mouseText;
+                        var instReason = pLookup[platform.properties.status].notes;
                         if(instReason == null || instReason.replace(/ /gi,"").length == 0){
                         instReason = "";
                         }
                         %>
 
                         <% if(instStatus.length > 0) { %>
-                          <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %>"></i></li>
+                          <li><i class="fa fa-circle <%= platform.properties.status %>" aria-hidden="true" title="<%= instStatus %> - <%= instReason %>"></i></li>
                         <% } else { %>
                           <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>

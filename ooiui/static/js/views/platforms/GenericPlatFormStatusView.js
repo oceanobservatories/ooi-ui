@@ -109,8 +109,8 @@ var GenericPlatFormStatus = Backbone.View.extend({
         // console.log('addTableRows this.platformsStatusCollection');
         // console.log(this.platformsStatusCollection);
         _.forEach(this.platformsStatusCollection.models, function(modelList) {
-            console.log('modelList');
-            console.log(modelList);
+            // console.log('modelList');
+            // console.log(modelList);
             var instrumentsSorted = _.sortBy(_.sortBy(modelList.get('items'), 'display_name'), 'maxdepth');
             // console.log('instrumentsSorted');
             // console.log(instrumentsSorted);

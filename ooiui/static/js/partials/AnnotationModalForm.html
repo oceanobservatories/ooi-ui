@@ -1,3 +1,6 @@
+<% console.log('model in AnnotationModalForm.html');
+console.log(model);
+%>
 <!--Modal-->
 <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
 tabindex allows the escape key to be used to close the modal -->
@@ -16,10 +19,10 @@ tabindex allows the escape key to be used to close the modal -->
             <div class="banner-image"></div>
           </div>
           <div class="col-sm-8">
-            <div class="modal-form-message">              
-              <h2>Annotate Stream</h2>
-              <h3><%= model.get('reference_designator') %></h3>
-              <h3><%= model.get('stream_name') %></h3>
+            <div class="modal-form-message" style="width: 500px;">
+              <h3>Annotate Stream</h3>
+              <h4><%= model.get('referenceDesignator') %></h4>
+              <h5><%= model.get('stream') %></h5>
             </div> <!-- .message -->
           </div> <!-- .col-sm-12 -->
         </div> <!-- .row -->
@@ -63,7 +66,6 @@ tabindex allows the escape key to be used to close the modal -->
                 <select id="qcflag-input" title="QC Flag" class="form-control">
                   <% //console.log('Creating QC Flags SELECT form element'); %>
                   <% //console.log(qcFlags); %>
-                  <% var val = ""; %>
                   <% for(var key in qcFlags.attributes.qcflags){ %>
                   <% //console.log(key); %>
                   <option value="<%= qcFlags.attributes.qcflags[key] %>"><%= key %></option>
@@ -74,7 +76,7 @@ tabindex allows the escape key to be used to close the modal -->
                 <label for="exclusionFlag-input">Exclude Data</label>
                 <select id="exclusionFlag-input" title="Exclude Data" class="form-control">
                   <option value=true>Yes</option>
-                  <option value=false>No</option>
+                  <option value=false selected>No</option>
                 </select>
               </div>
               <div class="form-group">
@@ -83,7 +85,6 @@ tabindex allows the escape key to be used to close the modal -->
                   <option value="null" selected="selected">No Parameters</option>
                   <% console.log('Creating Parameter SELECT form element'); %>
                   <% console.log(model); %>
-                  <% var val = ""; %>
                   <% for(var i=0; i<parameterDisplayNames.length;i++){ %>
                   <option value="<%= parameterIds[i].substring(2) %>"><%= parameterDisplayNames[i] %></option>
                   <% }; %>

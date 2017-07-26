@@ -838,7 +838,7 @@
 
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
-          console.log(o.model);
+          // console.log(o.model);
           $('#div_'+o.model.get('reference_designator')).remove();
 
           history.back();
@@ -1041,7 +1041,7 @@
           // console.log('onSubmit99');
           $.when(self.collections.annotations.add(model)).done( function(ret){
             //console.log(ret);
-            self.collections.annotations.fetch();
+            self.trigger('update_catalog_list',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1052,7 +1052,7 @@
           // console.log(model);
           $.when(self.collections.annotations.add(model)).done( function(ret){
             // console.log(ret);
-            self.collections.annotations.fetch();
+            self.trigger('update_catalog_list',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1084,7 +1084,7 @@
 
           $.when(self.collections.annotations.remove(model)).done( function(ret){
             // console.log(ret);
-            self.collections.annotations.fetch();
+            self.trigger('update_catalog_list',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1095,7 +1095,7 @@
             message: "Error saving annotation.<br>"+e.responseText,
             type: "warning"
           });
-          self.collections.annotations.fetch();
+          self.trigger('update_catalog_list',{});
           self.views.annotationTableView.render();
         });
 
@@ -1104,7 +1104,8 @@
           var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss.SSS");
           var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm:ss.SSS");
 
-          var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
+          var annoModel = new AnnotationModel({
+            "referenceDesignator": model.get('reference_designator'),
             "beginDTSafe": min,
             "endDTSafe": max,
             "beginDT": null,
@@ -1121,7 +1122,7 @@
 
           if(self.login.loggedIn()) {
             self.views.annotationModal.show({
-              model: model,
+              model: annoModel,
               userModel: self.models.userModel,
               qcFlagsModel: self.models.qcFlagsModel,
               showUpdate: false
@@ -2642,7 +2643,7 @@
         chart.paddingLeft(-300);
 
         var divId = "div_" + ref_des;
-        console.log(divId);
+        // console.log(divId);
         $('#example').append('<div id="' + divId + '"></div>');
         d3.select("#"+divId)
           .datum(dataset)

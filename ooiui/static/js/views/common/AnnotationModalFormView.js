@@ -31,6 +31,8 @@ var AnnotationModalFormView = ModalFormView.extend({
     //options.model = annotation model
     if (options && options.showUpdate){
       this.showUpdate = options.showUpdate;
+      console.log('this.showUpdate');
+      console.log(this.showUpdate);
     }
 
     if(options && options.model && options.userModel && options.qcFlagsModel) {
@@ -129,6 +131,7 @@ var AnnotationModalFormView = ModalFormView.extend({
     if(self.showUpdate) {
       this.$el.find('#submit-button').text('Update');
       this.$el.find('#reset-button').prop('disabled', 'disabled');
+      self.showUpdate = false;
     }else{
       this.$el.find('#submit-button').text('Add');
       this.$el.find('#reset-button').prop('disabled', '');
@@ -137,15 +140,18 @@ var AnnotationModalFormView = ModalFormView.extend({
 
     if(this.model.get('annotation')) {
       this.$el.find('#comments-input').val(this.model.get('annotation'));
+      // QC Flags
+      console.log("this.model.get('qcFlag')");
+      console.log(this.model.get('qcFlag'));
       $('#qcflag-input').val(this.model.get('qcFlag'));
-      console.log("this.model.get('parameters')");
-      console.log(this.model.get('parameters'));
+
+      // Parameters
       if(this.model.get('parameters') !== null && this.model.get('parameters').length > 0){
         $('#parameters-input').val(this.model.get('parameters').toString().split(','));
       } else {
         $('#parameters-input').val("null");
       }
-
+      // Exclusion Flag
       $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
     }
 
