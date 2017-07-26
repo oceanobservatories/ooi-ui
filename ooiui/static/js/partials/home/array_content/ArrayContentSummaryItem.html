@@ -168,6 +168,14 @@ var pLookup = this.model.attributes.pLookup;
 
 
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
+        <div style="text-align:left; width: 100%; padding-left: 8px;">
+          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Status Legend -</b></h5>
+          <h5 class="fa fa-circle notTracked" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Tracked</h5>
+          <h5 class="fa fa-circle operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Operational</h5>
+          <h5 class="fa fa-circle removedFromService" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Removed From Service</h5>
+          <h5 class="fa fa-circle failed" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Failed</h5>
+          <h5 class="fa fa-circle degraded" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Degraded</h5>
+        </div>
 
         <table class="table table-stripped">
 
@@ -212,16 +220,19 @@ var pLookup = this.model.attributes.pLookup;
                         <%
                         // console.log('pLookup');
                         // console.log(pLookup);
-                        // console.log(platform.properties.status);
+                        console.log(platform.properties.status);
+                        console.log(platform);
                         var instStatus = pLookup[platform.properties.status].mouseText;
-                        var instReason = pLookup[platform.properties.status].notes;
+                        var instReason = platform.properties.reason;
                         if(instReason == null || instReason.replace(/ /gi,"").length == 0){
                         instReason = "";
+                        }else{
+                        instReason = " - " + instReason;
                         }
                         %>
 
                         <% if(instStatus.length > 0) { %>
-                          <li><i class="fa fa-circle <%= platform.properties.status %>" aria-hidden="true" title="<%= instStatus %> - <%= instReason %>"></i></li>
+                          <li><i class="fa fa-circle <%= platform.properties.status %>" aria-hidden="true" title="<%= instReason %>"></i></li>
                         <% } else { %>
                           <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
