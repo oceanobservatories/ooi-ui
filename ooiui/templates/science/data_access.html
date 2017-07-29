@@ -144,7 +144,7 @@
 
                   <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
                     <li class="active default-tab-option"><a id="plot-tool-instruments-tab" href="#plot-tool-instruments" data-toggle="tab">Data Navigation</a></li>
-                    <li class="disabled">  <a href="#plot-tool-tab"  data-toggle="tab">Plotting</a></li>
+                    <li class="disabled" id="plot-tab-nav-button">  <a href="#plot-tool-tab"  data-toggle="tab">Plotting</a></li>
 
                     <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
                     <li class="disabled"><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
@@ -180,6 +180,20 @@
                         </div>
                       </div>
 
+                      <!-- Annotation Legend-->
+                      <div class="row">
+                        <div style="text-align:left; width: 100%; padding-left: 8px;">
+                          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Annotation Legend -</b></h5>
+                          <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
+                          <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
+                          <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
+                          <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
+                          <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
+                          <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
+                          <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                        </div>
+                      </div>
+
                       <div class="row">
                         <div class="panel">
                           <div class="panel-heading plotting-heading">
@@ -193,6 +207,7 @@
                             <p id="zoom-coordinates"></p>
                             <a href="#" type="button" id="zoom-reset-plot" class="btn btn-default zoom-reset-plot">Reset Zoom</a>
                           </div>
+
                           <div class="panel-body">
                             <!--  Plot section NORMAL   -->
                             <div id="plot-view">
@@ -672,6 +687,13 @@
           }
           window.location.reload(true);
         });
+
+        $("#plot-tab-nav-button").on('click', function(e){
+          if ($("#plot-controls > div > div > div.col-sm-8.plot-instrument-column > div.instrument-content > div > table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > button > span.filter-option.pull-left").text() !== "Select a parameter") {
+            ooi.trigger('update_plot', {});
+          }
+        });
+
         this.listenTo(this, "login:logout", function() { window.location.reload(true); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
@@ -855,8 +877,11 @@
 
         this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
           //renders the xy chart
-          self.views.plotContainer.showUpdateLoading();
-          self.views.plotContainer.updateChart(o.model);
+          if(o !== undefined){
+            //console.log('updating chart');
+            self.views.plotContainer.showUpdateLoading();
+            self.views.plotContainer.updateChart(o.model);
+          }
         });
 
         this.listenTo(this, "plot:plotLoaded", function(o) {
@@ -867,6 +892,20 @@
           //changes the plot type
           $('.download-plot-container').css('display','none');
           self.views.plotControls.render();
+        });
+
+        this.listenTo(this, "update_annotation_table", function(o){
+          //ANNOTATIONS
+          self.collections.annotations.fetch({
+            data: $.param({
+              startdate: self.collections.selectedStreamCollection.models[0].get('start'),
+              enddate:  self.collections.selectedStreamCollection.models[0].get('end'),
+              reference_designator: self.collections.selectedStreamCollection.models[0].get('reference_designator'),
+              stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name'),
+              stream_display_name: self.collections.selectedStreamCollection.models[0].get('stream_display_name')
+            }),
+            reset: true
+          });
         });
 
         this.listenTo(this, "update_catalog_list", function(o) {
@@ -945,6 +984,8 @@
 {#          console.log(self.views.plotContainer.xyPlot.   .xyPlot.origEndDate);#}
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
+          //console.log('self.views.plotContainer.plotModel');
+          //console.log(self.views.plotContainer.plotModel);
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
@@ -1038,21 +1079,23 @@
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onSubmit99', function(model) {
-          // console.log('onSubmit99');
+          //console.log('onSubmit99');
+          //console.log(model);
           $.when(self.collections.annotations.add(model)).done( function(ret){
             //console.log(ret);
-            self.trigger('update_catalog_list',{});
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
         });
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onUpdate99', function(model) {
-          // console.log('onUpdate99');
-          // console.log(model);
+          //console.log('onUpdate99');
+          //console.log(model);
+
           $.when(self.collections.annotations.add(model)).done( function(ret){
             // console.log(ret);
-            self.trigger('update_catalog_list',{});
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1084,7 +1127,7 @@
 
           $.when(self.collections.annotations.remove(model)).done( function(ret){
             // console.log(ret);
-            self.trigger('update_catalog_list',{});
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1095,7 +1138,7 @@
             message: "Error saving annotation.<br>"+e.responseText,
             type: "warning"
           });
-          self.trigger('update_catalog_list',{});
+          self.trigger('update_annotation_table',{});
           self.views.annotationTableView.render();
         });
 
@@ -1112,7 +1155,7 @@
             "endDT": null,
             "method": model.get("method"),
             "stream_name": model.get("stream_name"),
-            "qcFlag": null,
+            "qcFlag": "not_evaluated",
             "exclusionFlag": null,
             "node": model.get("node"),
             "sensor": model.get("sensor"),

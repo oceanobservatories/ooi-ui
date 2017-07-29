@@ -519,3 +519,45 @@ pre {
   font-size: 14pt;
   font-weight: 300;
 }
+
+.fa.fa-circle.anno-fail {
+    color: #CC0000;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_evaluated {
+    color: #CCCC00;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_available {
+    color: #ff008d;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_operational {
+    color: #CC6600;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-pass {
+    color: #006600;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-pending_ingest {
+    color: #CFC9FF;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-suspect {
+    color: #CC6644;
+    font-size: 16px;
+    float: left;
+}

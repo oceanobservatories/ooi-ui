@@ -23,9 +23,9 @@ var instrumentStatusLookup = {
   <td class="tdulliFormat">
     <ul>
       <%
-      console.log('instrumentStatusLookup');
-      console.log(instrumentStatusLookup);
-      console.log(model.get('status'));
+      //console.log('instrumentStatusLookup');
+      //console.log(instrumentStatusLookup);
+      //console.log(model.get('status'));
       var instStatus = instrumentStatusLookup[model.get('status')].mouseText;
       var instReason = instrumentStatusLookup[model.get('status')].notes;
       instReason = model.get('reason');

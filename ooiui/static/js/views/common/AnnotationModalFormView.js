@@ -31,8 +31,6 @@ var AnnotationModalFormView = ModalFormView.extend({
     //options.model = annotation model
     if (options && options.showUpdate){
       this.showUpdate = options.showUpdate;
-      console.log('this.showUpdate');
-      console.log(this.showUpdate);
     }
 
     if(options && options.model && options.userModel && options.qcFlagsModel) {
@@ -53,13 +51,13 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     event.stopPropagation();
     event.preventDefault();
-    console.log('Selected Parameters');
-    console.log(this.$el.find('#parameters-input').val());
+    //console.log('Selected Parameters');
+    //console.log(this.$el.find('#parameters-input').val());
     this.model.set('annotation',this.$el.find('#comments-input').val());
     this.model.set('qcFlag', this.$el.find('#qcflag-input').val());
     var pVal = this.$el.find('#parameters-input').val().toString();
-    console.log('pVal');
-    console.log(pVal);
+    //console.log('pVal');
+    //console.log(pVal);
     if(pVal === "null"){
       pVal = null;
     }
@@ -96,7 +94,7 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.model.save(null, {
         success: function(model,response) {
           //console.log(model.ui_id);
-          if(model.ui_id) {
+          if(model.ui_id !== null) {
             ooi.trigger('AnnotationModalFormView:onUpdate99', model);
           }else{
             ooi.trigger('AnnotationModalFormView:onSubmit99', model);
@@ -138,11 +136,12 @@ var AnnotationModalFormView = ModalFormView.extend({
     }
 
 
-    if(this.model.get('annotation')) {
+    if(this.model.get('annotation') !== undefined) {
+    //console.log(this.model);
       this.$el.find('#comments-input').val(this.model.get('annotation'));
       // QC Flags
-      console.log("this.model.get('qcFlag')");
-      console.log(this.model.get('qcFlag'));
+      //console.log("this.model.get('qcFlag')");
+      //console.log(this.model.get('qcFlag'));
       $('#qcflag-input').val(this.model.get('qcFlag'));
 
       // Parameters
@@ -152,7 +151,10 @@ var AnnotationModalFormView = ModalFormView.extend({
         $('#parameters-input').val("null");
       }
       // Exclusion Flag
-      $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
+      if(this.model.get('exclusionFlag') !== null){
+        $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
+      }
+
     }
 
     $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss.SSS'})

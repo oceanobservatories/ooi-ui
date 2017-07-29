@@ -1,5 +1,6 @@
-<% console.log('model in AnnotationModalForm.html');
-console.log(model);
+<%
+//console.log('model in AnnotationModalForm.html');
+//console.log(model);
 %>
 <!--Modal-->
 <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
@@ -83,8 +84,8 @@ tabindex allows the escape key to be used to close the modal -->
                 <label for="parameters-input">Parameter Selection</label>
                 <select id="parameters-input" title="Parameter Selection" class="form-group-sm" multiple>
                   <option value="null" selected="selected">No Parameters</option>
-                  <% console.log('Creating Parameter SELECT form element'); %>
-                  <% console.log(model); %>
+                  <% //console.log('Creating Parameter SELECT form element'); %>
+                  <% //console.log(model); %>
                   <% for(var i=0; i<parameterDisplayNames.length;i++){ %>
                   <option value="<%= parameterIds[i].substring(2) %>"><%= parameterDisplayNames[i] %></option>
                   <% }; %>

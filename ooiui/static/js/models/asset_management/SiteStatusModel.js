@@ -38,8 +38,8 @@ var SiteStatusModel = Backbone.Model.extend({
     var attrs = _.clone(this.attributes),
       newArray = [attrs.longitude.toFixed(5), attrs.latitude.toFixed(5)];
 
-    console.log('attrs');
-    console.log(attrs);
+    // console.log('attrs');
+    // console.log(attrs);
     var geoJSON = {
       "type": "Feature",
       "properties": {

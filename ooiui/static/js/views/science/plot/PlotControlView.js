@@ -17,7 +17,8 @@ var PlotControlView = Backbone.View.extend({
     "change .selectpicker#plotOrientation" : "onPlotOrientationSelect", //on plot orientation change
     "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
     "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect", //on plot options change
-    "change .selectpicker#plotqaqc" : "onPlotQAQCSelect" //on plot qaqc change
+    "change .selectpicker#plotqaqc" : "onPlotQAQCSelect", //on plot qaqc change
+    "change #toggleAnnotations" : "onToggleAnnotations" // Toggle annotations
   },
 
   initialize: function(options) {
@@ -220,12 +221,22 @@ var PlotControlView = Backbone.View.extend({
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotOptionsSelect: function(e){
-    var selected = $(e.target).val()
-    var obj = {'invertY':false,'invertX':false,'showAnnotations':false,'showEvents':false};
+    var selected = $(e.target).val();
+    var obj = {'invertY':false,'invertX':false,'showEvents':false};
     _.each(selected,function(selItem){
       obj[selItem] = true;
     });
     this.plotModel.set(obj);
+    ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
+  },
+  onToggleAnnotations: function(e){
+    var selected = $(e.target).val();
+    if($('#toggleAnnotations').is(":checked")){
+      this.plotModel.set('showAnnotations', true);
+    }else{
+      this.plotModel.set('showAnnotations', false);
+    }
+
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotTypeSelect: function(e){
@@ -346,7 +357,7 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
       self.subviews.push(new PlotInstrumentParameterControl({
-        hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false ,
+        hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false,
         model: self.model,
         parameter_id: i,
         plotTypeModel : selectedPlotType,
