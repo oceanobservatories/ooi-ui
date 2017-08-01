@@ -3,10 +3,16 @@
         "VersionNumber": "1.4.5 Candidate",
         "VersionDate": "2017-XX-XX",
         "VersionDescription": [
-            "Annotations: General form and CSS cleanup. ()",
-            "Data Availability: Added to data access page on stream selection. ()",
-            "Download: Removes pdids from netCDF. ()",
-            "Status: Adds status indicators with updated mouse over text. ()"
+            "Annotations: Adds data availability to data access page on intrument selection. (11942)",
+            "Annotations: Adds ability to add and edit annotations with subsecond precision. (12442)",
+            "Annotations: Analysis and proposed solution provided for annotation propogation. (11540)",
+            "Annotations: Adds support for annotation DELETE using the M2M API. (12495)",
+            "Annotations: Adds all editable fields to annotation create/edit form. (11786)",
+            "M2M: Updates M2M documentation for navigation functionality. (12403)",
+            "Media: Analysis and proposed solution provided for viewing digital still images and metadata. (8869)",
+            "Status: Updates status indicator mouse over to reflect reason given by system or operator. (12146)",
+            "Status: Added status legend to pages where status indicators are shown. (12147)",
+            "TOC: Resolved missing reference designators by asset management update. (12270)"
         ]
     },
     {
