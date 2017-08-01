@@ -1,7 +1,7 @@
 [
     {
-        "VersionNumber": "1.4.5 Candidate",
-        "VersionDate": "2017-XX-XX",
+        "VersionNumber": "1.4.5",
+        "VersionDate": "2017-08-01",
         "VersionDescription": [
             "Annotations: Adds data availability to data access page on intrument selection. (11942)",
             "Annotations: Adds ability to add and edit annotations with subsecond precision. (12442)",
