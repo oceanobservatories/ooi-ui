@@ -119,6 +119,7 @@ var AnnotationTableView = Backbone.View.extend({
   },
   render: function() {
     var self = this;
+    this.collection.sortByField('id', 'descending');
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
 
     this.collection.each(function(model, i) {
