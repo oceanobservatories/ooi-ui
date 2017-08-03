@@ -17,9 +17,16 @@
             ){
               isEditable = true;
             }
+            var isDeleteable = false;
+            if((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source'))
+            ){
+              isDeleteable = true;
+            }
             %>
             <% if(isEditable){ %>
             <button type='button' title='Edit' style='float:left; margin: 3px;' id='editAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-edit' aria-hidden='true'></i></button>
+            <% } %>
+            <% if(isDeleteable){ %>
             <button type='button' title='Delete' style='float:left; padding-left: 6px; margin: 3px;' id='deleteAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-trash' aria-hidden='true'></i></button>
             <% } %>
           </div>
