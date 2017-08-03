@@ -12,7 +12,7 @@
             <%
             var isEditable = false;
             if(
-              (model.get('referenceDesignator').length > 18) &&
+              // (model.get('referenceDesignator').length > 18) &&
               ((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source')))
             ){
               isEditable = true;
