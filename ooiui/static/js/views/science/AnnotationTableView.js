@@ -46,48 +46,8 @@ var AnnotationTableView = Backbone.View.extend({
         label : 'Actions'
       },
       {
-        name : 'id',
-        label : 'Annotation ID' // The uframe ID
-      },
-      {
-        name : 'annotation',
-        label : 'Annotation'
-      },
-      {
-        name : 'beginDT',
-        label : 'Start Date'
-      },
-      {
-        name : 'endDT',
-        label : 'End Date'
-      },
-      {
-        name : 'exclusionFlag',
-        label : 'Exclude Data?'
-      },
-      {
-        name : 'source',
-        label : 'UserID'
-      },
-      {
-        name : 'parameters',
-        label : 'Parameters'
-      },
-      {
-        name : 'qcFlag',
-        label : 'QC Flag'
-      },
-      {
-        name : 'referenceDesignator',
-        label : 'Reference Designator'
-      },
-      {
-        name : 'stream_name',
-        label : 'Stream Name'
-      },
-      {
-        name : 'method',
-        label : 'Method'
+        name : 'subsite',
+        label : 'Subsite'
       },
       {
         name : 'node',
@@ -98,12 +58,52 @@ var AnnotationTableView = Backbone.View.extend({
         label : 'Sensor'
       },
       {
+        name : 'method',
+        label : 'Method'
+      },
+      {
         name : 'stream',
         label : 'Stream'
       },
       {
-        name : 'subsite',
-        label : 'Subsite'
+        name : 'parameters',
+        label : 'Parameters'
+      },
+      {
+        name : 'beginDT',
+        label : 'Start Date'
+      },
+      {
+        name : 'endDT',
+        label : 'End Date'
+      },
+      {
+        name : 'qcFlag',
+        label : 'QC Flag'
+      },
+      {
+        name : 'annotation',
+        label : 'Annotation'
+      },
+      {
+        name : 'id',
+        label : 'Annotation ID' // The uframe ID
+      },
+      {
+        name : 'exclusionFlag',
+        label : 'Exclude Data?'
+      },
+      {
+        name : 'source',
+        label : 'UserID'
+      },
+      {
+        name : 'referenceDesignator',
+        label : 'Reference Designator'
+      },
+      {
+        name : 'stream_name',
+        label : 'Stream Name'
       }
   ],
   initialize: function() {
@@ -119,7 +119,7 @@ var AnnotationTableView = Backbone.View.extend({
   },
   render: function() {
     var self = this;
-    this.collection.sortByField('id', 'descending');
+    this.collection.sortByField('beginDT', 'ascending');
     this.$el.html(this.template({collection: this.collection, columns: this.columns}));
 
     this.collection.each(function(model, i) {

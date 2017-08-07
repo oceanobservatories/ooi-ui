@@ -31,6 +31,8 @@
             <% } %>
           </div>
         </td>
+<%    } else if(col.name === 'annotation') { %>
+        <td style="min-width: 300px;"><%= model.get(col.name) %></td>
 <%    } else { %>
         <td><%= model.get(col.name) %></td>
 <%  }}); %>
