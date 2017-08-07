@@ -1,7 +1,7 @@
 [
     {
         "VersionNumber": "1.4.5",
-        "VersionDate": "2017-08-01",
+        "VersionDate": "2017-08-07",
         "VersionDescription": [
             "Annotations: Adds data availability to data access page on instrument selection. (11942)",
             "Annotations: Adds ability to add and edit annotations with subsecond precision. (12442)",
@@ -13,6 +13,13 @@
             "Status: Updates status indicator mouse over to reflect reason given by system or operator. (12146)",
             "Status: Added status legend to pages where status indicators are shown. (12147)",
             "TOC: Resolved missing reference designators by asset management update. (12270)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.4.1",
+        "VersionDate": "2017-08-07",
+        "VersionDescription": [
+            "M2M: Removes M2M API menu."
         ]
     },
     {
