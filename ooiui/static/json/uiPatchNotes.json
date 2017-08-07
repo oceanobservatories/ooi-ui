@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.4.1",
+        "VersionDate": "2017-08-07",
+        "VersionDescription": [
+            "M2M: Removes M2M API menu."
+        ]
+    },
+    {
         "VersionNumber": "1.4.4",
         "VersionDate": "2017-07-17",
         "VersionDescription": [
