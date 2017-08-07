@@ -1,19 +1,5 @@
 [
     {
-        "VersionNumber":"1.2.6",
-        "VersionDate":"2017-08-01",
-        "VersionDescription":[
-            "Handle comma separated values for param in data file ingestion (12506)",
-            "Expose data purge through web service (12485)",
-            "Drop FK constraint in new ingest engine (12440)",
-            "Promote uncabled particle timestamps from long to double if needed (12434)",
-            "Create ingestion tool for telemetered and recovered data (12140)",
-            "Increase default max memory (12455)",
-            "Add QcFlag Validation (12461)",
-            "DOI cruise handling and asset management updates (12443)"
-        ]
-    },
-    {
         "VersionNumber":"1.2.5",
         "VersionDate":"2017-06-08",
         "VersionDescription":[
