@@ -33,9 +33,12 @@ var AnnotationModalFormView = ModalFormView.extend({
       this.showUpdate = options.showUpdate;
     }
 
-    if(options && options.model && options.userModel) {
+    if(options && options.model && options.userModel && options.qcFlagsModel) {
         this.model = options.model;
         this.username = options.userModel.get('user_name');
+        this.qcFlags = options.qcFlagsModel;
+        this.parameterDisplayNames = ooi.collections.selectedStreamCollection.models[0].attributes.parameter_display_name;
+        this.parameterIds = ooi.collections.selectedStreamCollection.models[0].attributes.parameter_id;
         this.render();
         ModalFormView.prototype.show.apply(this);
     } else {
@@ -48,7 +51,18 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     event.stopPropagation();
     event.preventDefault();
+    //console.log('Selected Parameters');
+    //console.log(this.$el.find('#parameters-input').val());
     this.model.set('annotation',this.$el.find('#comments-input').val());
+    this.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+    var pVal = this.$el.find('#parameters-input').val().toString();
+    //console.log('pVal');
+    //console.log(pVal);
+    if(pVal === "null"){
+      pVal = null;
+    }
+    this.model.set('parameters', pVal);
+    this.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
     var minDate = moment.utc(self.model.get('beginDTSafe'));
     var maxDate = moment.utc(self.model.get('endDTSafe'));
@@ -68,21 +82,28 @@ var AnnotationModalFormView = ModalFormView.extend({
 
       self.model.set('source', this.username);
 
+      self.model.set('qcFlag', this.$el.find('#qcflag-input').val());
+
+      self.model.set('parameters', pVal);
+
+      self.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
+
       // console.log(min);
       // console.log(max);
 
       this.model.save(null, {
         success: function(model,response) {
           //console.log(model.ui_id);
-          if(model.ui_id) {
+          if(model.ui_id !== null) {
             ooi.trigger('AnnotationModalFormView:onUpdate99', model);
           }else{
             ooi.trigger('AnnotationModalFormView:onSubmit99', model);
           }
         },
-        error: function(){
-          alert('There was a problem saving the annotation to uframe.');
-          console.log('error saving annotation...')
+        error: function(model, e){
+          //alert('There was a problem saving the annotation to uframe.');
+          console.log('error saving annotation...');
+          ooi.trigger('AnnotationModalFormView:onError', e);
         }
       });
       this.hide();
@@ -97,7 +118,10 @@ var AnnotationModalFormView = ModalFormView.extend({
     var self = this;
     this.$el.html(this.template({
       model: this.model,
-      username: this.username
+      username: this.username,
+      qcFlags: this.qcFlags,
+      parameterDisplayNames: this.parameterDisplayNames,
+      parameterIds: this.parameterIds
     }));
     this.stickit();
 
@@ -105,14 +129,32 @@ var AnnotationModalFormView = ModalFormView.extend({
     if(self.showUpdate) {
       this.$el.find('#submit-button').text('Update');
       this.$el.find('#reset-button').prop('disabled', 'disabled');
+      self.showUpdate = false;
     }else{
       this.$el.find('#submit-button').text('Add');
       this.$el.find('#reset-button').prop('disabled', '');
     }
 
 
-    if(this.model.get('annotation')) {
+    if(this.model.get('annotation') !== undefined) {
+    //console.log(this.model);
       this.$el.find('#comments-input').val(this.model.get('annotation'));
+      // QC Flags
+      //console.log("this.model.get('qcFlag')");
+      //console.log(this.model.get('qcFlag'));
+      $('#qcflag-input').val(this.model.get('qcFlag'));
+
+      // Parameters
+      if(this.model.get('parameters') !== null && this.model.get('parameters').length > 0){
+        $('#parameters-input').val(this.model.get('parameters').toString().split(','));
+      } else {
+        $('#parameters-input').val("null");
+      }
+      // Exclusion Flag
+      if(this.model.get('exclusionFlag') !== null){
+        $('#exclusionFlag-input').val(this.model.get('exclusionFlag').toString());
+      }
+
     }
 
     $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss.SSS'})

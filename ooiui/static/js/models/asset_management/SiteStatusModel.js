@@ -38,6 +38,8 @@ var SiteStatusModel = Backbone.Model.extend({
     var attrs = _.clone(this.attributes),
       newArray = [attrs.longitude.toFixed(5), attrs.latitude.toFixed(5)];
 
+    // console.log('attrs');
+    // console.log(attrs);
     var geoJSON = {
       "type": "Feature",
       "properties": {
@@ -47,7 +49,8 @@ var SiteStatusModel = Backbone.Model.extend({
         "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
         "depth": attrs.depth,
         "waterDepth": attrs.waterDepth,
-        "status": attrs.status
+        "status": attrs.status,
+        "reason": attrs.reason
       },
       "geometry": {
         "type": "Point",
