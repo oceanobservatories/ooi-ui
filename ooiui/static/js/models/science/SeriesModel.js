@@ -208,8 +208,8 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
     return this.plottype;
   },
   parse: function(response, options) {
-    console.log('response');
-    console.log(response);
+    // console.log('response');
+    // console.log(response);
     this.units = response.units;
     this.title = response.title;
     this.subtitle = response.subtitle;

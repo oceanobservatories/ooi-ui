@@ -504,3 +504,60 @@ pre {
   font-size: 16px;
   font-weight: 300;
 }
+
+.form-group-sm {
+  width: 100%;
+  min-height: 100px;
+}
+
+#comments-input {
+  /*display:inline-block;*/
+  border: solid 1px #000;
+  min-height: 150px;
+  min-width: 580px;
+  padding: 0;
+  font-size: 14pt;
+  font-weight: 300;
+}
+
+.fa.fa-circle.anno-fail {
+    color: #CC0000;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_evaluated {
+    color: #CCCC00;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_available {
+    color: #ff008d;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-not_operational {
+    color: #CC6600;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-pass {
+    color: #006600;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-pending_ingest {
+    color: #CFC9FF;
+    font-size: 16px;
+    float: left;
+}
+
+.fa.fa-circle.anno-suspect {
+    color: #CC6644;
+    font-size: 16px;
+    float: left;
+}

@@ -248,6 +248,18 @@
             </div>
         </div>
     </div>
+  <div class="row">
+    <div class="col-md-12">
+    <div style="text-align:left; width: 100%; padding-left: 20px;">
+          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Status Legend -</b></h5>
+          <h5 class="fa fa-circle notTracked" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Tracked</h5>
+          <h5 class="fa fa-circle operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Operational</h5>
+          <h5 class="fa fa-circle removedFromService" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Removed From Service</h5>
+          <h5 class="fa fa-circle failed" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Failed</h5>
+          <h5 class="fa fa-circle degraded" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Degraded</h5>
+        </div>
+    </div>
+  </div>
     <div class="row">
         <div class="col-md-7">
             <% _.each(collection, function(model) { %>
@@ -263,7 +275,8 @@
                                 <tr>
                                     <th style="width: 75px;">Navigation</th>
                                     <th style="width: 300px;">Instrument</th>
-                                    <!--<th style="width: 100px;">Status</th>-->
+                                    <!-- STATUS COLUMN -->
+                                    <th style="width: 100px;">Status</th>
                                     <th style="width: 100px;">Deployment Depth</th>
                                     <th style="width: 175px;">Start Time</th>
                                     <th style="width: 175px;">End Time</th>

@@ -110,6 +110,14 @@ var ArrayContentSummary = ParentView.extend({
     //console.log('arrayCollection');
     //console.log(this.collection.arrayCollection);
 
+    var platformStatusLookup = {
+        operational: {mouseText: 'OPERATIONAL', notes: 'Any instrument on that platform is reporting.'},
+        degraded: {mouseText: 'INTERRUPTED', notes: 'Communication with the platform is down, but the platform is still operating and in the water.'},
+        removedFromService: {mouseText: 'NOT DEPLOYED', notes: 'The platform was taken out of the water prior to the anticipated recovery date.'},
+        notTracked: {mouseText: 'STATUS PENDING', notes: 'no status information from the system'},
+        failed: {mouseText: 'FAILED', notes: 'Only applied manually if the MIO reports full instrument failure.'}
+      };
+
     var arrayContentSummaryItem = this.collection.arrayCollection.map(function(model) {
       // lets get all the platforms for this particular array...
       /* var platforms = arrayContentContext
@@ -123,6 +131,8 @@ var ArrayContentSummary = ParentView.extend({
         // console.log(arrayContentContext.collection.siteStatusCollection.toGeoJSON());
         var siteGeoJSON = arrayContentContext.collection.siteStatusCollection.toGeoJSON();
         model.set({platforms: siteGeoJSON});
+        model.set({pLookup: platformStatusLookup});
+
         if(siteGeoJSON == null || siteGeoJSON.length == 0){
           sitesWithErrors.push(model.attributes.display_name + ' (' + model.attributes.reference_designator + ')')
         }
@@ -134,7 +144,6 @@ var ArrayContentSummary = ParentView.extend({
       //console.log(model);
       // console.log('model before');
       // console.log(model);
-
       return (new ArrayContentSummaryItem({model: model})).render().el;
     });
 

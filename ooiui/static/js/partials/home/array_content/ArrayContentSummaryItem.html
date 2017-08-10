@@ -1,8 +1,10 @@
 <%
-//console.log('in arraycontentsummaryitem');
-//console.log(this);
-//console.log('properties');
-//console.log(properties);
+// console.log('in arraycontentsummaryitem');
+// console.log(this);
+// console.log('properties');
+// console.log(properties);
+// console.log(this.model.attributes.pLookup);
+var pLookup = this.model.attributes.pLookup;
 %>
 <div id="<%= properties.code %>" class="js-array panel-group">
     <div class="panel-heading">
@@ -166,6 +168,14 @@
 
 
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
+        <div style="text-align:left; width: 100%; padding-left: 8px;">
+          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Status Legend -</b></h5>
+          <h5 class="fa fa-circle notTracked" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Tracked</h5>
+          <h5 class="fa fa-circle operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Operational</h5>
+          <h5 class="fa fa-circle removedFromService" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Removed From Service</h5>
+          <h5 class="fa fa-circle failed" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Failed</h5>
+          <h5 class="fa fa-circle degraded" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Degraded</h5>
+        </div>
 
         <table class="table table-stripped">
 
@@ -174,7 +184,8 @@
                 %>
           <thead><tr>
               <th>Navigation</th>
-              <!--<th>Status</th>-->
+              <!-- STATUS COLUMNS -->
+              <th>Status</th>
               <th>Site Name</th>
               <th>Water Depth (m)</th>
               <th>Latitude</th>
@@ -203,25 +214,31 @@
                         </ul>
                     </td>
 
-                  <!-- STATUS COLUMN
+                  <!-- STATUS COLUMN -->
                     <td class="tdulliFormat">
                       <ul>
                         <%
-                        var instStatus = platform.properties.status;
+                        // console.log('pLookup');
+                        // console.log(pLookup);
+                        // console.log(platform.properties.status);
+                        // console.log(platform);
+                        var instStatus = pLookup[platform.properties.status].mouseText;
                         var instReason = platform.properties.reason;
                         if(instReason == null || instReason.replace(/ /gi,"").length == 0){
-                        instReason = "No Reason Provided";
+                        instReason = "";
+                        }else{
+                        instReason = instReason;
                         }
                         %>
 
                         <% if(instStatus.length > 0) { %>
-                          <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %> (<%= instStatus %>)"></i></li>
+                          <li><i class="fa fa-circle <%= platform.properties.status %>" aria-hidden="true" title="<%= instReason %>"></i></li>
                         <% } else { %>
                           <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
                       </ul>
                     </td>
-                  -->
+
 
                     <td id="<%= platform.properties.code %>">
                         <ul class="align-center" style="padding-left: 0px;">

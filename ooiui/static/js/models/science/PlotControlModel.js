@@ -58,6 +58,7 @@ var PlotControlModel = Backbone.Model.extend({
         invertX: false,
         invertY: false,
         interpolatedPlotCount: 2,
+        showAnnotations: true,
         plotTypeOptions: new PlotTypeCollection([
                           {name:'X-Y', value:"xy", num_inputs: 6, inputs:[{name:"X","value":"x"},
                                                                           {name:"Y","value":"y"}]},

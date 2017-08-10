@@ -665,5 +665,5 @@ def get_data_availability(ref_des):
     # status_code = 200
     # response = jsonify({'ref_des': "RS01SBPD-DP01A-01-CTDPFL104", 'stats_data': stats_data})
     # return response, status_code
-    resp = requests.get('http://uframe-test.intra.oceanobservatories.org:9000/available/'+ref_des, params=request.args)
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/available/' + ref_des, params=request.args)
     return resp.text, resp.status_code

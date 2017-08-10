@@ -1,5 +1,14 @@
 <% //console.log('platform table model'); %>
 <% //console.log(model); %>
+<%
+var instrumentStatusLookup = {
+            operational: {mouseText: 'OPERATIONAL', notes: 'All streams are reporting.'},
+            degraded: {mouseText: 'PARTIAL', notes: 'Only some streams are available.'},
+            removedFromService: {mouseText: 'NOT DEPLOYED', notes: 'The platform was taken out of the water prior to the anticipated recovery date.'},
+            notTracked: {mouseText: 'STATUS PENDING', notes: 'no status information from the system'},
+            failed: {mouseText: 'FAILED', notes: 'Only applied manually if the MIO reports full instrument failure.'}
+          };
+%>
 <tr id="<%= model.get('reference_designator') %>" data-eng="<%= model.get('reference_designator').indexOf('ENG') > -1 %>">
   <td class="tdulliFormat">
     <ul>
@@ -10,25 +19,31 @@
   </td>
   <td><%= model.get("display_name") %><small class="refDesLabel" style="display:none"><br>(<%= model.get('reference_designator') %>)</small></td>
 
-  <!-- STATUS COLUMN
+  <!-- STATUS COLUMN -->
   <td class="tdulliFormat">
     <ul>
       <%
-      var instStatus = model.get("status");
-      var instReason = model.get("reason");
+      //console.log('instrumentStatusLookup');
+      //console.log(instrumentStatusLookup);
+      //console.log(model.get('status'));
+      var instStatus = instrumentStatusLookup[model.get('status')].mouseText;
+      var instReason = instrumentStatusLookup[model.get('status')].notes;
+      instReason = model.get('reason');
       if(instReason == null || instReason.replace(/ /gi,"").length == 0){
-        instReason = "No Reason Provided";
+      instReason = "";
+      }else{
+      instReason = instReason;
       }
       %>
 
       <% if(instStatus.length > 0) { %>
-        <li><i class="fa fa-circle <%= instStatus %>" aria-hidden="true" title="<%= instReason %> (<%= instStatus %>)"></i></li>
+      <li><i class="fa fa-circle <%= model.get('status') %>" aria-hidden="true" title="<%= instReason %>"></i></li>
       <% } else { %>
-        <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
+      <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
       <% } %>
     </ul>
   </td>
-  -->
+
   <td><%= model.get('depth') %></td>
   <td><%= moment(new Date(model.get("start"))).utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]') %></td>
   <td><%= moment(new Date(model.get("end"))).utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]') %></td>

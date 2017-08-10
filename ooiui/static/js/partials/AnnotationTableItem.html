@@ -9,12 +9,30 @@
           <div style='display: flex;justify-content: space-between;'>
             <% // console.log(user.scopes) %>
             <% // console.log(user) %>
-            <% if((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source'))){ %>
+            <%
+            var isEditable = false;
+            if(
+              // (model.get('referenceDesignator').length > 18) &&
+              ((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source')))
+            ){
+              isEditable = true;
+            }
+            var isDeleteable = false;
+            if((user.scopes.indexOf('annotate_admin') != -1) || (user.user_name === model.get('source'))
+            ){
+              isDeleteable = true;
+            }
+            %>
+            <% if(isEditable){ %>
             <button type='button' title='Edit' style='float:left; margin: 3px;' id='editAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-edit' aria-hidden='true'></i></button>
+            <% } %>
+            <% if(isDeleteable){ %>
             <button type='button' title='Delete' style='float:left; padding-left: 6px; margin: 3px;' id='deleteAnnotation' class='btn btn-default'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-trash' aria-hidden='true'></i></button>
             <% } %>
           </div>
         </td>
+<%    } else if(col.name === 'annotation') { %>
+        <td style="min-width: 300px;"><%= model.get(col.name) %></td>
 <%    } else { %>
         <td><%= model.get(col.name) %></td>
 <%  }}); %>

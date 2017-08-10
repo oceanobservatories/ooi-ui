@@ -144,7 +144,7 @@
 
                   <ul class="nav nav-tabs nav-justified plot-tool-tabs" data-tabs="tabs">
                     <li class="active default-tab-option"><a id="plot-tool-instruments-tab" href="#plot-tool-instruments" data-toggle="tab">Data Navigation</a></li>
-                    <li class="disabled">  <a href="#plot-tool-tab"  data-toggle="tab">Plotting</a></li>
+                    <li class="disabled" id="plot-tab-nav-button">  <a href="#plot-tool-tab"  data-toggle="tab">Plotting</a></li>
 
                     <li class="disabled"><a href="#plot-tool-events" data-toggle="tab">Events</a></li>
                     <li class="disabled"><a href="#plot-tool-annotations" data-toggle="tab">Annotations</a></li>
@@ -180,6 +180,20 @@
                         </div>
                       </div>
 
+                      <!-- Annotation Legend-->
+                      <div class="row">
+                        <div style="text-align:left; width: 100%; padding-left: 8px;">
+                          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Annotation Legend -</b></h5>
+                          <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
+                          <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
+                          <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
+                          <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
+                          <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
+                          <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
+                          <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                        </div>
+                      </div>
+
                       <div class="row">
                         <div class="panel">
                           <div class="panel-heading plotting-heading">
@@ -193,6 +207,7 @@
                             <p id="zoom-coordinates"></p>
                             <a href="#" type="button" id="zoom-reset-plot" class="btn btn-default zoom-reset-plot">Reset Zoom</a>
                           </div>
+
                           <div class="panel-body">
                             <!--  Plot section NORMAL   -->
                             <div id="plot-view">
@@ -216,6 +231,11 @@
                                   <p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
                                   <p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>
                                 </div> <!-- panel-table -->
+                                <div class="plot-tab-panel" id="data-availability-dc">
+                                  <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+                                    <p id="example"><!-- Visavail.js chart will be placed here --></p>
+                                  </div>
+                                </div>
                               </div> <!-- panel-body -->
                             </div> <!-- panel -->
                           </div>
@@ -324,7 +344,8 @@
         selectedStreamCollection: new StreamCollection(), //collection of stream models
         streams: new StreamCollection(),
         dataAvailabilityCollection: new DataAvailabilityCollection(),
-        organizations: new Organizations()
+        organizations: new Organizations(),
+        qcFlagsCollection: new QcFlagsCollection()
       },
       views: {
         plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -339,7 +360,8 @@
         plotModel     : new PlotControlModel(),
         downloadModel : new StreamModel(),
         userModel     : new UserModel(),
-        dataAvailabilityModel : new DataAvailabilityModel()
+        dataAvailabilityModel : new DataAvailabilityModel(),
+        qcFlagsModel : new QcFlagsModel()
       },
       showPlottingTabs:function(){
         $('#plottingBody .plot-tool-tabs li').removeClass('disabled');
@@ -584,6 +606,7 @@
           // console.log('this.models.userModel');
           // console.log(this.models.userModel);
           this.models.userModel.fetch({url: '/api/current_user'});
+          this.models.qcFlagsModel.fetch();
         }
 
         //reset the subscriptions
@@ -660,9 +683,17 @@
           // console.log('login successful');
           if(this.login.loggedIn()) {
             this.models.userModel.fetch({url: '/api/current_user'});
+            this.models.qcFlagsModel.fetch();
           }
           window.location.reload(true);
         });
+
+        $("#plot-tab-nav-button").on('click', function(e){
+          if ($("#plot-controls > div > div > div.col-sm-8.plot-instrument-column > div.instrument-content > div > table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > button > span.filter-option.pull-left").text() !== "Select a parameter") {
+            ooi.trigger('update_plot', {});
+          }
+        });
+
         this.listenTo(this, "login:logout", function() { window.location.reload(true); });
 
         this.listenTo(this, 'StreamTableItemView:onClick', function(options) {
@@ -800,6 +831,7 @@
             // console.log("add_catalog_model");
             // console.log(selectedStreamObj);
             // console.log(selectedStreamUrl);
+            placeDataAvailability(ref_des);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
@@ -828,6 +860,9 @@
 
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
+          // console.log(o.model);
+          $('#div_'+o.model.get('reference_designator')).remove();
+
           history.back();
           // console.log(location.href);
         });
@@ -842,8 +877,11 @@
 
         this.listenTo(this, "plotControlView:update_xy_chart", function(o) {
           //renders the xy chart
-          self.views.plotContainer.showUpdateLoading();
-          self.views.plotContainer.updateChart(o.model);
+          if(o !== undefined){
+            //console.log('updating chart');
+            self.views.plotContainer.showUpdateLoading();
+            self.views.plotContainer.updateChart(o.model);
+          }
         });
 
         this.listenTo(this, "plot:plotLoaded", function(o) {
@@ -854,6 +892,20 @@
           //changes the plot type
           $('.download-plot-container').css('display','none');
           self.views.plotControls.render();
+        });
+
+        this.listenTo(this, "update_annotation_table", function(o){
+          //ANNOTATIONS
+          self.collections.annotations.fetch({
+            data: $.param({
+              startdate: self.collections.selectedStreamCollection.models[0].get('start'),
+              enddate:  self.collections.selectedStreamCollection.models[0].get('end'),
+              reference_designator: self.collections.selectedStreamCollection.models[0].get('reference_designator'),
+              stream_name: self.collections.selectedStreamCollection.models[0].get('stream_name'),
+              stream_display_name: self.collections.selectedStreamCollection.models[0].get('stream_display_name')
+            }),
+            reset: true
+          });
         });
 
         this.listenTo(this, "update_catalog_list", function(o) {
@@ -932,6 +984,8 @@
 {#          console.log(self.views.plotContainer.xyPlot.   .xyPlot.origEndDate);#}
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
+          //console.log('self.views.plotContainer.plotModel');
+          //console.log(self.views.plotContainer.plotModel);
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
@@ -1025,19 +1079,23 @@
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onSubmit99', function(model) {
-          // console.log('onSubmit99');
+          //console.log('onSubmit99');
+          //console.log(model);
           $.when(self.collections.annotations.add(model)).done( function(ret){
             //console.log(ret);
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
         });
 
         //
         this.listenTo(this, 'AnnotationModalFormView:onUpdate99', function(model) {
-          // console.log('onUpdate99');
-          // console.log(model);
+          //console.log('onUpdate99');
+          //console.log(model);
+
           $.when(self.collections.annotations.add(model)).done( function(ret){
             // console.log(ret);
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
         });
@@ -1057,6 +1115,7 @@
             self.views.annotationModal.show({
               model: model,
               userModel: self.models.userModel,
+              qcFlagsModel: self.models.qcFlagsModel,
               showUpdate: true
             });
           }
@@ -1068,9 +1127,19 @@
 
           $.when(self.collections.annotations.remove(model)).done( function(ret){
             // console.log(ret);
+            self.trigger('update_annotation_table',{});
             self.views.annotationTableView.render();
           })
-          // alert("Deletion of annotations not yet implemented.")
+        });
+
+        this.listenTo(this, 'AnnotationModalFormView:onError', function(e) {
+          var daWarning = new ModalDialogView();
+          daWarning.show({
+            message: "Error saving annotation.<br>"+e.responseText,
+            type: "warning"
+          });
+          self.trigger('update_annotation_table',{});
+          self.views.annotationTableView.render();
         });
 
         this.listenTo(this, 'AnnotationTableView:onAddClick', function() {
@@ -1078,19 +1147,27 @@
           var min = moment.utc(model.get('start')).format("YYYY-MM-DD HH:mm:ss.SSS");
           var max = moment.utc(model.get('end')).format("YYYY-MM-DD HH:mm:ss.SSS");
 
-          var model = new AnnotationModel({"referenceDesignator": model.get('reference_designator'),
+          var annoModel = new AnnotationModel({
+            "referenceDesignator": model.get('reference_designator'),
             "beginDTSafe": min,
             "endDTSafe": max,
             "beginDT": null,
             "endDT": null,
-            "method": model.get("stream_name"),
-            "stream_name": model.get("stream_name")
+            "method": model.get("method"),
+            "stream_name": model.get("stream_name"),
+            "qcFlag": "not_evaluated",
+            "exclusionFlag": null,
+            "node": model.get("node"),
+            "sensor": model.get("sensor"),
+            "stream": model.get("stream"),
+            "subsite": model.get("subsite")
           });
 
           if(self.login.loggedIn()) {
             self.views.annotationModal.show({
-              model: model,
+              model: annoModel,
               userModel: self.models.userModel,
+              qcFlagsModel: self.models.qcFlagsModel,
               showUpdate: false
             });
           }
@@ -2577,6 +2654,59 @@
       });
 
     } // placeJqGrid
+
+
+    function placeDataAvailability(ref_des) {
+
+      var dataset=[];
+      var onDataHandler = function(collection, response, options) {
+
+        // Show Data Availability Pop-up
+        $("#data-vailability-dc").empty();
+
+        dataset=[];
+
+        collection.each(function(model){
+          // console.log(model.get('data'));
+          dataset.push({
+            "measure_html": "<div style='width: 280px; text-align: right;'>"+model.get('measure')+"</div>",
+            "categories": model.get('categories'),
+            "data": model.get('data'),
+            "interval_s": 365 * 24 * 60 * 60
+          });
+        }); // each chart in the collection
+
+        draw_visavail(ref_des);
+      };
+
+      var chart = visavailChart();
+      function draw_visavail(ref_des) {
+        chart.width($('#visavail_container').width()-350);
+        chart.marginLeft(300);
+        chart.paddingLeft(-300);
+
+        var divId = "div_" + ref_des;
+        // console.log(divId);
+        $('#example').append('<div id="' + divId + '"></div>');
+        d3.select("#"+divId)
+          .datum(dataset)
+          .call(chart);
+        d3.selectAll("#"+divId+" svg #g_title .heading")
+          .filter(function() {
+            return /^Data/.test(d3.select(this).text());  // Check if text begin with a "C"
+          })
+          .text('Data Availability Plot ('+ ref_des + ')');
+      }
+
+{#      $(window).resize(function () { return draw_visavail(); });#}
+
+      ooi.collections.dataAvailabilityCollection.fetch(
+        {
+          url: '/api/data_availability/'+ref_des,
+          success : onDataHandler
+        });
+
+    }
 
 
     function showStreams( collection, response ){

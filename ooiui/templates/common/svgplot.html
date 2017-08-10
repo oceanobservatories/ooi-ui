@@ -176,7 +176,7 @@ _.extend(OOI.prototype, Backbone.Events, {
       annotation.set('pos_y', record[yvar]);
       annotation.set('value', record[yvar]);
       if(self.login.loggedIn()) {
-        console.log("Trying to show");
+        // console.log("Trying to show");
         self.views.annotationModal.show({
           model: annotation,
           userModel: self.models.userModel
@@ -185,7 +185,7 @@ _.extend(OOI.prototype, Backbone.Events, {
     });
 
     this.listenTo(this, 'AnnotationModalFormView:onSubmit', function(model) {
-      console.log("Adding ot collection");
+      // console.log("Adding ot collection");
       self.collections.annotations.add(model);
     });
     this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {

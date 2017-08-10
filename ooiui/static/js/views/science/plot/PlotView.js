@@ -6,7 +6,7 @@
  *  - ooiui/static/js/partials/science/plot/plot.html
  */
 var PlotView = BasePlot.extend({
-  plotModel: null,
+  plotModel: {'showAnnotations': true},
   plotParameters: null,
   plotData: new DataSeriesCollection(),
   plotDates : null,
@@ -104,12 +104,36 @@ var PlotView = BasePlot.extend({
         ooi.collections.annotations.sortByField('endDT', 'descending');
         ooi.collections.annotations.each(function(annotation,i) {
           // Set random color to annotation band
-          var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
-          var annoLabelText = annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          //console.log('annotation');
+          //console.log(annotation);
+          /*{
+            "qcflags": {
+              "Fail": "fail",
+              "Not Available": "not_available",
+              "Not Evaluated": "not_evaluated",
+              "Not Operational": "not_operational",
+              "Pass": "pass",
+              "Pending Ingest": "pending_ingest",
+              "Suspect": "suspect"
+            }
+          }*/
+          var bandColors = {
+            'null': ["#FF00FF", "Null"],
+            'fail': ["#CC0000", "Fail"],
+            'not_evaluated': ["#CCCC00", "Not Evaluated"],
+            'not_available': ["#FFFFFF", "Not Available"],
+            'not_operational': ["#CC6600", "Not Operational"],
+            'pass': ["#006600", "Pass"],
+            'pending_ingest': ["#001100", "Pending Ingest"],
+            'suspect': ["#CC6644", "Suspect"]
+          };
+          //var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
+          var bandColor = bandColors[annotation.get('qcFlag')][0];
+          var annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
           axis.addPlotBand({
             from: moment.utc(annotation.get('beginDT')),
             to: moment.utc(annotation.get('endDT')),
-            color: '#'+bandColor,
+            color: bandColor,
             borderWidth: 1,
             borderColor: '#FFFFFF',
             label: {
@@ -224,9 +248,18 @@ var PlotView = BasePlot.extend({
     var self = this;
     this.$el.html(this.template());
 
+    //console.log("self.plotModel.get('showAnnotations')");
+    //console.log(self.plotModel.get('showAnnotations'));
+    if(self.plotModel.get('showAnnotations') === undefined){
+      self.plotModel.set('showAnnotations', true);
+    }
+
     if ( this.plotModel.get('plotType') == 'xy' ){
       this.xyPlot = new XYPlotView();
       this.xyPlot.render(self.plotParameters, self.plotModel, self.plotData);
+      this.updateChart(self.plotModel);
+      //$('toggleAnnotations').prop( "checked", false );
+      //$('toggleAnnotations').prop( "checked", true );
     }else{
       //image plot
       this.imagePlot = new ImagePlotView();

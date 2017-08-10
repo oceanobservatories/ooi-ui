@@ -61,7 +61,7 @@ var TimelineItemView = Backbone.View.extend({
   },
   saveEntry: function(e) {
     var self = this;
-    console.log("Attempting to save");
+    // console.log("Attempting to save");
     this.model.set('entry_title', this.$el.find('#entry-title').text());
     this.model.set('entry_description', this.$el.find('#entry-description').text());
     var response = this.model.save();
@@ -108,7 +108,7 @@ var TimelineItemView = Backbone.View.extend({
     return this;
   },
   renderEdit: function() {
-    console.log(this.templates);
+    // console.log(this.templates);
     this.$el.html(this.templates.timelineEditItem({
       owner: (this.model.get('user').id == ooi.models.userModel.get('id') || ooi.models.userModel.get('scopes').indexOf('user_admin') >= 0),
       name: this.model.getUserName(),

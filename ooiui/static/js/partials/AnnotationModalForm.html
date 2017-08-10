@@ -1,3 +1,7 @@
+<%
+//console.log('model in AnnotationModalForm.html');
+//console.log(model);
+%>
 <!--Modal-->
 <!-- data-backdrop prevents the modal from closeing when backtorp is clicked
 tabindex allows the escape key to be used to close the modal -->
@@ -16,15 +20,16 @@ tabindex allows the escape key to be used to close the modal -->
             <div class="banner-image"></div>
           </div>
           <div class="col-sm-8">
-            <div class="modal-form-message">              
-              <h1>Annotate Stream</h1>
-              <h3><%= model.get('reference_designator') %></h3>              
+            <div class="modal-form-message" style="width: 500px;">
+              <h3>Annotate Stream</h3>
+              <h4><%= model.get('referenceDesignator') %></h4>
+              <h5><%= model.get('stream') %></h5>
             </div> <!-- .message -->
           </div> <!-- .col-sm-12 -->
         </div> <!-- .row -->
         <form>
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label for="username">User</label>
                 <input id="username" type="text" class="form-control modal-form-input input" value="<%= username %>" disabled="disabled">
@@ -50,20 +55,49 @@ tabindex allows the escape key to be used to close the modal -->
                     </span>
                 </div>
               </div>
-
-              <div class="pull-right">
-                <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
-              </div>
             </div>
-            <div class="col-sm-6">              
+
               <div class="form-group">
                 <label for="comments-input">Annotation</label>
-                <textarea id="comments-input" class="modal-form-textarea-row-3 form-control"></textarea>
+                <textarea id="comments-input" class="modal-form-textarea-row-3 form-control" required></textarea>
               </div> <!-- .form-group -->
+
+              <div class="form-group">
+                <label for="qcflag-input">QC Flag</label>
+                <select id="qcflag-input" title="QC Flag" class="form-control">
+                  <% //console.log('Creating QC Flags SELECT form element'); %>
+                  <% //console.log(qcFlags); %>
+                  <% for(var key in qcFlags.attributes.qcflags){ %>
+                  <% //console.log(key); %>
+                  <option value="<%= qcFlags.attributes.qcflags[key] %>"><%= key %></option>
+                  <% }; %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exclusionFlag-input">Exclude Data</label>
+                <select id="exclusionFlag-input" title="Exclude Data" class="form-control">
+                  <option value=true>Yes</option>
+                  <option value=false selected>No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="parameters-input">Parameter Selection</label>
+                <select id="parameters-input" title="Parameter Selection" class="form-group-sm" multiple>
+                  <option value="null" selected="selected">No Parameters</option>
+                  <% //console.log('Creating Parameter SELECT form element'); %>
+                  <% //console.log(model); %>
+                  <% for(var i=0; i<parameterDisplayNames.length;i++){ %>
+                  <option value="<%= parameterIds[i].substring(2) %>"><%= parameterDisplayNames[i] %></option>
+                  <% }; %>
+                </select>
+              </div>
               <div class="pull-left">
                 <button class="btn btn-default" type="button" id="submit-button">Add</button>
               </div> <!-- .pull-left -->
-            </div> <!-- .col-sm-6 -->
+              <div class="pull-right">
+                <button class="btn btn-default" type="reset" id="reset-button">Reset</button>
+              </div>
+
           </div> <!-- .row -->
         </form>
       </div> <!-- modal-form-body -->

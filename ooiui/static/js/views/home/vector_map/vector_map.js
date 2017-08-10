@@ -314,7 +314,7 @@ var VectorMap = Backbone.View.extend({
 
 
                         } else if (features[0].layer.id === 'moorings' || 'gliders') {
-                            console.log('platforms');
+                            // console.log('platforms');
                             // show the layer
                             map._setPlatformView();
 
