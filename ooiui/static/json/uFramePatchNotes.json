@@ -3,6 +3,7 @@
         "VersionNumber":"1.2.6",
         "VersionDate":"2017-08-01",
         "VersionDescription":[
+            "Expand ingest request types in EDEX to include cabled playback (12530)",
             "Handle comma separated values for param in data file ingestion (12506)",
             "Expose data purge through web service (12485)",
             "Drop FK constraint in new ingest engine (12440)",
