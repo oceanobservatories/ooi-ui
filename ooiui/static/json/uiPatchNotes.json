@@ -1,5 +1,13 @@
 [
     {
+        "VersionNumber": "1.4.5.2",
+        "VersionDate": "2017-08-27",
+        "VersionDescription": [
+            "Data Availability: Fixes minor data availability color bug.",
+            "M2M: Adds authenticated user to M2M ingest request."
+        ]
+    },
+    {
         "VersionNumber": "1.4.5.1",
         "VersionDate": "2017-08-11",
         "VersionDescription": [
