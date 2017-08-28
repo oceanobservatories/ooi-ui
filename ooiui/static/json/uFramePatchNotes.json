@@ -1,5 +1,15 @@
 [
     {
+        "VersionNumber":"1.2.6-sr1",
+        "VersionDate":"2017-08-25",
+        "VersionDescription":[
+            "Enhance ingestion logging in EDEX. (12618)",
+            "Uncabled_ingest mode unable to start. (12581)",
+            "Fix DOI SQL Errors on uframe-test and production. (12580)",
+            "Add version endpoint. (12497)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.6",
         "VersionDate":"2017-08-01",
         "VersionDescription":[
