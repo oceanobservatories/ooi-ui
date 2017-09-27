@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.6",
+        "VersionDate": "2017-09-XX",
+        "VersionDescription": [
+            "TBD"
+        ]
+    },
+    {
         "VersionNumber": "1.4.5.2",
         "VersionDate": "2017-08-27",
         "VersionDescription": [

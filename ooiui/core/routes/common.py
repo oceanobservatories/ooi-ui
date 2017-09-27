@@ -667,3 +667,9 @@ def get_data_availability(ref_des):
     # return response, status_code
     resp = requests.get(app.config['SERVICES_URL'] + '/uframe/available/' + ref_des, params=request.args)
     return resp.text, resp.status_code
+
+# uFrame version GET route
+@app.route('/api/uframe/versions', methods=["GET"])
+def get_uframe_versions():
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/versions', params=request.args)
+    return resp.text, resp.status_code
