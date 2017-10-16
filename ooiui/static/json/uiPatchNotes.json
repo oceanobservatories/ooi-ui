@@ -1,5 +1,16 @@
 [
     {
+        "VersionNumber": "1.4.6",
+        "VersionDate": "2017-10-16",
+        "VersionDescription": [
+            "Data Availability: Changes default colors for data availability timeline. (12572)",
+            "Design: Design phase for asset management changes. (12675)",
+            "Help: Adds uframe version information to help page. (12613)",
+            "M2M: Updates M2M documentation. (11986)",
+            "Plotting: Adds service routes for media gallery. (8869)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.5.2",
         "VersionDate": "2017-08-27",
         "VersionDescription": [
