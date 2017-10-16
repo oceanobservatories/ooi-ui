@@ -1,5 +1,21 @@
 [
     {
+        "VersionNumber":"1.2.7",
+        "VersionDate":"2017-10-10",
+        "VersionDescription":[
+            "Develop a strategy for separately deploying uFrame software on test systems. (12557)",
+            "Prevent creating/updating annotations where beginDT > endDT. (12509)",
+            "Add support for open-ended annotations. (11444)",
+            "Add virtual streams to stream and partition metadata on ingest. (12488)",
+            "Handle \"PD\" prefix in alert filter pdIds. (12172)",
+            "Enhance ingestion logging in EDEX. (12618)",
+            "Uncabled_ingest mode unable to start. (12581)",
+            "Gracefully handle error in Sensor Inventory Service TOC endpoint. (12546)",
+            "Fix DOI SQL Errors on uframe-test and production. (12580)",
+            "Add version endpoint. (12497)"
+        ]
+    },
+    {
         "VersionNumber":"1.2.6-sr1",
         "VersionDate":"2017-08-25",
         "VersionDescription":[
