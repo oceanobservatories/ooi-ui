@@ -20,6 +20,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #download-btn' : 'onDownload',
     'click #download-btn2' : 'onDownloadLargeFormat',
     'change #type-select select' : 'onTypeChange',
+    'click #parameter-select' : 'onParameterSelect',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
     'change #time-range select': 'timeRangeChange',
@@ -31,6 +32,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');
     this.largeFileFormatView = null;
     this.render();
+  },
+  onParameterSelect: function() {
+    var self = this;
+    // console.log(self.model);
   },
   onCheckboxSelect: function() {
     if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
@@ -244,6 +249,17 @@ var StreamDownloadFormView = Backbone.View.extend({
       localModel.set('annotations', 'false');
     }
 
+    // Set the selected parameters
+    // console.log($('#param-multi-select').val());
+    var parameters = '';
+    if($('#param-multi-select').val()){
+      localModel.set('parameters', $('#param-multi-select').val());
+      parameters = $('#param-multi-select').val()
+    }else{
+      localModel.set('parameters', '')
+    }
+
+
     // Create the typical download AJAX request
     var url = localModel.getURL(selection);
     $.ajax({
@@ -252,6 +268,7 @@ var StreamDownloadFormView = Backbone.View.extend({
       // dataType: "json",
       user_email: email,
       user_name: user_name,
+      parameters: parameters,
       success: function(resp){
         var timeCalculation = _.has(resp, "timeCalculation") ? resp.timeCalculation : null;
         ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation);
@@ -270,6 +287,41 @@ var StreamDownloadFormView = Backbone.View.extend({
     var model = options.model;
     // console.log("SHOW", options.model.attributes);
     this.model = model;
+
+
+    $.ajax({
+      url: "/api/uframe/stream/parameters/"+this.model.get("ref_des")+"/"+this.model.get("stream_method")+"/"+this.model.get("stream"),
+      type: "GET",
+      dataType: "json",
+      success: function(resp){
+        var parameters = "";
+        // console.log(resp);
+
+        var plen = 1;
+        for(var key in resp.parameters) {
+          parameters += '<option value="' + resp.parameters[key] + '">' + key + '</option>';
+          plen++;
+        }
+
+        // $.each(resp.parameters, function (i, item) {
+        //   $('#param-multi-select').append($('<option>', {
+        //     value: item.value,
+        //     text : item.text
+        //   }));
+        // });
+
+        $("#param-multi-select").append(parameters);
+        $("#param-multi-select").attr("size", plen)
+      },
+      error: function(msg){
+        // console.log(msg);
+        ooi.trigger('DownloadModalFail:onFail', msg);
+      }
+    });
+
+
+
+
 
     var startDate = null;
     var endDate = null;
@@ -394,6 +446,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$end_date = this.$el.find('#end-date');
     this.$data_date = this.$el.find('#data-date');
     this.$type_select = this.$el.find('#type-select select');
+    this.$param_multi_select = this.$el.find('#param-multi-select select');
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
     this.$data_date_picker = this.$data_date.data('DateTimePicker');
