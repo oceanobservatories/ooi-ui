@@ -6,7 +6,8 @@ module.exports = function(grunt) {
       compile: {
         files: {
           "ooiui/static/js/partials/compiled/patch_notes.js": [
-            "ooiui/static/js/partials/PatchNotes.html"
+            "ooiui/static/js/partials/PatchNotes.html",
+            "ooiui/static/js/partials/uFramePatchNotes.html"
           ],
           "ooiui/static/js/partials/compiled/home.js": [
             "ooiui/static/js/partials/home/array_content/ArrayContentSummaryItem.html",

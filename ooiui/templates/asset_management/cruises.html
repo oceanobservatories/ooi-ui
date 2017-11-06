@@ -13,6 +13,11 @@
   <link rel="stylesheet" type="text/css" href="/css/common/assets.css">
   <link rel="stylesheet" type="text/css" href="/css/common/assetEditorModal.css">
   <link href="/css/compiled/asset_management.css" rel="stylesheet" type="text/css"/>
+  <link href='/lib/jqgrid/css/addons/ui.multiselect.css' rel='stylesheet' type="text/css" />
+  <link href="/lib/jqgrid/css/ui.jqgrid.css" rel='stylesheet' type='text/css' />
+  <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap.css" rel='stylesheet' type='text/css' />
+  <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap-ui.css" rel='stylesheet' type='text/css' />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css"/>
 
 
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
@@ -55,7 +60,7 @@
           <div class="row">
             <div class="col-md-12" id="loadingSpinner" style="width:100%;">
               <span id="" style="margin-left:50%; font-size:18px;">
-                <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-4x"></i>
+                <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-3x"></i>
               </span>
             </div>
             <div class="col-md-12" id="rowButtons" hidden>
@@ -80,66 +85,19 @@
 
           <div class="row">
             <div class="col-md-12" id="rowEvents" hidden style="width:100%;">
-              {#              <div style="width:100%;">#}
-              {#                <hr>#}
-              {#                <span style='margin-left:10px;font-weight:600;font-size:16px;'>Deployments</span>#}
-              {#              </div>#}
+              <div class="col-md-12" id="loadingSpinnerDeployment" style="width:100%;" hidden>
+                        <span id="" style="margin-left:50%; font-size:18px;">
+                          <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-3x"></i>
+                        </span>
+                      </div>
+
               <div class="col-md-12">
                 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-                  {#                  <li class=""><a href="#events-acquisition" name="ACQUISITION" data-toggle="tab">Acquisition</a></li>#}
-                  {#                  <li class=""><a href="#events-calibration" name="CALIBRATION_DATA" data-toggle="tab">Calibration</a></li>#}
-                  {#                  <li class=""><a href="#events-cruise" name="CRUISE_INFO" data-toggle="tab">Cruise</a></li>#}
                   <li class="active default-tab-option"><a style='margin-left:10px;font-weight:600;font-size:16px;' href="#events-deployment" name="DEPLOYMENT" data-toggle="tab">Deployment Events</a></li>
-                  {#                  <li class=""><a href="#events-integration" name="INTEGRATION" data-toggle="tab">Integration</a></li>#}
-                  {#                  <li class=""><a href="#events-location" name="LOCATION" data-toggle="tab">Location</a></li>#}
-                  {#                  <li class=""><a href="#events-retirement" name="RETIREMENT" data-toggle="tab">Retirement</a></li>#}
-                  {#                  <li class=""><a href="#events-status" name="ASSET_STATUS" data-toggle="tab">Status</a></li>#}
-                  {#                  <li class=""><a href="#events-storage" name="STORAGE" data-toggle="tab">Storage</a></li>#}
-                  {#                  <li class=""><a href="#events-unspecified" name="UNSPECIFIED" data-toggle="tab">Unspecified</a></li>#}
-                  {#                  <li class=""><a href="#events-vendor" name="ATVENDOR" data-toggle="tab">Vendor</a></li>#}
                 </ul>
               </div>
               <div class="col-md-12">
                 <div id="events-tab-content" class="tab-content" style="max-width:100%">
-
-                  {#                  <div class="tab-pane fade" id="events-acquisition">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerACQUISITION" class="redmond"></div>
-                            <table id="gridEventsAcquisition" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>
-
-                  <div class="tab-pane fade" id="events-calibration">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerCALIBRATION_DATA" class="redmond"></div>
-                            <table id="gridEventsCalibration" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>#}
-
-                  {#                  <div class="tab-pane fade" id="events-cruise">
-                    <div class="row" style="margin-left:10px;margin-right:10px;">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <div>
-                            <div id="pagerCRUISE_INFO" class="redmond"></div>
-                            <table id="gridEventsCruise" class="redmond"></table>
-                          </div>
-                        </div> <!-- panel-body -->
-                      </div> <!-- panel -->
-                    </div>
-                  </div>#}
 
                   <div class="tab-pane fade in active" id="events-deployment">
                     <div class="row" style="margin-left:10px;margin-right:10px;">
@@ -154,97 +112,6 @@
                     </div>
                   </div>
 
-                  {#                  <div class="tab-pane fade" id="events-integration">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerINTEGRATION" class="redmond"></div>#}
-                  {#                            <table id="gridEventsIntegration" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div> <!-- panel-body -->#}
-                  {#                      </div> <!-- panel -->#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-location">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerLOCATION" class="redmond"></div>#}
-                  {#                            <table id="gridEventsLocation" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div> <!-- panel-body -->#}
-                  {#                      </div> <!-- panel -->#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-retirement">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerRETIREMENT" class="redmond"></div>#}
-                  {#                            <table id="gridEventsRetirement" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade in" id="events-status">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerASSET_STATUS" class="redmond"></div>#}
-                  {#                            <table id="gridEventsStatus" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade in" id="events-storage">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerSTORAGE" class="redmond"></div>#}
-                  {#                            <table id="gridEventsStorage" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-unspecified">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerUNSPECIFIED" class="redmond"></div>#}
-                  {#                            <table id="gridEventsUnspecified" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-                  {##}
-                  {#                  <div class="tab-pane fade" id="events-vendor">#}
-                  {#                    <div class="row" style="margin-left:10px;margin-right:10px;">#}
-                  {#                      <div class="panel">#}
-                  {#                        <div class="panel-body">#}
-                  {#                          <div>#}
-                  {#                            <div id="pagerATVENDOR" class="redmond"></div>#}
-                  {#                            <table id="gridEventsVendor" class="redmond"></table>#}
-                  {#                          </div>#}
-                  {#                        </div>#}
-                  {#                      </div>#}
-                  {#                    </div>#}
-                  {#                  </div>#}
-
                 </div>
               </div>
             </div>
@@ -257,6 +124,11 @@
             </div>
             <div class="col-md-12">
               <div role="tabpanel" class="tab-pane" id="remoteDocuments">
+                <div class="col-md-12" id="loadingSpinnerDocuments" style="width:100%;" hidden>
+                        <span id="" style="margin-left:50%; font-size:18px;">
+                          <b>Loading table...</b><i class="fa fa-spinner fa-spin fa-3x"></i>
+                        </span>
+                      </div>
                 <table class="table table-striped" id="">
                   <thead>
                   <tr>
@@ -266,9 +138,7 @@
                   </tr>
                   </thead>
                   <tbody id="loadDocs">
-                  <tr><td colspan="2"><span id="" style="text-decoration:underline; cursor:pointer;">
-                            <b>Click a record above to refresh...</b><i class="fa fa-spinner fa-spin" style="margin-left:50%; font-size:12px;"></i>
-                        </span></td></tr>
+
                   </tbody>
                 </table>
               </div>
@@ -796,7 +666,8 @@
           type: 'GET',
           dataType: 'json',
           success: function( resp ) {
-
+            $("#events-deployment").show();
+            $("#loadingSpinnerDeployment").hide();
           },
           complete: function(jsondata,stat){
             if(stat=="success") {
@@ -919,7 +790,7 @@
       editoptions : {rows:"10",cols:"80"},
       edittype : 'textarea',
       editable : true,
-      hidden : true,
+      hidden : false,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -955,7 +826,7 @@
       jsonmap : 'dataSource',
       editrules: {required:false, edithidden:true},
       editable : true,
-      hidden : false,
+      hidden : true,
       sortable : true,
       sorttype : 'string',
       searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
@@ -1050,20 +921,49 @@
         },
         colNames: [
           'Event ID',
-          'Data Source',
+          'Notes',
+          'Unique Cruise ID',
+          'Ship Name',
+
           'Start Date',
           'End Date',
           'Edit Phase',
           'Event Type',
-          'Notes',
-          'Ship Name',
-          'Unique Cruise ID',
+          'Data Source',
           'lastModifiedTimestamp'
         ],
 
         colModel : [
           eventIdCol,
-          dataSourceCol,
+          notesCol,
+          {
+            name : 'uniqueCruiseIdentifier',
+            key : true,
+            index : 'uniqueCruiseIdentifier',
+            editrules: {required:false, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+          {
+            name : 'shipName',
+            index : 'shipName',
+            editrules: {required:true, edithidden:true},
+            editable : true,
+            sortable : true,
+            sorttype : 'string',
+            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
+            align : 'center',
+            unformat : function (cellvalue, options, cell) {
+              return $('input', cell).val() || cellvalue;
+            }
+          },
+
           eventStartTimeCol,
           eventStopTimeCol,
           {
@@ -1085,34 +985,7 @@
             }
           },
           eventTypeCol,
-          notesCol,
-          {
-            name : 'shipName',
-            index : 'shipName',
-            editrules: {required:true, edithidden:true},
-            editable : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
-          {
-            name : 'uniqueCruiseIdentifier',
-            key : true,
-            index : 'uniqueCruiseIdentifier',
-            editrules: {required:false, edithidden:true},
-            editable : true,
-            sortable : true,
-            sorttype : 'string',
-            searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
-            align : 'center',
-            unformat : function (cellvalue, options, cell) {
-              return $('input', cell).val() || cellvalue;
-            }
-          },
+          dataSourceCol,
           lastModifiedTimestampCol
         ],
         {#        ondblClickRow: function (id) { alert("You double click row with id: " + id); },#}
@@ -1125,6 +998,8 @@
 
         },
         onSelectRow: function (rowId, status, e) {
+          $("#loadingSpinnerDeployment").show();
+          $("#events-deployment").hide();
           var targetGrid = "#" + gridIdLookup[$('.nav-tabs .active').find("a").attr("href")];
           // console.log('select row, targetGrid:');
           // console.log(targetGrid);
@@ -1418,23 +1293,23 @@
         title: "Choose columns",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            {#						width: 700,#}
-            {#						dialog_opts: {#}
-            {#							modal: true,#}
-            {#							minWidth: 470,#}
-            {#							height: 470,#}
-            {#							show: 'blind',#}
-            {#							hide: 'explode',#}
-            {#							dividerLocation: 0.5#}
-            {#						}#}
+            						width: 700,
+            						dialog_opts: {
+                          modal: true,
+                          minWidth: 470,
+                          {#            							height: 470,#}
+                          show: 'blind',
+                          hide: 'explode',
+                          dividerLocation: 0.5
+                        }
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
-              alert('column "' + ui.item.text() + '" is chosen');
+              //alert('column "' + ui.item.text() + '" is chosen');
             });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.available a.action")
             .click(function () {
-              alert('column "' + $(this).parent().text() + '" is chosen');
+              //alert('column "' + $(this).parent().text() + '" is chosen');
             });
 
         }
@@ -1946,9 +1821,9 @@
         autowidth : true,
         height : 'auto',
         pager : '#pager'+eventName,
-        sortname : 'eventId',
+        sortname : 'deploymentNumber',
         viewrecords : true,
-        sortorder : 'asc',
+        sortorder : 'desc',
         sortable : true,
         {#        caption : eventName + ' Events',#}
         altRows: false,
@@ -2201,7 +2076,8 @@
 
     var renderRemoteDocuments = function(cruise) {
       //clear out the old events table panel DOM
-      $('div#remoteDocuments table tbody').remove();
+{#      $('div#remoteDocuments table tbody').remove();#}
+      $("#loadingSpinnerDocuments").show();
 
       // URL parameters
       var data = {'cruise': cruise};
@@ -2218,9 +2094,12 @@
           alfrescoCruiseTableBodyView.renderRecords();
 
           // append to the DOM
+          $("#loadingSpinnerDocuments").hide();
           $('div#remoteDocuments table').append( alfrescoCruiseTableBodyView.el );
+
         },
         error: function(e) {
+          $("#loadingSpinnerDocuments").hide();
           $('div#remoteDocuments table tbody').remove();
           $('div#remoteDocuments table #loadDocs').remove();
           $('div#remoteDocuments table p').remove();

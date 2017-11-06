@@ -11,3 +11,10 @@ var uFrameVersionCollection = Backbone.Collection.extend({
   model: uFrameVersionModel,
   url: '/api/uframe/versions'
 });
+
+var uFrameReleaseNotesModel = Backbone.Model.extend();
+
+var uFrameReleaseNotesCollection = Backbone.Collection.extend({
+  model: uFrameReleaseNotesModel,
+  url: '/api/uframe/release_notes'
+});

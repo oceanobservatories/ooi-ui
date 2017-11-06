@@ -1396,6 +1396,26 @@
       }
     };
 
+    // Formatter to fix stream_name to be usable by M2M
+    var streamNameFormatter = function(cellvalue, options, rowObject) {
+      if(cellvalue){
+        return cellvalue.split('_')[1].replace(/-/g,'_')
+      }else{
+        return ""
+      }
+    };
+
+    // Formatter to fix stream_name to be usable by M2M
+    var streamNameUnFormatter = function(cellvalue, options, rowObject) {
+      if(cellvalue){
+        var stream_method = $dcGrid.getCell(options.rowId,"stream_method");
+        console.log(stream_method);
+        return stream_method+"_"+cellvalue.replace(/_/g,'-')
+      }else{
+        return ""
+      }
+    };
+
 
     $.urlParam = function(name){
       var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -2344,15 +2364,20 @@
             index : 'stream_name',
             {#            key : true,#}
             editable : false,
-            hidden : true,
+            hidden : false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
-            unformat : function (cellvalue, options, cell) {
+            formatter : streamNameFormatter,
+            {#unformat : function (cellvalue, options, cell) {
+              console.log(cellvalue);
+              console.log(options);
+              console.log(cell);
               return $('input', cell).val() || cellvalue;
-            }
+            }#}
+            unformat : streamNameUnFormatter
           },
           {
             name : 'unique_id',

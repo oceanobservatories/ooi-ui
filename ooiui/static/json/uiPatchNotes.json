@@ -1,5 +1,18 @@
 [
     {
+        "VersionNumber": "1.4.7",
+        "VersionDate": "2017-11-XX",
+        "VersionDescription": [
+            "Asset Management: Formats Cruise column changer. (12707)",
+            "Asset Management: Adds table loading indicator to Cruises page. (12709)",
+            "Asset Management: Sorts data in deployments grid by descending deployment number. (12710)",
+            "Asset Management: Formats Cruises page columns. (12711)",
+            "Asset Management: Formats Deployments page column changer. (12713)",
+            "Asset Management: Verifies columns in Deployments page can be resized. (12714)",
+            "Data Catalog: UI data catalog lists streams with dashes instead of underscores. (12493)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.6",
         "VersionDate": "2017-10-16",
         "VersionDescription": [
