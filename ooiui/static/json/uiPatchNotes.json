@@ -9,6 +9,7 @@
             "Asset Management: Formats Cruises page columns. (12711)",
             "Asset Management: Formats Deployments page column changer. (12713)",
             "Asset Management: Verifies columns in Deployments page can be resized. (12714)",
+            "Data Catalog: Labels on the Data Availability timelines in the GUI should be English. (12858)",
             "Data Catalog: UI data catalog lists streams with dashes instead of underscores. (12493)",
             "Data Catalog: UI defaults to a time range for which there is no data available. (12374)",
             "Data Download: Updates to support parameter selection in services. (12085)",
