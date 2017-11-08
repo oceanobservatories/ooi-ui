@@ -13,12 +13,12 @@
             "Data Catalog: UI defaults to a time range for which there is no data available. (12374)",
             "Data Download: Updates to support parameter selection in services. (12085)",
             "Data Download: Adds parameter selection to download options. (12086)",
+            "Gallery: UI Gallery infrastructure (sensor types, performance, etc. (XXXXX)",
             "Help: Adds route supporting generation of uFrame release notes (using versions) (XXXXX)",
             "M2M: Fixes 500 error message return when there is no data available for the time frame requested (12732)",
             "M2M: Adds support for calibration ingest. (12877)",
             "M2M: Adds documentation support fraction (calibration ingest, streamMetadata, etc. (XXXXX)",
-            "Plotting: Updates to support ZPLSC. (12723)",
-            "Gallery: UI Gallery infrastructure (sensor types, performance, etc. (XXXXX)"
+            "Plotting: Updates to support ZPLSC. (12723)"
         ]
     },
     {
