@@ -12,6 +12,7 @@
             "Data Catalog: Labels on the Data Availability timelines in the GUI should be English. (12858)",
             "Data Catalog: UI data catalog lists streams with dashes instead of underscores. (12493)",
             "Data Catalog: UI defaults to a time range for which there is no data available. (12374)",
+            "Data Catalog: Updates data catalog filters to include all instances of profilers. (12830)",
             "Data Download: Updates to support parameter selection in services. (12085)",
             "Data Download: Adds parameter selection to download options. (12086)",
             "Gallery: UI Gallery infrastructure (sensor types, performance, etc. (XXXXX)",
