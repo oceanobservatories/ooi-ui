@@ -105,35 +105,43 @@ var PlotControlView = Backbone.View.extend({
 
       var stClone = ed.clone();
       stClone = stClone.subtract(7,'d');
-      this.cb(stClone, ed);
+      this.cb(st, ed);
 
 /*      console.log('Date Picker Debug');
-      console.log("minDate: "+st.format('YYYY-MM-DD HH:mm:SS.SSS'));
-      console.log("maxDate: "+ed.format('YYYY-MM-DD HH:mm:SS.SSS'));
-      console.log("startDate: "+stClone.format('YYYY-MM-DD HH:mm:SS.SSS'));
-      console.log("endDate: "+ed.format('YYYY-MM-DD HH:mm:SS.SSS'));
+      console.log("minDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("maxDate: "+ed.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("startDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("endDate: "+ed.format('YYYY-MM-DD HH:mm:ss.SSS'));
 
-      console.log("'Last 24 hours of Data': "+[ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:SS.SSS'), ed.format('YYYY-MM-DD HH:mm:SS.SSS')]);
-      console.log("'Last 7 Days of Data': "+[ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:SS.SSS'),ed.format('YYYY-MM-DD HH:mm:SS.SSS')]);
-      console.log("'Last 30 Days of Data': "+[ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:SS.SSS'), ed.format('YYYY-MM-DD HH:mm:SS.SSS')]);
-      console.log("'All Data': "+[st.format('YYYY-MM-DD HH:mm:SS.SSS'), ed.format('YYYY-MM-DD HH:mm:SS.SSS')]);*/
+      console.log("'Last 24 hours of Data': "+[ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'Last 7 Days of Data': "+[ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'Last 30 Days of Data': "+[ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'All Data': "+[st.format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);*/
+
+
+      var minDate = st.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var maxDate = ed.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var startDate = st.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var endDate = ed.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
 
       this.$el.find('#reportrange').daterangepicker({
-        minDate: st.format('YYYY-MM-DD HH:mm:ss.SSS'),
-        maxDate: ed.format('YYYY-MM-DD HH:mm:ss.SSS'),
-        startDate: stClone.format('YYYY-MM-DD HH:mm:ss.SSS'),
-        endDate: ed.format('YYYY-MM-DD HH:mm:ss.SSS'),
+        minDate: minDate,
+        maxDate: maxDate,
+        startDate: startDate,
+        endDate: endDate,
         locale: {
             format: 'YYYY-MM-DD HH:mm:ss.SSS'
         },
         alwaysShowCalendars: true,
         timePicker: true,
         timePickerIncrement: 1,
+        timePickerSeconds: true,
+        timePicker24Hour: true,
         ranges: {
            'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
-           'All Data': [st.format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]
+           'All Data': [startDate, endDate]
 
         }
       }, this.cb);
@@ -201,18 +209,23 @@ var PlotControlView = Backbone.View.extend({
     }
   },
   cb: function(start, end){
+    //console.log('cb');
+    //console.log(start);
+    //console.log(end);
     if (!_.isUndefined(this.element)){
+      //console.log('element found');
       this.element.find('span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }else{
+      //console.log('element not found');
       this.$el.find('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
   },
   updateDateTimeRange: function(st,ed){
     //update the selected date range
-    console.log('updateDateTimeRange');
-    console.log(st);
-    console.log(ed);
-    console.log(this.plotModel);
+    //console.log('updateDateTimeRange');
+    //console.log(st);
+    //console.log(ed);
+    //console.log(this.plotModel);
 
     $('#reportrange').data('daterangepicker').setStartDate(st);
     $('#reportrange').data('daterangepicker').setEndDate(ed);

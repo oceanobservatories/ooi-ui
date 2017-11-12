@@ -409,13 +409,27 @@
         if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
           //ONLY DO this for XY plot as it uses highcharts
           //get the data
+
+          //console.log('plotData');
+          //console.log(selectDt.startDate.utc());
+          //console.log(selectDt.startDate.utc().toISOString());
+          //console.log(selectDt.endDate.utc());
+          //console.log(selectDt.endDate.utc().toISOString());
+
+          var startDate = selectDt.startDate.clone();
+          startDate._d.setMinutes(startDate._d.getMinutes()-startDate._d.getTimezoneOffset());
+          //console.log(startDate);
+          var endDate = selectDt.endDate.clone();
+          endDate._d.setMinutes(endDate._d.getMinutes()-endDate._d.getTimezoneOffset());
+          //console.log(endDate);
+
           self.views.plotContainer.plotData = new DataSeriesCollection({},
             {
               displayName : displayName,
               stream      : streamName,
               ref_des     : referenceDesignator,
-              startdate   : selectDt.startDate.toISOString(),
-              enddate     : selectDt.endDate.toISOString(),
+              startdate   : startDate.toISOString(),
+              enddate     : endDate.toISOString(),
               xparameters : xParams,
               yparameters : yParams,
               stream_display_name : stream_display_name
@@ -930,12 +944,12 @@
 
           if (self.collections.selectedStreamCollection.length > 0){
             //EVENTS
-            self.collections.plotEventList.fetch({
+            {#self.collections.plotEventList.fetch({
               reset: true,
               data: $.param({
                 ref_des: self.collections.selectedStreamCollection.models[0].get('reference_designator')
               })
-            });
+            });#}
 
             //ANNOTATIONS
             self.collections.annotations.fetch({
@@ -963,7 +977,7 @@
         });
 
         this.listenTo(this, "updateCalendarZoom", function(o) {
-          //console.log('this is a test of updateCalendarView');
+          //console.log('updateCalendarView');
           //console.log(o);
           //console.log(o.startDate);
           //console.log(o.endDate);
@@ -980,12 +994,10 @@
           $('#zoom-details').hide();
 
           //console.log('update_plot');
-{#          console.log(self.views.plotContainer.xyPlot.origStartDate);#}
-{#          console.log(self.views.plotContainer.xyPlot.   .xyPlot.origEndDate);#}
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
           //console.log('self.views.plotContainer.plotModel');
-          //console.log(self.views.plotContainer.plotModel);
+          //console.log(self.views.plotContainer);
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
@@ -1409,7 +1421,7 @@
     var streamNameUnFormatter = function(cellvalue, options, rowObject) {
       if(cellvalue){
         var stream_method = $dcGrid.getCell(options.rowId,"stream_method");
-        console.log(stream_method);
+        //console.log(stream_method);
         return stream_method+"_"+cellvalue.replace(/_/g,'-')
       }else{
         return ""
