@@ -130,9 +130,29 @@ var PlotView = BasePlot.extend({
           //var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
           var bandColor = bandColors[annotation.get('qcFlag')][0];
           var annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
-          axis.addPlotBand({
-            from: moment.utc(annotation.get('beginDT')),
-            to: moment.utc(annotation.get('endDT')),
+          var fromTime = moment.utc(annotation.get('beginDT'));
+          var toTime = moment.utc(annotation.get('endDT'));
+          if(fromTime.isSame(toTime)){
+            axis.addPlotLine({
+              value: fromTime,
+              color: bandColor,
+              width: 2,
+              label: {
+                text: annoLabelText, // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+              },
+              id: 'plot-band-1'+annoLabelText,//+annotation.get('id'),
+              events: {
+                click: function (e) {
+                  alert(annoLabelText);
+                }
+              }
+            })
+          }else{
+            axis.addPlotBand({
+            from: fromTime,
+            to: toTime,
             color: bandColor,
             borderWidth: 1,
             borderColor: '#FFFFFF',
@@ -141,7 +161,7 @@ var PlotView = BasePlot.extend({
               align: 'left', // Positioning of the label.
               x: 10 // Amount of pixels the label will be repositioned according to the alignment.
             },
-            id: 'plot-band-1',//+annotation.get('id'),
+            id: 'plot-band-1'+annoLabelText,//+annotation.get('id'),
             events: {
               click: function (e) {
                 alert(annoLabelText);
@@ -149,6 +169,8 @@ var PlotView = BasePlot.extend({
             }
           });
           // console.log(axis.plotLinesAndBands);
+          }
+
         });
       }else{
         //this.xyPlot.getChart().redraw();

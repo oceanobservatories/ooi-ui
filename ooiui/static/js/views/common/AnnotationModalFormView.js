@@ -71,14 +71,15 @@ var AnnotationModalFormView = ModalFormView.extend({
     var maxDate = moment.utc(self.model.get('endDTSafe'),'YYYY-MM-DD HH:mm:ss.SSS');
     var max = maxDate.toISOString();
 
+    /*console.log(maxDate);
+    console.log(minDate);
+    console.log(max);
+    console.log(min);*/
+
     if(maxDate.isValid()) {
-
-
-
-      if (maxDate.isAfter(minDate)) {
+      if (maxDate.isSame(minDate) || maxDate.isAfter(minDate)) {
         $('#startLabel').css('color', '#004773');
         $('#endLabel').css('color', '#004773');
-
 
         self.model.set('beginDT', min);
         self.model.set('endDT', max);
