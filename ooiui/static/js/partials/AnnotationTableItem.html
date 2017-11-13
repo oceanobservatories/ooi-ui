@@ -3,7 +3,11 @@
 <%    if(col.name === 'beginDT'){ %>
         <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
 <%    } else if(col.name === 'endDT') { %>
-        <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
+<%      if(model.get(col.name) === null){ %>
+          <td></td>
+<%      }else{ %>
+          <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
+<%      } %>
 <%    } else if(col.name === 'actions') { %>
         <td>
           <div style='display: flex;justify-content: space-between;'>

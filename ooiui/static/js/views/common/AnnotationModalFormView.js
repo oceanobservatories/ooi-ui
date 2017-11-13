@@ -64,21 +64,40 @@ var AnnotationModalFormView = ModalFormView.extend({
     this.model.set('parameters', pVal);
     this.model.set('exclusionFlag', (this.$el.find('#exclusionFlag-input').val().toLowerCase() === 'true'));
 
-    var minDate = moment.utc(self.model.get('beginDTSafe'));
-    var maxDate = moment.utc(self.model.get('endDTSafe'));
+
+    var minDate = moment.utc(self.model.get('beginDTSafe'),'YYYY-MM-DD HH:mm:ss.SSS');
     var min = minDate.toISOString();
+
+    var maxDate = moment.utc(self.model.get('endDTSafe'),'YYYY-MM-DD HH:mm:ss.SSS');
     var max = maxDate.toISOString();
 
-    if (maxDate.isAfter(minDate)){
-      $('#startLabel').css('color','#004773');
-      $('#endLabel').css('color','#004773');
+    if(maxDate.isValid()) {
 
 
+
+      if (maxDate.isAfter(minDate)) {
+        $('#startLabel').css('color', '#004773');
+        $('#endLabel').css('color', '#004773');
+
+
+        self.model.set('beginDT', min);
+        self.model.set('endDT', max);
+
+        self.model.unset('beginDTSafe', {silent: true});
+        self.model.unset('endDTSafe', {silent: true});
+      }else{
+        $('#startLabel').css('color', 'darkred');
+        $('#endLabel').css('color', 'darkred');
+        alert('End date is not after start date!');
+        event.preventDefault();
+        //invalid date
+      }
+    }else{
       self.model.set('beginDT', min);
-      self.model.set('endDT', max);
-
-      self.model.unset('beginDTSafe', {silent:true});
-      self.model.unset('endDTSafe', {silent:true});
+      self.model.unset('beginDTSafe', {silent: true});
+      self.model.set('endDT', null);
+      self.model.unset('endDTSafe', {silent: true});
+    }
 
       self.model.set('source', this.username);
 
@@ -107,11 +126,7 @@ var AnnotationModalFormView = ModalFormView.extend({
         }
       });
       this.hide();
-    }else{      
-      $('#startLabel').css('color','darkred');
-      $('#endLabel').css('color','darkred');
-      //invalid date
-    }
+
   },
   template: JST['ooiui/static/js/partials/AnnotationModalForm.html'],
   render: function() {
@@ -157,21 +172,35 @@ var AnnotationModalFormView = ModalFormView.extend({
 
     }
 
-    $('#startAnnotationDateTime').datetimepicker({defaultDate: this.model.get('beginDTSafe') ,format: 'YYYY-MM-DD HH:mm:ss.SSS'})
-                                              .on('dp.change', function(){
-                                                var min = moment.utc($('#startAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
-                                                // console.log('min');
-                                                // console.log(min);
-                                                self.model.set('beginDTSafe',min)
-                                              });
-    $('#endAnnotationDateTime').datetimepicker({defaultDate: this.model.get('endDTSafe'), format: 'YYYY-MM-DD HH:mm:ss.SSS'})
-                                              .on('dp.change', function(){
-                                                var max = moment.utc($('#endAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
-                                                // console.log('max');
-                                                // console.log(max);
-                                                self.model.set('endDTSafe',max)                                                
-                                              });
+    $('#startAnnotationDateTime').datetimepicker({
+      defaultDate: moment.utc(this.model.get('beginDTSafe')).format("YYYY-MM-DD HH:mm:ss.SSS"),
+      format: 'YYYY-MM-DD HH:mm:ss.SSS'})
+        .on('dp.change', function(){
+          var min = moment.utc($('#startAnnotationDateTime').data('date'),'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
+          // console.log('min');
+          // console.log(min);
+          self.model.set('beginDTSafe',min)
+        });
 
-
-  }
+    var endDTSafe = this.model.get('endDTSafe');
+    var defaultEndDate = "";
+    if(endDTSafe !== null){
+      defaultEndDate = moment.utc(endDTSafe).format("YYYY-MM-DD HH:mm:ss.SSS");
+    }
+    $('#endAnnotationDateTime').datetimepicker({
+      defaultDate: defaultEndDate,
+      format: 'YYYY-MM-DD HH:mm:ss.SSS'})
+        .on('dp.change', function(){
+          var endDate = $('#endAnnotationDateTime').data('date');
+          //console.log(endDate);
+          if(endDate !== null){
+            var max = moment.utc(endDate,'YYYY-MM-DD HH:mm:ss.SSS').format("YYYY-MM-DD HH:mm:ss.SSS");
+          //console.log('max');
+          //console.log(max);
+          }else{
+            max = null;
+          }
+          self.model.set('endDTSafe',max)
+        });
+  } //render
 });

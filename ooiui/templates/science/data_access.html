@@ -1113,15 +1113,23 @@
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
-          // console.log("model.get('beginDT')");
-          // console.log(model.get('beginDT'));
-          // console.log("model.get('endDT')");
-          // console.log(model.get('endDT'));
+
           var min = moment.utc(new Date(model.get('beginDT'))).toISOString();
           var max = moment.utc(new Date(model.get('endDT'))).toISOString();
+          {#console.log('AnnotationTableItemView:onClick');
+          console.log("model.get('beginDT')");
+          console.log(model.get('beginDT'));
+          console.log("model.get('endDT')");
+          console.log(model.get('endDT'));
+          console.log(max);#}
 
           model.set('beginDTSafe',min);
-          model.set('endDTSafe',max);
+          if(model.get('endDT') !== null){
+            model.set('endDTSafe',max);
+          }else{
+            model.set('endDTSafe', null);
+          }
+
 
           if(self.login.loggedIn()) {
             self.views.annotationModal.show({
