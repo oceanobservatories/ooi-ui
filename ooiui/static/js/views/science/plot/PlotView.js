@@ -142,7 +142,7 @@ var PlotView = BasePlot.extend({
                 align: 'left', // Positioning of the label.
                 x: 10 // Amount of pixels the label will be repositioned according to the alignment.
               },
-              id: 'plot-band-1'+annoLabelText,//+annotation.get('id'),
+              id: 'plot-band-1',//+annotation.get('id'),
               events: {
                 click: function (e) {
                   alert(annoLabelText);
@@ -161,7 +161,7 @@ var PlotView = BasePlot.extend({
               align: 'left', // Positioning of the label.
               x: 10 // Amount of pixels the label will be repositioned according to the alignment.
             },
-            id: 'plot-band-1'+annoLabelText,//+annotation.get('id'),
+            id: 'plot-band-1',//+annotation.get('id'),
             events: {
               click: function (e) {
                 alert(annoLabelText);
