@@ -3,6 +3,9 @@
         "VersionNumber": "1.4.7",
         "VersionDate": "2017-11-XX",
         "VersionDescription": [
+            "Annotation: Adds ability to create no-end-date annotations. (12554)",
+            "Annotation: Resolves missing no-end-date annotations. (12836)",
+            "Annotation: Fixes missing annotations in table and on plot. (12902)",
             "Asset Management: Formats Cruise column changer. (12707)",
             "Asset Management: Adds table loading indicator to Cruises page. (12709)",
             "Asset Management: Sorts data in deployments grid by descending deployment number. (12710)",
