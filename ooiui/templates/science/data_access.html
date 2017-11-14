@@ -845,7 +845,7 @@
             // console.log("add_catalog_model");
             // console.log(selectedStreamObj);
             // console.log(selectedStreamUrl);
-            placeDataAvailability(ref_des);
+            placeDataAvailability(selectedStreamObj);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
@@ -875,7 +875,7 @@
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
           // console.log(o.model);
-          $('#div_'+o.model.get('reference_designator')).remove();
+          $('#div_'+o.model.get('reference_designator')+o.model.get('stream_name')).remove();
 
           history.back();
           // console.log(location.href);
@@ -2701,8 +2701,10 @@
     } // placeJqGrid
 
 
-    function placeDataAvailability(ref_des) {
+    function placeDataAvailability(selectedStreamObj) {
 
+      var ref_des = selectedStreamObj['ref_des'];
+      var stream_name = selectedStreamObj['stream_name'];
       var dataset=[];
       var onDataHandler = function(collection, response, options) {
 
@@ -2721,16 +2723,16 @@
           });
         }); // each chart in the collection
 
-        draw_visavail(ref_des);
+        draw_visavail(ref_des, stream_name);
       };
 
       var chart = visavailChart();
-      function draw_visavail(ref_des) {
+      function draw_visavail(ref_des, stream_name) {
         chart.width($('#visavail_container').width()-350);
         chart.marginLeft(300);
         chart.paddingLeft(-300);
 
-        var divId = "div_" + ref_des;
+        var divId = "div_" + ref_des + stream_name;
         // console.log(divId);
         $('#example').append('<div id="' + divId + '"></div>');
         d3.select("#"+divId)

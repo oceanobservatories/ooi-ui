@@ -5,7 +5,8 @@
         "VersionDescription": [
             "Annotation: Adds ability to create no-end-date annotations. (12554)",
             "Annotation: Resolves missing no-end-date annotations. (12836)",
-            "Annotation: Fixes missing annotations in table and on plot. (12902)",
+            "Annotation: Fixes missing annotations in table. (12902)",
+            "Annotation: Fixes missing annotations with same start and end date on plot. (12874)",
             "Asset Management: Formats Cruise column changer. (12707)",
             "Asset Management: Adds table loading indicator to Cruises page. (12709)",
             "Asset Management: Sorts data in deployments grid by descending deployment number. (12710)",
@@ -16,6 +17,7 @@
             "Data Catalog: UI data catalog lists streams with dashes instead of underscores. (12493)",
             "Data Catalog: UI defaults to a time range for which there is no data available. (12374)",
             "Data Catalog: Updates data catalog filters to include all instances of profilers. (12830)",
+            "Data Catalog: Fixes timelines disappearing entirely when adding two streams then removing one. (12528)",
             "Data Download: Updates to support parameter selection in services. (12085)",
             "Data Download: Adds parameter selection to download options. (12086)",
             "Gallery: UI Gallery infrastructure (sensor types, performance, etc. (XXXXX)",
