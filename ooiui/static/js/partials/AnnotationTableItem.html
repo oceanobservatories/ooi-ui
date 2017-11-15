@@ -4,7 +4,7 @@
         <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
 <%    } else if(col.name === 'endDT') { %>
 <%      if(model.get(col.name) === null){ %>
-          <td></td>
+          <td>Current</td>
 <%      }else{ %>
           <td><%= moment.utc(model.get(col.name)).format("YYYY-MM-DD HH:mm:ss.SSS") %></td>
 <%      } %>
