@@ -26,7 +26,8 @@
             "M2M: Fixes 500 error message return when there is no data available for the time frame requested (12732)",
             "M2M: Adds support for calibration ingest. (12877)",
             "M2M: Adds documentation support fraction (calibration ingest, streamMetadata, etc. (XXXXX)",
-            "Plotting: Updates to support ZPLSC. (12723)"
+            "Plotting: Updates to support ZPLSC. (12723)",
+            "Plotting: Allows mobile users to select items in drop-down menus. (11292)"
         ]
     },
     {

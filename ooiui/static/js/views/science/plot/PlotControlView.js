@@ -410,6 +410,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   count : 0,
   events: {
     "change .selectpicker" : "onPlotParameterSelect", //on plot type change
+    "click .selectpicker" : "onPlotParameterClick",
     "click input" : "onInputChange"
   },
   initialize: function(options) {
@@ -562,6 +563,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                 is_y: $(e.target).hasClass('y-select'),
                                 is_z: $(e.target).hasClass('z-select')
                               })
+  },
+  onPlotParameterClick:function(e){
+    e.stopPropagation();
   },
   onPlotParameterSelect:function(e){
     //
