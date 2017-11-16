@@ -60,7 +60,7 @@
     "jquery-sticky-table-headers": "https://github.com/jmosbech/StickyTableHeaders.git",
     "slick-carousel": "~1.5.9",
     "bootbox.js": "bootbox#~4.4.0",
-    "bootstrap-daterangepicker": "~2.1.19",
+    "bootstrap-daterangepicker": "~2.1.25",
     "jqgrid": "~5.1.0",
     "requirejs": "~2.2.0",
     "moment-range": "^2.2.0",

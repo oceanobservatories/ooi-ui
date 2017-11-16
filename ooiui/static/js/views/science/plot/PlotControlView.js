@@ -132,11 +132,13 @@ var PlotControlView = Backbone.View.extend({
         locale: {
             format: 'YYYY-MM-DD HH:mm:ss.SSS'
         },
-        alwaysShowCalendars: true,
+        alwaysShowCalendars: false,
         timePicker: true,
         timePickerIncrement: 1,
         timePickerSeconds: true,
         timePicker24Hour: true,
+        showCustomRangeLabel: true,
+        linkedCalendars: false,
         ranges: {
            'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
