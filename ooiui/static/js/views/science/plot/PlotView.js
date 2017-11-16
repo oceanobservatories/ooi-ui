@@ -118,14 +118,14 @@ var PlotView = BasePlot.extend({
             }
           }*/
           var bandColors = {
-            'null': ["#FF00FF", "Null"],
+            'null': ["#FFFFE0", "Null"],
             'fail': ["#CC0000", "Fail"],
-            'not_evaluated': ["#CCCC00", "Not Evaluated"],
-            'not_available': ["#FFFFFF", "Not Available"],
-            'not_operational': ["#CC6600", "Not Operational"],
-            'pass': ["#006600", "Pass"],
-            'pending_ingest': ["#001100", "Pending Ingest"],
-            'suspect': ["#CC6644", "Suspect"]
+            'not_evaluated': ["#4138c5", "Not Evaluated"],
+            'not_available': ["#A0A0A0", "Not Available"],
+            'not_operational': ["#606060", "Not Operational"],
+            'pass': ["#00CC00", "Pass"],
+            'pending_ingest': ["#E0E0E0", "Pending Ingest"],
+            'suspect': ["#CC6600", "Suspect"]
           };
           //var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
           var bandColor = bandColors[annotation.get('qcFlag')][0];

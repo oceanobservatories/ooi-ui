@@ -527,37 +527,37 @@ pre {
 }
 
 .fa.fa-circle.anno-not_evaluated {
-    color: #CCCC00;
+    color: #4138c5;
     font-size: 16px;
     float: left;
 }
 
 .fa.fa-circle.anno-not_available {
-    color: #ff008d;
+    color: #A0A0A0;
     font-size: 16px;
     float: left;
 }
 
 .fa.fa-circle.anno-not_operational {
-    color: #CC6600;
+    color: #606060;
     font-size: 16px;
     float: left;
 }
 
 .fa.fa-circle.anno-pass {
-    color: #006600;
+    color: #00CC00;
     font-size: 16px;
     float: left;
 }
 
 .fa.fa-circle.anno-pending_ingest {
-    color: #CFC9FF;
+    color: #E0E0E0;
     font-size: 16px;
     float: left;
 }
 
 .fa.fa-circle.anno-suspect {
-    color: #CC6644;
+    color: #CC6600;
     font-size: 16px;
     float: left;
 }
