@@ -216,10 +216,10 @@ var PlotControlView = Backbone.View.extend({
     //console.log(end);
     if (!_.isUndefined(this.element)){
       //console.log('element found');
-      this.element.find('span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      this.element.find('span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z - ' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z');
     }else{
       //console.log('element not found');
-      this.$el.find('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z - ' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z');
     }
   },
   updateDateTimeRange: function(st,ed){
