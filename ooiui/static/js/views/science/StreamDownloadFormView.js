@@ -124,8 +124,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
 
     // set the fields.
-    this.$end_date_picker.setDate(endDate);
-    this.$start_date_picker.setDate(startDate);
+    this.$end_date_picker.date(endDate);
+    this.$start_date_picker.date(startDate);
 
     // dance.
   },
@@ -338,8 +338,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
 
 
-    this.$start_date_picker.setDate(startDate);
-    this.$end_date_picker.setDate(endDate);
+    this.$start_date_picker.date(startDate);
+    this.$end_date_picker.date(endDate);
 
     if(model.get('long_display_name') != null) {
       this.$el.find('#streamName').text(model.get('long_display_name'));
@@ -436,11 +436,13 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$el.html(this.template({}));
 
     this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
-                                                 sideBySide: true
-                                                 });
+      sideBySide: false,
+      widgetPositioning: {horizontal: 'auto', vertical: 'bottom'}
+    });
     this.$el.find('#end-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
-                                               sideBySide: true
-                                               });
+      sideBySide: false,
+      widgetPositioning: {horizontal: 'auto', vertical: 'bottom'}
+    });
     this.$el.find('#data-date').datetimepicker({format: "YYYY-MM-DD"});
     this.$start_date = this.$el.find('#start-date');
     this.$end_date = this.$el.find('#end-date');

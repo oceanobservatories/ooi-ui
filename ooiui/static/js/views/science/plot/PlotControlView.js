@@ -154,7 +154,7 @@ var PlotControlView = Backbone.View.extend({
       $('<div style="text-align: -webkit-center;"><b>Start Date</b></div>').insertBefore('.daterangepicker.ltr .left .daterangepicker_input');
       $('<div style="text-align: -webkit-center;"><b>End Date</b></div>').insertBefore('.daterangepicker.ltr .right .daterangepicker_input');
       // $('<div style="height: 95%; background-color: darkgray; position: inherit; left: 260px; width: 2px;"></div>').insertBefore('.calendar.right');
-      $('<div class="pull-left" style="height: 95%; background-color: darkgray;  width: 2px;"></div>').insertBefore('.calendar.right');
+      $('<div class="pull-left" style="height: 95%; background-color: darkgray; left: 260px; position: inherit; width: 2px;"></div>').insertBefore('.calendar.right');
 
       // this.$el.find('#reportrange').daterangepicker.html.append('test');
 
@@ -226,10 +226,12 @@ var PlotControlView = Backbone.View.extend({
     //console.log(end);
     if (!_.isUndefined(this.element)){
       //console.log('element found');
-      this.element.find('span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z - ' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z');
+      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }else{
       //console.log('element not found');
-      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z - ' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + 'Z');
+      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }
   },
   updateDateTimeRange: function(st,ed){
