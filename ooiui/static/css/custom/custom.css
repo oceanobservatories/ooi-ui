@@ -561,3 +561,13 @@ pre {
     font-size: 16px;
     float: left;
 }
+
+.fa.fa-circle.anno-null {
+    color: #FFFFE0;
+    font-size: 16px;
+    float: left;
+}
+
+.daterangepicker .ranges ul {
+  width: auto;
+}

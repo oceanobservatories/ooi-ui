@@ -140,13 +140,22 @@ var PlotControlView = Backbone.View.extend({
         showCustomRangeLabel: true,
         linkedCalendars: false,
         ranges: {
-           'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
-           'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
-           'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'Most Recent 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'Most Recent 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'Most Recent 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'All Data': [startDate, endDate]
 
         }
       }, this.cb);
+
+      // $("input[name='daterangepicker_start']")
+
+      // $('<div><p><b>Start Date</b></p></div>').insertAfter("input[name='daterangepicker_start']");
+      $('<div style="text-align: -webkit-center;"><b>Start Date</b></div>').insertBefore('.daterangepicker.ltr .left .daterangepicker_input');
+      $('<div style="text-align: -webkit-center;"><b>End Date</b></div>').insertBefore('.daterangepicker.ltr .right .daterangepicker_input');
+      $('<div style="height: 95%; background-color: darkgray; position: absolute; left: 260px; width: 2px;"></div>').insertBefore('.calendar.right');
+
+      // this.$el.find('#reportrange').daterangepicker.html.append('test');
 
       //plot type selection
       this.$el.find('#plotTypeSelect').selectpicker({
