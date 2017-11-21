@@ -120,9 +120,9 @@ var PlotView = BasePlot.extend({
             }
           }*/
           var bandColors = {
-            'null': ["#FFFFE0", "Null"],
+            'null': ["#CDBA96", "Null"],
             'fail': ["#CC0000", "Fail"],
-            'not_evaluated': ["#4138c5", "Not Evaluated"],
+            'not_evaluated': ["#004c99", "Not Evaluated"],
             'not_available': ["#A0A0A0", "Not Available"],
             'not_operational': ["#606060", "Not Operational"],
             'pass': ["#00CC00", "Pass"],

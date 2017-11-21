@@ -153,7 +153,8 @@ var PlotControlView = Backbone.View.extend({
       // $('<div><p><b>Start Date</b></p></div>').insertAfter("input[name='daterangepicker_start']");
       $('<div style="text-align: -webkit-center;"><b>Start Date</b></div>').insertBefore('.daterangepicker.ltr .left .daterangepicker_input');
       $('<div style="text-align: -webkit-center;"><b>End Date</b></div>').insertBefore('.daterangepicker.ltr .right .daterangepicker_input');
-      $('<div style="height: 95%; background-color: darkgray; position: absolute; left: 260px; width: 2px;"></div>').insertBefore('.calendar.right');
+      // $('<div style="height: 95%; background-color: darkgray; position: inherit; left: 260px; width: 2px;"></div>').insertBefore('.calendar.right');
+      $('<div class="pull-left" style="height: 95%; background-color: darkgray;  width: 2px;"></div>').insertBefore('.calendar.right');
 
       // this.$el.find('#reportrange').daterangepicker.html.append('test');
 
