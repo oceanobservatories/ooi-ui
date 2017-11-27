@@ -131,7 +131,14 @@ var PlotView = BasePlot.extend({
           };
           //var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
           var bandColor = bandColors[annotation.get('qcFlag')][0];
-          var annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          // If null annotation just show the note
+          var annoLabelText = 'Annotation data unavailable.';
+          if(annotation.get('qcFlag') === null){
+            annoLabelText = "Note: " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          }else{
+            annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          }
+
           var fromTime = moment.utc(annotation.get('beginDT'));
           var toTime = moment.utc(annotation.get('endDT'));
 
@@ -150,16 +157,15 @@ var PlotView = BasePlot.extend({
               id: 'plot-band-1',//+annotation.get('id'),
               events: {
                 click: function (e) {
-                  e.stopPropagation();
-                  // $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px; color: '+bandColor+'"><b>'+annoLabelText+'</b></h5>');
                   $('#annotationInfo').html(
                     '<h5 class="fa fa-circle anno-'
                     +annotation.get('qcFlag')
-                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><p style="float: right;padding-left: 10px;">'
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
                     +annoLabelText
-                    +'<\p></h5>');
+                    +'</ul></h5>');
                   e.borderColor = bandColor;
                   e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
                 }
               },
               zIndex: 3
@@ -179,16 +185,15 @@ var PlotView = BasePlot.extend({
               id: 'plot-band-2',//+annotation.get('id'),
               events: {
                 click: function (e) {
-                  e.stopPropagation();
-                  // $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px; color: '+bandColor+'"><b>'+annoLabelText+'</b></h5>');
                   $('#annotationInfo').html(
                     '<h5 class="fa fa-circle anno-'
                     +annotation.get('qcFlag')
-                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><p style="float: right;padding-left: 10px;">'
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
                     +annoLabelText
-                    +'<\p></h5>');
+                    +'</ul></h5>');
                   e.borderColor = bandColor;
                   e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
                 }
               },
               zIndex: 2
@@ -209,15 +214,15 @@ var PlotView = BasePlot.extend({
               id: 'plot-band-3',//+annotation.get('id'),
               events: {
                 click: function (e) {
-                  // $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px; color: '+bandColor+'"><b>'+annoLabelText+'</b></h5>');
                   $('#annotationInfo').html(
                     '<h5 class="fa fa-circle anno-'
                     +annotation.get('qcFlag')
-                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><p style="float: right;padding-left: 10px;">'
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
                     +annoLabelText
-                    +'<\p></h5>');
+                    +'</ul></h5>');
                   e.borderColor = bandColor;
                   e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
                 }
               },
               zIndex: 1
@@ -234,6 +239,8 @@ var PlotView = BasePlot.extend({
           axis.removePlotBand('plot-band-3');
           $('#annotationLegend').hide();
           $('#annotationInfo').hide();
+          $('#annotationInfo').html('');
+          $('#clearAnnotationInfo').hide();
           /*console.log('starting to remove annotations');
           _.each(axis.plotLinesAndBands, function(index, annotationBand){
             console.log('inside loop');
