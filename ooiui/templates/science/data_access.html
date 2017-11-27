@@ -181,23 +181,32 @@
                       </div>
 
                       <!-- Annotation Legend-->
-                      <div class="row">
-                        <div id="annotationLegend" style="text-align:left; width: 100%; padding-left: 8px;">
-                          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Annotation Legend -</b></h5>
-                          <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
-                          <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
-                          <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
-                          <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
-                          <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
-                          <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
-                          <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                      <div class="row" id="anno-row">
+                        <div class="panel">
+                          <div class="panel-heading">
+                            Annotation Info
+                          </div>
+                          <div id="annotationLegend" class="panel-body" style="text-align:left; width: 100%; padding-left: 8px;">
+                            <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
+                            <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
+                            <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
+                            <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
+                            <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
+                            <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
+                            <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                          </div>
+                          <div id="annotationInfo" style="text-align:left; width: 100%; padding-left: 8px; height: 50px; min-height: 50px; max-height: 50px;">
+                            <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>
+                          </div>
+                          <div class="panel-footer" style="min-height: 45px;">
+                            <a href="#" id="clearAnnotationInfo" class="btn btn-primary clear-anno-info">Clear Annotation Info</a>
+                          </div>
+
                         </div>
                       </div>
 
                       <div class="row">
-                        <div id="annotationInfo" style="text-align:left; width: 100%; padding-left: 8px; height: 50px; min-height: 50px; max-height: 50px;">
-                          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>
-                        </div>
+
                       </div>
 
                       <div class="row">
@@ -1515,6 +1524,14 @@
         $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
         $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
       });
+
+      $('.clear-anno-info').on('click', function(event){
+        event.preventDefault();
+        $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>');
+        $('#clearAnnotationInfo').hide();
+      });
+
+      $('#clearAnnotationInfo').hide();
 
       ooi.start();
 

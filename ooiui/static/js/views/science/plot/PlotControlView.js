@@ -18,8 +18,7 @@ var PlotControlView = Backbone.View.extend({
     "change .selectpicker#plotLineStyle" : "onPlotStyleSelect", //on plot style change
     "change .selectpicker#plotMultiOptions" : "onPlotOptionsSelect", //on plot options change
     "change .selectpicker#plotqaqc" : "onPlotQAQCSelect", //on plot qaqc change
-    "change #toggleAnnotations" : "onToggleAnnotations", // Toggle annotations
-    "click #clearAnnotationInfo" : "onClearAnnotationInfo" // Clear the annotation info
+    "change #toggleAnnotations" : "onToggleAnnotations" // Toggle annotations
   },
 
   initialize: function(options) {
@@ -272,8 +271,10 @@ var PlotControlView = Backbone.View.extend({
     var selected = $(e.target).val();
     if($('#toggleAnnotations').is(":checked")){
       this.plotModel.set('showAnnotations', true);
+      $('#anno-row').show();
     }else{
       this.plotModel.set('showAnnotations', false);
+      $('#anno-row').hide();
     }
 
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
@@ -290,10 +291,6 @@ var PlotControlView = Backbone.View.extend({
   onPlotQAQCSelect: function(e){
     this.plotModel.set('qaqc',$(e.target).val());
     //ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
-  },
-  onClearAnnotationInfo: function(e){
-    $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>');
-    $('#clearAnnotationInfo').hide();
   },
   getSelectedParameters: function(selectedDataCollection){
     var self = this;

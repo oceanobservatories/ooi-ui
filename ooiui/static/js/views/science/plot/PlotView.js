@@ -237,10 +237,10 @@ var PlotView = BasePlot.extend({
           axis.removePlotBand('plot-band-1');
           axis.removePlotBand('plot-band-2');
           axis.removePlotBand('plot-band-3');
-          $('#annotationLegend').hide();
-          $('#annotationInfo').hide();
-          $('#annotationInfo').html('');
-          $('#clearAnnotationInfo').hide();
+          // $('#annotationLegend').hide();
+          // $('#annotationInfo').hide();
+          // $('#annotationInfo').html('');
+          // $('#clearAnnotationInfo').hide();
           /*console.log('starting to remove annotations');
           _.each(axis.plotLinesAndBands, function(index, annotationBand){
             console.log('inside loop');
