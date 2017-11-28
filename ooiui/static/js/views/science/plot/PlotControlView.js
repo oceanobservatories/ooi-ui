@@ -226,11 +226,11 @@ var PlotControlView = Backbone.View.extend({
     //console.log(end);
     if (!_.isUndefined(this.element)){
       //console.log('element found');
-      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
       // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }else{
       //console.log('element not found');
-      this.$el.find('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
       // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }
   },
