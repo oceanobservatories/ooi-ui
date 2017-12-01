@@ -1,7 +1,7 @@
 [
     {
         "VersionNumber": "1.4.7",
-        "VersionDate": "2017-11-XX",
+        "VersionDate": "2017-11-30",
         "VersionDescription": [
             "Annotation: Adds ability to create no-end-date annotations. (12554)",
             "Annotation: Resolves missing no-end-date annotations. (12836)",
@@ -21,8 +21,8 @@
             "Data Catalog: Fixes editing custom time range for plotting after selecting All Data. (11104)",
             "Data Download: Updates to support parameter selection in services. (12085)",
             "Data Download: Adds parameter selection to download options. (12086)",
-            "Gallery: UI Gallery infrastructure (sensor types, performance, etc. (XXXXX)",
-            "Help: Adds route supporting generation of uFrame release notes (using versions) (XXXXX)",
+            "Gallery: UI gallery infrastructure changes to support future UI gallery work.",
+            "Help: Adds route supporting generation of uFrame release notes (using versions).",
             "M2M: Fixes 500 error message return when there is no data available for the time frame requested (12732)",
             "M2M: Adds support for calibration ingest. (12877)",
             "M2M: Adds documentation support fraction (calibration ingest, streamMetadata, etc. (XXXXX)",
