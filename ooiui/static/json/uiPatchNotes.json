@@ -21,14 +21,15 @@
             "Data Catalog: Fixes editing custom time range for plotting after selecting All Data. (11104)",
             "Data Download: Updates to support parameter selection in services. (12085)",
             "Data Download: Adds parameter selection to download options. (12086)",
-            "Gallery: UI gallery infrastructure changes to support future UI gallery work.",
-            "Help: Adds route supporting generation of uFrame release notes (using versions).",
+            "Gallery: UI gallery infrastructure changes to support future UI gallery work. (XXXXX)",
+            "Help: Displays uFrame release notes using service endpoint. (13010).",
+            "Help: Adds route supporting generation of uFrame release notes.",
             "M2M: Fixes 500 error message return when there is no data available for the time frame requested (12732)",
             "M2M: Adds support for calibration ingest. (12877)",
-            "M2M: Adds documentation support fraction (calibration ingest, streamMetadata, etc. (XXXXX)",
-            "Plotting: Updates to support ZPLSC. (12723)",
+            "M2M: Adds documentation support fraction. (13017)",
             "Plotting: Allows mobile users to select items in drop-down menus. (11292)",
-            "Plotting: Fixes plotting zoom. (12937)"
+            "Plotting: Fixes plotting zoom. (12937)",
+            "Status: Status indicators and legends in Sites and Platforms tables disabled. (13024)"
         ]
     },
     {
