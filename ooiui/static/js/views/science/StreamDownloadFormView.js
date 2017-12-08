@@ -20,22 +20,27 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #download-btn' : 'onDownload',
     'click #download-btn2' : 'onDownloadLargeFormat',
     'change #type-select select' : 'onTypeChange',
-    'click #parameter-select' : 'onParameterSelect',
     'click #provenance-select' : 'onCheckboxSelect',
     'click #annotation-select' : 'onCheckboxSelect',
     'change #time-range select': 'timeRangeChange',
     'click #subscription-selection-select': 'onSubscribeSelect',
     'click .subscribe-info': 'clickSubscribeInfo',
-    'change #data-date' : 'onChangeDataDate'
+    'change #data-date' : 'onChangeDataDate',
+    'click #select-all-parameters' : 'onSelectAllParameters'
   },
   initialize: function() {
     _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');
     this.largeFileFormatView = null;
     this.render();
   },
-  onParameterSelect: function() {
-    var self = this;
-    // console.log(self.model);
+  onSelectAllParameters: function() {
+    if(!$('#select-all-parameters').is(':checked')){
+      $('#parameter-selection-span').show();
+      $("#param-multi-select").find('option').prop("selected",true);
+    }else{
+      $('#parameter-selection-span').hide();
+      $("#param-multi-select").find('option').prop("selected",false);
+    }
   },
   onCheckboxSelect: function() {
     if((this.$el.find('#provenance-select').is(':checked')) || (this.$el.find('#annotation-select').is(':checked'))){
@@ -303,14 +308,7 @@ var StreamDownloadFormView = Backbone.View.extend({
           plen++;
         }
 
-        // $.each(resp.parameters, function (i, item) {
-        //   $('#param-multi-select').append($('<option>', {
-        //     value: item.value,
-        //     text : item.text
-        //   }));
-        // });
-
-        $("#param-multi-select").append(parameters);
+        $("#param-multi-select").empty().append(parameters);
         $("#param-multi-select").attr("size", plen)
       },
       error: function(msg){
@@ -418,6 +416,10 @@ var StreamDownloadFormView = Backbone.View.extend({
     // Update parameters dropdown
     // $("#download-param-select").html($("#yvar0-select-default").html())
     // $('.selectpicker').selectpicker('refresh');
+
+    $('#parameter-selection-span').hide();
+    $("#param-multi-select").find('option').prop("selected",true);
+    $("#select-all-parameters").prop("checked",true);
 
     this.onTypeChange();
     if(!isPlotDl){

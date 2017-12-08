@@ -10,7 +10,7 @@
         <img width="50px" src="/img/logos-banners/OOI_Logo.svg">
 
 
-          <span class="subscription-selection" style="margin-left:25%">
+        <span class="subscription-selection" style="margin-left:25%">
               <button style="padding-top:5px;" id="subscription-selection-select" type="button" class="btn btn-default btn-xs">
                 <span id="subscription-selection-icon" class="fa fa-heart-o" aria-hidden="true"></span> Enable Subscription
               </button>
@@ -21,69 +21,69 @@
 
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div> <!-- col-md-12 -->
+      </div> <!-- col-md-12 -->
 
-    <!--Body-->
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+      <!--Body-->
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#data" data-toggle="tab">Data</a></li>
         <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
-    </ul>
-    <div id="dl-tab-content" class="tab-content">
-      <div class="tab-pane" id="metadata">
-        <div class="col-md-12">
-          <div class="col-md-4">
+      </ul>
+      <div id="dl-tab-content" class="tab-content">
+        <div class="tab-pane" id="metadata">
+          <div class="col-md-12">
+            <div class="col-md-4">
 
-          </div>
-
-          <div class="col-md-12" id="dlModalTitle">
-            <h3>Streams being downloaded:</h3>
-          </div>
-        </div> <!-- .col-md-12 -->
-
-        <div class="col-md-12" class="streamName" id="streamName">
-          <h4>Name</h4>
-        </div>
-
-        <form>
-          <div id="download-time-options">
-              <div id="timeRangeDiv" class="range-fields">
-                  <div class="form-group">
-                      <label for="time-range">Previous</label>
-                      <div id="time-range">
-                          <select class="form-control">
-                              <option value="6">6 Hours</option>
-                              <option value="12">12 Hours</option>
-                              <option value="24">24 Hours</option>
-                              <option value="168">1 Week</option>
-                              <option value="336">2 Weeks</option>
-                              <option value="672">4 Weeks</option>
-                              <option value="all">All</option>
-                          </select>
-                      </div>
-                  </div>
-              </div>
-            <div class="date-fields">
-              <div class="form-group">
-                <label for="start-date">Start Date</label>
-                <div class='input-group date' id='start-date'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div> <!-- .input-group.date #start-date -->
-              </div> <!-- .form-group -->
             </div>
 
-            <div class="date-fields">
-              <div class="form-group">
-                <label for="end-date">End Date</label>
-                <div class='input-group date' id='end-date'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            <div class="col-md-12" id="dlModalTitle">
+              <h3>Streams being downloaded:</h3>
+            </div>
+          </div> <!-- .col-md-12 -->
+
+          <div class="col-md-12" class="streamName" id="streamName">
+            <h4>Name</h4>
+          </div>
+
+          <form>
+            <div id="download-time-options">
+              <div id="timeRangeDiv" class="range-fields">
+                <div class="form-group">
+                  <label for="time-range">Previous</label>
+                  <div id="time-range">
+                    <select class="form-control">
+                      <option value="6">6 Hours</option>
+                      <option value="12">12 Hours</option>
+                      <option value="24">24 Hours</option>
+                      <option value="168">1 Week</option>
+                      <option value="336">2 Weeks</option>
+                      <option value="672">4 Weeks</option>
+                      <option value="all">All</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="date-fields">
+                <div class="form-group">
+                  <label for="start-date">Start Date</label>
+                  <div class='input-group date' id='start-date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                   </span>
-                </div> <!-- .input-group.date #start-date -->
-              </div> <!-- .form-group -->
-            </div> <!-- .col-md-6 -->
-          </div> <!-- .col-md-12-->
+                  </div> <!-- .input-group.date #start-date -->
+                </div> <!-- .form-group -->
+              </div>
+
+              <div class="date-fields">
+                <div class="form-group">
+                  <label for="end-date">End Date</label>
+                  <div class='input-group date' id='end-date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  </div> <!-- .input-group.date #start-date -->
+                </div> <!-- .form-group -->
+              </div> <!-- .col-md-6 -->
+            </div> <!-- .col-md-12-->
             <div class="col-md-6">
               <div class="form-group">
                 <label for="dlEmail">Delivery Email</label>
@@ -100,74 +100,81 @@
                 </select>
               </div> <!-- .form-group -->
             </div> <!-- .col-md-4 -->
-          <div class="col-md-12">
+            <div class="col-md-12">
               <div class="form-group" id="parameter-select">
-                <label for="parameter-select">Parameter Selection</label>
-                <select id="param-multi-select" class="form-control" multiple="multiple" style="height: 150px;">
-                </select>
+                <br>
+                  <label for="select-all-parameters">Download All Parameters</label>
+                  <input type="checkbox" id="select-all-parameters" name="select-all-parameters" title="Select All Parameters" checked>
+                  <br>
+                </span>
+                <span id="parameter-selection-span" hidden>
+                  <label for="param-multi-select">Parameter Selection</label>
+                  <select id="param-multi-select" class="form-control" multiple="multiple" style="height: 150px;">
+                  </select>
+                </span>
               </div> <!-- .form-group -->
             </div> <!-- .col-md-12 -->
 
-         <div class="col-md-12">
-            <div class="download-options">
-              <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12">
+              <div class="download-options">
+                <div class="row">
+                  <div class="col-md-12">
                   <span>
                       <label for="provenance-select">Include Provenance</label>
                       <input type="checkbox" id="provenance-select" name="provenance" value="provenance"></input>
                   </span>
-                  <span>
+                    <span>
                       <label for="provenance-select">Include Annotations</label>
                       <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> 
                   </span>
+                  </div>
                 </div>
-             </div>
-            </div>
-         </div>
-         
-          <div class="row">
-            <div class="col-md-12">
-              <button type="button" id="download-btn" >Download</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <button type="button" id="dlraw-btn" onclick="window.location='https://rawdata.oceanobservatories.org/files/';"> Click to go to the Raw Data Server</button>
-            </div>
-          </div>
-          <!-- <div class="col-md-12" id="sans-data-text">
-            <h3> Clicking Download above will download metadata only.</h3>
-          </div> -->
-        </form>
-      </div>
-      <div class="tab-pane active" id="data">
-        <div class="row" id="download2-row">
-          <div class="col-md-12">
-            <div class="col-md-4">
-
-            </div>
-
-            <div class="col-md-12" id="dlModalTitle">
-              <h3>Streams being downloaded:</h3>
-            </div>
-
-
-            <div class="col-md-12" class="streamName" id="streamName2">
-              <h4>Name</h4>
-            </div>
-            <div class="col-md-12">
-              <div class="date-fields">
-                <div class="form-group">
-                  <label for="data-date">Select a Date</label>
-                  <div class='input-group date' id='data-date'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                  </div> <!-- .input-group.date #start-date -->
-                </div> <!-- .form-group -->
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button type="button" id="download-btn" >Download</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="button" id="dlraw-btn" onclick="window.location='https://rawdata.oceanobservatories.org/files/';"> Click to go to the Raw Data Server</button>
+              </div>
+            </div>
+            <!-- <div class="col-md-12" id="sans-data-text">
+              <h3> Clicking Download above will download metadata only.</h3>
+            </div> -->
+          </form>
+        </div>
+        <div class="tab-pane active" id="data">
+          <div class="row" id="download2-row">
             <div class="col-md-12">
+              <div class="col-md-4">
+
+              </div>
+
+              <div class="col-md-12" id="dlModalTitle">
+                <h3>Streams being downloaded:</h3>
+              </div>
+
+
+              <div class="col-md-12" class="streamName" id="streamName2">
+                <h4>Name</h4>
+              </div>
+              <div class="col-md-12">
+                <div class="date-fields">
+                  <div class="form-group">
+                    <label for="data-date">Select a Date</label>
+                    <div class='input-group date' id='data-date'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div> <!-- .input-group.date #start-date -->
+                  </div> <!-- .form-group -->
+                </div>
+              </div>
+              <div class="col-md-12">
                 <div id="streamDownloadPanel" class="panel">
                   <div class="panel-heading" style="text-align:center">
                     <div class="pagination pagination-sm pagination-right pagination-boxes" id="dl-pagination-boxes"></div>
@@ -176,17 +183,17 @@
                     <div id="large-format-file-view">
                     </div> <!-- #view -->
                     <div class="paginator row text-center">
-                        <div class="pagination-info" id="dl-pagination-info"> </div>
+                      <div class="pagination-info" id="dl-pagination-info"> </div>
                     </div>
                   </div>
                 </div>
-            </div>
+              </div>
 
-            <button type="button" id="download-btn2" >Go to Data Server</button>
+              <button type="button" id="download-btn2" >Go to Data Server</button>
+            </div>
           </div>
-        </div>
-      </div>  <!-- tab-pane active -->
+        </div>  <!-- tab-pane active -->
+      </div>
     </div>
-  </div>
-</div> <!-- modal-dialog -->
+  </div> <!-- modal-dialog -->
 </div> <!-- modal fade -->
