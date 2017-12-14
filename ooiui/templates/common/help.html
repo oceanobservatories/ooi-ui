@@ -113,21 +113,18 @@
           uiPatchNotesView.render().el;
         }
       });
-      var uframepatchnotes = new uFramePatchNoteList();
-      var uFramePatchNotesView = new PatchNoteView({model: uframepatchnotes, el: "#uframe"});
+      var uframepatchnotes = new uFrameReleaseNotesCollection();
+      var uFramePatchNotesView = new uFramePatchNoteView({model: uframepatchnotes, el: "#uframe"});
       uframepatchnotes.fetch({
-        success: function() {
+        success: function(resp) {
           uFramePatchNotesView.render().el;
         }
       });
       var uframeVersion = new uFrameVersionCollection();
       uframeVersion.fetch({
         success: function(resp) {
-          console.log(resp);
           var version = resp.models[0].attributes.versions[0].version;
           var versionDate = resp.models[0].attributes.versions[0].release;
-          console.log(version);
-          console.log(versionDate);
           $('#uFrameVersion').append(version + ' (' + versionDate + ')');
         }
       });

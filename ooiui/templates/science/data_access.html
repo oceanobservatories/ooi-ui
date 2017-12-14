@@ -181,17 +181,32 @@
                       </div>
 
                       <!-- Annotation Legend-->
-                      <div class="row">
-                        <div style="text-align:left; width: 100%; padding-left: 8px;">
-                          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Annotation Legend -</b></h5>
-                          <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
-                          <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
-                          <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
-                          <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
-                          <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
-                          <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
-                          <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                      <div class="row" id="anno-row">
+                        <div class="panel">
+                          <div class="panel-heading">
+                            Annotation Info
+                          </div>
+                          <div id="annotationLegend" class="panel-body" style="text-align:left; width: 100%; padding-left: 8px;">
+                            <h5 class="fa fa-circle anno-pass" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pass</h5>
+                            <h5 class="fa fa-circle anno-fail" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Fail</h5>
+                            <h5 class="fa fa-circle anno-suspect" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Suspect</h5>
+                            <h5 class="fa fa-circle anno-not_evaluated" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Evaluated</h5>
+                            <h5 class="fa fa-circle anno-not_available" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Available</h5>
+                            <h5 class="fa fa-circle anno-not_operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Operational</h5>
+                            <h5 class="fa fa-circle anno-pending_ingest" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Pending Ingest</h5>
+                          </div>
+                          <div id="annotationInfo" style="text-align:left; width: 100%; padding-left: 8px; height: 50px; min-height: 50px; max-height: 50px;">
+                            <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>
+                          </div>
+                          <div class="panel-footer" style="min-height: 45px;">
+                            <a href="#" id="clearAnnotationInfo" class="btn btn-primary clear-anno-info">Clear Annotation Info</a>
+                          </div>
+
                         </div>
+                      </div>
+
+                      <div class="row">
+
                       </div>
 
                       <div class="row">
@@ -409,13 +424,35 @@
         if (self.views.plotContainer.plotModel.get('plotType') == "xy"){
           //ONLY DO this for XY plot as it uses highcharts
           //get the data
+
+          //console.log('plotData');
+          //console.log(selectDt.startDate.utc());
+          //console.log(selectDt.startDate.utc().toISOString());
+          //console.log(selectDt.endDate.utc());
+          //console.log(selectDt.endDate.utc().toISOString());
+
+          var startDate = selectDt.startDate.clone();
+          var endDate = selectDt.endDate.clone();
+          if(!startDate.isUTC()){
+            startDate._d.setMinutes(startDate._d.getMinutes()-startDate._d.getTimezoneOffset());
+            endDate._d.setMinutes(endDate._d.getMinutes()-endDate._d.getTimezoneOffset());
+          }
+
+          // console.log(startDate);
+          // console.log(endDate);
+
+          // console.log('startDate.toISOString()');
+          // console.log(startDate.toISOString());
+          // console.log(startDate._i);
+          // console.log(startDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'));
+
           self.views.plotContainer.plotData = new DataSeriesCollection({},
             {
               displayName : displayName,
               stream      : streamName,
               ref_des     : referenceDesignator,
-              startdate   : selectDt.startDate.toISOString(),
-              enddate     : selectDt.endDate.toISOString(),
+              startdate   : startDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
+              enddate     : endDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
               xparameters : xParams,
               yparameters : yParams,
               stream_display_name : stream_display_name
@@ -831,7 +868,7 @@
             // console.log("add_catalog_model");
             // console.log(selectedStreamObj);
             // console.log(selectedStreamUrl);
-            placeDataAvailability(ref_des);
+            placeDataAvailability(selectedStreamObj);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
           }
         });
@@ -861,7 +898,7 @@
           var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
           // console.log(o.model);
-          $('#div_'+o.model.get('reference_designator')).remove();
+          $('#div_'+o.model.get('reference_designator')+o.model.get('stream_name')).remove();
 
           history.back();
           // console.log(location.href);
@@ -930,12 +967,12 @@
 
           if (self.collections.selectedStreamCollection.length > 0){
             //EVENTS
-            self.collections.plotEventList.fetch({
+            {#self.collections.plotEventList.fetch({
               reset: true,
               data: $.param({
                 ref_des: self.collections.selectedStreamCollection.models[0].get('reference_designator')
               })
-            });
+            });#}
 
             //ANNOTATIONS
             self.collections.annotations.fetch({
@@ -963,7 +1000,7 @@
         });
 
         this.listenTo(this, "updateCalendarZoom", function(o) {
-          //console.log('this is a test of updateCalendarView');
+          //console.log('updateCalendarView');
           //console.log(o);
           //console.log(o.startDate);
           //console.log(o.endDate);
@@ -980,12 +1017,10 @@
           $('#zoom-details').hide();
 
           //console.log('update_plot');
-{#          console.log(self.views.plotContainer.xyPlot.origStartDate);#}
-{#          console.log(self.views.plotContainer.xyPlot.   .xyPlot.origEndDate);#}
 
           self.views.plotContainer.plotModel = this.views.plotControls.plotModel;
           //console.log('self.views.plotContainer.plotModel');
-          //console.log(self.views.plotContainer.plotModel);
+          //console.log(self.views.plotContainer);
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
@@ -1101,15 +1136,23 @@
         });
 
         this.listenTo(this, 'AnnotationTableItemView:onClick', function(model) {
-          // console.log("model.get('beginDT')");
-          // console.log(model.get('beginDT'));
-          // console.log("model.get('endDT')");
-          // console.log(model.get('endDT'));
+
           var min = moment.utc(new Date(model.get('beginDT'))).toISOString();
           var max = moment.utc(new Date(model.get('endDT'))).toISOString();
+          {#console.log('AnnotationTableItemView:onClick');
+          console.log("model.get('beginDT')");
+          console.log(model.get('beginDT'));
+          console.log("model.get('endDT')");
+          console.log(model.get('endDT'));
+          console.log(max);#}
 
           model.set('beginDTSafe',min);
-          model.set('endDTSafe',max);
+          if(model.get('endDT') !== null){
+            model.set('endDTSafe',max);
+          }else{
+            model.set('endDTSafe', null);
+          }
+
 
           if(self.login.loggedIn()) {
             self.views.annotationModal.show({
@@ -1396,6 +1439,26 @@
       }
     };
 
+    // Formatter to fix stream_name to be usable by M2M
+    var streamNameFormatter = function(cellvalue, options, rowObject) {
+      if(cellvalue){
+        return cellvalue.split('_')[1].replace(/-/g,'_')
+      }else{
+        return ""
+      }
+    };
+
+    // Formatter to fix stream_name to be usable by M2M
+    var streamNameUnFormatter = function(cellvalue, options, rowObject) {
+      if(cellvalue){
+        var stream_method = $dcGrid.getCell(options.rowId,"stream_method");
+        //console.log(stream_method);
+        return stream_method+"_"+cellvalue.replace(/_/g,'-')
+      }else{
+        return ""
+      }
+    };
+
 
     $.urlParam = function(name){
       var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -1469,6 +1532,14 @@
         $('.instrument-to-plot i.fa-minus-square').removeClass('fa-minus-square').addClass('fa-plus-square');
         $('#plot-view').html('<img src="/img/plotting/graph.png" style="height:400px;width:100%;">');
       });
+
+      $('.clear-anno-info').on('click', function(event){
+        event.preventDefault();
+        $('#annotationInfo').html('<h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Click annotation on plot for description...</b></h5>');
+        $('#clearAnnotationInfo').hide();
+      });
+
+      $('#clearAnnotationInfo').hide();
 
       ooi.start();
 
@@ -2344,15 +2415,20 @@
             index : 'stream_name',
             {#            key : true,#}
             editable : false,
-            hidden : true,
+            hidden : false,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
             searchoptions : {sopt:['cn','eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','nc']},
             align : 'center',
-            unformat : function (cellvalue, options, cell) {
+            formatter : streamNameFormatter,
+            {#unformat : function (cellvalue, options, cell) {
+              console.log(cellvalue);
+              console.log(options);
+              console.log(cell);
               return $('input', cell).val() || cellvalue;
-            }
+            }#}
+            unformat : streamNameUnFormatter
           },
           {
             name : 'unique_id',
@@ -2656,8 +2732,10 @@
     } // placeJqGrid
 
 
-    function placeDataAvailability(ref_des) {
+    function placeDataAvailability(selectedStreamObj) {
 
+      var ref_des = selectedStreamObj['ref_des'];
+      var stream_name = selectedStreamObj['stream_name'];
       var dataset=[];
       var onDataHandler = function(collection, response, options) {
 
@@ -2676,16 +2754,16 @@
           });
         }); // each chart in the collection
 
-        draw_visavail(ref_des);
+        draw_visavail(ref_des, stream_name);
       };
 
       var chart = visavailChart();
-      function draw_visavail(ref_des) {
+      function draw_visavail(ref_des, stream_name) {
         chart.width($('#visavail_container').width()-350);
         chart.marginLeft(300);
         chart.paddingLeft(-300);
 
-        var divId = "div_" + ref_des;
+        var divId = "div_" + ref_des + stream_name;
         // console.log(divId);
         $('#example').append('<div id="' + divId + '"></div>');
         d3.select("#"+divId)

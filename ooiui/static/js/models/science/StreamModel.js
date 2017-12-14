@@ -48,13 +48,13 @@ var StreamModel = Backbone.Model.extend({
 
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'profile_json_download') {
-      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'csv') {
-      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     }
     return url;
   },

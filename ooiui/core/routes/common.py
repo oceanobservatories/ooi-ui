@@ -504,6 +504,12 @@ def get_cam_images():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_cam_images', auth=(token, ''), data=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/media/test', methods=['GET'])
+def get_uframe_media_range():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/RS03AXPS-PC03A-07-CAMDSC302/date/2015-08-21', auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
 def get_glider_track():
     token = get_login()
@@ -672,4 +678,10 @@ def get_data_availability(ref_des):
 @app.route('/api/uframe/versions', methods=["GET"])
 def get_uframe_versions():
     resp = requests.get(app.config['SERVICES_URL'] + '/uframe/versions', params=request.args)
+    return resp.text, resp.status_code
+
+# uFrame release notes GET route
+@app.route('/api/uframe/release_notes', methods=["GET"])
+def get_uframe_release_notes():
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/versions/uFrame/release_notes', params=request.args)
     return resp.text, resp.status_code

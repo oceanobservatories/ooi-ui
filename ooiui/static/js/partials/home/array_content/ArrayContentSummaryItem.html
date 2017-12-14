@@ -168,6 +168,7 @@ var pLookup = this.model.attributes.pLookup;
 
 
         <div style="text-align:left; width: 100%; padding-left: 8px;"><h4><b>Sites</b><small>  Select a site to find out more.</small></h4></div>
+      <!-- STATUS LEGEND HIDDEN IN SPRINT 11
         <div style="text-align:left; width: 100%; padding-left: 8px;">
           <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Status Legend -</b></h5>
           <h5 class="fa fa-circle notTracked" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Tracked</h5>
@@ -176,6 +177,7 @@ var pLookup = this.model.attributes.pLookup;
           <h5 class="fa fa-circle failed" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Failed</h5>
           <h5 class="fa fa-circle degraded" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Degraded</h5>
         </div>
+        -->
 
         <table class="table table-stripped">
 
@@ -184,8 +186,8 @@ var pLookup = this.model.attributes.pLookup;
                 %>
           <thead><tr>
               <th>Navigation</th>
-              <!-- STATUS COLUMNS -->
-              <th>Status</th>
+              <!-- STATUS COLUMN HIDDEN IN SPRINT 11
+              <th>Status</th>-->
               <th>Site Name</th>
               <th>Water Depth (m)</th>
               <th>Latitude</th>
@@ -214,7 +216,7 @@ var pLookup = this.model.attributes.pLookup;
                         </ul>
                     </td>
 
-                  <!-- STATUS COLUMN -->
+                  <!-- STATUS COLUMN HIDDEN IN SPRINT 11
                     <td class="tdulliFormat">
                       <ul>
                         <%
@@ -237,7 +239,7 @@ var pLookup = this.model.attributes.pLookup;
                           <li><i class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left;" title="Unknown Status Result"></i></li>
                         <% } %>
                       </ul>
-                    </td>
+                    </td>-->
 
 
                     <td id="<%= platform.properties.code %>">

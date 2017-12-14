@@ -105,27 +105,58 @@ var PlotControlView = Backbone.View.extend({
 
       var stClone = ed.clone();
       stClone = stClone.subtract(7,'d');
-      this.cb(stClone, ed);
+      this.cb(st, ed);
+
+/*      console.log('Date Picker Debug');
+      console.log("minDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("maxDate: "+ed.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("startDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      console.log("endDate: "+ed.format('YYYY-MM-DD HH:mm:ss.SSS'));
+
+      console.log("'Last 24 hours of Data': "+[ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'Last 7 Days of Data': "+[ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'Last 30 Days of Data': "+[ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);
+      console.log("'All Data': "+[st.format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')]);*/
+
+
+      var minDate = st.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var maxDate = ed.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var startDate = st.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
+      var endDate = ed.clone().utc().format('YYYY-MM-DD HH:mm:ss.SSS');
 
       this.$el.find('#reportrange').daterangepicker({
-        minDate: st.format('YYYY-MM-DD HH:mm'),
-        maxDate: ed.format('YYYY-MM-DD HH:mm'),
-        startDate: stClone.format('YYYY-MM-DD HH:mm'),
-        endDate: ed.format('YYYY-MM-DD HH:mm'),
+        minDate: minDate,
+        maxDate: maxDate,
+        startDate: startDate,
+        endDate: endDate,
         locale: {
-            format: 'YYYY-MM-DD HH:mm'
+            format: 'YYYY-MM-DD HH:mm:ss.SSS'
         },
-        alwaysShowCalendars: true,
+        alwaysShowCalendars: false,
         timePicker: true,
-        timePickerIncrement: 30,
+        timePickerIncrement: 1,
+        timePickerSeconds: true,
+        timePicker24Hour: true,
+        showCustomRangeLabel: true,
+        linkedCalendars: false,
         ranges: {
-           'Last 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
-           'Last 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm'),ed.format('YYYY-MM-DD HH:mm')],
-           'Last 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')],
-           'All Data': [st.format('YYYY-MM-DD HH:mm'), ed.format('YYYY-MM-DD HH:mm')]
+           'Most Recent 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'Most Recent 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'Most Recent 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
+           'All Data': [startDate, endDate]
 
         }
       }, this.cb);
+
+      // $("input[name='daterangepicker_start']")
+
+      // $('<div><p><b>Start Date</b></p></div>').insertAfter("input[name='daterangepicker_start']");
+      $('<div style="text-align: -webkit-center;"><b>Start Date</b></div>').insertBefore('.daterangepicker.ltr .left .daterangepicker_input');
+      $('<div style="text-align: -webkit-center;"><b>End Date</b></div>').insertBefore('.daterangepicker.ltr .right .daterangepicker_input');
+      // $('<div style="height: 95%; background-color: darkgray; position: inherit; left: 260px; width: 2px;"></div>').insertBefore('.calendar.right');
+      $('<div class="pull-left" style="height: 95%; background-color: darkgray; left: 260px; position: inherit; width: 2px;"></div>').insertBefore('.calendar.right');
+
+      // this.$el.find('#reportrange').daterangepicker.html.append('test');
 
       //plot type selection
       this.$el.find('#plotTypeSelect').selectpicker({
@@ -190,18 +221,25 @@ var PlotControlView = Backbone.View.extend({
     }
   },
   cb: function(start, end){
+    //console.log('cb');
+    //console.log(start);
+    //console.log(end);
     if (!_.isUndefined(this.element)){
-      this.element.find('span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      //console.log('element found');
+      $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }else{
-      this.$el.find('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      //console.log('element not found');
+      $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss.SSS') + '<b>&nbsp;&nbsp;-&nbsp;&nbsp;</b>' + end.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      // this.element.find('#reportrange span').html('<p class="pull-left" style="border: 1px; solid #ccc;>' + start.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>' + '<p class="pull-right" style="border: 1px; solid #ccc;>' + end.format('YYYY-MM-DD HH:mm:ss.SSS') + '</p>');
     }
   },
   updateDateTimeRange: function(st,ed){
     //update the selected date range
-    // console.log('updateDateTimeRange');
-    // console.log(st);
-    // console.log(ed);
-    // console.log(this.plotModel);
+    //console.log('updateDateTimeRange');
+    //console.log(st);
+    //console.log(ed);
+    //console.log(this.plotModel);
 
     $('#reportrange').data('daterangepicker').setStartDate(st);
     $('#reportrange').data('daterangepicker').setEndDate(ed);
@@ -233,8 +271,10 @@ var PlotControlView = Backbone.View.extend({
     var selected = $(e.target).val();
     if($('#toggleAnnotations').is(":checked")){
       this.plotModel.set('showAnnotations', true);
+      $('#anno-row').show();
     }else{
       this.plotModel.set('showAnnotations', false);
+      $('#anno-row').hide();
     }
 
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
@@ -386,6 +426,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   count : 0,
   events: {
     "change .selectpicker" : "onPlotParameterSelect", //on plot type change
+    "click .selectpicker" : "onPlotParameterClick",
     "click input" : "onInputChange"
   },
   initialize: function(options) {
@@ -538,6 +579,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                 is_y: $(e.target).hasClass('y-select'),
                                 is_z: $(e.target).hasClass('z-select')
                               })
+  },
+  onPlotParameterClick:function(e){
+    e.stopPropagation();
   },
   onPlotParameterSelect:function(e){
     //

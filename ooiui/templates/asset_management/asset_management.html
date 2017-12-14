@@ -17,6 +17,7 @@
   <link href="/lib/jqgrid/css/ui.jqgrid.css" rel='stylesheet' type='text/css' />
   <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap.css" rel='stylesheet' type='text/css' />
   <link href="/lib/jqgrid/css/ui.jqgrid-bootstrap-ui.css" rel='stylesheet' type='text/css' />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css"/>
 
 
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
@@ -2458,21 +2459,20 @@
 
       // Column mover and chooser
       $dcGrid.jqGrid('navButtonAdd', '#navGrid', {
-        caption: "showcolumns",
+        caption: "Column Changer",
         buttonicon: "ui-icon-calculator",
-        title: "Choose columns",
+        title: "Column Changer",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            {#            						width: 700,#}
-            {#            						dlog_opts: {#}
-            {#            							modal: false,#}
-            {#            							minWidth: 700,#}
-            {#            							height: 470,#}
-            {#            							show: 'blind',#}
-            {#            							hide: 'explode',#}
-            {#            							dividerLocation: 1,#}
-            {#                          classes: "column-chooser"#}
-            {#            						}#}
+            						width: 700,
+            						dialog_opts: {
+                          modal: true,
+                          minWidth: 470,
+                          {#            							height: 470,#}
+                          show: 'blind',
+                          hide: 'explode',
+                          dividerLocation: 0.5
+                        }
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {

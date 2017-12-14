@@ -53,14 +53,14 @@ var PlotView = BasePlot.extend({
       //set the axis
       _.each(this.xyPlot.getChart().xAxis, function(axis){
         axis.update({
-           reversed: o.get('invertX')
+          reversed: o.get('invertX')
         }, false);
       });
 
       //set the axis
       _.each(this.xyPlot.getChart().yAxis, function(axis){
         axis.update({
-           reversed: o.get('invertY')
+          reversed: o.get('invertY')
         }, false);
       });
 
@@ -101,7 +101,9 @@ var PlotView = BasePlot.extend({
 
       if (o.get('showAnnotations') && (isValidTimeYAxis || isValidTimeXAxis)){
         // Sort the annotations by end time
-        ooi.collections.annotations.sortByField('endDT', 'descending');
+        $('#annotationLegend').show();
+        $('#annotationInfo').show();
+        ooi.collections.annotations.sortByField('endDT', 'ascending');
         ooi.collections.annotations.each(function(annotation,i) {
           // Set random color to annotation band
           //console.log('annotation');
@@ -118,53 +120,141 @@ var PlotView = BasePlot.extend({
             }
           }*/
           var bandColors = {
-            'null': ["#FF00FF", "Null"],
+            'null': ["#CDBA96", "Null"],
             'fail': ["#CC0000", "Fail"],
-            'not_evaluated': ["#CCCC00", "Not Evaluated"],
-            'not_available': ["#FFFFFF", "Not Available"],
-            'not_operational': ["#CC6600", "Not Operational"],
-            'pass': ["#006600", "Pass"],
-            'pending_ingest': ["#001100", "Pending Ingest"],
-            'suspect': ["#CC6644", "Suspect"]
+            'not_evaluated': ["#004c99", "Not Evaluated"],
+            'not_available': ["#A0A0A0", "Not Available"],
+            'not_operational': ["#606060", "Not Operational"],
+            'pass': ["#00CC00", "Pass"],
+            'pending_ingest': ["#E0E0E0", "Pending Ingest"],
+            'suspect': ["#CC6600", "Suspect"]
           };
           //var bandColor = (Math.random().toString(16) + '0000000').slice(2, 8);
           var bandColor = bandColors[annotation.get('qcFlag')][0];
-          var annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
-          axis.addPlotBand({
-            from: moment.utc(annotation.get('beginDT')),
-            to: moment.utc(annotation.get('endDT')),
-            color: bandColor,
-            borderWidth: 1,
-            borderColor: '#FFFFFF',
-            label: {
-              text: annoLabelText, // Content of the label.
-              align: 'left', // Positioning of the label.
-              x: 10 // Amount of pixels the label will be repositioned according to the alignment.
-            },
-            id: 'plot-band-1',//+annotation.get('id'),
-            events: {
-              click: function (e) {
-                alert(annoLabelText);
-              }
-            }
-          });
-          // console.log(axis.plotLinesAndBands);
+          // If null annotation just show the note
+          var annoLabelText = 'Annotation data unavailable.';
+          if(annotation.get('qcFlag') === null){
+            annoLabelText = "Note: " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          }else{
+            annoLabelText = "QC Flag: " + bandColors[annotation.get('qcFlag')][1] + ": " + annotation.get('annotation') + " (" + annotation.get('id') + ")";
+          }
+
+          var fromTime = moment.utc(annotation.get('beginDT'));
+          var toTime = moment.utc(annotation.get('endDT'));
+
+          if(fromTime.isSame(toTime)){
+            axis.addPlotLine({
+              value: fromTime,
+              color: bandColor,
+              width: 2,
+              borderWidth: 1,
+              borderColor: '#FFFFFF',
+              /*label: {
+                text: annotation.get('id'), // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+              },*/
+              id: 'plot-band-1',//+annotation.get('id'),
+              events: {
+                click: function (e) {
+                  $('#annotationInfo').html(
+                    '<h5 class="fa fa-circle anno-'
+                    +annotation.get('qcFlag')
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
+                    +annoLabelText
+                    +'</ul></h5>');
+                  e.borderColor = bandColor;
+                  e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
+                }
+              },
+              zIndex: 3
+            })
+          }else if(!toTime.isValid()){
+            axis.addPlotBand({
+              from: fromTime,
+              to: o.get('lastStreamTime'),
+              color: bandColor,
+              borderWidth: 1,
+              borderColor: '#FFFFFF',
+              /*label: {
+                text: annotation.get('id'), // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+              },*/
+              id: 'plot-band-2',//+annotation.get('id'),
+              events: {
+                click: function (e) {
+                  $('#annotationInfo').html(
+                    '<h5 class="fa fa-circle anno-'
+                    +annotation.get('qcFlag')
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
+                    +annoLabelText
+                    +'</ul></h5>');
+                  e.borderColor = bandColor;
+                  e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
+                }
+              },
+              zIndex: 2
+            });
+            // console.log(axis.plotLinesAndBands);
+          }else{
+            axis.addPlotBand({
+              from: fromTime,
+              to: toTime,
+              color: bandColor,
+              borderWidth: 1,
+              borderColor: '#FFFFFF',
+              /*label: {
+                text: annotation.get('id'), // Content of the label.
+                align: 'left', // Positioning of the label.
+                x: 10 // Amount of pixels the label will be repositioned according to the alignment.
+              },*/
+              id: 'plot-band-3',//+annotation.get('id'),
+              events: {
+                click: function (e) {
+                  $('#annotationInfo').html(
+                    '<h5 class="fa fa-circle anno-'
+                    +annotation.get('qcFlag')
+                    +'" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"><ul style="float: right;padding-left: 10px;color: black;">'
+                    +annoLabelText
+                    +'</ul></h5>');
+                  e.borderColor = bandColor;
+                  e.borderWidth = 10;
+                  $('#clearAnnotationInfo').show();
+                }
+              },
+              zIndex: 1
+            });
+          }
+
         });
       }else{
         //this.xyPlot.getChart().redraw();
         //only remove annotations
         if (!_.isUndefined(axis)){
-          // console.log(axis.plotLinesAndBands);
           axis.removePlotBand('plot-band-1');
-          /*_.each(axis.plotLinesAndBands,function(annotationBand){
+          axis.removePlotBand('plot-band-2');
+          axis.removePlotBand('plot-band-3');
+          // $('#annotationLegend').hide();
+          // $('#annotationInfo').hide();
+          // $('#annotationInfo').html('');
+          // $('#clearAnnotationInfo').hide();
+          /*console.log('starting to remove annotations');
+          _.each(axis.plotLinesAndBands, function(index, annotationBand){
+            console.log('inside loop');
+            console.log(axis.plotLinesAndBands);
+            console.log(annotationBand);
             if (!_.isUndefined(annotationBand)){
               if (annotationBand.id.startsWith('plot-band-')){
-                axis.removePlotBand(annotationBand.id);
+                axis.removePlotBandOrLine(annotationBand);
               }
             }
           });*/
         }
       }
+      this.xyPlot.getChart().redraw();
 
       //add events
       if (o.get('showEvents') && (isValidTimeYAxis || isValidTimeXAxis)){
@@ -188,7 +278,7 @@ var PlotView = BasePlot.extend({
             label: {
               text: 'Event ID:'+plotevent.get('id'), // Content of the label.
               align: 'left', // Positioning of the label.
-              x: 10, // Amount of pixels the label will be repositioned according to the alignment.
+              x: 10 // Amount of pixels the label will be repositioned according to the alignment.
             },
             id: 'plot-event-band-'+plotevent.get('id')
           });
@@ -210,9 +300,9 @@ var PlotView = BasePlot.extend({
           });
         });
       }else{
-         this.xyPlot.getChart().redraw();
-         //only remove events
-         if (!_.isUndefined(axis)){
+        this.xyPlot.getChart().redraw();
+        //only remove events
+        if (!_.isUndefined(axis)){
           _.each(axis.plotLinesAndBands,function(bandEvent){
             if (!_.isUndefined(bandEvent.id)){
               if (bandEvent.id.startsWith('plot-event-band-')){
@@ -253,6 +343,8 @@ var PlotView = BasePlot.extend({
     if(self.plotModel.get('showAnnotations') === undefined){
       self.plotModel.set('showAnnotations', true);
     }
+
+    self.plotModel.set('lastStreamTime', moment.utc(self.plotData.get('enddate')));
 
     if ( this.plotModel.get('plotType') == 'xy' ){
       this.xyPlot = new XYPlotView();

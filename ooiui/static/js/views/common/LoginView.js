@@ -184,7 +184,7 @@ var LoginView = Backbone.View.extend({
         } else {
             //If there is text in the input, then enable the button
             this.$el.find('.enableOnInput').prop('disabled', false);
-            console.log("disabledAttempts  " +this.attempts);
+            //console.log("disabledAttempts  " +this.attempts);
         }
     },
     closeBtn: function(e) {
@@ -193,7 +193,7 @@ var LoginView = Backbone.View.extend({
     },
     keyPress: function(e) {
         if(e.which == 13) {
-            console.log(this);
+            //console.log(this);
             this.login(e);
         }
     },

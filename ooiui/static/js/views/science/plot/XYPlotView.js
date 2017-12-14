@@ -15,7 +15,7 @@ var XYPlotView = BasePlot.extend({
       val -= 2208988800;
       val = val*1000;
       dt= moment.utc(val);
-      return dt.valueOf();
+      return dt.clone().valueOf()
     }else{
       return val;
     }
@@ -463,11 +463,15 @@ var XYPlotView = BasePlot.extend({
           },
           selection: function(event) {
             if(event.xAxis != null) {
+              // console.log('event.xAxis[0].min');
+              // console.log(event.xAxis[0].min);
+              // console.log('event.xAxis[0].max');
+              // console.log(event.xAxis[0].max);
               var startDate = moment.utc(event.xAxis[0].min).toJSON();
               var endDate = moment.utc(event.xAxis[0].max).toJSON();
-              //console.log('startDate and endDate');
-              //console.log(startDate);
-              //console.log(endDate);
+              // console.log('startDate and endDate');
+              // console.log(startDate);
+              // console.log(endDate);
 
 
               if(_.isNull(origStartDate)){
@@ -502,8 +506,8 @@ var XYPlotView = BasePlot.extend({
               $('#zoom-details').show();
               $('#zoom-coordinates').empty();
               // console.log("selection: ", event.xAxis[0].min, event.xAxis[0].max);
-              $('#zoom-coordinates').append("Min: " + moment.utc(event.xAxis[0].min).toString());
-              $('#zoom-coordinates').append(", Max: " + moment.utc(event.xAxis[0].max).toString());
+              $('#zoom-coordinates').append("Min: " + moment.utc(event.xAxis[0].min).format('YYYY-MM-DD HH:mm:ss.SSS'));
+              $('#zoom-coordinates').append(", Max: " + moment.utc(event.xAxis[0].max).format('YYYY-MM-DD HH:mm:ss.SSS'));
 
             } else {
               // ooi.trigger('updateCalendarZoom', {startDate: origStartDate, endDate: origEndDate});
@@ -565,12 +569,12 @@ var XYPlotView = BasePlot.extend({
 
             var xVal = Highcharts.numberFormat(this.x, 2);
             if (this.series.xAxis.userOptions.title.shortName.indexOf('time') > -1){
-              xVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.x));
+              xVal = moment.utc(this.x).format('YYYY-MM-DD HH:mm:ss.SSS');
             }
 
             var yVal = Highcharts.numberFormat(this.y, 2);
             if (this.series.yAxis.userOptions.title.shortName.indexOf('time') > -1){
-              yVal = Highcharts.dateFormat('%Y-%m-%d %H:%M', new Date(this.y));
+              yVal = moment.utc(this.y).format('YYYY-MM-DD HH:mm:ss.SSS');
             }
 
             var tooltip = '<span style="color:'+this.series.color+'">'+this.series.name+'</span>:<b> '+ xVal + " @ "+ yVal +'</b>';
