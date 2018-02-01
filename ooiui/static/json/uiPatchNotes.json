@@ -3,7 +3,7 @@
         "VersionNumber": "1.4.8",
         "VersionDate": "2018-01-19",
         "VersionDescription": [
-            "Gallery: Enahncements to UI gallery services and partitioned cache. (13090)",
+            "Gallery: Enhancements to UI gallery services and partitioned cache. (13090)",
             "Gallery: Updates to UI gallery routes. (13901)",
             "General: Updates to services for OSMOI dataset agent. (11473)",
             "Plotting: Fixes ADCP binned pseudo color right vertical axis to display 95th percentile limits. (13074)",
