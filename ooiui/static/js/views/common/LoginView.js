@@ -114,6 +114,7 @@ var LoginView = Backbone.View.extend({
         });
 
         this.model.logIn();
+        //console.log('returning from LoginModel logIn');
         //console.log(this);
         // If login was successful and we have a token
         if(this.model.get('token') != '') {

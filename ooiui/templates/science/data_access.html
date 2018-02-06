@@ -76,7 +76,7 @@
   {% endblock %}
 {% endblock %}
 
-{%block body %}
+{% block body %}
   <div class="container-fluid">
     <div id="navbar" class="row"></div>
   </div>
@@ -662,6 +662,7 @@
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
+        $('body').prepend(this.views.navbar.el);
 
         //INITIALIZE TABS
         //PLOT CONTROLS
