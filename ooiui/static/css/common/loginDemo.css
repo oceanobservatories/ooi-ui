@@ -25,20 +25,20 @@ log/* CSS REQUIRED */
   padding: 40px 32px 25px 32px;
 }
 .lgn-footer{
-  min-height: 30px;
+  min-height: 40px;
   padding: 1px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 .lgn-footerPass{
-  min-height: 30px;
+  min-height: 40px;
   padding: 0px 0px 10px 10px;
   /*border-top: 0px;*/
   font-size: 10px;
   float: left;
 }
 .lgn-footerNewUser{
-  min-height: 30px;
+  min-height: 40px;
   padding: 0px 10px 10px 0px;
   font-size: 12px;
   float: right;

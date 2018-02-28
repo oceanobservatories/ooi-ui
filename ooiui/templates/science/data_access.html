@@ -840,7 +840,7 @@
         this.listenTo(this, "add_catalog_model", function(o) {
           //o.model = selected stream model
           //ONLY ALLOW TWO instruments selected
-          if (self.collections.selectedStreamCollection.length < 2){
+          // if (self.collections.selectedStreamCollection.length < 2){
             self.showPlottingTabs();
             // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
             // console.log('adding model to selectedStreamCollection');
@@ -871,7 +871,7 @@
             // console.log(selectedStreamUrl);
             placeDataAvailability(selectedStreamObj);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
-          }
+          //}
         });
 
         //MAIN ADDITION OF A STREAM

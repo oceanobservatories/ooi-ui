@@ -127,7 +127,12 @@ var LoginView = Backbone.View.extend({
             // console.log(this.model.get('token'));
             $.cookie('ooiusertoken', this.model.get('token'), {expires: date, path: '/'});
             // ooi.trigger('login:success');
-            window.location.reload(true);
+            console.log(window.location.pathname);
+            if(window.location.pathname === '/signup'){
+                window.location.replace("/");
+            }else{
+                window.location.reload(true);
+            }
         } else {
             console.log("Login failed");
             this.attempts++;

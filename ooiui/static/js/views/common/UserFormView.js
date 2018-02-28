@@ -46,6 +46,10 @@ var SignUpForm = Backbone.View.extend({
         },
         'change input[type="checkbox"]#terms_agree': function (e){
             e.target.checked == true ? this.$el.find('#submitButton').attr( "disabled", null ) : this.$el.find('#submitButton').attr( "disabled", 'disabled' );
+        },
+        'click #reglogin': function(e){
+            console.log('login from reg page');
+            $("#loginHolder").load("/login");
         }
     },
 
