@@ -4,6 +4,9 @@
         "VersionDate": "2018-03-XX",
         "VersionDescription": [
             "Data Catalog: Updates choosing more than one data stream. (13053)",
+            "Data Catalog: Collapses data catalog to instrument view, adds services routes. (12529)",
+            "Data Catalog: Data catalog additions for recovered cabled instruments. (12000)",
+            "Home: Fixes glider depths. (13019)",
             "Plotting: Fixes local TZ offset bug on plotting page download form. (13279)",
             "User: Fixes user login from any page (11517)",
             "User: Updates user registration (13096)"
