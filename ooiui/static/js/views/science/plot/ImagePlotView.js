@@ -88,6 +88,13 @@ var ImagePlotView = BasePlot.extend({
       }
     }
 
+    var startDate = plotDates.startDate.clone();
+    var endDate = plotDates.endDate.clone();
+    if(!startDate.isUTC()){
+      startDate._d.setMinutes(startDate._d.getMinutes()-startDate._d.getTimezoneOffset());
+      endDate._d.setMinutes(endDate._d.getMinutes()-endDate._d.getTimezoneOffset());
+    }
+
     var inputParams = {
       width: width,
       height: height,
@@ -95,8 +102,8 @@ var ImagePlotView = BasePlot.extend({
       xvar : xvar,
       plotLayout : plotModel.get('plotType'),
       qaqc : plotModel.get('qaqc'),
-      startdate: plotDates.startDate.toISOString(),
-      enddate  : plotDates.endDate.toISOString(),
+      startdate : startDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
+      enddate : endDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
       scatter : false,
       lines : true,
       event : false,

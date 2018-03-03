@@ -1,5 +1,14 @@
 [
     {
+        "VersionNumber": "1.4.9",
+        "VersionDate": "2018-03-XX",
+        "VersionDescription": [
+            "Data Catalog: Updates choosing more than one data stream. (13053)",
+            "Plotting: Fixes local TZ offset bug on plotting page download form. (13279)",
+            "User: Fixes user login from any page (11517)",
+            "User: Updates user registration (13096)"
+    },
+    {
         "VersionNumber": "1.4.8.1",
         "VersionDate": "2018-03-23",
         "VersionDescription": [
