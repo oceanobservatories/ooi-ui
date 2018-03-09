@@ -7,7 +7,6 @@
             "Gallery: Updates to UI gallery routes. (13091)",
             "General: Updates to services for OSMOI dataset agent. (11473)",
             "Plotting: Fixes ADCP binned pseudo color right vertical axis to display 95th percentile limits. (13074)",
-            "Plotting: ZPLS new binned pseudocolor plots. (12723)",
             "Plotting: Temporarily refactor Sprint12 UI to only allow XY plots for all reference designators containing \"ZPLSC\". (13254)"
         ]
     },
