@@ -59,6 +59,7 @@ var PlotControlView = Backbone.View.extend({
       //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Click the Plot tab above to configure and visualize your plot.</p>')
     }else{
       this.$el.html(this.template({plotModel:self.plotModel,
+                                   model: this.collection.models[0],
                                    isInterpolated: isInterpolated,
                                    plotDefaultModel: self.plotDefaultModel
                                   }));

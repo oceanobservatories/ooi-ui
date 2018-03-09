@@ -46,7 +46,12 @@
                 <% if (_.isNull(plotDefaultModel)){ %>
 
                   <% plotModel.get('plotTypeOptions').each(function(option){ %>
-                    <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                    <% //console.log(model.get('ref_des').indexOf('ZPLSC')); %>
+                    <% //console.log(option.get('value')); %>
+                    <!-- TODO: Remove this ZPLSC-specific check once we can retrieve data from uframe correctly -->
+                    <% if ((model.get('ref_des').indexOf('ZPLSC') > -1) && (option.get('value') == 'xy')){ %>
+                      <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
+                    <% } %>
                   <% }); %>
 
                 <% }else { %>
