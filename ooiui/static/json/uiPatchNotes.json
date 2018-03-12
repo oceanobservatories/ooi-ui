@@ -1,5 +1,16 @@
 [
     {
+        "VersionNumber": "1.4.8",
+        "VersionDate": "2018-01-19",
+        "VersionDescription": [
+            "Gallery: Enhancements to UI gallery services and partitioned cache. (13090)",
+            "Gallery: Updates to UI gallery routes. (13091)",
+            "General: Updates to services for OSMOI dataset agent. (11473)",
+            "Plotting: Fixes ADCP binned pseudo color right vertical axis to display 95th percentile limits. (13074)",
+            "Plotting: Temporarily refactor Sprint12 UI to only allow XY plots for all reference designators containing \"ZPLSC\". (13254)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.7",
         "VersionDate": "2017-11-30",
         "VersionDescription": [
