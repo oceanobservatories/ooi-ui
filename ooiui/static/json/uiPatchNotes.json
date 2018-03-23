@@ -9,6 +9,7 @@
             "Plotting: Fixes local TZ offset bug on plotting page download form. (13279)",
             "User: Fixes user login from any page (11517)",
             "User: Updates user registration (13096)"
+        ]
     },
     {
         "VersionNumber": "1.4.8.1",
