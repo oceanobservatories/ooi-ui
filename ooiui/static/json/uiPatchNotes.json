@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.8.1",
+        "VersionDate": "2018-03-23",
+        "VersionDescription": [
+            "Plotting: Fixes missing Plot Types due to bug in 13254. (13280)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.8",
         "VersionDate": "2018-01-19",
         "VersionDescription": [
