@@ -189,13 +189,14 @@ _.extend(OOI.prototype, Backbone.Events, {
 
     this.views.signupview = new SignUpForm({
         el: 'form',
-        model: new SignUpModel()
+        model: new SignUpModel(),
+        login: new LoginModel()
     });
 
   },
   initEvents: function() {
-    this.listenTo(this, "login:success", this.onLogin);
-    this.listenTo(this, "login:logout", this.onLogout);
+    //this.listenTo(this, "login:success", this.onLogin);
+    //this.listenTo(this, "login:logout", this.onLogout);
     this.listenTo(this, "country:onchange", this.countrySelection);
   },
   start: function() {
