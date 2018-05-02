@@ -120,7 +120,7 @@ var AnnotationTableView = Backbone.View.extend({
   render: function() {
     var self = this;
     this.collection.sortByField('beginDT', 'ascending');
-    this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+    this.$el.html(this.template({collection: this.collection, columns: this.columns, user: ooi.models.userModel.attributes}));
 
     this.collection.each(function(model, i) {
       model.set('ui_id',i);

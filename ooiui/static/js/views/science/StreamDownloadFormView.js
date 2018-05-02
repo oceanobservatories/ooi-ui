@@ -325,8 +325,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     var endDate = null;
     var isPlotDl = false;
     if(model.get('startDate') != null){
-      startDate = moment.utc(model.get('startDate')._d);
-      endDate = moment.utc(model.get('endDate')._d);
+      startDate = model.get('startDate');
+      endDate = model.get('endDate');
       //console.log('got to startDate');
       //console.log(startDate);
       //console.log(endDate);
@@ -356,7 +356,7 @@ var StreamDownloadFormView = Backbone.View.extend({
 
 
       // Go get the files (set the date to trigger the request!)
-      if (date == moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")){
+      if (date === moment.utc(this.$data_date.data('date')).format("YYYY-MM-DD")){
         // Trigger the request becasue the date is already set correctly
         ooi.trigger('GetLargeFormatFiles:fetch', {
           ref_des: this.model.attributes.reference_designator,
@@ -437,11 +437,11 @@ var StreamDownloadFormView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({}));
 
-    this.$el.find('#start-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
+    this.$el.find('#start-date').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss.SSS',
       sideBySide: false,
       widgetPositioning: {horizontal: 'auto', vertical: 'bottom'}
     });
-    this.$el.find('#end-date').datetimepicker({format: "YYYY-MM-DD HH:mm:ss",
+    this.$el.find('#end-date').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss.SSS',
       sideBySide: false,
       widgetPositioning: {horizontal: 'auto', vertical: 'bottom'}
     });

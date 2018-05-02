@@ -10,7 +10,8 @@ _.extend(Backbone.Validation.patterns, {
 
 _.extend(Backbone.Validation.messages, {
   usPhone: 'Invalid US phone number',
-  passwordRegex: 'Password must be at least 8 characters and contain at least one number and one upper case letter.'
+  passwordRegex: 'Password must be at least 8 characters and contain at least one number and one upper case letter.',
+  email: 'Please use a properly formatted email address.'
 });
 
 // Define a model with some validation rules
@@ -28,6 +29,30 @@ var SignUpModel = Backbone.Model.extend({
       return "Password cannot contain email address";
     }
   },
+  validateEmailDNE: function(model, key, attr, computed) {
+    var duplicateEmail = false;
+    $.ajax('/api/user/check_valid_email?email='+attr.email, {
+      type: 'GET',
+      dataType: 'json',
+      timeout: 5000,
+      async: false,
+      success: function (resp) {
+        // console.log('Success getting check valid email');
+        // console.log(resp);
+        if(resp.email !== undefined && resp.email !== ""){
+          duplicateEmail = true
+        }
+      },
+      error: function( req, status, err ) {
+        console.log('error');
+      }
+    });
+    if(duplicateEmail){
+      return 'Address unavailable.  Already registered?  <a id="reglogin" href="#">Login here.</a>';
+    }else{
+      return '';
+    }
+  },
 
   validation: {
     first_name: {
@@ -38,7 +63,8 @@ var SignUpModel = Backbone.Model.extend({
     },
     email: {
       required: true,
-      pattern: 'email'
+      pattern: 'email',
+      fn: 'validateEmailDNE'
     },
     password: {
       pattern: 'passwordRegex',

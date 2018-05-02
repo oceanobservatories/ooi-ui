@@ -114,6 +114,7 @@ var LoginView = Backbone.View.extend({
         });
 
         this.model.logIn();
+        //console.log('returning from LoginModel logIn');
         //console.log(this);
         // If login was successful and we have a token
         if(this.model.get('token') != '') {
@@ -124,9 +125,14 @@ var LoginView = Backbone.View.extend({
             date.setTime(date.getTime() + 12500*1000);
             // console.log('ooiusertoken');
             // console.log(this.model.get('token'));
-            $.cookie('ooiusertoken', this.model.get('token'), {expires: date});
+            $.cookie('ooiusertoken', this.model.get('token'), {expires: date, path: '/'});
             // ooi.trigger('login:success');
-            window.location.reload(true);
+            console.log(window.location.pathname);
+            if(window.location.pathname === '/signup'){
+                window.location.replace("/");
+            }else{
+                window.location.reload(true);
+            }
         } else {
             console.log("Login failed");
             this.attempts++;
