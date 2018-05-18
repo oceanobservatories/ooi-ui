@@ -270,13 +270,14 @@ var StreamDownloadFormView = Backbone.View.extend({
     $.ajax({
       url: url,
       type: "GET",
-      // dataType: "json",
+      dataType: "json",
       user_email: email,
       user_name: user_name,
       parameters: parameters,
       success: function(resp){
         var timeCalculation = _.has(resp, "timeCalculation") ? resp.timeCalculation : null;
-        ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation);
+        var sizeCalculation = _.has(resp, "sizeCalculation") ? resp.sizeCalculation : null;
+        ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation, sizeCalculation);
       },
       error: function(msg){
         ooi.trigger('DownloadModalFail:onFail', msg);
