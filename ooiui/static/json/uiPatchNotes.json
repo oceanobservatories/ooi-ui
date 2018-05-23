@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.9.2",
+        "VersionDate": "2018-05-23",
+        "VersionDescription": [
+            "Data Download: Adds waiting for response feedback spinner and disables controls. (13380)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.9.1",
         "VersionDate": "2018-05-18",
         "VersionDescription": [
