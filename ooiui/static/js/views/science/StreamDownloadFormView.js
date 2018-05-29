@@ -213,6 +213,11 @@ var StreamDownloadFormView = Backbone.View.extend({
      * Make a copy of the stream model and then set the start and end dates to
      * the form fields, then grab the URL and send the user to it.
      */
+    var self = this;
+    this.$el.find('#dl-tab-content').prepend('<div id="wspinner"><p style="text-align: center; font-size: 14px;"> Waiting for request verification...</p><i class="fa fa-spinner fa-spin" style="margin-top:5px;margin-left:50%;font-size:50px;"> </i></div>');
+    $('#metadata').fadeTo(0,0.6);
+    $('#metadata').append('<div id="temp-fade" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"></div>');
+    $("#wspinner").show();
     var selection = this.$type_select.val();
     var localModel = this.model.clone();
     var startDate = moment.utc(this.$start_date.data('date')).toJSON();
@@ -275,6 +280,10 @@ var StreamDownloadFormView = Backbone.View.extend({
       user_name: user_name,
       parameters: parameters,
       success: function(resp){
+        $("#wspinner").hide();
+        $("#temp-fade").remove();
+        $('#metadata').fadeTo(0,1);
+        self.hide();
         var timeCalculation = _.has(resp, "timeCalculation") ? resp.timeCalculation : null;
         var sizeCalculation = _.has(resp, "sizeCalculation") ? resp.sizeCalculation : null;
         ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation, sizeCalculation);
@@ -283,8 +292,6 @@ var StreamDownloadFormView = Backbone.View.extend({
         ooi.trigger('DownloadModalFail:onFail', msg);
       }
     });
-
-    this.hide();
   },
   failure: function() {
     console.log("this failure");
