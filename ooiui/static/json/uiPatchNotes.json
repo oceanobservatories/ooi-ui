@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.9.3",
+        "VersionDate": "2018-06-14",
+        "VersionDescription": [
+            "Data Catalog: Replaces Stream Name with Stream Identifier in selected stream table. (13107)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.9.2",
         "VersionDate": "2018-05-23",
         "VersionDescription": [

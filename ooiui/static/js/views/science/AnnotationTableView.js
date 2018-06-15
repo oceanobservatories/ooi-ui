@@ -100,10 +100,6 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'referenceDesignator',
         label : 'Reference Designator'
-      },
-      {
-        name : 'stream_name',
-        label : 'Stream Name'
       }
   ],
   initialize: function() {

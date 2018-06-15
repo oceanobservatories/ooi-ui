@@ -76,6 +76,12 @@ var StreamModel = Backbone.Model.extend({
                         'assembly': data.assembly_name
                     };
     data.unique_id = data.reference_designator + data.stream_name;
+    if(data.stream_name !== null){
+      data.stream_identifier = data.stream_name.split('_')[1].replace(/-/g,'_');
+    }else{
+      data.stream_identifier = '';
+    }
+
     return data;
   }
 });
