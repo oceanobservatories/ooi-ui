@@ -50,11 +50,11 @@
                     <% //console.log(option.get('value')); %>
                     <% //console.log((model.get('ref_des').indexOf('ZPLSC') > -1) && (option.get('value') == 'xy')); %>
                     <!-- TODO: Remove this ZPLSC-specific check once we can retrieve data from uframe correctly -->
-                    <% if ((model.get('ref_des').indexOf('ZPLSC') > -1) && (option.get('value') == 'xy')){ %>
+                    <% //if ((model.get('ref_des').indexOf('ZPLSC') > -1) && (option.get('value') == 'xy')){ %>
                       <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-                    <% }else if ((model.get('ref_des').indexOf('ZPLSC') === -1)){ %>
-                      <option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>
-                    <% } %>
+                    <% //}else if ((model.get('ref_des').indexOf('ZPLSC') === -1)){ %>
+                      <!--<option value="<%=option.get('value')%>" <%= option.get('value') == plotModel.get('plotType') ? 'selected' : ''%>><%= option.get('name') %></option>-->
+                    <% //} %>
                   <% }); %>
 
                 <% }else { %>

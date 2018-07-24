@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.4.10",
+        "VersionDate": "2018-07-24",
+        "VersionDescription": [
+            "Plotting: Reversion of ZPLSC XY-only plotting. (13254)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.9.3",
         "VersionDate": "2018-06-14",
         "VersionDescription": [
