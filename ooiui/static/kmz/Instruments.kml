@@ -1,0 +1,14630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Instruments.kml</name>
+	<Style id="IconStyle100">
+		<IconStyle>
+			<scale>0.875</scale>
+			<Icon>
+				<href>/kmz/Layer10_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle60">
+		<IconStyle>
+			<scale>0.75</scale>
+			<Icon>
+				<href>/kmz/Layer6_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle70">
+		<IconStyle>
+			<scale>0.6875</scale>
+			<Icon>
+				<href>/kmz/Layer7_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle90">
+		<IconStyle>
+			<scale>0.875</scale>
+			<Icon>
+				<href>/kmz/Layer9_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle80">
+		<IconStyle>
+			<scale>0.875</scale>
+			<Icon>
+				<href>/kmz/Layer8_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle110">
+		<IconStyle>
+			<scale>0.875</scale>
+			<Icon>
+				<href>/kmz/Layer11_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Folder id="GroupLayer5">
+		<name>Instruments</name>
+		<Snippet maxLines="0"></Snippet>
+		<Folder id="FeatureLayer6">
+			<name>Bioacoustics</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_60000">
+				<name>ZPLSCB101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>ZPLSCB101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>ZPLSCB101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>ZPLSCB101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>ZPLSCB101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SHBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>ZPLSC</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Bioacoustics</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Plankton</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>BIO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J941</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/6/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>aj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J941</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/6/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.637418</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.305544</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-82.1065</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position J941, 8/6/2016 7:51:7, J941, 8/6/2016 8:16:47. Position corrected from Jason'16 nav to historic nav: -8.82498216542448E-05 deg north, 1.79816149914228E-05 deg east.</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/28/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle60</styleUrl>
+				<Point>
+					<coordinates>-124.3055438397009,44.63741761620454,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer7">
+			<name>Camera</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_70000">
+				<name>CAMHDA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CAMHDA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CAMHDA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CAMHDA302</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CAMHDA302-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ASHES</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Ashes</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CAMHD</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Camera</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>HD Camera 10GbE PTZ connected directly to PN3B</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>CAM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J934</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/27/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>mos</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J933</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.933643</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.013642</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1543.3975</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>Ashes 2010 image mosaic</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>CAMHDA301-2016 was deployed in the same place as CAMHDA301-2015 (seen in imagery) so I just used the same mosaic position (Ashes 2010 image mosaic with 2015-verified georeferencing)</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/14/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle70</styleUrl>
+				<Point>
+					<coordinates>-130.013642,45.93364299999999,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_70001">
+				<name>CAMDSB303</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CAMDSB303</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CAMDSB303</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CAMDSB303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CAMDSB303-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>International District</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CAMDS</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Camera</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Digital Still Camera (PTZ)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>CAM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J935</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J937</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/28/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.926144</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.979015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1523.252</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>relative position 7/28/2016 2:46:39</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: CAMDSB303-2016 to VentCap-2016, 52 deg, 3.3 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>VentCap-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>45.926162642</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-129.97898166</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>3.3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>232.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>Feature Surveys</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6381297.9335</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle70</styleUrl>
+				<Point>
+					<coordinates>-129.9790152295319,45.92614439974935,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_70002">
+				<name>CAMDSB106</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CAMDSB106</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CAMDSB106</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CAMDSB106</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CAMDSB106-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>EO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>OSBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CAMDS</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Camera</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Digital Still Camera</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>CAM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1747</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/16/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>mj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J922</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/19/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.369112</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.954075</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-580.717</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>J922, 7/19/2016 12:48:22. Position corrected from Jason'16 nav to historic nav: -4.98269398707363E-05 deg north, 4.58417209465657E-05 deg east.</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/27/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle70</styleUrl>
+				<Point>
+					<coordinates>-124.9540750843714,44.3691124362328,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_70003">
+				<name>CAMDSB107</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CAMDSB107</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CAMDSB107</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CAMDSB107</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CAMDSB107-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SHBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CAMDS</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Camera</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Digital still camera</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>CAM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J926</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>dj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J926</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.63726</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.305551</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-81.598</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>J926, 7/22/2016 11:9:20. Position corrected from Jason'16 nav to historic nav: -8.82498216542448E-05 deg north, 1.79816149914228E-05 deg east.</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>8/24/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle70</styleUrl>
+				<Point>
+					<coordinates>-124.3055509301525,44.63725951044783,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_70004">
+				<name>CAMDSB103</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CAMDSB103</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CAMDSB103</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CAMDSB103</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CAMDSB103-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Einstein's Grotto</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CAMDS</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Camera</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Still Camera PTZ</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>CAM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J921</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/19/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J921</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/19/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569999</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.146709</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-774.774</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>4</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>relative position 7/19/2016 4:33:24</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: CAMDSB103-2014 to CAMDSB103-2016, 20.7 deg, 1.01 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>CAMDSB103-2014</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>44.569990558</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-125.14671386</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>1.01</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>20.70000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>4.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>weighted average position: 2014 EG survey; R1843 IRLS 7/14/2015 20:38:58</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6369613.1702</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle70</styleUrl>
+				<Point>
+					<coordinates>-125.1467093549353,44.56999905666066,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer8">
+			<name>Geophysical instrument</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_80000">
+				<name>HYDLFA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDLFA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDLFA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDLFA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDLFA301-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDLF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Low Frequency Hydrophone for seismic detection</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1739</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/8/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1739</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/8/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.820189</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.736708</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2608</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.7367079579544,45.82018881598134,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80001">
+				<name>OBSBBA303</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSBBA303</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSBBA303</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSBBA303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSBBA303-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Broadband OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1739</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/8/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1739</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/8/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.820176</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.736709</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2607.066667</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.7367092186973,45.82017625102339,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80002">
+				<name>OBSSPA302</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA302</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA302</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA302</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA302-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ASHES</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Ashes</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS (ASHES)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1635</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/11/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1635</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/11/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.933735</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.014102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1544.85</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td>Did not visit in 2014; checked V13 IRLS</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-130.0141024931865,45.93373452019087,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80003">
+				<name>BOTPTA303</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>BOTPTA303</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>BOTPTA303</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>BOTPTA303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>BOTPTA303-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>BOTPT</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Bottom Pressure Tilt (ID Flank)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1723</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/24/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1723</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/24/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.925801</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.977504</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1529</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9775035073249,45.92580121467258,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80004">
+				<name>OBSSPA305</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA305</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA305</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA305</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA305-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS (ID Flank)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1719</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/21/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1839</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/11/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.92572</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.978031</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1527.333333</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9780313535509,45.92572033132777,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80005">
+				<name>BOTPTA302</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>BOTPTA302</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>BOTPTA302</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>BOTPTA302</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>BOTPTA302-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ECAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03E</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>BOTPT</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Bottom Pressure Tilt (Eastern Caldera)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/27/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/27/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.939859</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.97417</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1519.343333</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9741695033698,45.9398586157343,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80006">
+				<name>HYDLFA304</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDLFA304</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDLFA304</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDLFA304</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDLFA304-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ECAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03E</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDLF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Low Frequency Hydrophone for seismic detection</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1722</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1722</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.939669</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.973789</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1518</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9737890442969,45.93966919383787,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80007">
+				<name>OBSBBA302</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSBBA302</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>7</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSBBA302</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSBBA302</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSBBA302-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ECAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03E</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Broadband OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1722</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1722</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.939671</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.973776</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1519</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9737763843873,45.93967090514268,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80008">
+				<name>BOTPTA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>BOTPTA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>8</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>BOTPTA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>BOTPTA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>BOTPTA301-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>CCAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03F</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>BOTPT</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Bottom Pressure Tilt (Central Caldera)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1726</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/25/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1840</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.95485</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.008772</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1526</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-130.008772236989,45.95485029932598,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80009">
+				<name>HYDLFA305</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDLFA305</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>9</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDLFA305</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDLFA305</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDLFA305-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>CCAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03F</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDLF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Low Frequency Hydrophone for seismic detection</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1727</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1840</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.95468</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.008992</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1527</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-130.0089917310565,45.95468016272537,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80010">
+				<name>OBSBBA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSBBA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>10</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSBBA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSBBA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSBBA301-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>CCAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03F</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Broadband OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1727</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1840</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.954683</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.008979</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1527.2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-130.0089793288537,45.95468263514453,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80011">
+				<name>OBSSPA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>11</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA301-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ASHES</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS (Southern Caldera)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1640</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/15/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1640</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/15/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.933555</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.999235</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1533.62</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td>Did not visit in 2014; checked V13 IRLS</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9992349395756,45.93355450233003,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80012">
+				<name>OBSSPA303</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA303</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>12</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA303</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA303-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ECAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS (Eastern Caldera-N)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/27/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/27/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.949577</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.9797</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1512</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.9797,45.94957700000001,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80013">
+				<name>OBSSPA304</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA304</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>13</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA304</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA304</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA304-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ECAL</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA304</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS (Eastern Caldera-S)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1617</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.93607</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.978545</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1516</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-129.978545,45.93607,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80014">
+				<name>HYDLFA104</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDLFA104</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>14</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDLFA104</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDLFA104</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDLFA104-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDLF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Low Frequency Hydrophone for seismic detection</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1779</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/7/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1779</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/7/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.56916</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.147912</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-774</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.1479120815727,44.56915994994056,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80015">
+				<name>OBSBBA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSBBA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>15</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSBBA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSBBA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSBBA101-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Broadband OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1779</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/7/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1779</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/7/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569157</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.1479</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-774.875556</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.1479000392932,44.56915732708785,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80016">
+				<name>OBSSPA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA101-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.573029</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.152499</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-818</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.1524985,44.57302925114428,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80017">
+				<name>OBSSPA102</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA102</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>17</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA102</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA102-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.573195</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.143917</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-788</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.1439171265433,44.57319485543781,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80018">
+				<name>OBSSPA103</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSSPA103</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>18</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSSPA103</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSSPA103</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSSPA103-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>OBSSPA103</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Short Period OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1769</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/1/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.567395</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.144178</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-789</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.1441775,44.56739450091543,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80019">
+				<name>HYDLFA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDLFA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>19</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDLFA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDLFA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDLFA101-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDLF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Low Frequency Hydrophone for seismic detection</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1629</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/8/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1751</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.50978</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.405231</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2907</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.4052307021632,44.50978030419712,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_80020">
+				<name>OBSBBA102</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OBSBBA102</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>20</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OBSBBA102</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OBSBBA102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OBSBBA102-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OBSBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Geophysical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Broadband OBS</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>GEO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1629</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/8/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN299</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1751</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.509791</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.405258</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2908.295</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle80</styleUrl>
+				<Point>
+					<coordinates>-125.4052582224534,44.50979118282952,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer9">
+			<name>Hydrothermal instrument</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_90000">
+				<name>OSMOIA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OSMOIA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OSMOIA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OSMOIA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OSMOIA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ASHES</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Ashes</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OSMOI</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>OSMO Sampler (not cabled)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J933</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>mos</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J933</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.93366</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.013678</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1543.242</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>2010 Ashes mosaic georeferencing was verified using 2015 navigation. OSMOIA301-2016 was seen near a white crack pattern on the seafloor when it was deployed during J933. The pattern was identified in the 2010 image mosaic.</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/22/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-130.013678,45.93366,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90001">
+				<name>TMPSFA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>TMPSFA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>TMPSFA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>TMPSFA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>TMPSFA301-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>ASHES</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Ashes</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>TMPSF</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Thermistor Array</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1798</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/28/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>mos</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1835</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/9/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.933653</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-130.013688</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1540.333333</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Mosaic position: white crack pattern matches pattern in 2010 geo-referenced image mosaic. I also used 2015 cross-bearings to verify the position of Mushroom (the mosaic is geo-referenced correctly within 3m according to R1835 nav)</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/1/15</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-130.013688,45.933653,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90002">
+				<name>MASSPA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>MASSPA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>MASSPA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>MASSPA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>MASSPA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>International District</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>MASSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Mass Spectrometer</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J932</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/25/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>dj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J932</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/25/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.926184</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.979029</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1524.159</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/14/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-129.9790292698172,45.92618366518992,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90003">
+				<name>RASFLA301_PPSDNA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RASFLA301_PPSDNA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>RASFLA301_PPSDNA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>RASFLA301_PPSDNA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>RASFLA301_PPSDNA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>International District</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>RASFL_PPSDN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Mooring with a height of 20 meters. Remote Access Sampler (RAS) and Preserved Particle Sampler (PPS): Interactive sampling for vent chemistry and microbiology.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J932</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/25/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J935</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.926176</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.978956</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1522.443</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: RASFLA301_PPSDNA301-2016 to VentCap-2016, 232 deg, 2.5 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>VentCap-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>45.926162642</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-129.97898166</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>2.5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>52.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>Feature Surveys</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6381851.2279</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-129.978956235593,45.92617646003457,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90004">
+				<name>TRHPHA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>TRHPHA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>TRHPHA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>TRHPHA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>TRHPHA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>International District</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>TRHPH</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Temp-Resistivity-eH</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J935</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/27/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>s</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J935</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/27/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.926362</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.97921</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1516.892</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Escargot was surveyed using Visions'15 nav. I then shifted the bathy and all features from the previous survey  to agree with the 2015 Escargot position .</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/26/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-129.9792096627689,45.92636164163153,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90005">
+				<name>FLOBN-CAT</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>FLOBN-CAT</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>FLOBN-CAT</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>FLOBN-CAT</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>FLOBN-CAT-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Einstein's Grotto</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>FLOBN-CAT</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Fluid Flux C (not cabled)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J921</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/19/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J921</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/19/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.56997</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.146785</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-775.845</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: Float 15 (EG) to FLOBN_MOS-2015, 241 deg, 2.67 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/28/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>FLOBN_CAT-2015</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>44.569971081</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-125.14679242</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>0.61</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>100.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>relative position 7/19/2016 4:29:8</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6388018.4306</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td>FLOBN-MOS-2015</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td>44.569976382</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td>-125.14679042</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td>0.61000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td>195.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td>relative position 7/19/2016 1:41:1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td>6368354.5076</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-125.1467848524025,44.56997013047151,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90006">
+				<name>FLOBN-MOS</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>FLOBN-MOS</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>FLOBN-MOS</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>FLOBN-MOS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>FLOBN-MOS-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Einstein's Grotto</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>FLOBN-MOS</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Fluid Flux M (not cabled)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J929</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J930</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.56994</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.146765</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-773.326</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: FLOBN_MOS-2016 to MASSPA101_intake-2016, 295 deg, 2 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/29/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>MASSPA101_intake-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>44.56994731</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-125.14678822</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>115.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6384776.8413</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td>FLOBN_CAT-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td>44.56997013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td>-125.14678485</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td>2.55000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td>186.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td>relative position 7/19/2016 1:41:1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td>6367137.5024</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-125.146765386365,44.56993972456785,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90007">
+				<name>MASSPA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>MASSPA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>7</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>MASSPA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>MASSPA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>MASSPA101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Einstein's Grotto</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>MASSP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Mass Spectrometer</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J930</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J930</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569923</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.146807</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-775.039</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: MASSPA101-2016 to MASSPA101_intake-2016, 28.5 deg, 3.1 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/29/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>MASSPA101_intake-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>44.56994731</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-125.14678822</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>3.1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>208.50000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>relative position 7/23/2016 21:44:58</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6371845.4555</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-125.146806890057,44.56992281229642,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_90008">
+				<name>OSMOIA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>OSMOIA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>8</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>OSMOIA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>OSMOIA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>OSMOIA101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Einstein's Grotto</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>OSMOI</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>OSMO Sampler (not cabled)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J929</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J930</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569986</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.146773</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-774.117</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Relative position: OSMOIA101-2016 to FLOBN-CAT-2016, 207 deg, 2 m</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/29/16</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td>FLOBN-CAT-2016</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td>44.56997013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td>-125.14678485</td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td>27.00000</td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td>3.00000</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td>relative position 7/19/2016 1:41:1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td>6371376.5902</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle90</styleUrl>
+				<Point>
+					<coordinates>-125.1467733907824,44.56998615555204,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer10">
+			<name>Hydrothermal instrument (last deployed position)</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_100000">
+				<name>THSPHA301 (last deployed position)</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>THSPHA301 (last deployed position)</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>THSPHA301 (last deployed position)</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>THSPHA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>THSPHA301-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>International District</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>THSPH</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Hydrothermal instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Temp-H2-pH-H2S</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>HYD</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1795</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/27/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1836</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/10/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.926386</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.979064</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1519.333333</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radi_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Note</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle100</styleUrl>
+				<Point>
+					<coordinates>-129.979063716415,45.92638627070747,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer11">
+			<name>Physical instrument</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_110000">
+				<name>HPIESA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HPIESA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HPIESA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HPIESA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HPIESA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>HPIESA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HPIES</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>HPIES</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J931</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/25/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>aj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J931</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/25/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.824215</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.759948</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2614.053</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.7599478220463,45.82421486498348,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110001">
+				<name>CTDPFB301_DOSTAD301_OPTAAC303</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CTDPFB301_DOSTAD301_OPTAAC303</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CTDPFB301_DOSTAD301_OPTAAC303</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CTDPFB301_DOSTAD301_OPTAAC303</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CTDPFB301_DOSTAD301_OPTAAC303-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CTDPFB_DOSTAD_OPTAAC</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>CTD-DO (SBE 16v2- AADI 4831) and Optical Attenuation and Absorption (Wet Labs AC-S)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J907</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/12/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J907</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.81684</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.754187</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2610.268</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.7541873621938,45.81684032633152,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110002">
+				<name>PRESTA301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PRESTA301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PRESTA301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PRESTA301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PRESTA301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PREST</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Bottom Pressure (SBE 54 Tsunameter)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J908</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/13/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J908</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/13/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.820224</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.736425</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2610.595</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.7364251169493,45.82022424782832,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110003">
+				<name>VEL3DB301</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>VEL3DB301</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>VEL3DB301</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>VEL3DB301</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>VEL3DB301-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>VEL3D</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Acoustic Current Meter (Nobska MAVS4)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J908</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/13/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J908</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/13/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.820114</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.736555</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2611.491</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.7365554791842,45.82011402743213,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110004">
+				<name>VEL3DB304</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>VEL3DB304</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>VEL3DB304</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>VEL3DB304</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>VEL3DB304-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>INT2</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ03D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>VEL3D</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Acoustic Current Meter (Nobska MAVS4)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J934</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J934</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.925827</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.977671</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1530.814</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.9776705706113,45.92582665167496,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110005">
+				<name>HYDBBA105</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDBBA105</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDBBA105</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDBBA105</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDBBA105-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>EO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>OSBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>broad-band hydrophone</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J927</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>dj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J927</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.369458</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.953565</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-581.209</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-124.9535653382867,44.36945772518654,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110006">
+				<name>HYDBBA106</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDBBA106</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDBBA106</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDBBA106</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDBBA106-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SHBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>broad-band hydrophone</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J924</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>aj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J924</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/22/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.637138</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.305978</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-80.8895</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-124.3059781701475,44.63713775375012,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110007">
+				<name>VEL3DB104</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>VEL3DB104</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>7</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>VEL3DB104</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>VEL3DB104</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>VEL3DB104-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>VEL3D</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Acoustic Current Meter (Nobska MAVS4)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J928</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J928</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569146</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.148089</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-778.787</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.148088953674,44.56914621829822,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110008">
+				<name>HPIESA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HPIESA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>8</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HPIESA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HPIESA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HPIESA101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>HPIESA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HPIES</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>HPIES</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J944</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/8/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>aj-hc</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J944</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/8/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.522315</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.380309</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2903.85</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.3803094311138,44.52231536377288,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110009">
+				<name>CTDPFB101-DOSTAD101-OPTAAC103</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>CTDPFB101-DOSTAD101-OPTAAC103</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>9</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>CTDPFB101-DOSTAD101-OPTAAC103</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>CTDPFB101-DOSTAD101-OPTAAC103</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>CTDPFB101-DOSTAD101-OPTAAC103-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>CTDPFB_DOSTAD_OPTAAC</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>CTD-DO (SBE 16v2- AADI 4831) and Optical Attenuation and Absorption (Wet Labs AC-S)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J913</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/16/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J913</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/16/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.515266</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.389817</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2906.598</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.3898168052917,44.51526558752354,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110010">
+				<name>PRESTA101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PRESTA101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>10</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PRESTA101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PRESTA101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PRESTA101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PREST</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Bottom Pressure (SBE 54 Tsunameter). For tsunami detection and tide measurement.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J914</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/17/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J914</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/17/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.509712</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.405267</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2909.19</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.4052668412365,44.50971171442593,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110011">
+				<name>VEL3DB101</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>VEL3DB101</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>11</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>VEL3DB101</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>VEL3DB101</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>VEL3DB101-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>VEL3D</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Acoustic Current Meter (Nobska MAVS4)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J914</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/17/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J914</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/17/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.50973</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.405267</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2909.338</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.4052668412365,44.50972971263015,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110012">
+				<name>HYDBBA302</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDBBA302</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>12</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDBBA302</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDBBA302</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDBBA302-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV03A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>broad-band hydrophone</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J907</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/12/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J907</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.816684</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.754354</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2610.165</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-129.7543543410191,45.81668415963396,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110013">
+				<name>HYDBBA102</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>HYDBBA102</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>13</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>HYDBBA102</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>HYDBBA102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>HYDBBA102-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>HYDBB</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>broad-band hydrophone</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J913</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/16/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J913</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/16/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.515119</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.389925</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2906.713</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.3899249863567,44.51511904234054,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_110014">
+				<name>PRESTB102</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PRESTB102</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>14</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PRESTB102</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PRESTB102</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PRESTB102-2016</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PREST</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Physical instrument</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Seafloor Pressure</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PHY</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>J928</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>SKQ201610S</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>rel</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J928</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/23/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569258</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.148052</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-777.583</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle110</styleUrl>
+				<Point>
+					<coordinates>-125.1480518562716,44.56925808120489,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+	</Folder>
+</Document>
+</kml>

@@ -1,0 +1,1954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Cable_Equipment.kml</name>
+	<Style id="IconStyle180">
+		<IconStyle>
+			<Icon>
+				<href>/kmz/Layer18_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Style id="IconStyle190">
+		<IconStyle>
+			<scale>0.625</scale>
+			<Icon>
+				<href>/kmz/Layer19_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Folder id="GroupLayer17">
+		<name>Cable_Equipment</name>
+		<Snippet maxLines="0"></Snippet>
+		<Folder id="FeatureLayer18">
+			<name>Beach manhole</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_180000">
+				<name>BMH Pacific City</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>BMH Pacific City</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>BMH Pacific City</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>BMH Pacific City</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>BMH Pacific City</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>PC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>Beach ManHole</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>Beach ManHole</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>cable conduit</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>man-hole</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Beach ManHole</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Beach ManHole at Pacific City</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>BMH</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/12/2011</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.2023</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-123.96715</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-5</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>L3 MariPro PNR0 rev 8</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12/16/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle180</styleUrl>
+				<Point>
+					<coordinates>-123.96715,45.20229999999999,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder id="FeatureLayer19">
+			<name>Cable deployment pallet</name>
+			<Snippet maxLines="0"></Snippet>
+			<Placemark id="ID_190000">
+				<name>RS01W11_DP2</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W11_DP2</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>RS01W11_DP2</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>RS01W11_DP2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>RS01W11_DP2-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SHBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>MJ01C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>deployment pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>DP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>cable pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>The cable ship deployed a pallet containing a coil of cable at the end of the cable lay. Cable was then carried by ROV from the pallet to the destination node.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>Dpallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1787</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/10/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1787</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/10/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.637512</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.305694</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-81.5</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 9/10/14</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle190</styleUrl>
+				<Point>
+					<coordinates>-124.3056938468888,44.63751227988567,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_190001">
+				<name>RS01W11_DP1</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W11_DP1</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>RS01W11_DP1</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>RS01W11_DP1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>RS01W11_DP1-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>deployment pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>DP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>cable pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>The cable ship deployed a pallet containing a coil of cable at the end of the cable lay. Cable was then carried by ROV from the pallet to the destination node.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>Dpallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1780</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/8/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1785</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/10/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.691567</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.456874</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-113</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 9/10/14</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle190</styleUrl>
+				<Point>
+					<coordinates>-124.4568742349396,44.69156678207582,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_190002">
+				<name>RS01W7_DP2</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W7_DP2</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>RS01W7_DP2</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>RS01W7_DP2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>RS01W7_DP2-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SUM1</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>deployment pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>DP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>cable pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>The cable ship deployed a pallet containing a coil of cable at the end of the cable lay. Cable was then carried by ROV from the pallet to the destination node.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>Dpallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1777</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/4/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1777</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/6/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.569023</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.148144</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-776.5</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position: R1777 IRLS 9/6/2014 14:11:27, R1777 IRLS 9/6/2014 15:8:42</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>This pallet was deployed by the Dependable. It contains a coil of oily cable at the north end of RS01W7. The end is to be carried by ROPOS to LV01B.</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle190</styleUrl>
+				<Point>
+					<coordinates>-125.1481443553777,44.5690225882486,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark id="ID_190003">
+				<name>RS01W7_DP1</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W7_DP1</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>RS01W7_DP1</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>RS01W7_DP1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>RS01W7_DP1-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>deployment pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>DP</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>cable pallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>The cable ship deployed a pallet containing a coil of cable at the end of the cable lay. Cable was then carried by ROV from the pallet to the destination node.</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>Dpallet</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1774</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/3/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1776</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/4/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.481659</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.148311</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1245</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position: R1843 IRLS 7/14/2015 19:43:27, relative position 7/14/2015 19:43:44, R1774 IRLS 9/3/2014 14:44:11, R1776 IRLS 9/4/2014 14:10:58</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>This pallet was deployed by the Dependable. It contains a coil of oily cable at the south end of RS01W7. The end is to be carried by ROPOS to PN1B.</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+				<styleUrl>#IconStyle190</styleUrl>
+				<Point>
+					<coordinates>-125.1483112944182,44.48165853870728,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+	</Folder>
+</Document>
+</kml>
