@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Cable_Burial.kml</name>
+	<Style id="LineStyle290">
+		<LabelStyle>
+			<color>00000000</color>
+			<scale>0</scale>
+		</LabelStyle>
+		<LineStyle>
+			<color>33000000</color>
+			<width>7</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>00000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Folder id="FeatureLayer29">
+		<name>Cable_Burial</name>
+		<Snippet maxLines="0"></Snippet>
+		<Placemark id="ID_290000">
+			<name>RS01W1</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W1</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W1</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-125.064755,45.15067666666667,0 -125.04995,45.15083166666667,0 -125.0408083333333,45.150925,0 -125.0398783333333,45.15088333333333,0 -125.0007166666667,45.14761666666666,0 -124.96648,45.13871833333334,0 -124.947635,45.13425166666666,0 -124.9298116666667,45.13062166666667,0 -124.9045533333333,45.12968000000001,0 -124.88216,45.13284166666666,0 -124.8610116666667,45.14005166666667,0 -124.8326316666667,45.15574,0 -124.81448,45.17035333333332,0 -124.79828,45.18075333333334,0 -124.782215,45.187645,0 -124.764015,45.19242,0 -124.74538,45.19357166666666,0 -124.735405,45.19248666666667,0 -124.7244683333333,45.19084,0 -124.7068233333333,45.18620500000001,0 -124.6937033333333,45.18040833333334,0 -124.6719666666667,45.17027833333334,0 -124.65387,45.16332,0 -124.6319,45.15597,0 -124.5833483333333,45.14800166666667,0 -124.5711516666667,45.14797833333333,0 -124.531085,45.14789833333334,0 -124.4702,45.15664666666667,0 -124.444705,45.16188666666666,0 -124.383005,45.16732833333332,0 -124.37876,45.16767833333334,0 -124.3755083333333,45.16795499999999,0 -124.3653066666667,45.16906000000001,0 -124.3537766666667,45.170085,0 -124.3415,45.17097333333334,0 -124.32841,45.17198666666667,0 -124.29015,45.17288333333332,0 -124.2675133333333,45.17292,0 -124.266095,45.17292166666667,0 -124.1620716666667,45.17974833333334,0 -124.1616783333333,45.17977333333334,0 -124.1303666666667,45.18182833333334,0 -124.1271,45.18204333333333,0 -124.0799766666667,45.187125,0 -124.0525216666667,45.18773166666666,0 -124.0296366666667,45.18845833333334,0 -124.0201733333333,45.189525,0 -123.98934,45.19702,0 -123.9861166666667,45.19790833333333,0 -123.9854833333333,45.19808333333333,0 -123.97835,45.19975666666667,0 -123.96715,45.20229999999999,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290001">
+			<name>RS01W11</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W11</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W11</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-124.30626,44.63842833333333,0 -124.3073083333333,44.64018833333333,0 -124.3081283333333,44.641435,0 -124.3089283333333,44.64273,0 -124.3322616666667,44.67882833333334,0 -124.3427433333333,44.69506666666667,0 -124.3463716666667,44.69818,0 -124.3502566666667,44.70062,0 -124.3504683333333,44.70075333333333,0 -124.3548483333333,44.70265666666667,0 -124.3614066666667,44.70547333333333,0 -124.3676033333333,44.707885,0 -124.3748516666667,44.70916333333334,0 -124.382475,44.70948,0 -124.3918316666667,44.70832333333333,0 -124.411675,44.70365166666667,0 -124.438,44.69749666666667,0 -124.4397066666667,44.69708833333333,0 -124.4484016666667,44.69513,0 -124.4495366666667,44.69485166666667,0 -124.4534883333333,44.693925,0 -124.454375,44.69372166666667,0 -124.4548383333333,44.69361166666667,0 -124.455415,44.693455,0 -124.4556766666667,44.693315,0 -124.4559116666667,44.69312333333333,0 -124.45617,44.69280833333333,0 -124.4564016666667,44.69245333333333,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290002">
+			<name>RS01W2</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W2</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W2</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-125.1486733333333,44.480665,0 -125.148705,44.48059,0 -125.1496316666667,44.478365,0 -125.1509666666667,44.475715,0 -125.1526583333333,44.472765,0 -125.1550066666667,44.46939333333334,0 -125.1572116666667,44.46692833333334,0 -125.1600283333333,44.46448,0 -125.1617133333333,44.463075,0 -125.1626266666667,44.46262,0 -125.1657016666667,44.461735,0 -125.16916,44.46075166666667,0 -125.1693466666667,44.460705,0 -125.1707883333333,44.46034833333334,0 -125.18599,44.45661,0 -125.1961316666667,44.454095,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290003">
+			<name>RS01W3</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W3</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W3</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-124.9738533333333,44.35501666666666,0 -124.975325,44.35523666666667,0 -124.9958966666667,44.35839166666667,0 -124.9961566666667,44.35843166666667,0 -125.0199883333333,44.36252833333333,0 -125.04338,44.370875,0 -125.0719883333333,44.38457666666667,0 -125.088405,44.39516333333334,0 -125.0988283333333,44.40338833333333,0 -125.1182916666667,44.42337166666667,0 -125.1189383333333,44.424135,0 -125.119525,44.42470333333333,0 -125.121825,44.42693333333333,0 -125.1242033333333,44.42941166666667,0 -125.1267483333333,44.43206,0 -125.1294666666667,44.43511833333334,0 -125.1328783333333,44.43921,0 -125.13537,44.442315,0 -125.1387316666667,44.44660833333333,0 -125.1420016666667,44.45086833333333,0 -125.14558,44.455335,0 -125.1487683333333,44.45920333333334,0 -125.149355,44.45999833333333,0 -125.1497816666667,44.460775,0 -125.1500433333333,44.46168333333333,0 -125.1502133333333,44.46275666666666,0 -125.150475,44.465275,0 -125.1504533333333,44.46879,0 -125.1499366666667,44.472885,0 -125.1493566666667,44.476325,0 -125.1487666666667,44.47950166666666,0 -125.148525,44.480555,0 -125.1483316666667,44.48139333333334,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290004">
+			<name>RS01W4</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W4</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W4</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-124.457515,44.692205,0 -124.457865,44.69279666666667,0 -124.45807,44.69315333333334,0 -124.458455,44.69379833333333,0 -124.458705,44.694235,0 -124.4594216666667,44.69547666666666,0 -124.4595216666667,44.69563833333334,0 -124.4596816666667,44.69588333333334,0 -124.4614466666667,44.698645,0 -124.4910616666667,44.74466166666667,0 -124.4986783333333,44.75374166666667,0 -124.5097366666667,44.76375666666667,0 -124.5206116666667,44.77046833333333,0 -124.5323716666667,44.77465166666666,0 -124.5460666666667,44.77689166666666,0 -124.556585,44.77664333333333,0 -124.5664883333333,44.77511666666667,0 -124.5761733333333,44.77216833333333,0 -124.5892583333333,44.76555333333334,0 -124.598905,44.75721833333333,0 -124.6037566666667,44.75014333333333,0 -124.6069933333333,44.74271166666667,0 -124.6086016666667,44.73392,0 -124.6085,44.72117666666667,0 -124.614935,44.672605,0 -124.6202066666667,44.63975333333333,0 -124.6238883333333,44.62558833333333,0 -124.628835,44.613035,0 -124.63152,44.60643666666667,0 -124.6333816666667,44.60340333333333,0 -124.640525,44.59492833333334,0 -124.6501016666667,44.587435,0 -124.6562433333333,44.58371333333334,0 -124.69073,44.56339666666667,0 -124.7071683333333,44.55598333333333,0 -124.7234366666667,44.55060333333334,0 -124.7300383333333,44.54776333333334,0 -124.7346216666667,44.54517833333333,0 -124.7445816666667,44.53732166666666,0 -124.7511166666667,44.52843833333333,0 -124.7555233333333,44.51906333333334,0 -124.7577333333333,44.49850166666667,0 -124.7591566666667,44.48562166666667,0 -124.76571,44.469695,0 -124.7694466666667,44.455275,0 -124.77336,44.44574666666667,0 -124.7790716666667,44.43867166666666,0 -124.7882316666667,44.43219,0 -124.84226,44.40217333333333,0 -124.870645,44.38582,0 -124.8877083333333,44.37920833333333,0 -124.906155,44.36921666666667,0 -124.927435,44.36165666666667,0 -124.9362283333333,44.360025,0 -124.9370983333333,44.35993666666667,0 -124.93814,44.35976833333334,0 -124.9417983333333,44.35875166666667,0 -124.944455,44.35799666666667,0 -124.9516,44.35601666666667,0 -124.9540333333333,44.3554,0 -124.95445,44.35533333333333,0 -124.9550833333333,44.35528333333333,0 -124.9555333333333,44.35528333333333,0 -124.9560166666667,44.35541666666666,0 -124.9562833333333,44.35555,0 -124.9575666666667,44.35665,0 -124.9587666666667,44.35785,0 -124.9606833333333,44.36088333333333,0 -124.9616183333333,44.36279,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290005">
+			<name>RS01W7</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS01W7</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS01W7</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-125.1484016666667,44.56790166666666,0 -125.149055,44.56532333333333,0 -125.1502433333333,44.56098833333333,0 -125.1510266666667,44.557275,0 -125.1513366666667,44.554345,0 -125.1518933333333,44.54920333333333,0 -125.1525183333333,44.54257666666667,0 -125.1525883333333,44.541125,0 -125.15265,44.53706166666667,0 -125.152565,44.53053833333333,0 -125.1526466666667,44.52691666666667,0 -125.1512483333333,44.51288333333334,0 -125.148425,44.48259,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+		<Placemark id="ID_290006">
+			<name>RS05W1</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>RS05W1</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Id</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>FBD_name</td>
+
+<td>RS05W1</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#LineStyle290</styleUrl>
+			<MultiGeometry>
+				<LineString>
+					<coordinates>
+						-125.0085,45.28796333333332,0 -124.9964133333333,45.28403166666666,0 -124.9936016666667,45.28311666666667,0 -124.972295,45.273435,0 -124.971955,45.273275,0 -124.957305,45.26639666666668,0 -124.9411283333333,45.25603166666667,0 -124.9408883333333,45.25587666666667,0 -124.9235366666667,45.24466666666667,0 -124.9235116666667,45.24465000000001,0 -124.9198333333333,45.242725,0 -124.90308,45.23661666666667,0 -124.8894916666667,45.23225,0 -124.8806516666667,45.230295,0 -124.854995,45.22644333333334,0 -124.8255316666667,45.22661833333333,0 -124.7980266666667,45.22972500000001,0 -124.7737966666667,45.234305,0 -124.7510183333333,45.24241,0 -124.7506316666667,45.24254833333334,0 -124.7498833333333,45.24293666666667,0 -124.7315666666667,45.253655,0 -124.7183416666667,45.261015,0 -124.6940833333333,45.27185500000001,0 -124.6752833333333,45.27799833333335,0 -124.6550616666667,45.28053333333333,0 -124.6352883333333,45.27931333333333,0 -124.6130116666667,45.27378166666667,0 -124.5680883333333,45.26432833333333,0 -124.452295,45.23995166666667,0 -124.4085483333333,45.23344333333332,0 -124.3527333333333,45.22143833333333,0 -124.3314016666667,45.21899,0 -124.3014833333333,45.21430166666666,0 -124.2822533333333,45.210065,0 -124.2727116666667,45.207515,0 -124.2539483333333,45.20250166666667,0 -124.2204316666667,45.19467333333333,0 -124.1899466666667,45.192705,0 -124.128925,45.19571,0 -124.0991633333333,45.19717666666666,0 -124.0656766666667,45.19617833333334,0 -124.0572233333333,45.19569166666667,0 -124.0478066666667,45.19515,0 -124.0366716666667,45.193055,0 -124.0294483333333,45.19269,0 -124.0291066666667,45.19267333333333,0 -124.0278616666667,45.19275166666667,0 -124.0101133333333,45.195385,0 -123.9900733333333,45.19869666666666,0 -123.98627,45.19937500000001,0 -123.9860333333333,45.19941666666666,0 -123.9784716666667,45.20057166666667,0 -123.96715,45.20229999999999,0 
+					</coordinates>
+				</LineString>
+			</MultiGeometry>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

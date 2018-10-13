@@ -81,6 +81,32 @@ var TileMap = Backbone.View.extend({
         });
       });
 
+      // var rsn_cabled_array = new L.KML("/kmz/Primary_Cables.kml", {async: true});
+
+      var rsn_primary_cables = new L.KML("/kmz/Primary_Cables.kml", {async: true});
+      var rsn_secondary_cables = new L.KML("/kmz/Secondary_Cables.kml", {async: true});
+      var rsn_moorings = new L.KML("/kmz/Moorings.kml", {async: true});
+      var rsn_mooring_anchors = new L.KML("/kmz/Mooring_Anchors.kml", {async: true});
+      var rsn_primary_nodes = new L.KML("/kmz/Primary_Nodes.kml", {async: true});
+      var rsn_secondary_nodes = new L.KML("/kmz/Secondary_Nodes.kml", {async: true});
+      var rsn_instruments = new L.KML("/kmz/Instruments.kml", {async: true});
+      var rsn_cable_equipment = new L.KML("/kmz/Cable_Equipment.kml", {async: true});
+      var rsn_cable_burial = new L.KML("/kmz/Cable_Burial.kml", {async: true});
+
+      var arrayLayerControl = null;
+
+      var kml_layers_list = {
+        'rsn_primary_cables': [rsn_primary_cables, 'show', 'Primary Cables'],
+        'rsn_secondary_cables': [rsn_secondary_cables, 'show', 'Secondary Cables'],
+        'rsn_moorings': [rsn_moorings, 'show', 'Moorings'],
+        'rsn_mooring_anchors': [rsn_mooring_anchors, 'show', 'Mooring Anchors'],
+        'rsn_primary_nodes': [rsn_primary_nodes, 'show', 'Primary Nodes'],
+        'rsn_secondary_nodes': [rsn_secondary_nodes, 'show', 'Secondary Nodes'],
+        'rsn_instruments': [rsn_instruments, 'show', 'Instruments'],
+        'rsn_cable_equipment': [rsn_cable_equipment, 'show', 'Cable Equipment'],
+        'rsn_cable_burial': [rsn_cable_burial, 'show', 'Cable Burial']
+      };
+
       // Add a lat/lng mouse and custom position widget
       L.control.coordinates({
         position:"topleft", //optional default "bootomright"
@@ -148,9 +174,12 @@ var TileMap = Backbone.View.extend({
       map._isArrayView = this.isArrayView;
       map._arrayMapBounds = arrayMapBounds;
       map._gliderTrackLayer = track;
+      // map._cabledArrayLayer = cabled_array;
+      map._kmlLayersList = kml_layers_list;
       map._getPlatformBounds = this._getPlatformBounds;
       map._platformCenter = [0,0];
       map._platformZoom = 2.6;
+      map._arrayLayerControl = arrayLayerControl;
 
       L.Control.zoomHome = L.Control.extend({
         options: {
@@ -347,6 +376,24 @@ var TileMap = Backbone.View.extend({
 
     $('div.leaflet-control-zoom.leaflet-bar.leaflet-control').show();
     map.addLayer(map._gliderTrackLayer);
+
+    // Add KML layers for cabled array to the map
+    var layerTitle = {};
+    $.each(map._kmlLayersList, function(key, value){
+      if(value[1] === 'show'){
+        var title = value[2];
+        var layer = value[0];
+        layerTitle[title] = layer;
+        map.addLayer(value[0]);
+      }
+    });
+
+    // Add the layer control for the cabled layers to the map
+    if(map._arrayLayerControl === null){
+      map._arrayLayerControl = new L.Control.Layers({}, layerTitle);
+      map._arrayLayerControl.addTo(map);
+    }
+
     // When we're in the platform view, we don't want to see any array icons.
     _.each(map._layers, function(platform) {
       // console.log('platform');
@@ -396,6 +443,23 @@ var TileMap = Backbone.View.extend({
           platform._icon.style.zIndexOffset = 10000000;
           // platform._icon.className = "leaflet-marker-icon mydivicon leaflet-zoom-animated leaflet-clickable"
         }
+      }
+    });
+    // map.removeLayer(map._cabledArrayLayer);
+    // map.removeLayer(map._rsnCableArray);
+    // if(map._arrayLayerControl !== null){
+    //   map.removeControl(map._arrayLayerControl);
+    //   map._arrayLayerControl = null;
+    // }
+    if(map._arrayLayerControl !== null){
+      // console.log(map._arrayLayerControl);
+      map._arrayLayerControl.remove();
+      map._arrayLayerControl = null;
+    }
+
+    $.each(map._kmlLayersList, function(key, value){
+      if(value[1] === 'show'){
+        map.removeLayer(value[0]);
       }
     });
   },
