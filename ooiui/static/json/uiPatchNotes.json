@@ -1,5 +1,13 @@
 [
     {
+        "VersionNumber": "1.X.X",
+        "VersionDate": "2018-XX-XX",
+        "VersionDescription": [
+            "Mapping: Adds submarine cable and related assets to maps. (12316)",
+            "Data Catalog: Addresses missed dashes versus underscores in data catalog. (13107)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.10",
         "VersionDate": "2018-07-24",
         "VersionDescription": [
