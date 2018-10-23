@@ -7,7 +7,7 @@ Defines the application for the Science UI
 '''
 import os
 from flask import Flask
-from flask.ext.cache import Cache
+from flask_caching import Cache
 from flask_environments import Environments
 
 app = Flask(__name__, static_url_path='', template_folder='../../templates', static_folder='../../static')
