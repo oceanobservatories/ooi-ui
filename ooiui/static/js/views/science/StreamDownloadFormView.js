@@ -146,17 +146,19 @@ var StreamDownloadFormView = Backbone.View.extend({
   },
   onTypeChange: function() {
     var type = this.$el.find('#type-select select').val();
-    if(type == 'csv') {
+    if(type === 'csv') {
       this.$el.find('#provenance-select').attr("disabled", true);
       this.$el.find('#provenance-select').attr('checked', false);
       this.$el.find('#annotation-select').attr("disabled", true);
       this.$el.find('#annotation-select').attr('checked', false);
+      this.$el.find('#parameter-select').hide();
     } else {
       this.$el.find('#provenance-select').removeAttr("disabled");
       this.$el.find('#annotation-select').removeAttr("disabled");
+      this.$el.find('#parameter-select').show();
     }
 
-    if(type == 'json') {
+    if(type === 'json') {
       this.$el.find('#download-param-select').attr("disabled", false);
     } else{
       this.$el.find('#download-param-select').attr("disabled", true);
