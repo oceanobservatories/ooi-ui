@@ -123,6 +123,7 @@
 
           $.when(resizeMap(arrayCollection)).done(function () {
 {#            if(map._isArrayView) {#}
+            if(tileMap !== undefined)
               tileMap._setArrayView();
 {#            }#}
           })

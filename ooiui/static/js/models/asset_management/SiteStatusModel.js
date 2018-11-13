@@ -22,28 +22,50 @@
     },*/
 var SiteStatusModel = Backbone.Model.extend({
   defaults: {
-      depth: null,
-      display_name: "",
-      latitude: null,
-      longitude: null,
-      maxdepth: null,
-      mindepth: null,
-      reason: null,
-      reference_designator: "",
-      status: "",
-      uid: "",
-      waterDepth: null
+    depth: null,
+    display_name: "",
+    latitude: null,
+    longitude: null,
+    maxdepth: null,
+    mindepth: null,
+    reason: null,
+    reference_designator: "",
+    status: "",
+    uid: "",
+    waterDepth: null
+  },
+  parse: function(data) {
+    // we have the cabled array at the same location as the coastal endurance,
+    // the cabled array is a bit farther off set from the endurance.
+    var attrs = _.clone(data),
+      cabledArrayLat = 45.8305,
+      cabledArrayLon = -128.7533;
+
+    if (attrs.reference_designator.indexOf('RS') > -1) {
+      attrs.latitude = cabledArrayLat;
+      attrs.longtiude = cabledArrayLon;
+    }
+
+    attrs.code = attrs.reference_designator;
+    return data;
   },
   toGeoJSON: function() {
-    var attrs = _.clone(this.attributes),
-      newArray = [attrs.longitude.toFixed(5), attrs.latitude.toFixed(5)];
+    var attrs = _.clone(this.attributes);
+
+    if(attrs.longtiude === null || attrs.latitude === null) {
+      // console.log(attrs);
+      attrs['longitude'] = 0.0;
+      attrs['latitude'] = 0.0;
+    }
+
+    var newArray = [attrs.longitude.toFixed(5), attrs.latitude.toFixed(5)];
 
     // console.log('attrs');
     // console.log(attrs);
     var geoJSON = {
       "type": "Feature",
       "properties": {
-        "description": "<span>"+attrs.display_name+"</span>",
+        "description": "<span>" + attrs.display_name + "</span>",
         "code": attrs.reference_designator,
         "title": attrs.display_name,
         "marker-symbol": (attrs.reference_designator.indexOf('GL') > -1) ? 'airfield_icon' : 'harbor_icon',
@@ -70,12 +92,12 @@ var SiteStatusModel = Backbone.Model.extend({
 
 var SiteStatusCollection = Backbone.Collection.extend({
   model: SiteStatusModel,
-/*  url: function(reference_designator) {
-    // if the constructor contains a searchId, modify the url.
-    var url = '/api/uframe/status/sites/';
-    console.log(this);
-    return (reference_designator) ? url + reference_designator || "" : url;
-  },*/
+  /*  url: function(reference_designator) {
+      // if the constructor contains a searchId, modify the url.
+      var url = '/api/uframe/status/sites/';
+      console.log(this);
+      return (reference_designator) ? url + reference_designator || "" : url;
+    },*/
   toGeoJSON: function() {
     var geoJSONified = this.map(function(model) {
       return model.toGeoJSON();
