@@ -1,5 +1,15 @@
 [
     {
+        "VersionNumber": "1.5.0",
+        "VersionDate": "2018-12-XX",
+        "VersionDescription": [
+            "Data Catalog: Addresses missed dashes versus underscores in data catalog. (13107)",
+            "Data Catalog: Disable parameter selection from data download to CSV in the GUI. (13337)",
+            "Mapping: Adds submarine cable and related assets to maps. (12316)",
+            "Security: Updates to python libraries. (13692)"
+        ]
+    },
+    {
         "VersionNumber": "1.4.10",
         "VersionDate": "2018-07-24",
         "VersionDescription": [

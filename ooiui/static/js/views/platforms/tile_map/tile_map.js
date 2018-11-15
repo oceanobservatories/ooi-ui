@@ -42,6 +42,48 @@ var TileMap = Backbone.View.extend({
                 });
                 map.addLayer(track);
 
+                // var cabled_array = new L.KML("/kmz/Primary_Cables.kml", {async: true});
+                // map.addLayer(cabled_array);
+
+                // var rsn_cabled_array = new L.KML("kmz/RSN_2016_10_17.kml", {async: true});
+                // map.addLayer(rsn_cabled_array);
+                // map.addControl(new L.Control.Layers({}, {'RSN':rsn_cabled_array}));
+
+                var rsn_primary_cables = new L.KML("kmz/Primary_Cables.kml", {async: true});
+                var rsn_secondary_cables = new L.KML("kmz/Secondary_Cables.kml", {async: true});
+                var rsn_moorings = new L.KML("kmz/Moorings.kml", {async: true});
+                var rsn_mooring_anchors = new L.KML("kmz/Mooring_Anchors.kml", {async: true});
+                var rsn_primary_nodes = new L.KML("kmz/Primary_Nodes.kml", {async: true});
+                var rsn_secondary_nodes = new L.KML("kmz/Secondary_Nodes.kml", {async: true});
+                var rsn_instruments = new L.KML("kmz/Instruments.kml", {async: true});
+                var rsn_cable_equipment = new L.KML("kmz/Cable_Equipment.kml", {async: true});
+                var rsn_cable_burial = new L.KML("kmz/Cable_Burial.kml", {async: true});
+
+                var kml_layers_list = {
+                  'rsn_primary_cables': [rsn_primary_cables, 'show', 'Primary Cables'],
+                  'rsn_secondary_cables': [rsn_secondary_cables, 'show', 'Secondary Cables'],
+                  'rsn_moorings': [rsn_moorings, 'show', 'Moorings'],
+                  'rsn_mooring_anchors': [rsn_mooring_anchors, 'show', 'Mooring Anchors'],
+                  'rsn_primary_nodes': [rsn_primary_nodes, 'show', 'Primary Nodes'],
+                  'rsn_secondary_nodes': [rsn_secondary_nodes, 'show', 'Secondary Nodes'],
+                  'rsn_instruments': [rsn_instruments, 'show', 'Instruments'],
+                  'rsn_cable_equipment': [rsn_cable_equipment, 'show', 'Cable Equipment'],
+                  'rsn_cable_burial': [rsn_cable_burial, 'show', 'Cable Burial']
+                };
+
+                var layerTitle = {};
+                $.each(kml_layers_list, function(key, value){
+                  console.log(key);
+                  if(value[1] === 'show'){
+                    var title = value[2];
+                    var layer = value[0];
+                    layerTitle[title] = layer;
+
+                    map.addLayer(layer);
+                  }
+                });
+                map.addControl(new L.Control.Layers({}, layerTitle));
+
                 // map.dragging.disable();
                 // map.touchZoom.disable();
                 map.doubleClickZoom.disable();

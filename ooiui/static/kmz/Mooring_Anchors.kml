@@ -1,0 +1,2693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Mooring_Anchors.kml</name>
+	<Style id="IconStyle160">
+		<IconStyle>
+			<scale>0.625</scale>
+			<Icon>
+				<href>/kmz/Layer16_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Folder id="FeatureLayer16">
+		<name>Mooring_Anchors</name>
+		<Snippet maxLines="0"></Snippet>
+		<Placemark id="ID_160000">
+			<name>PC03A_EOM_Anch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC03A_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC03A_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC03A_EOM_Anch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC03A_EOM_Anch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PC03A_EOM_Anch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler EOM Anchor</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>R1788</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/16/2014 16:56:09</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1788</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/16/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.817697</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.753548</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2607</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>R1788 Seascape and 15Sept-16Sept_NavReport.pdf</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>Ropos visited during the dive</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-129.753548,45.817697,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160001">
+			<name>PC03A_MechAnch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC03A_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC03A_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC03A_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC03A_MechAnch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>AXBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PC03A_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler mechanical anchor (only attached to LV01A through mechanical linkages)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/14/2014 11:20:00</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1861</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/26/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.843414</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.753002</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2600</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 7/26/2015 10:24:23</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>8/13/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-129.7530023496293,45.84341445573584,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160002">
+			<name>PC01B_EOM_Anch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC01B_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC01B_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC01B_EOM_Anch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC01B_EOM_Anch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>EO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>OSBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PC01B_EOM_Anch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler EOM Anchor</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>N/A</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/21/2014 0:30:00</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>wa</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>J920</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/18/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.369112</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.95521</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-583.401167</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>14</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>weighted average position: averaged position, 7/15/2015 6:28:31; J920, 7/18/2016 10:9:24. Position corrected from Jason'16 nav to historic nav: -4.98269398707363E-05 deg north, 4.58417209465657E-05 deg east.</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>9/27/2016</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-124.9552103790925,44.369111852552,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160003">
+			<name>PC01B_MechAnch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC01B_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC01B_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC01B_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC01B_MechAnch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>EO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>OSBP</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PC01B_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler mechanical anchor (not cabled)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>N/A</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/21/2014 22:50:00</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1753</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/22/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.375807</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.957021</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-571.5</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 8/22/2014 5:16:46</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-124.9570214141071,44.37580691848619,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160004">
+			<name>sx10_stub_clump</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>MP</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>sx10_stub_clump</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>stub</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>anchor</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>clump weight</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>clump weight</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/24/2011</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.843767</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-127.241702</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2800</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>L3 MariPro PNR0 rev 8</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td>700 lb clump</td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12/16/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-127.2417016666667,45.84376666666667,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160005">
+			<name>PC01A_EOM_Anch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC01A_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC01A_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC01A_EOM_Anch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC01A_EOM_Anch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>LV01A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_EOM_Anch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler EOM Anchor</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/20/2014 12:43:00</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1790</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>9/21/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.515591</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.38956</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2904.333333</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 9/21/2014 4:57:14</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-125.389559789605,44.51559106187836,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_160006">
+			<name>PC01A_MechAnch</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PC01A_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PC01A_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PC01A_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PC01A_MechAnch-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>SLBS</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PC01A_MechAnch</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>S</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>mooring</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PC_MechAnch</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Mooring anchor</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Shallow Profiler mechanical anchor (only attached to LV01A through mechanical linkages)</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>ANC</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>9/19/2014 20:04:00</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td>TN313</td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>a</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td>R1848</td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>7/16/2015</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.543131</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.389129</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2898</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_weight</td>
+
+<td>2</td>
+
+</tr>
+
+<tr>
+
+<td>POS_source</td>
+
+<td>averaged position, 7/16/2015 13:7:22</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Commen</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_date_e</td>
+
+<td>12:00:00 AM</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Relati</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R1_O_o</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R1_O_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_1</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_Radius</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Rela_1</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_Lat</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_lon</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_R2_R1_</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_R2_R11</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_weig_2</td>
+
+<td></td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_sour_2</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle160</styleUrl>
+			<Point>
+				<coordinates>-125.3891285103919,44.5431314799464,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

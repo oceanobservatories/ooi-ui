@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Primary_Nodes.kml</name>
+	<Style id="IconStyle10">
+		<IconStyle>
+			<scale>0.75</scale>
+			<Icon>
+				<href>/kmz/Layer1_Symbol_1bc31478_0.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<color>ff000000</color>
+			<scale>0.833333</scale>
+		</LabelStyle>
+		<PolyStyle>
+			<color>ff000000</color>
+			<outline>0</outline>
+		</PolyStyle>
+	</Style>
+	<Folder id="FeatureLayer1">
+		<name>Primary_Nodes</name>
+		<Snippet maxLines="0"></Snippet>
+		<Placemark id="ID_10000">
+			<name>PN3A</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN3A</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>0</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN3A</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN3A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN3A-2014</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN3A</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN3A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.820455</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.743155</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2611</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-129.743155,45.820455,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10001">
+			<name>PN3B</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN3B</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN3B</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN3B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN3B-2012</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>AS</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN3B</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN3B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/18/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/18/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.941273</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-129.969737</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1530</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-129.969737,45.941273,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10002">
+			<name>PN1C</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN1C</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>2</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN1C</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN1C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN1C-2013</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>EO</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1C</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1C</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>10/1/2013</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>n</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.36365</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.961983</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-615</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-124.9619833333333,44.36365,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10003">
+			<name>PN1D</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN1D</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>3</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN1D-2012</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>ES</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1D</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/1/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>n</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.691385</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-124.457012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-113</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-124.4570116666667,44.691385,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10004">
+			<name>PN1B</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN1B</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>4</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN1B-2012</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>HR</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1B</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node with anti-trawl armor</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td>N/A</td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/1/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>n</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.481442</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.148328</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-1242</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-125.1483283333333,44.48144166666667,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10005">
+			<name>PN5A</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN5A</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>5</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN5A</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN5A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN5A-2012</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>MP</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN5A</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN5A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>8/11/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>d</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>8/11/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>45.755555</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-127.278438</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2850</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-127.2784383333333,45.755555,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="ID_10006">
+			<name>PN1A</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>PN1A</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>name_best</td>
+
+<td>PN1A</td>
+
+</tr>
+
+<tr>
+
+<td>name_uniqu</td>
+
+<td>PN1A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Name_year</td>
+
+<td>PN1A-2012</td>
+
+</tr>
+
+<tr>
+
+<td>SITE</td>
+
+<td>SB</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>RSN_sub_si</td>
+
+<td>PN1A</td>
+
+</tr>
+
+<tr>
+
+<td>sub_site</td>
+
+<td>PN1A</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>primary_se</td>
+
+<td>P</td>
+
+</tr>
+
+<tr>
+
+<td>type</td>
+
+<td>node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>kind</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr>
+
+<td>Infrastruc</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Descriptio</td>
+
+<td>Primary node</td>
+
+</tr>
+
+<tr>
+
+<td>GIS_type</td>
+
+<td>PN</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>DEP_time</td>
+
+<td>7/1/2012</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>DEP_Cruise</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_type</td>
+
+<td>n</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_dive</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>POS_time</td>
+
+<td>5/20/2014</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_Lat</td>
+
+<td>44.509568</td>
+
+</tr>
+
+<tr>
+
+<td>POS_long</td>
+
+<td>-125.398242</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>POS_depth_</td>
+
+<td>-2900</td>
+
+</tr>
+
+<tr>
+
+<td>POS_Headin</td>
+
+<td></td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+			<styleUrl>#IconStyle10</styleUrl>
+			<Point>
+				<coordinates>-125.3982416666667,44.50956833333333,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

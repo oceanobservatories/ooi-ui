@@ -571,3 +571,19 @@ pre {
 .daterangepicker .ranges ul {
   width: auto;
 }
+
+.leaflet-popup-content-wrapper {
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  max-height: 400px;
+  height: 400px;
+  min-width: 400px;
+  width: 400px;
+  overflow-y: scroll;
+  /*display: block;*/
+}
+
+#map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > a {
+  background-position: center;
+}
