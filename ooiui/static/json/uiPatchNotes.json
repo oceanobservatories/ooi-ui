@@ -1,5 +1,12 @@
 [
     {
+        "VersionNumber": "1.5.1",
+        "VersionDate": "2019-01-03",
+        "VersionDescription": [
+            "User: Fixes user registration failure if email opt-in checked. (13812)"
+        ]
+    },
+    {
         "VersionNumber": "1.5.0",
         "VersionDate": "2018-12-03",
         "VersionDescription": [
