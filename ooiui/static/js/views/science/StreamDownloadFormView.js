@@ -358,6 +358,11 @@ var StreamDownloadFormView = Backbone.View.extend({
     }
 
     if (this.model.attributes.variables.indexOf("filepath") > -1) {
+      console.log('this.model.attributes.variables');
+      console.log(this.model.attributes.variables);
+      console.log(this.model);
+      // TODO: This is where we would go out to the metadata and get the listing of large format files for CAMHD and others
+      //alert('there is a filepath found:  '+this.model.get('rds_link'));
       // This is a large file format!
       $("#large-format-file-view").find("tbody").remove().end();
 
@@ -370,6 +375,9 @@ var StreamDownloadFormView = Backbone.View.extend({
         // Trigger the request becasue the date is already set correctly
         ooi.trigger('GetLargeFormatFiles:fetch', {
           ref_des: this.model.attributes.reference_designator,
+          stream_method: this.model.attributes.stream_method,
+          stream_identifier: this.model.attributes.stream_identifier,
+          rds_link: this.model.attributes.rds_link,
           date: date
         });
       }else{
@@ -377,23 +385,23 @@ var StreamDownloadFormView = Backbone.View.extend({
       }
 
       // Display the explanation
-      this.$el.find('#sans-data-text').show()
+      this.$el.find('#sans-data-text').show();
       this.$el.find('#dlModalTitle').html("<h3>Metadata Stream being downloaded:</h3>")
       // Display the second download
-      this.$el.find('#download-btn2').show()
-      this.$el.find('#download2-row').show()
+      this.$el.find('#download-btn2').hide();
+      this.$el.find('#download2-row').show();
 
       $('#tabs a:first').show()
-      $('#tabs a[href="#data"]').tab('show') // Select tab by name
-      $('#tabs li:eq(1) a').html('Metadata')
+      $('#tabs a[href="#data"]').tab('show'); // Select tab by name
+      $('#tabs li:eq(1) a').html('Metadata');
 
 
     }else{
       // Hide the stuff that only applies to Large Format Downloads
-      this.$el.find('#sans-data-text').hide()
-      this.$el.find('#dlModalTitle').html("<h3>Streams being downloaded:</h3>")
-      this.$el.find('#download-btn2').hide()
-      this.$el.find('#download2-row').hide()
+      this.$el.find('#sans-data-text').hide();
+      this.$el.find('#dlModalTitle').html("<h3>Streams being downloaded:</h3>");
+      this.$el.find('#download-btn2').hide();
+      this.$el.find('#download2-row').hide();
 
       $('#tabs a:first').hide()
       $('#tabs a[href="#metadata"]').tab('show') // Select tab by name

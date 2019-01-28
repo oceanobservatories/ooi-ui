@@ -88,14 +88,21 @@
           <div class="col-md-2" id="filterScrollContainer11">
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
+{#              <button type='button' title='Toggle filters' id='toggleAllFlters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
             </div>
+
+
+
+            <div class="search-sidebar"></div>
+
+
 
             <div class="special-sidebar">
               <div class="panel">
                 <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters<i class="fa fa-chevron-down"></i>
                 </div>
                 <div class="panel-wrapper">
-                  <div id="other-filters" class="panel-body collapse in">
+                  <div id="other-filters" class="panel-body collapse">
                     <div class="other-filters pull-left">
                       <!-- Leaving out until ticket 10531 can be discussed
                       <div class="checkbox">
@@ -129,7 +136,9 @@
               </div>
             </div>
 
-            <div class="search-sidebar"></div>
+
+
+
           </div>
           <div class="col-md-10" id="plottingBodyContainer">
             <div id="plottingBody">
@@ -213,7 +222,7 @@
                         <div class="panel">
                           <div class="panel-heading plotting-heading">
                             Graph
-                                    <span style="display:none" class="download-plot-container pull-right">
+                            <span style="display:none" class="download-plot-container pull-right">
                                         <a href="#" download="image.png" type="button" title="Download" style="float:left" id="downloadImage" class="btn btn-default download-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-download" aria-hidden="true"></i></a>
                                     </span>
                           </div>
@@ -257,25 +266,29 @@
                         </div>
                       </div>
 
+                      <!--<div class="row">
+                        <div align="center" id="timeRangeFilter" style="width:20%;" class="pull-left"></div>
+                        <div align="center" id="depthRangeFilter" style="width:20%;" class="pull-right"></div>
+                      </div>-->
 
-                        <div class="row">
+                      <div class="row">
 
-                            <div id="streamPanel">
-                              <div class="color-index" align="right">
-                                <div class="twelve-hours"></div><b> 12 Hours </b>
-                                <div class="twenty-four-hours"></div><b> 24 Hours </b>
-                                <div class="older"></div><b> Older than 24 hours </b>
-                                <em>Data are sorted by end date, most recent first</em>
-                              </div>
+                        <div id="streamPanel">
+                          <div class="color-index" align="right">
+                            <div class="twelve-hours"></div><b> 12 Hours </b>
+                            <div class="twenty-four-hours"></div><b> 24 Hours </b>
+                            <div class="older"></div><b> Older than 24 hours </b>
+                            <em>Data are sorted by end date, most recent first</em>
+                          </div>
 
-                              <!-- jqGrid -->
+                          <!-- jqGrid -->
 
-                                <div id="navGrid" class="redmond"></div>
-                                <table id="grid" class="redmond"></table>
-
-                            </div>
+                          <div id="navGrid" class="redmond"></div>
+                          <table id="grid" class="redmond"></table>
 
                         </div>
+
+                      </div>
 
                     </div>
 
@@ -357,10 +370,13 @@
         subscriptionCollection :  new DataSubscriptionCollection(),
         largeFormatFiles: new LargeDataFormatCollection(),
         selectedStreamCollection: new StreamCollection(), //collection of stream models
+        allStreamCollection: new StreamCollection(),
         streams: new StreamCollection(),
         dataAvailabilityCollection: new DataAvailabilityCollection(),
         organizations: new Organizations(),
-        qcFlagsCollection: new QcFlagsCollection()
+        qcFlagsCollection: new QcFlagsCollection(),
+        instrumentListCollection: new InstrumentListCollection(),
+        streamsForCollection: new StreamsForCollection()
       },
       views: {
         plotControls: null, //holds the view, plot controls for the plot tools tab
@@ -517,84 +533,84 @@
               vars1_2.push(model.get('short_name'));
               ref_des1_2.push(model.get('original_model').get('reference_designator'));
             }
-{#            //double check the selected field and add the parameter name to the list
-            if (model.get('is_x')){
-              xParams1.push(model.get('short_name'));
-            }
-            if (model.get('is_y')){
-              yParams1.push(model.get('short_name'));
-            }
-            if (model.get('is_z')){
-              zParams1.push(model.get('short_name'));
-            }#}
+            {#            //double check the selected field and add the parameter name to the list
+                        if (model.get('is_x')){
+                          xParams1.push(model.get('short_name'));
+                        }
+                        if (model.get('is_y')){
+                          yParams1.push(model.get('short_name'));
+                        }
+                        if (model.get('is_z')){
+                          zParams1.push(model.get('short_name'));
+                        }#}
           }
           paramCounter++;
         });
 
 
-{#        //INTERPOLATED PLOT 2)
-        //get the params
-        var xParams2 = [];
-        var yParams2 = [];
-        var zParams2 = [];
-        var streamName2 = parameterCollection.models[1].get('original_model').get('stream_display_name');
-        var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
-        parameterCollection.each(function(model){
-          if (model.get('is_selected')){
-            instr1_2 = model.get('short_name');
-            if(instr1 != 'time'){
-              vars1_2.push(model.get('original_model').get('stream'));
-            }
-            //double check the selected field and add the parameter name to the list
-            if (model.get('is_x')){
-              xParams2.push(model.get('short_name'));
-            }
-            if (model.get('is_y')){
-              yParams2.push(model.get('short_name'));
-            }
-            if (model.get('is_z')){
-              zParams2.push(model.get('short_name'));
-            }
-          }
-        });#}
+        {#        //INTERPOLATED PLOT 2)
+                //get the params
+                var xParams2 = [];
+                var yParams2 = [];
+                var zParams2 = [];
+                var streamName2 = parameterCollection.models[1].get('original_model').get('stream_display_name');
+                var referenceDesignator2 = parameterCollection.models[1].get('original_model').get('reference_designator');
+                parameterCollection.each(function(model){
+                  if (model.get('is_selected')){
+                    instr1_2 = model.get('short_name');
+                    if(instr1 != 'time'){
+                      vars1_2.push(model.get('original_model').get('stream'));
+                    }
+                    //double check the selected field and add the parameter name to the list
+                    if (model.get('is_x')){
+                      xParams2.push(model.get('short_name'));
+                    }
+                    if (model.get('is_y')){
+                      yParams2.push(model.get('short_name'));
+                    }
+                    if (model.get('is_z')){
+                      zParams2.push(model.get('short_name'));
+                    }
+                  }
+                });#}
 
         //xParams1 = xParams1.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
         //yParams1 = yParams1.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
         //xParams2 = xParams2.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
         //yParams2 = yParams2.slice().sort(function(a,b){return a > b}).reduce(function(a,b){if (a.slice(-1)[0] !== b) a.push(b);return a;},[]);
 
-{#        console.log('xParams1');
-        console.log(xParams1);
-        console.log('xParams2');
-        console.log(xParams2);
-        console.log('yParams1');
-        console.log(yParams1);
-        console.log('yParams2');
-        console.log(yParams2);
-        console.log('zParams1');
-        console.log(zParams1);
-        console.log('zParams2');
-        console.log(zParams2);
+        {#        console.log('xParams1');
+                console.log(xParams1);
+                console.log('xParams2');
+                console.log(xParams2);
+                console.log('yParams1');
+                console.log(yParams1);
+                console.log('yParams2');
+                console.log(yParams2);
+                console.log('zParams1');
+                console.log(zParams1);
+                console.log('zParams2');
+                console.log(zParams2);
 
-        console.log('instr1_2');
-        console.log(instr1_2);
-        console.log('vars1_2');
-        console.log(vars1_2);
-        console.log('ref_des1_2');
-        console.log(ref_des1_2);#}
+                console.log('instr1_2');
+                console.log(instr1_2);
+                console.log('vars1_2');
+                console.log(vars1_2);
+                console.log('ref_des1_2');
+                console.log(ref_des1_2);#}
 
         //create the interpolated data series collection
         self.views.plotContainer.plotData = new InterpolatedDataSeriesCollection({},
           {instr1    : instr1_2[0],
-          instr2    : instr1_2[1],
-          ref_des1  : ref_des1_2[0],
-          ref_des2  : ref_des1_2[1],
-          startdate : selectDt.startDate.toISOString(),
-          enddate   : selectDt.endDate.toISOString(),
-          var1      : vars1_2[0],
-          var2      : vars1_2[1],
-          displayName: displayName,
-          stream_display_name: streamName1}
+            instr2    : instr1_2[1],
+            ref_des1  : ref_des1_2[0],
+            ref_des2  : ref_des1_2[1],
+            startdate : selectDt.startDate.toISOString(),
+            enddate   : selectDt.endDate.toISOString(),
+            var1      : vars1_2[0],
+            var2      : vars1_2[1],
+            displayName: displayName,
+            stream_display_name: streamName1}
         );
 
         var onDataHandler = function(collection, response, options) {
@@ -675,7 +691,7 @@
 
         this.views.plotInstruments = new PlotInstrumentView({
           el: $('#instruments-table'),
-          collection: self.collections.selectedStreamCollection
+          collection: self.collections.allStreamCollection
         });
 
         this.views.plotContainer = new PlotView({
@@ -786,13 +802,13 @@
         });
 
         this.listenTo(this, 'StreamFilterView:addToStreamFilters', function(options) {
-{#          console.log('addToStreamFilters');#}
+          {#          console.log('addToStreamFilters');#}
           setStreamFilter("reference_designator", options);
           combineFilters();
         });
 
         this.listenTo(this, 'StreamFilterView:addToStreamDeliveryFilters', function(options) {
-{#          console.log('addToStreamFilters');#}
+          {#          console.log('addToStreamFilters');#}
           setStreamFilter("stream_method", options);
           combineFilters();
         });
@@ -810,7 +826,7 @@
         });
 
         this.listenTo(this, 'InstrumentFilterView:addToInstrumentFilters', function(options) {
-{#          console.log('addToInstrumentFilters');#}
+          {#          console.log('addToInstrumentFilters');#}
           setInstrumentFilter("reference_designator", options);
           combineFilters();
         });
@@ -841,22 +857,30 @@
           //o.model = selected stream model
           //ONLY ALLOW TWO instruments selected
           // if (self.collections.selectedStreamCollection.length < 2){
-            self.showPlottingTabs();
-            // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
-            // console.log('adding model to selectedStreamCollection');
-            // console.log(o.model);
-            // console.log(o);
-            var ref_des = o.model.get('ref_des'),
-              stream_method = o.model.get('stream_method'),
-              stream = o.model.get('stream');
-            var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
-            var streamWithParameters = new StreamCollection();
-            streamWithParameters.fetch({url: newUrl, async:false});
-            // console.log(streamWithParameters.models[0]);
-            // console.log('streamWithParameters');
-            // console.log(streamWithParameters);
-            // TODO: Check that the model is > 0
-            self.collections.selectedStreamCollection.add(streamWithParameters.models[0]);
+          //self.showPlottingTabs();
+          // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
+          console.log('adding model to selectedStreamCollection');
+          // console.log(o.model);
+          console.log(o);
+          var ref_des = o.model['reference_designator'],
+            stream_method = o.model['stream_method'],
+            stream = o.model['stream'];
+          var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
+          console.log('newUrl');
+          console.log(newUrl);
+          var streamWithParameters = new StreamCollection();
+          streamWithParameters.fetch({url: newUrl, async:false});
+          // console.log(streamWithParameters.models[0]);
+          console.log('streamWithParameters');
+          console.log(streamWithParameters);
+          // TODO: Check that the model is > 0
+          self.collections.allStreamCollection.add(streamWithParameters.models[0]);
+
+          //self.trigger('update_catalog_list',{});
+          //self.views.plotInstruments.render();
+
+          // TODO: Get this commented oode into where the stream button is pressed
+          {#
             self.trigger('update_catalog_list',{});
             if (!_.isUndefined(o.evt)){
               o.evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -871,7 +895,18 @@
             // console.log(selectedStreamUrl);
             placeDataAvailability(selectedStreamObj);
             history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
+            #}
+
           //}
+        });
+
+        this.listenTo(this, "add_data_availability", function(o) {
+          console.log('add_data_availability');
+          console.log(o);
+          var selectedStreamUrl =  "#" + o.model['reference_designator'] + "/" + o.model['stream'];
+          var selectedStreamObj = {"ref_des": o.model['reference_designator'], "stream_name": o.model['stream_name'], "stream_identifier": o.model['stream']};
+          placeDataAvailability(selectedStreamObj);
+          //history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
         });
 
         //MAIN ADDITION OF A STREAM
@@ -884,11 +919,12 @@
           // console.log(self.collections.selectedStreamCollection);
 
           // people.remove(people.where({name: "joe3"}));
-          self.collections.selectedStreamCollection.remove(self.collections.selectedStreamCollection.where({unique_id: o.model.get('unique_id')}));
+          //self.collections.selectedStreamCollection.remove(self.collections.selectedStreamCollection.where({unique_id: o.model.get('unique_id')}));
+          self.collections.selectedStreamCollection.reset();
           // console.log('after remove');
           // console.log(self.collections.selectedStreamCollection);
 
-          if (self.collections.selectedStreamCollection.length == 0){
+          if (self.collections.selectedStreamCollection.length === 0){
             self.hidePlottingTabs();
           }
 
@@ -910,6 +946,26 @@
           self.collections.selectedStreamCollection.reset();
           self.trigger('update_catalog_list',{});
           //reset tabs
+          self.hidePlottingTabs();
+        });
+
+        function shouldRemove(model, reference_designator) {
+          console.log('shouldRemove');
+          console.log(model);
+          console.log(reference_designator);
+          return model.get('reference_designator') === reference_designator.reference_designator
+        }
+
+        this.listenTo(this, "reset_stream_list", function(reference_designator) {
+          // Removes all the streams from the top table
+          self.collections.selectedStreamCollection.reset();
+          self.collections.allStreamCollection.reset();
+          //self.collections.allStreamCollection.remove(self.collections.allStreamCollection.filter(function(model) {
+          //  return shouldRemove(model, reference_designator);
+          //}));
+
+          self.trigger('update_catalog_list',{});
+          self.views.plotInstruments.render();
           self.hidePlottingTabs();
         });
 
@@ -964,7 +1020,7 @@
 
           //render the controls
           self.views.plotControls.render();
-          self.views.plotInstruments.render();
+          //self.views.plotInstruments.render();
 
           if (self.collections.selectedStreamCollection.length > 0){
             //EVENTS
@@ -1239,7 +1295,9 @@
 
         this.listenTo(this, 'LargeFormatFileTable:update',function(options){
           var onErrorHandler = function(collection, response, options) {
-            self.views.largeFileFormatView.showError(response.responseText);
+            console.log(options);
+            console.log(collection);
+            self.views.largeFileFormatView.showError("Media files are not available at this time, please go to the Raw Data Server link in the instrument table to retrieve them.");
             var details = {startAt: 0,
               count: 1,
               total: 0
@@ -1268,6 +1326,8 @@
     var ooi = new OOI();
     var collection = ooi.collections.streams;
 
+    var instrumentList = ooi.collections.instrumentListCollection;
+
     var vent = _.extend({}, Backbone.Events);
     var vobj = {};
     // controller for our model collections
@@ -1287,16 +1347,17 @@
     var statusStreamFilter = {field: "stream_name", op: "nc", data: "status"};
     var invalidatedStreamFilter = {field: "stream_name", op: "bn", data: "bad"};
     var instrumentStreamFilter = {field: "stream_dataset", op: "nc", data: "-eng"};
-{#    var filterToolbarFilter = {groupOp:"AND",rules:[]};#}
+    {#    var filterToolbarFilter = {groupOp:"AND",rules:[]};#}
     var globalFilter = null;
+    var instrumentStreamsActive = false;
 
     var defaultPlotTypes = new DefaultPlotCollection();
 
     // url arguments
     var data = {};
     // begin the iterative fetching of arrays, assets, and streams.
-{#    var streamFetch = streamCollection.fetch({ reset: true });#}
-{#    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });#}
+    {#    var streamFetch = streamCollection.fetch({ reset: true });#}
+    {#    var defaultPlotFetch = defaultPlotTypes.fetch({ reset: true });#}
 
     // Sets up the action buttons in the jqGrid table
     var createActionButtons = function(cellvalue, options, rowObject){
@@ -1309,11 +1370,12 @@
 
       // Add stream to plot button
       if(_.isNull(rowObject.stream_name)) {
-        actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot' disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot inactive' disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
       }else{
-         actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Plot' style='float:left' id='goPlot' class='btn btn-default instrument-to-plot'><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i></button>";
       }
 
+      /*
       // Download Data Button
       if(!_.isNull(rowObject.stream_name) && ooi.login.loggedIn()) {
         actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
@@ -1321,12 +1383,16 @@
         actionButtons += "<button type='button' title='Download' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>";
       }
 
+      */
+
       // Asset management button
       actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
 
       // IRIS Link
-      if(rowObject.iris_enabled || rowObject.rds_enabled) {
-        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+      if(rowObject.iris_enabled) {
+        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
+      }else if(rowObject.rds_enabled){
+        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }else{
         actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }
@@ -1338,9 +1404,9 @@
 
     // Opens the download modal
     var openDownload = function(ref_des, stream_name, dtRange) {
-      var dlModel = collection.where({ref_des:ref_des,stream_name:stream_name})[0];
-{#      console.log(self.models.userModel.get("email"));#}
-{#      dlModel.attributes.email = self.models.userModel.get("email");#}
+      var dlModel = ooi.collections.allStreamCollection.where({ref_des:ref_des,stream_name:stream_name})[0];
+      {#      console.log(self.models.userModel.get("email"));#}
+      {#      dlModel.attributes.email = self.models.userModel.get("email");#}
       dlModel.attributes.hideTimeRange = false;
       if(dtRange === null){
         dlModel.attributes.startDate = null;
@@ -1392,20 +1458,31 @@
       });
     };
 
-{#    // Opens the IRIS external link download
-    var openRawDownload = function(ref_des, stream_name, rds_link, dtRange) {
-      var daWarning = new ModalDialogView();
+    {#    // Opens the IRIS external link download
+        var openRawDownload = function(ref_des, stream_name, rds_link, dtRange) {
+          var daWarning = new ModalDialogView();
 
-      var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-      theMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo.svg" alt="OOI" height="100"></p></div>';
-      theMessage += "You are about to navigate to an external OOI-operated raw data server.";
-      theMessage += "<p><a id='rds_link_message' onClick='parent.hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
-      theMessage += "</div>";
-      daWarning.show({
-        message: theMessage,
-        type: "warning"
-      });
-    };#}
+          var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+          theMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo.svg" alt="OOI" height="100"></p></div>';
+          theMessage += "You are about to navigate to an external OOI-operated raw data server.";
+          theMessage += "<p><a id='rds_link_message' onClick='parent.hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
+          theMessage += "</div>";
+          daWarning.show({
+            message: theMessage,
+            type: "warning"
+          });
+        };#}
+
+
+    var dlPagination = {
+      itemsPerPage : 8, // how many items per page
+      currentPage : 1, // page to start at, first page is 1, not 0
+      maxPages: 4, // max number of pages to show in the pagination element
+      date: '',
+      ref_des: ''
+    }
+
+
 
     var openAssetManagement = function(ref_des, stream_name) {
       //assets/list/#CE01ISSP
@@ -1575,17 +1652,17 @@
       $(window).scroll(function() {
         if ( $(window).scrollTop() > amountScrolled) {
           $('a.back-to-top').fadeIn('slow');
-{#          $('a.back-to-bottom').fadeIn('slow');#}
+          {#          $('a.back-to-bottom').fadeIn('slow');#}
         } else {
           $('a.back-to-top').fadeOut('slow');
-{#          $('a.back-to-bottom').fadeOut('slow');#}
+          {#          $('a.back-to-bottom').fadeOut('slow');#}
         }
 
         if ( $(window).scrollBottom() > amountScrolled ) {
-{#          $('a.back-to-top').fadeIn('slow');#}
+          {#          $('a.back-to-top').fadeIn('slow');#}
           $('a.back-to-bottom').fadeIn('slow');
         } else {
-{#          $('a.back-to-top').fadeOut('slow');#}
+          {#          $('a.back-to-top').fadeOut('slow');#}
           $('a.back-to-bottom').fadeOut('slow');
         }
       });
@@ -1632,12 +1709,12 @@
         fixjqGridSize()
       });
 
-{#      $(window).load(function(){
-        $('#filterScrollContainer').css({
-          "height": "calc(100vh - 165px)",
-          "overflow-y": "scroll"
-        })
-      });#}
+      {#      $(window).load(function(){
+              $('#filterScrollContainer').css({
+                "height": "calc(100vh - 165px)",
+                "overflow-y": "scroll"
+              })
+            });#}
 
       $('#EngInstrumentSwitch').on('switchChange.bootstrapSwitch', function () {
         var theStateEng = $("#EngInstrumentSwitch").bootstrapSwitch('state');
@@ -1742,7 +1819,7 @@
         }
         combineFilters();
       });
-{#      console.log('document.ready complete');#}
+      {#      console.log('document.ready complete');#}
     });
 
     var setArrayButtonState = function(){
@@ -1799,9 +1876,27 @@
       $('#manualDepthRangeMax').val(newOptions.max);
 
       setDepthRangeFilter("depth", newOptions.min, newOptions.max);
-      
+
       depthRangeFilter = {groupOp:"OR",rules:[]};
       combineFilters();
+    };
+
+    var toggleAllFilters = function(temp1) {
+      console.log(temp1);
+      var $btn = $(temp1.children);
+      console.log($btn);
+      var isExpanded = $btn.hasClass('fa-angle-double-down');
+      console.log(isExpanded);
+
+      if(isExpanded){
+        // Close filter panels
+      $('.panel-body.collapse.in').not('#range-filters').removeClass('in');
+      $btn.removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
+      }else{
+        // Expand filter panels
+      $('.panel-body.collapse').addClass('in');
+      $btn.removeClass('fa-angle-double-up').not('#range-filters').addClass('fa-angle-double-down');
+      }
     };
 
     var resetAllFilters = function() {
@@ -1816,7 +1911,7 @@
       $("#MobileAssetSwitch").bootstrapSwitch('state', false);
       $("#AllTimesSwitch").bootstrapSwitch('state', false);
       $("#AllDepthsSwitch").bootstrapSwitch('state', false);
-{#      $dcGrid[0].clearToolbar();#}
+      {#      $dcGrid[0].clearToolbar();#}
       instrumentFilter = {groupOp:"OR",rules:[]};
       arrayFilter = {groupOp:"OR",rules:[]};
       streamFilter = {groupOp:"OR",rules:[]};
@@ -1830,7 +1925,7 @@
       statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
       invalidatedStreamFilter = {field:"stream_name",op:"bn",data:"bad"};
       instrumentStreamFilter = {field:"stream_dataset",op:"nc",data:"Instrument"};
-{#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
+      {#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
       globalFilter = null;
       location.href = location.href.substring(0, location.href.indexOf('?'));
       location.hash = "";
@@ -1952,7 +2047,7 @@
       allFilters.push(nodeFilter);
       allFilters.push(timeRangeFilter);
       allFilters.push(depthRangeFilter);
-{#      allFilters.push(filterToolbarFilter);#}
+      {#      allFilters.push(filterToolbarFilter);#}
 
       var combinedFilters = {
         groupOp:"AND",
@@ -2080,97 +2175,170 @@
     // Loads the jqGrid into
     function placeJqGrid(collection, dataAvailabilityCollection) {
       $dcGrid.jqGrid({
+        // Handle selection of the instrument to plot
         onCellSelect: function(row, col, content, event){
-          var selectedRow = $dcGrid.getRowData(row);
-          var modelList = collection.where({'ref_des': selectedRow.reference_designator,'stream_name':selectedRow.stream_name});
           var $evt = $(event.target);
+          var selectedRow = $dcGrid.getRowData(row);
 
-          // Toggle for add/remove stream from plotting list
-          // Check is start and end times are exactly the same, if so send message to user and don't so it
-          if (selectedRow.start != selectedRow.end) {
-            if ($evt.find('i').hasClass('fa-plus-square')) {
-              if (!_.isUndefined(modelList) && modelList.length > 0) {
-                //trigger for a new plot item
-                // if(ooi.collections.selectedStreamCollection.length == 0) {
-                  ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
-                  $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
-                // }else{
-                  // var interpWarning = new ModalDialogView();
-                  // var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-                  // interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
-                  // interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
-                  // interpWarningMessage += "</div>";
-                  // interpWarning.show({
+          if ($evt.find('i').hasClass('fa-plus-square') && instrumentStreamsActive === false) {
+                $('#instruments-table').append('<p style="margin-top:40px;margin-left:50%;font-size:24px;">Fetching streams...<br></p><i id="stream-spinner" class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:50%;font-size:50px;"></i>');
+
+
+
+
+          // TODO: Use the selectedRow.reference_designator to find the streams_for data
+          var streamsFor = new StreamsForCollection();
+          streamsFor.url='/api/uframe/streams_for/'+selectedRow.reference_designator;
+
+          streamsFor.fetch({
+            success: function(collection, response, options) {
+              var modelList = collection.toJSON();
+              console.log(modelList);
+
+
+
+              // TODO: instrumentStreamsActive means that only one instrument's streams can be active for plotting at a time
+
+                //if ($evt.find('i').hasClass('fa-plus-square')) {
+                if (!_.isUndefined(modelList) && modelList.length > 0) {
+                  console.log('modelList');
+                  console.log(modelList);
+                  var lastStream = null;
+                  $.each(modelList, function (key, stream) {
+                    console.log('stream');
+                    console.log(stream);
+                    stream['reference_designator'] = selectedRow.reference_designator;
+                    ooi.trigger('add_catalog_model', {model: stream, evt: $evt});
+                    lastStream = stream;
+                  });
+
+                  if(ooi.collections.allStreamCollection.length > 0){
+                    //ooi.trigger('update_catalog_list',{});
+                    ooi.views.plotInstruments.render();
+                    //ooi.showPlottingTabs();
+
+
+
+                    // Toggle the ADD/REMOVE instrument to streams to plot view
+                    $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+                    $('.instrument-to-plot').not('.inactive').not($evt).prop('disabled', 'true');
+                    $('#navGrid').prop('hidden', 'true');
+                    /*
+                    selectedRow.actions = selectedRow.actions.replace('fa-plus-square','fa-minus-square');
+                    console.log('selectedRow');
+                    console.log(selectedRow);
+                    console.log(row);
+                    $dcGrid.setCell(row, col, selectedRow.actions).trigger("reloadGrid");
+                    //$dcGrid.trigger("reloadGrid"); //,[{page:1,current:true}]
+                    console.log($dcGrid.getRowData(row));
+                    */
+
+
+
+
+                    ooi.trigger('add_data_availability', {model: lastStream, evt: $evt});
+                  }else{
+                    var m = new ModalDialogView();
+                    m.show({
+                      message: "No streams found for selected instrument",
+                      type: "danger"
+                    });
+                  }
+
+                  instrumentStreamsActive = true;
+
+                  $('#stream-spinner').remove();
+
+
+
+
+                }
+
+
+
+
+              {#
+
+
+              // Toggle for add/remove stream from plotting list
+              // Check is start and end times are exactly the same, if so send message to user and don't so it
+              if (selectedRow.start != selectedRow.end) {
+                if ($evt.find('i').hasClass('fa-plus-square')) {
+                  if (!_.isUndefined(modelList) && modelList.length > 0) {
+                    //trigger for a new plot item
+                    // if(ooi.collections.selectedStreamCollection.length == 0) {
+                    ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+                    $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+                    // }else{
+                    // var interpWarning = new ModalDialogView();
+                    // var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                    // interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
+                    // interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
+                    // interpWarningMessage += "</div>";
+                    // interpWarning.show({
                     // message: interpWarningMessage,
                     // type: "warning"
-                  // });
-                // }
+                    // });
+                    // }
+                  }
+                } else {
+                  if ($evt.find('i').hasClass('fa-minus-square')) {
+                    if (!_.isUndefined(modelList) && modelList.length > 0) {
+                      //trigger a remove for a model
+                      ooi.trigger('remove_catalog_model', {model: modelList[0]});
+                      $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+                    }
+                  }
+                }
+              }else{
+                var daWarning = new ModalDialogView();
+                var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                theMessage += "<p>Sorry, currently unable to plot this stream.  Start and end times are exactly the same.</p>";
+                theMessage += "<p>Start Time: " + selectedRow.start + "</p>";
+                theMessage += "<p>End Time: " + selectedRow.end + "</p>";
+                theMessage += "</div>";
+                daWarning.show({
+                  message: theMessage,
+                  type: "warning"
+                });
               }
-            } else {
-              if ($evt.find('i').hasClass('fa-minus-square')) {
-                if (!_.isUndefined(modelList) && modelList.length > 0) {
-                  //trigger a remove for a model
-                  ooi.trigger('remove_catalog_model', {model: modelList[0]});
-                  $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+
+
+
+              #}
+
+
+
+            },
+            error:function(collection, response, options) {
+              var m = new ModalDialogView();
+              m.show({
+                message: "Error Getting Streams_For Data",
+                type: "danger"
+              });
+            }
+          });
+          }else{
+                if ($evt.find('i').hasClass('fa-minus-square')) {
+                  ooi.trigger('reset_stream_list', {reference_designator: selectedRow.reference_designator});
+
+
+                  // Toggle the ADD/REMOVE instrument to streams to plot view
+                  $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square');
+                  $('.instrument-to-plot').not('.inactive').removeAttr("disabled");
+                  $('#navGrid').removeAttr('hidden');
+                  /*
+                  selectedRow.actions = selectedRow.actions.replace('fa-minus-square','fa-plus-square');
+                  $dcGrid.jqGrid('setRowData', row, selectedRow);
+                  */
+
+
+                  $('#div_'+selectedRow.reference_designator).remove();
+
+                  instrumentStreamsActive = false;
                 }
               }
-            }
-          }else{
-            var daWarning = new ModalDialogView();
-            var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-            theMessage += "<p>Sorry, currently unable to plot this stream.  Start and end times are exactly the same.</p>";
-            theMessage += "<p>Start Time: " + selectedRow.start + "</p>";
-            theMessage += "<p>End Time: " + selectedRow.end + "</p>";
-            theMessage += "</div>";
-            daWarning.show({
-              message: theMessage,
-              type: "warning"
-            });
-          }
 
-{#          // Show Data Availability Pop-up
-          $("#dataAvailability").empty();
-          $("#dataAvailabilityInfo").empty();
-          // Use this for the dataAvailabilityCollection
-          $("#dataAvailabilityInfo").append("[Mocked] Currently viewing data availability for: " + selectedRow.reference_designator);
-          //console.log('dataAvailabilityCollection');
-          //console.log(dataAvailabilityCollection);
-          stats_data = dataAvailabilityCollection.models[0].attributes['stats_data'];
-          moment.locale("en");
-          var dataset=[];
-          if (stats_data['operational_status'].length>0) {
-            dataset.push({
-              "measure": "Op. Status",
-              "interval_s": 30 * 24 * 60 * 60,
-              "data": stats_data['operational_status']
-            })
-          }
-          if (stats_data['cassandra_ts'].length>0) {
-            dataset.push({
-              "measure": "Cass. Tel/Stream",
-              "interval_s": 30 * 24 * 60 * 60,
-              "data": stats_data['cassandra_ts']
-            })
-          }
-          if (stats_data['cassandra_rec'].length>0) {
-            dataset.push({
-              "measure": "Cass. Recovered",
-              "interval_s": 30 * 24 * 60 * 60,
-              "data": stats_data['cassandra_rec']
-            })
-          }
-
-          var chart = visavailChart().width(800); // define width of chart in px
-
-          d3.select("#dataAvailability")
-            .datum(dataset)
-            .call(chart);#}
-
-          // Fix scrollable height of filters after DA is added
-          {#$('#filterScrollContainer').css({
-            "height": "calc(100vh - 165px)",
-            "overflow-y": "scroll"
-          })#}
         },
         datatype : "local",
         data : collection.toJSON(),
@@ -2203,7 +2371,7 @@
         colModel : [
           { name : 'actions',
             caption : 'Plot/Download',
-            width : 140,
+            width : 120,
             sortable : false,
             search : false,
             align : 'center',
@@ -2307,7 +2475,7 @@
             name : 'stream_dataset',
             index : 'stream_dataset',
             editable : false,
-            hidden: false,
+            hidden: true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2321,7 +2489,7 @@
             name : 'stream_method',
             index : 'stream_method',
             editable : false,
-            hidden: false,
+            hidden: true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2342,7 +2510,7 @@
             name : 'stream_display_name',
             index : 'stream_display_name',
             editable : false,
-            hidden: false,
+            hidden: true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2408,7 +2576,7 @@
           {
             name: 'reference_designator',
             index: 'reference_designator',
-            key: false, // rowID = reference_designator
+            key: true, // rowID = reference_designator
             editable: false,
             width: 195,
             sortable: true,
@@ -2444,7 +2612,7 @@
             index : 'stream_identifier',
             {#            key : true,#}
             editable : false,
-            hidden : false,
+            hidden : true,
             {#                width : 85,#}
             sortable : true,
             sorttype : 'string',
@@ -2463,7 +2631,7 @@
           {
             name : 'unique_id',
             index : 'unique_id',
-            key : true, // rowID = unique_id = ref_des+stream_name
+            key : false, // rowID = unique_id = ref_des+stream_name
             hidden : true,
             editable : false,
             {#                width : 165,#}
@@ -2541,11 +2709,11 @@
         },
         loadComplete : function(data) {
           highlightFilteredData.call($dcGrid);
-{#          console.log('loadComplete');#}
+          {#          console.log('loadComplete');#}
           $("#navGrid").find("option[value=\"50000\"]").text('All');
 
 
-{#          console.log(initialLocationSearch);#}
+          {#          console.log(initialLocationSearch);#}
           if (initialLocationSearch != "") {
             navSearchParse(initialLocationSearch);
           }
@@ -2555,17 +2723,17 @@
           $('#filterScrollContainer').height(jQuery('#plottingBodyContainer').height());
         },
         gridComplete : function() {
-{#          console.log('gridComplete');#}
-{#          console.log(initialLocationSearch);#}
-{#          initialLocationSearch = "";#}
+          {#          console.log('gridComplete');#}
+          {#          console.log(initialLocationSearch);#}
+          {#          initialLocationSearch = "";#}
           $('#gbox_grid').css({
             "padding":"5px",
             "background-color":"#e9e9e9"
           })
         },
         beforeRequest : function() {
-{#          console.log('beforeRequest');#}
-{#          console.log(initialLocationSearch);#}
+          {#          console.log('beforeRequest');#}
+          {#          console.log(initialLocationSearch);#}
 
         },
         gridview : true,
@@ -2589,7 +2757,7 @@
         multiboxonly: false,
         reloadAfterSubmit : false,
         loadOnce : false,
-{#        loadui: 'block',#}
+        {#        loadui: 'block',#}
         hidegrid : false
       }).jqGrid('navGrid',
         '#navGrid',
@@ -2612,11 +2780,11 @@
         {},
         {},
         {
-{#          cloneToTop : true,#}
+          {#          cloneToTop : true,#}
           closeOnEscape : true,
           multipleSearch : true,
           multipleGroup : true,
-{#          overlay: 0,#}
+          {#          overlay: 0,#}
           width : 700,
           recreateForm:true,
           jqModal:true,
@@ -2638,15 +2806,15 @@
         title: "Column Changer",
         onClickButton: function () {
           $(this).jqGrid('columnChooser',{
-            						width: 700,
-            						dialog_opts: {
-            							modal: true,
-            							minWidth: 470,
-{#            							height: 470,#}
-            							show: 'blind',
-            							hide: 'explode',
-            							dividerLocation: 0.5
-            						}
+            width: 700,
+            dialog_opts: {
+              modal: true,
+              minWidth: 470,
+              {#            							height: 470,#}
+              show: 'blind',
+              hide: 'explode',
+              dividerLocation: 0.5
+            }
           });
           $("#colchooser_" + $.jgrid.jqID(this.id) + " ul.selected")
             .bind("sortreceive", function (event, ui) {
@@ -2677,35 +2845,35 @@
       {#          }#}
       {#        });#}
 
-{#      $dcGrid.jqGrid('filterToolbar',
-        {
-          autosearch : true,
-          searchOperators : false,
-          searchOnEnter : false,
-          stringResult:true,
-          #}{#          defaultSearch:"cn"#}{#
-          afterClear : function() {
-            combineFilters();
-          },
-          afterSearch : function() {
-            filterToolbarFilter = JSON.parse($dcGrid.getGridParam("postData").filters);
-            combineFilters()
-          }
-        }
-      );#}
+      {#      $dcGrid.jqGrid('filterToolbar',
+              {
+                autosearch : true,
+                searchOperators : false,
+                searchOnEnter : false,
+                stringResult:true,
+                #}{#          defaultSearch:"cn"#}{#
+                afterClear : function() {
+                  combineFilters();
+                },
+                afterSearch : function() {
+                  filterToolbarFilter = JSON.parse($dcGrid.getGridParam("postData").filters);
+                  combineFilters()
+                }
+              }
+            );#}
 
       if(location.hash!=""){
         //console.log('setArrayFilter');
         //console.log(location.hash.split('#')[1].substr(2));
-{#        setArrayFilter('reference_designator', location.hash.split('#')[1].substr(2));#}
-{#        combineFilters();#}
+        {#        setArrayFilter('reference_designator', location.hash.split('#')[1].substr(2));#}
+        {#        combineFilters();#}
       }
 
       var performGlobalSearch = function(searchText) {
         var postData = $grid.jqGrid("getGridParam", "postData"),
           colModel = $grid.jqGrid("getGridParam", "colModel"),
           rules = [],
-{#          searchText = $("#globalSearchText").val(),#}
+          {#          searchText = $("#globalSearchText").val(),#}
           l = colModel.length,
           searchTextParts = $.trim(searchText).match(/"([^"]+)"|'([^']+)'|\S+/g), //.split(separator),
           cnParts = searchTextParts === null ? 0 : searchTextParts.length,
@@ -2719,7 +2887,7 @@
           token = searchTextParts[iPart];
           if (token.length > 2 &&
             ((token[0] === '"' && token[token.length - 1] === '"') ||
-            (token[0] === "'" && token[token.length - 1] === "'"))) {
+              (token[0] === "'" && token[token.length - 1] === "'"))) {
             searchTextParts[iPart] = token.substr(1,token.length-2);
           }
         }
@@ -2756,7 +2924,7 @@
         text: false
       }).click(function () {
         initialLocationSearch = "";
-          performGlobalSearch($("#globalSearchText").val());
+        performGlobalSearch($("#globalSearchText").val());
       });
 
     } // placeJqGrid
@@ -2793,7 +2961,7 @@
         chart.marginLeft(300);
         chart.paddingLeft(-300);
 
-        var divId = "div_" + ref_des + stream_name;
+        var divId = "div_" + ref_des;
         // console.log(divId);
         $('#example').append('<div id="' + divId + '"></div>');
         d3.select("#"+divId)
@@ -2806,7 +2974,7 @@
           .text('Data Availability Plot ('+ ref_des + ')');
       }
 
-{#      $(window).resize(function () { return draw_visavail(); });#}
+      {#      $(window).resize(function () { return draw_visavail(); });#}
 
       ooi.collections.dataAvailabilityCollection.fetch(
         {
@@ -2821,25 +2989,31 @@
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
+      console.log(jqCollection);
 
       // ooi.collections.dataAvailabilityCollection.fetch();
       //console.log(ooi.collections.dataAvailabilityCollection);
       placeJqGrid(jqCollection, ooi.collections.dataAvailabilityCollection);
       $('#reset_catalog_button').css('display','inline-block'); //TODO REMOVE LINE
 
-      if (collection.length == 1){
-        ooi.trigger('add_catalog_model',{model: collection.models[0]});
-      }
+      //if (collection.length == 1){
+      //  ooi.trigger('add_catalog_model',{model: collection.models[0]});
+      //}
       combineFilters();
     }
 
 
     function updateCollection( successCallback ){
       // console.log('updateCollection');
-      collection.fetch({
+      {#collection.fetch({
         data : data,
         success : successCallback
         //    error : showError
+      });#}
+
+      instrumentList.fetch({
+        data : data,
+        success : successCallback
       });
     }
 
@@ -2860,7 +3034,7 @@
         token = searchTextParts[iPart];
         if (token.length > 2 &&
           ((token[0] === '"' && token[token.length - 1] === '"') ||
-          (token[0] === "'" && token[token.length - 1] === "'"))) {
+            (token[0] === "'" && token[token.length - 1] === "'"))) {
           searchTextParts[iPart] = token.substr(1,token.length-2);
         }
       }
@@ -2891,6 +3065,78 @@
       location.href = "#"+h;                 //Go to the target element.
       history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
     }
+
+
+
+    function updateDownloadCollection( options ){
+
+      // If there is a search term, we need to set the startAt attribute to 0,
+      // otherwise the results may not load on the page.
+      var startingPoint = "";
+      try {
+        var target = $( event.target );
+        if (target.is('label') || target.is('span') || target.is('ul') || target.is('b')
+          || target.is('th') || target.is('font') || target.is('input')) {
+          startingPoint = 0;
+        } else {
+          startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+        }
+      } catch(e) {
+        console.log(e)
+        startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
+      }
+      // Pagination attributes will be passed in using
+      // backbone's collection data method.
+
+      var data = {
+        startAt : startingPoint,
+        count : dlPagination.itemsPerPage,
+        ref_des: options.ref_des,
+        date: options.date
+      };
+      dlPagination.ref_des = options.ref_des;
+      dlPagination.date = options.date;
+
+      ooi.trigger('LargeFormatFileTable:update', data);
+    }
+
+    function updateDownloadPagination( details ){
+      // This is pagination for the Large File format download list
+      // Calculate pagination attributes
+      var start = details.startAt + 1,
+        end = details.startAt + details.count,
+        totalPages = Math.ceil( details.total / dlPagination.itemsPerPage ),
+        currentPage = details.startAt / details.count + 1;
+
+      // Display a "Page 1 of 5" type message on the page
+      if (end >= details.total) {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + details.total + " of " + details.total );
+      } else {
+        $("#dl-pagination-info").text("Showing records " + start + " through " + end + " of " + details.total );
+      }
+      // Remove the pagination binding so they don't get called
+      // multiple times after they're redrawn.
+      $("#dl-pagination-boxes").unbind();
+      // Redraw the jquery pagination boxes
+      $("#dl-pagination-boxes").pagination({
+        total_pages: totalPages,
+        display_max: dlPagination.maxPages,
+        current_page: currentPage,
+        callback: function(event, page) {
+          if ( page ){
+            dlPagination.currentPage = page;
+            updateDownloadCollection( {ref_des: dlPagination.ref_des, date: dlPagination.date} );
+          }
+        }
+      });
+    }
+
+
+
+
+
+
+
 
   </script>
   <script src="/js/compiled/data_catalog_sidebar.js" type="text/javascript"></script>

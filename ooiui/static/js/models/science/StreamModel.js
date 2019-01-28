@@ -12,6 +12,32 @@
  * Usage
  */
 
+var InstrumentListModel = Backbone.Model.extend({
+  urlRoot: '/api/uframe/instrument_list?refresh=false',
+  defaults: {
+  }
+});
+
+var InstrumentListCollection = Backbone.Collection.extend({
+  url: '/api/uframe/instrument_list?refresh=false',
+  model: InstrumentListModel,
+  parse: function(response) {
+    if(response) {
+      return response.instruments;
+    }
+    return [];
+  }
+});
+
+var StreamsForCollection = Backbone.Collection.extend({
+  parse: function(response) {
+    if(response) {
+      return response.streams;
+    }
+    return [];
+  }
+});
+
 var StreamModel = Backbone.Model.extend({
   //urlRoot: '/api/uframe/get_toc',
   defaults: {

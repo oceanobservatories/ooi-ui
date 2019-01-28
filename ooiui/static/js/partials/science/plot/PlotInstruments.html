@@ -1,13 +1,18 @@
 <div class='plot-tab-view plot-instrument-view'>
+  <% if(collection.models.length > 0){ %>
+  <%   var assetInfo = collection.models[0].get('assetInfo'); %>
+  <%= assetInfo.array %> - <%= assetInfo.platform %> - <%= assetInfo.assembly %> - <%= assetInfo.name %> (<%= collection.models[0].get('reference_designator') %>)
+  <% } %>
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th></th>
-        <th>Ref Des</th>
-        <th>Long Display Name</th>
-        <th hidden>Stream Name</th>
-        <th>Stream Identifier</th>
-        <th>Start / End</th>
+        <th style="width:90px;">Actions</th>
+        <th>Stream</th>
+        <th>Stream Type</th>
+        <th>Stream Content</th>
+        <th>Delivery Method</th>
+        <th>Start</th>
+        <th>End</th>
       </tr>
     </thead>
     <tbody class='table-contents'>
