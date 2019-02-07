@@ -1,7 +1,7 @@
 var StreamFilterView = FilterParentView.extend({
     onAfterRender: function() {
         this.renderStreamParameterFilter();
-        this.renderStreamDeliveryFilter();
+        // this.renderStreamDeliveryFilter();
     },
     renderStreamParameterFilter: function() {
         var streamParameterFilterView = new StreamParameterFilterView({el: '#streamParameterFilter', collection: this.collection});

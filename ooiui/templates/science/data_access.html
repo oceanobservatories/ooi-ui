@@ -88,16 +88,20 @@
           <div class="col-md-2" id="filterScrollContainer11">
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
-{#              <button type='button' title='Toggle filters' id='toggleAllFlters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
+              {#              <button type='button' title='Toggle filters' id='toggleAllFlters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
+            </div>
+            <div class="checkbox">
+              <label hidden><input id="MobileAssetSwitch" style=" padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
+            </div>
+            <div class="checkbox">
+              <label hidden><input id="EngInstrumentSwitch" style="padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False"> Eng Instruments</label>
             </div>
 
 
 
             <div class="search-sidebar"></div>
 
-
-
-            <div class="special-sidebar">
+            <div class="special-sidebar" hidden>
               <div class="panel">
                 <div class="panel-heading js-collapse" data-target="#other-filters">Special Filters<i class="fa fa-chevron-down"></i>
                 </div>
@@ -112,22 +116,22 @@
                       <div class="checkbox">
                         <label style="padding-left: 0;"><input id="EngInstrumentSwitch" style="padding-left: 0; padding-right: 2px;" title="Engineering Instrument Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False"> Eng Instruments</label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox" hidden>
                         <label style="padding-left: 0;"><input id="MetadataStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Metadata Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Metadata Streams</label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox" hidden>
                         <label style="padding-left: 0;"><input id="StatusStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Status Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Status Streams</label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox" hidden>
                         <label style="padding-left: 0;"><input id="InvalidatedStreamSwitch" style="padding-left: 0; padding-right: 2px;" title="Invalidated Streams Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Hidden" data-on-text="Shown" checked="False" class="BSswitch"> Invalidated Streams</label>
                       </div>
                       <div class="checkbox">
                         <label style="padding-left: 0;"><input id="MobileAssetSwitch" style="padding-left: 0; padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox" hidden>
                         <label style="padding-left: 0;"><input id="AllTimesSwitch" style="padding-left: 0; padding-right: 2px;" title="All Times Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True" class="BSswitch"> Time Range</label>
                       </div>
-                      <div class="checkbox">
+                      <div class="checkbox" hidden>
                         <label style="padding-left: 0;"><input id="AllDepthsSwitch" style="padding-left: 0; padding-right: 2px;" title="All Depths Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="True"> Depth Range</label>
                       </div>
                     </div>
@@ -1885,17 +1889,21 @@
       console.log(temp1);
       var $btn = $(temp1.children);
       console.log($btn);
-      var isExpanded = $btn.hasClass('fa-angle-double-down');
+      var isExpanded = $btn.hasClass('fa-chevron-down');
       console.log(isExpanded);
 
       if(isExpanded){
         // Close filter panels
-      $('.panel-body.collapse.in').not('#range-filters').removeClass('in');
-      $btn.removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
+        $('.panel-body.collapse.in').not('#range-filters').removeClass('in');
+        $btn.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        $('.fa.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        $btn[0].innerText = 'Expand Filters';
       }else{
         // Expand filter panels
-      $('.panel-body.collapse').addClass('in');
-      $btn.removeClass('fa-angle-double-up').not('#range-filters').addClass('fa-angle-double-down');
+        $('.panel-body.collapse').addClass('in');
+        $btn.removeClass('fa-chevron-up').not('#range-filters').addClass('fa-chevron-down');
+        $('.fa.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        $btn[0].innerText = 'Collapse Filters';
       }
     };
 
@@ -2181,23 +2189,23 @@
           var selectedRow = $dcGrid.getRowData(row);
 
           if ($evt.find('i').hasClass('fa-plus-square') && instrumentStreamsActive === false) {
-                $('#instruments-table').append('<p style="margin-top:40px;margin-left:50%;font-size:24px;">Fetching streams...<br></p><i id="stream-spinner" class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:50%;font-size:50px;"></i>');
+            $('#instruments-table').append('<p style="margin-top:40px;margin-left:50%;font-size:24px;">Fetching streams...<br></p><i id="stream-spinner" class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:50%;font-size:50px;"></i>');
 
 
 
 
-          // TODO: Use the selectedRow.reference_designator to find the streams_for data
-          var streamsFor = new StreamsForCollection();
-          streamsFor.url='/api/uframe/streams_for/'+selectedRow.reference_designator;
+            // TODO: Use the selectedRow.reference_designator to find the streams_for data
+            var streamsFor = new StreamsForCollection();
+            streamsFor.url='/api/uframe/streams_for/'+selectedRow.reference_designator;
 
-          streamsFor.fetch({
-            success: function(collection, response, options) {
-              var modelList = collection.toJSON();
-              console.log(modelList);
+            streamsFor.fetch({
+              success: function(collection, response, options) {
+                var modelList = collection.toJSON();
+                console.log(modelList);
 
 
 
-              // TODO: instrumentStreamsActive means that only one instrument's streams can be active for plotting at a time
+                // TODO: instrumentStreamsActive means that only one instrument's streams can be active for plotting at a time
 
                 //if ($evt.find('i').hasClass('fa-plus-square')) {
                 if (!_.isUndefined(modelList) && modelList.length > 0) {
@@ -2221,10 +2229,19 @@
 
                     // Toggle the ADD/REMOVE instrument to streams to plot view
                     $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+
+                    //selectedRow.actions = selectedRow.actions.replace('fa-plus-square','fa-minus-square');
+                    //$dcGrid.jqGrid('setRowData', row, selectedRow);
+
+
                     $('.instrument-to-plot').not('.inactive').not($evt).prop('disabled', 'true');
                     $('#navGrid').prop('hidden', 'true');
+                    $('#t_grid').prop('hidden', 'true');
+                    $('#filterScrollContainer11 *').prop('disabled', true);
+
+
+
                     /*
-                    selectedRow.actions = selectedRow.actions.replace('fa-plus-square','fa-minus-square');
                     console.log('selectedRow');
                     console.log(selectedRow);
                     console.log(row);
@@ -2232,6 +2249,7 @@
                     //$dcGrid.trigger("reloadGrid"); //,[{page:1,current:true}]
                     console.log($dcGrid.getRowData(row));
                     */
+
 
 
 
@@ -2257,87 +2275,89 @@
 
 
 
-              {#
+                {#
 
 
-              // Toggle for add/remove stream from plotting list
-              // Check is start and end times are exactly the same, if so send message to user and don't so it
-              if (selectedRow.start != selectedRow.end) {
-                if ($evt.find('i').hasClass('fa-plus-square')) {
-                  if (!_.isUndefined(modelList) && modelList.length > 0) {
-                    //trigger for a new plot item
-                    // if(ooi.collections.selectedStreamCollection.length == 0) {
-                    ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
-                    $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
-                    // }else{
-                    // var interpWarning = new ModalDialogView();
-                    // var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-                    // interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
-                    // interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
-                    // interpWarningMessage += "</div>";
-                    // interpWarning.show({
-                    // message: interpWarningMessage,
-                    // type: "warning"
-                    // });
-                    // }
-                  }
-                } else {
-                  if ($evt.find('i').hasClass('fa-minus-square')) {
+                // Toggle for add/remove stream from plotting list
+                // Check is start and end times are exactly the same, if so send message to user and don't so it
+                if (selectedRow.start != selectedRow.end) {
+                  if ($evt.find('i').hasClass('fa-plus-square')) {
                     if (!_.isUndefined(modelList) && modelList.length > 0) {
-                      //trigger a remove for a model
-                      ooi.trigger('remove_catalog_model', {model: modelList[0]});
-                      $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+                      //trigger for a new plot item
+                      // if(ooi.collections.selectedStreamCollection.length == 0) {
+                      ooi.trigger('add_catalog_model', {model: modelList[0], evt: $evt});
+                      $evt.find('i').removeClass('fa-plus-square').addClass('fa-minus-square')
+                      // }else{
+                      // var interpWarning = new ModalDialogView();
+                      // var interpWarningMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                      // interpWarningMessage += "<p>Sorry, currently unable to add second stream.</p>";
+                      // interpWarningMessage += "<p>Interpolated plotting is offline.</p>";
+                      // interpWarningMessage += "</div>";
+                      // interpWarning.show({
+                      // message: interpWarningMessage,
+                      // type: "warning"
+                      // });
+                      // }
+                    }
+                  } else {
+                    if ($evt.find('i').hasClass('fa-minus-square')) {
+                      if (!_.isUndefined(modelList) && modelList.length > 0) {
+                        //trigger a remove for a model
+                        ooi.trigger('remove_catalog_model', {model: modelList[0]});
+                        $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square')
+                      }
                     }
                   }
+                }else{
+                  var daWarning = new ModalDialogView();
+                  var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+                  theMessage += "<p>Sorry, currently unable to plot this stream.  Start and end times are exactly the same.</p>";
+                  theMessage += "<p>Start Time: " + selectedRow.start + "</p>";
+                  theMessage += "<p>End Time: " + selectedRow.end + "</p>";
+                  theMessage += "</div>";
+                  daWarning.show({
+                    message: theMessage,
+                    type: "warning"
+                  });
                 }
-              }else{
-                var daWarning = new ModalDialogView();
-                var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-                theMessage += "<p>Sorry, currently unable to plot this stream.  Start and end times are exactly the same.</p>";
-                theMessage += "<p>Start Time: " + selectedRow.start + "</p>";
-                theMessage += "<p>End Time: " + selectedRow.end + "</p>";
-                theMessage += "</div>";
-                daWarning.show({
-                  message: theMessage,
-                  type: "warning"
+
+
+
+                #}
+
+
+
+              },
+              error:function(collection, response, options) {
+                var m = new ModalDialogView();
+                m.show({
+                  message: "Error Getting Streams_For Data",
+                  type: "danger"
                 });
               }
-
-
-
-              #}
-
-
-
-            },
-            error:function(collection, response, options) {
-              var m = new ModalDialogView();
-              m.show({
-                message: "Error Getting Streams_For Data",
-                type: "danger"
-              });
-            }
-          });
+            });
           }else{
-                if ($evt.find('i').hasClass('fa-minus-square')) {
-                  ooi.trigger('reset_stream_list', {reference_designator: selectedRow.reference_designator});
+            if ($evt.find('i').hasClass('fa-minus-square')) {
+              ooi.trigger('reset_stream_list', {reference_designator: selectedRow.reference_designator});
 
 
-                  // Toggle the ADD/REMOVE instrument to streams to plot view
-                  $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square');
-                  $('.instrument-to-plot').not('.inactive').removeAttr("disabled");
-                  $('#navGrid').removeAttr('hidden');
-                  /*
-                  selectedRow.actions = selectedRow.actions.replace('fa-minus-square','fa-plus-square');
-                  $dcGrid.jqGrid('setRowData', row, selectedRow);
-                  */
+              // Toggle the ADD/REMOVE instrument to streams to plot view
+              $evt.find('i').removeClass('fa-minus-square').addClass('fa-plus-square');
+              $('.instrument-to-plot').not('.inactive').removeAttr("disabled");
+              $('#navGrid').removeAttr('hidden');
+              $('#t_grid').removeAttr('hidden');
+              $('#filterScrollContainer11 *').prop('disabled', false);
+
+              //selectedRow.actions = selectedRow.actions.replace('fa-minus-square','fa-plus-square');
+              //$dcGrid.jqGrid('setRowData', row, selectedRow);
 
 
-                  $('#div_'+selectedRow.reference_designator).remove();
 
-                  instrumentStreamsActive = false;
-                }
-              }
+              $('#div_'+selectedRow.reference_designator).remove();
+
+              instrumentStreamsActive = false;
+            }
+          }
 
         },
         datatype : "local",
