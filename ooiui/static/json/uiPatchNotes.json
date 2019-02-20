@@ -1,4 +1,16 @@
 [
+  {
+        "VersionNumber": "1.6.0",
+        "VersionDate": "2019-03-XX",
+        "VersionDescription": [
+            "Data Catalog: Changed from stream to instrument-centric table view. (12529)",
+            "Data Catalog: Cleanup of side filter options and behavior. (12532)",
+            "Data Catalog: CAMHD and HYDBB instruments and raw data links restored. (13358)",
+            "Data Download: Added preview of time/size estimate to download dialog. (13376)",
+            "General: Added click-to-zoom action to all content images. (10502)",
+            "General: Header update and cleanup."
+        ]
+    },
     {
         "VersionNumber": "1.5.1",
         "VersionDate": "2019-01-03",

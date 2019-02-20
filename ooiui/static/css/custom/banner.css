@@ -35,15 +35,18 @@ div#wrapper-asset {
 }
 
 .terms-link{
-  z-index: 100;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  font-size: 10px;
-  padding-top: 2px;
-  padding-bottom: 3px;
-  padding-right: 5px;
-  padding-left: 5px;
+  /*z-index: 100;*/
+  /*position: absolute;*/
+  /*top: 0px;*/
+  /*right: 0px;*/
+  /*font-size: 10px;*/
+  /*padding-top: 2px;*/
+  /*padding-bottom: 3px;*/
+  /*padding-right: 5px;*/
+  /*padding-left: 5px;*/
+  background-color: white;
+  color: #05A9E1;
+  cursor: pointer;
 }
 
 .terms-link.news-active{
@@ -82,24 +85,27 @@ div#wrapper-asset {
 }
 }
 #fadein-left > li.banner-title {
-	/* float: left; */
-  /* padding-left: 25%; */
-  /* padding-top: 5px; */
-	/* display: inline; */
-	/* position: relative; */
+	 float: left;
+   padding-left: 25%;
+   padding-top: 5px;
+  width: 75%;
+  height: 75px;
+	 display: inline;
+	 position: relative;
 	text-align: center;
 
   color: #000;
-  opacity: 0.3;
-  font-size: 30px;
+  opacity: 0.7;
+  /*font-size: 30px;*/
+  font-size: xx-large;
   font-family: Athelas;
-	font-weight: normal;
- 	text-transform: uppercase;
+  font-weight: normal;
+  text-transform: uppercase;
   list-style: none;
- 	animation: fadein 7s;
-	-moz-animation: fadein 7s; /* Firefox */
-	-webkit-animation: fadein 7s; /* Safari and Chrome */
-	-o-animation: fadein 7s; /* Opera */
+  /*animation: fadein 7s;*/
+  /*-moz-animation: fadein 7s; !* Firefox *!*/
+  /*-webkit-animation: fadein 7s; !* Safari and Chrome *!*/
+  /*-o-animation: fadein 7s; !* Opera *!*/
 }
 @keyframes fadein {
     from {

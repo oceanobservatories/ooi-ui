@@ -34,7 +34,8 @@
   }
 
   .banner-image-icon{
-    width:145px;
+    /*width:145px;*/
+    height: 50px;
   }
 
   .banner-image-ol{
@@ -42,7 +43,7 @@
   }
 
   .banner-image-nsf{
-    height:75px;
+    height:50px;
   }
 }
 
@@ -76,7 +77,8 @@
   }
 
   .banner-image-icon{
-    width:100px;
+    /*width:100px;*/
+    height: 50px;
   }
 
   .banner-image-ol{
@@ -120,7 +122,8 @@
   }
 
   .banner-image-icon{
-    width:100px;
+    /*width:100px;*/
+    height: 50px
   }
 
   .banner-image-ol{
@@ -134,12 +137,15 @@
 
 
 
-.container-fluid.banner-image .image-header{
-  width: 100%;
-  top: 8px;
+.container-fluid .image-header{
+  /*width: 100%;*/
+  /*top: 8px;*/
   /* margin-top: 25px; */
-  height: 50px;
-  position: absolute;
+  height: 75px;
+  padding-top: 8px;
+  padding-right: 0;
+  padding-left: 10px;
+  /*position: absolute;*/
 }
 
 .container-fluid.banner-image.news-active .image-header{
@@ -154,7 +160,8 @@ banner header for active/inactive
 }
 
 .banner-header{
-  margin-top:10px;
+  /*padding-top:10px;*/
+  z-index: 1002;
 }
 
 

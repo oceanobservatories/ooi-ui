@@ -2,7 +2,7 @@ var InstrumentFilterView = FilterParentView.extend({
     events: {
         'change [type="checkbox"]': '_instrumentChecked'
     },
-    _instrumentChecked: function() {
+    _instrumentChecked: function(event) {
         // When an array checkbox is selected perform actions on the
         // filters and re fetch the collection in order for subscribers
         // of the collection to be notified.

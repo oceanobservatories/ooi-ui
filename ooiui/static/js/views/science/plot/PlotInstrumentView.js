@@ -9,7 +9,10 @@
 
 var PlotInstrumentView = Backbone.View.extend({
   subviews: [],
+  stream_method_list: [],
   events: {
+    "click #stream_method_filter" : "renderFiltered",
+    "click .dropdown-dc dt a" : "toggleFilter"
   },
   initialize: function() {
     this.initialRender();
@@ -22,6 +25,8 @@ var PlotInstrumentView = Backbone.View.extend({
   render:function(){
     //base render class
     var self = this;
+    self.stream_method_list = [];
+
     this.$el.html(this.template({collection:this.collection}));
     //this.collection = selected stream collection
 
@@ -36,11 +41,88 @@ var PlotInstrumentView = Backbone.View.extend({
           model: model,
           collection: collection
         });
-        self.$el.find('tbody.table-contents').append(subview.$el);
-        self.subviews.push(subview);
+        if(model.get('stream_method').lastIndexOf('bad', 0) !== 0){
+          self.$el.find('tbody.table-contents').append(subview.$el);
+          self.subviews.push(subview);
+        }
+
+        self.stream_method_list.push(model.get('stream_method'));
       });
+      self.stream_method_list = _.uniq(self.stream_method_list).sort();
+      console.log('self.stream_method_list');
+      console.log(self.stream_method_list);
+      $.each(self.stream_method_list, function(key, data){
+        if(data.lastIndexOf('bad', 0) === 0){
+          $('#stream_method_filter').append('<li><input type="checkbox" value="' + data + '" />' + data + '</li>')
+        }else{
+          $('#stream_method_filter').append('<li><input type="checkbox" value="' + data + '" checked />' + data + '</li>')
+        }
+
+      });
+
     }
 
+  },
+  renderFiltered:function(event){
+    console.log('click a filter checkbox');
+    console.log(event);
+    if(event.checked === true) {
+      event.checked = false;
+    }else{
+      event.checked = true;
+    }
+
+    var filter_list = [];
+    $.each($('#stream_method_filter li input'), function(key, data){
+      console.log(data);
+      if(data.checked === true){
+        filter_list.push(data.value)
+      }
+    });
+
+    console.log('filter_list');
+    console.log(filter_list);
+
+    // Remove the existing rows
+    $('.table-contents').find('tr').remove();
+
+    var self = this;
+    var filtered_collection = this.collection.byStreamMethod(filter_list);
+    console.log('filtered_collection');
+    console.log(filtered_collection);
+
+    //this.$el.html(this.template({collection:filtered_collection}));
+    //this.collection = selected stream collection
+
+    // console.log('In PlotInstrumentsView.js render method');
+    // console.log(this.collection);
+
+    if (filtered_collection === 0){
+      // self.emptyRender();
+    }else{
+      filtered_collection.each(function(model) {
+        var subview = new PlotInstrumentViewItem({
+          model: model,
+          collection: filtered_collection
+        });
+
+        self.$el.find('tbody.table-contents').append(subview.$el);
+        self.subviews.push(subview);
+
+        // console.log('model.get(\'stream_method\')');
+        // console.log(model.get('stream_method'));
+        // if(filter_list.includes(model.get('stream_method'))){
+        //   self.$el.find('tbody.table-contents').append(subview.$el);
+        //   self.subviews.push(subview);
+        // }
+      });
+      // $(".dropdown-dc dt a").on('click', function() {
+      //   $(".dropdown-dc dd ul").slideToggle('fast');
+      // });
+    }
+  },
+  toggleFilter:function(event){
+    $(".dropdown-dc dd ul").slideToggle('fast');
   },
   emptyRender:function(){
     $('#instruments-table').find('table').remove();
@@ -67,6 +149,23 @@ var PlotInstrumentViewItem = Backbone.View.extend({
   render:function(){
     var self = this;
     this.$el.html(this.template({model:this.model}));
+
+
+
+    // $(".dropdown dd ul li a").on('click', function() {
+    //   $(".dropdown dd ul").hide();
+    // });
+
+    // function getSelectedValue(id) {
+    //   return $("#" + id).find("dt a span.value").html();
+    // }
+
+    // $(document).bind('click', function(e) {
+    //   var $clicked = $(e.target);
+    //   if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
+    // });
+
+
   },
   onRemoveClick:function(evt){
     //console.log('evt');

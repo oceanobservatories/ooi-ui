@@ -157,6 +157,12 @@ var StreamCollection = Backbone.Collection.extend({
         });
         return new StreamCollection(filtered);
     },
+    byStreamMethod: function(stream_methods) {
+        var filtered = this.filter(function (model) {
+            return stream_methods.includes(model.get('stream_method'));
+        });
+        return new StreamCollection(filtered);
+    },
     byEng: function(bool) {
         if (!bool) {
             var filtered = this.filter(function (model) {
