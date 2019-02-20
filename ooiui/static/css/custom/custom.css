@@ -710,3 +710,9 @@ pre {
 .filter-drop-down-div {
   max-width: 30px;
 }
+
+#estimates {
+  background-color: #eeeeee;
+  border: black;
+  border-radius: 10px;
+}

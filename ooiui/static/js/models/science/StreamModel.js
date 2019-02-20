@@ -81,6 +81,8 @@ var StreamModel = Backbone.Model.extend({
       var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'csv') {
       var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
+    } else if(type == 'estimate') {
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters')+"&estimate_only=true";
     }
     return url;
   },

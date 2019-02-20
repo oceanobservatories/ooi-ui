@@ -26,7 +26,12 @@ var StreamDownloadFormView = Backbone.View.extend({
     'click #subscription-selection-select': 'onSubscribeSelect',
     'click .subscribe-info': 'clickSubscribeInfo',
     'change #data-date' : 'onChangeDataDate',
-    'click #select-all-parameters' : 'onSelectAllParameters'
+    'click #select-all-parameters' : 'onSelectAllParameters',
+    'mouseout #start-date' : 'onDownloadEstimate',
+    'mouseout #end-date' : 'onDownloadEstimate',
+    'change #start-date' : 'onDownloadEstimate',
+    'change #end-date' : 'onDownloadEstimate',
+    'mousein #download-btn' : 'onDownloadEstimate'
   },
   initialize: function() {
     _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');
@@ -209,6 +214,143 @@ var StreamDownloadFormView = Backbone.View.extend({
               alert("Popup Blocker is enabled! Please add this site to your exception list.");
           }
       }, 300);
+  },
+  getTimeString: function(time) {
+    // time = number of seconds
+
+    // If time is null, don't worry about it
+    if (_.isNull(time)){
+      return '';
+    }
+
+    var baseString = "<p>Your data should be done processing in about ";
+    var units;
+
+    if (time > 4200){  // Anything over 70 minutes will have a min 2 hour wait time
+      time = Math.ceil(time/3600.0).toString();
+      units = ' hours';
+    } else if (time > 2700){  // Between 45 and 70 minutes is 1 hour
+      time = '1';
+      units = ' hour';
+    } else if (time > 60){  // Show minutes
+      time = Math.ceil(time/60.0).toString();
+      units = ' minutes';
+    } else {  // Show seconds
+      time = time.toString();
+      units = ' seconds';
+    }
+    return baseString + time + units + '.</p>';
+  },
+  bytesToSize: function(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return 'n/a';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    if (i === 0) return bytes + ' ' + sizes[i];
+    return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+  },
+  getSizeString: function(size) {
+    // time = number of seconds
+
+    // If time is null, don't worry about it
+    if (_.isNull(size)){
+      return '';
+    }
+
+    var baseString = "<p>Estimated file download size: ";
+    var sizes = this.bytesToSize(size);
+
+
+    return baseString + sizes + '.</p>';
+  },
+  onDownloadEstimate: function() {
+    /*
+     * Make a copy of the stream model and then set the start and end dates to
+     * the form fields, then grab the URL and send the user to it.
+     */
+    var self = this;
+    // this.$el.find('#dl-tab-content').prepend('<div id="wspinner"><p style="text-align: center; font-size: 14px;"> Waiting for request verification...</p><i class="fa fa-spinner fa-spin" style="margin-top:5px;margin-left:50%;font-size:50px;"> </i></div>');
+    // $('#metadata').fadeTo(0,0.6);
+    // $('#metadata').append('<div id="temp-fade" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"></div>');
+    // $("#wspinner").show();
+    // var selection = this.$type_select.val();
+    var localModel = this.model.clone();
+    var startDate = moment.utc(this.$start_date.data('date')).toJSON();
+    var endDate = moment.utc(this.$end_date.data('date')).toJSON();
+    localModel.set('start', startDate);
+    localModel.set('end', endDate);
+
+    var email = this.$el.find('#dlEmail').val();
+    var user_name = this.model.get('user_name');
+    localModel.set('email', email);
+    /* 10/08/2015 @ 9:37am
+     * M@Campbell
+     *
+     * Recipient was trying to create a directory of the user name,
+     * which sometimes could be the user's email address.
+     *
+     * Lets remove the special characters; replace the @ with a - and
+     * completely remove the .
+     */
+    if (user_name.indexOf('.') > -1) { user_name = user_name.replace('.', '-'); }
+    if (user_name.indexOf('@') > -1) { user_name = user_name.replace('@', '-'); }
+
+    if (user_name.indexOf('.') > -1) {
+        var splitUserName = user_name.split('.');
+        user_name = splitUserName[0];
+    }
+    localModel.set('user_name', user_name);
+
+    // Check for provenance and set the model
+    if(this.$el.find('#provenance-select').is(':checked')){
+      localModel.set('provenance', 'true');
+    }else{
+      localModel.set('provenance', 'false');
+    }
+    // Check for annotations and set the model
+    if(this.$el.find('#annotation-select').is(':checked')){
+      localModel.set('annotations', 'true');
+    }else{
+      localModel.set('annotations', 'false');
+    }
+
+    // Set the selected parameters
+    // console.log($('#param-multi-select').val());
+    var parameters = '';
+    if($('#param-multi-select').val()){
+      localModel.set('parameters', $('#param-multi-select').val());
+      parameters = $('#param-multi-select').val()
+    }else{
+      localModel.set('parameters', '')
+    }
+
+
+    // Create the typical download AJAX request
+    var url = localModel.getURL('estimate');
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      user_email: email,
+      user_name: user_name,
+      parameters: parameters,
+      success: function(resp){
+        // $("#wspinner").hide();
+        // $("#temp-fade").remove();
+        // $('#metadata').fadeTo(0,1);
+        // self.hide();
+        var timeCalculation = _.has(resp, "timeCalculation") ? resp.timeCalculation : null;
+        var sizeCalculation = _.has(resp, "sizeCalculation") ? resp.sizeCalculation : null;
+        var timeString = self.getTimeString(timeCalculation);
+        var sizeString = self.getSizeString(sizeCalculation);
+        // ooi.trigger('DownloadModal:onSuccess', this.user_email, timeCalculation, sizeCalculation);
+        self.$estimate_only_time.html(timeString);
+        self.$estimate_only_size.html(sizeString);
+      },
+      error: function(msg){
+        self.$estimate_only_time.html("Download estimation failed.");
+        // ooi.trigger('DownloadModalFail:onFail', msg);
+      }
+    });
   },
   onDownload: function() {
     /*
@@ -444,6 +586,8 @@ var StreamDownloadFormView = Backbone.View.extend({
       this.timeRangeChange();
     }
 
+    this.onDownloadEstimate();
+
     return this;
   },
   hide: function() {
@@ -472,6 +616,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     this.$start_date_picker = this.$start_date.data('DateTimePicker');
     this.$end_date_picker = this.$end_date.data('DateTimePicker');
     this.$data_date_picker = this.$data_date.data('DateTimePicker');
+    this.$estimate_only_time = this.$el.find('#estimate-only-time');
+    this.$estimate_only_size = this.$el.find('#estimate-only-size');
 
 
   }
