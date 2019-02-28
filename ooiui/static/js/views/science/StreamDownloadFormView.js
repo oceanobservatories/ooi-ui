@@ -31,7 +31,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     'mouseout #end-date' : 'onDownloadEstimate',
     'change #start-date' : 'onDownloadEstimate',
     'change #end-date' : 'onDownloadEstimate',
-    'mousein #download-btn' : 'onDownloadEstimate'
+    'mouseover #download-btn' : 'onDownloadEstimate'
   },
   initialize: function() {
     _.bindAll(this, 'onDownload', 'onTypeChange', 'onCheckboxSelect', 'timeRangeChange', 'resetTimeRange','onSubscribeSelect', 'clickSubscribeInfo');

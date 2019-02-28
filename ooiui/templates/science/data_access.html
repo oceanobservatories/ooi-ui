@@ -56,6 +56,8 @@
   <link href="/css/custom/custom.css" rel="stylesheet" type="text/css"/>
   <link href="/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 
+  <script src="/js/models/common/uiPatchNotes.js" type="text/javascript"></script>
+
   <script type="text/javascript">
     $.jgrid.no_legacy_api = true;
     $.jgrid.useJSON = true;
@@ -88,7 +90,7 @@
           <div class="col-md-2" id="filterScrollContainer11">
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
-              {#              <button type='button' title='Toggle filters' id='toggleAllFlters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
+              {#              <button type='button' title='Toggle filters' id='toggleAllFilters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
             </div>
             <div class="checkbox">
               <label hidden><input id="MobileAssetSwitch" style=" padding-right: 2px;" title="Mobile Asset Switch" type="checkbox" data-handle-width="80" data-label-width="0" data-off-text="Not Filtered" data-on-text="Filtered" checked="False" class="BSswitch"> Mobile Assets</label>
@@ -255,12 +257,16 @@
                             <div class="scrollable-area">
                               <div id="instruments-scroll-body" class="panel-body">
                                 <div class="plot-tab-panel" id="instruments-table">
+                                  <p class="initial-text">
+                                    <button type='button' title='Show latest release changes.' id='showReleaseChanges' class='btn btn-default' onclick='showTour(true);' hidden><b>Loading...</b></button>
+                                  </p>
+
                                   <p class="initial-text"> How to plot data:</p>
                                   <p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style='font-size:14px;pointer-events: none;' class='fa fa-plus-square' aria-hidden='true'></i> button.</p>
                                   <p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>
                                 </div> <!-- panel-table -->
                                 <div class="plot-tab-panel" id="data-availability-dc">
-                                  <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+                                  <div style="margin: 0 auto; width: 100%;padding: 0" id="visavail_container">
                                     <p id="example"><!-- Visavail.js chart will be placed here --></p>
                                   </div>
                                 </div>
@@ -651,7 +657,7 @@
         if (ciLogonToken) {
           var date = new Date();
           date.setTime(date.getTime() + ciLogonTimeout*1000);
-          $.cookie('ooiusertoken', ciLogonToken, {expires: date});
+          Cookies.set('ooiusertoken', ciLogonToken, {expires: date});
           ooi.trigger('login:success');
         }
         this.login.fetch({async:false});
@@ -951,6 +957,10 @@
           self.trigger('update_catalog_list',{});
           //reset tabs
           self.hidePlottingTabs();
+        });
+
+        this.listenTo(this, "show_tour", function(o) {
+          showTour(o.forceIt);
         });
 
         function shouldRemove(model, reference_designator) {
@@ -1552,6 +1562,48 @@
       }
     };
 
+    var showTour = function(forceIt){
+      // Handle the site tour if the version has changed or if the user's first time to page.
+      if(forceIt){
+        Cookies.remove('ooisitetourhelp', {path: '/data_access'});
+      }
+
+      var uipatchnotes = new uiPatchNoteList();
+
+      uipatchnotes.fetch({
+        success: function(model) {
+          var siteTourTitle = model.models[0].get('SiteTourTitle');
+          var currentVersion = model.models[0].get('VersionNumber');
+          var siteTour = model.models[0].get('SiteTour')['data_access'];
+
+          var ooiSiteTour = introJs();
+          ooiSiteTour.setOptions({
+            steps: siteTour,
+            overlayOpacity: .7,
+            scrollToElement: false,
+            keyboardNavigation: true,
+            hidePrev: true,
+            hideNext: true,
+            tooltipPosition: 'right',
+            disableInteraction: true,
+            exitOnEsc: true
+          });
+
+          // Change the button to the JSON SiteTourTitle
+          $('#showReleaseChanges').html('<b>'+siteTourTitle+'</b>');
+          $('#showReleaseChanges').show();
+
+          // TODO: Show user the site tour if the version changes or they haven't been to the page before
+          console.log(Cookies.get('ooisitetourhelp'));
+          if(Cookies.get('ooisitetourhelp') !== currentVersion || Cookies.get('ooisitetourhelp') === undefined){
+            ooiSiteTour.start();
+            Cookies.remove('ooisitetourhelp', {path: '/data_access'});
+            Cookies.set('ooisitetourhelp', currentVersion, {expires: 365, path: '/data_access'});
+          }
+        }
+      });
+    };
+
     $(document).ready(function() {
       //input
       if(location.hash != ""){
@@ -1559,6 +1611,9 @@
       }else{
         _.extend(vobj, {hash: ""});
       }
+
+      $('#showReleaseChanges').hide();
+      showTour(false);
 
       //console.log('location.hash document.ready');
       //console.log(location.hash);
@@ -1928,11 +1983,11 @@
       timeRangeFilter = {groupOp:"OR",rules:[]};
       depthRangeFilter = {groupOp:"OR",rules:[]};
       mobileAssetFilter = {field: "platform_name", op: "cn", data: ""};
-      engInstrumentFilter = {field:"stream_name",op:"nc",data:"-eng"};
-      metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
-      statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
-      invalidatedStreamFilter = {field:"stream_name",op:"bn",data:"bad"};
-      instrumentStreamFilter = {field:"stream_dataset",op:"nc",data:"Instrument"};
+      //engInstrumentFilter = {field:"stream_name",op:"nc",data:"-eng"};
+      //metadataStreamFilter = {field:"stream_name",op:"nc",data:"metadata"};
+      //statusStreamFilter = {field:"stream_name",op:"nc",data:"status"};
+      //invalidatedStreamFilter = {field:"stream_name",op:"bn",data:"bad"};
+      //instrumentStreamFilter = {field:"stream_dataset",op:"nc",data:"Instrument"};
       {#      filterToolbarFilter = {groupOp:"AND",rules:[]};#}
       globalFilter = null;
       location.href = location.href.substring(0, location.href.indexOf('?'));
@@ -2064,14 +2119,14 @@
       };
 
       // Toggle Filters
-      var aaa = {groupOp:"AND", rules:[]};
-      aaa.rules.push(mobileAssetFilter);
-      aaa.rules.push(engInstrumentFilter);
-      aaa.rules.push(metadataStreamFilter);
-      aaa.rules.push(statusStreamFilter);
-      aaa.rules.push(invalidatedStreamFilter);
-      aaa.rules.push(instrumentStreamFilter);
-      combinedFilters.groups.push(aaa);
+      //var aaa = {groupOp:"AND", rules:[]};
+      //aaa.rules.push(mobileAssetFilter);
+      //aaa.rules.push(engInstrumentFilter);
+      //aaa.rules.push(metadataStreamFilter);
+      //aaa.rules.push(statusStreamFilter);
+      //aaa.rules.push(invalidatedStreamFilter);
+      //aaa.rules.push(instrumentStreamFilter);
+      //combinedFilters.groups.push(aaa);
 
       {#      // Toggle Filters#}
       {#      var bbb = {groupOp:"OR", rules:[]};#}
@@ -2372,16 +2427,16 @@
           'Instrument',
           'Start Time',
           'End Time',
-          'Stream Type',
-          'Delivery Method',
-          'Stream Content',
+          //'Stream Type',
+          //'Delivery Method',
+          //'Stream Content',
           'Deployment Depth',
           'Water Depth',
           'Latitude',
           'Longitude',
           'Reference Designator',
-          'Stream Name',
-          'Stream Identifier',
+          //'Stream Name',
+          //'Stream Identifier',
           'Unique ID',
           'IRIS Link',
           'IRIS Enabled',
@@ -2492,7 +2547,7 @@
             }
             {#            cellattr: function(rowId, val, rawObject, cm, rdata) { colorTime(rowId, val, rawObject, cm, rdata); }#}
           },
-          {
+          /*{
             name : 'stream_dataset',
             index : 'stream_dataset',
             editable : false,
@@ -2540,7 +2595,7 @@
             unformat : function (cellvalue, options, cell) {
               return $('input', cell).val() || cellvalue;
             }
-          },
+          },*/
           {
             name : 'depth',
             index : 'depth',
@@ -2608,7 +2663,7 @@
               return $('input', cell).val() || cellvalue;
             }
           },
-          {
+          /*{
             name : 'stream_name',
             index : 'stream_name',
             {#            key : true,#}
@@ -2648,7 +2703,7 @@
               return $('input', cell).val() || cellvalue;
             }#}
             //unformat : streamNameUnFormatter
-          },
+          },*/
           {
             name : 'unique_id',
             index : 'unique_id',
@@ -3151,6 +3206,7 @@
         }
       });
     }
+
 
 
 

@@ -13,7 +13,7 @@ var NewEventModel = Backbone.Model.extend({
       success: function(model, response, options) {
         var date = new Date();
         date.setTime(date.getTime() + (model.get('expiration') * 1000));
-        $.cookie('ooiusertoken', model.get('token'), {expires: date});
+        Cookies.set('ooiusertoken', model.get('token'), {expires: date});
       },
       error: function(model, response, options) {
         console.error("ERROR");
@@ -39,7 +39,7 @@ var NewEventModel = Backbone.Model.extend({
     this.set(this.defaults);
   },
   fetch: function() {
-    var tokenString = $.cookie('ooiusertoken');
+    var tokenString = Cookies.get('ooiusertoken');
     if(typeof tokenString !== "undefined") {
       this.set("token", tokenString);
       console.log("Set token");

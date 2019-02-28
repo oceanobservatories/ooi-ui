@@ -59,7 +59,7 @@ OOI.RelationalModel = Backbone.Model.extend({
  * Logged in returns true if we have identified that the user is logged in.
  */
 OOI.LoggedIn = (function() {
-    if($.cookie('ooiusertoken')) {
+    if(Cookies.get('ooiusertoken')) {
         return true;
     }
   return false;

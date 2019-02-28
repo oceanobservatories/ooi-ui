@@ -225,7 +225,7 @@ var SignUpForm = Backbone.View.extend({
               date.setTime(date.getTime() + 12500*1000);
               //console.log('ooiusertoken');
               //console.log(ooi.login.get('token'));
-              $.cookie('ooiusertoken', ooi.login.get('token'), {expires: date, path: '/'});
+              Cookies.set('ooiusertoken', ooi.login.get('token'), {expires: date, path: '/'});
             }
             self.modalDialog.show({
               message: "<p>Account created, activated and you have been logged in.</p>" +
