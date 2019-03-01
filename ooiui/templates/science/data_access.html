@@ -87,7 +87,7 @@
     <div id="page-content-wrapper">
       <div class="content-fluid">
         <div class="row">
-          <div class="col-md-2" id="filterScrollContainer11">
+          <div class="col-md-2" id="filterScrollContainer11" data-hint='Filters are disabled while an instrument is selected.'>
             <div class="color-index" align="middle" style="padding:5px;">
               <button type='button' title='Reset Table Filters' id='resetAllFilters' class='btn btn-default' onclick='resetAllFilters();'><i style='pointer-events: none; text-align: center;'>Clear all filters and reset table.</i></button>
               {#              <button type='button' title='Toggle filters' id='toggleAllFilters' class='btn btn-default' onclick='toggleAllFilters(this);'><i class='fa fa-angle-double-down' style='pointer-events: none; text-align: center;'></i></button>#}
@@ -2242,6 +2242,7 @@
         onCellSelect: function(row, col, content, event){
           var $evt = $(event.target);
           var selectedRow = $dcGrid.getRowData(row);
+          var hints = introJs();
 
           if ($evt.find('i').hasClass('fa-plus-square') && instrumentStreamsActive === false) {
             $('#instruments-table').append('<p style="margin-top:40px;margin-left:50%;font-size:24px;">Fetching streams...<br></p><i id="stream-spinner" class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:50%;font-size:50px;"></i>');
@@ -2293,7 +2294,8 @@
                     $('.instrument-to-plot').not('.inactive').not($evt).prop('disabled', 'true');
                     $('#navGrid').prop('hidden', 'true');
                     $('#t_grid').prop('hidden', 'true');
-                    $('#filterScrollContainer11 *').prop('disabled', true);
+                    hints.addHints();
+                    $('#filterScrollContainer11').css({"pointer-events" : "none" , "opacity" :  "0.4"}).attr("tabindex" , "-1");
 
 
 
@@ -2402,7 +2404,8 @@
               $('.instrument-to-plot').not('.inactive').removeAttr("disabled");
               $('#navGrid').removeAttr('hidden');
               $('#t_grid').removeAttr('hidden');
-              $('#filterScrollContainer11 *').prop('disabled', false);
+              hints.removeHints();
+              $('#filterScrollContainer11').css({"pointer-events" : "" , "opacity" :  "1"}).attr("tabindex" , "");
 
               //selectedRow.actions = selectedRow.actions.replace('fa-minus-square','fa-plus-square');
               //$dcGrid.jqGrid('setRowData', row, selectedRow);

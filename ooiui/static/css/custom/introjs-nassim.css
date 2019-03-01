@@ -139,6 +139,19 @@
   /* border-bottom: 1px solid #FFFFFF; */
 }
 
+.introjs-tooltiptext p{
+  margin-left: -10px;
+
+  margin-right: -10px;
+  /* border-top: 1px solid #FFFFFF; */
+  /* background: #FAFAFA; */
+  color: #ffffff;
+  padding: 25px 30px 15px;
+  font-size: 14px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+  /* border-bottom: 1px solid #FFFFFF; */
+}
+
 .introjs-tooltipbuttons {
   text-align: center;
   /* background: rgba(0, 0, 0, 0.06); */
