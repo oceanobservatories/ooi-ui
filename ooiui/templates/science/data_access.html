@@ -266,7 +266,7 @@
                                   <p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>
                                 </div> <!-- panel-table -->
                                 <div class="plot-tab-panel" id="data-availability-dc">
-                                  <div style="margin: 0 auto; width: 100%;padding: 0" id="visavail_container">
+                                  <div style="margin: 0 auto; width: 100%;padding: 0;display: inline-block;" id="visavail_container">
                                     <p id="example"><!-- Visavail.js chart will be placed here --></p>
                                   </div>
                                 </div>
@@ -869,20 +869,20 @@
           // if (self.collections.selectedStreamCollection.length < 2){
           //self.showPlottingTabs();
           // This is where the selectedStreamCollection needs to go out and fetch the parameter info for the plotting model
-          console.log('adding model to selectedStreamCollection');
+          //console.log('adding model to selectedStreamCollection');
           // console.log(o.model);
-          console.log(o);
+          //console.log(o);
           var ref_des = o.model['reference_designator'],
             stream_method = o.model['stream_method'],
             stream = o.model['stream'];
           var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
-          console.log('newUrl');
-          console.log(newUrl);
+          //console.log('newUrl');
+          //console.log(newUrl);
           var streamWithParameters = new StreamCollection();
           streamWithParameters.fetch({url: newUrl, async:false});
           // console.log(streamWithParameters.models[0]);
-          console.log('streamWithParameters');
-          console.log(streamWithParameters);
+          //console.log('streamWithParameters');
+          //console.log(streamWithParameters);
           // TODO: Check that the model is > 0
           self.collections.allStreamCollection.add(streamWithParameters.models[0]);
 
@@ -911,8 +911,8 @@
         });
 
         this.listenTo(this, "add_data_availability", function(o) {
-          console.log('add_data_availability');
-          console.log(o);
+          //console.log('add_data_availability');
+          //console.log(o);
           var selectedStreamUrl =  "#" + o.model['reference_designator'] + "/" + o.model['stream'];
           var selectedStreamObj = {"ref_des": o.model['reference_designator'], "stream_name": o.model['stream_name'], "stream_identifier": o.model['stream']};
           placeDataAvailability(selectedStreamObj);
@@ -964,9 +964,9 @@
         });
 
         function shouldRemove(model, reference_designator) {
-          console.log('shouldRemove');
-          console.log(model);
-          console.log(reference_designator);
+          //console.log('shouldRemove');
+          //console.log(model);
+          //console.log(reference_designator);
           return model.get('reference_designator') === reference_designator.reference_designator
         }
 
@@ -1309,8 +1309,8 @@
 
         this.listenTo(this, 'LargeFormatFileTable:update',function(options){
           var onErrorHandler = function(collection, response, options) {
-            console.log(options);
-            console.log(collection);
+            //console.log(options);
+            //console.log(collection);
             self.views.largeFileFormatView.showError("Media files are not available at this time, please go to the Raw Data Server link in the instrument table to retrieve them.");
             var details = {startAt: 0,
               count: 1,
@@ -1594,7 +1594,7 @@
           $('#showReleaseChanges').show();
 
           // TODO: Show user the site tour if the version changes or they haven't been to the page before
-          console.log(Cookies.get('ooisitetourhelp'));
+          //console.log(Cookies.get('ooisitetourhelp'));
           if(Cookies.get('ooisitetourhelp') !== currentVersion || Cookies.get('ooisitetourhelp') === undefined){
             ooiSiteTour.start();
             Cookies.remove('ooisitetourhelp', {path: '/data_access'});
@@ -1941,11 +1941,11 @@
     };
 
     var toggleAllFilters = function(temp1) {
-      console.log(temp1);
+      //console.log(temp1);
       var $btn = $(temp1.children);
-      console.log($btn);
+      //console.log($btn);
       var isExpanded = $btn.hasClass('fa-chevron-down');
-      console.log(isExpanded);
+      //console.log(isExpanded);
 
       if(isExpanded){
         // Close filter panels
@@ -2257,7 +2257,7 @@
             streamsFor.fetch({
               success: function(collection, response, options) {
                 var modelList = collection.toJSON();
-                console.log(modelList);
+                //console.log(modelList);
 
 
 
@@ -2265,12 +2265,12 @@
 
                 //if ($evt.find('i').hasClass('fa-plus-square')) {
                 if (!_.isUndefined(modelList) && modelList.length > 0) {
-                  console.log('modelList');
-                  console.log(modelList);
+                  //console.log('modelList');
+                  //console.log(modelList);
                   var lastStream = null;
                   $.each(modelList, function (key, stream) {
-                    console.log('stream');
-                    console.log(stream);
+                    //console.log('stream');
+                    //console.log(stream);
                     stream['reference_designator'] = selectedRow.reference_designator;
                     ooi.trigger('add_catalog_model', {model: stream, evt: $evt});
                     lastStream = stream;
@@ -3068,7 +3068,7 @@
       //jqGrid
       var jqCollection = collection;
       jqCollection['actions'] = '';
-      console.log(jqCollection);
+      //console.log(jqCollection);
 
       // ooi.collections.dataAvailabilityCollection.fetch();
       //console.log(ooi.collections.dataAvailabilityCollection);
@@ -3161,7 +3161,7 @@
           startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
         }
       } catch(e) {
-        console.log(e)
+        //console.log(e)
         startingPoint = ( dlPagination.currentPage - 1) *  dlPagination.itemsPerPage;
       }
       // Pagination attributes will be passed in using

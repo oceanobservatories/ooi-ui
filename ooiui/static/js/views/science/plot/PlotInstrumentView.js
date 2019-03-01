@@ -49,8 +49,8 @@ var PlotInstrumentView = Backbone.View.extend({
         self.stream_method_list.push(model.get('stream_method'));
       });
       self.stream_method_list = _.uniq(self.stream_method_list).sort();
-      console.log('self.stream_method_list');
-      console.log(self.stream_method_list);
+      //console.log('self.stream_method_list');
+      //console.log(self.stream_method_list);
       $.each(self.stream_method_list, function(key, data){
         if(data.lastIndexOf('bad', 0) === 0){
           $('#stream_method_filter').append('<li><input type="checkbox" value="' + data + '" />' + data + '</li>')
@@ -64,8 +64,8 @@ var PlotInstrumentView = Backbone.View.extend({
 
   },
   renderFiltered:function(event){
-    console.log('click a filter checkbox');
-    console.log(event);
+    //console.log('click a filter checkbox');
+    //console.log(event);
     if(event.checked === true) {
       event.checked = false;
     }else{
@@ -74,22 +74,22 @@ var PlotInstrumentView = Backbone.View.extend({
 
     var filter_list = [];
     $.each($('#stream_method_filter li input'), function(key, data){
-      console.log(data);
+      //console.log(data);
       if(data.checked === true){
         filter_list.push(data.value)
       }
     });
 
-    console.log('filter_list');
-    console.log(filter_list);
+    //console.log('filter_list');
+    //console.log(filter_list);
 
     // Remove the existing rows
     $('.table-contents').find('tr').remove();
 
     var self = this;
     var filtered_collection = this.collection.byStreamMethod(filter_list);
-    console.log('filtered_collection');
-    console.log(filtered_collection);
+    //console.log('filtered_collection');
+    //console.log(filtered_collection);
 
     //this.$el.html(this.template({collection:filtered_collection}));
     //this.collection = selected stream collection
@@ -187,7 +187,7 @@ var PlotInstrumentViewItem = Backbone.View.extend({
       //console.log(modelList);
       if (!_.isUndefined(modelList) && modelList.length > 0) {
         $.when(ooi.collections.selectedStreamCollection.add(modelList)).done(function (ret) {
-          console.log(ret);
+          //console.log(ret);
           // $(evt.target).find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
 
           ooi.trigger('update_catalog_list', {});
