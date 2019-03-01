@@ -258,7 +258,7 @@
                               <div id="instruments-scroll-body" class="panel-body">
                                 <div class="plot-tab-panel" id="instruments-table">
                                   <p class="initial-text">
-                                    <button type='button' title='Show latest release changes.' id='showReleaseChanges' class='btn btn-default' onclick='showTour(true);' hidden><b>Loading...</b></button>
+                                    <button type='button' title='Show latest release changes.' id='showReleaseChanges' class='btn btn-default' onclick='showTour(true);' hidden>Loading...</button>
                                   </p>
 
                                   <p class="initial-text"> How to plot data:</p>
@@ -1590,7 +1590,7 @@
           });
 
           // Change the button to the JSON SiteTourTitle
-          $('#showReleaseChanges').html('<b>'+siteTourTitle+'</b>');
+          $('#showReleaseChanges').html(siteTourTitle);
           $('#showReleaseChanges').show();
 
           // TODO: Show user the site tour if the version changes or they haven't been to the page before

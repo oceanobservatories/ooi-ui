@@ -127,7 +127,7 @@ var PlotInstrumentView = Backbone.View.extend({
   emptyRender:function(){
     $('#instruments-table').find('table').remove();
     $('#instruments-table').find('div').remove();
-    $('#instruments-table').append('<p class="initial-text"><button type=\'button\' title=\'Show latest release changes.\' id=\'showReleaseChanges\' class=\'btn btn-default\' onclick=\'showTour(true);\' hidden><b>Loading...</b></button></p>');
+    $('#instruments-table').append('<p class="initial-text"><button type=\'button\' title=\'Show latest release changes.\' id=\'showReleaseChanges\' class=\'btn btn-default\' onclick=\'showTour(true);\' hidden>Loading...</button></p>');
     $('#instruments-table').append('<p class="initial-text"> How to plot data:</p>');
     $('#instruments-table').append('<p class="initial-text"> Step 1) Please select an instrument from the Data Catalog below using the <i style=\'font-size:14px;pointer-events: none;\' class=\'fa fa-plus-square\' aria-hidden=\'true\'></i> button.</p>');
     $('#instruments-table').append('<p class="initial-text"> Step 2) Click the Plotting tab above to configure and visualize your plot.</p>');

@@ -5,10 +5,10 @@
   opacity: .4;
 
   -webkit-transition: all 0.3s ease-out;
-     -moz-transition: all 0.3s ease-out;
-      -ms-transition: all 0.3s ease-out;
-       -o-transition: all 0.3s ease-out;
-          transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .introjs-fixParent {
@@ -34,10 +34,10 @@
   border-radius: 4px;
   box-shadow: 0 5px 8px -3px rgba(0,0,0,.6);
   -webkit-transition: all 0.3s ease-out;
-     -moz-transition: all 0.3s ease-out;
-      -ms-transition: all 0.3s ease-out;
-       -o-transition: all 0.3s ease-out;
-          transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .introjs-helperNumberLayer {
@@ -46,8 +46,7 @@
   left: -9px;
   z-index: 9999999999 !important;
   padding: 2px;
-  font-family: Arial, verdana, tahoma;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   color: #fff; /* Old browsers */ /* Chrome10+,Safari5.1+ */
   background: #5c9ccc;
@@ -120,22 +119,24 @@
   /* border-radius: 3px; */
   /* box-shadow: 0 6px 7px -4px rgba(0,0,0,.4); */
   -webkit-transition: opacity 0.1s ease-out;
-     -moz-transition: opacity 0.1s ease-out;
-      -ms-transition: opacity 0.1s ease-out;
-       -o-transition: opacity 0.1s ease-out;
-          transition: opacity 0.1s ease-out;
+  -moz-transition: opacity 0.1s ease-out;
+  -ms-transition: opacity 0.1s ease-out;
+  -o-transition: opacity 0.1s ease-out;
+  transition: opacity 0.1s ease-out;
   /* border: 5px double #0787AF; */
 }
 
 .introjs-tooltiptext {
-    margin-left: -10px;
+  margin-left: -10px;
 
-    margin-right: -10px;
-    /* border-top: 1px solid #FFFFFF; */
-    /* background: #FAFAFA; */
-    color: #ffffff;
-    padding: 25px 30px 15px;
-    /* border-bottom: 1px solid #FFFFFF; */
+  margin-right: -10px;
+  /* border-top: 1px solid #FFFFFF; */
+  /* background: #FAFAFA; */
+  color: #ffffff;
+  padding: 25px 30px 15px;
+  font-size: 14px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+  /* border-bottom: 1px solid #FFFFFF; */
 }
 
 .introjs-tooltipbuttons {
@@ -155,19 +156,22 @@
   display: inline-block;
   padding: 0.5em 0.8em;
   /* box-shadow: 0 2px 0px -0px #306588; */
+  text-shadow: none;
   margin: 0;
-  outline: none;
+  /*outline: none;*/
   border: 2px solid;
   background: transparent;
   text-decoration: none;
-  font: 11px/normal sans-serif;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+  font-size: 12px;
+  /*font: 11px/normal sans-serif;*/
   color: #ffffff !important;
   white-space: nowrap;
   cursor: pointer;
   outline: none !important;
-  /*-webkit-background-clip: padding;*/
-  /*-moz-background-clip: padding;*/
-  /*-o-background-clip: padding-box;*/
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
   /*background-clip: padding-box;*/ /* commented out due to Opera 11.10 bug */
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
@@ -176,11 +180,11 @@
   zoom: 1;
   *display: inline;
   margin-top: 10px;
-  /*transition:all 0.25s ease;*/
-  /*-webkit-transition:all 0.25s ease;*/
-  /*-moz-transition:all 0.25s ease;*/
-  /*-ms-transition:all 0.25s ease;*/
-  /*-o-transition:all 0.25s ease;*/
+  transition:all 0.25s ease;
+  -webkit-transition:all 0.25s ease;
+  -moz-transition:all 0.25s ease;
+  -ms-transition:all 0.25s ease;
+  -o-transition:all 0.25s ease;
 }
 
 .introjs-button:hover {
@@ -192,11 +196,11 @@
 
 .introjs-button:focus,
 .introjs-button:active {
-    background: #5c9ccc;  text-decoration: none;
-    color: #000000;
-    /* bottom: -1px; */
-    box-shadow: none;
-    border-color: #ffffff;
+  background: #5c9ccc;  text-decoration: none;
+  color: #000000;
+  /* bottom: -1px; */
+  box-shadow: none;
+  border-color: #ffffff;
 }
 
 /* overrides extra padding on button elements in Firefox */
@@ -212,14 +216,14 @@
 }
 
 .introjs-skipbutton:hover {
-    background: #5c9ccc;
-    border-color: #ffffff;
+  background: #5c9ccc;
+  border-color: #ffffff;
 
 }
 
 .introjs-skipbutton:active, .introjs-skipbutton:focus {
-    background: #5c9ccc;
-    /* box-shadow: 0 1px 0px -0px #6F1309; */
+  background: #5c9ccc;
+  /* box-shadow: 0 1px 0px -0px #6F1309; */
 
 }
 
@@ -236,12 +240,13 @@
   border-radius: 0 0.2em 0.2em 0;
 }
 
-.introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
-  color: #C2C2C2 !important;
-  border-color: #d4d4d4;
+.introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus, .introjs-hidden {
+  display: none;
+  color: transparent !important;
+  border-color: transparent;
   cursor: default;
   /* box-shadow: 0 2px 0px -0px #CACED1; */
-  background-color: #E6E6E6;
+  background-color: transparent;
   background-image: none;
   text-decoration: none;
 }
