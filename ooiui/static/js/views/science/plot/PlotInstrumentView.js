@@ -207,6 +207,7 @@ var PlotInstrumentViewItem = Backbone.View.extend({
 
       // Clear the stream from plotting and hide the plotting tabs
       ooi.trigger('reset_catalog_list',{});
+      ooi.trigger('clear_plot_area');
 
     }
   }

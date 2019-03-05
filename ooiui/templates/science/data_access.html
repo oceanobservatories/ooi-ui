@@ -1112,6 +1112,7 @@
 
         this.listenTo(this, "clear_plot_area", function(o) {
           $('#plot-view').empty();
+          $('#plot-view').append('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">')
         });
 
         this.listenTo(this, "download_plot_data", function(o) {
@@ -2397,6 +2398,7 @@
           }else{
             if ($evt.find('i').hasClass('fa-minus-square')) {
               ooi.trigger('reset_stream_list', {reference_designator: selectedRow.reference_designator});
+              ooi.trigger('clear_plot_area');
 
 
               // Toggle the ADD/REMOVE instrument to streams to plot view
