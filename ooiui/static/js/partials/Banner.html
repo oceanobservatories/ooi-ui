@@ -1,49 +1,63 @@
-<div class="container-fluid banner-image" >
+<div class="container-fluid banner-image">
   <div class="row center" id="news-banner">
   </div>
 
   <div class="row image-header">
-    <div class="col-xs-6">
-      <a href="/">
-        <img class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">
-      </a>
-    </div>
 
-    <div class="col-xs-6">
-      <div class="pull-right">
-        <a href="http://www.nsf.gov/">
-          <img class="banner-image-nsf" src="/img/logos-banners/nsf.png">
-        </a>
-      </div>
-      <div class="pull-right">
-        <a href="http://oceanleadership.org/">
-          <img class="banner-image-ol" src="/img/logos-banners/ocean-leadership.png">
+
+    <div class="col-xs-2">
+      <div class="pull-left">
+        <a href="/" title="OOI Home">
+          <img alt="OOI Home" class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">
         </a>
       </div>
     </div>
 
+    <div class="col-xs-8">
+
+        <div class="banner-header <%= isNewsActive ? 'news-active' : '' %>">
+
+          <ul id="fadein-left">
+
+              <li class="center banner-title">
+                <div><%= bannerTitle %></div>
+              </li>
+
+          </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-xs-2">
+      <div class="pull-right">
+        <div class="row">
+          <div class="col-xs-12" style="margin-top: -5px; position: relative;">
+            <a title="National Science Foundation" href="http://www.nsf.gov/" target="_blank">
+              <img class="banner-image-nsf" src="/img/logos-banners/nsf.png">
+            </a>
+          </div>
+        </div>
+
+        <div class="row" style="font-size: 10px;">
+          <div class="col-xs-12">
+            <a title="Terms and Conditions" id="termsAndConditionsLink" class="terms-link<%= isNewsActive ? 'news-active' : ''%>">Terms and Conditions
+            </a>
+            <script>
+              $(".terms-link").on("click",function(event){
+                var termsView = new TermsDialogView();
+                termsView.render();
+                termsView.show();
+              });
+            </script>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="row banner-header <%= isNewsActive ? 'news-active' : '' %>">
-    <ul id="fadein-left">
-      <div class="col-xs-12">
-        <li class="center banner-title">
-          <lg><span><%= bannerTitle %></span></lg>
-        </li>
-      </div>
-    </ul>
-    <li class="pull-right">
-        <a style="" id="termsAndConditionsLink" class="terms-link <%= isNewsActive ? 'news-active' : '' %> ">Terms and Conditions
-        </a>
-          <script>
-          $(".terms-link").on("click",function(event){
-              var termsView = new TermsDialogView();
-              termsView.render();
-              termsView.show();
-          });
-          </script>
-    </li>
-  </div>
 </div>
-
-

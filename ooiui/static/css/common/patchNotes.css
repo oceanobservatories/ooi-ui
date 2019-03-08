@@ -7,7 +7,7 @@ h2{
 .patch{
     text-align: left;
     overflow-y: scroll;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 #uframe .Version{
@@ -24,6 +24,16 @@ h2{
 
 #ui .Version{
   margin-left: 10%;
+}
+
+#ui .Version a{
+    font-weight: normal;
+    font-size: 22px;
+}
+
+#ui .Version button{
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
 
 #ui .Description h4{

@@ -63,6 +63,17 @@
               <h3><b>Research Arrays</b><small>  Select an array on the map or choose from the list.</small></h3>
             </div>
             <div class="array-content" id="array-content"></div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal-img">
+
+
+
+              <!-- Modal Content (The Image) -->
+              <img class="modal-img-content" id="img01">
+
+              <!-- Modal Caption (Image Text) -->
+              <div id="caption"></div>
+            </div>
           </div>
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5" id="right">
@@ -189,7 +200,7 @@
         if (ciLogonToken) {
           var date = new Date();
           date.setTime(date.getTime() + ciLogonTimeout*1000);
-          $.cookie('ooiusertoken', ciLogonToken, {expires: date});
+          Cookies.set('ooiusertoken', ciLogonToken, {expires: date});
           ooi.trigger('login:success');
         }
         this.login.fetch({async:false});
@@ -209,6 +220,8 @@
           $('#wrapper').addClass('news-active');
           $('.container-fluid.banner-image').addClass('news-active');
         }
+
+        //Cookies.set('ooisitetourhelp', '0', {expires: 365, path: '/data_access'});
       }
     });
   </script>

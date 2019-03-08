@@ -14,7 +14,7 @@ var LoginModel = Backbone.Model.extend({
         var date = new Date();
         date.setTime(date.getTime() + (model.get('expiration') * 1000));
         // Set the cookie with both the path for the entire site and expire option
-        $.cookie('ooiusertoken', model.get('token'), {path: '/', expires: date});
+        Cookies.set('ooiusertoken', model.get('token'), {path: '/', expires: date});
         ooi.trigger('login:success');
       },
       error: function(model, response, options) {
@@ -65,14 +65,14 @@ var LoginModel = Backbone.Model.extend({
   },
   logOut: function() {
     // Set the cookie to null and expire for all paths since $.cookieDelete is broken on some browsers
-    $.cookie('ooiusertoken', null, { expires: -1, path: '/' });
+    Cookies.set('ooiusertoken', null, { expires: -1, path: '/' });
     this.set(this.defaults);
     ooi.trigger('login:logout');
   },
   fetch: function() {
     // console.log('performing a fetch and here is your cookie:');
     // console.log($.cookie('ooiusertoken'));
-    var tokenString = $.cookie('ooiusertoken');
+    var tokenString = Cookies.get('ooiusertoken');
     if(typeof tokenString !== "undefined") {
       this.set("token", tokenString);
     }

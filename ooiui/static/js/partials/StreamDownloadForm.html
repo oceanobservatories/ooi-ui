@@ -10,7 +10,7 @@
         <img width="50px" src="/img/logos-banners/OOI_Logo.svg">
 
 
-        <span class="subscription-selection" style="margin-left:25%">
+        <span class="subscription-selection" style="margin-left:25%" hidden>
               <button style="padding-top:5px;" id="subscription-selection-select" type="button" class="btn btn-default btn-xs">
                 <span id="subscription-selection-icon" class="fa fa-heart-o" aria-hidden="true"></span> Enable Subscription
               </button>
@@ -128,6 +128,16 @@
                       <input type="checkbox" id="annotation-select" name="annotation" value="annotation"></input> 
                   </span>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 center">
+              <div id="estimates">
+                <label for="estimates-row">Data Download Estimates</label>
+                <div class="row" id="estimates-row">
+                  <div id="estimate-only-time"></div>
+                  <div id="estimate-only-size"></div>
                 </div>
               </div>
             </div>

@@ -37,7 +37,7 @@
     "c3js-chart": "~0.4.8",
     "metis-menu": "https://github.com/onokumus/metisMenu.git",
     "loremjs": "*",
-    "jquery-cookie": "~1.4.1",
+    "js-cookie": "~2.2.0",
     "backgrid": "~0.3.5",
     "backbone-pageable": "~1.4.8",
     "wellknown": "~0.3.1",
@@ -71,7 +71,8 @@
     "leaflet-plugins": "~3.0.0",
     "Leaflet.Coordinates" : "https://github.com/MrMufflon/Leaflet.Coordinates.git#v0.1.5",
     "Leaflet.Rrose" : "https://github.com/erictheise/rrose.git#v0.2.0",
-    "leaflet-omnivore" : "~v0.3.4"
+    "leaflet-omnivore" : "~v0.3.4",
+    "intro.js" : "~v2.9.3"
   },
   "resolutions": {
     "jquery": "~2.1.1",

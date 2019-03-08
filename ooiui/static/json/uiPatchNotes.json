@@ -1,4 +1,58 @@
 [
+  {
+        "VersionNumber": "1.6.0",
+        "VersionDate": "2019-03-08",
+        "VersionDescription": [
+            "Data Catalog: Changed from stream to instrument-centric table view. (12529)",
+            "Data Catalog: Cleanup of side filter options and behavior. (12532)",
+            "Data Catalog: CAMHD and HYDBB instruments and raw data links restored. (13358)",
+            "Data Download: Added preview of time/size estimate to download dialog. (13376)",
+            "General: Added click-to-zoom action to all content images. (10502)",
+            "General: Header update and cleanup."
+        ],
+        "ReleaseNotesPDF": "OOI_2.0_1.6.0.pdf",
+        "SiteTourTitle": "Release 1.6.0 Tour",
+        "SiteTour": {
+            "data_access" : [
+                {
+                    "intro": "Welcome to the OOI Data Catalog.<br><b>Version:</b> 1.6.0<br><b>Release Date:</b> 3/8/2019"
+                },
+                {
+                    "element": "#showReleaseChanges",
+                    "intro": "You can always get back to the tour by clicking this button.<br><b>Note:</b> The tour only launches automatically if this is the first time to the site or if the site's version has changed."
+                },
+                {
+                    "element": "body > div:nth-child(2) > div > div.row.image-header > div:nth-child(1) > div > a > img",
+                    "intro": "Clicking on the OOI logo now takes you back <a href='/'>Home</a> to array navigation and the map view."
+                },
+                {
+                    "element": "#streamPanel",
+                    "intro": "The Data Catalog table now contains only the instruments on each row instead of streams. The previous version showed all the streams for all instruments.",
+                    "position": "left"
+                },
+                {
+                    "element": ".instrument-to-plot",
+                    "intro": "Clicking the <i style=\"font-size:14px;pointer-events: none;\" class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> button for an instrument will now bring up a list of all available streams and their data availability above.",
+                    "position": "left"
+                },
+                {
+                    "element": "#filterScrollContainer11",
+                    "intro": "The left-hand filters have been simplified now that instruments are shown in the Data Catalog table.  <br><b>Note:</b> Once an instrument is selected these filters will be disabled.",
+                    "position": "right"
+                },
+                {
+                    "element": "#toggleAllFilters",
+                    "intro": "Added button to expand or collapse all the filter options below, which are now collapsed by default. Click the chevron to expand or collapse individual filter lists.",
+                    "position": "right"
+                },
+                {
+                    "intro": "This is the end of the tour. Please refer to the <a href='/help'>Help</a> page if you need further assistance."
+                }
+            ]
+          }
+
+
+    },
     {
         "VersionNumber": "1.5.1",
         "VersionDate": "2019-01-03",

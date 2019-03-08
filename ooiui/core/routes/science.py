@@ -183,7 +183,7 @@ def getUframeMultiStreamInterp():
     except Exception, e:
         return jsonify(error=str(e))
 
-
+# TODO
 @app.route('/api/get_large_format_data', methods=['GET'])
 def get_uframe_large_format_data():
     '''
@@ -197,7 +197,7 @@ def get_uframe_large_format_data():
         date = request.args['date']  # Expecting ISO format <yyyy-mm-dd>
 
         # Build the URL
-        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_ref', ref_des, date])
+        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_rd', ref_des, date])
 
         # Get the response
         response = requests.get(data_url, params=request.args)
@@ -546,6 +546,22 @@ def get_event_by_ref_des():
 @app.route('/opLog.html')
 def op_log():
     return render_template('common/opLog.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/api/uframe/streams_for/<string:reference_designator>', methods=['GET'])
+def streams_for(reference_designator):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/streams_for/%s' % reference_designator,
+                            auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/instrument_list', methods=['GET'])
+def instrument_list():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/instrument_list',
+                            auth=(token, ''), params=request.args)
+    return response.text, response.status_code
 
 
 @app.route('/api/uframe/stream', methods=['GET'])

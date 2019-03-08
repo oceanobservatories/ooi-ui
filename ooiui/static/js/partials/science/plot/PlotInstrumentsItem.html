@@ -1,18 +1,35 @@
 <td>
-  <button data-ref_des="<%= model.get('reference_designator') %>" data-stream_name="<%= model.get('stream_name') %>" type="button" title="Remove Instrument" style="float:left" class="btn btn-default instrument-to-plot"><i style="font-size:14px;float:left;pointer-events: none;" class="fa fa-minus-square" aria-hidden="true"></i></button>
+  <button data-ref_des="<%= model.get('reference_designator') %>" data-stream_name="<%= model.get('stream_name') %>" type="button" title="Plot Stream" style="float:left" class="btn btn-default stream-to-plot"><i data-stream_uid="<%= model.get('ref_des') %><%= model.get('stream_name') %>" style="font-size:14px;float:left;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i></button>
+  <% //console.log(model); %>
+  <% var stream_name = model.get('stream_name'); %>
+  <% var ref_des = model.get('ref_des'); %>
+  <% //console.log(stream_name); %>
+  <% //console.log(ooi.login.loggedIn()); %>
+  <% //console.log((!_.isNull(stream_name) && ooi.login.loggedIn())); %>
+  <% var on_click_item = "onclick=\"openDownload('" + ref_des + "','" + stream_name + "',null);\"" %>
+  <% if(!_.isNull(stream_name) && ooi.login.loggedIn()) { %>
+  <button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' onclick='openDownload("<%=ref_des%>", "<%=stream_name%>", "null")' ><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>
+  <% } else { %>
+  <button type='button' title='Download' style='float:right' id='goDownload' class='btn btn-default' disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-download' aria-hidden='true'></i></button>
+  <% } %>
 </td>
-<td>
-  <%= model.get('reference_designator') %>
-</td>
-<td>
-  <%= model.get('long_display_name') %>
-</td>
-<td hidden>
-  <%= model.get('stream_name') %>
-</td>
+
+
 <td>
   <%= model.get('stream_name').split('_')[1].replace(/-/g,'_') %>
 </td>
 <td>
-  <%= model.get('start') %> : <%= model.get('end') %>
+  <%= model.get('stream_dataset') %>
+</td>
+<td>
+  <%= model.get('stream_display_name') %>
+</td>
+<td>
+  <%= model.get('stream_method') %>
+</td>
+<td>
+  <%= model.get('start') %>
+</td>
+<td>
+  <%= model.get('end') %>
 </td>

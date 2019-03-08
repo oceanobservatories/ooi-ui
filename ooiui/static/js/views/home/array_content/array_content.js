@@ -190,9 +190,40 @@ var ArrayContentSummary = ParentView.extend({
 var ArrayContentSummaryItem = ParentView.extend({
   events: {
     'click .js-expand': '_flyFly',
-    'click .js-view-subsite span': '_flyToSubsite'
+    'click .js-view-subsite span': '_flyToSubsite',
+    'click img:not(.donotenlarge)': '_expandAnyImage',
+    'keyup #img01': '_closeModal'
     //'mouseover .js-platform-table tr': '_popUpForPlatform',
     //'click .js-platform-table tr': '_goToPlatform',
+  },
+  _expandAnyImage: function(event) {
+    var mainScreenshot = $(event.target);
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+
+    modal.style.display = "block";
+    modalImg.src = mainScreenshot[0].src;
+    captionText.innerHTML = mainScreenshot[0].alt;
+
+    // When the user clicks on the image again, close the modal
+    modal.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    return false;
+
+  },
+  _closeModal: function(event){
+    alert('closeSomething');
+    var modal = document.getElementById('myModal');
+
+    // ESC
+    if(event.which === 27){modal.style.display = "none";}
+
+    return false;
   },
   _flyToSubsite: function(event) {
     var target = $(event.target),

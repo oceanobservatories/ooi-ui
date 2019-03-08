@@ -12,6 +12,32 @@
  * Usage
  */
 
+var InstrumentListModel = Backbone.Model.extend({
+  urlRoot: '/api/uframe/instrument_list?refresh=false',
+  defaults: {
+  }
+});
+
+var InstrumentListCollection = Backbone.Collection.extend({
+  url: '/api/uframe/instrument_list?refresh=false',
+  model: InstrumentListModel,
+  parse: function(response) {
+    if(response) {
+      return response.instruments;
+    }
+    return [];
+  }
+});
+
+var StreamsForCollection = Backbone.Collection.extend({
+  parse: function(response) {
+    if(response) {
+      return response.streams;
+    }
+    return [];
+  }
+});
+
 var StreamModel = Backbone.Model.extend({
   //urlRoot: '/api/uframe/get_toc',
   defaults: {
@@ -55,6 +81,8 @@ var StreamModel = Backbone.Model.extend({
       var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'csv') {
       var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
+    } else if(type == 'estimate') {
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters')+"&estimate_only=true";
     }
     return url;
   },
@@ -128,6 +156,12 @@ var StreamCollection = Backbone.Collection.extend({
     byArray: function(array) {
         var filtered = this.filter(function (model) {
             return model.get('reference_designator').substring(0,2) === array;
+        });
+        return new StreamCollection(filtered);
+    },
+    byStreamMethod: function(stream_methods) {
+        var filtered = this.filter(function (model) {
+            return stream_methods.includes(model.get('stream_method'));
         });
         return new StreamCollection(filtered);
     },

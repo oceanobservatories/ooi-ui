@@ -750,19 +750,19 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/loginDemo.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js'
           ],
           'ooiui/static/js/compiled/newEvent.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js'
           ],
           'ooiui/static/js/compiled/signup.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -788,7 +788,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/passwordReset.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -807,7 +807,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/troubleTicket.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -837,7 +837,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/userEdit.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -867,7 +867,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/users.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -896,7 +896,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/streamingdata.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             'ooiui/static/lib/moment/moment.js',
@@ -927,7 +927,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/index.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/leaflet/dist/leaflet.js",
@@ -960,6 +960,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/jqgrid/js/jqgrid/jquery.fmatter.js',
             'ooiui/static/lib/jqgrid/js/jqgrid/grid.utils.js',
             'ooiui/static/lib/jqgrid/js/jqgrid/addons/ui.multiselect.js',
+            'ooiui/static/lib/intro.js/intro.js',
             // App
             'ooiui/static/js/ooi.js',
             // Models
@@ -996,7 +997,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/basic.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
@@ -1018,7 +1019,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/svgplot.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
@@ -1069,7 +1070,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/plotsDemo.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
@@ -1102,7 +1103,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/FAQ.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/leaflet/dist/leaflet.js",
@@ -1138,7 +1139,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/glossary.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/leaflet/dist/leaflet.js",
@@ -1174,7 +1175,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/StatusUIIcon.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/loremjs/lorem.js',
@@ -1212,7 +1213,7 @@ module.exports = function(grunt) {
           //alerts
           'ooiui/static/js/compiled/alertPage.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             //"ooiui/static/lib/leaflet/dist/leaflet.js",
@@ -1287,7 +1288,7 @@ module.exports = function(grunt) {
             'ooiui/static/lib/leaflet/dist/leaflet.js',
             'ooiui/static/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
             'ooiui/static/lib/leaflet.markercluster/dist/leaflet.markercluster.js',
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             'ooiui/static/lib/backlunr/backlunr.js',
@@ -1335,7 +1336,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/gridList.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
@@ -1378,7 +1379,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/opLog.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/loremjs/lorem.js',
@@ -1424,7 +1425,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/streams.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
@@ -1466,7 +1467,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/data_catalog.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             "ooiui/static/lib/loremjs/lorem.js",
@@ -1540,7 +1541,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/plotting.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
@@ -1644,7 +1645,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/camera_media.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/jquery-sticky-table-headers/js/jquery.stickytableheaders.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
@@ -1684,7 +1685,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/landingPages.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/loremjs/lorem.js',
@@ -1765,7 +1766,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/c2.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
@@ -1802,7 +1803,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/missionExecutive.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
@@ -1828,7 +1829,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/missionLoad.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             "ooiui/static/lib/underscore/underscore.js",
             "ooiui/static/lib/backbone/backbone.js",
             "ooiui/static/lib/metis-menu/dist/metisMenu.js",
@@ -1854,7 +1855,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/asset_management.js' : [
           //   // Libs
-          //   'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+          //   'ooiui/static/lib/js-cookie/src/js.cookie.js',
           //   'ooiui/static/lib/underscore/underscore.js',
           //   'ooiui/static/lib/backbone/backbone.js',
           'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -1883,7 +1884,7 @@ module.exports = function(grunt) {
           ],
           'ooiui/static/js/compiled/CGSNConfig.js' : [
             // Libs
-            'ooiui/static/lib/jquery-cookie/jquery.cookie.js',
+            'ooiui/static/lib/js-cookie/src/js.cookie.js',
             'ooiui/static/lib/underscore/underscore.js',
             'ooiui/static/lib/backbone/backbone.js',
             'ooiui/static/lib/backbone-validation/dist/backbone-validation.js',
@@ -1997,7 +1998,9 @@ module.exports = function(grunt) {
             "ooiui/static/css/common/mapLegend.css",
             "ooiui/static/css/common/errorModal.css",
             "ooiui/static/css/common/streamingdata.css",
-            "ooiui/static/css/common/gliderQuickView.css"
+            "ooiui/static/css/common/gliderQuickView.css",
+            "ooiui/static/lib/intro.js/introjs.css",
+            "ooiui/static/css/custom/introjs-nassim.css"
           ],
           "ooiui/static/css/compiled/status.css" : [
             "ooiui/static/lib/leaflet/dist/leaflet.css",
@@ -2139,7 +2142,9 @@ module.exports = function(grunt) {
             'ooiui/static/css/common/data_catalog.css',
             'ooiui/static/lib/jquery-ui/themes/redmond/jquery-ui.css',
             'ooiui/static/lib/jquery-ui/themes/redmond/theme.css',
-            'ooiui/static/lib/visavail/visavail/css/visavail.css'
+            'ooiui/static/lib/visavail/visavail/css/visavail.css',
+            "ooiui/static/lib/intro.js/introjs.css",
+            "ooiui/static/css/custom/introjs-nassim.css"
           ],
           "ooiui/static/css/compiled/plot.css" : [
             "ooiui/static/css/common/AnnotationTableView.css",

@@ -1,6 +1,18 @@
 <div class="patch">
       <div class="Version">
-        <h3> Version Number: <%= VersionNumber %> </h3>
+        <h3>Version Number: <%= VersionNumber %></h3>
+        <p>
+        <% if(typeof ReleaseNotesPDF !== "undefined"){ %>
+           <a href="/pdf/<%= ReleaseNotesPDF %>" title="Click to download the expanded release notes." target="_blank">Release Notes</a>
+          <% } %>
+          <!-- ooi.trigger('show_tour',{forceIt: false}); -->
+
+          <!-- Cookies.remove("ooisitetourhelp", {path: "/data_access"});window.location.href="/data_access" -->
+
+        <% if(typeof SiteTourTitle !== "undefined"){ %>
+          <button type='button' title='Show latest release changes.' id='showReleaseChangesHelp' class='btn btn-default' onclick='Cookies.remove("ooisitetourhelp", {path: "/data_access"});window.location.href="/data_access";'><%= SiteTourTitle %></button>
+          <% } %>
+          </p>
       </div>
       <div class="Description">
         <h4> Patch Notes (<%= VersionDate %>)</h4>
