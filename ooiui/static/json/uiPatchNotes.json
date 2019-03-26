@@ -4,18 +4,6 @@
         "VersionDate": "2019-03-26",
         "VersionDescription": [
             "Data Download: Fixes time and size estimator launching erroneous download attempts. (14251)"
-        ]
-  },
-  {
-        "VersionNumber": "1.6.0",
-        "VersionDate": "2019-03-08",
-        "VersionDescription": [
-            "Data Catalog: Changed from stream to instrument-centric table view. (12529)",
-            "Data Catalog: Cleanup of side filter options and behavior. (12532)",
-            "Data Catalog: CAMHD and HYDBB instruments and raw data links restored. (13358)",
-            "Data Download: Added preview of time/size estimate to download dialog. (13376)",
-            "General: Added click-to-zoom action to all content images. (10502)",
-            "General: Header update and cleanup."
         ],
         "ReleaseNotesPDF": "OOI_2.0_1.6.0.pdf",
         "SiteTourTitle": "Release 1.6.0 Tour",
@@ -56,9 +44,19 @@
                     "intro": "This is the end of the tour. Please refer to the <a href='/help'>Help</a> page if you need further assistance."
                 }
             ]
-          }
-
-
+        }
+  },
+  {
+        "VersionNumber": "1.6.0",
+        "VersionDate": "2019-03-08",
+        "VersionDescription": [
+            "Data Catalog: Changed from stream to instrument-centric table view. (12529)",
+            "Data Catalog: Cleanup of side filter options and behavior. (12532)",
+            "Data Catalog: CAMHD and HYDBB instruments and raw data links restored. (13358)",
+            "Data Download: Added preview of time/size estimate to download dialog. (13376)",
+            "General: Added click-to-zoom action to all content images. (10502)",
+            "General: Header update and cleanup."
+        ]
     },
     {
         "VersionNumber": "1.5.1",
