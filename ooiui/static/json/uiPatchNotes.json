@@ -1,5 +1,12 @@
 [
   {
+        "VersionNumber": "1.6.1",
+        "VersionDate": "2019-03-26",
+        "VersionDescription": [
+            "Data Download: Fixes time and size estimator launching erroneous download attempts. (14251)"
+        ]
+  },
+  {
         "VersionNumber": "1.6.0",
         "VersionDate": "2019-03-08",
         "VersionDescription": [

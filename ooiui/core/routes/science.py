@@ -629,7 +629,9 @@ def get_csv(stream_name, reference_designator, start, end):
     user = request.args.get('user', '')
     email = request.args.get('email', '')
     parameters = request.args.get('parameters', '')
-    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s' % (stream_name, reference_designator, start, end, dpa, user, email, parameters)
+    estimate_only = request.args.get('estimate', 'false')
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s' \
+          % (stream_name, reference_designator, start, end, dpa, user, email, parameters, estimate_only)
     req = requests.get(url, auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
@@ -641,7 +643,9 @@ def get_json(stream_name, reference_designator, start, end, provenance, annotati
     user = request.args.get('user', '')
     email = request.args.get('email', '')
     parameters = request.args.get('parameters', '')
-    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s' % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters)
+    estimate_only = request.args.get('estimate', 'false')
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s' \
+          % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters, estimate_only)
     req = requests.get(url, auth=(token, ''), stream=True, params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
@@ -653,8 +657,9 @@ def get_netcdf(stream_name, reference_designator, start, end, provenance, annota
     user = request.args.get('user', '')
     email = request.args.get('email', '')
     parameters = request.args.get('parameters', '')
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s'
-                       % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters), auth=(token, ''), stream=True)
+    estimate_only = request.args.get('estimate', 'false')
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s'
+                       % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters, estimate_only), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 
