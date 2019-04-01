@@ -272,7 +272,7 @@ var StreamDownloadFormView = Backbone.View.extend({
     // $('#metadata').fadeTo(0,0.6);
     // $('#metadata').append('<div id="temp-fade" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"></div>');
     // $("#wspinner").show();
-    // var selection = this.$type_select.val();
+    var selection = this.$type_select.val();
     var localModel = this.model.clone();
     var startDate = moment.utc(this.$start_date.data('date')).toJSON();
     var endDate = moment.utc(this.$end_date.data('date')).toJSON();
@@ -323,9 +323,10 @@ var StreamDownloadFormView = Backbone.View.extend({
       localModel.set('parameters', '')
     }
 
+    localModel.set('estimate', 'true');
 
     // Create the typical download AJAX request
-    var url = localModel.getURL('estimate');
+    var url = localModel.getURL(selection);
     $.ajax({
       url: url,
       type: "GET",
@@ -412,6 +413,8 @@ var StreamDownloadFormView = Backbone.View.extend({
     }else{
       localModel.set('parameters', '')
     }
+
+    localModel.set('estimate', 'false');
 
 
     // Create the typical download AJAX request
