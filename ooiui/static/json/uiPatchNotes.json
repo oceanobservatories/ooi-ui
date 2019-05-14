@@ -1,9 +1,9 @@
 [
   {
-        "VersionNumber": "1.6.1",
-        "VersionDate": "2019-03-26",
+        "VersionNumber": "1.6.2",
+        "VersionDate": "2019-05-14",
         "VersionDescription": [
-            "Data Download: Fixes time and size estimator launching erroneous download attempts. (14251)"
+            "Data Download: Removes deprecated fix for user_name passed during download requests. (14279)"
         ],
         "ReleaseNotesPDF": "OOI_2.0_1.6.0.pdf",
         "SiteTourTitle": "Release 1.6.0 Tour",
@@ -45,6 +45,13 @@
                 }
             ]
         }
+  },
+      {
+        "VersionNumber": "1.6.1",
+        "VersionDate": "2019-03-26",
+        "VersionDescription": [
+            "Data Download: Fixes time and size estimator launching erroneous download attempts. (14251)"
+        ]
   },
   {
         "VersionNumber": "1.6.0",

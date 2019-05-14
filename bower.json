@@ -69,13 +69,14 @@
     "mapbox-gl-js": "https://github.com/mapbox/mapbox-gl-js.git#0.17.0",
     "mapbox.js": "~3.0.1",
     "leaflet-plugins": "~3.0.0",
-    "Leaflet.Coordinates" : "https://github.com/MrMufflon/Leaflet.Coordinates.git#v0.1.5",
-    "Leaflet.Rrose" : "https://github.com/erictheise/rrose.git#v0.2.0",
-    "leaflet-omnivore" : "~v0.3.4",
-    "intro.js" : "~v2.9.3"
+    "Leaflet.Coordinates": "https://github.com/MrMufflon/Leaflet.Coordinates.git#v0.1.5",
+    "Leaflet.Rrose": "https://github.com/erictheise/rrose.git#v0.2.0",
+    "leaflet-omnivore": "~v0.3.4",
+    "intro.js": "~v2.9.3"
   },
   "resolutions": {
     "jquery": "~2.1.1",
-    "bootstrap": "~3.3.1"
+    "bootstrap": "~3.3.1",
+    "d3": "~3.4.13"
   }
 }

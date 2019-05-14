@@ -282,22 +282,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     var email = this.$el.find('#dlEmail').val();
     var user_name = this.model.get('user_name');
     localModel.set('email', email);
-    /* 10/08/2015 @ 9:37am
-     * M@Campbell
-     *
-     * Recipient was trying to create a directory of the user name,
-     * which sometimes could be the user's email address.
-     *
-     * Lets remove the special characters; replace the @ with a - and
-     * completely remove the .
-     */
-    if (user_name.indexOf('.') > -1) { user_name = user_name.replace('.', '-'); }
-    if (user_name.indexOf('@') > -1) { user_name = user_name.replace('@', '-'); }
-
-    if (user_name.indexOf('.') > -1) {
-        var splitUserName = user_name.split('.');
-        user_name = splitUserName[0];
-    }
     localModel.set('user_name', user_name);
 
     // Check for provenance and set the model
@@ -373,22 +357,6 @@ var StreamDownloadFormView = Backbone.View.extend({
     var email = this.$el.find('#dlEmail').val();
     var user_name = this.model.get('user_name');
     localModel.set('email', email);
-    /* 10/08/2015 @ 9:37am
-     * M@Campbell
-     *
-     * Recipient was trying to create a directory of the user name,
-     * which sometimes could be the user's email address.
-     *
-     * Lets remove the special characters; replace the @ with a - and
-     * completely remove the .
-     */
-    if (user_name.indexOf('.') > -1) { user_name = user_name.replace('.', '-'); }
-    if (user_name.indexOf('@') > -1) { user_name = user_name.replace('@', '-'); }
-
-    if (user_name.indexOf('.') > -1) {
-        var splitUserName = user_name.split('.');
-        user_name = splitUserName[0];
-    }
     localModel.set('user_name', user_name);
 
     // Check for provenance and set the model
