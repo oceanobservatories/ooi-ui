@@ -742,3 +742,34 @@ div#wrapper {
 
   font: 24px Arial, sans-serif;
 }
+
+#video {
+  position: absolute;
+  top: 205px;
+  right: 50px;
+  z-index: 100000;
+  width: 20%;
+  background: #b5b5b5;
+  margin: 3px;
+  border: 2px;
+  border-color: #3d36b9;
+  border-radius: 7px;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+}
+
+#video:hover {
+  transform: scale(2.0, 2.0) translate(-50%, 50%);
+}
+
+#clock-wrapper {
+  position: absolute;
+  top: 170px;
+  right: 50px;
+  width: 20%;
+  font-family: "Consolas", "Menlo", "Lucida Console", "Courier New", monospace;
+  font-size: 14px;
+  border: 2px;
+  border-radius: 7px;
+}

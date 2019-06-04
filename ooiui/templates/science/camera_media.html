@@ -33,6 +33,76 @@
     <script src="/lib/packery/dist/packery.pkgd.js" type="text/javascript"></script>
     <script src="/lib/isotope-packery/packery-mode.pkgd.js" type="text/javascript"></script>
 
+    <!--
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <video id="video"></video>
+      <script>
+        if (Hls.isSupported()) {
+          var video = document.getElementById('video');
+          var hls = new Hls();
+          // bind them together
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+            console.log("video and hls.js are now bound together !");
+            hls.loadSource("http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8");
+            hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+              console.log("manifest loaded, found " + data.levels.length + " quality level");
+            });
+          });
+        }
+
+        hls.on(Hls.Events.ERROR, function (event, data) {
+        if (data.fatal) {
+          switch(data.type) {
+          case Hls.ErrorTypes.NETWORK_ERROR:
+          // try to recover network error
+            console.log("fatal network error encountered, try to recover");
+            hls.startLoad();
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            console.log("fatal media error encountered, try to recover");
+            hls.recoverMediaError();
+            break;
+          default:
+          // cannot recover
+            hls.destroy();
+            break;
+          }
+        }
+      });
+      </script>-->
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Or if you want a more recent canary version -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+    <video id="video"></video>
+    <script>
+        var video = document.getElementById('video');
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                video.play();
+            });
+        }
+        // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+        // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+        // This is using the built-in support of the plain video element, without using hls.js.
+        // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+        // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
+            video.addEventListener('loadedmetadata',function() {
+                video.play();
+            });
+        }
+    </script>
+
+
 
 
     <!--<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>-->
@@ -53,6 +123,16 @@
     </div>
 
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
+
+    <div id="clock-wrapper">
+        <p>
+            <strong>The next live video will occur in:
+                <span id="clockdiv"></span>
+            </strong>
+        </p>
+    </div>
+
+
 
     <div class="filters">
         <!-- ARRAYS -->
@@ -106,6 +186,7 @@
     </div>
 
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
+
 
         <div style="padding-top:200px">
             <div class="row">
@@ -311,8 +392,61 @@
         .element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
         .element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
 
+        .cam-image-grid {
+            width: 75%;
+        }
+
 
     </style>
+
+    <script type="text/javascript">
+        function getTimeRemaining(endtime){
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor( (t/1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            }
+        }
+        function initializeClock(id) {
+            var clock = document.getElementById(id);
+            var timeinterval = setInterval(function() {
+                var start_time = new Date(Date.UTC(2016, 0, 1, 12, 1, 0)); //1 minute offset
+                var current_time = new Date();
+                var time_interval = 3 * 60 * 60 * 1000;
+                var end_time = new Date(start_time.getTime() + time_interval * Math.ceil((current_time - start_time) / time_interval));
+                clock_str = '';
+                x = (current_time - (end_time - time_interval)) / 1000 / 60;
+                if (x <= 14) { clock_str = 'Live Stream Occuring Now'; } else { var t = getTimeRemaining(end_time); if (t.hours > 1) {
+                    clock_str += t.hours + ' hours, ';
+                }
+                    if (t.hours == 1) {
+                        clock_str += t.hours + ' hour, ';
+                    }
+                    if (t.minutes > 1) {
+                        clock_str += t.minutes + ' minutes, and ';
+                    }
+                    if (t.minutes == 1) {
+                        clock_str += t.minutes + ' minute, and ';
+                    }
+                    if (t.seconds != 1) {
+                        clock_str += t.seconds + ' seconds';
+                    }
+                    if (t.seconds == 1) {
+                        clock_str += t.seconds + ' second';
+                    }
+                }
+                clock.innerHTML = clock_str;
+            }, 1000);
+        }
+        initializeClock('clockdiv');
+    </script>
 
     <script type="text/javascript">
         var bannerTitle = "OOI Media Discovery";
@@ -403,6 +537,7 @@
 
         $(document).ready(function() {
             ooi.start();
+            video.play();
         });
 
 
