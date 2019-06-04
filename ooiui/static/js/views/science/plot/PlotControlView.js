@@ -105,8 +105,8 @@ var PlotControlView = Backbone.View.extend({
       }
 
       var stClone = ed.clone();
-      stClone = stClone.subtract(7,'d');
-      this.cb(st, ed);
+      stClone = stClone.subtract(6,'d');
+      this.cb(stClone, ed);
 
 /*      console.log('Date Picker Debug');
       console.log("minDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
@@ -128,7 +128,7 @@ var PlotControlView = Backbone.View.extend({
       this.$el.find('#reportrange').daterangepicker({
         minDate: minDate,
         maxDate: maxDate,
-        startDate: startDate,
+        startDate: ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),
         endDate: endDate,
         locale: {
             format: 'YYYY-MM-DD HH:mm:ss.SSS'
@@ -144,8 +144,7 @@ var PlotControlView = Backbone.View.extend({
            'Most Recent 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Most Recent 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Most Recent 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
-           'All Data': [startDate, endDate]
-
+           'All Data': [minDate, endDate]
         }
       }, this.cb);
 

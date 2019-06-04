@@ -1,6 +1,6 @@
 <td>
   <button data-ref_des="<%= model.get('reference_designator') %>" data-stream_name="<%= model.get('stream_name') %>" type="button" title="Plot Stream" style="float:left" class="btn btn-default stream-to-plot"><i data-stream_uid="<%= model.get('ref_des') %><%= model.get('stream_name') %>" style="font-size:14px;float:left;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i></button>
-  <% //console.log(model); %>
+  <% console.log(model); %>
   <% var stream_name = model.get('stream_name'); %>
   <% var ref_des = model.get('ref_des'); %>
   <% //console.log(stream_name); %>
@@ -16,7 +16,18 @@
 
 
 <td>
-  <%= model.get('stream_name').split('_')[1].replace(/-/g,'_') %>
+     <%= model.get('assembly_name') %>
+</td>
+<td>
+  <%= model.get('stream_method') %>
+</td>
+
+
+<td>
+  <%= model.get('start') %>
+</td>
+<td>
+  <%= model.get('end') %>
 </td>
 <td>
   <%= model.get('stream_dataset') %>
@@ -25,11 +36,5 @@
   <%= model.get('stream_display_name') %>
 </td>
 <td>
-  <%= model.get('stream_method') %>
-</td>
-<td>
-  <%= model.get('start') %>
-</td>
-<td>
-  <%= model.get('end') %>
+    <%= model.get('stream_name').split('_')[1].replace(/-/g,'_') %>
 </td>

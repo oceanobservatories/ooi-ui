@@ -1,184 +1,410 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Camera Media</title>
+    <title>Camera Media</title>
 {% endblock %}
 
 {% block head %}
-<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-<link href="/css/compiled/camera_media.css" rel="stylesheet" type="text/css" />
-<script src="/js/partials/compiled/camera_media.js" type="text/javascript"></script>
-<!-- Partials -->
-<!-- lunr needs to be imported by a script tag -->
-<!-- TODO MOVE TO GRUNT FILE  -->
-<script src="/lib/d3/d3.min.js"></script>
-<script src="/lib/highcharts/highcharts.js"></script>
-<script src="/lib/highcharts/modules/exporting.js"></script>
-<script src="/js/compiled/index.js" type="text/javascript"></script>
-<script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
-<script src="/js/compiled/svgplot.js" type="text/javascript"></script>
-<script src="/js/compiled/camera_media.js" type="text/javascript"></script>
+    <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+    <link href="/css/compiled/camera_media.css" rel="stylesheet" type="text/css" />
+    <script src="/js/partials/compiled/camera_media.js" type="text/javascript"></script>
+    <!-- Partials -->
+    <!-- lunr needs to be imported by a script tag -->
+    <!-- TODO MOVE TO GRUNT FILE  -->
+    <script src="/lib/d3/d3.min.js"></script>
+    <script src="/lib/highcharts/highcharts.js"></script>
+    <script src="/lib/highcharts/modules/exporting.js"></script>
+    <script src="/js/compiled/index.js" type="text/javascript"></script>
+    <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+    <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+    <script src="/js/compiled/camera_media.js" type="text/javascript"></script>
 
-<script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
-<script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
+    <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+    <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
 
-<script src="/lib/slick-carousel/slick/slick.js" type="text/javascript"></script>
-<link href="/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" type="text/css" />
-<link href="/lib/slick-carousel/slick/slick.css" rel="stylesheet" type="text/css" />
+    <script src="/lib/slick-carousel/slick/slick.js" type="text/javascript"></script>
+    <link href="/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" type="text/css" />
+    <link href="/lib/slick-carousel/slick/slick.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>
+    <script src="/lib/isotope-layout/dist/isotope.pkgd.js" type="text/javascript"></script>
+    <script src="/lib/packery/dist/packery.pkgd.js" type="text/javascript"></script>
+    <script src="/lib/isotope-packery/packery-mode.pkgd.js" type="text/javascript"></script>
 
-{% block link %}
-<!-- common/base.html -->
-{{ super() }}
-{% endblock %}
-{% block script %}
-<!-- common/base.html -->
-{{ super() }}
-{% endblock %}
+
+
+    <!--<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>-->
+
+    {% block link %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
+    {% block script %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
 {% endblock %}
 
 {%block body %}
-<div class="container-fluid">
-  <div id="navbar" class="row"></div>
-</div>
-
-<div id="wrapper" style="padding-left:15px;padding-top:15px">
-   <div class="row">
-     <div class="col-sm-9" >
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div id="cameraPreview">
-            </div>
-          </div>
-        </div>
-     </div>
-
-     <div class="col-sm-3" id="cameraControls">
-     </div>
-  </div> <!-- #page-content-wrapper -->
-
-  <div style="padding-top:20px">
-    <div class="row">
-      <div class="col-sm-12" style="padding-right: 30px;">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="container-fluid">
+        <div id="navbar" class="row"></div>
     </div>
-  </div>
+
+    <div id="wrapper" style="padding-left:15px;padding-top:15px">
+
+    <div class="filters">
+        <!-- ARRAYS -->
+        <div class="button-group filters-button-group" data-filter-group="arrays">
+            <button class="button is-checked" data-filter="*">All Arrays</button>
+            <button class="button" data-filter=".rs03">Cabled Array - Axial Seamount</button>
+            <button class="button" data-filter=".rs01">Cabled Array - Continental Margin</button>
+            <button class="button" data-filter=".ce">Coastal Endurance</button>
+            <button class="button" data-filter=".cp">Coastal Pioneer</button>
+            <button class="button" data-filter=".ga">Global Argentine Basin</button>
+            <button class="button" data-filter=".gi">Global Irminger Sea</button>
+            <button class="button" data-filter=".gs">Global Southern Ocean</button>
+            <button class="button" data-filter=".gp">Global Station Papa</button>
+        </div>
+        <!-- INSTRUMENTS -->
+        <div class="button-group filters-button-group" data-filter-group="instruments">
+            <button class="button is-checked" data-filter="*">All Instruments</button>
+            <button class="button" data-filter=".camds">CAMDS</button>
+            <button class="button" data-filter=".flobn">FLOBN</button>
+            <button class="button" data-filter=".osmoi">OSMOI</button>
+            <button class="button" data-filter=".massp">MASSP</button>
+            <button class="button" data-filter=".pps">PPS</button>
+            <button class="button" data-filter=".ras">RAS</button>
+            <button class="button" data-filter=".zpl">ZPL</button>
+        </div>
+
+        <!-- TODO: Dynamically create the available years based on the instrument types selected -->
+        <!-- YEARS -->
+        <div class="button-group filters-button-group" data-filter-group="years">
+            <button class="button" data-filter="*">All Years</button>
+            <button class="button" data-filter=".2004">2004</button>
+            <button class="button" data-filter=".2005">2005</button>
+            <button class="button" data-filter=".2006">2006</button>
+            <button class="button" data-filter=".2007">2007</button>
+            <button class="button" data-filter=".2008">2008</button>
+            <button class="button" data-filter=".2009">2009</button>
+            <button class="button" data-filter=".2010">2010</button>
+            <button class="button" data-filter=".2011">2011</button>
+            <button class="button" data-filter=".2012">2012</button>
+            <button class="button" data-filter=".2013">2013</button>
+            <button class="button" data-filter=".2014">2014</button>
+            <button class="button" data-filter=".2015">2015</button>
+            <button class="button" data-filter=".2016">2016</button>
+            <button class="button" data-filter=".2017">2017</button>
+            <button class="button" data-filter=".2018">2018</button>
+            <button class="button is-checked" data-filter=".2019">2019</button>
+        </div>
+    </div>
+
+    <div class="cam-image-grid">
+    </div>
+
+    <div id="wrapper" style="padding-left:15px;padding-top:15px">
+
+        <div style="padding-top:200px">
+            <div class="row">
+                <div class="col-sm-12" style="padding-right: 30px;">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- #wrapper -->
+
+    <style>
+        .slick-prev{
+            left:-35px !important;
+        }
+
+        .slick-prev:before {
+            color: steelblue;
+            font-size: 20px;
+        }
+
+        .slick-next{
+            right:-35px !important;
+        }
+
+        .slick-next:before {
+            color: steelblue;
+            font-size: 20px;
+        }
+
+        .cam-image-item {
+            padding-left:3px;
+            padding-right:3px;
+        }
+
+        .image-grid {
+            position: fixed;
+            top: 50%;
+        }
+        .grid-item { width: 50px; }
+        .grid-item--width2 { width: 25px; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        /* ---- button ---- */
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-bottom: 10px;
+            background: #EEE;
+            border: none;
+            border-radius: 7px;
+            background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+            color: #222;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-shadow: 0 1px white;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #8CF;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+            color: #222;
+        }
+
+        .button:active,
+        .button.is-checked {
+            background-color: #3d36b9;
+        }
+
+        .button.is-checked {
+            color: white;
+            text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+        }
+
+        .button:active {
+            box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+        }
+
+        /* ---- button-group ---- */
+
+        .button-group:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .button-group .button {
+            float: left;
+            border-radius: 0;
+            margin-left: 0;
+            margin-right: 1px;
+        }
+
+        .button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+        .button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+        .button[disabled] {
+            pointer-events: none;
+            cursor:not-allowed;
+            background-color: #636363;
+            text-shadow: 0 1px hsla(0, 0%, 57%, 0.5);
+            color: #636363;
+        }
+
+        /* ---- isotope ---- */
+
+        .thumbnail-grid {
+            border: 1px solid #333;
+        }
+
+        /* clear fix */
+        .thumbnail-grid:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        /* ---- .element-item ---- */
+
+        .element-item {
+            position: relative;
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            padding: 10px;
+            background-color: rgba(0,0,0,0.4)
+        }
+
+        .element-item > * {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .element-item .name {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            height: min-content;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        .element-item .symbol {
+            position: absolute;
+            left: 10px;
+            top: 0px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .element-item .number {
+            position: absolute;
+            right: 8px;
+            top: 5px;
+            color: white;
+        }
+
+        .element-item .weight {
+            position: absolute;
+            left: 10px;
+            top: 76px;
+            font-size: 12px
+            color: white;
+        }
+
+        .element-item img {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            font-size: 12px;
+            width: 90px;
+            height: 90px;
+            background-color: #3d36b9;
+        }
+
+        .element-item.alkali          { background: #F00; background: hsl(   0, 100%, 50%); }
+        .element-item.alkaline-earth  { background: #F80; background: hsl(  36, 100%, 50%); }
+        .element-item.lanthanoid      { background: #FF0; background: hsl(  72, 100%, 50%); }
+        .element-item.actinoid        { background: #0F0; background: hsl( 108, 100%, 50%); }
+        .element-item.transition      { background: #0F8; background: hsl( 144, 100%, 50%); }
+        .element-item.post-transition { background: #0FF; background: hsl( 180, 100%, 50%); }
+        .element-item.metalloid       { background: #08F; background: hsl( 216, 100%, 50%); }
+        .element-item.diatomic        { background: #00F; background: hsl( 252, 100%, 50%); }
+        .element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
+        .element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
 
 
-</div> <!-- #wrapper -->
+    </style>
 
-<style>
-  .slick-prev{
-    left:-35px !important;
-  }
+    <script type="text/javascript">
+        var bannerTitle = "OOI Media Discovery";
+        // var userId = parseInt(window.location.href.split('/').pop());
 
-  .slick-prev:before {
-    color: steelblue;
-    font-size: 20px;
-  }
+        _.extend(OOI.prototype, Backbone.Events, {
+            login: new LoginModel(),
+            collections: {
+                camImages:null
+            },
+            views: {
+                banner: null,
+                navbar: null,
+                camera: null,
+                cameraControls: null
+            },
+            models: {
+                userModel: new UserModel()
+            },
+            start: function() {
+                var self = this;
+                this.multiStation = false;
+                this.login.fetch({async: false});
 
-  .slick-next{
-    right:-35px !important;
-  }
+                self.collections.camImages = new CamImageCollection();
 
-  .slick-next:before {
-    color: steelblue;
-    font-size: 20px;
-  }
+                self.collections.camImages2 = new CamImageCollection();
 
-  .cam-image-item {
-    padding-left:3px;
-    padding-right:3px;
-  }
-</style>
+                //--------------------------------------------------------------------------------
+                // Views
+                //--------------------------------------------------------------------------------
+                this.views.banner = new BannerView({bannerTitle: bannerTitle});
+                $('body').prepend(this.views.banner.el);
 
-<script type="text/javascript">
-var bannerTitle = "Camera Media";
-var userId = parseInt(window.location.href.split('/').pop());
+                if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+                    $('#wrapper').addClass('news-active');
+                    $('.container-fluid.banner-image').addClass('news-active');
+                }
 
-_.extend(OOI.prototype, Backbone.Events, {
-  login: new LoginModel(),
-  collections: {
-    camImages:null
-  },
-  views: {
-   banner: null,
-   navbar: null,
-   camera: null,
-   cameraControls: null
-  },
-  models: {
-    userModel: new UserModel()
-  },
-  start: function() {
-    var self = this;
-    this.multiStation = false;
-    this.login.fetch({async: false});
+                this.views.navbar = new NavbarView({
+                    el: $('#navbar')
+                });
 
-    self.collections.camImages = new CamImageCollection();
+                this.views.camera = new CameraPreviewView({
+                    el: $('#cameraPreview'),
+                    url: "http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8"
+                });
+                // this.views.camera.render();
 
-    //--------------------------------------------------------------------------------
-    // Views
-    //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle: bannerTitle});
-    $('body').prepend(this.views.banner.el);
+                this.views.cameraControls = new CameraControlsView({
+                    el: $('#cameraControls')
+                });
+                // this.views.cameraControls.render();
 
-    if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
-      $('#wrapper').addClass('news-active');
-      $('.container-fluid.banner-image').addClass('news-active');
-    }
+                this.views.camImages = new CamImageView({
+                    el: $('.cam-image-panel')
+                });
 
-    this.views.navbar = new NavbarView({
-      el: $('#navbar')
-    });
-
-    this.views.camera = new CameraPreviewView({
-      el: $('#cameraPreview'),
-      url: "http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8"
-    });
-    this.views.camera.render();
-
-    this.views.cameraControls = new CameraControlsView({
-      el: $('#cameraControls')
-    });
-    this.views.cameraControls.render();
-
-    this.views.camImages = new CamImageView({
-      el: $('.cam-image-panel')
-    });
+                this.views.camImages2 = new CamImageView2({
+                    el: $('.cam-image-grid')
+                });
 
 
-    if(this.login.loggedIn()) {
-      this.models.userModel.fetch({url: '/api/current_user'});
-    }
+                if(this.login.loggedIn()) {
+                    this.models.userModel.fetch({url: '/api/current_user'});
+                }
 
-    this.listenTo(self.collections.camImages, 'reset', function(options) {
-      self.views.camImages.collection = self.collections.camImages;
-      self.views.camImages.render();
-    });
+                this.listenTo(self.collections.camImages, 'reset', function(options) {
+                    self.views.camImages.collection = self.collections.camImages;
+                    //self.views.camImages.render();
+                });
 
-  self.collections.camImages.fetch({reset: true});
+                this.listenTo(self.collections.camImages2, 'reset', function(options) {
+                    self.views.camImages2.collection = self.collections.camImages2;
+                    self.views.camImages2.render();
+                });
 
-}
-});
+                self.collections.camImages.fetch({reset: true});
+                self.collections.camImages2.fetch({reset: true});
 
-var ooi = new OOI();
-var vent = _.extend({}, Backbone.Events);
+            }
+        });
 
-$(document).ready(function() {
-        ooi.start();
-});
+        var ooi = new OOI();
+        var vent = _.extend({}, Backbone.Events);
 
 
-</script>
+
+        $(document).ready(function() {
+            ooi.start();
+        });
+
+
+    </script>
 {% endblock %}

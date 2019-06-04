@@ -72,7 +72,10 @@
     "Leaflet.Coordinates": "https://github.com/MrMufflon/Leaflet.Coordinates.git#v0.1.5",
     "Leaflet.Rrose": "https://github.com/erictheise/rrose.git#v0.2.0",
     "leaflet-omnivore": "~v0.3.4",
-    "intro.js": "~v2.9.3"
+    "intro.js": "~v2.9.3",
+    "packery": "^2.1.2",
+    "isotope-layout": "^3.0.6",
+    "isotope-packery": "^2.0.1"
   },
   "resolutions": {
     "jquery": "~2.1.1",
