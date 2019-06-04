@@ -78,29 +78,8 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <!-- Or if you want a more recent canary version -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
-    <video id="video"></video>
-    <script>
-        var video = document.getElementById('video');
-        if(Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                video.play();
-            });
-        }
-        // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
-        // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
-        // This is using the built-in support of the plain video element, without using hls.js.
-        // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
-        // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
-            video.addEventListener('loadedmetadata',function() {
-                video.play();
-            });
-        }
-    </script>
+
+
 
 
 
@@ -123,16 +102,6 @@
     </div>
 
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
-
-    <div id="clock-wrapper">
-        <p>
-            <strong>The next live video will occur in:
-                <span id="clockdiv"></span>
-            </strong>
-        </p>
-    </div>
-
-
 
     <div class="filters">
         <!-- ARRAYS -->
@@ -182,10 +151,23 @@
         </div>
     </div>
 
-    <div class="cam-image-grid">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="cam-image-grid"></div>
+        </div>
+        <div class="col-md-2">
+            <div id="clock-wrapper">
+                <p>
+                    <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
+                        <span id="clockdiv"></span>
+                    </strong>
+                </p>
+                <video id="video"></video>
+            </div>
+        </div>
     </div>
 
-    <div id="wrapper" style="padding-left:15px;padding-top:15px">
+    <!--<div id="wrapper" style="padding-left:15px;padding-top:15px">
 
 
         <div style="padding-top:200px">
@@ -201,7 +183,7 @@
             </div>
         </div>
 
-    </div> <!-- #wrapper -->
+    </div>  #wrapper -->
 
     <style>
         .slick-prev{
@@ -392,11 +374,6 @@
         .element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
         .element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
 
-        .cam-image-grid {
-            width: 75%;
-        }
-
-
     </style>
 
     <script type="text/javascript">
@@ -527,6 +504,32 @@
                 self.collections.camImages.fetch({reset: true});
                 self.collections.camImages2.fetch({reset: true});
 
+
+
+                var video = document.getElementById('video');
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                video.play();
+            });
+        }
+        // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+        // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+        // This is using the built-in support of the plain video element, without using hls.js.
+        // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+        // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
+            video.addEventListener('loadedmetadata',function() {
+                video.play();
+            });
+        }
+
+
+
+
             }
         });
 
@@ -537,9 +540,11 @@
 
         $(document).ready(function() {
             ooi.start();
-            video.play();
         });
 
+
+    </script>
+    <script>
 
     </script>
 {% endblock %}
