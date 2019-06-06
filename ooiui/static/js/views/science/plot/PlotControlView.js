@@ -484,7 +484,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         ) &&
         self.model.get("units")[i] != "bytes" &&
         // self.model.get("units")[i] != "counts" &&
-        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1
+        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get('variables')[i].toLowerCase().indexOf("preferred_timestamp") !== 0
         //self.model.get("units")[i].toLowerCase() != "s" &&
         //self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
@@ -507,8 +508,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   },
   isAdditionalTimestamp: function(i){
     var self = this;
-    if (self.model.get("variables")[i] != "time" &&
-      self.model.get("units")[i].toLowerCase().indexOf("seconds since") == 0)
+    if (self.model.get("variables")[i] !== "time" &&
+      self.model.get("units")[i].toLowerCase().indexOf("seconds since") === 0)
       return true
   },
   render:function(){
@@ -521,6 +522,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var containsTimeVariable = $.inArray("time", self.model.get("variables"));
 
     //get the basic set of parameters, and see if
+    var saveTimeParamModel = null;
     _.each(this.model.get('parameter_id'),function(v,i){
 
       var paramModel = new ParameterModel({name:self.model.get('parameter_display_name')[i],
@@ -537,14 +539,28 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 index_used: i
                                            });
 
-
       if(containsTimeVariable >= 0){
-        if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+        if (self.isParameterValid(i) &&
+            !_.isEmpty(self.model.get('parameter_display_name')[i])
+        ){
           //derived parameters
-          self.collection.add(paramModel);
-        }else if (self.isAdditionalTimestamp(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+          if (self.model.get('variables')[i].toLowerCase().indexOf("time") === 0){
+            saveTimeParamModel = paramModel;
+          }else{
+            self.collection.add(paramModel);
+          }
+
+        }else if (
+            self.isAdditionalTimestamp(i) &&
+            !_.isEmpty(self.model.get('parameter_display_name')[i])
+        ) {
           //other parameters
-          paramModel.set({param_class:"additional-param"});
+          paramModel.set({param_class: "additional-param"});
+          self.collection.add(paramModel);
+        } else if (
+            self.model.get('variables')[i].toLowerCase().indexOf("preferred_timestamp") === 0
+        ){
+          paramModel.set({param_class: "additional-param"});
           self.collection.add(paramModel);
         }else{
           //number of parameters not added
@@ -555,6 +571,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         self.collection.add(paramModel);
       }
     });
+
+    self.collection.sort();
+    self.collection.add(saveTimeParamModel, {at: 0});
 
     this.$el.html(this.template({model:this.model,
                                  options:self.collection,
