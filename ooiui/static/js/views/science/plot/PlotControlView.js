@@ -538,17 +538,18 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 original_model: self.model,
                                                 index_used: i
                                            });
-
+      
       if(containsTimeVariable >= 0){
-        if (self.isParameterValid(i) &&
+        if (self.model.get("variables")[i] === "time") {
+          saveTimeParamModel = paramModel;
+        }else if (self.isParameterValid(i) &&
             !_.isEmpty(self.model.get('parameter_display_name')[i])
         ){
           //derived parameters
-          if (self.model.get('variables')[i].toLowerCase().indexOf("time") === 0){
-            saveTimeParamModel = paramModel;
-          }else{
+
+
             self.collection.add(paramModel);
-          }
+
 
         }else if (
             self.isAdditionalTimestamp(i) &&
