@@ -916,7 +916,7 @@
           var selectedStreamUrl =  "#" + o.model['reference_designator'] + "/" + o.model['stream'];
           var selectedStreamObj = {"ref_des": o.model['reference_designator'], "stream_name": o.model['stream_name'], "stream_identifier": o.model['stream']};
           placeDataAvailability(selectedStreamObj);
-          //history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
+          history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
         });
 
         //MAIN ADDITION OF A STREAM
@@ -1401,15 +1401,15 @@
       */
 
       // Asset management button
-      actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.reference_designator + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
 
       // IRIS Link
       if(rowObject.iris_enabled) {
-        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
+        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
       }else if(rowObject.rds_enabled){
-        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }else{
-        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }
 
 
