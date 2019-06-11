@@ -51,6 +51,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   xparameters:[],
   yparameters:[],
   stream_display_name:"",
+  query_url:"",
   initialize: function(models,options) {
     if (options && options.stream){
       this.stream = options.stream;
@@ -76,6 +77,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
     if (options && options.stream_display_name){
       this.stream_display_name = options.stream_display_name;
     }
+    if (options && options.query_url){
+      this.query_url = options.query_url;
+    }
 
   },
   url: function() {
@@ -87,6 +91,9 @@ var DataSeriesCollection = Backbone.Collection.extend({
   //used to hold the unit mapping
   units:null,
   model: DataSeriesModel,
+  getAPIUrl:function(){
+    return this.query_url;
+  },
   getTitle:function(){
     return this.title;
   },
@@ -111,6 +118,7 @@ var DataSeriesCollection = Backbone.Collection.extend({
   parse: function(response, options) {
     this.units = response.units;
     this.title = response.title;
+    this.query_url = response.query_url;
     return response.data;
   }
 
@@ -213,6 +221,7 @@ var InterpolatedDataSeriesCollection = Backbone.Collection.extend({
     this.units = response.units;
     this.title = response.title;
     this.subtitle = response.subtitle;
+    this.query_url = response.query_url;
     return response.data;
   }
 
