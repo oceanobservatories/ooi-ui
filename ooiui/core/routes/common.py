@@ -505,9 +505,21 @@ def get_cam_images():
     return response.text, response.status_code
 
 @app.route('/api/uframe/media/test', methods=['GET'])
-def get_uframe_media_range():
+def get_uframe_media_range_test():
     token = get_login()
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/CE02SHBP-MJ01C-08-CAMDSB107/range/2009-12-07/2019-04-21', auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/range/<string:start_date>/<string:end_date>', methods=['GET'])
+def get_uframe_media_range(ref_des, start_date, end_date):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/range/%s/%s' % (ref_des, start_date, end_date), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/get_data_bounds/<string:ref_des>', methods=['GET'])
+def get_uframe_media_data_bounds(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/get_data_bounds/%s' % ref_des, auth=(token, ''), data=request.args)
     return response.text, response.status_code
 
 @app.route('/api/uframe/media/<string:ref_des>/<string:yyyy_mm_dd>', methods=['GET'])
@@ -528,6 +540,24 @@ def get_uframe_media_da_map(ref_des):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/map' % ref_des, auth=(token, ''), data=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/media/<string:ref_des>/da/years', methods=['GET'])
+def get_uframe_media_da_years(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/years' % ref_des, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/<string:year>', methods=['GET'])
+def get_uframe_media_da_months(ref_des, year):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/%s' % (ref_des, year), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/<string:year>/<string:month>', methods=['GET'])
+def get_uframe_media_da_days(ref_des, year, month):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/%s/%s' % (ref_des, year, month), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
 @app.route('/api/uframe/media/vocab/<string:ref_des>', methods=['GET'])
 def get_uframe_media_vocab(ref_des):
     token = get_login()
@@ -536,6 +566,12 @@ def get_uframe_media_vocab(ref_des):
     node = ref_des_parsed[1]
     sensor = ref_des_parsed[2]
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/vocab/inv/%s/%s/%s' % (subsite, node, sensor), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/get_display_name/<string:ref_des>', methods=['GET'])
+def get_uframe_media_display_name(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/get_display_name/%s' % ref_des, auth=(token, ''), data=request.args)
     return response.text, response.status_code
 
 @app.route('/media')

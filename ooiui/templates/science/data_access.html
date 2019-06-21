@@ -505,7 +505,7 @@
             console.log('Gothere');
             console.log(self.views.plotContainer.plotData.getAPIUrl());
             var port = document.location.port;
-            if(port === '80'){
+            if(port === '80' || port === ''){
                 port = '';
             }else{
                 port = ":" + port;

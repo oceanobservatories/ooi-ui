@@ -103,87 +103,95 @@
 
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
 
-    <div class="filters">
-        <!-- ARRAYS -->
-        <div class="button-group filters-button-group" data-filter-group="arrays">
-            <button class="button is-checked" data-filter="*">All Arrays</button>
-            <button class="button" data-filter=".rs03">Cabled Array - Axial Seamount</button>
-            <button class="button" data-filter=".rs01">Cabled Array - Continental Margin</button>
-            <button class="button" data-filter=".ce">Coastal Endurance</button>
-            <button class="button" data-filter=".cp">Coastal Pioneer</button>
-            <button class="button" data-filter=".ga">Global Argentine Basin</button>
-            <button class="button" data-filter=".gi">Global Irminger Sea</button>
-            <button class="button" data-filter=".gs">Global Southern Ocean</button>
-            <button class="button" data-filter=".gp">Global Station Papa</button>
-        </div>
-        <!-- INSTRUMENTS -->
-        <div class="button-group filters-button-group" data-filter-group="instruments">
-            <button class="button is-checked" data-filter="*">All Instruments</button>
-            <button class="button" data-filter=".camds">CAMDS</button>
-            <button class="button" data-filter=".flobn">FLOBN</button>
-            <button class="button" data-filter=".osmoi">OSMOI</button>
-            <button class="button" data-filter=".massp">MASSP</button>
-            <button class="button" data-filter=".pps">PPS</button>
-            <button class="button" data-filter=".ras">RAS</button>
-            <button class="button" data-filter=".zpl">ZPL</button>
-        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filters">
+                    <!-- INSTRUMENT TYPES -->
+                    <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
+                        <label class="container"> Digital Still Camera (CAMDS)
+                            <input type="radio" checked="checked" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
+                            <span class="checkmark" title="CAMDS"></span>
+                        </label>
+                        <label class="container"> Benthic Fluid Flow (FLOBN)
+                            <input type="radio" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">
+                            <span class="checkmark" title="FLOBN"></span>
+                        </label>
+                        <label class="container"> Osmosis-Based Water Sampler (OSMOI)
+                            <input type="radio" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">
+                            <span class="checkmark" title="OSMOI"></span>
+                        </label>
+                        <label class="container"> Mass Spectrometer (MASSP)
+                            <input type="radio" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">
+                            <span class="checkmark" title="MASSP"></span>
+                        </label>
+                        <label class="container"> Particulate DNA Sampler (PPS)
+                            <input type="radio" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">
+                            <span class="checkmark" title="PPS"></span>
+                        </label>
+                        <label class="container"> Hydrothermal Vent Fluid Interactive Sampler (RAS)
+                            <input type="radio" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">
+                            <span class="checkmark" title="RAS"></span>
+                        </label>
+                        <label class="container"> Bio-acoustic Sonar (Coastal) (ZPL)
+                            <input type="radio" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">
+                            <span class="checkmark" title="ZPL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <!-- INSTRUMENTS -->
+                <div class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
+                </div>
 
-        <!-- TODO: Dynamically create the available years based on the instrument types selected -->
-        <!-- YEARS -->
-        <div class="button-group filters-button-group" data-filter-group="years">
-            <button class="button" data-filter="*">All Years</button>
-            <button class="button" data-filter=".2004">2004</button>
-            <button class="button" data-filter=".2005">2005</button>
-            <button class="button" data-filter=".2006">2006</button>
-            <button class="button" data-filter=".2007">2007</button>
-            <button class="button" data-filter=".2008">2008</button>
-            <button class="button" data-filter=".2009">2009</button>
-            <button class="button" data-filter=".2010">2010</button>
-            <button class="button" data-filter=".2011">2011</button>
-            <button class="button" data-filter=".2012">2012</button>
-            <button class="button" data-filter=".2013">2013</button>
-            <button class="button" data-filter=".2014">2014</button>
-            <button class="button" data-filter=".2015">2015</button>
-            <button class="button" data-filter=".2016">2016</button>
-            <button class="button" data-filter=".2017">2017</button>
-            <button class="button" data-filter=".2018">2018</button>
-            <button class="button is-checked" data-filter=".2019">2019</button>
-        </div>
-    </div>
+                <!-- YEARS -->
+                <div class="button-group filters-button-group" data-filter-group="years" id="years-group">
+                </div>
 
-    <div class="row">
-        <div class="col-md-10">
-            <div class="cam-image-grid"></div>
-        </div>
-        <div class="col-md-2">
-            <div id="clock-wrapper">
-                <p>
-                    <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
-                        <span id="clockdiv"></span>
-                    </strong>
-                </p>
-                <video id="video"></video>
+                <!-- MONTHS -->
+                <div class="button-group filters-button-group" data-filter-group="months" id="months-group">
+                </div>
+
+                <!-- DAYS -->
+                <div class="button-group filters-button-group" data-filter-group="days" id="days-group">
+                </div>
             </div>
         </div>
-    </div>
 
-    <!--<div id="wrapper" style="padding-left:15px;padding-top:15px">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="cam-image-grid"></div>
+            </div>
+            <div class="col-md-2">
+                <div id="clock-wrapper">
+                    <p>
+                        <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
+                            <span id="clockdiv"></span>
+                        </strong>
+                    </p>
+                    <video id="video"></video>
+                </div>
+            </div>
+        </div>
+
+        <!--<div id="wrapper" style="padding-left:15px;padding-top:15px">
 
 
-        <div style="padding-top:200px">
-            <div class="row">
-                <div class="col-sm-12" style="padding-right: 30px;">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
+            <div style="padding-top:200px">
+                <div class="row">
+                    <div class="col-sm-12" style="padding-right: 30px;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>  #wrapper -->
+        </div>  #wrapper -->
+    </div>
 
     <style>
         .slick-prev{
@@ -263,7 +271,7 @@
 
         .button-group:after {
             content: '';
-            display: block;
+            display: inline-block;
             clear: both;
         }
 
@@ -374,6 +382,96 @@
         .element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
         .element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
 
+        /* The container */
+        .container {
+            display: inline-block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .container .checkmark:after {
+            top: 9px;
+            left: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+
+
+        }
+
+        #instruments-group {
+            display: inline-block;
+            width: 100%;
+        }
+
+        #years-group {
+            display: inline-block;
+            width: 100%;
+        }
+
+        #months-group {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .filter-results {
+            position: absolute;
+            top: 125px;
+            left: 33%;
+
+        }
+
+
+
     </style>
 
     <script type="text/javascript">
@@ -432,7 +530,11 @@
         _.extend(OOI.prototype, Backbone.Events, {
             login: new LoginModel(),
             collections: {
-                camImages:null
+                camImages:null,
+                camImages2:null,
+                camInstruments:null,
+                camMap:null,
+                camVocab:null
             },
             views: {
                 banner: null,
@@ -451,6 +553,20 @@
                 self.collections.camImages = new CamImageCollection();
 
                 self.collections.camImages2 = new CamImageCollection();
+
+                self.collections.camInstruments = new CamImageInstrumentsCollection();
+
+                self.collections.camMap = new CamImageNavigationCollection();
+
+                self.collections.camDataBounds = new CamImageDataBoundsCollection();
+
+                self.collections.camDataYears = new CamImageYearsCollection();
+
+                self.collections.camDataMonths = new CamImageMonthsCollection();
+
+                self.collections.camDataDays = new CamImageDaysCollection();
+
+                self.collections.camVocab = new CamImageVocabCollection();
 
                 //--------------------------------------------------------------------------------
                 // Views
@@ -498,34 +614,42 @@
 
                 this.listenTo(self.collections.camImages2, 'reset', function(options) {
                     self.views.camImages2.collection = self.collections.camImages2;
-                    self.views.camImages2.render();
+                    self.views.camImages2.collectionInstruments = self.collections.camInstruments;
+                    self.views.camImages2.collectionMap = self.collections.camMap;
+                    self.views.camImages2.collectionDataBounds = self.collections.camDataBounds;
+                    self.views.camImages2.collectionYears = self.collections.camDataYears;
+                    self.views.camImages2.collectionMonths = self.collections.camDataMonths;
+                    self.views.camImages2.collectionDays = self.collections.camDataDays;
+                    self.views.camImages2.collectionVocab = self.collections.camVocab;
+                    self.views.camImages2.render({'first_time': true});
                 });
 
-                self.collections.camImages.fetch({reset: true});
+                //self.collections.camImages.fetch({reset: true});
                 self.collections.camImages2.fetch({reset: true});
+                self.collections.camInstruments.fetch({reset: true});
 
 
 
                 var video = document.getElementById('video');
-        if(Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                video.play();
-            });
-        }
-        // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
-        // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
-        // This is using the built-in support of the plain video element, without using hls.js.
-        // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
-        // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
-            video.addEventListener('loadedmetadata',function() {
-                video.play();
-            });
-        }
+                if(Hls.isSupported()) {
+                    var hls = new Hls();
+                    hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                        //video.play();
+                    });
+                }
+                // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+                // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+                // This is using the built-in support of the plain video element, without using hls.js.
+                // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+                // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+                else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
+                    video.addEventListener('loadedmetadata',function() {
+                        //video.play();
+                    });
+                }
 
 
 

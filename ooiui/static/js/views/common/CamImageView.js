@@ -93,23 +93,208 @@ var CamImageItemView = Backbone.View.extend({
 
 var CamImageView2 = Backbone.View.extend({
     //className: 'cam-image-grid',
+    daMap: {},
+    dataBounds: {},
+    $thumbnailgrid: null,
+    filters: {},
+    selectedRefDes: null,
+    selectedYear: null,
+    selectedMonth: null,
     events: {
-
+        //'click input[name="instrument-types"]' : "instrumentTypeSelection",
+        //"click .button#years-group" : "yearsButtonClick",
+        //"click .filters .button" : "filterButtonClick",
+        //"click .button#instruments-group" : "clickInstrumentsGroup"
     },
     initialize: function() {
-        _.bindAll(this, "render");
+        _.bindAll(this,
+            "render",
+            "instrumentTypeSelection",
+            "yearsButtonClick",
+            "monthsButtonClick",
+            "filterButtonClick",
+            "clickInstrumentsGroup"
+            );
     },
     template: _.template('<div class="thumbnail-grid"></div>'),
+    concatValues: function(obj){
+        let value = '';
+        for ( let prop in obj ) {
+            value += obj[ prop ];
+        }
+        return value;
+    },
+    // Clicked on the instrument type
+    instrumentTypeSelection: function(event){
+        console.log('instrumentTypeSelection');
+        console.log(event);
+        //event.preventDefault();
+
+        let self = this;
+        //var filterValue = $( this ).attr('data-filter');
+        // use filterFn if matches value
+        //filterValue = filterFns[ filterValue ] || filterValue;
+
+
+        var $button = $( event.currentTarget );
+        // get group key
+        var $buttonGroup = $button.parents('.button-group');
+        var filterGroup = $buttonGroup.attr('data-filter-group');
+        // set filter for group
+        self.filters[ filterGroup ] = $button.attr('data-filter');
+        let instrumentGroup = $button.attr('title');
+        //console.log('filters');
+        //console.log(filters);
+        // combine filters
+        var filterValue = self.concatValues( self.filters );
+        while(filterValue.includes("**"))
+            filterValue = filterValue.replace("**", "*");
+        //console.log('filterValue');
+        //console.log(filterValue);
+
+        self.$thumbnailgrid.isotope({ filter: filterValue });
+
+        $('#instruments-group').empty();
+        $('#years-group').empty();
+        $('#months-group').empty();
+        $('#days-group').empty();
+
+        self.collectionInstruments.reset();
+
+        $.when(self.collectionInstruments.fetch({url: '/api/uframe/media/get_instrument_list/'+instrumentGroup})).done(function(data){
+            console.log(data);
+            $('#instruments-group').empty();
+            //$('#instruments-group').append('<button class="button is-checked" data-filter="*">Choose Instrument</button>');
+            $.each(data.instruments, function(key, instrument){
+                //$.when(self.collectionVocab.fetch({url: '/api/uframe/streams_for/'+instrument})).done(function (vocab) {
+                $.when(self.collectionVocab.fetch({url: '/api/uframe/media/get_display_name/'+instrument})).done(function (vocab) {
+                    console.log(vocab);
+                    $('#instruments-group').append('<button class="button" data-filter=".'+instrument+'" title="'+instrument+'" data-ref_des="'+instrument+'">'+vocab.vocab.long_name+'</button>');
+                });
+            })
+        });
+    },
+    yearsButtonClick:function(event){
+        console.log('yearsButtonClick');
+        event.preventDefault();
+
+        let self = this;
+
+        // Clicked on a year
+        // Go get the months
+        let $button = $( event.currentTarget );
+        let selectedYear = $button.attr('title');
+        let ref_des = $button.attr('data-ref_des');
+
+        $('#days-group').empty();
+
+        // Populate the months
+        self.collectionMonths.reset();
+        $.when(self.collectionMonths.fetch({url: '/api/uframe/media/'+ref_des+'/da/'+selectedYear}).done(function (data) {
+            console.log('months');
+            console.log(data);
+
+            $('#months-group').empty();
+            //$('#instruments-group').append('<button class="button is-checked" data-filter="*">Choose Instrument</button>');
+            $.each(data.months, function(key, month){
+                $('#months-group').append('<button class="button" data-filter=".'+month+'" title="'+month+'" data-ref_des="'+ref_des+'">'+month+'</button>');
+            })
+        }))
+    },
+    monthsButtonClick:function(event){
+        console.log('monthsButtonClick');
+        //event.preventDefault();
+
+        let self = this;
+
+        // Clicked on a year
+        // Go get the months
+        let $button = $( event.currentTarget );
+        let selectedMonth = $button.attr('title');
+        let ref_des = $button.attr('data-ref_des');
+
+        // Fetch the thumbnails and re-render
+        self.collectionDataBounds.reset();
+        $.when(self.collectionDataBounds.fetch({url: '/api/uframe/media/get_data_bounds/'+ref_des})).done(function(data){
+            let first_date = data.bounds['first_date'];
+            let last_date = data.bounds['last_date'];
+
+            let chosenYear = $('#years-group .is-checked')[0].title;
+            let chosenMonth = ("0" + $('#months-group .is-checked')[0].title).slice(-2);
+
+            $.when(self.collectionDays.fetch({url: '/api/uframe/media/'+ref_des+'/da/'+chosenYear+'/'+chosenMonth})).done(function (days) {
+                let firstDay = ("0" + days.days[0]).slice(-2);
+                let lastDay = ("0" + days.days.slice(-1)[0]).slice(-2);
+                first_date = [chosenYear, chosenMonth, firstDay].join("-");
+                last_date = [chosenYear, chosenMonth, lastDay].join("-");
+
+                $.when(self.collection.fetch({url: '/api/uframe/media/'+ref_des+'/range/'+first_date+'/'+last_date})).done(function(data){
+                    console.log(data);
+                    self.render({'first_time': false})
+                });
+            });
+        });
+    },
+    filterButtonClick:function(event){
+        console.log('filterButtonClick');
+        event.preventDefault();
+
+        let self = this;
+
+        //var filterValue = $( this ).attr('data-filter');
+        // use filterFn if matches value
+        //filterValue = filterFns[ filterValue ] || filterValue;
+
+        var $button = $( event.currentTarget );
+        // get group key
+        var $buttonGroup = $button.parents('.button-group');
+        var filterGroup = $buttonGroup.attr('data-filter-group');
+        // set filter for group
+        self.filters[ filterGroup ] = $button.attr('data-filter');
+        //console.log('filters');
+        //console.log(filters);
+        // combine filters
+        var filterValue = self.concatValues( self.filters );
+        while(filterValue.includes("**"))
+            filterValue = filterValue.replace("**", "*");
+        //console.log('filterValue');
+        //console.log(filterValue);
+
+        $thumbnailgrid.isotope({ filter: filterValue });
+    },
+    // Clicked on the Instrument
+    clickInstrumentsGroup:function(event){
+        console.log('clickInstrumentsGroup');
+        event.preventDefault();
+
+        let self = this;
+
+        let $button = $( event.currentTarget );
+        let instrumentGroup = $button.attr('title');
+
+        $('#months-group').empty();
+        $('#days-group').empty();
+
+        self.collectionMap.reset();
+        $.when(self.collectionMap.fetch({url: '/api/uframe/media/'+instrumentGroup+'/da/map'})).done(function(data){
+            console.log(data);
+            self.daMap = data;
+            $('#years-group').empty();
+            //$('#years-group').append('<button class="button" data-filter="*" title="*">All Years</button>');
+
+            $.each(data.map, function(year, months){
+                $('#years-group').append('<button class="button" data-filter=".'+year+'" title="'+year+'" data-ref_des="'+instrumentGroup+'">'+year+'</button>');
+            });
+        });
+    },
     add:function(subview){
         this.$el.find('.thumbnail-grid').append(subview.el);
     },
     render: function(options) {
-        var self = this;
+        console.log('render');
+        console.log(options);
+        let self = this;
         this.$el.html(this.template(options));
-
-        var valid_arrays = [];
-        var valid_instruments = [];
-        var valid_years = [];
 
         this.collection.each(function(model) {
             var subview = new CamImageItemView2({
@@ -117,50 +302,10 @@ var CamImageView2 = Backbone.View.extend({
             });
             // subview.setElement($('#cam-image-grid'));
             self.add(subview);
-
-            var ref_des = model.get('reference_designator');
-            var array = ref_des.split('-')[0].substring(0,4).toLowerCase();
-            if(array.substring(0,2) !== 'rs') {
-                array = ref_des.split('-')[0].substring(0,2).toLowerCase();
-            }
-            valid_arrays.push(array);
-
-            var instrument = model.get('reference_designator').split('-')[3].substring(0,5).toLowerCase();
-            valid_instruments.push(instrument);
-
-            var year = model.get('date').split('-')[0];
-            valid_years.push(year);
-
         });
-
-        var valid_arrays_unique = $.unique(valid_arrays);
-        var valid_instruments_unique = $.unique(valid_instruments);
-        var valid_years_unique = $.unique(valid_years);
-
-        var all_buttons = $('button').not('[data-filter="*"]');
-        all_buttons.prop('disabled',true);
-
-        console.log(valid_arrays_unique);
-        valid_arrays_unique.forEach(function(array){
-            $('[data-filter=".'+array+'"]')[0].disabled = false;
-        });
-
-        console.log(valid_instruments_unique);
-        valid_instruments_unique.forEach(function(instrument){
-            $('[data-filter=".'+instrument+'"]')[0].disabled = false;
-        });
-
-        console.log(valid_years_unique);
-        valid_years_unique.forEach(function(year){
-            $('[data-filter=".'+year+'"]')[0].disabled = false;
-        });
-
-        let filters = {};
-
-        let valid_instrument_cateogries = ['OSMOI', 'MASSP', 'PPS', 'RAS', 'FLOBN', 'CAMDS', 'ZPL'];
 
         // init Isotope
-        let $thumbnailgrid = $('.thumbnail-grid').isotope({
+        self.$thumbnailgrid = $('.thumbnail-grid').isotope({
             itemSelector: '.element-item',
             layoutMode: 'packery',
             getSortData: {
@@ -195,51 +340,35 @@ var CamImageView2 = Backbone.View.extend({
             }
         };
 
-
-
-        // flatten object by concatting values
-        function concatValues( obj ) {
-            var value = '';
-            for ( var prop in obj ) {
-                value += obj[ prop ];
-            }
-            return value;
-        }
-
-        // bind filter button click
-        $('.filters').on( 'click', '.button', function( event ) {
-            //var filterValue = $( this ).attr('data-filter');
-            // use filterFn if matches value
-            //filterValue = filterFns[ filterValue ] || filterValue;
-
-
-            var $button = $( event.currentTarget );
-            // get group key
-            var $buttonGroup = $button.parents('.button-group');
-            var filterGroup = $buttonGroup.attr('data-filter-group');
-            // set filter for group
-            filters[ filterGroup ] = $button.attr('data-filter');
-            console.log('filters');
-            console.log(filters);
-            // combine filters
-            var filterValue = concatValues( filters );
-            while(filterValue.includes("**"))
-                filterValue = filterValue.replace("**", "*");
-            console.log('filterValue');
-            console.log(filterValue);
-
-            $thumbnailgrid.isotope({ filter: filterValue });
-        });
-
-        // change is-checked class on buttons
-        $('.button-group').each( function( i, buttonGroup ) {
-            var $buttonGroup = $( buttonGroup );
-            $buttonGroup.on( 'click', 'button', function() {
-                $buttonGroup.find('.is-checked').removeClass('is-checked');
-                $( this ).addClass('is-checked');
+        if(options['first_time']){
+            // Clicked on the instrument type
+            $('[id^=instrument-types]').on('click','.checkmark', function(event){
+               self.instrumentTypeSelection(event)
             });
-            $buttonGroup.find('.is-checked').click();
-        });
+
+            // Clicked on the instrument
+            $('[id^=instruments-group]').on('click','.button', function(event){
+               self.clickInstrumentsGroup(event)
+            });
+
+            $('[id^=years-group]').on('click','.button', function(event){
+               self.yearsButtonClick(event)
+            });
+
+            $('[id^=months-group]').on('click','.button', function(event){
+               self.monthsButtonClick(event)
+            });
+
+            // change is-checked class on buttons
+            $('.button-group').each( function( i, buttonGroup ) {
+                var $buttonGroup = $( buttonGroup );
+                $buttonGroup.on( 'click', 'button', function() {
+                    $buttonGroup.find('.is-checked').removeClass('is-checked');
+                    $( this ).addClass('is-checked');
+                });
+                //$buttonGroup.find('.is-checked').click();
+            });
+        }
 
 
     }
