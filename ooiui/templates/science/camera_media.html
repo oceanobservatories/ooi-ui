@@ -8,6 +8,10 @@
     <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
     <link href="/css/compiled/camera_media.css" rel="stylesheet" type="text/css" />
     <script src="/js/partials/compiled/camera_media.js" type="text/javascript"></script>
+
+    <link href="/lib/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css" />
+
+
     <!-- Partials -->
     <!-- lunr needs to be imported by a script tag -->
     <!-- TODO MOVE TO GRUNT FILE  -->
@@ -139,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <!-- INSTRUMENTS -->
                 <div class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
                 </div>
@@ -156,6 +160,7 @@
                 <div class="button-group filters-button-group" data-filter-group="days" id="days-group">
                 </div>
             </div>
+            <div id="mapid" class="col-md-2"></div>
         </div>
 
         <div class="row">
@@ -194,6 +199,15 @@
     </div>
 
     <style>
+        #mapid{
+            height: 250px;
+            max-width: 16%
+        }
+
+        .row{
+            margin-right: 0;
+        }
+
         .slick-prev{
             left:-35px !important;
         }
@@ -651,6 +665,9 @@
                     });
                 }
 
+                let miniMap = L.map('mapid').setView([16.342893, -83.064687], 1);
+                L.esri.basemapLayer("Oceans").addTo(miniMap);
+
 
 
 
@@ -670,5 +687,8 @@
     </script>
     <script>
 
+
     </script>
+    <script src="/lib/leaflet/dist/leaflet.js" type="text/javascript"></script>
+    <script src="/lib/esri-leaflet/dist/esri-leaflet.js" type="text/javascript"></script>
 {% endblock %}
