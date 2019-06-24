@@ -23,6 +23,7 @@ var TileMap = Backbone.View.extend({
                 maxZoom: 14
             }).setView([this.lat, this.lng], 9);
             // Commenting this out for now until security and web mapping service performance are resolved
+            // TODO: Change to https://www.gmrt.org/services/mapserver/wms_merc?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&
             L.tileLayer.wms('https://maps.oceanobservatories.org/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
                 layers: 'topo',
                 format: 'image/png',

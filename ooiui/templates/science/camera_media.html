@@ -108,17 +108,33 @@
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
 
         <div class="row">
+            <div class="col-md-3 help-step">Step 1: Choose Instrument Type
+            </div>
+            <div class="col-md-7 help-step">Step 2: Choose Instrument, Year & Month
+            </div>
+            <div class="col-md-2 help-step">Metadata</div>
+        </div>
+
+        <div class="row">
             <div class="col-md-3">
                 <div class="filters">
                     <!-- INSTRUMENT TYPES -->
                     <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
                         <label class="container"> Digital Still Camera (CAMDS)
-                            <input type="radio" checked="checked" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
+                            <input type="radio" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
                             <span class="checkmark" title="CAMDS"></span>
+                        </label>
+                        <label class="container"> HD Digital Video Camera (CAMHD)
+                            <input type="radio" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>
+                            <span class="checkmark disabled" title="CAMHD"></span>
                         </label>
                         <label class="container"> Benthic Fluid Flow (FLOBN)
                             <input type="radio" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">
                             <span class="checkmark" title="FLOBN"></span>
+                        </label>
+                        <label class="container"> Broadband Acoustic Receiver (Hydrophone) (HYDBB)
+                            <input type="radio" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>
+                            <span class="checkmark disabled" title="HYDBB"></span>
                         </label>
                         <label class="container"> Osmosis-Based Water Sampler (OSMOI)
                             <input type="radio" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">
@@ -427,15 +443,20 @@
             background-color: #eee;
             border-radius: 50%;
         }
+        .checkmark.disabled {
+            pointer-events: none;
+            cursor: none;
+            background-color: #636363;
+        }
 
         /* On mouse-over, add a grey background color */
         .container:hover input ~ .checkmark {
-            background-color: #ccc;
+            background-color: #3d36b9;
         }
 
         /* When the radio button is checked, add a blue background */
         .container input:checked ~ .checkmark {
-            background-color: #2196F3;
+            background-color: #3d36b9;
         }
 
         /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -483,6 +504,17 @@
             left: 33%;
 
         }
+
+    .help-step {
+        padding-bottom: 10px;
+        font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+        font-size: large;
+        background-color: lightgrey;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 10px;
+        margin-bottom: 20px;
+    }
 
 
 
@@ -627,6 +659,7 @@
                 });
 
                 this.listenTo(self.collections.camImages2, 'reset', function(options) {
+                    console.log(self.collections.camImages2);
                     self.views.camImages2.collection = self.collections.camImages2;
                     self.views.camImages2.collectionInstruments = self.collections.camInstruments;
                     self.views.camImages2.collectionMap = self.collections.camMap;
@@ -666,7 +699,14 @@
                 }
 
                 let miniMap = L.map('mapid').setView([16.342893, -83.064687], 1);
-                L.esri.basemapLayer("Oceans").addTo(miniMap);
+                L.tileLayer.wms('https://maps.oceanobservatories.org/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+                    layers: 'topo',
+                    format: 'image/png',
+                    transparent: true,
+                    //crs: L.CRS.EPSG4326,
+                    attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.6'
+                }).addTo(miniMap);
+                //L.esri.basemapLayer("Oceans").addTo(miniMap);
 
 
 

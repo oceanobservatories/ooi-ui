@@ -154,7 +154,7 @@ var CamImageView2 = Backbone.View.extend({
 
         self.$thumbnailgrid.isotope({ filter: filterValue });
 
-        $('#instruments-group').empty();
+        $('.element-item').remove();
         $('#years-group').empty();
         $('#months-group').empty();
         $('#days-group').empty();
@@ -186,6 +186,7 @@ var CamImageView2 = Backbone.View.extend({
         let selectedYear = $button.attr('title');
         let ref_des = $button.attr('data-ref_des');
 
+        $('.element-item').remove();
         $('#days-group').empty();
 
         // Populate the months
@@ -212,6 +213,8 @@ var CamImageView2 = Backbone.View.extend({
         let $button = $( event.currentTarget );
         let selectedMonth = $button.attr('title');
         let ref_des = $button.attr('data-ref_des');
+
+        $('.element-item').remove();
 
         // Fetch the thumbnails and re-render
         self.collectionDataBounds.reset();
@@ -272,6 +275,7 @@ var CamImageView2 = Backbone.View.extend({
         let $button = $( event.currentTarget );
         let instrumentGroup = $button.attr('title');
 
+        $('.element-item').remove();
         $('#months-group').empty();
         $('#days-group').empty();
 
@@ -296,51 +300,43 @@ var CamImageView2 = Backbone.View.extend({
         let self = this;
         this.$el.html(this.template(options));
 
-        this.collection.each(function(model) {
-            var subview = new CamImageItemView2({
-                model: model
-            });
-            // subview.setElement($('#cam-image-grid'));
-            self.add(subview);
-        });
-
-        // init Isotope
-        self.$thumbnailgrid = $('.thumbnail-grid').isotope({
-            itemSelector: '.element-item',
-            layoutMode: 'packery',
-            getSortData: {
-                name: '.name',
-                symbol: '.symbol',
-                number: '.number parseInt',
-                category: '[data-category]',
-                weight: function( itemElem ) {
-                    var weight = $( itemElem ).find('.weight').text();
-                    return parseFloat( weight.replace( /[\(\)]/g, '') );
-                },
-                year: '.year parseInt'
-            }
-        });
-
-        // filter functions
-        var filterFns = {
-            // show if number is greater than 50
-            numberGreaterThan50: function() {
-                var number = $(this).find('.number').text();
-                return parseInt( number, 10 ) > 50;
-            },
-            // show if name ends with -ium
-            ium: function() {
-                var name = $(this).find('.name').text();
-                return name.match( /ium$/ );
-            },
-            byYear: function() {
-                var year = $(this).find('.year').text();
-                console.log(year)
-                return parseInt( year, 10 ) === 2019;
-            }
-        };
-
         if(options['first_time']){
+            // init Isotope
+            self.$thumbnailgrid = $('.thumbnail-grid').isotope({
+                itemSelector: '.element-item',
+                layoutMode: 'packery',
+                getSortData: {
+                    name: '.name',
+                    symbol: '.symbol',
+                    number: '.number parseInt',
+                    category: '[data-category]',
+                    weight: function (itemElem) {
+                        var weight = $(itemElem).find('.weight').text();
+                        return parseFloat(weight.replace(/[\(\)]/g, ''));
+                    },
+                    year: '.year parseInt'
+                }
+            });
+
+            // filter functions
+            var filterFns = {
+                // show if number is greater than 50
+                numberGreaterThan50: function () {
+                    var number = $(this).find('.number').text();
+                    return parseInt(number, 10) > 50;
+                },
+                // show if name ends with -ium
+                ium: function () {
+                    var name = $(this).find('.name').text();
+                    return name.match(/ium$/);
+                },
+                byYear: function () {
+                    var year = $(this).find('.year').text();
+                    console.log(year)
+                    return parseInt(year, 10) === 2019;
+                }
+            };
+
             // Clicked on the instrument type
             $('[id^=instrument-types]').on('click','.checkmark', function(event){
                self.instrumentTypeSelection(event)
@@ -368,9 +364,18 @@ var CamImageView2 = Backbone.View.extend({
                 });
                 //$buttonGroup.find('.is-checked').click();
             });
+        } else {
+            if(this.collection.length > 0) {
+                // Loop through the media and add to the image gallery
+                this.collection.each(function (model) {
+                    let subview = new CamImageItemView2({
+                        model: model
+                    });
+                    // subview.setElement($('#cam-image-grid'));
+                    self.add(subview);
+                });
+            }
         }
-
-
     }
 });
 
