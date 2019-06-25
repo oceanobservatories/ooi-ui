@@ -161,11 +161,15 @@ var CamImageView2 = Backbone.View.extend({
 
         self.collectionInstruments.reset();
 
+        let instrumentsSortedHtml = [];
+
         $.when(self.collectionInstruments.fetch({url: '/api/uframe/media/get_instrument_list/'+instrumentGroup})).done(function(data){
             console.log(data);
             $('#instruments-group').empty();
             //$('#instruments-group').append('<button class="button is-checked" data-filter="*">Choose Instrument</button>');
-            $.each(data.instruments, function(key, instrument){
+            let instrumentsSorted = data.instruments.sort();
+
+            $.each(instrumentsSorted, function(key, instrument){
                 //$.when(self.collectionVocab.fetch({url: '/api/uframe/streams_for/'+instrument})).done(function (vocab) {
                 $.when(self.collectionVocab.fetch({url: '/api/uframe/media/get_display_name/'+instrument})).done(function (vocab) {
                     console.log(vocab);
@@ -231,6 +235,7 @@ var CamImageView2 = Backbone.View.extend({
                 first_date = [chosenYear, chosenMonth, firstDay].join("-");
                 last_date = [chosenYear, chosenMonth, lastDay].join("-");
 
+                $('#media-spinner').show();
                 $.when(self.collection.fetch({url: '/api/uframe/media/'+ref_des+'/range/'+first_date+'/'+last_date})).done(function(data){
                     console.log(data);
                     self.render({'first_time': false})
@@ -301,6 +306,7 @@ var CamImageView2 = Backbone.View.extend({
         this.$el.html(this.template(options));
 
         if(options['first_time']){
+            $('#media-spinner').hide();
             // init Isotope
             self.$thumbnailgrid = $('.thumbnail-grid').isotope({
                 itemSelector: '.element-item',
@@ -375,6 +381,7 @@ var CamImageView2 = Backbone.View.extend({
                     self.add(subview);
                 });
             }
+            $('#media-spinner').hide();
         }
     }
 });
@@ -391,12 +398,13 @@ var CamImageItemView2 = Backbone.View.extend({
     itemClick:function(evt){
         var self = this;
         evt.preventDefault();
+        console.log(self.model);
         if (!_.isUndefined(self.model.get('url'))){
-            var text = "<small>"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"</small>";
+            var text = "<small>"+self.model.get("date")+"</small>";
             bootbox.dialog({
                 title: "<h5>"+self.model.get("reference_designator")+"</h5>"+text,
                 size:'large',
-                message: "<a class='download-full-image' href='"+ self.model.get('url') +"' download='" + self.model.get('filename') +"' title='"+moment().utc(self.model.get("datetime")).format('YYYY-MM-DD')+"'><img height='100%' width='100%' src='" + self.model.get('url') + "'></a>",
+                message: "<a class='download-full-image' href='"+ self.model.get('url') +"' download='" + self.model.get('filename') +"' title='"+self.model.get("date")+"'><img height='100%' width='100%' src='" + self.model.get('url') + "'></a>",
                 buttons: {
                     success: {
                         label: "Download Image",

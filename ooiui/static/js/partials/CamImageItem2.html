@@ -1,5 +1,6 @@
-<%  var ref_des = model.get('reference_designator'); %>
+<%  console.log(model); var ref_des = model.get('reference_designator'); %>
 <%  var array = ref_des.split('-')[0].substring(0,4).toLowerCase(); %>
+<%  var imageDate = model.get('date'); %>
 <%  var year = model.get('date').split('-')[0]; %>
 <%  var month = model.get('date').split('-')[1]; %>
 <%  var day = model.get('date').split('-')[2]; %>
@@ -9,7 +10,7 @@
     <a href="#">
         <img link='<%=model.get("url")%>' src="<%=model.get('baseUrl')+model.get('thumbnail').split('/')[2] %>">
     </a>
-    <h3 class="name"><%= model.get('date') %></h3>
+    <h3 class="name"><%= imageDate %></h3>
     <!--<p class="symbol">CAMDS</p>
     <p class="number">52</p>
     <p class="weight">127.6</p>
