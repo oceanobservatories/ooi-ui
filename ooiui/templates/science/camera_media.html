@@ -116,11 +116,28 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
-                <div class="filters">
+            <div id="inst-type-menu" class="media-menu-nav-buttons"><button class="button">Instrument Types</button>
+                <div class="filters" id="filters-list" style="list-style: none;" hidden>
                     <!-- INSTRUMENT TYPES -->
                     <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
-                        <label class="container"> Digital Still Camera (CAMDS)
+                        <button class="button" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">Digital Still Camera</button>
+
+                        <button class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>HD Video</button>
+
+                        <button class="button" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">Benthic Fluid Flow</button>
+
+                        <button class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>Broadband Hydrophone</button>
+
+                        <button class="button" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">Mass Spectrometer</button>
+
+                        <button class="button" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">Osmosis-Based Water Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">Particulate DNA Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">Hydrothermal Vent Fluid Interactive Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">Bio-acoustic Sonar (Coastal)</button>
+                        <!--<label class="container"> Digital Still Camera (CAMDS)
                             <input type="radio" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
                             <span class="checkmark" title="CAMDS"></span>
                         </label>
@@ -155,38 +172,56 @@
                         <label class="container"> Bio-acoustic Sonar (Coastal) (ZPL)
                             <input type="radio" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">
                             <span class="checkmark" title="ZPL"></span>
-                        </label>
+                        </label>-->
                     </div>
                 </div>
-                <div id="media-spinner">
-                    <div class="fa fa-3x fa-spinner fa-spin centered"></div>
-                </div>
             </div>
-            <div class="col-md-7">
-                <!-- INSTRUMENTS -->
-                <div class="row h3" style="margin-top: 0;">Instruments
+
+            <!-- INSTRUMENTS -->
+            <div id="inst-menu" class="media-menu-nav-buttons"><button class="button">Instruments</button>
+                <div class="filters" id="filters-list-instruments" style="list-style: none;" hidden>
                     <div class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
                         <p class="h5">Choose an instrument on the left...</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- YEARS -->
-                <div class="row h3">Years
+            <!-- YEARS -->
+            <div id="years-menu" class="media-menu-nav-buttons"><button class="button">Years</button>
+                <div class="filters" id="filters-list-years" style="list-style: none;" hidden>
                     <div class="button-group filters-button-group" data-filter-group="years" id="years-group">
                     </div>
                 </div>
+            </div>
 
-                <!-- MONTHS -->
-                <div class="row h3">Months
+            <!-- MONTHS -->
+            <div id="months-menu" class="media-menu-nav-buttons"><button class="button">Months</button>
+                <div class="filters" id="filters-list-months" style="list-style: none;" hidden>
                     <div class="button-group filters-button-group" data-filter-group="months" id="months-group">
                     </div>
                 </div>
-
-                <!-- DAYS -->
-                <div class="button-group filters-button-group" data-filter-group="days" id="days-group">
-                </div>
             </div>
-            <div id="mapid" class="col-md-2"></div>
+
+            <!-- DAYS
+            <div id="days-menu" class="col-md-2" style="margin: 5px;" hidden>Days
+                <div class="filters" id="filters-list-days" style="list-style: none;" hidden>
+                    <div class="button-group filters-button-group" data-filter-group="days" id="days-group">
+                    </div>
+                </div>
+            </div>-->
+        </div>
+
+        <div class="row">
+            <ul class="breadcrumb">
+                <li id="selected-instrument-type-btn"></li>
+                <li id="selected-instrument-btn"></li>
+                <li id="selected-year-btn"></li>
+                <li id="selected-month-btn"></li>
+            </ul>
+        </div>
+
+        <div id="media-spinner">
+            <div class="fa fa-3x fa-spinner fa-spin centered"></div>
         </div>
 
         <div class="row">
@@ -194,13 +229,18 @@
                 <div class="cam-image-grid"></div>
             </div>
             <div class="col-md-2">
-                <div id="clock-wrapper">
-                    <p>
-                        <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
-                            <span id="clockdiv"></span>
-                        </strong>
-                    </p>
-                    <video id="video"></video>
+                <div class="row">
+                    <div id="mapid" class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div id="clock-wrapper">
+                        <p>
+                            <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
+                                <span id="clockdiv"></span>
+                            </strong>
+                        </p>
+                        <video id="video"></video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,13 +265,58 @@
     </div>
 
     <style>
+
+        .media-menu-nav-buttons{
+            float: left;
+            margin-right: 5px;
+            padding: 0;
+        }
+
+        /* Style the list */
+        ul.breadcrumb {
+            padding: 10px 16px;
+            list-style: none;
+            background-color: lightgrey;
+        }
+
+        /* Display list items side by side */
+        ul.breadcrumb li {
+            display: inline;
+            font-size: 18px;
+        }
+
+        /* Add a slash symbol (/) before/behind each list item */
+        ul.breadcrumb li+li:before {
+            padding: 8px;
+            color: black;
+            content: "/\00a0";
+        }
+
+        /* Add a color to all links inside the list */
+        ul.breadcrumb li a {
+            color: #0275d8;
+            text-decoration: none;
+        }
+
+        /* Add a color on mouse-over */
+        ul.breadcrumb li a:hover {
+            color: #01447e;
+            text-decoration: underline;
+        }
+
         #mapid{
             height: 250px;
-            max-width: 16%
+            width: 100%;
         }
 
         .row{
             margin-right: 0;
+        }
+
+        .filters{
+            background-color: white;
+            width: 95vw;
+            float: left;
         }
 
         .slick-prev{
@@ -515,16 +600,16 @@
 
         }
 
-    .help-step {
-        padding-bottom: 10px;
-        font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
-        font-size: large;
-        background-color: lightgrey;
-        font-weight: bold;
-        text-align: center;
-        padding-top: 10px;
-        margin-bottom: 20px;
-    }
+        .help-step {
+            padding-bottom: 10px;
+            font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+            font-size: large;
+            background-color: lightgrey;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 10px;
+            margin-bottom: 20px;
+        }
 
 
 
@@ -719,6 +804,25 @@
                 //L.esri.basemapLayer("Oceans").addTo(miniMap);
 
 
+                $('#inst-type-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list').toggle();
+                });
+
+                $('#inst-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-instruments').toggle();
+                });
+
+                $('#years-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-years').toggle();
+                });
+
+                $('#months-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-months').toggle();
+                });
 
 
             }

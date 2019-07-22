@@ -154,6 +154,14 @@ var CamImageView2 = Backbone.View.extend({
 
         self.$thumbnailgrid.isotope({ filter: filterValue });
 
+
+        $('#selected-instrument-type-btn').empty();
+        $('#selected-instrument-type-btn').append($button.text());
+        $('#selected-instrument-btn').empty();
+        $('#selected-year-btn').empty();
+        $('#selected-month-btn').empty();
+
+
         $('.element-item').remove();
         $('#years-group').empty();
         $('#months-group').empty();
@@ -173,7 +181,7 @@ var CamImageView2 = Backbone.View.extend({
                 //$.when(self.collectionVocab.fetch({url: '/api/uframe/streams_for/'+instrument})).done(function (vocab) {
                 $.when(self.collectionVocab.fetch({url: '/api/uframe/media/get_display_name/'+instrument})).done(function (vocab) {
                     console.log(vocab);
-                    $('#instruments-group').append('<button class="button" data-filter=".'+instrument+'" title="'+instrument+'" data-ref_des="'+instrument+'">'+vocab.vocab.long_name+'</button>');
+                    $('#instruments-group').append('<button class="button" data-filter=".'+instrument+'" title="'+instrument+'" data-ref_des="'+instrument+'" data-long_name="'+vocab.vocab.long_name+'">'+vocab.vocab.long_name+'</button>');
                 });
             })
         });
@@ -192,6 +200,11 @@ var CamImageView2 = Backbone.View.extend({
 
         $('.element-item').remove();
         $('#days-group').empty();
+
+
+        $('#selected-year-btn').empty();
+        $('#selected-year-btn').append(selectedYear);
+        $('#selected-month-btn').empty();
 
         // Populate the months
         self.collectionMonths.reset();
@@ -219,6 +232,9 @@ var CamImageView2 = Backbone.View.extend({
         let ref_des = $button.attr('data-ref_des');
 
         $('.element-item').remove();
+
+        $('#selected-month-btn').empty();
+        $('#selected-month-btn').append(selectedMonth);
 
         // Fetch the thumbnails and re-render
         self.collectionDataBounds.reset();
@@ -279,10 +295,16 @@ var CamImageView2 = Backbone.View.extend({
 
         let $button = $( event.currentTarget );
         let instrumentGroup = $button.attr('title');
+        let long_name = $button.attr('data-long_name');
 
         $('.element-item').remove();
         $('#months-group').empty();
         $('#days-group').empty();
+
+        $('#selected-instrument-btn').empty();
+        $('#selected-instrument-btn').append(long_name);
+        $('#selected-year-btn').empty();
+        $('#selected-month-btn').empty();
 
         self.collectionMap.reset();
         $.when(self.collectionMap.fetch({url: '/api/uframe/media/'+instrumentGroup+'/da/map'})).done(function(data){
@@ -344,7 +366,7 @@ var CamImageView2 = Backbone.View.extend({
             };
 
             // Clicked on the instrument type
-            $('[id^=instrument-types]').on('click','.checkmark', function(event){
+            $('[id^=instrument-types]').on('click','.button', function(event){
                self.instrumentTypeSelection(event)
             });
 
