@@ -108,15 +108,16 @@
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
 
         <div class="row">
-            <div class="col-md-3 help-step">Step 1: Choose Instrument Type
-            </div>
-            <div class="col-md-7 help-step">Step 2: Choose Instrument, Year & Month
-            </div>
-            <div class="col-md-2 help-step">Metadata</div>
+            <ul class="breadcrumb">
+                <li id="selected-instrument-type-btn">Choose Instrument Type Below to Begin</li>
+                <li id="selected-instrument-btn"></li>
+                <li id="selected-year-btn"></li>
+                <li id="selected-month-btn"></li>
+            </ul>
         </div>
 
         <div class="row">
-            <div id="inst-type-menu" class="media-menu-nav-buttons"><button class="button">Instrument Types</button>
+            <div id="inst-type-menu" class="media-menu-nav-buttons"><button id="inst-type-menu-btn" class="button">Instrument Types</button>
                 <div class="filters" id="filters-list" style="list-style: none;" hidden>
                     <!-- INSTRUMENT TYPES -->
                     <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
@@ -211,15 +212,6 @@
             </div>-->
         </div>
 
-        <div class="row">
-            <ul class="breadcrumb">
-                <li id="selected-instrument-type-btn"></li>
-                <li id="selected-instrument-btn"></li>
-                <li id="selected-year-btn"></li>
-                <li id="selected-month-btn"></li>
-            </ul>
-        </div>
-
         <div id="media-spinner">
             <div class="fa fa-3x fa-spinner fa-spin centered"></div>
         </div>
@@ -269,7 +261,7 @@
         .media-menu-nav-buttons{
             float: left;
             margin-right: 5px;
-            padding: 0;
+            padding-left: 15px;
         }
 
         /* Style the list */

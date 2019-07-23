@@ -158,6 +158,7 @@ var CamImageView2 = Backbone.View.extend({
         $('#selected-instrument-type-btn').empty();
         $('#selected-instrument-type-btn').append($button.text());
         $('#selected-instrument-btn').empty();
+        $('#selected-instrument-btn').append('Select Instrument');
         $('#selected-year-btn').empty();
         $('#selected-month-btn').empty();
 
@@ -205,6 +206,7 @@ var CamImageView2 = Backbone.View.extend({
         $('#selected-year-btn').empty();
         $('#selected-year-btn').append(selectedYear);
         $('#selected-month-btn').empty();
+        $('#selected-month-btn').append('Select Month');
 
         // Populate the months
         self.collectionMonths.reset();
@@ -304,6 +306,7 @@ var CamImageView2 = Backbone.View.extend({
         $('#selected-instrument-btn').empty();
         $('#selected-instrument-btn').append(long_name);
         $('#selected-year-btn').empty();
+        $('#selected-year-btn').append('Select Year');
         $('#selected-month-btn').empty();
 
         self.collectionMap.reset();
@@ -392,6 +395,8 @@ var CamImageView2 = Backbone.View.extend({
                 });
                 //$buttonGroup.find('.is-checked').click();
             });
+
+            $('#inst-type-menu-btn').click();
         } else {
             if(this.collection.length > 0) {
                 // Loop through the media and add to the image gallery
