@@ -253,10 +253,9 @@
                                 <div class="panel-heading">
                                     M2M API Information
                                 </div>
-                                <h5 style="font-size: 14px;padding-left: 5px;"><b>Base URL</b></h5>
+                                <div id="m2m-options-heading"></div>
                                 <p id="m2m-options" style="font-size: 14px;padding-left: 15px;"></p>
                                 <div class="panel-footer" style="min-height: 45px;">
-                            <a href="/help/m2m" class="btn btn-primary" target="_blank">M2M API Help Documentation</a>
                           </div>
                             </div>
                         </div>
@@ -502,8 +501,8 @@
           var onDataHandler = function(collection, response, options) {
             self.views.plotContainer.hideLoading();
             self.views.plotContainer.render();
-            console.log('Gothere');
-            console.log(self.views.plotContainer.plotData.getAPIUrl());
+            //console.log('Gothere');
+            //console.log(self.views.plotContainer.plotData.getAPIUrl());
             var port = document.location.port;
             if(port === '80' || port === ''){
                 port = '';
@@ -514,21 +513,42 @@
             var theUrl = document.location.protocol + "//" + document.location.hostname + port;
             query = query.split(":").slice(2).join(':').replace('&user=plotting','');
             var theFullurl = theUrl +  "/api/m2m/" + query;
-            $('#m2m-options').empty();
-            $('#m2m-options').append(theFullurl);
-            console.log(self.models.userModel);
+
+            //console.log(self.models.userModel);
             if(self.models.userModel.get("api_user_name") !== ""){
+                $('#m2m-options-heading').empty();
+                $('#m2m-options-heading').append('<a href="/help/m2m" class="btn btn-primary" target="_blank">M2M API Help Documentation</a>');
+                $('#m2m-options').empty();
+                $('#m2m-options').append('<h5 style="font-size: 14px;padding-left: 5px;"><b>Base URL</b></h5>');
+                $('#m2m-options').append(theFullurl);
                 var api_user_name = self.models.userModel.get('api_user_name');
                 var api_user_token = self.models.userModel.get('api_user_token');
                 var the_user_name = self.models.userModel.get('user_name');
-                console.log(api_user_name);
-                console.log(api_user_token);
-                console.log(the_user_name);
+                //console.log(api_user_name);
+                //console.log(api_user_token);
+                //console.log(the_user_name);
                 $('#m2m-options').append("<h5>");
                 $('#m2m-options').append("<b>M2M API Username: </b>"+api_user_name+"<br>");
                 $('#m2m-options').append("<b>M2M API Token: </b>"+api_user_token);
                 $('#m2m-options').append("</h5><br><br><h5><b>Curl Request:</b></h5>");
                 $('#m2m-options').append("curl --request GET --url '" + encodeURI(theFullurl + "&user=" + the_user_name) + "' --header 'authorization: Basic " + btoa(api_user_name+":"+api_user_token) + "'");
+
+                $('#m2m-options').append("</h5><br><br><h5><b>Python Request:</b></h5>");
+                $('#m2m-options').append("import requests");
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('url = "' + encodeURI(theFullurl) + '"');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('payload = ""');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append("headers = {'authorization': 'Basic " + btoa(api_user_name+":"+api_user_token)+"'}");
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('response = requests.request("GET", url, data=payload, headers=headers)');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append("print(response.text)");
+            }else{
+                $('#m2m-options-heading').empty();
+                $('#m2m-options').empty();
+                $('#m2m-options').append('<h5 style="font-size: 14px;padding-left: 5px;"><b>Please log in to view M2M data retrieval options.</b></h5>');
             }
           };
 

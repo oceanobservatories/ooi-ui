@@ -186,6 +186,7 @@ var CamImageView2 = Backbone.View.extend({
                 });
             })
         });
+        $('#inst-type-menu-btn').removeClass('is-checked');
     },
     yearsButtonClick:function(event){
         console.log('yearsButtonClick');
@@ -309,6 +310,9 @@ var CamImageView2 = Backbone.View.extend({
         $('#selected-year-btn').append('Select Year');
         $('#selected-month-btn').empty();
 
+        $('#selected-ref-des').empty();
+        $('#selected-ref-des').append(instrumentGroup);
+
         self.collectionMap.reset();
         $.when(self.collectionMap.fetch({url: '/api/uframe/media/'+instrumentGroup+'/da/map'})).done(function(data){
             console.log(data);
@@ -397,6 +401,7 @@ var CamImageView2 = Backbone.View.extend({
             });
 
             $('#inst-type-menu-btn').click();
+            $('#inst-type-menu-btn').addClass('is-checked');
         } else {
             if(this.collection.length > 0) {
                 // Loop through the media and add to the image gallery
