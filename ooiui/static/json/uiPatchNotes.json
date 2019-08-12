@@ -100,7 +100,8 @@
             "Data Download: Added preview of time/size estimate to download dialog. (13376)",
             "General: Added click-to-zoom action to all content images. (10502)",
             "General: Header update and cleanup."
-        ]
+        ],
+        "ReleaseNotesPDF": "OOI_2.0_1.7.0.pdf"
     },
     {
         "VersionNumber": "1.5.1",
