@@ -171,8 +171,9 @@
                         <div id='tools-panel' class="panel">
                           <div class="panel-body">
                             <div class="row">
-                              <div class="pull-left">
-                                <input id="showAdditionalParameters" type="checkbox" class="" name="Show Additional Parameters" value="showAdditionalParameters"> Show Additional Parameters<br>
+                              <div>
+                                  <button id="plottingTourBtn" type='button' title='Show plotting tour.' class='btn btn-default pull-right' onclick='showTourPlotting();'>Plotting Tour</button>
+                                <input id="showAdditionalParameters" type="checkbox" class="pull-left" name="Show Additional Parameters" value="showAdditionalParameters"> Show Additional Parameters<br>
                               </div>
                             </div>
                             <div class="row">
@@ -185,7 +186,7 @@
                                 <a href="#" class="btn btn-primary clear-plot-area pull-left">Clear Plot</a>
                                 <a href="#" id="update-plot" class="btn btn-primary update-plot">Plot</a>
                                 <a href="#" type="button" id="zoom-update-plot" class="btn btn-default zoom-update-plot">Update Plot</a>
-                                <a href="#" class="btn btn-primary download-plot-data" style="margin-left: 30px;">Download Data</a>
+                                <a href="#" class="btn btn-primary download-plot-data" data-hint="Click here for a data download dialog synchronized to the plotting time range." data-hintPosition="top-middle" data-position="bottom-right-aligned" style="margin-left: 30px;">Download Data</a>
                                 <div id="isDecimated">
 
                                 </div>
@@ -1664,6 +1665,37 @@
             Cookies.set('ooisitetourhelp', currentVersion, {expires: 365, path: '/data_access'});
           }
         }
+      });
+    };
+
+    var showTourPlotting = function(){
+        console.log('Clicked plotting tour.');
+      var uipatchnotes = new uiPatchNoteList();
+
+      uipatchnotes.fetch({
+        success: function(model) {
+            console.log(model);
+          var siteTour = model.models[0].get('SiteTour')['plotting_tab'];
+          console.log(siteTour);
+
+          var plottingTour = introJs();
+          plottingTour.setOptions({
+            steps: siteTour,
+            overlayOpacity: .7,
+            scrollToElement: true,
+            keyboardNavigation: true,
+            hidePrev: true,
+            hideNext: true,
+            tooltipPosition: 'right',
+            disableInteraction: true,
+            exitOnEsc: true
+          });
+
+          plottingTour.start();
+        },
+          failure: function(model){
+            console.log(model);
+          }
       });
     };
 

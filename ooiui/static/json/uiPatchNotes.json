@@ -1,16 +1,46 @@
 [
   {
-        "VersionNumber": "1.6.2",
-        "VersionDate": "2019-05-14",
+        "VersionNumber": "1.7.0",
+        "VersionDate": "2019-08-14",
         "VersionDescription": [
-            "Data Download: Removes deprecated fix for user_name passed during download requests. (14279)"
+            "Data Catalog: Fixed link navigation to asset management. (14329)",
+            "Data Catalog: Added M2M curl and Python examples to Plotting tab based on current plot parameters.",
+            "Media Discovery: Added cache updates and tests to support future front end changes. (8869)",
+            "Plotting: Default plot style changed to scatter.",
+            "Plotting: Default selected time range set to latest 7 days of data.",
+            "Plotting: Changed the first plotting parameter to be the preferred timestamp."
         ],
-        "ReleaseNotesPDF": "OOI_2.0_1.6.0.pdf",
-        "SiteTourTitle": "Release 1.6.0 Tour",
+        "ReleaseNotesPDF": "OOI_2.0_1.7.0.pdf",
+        "SiteTourTitle": "Release 1.7.0 Tour",
         "SiteTour": {
+            "plotting_tab": [
+                {
+                    "intro": "Welcome to the plotting interface."
+                },
+                {
+                    "element": "#reportrange",
+                    "intro": "The default date range is one week.  Click here to change the plotting date range."
+                },
+                {
+                    "element": "#plot-controls > div > div > div.col-sm-8.plot-instrument-column > div.instrument-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div",
+                    "intro": "The parameters are all alphabetically sorted except the preferred timestamp has been moved to the top position."
+                },
+                {
+                    "element": "#plot-controls > div > div > div.col-sm-4 > form > div:nth-child(4) > div.col-sm-8 > div",
+                    "intro": "The default plot style is Scatter.  Click to change to Line or Both line and scatter."
+                },
+                {
+                    "element": "#plot-tool-tab > div:nth-child(5) > div",
+                    "intro": "A new M2M assistance section was recently added.  Once a plot has been generated this section will populate with both Curl and Python example code.  Logging in is required in order to generate and show your M2M API credentials."
+                },
+                {
+                    "element": "#plottingTourBtn",
+                    "intro": "Thank you for taking the tour."
+                }
+            ],
             "data_access" : [
                 {
-                    "intro": "Welcome to the OOI Data Catalog.<br><b>Version:</b> 1.6.0<br><b>Release Date:</b> 3/8/2019"
+                    "intro": "Welcome to the OOI Data Catalog.<br><b>Version:</b> 1.7.0<br><b>Release Date:</b> 8/14/2019"
                 },
                 {
                     "element": "#showReleaseChanges",
@@ -45,6 +75,13 @@
                 }
             ]
         }
+  },
+  {
+        "VersionNumber": "1.6.2",
+        "VersionDate": "2019-05-14",
+        "VersionDescription": [
+            "Data Download: Removes deprecated fix for user_name passed during download requests. (14279)"
+        ]
   },
       {
         "VersionNumber": "1.6.1",
