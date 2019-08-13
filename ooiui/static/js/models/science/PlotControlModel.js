@@ -53,7 +53,7 @@ var PlotControlModel = Backbone.Model.extend({
     urlRoot: '#',
     defaults: {
         plotType: "xy",
-        plotStyle: "line",
+        plotStyle: "scatter",
         plotOrientation: "horizontal",
         invertX: false,
         invertY: false,

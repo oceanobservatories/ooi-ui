@@ -521,51 +521,51 @@ pre {
 }
 
 .fa.fa-circle.anno-fail {
-    color: #CC0000;
-    font-size: 16px;
-    float: left;
+  color: #CC0000;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-not_evaluated {
-    color: #004c99;
-    font-size: 16px;
-    float: left;
+  color: #004c99;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-not_available {
-    color: #A0A0A0;
-    font-size: 16px;
-    float: left;
+  color: #A0A0A0;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-not_operational {
-    color: #606060;
-    font-size: 16px;
-    float: left;
+  color: #606060;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-pass {
-    color: #00CC00;
-    font-size: 16px;
-    float: left;
+  color: #00CC00;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-pending_ingest {
-    color: #E0E0E0;
-    font-size: 16px;
-    float: left;
+  color: #E0E0E0;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-suspect {
-    color: #CC6600;
-    font-size: 16px;
-    float: left;
+  color: #CC6600;
+  font-size: 16px;
+  float: left;
 }
 
 .fa.fa-circle.anno-null {
-    color: #CDBA96;
-    font-size: 16px;
-    float: left;
+  color: #CDBA96;
+  font-size: 16px;
+  float: left;
 }
 
 .daterangepicker .ranges ul {
@@ -741,4 +741,44 @@ div#wrapper {
   text-align: center;
 
   font: 24px Arial, sans-serif;
+}
+
+#video {
+  /*position: absolute;*/
+  /*top: 300px;*/
+  /*right: 50px;*/
+  z-index: 100000;
+  width: 90%;
+  /*background: #b5b5b5;*/
+  /*margin: 3px;*/
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+}
+
+#video:hover {
+  transform: scale(4.0, 4.0) translate(-25%, 25%);
+}
+
+#media-spinner {
+  z-index: 100000;
+  background: rgba(255,255,255,.1);
+  position: relative;
+  /*top: 50%;*/
+  left: 50%;
+  font-size: 20px;
+  /*transform: translate(-50%, -50%);*/
+}
+
+#clock-wrapper {
+  /*position: absolute;*/
+  /*top: 265px;*/
+  /*right: 50px;*/
+  width: 90%;
+  font-family: "Consolas", "Menlo", "Lucida Console", "Courier New", monospace;
+  font-size: 14px;
+}
+
+.cam-image-grid {
+  /*width: 95%;*/
 }

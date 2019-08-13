@@ -171,8 +171,9 @@
                         <div id='tools-panel' class="panel">
                           <div class="panel-body">
                             <div class="row">
-                              <div class="pull-left">
-                                <input id="showAdditionalParameters" type="checkbox" class="" name="Show Additional Parameters" value="showAdditionalParameters"> Show Additional Parameters<br>
+                              <div>
+                                  <button id="plottingTourBtn" type='button' title='Show plotting tour.' class='btn btn-default pull-right' onclick='showTourPlotting();'>Plotting Tour</button>
+                                <input id="showAdditionalParameters" type="checkbox" class="pull-left" name="Show Additional Parameters" value="showAdditionalParameters"> Show Additional Parameters<br>
                               </div>
                             </div>
                             <div class="row">
@@ -185,7 +186,7 @@
                                 <a href="#" class="btn btn-primary clear-plot-area pull-left">Clear Plot</a>
                                 <a href="#" id="update-plot" class="btn btn-primary update-plot">Plot</a>
                                 <a href="#" type="button" id="zoom-update-plot" class="btn btn-default zoom-update-plot">Update Plot</a>
-                                <a href="#" class="btn btn-primary download-plot-data" style="margin-left: 30px;">Download Data</a>
+                                <a href="#" class="btn btn-primary download-plot-data" data-hint="Click here for a data download dialog synchronized to the plotting time range." data-hintPosition="top-middle" data-position="bottom-right-aligned" style="margin-left: 30px;">Download Data</a>
                                 <div id="isDecimated">
 
                                 </div>
@@ -248,6 +249,17 @@
                           </div>
                         </div> <!-- panel -->
                       </div> <!-- .row -->
+                        <div class="row">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    M2M API Information
+                                </div>
+                                <div id="m2m-options-heading"></div>
+                                <p id="m2m-options" style="font-size: 14px;padding-left: 15px;"></p>
+                                <div class="panel-footer" style="min-height: 45px;">
+                          </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane active" id="plot-tool-instruments">
@@ -429,6 +441,7 @@
         var streamName = parameterCollection.models[0].get('original_model').get('stream_name');
         var stream_display_name = parameterCollection.models[0].get('original_model').get('stream_display_name');
         var referenceDesignator = parameterCollection.models[0].get('original_model').get('reference_designator');
+        var query_url = parameterCollection.models[0].get('original_model').get('query_url');
         parameterCollection.each(function(model){
           if (model.get('is_selected')){
             //double check the selected field and add the parameter name to the list
@@ -481,13 +494,63 @@
               enddate     : endDate.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
               xparameters : xParams,
               yparameters : yParams,
-              stream_display_name : stream_display_name
+              stream_display_name : stream_display_name,
+                query_url   : query_url
             });
 
 
           var onDataHandler = function(collection, response, options) {
             self.views.plotContainer.hideLoading();
             self.views.plotContainer.render();
+            //console.log('Gothere');
+            //console.log(self.views.plotContainer.plotData.getAPIUrl());
+            var port = document.location.port;
+            if(port === '80' || port === ''){
+                port = '';
+            }else{
+                port = ":" + port;
+            }
+            var query = self.views.plotContainer.plotData.getAPIUrl();
+            var theUrl = document.location.protocol + "//" + document.location.hostname + port;
+            query = query.split(":").slice(2).join(':').replace('&user=plotting','');
+            var theFullurl = theUrl +  "/api/m2m/" + query;
+
+            //console.log(self.models.userModel);
+            if(self.models.userModel.get("api_user_name") !== ""){
+                $('#m2m-options-heading').empty();
+                $('#m2m-options-heading').append('<a href="/help/m2m" class="btn btn-primary" target="_blank">M2M API Help Documentation</a>');
+                $('#m2m-options').empty();
+                $('#m2m-options').append('<h5 style="font-size: 14px;padding-left: 5px;"><b>Base URL</b></h5>');
+                $('#m2m-options').append(theFullurl);
+                var api_user_name = self.models.userModel.get('api_user_name');
+                var api_user_token = self.models.userModel.get('api_user_token');
+                var the_user_name = self.models.userModel.get('user_name');
+                //console.log(api_user_name);
+                //console.log(api_user_token);
+                //console.log(the_user_name);
+                $('#m2m-options').append("<h5>");
+                $('#m2m-options').append("<b>M2M API Username: </b>"+api_user_name+"<br>");
+                $('#m2m-options').append("<b>M2M API Token: </b>"+api_user_token);
+                $('#m2m-options').append("</h5><br><br><h5><b>Curl Request:</b></h5>");
+                $('#m2m-options').append("curl --request GET --url '" + encodeURI(theFullurl + "&user=" + the_user_name) + "' --header 'authorization: Basic " + btoa(api_user_name+":"+api_user_token) + "'");
+
+                $('#m2m-options').append("</h5><br><br><h5><b>Python Request:</b></h5>");
+                $('#m2m-options').append("import requests");
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('url = "' + encodeURI(theFullurl) + '"');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('payload = ""');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append("headers = {'authorization': 'Basic " + btoa(api_user_name+":"+api_user_token)+"'}");
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append('response = requests.request("GET", url, data=payload, headers=headers)');
+                $('#m2m-options').append("<br>");
+                $('#m2m-options').append("print(response.text)");
+            }else{
+                $('#m2m-options-heading').empty();
+                $('#m2m-options').empty();
+                $('#m2m-options').append('<h5 style="font-size: 14px;padding-left: 5px;"><b>Please log in to view M2M data retrieval options.</b></h5>');
+            }
           };
 
           var errorHandler = function(collection, response,options){
@@ -913,10 +976,10 @@
         this.listenTo(this, "add_data_availability", function(o) {
           //console.log('add_data_availability');
           //console.log(o);
-          var selectedStreamUrl =  "#" + o.model['reference_designator'] + "/" + o.model['stream'];
-          var selectedStreamObj = {"ref_des": o.model['reference_designator'], "stream_name": o.model['stream_name'], "stream_identifier": o.model['stream']};
+          var selectedStreamUrl =  "#" + o.model['reference_designator'];
+          var selectedStreamObj = {"ref_des": o.model['reference_designator']};
           placeDataAvailability(selectedStreamObj);
-          //history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
+          history.pushState(selectedStreamObj, 'selectStream', selectedStreamUrl);
         });
 
         //MAIN ADDITION OF A STREAM
@@ -1401,15 +1464,15 @@
       */
 
       // Asset management button
-      actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.ref_des + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
+      actionButtons += "<button type='button' title='Asset Management' style='float:left' id='goAssetManagement' class='btn btn-default' onclick=\"openAssetManagement('" + rowObject.reference_designator + "','" + rowObject.stream_name + "');\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-sitemap' aria-hidden='true'></i></button>";
 
       // IRIS Link
       if(rowObject.iris_enabled) {
-        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
+        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
       }else if(rowObject.rds_enabled){
-        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }else{
-        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.ref_des + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }
 
 
@@ -1602,6 +1665,37 @@
             Cookies.set('ooisitetourhelp', currentVersion, {expires: 365, path: '/data_access'});
           }
         }
+      });
+    };
+
+    var showTourPlotting = function(){
+        console.log('Clicked plotting tour.');
+      var uipatchnotes = new uiPatchNoteList();
+
+      uipatchnotes.fetch({
+        success: function(model) {
+            console.log(model);
+          var siteTour = model.models[0].get('SiteTour')['plotting_tab'];
+          console.log(siteTour);
+
+          var plottingTour = introJs();
+          plottingTour.setOptions({
+            steps: siteTour,
+            overlayOpacity: .7,
+            scrollToElement: true,
+            keyboardNavigation: true,
+            hidePrev: true,
+            hideNext: true,
+            tooltipPosition: 'right',
+            disableInteraction: true,
+            exitOnEsc: true
+          });
+
+          plottingTour.start();
+        },
+          failure: function(model){
+            console.log(model);
+          }
       });
     };
 

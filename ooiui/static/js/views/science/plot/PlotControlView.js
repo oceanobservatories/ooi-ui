@@ -105,8 +105,8 @@ var PlotControlView = Backbone.View.extend({
       }
 
       var stClone = ed.clone();
-      stClone = stClone.subtract(7,'d');
-      this.cb(st, ed);
+      stClone = stClone.subtract(6,'d');
+      this.cb(stClone, ed);
 
 /*      console.log('Date Picker Debug');
       console.log("minDate: "+st.format('YYYY-MM-DD HH:mm:ss.SSS'));
@@ -128,7 +128,7 @@ var PlotControlView = Backbone.View.extend({
       this.$el.find('#reportrange').daterangepicker({
         minDate: minDate,
         maxDate: maxDate,
-        startDate: startDate,
+        startDate: ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),
         endDate: endDate,
         locale: {
             format: 'YYYY-MM-DD HH:mm:ss.SSS'
@@ -144,8 +144,7 @@ var PlotControlView = Backbone.View.extend({
            'Most Recent 24 hours of Data': [ed.clone().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Most Recent 7 Days of Data': [ed.clone().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'),ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
            'Most Recent 30 Days of Data': [ed.clone().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss.SSS'), ed.format('YYYY-MM-DD HH:mm:ss.SSS')],
-           'All Data': [startDate, endDate]
-
+           'All Data': [minDate, endDate]
         }
       }, this.cb);
 
@@ -485,7 +484,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         ) &&
         self.model.get("units")[i] != "bytes" &&
         // self.model.get("units")[i] != "counts" &&
-        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1
+        self.model.get("units")[i].toLowerCase().indexOf("seconds since") == -1 &&
+        self.model.get('variables')[i].toLowerCase().indexOf("preferred_timestamp") !== 0
         //self.model.get("units")[i].toLowerCase() != "s" &&
         //self.model.get("variables")[i].indexOf("_timestamp") == -1
         )
@@ -508,8 +508,8 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
   },
   isAdditionalTimestamp: function(i){
     var self = this;
-    if (self.model.get("variables")[i] != "time" &&
-      self.model.get("units")[i].toLowerCase().indexOf("seconds since") == 0)
+    if (self.model.get("variables")[i] !== "time" &&
+      self.model.get("units")[i].toLowerCase().indexOf("seconds since") === 0)
       return true
   },
   render:function(){
@@ -522,6 +522,7 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
     var containsTimeVariable = $.inArray("time", self.model.get("variables"));
 
     //get the basic set of parameters, and see if
+    var saveTimeParamModel = null;
     _.each(this.model.get('parameter_id'),function(v,i){
 
       var paramModel = new ParameterModel({name:self.model.get('parameter_display_name')[i],
@@ -538,14 +539,29 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
                                                 index_used: i
                                            });
 
-
       if(containsTimeVariable >= 0){
-        if (self.isParameterValid(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+        if (self.model.get("variables")[i] === "time") {
+          saveTimeParamModel = paramModel;
+        }else if (self.isParameterValid(i) &&
+            !_.isEmpty(self.model.get('parameter_display_name')[i])
+        ){
           //derived parameters
-          self.collection.add(paramModel);
-        }else if (self.isAdditionalTimestamp(i) && !_.isEmpty(self.model.get('parameter_display_name')[i])){
+
+
+            self.collection.add(paramModel);
+
+
+        }else if (
+            self.isAdditionalTimestamp(i) &&
+            !_.isEmpty(self.model.get('parameter_display_name')[i])
+        ) {
           //other parameters
-          paramModel.set({param_class:"additional-param"});
+          paramModel.set({param_class: "additional-param"});
+          self.collection.add(paramModel);
+        } else if (
+            self.model.get('variables')[i].toLowerCase().indexOf("preferred_timestamp") === 0
+        ){
+          paramModel.set({param_class: "additional-param"});
           self.collection.add(paramModel);
         }else{
           //number of parameters not added
@@ -556,6 +572,9 @@ var PlotInstrumentParameterControl = Backbone.View.extend({
         self.collection.add(paramModel);
       }
     });
+
+    self.collection.sort();
+    self.collection.add(saveTimeParamModel, {at: 0});
 
     this.$el.html(this.template({model:this.model,
                                  options:self.collection,

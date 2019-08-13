@@ -1,50 +1,51 @@
 <div class='plot-tab-view plot-instrument-view'>
-  <% if(collection.models.length > 0){ %>
-  <%   var assetInfo = collection.models[0].get('assetInfo'); %>
-  <%= assetInfo.array %> - <%= assetInfo.platform %> - <%= assetInfo.assembly %> - <%= assetInfo.name %> (<%= collection.models[0].get('reference_designator') %>)
-  <% } %>
+    <% if(collection.models.length > 0){ %>
+    <%   var assetInfo = collection.models[0].get('assetInfo'); %>
+    <%= assetInfo.array %> - <%= assetInfo.platform %> - <%= assetInfo.assembly %> - <%= assetInfo.name %> (<%= collection.models[0].get('reference_designator') %>)
+    <% } %>
 
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-    <tr>
-      <th style="width:90px;">Actions</th>
-      <th>Stream</th>
-      <th>Stream Type</th>
-      <th>Stream Content</th>
-      <th><div class="bottom">Delivery Method
-        <div class="bottom pull-right" style="max-height: 0;">
-          <dl class="dropdown-dc">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:90px;">Actions</th>
+            <th>Instrument</th>
+            <th>Stream Type</th>
+            <th>Stream Content</th>
+            <th><div class="bottom">Delivery Method
+                <div class="bottom pull-right" style="max-height: 0;">
+                    <dl class="dropdown-dc">
 
-            <dt>
-              <a href="#">
-                <span class="hida fa fa-filter"></span>
-                <p class="multiSel"></p>
-              </a>
-            </dt>
+                        <dt>
+                            <a href="#">
+                                <span class="hida fa fa-filter"></span>
+                                <p class="multiSel"></p>
+                            </a>
+                        </dt>
 
-            <dd>
-              <div class="mutliSelect">
-                <ul id="stream_method_filter">
-                  <!--
-                  <li>
-                    <input type="checkbox" value="telemetered" />telemetered</li>
-                  <li>
-                    <input type="checkbox" value="streamed" />streamed</li>
-                  <li>
-                    <input type="checkbox" value="recovered" />recovered</li>-->
-                </ul>
-              </div>
-            </dd>
+                        <dd>
+                            <div class="mutliSelect">
+                                <ul id="stream_method_filter">
+                                    <!--
+                                    <li>
+                                      <input type="checkbox" value="telemetered" />telemetered</li>
+                                    <li>
+                                      <input type="checkbox" value="streamed" />streamed</li>
+                                    <li>
+                                      <input type="checkbox" value="recovered" />recovered</li>-->
+                                </ul>
+                            </div>
+                        </dd>
 
-          </dl>
-        </div></div>
-      </th>
-      <th>Start</th>
-      <th>End</th>
-    </tr>
-    </thead>
-    <tbody class='table-contents'>
-    </tbody>
-  </table>
+                    </dl>
+                </div></div>
+            </th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Stream</th>
+        </tr>
+        </thead>
+        <tbody class='table-contents'>
+        </tbody>
+    </table>
 </div>
 

@@ -43,9 +43,9 @@ def is_json(input_json):
     return False
   return True
 
-@app.route('/cameras')
-def c2_cameras():
-    return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/cameras')
+# def c2_cameras():
+#     return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive
 ######
