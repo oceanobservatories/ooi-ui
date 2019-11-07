@@ -1,5 +1,26 @@
 [
   {
+        "VersionNumber": "1.7.3",
+        "VersionDate": "2019-11-07",
+        "VersionDescription": [
+            "Annotations: Fixes annotation table lookup bounds. (14444)"
+        ]
+  },
+  {
+        "VersionNumber": "1.7.2",
+        "VersionDate": "2019-10-28",
+        "VersionDescription": [
+            "Data Download: Adds M2M API handling to dismiss email notifications after data download requests. (14491)"
+        ]
+  },
+  {
+        "VersionNumber": "1.7.1",
+        "VersionDate": "2019-08-16",
+        "VersionDescription": [
+            "Plotting: Fixes bug introduced in 1.7.0 related to ADCP plotting. (14425)"
+        ]
+  },
+  {
         "VersionNumber": "1.7.0",
         "VersionDate": "2019-08-14",
         "VersionDescription": [
