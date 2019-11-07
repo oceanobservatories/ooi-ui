@@ -230,8 +230,11 @@ div#wrapper-asset {
   color: white;
   font-family: arial;
   font-size: 13px;
-  position: absolute;
-  top: 0px;
+  /*position: absolute;*/
+    position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  /*top: 0px;*/
   margin-top: -22px;
   margin-left: 20px;
   padding-left: 10px;
@@ -239,20 +242,57 @@ div#wrapper-asset {
 }
 #breaking-news-colour {
   top: 0px;
-  height: 20px;
+  height: 18px;
   width: 100%;
   background-color: #004773;
 }
 
-#breaking-news-container {
-  top: 0px;
-  height: 20px;
+a.divLink {
+  display: inline-block;
+  position: relative;
+  padding: 2em;
+  margin: -2em;
+  color: #05A9E1;
   width: 100%;
-  overflow: hidden;
-  position: absolute;
+  height: 100%;
+
+  text-decoration: none;
+  /* Makes sure the link doesn't get underlined */
+  z-index: 10;
+  /* raises anchor tag above everything else in div */
+  background-color: white;
+  /*workaround to make clickable in IE */
+  opacity: 0;
+  /*workaround to make clickable in IE */
+  filter: alpha(opacity=0);
+  /*workaround to make clickable in IE */
 }
 
-#breaking-news-container:before {
+#breaking-news-container:hover {
+  color: #3d36b9;
+  font-weight: 600;
+  font-size: larger;
+  height: 35px;
+}
+
+#breaking-news-container {
+  top: 0;
+  left: 200px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  width: max-content;
+  overflow: hidden;
+  position: absolute;
+  border-radius: 0px 0px 20px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-image: -webkit-linear-gradient(top,#d9edf7 0,#b9def0 100%);
+}
+
+/*#breaking-news-container:before {
     content: "";
     width: 30px;
     height: 20px;
@@ -260,7 +300,7 @@ div#wrapper-asset {
     position: absolute;
     left: 0px;
     z-index: 2;
-}
+}*/
 
 .animated {
   -webkit-animation-duration: 0.2s;
