@@ -29,6 +29,8 @@ var ModalDialogView = Backbone.View.extend({
   setDataUpdateCookie: function(e) {
     console.log(e);
 
+    // TODO: Get end date and whether to force the cookie and apply to the date and if statements below.
+
     var date = new Date();
     date.setTime(date.getTime() + 12500*1000);
 

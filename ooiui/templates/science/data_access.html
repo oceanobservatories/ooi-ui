@@ -183,10 +183,11 @@
                             </div>
                             <div class="panel-footer clearfix">
                               <div class="pull-center">
-                                <a href="#" class="btn btn-primary clear-plot-area pull-left">Clear Plot</a>
-                                <a href="#" id="update-plot" class="btn btn-primary update-plot">Plot</a>
+
+                                <a href="#" id="update-plot" class="btn btn-primary update-plot pull-left">Plot</a>
                                 <a href="#" type="button" id="zoom-update-plot" class="btn btn-default zoom-update-plot">Update Plot</a>
-                                <a href="#" class="btn btn-primary download-plot-data" data-hint="Click here for a data download dialog synchronized to the plotting time range." data-hintPosition="top-middle" data-position="bottom-right-aligned" style="margin-left: 30px;">Download Data</a>
+                                <a href="#" id="download-data-button" class="btn btn-primary download-plot-data pull-left" data-hint="Click here for a data download dialog synchronized to the plotting time range." data-hintPosition="top-middle" data-position="bottom-right-aligned" style="margin-left: 30px;">Download Data</a>
+                                <a href="#" id="clear-all-plot-elements" class="btn btn-primary clear-plot-area pull-right" data-hint="Click here to clear all the selected plotting parameters and plotted data." data-hintPosition="top-middle" data-position="bottom-right-aligned">Clear Plot</a>
                                 <div id="isDecimated">
 
                                 </div>
@@ -1175,7 +1176,9 @@
 
         this.listenTo(this, "clear_plot_area", function(o) {
           $('#plot-view').empty();
-          $('#plot-view').append('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">')
+          $('#plot-view').append('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
+          $('.download-plot-container').css('display','none');
+          self.views.plotControls.render();
         });
 
         this.listenTo(this, "download_plot_data", function(o) {
@@ -1636,9 +1639,13 @@
 
       uipatchnotes.fetch({
         success: function(model) {
-          var siteTourTitle = model.models[0].get('SiteTourTitle');
-          var currentVersion = model.models[0].get('VersionNumber');
-          var siteTour = model.models[0].get('SiteTour')['data_access'];
+          // console.log(model);
+          var index = model.models.findIndex(function(release) {
+            return release.attributes.SiteTourTitle !== undefined;
+          });
+          var siteTourTitle = model.models[index].get('SiteTourTitle');
+          var currentVersion = model.models[index].get('VersionNumber');
+          var siteTour = model.models[index].get('SiteTour')['data_access'];
 
           var ooiSiteTour = introJs();
           ooiSiteTour.setOptions({
@@ -1669,13 +1676,16 @@
     };
 
     var showTourPlotting = function(){
-        console.log('Clicked plotting tour.');
+      // console.log('Clicked plotting tour.');
       var uipatchnotes = new uiPatchNoteList();
 
       uipatchnotes.fetch({
         success: function(model) {
-            console.log(model);
-          var siteTour = model.models[0].get('SiteTour')['plotting_tab'];
+          // console.log(model);
+          var index = model.models.findIndex(function(release) {
+            return release.attributes.SiteTourTitle !== undefined;
+          });
+          var siteTour = model.models[index].get('SiteTour')['plotting_tab'];
           console.log(siteTour);
 
           var plottingTour = introJs();

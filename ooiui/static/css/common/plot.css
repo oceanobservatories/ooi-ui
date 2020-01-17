@@ -76,6 +76,10 @@ div#wrapper{
   margin-top:10px;
 }
 
+.dropdown-menu.open {
+    overflow: inherit !important;
+}
+
 #plottingBody .bootstrap-select.btn-group .dropdown-menu {
   z-index: 30000;
 }
@@ -120,7 +124,7 @@ div#events-scroll-body {
 #plot-controls .plot-tab-view.plot-control-view .dropdown-menu.open{
   left : 0px;
   top  : 100%;
-
+  overflow: inherit;
 }
 
 #events-scroll-body{
