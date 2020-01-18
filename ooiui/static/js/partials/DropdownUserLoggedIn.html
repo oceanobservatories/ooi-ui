@@ -15,16 +15,16 @@
       <a href="/c2/"><i class="fa fa-gear fa-fw" style='padding-right: 27px;'> </i>   Command & Control</a>
     </li> -->
     <% } %>
-
+    <!--
     <li>
-     <!--<a href="/troubleTicket">
+     <a href="/troubleTicket">
       	<i class="fa fa-exclamation-triangle" style='padding-right: 13px;' aria-hidden="true"> </i>   Trouble Ticket</a>
     </li>-->
+      <!--
     <li>
      <a href="/opLog.html">
-    <!-- mail envelope -->
      <i class="fa fa-envelope fa-fw" style='padding-right: 27px;'> </i>   Operator Logs</a>
-    </li>
+    </li>-->
     <% if(user.get('scopes').indexOf('sys_admin') !== -1){ %>
     <li id="js-sysAdminPageBtn">
      <a href="/sysadmin">

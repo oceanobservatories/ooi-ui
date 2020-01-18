@@ -41,10 +41,27 @@ var BannerView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
-    if (this.checkStreaming()){
+    if (this.checkStreaming() || this.checkOnHomepage() || this.checkDataNoticeCookie()){
       this.$el.find('#news-banner').append(this.templates.newsBanner());
     }
   },
+
+  checkOnHomepage: function() {
+      if (window.location.pathname === '/'){
+          return true;
+      } else {
+          return false;
+      }
+  },
+
+    checkDataNoticeCookie: function() {
+      var dataNoticeCookie = Cookies.get('datanotification');
+      if (dataNoticeCookie === 'hide') {
+          return false;
+      } else {
+          return true;
+      }
+    },
 
   checkStreaming: function() {
     var streaming = false;

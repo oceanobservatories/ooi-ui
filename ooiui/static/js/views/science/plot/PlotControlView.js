@@ -394,7 +394,7 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     //make sure the number of inputs matches the number of rows
     var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
 
-    for (var i = 0; i < rowCount; i++) {
+    for (var i = 0; i <= rowCount; i++) {
       //adds the parameter dropdowns to the object
       self.subviews.push(new PlotInstrumentParameterControl({
         hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false,

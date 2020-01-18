@@ -60,6 +60,8 @@ var CacheTableView = ParentView.extend({
             cacheTableItem = '<tr><td colspan="3">The cache is currently empty.</td></tr>';
         }
         this.$el.find('tbody').append(cacheTableItem);
+
+        this.$el.find('tbody').append(new CachePostKeyView({}).render().el)
     }
 });
 
@@ -74,5 +76,25 @@ var CacheTableItemView = ParentView.extend({
         this.model.deleteCache({key: key});
         this.remove();
         ooi.trigger('cache:load', key);
+    }
+});
+
+var CachePostKeyView = ParentView.extend({
+    events: {
+        'click .js-post-item': 'clickPost'
+    },
+    template: _.template('<form>Key:<br><input class="key-input" type="text" name="key" value="metadatanotification"><br>Key Value:<br><input class="key-input" type="text" name="key_value" value="True"><br>Key Timeout (seconds):<br><input class="key-input" type="text" name="key_timeout" value="604800"><br><br> <button class="btn btn-primary js-post-item" id="clickPost">Add Key</button></form>'),
+    clickPost: function(e) {
+        e.preventDefault();
+
+        let form_values = e.target.form.getElementsByClassName("key-input");
+
+        let postModel = new CacheTableModel();
+
+        let result = postModel.addCacheKey({
+            key: form_values.key.value,
+            key_timeout: form_values.key_timeout.value,
+            key_value: form_values.key_value.value
+        });
     }
 });

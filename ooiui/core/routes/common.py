@@ -664,8 +664,9 @@ def disabled_streams(id=None):
 
 @app.route('/api/cache_keys', methods=['GET'])
 @app.route('/api/cache_keys/<string:key>', methods=['DELETE'])
+@app.route('/api/cache_keys/<string:key>/<string:key_timeout>/<string:key_value>', methods=['POST'])
 @scope_required('sys_admin')
-def cache_keys(key=None):
+def cache_keys(key=None, key_timeout=None, key_value=None):
     token = get_login()
     if request.method == 'GET':
         response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', 
@@ -674,6 +675,11 @@ def cache_keys(key=None):
 
     elif request.method == 'DELETE':
         response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key, 
+                                 auth=(token, ''))
+        return response.text, response.status_code
+
+    elif request.method == 'POST':
+        response = requests.post(app.config['SERVICES_URL'] + '/cache_keys/'+key+'/'+key_timeout+'/'+key_value,
                                  auth=(token, ''))
         return response.text, response.status_code
 
