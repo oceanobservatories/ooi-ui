@@ -16,8 +16,8 @@ var UserEditFormView = Backbone.View.extend({
   bindings: {
     '#first_name' : 'first_name',
     '#last_name' : 'last_name',
-    '#primary_phone' : 'phone_primary',
-    '#secondary_phone' : 'phone_alternate',
+    '#phone_primary' : 'phone_primary',
+    '#phone_alternate' : 'phone_alternate',
     '#email' : 'email',
     '#organization' : 'organization',
     '#active' : 'active',
@@ -26,21 +26,29 @@ var UserEditFormView = Backbone.View.extend({
     '#other_organization' : 'other_organization',
     '#vocation' : 'vocation',
     '#country' : 'country',
-    '#state' : 'state'
+    '#state' : 'state',
+    '#api_user_name' : 'api_user_name',
+    '#api_user_token' : 'api_user_token'
   },
   events: {
-   'click #submitButton' : 'submit'
+    'click #submitButton' : 'submit',
+    'click #closeButton' : 'close',
+    'click #refreshTokenButton' : 'refreshToken'
   },
   initialize: function() {
     var self = this;
+    var userScopes = [];
     _.bindAll(this, "render", "submit");
     this.modalDialog = new ModalDialogView();
     this.scopes = new UserScopeCollection();
     this.scopes.fetch({
       success: function(collection, response, options) {
-        self.render();
+        userScopes = self.render();
       }
     });
+  },
+  close: function(e) {
+    window.location = "/users/"
   },
   submit: function(e) {
     var self = this;
@@ -51,7 +59,11 @@ var UserEditFormView = Backbone.View.extend({
           message: "User successfully updated",
           type: "success",
           ack: function() {
-            window.location = "/"
+            if(userScopes.includes('user_admin')){
+              window.location = "/users/";
+            } else {
+              window.location = "/user/edit/" + model.id;
+            }
           }
         });
       },
@@ -71,9 +83,41 @@ var UserEditFormView = Backbone.View.extend({
       }
     });
   },
+  refreshToken: function(e) {
+    var self = this;
+    e.preventDefault();
+    var newToken = Math.random().toString(36).substr(2).toUpperCase();
+    var tb = $('#api_user_token');
+    tb.val(newToken);
+    tb.select();
+    tb.focus();
+    self.model.set('api_user_token', newToken);
+  },
   template: JST['ooiui/static/js/partials/UserEditForm.html'],
   render: function() {
     this.$el.html(this.template({scopes: this.scopes}));
+    // Only allow scope modification if
+    var userModel = new UserModel();
+    userModel.url = '/api/current_user';
+
+    userModel.fetch({
+      success: function(collection, response, options) {
+        var scopes = response.scopes;
+        self.userScopes = scopes;
+
+        if(scopes.includes('user_admin')){
+          $("#scope_div").show();
+          $("#active_div").show();
+        } else {
+          $("#scope_div").hide();
+          $("#active_div").hide();
+        }
+      },
+      error:function(collection, response, options) {
+        console.log('Error getting user data');
+      }
+    });
+
     this.$el.append(this.modalDialog.el);
     this.stickit();
   }

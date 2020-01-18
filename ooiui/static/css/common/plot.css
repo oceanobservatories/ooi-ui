@@ -1,96 +1,165 @@
-/* CSS REQUIRED */
-.state-icon {
-    left: -5px;
-}
-.list-group-item-primary {
-    color: rgb(255, 255, 255);
-    background-color: rgb(66, 139, 202);
-}
+.ui-jqgrid-btable .ui-state-highlight { background: lightskyblue; color: #000000; font-weight: bold;}
 
-/* DEMO ONLY - REMOVES UNWANTED MARGIN */
-.well .list-group {
-    margin-bottom: 0px;
+.ui-jqgrid-title { font-size: 14px; font-weight: bold; text-align: center;}
+
+.ui-jqgrid .ui-jqgrid-caption { text-align: center; }
+
+.ui-jqgrid .ui-jqgrid-titlebar { height: 30px;}
+
+div#wrapper {
+    margin-top: 150px;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.color-index > span {
+    width: 10px;
+    background-color:
+}
+div.twelve-hours, div.twenty-four-hours, div.older {
+    display: inline-block;
+
+    height: 10px;
+    width: 10px;
 }
 
-.legend rect {
-  fill:white;
-  stroke:black;
-  opacity:0.8;}
-
-.datacircle{
-
+.color-index b {
+    margin-right: 5px;
+}
+.twelve-hours {
+    background-color: deepskyblue;
+    color: black;
+}
+.twenty-four-hours {
+    background-color: gold;
+}
+.older {
+    background-color: firebrick;
 }
 
-.dataline{
-
+div#wrapper{
+  padding-left:0px;
 }
 
-.x.axis path {
-  display: none;
+#timeRangeFilter #slider{
+  /*display:none;*/
 }
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+#plottingBody .scrollable-area .initial-text{
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
-.bottom-div{
-	display: none;
+#plottingBody #instruments-table > h5{
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
-.spinner {
-  margin: 100px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
+#plot-controls > h5{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+#plottingBody div.reset-catalog-container{
+  padding-left: 20px;
+}
+
+#plottingBody .parameter-select{
+  height: 26px
+}
+
+#plottingBody .filter-option.pull-left{
+  font-size:12px;
+}
+
+#plottingBody .tidy-panel{
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top:10px;
+}
+
+.dropdown-menu.open {
+    overflow: inherit !important;
+}
+
+#plottingBody .bootstrap-select.btn-group .dropdown-menu {
+  z-index: 30000;
+}
+
+#plottingBody .plot-tab-panel{
+  /*min-height:20px;*/
+}
+
+#plottingBody .panel-footer .pull-center{
   text-align: center;
-  
-  -webkit-animation: rotate 2.0s infinite linear;
-  animation: rotate 2.0s infinite linear;
 }
 
-.dot1, .dot2 {
-  width: 60%;
-  height: 60%;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  background-color: #333;
-  border-radius: 100%;
-  
-  -webkit-animation: bounce 2.0s infinite ease-in-out;
-  animation: bounce 2.0s infinite ease-in-out;
+#plottingBody .panel-footer .update-plot{
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.dot2 {
-  top: auto;
-  bottom: 0px;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+#plottingBody .panel > .panel-body,
+div#events-scroll-body {
+  border: 0px solid #d1daf5;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding: 5px;
 }
 
-@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}
-@keyframes rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
-
-@-webkit-keyframes bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
+#plottingBody .plot-control-section .bootstrap-select .dropdown-menu.open .not-default-plot-option{
+  color:rgba(109, 109, 109, 0.65);
+  font-weight: 200;
 }
 
-@keyframes bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
+#wrapper .content-fluid .search-sidebar{
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
+#wrapper .content-fluid .special-sidebar{
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
+
+#plot-controls .plot-tab-view.plot-control-view .dropdown-menu.open{
+  left : 0px;
+  top  : 100%;
+  overflow: inherit;
+}
+
+#events-scroll-body{
+  overflow: scroll;
+  max-height: 230px;
+  min-height: 220px;
+}
+
+#plot-controls .daterangepicker.dropdown-menu{
+  z-index: 4;
+}
+
+#plot-controls #annotation-table.plot-tab-panel{
+  min-height: 230px;
+}
+
+#plot-controls #events-table{
+
+}
+
+.wait {
+  cursor: wait;
+}
+
+#plottingBody .plot-tool-tabs li.disabled{
+  pointer-events: none;
+  cursor:not-allowed;
+}
+
+#plottingBody .plot-tool-tabs li.disabled a{
+  pointer-events: none;
+  cursor:not-allowed;
+  background-color:#C7C7C7;
+}
+
+#plottingBody #pg_navGrid #navGrid_left #refresh_grid{
+  /*visibility: hidden;*/
 }

@@ -25,6 +25,7 @@ tr.highlight-row {
 }
 
 div.panel {
+    width: 100%;
 }
 
 div.panel-heading {

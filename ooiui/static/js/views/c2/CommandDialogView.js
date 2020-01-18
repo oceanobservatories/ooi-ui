@@ -27,6 +27,7 @@ var CommandDialogView = Backbone.View.extend({
   getParticle: function(event) {
     this.options['selected_stream_method'] = event.target.selectedOptions[0].value;
     this.options['selected_stream_name'] = event.target.selectedOptions[0].text;
+    this.options['available_streams_index'] = event.target.selectedIndex;
     this.$el.find('#get_particle').prop('disabled', false);
     this.$el.find('#plot_c2').prop('disabled', false);
   },
@@ -242,7 +243,7 @@ var CommandDialogView = Backbone.View.extend({
             that.options['processing_state'] = '<div><i>Processing Offline</i></div>';
           }
           else{
-            that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
+            //that.options['processing_state'] = "<i style='color:#337ab7;margin-left:20px' class='fa fa-spinner fa-spin fa-2x'></i>";
           }
 
           // Direct Access
@@ -420,14 +421,29 @@ var CommandDialogView = Backbone.View.extend({
         }
 
         that.$el.html(that.template(that.options));
+
+        // Set the selected stream to last chosen
+        if(that.options.available_streams_index > 0){
+          that.$el.find("#available_streams")[0].selectedIndex = that.options.available_streams_index;
+          that.$el.find("#available_streams")[0].options[that.options.available_streams_index].selected = true;
+          that.$el.find('#get_particle').prop('disabled', false);
+          that.$el.find('#plot_c2').prop('disabled', false);
+        }
+
         if((parameter_html !='') && (response.value.state=='DRIVER_STATE_COMMAND')){
-          that.$el.find('.submitparam').show();
-          that.$el.find('.refreshparam').show();
-          that.$el.find('.submitparam').prop('disabled', false);
-          that.$el.find('#available_streams').prop('disabled', false);
+          //that.$el.find('.submitparam').show();
+          //that.$el.find('.refreshparam').show();
+          //that.$el.find('.submitparam').prop('disabled', false);
+          //that.$el.find('#available_streams').prop('disabled', false);
           that.$el.find('#c2_direct_access').prop('disabled', false);
           that.$el.find('#c2_direct_access_exit').prop('disabled', true);
           //that.$el.find("#direct_access_div").prop('hidden', true);
+        }
+
+        // Apply Setting allowed if SET in capabilities
+        if((parameter_html !='') && (response.value.capabilities[0].includes('DRIVER_EVENT_SET'))){
+          //that.$el.find('.submitparam').show();
+          that.$el.find('.submitparam').prop('disabled', false);
         }
 
         // Direct Access
@@ -579,6 +595,12 @@ var CommandDialogView = Backbone.View.extend({
         that.$el.find("#instrument_select")[0].selectedIndex = that.options.selected_instrument_index;
         that.$el.find("#instrument_select")[0].options[that.options.selected_instrument_index].selected = true;
       }
+      if(that.options.available_streams_index > 0){
+        that.$el.find("#available_streams")[0].selectedIndex = that.options.available_streams_index;
+        that.$el.find("#available_streams")[0].options[that.options.available_streams_index].selected = true;
+        that.$el.find('#get_particle').prop('disabled', false);
+        that.$el.find('#plot_c2').prop('disabled', false);
+      }
     }
     // Locked By
     else if(button.target.id=='c2_locked_by'){
@@ -632,7 +654,7 @@ var CommandDialogView = Backbone.View.extend({
     }
     // Plotting redirect
     else if(button.target.id =='plot_c2'||button.target.className.search('chart')>-1){
-      var plot_url = '/plotting/#'+ref_des+'/'+that.options.selected_stream_method+'_'+that.options.selected_stream_name.replace(/_/g, '-');
+      var plot_url = '/data_access/?search='+ref_des+'/'+that.options.selected_stream_method+'_'+that.options.selected_stream_name.replace(/_/g, '-');
 
       //plotting/#CP05MOAS-GL001-05-PARADM000/<steam_method>_<stream-name>
       window.open(plot_url,'_blank');
@@ -899,6 +921,9 @@ var CommandDialogView = Backbone.View.extend({
           //console.log(particleResponse);
           processParticle(particleResponse, 'Last Particle');
         },
+        //complete: pollStatus,
+        timeout: 50000,
+        async: true,
         error: function( req, status, err ) {
           //console.log(req);
           var errorMessage = '<div><h3>An error occured:</h3></div>';
@@ -907,6 +932,9 @@ var CommandDialogView = Backbone.View.extend({
           if(req.responseJSON){
             errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
           }
+
+          errorMessage += status;
+          errorMessage += err;
 
           var errorModal = new ModalDialogView();
           errorModal.show({

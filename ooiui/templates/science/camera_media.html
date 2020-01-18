@@ -1,179 +1,846 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>Data Catalog</title>
+    <title>Camera Media</title>
 {% endblock %}
 
 {% block head %}
-<link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
-<link href="/css/compiled/camera_media.css" rel="stylesheet" type="text/css" />
-<script src="/js/partials/compiled/camera_media.js" type="text/javascript"></script>
-<!-- Partials -->
-<!-- lunr needs to be imported by a script tag -->
-<!-- TODO MOVE TO GRUNT FILE  -->
-<script src="/lib/d3/d3.min.js"></script>
-<script src="/lib/highcharts/highcharts.js"></script>
-<script src="/lib/highcharts/modules/exporting.js"></script>
-<script src="/js/compiled/index.js" type="text/javascript"></script>
-<script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
-<script src="/js/compiled/svgplot.js" type="text/javascript"></script>
-<script src="/js/compiled/camera_media.js" type="text/javascript"></script>
+    <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+    <link href="/css/compiled/camera_media.css" rel="stylesheet" type="text/css" />
+    <script src="/js/partials/compiled/camera_media.js" type="text/javascript"></script>
 
-<script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
-<script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
-<script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
+    <link href="/lib/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css" />
 
-<script src="/lib/slick-carousel/slick/slick.js" type="text/javascript"></script>
-<link href="/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" type="text/css" />
-<link href="/lib/slick-carousel/slick/slick.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>
+    <!-- Partials -->
+    <!-- lunr needs to be imported by a script tag -->
+    <!-- TODO MOVE TO GRUNT FILE  -->
+    <script src="/lib/d3/d3.min.js"></script>
+    <script src="/lib/highcharts/highcharts.js"></script>
+    <script src="/lib/highcharts/modules/exporting.js"></script>
+    <script src="/js/compiled/index.js" type="text/javascript"></script>
+    <script src="/lib/lunr.js/lunr.js" type="text/javascript"></script>
+    <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+    <script src="/js/compiled/camera_media.js" type="text/javascript"></script>
 
-{% block link %}
-<!-- common/base.html -->
-{{ super() }}
-{% endblock %}
-{% block script %}
-<!-- common/base.html -->
-{{ super() }}
-{% endblock %}
+    <script src="/lib/backgrid/lib/backgrid.js" type="text/javascript"></script>
+    <script src="/lib/backbone-pageable/lib/backbone-pageable.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-paginator.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-select-all.min.js" type="text/javascript"></script>
+    <script src="/js/core/backgrid/backgrid-filter.min.js" type="text/javascript"></script>
+
+    <script src="/lib/slick-carousel/slick/slick.js" type="text/javascript"></script>
+    <link href="/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" type="text/css" />
+    <link href="/lib/slick-carousel/slick/slick.css" rel="stylesheet" type="text/css" />
+
+    <script src="/lib/isotope-layout/dist/isotope.pkgd.js" type="text/javascript"></script>
+    <script src="/lib/packery/dist/packery.pkgd.js" type="text/javascript"></script>
+    <script src="/lib/isotope-packery/packery-mode.pkgd.js" type="text/javascript"></script>
+
+    <!--
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <video id="video"></video>
+      <script>
+        if (Hls.isSupported()) {
+          var video = document.getElementById('video');
+          var hls = new Hls();
+          // bind them together
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+            console.log("video and hls.js are now bound together !");
+            hls.loadSource("http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8");
+            hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+              console.log("manifest loaded, found " + data.levels.length + " quality level");
+            });
+          });
+        }
+
+        hls.on(Hls.Events.ERROR, function (event, data) {
+        if (data.fatal) {
+          switch(data.type) {
+          case Hls.ErrorTypes.NETWORK_ERROR:
+          // try to recover network error
+            console.log("fatal network error encountered, try to recover");
+            hls.startLoad();
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            console.log("fatal media error encountered, try to recover");
+            hls.recoverMediaError();
+            break;
+          default:
+          // cannot recover
+            hls.destroy();
+            break;
+          }
+        }
+      });
+      </script>-->
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Or if you want a more recent canary version -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+
+
+
+
+
+
+    <!--<script type="text/javascript" src="//bitdash-a.akamaihd.net/bitmovin-portal/56464771e4e68/ffd479827f/latest/bitdash.min.js"></script>-->
+
+    {% block link %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
+    {% block script %}
+        <!-- common/base.html -->
+        {{ super() }}
+    {% endblock %}
 {% endblock %}
 
 {%block body %}
-<div class="container-fluid">
-  <div id="navbar" class="row"></div>
-</div>
-
-<div id="wrapper" style="padding-left:15px;padding-top:15px">
-   <div class="row">
-     <div class="col-sm-9" >
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div id="cameraPreview">
-            </div>
-          </div>
-        </div>
-     </div>
-
-     <div class="col-sm-3" id="cameraControls">
-     </div>
-  </div> <!-- #page-content-wrapper -->
-
-  <div style="padding-top:20px">
-    <div class="row">
-      <div class="col-sm-12" style="padding-right: 30px;">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div style="margin-left:50px;margin-right:50px"class="cam-image-panel">
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="container-fluid">
+        <div id="navbar" class="row"></div>
     </div>
-  </div>
+
+    <div id="wrapper" style="padding-left:15px;padding-top:15px">
+
+        <div class="row">
+            <ul class="breadcrumb">
+                <li id="selected-instrument-type-btn">Choose Instrument Type Below to Begin</li>
+                <li id="selected-instrument-btn"></li>
+                <li id="selected-year-btn"></li>
+                <li id="selected-month-btn"></li>
+                <l1 id="selected-ref-des"></l1>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div id="inst-type-menu" class="media-menu-nav-buttons"><button id="inst-type-menu-btn" class="button">Instrument Types</button>
+                <div class="filters" id="filters-list" style="list-style: none;" hidden>
+                    <!-- INSTRUMENT TYPES -->
+                    <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
+                        <button class="button" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">Digital Still Camera</button>
+
+                        <button class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>HD Video</button>
+
+                        <button class="button" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">Benthic Fluid Flow</button>
+
+                        <button class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>Broadband Hydrophone</button>
+
+                        <button class="button" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">Mass Spectrometer</button>
+
+                        <button class="button" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">Osmosis-Based Water Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">Particulate DNA Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">Hydrothermal Vent Fluid Interactive Sampler</button>
+
+                        <button class="button" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">Bio-acoustic Sonar (Coastal)</button>
+                        <!--<label class="container"> Digital Still Camera (CAMDS)
+                            <input type="radio" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
+                            <span class="checkmark" title="CAMDS"></span>
+                        </label>
+                        <label class="container"> HD Digital Video Camera (CAMHD)
+                            <input type="radio" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>
+                            <span class="checkmark disabled" title="CAMHD"></span>
+                        </label>
+                        <label class="container"> Benthic Fluid Flow (FLOBN)
+                            <input type="radio" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">
+                            <span class="checkmark" title="FLOBN"></span>
+                        </label>
+                        <label class="container"> Broadband Acoustic Receiver (Hydrophone) (HYDBB)
+                            <input type="radio" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>
+                            <span class="checkmark disabled" title="HYDBB"></span>
+                        </label>
+                        <label class="container"> Mass Spectrometer (MASSP)
+                            <input type="radio" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">
+                            <span class="checkmark" title="MASSP"></span>
+                        </label>
+                        <label class="container"> Osmosis-Based Water Sampler (OSMOI)
+                            <input type="radio" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">
+                            <span class="checkmark" title="OSMOI"></span>
+                        </label>
+                        <label class="container"> Particulate DNA Sampler (PPS)
+                            <input type="radio" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">
+                            <span class="checkmark" title="PPS"></span>
+                        </label>
+                        <label class="container"> Hydrothermal Vent Fluid Interactive Sampler (RAS)
+                            <input type="radio" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">
+                            <span class="checkmark" title="RAS"></span>
+                        </label>
+                        <label class="container"> Bio-acoustic Sonar (Coastal) (ZPL)
+                            <input type="radio" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">
+                            <span class="checkmark" title="ZPL"></span>
+                        </label>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- INSTRUMENTS -->
+            <div id="inst-menu" class="media-menu-nav-buttons"><button class="button">Instruments</button>
+                <div class="filters" id="filters-list-instruments" style="list-style: none;" hidden>
+                    <div class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
+                        <p class="h5">Choose an instrument on the left...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YEARS -->
+            <div id="years-menu" class="media-menu-nav-buttons"><button class="button">Years</button>
+                <div class="filters" id="filters-list-years" style="list-style: none;" hidden>
+                    <div class="button-group filters-button-group" data-filter-group="years" id="years-group">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MONTHS -->
+            <div id="months-menu" class="media-menu-nav-buttons"><button class="button">Months</button>
+                <div class="filters" id="filters-list-months" style="list-style: none;" hidden>
+                    <div class="button-group filters-button-group" data-filter-group="months" id="months-group">
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAYS
+            <div id="days-menu" class="col-md-2" style="margin: 5px;" hidden>Days
+                <div class="filters" id="filters-list-days" style="list-style: none;" hidden>
+                    <div class="button-group filters-button-group" data-filter-group="days" id="days-group">
+                    </div>
+                </div>
+            </div>-->
+        </div>
+
+        <div id="media-spinner">
+            <div class="fa fa-3x fa-spinner fa-spin centered"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <div class="cam-image-grid"></div>
+            </div>
+            <div class="col-md-2">
+                <div class="row">
+                    <div id="mapid" class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div id="clock-wrapper">
+                        <p>
+                            <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
+                                <span id="clockdiv"></span>
+                            </strong>
+                        </p>
+                        <video id="video"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div id="wrapper" style="padding-left:15px;padding-top:15px">
 
 
-</div> <!-- #wrapper -->
+            <div style="padding-top:200px">
+                <div class="row">
+                    <div class="col-sm-12" style="padding-right: 30px;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<style>
-  .slick-prev{
-    left:-35px !important;
-  }
+        </div>  #wrapper -->
+    </div>
 
-  .slick-prev:before {
-    color: steelblue;
-    font-size: 20px;
-  }
+    <style>
 
-  .slick-next{
-    right:-35px !important;
-  }
+        #selected-ref-des {
+            font-size: 10px;
+            color: darkslategrey;
+        }
 
-  .slick-next:before {
-    color: steelblue;
-    font-size: 20px;
-  }
+        .media-menu-nav-buttons{
+            float: left;
+            margin-right: 5px;
+            padding-left: 15px;
+        }
 
-  .cam-image-item {
-    padding-left:3px;
-    padding-right:3px;
-  }
-</style>
+        /* Style the list */
+        ul.breadcrumb {
+            padding: 10px 16px;
+            list-style: none;
+            background-color: lightgrey;
+        }
 
-<script type="text/javascript">
-var bannerTitle = "Camera Media";
-var userId = parseInt(window.location.href.split('/').pop());
+        /* Display list items side by side */
+        ul.breadcrumb li {
+            display: inline;
+            font-size: 18px;
+        }
 
-_.extend(OOI.prototype, Backbone.Events, {
-  login: new LoginModel(),
-  collections: {
-    camImages:null
-  },
-  views: {
-   banner: null,
-   navbar: null,
-   camera: null,
-   cameraControls: null
-  },
-  models: {
-    userModel: new UserModel()
-  },
-  start: function() {
-    var self = this;
-    this.multiStation = false;
-    this.login.fetch({async: false});
+        /* Add a slash symbol (/) before/behind each list item */
+        ul.breadcrumb li+li:before {
+            padding: 8px;
+            color: black;
+            content: "/\00a0";
+        }
 
-    self.collections.camImages = new CamImageCollection();
+        /* Add a color to all links inside the list */
+        ul.breadcrumb li a {
+            color: #0275d8;
+            text-decoration: none;
+        }
 
-    //--------------------------------------------------------------------------------
-    // Views
-    //--------------------------------------------------------------------------------
-    this.views.banner = new BannerView({bannerTitle: bannerTitle});
-    $('body').prepend(this.views.banner.el);
+        /* Add a color on mouse-over */
+        ul.breadcrumb li a:hover {
+            color: #01447e;
+            text-decoration: underline;
+        }
 
-    this.views.navbar = new NavbarView({
-      el: $('#navbar')
-    });
+        #mapid{
+            height: 250px;
+            width: 100%;
+        }
 
-    this.views.camera = new CameraPreviewView({
-      el: $('#cameraPreview'),
-      url: "http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8"
-    });
-    this.views.camera.render();
+        .row{
+            margin-right: 0;
+        }
 
-    this.views.cameraControls = new CameraControlsView({
-      el: $('#cameraControls')
-    });
-    this.views.cameraControls.render();
+        .filters{
+            background-color: white;
+            width: 95vw;
+            float: left;
+        }
 
-    this.views.camImages = new CamImageView({
-      el: $('.cam-image-panel')
-    });
+        .slick-prev{
+            left:-35px !important;
+        }
+
+        .slick-prev:before {
+            color: steelblue;
+            font-size: 20px;
+        }
+
+        .slick-next{
+            right:-35px !important;
+        }
+
+        .slick-next:before {
+            color: steelblue;
+            font-size: 20px;
+        }
+
+        .cam-image-item {
+            padding-left:3px;
+            padding-right:3px;
+        }
+
+        .image-grid {
+            position: fixed;
+            top: 50%;
+        }
+        .grid-item { width: 50px; }
+        .grid-item--width2 { width: 25px; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        /* ---- button ---- */
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-bottom: 10px;
+            background: #EEE;
+            border: none;
+            border-radius: 7px;
+            background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+            color: #222;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-shadow: 0 1px white;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #8CF;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+            color: #222;
+        }
+
+        .button:active,
+        .button.is-checked {
+            background-color: #3d36b9;
+        }
+
+        .button.is-checked {
+            color: white;
+            text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+        }
+
+        .button:active {
+            box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+        }
+
+        /* ---- button-group ---- */
+
+        .button-group:after {
+            content: '';
+            display: inline-block;
+            clear: both;
+        }
+
+        .button-group .button {
+            float: left;
+            border-radius: 0;
+            margin-left: 0;
+            margin-right: 1px;
+        }
+
+        .button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+        .button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+        .button[disabled] {
+            pointer-events: none;
+            cursor:not-allowed;
+            background-color: #636363;
+            text-shadow: 0 1px hsla(0, 0%, 57%, 0.5);
+            color: #636363;
+        }
+
+        /* ---- isotope ---- */
+
+        .thumbnail-grid {
+            border: 1px solid #333;
+        }
+
+        /* clear fix */
+        .thumbnail-grid:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        /* ---- .element-item ---- */
+
+        .element-item {
+            position: relative;
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            padding: 10px;
+            background-color: rgba(0,0,0,0.4)
+        }
+
+        .element-item > * {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .element-item .name {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            height: min-content;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        .element-item .symbol {
+            position: absolute;
+            left: 10px;
+            top: 0px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .element-item .number {
+            position: absolute;
+            right: 8px;
+            top: 5px;
+            color: white;
+        }
+
+        .element-item .weight {
+            position: absolute;
+            left: 10px;
+            top: 76px;
+            font-size: 12px
+            color: white;
+        }
+
+        .element-item img {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            font-size: 12px;
+            width: 90px;
+            height: 90px;
+            background-color: #3d36b9;
+        }
+
+        .element-item.alkali          { background: #F00; background: hsl(   0, 100%, 50%); }
+        .element-item.alkaline-earth  { background: #F80; background: hsl(  36, 100%, 50%); }
+        .element-item.lanthanoid      { background: #FF0; background: hsl(  72, 100%, 50%); }
+        .element-item.actinoid        { background: #0F0; background: hsl( 108, 100%, 50%); }
+        .element-item.transition      { background: #0F8; background: hsl( 144, 100%, 50%); }
+        .element-item.post-transition { background: #0FF; background: hsl( 180, 100%, 50%); }
+        .element-item.metalloid       { background: #08F; background: hsl( 216, 100%, 50%); }
+        .element-item.diatomic        { background: #00F; background: hsl( 252, 100%, 50%); }
+        .element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
+        .element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
+
+        /* The container */
+        .container {
+            display: inline-block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+        .checkmark.disabled {
+            pointer-events: none;
+            cursor: none;
+            background-color: #636363;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+            background-color: #3d36b9;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            background-color: #3d36b9;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .container .checkmark:after {
+            top: 9px;
+            left: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
 
 
-    if(this.login.loggedIn()) {
-      this.models.userModel.fetch({url: '/api/current_user'});
-    }
+        }
 
-    this.listenTo(self.collections.camImages, 'reset', function(options) {
-      self.views.camImages.collection = self.collections.camImages;
-      self.views.camImages.render();
-    });
+        #instruments-group {
+            display: inline-block;
+            width: 100%;
+        }
 
-  self.collections.camImages.fetch({reset: true});
+        #years-group {
+            display: inline-block;
+            width: 100%;
+        }
 
-}
-});
+        #months-group {
+            display: inline-block;
+            width: 100%;
+        }
 
-var ooi = new OOI();
-var vent = _.extend({}, Backbone.Events);
+        .filter-results {
+            position: absolute;
+            top: 125px;
+            left: 33%;
 
-$(document).ready(function() {
-        ooi.start();
-});
+        }
+
+        .help-step {
+            padding-bottom: 10px;
+            font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+            font-size: large;
+            background-color: lightgrey;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 10px;
+            margin-bottom: 20px;
+        }
 
 
-</script>
+
+    </style>
+
+    <script type="text/javascript">
+        function getTimeRemaining(endtime){
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor( (t/1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            }
+        }
+        function initializeClock(id) {
+            var clock = document.getElementById(id);
+            var timeinterval = setInterval(function() {
+                var start_time = new Date(Date.UTC(2016, 0, 1, 12, 1, 0)); //1 minute offset
+                var current_time = new Date();
+                var time_interval = 3 * 60 * 60 * 1000;
+                var end_time = new Date(start_time.getTime() + time_interval * Math.ceil((current_time - start_time) / time_interval));
+                clock_str = '';
+                x = (current_time - (end_time - time_interval)) / 1000 / 60;
+                if (x <= 14) { clock_str = 'Live Stream Occuring Now'; } else { var t = getTimeRemaining(end_time); if (t.hours > 1) {
+                    clock_str += t.hours + ' hours, ';
+                }
+                    if (t.hours == 1) {
+                        clock_str += t.hours + ' hour, ';
+                    }
+                    if (t.minutes > 1) {
+                        clock_str += t.minutes + ' minutes, and ';
+                    }
+                    if (t.minutes == 1) {
+                        clock_str += t.minutes + ' minute, and ';
+                    }
+                    if (t.seconds != 1) {
+                        clock_str += t.seconds + ' seconds';
+                    }
+                    if (t.seconds == 1) {
+                        clock_str += t.seconds + ' second';
+                    }
+                }
+                clock.innerHTML = clock_str;
+            }, 1000);
+        }
+        initializeClock('clockdiv');
+    </script>
+
+    <script type="text/javascript">
+        var bannerTitle = "OOI Media Discovery";
+        // var userId = parseInt(window.location.href.split('/').pop());
+
+        _.extend(OOI.prototype, Backbone.Events, {
+            login: new LoginModel(),
+            collections: {
+                camImages:null,
+                camImages2:null,
+                camInstruments:null,
+                camMap:null,
+                camVocab:null
+            },
+            views: {
+                banner: null,
+                navbar: null,
+                camera: null,
+                cameraControls: null
+            },
+            models: {
+                userModel: new UserModel()
+            },
+            start: function() {
+                var self = this;
+                this.multiStation = false;
+                this.login.fetch({async: false});
+
+                self.collections.camImages = new CamImageCollection();
+
+                self.collections.camImages2 = new CamImageCollection();
+
+                self.collections.camInstruments = new CamImageInstrumentsCollection();
+
+                self.collections.camMap = new CamImageNavigationCollection();
+
+                self.collections.camDataBounds = new CamImageDataBoundsCollection();
+
+                self.collections.camDataYears = new CamImageYearsCollection();
+
+                self.collections.camDataMonths = new CamImageMonthsCollection();
+
+                self.collections.camDataDays = new CamImageDaysCollection();
+
+                self.collections.camVocab = new CamImageVocabCollection();
+
+                //--------------------------------------------------------------------------------
+                // Views
+                //--------------------------------------------------------------------------------
+                this.views.banner = new BannerView({bannerTitle: bannerTitle});
+                $('body').prepend(this.views.banner.el);
+
+                if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+                    $('#wrapper').addClass('news-active');
+                    $('.container-fluid.banner-image').addClass('news-active');
+                }
+
+                this.views.navbar = new NavbarView({
+                    el: $('#navbar')
+                });
+
+                this.views.camera = new CameraPreviewView({
+                    el: $('#cameraPreview'),
+                    url: "http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8"
+                });
+                // this.views.camera.render();
+
+                this.views.cameraControls = new CameraControlsView({
+                    el: $('#cameraControls')
+                });
+                // this.views.cameraControls.render();
+
+                this.views.camImages = new CamImageView({
+                    el: $('.cam-image-panel')
+                });
+
+                this.views.camImages2 = new CamImageView2({
+                    el: $('.cam-image-grid')
+                });
+
+
+                if(this.login.loggedIn()) {
+                    this.models.userModel.fetch({url: '/api/current_user'});
+                }
+
+                this.listenTo(self.collections.camImages, 'reset', function(options) {
+                    self.views.camImages.collection = self.collections.camImages;
+                    //self.views.camImages.render();
+                });
+
+                this.listenTo(self.collections.camImages2, 'reset', function(options) {
+                    console.log(self.collections.camImages2);
+                    self.views.camImages2.collection = self.collections.camImages2;
+                    self.views.camImages2.collectionInstruments = self.collections.camInstruments;
+                    self.views.camImages2.collectionMap = self.collections.camMap;
+                    self.views.camImages2.collectionDataBounds = self.collections.camDataBounds;
+                    self.views.camImages2.collectionYears = self.collections.camDataYears;
+                    self.views.camImages2.collectionMonths = self.collections.camDataMonths;
+                    self.views.camImages2.collectionDays = self.collections.camDataDays;
+                    self.views.camImages2.collectionVocab = self.collections.camVocab;
+                    self.views.camImages2.render({'first_time': true});
+                });
+
+                //self.collections.camImages.fetch({reset: true});
+                self.collections.camImages2.fetch({reset: true});
+                self.collections.camInstruments.fetch({reset: true});
+
+
+
+                var video = document.getElementById('video');
+                if(Hls.isSupported()) {
+                    var hls = new Hls();
+                    hls.loadSource('http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8');
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                        //video.play();
+                    });
+                }
+                // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+                // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+                // This is using the built-in support of the plain video element, without using hls.js.
+                // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+                // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+                else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = 'http://elem-delta.oceanobservatories.org/out/u/jchstream.m3u8';
+                    video.addEventListener('loadedmetadata',function() {
+                        //video.play();
+                    });
+                }
+
+                let miniMap = L.map('mapid').setView([16.342893, -83.064687], 1);
+                L.tileLayer.wms('https://maps.oceanobservatories.org/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+                    layers: 'topo',
+                    format: 'image/png',
+                    transparent: true,
+                    //crs: L.CRS.EPSG4326,
+                    attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.6'
+                }).addTo(miniMap);
+                //L.esri.basemapLayer("Oceans").addTo(miniMap);
+
+
+                $('#inst-type-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list').toggle();
+                });
+
+                $('#inst-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-instruments').toggle();
+                });
+
+                $('#years-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-years').toggle();
+                });
+
+                $('#months-menu').on('click', function(e){
+                    // console.log(e);
+                    $('#filters-list-months').toggle();
+                });
+
+
+            }
+        });
+
+        var ooi = new OOI();
+        var vent = _.extend({}, Backbone.Events);
+
+
+
+        $(document).ready(function() {
+            ooi.start();
+        });
+
+
+    </script>
+    <script>
+
+
+    </script>
+    <script src="/lib/leaflet/dist/leaflet.js" type="text/javascript"></script>
+    <script src="/lib/esri-leaflet/dist/esri-leaflet.js" type="text/javascript"></script>
 {% endblock %}

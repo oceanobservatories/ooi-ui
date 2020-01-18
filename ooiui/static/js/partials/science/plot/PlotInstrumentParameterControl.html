@@ -1,0 +1,24 @@
+
+<td colspan="2">
+  <div class="parameter-select">
+    <select class="selectpicker show-tick" data-selected-text-format="count" data-width="100%" multiple title="Select a parameter" data-max-options="<%=parameterCount%>">
+      <% options.each(function(option) { %>
+        <option class="<%=option.get('param_class')%>" data-id="<%=option.get('short_name')%>"><%=option.get('name')%></option>
+      <% }); %>
+    </select>
+  </div>
+</td>
+<form class="parameter-select-form-<%=id%>" role="form">
+  <% _.each(plotTypeModel.get('inputs'), function(input){ %>
+  <td>
+    <div class="radio parameter-select-radio">
+      <% if (input.checked){ %>
+        <input disabled checked type="radio" name="parameter-select-radio-<%=id%>" class="<%=input.value%>-select">
+      <% }else{ %>
+        <input disabled type="radio" name="parameter-select-radio-<%=id%>" class="<%=input.value%>-select">
+      <% } %>
+    </div>
+  </td>
+  <% }); %>
+</form>
+

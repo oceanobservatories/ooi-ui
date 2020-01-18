@@ -19,7 +19,7 @@ var PlottingSelectionView = Backbone.View.extend({
   filterSubviews:[],
   dataCollection: {},
   options : {
-    itemid:null,
+    itemid:null
   },
   parentChild : {
                  "arrays":{"parent":null,"child":"sites"},
@@ -76,8 +76,8 @@ var PlottingSelectionView = Backbone.View.extend({
     var self = this;
     this.$el.html(this.template({}));
 
-    this.options.itemid = this.el.id
-    var filterItems = Object.keys(self.dataCollection)
+    this.options.itemid = this.el.id;
+    var filterItems = Object.keys(self.dataCollection);
 
     for (var i = 0; i < filterItems.length; i++) {
       var filterModel = new FilterSelectionModel({
@@ -88,7 +88,7 @@ var PlottingSelectionView = Backbone.View.extend({
       });
       //add the sub here
       this.addFilter(filterModel,self.dataCollection[filterItems[i]])
-    };
+    }
 
     this.$el.find('#parameters_id').parent().find('.dropdown-menu')
   },
@@ -201,8 +201,8 @@ var PlottingSelectionView = Backbone.View.extend({
       }
     }else if (childItem == "streams" || childItem == "parameters"){
       //this.$el.find( "#"+currentItem+"_id option").each(function(){$( this ).remove()});
-      this.$el.find( "#streams_id").html("")
-      this.$el.find( "#parameters_id").html("")
+      this.$el.find( "#streams_id").html("");
+      this.$el.find( "#parameters_id").html("");
 
       var param_list = []
 
@@ -212,11 +212,11 @@ var PlottingSelectionView = Backbone.View.extend({
           var streamhtml = ""
           for (var i = 0; i < model.get(childItem).length; i++) {
             //add the contents for the stream info
-            var streamTextValue = model.get('streams')[i]['stream']
-            var streamSubText = model.get('streams')[i]['method']
-            var start = model.get('streams')[i]['beginTime']
-            var end = model.get('streams')[i]['endTime']
-            var sensor = model.get('streams')[i]['sensor']
+            var streamTextValue = model.get('streams')[i]['stream'];
+            var streamSubText = model.get('streams')[i]['method'];
+            var start = model.get('streams')[i]['beginTime'];
+            var end = model.get('streams')[i]['endTime'];
+            var sensor = model.get('streams')[i]['sensor'];
             if (streamTextValue.indexOf("metadata") < 0){
               streamhtml+= "<option sensor='"+sensor+"' stream_type='"+streamSubText+"' start='"+start+"' end='"+end+"' data-subtext='"+streamSubText+"' >"+streamTextValue+"</option>"
             }
@@ -230,7 +230,7 @@ var PlottingSelectionView = Backbone.View.extend({
       //refresh
       this.$el.find('.selectpicker').selectpicker('refresh');
     }else{
-      this.unFilterItems(options)
+      this.unFilterItems(options);
       //filter items
       this.$el.find( "#"+childItem+"_id option" ).each(function( index, obj ) {
         var childValue = $( this ).attr("filter").trim();
@@ -267,13 +267,13 @@ var PlottingSelectionView = Backbone.View.extend({
       //refresh
       this.$el.find('.selectpicker').selectpicker('refresh');
     }
-  },
+  }
 });
 
 var FilterSelectionView = Backbone.View.extend({
   collection: null,
   options : {
-    itemid:null,
+    itemid:null
   },
   initallyDisabled: "disabled",
   tagName: "div",
@@ -306,7 +306,7 @@ var FilterSelectionView = Backbone.View.extend({
                                  model:self.model,
                                  collection:self.collection}));
     //setup the picker
-    this.$el.find('.selectpicker').selectpicker();
+    //this.$el.find('.selectpicker').selectpicker();
     this.searchIcon();
   },
   onChange: function() {

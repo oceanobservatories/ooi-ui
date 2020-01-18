@@ -7,7 +7,8 @@ import json
 from uuid import uuid4
 import sys, os, time, difflib
 import yaml
-import json
+import json, smtplib, string
+from itsdangerous import TimestampSigner, URLSafeSerializer
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -17,6 +18,7 @@ def generate_csrf_token():
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 
+# TODO: Remove this route
 @app.route('/get_config', methods=['GET'])
 def read_config():
     basedir = 'ooiui/config'
@@ -42,7 +44,13 @@ def user_signup():
 @app.route('/user/edit/<int:id>')
 @login_required()
 def user_edit(id):
-    return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/current_user', auth=(token, ''))
+    user = json.loads(response.text)
+    if (user['id'] == id) or ('user_admin' in user['scopes']):
+        return render_template('common/userEdit.html', tracking=app.config['GOOGLE_ANALYTICS'])
+    else:
+        return render_template('common/help.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/users/')
 @login_required()
@@ -56,6 +64,48 @@ def create_ticket():
 @app.route('/login')
 def user_login():
     return render_template('common/loginDemo.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/password-reset/<string:token>', methods=['GET'])
+def password_reset(token):
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+
+    if token is not None:
+        try:
+            unstamped = stamper.unsign(token, max_age=30000)
+            return render_template('common/passwordReset.html', reset_email=signer.loads(unstamped), reset_token=token)
+        except Exception, ex:
+            return jsonify(error="Password reset link invalid, send another reset email."), 401
+    else:
+        return jsonify(error="")
+
+
+@app.route('/password-reset-request', methods=['POST'])
+def password_reset_request():
+    the_data = request.data
+    email = json.loads(the_data)['email']
+    stamper = TimestampSigner(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signer = URLSafeSerializer(app.config['SECRET_KEY'], salt=app.config['SECURITY_PASSWORD_SALT'])
+    signature_token = signer.dumps(email)
+    token = stamper.sign(signature_token)
+    try:
+        reset_url = app.config["SERVER_DNS"] + "/password-reset/" + token
+        body=string.join(("From: " + app.config["SMTP_SENDER"],
+                          "Subject: OOI Password Reset Request",
+                         "You recently requested a password reset. Click the link below to proceed.",
+                         " ",
+                         " ",
+                         "Please visit %s to reset your password." % reset_url),"\r\n")
+        send_ses(app.config['SMTP_SENDER'],
+             'OOI Password Reset Request',
+             body,
+             email)
+        # send_reset_password_email(email, token)
+        # return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
+        return jsonify(error="Sending password succeeded."), 201
+    except Exception as ex:
+        return jsonify(error="Sending password reset email failed."), 401
+
 
 @app.route('/help')
 def help_page():
@@ -126,7 +176,7 @@ def FAQ():
 def glossary():
     return render_template('common/glossary.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
@@ -138,13 +188,23 @@ def station():
 def platform():
     return render_template('common/platform.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
-@app.route('/data_catalog')
-def data_catalog():
-    return render_template('common/data_catalog.html', tracking=app.config['GOOGLE_ANALYTICS'])
+@app.route('/platformnav')
+def platformN():
+    return render_template('common/platformStatus.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 
 @app.route('/status')
 def statusUI():
     return render_template('common/status.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/statusnav')
+def statusN():
+    return render_template('common/statusN.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/statustree')
+def statusTree():
+    return render_template('common/statusTree.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/api/organization', methods=['GET'])
@@ -196,6 +256,13 @@ def submit_user():
     api_key = app.config['UI_API_KEY']
     response = requests.post(app.config['SERVICES_URL'] + '/user', headers={'X-Csrf-Token' : api_key}, data=request.data)
     return response.text, response.status_code
+
+
+@app.route('/api/user/check_valid_email', methods=['GET'])
+def check_valid_email():
+    response = requests.get(app.config['SERVICES_URL'] + '/user/check_valid_email', params=request.args)
+    return response.text, response.status_code
+
 
 @app.route('/api/user_scope', methods=['GET'])
 def get_user_scopes():
@@ -437,6 +504,80 @@ def get_cam_images():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_cam_images', auth=(token, ''), data=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/media/test', methods=['GET'])
+def get_uframe_media_range_test():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/CE02SHBP-MJ01C-08-CAMDSB107/range/2009-12-07/2019-04-21', auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/range/<string:start_date>/<string:end_date>', methods=['GET'])
+def get_uframe_media_range(ref_des, start_date, end_date):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/range/%s/%s' % (ref_des, start_date, end_date), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/get_data_bounds/<string:ref_des>', methods=['GET'])
+def get_uframe_media_data_bounds(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/get_data_bounds/%s' % ref_des, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/<string:yyyy_mm_dd>', methods=['GET'])
+def get_uframe_media_yyyy_mm_dd(ref_des, yyyy_mm_dd):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/date/%s' % (ref_des, yyyy_mm_dd), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/get_instrument_list/<string:instrument_type>', methods=['GET'])
+def get_uframe_media_get_instrument_list(instrument_type):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/get_instrument_list/%s' % instrument_type, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/map', methods=['GET'])
+def get_uframe_media_da_map(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/map' % ref_des, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/years', methods=['GET'])
+def get_uframe_media_da_years(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/years' % ref_des, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/<string:year>', methods=['GET'])
+def get_uframe_media_da_months(ref_des, year):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/%s' % (ref_des, year), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/<string:ref_des>/da/<string:year>/<string:month>', methods=['GET'])
+def get_uframe_media_da_days(ref_des, year, month):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/%s/da/%s/%s' % (ref_des, year, month), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/vocab/<string:ref_des>', methods=['GET'])
+def get_uframe_media_vocab(ref_des):
+    token = get_login()
+    ref_des_parsed = ref_des.split("-", 2)
+    subsite = ref_des_parsed[0]
+    node = ref_des_parsed[1]
+    sensor = ref_des_parsed[2]
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/vocab/inv/%s/%s/%s' % (subsite, node, sensor), auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/api/uframe/media/get_display_name/<string:ref_des>', methods=['GET'])
+def get_uframe_media_display_name(ref_des):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/media/get_display_name/%s' % ref_des, auth=(token, ''), data=request.args)
+    return response.text, response.status_code
+
+@app.route('/media')
+def get_media_page():
+    return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 @app.route('/api/uframe/glider_tracks', methods=['GET'])
 def get_glider_track():
     token = get_login()
@@ -452,6 +593,7 @@ def get_alfresco_documents():
 @app.route('/CGSNConfig')
 def CGSNConfig():
     return render_template('common/CGSNConfig.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
 @app.route('/config_file', methods=['GET'])
 def get_config():
     with open('ooiui/static/txt/config_file.txt', 'r') as f:
@@ -522,8 +664,9 @@ def disabled_streams(id=None):
 
 @app.route('/api/cache_keys', methods=['GET'])
 @app.route('/api/cache_keys/<string:key>', methods=['DELETE'])
+@app.route('/api/cache_keys/<string:key>/<string:key_timeout>/<string:key_value>', methods=['POST'])
 @scope_required('sys_admin')
-def cache_keys(key=None):
+def cache_keys(key=None, key_timeout=None, key_value=None):
     token = get_login()
     if request.method == 'GET':
         response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', 
@@ -535,9 +678,84 @@ def cache_keys(key=None):
                                  auth=(token, ''))
         return response.text, response.status_code
 
+    elif request.method == 'POST':
+        response = requests.post(app.config['SERVICES_URL'] + '/cache_keys/'+key+'/'+key_timeout+'/'+key_value,
+                                 auth=(token, ''))
+        return response.text, response.status_code
 
-# Exposes the RESET_LOGIN_URL config.yml parameter
-@app.route('/api/resetlogin', methods=['GET'])
-def get_reset_login_url():
-    reset_login_url = app.config['RESET_LOGIN_URL']
-    return redirect(reset_login_url)
+
+@app.route('/api/user/xpassword', methods=['POST'])
+def user_pw_reset():
+    token = get_login()
+    the_data = request.data
+    response = requests.put(app.config['SERVICES_URL']+'/user/xpassword',
+                            auth=(token, ''), data=the_data, headers=headers())
+    return response.text, response.status_code
+
+
+def _post_headers():
+    """ urlencoded values for uframe POST.
+    """
+    return {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def headers():
+    """ Headers for uframe PUT and POST. """
+    return {"Content-Type": "application/json"}
+
+# SMTP email sender
+def send_ses(fromaddr, subject, body, recipient):
+
+    fromaddr = fromaddr
+    toaddrs  = recipient
+
+    #Change according to your settings
+    smtp_server = app.config['SMTP_SERVER']
+    smtp_username = app.config['SMTP_USERNAME']
+    smtp_password = app.config['SMTP_PASSWORD']
+    smtp_port = app.config['SMTP_PORT']
+    smtp_do_tls = app.config['SMTP_DO_TLS']
+    smtp_auth = app.config['SMTP_AUTH']
+
+    try:
+        server = smtplib.SMTP(
+            host=smtp_server,
+            port=smtp_port,
+            timeout=10
+        )
+        server.set_debuglevel(10)
+        if smtp_do_tls:
+            server.starttls()
+        server.ehlo()
+        if smtp_auth:
+            server.login(smtp_username, smtp_password)
+        server.sendmail(fromaddr, toaddrs, body)
+        return server.quit()
+    except Exception as ex:
+        return ex.message
+
+
+@app.route('/api/data_availability/<string:ref_des>', methods=['GET'])
+def get_data_availability(ref_des):
+    # Mocked services response based on https://ooi.visualocean.net/instruments/view/RS01SBPD-DP01A-01-CTDPFL104#stats
+    # stats_data = {"operational_status":[["2014-11-01",1,"2014-12-01"],["2014-12-01",1,"2015-01-01"],["2015-01-01",1,"2015-02-01"],["2015-02-01",0,"2015-03-01"],["2015-03-01",0,"2015-04-01"],["2015-04-01",0,"2015-05-01"],["2015-05-01",0,"2015-06-01"],["2015-06-01",0,"2015-07-01"],["2015-07-01",0,"2015-08-01"],["2015-08-01",1,"2015-09-01"],["2015-09-01",1,"2015-10-01"],["2015-10-01",1,"2015-11-01"],["2015-11-01",1,"2015-12-01"],["2015-12-01",1,"2016-01-01"],["2016-01-01",1,"2016-02-01"],["2016-02-01",0,"2016-03-01"],["2016-03-01",0,"2016-04-01"],["2016-04-01",0,"2016-05-01"],["2016-05-01",0,"2016-06-01"],["2016-06-01",0,"2016-07-01"],["2016-07-01",0,"2016-08-01"],["2016-08-01",0,"2016-09-01"],["2016-09-01",0,"2016-10-01"],["2016-10-01",0,"2016-11-01"]],
+    #               "cassandra_ts":[["2014-11-01",0,"2014-12-01"],["2014-12-01",0,"2015-01-01"],["2015-01-01",0,"2015-02-01"],["2015-02-01",0,"2015-03-01"],["2015-03-01",0,"2015-04-01"],["2015-04-01",0,"2015-05-01"],["2015-05-01",0,"2015-06-01"],["2015-06-01",0,"2015-07-01"],["2015-07-01",0,"2015-08-01"],["2015-08-01",0,"2015-09-01"],["2015-09-01",0,"2015-10-01"],["2015-10-01",0,"2015-11-01"],["2015-11-01",0,"2015-12-01"],["2015-12-01",0,"2016-01-01"],["2016-01-01",0,"2016-02-01"],["2016-02-01",0,"2016-03-01"],["2016-03-01",0,"2016-04-01"],["2016-04-01",0,"2016-05-01"],["2016-05-01",0,"2016-06-01"],["2016-06-01",0,"2016-07-01"],["2016-07-01",0,"2016-08-01"],["2016-08-01",0,"2016-09-01"],["2016-09-01",0,"2016-10-01"],["2016-10-01",0,"2016-11-01"]],
+    #               "cassandra_rec":[["2014-11-01",0,"2014-12-01"],["2014-12-01",0,"2015-01-01"],["2015-01-01",0,"2015-02-01"],["2015-02-01",0,"2015-03-01"],["2015-03-01",0,"2015-04-01"],["2015-04-01",0,"2015-05-01"],["2015-05-01",0,"2015-06-01"],["2015-06-01",0,"2015-07-01"],["2015-07-01",1,"2015-08-01"],["2015-08-01",1,"2015-09-01"],["2015-09-01",1,"2015-10-01"],["2015-10-01",1,"2015-11-01"],["2015-11-01",0,"2015-12-01"],["2015-12-01",0,"2016-01-01"],["2016-01-01",0,"2016-02-01"],["2016-02-01",0,"2016-03-01"],["2016-03-01",0,"2016-04-01"],["2016-04-01",0,"2016-05-01"],["2016-05-01",0,"2016-06-01"],["2016-06-01",0,"2016-07-01"],["2016-07-01",0,"2016-08-01"],["2016-08-01",0,"2016-09-01"],["2016-09-01",0,"2016-10-01"],["2016-10-01",0,"2016-11-01"]]
+    #               }
+    # status_code = 200
+    # response = jsonify({'ref_des': "RS01SBPD-DP01A-01-CTDPFL104", 'stats_data': stats_data})
+    # return response, status_code
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/available/' + ref_des, params=request.args)
+    return resp.text, resp.status_code
+
+# uFrame version GET route
+@app.route('/api/uframe/versions', methods=["GET"])
+def get_uframe_versions():
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/versions', params=request.args)
+    return resp.text, resp.status_code
+
+# uFrame release notes GET route
+@app.route('/api/uframe/release_notes', methods=["GET"])
+def get_uframe_release_notes():
+    resp = requests.get(app.config['SERVICES_URL'] + '/uframe/versions/uFrame/release_notes', params=request.args)
+    return resp.text, resp.status_code

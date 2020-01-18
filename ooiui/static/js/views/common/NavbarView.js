@@ -13,14 +13,25 @@
 
 var NavbarView = Backbone.View.extend({
   events: {
-    'click #menu-toggle' : "menuToggle"
+    'click #menu-toggle' : "menuToggle",
+    'keyup #navSearch' : "keyPressEventHandler"
+  },
+  keyPressEventHandler : function(e){
+    e.preventDefault(); // Prevent the #about
+    if(e.keyCode == 13){
+      this.navSearch(e.currentTarget.value);
+    }
   },
   menuToggle: function(e) {
     e.preventDefault(); // Prevent the #about
     this.sidebarToggle();
   },
+  navSearch: function(val) {
+    var searchTerms = val;
+    var win = window.open(location.protocol + "//" + location.host + "/data_access/?search=" + searchTerms, '_blank');
+  },
   initialize: function(options) {
-    _.bindAll(this, "render", "sidebarToggle");
+    _.bindAll(this, "render");
     if(ooi.login.loggedIn()) {
       this.messageView = new DropdownMessagesView({
         collection: new MessageCollection()
@@ -48,35 +59,46 @@ var NavbarView = Backbone.View.extend({
     //Remove event listener on menu toggle.
     var sidebar = $("#sidebar-wrapper").children().length;
     if (sidebar == 0) {
-        this.undelegateEvents();
+      this.undelegateEvents();
     }
-    },
+  },
   templates: {
     navbar: JST['ooiui/static/js/partials/Navbar.html'],
     sidebar_toggle: JST['ooiui/static/js/partials/MenuToggle.html'],
     logged_in_nav_items: JST['ooiui/static/js/partials/LoggedInNavItems.html']
   },
   render: function() {
-    this.$el.html(this.templates.navbar());
-    this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+    this.$el.html(this.templates.navbar({user:null}));
+    var pageURI = this.el.baseURI;
+    if(pageURI.indexOf("streamingdata") > -1 || pageURI.indexOf("c2") > -1 || pageURI.indexOf("alerts") > -1 || pageURI.indexOf("dataadmin") > -1 || pageURI.indexOf("opLog") > -1){
+      this.$el.find('#navbar-menus').prepend(this.templates.sidebar_toggle());
+    }
     // Messages only appear to logged in users
     if(ooi.login.loggedIn()){
-        //Here we will get the user so that we can access the scope and only show items they can access.
-        var userModel = new UserModel();
-        var self = this;
-        userModel.fetch({
-            url: '/api/current_user',
-            success: function() {
-               self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
-            },
-            error: function() {
-              self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:null}));
-            }
-        });
-        this.$el.find('#current').hide();
-        this.$el.find('#world-map').hide();
-        //this.$el.find('#navbar-menus').append(this.messageView.el);
+      //Here we will get the user so that we can access the scope and only show items they can access.
+      var userModel = new UserModel();
+      var self = this;
+      userModel.fetch({
+        url: '/api/current_user',
+        success: function() {
+          // self.$el.find('#dropdownMenuScience').toggle();
+          self.$el.find('#dropdownMenuStatus').toggle();
+          // self.$el.find('#dropdownMenuAM').toggle();
+          self.$el.find('#dropdownMenuC2').toggle();
+          self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:userModel}));
+        },
+        error: function() {
+          self.$el.find('#navbar-menus').append(self.templates.logged_in_nav_items({user:null}));
+        }
+      });
+      this.$el.find('#current').hide();
+      this.$el.find('#world-map').hide();
+      //this.$el.find('#navbar-menus').append(this.messageView.el);
     }
     this.$el.find('#navbar-menus-right').append(this.dropdownUserView.el);
+
+    if (!_.isUndefined(ooi.views.banner) && ooi.views.banner.checkStreaming()){
+      this.$el.find('.navbar.navbar-fixed-top').addClass('news-active');
+    }
   }
 });

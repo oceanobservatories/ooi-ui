@@ -1,0 +1,79 @@
+#page {min-height:600px;}
+.package {
+    padding:2px;
+    border-radius:2px;
+    margin-top:3px;
+    padding-left: 15px;
+}
+/*.array {
+        position: relative;
+    !*background-color: #5c9ccc;*!
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    color: white;
+
+    background: #5c9ccc; !* Old browsers *!
+    background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); !* FF3.6-15 *!
+    background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); !* Chrome10-25,Safari5.1-6 *!
+    background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); !* IE6-9 *!
+
+    font-size: 14px;
+    font-weight: 200;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}*/
+.header {
+    position: relative;
+    /*background-color: #5c9ccc;*/
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    color: white;
+
+/*    background: #5c9ccc; !* Old browsers *!
+    background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); !* FF3.6-15 *!
+    background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); !* Chrome10-25,Safari5.1-6 *!
+    background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); !* IE6-9 *!*/
+
+    border:thin solid #FFFFFF;
+
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+.header {cursor:pointer;}
+
+.name {
+    color:black;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;}
+
+.value {color:black;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;}
+
+.array {background-color:#FFFFFF;border:thin solid #5c9ccc;}
+.object {background-color:#FFFFFF;border:thin solid #5c9ccc;}
+.string {color:black;}
+.number {color:blue;}
+.function {color:green;}
+
+.open .children {display:block;}
+.closed .children {display:none;}
+
+.arrow {background-image:url("/img/d.png"); background-repeat:no-repeat; background-color:transparent; height:15px; width:15px; display:inline-block;}
+
+.open .arrow {background-position:-20px 0;}
+.closed .arrow {background-position:0 0;}
+
+.type {color:gray;font-size:8pt;float:right;}
+
+.hide {display:none;}
+
+#main {width:100%;height:500px;overflow-y:scroll;}

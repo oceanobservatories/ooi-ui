@@ -1,0 +1,46 @@
+h2{
+    text-align: left;
+    text-decoration: underline;
+    margin-left: 25%;
+}
+
+.patch{
+    text-align: left;
+    overflow-y: scroll;
+    word-wrap: break-word;
+}
+
+#uframe .Version{
+  margin-left: 10%;
+}
+
+#uframe .Description h4{
+  margin-left: 10%;
+}
+
+#uframe .Description li{
+  margin-left: 12%;
+}
+
+#ui .Version{
+  margin-left: 10%;
+}
+
+#ui .Version a{
+    font-weight: normal;
+    font-size: 22px;
+}
+
+#ui .Version button{
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+#ui .Description h4{
+  margin-left: 10%;
+}
+
+#ui .Description li{
+  margin-left: 12%;
+}
+

@@ -21,6 +21,9 @@ var ParameterModel = Backbone.Model.extend({
 var ParameterCollection = Backbone.Collection.extend({
   url: '/api/parameter',
   model: ParameterModel,
+  comparator: function(item) {
+    return item.get('name');
+  },
   parse: function(response, options) {
     //console.log(response);
     return response.objects;

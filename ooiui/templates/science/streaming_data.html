@@ -98,8 +98,8 @@ _.extend(OOI.prototype, Backbone.Events, {
             ciLogonTimeout = this.getURLParameter('expiration');
         if (ciLogonToken) {
             var date = new Date();
-            date.setTime(date.getTime() + ciLogonTimeout);
-            $.cookie('ooiusertoken', ciLogonToken, {expires: date});
+            date.setTime(date.getTime() + ciLogonTimeout*1000);
+            Cookies.set('ooiusertoken', ciLogonToken, {expires: date});
             ooi.trigger('login:success');
         }
         this.login.fetch({async:false});
@@ -111,6 +111,11 @@ _.extend(OOI.prototype, Backbone.Events, {
 
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
+
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+            $('#wrapper').addClass('news-active');
+            $('.container-fluid.banner-image').addClass('news-active');
+        }
 
         self.views.streamingDataView = new HighchartsStreamingContainerView({
           el: $('#streaming-data')
@@ -174,21 +179,7 @@ _.extend(OOI.prototype, Backbone.Events, {
           self.showStreamingTitle();
         });
 
-      // Login stuff..
-      if(!this.login.loggedIn()) {
-        var termsView = new TermsDialogView();
-        $('body').first().prepend(termsView.el);
-        $.ajax({
-          url: "/txt/eula.txt",
-          type: "GET",
-          success: function(response) {
-            termsView.show({
-              message: response,
-              ack: function() {  }
-            });
-          }
-        });
-      }
+
 
       this.listenTo(vent, 'toc:paramFilter', function(option) {
         //get currently selected stream/reference designators

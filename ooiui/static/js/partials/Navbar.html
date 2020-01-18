@@ -1,25 +1,101 @@
 <div class="navbar navbar-default navbar-fixed-top" role='navigation' class="container">
   <div class="navbar-collapse collapse">
-    
+
     <ul id="navbar-menus" class="nav navbar-top-links-new navbar-left">
       <li style='top:8px'><a href="/">
-          <i class="fa fa-home" style='padding-right: 5px;'> </i>  Home</a></li>
-      <li id="current" style='top:8px'><a href="/"></a></li>
-      <li id="world-map" style='top:8px'><a href="/">
-          <i class="fa fa-globe" style='padding-right: 5px;'> </i>  Science Map</a></li>
+        <i class="fa fa-home" style='padding-right: 5px;'> </i>  Home</a></li>
+      <li class="dropdown" style='top:8px;cursor:pointer'>
+        <a class="dropdown-toggle" type="button" id="dropdownMenuScience" data-toggle="dropdown" aria-expanded="true">
+          Science
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="Science">
+          <li role="presentation">
+          </li>
+          <li>
+            <a href="/data_access">
+              <i class="fa fa-th" style='padding-right: 10px;'> </i>  Data Access & Plotting
+            </a>
+          </li>
+          <li>
+            <a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">
+              <i class="fa fa-video-camera" style='padding-right: 10px;'> </i>  Cameras
+            </a>
+          </li>
+          <li>
+            <a href="/streamingdata">
+              <i class="fa fa-rss" style='padding-right: 10px;'> </i>  Streaming Data
+            </a>
+          </li>
+          <!--<li>
+            <a href="/media">
+              <i class="fa fa-file-image-o" style='padding-right: 10px;'> </i>  Media Discovery
+            </a>
+          </li>-->
+
+          <%
+          if(user != null && user.get('scopes').indexOf('data_manager') !== -1){ %>
+          <li>
+            <a href="/dataadmin">
+              <i class="fa fa-gear" style='padding-right: 10px;'> </i>Data Admin
+            </a>
+          </li>
+          <% } %>
+        </ul>
+      </li>
+      <!-- Asset Management -->
+      <li class="dropdown" style='top:8px;cursor:pointer'>
+        <a class="dropdown-toggle" type="button" id="dropdownMenuAM" data-toggle="dropdown" aria-expanded="true">
+          Asset Management
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="Assets">
+          <li role="presentation">
+            <a href="/assets/management">
+              <i class="fa fa-sitemap" style='padding-right: 13px;'></i><span style="text-align:left;padding-left:3px;">Assets & Events</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="/assets/cruises">
+              <i class="fa fa-ship" style='padding-right: 13px;'> </i><span style="text-align:left;padding-left:0px;">Cruises</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="/assets/deployments">
+              <i class="fa fa-forward" style='padding-right: 13px;'> </i><span style="text-align:left;padding-left:0px;">Deployments</span>
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
-    
+
     <ul id="navbar-menus-right" class="nav navbar-top-links-new navbar-right">
+      <li style="top: 6px;right: 60px;">
+        <label for="navSearch" title="Search"><i class="fa fa-search"> </i>  Data Catalog Search</label>
+        <input type="text" width="200px" id="navSearch">
+      </li>
       <li style="top: 6px;right: 42px;">
-        <a href="/glossary.html">
+        <a href="/help">
+          <i class="fa fa-exclamation-triangle" id="mainHelpLink"> </i>  Help
+        </a>
+      </li>
+      <li style="top: 6px;right: 42px;">
+        <a href="http://oceanobservatories.org/glossary/" target="_blank">
           <i class="fa fa-book"> </i>  Glossary
         </a>
       </li>
       <li style="top: 6px;right: 42px;">
-        <a href="/FAQ.html">
+        <a href="http://oceanobservatories.org/knowledgebase/" target="_blank">
           <i class="fa fa-question"> </i>  FAQ
         </a>
       </li>
+      <!-- TODO: Figure out why the forum isn't working, but hide this until it does.
+      <li style="top: 6px;right: 42px;">
+        <a href="https://forum.oceanobservatories.org/" target="_blank">
+          <i class="fa fa-commenting"> </i>  Forum
+        </a>
+      </li>
+      -->
     </ul> <!-- nav navbar-top-links-new navbar-right -->
 
   </div><!--/.nav-collapse -->

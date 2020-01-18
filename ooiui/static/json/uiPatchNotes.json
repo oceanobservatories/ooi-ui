@@ -1,0 +1,462 @@
+[
+  {
+        "VersionNumber": "1.7.3",
+        "VersionDate": "2019-11-07",
+        "VersionDescription": [
+            "Annotations: Fixes annotation table lookup bounds. (14444)"
+        ]
+  },
+  {
+        "VersionNumber": "1.7.2",
+        "VersionDate": "2019-10-28",
+        "VersionDescription": [
+            "Data Download: Adds M2M API handling to dismiss email notifications after data download requests. (14491)"
+        ]
+  },
+  {
+        "VersionNumber": "1.7.1",
+        "VersionDate": "2019-08-16",
+        "VersionDescription": [
+            "Plotting: Fixes bug introduced in 1.7.0 related to ADCP plotting. (14425)"
+        ]
+  },
+  {
+        "VersionNumber": "1.7.0",
+        "VersionDate": "2019-08-14",
+        "VersionDescription": [
+            "Data Catalog: Fixed link navigation to asset management. (14329)",
+            "Data Catalog: Added M2M curl and Python examples to Plotting tab based on current plot parameters.",
+            "Media Discovery: Added cache updates and tests to support future front end changes. (8869)",
+            "Plotting: Default plot style changed to scatter.",
+            "Plotting: Default selected time range set to latest 7 days of data.",
+            "Plotting: Changed the first plotting parameter to be the preferred timestamp."
+        ],
+        "ReleaseNotesPDF": "OOI_2.0_1.7.0.pdf",
+        "SiteTourTitle": "Release 1.7.0 Tour",
+        "SiteTour": {
+            "plotting_tab": [
+                {
+                    "intro": "Welcome to the plotting interface."
+                },
+                {
+                    "element": "#reportrange",
+                    "intro": "The default date range is one week.  Click here to change the plotting date range."
+                },
+                {
+                    "element": "#plot-controls > div > div > div.col-sm-8.plot-instrument-column > div.instrument-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div",
+                    "intro": "The parameters are all alphabetically sorted except the preferred timestamp has been moved to the top position."
+                },
+                {
+                    "element": "#plot-controls > div > div > div.col-sm-4 > form > div:nth-child(4) > div.col-sm-8 > div",
+                    "intro": "The default plot style is Scatter.  Click to change to Line or Both line and scatter."
+                },
+                {
+                    "element": "#plot-tool-tab > div:nth-child(5) > div",
+                    "intro": "A new M2M assistance section was recently added.  Once a plot has been generated this section will populate with both Curl and Python example code.  Logging in is required in order to generate and show your M2M API credentials."
+                },
+                {
+                    "element": "#plottingTourBtn",
+                    "intro": "Thank you for taking the tour."
+                }
+            ],
+            "data_access" : [
+                {
+                    "intro": "Welcome to the OOI Data Catalog.<br><b>Version:</b> 1.7.0<br><b>Release Date:</b> 8/14/2019"
+                },
+                {
+                    "element": "#showReleaseChanges",
+                    "intro": "You can always get back to the tour by clicking this button.<br><b>Note:</b> The tour only launches automatically if this is the first time to the site or if the site's version has changed."
+                },
+                {
+                    "element": "body > div:nth-child(2) > div > div.row.image-header > div:nth-child(1) > div > a > img",
+                    "intro": "Clicking on the OOI logo now takes you back <a href='/'>Home</a> to array navigation and the map view."
+                },
+                {
+                    "element": "#streamPanel",
+                    "intro": "The Data Catalog table now contains only the instruments on each row instead of streams. The previous version showed all the streams for all instruments.",
+                    "position": "left"
+                },
+                {
+                    "element": ".instrument-to-plot",
+                    "intro": "Clicking the <i style=\"font-size:14px;pointer-events: none;\" class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> button for an instrument will now bring up a list of all available streams and their data availability above.",
+                    "position": "left"
+                },
+                {
+                    "element": "#filterScrollContainer11",
+                    "intro": "The left-hand filters have been simplified now that instruments are shown in the Data Catalog table.  <br><b>Note:</b> Once an instrument is selected these filters will be disabled.",
+                    "position": "right"
+                },
+                {
+                    "element": "#toggleAllFilters",
+                    "intro": "Added button to expand or collapse all the filter options below, which are now collapsed by default. Click the chevron to expand or collapse individual filter lists.",
+                    "position": "right"
+                },
+                {
+                    "intro": "This is the end of the tour. Please refer to the <a href='/help'>Help</a> page if you need further assistance."
+                }
+            ]
+        }
+  },
+  {
+        "VersionNumber": "1.6.2",
+        "VersionDate": "2019-05-14",
+        "VersionDescription": [
+            "Data Download: Removes deprecated fix for user_name passed during download requests. (14279)"
+        ]
+  },
+      {
+        "VersionNumber": "1.6.1",
+        "VersionDate": "2019-03-26",
+        "VersionDescription": [
+            "Data Download: Fixes time and size estimator launching erroneous download attempts. (14251)"
+        ]
+  },
+  {
+        "VersionNumber": "1.6.0",
+        "VersionDate": "2019-03-08",
+        "VersionDescription": [
+            "Data Catalog: Changed from stream to instrument-centric table view. (12529)",
+            "Data Catalog: Cleanup of side filter options and behavior. (12532)",
+            "Data Catalog: CAMHD and HYDBB instruments and raw data links restored. (13358)",
+            "Data Download: Added preview of time/size estimate to download dialog. (13376)",
+            "General: Added click-to-zoom action to all content images. (10502)",
+            "General: Header update and cleanup."
+        ],
+        "ReleaseNotesPDF": "OOI_2.0_1.7.0.pdf"
+    },
+    {
+        "VersionNumber": "1.5.1",
+        "VersionDate": "2019-01-03",
+        "VersionDescription": [
+            "User: Fixes user registration failure if email opt-in checked. (13812)"
+        ]
+    },
+    {
+        "VersionNumber": "1.5.0",
+        "VersionDate": "2018-12-03",
+        "VersionDescription": [
+            "Data Catalog: Addresses missed dashes versus underscores in data catalog. (13107)",
+            "Data Catalog: Disable parameter selection from data download to CSV in the GUI. (13337)",
+            "Security: Updates to python libraries. (13692)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.10",
+        "VersionDate": "2018-07-24",
+        "VersionDescription": [
+            "Plotting: Reversion of ZPLSC XY-only plotting. (13254)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.9.3",
+        "VersionDate": "2018-06-14",
+        "VersionDescription": [
+            "Data Catalog: Replaces Stream Name with Stream Identifier in selected stream table. (13107)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.9.2",
+        "VersionDate": "2018-05-23",
+        "VersionDescription": [
+            "Data Download: Adds waiting for response feedback spinner and disables controls. (13380)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.9.1",
+        "VersionDate": "2018-05-18",
+        "VersionDescription": [
+            "Data Download: Adds time and file size estimates to response dialog. (13364)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.9",
+        "VersionDate": "2018-03-23",
+        "VersionDescription": [
+            "Data Catalog: Updates choosing more than one data stream. (13053)",
+            "Data Catalog: Data catalog additions for recovered cabled instruments. (12000)",
+            "Home: Fixes glider depths. (13019)",
+            "Plotting: Fixes local TZ offset bug on plotting page download form. (13279)",
+            "User: Fixes user login from any page (11517)",
+            "User: Updates user registration (13096)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.8.1",
+        "VersionDate": "2018-03-23",
+        "VersionDescription": [
+            "Plotting: Fixes missing Plot Types due to bug in 13254. (13280)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.8",
+        "VersionDate": "2018-01-19",
+        "VersionDescription": [
+            "Gallery: Enhancements to UI gallery services and partitioned cache. (13090)",
+            "Gallery: Updates to UI gallery routes. (13091)",
+            "General: Updates to services for OSMOI dataset agent. (11473)",
+            "Plotting: Fixes ADCP binned pseudo color right vertical axis to display 95th percentile limits. (13074)",
+            "Plotting: Temporarily refactor Sprint12 UI to only allow XY plots for all reference designators containing \"ZPLSC\". (13254)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.7",
+        "VersionDate": "2017-11-30",
+        "VersionDescription": [
+            "Annotation: Adds ability to create no-end-date annotations. (12554)",
+            "Annotation: Resolves missing no-end-date annotations. (12836)",
+            "Annotation: Fixes missing annotations in table. (12902)",
+            "Annotation: Fixes missing annotations with same start and end date on plot. (12874)",
+            "Asset Management: Formats Cruise column changer. (12707)",
+            "Asset Management: Adds table loading indicator to Cruises page. (12709)",
+            "Asset Management: Sorts data in deployments grid by descending deployment number. (12710)",
+            "Asset Management: Formats Cruises page columns. (12711)",
+            "Asset Management: Formats Deployments page column changer. (12713)",
+            "Asset Management: Verifies columns in Deployments page can be resized. (12714)",
+            "Data Catalog: Labels on the Data Availability timelines in the GUI should be English. (12858)",
+            "Data Catalog: UI data catalog lists streams with dashes instead of underscores. (12493)",
+            "Data Catalog: UI defaults to a time range for which there is no data available. (12374)",
+            "Data Catalog: Updates data catalog filters to include all instances of profilers. (12830)",
+            "Data Catalog: Fixes timelines disappearing entirely when adding two streams then removing one. (12528)",
+            "Data Catalog: Fixes editing custom time range for plotting after selecting All Data. (11104)",
+            "Data Download: Updates to support parameter selection in services. (12085)",
+            "Data Download: Adds parameter selection to download options. (12086)",
+            "Gallery: UI gallery infrastructure changes to support future UI gallery work. (13026)",
+            "Help: Adds services route and help page display of uFrame release notes. (13010)",
+            "M2M: Fixes 500 error message return when there is no data available for the time frame requested (12732)",
+            "M2M: Adds support for calibration ingest. (12877)",
+            "M2M: Adds documentation support fraction. (13017)",
+            "Plotting: Allows mobile users to select items in drop-down menus. (11292)",
+            "Plotting: Fixes plotting zoom. (12937)",
+            "Status: Status indicators and legends in Sites and Platforms tables disabled. (13024)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.6",
+        "VersionDate": "2017-10-16",
+        "VersionDescription": [
+            "Data Availability: Changes default colors for data availability timeline. (12572)",
+            "Design: Design phase for asset management changes. (12675)",
+            "Help: Adds uframe version information to help page. (12613)",
+            "M2M: Updates M2M documentation. (11986)",
+            "Plotting: Adds service routes for media gallery. (8869)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.5.2",
+        "VersionDate": "2017-08-27",
+        "VersionDescription": [
+            "Data Availability: Fixes minor data availability color bug.",
+            "M2M: Adds authenticated user to M2M ingest request."
+        ]
+    },
+    {
+        "VersionNumber": "1.4.5.1",
+        "VersionDate": "2017-08-11",
+        "VersionDescription": [
+            "Annotations: Changes annotation default visibility to shown and adds checkbox on plotting page. (11541)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.5",
+        "VersionDate": "2017-08-07",
+        "VersionDescription": [
+            "Annotations: Adds data availability to data access page on instrument selection. (11942)",
+            "Annotations: Adds ability to add and edit annotations with subsecond precision. (12442)",
+            "Annotations: Analysis and proposed solution provided for annotation propogation. (11540)",
+            "Annotations: Adds support for annotation DELETE using the M2M API. (12495)",
+            "Annotations: Adds all editable fields to annotation create/edit form. (11786)",
+            "M2M: Updates M2M documentation for navigation functionality. (12403)",
+            "Media: Analysis and proposed solution provided for viewing digital still images and metadata. (8869)",
+            "Status: Updates status indicator mouse over to reflect reason given by system or operator. (12146)",
+            "Status: Added status legend to pages where status indicators are shown. (12147)",
+            "TOC: Resolved missing reference designators by asset management update. (12270)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.4.1",
+        "VersionDate": "2017-08-07",
+        "VersionDescription": [
+            "M2M: Removes M2M API menu."
+        ]
+    },
+    {
+        "VersionNumber": "1.4.4",
+        "VersionDate": "2017-07-17",
+        "VersionDescription": [
+            "Annotations: Adds ability to push annotations at the subsite, platform and instrument levels. (11778)",
+            "Annotations: Adds the ability to create annotations at the parameter level. (11849)",
+            "Annotations: Adds scope-level CRUD permissions for annotations. (11785)",
+            "Annotations: Adds edit and delete of annotations. (11784)",
+            "Download: Enables POST and PUT methods in M2M annotations API for operators with authenticated M2M annotation permissions. (12117)",
+            "M2M: Added M2M routes for new data ingestion web service in EDEX. (12375)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.3",
+        "VersionDate": "2017-06-13",
+        "VersionDescription": [
+            "M2M: Adds initial OOI API documentation to service routes. (11986)",
+            "M2M: Adds initial OOI API documentation presentation layer (demo). (12403)",
+            "Map: Updates glider track data. (12075)",
+            "Navigation: Disables live streaming banner. (12285)",
+            "Navigation: Adds Data Forum button to top toolbar. (12271)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.2",
+        "VersionDate": "2017-04-25",
+        "VersionDescription": [
+            "Navigation: Updated sorting in landing page tables to be alphabetical. (12244)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.1",
+        "VersionDate": "2017-04-11",
+        "VersionDescription": [
+            "Data Catalog: Default column changes to Data Catalog. (12062)",
+            "Data Catalog: Default coulmn Description added to AM table. (12024)",
+            "Data Download: Download confirmation popup false-positive errors resolved. (10205)",
+            "Deployment: Resolved missing data catalog entries. (12088)",
+            "M2M: Enable POST and PUT methods in M2M annotations API for operators with authenticated M2M annotation permissions (12117)",
+            "Map: Added recenter control to map. (12003)",
+            "Navigation: FAQ link moved to oceanobservatories.org path. (12038)",
+            "Navigation: Glossary link moved to oceanobservatories.org path. (12073)",
+            "Navigation: Axial and Continental Margin site filters and grouping split. (10986)",
+            "Navigation: Glider instrument pages split by glider. (12017)",
+            "Navigation: Scrolling updated on landing page. (12011)",
+            "Navigation: Replaces Deployment Depth with Water Depth in array Sites listing. (10506)",
+            "Plotting: Corrects parameter unit case in drop-down. (12074)",
+            "Plotting: Plotting of downwelling vector should not have negative range. (12044)",
+            "Status: Status integration testing (UI server). (11996)",
+            "Status: Status indicators removed on platform pages. (12149)"
+        ]
+    },
+    {
+        "VersionNumber": "1.4.0",
+        "VersionDate": "2017-02-28",
+        "VersionDescription": [
+            "Data Access: Adds placeholder for deployed instruments without data. (11325)",
+            "Data Access: Reduced data transfer between services and UI. (11761)",
+            "Data Access: Fixes Data Access page window size and scroll bars. (11525)",
+            "Data Access: Improves Data Access page load times. (11449)",
+            "Data Access: Data catalog table size now responsive. (10882)",
+            "Data Access: Raw data links added to data catalog. (10239)",
+            "Data Access: Proper units displayed in UI for L0 products from VEL3D on LJ01C. (11336)",
+            "Data Access: Asset management button link in data catalog fixed for non-logged in users. (11272)",
+            "General: Cache process improvements. (11279)",
+            "General: Start and end times reformatted in the platform-level instrument tables. (10520)",
+            "General: Platform images updated. (10516)",
+            "General: Header of platform page displays chosen array. (10519)",
+            "M2M: M2M interface security enhancement check added. (11918)",
+            "Map: Adds glider lines and high-resolution bathymetry. (10503)",
+            "Map: Click functionality on array level map fixed. (11015)",
+            "Map: Adds ideal glider lines for each array. (11853)",
+            "Map: Negative space at top of landing page map at high resolutions. (11801)",
+            "Map: Landing page map zoom normalized for high browser resolutions. (11800)",
+            "Map: Labels for glider lines normalized. (12006)",
+            "Map: Glider line click feedback added. (12007)",
+            "Map: Adds a +/- zoom control on the landing page map after array selection. (12002)",
+            "Map: Removed mobile asset singular positions from map. (12034)",
+            "Navigation: Adds search url parameter when navigating from home page to Data Access. (11363)",
+            "Navigation: Global hybrid profiler moorings split into upper and lower nodes. (10956)",
+            "Navigation: Navigation from one platform to another via mini-map. (10783)",
+            "Navigation: Node tables on platform page organized by depth and merged. (10521)",
+            "Plotting: Adds missing parameters like met_timeflx. (11020)",
+            "Plotting: QAQC flags and display bug fixed. (11274)",
+            "Plotting: 3D Color Scatterplot time axis now UTC. (10765)",
+            "Plotting: Plot - Downwelling Spectral Irradiance plots fixed. (10469)",
+            "Plotting: Adds missing plotting parameters. (11790)",
+            "Plotting: Binned Pseudocolor plots display English display name from preload. (11760)",
+            "Plotting: Binned Pseudocolor plot displays full instrument designation as plot title. (11759)",
+            "Plotting: Color map for Binned Pseudocolor plot fixed upon download. (10828)",
+            "Plotting: Parameter name/id collision resolved. (11716)",
+            "Security: Audit logging of user scope changes. (10897)",
+            "Status: Adds author name to annotations. (11520)",
+            "Status: Fixes 'Add New' annotation bug. (11408)",
+            "Status: Fixes unknown status error related to displaying status events. (11854)"
+        ]
+    },
+    {
+        "VersionNumber": "1.3.2",
+        "VersionDate": "2017-01-31",
+        "VersionDescription": [
+            "Streaming Data: Streaming data restored. (11895)",
+            "Streaming Data: Updates DC and AM buttons and links. (11780)"
+        ]
+    },
+    {
+        "VersionNumber": "1.3.1",
+        "VersionDate": "2017-01-26",
+        "VersionDescription": [
+            "Data Access: Removed beta version of data availability. (11852)"
+        ]
+    },
+    {
+        "VersionNumber":"1.3.0",
+        "VersionDate":"2017-01-17",
+        "VersionDescription":[
+            "Annotations: ID fixed to represent uframe's ID. (11475)",
+            "Camera: Image display restored on Cameras page. (8869)",
+            "Cruises: Alfresco documentation restored on Cruises page. (10527)",
+            "Data Access: Deep links to stream restored. (10829)",
+            "Data Access: Additional filters added for platform, node, delivery method, and dataset type. (10531)",
+            "Data Access: Annotations save user name in uframe and displayed in table. (11520)",
+            "Data Access: Depth Range filter implemented. (10538)",
+            "Data Access: Time slider dedicated reset button implemented. (10727)",
+            "Data Access: New data columns added; order and naming of columns changed. (11358)",
+            "Data Access: Populate latitude, longitude and water depth; format decimal places. (10539)",
+            "Data Access: Column selection interface CSS updated. (10859)",
+            "Data Access: Toggle to filter out \"_bad\" data streams updated. (10923)",
+            "Data Access: Annotation tab data update and ability to add annotation fixed. (11408)",
+            "Data Access: Add annotation fix. (11782)",
+            "General: Help link added to top toolbar to make more accessible. (9618)",
+            "General: Home page array sorted alphabetically. (11022)",
+            "General: Registration form fixed to allow international phone numbers. (9338)",
+            "General: Non-https 3rd party traffic updated to https. (11316)",
+            "General: Array-level navigation fix where map icons would not be clickable. (11771)",
+            "Plotting: Download plot image scaling problem fixed. (10821)",
+            "Plotting: Data zoom with dynamic refresh implemented. (8865)",
+            "Plotting: Data decimation warning message. Closed by 8865. (8867)",
+            "Plotting: Axis reset on image download fixed. (10880)",
+            "Plotting: \"There is no data available for the specified time range.\" error message implemented. (9764)",
+            "Plotting: Dynamic parameter drop down list implemented, fixes units and vocabulary. (10547)",
+            "Plotting: Ability to download data from plotting tab for plotted time range implemented. (10453)",
+            "Plotting: Calendar times fixed to not reset after date change. (9834)",
+            "Plotting: Button added to clear plot window. (10449)",
+            "Plotting: Binned pseudo color plotting updates. (10553)",
+            "Plotting: Color bar now scales to majority of data for binned pseudo color plots. (10913)",
+            "Plotting: execDPA flag now being respected in requests. (11738)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.0",
+        "VersionDate":"2016-12-12",
+        "VersionDescription":[
+            "Adds New Feature: Status UI Functionality.",
+            "Additional parameters and instruments added to data catalog filters.",
+            "Corrects platform images showing incorrect platforms.",
+            "M2M token and username are now able to be highlighted for copying to clipboard.",
+            "M2M now supports streaming for large requests.",
+            "Added multiple bin time series plot for SPKIR instruments.",
+            "Fixed plotting bugs (see closed Red Mine tickets for specifics).",
+            "Estimated time for data delivery now provided in the download success popup.",
+            "Assets and Events caches are now populated automatically once per day.",
+            "Data Catalog cache is now populated automatically every hour.",
+            "Fixes cache swap error where old cache was deleted before new cache was created/swapped.",
+            "Plotting parameters now pull live from uFrame instead of from the UI cache."
+        ]
+    },
+    {
+        "VersionNumber":"1.1.0",
+        "VersionDate":"2016-10-28",
+        "VersionDescription":[
+            "Adds patch note capabilities.",
+            "Interim fix of latitude/longitudes being shown as -1, -1 for all assets.",
+            "Fixes typo in plotting code that prohibited most plots from generating.",
+            "Update to the annotation services.  Annotations now register in uFrame.",
+            "Integration of new asset management services from uFrame.",
+            "Addition of cruise and deployment pages.",
+            "Added support for machine-to-machine data download."
+        ]
+    }
+]

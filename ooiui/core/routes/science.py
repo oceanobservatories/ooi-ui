@@ -10,11 +10,11 @@ from flask import stream_with_context
 from ooiui.core.routes.common import get_login, login_required
 import requests
 from ooiui.core.routes.decorators import login_required, scope_required
+import json
 
-@app.route('/')
+@app.route('/cilogonhome')
 def new_index():
-    return render_template('science/index.html', tracking=app.config['GOOGLE_ANALYTICS'])
-
+    return render_template('common/home.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 @app.route('/landing/pioneer')
 @login_required()
@@ -22,11 +22,28 @@ def landing_pioneer():
     return render_template('landing/pioneer.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/assets/list')
-@app.route('/assets/list/')
-@login_required()
-def instr_index():
-    return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/assets/list')
+# @app.route('/assets/list/')
+# @login_required()
+# def instr_index():
+#     return render_template('asset_management/assetslist.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+@app.route('/assets/management')
+@app.route('/assets/management/')
+def assets_management():
+    return render_template('asset_management/asset_management.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/assets/cruises')
+@app.route('/assets/cruises/')
+def asset_management_cruises():
+    return render_template('asset_management/cruises.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+@app.route('/assets/deployments')
+@app.route('/assets/deployments/')
+def asset_management_deployments():
+    return render_template('asset_management/deployments.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/events/list/')
@@ -51,6 +68,7 @@ def event_new(new, aid, aclass):
 def streams_page():
     return render_template('science/streams.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
+
 @app.route('/streamingdata/')
 @app.route('/streamingdata')
 def streaming_data_page():
@@ -58,22 +76,33 @@ def streaming_data_page():
 
 
 @app.route('/antelope_acoustic/')
-@login_required()
 def acoustics_page():
     return render_template('science/antelope_acoustic.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/plotting', methods=['GET'])
-@app.route('/plotting/', methods=['GET'])
-@login_required()
-def show_plotting_no_path():
-    return plotting_page(None)
+# @app.route('/plot', methods=['GET'])
+# @app.route('/plot/', methods=['GET'])
+# def show_plot_no_path():
+#     return plot_page(None)
+#
+#
+# @app.route('/plot/<path:path>', methods=['GET'])
+# def plot_page(path):
+#     return render_template('science/plot.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/plotting/<path:path>', methods=['GET'])
-@login_required()
-def plotting_page(path):
-    return render_template('science/plotting.html', tracking=app.config['GOOGLE_ANALYTICS'])
+@app.route('/datacatalog/')
+@app.route('/plot', methods=['GET'])
+@app.route('/plot/', methods=['GET'])
+@app.route('/data_access', methods=['GET'])
+@app.route('/data_access/', methods=['GET'])
+def show_data_access_no_path():
+    return render_template('science/data_access.html', tracking=app.config['GOOGLE_ANALYTICS'])
+
+
+# @app.route('/data_access/<path:path>', methods=['GET'])
+# def data_access(path):
+#     return render_template('science/data_access.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
 @app.route('/getdata/')
@@ -129,10 +158,10 @@ def getUframeMultiStreamInterp():
     '''
     try:
         # Parse the parameters
-        stream1 = request.args['stream1']
-        stream2 = request.args['stream2']
-        instr1 = request.args['instrument1']
-        instr2 = request.args['instrument2']
+        ref_des1 = request.args['ref_des1']
+        ref_des2 = request.args['ref_des2']
+        instr1 = request.args['instr1']
+        instr2 = request.args['instr2']
         var1 = request.args['var1']
         var2 = request.args['var2']
         startdate = request.args['startdate']
@@ -140,7 +169,11 @@ def getUframeMultiStreamInterp():
 
         # Build the URL
         params = '?startdate=%s&enddate=%s' % (startdate, enddate)
-        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_multistream', stream1, stream2, instr1, instr2, var1, var2 + params])
+        # http://localhost:4000/uframe/get_multistream/CP05MOAS-GL340-03-CTDGVM000/CP05MOAS-GL340-02-FLORTM000/telemetered_ctdgv_m_glider_instrument/
+        # telemetered_flort_m_glider_instrument/sci_water_pressure/sci_flbbcd_chlor_units?startdate=2015-05-07T02:49:22.745Z&enddate=2015-06-28T04:00:41.282Z
+        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_multistream', ref_des1, ref_des2, instr1, instr2, var1, var2 + params])
+
+        print data_url
 
         # Get the response
         response = requests.get(data_url, params=request.args)
@@ -150,7 +183,7 @@ def getUframeMultiStreamInterp():
     except Exception, e:
         return jsonify(error=str(e))
 
-
+# TODO
 @app.route('/api/get_large_format_data', methods=['GET'])
 def get_uframe_large_format_data():
     '''
@@ -164,7 +197,7 @@ def get_uframe_large_format_data():
         date = request.args['date']  # Expecting ISO format <yyyy-mm-dd>
 
         # Build the URL
-        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_ref', ref_des, date])
+        data_url = "/".join([app.config['SERVICES_URL'], 'uframe/get_large_format_files_by_rd', ref_des, date])
 
         # Get the response
         response = requests.get(data_url, params=request.args)
@@ -176,33 +209,98 @@ def get_uframe_large_format_data():
 @app.route('/api/annotation', methods=['GET'])
 def get_annotations():
     try:
-        instr = request.args['reference_designator']
-        stream = request.args['stream_name']
-
-        response = requests.get(app.config['SERVICES_URL'] + '/annotation/'+instr+"/"+stream, params=request.args)
+        response = requests.get(app.config['SERVICES_URL'] + '/annotation', params=request.args)
         return response.text, response.status_code, dict(response.headers)
     except Exception, e:
         return jsonify(error=str(e))
 
-
+@scope_required('annotate')
+@login_required()
 @app.route('/api/annotation', methods=['POST'])
 def post_annotation():
     token = get_login()
-    response = requests.post(app.config['SERVICES_URL'] + '/annotation', auth=(token, ''), data=request.data)
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation'
+    print request.data
+    response = requests.post(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code, dict(response.headers)
 
-
+@scope_required('annotate')
+@login_required()
 @app.route('/api/annotation/<string:id>', methods=['PUT'])
 def put_annotation(id):
     token = get_login()
-    response = requests.put(app.config['SERVICES_URL'] + '/annotation/%s' % id, auth=(token, ''), data=request.data)
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation/%s' % id
+    response = requests.put(url, auth=(token, ''), data=request.data, headers=headers)
     return response.text, response.status_code
 
+@scope_required('annotate')
+@login_required()
+@app.route('/api/annotation/<string:id>', methods=['DELETE'])
+def delete_annotation(id):
+    token = get_login()
+    headers = {'Content-Type': 'application/json'}
+    url = app.config['SERVICES_URL'] + '/annotation/delete/%s' % id
+    response = requests.get(url, auth=(token, ''), data=request.data, headers=headers)
+    return response.text, response.status_code
+
+@app.route('/api/annotation/qcflags', methods=['GET'])
+def get_qcflags():
+    try:
+        response = requests.get(app.config['SERVICES_URL'] + '/annotation/qcflags', params=request.args)
+        return response.text, response.status_code, dict(response.headers)
+    except Exception, e:
+        return jsonify(error=str(e))
 
 # old
 @app.route('/api/array')
 def array_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/arrays', params=request.args)
+    # response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/arrays')
+def status_arrays():
+    try:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/arrays', params=request.args)
+        return response.text, response.status_code
+    except Exception, e:
+        print "error" + e.message
+        return "Error getting array status from services", 400
+
+
+@app.route('/api/uframe/status/sites/<string:array_code>')
+def status_sites(array_code):
+    if request.args:
+        array_code = request.args['node']
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/sites')
+def status_sites_tree():
+    if request.args:
+        array_code = request.args['node']
+    else:
+        return "Bad node parameter", 400
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/sites/%s' % array_code, params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/status/platforms/<string:array_code>')
+def status_platforms(array_code):
+    if array_code:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/platforms/%s' % array_code, params=request.args)
+        return response.text, response.status_code
+    else:
+        return "No platform status response.", 500
+
+
+@app.route('/api/uframe/status/instrument/<string:ref_des>')
+def status_instrument(ref_des):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/status/instrument/%s' % ref_des, params=request.args)
     return response.text, response.status_code
 
 
@@ -219,11 +317,11 @@ def platform_deployment_proxy():
     return response.text, response.status_code
 
 
-@app.route('/api/display_name')
-def display_name():
-    ref = request.args['reference_designator']
-    response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
-    return response.text, response.status_code
+# @app.route('/api/display_name')
+# def display_name():
+#     ref = request.args['reference_designator']
+#     response = requests.get(app.config['SERVICES_URL'] + '/display_name'+"?reference_designator="+ref, params=request.args)
+#     return response.text, response.status_code
 
 
 # Assets
@@ -234,8 +332,8 @@ def instrument_deployment_proxy():
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets', params=request.args)
 
     if 'export' in request.args:
-        return Response(response.text, 
-            mimetype='application/json', 
+        return Response(response.text,
+            mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=filtered_assets.json'})
     else:
         return response.text, response.status_code
@@ -251,14 +349,102 @@ def instrument_deployment_get(id):
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_put(id):
+    # print request.data
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % id, data=request.data)
     return response.text, response.status_code
+
+
+@app.route('/api/asset_deployment/edit_phase_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_edit_phase_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/edit_phase_values', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['values'])
+    return select, response.status_code
+
+
+@app.route('/api/asset_deployment/asset_type_values', methods=['GET'])
+@scope_required('asset_manager')
+@login_required()
+def asset_types_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/types/supported', data=request.data)
+    select = create_html_select_from_list(json.loads(response.text)['asset_types'])
+    # print select
+    return select, response.status_code
+
+
+@app.route('/api/asset_deployment/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def instrument_deployment_put_ajax():
+    token = get_login()
+    # print request.form
+    # print request.data
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        #  json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/assets/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'id' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200
+
+
+def dot_to_json(a):
+    output = {}
+    for key, value in a.iteritems():
+        path = key.split('.')
+        if path[0] == 'json':
+            path = path[1:]
+        target = reduce(lambda d, k: d.setdefault(k, {}), path[:-1], output)
+        target[path[-1]] = value
+    return output
+
+
+def create_html_select_from_list(the_values):
+    output = "<select>"
+    for value in the_values:
+        output += '<option value="%s">%s</option>' % (value, value)
+    output += "</select>"
+    return output
 
 
 @app.route('/api/asset_deployment', methods=['POST'])
 @scope_required('asset_manager')
 @login_required()
 def instrument_deployment_post():
+    # print request.data
     response = requests.post(app.config['SERVICES_URL'] + '/uframe/assets', data=request.data)
     return response.text, response.status_code
 
@@ -282,16 +468,24 @@ def event_deployments_proxy():
 @app.route('/api/asset_events/<int:id>', methods=['GET'])
 def event_deployment_get(id):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/assets/%s/events' % id, params=request.args)
+    # print response.text
     return response.text, response.status_code
 
 
-@app.route('/api/asset_events/<int:assetId>/<int:id>', methods=['PUT'])
+@app.route('/api/asset_events/<int:id>', methods=['PUT'])
 @scope_required('asset_manager')
 @login_required()
-def asset_event_put(id, assetId):
+def asset_event_put(id):
     token = get_login()
     response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % id, auth=(token, ''), data=request.data)
     return response.text, response.status_code
+
+
+@app.route('/api/uframe/events/operational_status_values', methods=['GET'])
+def get_operational_status_values():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/events/operational_status_values', params=request.args)
+    select = create_html_select_from_list(json.loads(response.text)['operational_status_values'])
+    return select, response.status_code
 
 
 @app.route('/api/asset_events', methods=['POST'])
@@ -299,8 +493,48 @@ def asset_event_put(id, assetId):
 @login_required()
 def asset_event_post():
     token = get_login()
-    response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=request.data)
-    return response.text, response.status_code
+    # print request.form
+    # print request.data
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper' and k != 'id')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        # print json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'eventId' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/events', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200
+
 
 
 @app.route('/api/events', methods=['GET'])
@@ -314,11 +548,41 @@ def op_log():
     return render_template('common/opLog.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 
-@app.route('/api/uframe/stream')
+@app.route('/api/uframe/streams_for/<string:reference_designator>', methods=['GET'])
+def streams_for(reference_designator):
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/streams_for/%s' % reference_designator,
+                            auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/instrument_list', methods=['GET'])
+def instrument_list():
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/instrument_list',
+                            auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
+
+@app.route('/api/uframe/stream', methods=['GET'])
 def stream_proxy():
     token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
-    return response.text, response.status_code
+    search_request_arg = request.args.get('search','')
+    if len(search_request_arg) > 0 or len(request.args) == 0:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream', auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+    else:
+        return {}, 400
+
+
+@app.route('/api/uframe/get_stream_for_model', methods=['GET'])
+def stream_for_model():
+    token = get_login()
+    if len(request.args) > 0:
+        response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_stream_for_model/%s/%s/%s' % (request.args.get('ref_des',''), request.args.get('stream_method',''), request.args.get('stream','')), auth=(token, ''), params=request.args)
+        return response.text, response.status_code
+    else:
+        return {}, 400
 
 
 @app.route('/api/antelope_acoustic/list', methods=['GET'])
@@ -348,6 +612,15 @@ def metadata_times_proxy(stream_name, reference_designator):
     response = requests.get(app.config['SERVICES_URL'] + '/uframe/get_metadata_times/%s/%s' % (stream_name, reference_designator), auth=(token, ''), params=request.args)
     return response.text, response.status_code
 
+@app.route('/api/uframe/stream/parameters/<string:reference_des>/<string:stream_method>/<string:stream>', methods=['GET'])
+def get_stream_parameters(reference_des, stream_method, stream):
+    '''
+    get metadata times for a given ref and stream
+    '''
+    token = get_login()
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/stream/parameters/%s/%s/%s' % (reference_des, stream_method, stream), auth=(token, ''), params=request.args)
+    return response.text, response.status_code
+
 
 @app.route('/api/uframe/get_csv/<string:stream_name>/<string:reference_designator>/<string:start>/<string:end>')
 def get_csv(stream_name, reference_designator, start, end):
@@ -355,7 +628,10 @@ def get_csv(stream_name, reference_designator, start, end):
     dpa = "1"
     user = request.args.get('user', '')
     email = request.args.get('email', '')
-    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s?user=%s&email=%s' % (stream_name, reference_designator, start, end, dpa, user, email)
+    parameters = request.args.get('parameters', '')
+    estimate_only = request.args.get('estimate', 'false')
+    url = app.config['SERVICES_URL'] + '/uframe/get_csv/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s' \
+          % (stream_name, reference_designator, start, end, dpa, user, email, parameters, estimate_only)
     req = requests.get(url, auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
@@ -366,7 +642,10 @@ def get_json(stream_name, reference_designator, start, end, provenance, annotati
     dpa = "0"
     user = request.args.get('user', '')
     email = request.args.get('email', '')
-    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s' % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email)
+    parameters = request.args.get('parameters', '')
+    estimate_only = request.args.get('estimate', 'false')
+    url = app.config['SERVICES_URL'] + '/uframe/get_json/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s' \
+          % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters, estimate_only)
     req = requests.get(url, auth=(token, ''), stream=True, params=request.args)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
@@ -377,8 +656,10 @@ def get_netcdf(stream_name, reference_designator, start, end, provenance, annota
     dpa = "0"
     user = request.args.get('user', '')
     email = request.args.get('email', '')
-    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s'
-                       % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email), auth=(token, ''), stream=True)
+    parameters = request.args.get('parameters', '')
+    estimate_only = request.args.get('estimate', 'false')
+    req = requests.get(app.config['SERVICES_URL'] + '/uframe/get_netcdf/%s/%s/%s/%s/%s/%s/%s?user=%s&email=%s&parameters=%s&estimate_only=%s'
+                       % (stream_name, reference_designator, start, end, dpa, provenance, annotations, user, email, parameters, estimate_only), auth=(token, ''), stream=True)
     return Response(stream_with_context(req.iter_content(chunk_size=1024*1024*4)), headers=dict(req.headers))
 
 
@@ -423,3 +704,87 @@ def get_c2_instrument_display(reference_designator):
 def get_c2_instrument_fields(reference_designator, stream_name):
     response = requests.get(app.config['SERVICES_URL'] + '/c2/instrument/%s/%s/fields' % (reference_designator, stream_name))
     return response.text, response.status_code
+
+
+@app.route('/api/cruises', methods=['GET'])
+def get_cruises():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises')
+    return response.text, response.status_code
+
+
+@app.route('/api/cruises/<string:eventId>/deployments', methods=['GET'])
+def get_cruise_deployments(eventId):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/cruises/%s/deployments' % (eventId))
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/subsites', methods=['GET'])
+def get_deployments_inv():
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv')
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/nodes', methods=['GET'])
+def get_deployments_nodes(subsiteRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:subsiteRd>/<string:nodeRd>/sensors', methods=['GET'])
+def get_deployments_sensors(subsiteRd, nodeRd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/inv/' + subsiteRd + '/' + nodeRd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/<string:rd>', methods=['GET'])
+def get_deployments_by_rd(rd):
+    response = requests.get(app.config['SERVICES_URL'] + '/uframe/deployments/' + rd)
+    return response.text, response.status_code
+
+
+@app.route('/api/deployments/ajax', methods=['POST'])
+@scope_required('asset_manager')
+@login_required()
+def deployment_post_ajax():
+    token = get_login()
+    # print request.form
+    # print request.data
+    json_data = ''
+    if (len(request.data) > 0):
+        json_data = dot_to_json(json.loads(request.data))
+    if (len(request.form) > 0):
+        json_data = dot_to_json(json.loads(json.dumps(request.form.to_dict())))
+    if len(json_data) > 0:
+        clean_data = {k:v for k,v in json_data.iteritems() if (k != 'oper')}
+        # print json_data
+        # print clean_data
+    else:
+        return 'No operation type found in data!', 500
+
+    # print 'eventId'
+    # print clean_data['eventId']
+
+    if 'oper' in json_data:
+        operation_type = json_data['oper']
+        # print operation_type
+    else:
+        return 'No operation type found in data!', 500
+
+    if operation_type == 'edit':
+        # print 'edit record'
+        # print clean_data['eventId']
+        # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
+        print json.dumps(clean_data)
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/deployments/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Edit record operation', 200
+
+    if operation_type == 'add':
+        # print 'add record'
+        clean_data = {k:v for k,v in clean_data.iteritems() if (k != 'id' and k != 'lastModifiedTimestamp')}
+        # print clean_data
+        response = requests.post(app.config['SERVICES_URL'] + '/uframe/deployments', auth=(token, ''), data=json.dumps(clean_data))
+        return response.text, response.status_code
+        # return 'Add record operation!', 200
+
+    return 'No operation performed!', 200

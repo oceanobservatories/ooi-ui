@@ -52,7 +52,13 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
       var self = this;
       var selectedStreamModelCollection = new StreamCollection();
       _.each(self.subviews,function(currentView,i){
-        selectedStreamModelCollection.add(currentView.model);
+        var ref_des = currentView.model.get('ref_des'),
+              stream_method = currentView.model.get('stream_method'),
+              stream = currentView.model.get('stream');
+            var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
+            var streamWithParameters = new StreamCollection();
+            streamWithParameters.fetch({url: newUrl, async:false});
+        selectedStreamModelCollection.add(streamWithParameters.models[0]);
       });
       return selectedStreamModelCollection;
     },
@@ -75,7 +81,7 @@ var HighchartsStreamingContainerView = Backbone.View.extend({
             }
         });
         return streamPlotRemoved;
-    },
+    }
 });
 
 var HighchartsStreamingDataOptionsView = Backbone.View.extend({
@@ -151,7 +157,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
     },
     getVariableList:function(){
       var self = this;
-      var selectedItem =  self.$el.find("#paramSelection option:selected");
+      var selectedItem = self.$el.find("#paramSelection option:selected");
       var selected = [];
       $(selectedItem).each(function(index){
         selected.push({'variable':$(this).data('params'),'prettyname':$(this).text()});
@@ -161,6 +167,15 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
     render: function() {
         var self = this;
         this.$el.html(this.template({streamModel:self.model,showControls:self.showControls}));
+
+      // Get the model with the variables included
+      var ref_des = self.model.get('ref_des'),
+        stream_method = self.model.get('stream_method'),
+        stream = self.model.get('stream');
+      var newUrl = '/api/uframe/get_stream_for_model?ref_des='+ref_des+'&stream_method='+stream_method+'&stream='+stream;
+      var streamWithParameters = new StreamCollection();
+      streamWithParameters.fetch({url: newUrl, async:false});
+      self.model = streamWithParameters.models[0];
 
         var param_list = [],
         parameterhtml = "",
@@ -282,7 +297,7 @@ var HighchartsStreamingDataOptionsView = Backbone.View.extend({
         parameterhtml += "</optgroup>"
 
 
-        self.$el.find('#paramSelection').html(parameterhtml)
+        self.$el.find('#paramSelection').html(parameterhtml);
         self.$el.find('#paramSelection .invalidParam').attr('disabled','disabled');
         self.$el.find('#paramSelection').selectpicker('refresh');
 
@@ -323,7 +338,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
     this.title = options && options.title || "Chart";
     this.title_style = options && options.title_style || {
     };
-    this.subtitle = options && options.subtitle || "";
+    this.subtitle = options && options.stream_display_name || "";
 
     _.bindAll(this, "onClick",'requestData','abort','updateDateTimes','getUrl','updateVariable','resume');
 
@@ -566,7 +581,7 @@ var HighchartsStreamingDataView = Backbone.View.extend({
           text: self.model.get('display_name')
         },
         subtitle: {
-          text: self.model.get('stream_name')
+          text: self.model.get('stream_display_name')
         },
         legend: {
             align: 'left'

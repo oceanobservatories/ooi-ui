@@ -252,10 +252,12 @@ var AssetItemView = Backbone.View.extend({
             }
         });
         this.listenTo(vent, 'toc:showStreamingStreams', function() {
-            //only shows the streaming data items in the toc
-            if (this.model.get('stream_name').indexOf('streamed') == -1){
-                this.$el.remove();
+          //only shows the streaming data items in the toc
+          if (this.model.get('stream_name') !== null) {
+            if (this.model.get('stream_name').indexOf('streamed') == -1) {
+              this.$el.remove();
             }
+          }
         });
         this.listenTo(vent, 'toc:hideInstruments', function() {
             this.$el.find('.instrument').toggle();
@@ -461,20 +463,24 @@ var StreamItemView = Backbone.View.extend({
     },
     render: function() {
         this.$el.attr('id', this.model.get('reference_designator') + '-' + this.model.get('stream_name'));
-        if(this.model.get('stream_name').indexOf('metadata') > -1) {
+        if(this.model.get('stream_name') !== null) {
+          if (this.model.get('stream_name').indexOf('metadata') > -1) {
             this.$el.addClass('meta-data-item');
+          }
         }
         this.$el.html( this.template(this.model.toJSON()) );
 
-        if ('showIcons' in this.model.attributes && this.model.get('showIcons') && this.model.get('stream_name').indexOf('streamed') > -1){
+        if(this.model.get('stream_name') !== null) {
+          if ('showIcons' in this.model.attributes && this.model.get('showIcons') && this.model.get('stream_name').indexOf('streamed') > -1) {
             //check to see if it was already selected, if so change the call
-            if ('isSelectedStream' in this.model.attributes && this.model.get('isSelectedStream')){
-                this.$el.append('<i class="toc-icon-marker toc-icon-marker-selected pull-left"></i>')
-            }else{
-                this.$el.append('<i class="toc-icon-marker toc-icon-marker-unselected pull-left"></i>')
+            if ('isSelectedStream' in this.model.attributes && this.model.get('isSelectedStream')) {
+              this.$el.append('<i class="toc-icon-marker toc-icon-marker-selected pull-left"></i>')
+            } else {
+              this.$el.append('<i class="toc-icon-marker toc-icon-marker-unselected pull-left"></i>')
             }
-        }else{
+          } else {
             this.$el.append('<i style="" class="pull-left"></i>')
+          }
         }
         return this;
     }

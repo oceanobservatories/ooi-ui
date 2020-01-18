@@ -37,7 +37,7 @@ var PlatformStatusView = Backbone.View.extend({
     event.preventDefault();
     // Get the model id from the tag attribute data-id
     var model_id = $(event.target).attr('data-id');
-    console.log('Platform onClick: ' + model_id);
+    // console.log('Platform onClick: ' + model_id);
     // Publish a new method platformnav:click with the model_id
     this.render();
     this.selectPlatform(model_id);

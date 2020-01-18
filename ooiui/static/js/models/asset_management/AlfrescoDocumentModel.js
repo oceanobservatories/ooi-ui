@@ -14,7 +14,8 @@ var AlfrescoDocumentModel = Backbone.Model.extend({
     defaults: {
         id: null,
         name: null,
-        url: null
+        url: null,
+        type: null
     },
     toJSON: function() {
         'use strict';

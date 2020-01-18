@@ -52,9 +52,24 @@
                 longName = model.get('name');
             }
         }
-        model.set('longName', longName);
-        pageableCollection.add(model)
+      if (_.isUndefined(model.get('instrumentClass')) || _.isNull(model.get('instrumentClass'))) {
+        model.set('instrumentClass', 'undefined')
+      }
+      if (_.isUndefined(model.get('owner')) || _.isNull(model.get('owner'))) {
+        model.set('owner', 'undefined')
+      }
+      model.set('longName', longName);
 
+      try {
+        if(!_.isUndefined(model)){
+          pageableCollection.add(model)
+        }
+      }
+      catch(ex) {
+        console.log(ex);
+        console.log(model);
+        console.log(i);
+      }
     });
 
 
@@ -140,7 +155,7 @@
             }
           }
         })
-      },
+      }
       ];
 
     // Initialize a new Grid instance

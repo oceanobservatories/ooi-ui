@@ -18,7 +18,7 @@ var AssetMapView = Backbone.View.extend({
   renderMap: function(options) {
     var self = this;
 
-    var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+    var Esri_OceanBasemap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
       maxZoom: 10,
       minZoom: 2
@@ -151,7 +151,7 @@ var AssetMapView = Backbone.View.extend({
           // Data Catalog
           popupContent+='<a href="/streams/#'+  station_model.get('reference_designator') +'"><i class="fa fa-database">&nbsp;</i>Data Catalog</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;';
           // Asset Managment
-          popupContent+='<a href="/assets/list#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
+          popupContent+='<a href="/assets/management#' +  station_model.get('reference_designator') + '"><i class="fa fa-sitemap">&nbsp;</i>Asset Management</a></div></h5>';
 
 
           popupContent += "<div style=''>"

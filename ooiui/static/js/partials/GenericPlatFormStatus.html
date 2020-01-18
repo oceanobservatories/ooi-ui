@@ -1,0 +1,318 @@
+<%
+    var image;
+
+    switch (siteInfo.refDes.substr(0,8)) {
+        case 'GS01SUMO':
+            image = '/img/platform/southern_ocean/southern_surface.png';
+            break;
+        case 'GS02HYPM':
+            image = '/img/platform/southern_ocean/southern_profiler.png';
+            break;
+        case 'GS03FLMA':
+            image = '/img/platform/southern_ocean/southern_flanking.png';
+            break;
+        case 'GS03FLMB':
+            image = '/img/platform/southern_ocean/southern_flanking.png';
+            break;
+
+        case 'CE01ISSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+        case 'CE01ISSM':
+            image = '/img/platform/coastal_endurance/endurance_or_is_surface.png';
+            break;
+        case 'CE02SHBP':
+            image = '/img/platform/coastal_endurance/endurance_or_shelf_benthic_package.png';
+            break;
+        case 'CE02SHSM':
+            image = '/img/platform/coastal_endurance/endurance_or_shelf_surface.png';
+            break;
+        case 'CE02SHSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+        case 'CE04OSBP':
+            image = '/img/platform/coastal_endurance/endurance_or_os_benthic_package.png';
+            break;
+        case 'CE04OSSM':
+            image = '/img/platform/coastal_endurance/endurance_or_os_surface.png';
+            break;
+        case 'CE06ISSM':
+            image = '/img/platform/coastal_endurance/endurance_wa_is_surface.png';
+            break;
+        case 'CE06ISSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+        case 'CE07SHSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+        case 'CE07SHSM':
+            image = '/img/platform/coastal_endurance/endurance_wa_shelf_surface.png';
+            break;
+        case 'CE09OSPM':
+            image = '/img/platform/coastal_endurance/endurance_wa_os_profiler.png';
+            break;
+        case 'CE09OSSM':
+            image = '/img/platform/coastal_endurance/endurance_wa_os_surface.png';
+            break;
+
+        case 'CP01CNSM':
+            image = '/img/platform/coastal_pioneer/CP_Central_Surface_Mooring.png';
+            break;
+        case 'CP02PMCI':
+            image = '/img/platform/coastal_pioneer/CP_Central_Inshore_Profiler_Mooring.png';
+            break;
+        case 'CP02PMCO':
+            image = '/img/platform/coastal_pioneer/CP_Central_Offshore_Profiler_Mooring.png';
+            break;
+        case 'CP02PMUI':
+            image = '/img/platform/coastal_pioneer/CP_Upstream_Inshore_Profiler_Mooring.png';
+            break;
+        case 'CP02PMUO':
+            image = '/img/platform/coastal_pioneer/CP_Upstream_Offshore_Profiler_Mooring.png';
+            break;
+        case 'CP03ISSM':
+            image = '/img/platform/coastal_pioneer/CP_Inshore_Surface_Mooring.png';
+            break;
+        case 'CP04OSPM':
+            image = '/img/platform/coastal_pioneer/CP_Offshore_Profiler_Mooring.png';
+            break;
+        case 'CP04OSSM':
+            image = '/img/platform/coastal_pioneer/CP_Offshore_Surface_Mooring.png';
+            break;
+        case 'CP01CNSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+        case 'CP03ISSP':
+            image = '/img/platform/coastal_endurance/endurance_or_is_piercing.jpg';
+            break;
+
+        case 'GA01SUMO':
+            image = '/img/platform/argentine/argentine_surface.png';
+            break;
+        case 'GA02HYPM':
+            image = '/img/platform/argentine/argentine_profiler.png';
+            break;
+        case 'GA03FLMA':
+            image = '/img/platform/argentine/argentine_flanking.png';
+            break;
+        case 'GA03FLMB':
+            image = '/img/platform/argentine/argentine_flanking.png';
+            break;
+
+        case 'GI01SUMO':
+            image = '/img/platform/irminger/irminger_surface.png';
+            break;
+        case 'GI02HYPM':
+            image = '/img/platform/irminger/irminger_profiler.png';
+            break;
+        case 'GI03FLMA':
+            image = '/img/platform/irminger/irminger_flanking.png';
+            break;
+        case 'GI03FLMB':
+            image = '/img/platform/irminger/irminger_flanking.png';
+            break;
+
+        case 'GP02HYPM':
+            image = '/img/platform/station_papa/papa_profiler.png';
+            break;
+        case 'GP03FLMA':
+            image = '/img/platform/station_papa/papa_flanking.png';
+            break;
+        case 'GP03FLMB':
+            image = '/img/platform/station_papa/papa_flanking.png';
+            break;
+
+        case 'RS01SBPD':
+            image = '/img/platform/cabled_array/RS01SBPD.jpg';
+            break;
+        case 'RS01SBPS':
+            image = '/img/platform/cabled_array/RS01SBPS.png';
+            break;
+        case 'RS03ABPI':
+            image = '/img/platform/cabled_array/RS03ABPI.jpg';
+            break;
+        case 'RS03AXPD':
+            image = '/img/platform/cabled_array/RS03AXPD.jpg';
+            break;
+        case 'RS03AXPS':
+            image = '/img/platform/cabled_array/RS03AXPS.png';
+            break;
+        case 'RS04ASPI':
+            image = '/img/platform/cabled_array/RS04ASPI.jpg';
+            break;
+
+        case 'RS03INT1':
+        case 'RS03INT2':
+        case 'RS03ECAL':
+        case 'RS03CCAL':
+        case 'RS03ASHS':
+        case 'RS01SUM2':
+            image = '/img/platform/cabled_array/Med_Pow.png';
+            break;
+
+        case 'RS01SUM1':
+            image = '/img/platform/cabled_array/Low_Pow.png';
+            break;
+
+        case 'RS03AXBS':
+        case 'RS01SLBS':
+            if (siteInfo.refDes.indexOf('MJ') !== -1) {
+                image = '/img/platform/cabled_array/Med_Pow.png';
+                break;
+            } else {
+                image = '/img/platform/cabled_array/Low_Pow.png';
+                break;
+            }
+
+        default:
+            if (siteInfo.refDes.indexOf('MOAS') !== -1) {
+                image = '/img/platform/mobile/glider.png';
+            } else {
+                image = 'none';
+            }
+    }
+%>
+
+<script type="text/javascript">
+            function showImage(smSrc, lgSrc) {
+                document.getElementById('largeImg').src = smSrc;
+                showLargeImagePanel();
+                noScroll();
+                unselectAll();
+                setTimeout(function() {
+                    document.getElementById('largeImg').src = lgSrc;
+                }, 1)
+            }
+            function showLargeImagePanel() {
+                document.getElementById('largeImgPanel').style.display = 'block';
+            }
+            function unselectAll() {
+                if(document.selection)
+                    document.selection.empty();
+                if(window.getSelection)
+                    window.getSelection().removeAllRanges();
+            }
+            function noScroll() {
+                $('body')[0].style.overflow = "hidden";
+            }
+            function yesScroll() {
+                $('body')[0].style.overflow = "scroll";
+            }
+</script>
+
+<style type="text/css">
+  #largeImgPanel {
+    text-align: center;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(100,100,100, 0.5);
+    overflow-y: scroll;
+  }
+
+  .tdulliFormat ul {
+    width: 50px;
+    display: table;
+    table-layout: fixed;
+  }
+  .tdulliFormat ul li {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .tdulliFormat ul li a {
+    display: inline-block;
+  }
+
+  .tdulliFormat td {
+    width: 50px;
+  }
+
+</style>
+
+<div id="platform-view-content">
+
+    <h2><%= siteInfo.site %><small class="refDesLabel" style="display:none"> (<%= siteInfo.refDes %>)</small></h2>
+    <h3><small>Click an assembly to view its instruments</small></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group pull-left" style="padding-left: 20px;">
+                <div data-toggle="buttons" class="btn-group">
+                    <label class="btn btn-primary js-toggle-eng active">
+                        <input type="checkbox" checked="" />Engineering Instruments
+                    </label>
+                    <label class="btn btn-primary js-toggle-ref-des">
+                        <input type="checkbox"/>Reference Designators
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="row">
+    <!-- STATUS LEGEND HIDDEN IN SPRINT 11
+    <div class="col-md-12">
+    <div style="text-align:left; width: 100%; padding-left: 20px;">
+          <h5 style="font-size: 14px;float: left;padding-left: 5px;"><b>Status Legend -</b></h5>
+          <h5 class="fa fa-circle notTracked" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Not Tracked</h5>
+          <h5 class="fa fa-circle operational" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Operational</h5>
+          <h5 class="fa fa-circle removedFromService" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Removed From Service</h5>
+          <h5 class="fa fa-circle failed" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Failed</h5>
+          <h5 class="fa fa-circle degraded" aria-hidden="true" style="font-size: 14px;float: left;padding-left: 10px;"> Degraded</h5>
+        </div>
+    </div>-->
+  </div>
+    <div class="row">
+        <div class="col-md-7">
+            <% _.each(collection, function(model) { %>
+          <% //console.log('GenericPlatform model'); %>
+          <% //console.log(model); %>
+                <div class="panel">
+                    <div class="panel-heading" >
+                        <h4 class="js-expand" data-target="#<%= model.refDes %>"><%= model.name || model.refDes %><small class="refDesLabel" style="display:none"> <%= (model.name) ? '(' + model.refDes + ')' :"" %></small><i class="fa fa-chevron-down pull-right"></i></h4>
+                    </div>
+                    <div id="<%=  model.refDes %>" class="panel-body" style="display: none">
+                        <table id="site_<%= model.refDes %>" class="table table-default">
+                            <thead>
+                                <tr>
+                                    <th style="width: 75px;">Navigation</th>
+                                    <th style="width: 300px;">Instrument</th>
+                                    <!-- STATUS COLUMN HIDDEN IN SPRINT 11
+                                    <th style="width: 100px;">Status</th>-->
+                                    <th style="width: 100px;">Deployment Depth</th>
+                                    <th style="width: 175px;">Start Time</th>
+                                    <th style="width: 175px;">End Time</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        <div class="col-md-4 col-md-offset-right-1">
+            <div class="row">
+                <div class="col-md-12">
+                    <pre id="info" style="height: 60px; margin-top: 10px; font-size: 11px;">Mouse over icon to inspect</pre>
+                    <div id="map" style="height: 450px; width: 100%;"></div>
+                </div>
+            </div>
+            <br/>
+            <div class="panel">
+              <div class="panel-heading" >
+                <h4 class="js-expand" data-target="#platformImage" >Image of Platform<i class="fa fa-chevron-down pull-right"></i></h4>
+              </div>
+                <div id="platformImage" class="panel-body" style="display: none">
+                    <p>Click on the image to expand it.</p>
+                    <% if (image !== 'none') { %>
+                    <img src="<%= image %>" width="100%" style="cursor:pointer" onclick="showImage(this.src, this.src);" >
+                    <% } %>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="largeImgPanel" onclick="yesScroll(); this.style.display='none'">
+            <h3><small>Click on the image to close it.</small></h3>
+            <img id="largeImg"
+             style=" margin:0; padding-bottom:50px; padding-top:150px;" />
+            <h3><small>Click on the image to close it.</small></h3>
+        </div>
+</div>

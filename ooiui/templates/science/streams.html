@@ -10,6 +10,7 @@
   <link href="/css/common/downloadModal.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/streamTableItem.css" rel="stylesheet" type="text/css" />
   <link href="/css/common/streams.css" rel="stylesheet" type="text/css"/>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/css/iThing.min.css' rel='stylesheet' type='text/css' />
   <!-- partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/svgplot.js" type="text/javascript"></script>
@@ -21,6 +22,14 @@
   <script src="/js/compiled/index.js" type="text/javascript"></script>
 
   <script src="/js/compiled/svgplot.js" type="text/javascript"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSliderMouseTouch.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSliderDraggable.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSliderBar.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSliderHandle.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSliderLabel.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQRangeSlider.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQDateRangeSliderHandle.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jQRangeSlider/5.7.1/jQDateRangeSlider.min.js'></script>
     {% block link %}
         {{ super() }}
     {% endblock %}
@@ -37,6 +46,9 @@
       {% block page_controls %}
       {{ super() }}
       {% endblock %}
+<div id='slider-wrapper'>
+  <div id='slider'></div>
+</div>
 <div id="wrapper">
     <div id="page-content-wrapper">
         <div class="content-fluid">
@@ -232,8 +244,9 @@ _.extend(OOI.prototype, Backbone.Events, {
           //window.open(base_url, '_blank');
         }
     });
-    this.listenTo(this, 'DownloadModal:onSuccess',function(url){
-      self.views.modalDownloadView.show(url);
+
+    this.listenTo(this, 'DownloadModal:onSuccess',function(url, timeCalculation){
+      self.views.modalDownloadView.show(url, timeCalculation);
     });
     this.listenTo(this, 'DownloadModalFail:onFail',function(msg){
       self.views.modalDownloadFailView.show(msg);
@@ -326,6 +339,16 @@ $.when(arrayFetch, streamFetch).done(function() {
             focusToItem();
             vent.trigger('toc:noKids');
             vent.trigger('toc:hideStreams');
+            var dateRangeSliderBounds = getDateRangeSliderBounds(streamCollection.models);
+            $('#slider').dateRangeSlider({
+              bounds        : dateRangeSliderBounds,
+              defaultValues : dateRangeSliderBounds
+            })
+            .bind('valuesChanged', function(e, data){
+              startDate = data.values.min.valueOf();
+              endDate = data.values.max.valueOf();
+              updateCollection( showStreams );
+            });
             });
         });
 
@@ -355,6 +378,9 @@ var dlPagination = {
 var sortBy = "";
 var order = 'reverse';
 
+// Filtering by date
+var startDate, endDate;
+
 $(document).ready(function() {
         ooi.start();
         populate();
@@ -368,6 +394,7 @@ $(document).ready(function() {
             });
 
         $('#search').keyup( _.debounce(textInput, 250) );
+        $('#page-controls').append($('#slider-wrapper'));
 });
 
 function textInput() {
@@ -442,7 +469,9 @@ function updateCollection( successCallback ){
         search : $('#search').val(),
         concepts : paramSearch,
         sort : sortBy,
-        order : order
+        order : order,
+        startDate : startDate,
+        endDate : endDate
     };
 
     collection.fetch({
@@ -547,5 +576,29 @@ function updateDownloadPagination( details ){
     });
 }
 
+var getDateRangeSliderBounds = function (s) {
+  var temp, min, max, bounds = {};
+  $.each(s, function (i, v) {
+    temp = new Date(v.attributes.end);
+    if (min === undefined)
+      min = temp;
+    else if (max === undefined) {
+      if (temp > min)
+        max = temp;
+      else {
+        max = min;
+        min = temp;
+      }
+    }
+    else if (temp < min)
+      min = temp;
+    else if (temp > max)
+      max = temp;
+  });
+  return {
+    min : min,
+    max : max
+  };
+}
 </script>
 {% endblock %}

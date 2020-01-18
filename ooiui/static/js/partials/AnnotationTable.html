@@ -1,6 +1,10 @@
-<button type="button" class="btn btn-default" id="addAnnotation">
+<%
+if(user.scopes.indexOf('annotate_admin') != -1){
+%>
+<button type="button" class="btn btn-default" id="addAnnotation" hidden>
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New
 </button>
+<%}%>
 
 <table class="table table-striped table-bordered table-hover">
   <thead>

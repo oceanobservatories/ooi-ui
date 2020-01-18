@@ -43,21 +43,21 @@ var AddAnnotationView = Backbone.View.extend({
     });
   },
   hidden: function(e) {
-    console.log("hidden");
+    // console.log("hidden");
   },
   /* Called when the user is successfully authenticated */
   success: function() {
-    console.log("Success");
+    // console.log("Success");
   },
   failure: function() {
-    console.log("this failure");
+    // console.log("this failure");
   },
   show: function() {
     $('#annotationModal').modal('show');
     return this;
   },
   hide: function() {
-    console.log("hide was called");
+    // console.log("hide was called");
     this.isHidden = true;
     $('#annotationModal').modal('hide');
     return this;

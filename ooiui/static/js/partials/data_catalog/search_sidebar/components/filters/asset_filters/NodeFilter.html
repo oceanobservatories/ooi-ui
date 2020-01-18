@@ -1,0 +1,32 @@
+<%
+        var params = [
+          ['-SB', 'Surface Buoy'],
+          ['-RI', 'Mooring Riser'],
+          ['-MFD -MFN', 'Seafloor Multi-Function Node'],
+          ['-LJ', 'Low-Power Jbox'],
+          ['-MJ', 'Medium Power Jbox'],
+          ['-LV', 'Low Voltage Node'],
+          ['-PN', 'Primary Node'],
+          ['-DP -WFP', 'Wire-Following Profiler'],
+          ['-GL', 'Glider'],
+          ['-A6 AUV', 'AUV']
+        ]
+%>
+
+
+<div class="panel">
+    <div class="panel-heading js-collapse" data-target="#node-filters">Nodes <i class="fa fa-chevron-up"></i>
+    </div>
+    <div class="panel-wrapper">
+        <div id="node-filters" class="panel-body collapse">
+            <div class="node-filters">
+                <% _.each(params, function(item) { %>
+
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="<%= item[0] %>"><%= item[1] %></label>
+                    </div>
+                <%;}); %>
+            </div>
+        </div>
+    </div>
+</div>

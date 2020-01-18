@@ -16,6 +16,7 @@
 
 var AnnotationModel = Backbone.Model.extend({
   urlRoot: '/api/annotation',
+  //idAttribute: 'id',
   defaults: {
     annotation:"",
     stream_name: "",
@@ -24,7 +25,14 @@ var AnnotationModel = Backbone.Model.extend({
     endDT:"",    //end date, from chart
     referenceDesignator:"",    
     method:"",  //stream name
-    parameters:"" //param list is affects
+    parameters:"", //param list is affects
+    source:"",
+    qcFlag:"",
+    exclusionFlag:false,
+    node:"",
+    sensor:"",
+    stream:"",
+    subsite:""
   }  
 });
 
@@ -34,6 +42,34 @@ var AnnotationCollection = Backbone.Collection.extend({
   parse: function(response) {
     if(response) {
       return response.annotations;
+    }
+    return [];
+  },
+  sortByField: function(field, direction){
+    var sorted = _.sortBy(this.models, function(model){
+      return model.get(field);
+    });
+
+    if(direction === 'descending'){
+      sorted = sorted.reverse()
+    }
+
+    this.models = sorted;
+  }
+});
+
+var QcFlagsModel = Backbone.Model.extend({
+  urlRoot: '/api/annotation/qcflags',
+  defaults: {
+  }
+});
+
+var QcFlagsCollection = Backbone.Collection.extend({
+  url: '/api/annotation/qcflags',
+  model: QcFlagsModel,
+  parse: function(response) {
+    if(response) {
+      return response.qcFlags;
     }
     return [];
   }

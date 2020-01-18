@@ -1,0 +1,350 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+  <title>OOI - Status Navigation</title>
+{% endblock %}
+
+{% block beforebootstrap %}
+
+{% endblock %}
+
+{% block head %}
+  <meta name='viewport' content='initial-scale=2,maximum-scale=3,user-scalable=yes' />
+  <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
+  <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
+  <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/home.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common/platform.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/array_content/array_content.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/vector_map/vector_map.css" rel="stylesheet" type="text/css"/>
+  <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
+  <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
+  <link href='/lib/mapbox.js/mapbox.css' rel='stylesheet' />
+  <link href="/lib/jqtree/jqtree.scss" rel="stylesheet/scss" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css">
+  <link href='/lib/visavail/visavail/css/visavail.css' rel='stylesheet' />
+  <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+  <!-- page resources --<>
+
+  <!-- Partials -->
+  <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
+  <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/home.js" type="text/javascript"></script>
+  <script src="/js/compiled/data_catalog.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformsStatusModel.js" type="text/javascript"></script>
+
+  <script src="/js/views/home/vector_map/vector_map.js" type="text/javascript"></script>
+  <script src="/js/views/home/array_content/array_content.js" type="text/javascript"></script>
+
+
+  <script src="/js/views/home/tile_map/tile_map.js" type="text/javascript"></script>
+  <script src='/lib/leaflet-plugins/layer/vector/KML.js'></script>
+  <script src='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.min.js'></script>
+  <!--<script src='/lib/mapbox-gl-js/js/mapbox-gl.js'></script>-->
+  <script src='/lib/mapbox.js/mapbox.js'></script>
+  <script src="/lib/jqtree/tree.jquery.js"></script>
+  <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+  <script src="/lib/visavail/visavail/js/visavail.js"></script>
+{% endblock %}
+
+{%block body %}
+
+  <div class="container-fluid">
+    <div id="navbar" class="row"></div>
+  </div>
+
+  <div id="wrapper" class="home-page" style="padding-left: 0;">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-5 col-sm-5 col-md-5" id="left">
+          <div class="text-left" style="padding-left: 15px">
+            <h3><b>Research Arrays</b><small>  Select an array to navigate status and availability.</small></h3>
+          </div>
+          <div id="testTree" class="scrollable-jqtree"></div>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7" id="right">
+          <div class="text-left" style="padding-left: 15px">
+            <h3><b>Data Availability</b><small></small></h3>
+          </div>
+          <p id="dataAvailabilityInfo"></p>
+          <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+            <p id="example"><!-- Visavail.js chart will be placed here --></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- wrapper -->
+
+  <!-- fade in image -->
+  <script>
+    // Instantiate the application for this page
+    var ooi = new OOI();
+
+    var dataAvailabilityCollection = new DataAvailabilityCollection();
+
+    var vent = _.extend({}, Backbone.Events);
+
+    $(document).ready(function() {
+      var self = this;
+
+      var arrayData = [
+        {
+          "label": "Cabled",
+          "id": "RS",
+          "load_on_demand": true
+        },
+        {
+          "label": "Coastal Endurance",
+          "id": "CE",
+          "load_on_demand": true
+        },
+        {
+          "label": "Coastal Pioneer",
+          "id": "CP",
+          "load_on_demand": true
+        },
+        {
+          "label": "Global Argentine Basin",
+          "id": "GA",
+          "load_on_demand": true
+        },
+        {
+          "label": "Global Irminger Sea",
+          "id": "GI",
+          "load_on_demand": true
+        },
+        {
+          "label": "Global Southern Ocean",
+          "id": "GS",
+          "load_on_demand": true
+        },
+        {
+          "label": "Global Station Papa",
+          "id": "GP",
+          "load_on_demand": true
+        }
+      ];
+
+      var $testTree = $('#testTree');
+
+      $testTree.tree({
+        "plugins": [
+          {#          "checkbox",#}
+          {#          "contextmenu",#}
+          {#          "dnd",#}
+          {#          "massload",#}
+          {#          "search",#}
+          {#          "sort",#}
+          {#          "state",#}
+          {#          "types",#}
+          {#          "unique",#}
+          {#          "wholerow"#}
+          {#          "changed",#}
+          {#          "conditionalselect"#}
+        ],
+        data: arrayData,
+        dataUrl: '/api/uframe/status/sites',
+        autoOpen: false,
+        onCreateLi: function (node, $li) {
+          // Add 'icon' span before title
+
+          var instStatus = node.status;
+          var instReason = node.reason;
+          if(instReason == null || instReason.replace(/ /gi,"").length == 0){
+            instReason = "No Reason Provided";
+          }
+
+          if(instStatus != null && instStatus.length > 0) {
+            if(instStatus == "notTracked") {
+              $li.find('.jqtree-title').prepend('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="Not Tracked ('+instStatus+'"></span>');
+            } else {
+              $li.find('.jqtree-title').prepend('<span class="fa fa-circle '+instStatus+'" aria-hidden="true" style="padding-right: 3px;" title="'+instReason+' ('+instStatus+')"></span>');
+            }
+          } else {
+            $li.find('.jqtree-title').prepend('<span class="fa fa-circle unknownStatusResult" aria-hidden="true" style="color: white; font-size: 16px;float: left; padding-right: 3px;" title="Unknown Status Result"></span>');
+          }
+
+          var $span = $li.children('.jqtree-element').find('span.jqtree-title');
+          $span.attr('id', node.id);
+          $span.attr('status', node.status);
+        },
+        dataFilter: function (data) {
+          var treeObjects = [];
+
+          // Arrays
+          if (data.sites !== undefined) {
+            _.each(data['sites'], function (siteData) {
+              {#                console.log('siteData');#}
+              {#                console.log(siteData);#}
+              var arrayTreeObject = [];
+              arrayTreeObject['label'] = siteData.display_name;
+              arrayTreeObject['id'] = siteData.reference_designator;
+              arrayTreeObject['status'] = siteData.status;
+              arrayTreeObject['reason'] = siteData.reason;
+              arrayTreeObject['chldren'] = [];
+              treeObjects.push(arrayTreeObject);
+            });
+          }
+
+          // Platforms
+          if (data.platforms !== undefined) {
+            _.each(data['platforms'], function (platformData) {
+              {#                console.log('platformData');#}
+              {#                console.log(platformData);#}
+              var platformTreeObject = [];
+              platformTreeObject['label'] = platformData.header.title;
+              platformTreeObject['id'] = platformData.header.code;
+              // platformTreeObject['status'] = platformData.header.status;
+              platformTreeObject['reason'] = platformData.reason;
+              platformTreeObject['children'] = [];
+
+              _.each(platformData.items, function (item) {
+                var itemObject = [];
+                itemObject['label'] = item.display_name;
+                itemObject['id'] = item.reference_designator;
+                itemObject['status'] = item.status;
+                itemObject['reason'] = item.reason;
+                {#                  itemObject['children'] = [];#}
+                platformTreeObject['children'].push(itemObject);
+              });
+
+              treeObjects.push(platformTreeObject);
+            });
+          }
+          if (treeObjects.length > 0) {
+            return treeObjects;
+          } else {
+            return [];
+          }
+        }
+      });
+
+      $testTree.bind(
+        'tree.click',
+        function(e) {
+          {#          console.log('tree.click');#}
+          {#          console.log(e.node);#}
+          {#          console.log(e.node.id.length);#}
+          if(e.node.id.length == 8){
+            $testTree.tree('loadDataFromUrl', '/api/uframe/status/platforms/'+e.node.id, e.node);
+          }
+          if(e.node.id.length == 27){
+            //$testTree.tree('loadDataFromUrl', '/api/uframe/status/instruments/'+e.node.id, e.node);
+          }
+
+          var dataset=[];
+          var onDataHandler = function(collection, response, options) {
+            console.log('collection');
+            console.log(collection);
+            console.log('e.node.id');
+            console.log(e.node.id);
+            // Show Data Availability Pop-up
+            $("#dataAvailability").empty();
+            $("#dataAvailabilityInfo").empty();
+            // Use this for the dataAvailabilityCollection
+            $("#dataAvailabilityInfo").append("Currently viewing data availability for: " + e.node.id);
+            //console.log('dataAvailabilityCollection');
+            //console.log(dataAvailabilityCollection);
+
+            dataset=[];
+
+            collection.each(function(model){
+              // console.log(model.get('data'));
+              dataset.push({
+                "measure": model.get('measure'),
+                "categories": model.get('categories'),
+                "data": model.get('data'),
+                "interval_s": 365 * 24 * 60 * 60
+              });
+            }); // each chart in the collection
+            // console.log('dataset');
+            // console.log(dataset);
+            {#var chart = visavailChart().width(1000); // define width of chart in px
+
+            d3.select("#dataAvailability")
+              .datum(dataset)
+              .call(chart);#}
+            draw_visavail();
+          };
+
+          var chart = visavailChart();
+          function draw_visavail() {
+            chart.width($('#visavail_container').width()-140);
+            $('#example').text('');
+            d3.select("#example")
+              .datum(dataset)
+              .call(chart);
+          }
+
+          $(window).resize(function () { return draw_visavail(); });
+
+          ooi.collections.dataAvailabilityCollection.fetch(
+            {
+              url: '/api/data_availability/'+e.node.id,
+              success : onDataHandler
+            });
+        }
+      );
+      ooi.start();
+    });
+
+    var bannerTitle = "Status Navigation";
+    var banner = new BannerView({bannerTitle});
+
+    _.extend(OOI.prototype, Backbone.Events,  {
+      login: new LoginModel(),
+      views: {},
+      collections: {
+        organizations: new Organizations(),
+        dataAvailabilityCollection: new DataAvailabilityCollection()
+      },
+      models: {
+        dataAvailabilityModel : new DataAvailabilityModel()
+      },
+      getURLParameter: function(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i=0; i < sURLVariables.length; i++) {
+          var sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+          }
+        }
+      },
+      start: function() {
+        var self = this;
+        var ciLogonToken = this.getURLParameter('token'),
+          ciLogonTimeout = this.getURLParameter('expiration');
+        if (ciLogonToken) {
+          var date = new Date();
+          date.setTime(date.getTime() + ciLogonTimeout*1000);
+          Cookies.set('ooiusertoken', ciLogonToken, {expires: date});
+          ooi.trigger('login:success');
+        }
+        this.login.fetch({async:false});
+        //--------------------------------------------------------------------------------
+        // Views
+        //--------------------------------------------------------------------------------
+
+        this.views.banner = banner;
+        $('body').prepend(this.views.banner.el);
+
+
+        this.views.navbar = new NavbarView({
+          el: $('#navbar')
+        });
+
+        // Show the streaming data banner
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+          $('#wrapper').addClass('news-active');
+          $('.container-fluid.banner-image').addClass('news-active');
+        }
+      }
+    });
+  </script>
+{% endblock %}

@@ -12,28 +12,28 @@ from ooiui.core.routes.common import get_login
 import json
 import requests
 from threading import Thread
-from flask_socketio import SocketIO
+# from flask_socketio import SocketIO
 
 
 thread = None
 
-namespace = '/c2_direct_access'
-
-async_mode = None
-
-if async_mode is None:
-    try:
-        from gevent import monkey
-        async_mode = 'gevent'
-    except ImportError:
-        pass
-
-    if async_mode is None:
-        async_mode = 'threading'
-
-    # print('\n ***** async_mode is: ' + async_mode)
-
-sio = SocketIO(app, async_mode=async_mode)
+# namespace = '/c2_direct_access'
+#
+# async_mode = None
+#
+# if async_mode is None:
+#     try:
+#         from gevent import monkey
+#         async_mode = 'gevent'
+#     except ImportError:
+#         pass
+#
+#     if async_mode is None:
+#         async_mode = 'threading'
+#
+#     # print('\n ***** async_mode is: ' + async_mode)
+#
+# sio = SocketIO(app, async_mode=async_mode)
 
 
 def is_json(input_json):
@@ -43,9 +43,9 @@ def is_json(input_json):
     return False
   return True
 
-@app.route('/cameras')
-def c2_cameras():
-    return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
+# @app.route('/cameras')
+# def c2_cameras():
+#     return render_template('science/camera_media.html', tracking=app.config['GOOGLE_ANALYTICS'])
 
 #Mission Executive
 ######
@@ -490,31 +490,31 @@ def c2_direct_access_sniffer(ref_code):
         return '{"error": "bad json data"}'
 
 
-def do_emmit(namespace, data, room=None):
-    """ emit to client, no broadcast, and, if room is provided then send it also. room is title (minus spaces).
-    """
-    debug = False
-    if debug:
-        print 'this will be the data'
-        print data
-        print 'this will be sio'
-        print sio
-    try:
-        if room is None:
-            if namespace is not None:
-                sio.emit('my result', {'data': data}, namespace=namespace, broadcast=False)
-            else:
-                sio.emit('my result', {'data': data}, broadcast=False)
-        else:
-            if debug: print '\n send to room: ', room
-            if namespace is not None:
-                sio.emit('my result', {'data': data}, room=room, namespace=namespace, broadcast=False)
-            else:
-                sio.emit('my result', {'data': data}, room=room, broadcast=False)
-
-    except Exception as err:
-        if debug: print '\n exception in do_emmit: %s' % str(err)
-        pass
+# def do_emmit(namespace, data, room=None):
+#     """ emit to client, no broadcast, and, if room is provided then send it also. room is title (minus spaces).
+#     """
+#     debug = False
+#     if debug:
+#         print 'this will be the data'
+#         print data
+#         print 'this will be sio'
+#         print sio
+#     try:
+#         if room is None:
+#             if namespace is not None:
+#                 sio.emit('my result', {'data': data}, namespace=namespace, broadcast=False)
+#             else:
+#                 sio.emit('my result', {'data': data}, broadcast=False)
+#         else:
+#             if debug: print '\n send to room: ', room
+#             if namespace is not None:
+#                 sio.emit('my result', {'data': data}, room=room, namespace=namespace, broadcast=False)
+#             else:
+#                 sio.emit('my result', {'data': data}, room=room, broadcast=False)
+#
+#     except Exception as err:
+#         if debug: print '\n exception in do_emmit: %s' % str(err)
+#         pass
 
 def start_thread():
     debug = False

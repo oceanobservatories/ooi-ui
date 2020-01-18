@@ -62,3 +62,22 @@ div.twelve-hours, div.twenty-four-hours, div.older {
     cursor: not-allowed;
     background-color: #ddd !important;
 }
+
+/* date range slider */
+
+#page-content {
+    top: 185px !important;
+}
+
+#page-controls {
+    height: 182px !important;
+}
+
+#slider-wrapper {
+    width       : 680px;
+    margin-left : 23px;
+}
+
+  #slider-wrapper #slider .ui-rangeSlider-label-value {
+    font-size : 12px !important;
+  }

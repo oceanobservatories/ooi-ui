@@ -1,36 +1,59 @@
 #!/usr/bin/env python
-'''
+"""
 ooiui.core.routes.m2m
 
 Defines the application routes
-'''
-from ooiui.core.app import app
-from flask import request, render_template, Response, jsonify
-from flask import stream_with_context
-from ooiui.core.routes.common import get_login
+"""
 import requests
-import urllib2
+from flask import Response
+from flask import request
+from flask import render_template
 
-#M2M Interface
-
-@app.route('/api/m2m/get_data/<string:reference_designator>/<string:method>/<string:stream>/<string:start>/<string:end>')
-def get_data(reference_designator, method, stream, start, end):
-    token = get_login()
-    url = app.config['SERVICES_URL'] + '/m2m/get_data/%s/%s/%s/%s/%s' % (reference_designator, method, stream, start, end)
-    print url
-    for each in request.args:
-        print each, request.args[each]
-    response = requests.get(url, auth=(token, ''), params=request.args)
-    print response.text
-    return response.text, response.status_code
+from ooiui.core.app import app
 
 
-@app.route('/api/m2m/get_metadata/<string:reference_designator>', methods=['GET'])
-def get_metadata(reference_designator):
-    '''
-    get metadata for a given ref and stream
-    '''
-    token = get_login()
-    response = requests.get(app.config['SERVICES_URL'] + '/m2m/get_metadata/%s' % (reference_designator), auth=(token, ''))
-    return response.text, response.status_code
+@app.route('/api/m2m', methods=['GET', 'PUT', 'POST', 'DELETE'], defaults={'path': ''})
+@app.route('/api/m2m/<path:path>', methods=['GET', 'PUT', 'POST', 'DELETE'])
+def m2m_handler(path):
+    transfer_header_fields = ['Date', 'Content-Type']
+    #app.logger.info(path)
+    if request.authorization:
+        api_user_name = request.authorization['username']
+        api_user_token = request.authorization['password']
+        url = app.config['SERVICES_URL'] + '/m2m/%s' % path
+        if request.method == 'GET':
+            url = app.config['SERVICES_URL'] + '/m2m/%s' % path
+            response = requests.get(url,
+                                    auth=(api_user_name, api_user_token),
+                                    params=request.args,
+                                    stream=True,
+                                    data=request.data)
+        elif request.method == 'POST':
+            response = requests.post(url,
+                                     auth=(api_user_name, api_user_token),
+                                     params=request.args,
+                                     stream=True,
+                                     data=request.data)
+        elif request.method == 'PUT':
+            response = requests.put(url,
+                                    auth=(api_user_name, api_user_token),
+                                    params=request.args,
+                                    stream=True,
+                                    data=request.data)
 
+        elif request.method == 'DELETE':
+            response = requests.delete(url,
+                                    auth=(api_user_name, api_user_token),
+                                    params=request.args)
+
+        else:
+            return 'Improper request method \'%s\', only GET, PUT, POST and DELETE are supported. ' % request.method
+        headers = dict(response.headers)
+        headers = {k: headers[k] for k in headers if k in transfer_header_fields}
+        return Response(response.iter_content(1024), response.status_code, headers)
+    else:
+        return 'Please supply your API credentials', 401
+
+@app.route('/help/m2m')
+def m2m_help_page():
+    return render_template('common/help_m2m.html', tracking=app.config['GOOGLE_ANALYTICS'])

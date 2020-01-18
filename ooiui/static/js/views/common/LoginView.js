@@ -17,6 +17,7 @@
 var LoginView = Backbone.View.extend({
     events: {
         'click #btnLogin' : "login",
+        'click #btnReset' : "sendResetEmail",
         'click #btnCILogon' : 'ciLogon',
         'keyup #passInput' : "keyUp",
         'click #btnClose' : "closeBtn",
@@ -57,6 +58,53 @@ var LoginView = Backbone.View.extend({
         e.preventDefault();
         window.location.replace('/api/cilogon');
     },
+    sendResetEmail: function(e) {
+        //console.log('hit reset inside LoginView.js');
+        var emailAddr = this.$el.find('#usrInput').val();
+        if(emailAddr != null && emailAddr != "" && this.model.checkValidEmail(emailAddr)){
+            var userEmail = {email: this.$el.find('#usrInput').val()};
+            //console.log(userEmail);
+            $.ajax( '/password-reset-request', {
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(userEmail),
+                success: function( resp ) {
+                    //console.log('sending email reset request');
+                    //console.log(resp);
+                    var m = new ModalDialogView();
+
+                    m.show({
+                        message: "Please check your inbox for a password reset link.",
+                        type: "success"
+                    });
+
+                },
+                error: function( req, status, err ) {
+                    //console.log(req);
+                    var errorMessage = '<div><h3>An error occurred sending the password reset:</h3></div>';
+                    errorMessage += '<div><h4>' + req.statusText + '</h4></div>';
+                    errorMessage += '</br>';
+                    if(req.responseJSON){
+                        errorMessage += '<div><h4>' + req.responseJSON['message'] + '</h4></div>';
+                    }
+
+                    var errorModal = new ModalDialogView();
+                    errorModal.show({
+                        message: errorMessage,
+                        type: "danger"
+                    });
+                }
+            });
+        } else {
+            var errorEmailModal = new ModalDialogView();
+            errorEmailModal.show({
+                message: "Please check your inbox for a password reset link.",
+                type: "success"
+            });
+        }
+
+    },
     login: function(e) {
         var self = this;
         e.preventDefault();
@@ -66,15 +114,27 @@ var LoginView = Backbone.View.extend({
         });
 
         this.model.logIn();
-        console.log(this);
+        //console.log('returning from LoginModel logIn');
+        //console.log(this);
         // If login was successful and we have a token
         if(this.model.get('token') != '') {
-            console.log("success");
+            //console.log("success");
             this.hide();
             this.success();
-            window.location.reload();
+            var date = new Date();
+            date.setTime(date.getTime() + 12500*1000);
+            // console.log('ooiusertoken');
+            // console.log(this.model.get('token'));
+            Cookies.set('ooiusertoken', this.model.get('token'), {expires: date, path: '/'});
+            // ooi.trigger('login:success');
+            console.log(window.location.pathname);
+            if(window.location.pathname === '/signup'){
+                window.location.replace("/");
+            }else{
+                window.location.reload(true);
+            }
         } else {
-            console.log("no bueno amigo");
+            console.log("Login failed");
             this.attempts++;
             this.attemptsRemaining = this.attemptsTotal - this.attempts;
             this.$el.find('.lgn-message').html('Username or Password are incorrect').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
@@ -100,14 +160,14 @@ var LoginView = Backbone.View.extend({
         }
     },
     hidden: function(e) {
-        console.log("hidden");
+        // console.log("hidden");
     },
     /* Called when the user is successfully authenticated */
     success: function() {
-        console.log("Success");
+        // console.log("Success");
     },
     failure: function() {
-        console.log("this failure");
+        // console.log("this failure");
     },
     show: function() {
         if(this.attempts >= 1) {
@@ -118,7 +178,7 @@ var LoginView = Backbone.View.extend({
         return this;
     },
     hide: function() {
-        console.log("hide was called");
+        // console.log("hide was called");
         this.isHidden = true;
         $('#loginModal').modal('hide');
         return this;
@@ -130,7 +190,7 @@ var LoginView = Backbone.View.extend({
         } else {
             //If there is text in the input, then enable the button
             this.$el.find('.enableOnInput').prop('disabled', false);
-            console.log("disabledAttempts  " +this.attempts);
+            //console.log("disabledAttempts  " +this.attempts);
         }
     },
     closeBtn: function(e) {
@@ -139,7 +199,7 @@ var LoginView = Backbone.View.extend({
     },
     keyPress: function(e) {
         if(e.which == 13) {
-            console.log(this);
+            //console.log(this);
             this.login(e);
         }
     },

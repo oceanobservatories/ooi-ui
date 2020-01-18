@@ -1,0 +1,342 @@
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100vh;
+}
+
+#map::-webkit-scrollbar {
+    display: none;
+}
+
+/*html {*/
+/*overflow-y: auto;*/
+/*background-color: transparent;*/
+/*}*/
+
+/*::-webkit-scrollbar:vertical {
+    width: 15px;  !* remove scrollbar space *!
+    background: lightblue;  !* optional: just make scrollbar invisible *!
+}
+
+::-webkit-scrollbar-track:vertical {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    border-radius: 10px;
+    height: 30px;
+    color: black;
+    background-color: black;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}*/
+
+/*::-webkit-scrollbar {
+    width: 15px;
+    height: 10px;
+    max-height: 800px;
+    overflow: auto;
+    left: 0;
+    bottom: 0
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+    height: 30px;
+    display: block;
+    background-color: transparent;
+    left: 0;
+    bottom: 0
+}
+
+::-webkit-scrollbar-track-piece  {
+    background-color: #cfc9ff;
+    -webkit-border-radius: 6px;
+    max-height: 500px;
+    left: 0;
+    bottom: 0
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background-color: #666;
+    border: 1px solid #eee;
+    -webkit-border-radius: 6px;
+    left: 0;
+    bottom: 0
+}*/
+
+/*.panel-body.js-platform-table {*/
+    /*overflow-y: scroll;*/
+/*}*/
+
+.scrollbar-inner {
+    overflow-y: scroll;
+}
+
+#left {
+    /*overflow: hidden;*/
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 0;
+    bottom: 0;
+}
+
+#right {
+    padding: 0;
+    right: 15px;
+    top: 115px;
+    position: fixed;
+    height: 100vh;
+}
+
+#wrapper{
+    height:100%;
+    overflow-y: scroll;
+}
+
+.row{
+    overflow: hidden;
+}
+
+.home-page .js-array:hover{
+}
+
+.home-page .js-array .panel-heading {
+}
+
+.home-page .js-array .panel-heading span {
+    display: inline-block;
+    width: 50%;
+}
+
+
+.home-page .js-array .panel-heading h4 {
+    position: relative;
+    /*background-color: #5c9ccc;*/
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    color: white;
+
+    background: #5c9ccc; /* Old browsers */
+    background: -moz-linear-gradient(left,  #5c9ccc 20%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #5c9ccc 20%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #5c9ccc 20%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c9ccc', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+
+}
+
+.home-page .js-array .panel-heading h4 small {
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    background-color: green;
+}
+
+.home-page .js-array .panel-heading h4:hover {
+    transition: background 5s;
+    display: inline-block;
+    width: 100%;
+    /*padding: 5px;*/
+    margin-top: 0;
+    color: white;
+    border: 4px solid orange;
+}
+
+
+/*.home-page .fade {*/
+    /*opacity: 0;*/
+    /*transition: all 1s;*/
+/*}*/
+
+.mydivicon{
+    border-radius: 58px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon:hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-platform{
+    border-radius: 58px;
+    background: teal;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-platform:hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-platform-hover {
+    border-radius: 58px;
+    background: orange;
+    border: 2px solid #000;
+    opacity: 0.85;
+}
+
+.mydivicon-nopointer {
+    pointer-events: none;
+}
+
+.leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; color: #444; display: block; height: 26px; width: 26px; line-height: 1.45 !important; text-align: center; text-decoration: none; font: bold 18px 'Lucida Console', Monaco, monospace; }
+
+/*************** SCROLLBAR BASE CSS ***************/
+
+.scroll-wrapper {
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: relative;
+}
+
+.scroll-wrapper > .scroll-content {
+    border: none !important;
+    box-sizing: content-box !important;
+    height: auto;
+    left: 0;
+    margin: 0;
+    max-height: none;
+    max-width: none !important;
+    overflow: scroll !important;
+    padding: 0;
+    position: relative !important;
+    top: 0;
+    width: auto !important;
+}
+
+.scroll-wrapper > .scroll-content::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.scroll-element {
+    display: none;
+}
+.scroll-element, .scroll-element div {
+    box-sizing: content-box;
+}
+
+.scroll-element.scroll-x.scroll-scrollx_visible,
+.scroll-element.scroll-y.scroll-scrolly_visible {
+    display: block;
+}
+
+.scroll-element .scroll-bar,
+.scroll-element .scroll-arrow {
+    cursor: default;
+}
+
+.scroll-textarea {
+    border: 1px solid #cccccc;
+    border-top-color: #999999;
+}
+.scroll-textarea > .scroll-content {
+    overflow: hidden !important;
+}
+.scroll-textarea > .scroll-content > textarea {
+    border: none !important;
+    box-sizing: border-box;
+    height: 100% !important;
+    margin: 0;
+    max-height: none !important;
+    max-width: none !important;
+    overflow: scroll !important;
+    outline: none;
+    padding: 2px;
+    position: relative !important;
+    top: 0;
+    width: 100% !important;
+}
+.scroll-textarea > .scroll-content > textarea::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+
+
+
+/*************** SIMPLE INNER SCROLLBAR ***************/
+
+.scrollbar-inner > .scroll-element,
+.scrollbar-inner > .scroll-element div
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+}
+
+.scrollbar-inner > .scroll-element div {
+    display: block;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.scrollbar-inner > .scroll-element.scroll-x {
+    bottom: 2px;
+    height: 8px;
+    left: 0;
+    width: 100%;
+}
+
+.scrollbar-inner > .scroll-element.scroll-y {
+    height: 100%;
+    right: 2px;
+    top: 0;
+    width: 8px;
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_outer {
+    overflow: hidden;
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_outer,
+.scrollbar-inner > .scroll-element .scroll-element_track,
+.scrollbar-inner > .scroll-element .scroll-bar {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_track,
+.scrollbar-inner > .scroll-element .scroll-bar {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_track { background-color: #e0e0e0; }
+.scrollbar-inner > .scroll-element .scroll-bar { background-color: #c2c2c2; }
+.scrollbar-inner > .scroll-element:hover .scroll-bar { background-color: #919191; }
+.scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar { background-color: #919191; }
+
+
+/* update scrollbar offset if both scrolls are visible */
+
+.scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_track { left: -12px; }
+.scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_track { top: -12px; }
+
+
+.scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size { left: -12px; }
+.scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size { top: -12px; }

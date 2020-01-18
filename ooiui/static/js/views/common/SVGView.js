@@ -442,6 +442,7 @@ var SVGPlotControlView = Backbone.View.extend({
         'click #download-data' : 'dataDownloads',
         'click #download-plot' : 'plotDownloads',
         'click #update-plot' : 'onClickPlot',
+        'click #zoom-update-plot' : 'onZoomUpdatePlot',
         'click #add-plot' : 'onClickAddPlot',
         'click #reset-time' : 'onResetTime',
         'click #clear-interp-params' : 'onClearParams',
@@ -740,6 +741,9 @@ var SVGPlotControlView = Backbone.View.extend({
         data.useEvent = this.$el.find('#plotting-enable-events').bootstrapSwitch('state');
         this.model.set('data',data);
         ooi.trigger('SVGPlotControlView:onClickPlot', this.model);
+    },
+    onZoomUpdatePlot: function(e) {
+        console.log('clicked zoom update plot');
     },
     render: function(updateTimes) {
         var self = this;

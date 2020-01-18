@@ -7,13 +7,13 @@
  */
 var TimeseriesView = Backbone.View.extend({
   className: 'timeseries-view',
-  events: {    
-  },  
+  events: {
+  },
   views: {
     highchartsView: null
   },
   initialize: function(options) {
-    //_.bindAll(this, 'onBack', 'onExplore');    
+    //_.bindAll(this, 'onBack', 'onExplore');
     //this.colorPalette = options.colorPalette;
     this.initialRender();
     this.views.highchartsView = new HighchartsView({
@@ -23,20 +23,20 @@ var TimeseriesView = Backbone.View.extend({
         color: "steelblue"
       }
     });
-  },  
+  },
   initialRender: function() {
     this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:40%;font-size:90px;"> </i>');
   },
   errorRender: function(options) {
     var response = JSON.parse(options.response.responseText);
     this.$el.html('<div class="alert alert-danger" role="alert"> <div><strong>'+response.error+'</strong><br>If the problem persists, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></div></div>');
-    
+
   },
   template: JST['ooiui/static/js/partials/Timeseries.html'],
   modifytime:function(time_sec){
     time_sec -= 2208988800
-    var d = moment.utc(time_sec);        
-    return d._i*1000;   
+    var d = moment.utc(time_sec);
+    return d._i*1000;
   },
   showLoading:function(){
     this.views.highchartsView.chart.showLoading();
@@ -99,7 +99,7 @@ var TimeseriesView = Backbone.View.extend({
         data: data
     });
   },
-  updatePlot:function(){    
+  updatePlot:function(){
     //update the plot
     this.views.highchartsView.chart.redraw();
   },
@@ -124,7 +124,7 @@ var TimeseriesView = Backbone.View.extend({
     this.views.highchartsView.subtitle = self.collection.getSubtitle();
 
     var qaqc = this.getQAQC();
-    
+
     /* Build a list of series */
     var seriesCollection = new SeriesCollection();
 
@@ -135,33 +135,33 @@ var TimeseriesView = Backbone.View.extend({
     var yvars = self.collection.yparameters;
     var axis_names = self.collection.axis_name;
     var axes_count = 0;
-    var notifyList = []
+    var notifyList = [];
 
-    _.each(xvars, function(param,index) { 
-      var xvar = xvars[index]
-      var yvar = yvars[index]
-      var axis_name = axis_names[index]
+    _.each(xvars, function(param,index) {
+      var xvar = xvars[index];
+      var yvar = yvars[index];
+      var axis_name = axis_names[index];
       var series_data = [];
       //reset for each series
       var addNotify = false;
-      
+
       //loop over a collection of params make uframe return look like highcharts data
       self.collection.each(function(model,i) {
 
-        if (typeof(model.get(xvar)) == "string" || typeof(model.get(yvar)) == "string"){          
+        if (typeof(model.get(xvar)) == "string" || typeof(model.get(yvar)) == "string"){
           addNotify = true;
           notifyList.push(yvar);
-        } 
+        }
 
         //only if its valid
         if (!addNotify){
           //get the data
-          
+
           if (xvar == "time"){  //Time series!
-            
+
             if (qaqc){  // Check for QAQC Time Series
               var qaqc_data = model.get(yvar+'_qc_results');
-              
+
               if (typeof qaqc_data != 'undefined'){  //Some data doesn't have QAQC values
                 if (qaqc < 10){   // Check against specific tests
                   if (qaqc_data & Math.pow(2,qaqc-1)){  //PASS
@@ -173,7 +173,7 @@ var TimeseriesView = Backbone.View.extend({
                   if (qaqc_data == Math.pow(2,9)){  // PASS
                     series_data.push([self.modifytime(model.get(xvar)),model.get(yvar)]);
                   }else{  //FAIL
-                     series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.5}});
+                     series_data.push({x:self.modifytime(model.get(xvar)),y:model.get(yvar),marker:{lineColor:'#FF0000', lineWidth:1.8}});
                   }
                 }
               }else{  // No QAQC data found
@@ -199,9 +199,9 @@ var TimeseriesView = Backbone.View.extend({
             series_data.push([model.get(xvar),self.modifytime(model.get(yvar))]);
 
           }else{
-            series_data.push([model.get(xvar),model.get(yvar)]);        
+            series_data.push([model.get(xvar),model.get(yvar)]);
           }
-        } 
+        }
       });
 
       if (!addNotify){
@@ -215,7 +215,7 @@ var TimeseriesView = Backbone.View.extend({
         seriesModel.set('xmax',endDate);
         seriesCollection.add(seriesModel);
         if (qaqc && axes_count == 1){
-            // Add a legend entry for QAQC 
+            // Add a legend entry for QAQC
            var seriesModel = new SeriesModel({data:[]})
            seriesModel.set('name', 'Failed QAQC');
            seriesModel.set('color', '#FF0000');
@@ -226,13 +226,13 @@ var TimeseriesView = Backbone.View.extend({
 
     });
 
-    if(notifyList.length > 0){ 
+    if(notifyList.length > 0){
       self.addNotify(notifyList);
     }
 
     /*
     var colorPalette = this.colorPalette.clone()
-    
+
     seriesCollection.each(function(seriesModel) {
       seriesModel.set('color',colorPalette.chooseColor());
     });

@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 
 {% block title %}
-<title>CHANGE ME</title>
+  <title>OOI - Home</title>
 {% endblock %}
 
 {% block beforebootstrap %}
@@ -9,76 +9,244 @@
 {% endblock %}
 
 {% block head %}
+  <meta name='viewport' content='initial-scale=2,maximum-scale=3,user-scalable=yes' />
   <link href="/css/custom/banner.css" rel="stylesheet" type="text/css" />
   <link href="/css/custom/navbar.css" rel="stylesheet" type="text/css" />
   <link href="/css/custom/custom.css" rel="stylesheet" type="text/css" />
   <link href="/css/compiled/index.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/home.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/array_content/array_content.css" rel="stylesheet" type="text/css" />
+  <link href="/css/home/vector_map/vector_map.css" rel="stylesheet" type="text/css"/>
+  <!--<link href='/lib/mapbox-gl-js/dist/mapbox-gl.css' rel='stylesheet' />-->
+
+  <link href='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.css' rel='stylesheet' />
+  <link href='/lib/Leaflet.Rrose/dist/leaflet.rrose.css' rel='stylesheet' />
+  <link href="/css/common/platform.css" rel="stylesheet" type="text/css" />
+  <!-- page resources --<>
+
   <!-- Partials -->
   <script src="/js/partials/compiled/index.js" type="text/javascript"></script>
-  <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/partials/compiled/landingPages.js" type="text/javascript"></script>
+  <script src="/js/compiled/index.js" type="text/javascript"></script>
   <script src="/js/compiled/landingPages.js" type="text/javascript"></script>
-  <!-- Models and Views -->
-  <script src="/js/models/admin/SystemAdminModel.js" type="text/javascript"></script>
-  <script src="/js/views/admin/SystemAdminView.js" type="text/javascript"></script>
-  <script src="/js/models/asset_management/AssetModel.js" type="text/javascript"></script>
-  <script src="/js/models/asset_management/EventModel.js" type="text/javascript"></script>
-  <script src="/js/models/science/StreamModel.js" type="text/javascript"></script>
-  <script src="/js/models/science/GliderTrackModel.js" type="text/javascript"></script>
+  <script src="/js/partials/compiled/home.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformModel.js" type="text/javascript"></script>
+  <script src="/js/models/asset_management/PlatformsStatusModel.js" type="text/javascript"></script>
+
+  <script src="/js/partials/compiled/platformStatus.js" type="text/javascript"></script>
+  <script src="/js/compiled/genericPlatFormsStatus.js" type="text/javascript"></script>
+  <script src="/js/models/science/StreamStatusModel.js" type="text/javascript"></script>
+
+  <script src="/js/views/home/vector_map/vector_map.js" type="text/javascript"></script>
+  <script src="/js/views/home/array_content/array_content.js" type="text/javascript"></script>
+
+  <script src="/lib/d3/d3.min.js" type="text/javascript"></script>
+  <script src="/js/views/home/tile_map/tile_map.js" type="text/javascript"></script>
+  <!--<script src='/lib/mapbox-gl-js/js/mapbox-gl.js'></script>-->
+
+  <script src='/lib/leaflet/dist/leaflet.js' type="text/javascript"></script>
+  <script src='/lib/leaflet-plugins/layer/vector/KML.js' type="text/javascript"></script>
+  <script src='/lib/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.5.min.js' type="text/javascript"></script>
+  <script src='/lib/Leaflet.Rrose/dist/leaflet.rrose-src.js' type="text/javascript"></script>
 {% endblock %}
 
 {%block body %}
-<div class="container-fluid">
+  <div class="container-fluid">
     <div id="navbar" class="row"></div>
-</div>
+  </div>
 
-<div id="wrapper" class="home-page" style="padding-left: 0px">
-    <div id="page-content-wrapper">
-        <h2>Find Me in /ooiui/templates/common/home</h2>
-    </div><!-- page-content-wrapper -->
-</div><!-- wrapper -->
+  <div id="wrapper" class="home-page" style="padding-left: 0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-7 col-sm-7 col-md-7" id="left">
+            <div class="text-left" style="padding-left: 15px">
+              <h3><b>Research Arrays</b><small>  Select an array on the map or choose from the list.</small></h3>
+            </div>
+            <div class="array-content" id="array-content"></div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal-img">
 
-<!-- fade in image -->
-<script>
-// Instantiate the application for this page
-var ooi = new OOI();
 
-var vent = _.extend({}, Backbone.Events);
 
-$(document).ready(function() {
-    $(".delayImg").each(function() {
-        this.onload = function() {
-            $(this).animate({opacity: 1}, 2000);
+              <!-- Modal Content (The Image) -->
+              <img class="modal-img-content" id="img01">
+
+              <!-- Modal Caption (Image Text) -->
+              <div id="caption"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5" id="right">
+          <div id="map"></div>
+          <!--<div id="infoArrayMap"><pre class="infoInner">Hover over platform for description.</pre></div>-->
+        </div><!-- right -->
+      </div><!-- container-fluid -->
+  </div><!-- wrapper -->
+
+
+  <!-- fade in image -->
+  <script>
+    // Instantiate the application for this page
+    var ooi = new OOI();
+
+    var vent = _.extend({}, Backbone.Events);
+
+    $(document).ready(function() {
+      var self = this;
+      var tileMap;
+      var arrayCollection = new ArrayStatusCollection();
+      var siteStatusCollection = new SiteStatusCollection();
+      var platformsStatusCollection = new PlatformsStatusCollection();
+
+      try {
+        var onErrorHandler = function(collection, response, options) {
+{#          console.log('arrayCollection fetch onerrorhandler');#}
+
+          var helpMessage = '<div class="text-center jumbotron">';
+          helpMessage += '<p>No connection to the data services could be established.</p>';
+          helpMessage += '<p> For all issues, please email <a href="mailTo:helpdesk@oceanobservatories.org">helpdesk@oceanobservatories.org</a></p>';
+          helpMessage += '<p> For more information about the OOI Help Desk and Knowledge Base, go to  <a href="http://oceanobservatories.org/helpdesk/">http://oceanobservatories.org/helpdesk/</a></p>';
+          helpMessage += '</div>';
+          $('#array-content').replaceWith(helpMessage);
         };
-        this.src = this.getAttribute("delayedSrc");
+
+        arrayCollection.fetch({timeout: 5000, error: onErrorHandler}).then(function () {
+          // Sort the arrays
+          arrayCollection.sortByField('display_name', 'ascending');
+          var mapStyle = 'tile';
+
+          // Render the site content for each array
+          var arrayContent = new ArrayContentSummary({
+            el: $('.array-content'),
+            collection: {arrayCollection, siteStatusCollection, platformsStatusCollection}
+          });
+          arrayContent.render();
+
+          // Render the map
+          if (mapStyle === 'tile') {
+            tileMap = new TileMap({id: 'map', collection: {arrayCollection}});
+            tileMap.render();
+          }
+        });
+
+
+      var calculateLayout = function() {
+
+          $.when(resizeMap(arrayCollection)).done(function () {
+{#            if(map._isArrayView) {#}
+            if(tileMap !== undefined)
+              tileMap._setArrayView();
+{#            }#}
+          })
+
+      };
+
+      // Takes care of the strange size of the map
+      var lazyLayout = _.debounce(calculateLayout, 300);
+{#      window.onresize(lazyLayout);#}
+      window.onresize = function(event) {
+        // console.log('map onresize event');
+        lazyLayout();
+      };
+
+      var resizeMap = (function(arrayCollection) {
+        vpw = $(window).width() - 200;
+        //50 pixels for the h3 heading
+        var sectionHeight = parseInt($('div#wrapper').css('margin-top'), 10) - 10;
+        vph = $('#wrapper').height() - sectionHeight - 10;
+        $('#map').css('height', vph + 'px');
+        //$('.array-content').css({'height': vph + 'px'});
+        $('.array-content').css({'height': "100%"});
+        //select the size of the objects based on the array length, adjust for border
+        $('.js-expand').css('height', Math.floor(vph/arrayCollection.length) - 2*arrayCollection.length + 'px')
+      });
+{#      resizeMap(arrayCollection);#}
+      $.when(tileMap).done(function() {
+        lazyLayout();
+      });
+
+      } catch(err) {
+        console.log('error');
+        console.log(err);
+      }
+
+      ooi.start();
     });
 
-    ooi.start();
-});
+    var bannerTitle = "Home";
+    var banner = new BannerView({bannerTitle});
 
-var bannerTitle = "CHANGE ME";
-
-_.extend(OOI.prototype, Backbone.Events,  {
-    login: new LoginModel(),
-    views: {},
-    collections: {
-        organizations: new Organizations(),
-    },
-    models: {},
-
-    start: function() {
+    _.extend(OOI.prototype, Backbone.Events,  {
+      login: new LoginModel(),
+      views: {},
+      collections: {
+        organizations: new Organizations()
+      },
+      models: {},
+      getURLParameter: function(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i=0; i < sURLVariables.length; i++) {
+          var sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+          }
+        }
+      },
+      start: function() {
         var self = this;
+        var ciLogonToken = this.getURLParameter('token'),
+          ciLogonTimeout = this.getURLParameter('expiration');
+        if (ciLogonToken) {
+          var date = new Date();
+          date.setTime(date.getTime() + ciLogonTimeout*1000);
+          Cookies.set('ooiusertoken', ciLogonToken, {expires: date});
+          ooi.trigger('login:success');
+        }
         this.login.fetch({async:false});
         //--------------------------------------------------------------------------------
         // Views
         //--------------------------------------------------------------------------------
-        this.views.banner = new BannerView({bannerTitle});
+
+        this.views.banner = banner;
         $('body').prepend(this.views.banner.el);
 
         this.views.navbar = new NavbarView({
-            el: $('#navbar')
+          el: $('#navbar')
         });
-    }
-});
-</script>
+
+        // Show the streaming data banner
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+          $('#wrapper').addClass('news-active');
+          $('.container-fluid.banner-image').addClass('news-active');
+        }
+
+        if (this.views.banner.checkDataNoticeCookie() === true){
+
+            var daWarningData = new ModalDialogView();
+
+          var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+          theMessage += "<p>Important Data Update Available Now!</p>";
+          theMessage += "<p>Please click the OOI Logo to review metadata changes effecting previous data downloads you may have performed.</p>";
+          theMessage += "<p></p>";
+          theMessage += '<div class="pull-bottom">\n' +
+              '        <a href="https://oceanobservatories.org/data-issues/" title="OOI Data Issues" target="_blank">\n' +
+              '          <img alt="OOI Data Issues" class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">\n' +
+              '        </a>\n' +
+              '      </div>';
+          theMessage += '<p style="padding-top: 10px;"><input type="checkbox" id="dataupdate"></input><label for="dataupdate">Ignore until next update?</label></p>';
+          theMessage += "</div>";
+
+          daWarningData.show({
+              message: theMessage,
+              type: "info"
+          });
+        }
+
+
+
+        //Cookies.set('ooisitetourhelp', '0', {expires: 365, path: '/data_access'});
+      }
+    });
+  </script>
 {% endblock %}

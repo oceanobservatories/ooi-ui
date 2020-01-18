@@ -27,11 +27,11 @@
   <!--
     <script src="/js/views/aa/TriggeredView.js" type="text/javascript"></script>
       -->
-<style>
-    .banner-image div.row {
-        height: 150px;
-    }
-</style>
+{#<style>#}
+{#    .banner-image div.row {#}
+{#        height: 150px;#}
+{#    }#}
+{#</style>#}
 {% endblock %}
 
 {% block body %}
@@ -71,6 +71,9 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
+  </div>
 
   <!-- Menu Toggle Script -->
   <script type="text/javascript">
@@ -97,18 +100,26 @@
         //
       },
       start: function() {
-        this.login.fetch({async:false});
-        navbar = new NavbarView({
-          login: this.login
-        });
-
         var self = this;
+        this.login.fetch({async:false});
+
+
+
 
         var banner = new BannerView({ bannerTitle:bannerTitle });
         $('body').prepend(banner.el);
+
+        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+          $('#wrapper').addClass('news-active');
+          $('.container-fluid.banner-image').addClass('news-active');
+        }
+
         this.views.navbar = new NavbarView({
           el: $('#navbar')
         });
+
+        this.views.navbar = new NavbarView();
+        $('body').prepend(this.views.navbar.el);
 
         //empty table
         $('#triggerlist').find('tbody').empty();
@@ -229,7 +240,7 @@
         var trigFetch = self.collections.triggered_alerts_list.fetch({reset: true});
 
         var data = {
-          min : 'True'
+          // min : 'True'
         };
 
         $.when(arrayFetch).done(function() {

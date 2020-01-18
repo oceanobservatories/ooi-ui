@@ -16,6 +16,25 @@
  * Usage
  */
 
+/* Example annotation record
+{
+  "@class": ".AnnotationRecord",
+  "annotation": "Create annotation for SSRSPACC-F10NA-F10-8",
+  "beginDT": 1491412013000,
+  "endDT": 1492468785000,
+  "exclusionFlag": false,
+  "id": 81,
+  "method": "streamed",
+  "node": "F10NA",
+  "parameters": [],
+  "qcFlag": null,
+  "sensor": "F10-8",
+  "source": "admin@ooi.rutgers.edu",
+  "stream": "shore_station_force_10_network_port_data",
+  "subsite": "SSRSPACC"
+}
+*/
+
 var AnnotationTableView = Backbone.View.extend({
   className: "annotationTableView",
   events:{
@@ -23,16 +42,32 @@ var AnnotationTableView = Backbone.View.extend({
   },
   columns: [
       {
-        name : 'ui_id',
-        label : 'Annotation ID' //not the same as the uframe id
+        name : 'actions',
+        label : 'Actions'
       },
       {
-        name : 'annotation',
-        label : 'Annotation'
+        name : 'subsite',
+        label : 'Subsite'
       },
       {
-        name : 'referenceDesignator',
-        label : 'Reference Designator'
+        name : 'node',
+        label : 'Node'
+      },
+      {
+        name : 'sensor',
+        label : 'Sensor'
+      },
+      {
+        name : 'method',
+        label : 'Method'
+      },
+      {
+        name : 'stream',
+        label : 'Stream'
+      },
+      {
+        name : 'parameters',
+        label : 'Parameters'
       },
       {
         name : 'beginDT',
@@ -41,6 +76,30 @@ var AnnotationTableView = Backbone.View.extend({
       {
         name : 'endDT',
         label : 'End Date'
+      },
+      {
+        name : 'qcFlag',
+        label : 'QC Flag'
+      },
+      {
+        name : 'annotation',
+        label : 'Annotation'
+      },
+      {
+        name : 'id',
+        label : 'Annotation ID' // The uframe ID
+      },
+      {
+        name : 'exclusionFlag',
+        label : 'Exclude Data?'
+      },
+      {
+        name : 'source',
+        label : 'UserID'
+      },
+      {
+        name : 'referenceDesignator',
+        label : 'Reference Designator'
       }
   ],
   initialize: function() {
@@ -51,16 +110,23 @@ var AnnotationTableView = Backbone.View.extend({
     event.stopPropagation();
     ooi.trigger('AnnotationTableView:onAddClick');
   },
+  emptyRender:function(){
+    this.$el.html('<h5>Please Select an instrument</h5>');
+  },
   render: function() {
     var self = this;
-    this.$el.html(this.template({collection: this.collection, columns: this.columns}));
+    this.collection.sortByField('beginDT', 'ascending');
+    this.$el.html(this.template({collection: this.collection, columns: this.columns, user: ooi.models.userModel.attributes}));
+
     this.collection.each(function(model, i) {
-      model.set('ui_id',i)
+      model.set('ui_id',i);
 
       var streamTableItemView = new AnnotationTableItemView({
         columns: self.columns,
         model: model
       });
+      // console.log('Adding annotation entry.');
+      // console.log(model);
       self.$el.find('tbody').append(streamTableItemView.el);
     });
   }
@@ -69,7 +135,8 @@ var AnnotationTableView = Backbone.View.extend({
 var AnnotationTableItemView = Backbone.View.extend({
   tagName: 'tr',
   events: {
-    'click' : 'onClick'
+    'click #editAnnotation' : 'onClick',
+    'click #deleteAnnotation' : 'onClickDelete'
   },
   initialize: function(options) {
     if(options && options.columns) {
@@ -82,9 +149,19 @@ var AnnotationTableItemView = Backbone.View.extend({
     event.stopPropagation();
     ooi.trigger('AnnotationTableItemView:onClick', this.model);
   },
+  onClickDelete: function(event) {
+    // event.stopPropagation();
+    var self = this;
+    event.preventDefault();
+    this.model.destroy({
+      success: function() {
+        ooi.trigger('AnnotationTableItemView:onClickDelete', self.model);
+      }
+    });
+  },
   template: JST['ooiui/static/js/partials/AnnotationTableItem.html'],
   render: function() {
-    this.$el.html(this.template({model: this.model, columns: this.columns}));
+    this.$el.html(this.template({model: this.model, columns: this.columns, user: ooi.models.userModel.attributes}));
   }
 });
 

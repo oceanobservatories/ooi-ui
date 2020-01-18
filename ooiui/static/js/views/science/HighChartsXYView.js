@@ -7,7 +7,7 @@ var HighchartsScatterView = Backbone.View.extend({
     this.title = options && options.title || "Chart";
     this.title_style = options && options.title_style || {
     };
-    this.subtitle = options && options.subtitle || "";
+    this.subtitle = options && options.stream_display_name || "";
     this.initialRender();
     _.bindAll(this, "onClick");
   },
@@ -34,11 +34,37 @@ var HighchartsScatterView = Backbone.View.extend({
         // width: $("#highcharts-view").height(),
         events: {
           click: function(e) {
+            //console.log(e);
             self.onClick(e, this);
           },
+          selection: function (event) {
+            //console.log(event);
+            var text,
+              label;
+            if (event.xAxis) {
+              text = 'min: ' + Highcharts.numberFormat(event.xAxis[0].min, 2) + ', max: ' + Highcharts.numberFormat(event.xAxis[0].max, 2);
+            } else {
+              text = 'Selection reset';
+            }
+            label = this.renderer.label(text, 100, 120)
+              .attr({
+                fill: Highcharts.getOptions().colors[0],
+                padding: 10,
+                r: 5,
+                zIndex: 8
+              })
+              .css({
+                color: '#FFFFFF'
+              })
+              .add();
+
+            setTimeout(function () {
+              label.fadeOut();
+            }, 1000);
+          }
         },
-        alignTicks: false,      
-        zoomType: 'xy',
+        alignTicks: false,
+        zoomType: 'x',
         resetZoomButton: {
             position: {
                 // align: 'right', // by default
@@ -46,7 +72,7 @@ var HighchartsScatterView = Backbone.View.extend({
                 x: 0,
                 y: -30
             }
-        }     
+        }
       },
       credits: {
         enabled: false
@@ -58,12 +84,12 @@ var HighchartsScatterView = Backbone.View.extend({
       subtitle: {
           text: self.subtitle,
           style: {
-                  color: "steelblue", 
+                  color: "steelblue",
                   fontSize: "18px"
                 }
       },
       xAxis: {
-            id: self.collection.models[0].get('xaxisName'),          
+            id: self.collection.models[0].get('xaxisName'),
             labels: {
               format: '{value}',
             },
@@ -72,7 +98,7 @@ var HighchartsScatterView = Backbone.View.extend({
             }
       },
       yAxis: {
-          id:self.collection.models[0].get('axisName'),          
+          id:self.collection.models[0].get('axisName'),
           labels: {
             format: '{value}',
           },
@@ -95,11 +121,11 @@ var HighchartsScatterView = Backbone.View.extend({
                   return s;
               },
           shared: true,
-          crosshairs : [true,false]  
+          crosshairs : [true,false]
         // headerFormat: '<b>{series.name}</b><br>',
         // pointFormat: '{point.x} {series.options.units}, {point.y} {series.options.units}'
       },
-      plotOptions: {        
+      plotOptions: {
         scatter: {
             marker: {
                 radius: 5,
@@ -109,20 +135,20 @@ var HighchartsScatterView = Backbone.View.extend({
                         lineColor: 'rgb(100,100,100)'
                     }
                 }
-            }            
+            }
         }
       },
       series: self.collection.map(function(model, i) {
         return {
-          type: model.get('type'),
+          //type: model.get('type'),
           name: model.get('name'),
-          showInLegend: model.get('showInLegend'),
-          color: model.get('color'),
+          //showInLegend: model.get('showInLegend'),
+          //color: model.get('color'),
           data: model.get('data'),
-          units: model.get('units'),    
-          yAxis: i,                             
-          marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker'), "symbol": "circle"}, // only dots are for direction
-          states: {hover: {enabled: true}} // no highlighted dots
+          //units: model.get('units'),
+          yAxis: 0, //i ?
+          //marker: {enabled: _.isUndefined(model.get('enableMarker')) ? false : model.get('enableMarker'), "symbol": "circle"}, // only dots are for direction
+          //states: {hover: {enabled: true}} // no highlighted dots
         };
       }),
       legend: {

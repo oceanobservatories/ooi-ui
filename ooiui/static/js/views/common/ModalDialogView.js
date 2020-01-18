@@ -15,7 +15,8 @@
 var ModalDialogView = Backbone.View.extend({
   className: 'modal fade',
   events: {
-    'hidden.bs.modal' : 'hidden'
+    'hidden.bs.modal' : 'hidden',
+    'click #dataupdate' : 'setDataUpdateCookie'
   },
   hide: function() {
     this.$el.modal('hide');
@@ -24,6 +25,25 @@ var ModalDialogView = Backbone.View.extend({
     if(this.ack) {
       this.ack();
     }
+  },
+  setDataUpdateCookie: function(e) {
+    console.log(e);
+
+    // TODO: Get end date and whether to force the cookie and apply to the date and if statements below.
+
+    var date = new Date();
+    date.setTime(date.getTime() + 12500*1000);
+
+    if(e.target.checked === true){
+      console.log('checked');
+      Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
+      console.log(Cookies.get('datanotification'));
+    } else {
+      console.log('unchecked');
+      Cookies.set('datanotification', 'show', {expires: date, path: '/'});
+      console.log(Cookies.get('datanotification'));
+    }
+
   },
   initialize: function() {
     _.bindAll(this, "render", "show", "hidden");

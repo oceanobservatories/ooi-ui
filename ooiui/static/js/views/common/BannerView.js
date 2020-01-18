@@ -32,15 +32,36 @@ var BannerView = Backbone.View.extend({
   templates: {
     banner: JST['ooiui/static/js/partials/Banner.html'],
     newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
+  },
 
+  changeTitle: function(options) {
+    this.options = options;
+    this.render();
   },
 
   render: function() {
-    this.$el.html(this.templates.banner());
-    if (this.checkStreaming()){
+    this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
+    if (this.checkStreaming() || this.checkOnHomepage() || this.checkDataNoticeCookie()){
       this.$el.find('#news-banner').append(this.templates.newsBanner());
     }
   },
+
+  checkOnHomepage: function() {
+      if (window.location.pathname === '/'){
+          return true;
+      } else {
+          return false;
+      }
+  },
+
+    checkDataNoticeCookie: function() {
+      var dataNoticeCookie = Cookies.get('datanotification');
+      if (dataNoticeCookie === 'hide') {
+          return false;
+      } else {
+          return true;
+      }
+    },
 
   checkStreaming: function() {
     var streaming = false;
@@ -54,7 +75,9 @@ var BannerView = Backbone.View.extend({
         streaming = true;
       }
     }
-    return streaming
+    //return streaming;
+    // TODO: Disables the streaming camera banner until there is a programmatic way to determine the state
+    return false;
   }
 });
 

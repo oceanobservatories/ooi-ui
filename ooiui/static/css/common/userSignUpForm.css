@@ -30,3 +30,50 @@ h5 {
 form#user-edit-form div input.form-control {
   background-color: #FFF
 }
+
+.terms-link{
+  z-index: 100;
+  position: inherit;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.lgn-center {
+
+}
+
+.lgn-footer {
+    min-height: 40px;
+}
+
+.lgn-body {
+    padding: 40px 32px 25px 32px;
+}
+
+.btn {
+
+}
+
+.btn-primary {
+  background: linear-gradient(rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0));
+  /* background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  /* background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(126,156,217,.3), rgba(255,255,255,0)); */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #004773;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 5px 8px 5px 8px;
+  border: solid #5578D9 1.5px;
+  text-decoration: none;
+  line-height: .9;
+}

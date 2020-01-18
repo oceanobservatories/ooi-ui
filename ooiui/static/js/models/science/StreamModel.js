@@ -12,6 +12,32 @@
  * Usage
  */
 
+var InstrumentListModel = Backbone.Model.extend({
+  urlRoot: '/api/uframe/instrument_list?refresh=false',
+  defaults: {
+  }
+});
+
+var InstrumentListCollection = Backbone.Collection.extend({
+  url: '/api/uframe/instrument_list?refresh=false',
+  model: InstrumentListModel,
+  parse: function(response) {
+    if(response) {
+      return response.instruments;
+    }
+    return [];
+  }
+});
+
+var StreamsForCollection = Backbone.Collection.extend({
+  parse: function(response) {
+    if(response) {
+      return response.streams;
+    }
+    return [];
+  }
+});
+
 var StreamModel = Backbone.Model.extend({
   //urlRoot: '/api/uframe/get_toc',
   defaults: {
@@ -35,19 +61,26 @@ var StreamModel = Backbone.Model.extend({
     site_name: "",
     assembly_name: "",
     lat_lon: "",
+    latitude: "",
+    longitude: "",
     depth: "",
-    freshness: ""
+    freshness: "",
+    reference_designator_first14chars:"",
+    iris_enabled: false,
+    iris_link: "",
+    rds_enabled: false,
+    rds_link: ""
   },
 
   getURL: function(type) {
     if(type == 'json') {
-      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_json/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&estimate="+this.get('estimate')+"&parameters="+this.get('parameters');
     } else if(type == 'profile_json_download') {
-      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_profiles/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&parameters="+this.get('parameters');
     } else if(type == 'netcdf') {
-      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_netcdf/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"/"+this.get('provenance')+"/"+this.get('annotations')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&estimate="+this.get('estimate')+"&parameters="+this.get('parameters');
     } else if(type == 'csv') {
-      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email');
+      var url = '/api/uframe/get_csv/' + this.get('stream_name') + '/' + this.get('reference_designator')+"/"+this.get('start')+"/"+this.get('end')+"?user="+this.get('user_name')+'&email='+this.get('email')+"&estimate="+this.get('estimate')+"&parameters="+this.get('parameters');
     }
     return url;
   },
@@ -61,69 +94,112 @@ var StreamModel = Backbone.Model.extend({
   },
   parse: function(data, options) {
     data.ref_des = data.reference_designator;
+    data.reference_designator_first14chars = data.reference_designator.substring(0,14);
     data.assetInfo = {  'name' : data.display_name,
                         'array': data.array_name,
                         'site' : data.site_name,
                         'platform': data.platform_name,
-                        'assembly': data.assebly_name
+                        'assembly': data.assembly_name
                     };
+    data.unique_id = data.reference_designator + data.stream_name;
+    if(data.stream_name !== null){
+      data.stream_identifier = data.stream_name.split('_')[1].replace(/-/g,'_');
+    }else{
+      data.stream_identifier = '';
+    }
+
     return data;
   }
 });
 
 var StreamCollection = Backbone.Collection.extend({
-  url: '/api/uframe/stream',
-  model: StreamModel,
-  parse: function(response) {
-    if(response) {
-        this.trigger("collection:updated", { count : response.count, total : response.total, startAt : response.startAt } );
-        return response.streams;
+    initialize: function(options) {
+        this.options = options || {};
+        return this;
+    },
+    url: function() {
+        // console.log('url');
+        // console.log(this.options);
+        if(this.options.url){
+            return this.options.url;
+        }else{
+            var url = '/api/uframe/stream';
+            // if the constructor contains a searchId, modify the url.
+            return (this.options.searchId) ? url +  '?search=' + this.options.searchId || "" : url;
+        }
+    },
+    model: StreamModel,
+    parse: function(response) {
+      // console.log('parse');
+      // console.log(response);
+        if(response) {
+            if(response.streams) {
+              this.trigger("collection:updated", {
+                count: response.count,
+                total: response.total,
+                startAt: response.startAt
+              });
+              return response.streams;
+            }else{
+              // console.log('returning stream_content');
+              return response.stream_content;
+            }
+        }
+        return [];
+    },
+    comparator: function(model) {
+        return model.get('display_name');
+    },
+
+    byArray: function(array) {
+        var filtered = this.filter(function (model) {
+            return model.get('reference_designator').substring(0,2) === array;
+        });
+        return new StreamCollection(filtered);
+    },
+    byStreamMethod: function(stream_methods) {
+        var filtered = this.filter(function (model) {
+            return stream_methods.includes(model.get('stream_method'));
+        });
+        return new StreamCollection(filtered);
+    },
+    byEng: function(bool) {
+        if (!bool) {
+            var filtered = this.filter(function (model) {
+                return model.get('reference_designator').indexOf('ENG') === -1;
+            });
+            return new StreamCollection(filtered);
+        } else {
+            return this;
+        }
+    },
+    byEndTime: function(binary) {
+        var filtered = this.filter(function (model) {
+            var time = new Date(model.get('end')),
+                timeSinceEnd = new Date().getTime() - time.getTime(),
+                twentyFour = 86400000,
+                allTime = 3,
+                recent24 = 1,
+                older = 2;
+
+            switch (true) {
+
+                case (binary === recent24):
+                    return timeSinceEnd <= twentyFour;
+                break;
+
+                case (binary === older):
+                    return timeSinceEnd > twentyFour;
+                break;
+
+                case (binary === allTime):
+                    return true;
+                break;
+
+                default:
+                    return false;
+            }
+        });
+        return new StreamCollection(filtered);
     }
-    return [];
-  },
-  byArray: function(array) {
-      var filtered = this.filter(function (model) {
-          return model.get('reference_designator').substring(0,2) === array;
-      });
-      return new StreamCollection(filtered);
-  },
-  byEng: function(bool) {
-      if (!bool) {
-          var filtered = this.filter(function (model) {
-              return model.get('reference_designator').indexOf('ENG') === -1;
-          });
-          return new StreamCollection(filtered);
-      } else {
-          return this;
-      }
-  },
-  byEndTime: function(binary) {
-      var filtered = this.filter(function (model) {
-          var time = new Date(model.get('end')),
-              timeSinceEnd = new Date().getTime() - time.getTime(),
-              twentyFour = 86400000,
-              allTime = 3,
-              recent24 = 1,
-              older = 2;
-
-          switch (true) {
-
-            case (binary === recent24):
-                return timeSinceEnd <= twentyFour;
-                break;
-
-            case (binary === older):
-                return timeSinceEnd > twentyFour;
-                break;
-
-            case (binary === allTime):
-                return true;
-                break;
-
-            default:
-                return false;
-          }
-      });
-      return new StreamCollection(filtered);
-  }
 });

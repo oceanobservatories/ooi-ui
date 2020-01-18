@@ -1,0 +1,143 @@
+[
+    {
+        "VersionNumber":"1.2.7",
+        "VersionDate":"2017-10-10",
+        "VersionDescription":[
+            "Develop a strategy for separately deploying uFrame software on test systems. (12557)",
+            "Prevent creating/updating annotations where beginDT > endDT. (12509)",
+            "Add support for open-ended annotations. (11444)",
+            "Add virtual streams to stream and partition metadata on ingest. (12488)",
+            "Handle \"PD\" prefix in alert filter pdIds. (12172)",
+            "Enhance ingestion logging in EDEX. (12618)",
+            "Uncabled_ingest mode unable to start. (12581)",
+            "Gracefully handle error in Sensor Inventory Service TOC endpoint. (12546)",
+            "Fix DOI SQL Errors on uframe-test and production. (12580)",
+            "Add version endpoint. (12497)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.6-sr1",
+        "VersionDate":"2017-08-25",
+        "VersionDescription":[
+            "Enhance ingestion logging in EDEX. (12618)",
+            "Uncabled_ingest mode unable to start. (12581)",
+            "Fix DOI SQL Errors on uframe-test and production. (12580)",
+            "Add version endpoint. (12497)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.6",
+        "VersionDate":"2017-08-01",
+        "VersionDescription":[
+            "Expand ingest request types in EDEX to include cabled playback (12530)",
+            "Handle comma separated values for param in data file ingestion (12506)",
+            "Expose data purge through web service (12485)",
+            "Drop FK constraint in new ingest engine (12440)",
+            "Promote uncabled particle timestamps from long to double if needed (12434)",
+            "Create ingestion tool for telemetered and recovered data (12140)",
+            "Increase default max memory (12455)",
+            "Add QcFlag Validation (12461)",
+            "DOI cruise handling and asset management updates (12443)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.5",
+        "VersionDate":"2017-06-08",
+        "VersionDescription":[
+            "Add external notification framework (10824)",
+            "Allow async request emails to be disabled per request (12139)",
+            "Allow easier customization of async request notifications (11315)",
+            "Add time validation checks to anno service (12242)",
+            "Add deployment validation for status events (12296)",
+            "Validate annotation stream vs refDes (12243)",
+            "Require pagination requests on sensor/inv/partition_metadata (11070)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.4",
+        "VersionDate":"2017-04-12",
+        "VersionDescription":[
+            "Constrain time bounds for queries. (11979)",
+            "Add parameter list to annotations. (12130)",
+            "Fix POST to events endpoint. (12056)",
+            "Remove logic specifying minimum/maximum bin size. (12111)",
+            "Remove direct hql string execution via web service vulnerability. (12077)",
+            "Bugfix automatic status creation. (12058)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.3",
+        "VersionDate":"2017-03-28",
+        "VersionDescription":[
+            "Fixed an issue where some download requests would fail (11798).",
+            "Added support for creation of Status events (12012).",
+            "Added automatic alert generation on instrument status changes and alarm generation when status changes to failed (11920)."
+        ]
+    },
+    {
+        "VersionNumber":"1.2.2",
+        "VersionDate":"2017-02-14",
+        "VersionDescription":[
+            "Corrected the creation of parameter definitions in preload. (12010)",
+            "Corrected issue in machine-to-machine request which resulted in gateway timeout. (11995)",
+            "Corrected the over-estimate for processing time of user requested downloads. (11871)",
+            "Corrected issue where aggregation of requested download could hang. (11982)",
+            "Added column contraints for QCFlag and StatusLevel to prevent asset management server errors. (11947)",
+            "Improved performance of asynchronous download aggregation. (11952)",
+            "Cleaned up the sensor inventory service. Error messages are now reported to the user. (11775)",
+            "Finished edit phase for assets, deployments and cruises. (11765)",
+            "Added support for rolling up status from instruments to nodes. (11833)",
+            "Added (de)commission dates in deployment event for asset management. (11564)",
+            "Corrected the sequence name when annotation is created. (11851)",
+            "Migrated the preload database from SQLite to Postgres. (11839)",
+            "Corrected an error where queries to ingest history would fail due to missing enqueue or dequeue times. (11754)",
+            "Improved the estimation of size/time for user download requests (11827, 11871)",
+            "Removed the legacy annotation service. (11811)"
+        ]
+    },
+    {
+        "VersionNumber":"1.2.1",
+        "VersionDate":"2017-01-17",
+        "VersionDescription":[
+            "Added author to annotations. (11715)",
+            "Removed cruiseIdentifier from Cruise event and parser. (11701)",
+            "Created new interface for event selection, reducing amount of data returned and removing direct association of event with asset. (11688)"
+        ]
+    },
+    {
+        "VersionNumber":"1.1.3",
+        "VersionDate":"2016-12-09",
+        "VersionDescription":[
+            "Removed CruiseInfo cruiseIdentifer. (11701)",
+            "Disconnected events collection from the associated asset. (11688)",
+            "Removed association between an asset and events.",
+            "Wrote new endpoints that expose new event selection capability.",
+            "Reworked serialization to use maps. (11663)",
+            "Corrected several issues related to Digital Object Identifier (DOI). (11691)",
+            "Removed unused IngestInfo attribute from XDeployment. (11650)",
+            "Stream Engine Manager now restarts product requests/sub-requests if stream_engines terminate. (11621)",
+            "Added waterDepth (depth of water column to ocean floor at location) attribute; support for renamed depth column in spreadsheet. (11639)",
+            "Added support for Local Range QC sheet ingest. (8604)",
+            "Added support to ingest CTDBP-P with attached DOSTA and FLORD. (11168)",
+            "Changed stream engine to execute DPA on queries by default. Added option to turn off DPA calculations. (11528)",
+            "Added access log for EDEX web services. (11299)",
+            "Added webservice support for status reporting. (11519)",
+            "Added ReferenceDesignator to subsite/metadata query response. (11347)",
+            "Created tools to manage preload data; visualize stream parameters and automated loading of changes. (11382)",
+            "Added limit for total number of jobs per user. (11439)"
+        ]
+    },
+    {
+        "VersionNumber":"1.1.2",
+        "VersionDate":"2016-10-24",
+        "VersionDescription":[
+            "Corrected two-dimensional calibration data. (11370)",
+            "Preload information is now stored in an internal database. (11199)",
+            "Corrected issue where a user would receive a response indicating a valid download even though there was no data to return. (11407)",
+            "Added support to aggregate NetCDF files on download. (11413)",
+            "Added support to query deployment events from the asset ID. (11222)",
+            "Removed restriction for length of annotation text. (11455)",
+            "Fixed an issue that caused editing of an asset to fail. (11431)"
+        ]
+    }
+]
