@@ -75,7 +75,7 @@ var CacheTableItemView = ParentView.extend({
         var key = this.$el.find(e.target).data('target');
         this.model.deleteCache({key: key});
         this.remove();
-        ooi.trigger('cache:load', key);
+        // ooi.trigger('cache:load', key);
     }
 });
 
@@ -83,7 +83,7 @@ var CachePostKeyView = ParentView.extend({
     events: {
         'click .js-post-item': 'clickPost'
     },
-    template: _.template('<form>Key:<br><input class="key-input" type="text" name="key" value="metadatanotification"><br>Key Value:<br><input class="key-input" type="text" name="key_value" value="True"><br>Key Timeout (seconds):<br><input class="key-input" type="text" name="key_timeout" value="604800"><br><br> <button class="btn btn-primary js-post-item" id="clickPost">Add Key</button></form>'),
+    template: _.template('<form><input class="key-input" type="text" name="key" value="custom_cache_metadatanotification" hidden><br>Show Metadata Banner (True/False):<br><input class="key-input" type="text" name="key_value" value="True"><br>Metadata Banner Timeout (seconds):<br><input class="key-input" type="text" name="key_timeout" value="604800"><br><br> <button class="btn btn-primary js-post-item" id="clickPost">Add Key</button></form>'),
     clickPost: function(e) {
         e.preventDefault();
 
@@ -96,5 +96,6 @@ var CachePostKeyView = ParentView.extend({
             key_timeout: form_values.key_timeout.value,
             key_value: form_values.key_value.value
         });
+        ooi.trigger('cache:reload')
     }
 });

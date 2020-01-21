@@ -43,6 +43,20 @@ var CacheTableModel = Backbone.Model.extend({
             }
         });
     },
+    getCacheKey: function(options) {
+        var modelContext = this;
+        // since we aren't passing an ID, we need to override
+        // the traditional way we destroy items and use
+        // a string key.
+        $.ajax({
+            url: this.urlRoot + '/' + options.key,
+            type: 'GET',
+            success: function() {
+                // once that's done, lets remove the model.
+                modelContext.destroy();
+            }
+        });
+    },
     toJSON: function() {
         'use strict';
         var attrs = _.clone(this.attributes);

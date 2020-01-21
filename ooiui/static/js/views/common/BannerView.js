@@ -55,12 +55,76 @@ var BannerView = Backbone.View.extend({
   },
 
     checkDataNoticeCookie: function() {
-      var dataNoticeCookie = Cookies.get('datanotification');
-      if (dataNoticeCookie === 'hide') {
-          return false;
-      } else {
-          return true;
-      }
+        let dataNoticeCookie = Cookies.get('datanotification');
+        // console.log('dataNoticeCookie');
+        // console.log(dataNoticeCookie);
+
+        let daWarningData = new ModalDialogView();
+        let theMessage = '';
+        theMessage += "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
+        theMessage += "<p>Important Data Update Available Now!</p>";
+        theMessage += "<p>Please click the OOI Logo to review metadata changes effecting previous data downloads you may have performed.</p>";
+        theMessage += "<p></p>";
+        theMessage += '<div class="pull-bottom">\n' +
+            '        <a href="https://oceanobservatories.org/data-issues/" title="OOI Data Issues" target="_blank">\n' +
+            '          <img alt="OOI Data Issues" class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">\n' +
+            '        </a>\n' +
+            '      </div>';
+        theMessage += '<p style="padding-top: 10px;"><input type="checkbox" id="dataupdate"></input><label for="dataupdate">Ignore until next update?</label></p>';
+        theMessage += "</div>";
+
+        $.ajax({
+            url: '/api/cache_keys/custom_cache_metadatanotification',
+            type: 'GET',
+            async: false,
+            success: function(data) {
+                var date = new Date();
+                date.setTime(date.getTime() + 12500*1000);
+                // console.log('checkDataNoticeCookie');
+                // console.log(data);
+                let key_value = undefined;
+
+                if (JSON.parse(data).results[0] !== undefined) {
+                    key_value = JSON.parse(data).results[0].value.toLowerCase();
+                }
+
+                // console.log('key_value');
+                // console.log(key_value);
+
+                if (key_value === "true" && dataNoticeCookie === undefined) {
+                    // Cookies.set('datanotification', 'show', {expires: date, path: '/'});
+                    $('#breaking-news-container').show();
+
+                    daWarningData.show({
+                        message: theMessage,
+                        type: "info"
+                    });
+
+                    return true;
+                } else if (key_value === "true" && dataNoticeCookie === "show") {
+                    $('#breaking-news-container').show();
+                    return true;
+                } else if (key_value === 'true' && dataNoticeCookie === "hide") {
+                    // Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
+                    $('#breaking-news-container').hide();
+                    return false;
+                } else if (key_value === undefined || dataNoticeCookie === "hide") {
+                    // Cookies.set('datanotification', 'show', {expires: date, path: '/'});
+                    $('#breaking-news-container').hide();
+                    return false;
+                } else if (dataNoticeCookie === 'show') {
+                    $('#breaking-news-container').show();
+                    return true;
+                } else {
+                    $('#breaking-news-container').show();
+
+                    daWarningData.show({
+                        message: theMessage,
+                        type: "info"
+                    });
+                }
+            }
+        });
     },
 
   checkStreaming: function() {

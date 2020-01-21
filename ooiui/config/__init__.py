@@ -18,8 +18,8 @@ def reload():
     if os.path.exists(os.path.join(basedir, 'config_local.yml')):
         __config_file__ = pkg_resources.resource_string(__name__, "config_local.yml")
 
-    __config_dict__ = yaml.load(__config_file__)
+    __config_dict__ = yaml.load(__config_file__, Loader=yaml.FullLoader)
     globals().update(__config_dict__)
 
-reload() # Initialize the globals on the first load of this module
 
+reload() # Initialize the globals on the first load of this module

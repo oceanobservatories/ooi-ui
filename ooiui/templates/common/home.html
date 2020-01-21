@@ -174,11 +174,13 @@
     });
 
     var bannerTitle = "Home";
-    var banner = new BannerView({bannerTitle});
+    var banner1 = new BannerView({bannerTitle});
 
     _.extend(OOI.prototype, Backbone.Events,  {
       login: new LoginModel(),
-      views: {},
+      views: {
+          banner1: banner1
+      },
       collections: {
         organizations: new Organizations()
       },
@@ -208,7 +210,7 @@
         // Views
         //--------------------------------------------------------------------------------
 
-        this.views.banner = banner;
+        this.views.banner = banner1;
         $('body').prepend(this.views.banner.el);
 
         this.views.navbar = new NavbarView({
@@ -216,32 +218,12 @@
         });
 
         // Show the streaming data banner
-        if (!_.isUndefined(this.views.banner) && this.views.banner.checkStreaming()){
+        if (!_.isUndefined(this.views.banner)){
           $('#wrapper').addClass('news-active');
           $('.container-fluid.banner-image').addClass('news-active');
         }
 
-        if (this.views.banner.checkDataNoticeCookie() === true){
-
-            var daWarningData = new ModalDialogView();
-
-          var theMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-          theMessage += "<p>Important Data Update Available Now!</p>";
-          theMessage += "<p>Please click the OOI Logo to review metadata changes effecting previous data downloads you may have performed.</p>";
-          theMessage += "<p></p>";
-          theMessage += '<div class="pull-bottom">\n' +
-              '        <a href="https://oceanobservatories.org/data-issues/" title="OOI Data Issues" target="_blank">\n' +
-              '          <img alt="OOI Data Issues" class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">\n' +
-              '        </a>\n' +
-              '      </div>';
-          theMessage += '<p style="padding-top: 10px;"><input type="checkbox" id="dataupdate"></input><label for="dataupdate">Ignore until next update?</label></p>';
-          theMessage += "</div>";
-
-          daWarningData.show({
-              message: theMessage,
-              type: "info"
-          });
-        }
+        this.views.banner.checkDataNoticeCookie();
 
 
 
