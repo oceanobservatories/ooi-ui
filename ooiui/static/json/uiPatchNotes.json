@@ -1,5 +1,18 @@
 [
   {
+        "VersionNumber": "1.8.0",
+        "VersionDate": "2020-01-22",
+        "VersionDescription": [
+          "General: Fixes site tour bug. ()",
+          "General: Adds metadata changes banner to UI with admin functionality. ()",
+          "General: Removes the operator log from the user menu. (11372)",
+          "Plotting: Modifies the plotting tab reset functionality. (10554)",
+          "Plotting: Fixes plotting using all 6 y-axis parameters. (10550)",
+          "Security: Updates to route security. (14492)",
+          "Security: Updates to Python packages. ()"
+        ]
+  },
+  {
         "VersionNumber": "1.7.3",
         "VersionDate": "2019-11-07",
         "VersionDescription": [
