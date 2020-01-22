@@ -394,7 +394,12 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     //make sure the number of inputs matches the number of rows
     var rowCount = rowCount > self.model.get('variables').length ? self.model.get('variables').length : rowCount;
 
-    for (var i = 0; i <= rowCount; i++) {
+    // Adds extra parameter selector for XY plots due to time parameter not counting in previous allocations.
+    if (selectedPlotType.get('value') === 'xy') {
+      rowCount = rowCount + 1
+    }
+
+    for (var i = 0; i < rowCount; i++) {
       //adds the parameter dropdowns to the object
       self.subviews.push(new PlotInstrumentParameterControl({
         hidden : (i > 1 && self.plotModel.get('plotType') == "xy") ? true : false,
