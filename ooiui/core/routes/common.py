@@ -24,7 +24,7 @@ def read_config():
     basedir = 'ooiui/config'
     config_file = os.path.join(basedir, 'config.yml')
     with open(config_file) as f:
-        c = yaml.load(f)
+        c = yaml.load(f, Loader=yaml.FullLoader)
     del c['COMMON']['SECRET_KEY']
     del c['COMMON']['UI_API_KEY']
     del c['COMMON']['CACHE_TYPE']
@@ -663,18 +663,27 @@ def disabled_streams(id=None):
 
 
 @app.route('/api/cache_keys', methods=['GET'])
+@app.route('/api/cache_keys/<string:key>', methods=['GET'])
+def cache_keys(key=None):
+    token = get_login()
+    if request.method == 'GET':
+        if key:
+            response = requests.get(app.config['SERVICES_URL'] + '/cache_keys/' + key,
+                                    auth=(token, ''), params=request.args)
+            return response.text, response.status_code
+        else:
+            response = requests.get(app.config['SERVICES_URL'] + '/cache_keys',
+                                    auth=(token, ''), params=request.args)
+            return response.text, response.status_code
+
+
 @app.route('/api/cache_keys/<string:key>', methods=['DELETE'])
 @app.route('/api/cache_keys/<string:key>/<string:key_timeout>/<string:key_value>', methods=['POST'])
 @scope_required('sys_admin')
-def cache_keys(key=None, key_timeout=None, key_value=None):
+def cache_keys_admin(key=None, key_timeout=None, key_value=None):
     token = get_login()
-    if request.method == 'GET':
-        response = requests.get(app.config['SERVICES_URL'] + '/cache_keys', 
-                                auth=(token, ''), params=request.args)
-        return response.text, response.status_code
-
-    elif request.method == 'DELETE':
-        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key, 
+    if request.method == 'DELETE':
+        response = requests.delete(app.config['SERVICES_URL'] + '/cache_keys/'+key,
                                  auth=(token, ''))
         return response.text, response.status_code
 

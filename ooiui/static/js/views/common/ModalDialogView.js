@@ -27,23 +27,55 @@ var ModalDialogView = Backbone.View.extend({
     }
   },
   setDataUpdateCookie: function(e) {
-    console.log(e);
-
-    // TODO: Get end date and whether to force the cookie and apply to the date and if statements below.
-
     var date = new Date();
     date.setTime(date.getTime() + 12500*1000);
 
     if(e.target.checked === true){
-      console.log('checked');
+      // console.log('checked');
       Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
-      console.log(Cookies.get('datanotification'));
     } else {
-      console.log('unchecked');
+      // console.log('unchecked');
       Cookies.set('datanotification', 'show', {expires: date, path: '/'});
-      console.log(Cookies.get('datanotification'));
     }
+  },
+  setDataUpdateCookie2: function(e) {
+    // console.log(e);
 
+    // TODO: Get end date and whether to force the cookie and apply to the date and if statements below.
+
+    // Here I should be able to get the custom_cache_metadatanotification key TTL and if >0 keep the banner
+    // if True force popup to show
+    // if False don't force the popup
+    // if TTL <=0 or key missing don't popup or show banner
+
+    let forcePopup = false;
+    let showBanner = true;
+
+    $.ajax({
+      url: '/api/cache_keys/custom_cache_metadatanotification',
+      type: 'GET',
+      async: false,
+      success: function(data) {
+        // console.log(data);
+        let key_value = JSON.parse(data).results[0].value.toLowerCase();
+        // console.log(key_value);
+
+        var date = new Date();
+        date.setTime(date.getTime() + 12500*1000);
+
+        if(e.target.checked === true || key_value === "false"){
+          // console.log('checked');
+          Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
+          // console.log(Cookies.get('datanotification'));
+          $('#breaking-news-container').hide();
+        } else {
+          // console.log('unchecked');
+          Cookies.set('datanotification', 'show', {expires: date, path: '/'});
+          // console.log(Cookies.get('datanotification'));
+          $('#breaking-news-container').show();
+        }
+      }
+    });
   },
   initialize: function() {
     _.bindAll(this, "render", "show", "hidden");
@@ -70,6 +102,9 @@ var ModalDialogView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/ModalDialog.html'],
   render: function(options) {
+    if (options.title === undefined){
+      options.title = 'OOI System Message';
+    }
     this.$el.html(this.template(options));
   }
 });

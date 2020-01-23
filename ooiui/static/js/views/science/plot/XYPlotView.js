@@ -420,9 +420,9 @@ var XYPlotView = BasePlot.extend({
     // Set message for data decimation based on returned data model length
     $('#isDecimated').empty();
     if(plotData.length < 1000){
-      $('#isDecimated').append('<small class="pull-right"> Data points available: ' + plotData.length + '</small>');
+      $('#isDecimated').append('<small> Data points available: ' + plotData.length + '</small>');
     }else{
-      $('#isDecimated').append('<small class="pull-right"> Data are decimated. Maximum of 1000 points shown.</small>');
+      $('#isDecimated').append('<small> Data are decimated. Maximum of 1000 points shown.</small>');
     }
 
     var xAxis = self.createAxis(plotParameters,plotModel, 'x');

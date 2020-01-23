@@ -1,12 +1,18 @@
 <!-- set up the modal to start hidden and fade in and out -->
 <!-- <div id="myModal" class="modal fade"> -->
-  <div class="modal-dialog">
+<div class="modal-dialog">
     <div class="modal-content">
-      <!-- dialog body -->
-      <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <%= message %>
+        <div class="modal-header">
+            <h3 class="modal-title center" id="exampleModalLabel"><%= title %>
+            </h3>
+        </div>
+        <!-- dialog body -->
+        <div class="modal-body">
+            <%= message %>
+        </div>
+        <div class="modal-footer">
+            <p class="center"><button type="button" class="btn btn-primary" data-dismiss="modal">Acknowledge</button></p>
       </div>
     </div>
-  </div>
+</div>
 <!-- </div> -->

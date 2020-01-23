@@ -188,9 +188,7 @@
                                 <a href="#" type="button" id="zoom-update-plot" class="btn btn-default zoom-update-plot">Update Plot</a>
                                 <a href="#" id="download-data-button" class="btn btn-primary download-plot-data pull-left" data-hint="Click here for a data download dialog synchronized to the plotting time range." data-hintPosition="top-middle" data-position="bottom-right-aligned" style="margin-left: 30px;">Download Data</a>
                                 <a href="#" id="clear-all-plot-elements" class="btn btn-primary clear-plot-area pull-right" data-hint="Click here to clear all the selected plotting parameters and plotted data." data-hintPosition="top-middle" data-position="bottom-right-aligned">Clear Plot</a>
-                                <div id="isDecimated">
-
-                                </div>
+                                <div id="isDecimated"></div>
                               </div>
                             </div>
                           </div>
@@ -1063,6 +1061,7 @@
         this.listenTo(this, "plotControlView:change_plot_type", function(o) {
           //changes the plot type
           $('.download-plot-container').css('display','none');
+          ooi.trigger('clear_plot_area');
           self.views.plotControls.render();
         });
 
@@ -1178,6 +1177,9 @@
           $('#plot-view').empty();
           $('#plot-view').append('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
           $('.download-plot-container').css('display','none');
+          $('#m2m-options-heading').empty();
+          $('#m2m-options').empty();
+          $('#isDecimated').empty();
           self.views.plotControls.render();
         });
 
