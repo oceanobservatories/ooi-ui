@@ -14,45 +14,45 @@ var browser = function() {
     //EDGE is reporting as chrome
     return (browser.prototype._cachedResult =
         isOpera ? 'Opera' :
-        isFirefox ? 'Firefox' :
-        isSafari ? 'Safari' :
-        isChrome ? 'Chrome' :
-        isIE ? 'IE' :
-        '');
+            isFirefox ? 'Firefox' :
+                isSafari ? 'Safari' :
+                    isChrome ? 'Chrome' :
+                        isIE ? 'IE' :
+                            '');
 };
 if(browser()=="IE" ||browser()=="Opera" ) document.location = "/notsupported";
 
 var BannerView = Backbone.View.extend({
-  initialize: function(options) {
-    this.options = options;
-    _.bindAll(this, "render");
-    this.render();
-  },
+    initialize: function(options) {
+        this.options = options;
+        _.bindAll(this, "render");
+        this.render();
+    },
 
-  templates: {
-    banner: JST['ooiui/static/js/partials/Banner.html'],
-    newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
-  },
+    templates: {
+        banner: JST['ooiui/static/js/partials/Banner.html'],
+        newsBanner: JST['ooiui/static/js/partials/NewsBanner.html']
+    },
 
-  changeTitle: function(options) {
-    this.options = options;
-    this.render();
-  },
+    changeTitle: function(options) {
+        this.options = options;
+        this.render();
+    },
 
-  render: function() {
-    this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
-    if (this.checkStreaming() || this.checkOnHomepage() || this.checkDataNoticeCookie()){
-      this.$el.find('#news-banner').append(this.templates.newsBanner());
-    }
-  },
+    render: function() {
+        this.$el.html(this.templates.banner({ isNewsActive:this.checkStreaming() }));
+        if (this.checkStreaming() || this.checkOnHomepage() || this.checkDataNoticeCookie()){
+            this.$el.find('#news-banner').append(this.templates.newsBanner());
+        }
+    },
 
-  checkOnHomepage: function() {
-      if (window.location.pathname === '/'){
-          return true;
-      } else {
-          return false;
-      }
-  },
+    checkOnHomepage: function() {
+        if (window.location.pathname === '/'){
+            return true;
+        } else {
+            return false;
+        }
+    },
 
     checkDataNoticeCookie: function() {
         let dataNoticeCookie = Cookies.get('datanotification');
@@ -61,16 +61,15 @@ var BannerView = Backbone.View.extend({
 
         let daWarningData = new ModalDialogView();
         let theMessage = '';
-        theMessage += "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-        theMessage += "<p>Important Data Update Available Now!</p>";
-        theMessage += "<p>Please click the OOI Logo to review metadata changes effecting previous data downloads you may have performed.</p>";
+        theMessage += "<div>";
+        theMessage += "<p style='font-size:16px;font-weight:bold;text-align:center;padding-top:10px;'>Important Data Update Available Now!</p>";
+        theMessage += "</div>";
+        theMessage += "<div style='font-size: 16px;text-align:left;padding-top: 10px;'>";
+        theMessage += '<p>The OOI Data Teams have undertaken a thorough, program-wide review of all critical metadata in the system. Please follow this <a href="https://oceanobservatories.org/data-issues/ooi-critical-metadata-review/" title="Critical Metadata Review" target="_blank">link</a> to see how the process was conducted and learn if data you have downloaded were impacted.</p>';
         theMessage += "<p></p>";
-        theMessage += '<div class="pull-bottom">\n' +
-            '        <a href="https://oceanobservatories.org/data-issues/" title="OOI Data Issues" target="_blank">\n' +
-            '          <img alt="OOI Data Issues" class="banner-image-icon" src="/img/logos-banners/OOI_Logo.svg" style="">\n' +
-            '        </a>\n' +
-            '      </div>';
-        theMessage += '<p style="padding-top: 10px;"><input type="checkbox" id="dataupdate"></input><label for="dataupdate">Ignore until next update?</label></p>';
+        theMessage += "</div>";
+        theMessage += '<div class="pull-bottom" style="font-size:16px;font-weight:bold;text-align:center;padding-top:10px;">\n';
+        theMessage += '<p style="padding-top: 10px;"><input type="checkbox" id="dataupdate"></input><label for="dataupdate" style="padding-left: 5px">Ignore until next update?</label></p>';
         theMessage += "</div>";
 
         $.ajax({
@@ -82,66 +81,58 @@ var BannerView = Backbone.View.extend({
                 date.setTime(date.getTime() + 12500*1000);
                 // console.log('checkDataNoticeCookie');
                 // console.log(data);
+                let key_data = JSON.parse(data).results[0]
                 let key_value = undefined;
 
-                if (JSON.parse(data).results[0] !== undefined) {
-                    key_value = JSON.parse(data).results[0].value.toLowerCase();
+                if (key_data !== undefined) {
+                    key_value = key_data.value.toLowerCase();
                 }
 
                 // console.log('key_value');
                 // console.log(key_value);
 
-                if (key_value === "true" && dataNoticeCookie === undefined) {
-                    // Cookies.set('datanotification', 'show', {expires: date, path: '/'});
-                    $('#breaking-news-container').show();
+                // We only want to show the popup message or banner on the home page
+                if (window.location.pathname === '/') {
+                    // Show the banner if the redis key says so
+                    if (key_value === "true") {
+                        $('#breaking-news-container').show();
+                    } else {
+                        $('#breaking-news-container').hide();
+                    }
 
-                    daWarningData.show({
-                        message: theMessage,
-                        type: "info"
-                    });
+                    //  Show the popup if the user hasn't dismissed it and the redis key is defined
+                    if (key_data !== undefined && dataNoticeCookie !== "hide") {
+                        daWarningData.show({
+                            message: theMessage,
+                            type: "info"
+                        });
 
-                    return true;
-                } else if (key_value === "true" && dataNoticeCookie === "show") {
-                    $('#breaking-news-container').show();
-                    return true;
-                } else if (key_value === 'true' && dataNoticeCookie === "hide") {
-                    // Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
-                    $('#breaking-news-container').hide();
-                    return false;
-                } else if (key_value === undefined || dataNoticeCookie === "hide") {
-                    // Cookies.set('datanotification', 'show', {expires: date, path: '/'});
-                    $('#breaking-news-container').hide();
-                    return false;
-                } else if (dataNoticeCookie === 'show') {
-                    $('#breaking-news-container').show();
-                    return true;
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
-                    $('#breaking-news-container').show();
-
-                    daWarningData.show({
-                        message: theMessage,
-                        type: "info"
-                    });
+                    return false;
                 }
             }
         });
     },
 
-  checkStreaming: function() {
-    var streaming = false;
-    // Let's see what time it is
-    var currentTime = moment.utc();
-    // Compare to the time that streaming is on
-    var hoursOn = [3, 6, 9, 12, 15, 18, 21, 24];
-    if (hoursOn.indexOf(currentTime.hour()) > -1){
-      // Now check if the time falls within the 14 minute duration that video is on
-      if (currentTime.minute() < 15){
-        streaming = true;
-      }
+    checkStreaming: function() {
+        var streaming = false;
+        // Let's see what time it is
+        var currentTime = moment.utc();
+        // Compare to the time that streaming is on
+        var hoursOn = [3, 6, 9, 12, 15, 18, 21, 24];
+        if (hoursOn.indexOf(currentTime.hour()) > -1){
+            // Now check if the time falls within the 14 minute duration that video is on
+            if (currentTime.minute() < 15){
+                streaming = true;
+            }
+        }
+        //return streaming;
+        // TODO: Disables the streaming camera banner until there is a programmatic way to determine the state
+        return false;
     }
-    //return streaming;
-    // TODO: Disables the streaming camera banner until there is a programmatic way to determine the state
-    return false;
-  }
 });
 

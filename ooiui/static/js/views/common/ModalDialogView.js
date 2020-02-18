@@ -67,12 +67,12 @@ var ModalDialogView = Backbone.View.extend({
           // console.log('checked');
           Cookies.set('datanotification', 'hide', {expires: date, path: '/'});
           // console.log(Cookies.get('datanotification'));
-          $('#breaking-news-container').hide();
+          // $('#breaking-news-container').hide();
         } else {
           // console.log('unchecked');
           Cookies.set('datanotification', 'show', {expires: date, path: '/'});
           // console.log(Cookies.get('datanotification'));
-          $('#breaking-news-container').show();
+          // $('#breaking-news-container').show();
         }
       }
     });
