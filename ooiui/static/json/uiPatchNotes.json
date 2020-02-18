@@ -1,5 +1,12 @@
 [
   {
+        "VersionNumber": "1.8.1",
+        "VersionDate": "2020-02-18",
+        "VersionDescription": [
+            "General: Updates metadata banner text. (14605)"
+        ]
+  },
+  {
         "VersionNumber": "1.8.0",
         "VersionDate": "2020-01-23",
         "VersionDescription": [
