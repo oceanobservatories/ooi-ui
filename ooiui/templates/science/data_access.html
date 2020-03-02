@@ -1147,6 +1147,7 @@
           //get the plot control model and create the
           //hide the download button
           $('#plot-view').empty();
+          $('#plot-view').append('<img src="/img/plotting/graph.png" style="height:300px;width:100%;">');
           $('.download-plot-container').css('display','none');
           $('#zoom-details').hide();
 
@@ -1158,9 +1159,12 @@
 
           //get the selected parameters, only plot is they meet the criteria
           //will be null if the inputs dont conform
-          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length);
+          var parameterCollection = this.views.plotControls.getSelectedParameters(self.collections.selectedStreamCollection.length, self.views.plotContainer.plotModel);
 
-          if (!_.isNull(parameterCollection)){
+          //console.log('update_plot');
+          //console.log(parameterCollection);
+
+          if (!_.isNull(parameterCollection) && parameterCollection.models.length > 0){
             // console.log('parameterCollection');
             // console.log(parameterCollection);
             self.views.plotContainer.showLoading();

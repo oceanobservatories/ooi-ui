@@ -106,102 +106,114 @@
     </div>
 
     <div id="wrapper" style="padding-left:15px;padding-top:15px">
-
-        <div class="row">
-            <ul class="breadcrumb">
-                <li id="selected-instrument-type-btn">Choose Instrument Type Below to Begin</li>
-                <li id="selected-instrument-btn"></li>
-                <li id="selected-year-btn"></li>
-                <li id="selected-month-btn"></li>
-                <l1 id="selected-ref-des"></l1>
-            </ul>
-        </div>
-
-        <div class="row">
-            <div id="inst-type-menu" class="media-menu-nav-buttons"><button id="inst-type-menu-btn" class="button">Instrument Types</button>
-                <div class="filters" id="filters-list" style="list-style: none;" hidden>
-                    <!-- INSTRUMENT TYPES -->
-                    <div class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types">
-                        <button class="button" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">Digital Still Camera</button>
-
-                        <button class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>HD Video</button>
-
-                        <button class="button" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">Benthic Fluid Flow</button>
-
-                        <button class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>Broadband Hydrophone</button>
-
-                        <button class="button" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">Mass Spectrometer</button>
-
-                        <button class="button" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">Osmosis-Based Water Sampler</button>
-
-                        <button class="button" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">Particulate DNA Sampler</button>
-
-                        <button class="button" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">Hydrothermal Vent Fluid Interactive Sampler</button>
-
-                        <button class="button" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">Bio-acoustic Sonar (Coastal)</button>
-                        <!--<label class="container"> Digital Still Camera (CAMDS)
-                            <input type="radio" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">
-                            <span class="checkmark" title="CAMDS"></span>
-                        </label>
-                        <label class="container"> HD Digital Video Camera (CAMHD)
-                            <input type="radio" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD" disabled>
-                            <span class="checkmark disabled" title="CAMHD"></span>
-                        </label>
-                        <label class="container"> Benthic Fluid Flow (FLOBN)
-                            <input type="radio" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">
-                            <span class="checkmark" title="FLOBN"></span>
-                        </label>
-                        <label class="container"> Broadband Acoustic Receiver (Hydrophone) (HYDBB)
-                            <input type="radio" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB" disabled>
-                            <span class="checkmark disabled" title="HYDBB"></span>
-                        </label>
-                        <label class="container"> Mass Spectrometer (MASSP)
-                            <input type="radio" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">
-                            <span class="checkmark" title="MASSP"></span>
-                        </label>
-                        <label class="container"> Osmosis-Based Water Sampler (OSMOI)
-                            <input type="radio" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">
-                            <span class="checkmark" title="OSMOI"></span>
-                        </label>
-                        <label class="container"> Particulate DNA Sampler (PPS)
-                            <input type="radio" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">
-                            <span class="checkmark" title="PPS"></span>
-                        </label>
-                        <label class="container"> Hydrothermal Vent Fluid Interactive Sampler (RAS)
-                            <input type="radio" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">
-                            <span class="checkmark" title="RAS"></span>
-                        </label>
-                        <label class="container"> Bio-acoustic Sonar (Coastal) (ZPL)
-                            <input type="radio" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">
-                            <span class="checkmark" title="ZPL"></span>
-                        </label>-->
+        <!-- breadcrumb and map
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <ul class="breadcrumb">
+                                <li id="selected-instrument-type-btn">Choose Instrument Type Below to Begin</li>
+                                <li id="selected-instrument-btn"></li>
+                                <li id="selected-year-btn"></li>
+                                <li id="selected-month-btn"></li>
+                                <l1 id="selected-ref-des"></l1>
+                            </ul>
+                        </div>
                     </div>
+                </div>  -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <ul class="breadcrumb-nav">
+                        <div class="pull-left">
+                            <label for="select-instrument-type-btn">Instrument Group</label>
+                            <li id="select-instrument-type-btn">
+                                <div id="inst-type-menu" class="media-menu-nav-buttons">
+                                    {#                    <button id="inst-type-menu-btn" class="button">Instrument Types</button>#}
+                                    {#                    <span class="help-step">Instrument Types</span>#}
+                                    <div class="filters" id="filters-list">
+                                        <!-- INSTRUMENT TYPES -->
+                                        <select class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types" data-hint="Start here by choosing an instrument type, working your way down the selections to month.">
+                                            <option class="button" title="Select Instrument Group" disabled selected>Select Instrument Group</option>
+                                            <option class="button" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">Digital Still Camera</option>
+                                            <option class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD">HD Video</option>
+                                            <option class="button" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">Benthic Fluid Flow</option>
+                                            <option class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB">Broadband Hydrophone</option>
+                                            <option class="button" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">Mass Spectrometer</option>
+                                            <option class="button" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">Osmosis-Based Water Sampler</option>
+                                            <option class="button" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">Particulate DNA Sampler</option>
+                                            <option class="button" name="instrument-types" data-filter=".ras" value=".ras" title="RAS">Hydrothermal Vent Fluid Interactive Sampler</option>
+                                            <option class="button" name="instrument-types" data-filter=".zpl" value=".zpl" title="ZPL">Bio-acoustic Sonar (Coastal)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+
+                        <div class="pull-left">
+                            <label for="select-instrument-btn">Instrument</label>
+                            <li id="select-instrument-btn">
+                                <div id="inst-menu" class="media-menu-nav-buttons">
+                                    {#                    <button class="button">Instruments</button>#}
+                                    <div class="filters" id="filters-list-instruments">
+                                        <select class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+
+                        <div class="pull-left">
+                            <label for="select-year-btn">Year</label>
+                            <li id="select-year-btn">
+                                <div id="years-menu" class="media-menu-nav-buttons">
+                                    {#                    <button class="button">Years</button>#}
+                                    <div class="filters" id="filters-list-years">
+                                        <select class="button-group filters-button-group" data-filter-group="years" id="years-group">
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+
+                        <div class="pull-left">
+                            <label for="select-month-btn">Month</label>
+                            <li id="select-month-btn">
+                                <div id="months-menu" class="media-menu-nav-buttons">
+                                    {#                    <button class="button">Months</button>#}
+                                    <div class="filters" id="filters-list-months">
+                                        <select class="button-group filters-button-group" data-filter-group="months" id="months-group">
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
                 </div>
+            </div>
+        </div> <!-- breadcrumb and map -->
+
+        {#        <label for="selected-ref-des">Reference Designator</label>#}
+        <div id="selected-ref-des"></div>
+
+        {#<div class="row" hidden>
+            <div class="col-md-2">
+
             </div>
 
             <!-- INSTRUMENTS -->
-            <div id="inst-menu" class="media-menu-nav-buttons"><button class="button">Instruments</button>
-                <div class="filters" id="filters-list-instruments" style="list-style: none;" hidden>
-                    <div class="button-group filters-button-group" data-filter-group="instrument" id="instruments-group">
-                        <p class="h5">Choose an instrument on the left...</p>
-                    </div>
-                </div>
+            <div class="col-md-4">
+
             </div>
 
             <!-- YEARS -->
-            <div id="years-menu" class="media-menu-nav-buttons"><button class="button">Years</button>
-                <div class="filters" id="filters-list-years" style="list-style: none;" hidden>
-                    <div class="button-group filters-button-group" data-filter-group="years" id="years-group">
-                    </div>
-                </div>
+            <div class="col-md-2">
+
             </div>
 
             <!-- MONTHS -->
-            <div id="months-menu" class="media-menu-nav-buttons"><button class="button">Months</button>
-                <div class="filters" id="filters-list-months" style="list-style: none;" hidden>
-                    <div class="button-group filters-button-group" data-filter-group="months" id="months-group">
-                    </div>
-                </div>
+            <div class="col-md-2">
+
             </div>
 
             <!-- DAYS
@@ -211,21 +223,26 @@
                     </div>
                 </div>
             </div>-->
-        </div>
 
-        <div id="media-spinner">
-            <div class="fa fa-3x fa-spinner fa-spin centered"></div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-10">
-                <div class="cam-image-grid"></div>
-            </div>
-            <div class="col-md-2">
+
+
+            <div class="col-md-2" hidden>
                 <div class="row">
                     <div id="mapid" class="col-md-2"></div>
                 </div>
+            </div>
+        </div> <!-- navigation menus -->#}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cam-image-grid"></div>
+            </div>
+            {#<div class="col-md-2">
                 <div class="row">
+                    <div id="mapid" class="col-md-2"></div>
+                </div>
+                <div class="row" hidden>
                     <div id="clock-wrapper">
                         <p>
                             <strong><a href="http://oceanobservatories.org/streaming-underwater-video/" target="_blank">Axial Seamount</a> live video will occur in:<br>
@@ -235,26 +252,14 @@
                         <video id="video"></video>
                     </div>
                 </div>
-            </div>
+            </div>#}
+        </div> <!-- image grid -->
+
+        <div id="media-spinner">
+            <div class="fa fa-3x fa-spinner fa-spin centered"></div>
         </div>
 
-        <!--<div id="wrapper" style="padding-left:15px;padding-top:15px">
 
-
-            <div style="padding-top:200px">
-                <div class="row">
-                    <div class="col-sm-12" style="padding-right: 30px;">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div style="margin-left:50px;margin-right:50px" class="cam-image-panel">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>  #wrapper -->
     </div>
 
     <style>
@@ -265,9 +270,13 @@
         }
 
         .media-menu-nav-buttons{
-            float: left;
-            margin-right: 5px;
-            padding-left: 15px;
+            /*float: left;*/
+            /*margin-right: 5px;*/
+            /*padding-left: 15px;*/
+        }
+
+        .col-md-2 {
+
         }
 
         /* Style the list */
@@ -302,6 +311,63 @@
             text-decoration: underline;
         }
 
+
+
+
+
+
+
+
+        /* Style the list */
+        ul.breadcrumb-nav {
+            list-style: none;
+            min-height: 50px;
+            padding: 10px 16px 10px;
+            margin: 0px 0px 0px 0px;
+            /*background-color: lightgrey;*/
+            /*background-image: linear-gradient( to top, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );*/
+        }
+
+        /* Display list items side by side */
+        ul.breadcrumb-nav li {
+            display: inline;
+            font-size: 18px;
+        }
+
+        /* Add a slash symbol (/) before/behind each list item */
+        ul.breadcrumb-nav li+li:before {
+            padding: 8px;
+            color: black;
+        }
+
+        /* Add a color to all links inside the list */
+        ul.breadcrumb-nav li select {
+            /*color: #0275d8;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;*/
+
+            display: inline-block;
+            padding: 10px 18px;
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 7px;
+            background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+            color: #222;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-shadow: 0 1px white;
+            cursor: pointer;
+        }
+
+        /* Add a color on mouse-over */
+        ul.breadcrumb-nav li select:hover {
+            background-color: #8CF;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+            color: #222;
+        }
+
         #mapid{
             height: 250px;
             width: 100%;
@@ -313,8 +379,9 @@
 
         .filters{
             background-color: white;
-            width: 95vw;
+            /*width: 100%;*/
             float: left;
+            padding-right: 5px;
         }
 
         .slick-prev{
@@ -804,22 +871,22 @@
 
                 $('#inst-type-menu').on('click', function(e){
                     // console.log(e);
-                    $('#filters-list').toggle();
+                    // $('#filters-list').toggle();
                 });
 
                 $('#inst-menu').on('click', function(e){
                     // console.log(e);
-                    $('#filters-list-instruments').toggle();
+                    //$('#filters-list-instruments').toggle();
                 });
 
                 $('#years-menu').on('click', function(e){
                     // console.log(e);
-                    $('#filters-list-years').toggle();
+                    //$('#filters-list-years').toggle();
                 });
 
                 $('#months-menu').on('click', function(e){
                     // console.log(e);
-                    $('#filters-list-months').toggle();
+                    //$('#filters-list-months').toggle();
                 });
 
 

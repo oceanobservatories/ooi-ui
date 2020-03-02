@@ -115,7 +115,7 @@ var plotParameters ={
                 throw "Bad Date Object";
             }
         }catch(e){
-            console.log(e);
+            //console.log(e);
             this._selectedX.valid=false;
             $('#bottom-row #plot-view').append('<div class="alert alert-warning fade in"><a href="#" class="close" data-dismiss="alert">×</a><strong>Date Warning!</strong> &nbsp;' + 'Start Time must be less than End Time </div>');
             return false;
@@ -330,21 +330,22 @@ var SVGPlotView = SVGView.extend({
             this.st = options.attributes.data.start;
             this.ed = options.attributes.data.end;
 
-            this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({format: this.format,
-                                                                                                         x_units:x_units,
-            y_units:y_units,
-            dpa_flag: this.dpa_flag,
-            yvar: this.yvariable ,
-            xvar: this.xvariable,
-            height: this.height,
-            width: this.width,
-            scatter:this.useScatter,
-            lines:this.useLine,
-            event:this.useEvent,
-            plotLayout:this.plotType,
-            startdate:this.st,
-            enddate:this.ed,
-            qaqc:plotParameters.getQAQC()});
+            this.url = '/svg/plot/' + this.reference_designator + '/' + this.stream_name + '?' + $.param({
+                format: this.format,
+                x_units:x_units,
+                y_units:y_units,
+                dpa_flag: this.dpa_flag,
+                yvar: this.yvariable ,
+                xvar: this.xvariable,
+                height: this.height,
+                width: this.width,
+                scatter:this.useScatter,
+                lines:this.useLine,
+                event:this.useEvent,
+                plotLayout:this.plotType,
+                startdate:this.st,
+                enddate:this.ed,
+                qaqc:plotParameters.getQAQC()});
 
             this.fetch();
 

@@ -53,6 +53,27 @@ var PlotControlView = Backbone.View.extend({
     self.subviews = [];
     var isInterpolated = this.collection.length == 2 ? true : false;
 
+    // If ADCP, change the plot type to Binned Pseudocolor
+    //console.log('render');
+    //console.log(self.collection);
+    let stream = '';
+    if (self.collection.models[0])
+      stream = self.collection.models[0].get('stream');
+
+    // console.log(stream);
+    // console.log(stream.startsWith('adcp'));
+
+    let isADCP = stream.startsWith('adcp_velocity_');
+    if (isADCP) {
+      self.plotModel.set('plotType', 'stacked');
+      // ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
+    } else {
+      self.plotModel.set('plotType', 'xy');
+    }
+    // console.log(self.plotModel);
+    // console.log(self.plotDefaultModel);
+    //console.log(this.collection.models[0]);
+
     if (this.collection.length == 0){
       this.$el.html(this.template({plotModel:null}));
       //self.$el.find('.plot-control-view .row').append('<p class="initial-text"> Please select an instrument from the Data Catalog below using the <i style="font-size:14px;pointer-events: none;" class="fa fa-plus-square" aria-hidden="true"></i> button to begin plotting.</p>');
@@ -292,7 +313,7 @@ var PlotControlView = Backbone.View.extend({
     this.plotModel.set('qaqc',$(e.target).val());
     //ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
-  getSelectedParameters: function(selectedDataCollection){
+  getSelectedParameters: function(selectedDataCollection, plotModel){
     var self = this;
 
     var selectedParameterCollection = new ParameterCollection();
@@ -320,15 +341,27 @@ var PlotControlView = Backbone.View.extend({
       referenceCount = 2;
     }
 
-    if (selectedParameterCollection.length == 0 || selectedDataCollection == 0){
+    //console.log('getSelectedParameters');
+    //console.log(plotModel);
+    let isStacked = plotModel.get('plotType') === 'stacked';
+
+
+    //console.log(selectedParameterCollection.length === 0);
+    //console.log(!isStacked);
+    //console.log(selectedDataCollection === 0);
+
+    if ((selectedParameterCollection.length === 0 && !isStacked) || selectedDataCollection === 0){
         ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Please select an instrument and valid input parameters"} );
         return null;
-    }else if (this.plotModel.get('plotType') == 'stacked'){
-      if ( _.isEmpty(zLen) ){
+    }else if (this.plotModel.get('plotType') === 'stacked'){
+      if ( _.isEmpty(zLen) && !isStacked){
+        //console.log(zLen);
         ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for color"} );
         return null;
       }
       else if ( (zLen.length > referenceCount )){
+        //console.log(zLen.length);
+        //console.log(referenceCount);
         ooi.trigger('plot:error', {title: "Incorrect Inputs", message:"Incorrect inputs selected, please select only 1 parameter for Color"} );
         return null;
       }
@@ -383,7 +416,27 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     var self = this;
     self.subviews = [];
 
-    var selectedPlotType = self.plotModel.get('plotTypeOptions').where({value:self.plotModel.get('plotType')})[0]
+        // If ADCP, change the plot type to Binned Pseudocolor
+    //console.log('render');
+    // console.log(self.collection);
+
+    let stream = self.model.get('stream');
+
+    // console.log(stream);
+    // console.log(stream.startsWith('adcp'));
+
+    let isADCP = stream.startsWith('adcp_velocity_beam');
+    if (isADCP) {
+      self.plotModel.set('plotType', 'stacked');
+      // ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
+    }
+    // console.log(self.plotModel);
+    // console.log(self.plotDefaultModel);
+    // console.log(this.collection.models[0]);
+
+    var selectedPlotType = self.plotModel.get('plotTypeOptions').where({value:self.plotModel.get('plotType')})[0];
+    //console.log('selectedPlotType');
+    //console.log(selectedPlotType);
 
     this.$el.html(this.template({ model:this.model, plotTypeModel: selectedPlotType, isInterpolated: self.isInterpolated }));
 
