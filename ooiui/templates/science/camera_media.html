@@ -136,9 +136,9 @@
                                         <select class="button-group filters-button-group" data-filter-group="instruments" id="instrument-types" data-hint="Start here by choosing an instrument type, working your way down the selections to month.">
                                             <option class="button" title="Select Instrument Group" disabled selected>Select Instrument Group</option>
                                             <option class="button" name="instrument-types" data-filter=".camds" value=".camds" title="CAMDS">Digital Still Camera</option>
-                                            <option class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD">HD Video</option>
+{#                                            <option class="button" name="instrument-types" data-filter=".camhd" value=".camhd" title="CAMHD">HD Video</option>#}
                                             <option class="button" name="instrument-types" data-filter=".flobn" value=".flobn" title="FLOBN">Benthic Fluid Flow</option>
-                                            <option class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB">Broadband Hydrophone</option>
+{#                                            <option class="button" name="instrument-types" data-filter=".hydbb" value=".hydbb" title="HYDBB">Broadband Hydrophone</option>#}
                                             <option class="button" name="instrument-types" data-filter=".massp" value=".massp" title="MASSP">Mass Spectrometer</option>
                                             <option class="button" name="instrument-types" data-filter=".osmoi" value=".osmoi" title="OSMOI">Osmosis-Based Water Sampler</option>
                                             <option class="button" name="instrument-types" data-filter=".pps" value=".pps" title="PPS">Particulate DNA Sampler</option>
@@ -195,6 +195,7 @@
 
         {#        <label for="selected-ref-des">Reference Designator</label>#}
         <div id="selected-ref-des"></div>
+        <div id="mapid" class="col-md-2" hidden></div>
 
         {#<div class="row" hidden>
             <div class="col-md-2">
@@ -478,9 +479,9 @@
         .button[disabled] {
             pointer-events: none;
             cursor:not-allowed;
-            background-color: #636363;
+            background-color: #3d36b9;
             text-shadow: 0 1px hsla(0, 0%, 57%, 0.5);
-            color: #636363;
+            color: #FFFFFF;
         }
 
         /* ---- isotope ---- */
@@ -726,7 +727,7 @@
                 clock.innerHTML = clock_str;
             }, 1000);
         }
-        initializeClock('clockdiv');
+        // initializeClock('clockdiv');
     </script>
 
     <script type="text/javascript">
@@ -819,7 +820,7 @@
                 });
 
                 this.listenTo(self.collections.camImages2, 'reset', function(options) {
-                    console.log(self.collections.camImages2);
+                    // console.log(self.collections.camImages2);
                     self.views.camImages2.collection = self.collections.camImages2;
                     self.views.camImages2.collectionInstruments = self.collections.camInstruments;
                     self.views.camImages2.collectionMap = self.collections.camMap;
