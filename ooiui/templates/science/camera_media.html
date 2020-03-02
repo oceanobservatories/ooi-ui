@@ -125,8 +125,8 @@
             <div class="col-md-12">
                 <div class="row">
                     <ul class="breadcrumb-nav">
-                        <div class="pull-left">
-                            <label for="select-instrument-type-btn">Instrument Group</label>
+                        <div class="media-drops">
+                            <label for="select-instrument-type-btn" class="media-dd-label">Instrument Group</label>
                             <li id="select-instrument-type-btn">
                                 <div id="inst-type-menu" class="media-menu-nav-buttons">
                                     {#                    <button id="inst-type-menu-btn" class="button">Instrument Types</button>#}
@@ -150,8 +150,8 @@
                             </li>
                         </div>
 
-                        <div class="pull-left">
-                            <label for="select-instrument-btn">Instrument</label>
+                        <div class="media-drops">
+                            <label for="select-instrument-btn" class="media-dd-label">Instrument</label>
                             <li id="select-instrument-btn">
                                 <div id="inst-menu" class="media-menu-nav-buttons">
                                     {#                    <button class="button">Instruments</button>#}
@@ -163,8 +163,8 @@
                             </li>
                         </div>
 
-                        <div class="pull-left">
-                            <label for="select-year-btn">Year</label>
+                        <div class="media-drops">
+                            <label for="select-year-btn" class="media-dd-label">Year</label>
                             <li id="select-year-btn">
                                 <div id="years-menu" class="media-menu-nav-buttons">
                                     {#                    <button class="button">Years</button>#}
@@ -176,8 +176,8 @@
                             </li>
                         </div>
 
-                        <div class="pull-left">
-                            <label for="select-month-btn">Month</label>
+                        <div class="media-drops">
+                            <label for="select-month-btn" class="media-dd-label">Month</label>
                             <li id="select-month-btn">
                                 <div id="months-menu" class="media-menu-nav-buttons">
                                     {#                    <button class="button">Months</button>#}
@@ -264,6 +264,12 @@
     </div>
 
     <style>
+
+    .media-drops {
+        float: left !important;
+        padding-right: 20px;
+        min-width: 100px;
+    }
 
         #selected-ref-des {
             font-size: 10px;
@@ -421,6 +427,11 @@
             font-family: sans-serif;
         }
 
+         .media-dd-label {
+             font-family: sans-serif;
+             font-size: 16px;
+         }
+
         /* ---- button ---- */
 
         .button {
@@ -464,6 +475,10 @@
             content: '';
             display: inline-block;
             clear: both;
+        }
+
+        .button-group {
+            min-width: 100px;
         }
 
         .button-group .button {
