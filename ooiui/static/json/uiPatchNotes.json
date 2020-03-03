@@ -3,9 +3,9 @@
         "VersionNumber": "1.8.2",
         "VersionDate": "2020-03-03",
         "VersionDescription": [
-            "Plotting: Changed ADCP instruments to default to Binned Pseudocolor plot type. (11862)",
+            "Help: Fixed uFrame version sorting. (14652)",
             "Media: Simplified media navigation. (8869)",
-            "Help: Fixed uFrame version sorting. (14652)"
+            "Plotting: Changed ADCP instruments to default to Binned Pseudocolor plot type. (11862)"
         ]
   },
   {
