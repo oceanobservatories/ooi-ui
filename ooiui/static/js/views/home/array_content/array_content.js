@@ -328,7 +328,7 @@ var ArrayContentSummaryItem = ParentView.extend({
 
     // when resetting the page, change the title back to 'Home'
     bannerTitle = 'Home';
-    banner.changeTitle({bannerTitle});
+    ooi.views.banner.changeTitle({bannerTitle});
   },
   _addPopup: function(loc, name) {
     popup.setLngLat(loc)
@@ -357,7 +357,7 @@ var ArrayContentSummaryItem = ParentView.extend({
 
         // give the impression that the page has changed, change the title.
         bannerTitle = flyFlyContext.model.attributes.display_name;
-        banner.changeTitle({bannerTitle});
+        ooi.views.banner.changeTitle({bannerTitle});
       });
     });
 

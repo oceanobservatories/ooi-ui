@@ -1,5 +1,14 @@
 [
   {
+        "VersionNumber": "1.8.2",
+        "VersionDate": "2020-03-03",
+        "VersionDescription": [
+            "Help: Fixed uFrame version sorting. (14652)",
+            "Media: Simplified media navigation. (8869)",
+            "Plotting: Changed ADCP instruments to default to Binned Pseudocolor plot type. (11862)"
+        ]
+  },
+  {
         "VersionNumber": "1.8.1",
         "VersionDate": "2020-02-18",
         "VersionDescription": [

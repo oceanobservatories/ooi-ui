@@ -9,7 +9,7 @@ var ImagePlotView = BasePlot.extend({
   },
   render: function(plotParameters, plotModel, plotDates){
     var self = this;
-    this.$el.html('<div style="width:100%;height:600px;text-align:center;" id="plotContainer"></div>');
+    this.$el.html('<div style="width:100%;height:600px;text-align:center;" id="plotContainerInner"></div>');
     $('#plot-view').css('height','600');
 
     var params = [];
@@ -76,7 +76,13 @@ var ImagePlotView = BasePlot.extend({
 
     }
     else if (plotModel.get('plotType') == 'stacked'){
+      //console.log("$('#plotContainer').width()");
+      //console.log($('#plotContainer').width());
+
       width = Math.floor($('#plotContainer').width()*.9);
+      if (width <= 0)
+        width = 1500;
+      width = 1520;
       height = 600;
 
       if ( !_.isNull(paramOrder['z'])){
@@ -117,12 +123,12 @@ var ImagePlotView = BasePlot.extend({
     var recursiveEncoded = $.param( inputParams );
 
     var url = '/svg/plot/' + reference_designator + '/' + stream_name + "?" + recursiveEncoded;
-    this.$el.find('#plotContainer').append('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:0%;font-size:90px;"> </i>');
+    this.$el.find('#plotContainerInner').append('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:0%;font-size:90px;"> </i>');
 
     var img = new Image();
     img.src = url;
-    img.height = 600;
-    //img.width = Math.floor($('#plotContainer').width()*.9);
+    // img.height = 600;
+    // img.width = Math.floor($('#plotContainer').width()*.9);
     img.id  = "dataPlot";
     img.onload=function(){
                           self.$el.find('.fa-spin').remove();
@@ -132,7 +138,10 @@ var ImagePlotView = BasePlot.extend({
                           //show the download
                           $('.download-plot-container').css('display','block');
                          }
-    this.$el.find('#plotContainer').append(img);
+    this.$el.find('#plotContainerInner').append(img);
+    $('#dataPlot').attr('width', '95%');
+    $('#dataPlot').attr('height', '95%');
+
 
     this.$el.find('#dataPlot').error(function(e,r,s) {
       if (valid){

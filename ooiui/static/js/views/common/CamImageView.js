@@ -126,8 +126,8 @@ var CamImageView2 = Backbone.View.extend({
     },
     // Clicked on the instrument type
     instrumentTypeSelection: function(event){
-        console.log('instrumentTypeSelection');
-        console.log(event);
+        //console.log('instrumentTypeSelection');
+        //console.log(event);
         //event.preventDefault();
 
         let self = this;
@@ -139,10 +139,10 @@ var CamImageView2 = Backbone.View.extend({
         var $button = $( event.currentTarget );
         // get group key
         var $buttonGroup = $button.parents('.button-group');
-        var filterGroup = $buttonGroup.attr('data-filter-group');
+        var filterGroup = event.target.dataset.filterGroup;
         // set filter for group
-        self.filters[ filterGroup ] = $button.attr('data-filter');
-        let instrumentGroup = $button.attr('title');
+        self.filters[ filterGroup ] = event.target.attributes['data-filter-group'].value;
+        let instrumentGroup = event.target.selectedOptions[0].title;
         //console.log('filters');
         //console.log(filters);
         // combine filters
@@ -156,7 +156,7 @@ var CamImageView2 = Backbone.View.extend({
 
 
         $('#selected-instrument-type-btn').empty();
-        $('#selected-instrument-type-btn').append($button.text());
+        $('#selected-instrument-type-btn').append(event.target.selectedOptions[0].text);
         $('#selected-instrument-btn').empty();
         $('#selected-instrument-btn').append('Select Instrument');
         $('#selected-year-btn').empty();
@@ -173,23 +173,25 @@ var CamImageView2 = Backbone.View.extend({
         let instrumentsSortedHtml = [];
 
         $.when(self.collectionInstruments.fetch({url: '/api/uframe/media/get_instrument_list/'+instrumentGroup})).done(function(data){
-            console.log(data);
+            //console.log(data);
             $('#instruments-group').empty();
             //$('#instruments-group').append('<button class="button is-checked" data-filter="*">Choose Instrument</button>');
             let instrumentsSorted = data.instruments.sort();
 
+            $('#instruments-group').append('<option class="button" title="Select Instrument" disabled selected>Select Instrument</option>');
             $.each(instrumentsSorted, function(key, instrument){
                 //$.when(self.collectionVocab.fetch({url: '/api/uframe/streams_for/'+instrument})).done(function (vocab) {
                 $.when(self.collectionVocab.fetch({url: '/api/uframe/media/get_display_name/'+instrument})).done(function (vocab) {
-                    console.log(vocab);
-                    $('#instruments-group').append('<button class="button" data-filter=".'+instrument+'" title="'+instrument+'" data-ref_des="'+instrument+'" data-long_name="'+vocab.vocab.long_name+'">'+vocab.vocab.long_name+'</button>');
+                    //console.log(vocab);
+                    $('#instruments-group').append('<option class="button" data-filter=".'+instrument+'" title="'+instrument+'" data-ref_des="'+instrument+'" data-long_name="'+vocab.vocab.long_name+'">'+vocab.vocab.long_name+'</option>');
                 });
             })
         });
-        $('#inst-type-menu-btn').removeClass('is-checked');
+        //$('#inst-type-menu-btn').removeClass('is-checked');
     },
     yearsButtonClick:function(event){
-        console.log('yearsButtonClick');
+        //console.log('yearsButtonClick');
+        //console.log(event);
         event.preventDefault();
 
         let self = this;
@@ -197,8 +199,8 @@ var CamImageView2 = Backbone.View.extend({
         // Clicked on a year
         // Go get the months
         let $button = $( event.currentTarget );
-        let selectedYear = $button.attr('title');
-        let ref_des = $button.attr('data-ref_des');
+        let selectedYear = event.target.selectedOptions[0].value;
+        let ref_des = event.target.selectedOptions[0].dataset['ref_des'];
 
         $('.element-item').remove();
         $('#days-group').empty();
@@ -212,18 +214,20 @@ var CamImageView2 = Backbone.View.extend({
         // Populate the months
         self.collectionMonths.reset();
         $.when(self.collectionMonths.fetch({url: '/api/uframe/media/'+ref_des+'/da/'+selectedYear}).done(function (data) {
-            console.log('months');
-            console.log(data);
+            //console.log('months');
+            //console.log(data);
 
             $('#months-group').empty();
             //$('#instruments-group').append('<button class="button is-checked" data-filter="*">Choose Instrument</button>');
+            $('#months-group').append('<option class="button" title="Select Month" disabled selected>Select Month</option>');
             $.each(data.months, function(key, month){
-                $('#months-group').append('<button class="button" data-filter=".'+month+'" title="'+month+'" data-ref_des="'+ref_des+'">'+month+'</button>');
+                $('#months-group').append('<option class="button" data-filter=".'+month+'" title="'+month+'" data-ref_des="'+ref_des+'">'+month+'</option>');
             })
         }))
     },
     monthsButtonClick:function(event){
-        console.log('monthsButtonClick');
+        //console.log('monthsButtonClick');
+        //console.log(event);
         //event.preventDefault();
 
         let self = this;
@@ -231,8 +235,8 @@ var CamImageView2 = Backbone.View.extend({
         // Clicked on a year
         // Go get the months
         let $button = $( event.currentTarget );
-        let selectedMonth = $button.attr('title');
-        let ref_des = $button.attr('data-ref_des');
+        let selectedMonth = event.target.selectedOptions[0].title;
+        let ref_des = event.target.selectedOptions[0].dataset['ref_des'];
 
         $('.element-item').remove();
 
@@ -245,8 +249,8 @@ var CamImageView2 = Backbone.View.extend({
             let first_date = data.bounds['first_date'];
             let last_date = data.bounds['last_date'];
 
-            let chosenYear = $('#years-group .is-checked')[0].title;
-            let chosenMonth = ("0" + $('#months-group .is-checked')[0].title).slice(-2);
+            let chosenYear = $('#years-group').val();
+            let chosenMonth = ("0" + $('#months-group').val()).slice(-2);
 
             $.when(self.collectionDays.fetch({url: '/api/uframe/media/'+ref_des+'/da/'+chosenYear+'/'+chosenMonth})).done(function (days) {
                 let firstDay = ("0" + days.days[0]).slice(-2);
@@ -256,14 +260,14 @@ var CamImageView2 = Backbone.View.extend({
 
                 $('#media-spinner').show();
                 $.when(self.collection.fetch({url: '/api/uframe/media/'+ref_des+'/range/'+first_date+'/'+last_date})).done(function(data){
-                    console.log(data);
+                    //console.log(data);
                     self.render({'first_time': false})
                 });
             });
         });
     },
     filterButtonClick:function(event){
-        console.log('filterButtonClick');
+        //console.log('filterButtonClick');
         event.preventDefault();
 
         let self = this;
@@ -291,14 +295,15 @@ var CamImageView2 = Backbone.View.extend({
     },
     // Clicked on the Instrument
     clickInstrumentsGroup:function(event){
-        console.log('clickInstrumentsGroup');
+        //console.log('clickInstrumentsGroup');
+        //console.log(event);
         event.preventDefault();
 
         let self = this;
 
         let $button = $( event.currentTarget );
-        let instrumentGroup = $button.attr('title');
-        let long_name = $button.attr('data-long_name');
+        let instrumentGroup = event.target.selectedOptions[0].title;
+        let long_name = event.target.selectedOptions[0].value;
 
         $('.element-item').remove();
         $('#months-group').empty();
@@ -315,13 +320,14 @@ var CamImageView2 = Backbone.View.extend({
 
         self.collectionMap.reset();
         $.when(self.collectionMap.fetch({url: '/api/uframe/media/'+instrumentGroup+'/da/map'})).done(function(data){
-            console.log(data);
+            //console.log(data);
             self.daMap = data;
             $('#years-group').empty();
             //$('#years-group').append('<button class="button" data-filter="*" title="*">All Years</button>');
 
+            $('#years-group').append('<option class="button" title="Select Year" disabled selected>Select Year</option>');
             $.each(data.map, function(year, months){
-                $('#years-group').append('<button class="button" data-filter=".'+year+'" title="'+year+'" data-ref_des="'+instrumentGroup+'">'+year+'</button>');
+                $('#years-group').append('<option class="button" data-filter=".'+year+'" title="'+year+'" data-ref_des="'+instrumentGroup+'">'+year+'</option>');
             });
         });
     },
@@ -329,8 +335,8 @@ var CamImageView2 = Backbone.View.extend({
         this.$el.find('.thumbnail-grid').append(subview.el);
     },
     render: function(options) {
-        console.log('render');
-        console.log(options);
+        //console.log('render');
+        //console.log(options);
         let self = this;
         this.$el.html(this.template(options));
 
@@ -367,41 +373,42 @@ var CamImageView2 = Backbone.View.extend({
                 },
                 byYear: function () {
                     var year = $(this).find('.year').text();
-                    console.log(year)
+                    //console.log(year);
                     return parseInt(year, 10) === 2019;
                 }
             };
 
             // Clicked on the instrument type
-            $('[id^=instrument-types]').on('click','.button', function(event){
+            //$('[id^=instrument-types]').on('changed','.button', function(event){
+            $('[id^=instrument-types]').change(function(event){
                self.instrumentTypeSelection(event)
             });
 
             // Clicked on the instrument
-            $('[id^=instruments-group]').on('click','.button', function(event){
+            $('[id^=instruments-group]').change(function(event){
                self.clickInstrumentsGroup(event)
             });
 
-            $('[id^=years-group]').on('click','.button', function(event){
+            $('[id^=years-group]').change(function(event){
                self.yearsButtonClick(event)
             });
 
-            $('[id^=months-group]').on('click','.button', function(event){
+            $('[id^=months-group]').change(function(event){
                self.monthsButtonClick(event)
             });
 
             // change is-checked class on buttons
-            $('.button-group').each( function( i, buttonGroup ) {
+            /*$('.button-group').each( function( i, buttonGroup ) {
                 var $buttonGroup = $( buttonGroup );
                 $buttonGroup.on( 'click', 'button', function() {
                     $buttonGroup.find('.is-checked').removeClass('is-checked');
                     $( this ).addClass('is-checked');
                 });
                 //$buttonGroup.find('.is-checked').click();
-            });
+            });*/
 
-            $('#inst-type-menu-btn').click();
-            $('#inst-type-menu-btn').addClass('is-checked');
+            //$('#inst-type-menu-btn').click();
+            //$('#inst-type-menu-btn').addClass('is-checked');
         } else {
             if(this.collection.length > 0) {
                 // Loop through the media and add to the image gallery
@@ -430,7 +437,7 @@ var CamImageItemView2 = Backbone.View.extend({
     itemClick:function(evt){
         var self = this;
         evt.preventDefault();
-        console.log(self.model);
+        //console.log(self.model);
         if (!_.isUndefined(self.model.get('url'))){
             var text = "<small>"+self.model.get("date")+"</small>";
             bootbox.dialog({
