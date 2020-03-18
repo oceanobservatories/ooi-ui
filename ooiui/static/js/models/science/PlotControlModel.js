@@ -98,7 +98,8 @@ var PlotControlModel = Backbone.Model.extend({
                         { name: 'All', value: '10'}
                       ]),
 
-        defaultPlotTypes : null
+        defaultPlotTypes : null,
+        userSelected : false
     }
 });
 

@@ -11,6 +11,8 @@ var PlotControlView = Backbone.View.extend({
   subviews: [],
   plotModel : null, //plot style model containing the attributes
   plotDefaultModel: null,
+  userPlotTypeOverride: false,
+  userSelected: false,
   events: {
     "click  #addAdditionalPlotRow" : "addXYInputRow",
     "change .plot-control-select-form .selectpicker#plotTypeSelect" : "onPlotTypeSelect", //on plot type change
@@ -25,6 +27,8 @@ var PlotControlView = Backbone.View.extend({
     if ("plotModel" in options){
       this.plotModel = options.plotModel;
     }
+
+    this.userSelected = this.plotModel.get('userSelected');
     this.initialRender();
   },
   initialRender: function() {
@@ -64,11 +68,12 @@ var PlotControlView = Backbone.View.extend({
     // console.log(stream.startsWith('adcp'));
 
     let isADCP = stream.startsWith('adcp_velocity_');
-    if (isADCP) {
+    this.userSelected = this.plotModel.get('userSelected');
+    if (isADCP && !self.userSelected) {
       self.plotModel.set('plotType', 'stacked');
       // ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
     } else {
-      self.plotModel.set('plotType', 'xy');
+      // self.plotModel.set('plotType', 'xy');
     }
     // console.log(self.plotModel);
     // console.log(self.plotDefaultModel);
@@ -301,7 +306,9 @@ var PlotControlView = Backbone.View.extend({
     ooi.trigger('plotControlView:update_xy_chart',{model:this.plotModel});
   },
   onPlotTypeSelect: function(e){
+    this.userPlotTypeOverride = true;
     this.plotModel.set('plotType',$(e.target).val());
+    this.plotModel.set('userSelected', true);
     ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
 
     var defaultPlot = $(e.target).find('[value="'+$(e.target).val()+'"]').hasClass('not-default-plot-option');
@@ -398,10 +405,13 @@ var PlotInstrumentControlItem = Backbone.View.extend({
   subviews : [],
   events: {
   },
+  userSelected: false,
   initialize: function(options) {
     if ( "plotModel" in options){
       this.plotModel = options.plotModel;
     }
+
+    this.userSelected = this.plotModel.get('userSelected');
 
     if ( "control" in options){
       this.control = options.control;
@@ -425,8 +435,9 @@ var PlotInstrumentControlItem = Backbone.View.extend({
     // console.log(stream);
     // console.log(stream.startsWith('adcp'));
 
-    let isADCP = stream.startsWith('adcp_velocity_beam');
-    if (isADCP) {
+    let isADCP = stream.startsWith('adcp_velocity_');
+    this.userSelected = this.plotModel.get('userSelected');
+    if (isADCP  && !self.userSelected) {
       self.plotModel.set('plotType', 'stacked');
       // ooi.trigger('plotControlView:change_plot_type',{model:this.plotModel});
     }
