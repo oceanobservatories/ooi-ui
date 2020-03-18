@@ -1017,6 +1017,7 @@
           //listen to change events
           self.collections.selectedStreamCollection.reset();
           self.trigger('update_catalog_list',{});
+          self.models.plotModel.set('userSelected', false);
           //reset tabs
           self.hidePlottingTabs();
         });
@@ -1041,6 +1042,7 @@
           //}));
 
           self.trigger('update_catalog_list',{});
+          self.models.plotModel.set('userSelected', false);
           self.views.plotInstruments.render();
           self.hidePlottingTabs();
         });

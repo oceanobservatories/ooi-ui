@@ -1,5 +1,12 @@
 [
   {
+        "VersionNumber": "1.8.3",
+        "VersionDate": "2020-03-18",
+        "VersionDescription": [
+            "Plotting: Fixed bug in Plot Type selection. (14668)"
+        ]
+  },
+  {
         "VersionNumber": "1.8.2",
         "VersionDate": "2020-03-03",
         "VersionDescription": [
