@@ -1512,7 +1512,7 @@
 
     // Hides the IRIS modal after clicking the link
     var hideModal = function() {
-      $('button.close').click();
+        $("#ack-button").click();
     };
 
     // Opens the external link download
@@ -1525,9 +1525,9 @@
 
       if(rds_enabled === "true") {
         var theRDSMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
-        theRDSMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo.svg" alt="OOI" height="100"></p></div>';
+        theRDSMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo_RGB.png" alt="OOI" height="100"></p></div>';
         theRDSMessage += "You are about to navigate to the OOI raw data server.";
-        theRDSMessage += "<p><a id='rds_link_message' onClick='parent.hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
+        theRDSMessage += "<p><a id='rds_link_message' onClick='hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
         theRDSMessage += "</div>";
         message += theRDSMessage
       }
@@ -1536,7 +1536,7 @@
         var theIrisMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
         theIrisMessage += '<div style="background-color:#4D3493;width=100%;margin-top:15px;"><p><img src="/img/logos-banners/iris_logo_shadow.png" alt="IRIS" height="65"></p></div>';
         theIrisMessage += "You are about to navigate to an external website operated by IRIS.";
-        theIrisMessage += "<p><a id='iris_link_message' onClick='parent.hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
+        theIrisMessage += "<p><a id='iris_link_message' onClick='hideModal();' target='_blank' href='" + iris_link + "'>Click Here to Proceed</a></p>";
         theIrisMessage += "</div>";
         message += theIrisMessage;
       }
@@ -1546,6 +1546,7 @@
         type: "warning"
       });
     };
+
 
     {#    // Opens the IRIS external link download
         var openRawDownload = function(ref_des, stream_name, rds_link, dtRange) {

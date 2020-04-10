@@ -1,6 +1,6 @@
 <!-- set up the modal to start hidden and fade in and out -->
 <!-- <div id="myModal" class="modal fade"> -->
-<div class="modal-dialog">
+<div class="modal-dialog" id="modal-dialog-main">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title center" id="exampleModalLabel"><%= title %>
@@ -11,7 +11,7 @@
             <%= message %>
         </div>
         <div class="modal-footer">
-            <p class="center"><button type="button" class="btn btn-primary" data-dismiss="modal">Acknowledge</button></p>
+            <p class="center"><button type="button" class="btn btn-primary" data-dismiss="modal" id="ack-button">Acknowledge</button></p>
       </div>
     </div>
 </div>
