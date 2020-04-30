@@ -775,7 +775,7 @@ def deployment_post_ajax():
         # print clean_data['eventId']
         # print app.config['SERVICES_URL'] + '/uframe/events/%s' % clean_data['eventId']
         print json.dumps(clean_data)
-        response = requests.put(app.config['SERVICES_URL'] + '/uframe/deployments/%s' % clean_data['id'], auth=(token, ''), data=json.dumps(clean_data))
+        response = requests.put(app.config['SERVICES_URL'] + '/uframe/deployments/%s' % clean_data['eventId'], auth=(token, ''), data=json.dumps(clean_data))
         return response.text, response.status_code
         # return 'Edit record operation', 200
 

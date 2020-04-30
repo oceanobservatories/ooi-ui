@@ -363,17 +363,47 @@ def ci_logon():
 @app.route('/callback/cilogon', methods=['GET'])
 def ci_logon_callback():
     # begin 2 step oauth
+    debug = True
     try:
         # first, get the uuid and email
+        if debug:
+            print('request.args')
+            print(request.args)
+
         ci_callback_res = requests.get(app.config['SERVICES_URL'] + '/callback/cilogon', params=request.args)
         json_response = json.loads(ci_callback_res.text)
+        if debug:
+            print('got to json_response')
+            print(json_response)
 
         # use the response to simulate a login, and get a token back.
-        login_res = requests.get(app.config['SERVICES_URL'] + '/token', auth=(json_response['username'], json_response['uuid']))
+        # TODO: Check if 'username' in json_response, if not handle logging in manually with email verification
+        user_db_id = json_response['user_db_id']
+        username = json_response['username']
+        if debug:
+            print('Got to the response username')
+            print(username)
+
+        if username is None:
+            username = json_response['user_id']
+
+        if debug:
+            print(username)
+            print('get the token')
+
+        login_res = requests.get(app.config['SERVICES_URL'] + '/token', auth=(username, json_response['uuid']))
         json_login_res = json.loads(login_res.text)
+        if debug:
+            print(json_login_res)
 
         # reload the home page and pass the token.
-        return redirect(url_for('.new_index', token=json_login_res['token'], expiration=json_login_res['expiration']))
+        if username == json_response['user_id']:
+            # Redirect to let the user input an email and other PII if they want
+            return redirect(
+                url_for('.new_index', token=json_login_res['token'], expiration=json_login_res['expiration']))
+        else:
+            return redirect(
+                url_for('.new_index', token=json_login_res['token'], expiration=json_login_res['expiration']))
     except ValueError:
         return redirect(url_for('.new_index'))
 
