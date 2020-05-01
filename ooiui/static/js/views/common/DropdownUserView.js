@@ -41,7 +41,7 @@ var DropdownUserView = Backbone.View.extend({
       this.userModel.fetch({
         url: '/api/current_user',
         success: function(user_model) {
-          if (user_model.get('user_id') === user_model.get('email')) {
+          if (!user_model.get('email').includes('@')) {
             isAnon = true;
           }
           self.renderLoggedIn(isAnon);

@@ -5,7 +5,7 @@
         "VersionDescription": [
             "Data Catalog: Fixes double entries for HYDLF instruments. (14696)",
             "Data Catalog: Asset management and deployment editing fixes. (14443)",
-            "Data Catalog: Plots returning images width fix. (14668)",
+            "Data Catalog: Plots returning images width fix. (14714)",
             "General: CI Logon update. (14697)"
         ]
   },

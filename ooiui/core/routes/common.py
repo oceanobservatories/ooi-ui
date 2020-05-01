@@ -378,7 +378,7 @@ def ci_logon_callback():
 
         # use the response to simulate a login, and get a token back.
         # TODO: Check if 'username' in json_response, if not handle logging in manually with email verification
-        user_db_id = json_response['user_db_id']
+        # user_db_id = json_response['user_db_id']
         username = json_response['username']
         if debug:
             print('Got to the response username')
