@@ -363,7 +363,7 @@ def ci_logon():
 @app.route('/callback/cilogon', methods=['GET'])
 def ci_logon_callback():
     # begin 2 step oauth
-    debug = True
+    debug = False
     try:
         # first, get the uuid and email
         if debug:
